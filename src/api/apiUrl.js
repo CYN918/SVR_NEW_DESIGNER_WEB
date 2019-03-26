@@ -23,5 +23,9 @@ export default {
 	File:{
 		url:'/File/File/insert',method:'post',baseURL:0,Type:'multipart/form-data',
 	},
+	getSelfInfo:{
+		url:'/Api/User/getSelfInfo',method:'post',baseURL:0
+	},
+	
 	
 }

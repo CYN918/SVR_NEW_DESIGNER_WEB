@@ -47,7 +47,14 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 			}
 			return data
 		}else{
-			Message({dangerouslyUseHTMLString:true,message: msg});
+			
+			if(result=='104'){
+				console.log()
+// 				localStorage.setItem('userT','');	
+				window.location.href = '#/login';		
+				return
+			}
+			Message({dangerouslyUseHTMLString:true,message: data});
 		}
 	},error => {	  
 		Message({message: '服务器故障',type: 'warning'});

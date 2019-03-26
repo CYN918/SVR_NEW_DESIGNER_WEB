@@ -15,6 +15,10 @@
 				<span  v-if="midf2=='password'">&#xe61f;</span>
 				<span  v-else>&#xe6a2;</span>
 			</div>
+			
+			<div v-if="oType=='max'" :class="['nubMax',maxerr]">
+				{{numd}}/{{max}}
+			</div>
 		</div>			
 		<div :class="['tip',tpd]">{{eeText}}<span></span></div>
 	</div>
@@ -26,10 +30,12 @@ export default {
 	data(){
 		return{
 			passqd:'',
+			maxerr:'',
 			input:'',
 			inputType:'',
 			midf2:this.type,
 			tpd:'',
+			numd:0,
 			eeText:'',
 			form:{
 				mobile_zone:'86',
@@ -75,6 +81,10 @@ export default {
 　　　　　	default: '',
 　　　　	},
 		chekFn:Function,
+		max:{
+			type:Number,
+			default:0,
+		},
 	},		
 	computed: {
 	},
@@ -83,8 +93,12 @@ export default {
 
 	}, 
 	watch: {
-	    'input'(val) {
-
+	    'input'(val,oldeval) {
+			this.numd = this.input.length;
+			if(this.max>0 && this.numd>this.max){
+				this.input = oldeval;
+				return
+			}
 	    	this.$emit('input', this.input); 
 	    	let p = this.chekFn(this.input);
 	    	if(p){	    		
@@ -164,8 +178,8 @@ export default {
 	position: relative;
 	display: flex;
     width: 100%;
-    border-bottom: 1px solid ;
-    padding-bottom: 1px;
+    border-bottom: 1px solid #ddd;
+
     line-height: 39px;
     -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);

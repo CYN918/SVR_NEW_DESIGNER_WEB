@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import api from './api/index'
 Vue.use(Router)
 const router = new Router({
   routes:[] 
@@ -63,28 +64,36 @@ router.addRoutes(wb);
 
 
 let token = localStorage.getItem('userT');
+let userType = localStorage.getItem('userType');
+
+
 router.beforeEach((to, from, next) => {
 	/*登录过期*/
 // 	if(+localStorage.getItem('logintime')+(24*60*60*1000)<=Date.parse(new Date())){
 // 		localStorage.setItem("token","");
 // 		tonek=false;
-// 	}	
-
-		if(token){// 判断是否登录					
-				if(['/login','/login2','/register','/modifyPassword'].indexOf(to.fullPath)!=-1){
-					next('/index');	
-					return
-				}	
-				next();	
-				return
-		}
-// 		if(['/login','/login2','/register','/modifyPassword'].indexOf(to.fullPath)==-1){
-// 			next('/login');	
-// 			return
-// 		}
-		
+// 	}
+	if(!token){//未登录
 		next();
+		return
+	}
+	if(!userType){
+		let pr = {
+			access_toke:token
+		};
+		api.getSelfInfo(pr).then((data)=>{					
+			console.log(data)
+		}).catch(()=>{
+			
+		});	
+	}
 	
 	
+	if(['/login','/login2','/register','/modifyPassword'].indexOf(to.fullPath)!=-1){
+		next('/index');	
+		return
+	}	
+	next();	
+	return	
 })
 export default router

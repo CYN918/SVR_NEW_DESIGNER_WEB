@@ -50,11 +50,7 @@ export default {
     background: #fff;
 }
 
-.login_2 input{
-	border: none;
-    border-bottom: 1px solid;
-	border-radius: 0 !important;
-}
+
 .login_x1{
     display: block;
     margin: 0 auto 16px;
