@@ -2,26 +2,12 @@
 	<div>
 		<img class="login_x1" src="/imge/llog.png" alt="">
 		<p class="login_x2">云创设计，最赚钱的设计师平台</p>
-		<el-form ref="myform" :model="form" :rules="rules">
+		<el-form ref="myform" :model="form">
 			<div class="login_x3">
-				<span @click="cheackLogin(0)" :class="['pend',type==0?'cheack':'']">账户密码登录</span><span @click="cheackLogin(1)" :class="['pend',type==1?'cheack':'']">手机号登录</span>
+				<span @click="cheackLogin" class="pend">账户密码登录</span><span  class="pend cheack">手机号登录</span>
 			</div>	
-			<el-form-item  prop="mobile">			
-				<el-select class="lgoin_s1" v-model="form.mobile_zone">
-					<el-option
-					v-for="item in xnData"
-					:key="item.label"
-					:label="item.label"
-					:value="item.value">
-					</el-option>
-				</el-select>
-				<el-input class="lgoin_s2"  v-model="form.mobile" placeholder="手机号"></el-input>
-			</el-form-item>
-			
-			<el-form-item prop="verify_code">
-				<el-input class="lgoin_s3x1" v-model="form.verify_code" placeholder="输入 6 位短信验证码"></el-input>
-				<div class="lgoin_s3x2" ><input class="el-input__inner" type="text"><div @click="setTimer">{{timer}}</div></div>		
-			</el-form-item>	
+			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
+			<Input v-model="form.verify_code" @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 			<div class="lgoin_s2zy">
 				<span><input type="checkbox">自动登录</span>
 				<router-link class="last pend" to="/modifyPassword">忘记密码</router-link>
@@ -41,113 +27,74 @@
 </template>
 <script>
 import {Message} from 'element-ui'
-
+import Input from '../../components/input'
 export default {
-	name: 'login',	 
-	data(){
-		const validatePass2 = (rule, value, callback) => {
-			if(!(/^\S*$/.test(this.form.verify_code))){ 				
-				callback(new Error('验证码不能有空格'))
-				return ; 
-			} 
-			if(!this.form.verify_code){
-				callback(new Error('请填写验证码'))
-				return
-			}
-			if(this.form.verify_code.length!=6){
-				callback(new Error('请填写6位验证码'))
-				return
-			}
-		};
-
-		const phone = (rule, value, callback) => {
-			this.phoneD=0;
-			if(this.form.mobile_zone!='86'){
-				if(!(typeof +this.form.mobile === 'number' && +this.form.mobile%1 === 0)){
-					callback(new Error('请输入正确的手机号码'))					
-				}			
-				return false; 
-			}	
-			if(!(/^1[34578]\d{9}$/.test(this.form.mobile))){ 
-				callback(new Error('请输入正确的手机号码'))
-				return false; 
-			} 
-			this.phoneD=1;
-			callback()
-		};		
-				
+	name: 'login',	
+	components:{Input},
+	data(){	
 		return{
-			type:1,
-			phoneD:0,
-			passqd:'',
-			padderr:'',
-			midf1:"password",
-			midf2:"password",
-			setRule:{
-				mobile:"",
-				verify_code:"",
-				password:"",
+			chekPhpne:function(val){
+				if(this.form.mobile_zone!='86'){
+					if(!(typeof val === 'number' && val%1 === 0)){
+						return {type:false,text:'请输入正确的手机号码',cls:'errd'}; 					
+					}			
+					return true; 
+				}	
+				if(!(/^1[34578]\d{9}$/.test(val))){ 
+					return {type:false,text:'请输入正确的手机号码',cls:'errd'}; 
+				} 
+				return true;
 			},
+			chekverify:function(val){
+				if(!val){
+					return {type:false,text:'请填写验证码',cls:'errd'};
+				}
+				if(!(/^\S*$/.test(val))){ 				
+					return {type:false,text:'验证码不能有空格',cls:'errd'}; 
+				} 				
+				if(val.length!=6){
+					return {type:false,text:'请填写6位验证码',cls:'errd'};
+				}
+				return true;
+			},
+			type:1,
 			form:{
 				mobile_zone:'86',
 			},
-			rules: {
-				mobile: [	
-					{ required: true, trigger: 'blur', validator: phone},
-				],				
-				verify_code:[
-					{ required: true, trigger: 'blur', validator: validatePass2 }
-				],				
-			},
 			timer:'获取验证码',
-			xnData:[
-				{label:"中国 +86",value:"86"},
-				{label:"中国香港 +852",value:"852"},
-				{label:"中国澳門 +853",value:"853"},
-				{label:"中国台灣 +886",value:"886"},
-				{label:"美国 +1",value:"1"},
-				{label:"日本 +81",value:"81"},
-				{label:"韩国 +82",value:"82"},
-				{label:"马来西亚 +60",value:"60"},
-				{label:"新加坡 +65",value:"65"},
-				{label:"越南 +84",value:"84"},
-				{label:"澳大利亚 +61",value:"61"},
-				{label:"加拿大 +1",value:"1"},
-				{label:"英国 +44",value:"44"},
-				{label:"法国 +43",value:"43"},
-				{label:"泰国 +66",value:"66"},
-				{label:"印度 +91",value:"91"},
-				{label:"菲律宾 +63",value:"63"},
-				{label:"巴西 +55",value:"55"},
-				{label:"印度尼西亚 +62",value:"62"},
-				{label:"意大利 +39",value:"39"},
-				{label:"土耳其 +90",value:"90"}, 								
-			],
+			
 			ajaxType:0,
 		}
 	},
 	mounted: function () {	
 	}, 
 	methods: {
+		ajaxYzm(){
+			if(this.chekPhpne(this.form.mobile)){
+				Message({message: '请先填写手机号码'});
+				return
+			}
+			this.$refs.verify.runTimer(60);
+			
+			let params = {
+				mobile:this.form.mobile,
+				mobile_zone:this.form.mobile_zone
+			};
+			this.api.sendVerifyCode(params).then(()=>{	
+				
+			}).catch(()=>{
+				
+			});
+		},
+		setYzm(val){
+			this.form.mobile_zone = val;
+		},
 		cheackLogin(){
 			this.$router.push({path: '/login'})
 		},
-		
-		chemima(data){
-			this[data] = this[data]=='password'?'text':'password';
-		},
 		submitForm(formName){
 			if(this.ajaxType==1){
-				Message({message: '正在提交',type: 'success'});
-				return
-			}
-			let typed = 0;
-			this.$refs[formName].validate((valid) => {
-				if(!valid){
-					typed=1;
-				}
-			});
-			if(typed==1){
+				Message({message: '正在提交'});
 				return
 			}
 			let params = {
@@ -165,45 +112,26 @@ export default {
 				this.ajaxType=0;
 			});				
 		},
-		setTimer(){
-			if(this.phoneD==0){
-				return
-			}
-			if(this.timer!='获取验证码'){
-				return
-			}
-			
-			if(!this.form.mobile){
-				this.$refs.myform.validateField(['mobile']);
-				return
-			}
-
-			let params = {
-				mobile:this.form.mobile,
-				mobile_zone:this.form.mobile_zone
-			};
-			this.api.sendVerifyCode(params).then(()=>{						
-				this.runTimer(60);
-			}).catch(()=>{
-			
-	
-			});
-			
-		
-			
-		},
-		runTimer(num){
-			this.timer = num +'秒后重新获取';
-			if(num==0){
-				this.timer = '获取验证码';
-				return
-			}
-			setTimeout(()=>{
-				num--;
-				this.runTimer(num);
-			},1000)
-			
-		}
+		pdys2(){
+			this.btnType = '';
+	    	let pd = this.chekverify(this.form.verify_code);
+	    	if(pd!=true && pd.type!=true){
+	    		return
+	    	}
+	 		let pd3 = this.chekPhpne(this.form.mobile);
+	    	if(pd3!=true && pd3.type!=true){
+	    		return
+	    	}
+	    	this.btnType = 'btnType';
+		},		
+	},
+	watch: {
+	    'form.mobile'(val) {
+	    	this.pdys2();
+	    },
+	    'form.verify_code'(val) {
+	    	this.pdys2();
+	    },
 	}
 
 }

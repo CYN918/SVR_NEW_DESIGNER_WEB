@@ -15,7 +15,7 @@ const baseURLs = ['http://139.129.221.123',];
 const toMethod = (options) => {
 	options.method = options.method || 'post'
 	return (params = {}, attachedParams, config = {}) => {	
-		return sendApiInstance(options.method, options.url, params, config,options.isType,options.baseURL)
+		return sendApiInstance(options.method, options.url, params, config,options.isType,options.baseURL,options.Type)
 	}
 }
 // 创建axios实例
@@ -32,10 +32,10 @@ const createApiInstance = (config = {},on,Type) => {
 	config = Object.assign(_config, config);
 	return axios.create(config)
 }
-const sendApiInstance = (method, url, params, config = {},isType={},on) => {
+const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => {
 	params = qs.stringify(params);
 	if(!url){return}		
-	let instance = createApiInstance(config,on)
+	let instance = createApiInstance(config,on,Type)
 	instance.interceptors.response.use(response => {
 		let {result, msg, data} = response.data;
 		if(result==0){

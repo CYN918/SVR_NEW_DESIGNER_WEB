@@ -20,5 +20,8 @@ export default {
 	addSelfInfo:{
 		url:'/Api/User/addSelfInfo',method:'post',baseURL:0,
 	},
+	File:{
+		url:'/File/File/insert',method:'post',baseURL:0,Type:'multipart/form-data',
+	},
 	
 }

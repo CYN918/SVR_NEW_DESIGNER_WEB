@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import api from './api/index'
-import { Button, Select,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader} from 'element-ui'
+
 import App from './App.vue'
 import router from './router'
 Vue.prototype.$ajax = axios
@@ -195,12 +195,16 @@ Vue.prototype.MD5 = function(string){
     var temp = WordToHex(a)+WordToHex(b)+WordToHex(c)+WordToHex(d); 
     return temp.toLowerCase();
 }
+import VueCropper from 'vue-cropper' 
+import { Button, Select,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload} from 'element-ui'
+Vue.use(VueCropper)
 Vue.component(Input.name, Input)
 Vue.component(Button.name, Button)
 Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
 Vue.component(InputNumber.name, InputNumber)
 Vue.component(Radio.name, Radio)
+Vue.component(upload.name, upload)
 Vue.component(Cascader.name, Cascader)
 
 Vue.component(Form.name, Form)

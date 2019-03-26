@@ -55,4 +55,16 @@ a:active{text-decoration:none;}
 .pend:hover{
 	opacity: .7;
 }
+ input::-webkit-input-placeholder{
+    color:#c0c4cc;
+}
+input::-moz-placeholder{   
+    color:#c0c4cc;
+}
+input:-moz-placeholder{ 
+   	color:#c0c4cc;
+}
+input:-ms-input-placeholder{
+    color:#c0c4cc;
+}
 </style>

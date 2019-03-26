@@ -166,111 +166,21 @@ export default {
 }
 .lgoin_s3x2{
 	position: relative;
-	display: inline-block;
-	padding-left: 34px;
-	width: 72px;
-	height: 38px;
-	vertical-align: middle;
-    line-height: 20px;
-	color: #FF5121;
+    display: inline-block;
+    width: 120px;
+	line-height: 40px;
+    vertical-align: middle;
+    color: #FF5121;
+    font-size: 14px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
 	
 }
-.lgoin_s3x2>input{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-.lgoin_s3x2>div{
-	cursor: pointer;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-.lgoin_s3x2>div:hover{
+.lgoin_s3x2:hover{
 	opacity: .7;
 }
-.lgoin_s3x2:after{
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 1px;
-	height: 20px;
-	background: #eee;
-}
-.errd>input{
-	border-color: #F56C6C;
-}
-.errd5>input{
-	border-color: #F56C6C;
-}
-.padderr{	
-	height: 0;
-	text-align: left;
-	color: #F56C6C;
-    font-size: 12px;
-	text-indent: 17px;
-	line-height: 26px;
-}
 
-.padderr>span{
-	position: relative;
-	display: inline-block;
-	height: 4px;
-	background: #F5F5F5;
-	border-radius: 2.5px;
-	margin-left: 11px;
-	vertical-align: middle;
-}
-.padderr>span:after{
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	background: #FF0000;
-	border-radius: 2.5px;
-}
-.errd2>.padderr>span{	
-	width: 120px;
-}
-
-.errd2>input{
-	border-color: #F56C6C;
-}
-.errd2>.padderr>span:after{	
-	width: 40px;	
-}
-.errd3>.padderr{
-	color: #FF9A00;
-}
-.errd3>input{
-	border-color: #FF9A00;
-}
-.errd3>.padderr>span{	
-	width: 120px;
-}
-.errd3>.padderr>span:after{	
-	width: 80px;
-	background: #FF9A00;
-}
-.errd4>input{
-	border-color: #51C514;
-}
-.errd4>.padderr{
-	color: #51C514;
-}
-.errd4>.padderr>span{	
-	width: 120px;
-}
-.errd4>.padderr>span:after{	
-	width: 120px;	
-	background: #51C514;
-}
 .lgoin_s2zy>span{
 	float: left;
 }
@@ -293,5 +203,14 @@ export default {
 }
 .lgoin_s2zy{
 	height: 21px;
+}
+.btnType{
+	background: #FF5121 !important;
+	border-color: #FF5121 !important;
+}
+.wjmm{
+	font-size: 30px;
+    color: #FF5121;
+    margin-bottom: 51px;
 }
 </style>

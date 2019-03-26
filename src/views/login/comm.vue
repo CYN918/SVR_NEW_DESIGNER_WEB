@@ -33,14 +33,7 @@ export default {
 			form:{
 				qh:'86',
 			},
-			rules: {
-				user: [
-					{ required: true, message: '请输入用户名', trigger: 'blur' },
-				],
-				password:[
-					{ required: true, message: '密码不能为空', trigger: 'blur' },
-				]
-			},
+			
 			input1:'86',
 			input2:'',
 			islgoin_s4:'',
