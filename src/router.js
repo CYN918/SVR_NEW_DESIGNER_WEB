@@ -63,10 +63,35 @@ let wb = [
 router.addRoutes(wb);
 
 
+
+
+
+
+function checkUserType(){
+	
+	if(usermessg){
+		api.login(JSON.parse(usermessg)).then((response)=>{					
+			localStorage.setItem('userT',response.access_token);
+			api.getSelfInfo({access_token:response.access_token}).then((data)=>{					
+				localStorage.setItem('userType',data.is_detail);	
+				if(data.is_detail==0){
+					next('/userme');					
+					return
+				}
+				next();				
+			}).catch(()=>{
+				next();	
+			});	
+			return																			
+		}).catch(()=>{			
+			next('/login');			
+		});	
+		return
+	}
+}
 let token = localStorage.getItem('userT');
-let userType = localStorage.getItem('userType');
-
-
+let	pass = localStorage.getItem('pass');
+//自动登录
 router.beforeEach((to, from, next) => {
 	/*登录过期*/
 // 	if(+localStorage.getItem('logintime')+(24*60*60*1000)<=Date.parse(new Date())){
@@ -74,25 +99,32 @@ router.beforeEach((to, from, next) => {
 // 		tonek=false;
 // 	}
 	if(!token){//未登录
+		if(pass){
+			api.login(JSON.parse(pass)).then((da)=>{				
+				localStorage.setItem('userT',JSON.stringify(da));				
+				if(da.is_detail==0){
+					next('/userme');	
+					return
+				}
+				next();
+				return																			
+			}).catch(()=>{	
+				localStorage.setItem('pass','');
+				next('/login');			
+			});	
+			return
+		}
 		next();
 		return
 	}
-	if(!userType){
-		let pr = {
-			access_toke:token
-		};
-		api.getSelfInfo(pr).then((data)=>{					
-			console.log(data)
-		}).catch(()=>{
-			
-		});	
+	if(JSON.parse(token).is_detail==0){
+		next('/userme');
+		return
 	}
-	
-	
 	if(['/login','/login2','/register','/modifyPassword'].indexOf(to.fullPath)!=-1){
 		next('/index');	
 		return
-	}	
+	}
 	next();	
 	return	
 })

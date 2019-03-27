@@ -124,14 +124,25 @@ export default {
 			let params = this.form;
 			params.password = this.MD5(params.password);
 			params.password_repass = this.MD5(params.password_repass);
-			
-			
 			this.ajaxType=1;
-			this.api.register(params).then(()=>{	
-				this.$router.push({path: '/userme'});
-				this.ajaxType=0;
-			}).catch(()=>{
-				
+			this.api.register(params).then(()=>{
+				Message({message: '注册成功'});
+				let pr = {			
+					mobile_zone:params.mobile_zone,
+					mobile:params.mobile,	
+					password:this.MD5(params.password),
+					login_type:'password',
+				};
+				this.api.login(pr).then((da)=>{	
+					this.ajaxType=0;
+					localStorage.setItem('userT',JSON.stringify(da));						
+					this.$router.push({path: '/userme'})	
+				}).catch(()=>{
+					Message({message: '自定登录失败请稍后自行登录'});
+					this.ajaxType=0;
+				});	
+			}).catch(()=>{	
+				Message({message: '注册失败'});
 				this.ajaxType=0;
 			});	
 		},

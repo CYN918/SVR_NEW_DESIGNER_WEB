@@ -209,4 +209,14 @@ export default {
     color: #FF5121;
     margin-bottom: 51px;
 }
+.el-checkbox__input.is-checked+.el-checkbox__label{
+	color: #ff5121;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background-color: #ff5121;
+    border-color: #ff5121;
+}
+.el-checkbox__inner:hover {
+    border-color: #eee;
+}
 </style>

@@ -6,10 +6,10 @@
 			<div class="login_x3">
 				<span @click="cheackLogin" class="pend cheack">账户密码登录</span><span @click="cheackLogin" class="pend">手机号登录</span>
 			</div>	
-			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"></Input>			
-			<Input v-model="form.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'请输入密码'"  ></Input>
+			<Inputdf v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"></Inputdf>			
+			<Inputdf v-model="form.password" :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'请输入密码'"></Inputdf>
 			<div class="lgoin_s2zy">
-				<span><input type="checkbox">自动登录</span>
+				<span><el-checkbox v-model="islogin">自动登录</el-checkbox></span>
 				<router-link class="last pend" to="/modifyPassword">忘记密码</router-link>
 			</div>
 			<el-form-item>
@@ -27,13 +27,15 @@
 </template>
 <script>
 import {Message} from 'element-ui'
-import Input from '../../components/input'
+import Inputdf from '../../components/input'
+import xcheckBox from '../../components/checkBox'
 export default {
-	components:{Input},
+	components:{Inputdf,xcheckBox},
 	name: 'login',	 
 	data(){				
 		return{
-			checked:0,
+			rideds:[{n:'自动登录',v:1}],
+			islogin:false,
 			btnType:'',			
 			chekPssword:function(val){
 				if(!val){return {type:false,text:'请输入密码',cls:'errd'}}
@@ -64,10 +66,10 @@ export default {
 		setYzm(val){
 			this.form.mobile_zone = val;
 		},
-		cheackLogin(on){	
+		cheackLogin(){	
 			this.$router.push({path: '/login2'})
 		},
-		submitForm(formName){
+		submitForm(){
 			if(!this.btnType){
 				return
 			}
@@ -81,11 +83,20 @@ export default {
 				password:this.MD5(this.form.password),
 				login_type:'password',
 			};
+			
 			this.ajaxType=1;
-			this.api.login(params).then((response)=>{					
-				localStorage.setItem('userT',response.access_token);	
-				this.$router.push({path: '/index'})			
+			this.api.login(params).then((da)=>{	
 				this.ajaxType=0;
+				localStorage.setItem('userT',JSON.stringify(da));	
+				if(this.islogin===true){
+					localStorage.setItem('pass',JSON.stringify(params));
+				}
+				if(da.is_detail==0){
+					this.$router.push({path: '/userme'})	
+					return
+				}
+				this.$router.push({path: '/index'})			
+				
 			}).catch(()=>{
 				this.ajaxType=0;
 			});	
@@ -93,26 +104,21 @@ export default {
 		},
 		pdys1(){
 			this.btnType = '';	    	
-	    	let pd = this.chekPssword(this.form.password);
-	    	if(pd!=true && pd.type!=true){
-	    		return
-	    	}
-	 		let pd3 = this.chekPhpne(this.form.mobile);
-	    	if(pd3!=true && pd3.type!=true){
-	    		return
-	    	}
-	    	
-	    	this.btnType = 'btnType';
+			let pd = this.chekPssword(this.form.password);
+			if(pd!=true && pd.type!=true){return}
+			let pd3 = this.chekPhpne(this.form.mobile);
+			if(pd3!=true && pd3.type!=true){return}
+			this.btnType = 'btnType';
 		},
 		
 	},
 	watch: {
-	    'form.mobile'(val) {
-	    	this.pdys1();
-	    },
-	    'form.password'(val) {
-	    	this.pdys1();
-	    },
+		'form.mobile'() {
+			this.pdys1();
+		},
+		'form.password'() {
+			this.pdys1();
+		},
 	}
 	
 

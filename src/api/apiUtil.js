@@ -33,7 +33,10 @@ const createApiInstance = (config = {},on,Type) => {
 	return axios.create(config)
 }
 const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => {
-	params = qs.stringify(params);
+	
+	if (method === 'post') {
+		params = qs.stringify(params);
+	}
 	if(!url){return}		
 	let instance = createApiInstance(config,on,Type)
 	instance.interceptors.response.use(response => {
@@ -46,11 +49,10 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 				location.reload();	
 			}
 			return data
-		}else{
-			
+		}else{			
 			if(result=='104'){
-				console.log()
-// 				localStorage.setItem('userT','');	
+				localStorage.setItem('userT','');	
+				localStorage.setItem('userT','');
 				window.location.href = '#/login';		
 				return
 			}
@@ -61,11 +63,6 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 		return Promise.reject(error).catch(() => {
 		})
 	});
-	if (method === 'get') {
-//     params = {
-//       params: params
-//     }
-	}
 	return instance[method](url, params, config)
 }
 export default {

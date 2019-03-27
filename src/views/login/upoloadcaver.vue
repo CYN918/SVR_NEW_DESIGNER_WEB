@@ -120,7 +120,7 @@ export default {
 				this.$ajax.post('http://139.129.221.123/File/File/insert', formData)
 				.then((response)=>{
 					if(response.data.result==0){
-						this.caver = response.data.data;
+						this.caver = response.data.data.url;
 						this.$parent.close(this.caver);	
 					}else{
 						// msg(response.msg);

@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<img style="position: absolute;top: 0;left: 0;width: 100%;z-index: -1;" src="/imge/i1.png" alt="">
 		<Header>11</Header>
 		<router-view/>
 		<Footer>Footer</Footer>

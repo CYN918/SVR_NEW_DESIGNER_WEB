@@ -9,7 +9,7 @@
 			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
 			<Input v-model="form.verify_code" @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 			<div class="lgoin_s2zy">
-				<span><input type="checkbox">自动登录</span>
+				<span><el-checkbox v-model="islogin">自动登录</el-checkbox></span>
 				<router-link class="last pend" to="/modifyPassword">忘记密码</router-link>
 			</div>
 			<el-form-item>
@@ -33,6 +33,7 @@ export default {
 	components:{Input},
 	data(){	
 		return{
+			islogin:false,
 			chekPhpne:function(val){
 				if(this.form.mobile_zone!='86'){
 					if(!(typeof val === 'number' && val%1 === 0)){
@@ -104,10 +105,17 @@ export default {
 				verify_code:this.form.verify_code
 			};
 			this.ajaxType=1;
-			this.api.login(params).then((response)=>{	
-				localStorage.setItem('userT',response.access_token);
-				this.$router.push({path: '/index'})
+			this.api.login(params).then((da)=>{					
 				this.ajaxType=0;
+				localStorage.setItem('userT',JSON.stringify(da));	
+				if(this.islogin===true){
+					localStorage.setItem('pass',JSON.stringify(params));
+				}
+				if(da.is_detail==0){
+					this.$router.push({path: '/userme'})	
+					return
+				}
+				this.$router.push({path: '/index'})			
 			}).catch(()=>{
 				this.ajaxType=0;
 			});				

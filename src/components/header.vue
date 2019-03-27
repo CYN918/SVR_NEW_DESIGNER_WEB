@@ -9,12 +9,31 @@
 			<span class="iconfont pend">&#xe609;</span>
 			<span class="iconfont pend">&#xe65b;</span>
 			<span class="iconfont pend">&#xe61e;</span>
-			<span class="header_4"><router-link class="pend" to="/login">登录</router-link><span>|</span><router-link class="pend" to="/register">注册</router-link></span>			
+			<span class="header_4" v-if="userMssge"><div><img :src="userMssge.avatar" alt=""></div>{{userMssge.username}}</span>	
+			<span class="header_4" v-else><router-link class="pend" to="/login">登录</router-link><span>|</span><router-link class="pend" to="/register">注册</router-link></span>			
+					
+					
 		</div>
 	</header>
 </template>
 
 <script>
+export default {
+	name: 'home',	 
+	data(){	
+		return{
+			userMssge:'',
+		}
+		
+	},
+	mounted: function () {	
+		let p = localStorage.getItem('userT');
+		if(p){
+			this.userMssge = JSON.parse(p);
+		}
+		console.log(this.userMssge)
+	}, 
+}
 </script>
 
 <style>
@@ -53,6 +72,7 @@
 .header_3{
 	width: 301px;
 	color: #fff;
+	margin-right: 66px;
 }
 .header_3>span{
 	line-height: 60px;
@@ -66,5 +86,18 @@
 }
 .header_4>span{
 	margin: 0 10px;
+}
+.header_4>div{
+	display: inline-block;
+	vertical-align: middle;
+	width: 44px;
+	height: 44px;
+	overflow: hidden;
+	margin-right: 12px;
+	overflow: hidden;
+}
+.header_4>div>img{
+	display: block;
+	width: 100%;
 }
 </style>

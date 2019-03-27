@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-html,body,div,img,p{
+html,body,div,img,p,ul,li{
 	margin: 0;
 	padding: 0;
 	border: none;
