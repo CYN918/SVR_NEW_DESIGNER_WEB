@@ -10,7 +10,7 @@
 			<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
 			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
 		</div>
-		<ul class="i_listd">
+		<ul class="i_listd" >
 			<li v-for="(el,index) in List" :key="index">
 				<img class="i_listd1" :src="el.face_pic" alt="">
 				<div class="i_listd2">
@@ -28,12 +28,12 @@
 				</div>
 			</li>
 		</ul>
-		<el-pagination
+		<el-pagination class="pagesddd"
 		background
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"
 		:current-page="page"
-		:page-sizes="[10, 20, 50, 100]"
+		:page-sizes="[40, 80, 120, 160]"
 		:page-size="limit"
 		layout="prev,pager, next,sizes, jumper"
 		:total="total">   
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { Loading } from 'element-ui';
 export default {
 	name: 'home',
 	data(){
@@ -52,11 +53,14 @@ export default {
 			page:1,
 			limit:10,
 			total:0,
+			loading: '',
+			
 		}
 	},
 	mounted: function () {	
 		this.getBanner();
 		this.getHList();
+		
 	}, 
 	methods: {
 		opend(ur){
@@ -94,11 +98,11 @@ export default {
 				page:this.page,
 				limit:this.limit
 			}
-	
+			this.loading = Loading.service({ fullscreen: true });
 			this.api.getHList({params}).then((da)=>{
 				this.List = da.data;
 				this.total = da.total;
-				
+				this.loading.close();
 				console.log(da);
 			})
 		},
@@ -183,6 +187,7 @@ export default {
 .i_listd{
 	width: 1300px;
 	margin: 0 auto;
+	text-align: left;
 }
 .i_listd>li{
 	display: inline-block;
@@ -192,8 +197,9 @@ export default {
 	background: #F6F6F6;
 	border-radius: 5.08px;
 	margin-right: 20.2px;
+	margin-bottom: 21.0px;
 }
-.i_listd>li:nth-child(n+4){
+.i_listd>li:nth-child(4n+4){
 	margin-right: 0;
 }
 
@@ -291,5 +297,8 @@ export default {
 }
 .i_listd{
 	margin-bottom: 62.1px;
+}
+.pagesddd{
+	padding-bottom: 135px;
 }
 </style>

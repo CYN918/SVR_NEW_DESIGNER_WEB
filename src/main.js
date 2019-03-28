@@ -196,7 +196,7 @@ Vue.prototype.MD5 = function(string){
     return temp.toLowerCase();
 }
 import VueCropper from 'vue-cropper' 
-import { Button, Select,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination} from 'element-ui'
+import { Button, Select,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination } from 'element-ui'
 Vue.use(VueCropper)
 Vue.component(Input.name, Input)
 Vue.component(Button.name, Button)
@@ -207,7 +207,6 @@ Vue.component(Radio.name, Radio)
 Vue.component(upload.name, upload)
 Vue.component(Cascader.name, Cascader)
 Vue.component(pagination.name, pagination)
-
 Vue.component(Form.name, Form)
 Vue.component(FormItem.name, FormItem)
 Vue.component(Message.name, Message)

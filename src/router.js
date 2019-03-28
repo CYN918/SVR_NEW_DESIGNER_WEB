@@ -7,58 +7,76 @@ const router = new Router({
 })
 let wb = [
 	{
-			path: '/',
-			name: 'index',
-			component: () => import('./views/index.vue'),
-			children:[
-				{
-					path: '/index',
-					name: 'home',
-					component: () => import('./views/home.vue')
-				},
-				{
-					path: '/event',
-					name: 'event',
-					component: () => import('./views/event.vue')
-				}
-				
-			],
+		path: '/',
+		name: 'index',
+		component: () => import('./views/index.vue'),
+		children:[
+			{
+				path: '/',
+				name: 'home',
+				component: () => import('./views/home.vue')
+			},
+			{
+				path: '/event',
+				name: 'event',
+				component: () => import('./views/event.vue')
+			},
+			{
+				path: '/upload',
+				name: 'upload',
+				component: () => import('./views/upload/index.vue'),
+				children:[
+					{
+						path: '/upload/upload',
+						name: 'upload',
+						component: () => import('./views/upload/upload.vue')
+					},
+					{
+						path: '/upload/upload2',
+						name: 'upload2',
+						component: () => import('./views/upload/upload2.vue')
+					},
+				]
+			},
+			
+			
+		],	
 	},
 	{
-			path: '/login',
-			name: 'login',
-			component: () => import('./views/login/index.vue'),
-			children:[
-				{
-					path: '/login',
-					name: 'login',
-					component: () => import('./views/login/login.vue')
-				},
-				{
-					path: '/login2',
-					name: 'login2',
-					component: () => import('./views/login/login2.vue')
-				},
-				{
-					path: '/register',
-					name: 'register',
-					component: () => import('./views/login/register.vue')
-				},
-				{
-					path: '/modifyPassword',
-					name: 'modifyPassword',
-					component: () => import('./views/login/modifyPassword.vue')
-				},
-				
-				
-			],
-	},
-		{
-			path: '/userme',
-			name: 'userme',
-			component: () => import('./views/login/userme.vue')
+		path: '/login',
+		name: 'login',
+		component: () => import('./views/login/index.vue'),
+		children:[
+			{
+				path: '/login',
+				name: 'login',
+				component: () => import('./views/login/login.vue')
+			},
+			{
+				path: '/login2',
+				name: 'login2',
+				component: () => import('./views/login/login2.vue')
+			},
+			{
+				path: '/register',
+				name: 'register',
+				component: () => import('./views/login/register.vue')
+			},
+			{
+				path: '/modifyPassword',
+				name: 'modifyPassword',
+				component: () => import('./views/login/modifyPassword.vue')
+			},
 			
-		}
+			
+		],	
+	},
+	{
+		path: '/userme',
+		name: 'userme',
+		component: () => import('./views/login/userme.vue')
+		
+	}	
 ];
 router.addRoutes(wb);
 
@@ -114,11 +132,19 @@ router.beforeEach((to, from, next) => {
 			});	
 			return
 		}
+		if(['/upload/upload','/upload/upload2','/upload'].indexOf(to.fullPath)!=-1){
+			next('/index');	
+			return
+		}
 		next();
 		return
 	}
 	if(JSON.parse(token).is_detail==0){
 		next('/userme');
+		return
+	}
+	if(to.fullPath=='/upload'){
+		next('/upload/upload');	
 		return
 	}
 	if(['/login','/login2','/register','/modifyPassword'].indexOf(to.fullPath)!=-1){

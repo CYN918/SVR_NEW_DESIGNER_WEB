@@ -12,7 +12,8 @@
     "element-ui": "^2.6.1",
     "vue": "^2.6.6",
     "vue-cropper": "^0.4.9",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-ueditor-wrap": "^2.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0",

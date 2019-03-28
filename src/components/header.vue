@@ -8,7 +8,7 @@
 		<div class="header_3">
 			<span class="iconfont pend">&#xe609;</span>
 			<span class="iconfont pend">&#xe65b;</span>
-			<span class="iconfont pend">&#xe61e;</span>
+			<span class="iconfont pend" @click="goUpload">&#xe61e;</span>
 			<span class="header_4" v-if="userMssge"><div><img :src="userMssge.avatar" alt=""></div>{{userMssge.username}}</span>	
 			<span class="header_4" v-else><router-link class="pend" to="/login">登录</router-link><span>|</span><router-link class="pend" to="/register">注册</router-link></span>			
 					
@@ -31,8 +31,18 @@ export default {
 		if(p){
 			this.userMssge = JSON.parse(p);
 		}
-		console.log(this.userMssge)
 	}, 
+	methods:{
+		goUpload(){
+			console.log(this.userMssge);
+			if(!this.userMssge){return}
+			this.$router.push({path:'/upload'})
+			
+		}
+	},
+	
+	
+	
 }
 </script>
 
@@ -100,4 +110,6 @@ export default {
 	display: block;
 	width: 100%;
 }
+
+
 </style>
