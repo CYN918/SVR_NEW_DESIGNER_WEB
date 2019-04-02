@@ -117,6 +117,7 @@ export default {
 				formData.append('related_id',token)
 				formData.append('classify_1','avatar')
 				formData.append('timestamp',times)
+		
 				this.$ajax.post('http://139.129.221.123/File/File/insert', formData)
 				.then((response)=>{
 					if(response.data.result==0){

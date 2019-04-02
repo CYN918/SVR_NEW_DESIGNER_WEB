@@ -95,7 +95,7 @@ export default {
 					this.$router.push({path: '/userme'})	
 					return
 				}
-				this.$router.push({path: '/index'})			
+				this.$router.push({path: '/'})			
 				
 			}).catch(()=>{
 				this.ajaxType=0;

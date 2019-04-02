@@ -1,45 +1,48 @@
 <template>
 	<div class="uploadBoxd">
-		<div class="uploadBoxd1"></div>
+		<div class="uploadBoxd1" ></div>
 		<div class="uploadBoxd2">
-			<img class="uploadBoxd2_1" src="/imge/cj_00.png"/>
+			<img class="uploadBoxd2_1" @click="closed" src="/imge/cj_00.png"/>
 			<div class="uploadBoxd2_2">
 				<div class="uploadBoxd2_2_1">
-					<div>我的图片素材库</div>
-					<div>上传文件大小需小于10M，支持JPG、PNG、GIF格式。</div>
+					<div>{{configData.title}}</div>
+					<div>{{configData.title2}}
+						<span v-if="configData.tip" class="iconfont uploadBoxd2_2_3">&#xe636;
+							<div><div v-for="(el,index) in configData.tip" :key="index">{{el}}</div></div>							
+						</span>					
+					</div>
 				</div>
-				<div class="uploadBoxd2_2_2">上传图片素材<input @change="fileUp" class="uploadBoxd2_2_2_1" accept="image/gif,image/jpeg,image/png" type="file" /></div>				
+				<div class="uploadBoxd2_2_2">{{configData.btn}}<input @change="fileUp" class="uploadBoxd2_2_2_1" ref="upnfile"  type="file" /></div>				
 			</div>
 			<ul class="uploadBoxd2_3" ref="imgd">
-				
-				<li v-for="(el,index) in list" :key="index">
-					<div v-if="el.type">
+				<li v-for="(el,index) in list" :key="index" v-if="el.type!='none'">
+					<div v-if="el.type=='up'">
 						<div class="loadingsd">
 							<div class="circleProgress_wrapper">
-						        <div class="wrapper right">
-						            <div class="circleProgress rightcircle"></div>
-						        </div>
-						        <div class="wrapper left">
-						            <div class="circleProgress leftcircle"></div>
-						        </div>
-						 	</div>
-							<div class="loadingsdsd" :style="">{{el.bf}}</div>
+							    <div class="wrapper right">
+							        <div class="circleProgress rightcircle" :style="{transform:'rotate('+backLift(el.bf)+'deg)'}"></div>
+							    </div>
+							    <div class="wrapper left">
+							        <div class="circleProgress leftcircle" :style="{transform:'rotate('+backRigh(el.bf)+'deg)'}"></div>
+							    </div>								
+							</div>
+							<div class="loadingsdsd">{{el.bf+'%'}}</div>
+							<div class="qxclos" @click="qxclosd(el)">取消上传</div>
 						</div>
-						<div>{{el.n}}<span>{{el.s}}</span></div>
+						<div><span>{{el.file_name.split('.')[0]}}</span><span>{{el.s}}</span></div>
 					</div>
-					<div v-else="">
+					<div v-else class="zzched" @click="onxz(el)">
 						<img :src="el.url"/>
-						<div>{{el.n}}<span>{{el.s}}</span></div>
-					</div>
-					
-				</li>
-				
+						<div><span>{{el.file_name}}</span><span>{{el.file_size_format}}</span></div>
+						<div :class="['zzched_1',checkin.indexOf(el.fid)!=-1?'zzched2':'']"></div>
+					</div>					
+				</li>				
 			</ul>
 			<div class="uploadBoxd2_4">
 				<div class="uploadBoxd2_4_1">已选一项，最多可选50项</div>
-				<div>取消</div>
-				<div>删除</div>
-				<div class="uploadBoxd2_4_2">插入</div>
+				<div @click="closed">取消</div>
+				<div @click="deleteFile">删除</div>
+				<div class="uploadBoxd2_4_2" @click="InImg">插入</div>
 			</div>
 		</div>	
 	</div>
@@ -48,38 +51,139 @@
 <script>
 import {Message} from 'element-ui'
 export default {
+	props:{
+		configData:Object,
+	},
     data() {
       	return {
         	dialogImageUrl: '',
         	dialogVisible: false,
-        	list:[
-        		{url:'',n:'概念机甲设计',s:'3.0M'},
-        		{url:'',n:'概念机甲设计',s:'3.0M'},
-        		{url:'',n:'概念机甲设计',s:'3.0M'},
-        		{url:'',n:'概念机甲设计',s:'3.0M'},
-        		{url:'',n:'概念机甲设计',s:'3.0M'},
-        		{url:'',n:'概念机甲设计',s:'3.0M'}
-        	],
+        	list:[],
+			loadList:[],
+			leftRo:225,
+			rightRo:225,
+			checkin:[],
+			deletObj:[],
+			checIurl:[],
+			deldetType:0,
       	};
     },
+	mounted: function () {	
+		this.getList();
+		
+	}, 	
     methods: {
-      	handleRemove(file, fileList) {
-        	console.log(file, fileList);
-      	},
-      	handlePictureCardPreview(file) {
-        	this.dialogImageUrl = file.url;
-        	this.dialogVisible = true;
-      	},
-      	fileUp(flie){
-      		
-      		let fld = flie.target.files[0];
-      		
-      		if(['image/gif','image/jpeg','image/png'].indexOf(fld.type)==-1){
-      			Message({message: '图片格式不正确'});
+		InImg(){
+			this.$parent.inImg(this.checIurl);
+			this.closed();
+		},
+		deleteFile(){	
+			if(this.deldetType==1){
+				Message({message: '正在删除'});
+				return
+			}
+			if(this.checkin.length==0){return}
+			let token = JSON.parse(localStorage.getItem('userT'));
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				token.open_id,
+				times
+			];
+			let formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',token.open_id)
+			formData.append('fid',this.checkin)
+			formData.append('timestamp',times)
+			this.deldetType=1;
+			this.$ajax.post('http://139.129.221.123/File/File/delete', formData)
+			.then((response)=>{
+				this.deldetType=0;
+				if(response.data.result==0){
+					Message({message: '删除成功'});
+					for(let i=0,n=this.deletObj.length;i<n;i++){
+						this.deletObj[i].type='none';						
+					}	
+					console.log()	
+				}else{
+					Message({message: '删除失败'});	
+				}
+				
+			})
+			.catch(function (error) {	
+				this.deldetType=0;
+				Message({message: '删除失败'});	
+			});
+		},
+		closed(){
+			this.$parent.closed();
+		},
+		onxz(obj){
+			let lend = this.checkin.indexOf(obj.fid);
+			if(lend==-1){
+				this.checkin.push(obj.fid);
+				this.checIurl.push(obj.url);
+				this.deletObj.push(obj)
+				return
+			}
+			this.deletObj.splice(lend,1);
+			this.checIurl.splice(lend,1);
+			this.checkin.splice(lend,1);
+		},
+		getList(){
+			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
+			let token = JSON.parse(localStorage.getItem('userT'));
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				app_secret,
+				token.open_id,
+				times
+			];
+			let params = {
+				app_id:1001,
+				sign:this.MD5(encodeURIComponent(arr.sort())),
+				user:token.open_id,
+				timestamp:times,
+				file_type:this.configData.getType,
+			}
+			this.api.getFList({params}).then((da)=>{
+				this.list =da.data;
+			})
+		},
+		backRigh(on){
+			if(on<=50){
+				return 225;
+			}
+			if(on>100){
+				return 405;
+			}
+			return 45+on*3.6;
+		},
+		backLift(on){
+			if(on>50){
+				return 405;
+			}
+			if(on<0){
+				return 225;
+			}
+			return 225+on*3.6;
+		},
+		qxUpload(on){
+			this.loadList[on].show='';
+		},
+		qxclosd(obj){
+			obj.xhr.abort();
+		},
+      	fileUp(flie){  		
+      		let fld = flie.target.files[0];    	
+      		if(this.configData.type.indexOf(fld.type)==-1){
+      			Message({message: '格式不正确'});
       			return
       		}
-      		if(fld.size>10*1024*1024){
-      			Message({message: '图片过大'});
+      		if(fld.size>this.configData.max){
+      			Message({message: '文件过大'});
       			return
       		}
       		let fileSize = 0;
@@ -87,37 +191,68 @@ export default {
       		 	fileSize = (Math.round(fld.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
       		}else{
       			fileSize = (Math.round(fld.size * 100 / 1024) / 100).toString() + 'KB';
-      		}
-                
-      		var fd = new FormData();
-//        	fd.append("file", fd);
-//       	var xhr = new XMLHttpRequest();
-//       	xhr.upload.addEventListener("progress", this.uploadProgress, false);
-//       	xhr.addEventListener("load", this.uploadComplete, false);
-//       	xhr.addEventListener("error", this.uploadFailed, false);
-//        	xhr.addEventListener("abort", this.uploadCanceled, false);
-//        	xhr.open("POST", "${pageContext.request.contextPath }/upload");//修改成自己的接口
-//        	xhr.send(fd);
-      		this.list.unshift({type:'up',n:fld.name,s:fileSize,bf:'0%'})
+      		}               
+      			
+			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
+			let token = JSON.parse(localStorage.getItem('userT'));
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				app_secret,
+				token.open_id,
+				times
+			];
+			
+			let formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',token.open_id)
+			formData.append('file',fld)
+			formData.append('relation_type','work')
+			formData.append('timestamp',times)
+			let xhr = new XMLHttpRequest();
+			this.list.unshift({type:'up',file_name:fld.name,s:123213,bf:0,xhr:xhr,show:1});
+			let p = this.list[0];
+			let uploadProgress = (evt)=>{		
+				if(evt.lengthComputable) {
+					let percent = Math.round(evt.loaded * 100 / evt.total);
+					p.bf  = Math.floor(percent); 
+				}
+			};
+			let uploadComplete = (data)=>{
+				if(data.currentTarget.response){
+					let da = JSON.parse(data.currentTarget.response).data;
+					p.type="img";
+					p.url = da.url;
+					p.file_name = da.file_name;
+					p.s = da.file_size;	
+					p.fid=da.fid
+					this.$refs.upnfile.value ='';			
+					Message({message: '文件上传成功'});
+				}
+				
+			};
+			let uploadFailed = ()=>{
+				// delete p;
+				p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '文件上传失败请稍后重试'});
+				
+			};
+			let uploadCanceled = ()=>{
+				p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '取消成功'});
+				
+			};
+			xhr.upload.addEventListener("progress",uploadProgress, false);
+			xhr.addEventListener("load",uploadComplete, false);
+			xhr.addEventListener("error",uploadFailed, false);
+			xhr.addEventListener("abort",uploadCanceled, false);
+			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.send(formData);
+      		
       	},
-      	uploadProgress(){
-      		if(evt.lengthComputable) {
-                let percent = Math.round(evt.loaded * 100 / evt.total);                 
-                document.getElementById('progress').innerHTML = percent.toFixed(2) + '%';
-                document.getElementById('progress').style.width = percent.toFixed(2) + '%';
-            }else{
-                document.getElementById('progress').innerHTML = 'unable to compute';
-            }
-      	},
-      	uploadComplete(){
-//    		document.getElementById('result').innerHTML = evt.target.responseText;
-      	},
-      	uploadFailed(){
-      		alert("There was an error attempting to upload the file.");
-      	},
-      	uploadCanceled(){
-      		alert("The upload has been canceled by the user or the browser dropped the connection.");
-      	}
     }
 }
 </script>
@@ -157,11 +292,53 @@ export default {
 	cursor: pointer;
 	
 }
+.uploadBoxd2_2_3{
+	position: relative;
+	cursor: pointer;
+}
+
+.uploadBoxd2_2_3:hover:before{
+	display: block;
+}
+.uploadBoxd2_2_3:hover>div{
+	display: block;
+}
+.uploadBoxd2_2_3:before{
+	display: none;
+	content: "";
+    position: absolute;
+    top: 19px;
+    left: 25%;
+    width: 10px;
+    height: 10px;
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    transform: rotate(45deg);
+    z-index: 9;
+    background: #fff;
+}
+.uploadBoxd2_2_3>div{
+	display: none;
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+    transform: translate(-50%,115%);
+	padding: 20px;
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px 1px 1px 1px 5px 5px 5px;
+}
+
+.uploadBoxd2_2_3>div>div{
+	white-space: nowrap;
+}
+    
 .uploadBoxd2_1:hover{
 	opacity: .7;
 }
 .uploadBoxd2_2{
 	display: flex;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
 }
 .uploadBoxd2_2_1{
 	flex: 1;
@@ -249,15 +426,21 @@ export default {
 }
 .uploadBoxd2_3>li>div>div>span{
 	display: inline-block;
-	float: right;
 	line-height: 20px;
 	
+}
+.uploadBoxd2_3>li>div>div>span:first-child{
+	width: 71%;
+    height: 20px;
+    overflow: hidden;
+}
+.uploadBoxd2_3>li>div>div>span:last-child{
+	float: right;
 }
 .uploadBoxd2_4{
 	position: relative;
 	background: #FFFFFF;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
-	border-radius: 5px 5px 0 0;
+	border-top: 1px solid rgba(0,0,0,0.03);
 	width: 818px;
 	height: 88px;
 }
@@ -304,7 +487,26 @@ export default {
 	height: 135px;
 	margin-bottom: 6px;
 }
-
+.qxclos{
+	cursor: pointer;
+    font-size: 14px;
+    color: #FF5121;
+    position: absolute;
+    bottom: 15px;
+    text-align: center;
+    width: 100%;
+}
+.qxclos:hover{
+	opacity: .7;
+}
+.loadingsdsd{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+	font-size: 14px;
+	color: #666666;
+}
 
 
 .circleProgress_wrapper{
@@ -333,62 +535,55 @@ export default {
 .circleProgress{
     width: 54px;
     height:54px;
-    border:3px solid rgb(232, 232, 12);
+    border:3px solid #E6E6E6;
     border-radius: 50%;
     position: absolute;
     top:0;
-    -webkit-transform: rotate(45deg);
+    -webkit-transform: rotate(225deg);
+	transform: rotate(225deg);
 }
 .rightcircle{
-    border-top:3px solid green;
-    border-right:3px solid green;
+    border-top:3px solid #FF5121;
+    border-right:3px solid #FF5121;
     right:0;
-    -webkit-animation: circleProgressLoad_right 5s linear infinite;
+	-webkit-transition: -webkit-transform .1s linear;
+	transition: transform .1s linear;
 }
 .leftcircle{
-    border-bottom:3px solid green;
-    border-left:3px solid green;
+    border-bottom:3px solid #FF5121;
+    border-left:3px solid #FF5121;
     left:0;
-    -webkit-animation: circleProgressLoad_left 5s linear infinite;
+	-webkit-transition: -webkit-transform .1s linear;
+	transition: transform .1s linear;
+} 
+.zzched{
+	position: relative;
+	cursor: pointer;
+	
 }
-@-webkit-keyframes circleProgressLoad_right{
-	0%{
-        border-top:3px solid #ED1A1A;
-        border-right:3px solid #ED1A1A;
-        -webkit-transform: rotate(45deg);
-            }
-            50%{
-                border-top:3px solid rgb(232, 232, 12);
-                border-right:3px solid rgb(232, 232, 12);
-                border-left:3px solid rgb(81, 197, 81);
-                border-bottom:3px solid rgb(81, 197, 81);
-                -webkit-transform: rotate(225deg);
-            }
-            100%{
-                border-left:3px solid green;
-                border-bottom:3px solid green;
-                -webkit-transform: rotate(225deg);
-            }
-        }            
-        @-webkit-keyframes circleProgressLoad_left{
-            0%{
-                border-bottom:3px solid #ED1A1A;
-                border-left:3px solid #ED1A1A;
-                -webkit-transform: rotate(45deg);
-            }
-            50%{
-                border-bottom:3px solid rgb(232, 232, 12);
-                border-left:3px solid rgb(232, 232, 12);
-                border-top:3px solid rgb(81, 197, 81);
-                border-right:3px solid rgb(81, 197, 81);
-                -webkit-transform: rotate(45deg);
-            }
-            100%{
-                border-top:3px solid green;
-                border-right:3px solid green;
-                border-bottom:3px solid green;
-                border-left:3px solid green;
-                -webkit-transform: rotate(225deg);
-            }
-        }
+.zzched:hover:after{
+	background: none;
+}
+.zzched:after{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height:135px;
+	background: rgba(0,0,0,.3);
+}
+.zzched_1{
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 10px;
+	height:10px;
+	border: 1px solid #979797;
+	border-radius: 2px;
+}
+.zzched2{
+	border-color: #FF5121;
+	background: #FF5121;
+}
 </style>

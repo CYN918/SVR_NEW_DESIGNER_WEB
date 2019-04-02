@@ -80,7 +80,10 @@ export default {
 		value: { 
 　　　　　	default: '',
 　　　　	},
-		chekFn:Function,
+		chekFn:{
+			type:Function,
+			default:()=>{}
+		},
 		max:{
 			type:Number,
 			default:0,
@@ -96,7 +99,7 @@ export default {
 	    'input'(val,oldeval) {
 			this.numd = this.input.length;
 			if(this.max>0 && this.numd>this.max){
-				this.input = oldeval;
+				this.input = val.substring(0,this.max);
 				return
 			}
 	    	this.$emit('input', this.input); 

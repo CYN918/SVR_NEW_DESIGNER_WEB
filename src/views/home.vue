@@ -51,7 +51,7 @@ export default {
 			List:[],
 			banOn:0,
 			page:1,
-			limit:10,
+			limit:40,
 			total:0,
 			loading: '',
 			
@@ -99,7 +99,7 @@ export default {
 				limit:this.limit
 			}
 			this.loading = Loading.service({ fullscreen: true });
-			this.api.getHList({params}).then((da)=>{
+			this.api.getHList(params).then((da)=>{
 				this.List = da.data;
 				this.total = da.total;
 				this.loading.close();

@@ -35,11 +35,33 @@ export default {
 	
 	
 	getBanner:{
-		url:'/Api/Home/banner',method:'get',baseURL:0,
+		url:'/Api/Home/banner',method:'post',baseURL:0,
+	},
+	getHList:{
+		url:'/Api/Home/list',method:'post',baseURL:0,
+	},
+
+	
+	getFList:{
+		url:'/File/File/getList',method:'get',baseURL:0,
 	},
 	
-	getHList:{
-		url:'/Api/Home/list',method:'get',baseURL:0,
+	deleteFile:{
+		url:'/File/File/delete',method:'get',baseURL:0,Type:'multipart/form-data',
+	},
+	
+	insertFile:{
+		url:'/File/File/insert',method:'get',baseURL:0,Type:'multipart/form-data',
+	},
+	
+	
+	/*获取作品ID*/
+	getWorkId:{
+		url:'/Api/Work/getWorkId',method:'post',baseURL:0,
+	},
+	/*记录作品*/
+	saveWorks:{
+		url:'/Api/Work/saveWork',method:'post',baseURL:0,
 	},
 	
 	

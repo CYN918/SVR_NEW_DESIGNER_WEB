@@ -24,19 +24,8 @@ let wb = [
 			{
 				path: '/upload',
 				name: 'upload',
-				component: () => import('./views/upload/index.vue'),
-				children:[
-					{
-						path: '/upload/upload',
-						name: 'upload',
-						component: () => import('./views/upload/upload.vue')
-					},
-					{
-						path: '/upload/upload2',
-						name: 'upload2',
-						component: () => import('./views/upload/upload2.vue')
-					},
-				]
+				component: () =>import('./views/upload/upload.vue'),
+			
 			},
 			
 			
@@ -107,8 +96,7 @@ function checkUserType(){
 		return
 	}
 }
-let token = localStorage.getItem('userT');
-let	pass = localStorage.getItem('pass');
+
 //自动登录
 router.beforeEach((to, from, next) => {
 	/*登录过期*/
@@ -116,6 +104,8 @@ router.beforeEach((to, from, next) => {
 // 		localStorage.setItem("token","");
 // 		tonek=false;
 // 	}
+let token = localStorage.getItem('userT');
+let	pass = localStorage.getItem('pass');
 	if(!token){//未登录
 		if(pass){
 			api.login(JSON.parse(pass)).then((da)=>{				
@@ -124,7 +114,7 @@ router.beforeEach((to, from, next) => {
 					next('/userme');	
 					return
 				}
-				next();
+				next('/');	
 				return																			
 			}).catch(()=>{	
 				localStorage.setItem('pass','');
@@ -132,8 +122,8 @@ router.beforeEach((to, from, next) => {
 			});	
 			return
 		}
-		if(['/upload/upload','/upload/upload2','/upload'].indexOf(to.fullPath)!=-1){
-			next('/index');	
+		if(['/upload'].indexOf(to.fullPath)!=-1){
+			next('/');	
 			return
 		}
 		next();
@@ -143,12 +133,8 @@ router.beforeEach((to, from, next) => {
 		next('/userme');
 		return
 	}
-	if(to.fullPath=='/upload'){
-		next('/upload/upload');	
-		return
-	}
 	if(['/login','/login2','/register','/modifyPassword'].indexOf(to.fullPath)!=-1){
-		next('/index');	
+		next('/');	
 		return
 	}
 	next();	
