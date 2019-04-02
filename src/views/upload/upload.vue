@@ -67,7 +67,7 @@
 						
 						
 						<div class="page2_2_1_2x">
-							<span v-for="(el,index) in form.tag" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
+							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
 						</div>
 					</div>
 				</div>
@@ -75,24 +75,26 @@
 					<div class="page2_2_2_1">
 						<div class="page2_2_2_1_1">作品类型<span class="btRed"></span></div>
 						<div class="page2_2_2_1_2">
-							<div @click="showTd('isshowT1')" class="xzInput">
-								选择作品类型
+							<el-cascader 
+							:options="page2.classify"
+							v-model="selectedOptions"
+							>
+							</el-cascader>	
 						
-							</div>
 						</div>
 					</div>
 					<div class="page2_2_2_2">
 						<div class="page2_2_2_2_1">版权说明<span class="btRed"></span></div>
 						<div class="page2_2_2_2_2">
-							<div @click="showTd('isshowT2')" class="xzInput">
-								{{bqList[form.bq]}}
-								<div v-if="isshowT2==true">
-									<div>{{bqList[form.bq]}}</div>
-									<div @click="seletBq(index)" v-for="(el,index) in bqList" :key="index">{{el}}</div>
-									
-								</div>
-								
-							</div>
+							<el-select v-model="form.copyright" placeholder="请选择">
+								<el-option
+								v-for="item in bqList"
+								:key="item.label"
+								:label="item.label"
+								:value="item.label">
+								</el-option>
+							</el-select>
+							
 						</div>
 					</div>
 				</div>
@@ -101,13 +103,11 @@
 					<div class="page2_1_7_r">
 						<label>
 							<div :class="form.is_platform_work==1?'chekdOn':''"><div></div>
-							<input class="page2_1_4file" v-model="form.is_platform_work" value="1" type="radio" name="isme" ></div>
-							是
+							<input class="page2_1_4file" v-model="form.is_platform_work" value="1" type="radio" name="isme" ></div>是
 						</label>
 						<label>
 							<div :class="form.is_platform_work==0?'chekdOn':''"><div></div>
-							<input class="page2_1_4file" v-model="form.is_platform_work" value="0" type="radio" name="isme" ></div>
-							否
+							<input class="page2_1_4file" v-model="form.is_platform_work" value="0" type="radio" name="isme" ></div>否
 						</label>
 					</div>
 				</div>
@@ -115,7 +115,7 @@
 		</div>
 		<div class="UpBtn1">
 			<div class="UpBtn1_1" v-if="!chekin" @click="setChekin(true)">上一步</div><div @click="userSave" class="UpBtn1_1">保存</div><div v-if="chekin" :class="['UpBtn1_2',ck2]" @click="setChekin(false)">下一步</div>
-			<div class="UpBtn1_1" v-if="!chekin">预览</div><div @click="savZp" :class="['UpBtn1_2',ck3]" v-if="!chekin">提交发布</div>
+			<div class="UpBtn1_1" @click="seeCg" v-if="!chekin">预览</div><div @click="savZp" :class="['UpBtn1_2',ck3]" v-if="!chekin">提交发布</div>
 		</div>
 		
 		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
@@ -133,7 +133,7 @@ export default {
 	components:{VueUeditorWrap,UplodImg,Input,upoloadcaver},
 	data(){
 		return{
-			bqList:['禁止匿名转载；禁止商业使用；禁止个人使用。','禁止匿名转载；禁止商业使用。','不限制用途。'],
+			bqList:[{label:'禁止匿名转载；禁止商业使用；禁止个人使用。'},{label:'禁止匿名转载；禁止商业使用。'},{label:'不限制用途。'}],
 			isPhto:false,
 			chekin:true,
 			isshowT1:false,
@@ -143,8 +143,8 @@ export default {
 			chekusername:()=>{},
 			form:{
 				attachement_visible:1,
-				tag:[],
-				bq:0,
+				labels:[],
+				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
 				is_platform_work:0,
 			},
 			uD:{},
@@ -193,6 +193,13 @@ export default {
 				
 			},
 			tags:'',
+			page2:{
+				classify:[],
+				classify_1:0,
+				classify_2:0,
+				classify_3:0,
+			},
+			selectedOptions:[],
 		}  
 	},
 	watch: {		
@@ -206,44 +213,77 @@ export default {
 		
 		'form.face_pic'() {
 			this.checkPage2();
+			this.setAutoSave();
 		},
-		'form.type'() {
+		'selectedOptions'() {
+			if(this.selectedOptions.length==0){
+				return
+			}
+			this.form.classify_1 = this.selectedOptions[0];
+			this.form.classify_2 = this.selectedOptions[1];
+			this.form.classify_3 = this.selectedOptions[2];
 			this.checkPage2();
+			this.setAutoSave();
 		},
-		'form.bq'() {
+		'form.copyright'() {
 			this.checkPage2();
+			this.setAutoSave();
+		},
+		'form.labels'() {
+			this.setAutoSave();
+		},
+		'form.attachment_id'() {
+			this.setAutoSave();
+		},
+		'form.attachement_visible'() {
+			this.setAutoSave();
+		},
+		'form.is_platform_work'() {
+			this.setAutoSave();
 		},
 	},
 	mounted: function () {	
-		this.init();		
+		this.init();
+		this.getClassify();
 	}, 
 	methods: {
+		/*page2*/
+		seletClassify(name,on){
+			this.page2[name] = on;
+		},
+		backTyped(){
+			if(this.form.classify_1){
+				
+				return this.form.classify_1+'-'+this.form.classify_2+'-'+this.form.classify_3
+			}
+			return '选择作品类型';
+		},
 		keydown(){
 			if(!this.tags){
 				return
 			}
-			if(this.form.tag.indexOf(this.tags)!=-1){
+			if(this.form.labels.indexOf(this.tags)!=-1){
 				Message({message: '该标签已添加'});
 				return
 			}
-			if(this.form.tag.length===5){
+			if(this.form.labels.length===5){
 				Message({message: '最多填写5个标签'});
 				return
 			}
-			this.form.tag.push(this.tags);
+			this.form.labels.push(this.tags);
 			this.tags = '';
 			this.$refs.tageds.clearValue();
-			console.log(this.tags)
 		},
+		
 		deletTage(on){
-			this.form.tag.splice(on,1);
+			this.form.labels.splice(on,1);
 		},
 		seletB1(on){
-			this.form.bq1 = on;
+			this.form.copyright1 = on;
 			this.closeTd('isshowT2');
 		},
 		seletBq(on){
-			this.form.bq = on;
+			this.form.copyright = on;
 			this.closeTd('isshowT2');
 		},
 		showupFm(){
@@ -296,14 +336,14 @@ export default {
 			this.saveData(0,'保存成功');			
 		},
 		setChekin(type){
-// 			if(!this.form.work_name){
-// 				Message({message: '请先填写标题'});
-// 				return
-// 			}
-// 			if(!this.form.content){
-// 				Message({message: '请先填写内容'});
-// 				return
-// 			}
+			if(!this.form.work_name){
+				Message({message: '请先填写标题'});
+				return
+			}
+			if(!this.form.content){
+				Message({message: '请先填写内容'});
+				return
+			}
 			this.chekin = type;
 		},
 		ready (editorInstance) {
@@ -318,10 +358,31 @@ export default {
 		},
 		inImg(list){
 			let str = '';
-			list.map((el,index,va)=>{
-				str+='<img src="'+el+'"/>';
-			})
-			this.uD.execCommand('insertHtml', str);
+			if(this.upConfig.type[0]=='image/gif'){
+				list.map((el,index,va)=>{
+					str+='<img src="'+el+'"/>';
+				});
+				this.uD.execCommand('insertHtml', str);
+				return
+			}
+			
+			if(this.upConfig.type[0]=='video/mp4'){
+				list.map((el,index,va)=>{
+					str+='<p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';
+					
+				});
+				this.uD.execCommand('insertHtml', str);
+				return
+			}
+			if(this.upConfig.type[0]=='audio/ogg'){
+				list.map((el,index,va)=>{					
+					str+='<p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
+				});
+				this.uD.execCommand('insertHtml', str);
+				return
+			}
+			
+			
 		},
 		getWorkId(){
 			let p = localStorage.getItem('userT');
@@ -329,7 +390,8 @@ export default {
 				Message({message: '登录过期请先登录'});
 				setTimeout(()=>{				
 					this.$router.push({path:'/login'})
-				},2000);			
+				},2000);
+				return
 			}			
 			let params = {
 				access_token:JSON.parse(p).access_token
@@ -341,16 +403,32 @@ export default {
 		getData(){
 			
 		},
+		seeCg(){
+			if(!this.form.work_name){Message({message: '请先填写标题'});return}
+			if(!this.form.content){Message({message: '请先填内容'});return}
+			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
+			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}
+		
+			this.checkAutoSave();
+			setTimeout(()=>{
+				window.open('#/conts?id='+this.form.work_id)
+			
+			},1000)			
+		},
 		savZp(){
-			this.saveData(this.setSaveData(1),'上传成功');
+			if(!this.form.work_name){Message({message: '请先填写标题'});return}
+			if(!this.form.content){Message({message: '请先填内容'});return}
+			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
+			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}			
+			this.saveData(this.setSaveData(1,1),'上传成功',()=>{setTimeout(()=>{this.$router.push({path:'/'})},1000)});
 		},
 		userSave(){
 			if(!this.form.work_name){Message({message: '请先填写标题'});return}
 			if(!this.form.content){Message({message: '请先填内容'});return}
-			this.saveData(this.setSaveData(0),'草稿保存成功');
+			this.saveData(this.setSaveData(0,0),'草稿保存成功');
 				
 		},
-		setSaveData(type){
+		setSaveData(type,step){
 			let p = localStorage.getItem('userT');
 			if(!p){
 				Message({message: '登录过期请先登录'});
@@ -361,12 +439,21 @@ export default {
 			}	
 			let pr = this.form;
 			pr.is_publish = type || 0;
+			pr.step = step||0;
 			pr.access_token = JSON.parse(p).access_token;		
 			return pr;
 		},
-		saveData(data,messg){						
-			this.api.saveWorks(data).then(()=>{
+		saveData(data,messg,fn){	
+			let pr = JSON.stringify(data);
+			pr = JSON.parse(pr);
+			
+			pr.labels = JSON.stringify(pr.labels);
+			this.api.saveWorks(pr).then(()=>{
 				Message({message:messg});
+				if(fn){
+					fn();
+				}
+				
 			});
 		},
 		checkPage1(){
@@ -382,10 +469,7 @@ export default {
 			if(!this.form.face_pic){
 				return false
 			}
-			if(!this.form.type){
-				return false
-			}
-			if(!this.form.bq){
+			if(!this.form.classify_1){
 				return false
 			}
 			this.ck3 = "onck2";
@@ -436,10 +520,10 @@ export default {
 			let uploadComplete = (data)=>{
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;
-					this.upfjData.fid=da.fid
-					this.upfjData.type='上传成功'
+					this.upfjData.fid=da.fid;
+					this.upfjData.type='上传成功';
 					this.$refs.upnfile2.value ='';		
-						
+					this.form.attachment_id = da.fid;	
 					Message({message: '文件上传成功'});
 				}
 				
@@ -474,6 +558,30 @@ export default {
 			}
 			
 			this.upfjData = {};
+		},
+		getClassify(){
+			let token = localStorage.getItem('userT');
+			if(!token){
+				Message({message: '登录过期请先登录'});
+				setTimeout(()=>{
+					this.$router.push({path:'/login'})
+				},1000);
+				return
+			}
+			let pr ={
+				access_token:JSON.parse(token).access_token,
+			};
+			
+			this.api.getClassify(pr).then((da)=>{
+				
+				let p = JSON.stringify(da);
+				p = p.replace(/classify_name/g,"label");
+				p = p.replace(/id/g,"value");
+				p = p.replace(/sub_data/g,"children");
+	
+				this.page2.classify = JSON.parse(p);
+				console.log(p)
+			})
 		},
 	}
 }
@@ -827,6 +935,7 @@ export default {
 .page2_1_7_r>label>div{
 	display: inline-block;
 	position: relative;
+	margin-right: 10px;
 }
 .page2_1_7_r>label>div>div{
 	vertical-align: middle;
@@ -916,7 +1025,7 @@ export default {
 	box-sizing: border-box;
 	width: 100%;
 	height: 40px;
-	padding: 10px 20px;
+	padding: 10px;
 	cursor: pointer;
 }
 
@@ -944,7 +1053,17 @@ export default {
 	overflow: hidden;
 	width: 100%;
 }
-.xzInput>div>div{
+.xzInput2>div{
+	
+	width: 50%;
+}
+.xzInput2>div:nth-child(2){
+	transform: translate(100%,101%);
+}
+.xzInput2>div:nth-child(3){
+	transform: translate(200%,101%);
+}
+.xzInput3>div>div{
 	width: 100%;
 	height: 30px;
 	font-size: 14px;
@@ -952,17 +1071,28 @@ export default {
 	text-align: left;
 	font-size: 14px;
 	color: #333333;
-	box-sizing: border-box;
-	padding:0 20px;
+	text-indent: 20px;
 }
-.xzInput>div>div:first-child{
+.xzInput2>div>div{
+	width: 100%;
+	height: 30px;
+	font-size: 14px;
+	line-height: 30px;
+	text-align: left;
+	font-size: 14px;
+	color: #333333;
+	text-indent: 20px;
+}
+/* .xzInput>div>div{
+	text-indent: 20px;
+	overflow: hidden;
+} */
+.sertcheck{
 	color: #666666;
 	background: #999999;
 	opacity: .3;
 }
-.xzInput>.djk{
-	
-}
+
 .page2_2_2_1{
 	width: 150px;
 	margin-right: 221px;

@@ -32,7 +32,7 @@
 						<div><span>{{el.file_name.split('.')[0]}}</span><span>{{el.s}}</span></div>
 					</div>
 					<div v-else class="zzched" @click="onxz(el)">
-						<img :src="el.url"/>
+						<img :src="configData.type[0]=='audio/ogg'?'/imge/m.jpg':el.url"/>
 						<div><span>{{el.file_name}}</span><span>{{el.file_size_format}}</span></div>
 						<div :class="['zzched_1',checkin.indexOf(el.fid)!=-1?'zzched2':'']"></div>
 					</div>					
@@ -148,7 +148,7 @@ export default {
 				timestamp:times,
 				file_type:this.configData.getType,
 			}
-			this.api.getFList({params}).then((da)=>{
+			this.api.getFList(params).then((da)=>{
 				this.list =da.data;
 			})
 		},

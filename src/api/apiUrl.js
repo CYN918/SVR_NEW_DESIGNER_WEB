@@ -43,15 +43,15 @@ export default {
 
 	
 	getFList:{
-		url:'/File/File/getList',method:'get',baseURL:0,
+		url:'/File/File/getList',method:'post',baseURL:0,
 	},
 	
 	deleteFile:{
-		url:'/File/File/delete',method:'get',baseURL:0,Type:'multipart/form-data',
+		url:'/File/File/delete',method:'post',baseURL:0,Type:'multipart/form-data',
 	},
 	
 	insertFile:{
-		url:'/File/File/insert',method:'get',baseURL:0,Type:'multipart/form-data',
+		url:'/File/File/insert',method:'post',baseURL:0,Type:'multipart/form-data',
 	},
 	
 	
@@ -62,6 +62,26 @@ export default {
 	/*记录作品*/
 	saveWorks:{
 		url:'/Api/Work/saveWork',method:'post',baseURL:0,
+	},
+	
+	/*获取作品分类*/
+	
+	getClassify:{
+		url:'/Api/Work/getClassify',method:'post',baseURL:0,
+	},
+	
+	getWorkDetail:{
+		url:'/Api/Work/getWorkDetail',method:'post',baseURL:0,
+	},
+	addComment:{
+		url:'/Api/Work/addComment',method:'post',baseURL:0,
+	},
+	
+	delComment:{
+		url:'/Api/Work/delComment',method:'post',baseURL:0,
+	},
+	getCommentList:{
+		url:'/Api/Work/getCommentList',method:'post',baseURL:0,
 	},
 	
 	

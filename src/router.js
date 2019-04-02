@@ -27,7 +27,18 @@ let wb = [
 				component: () =>import('./views/upload/upload.vue'),
 			
 			},
+			{
+				path: '/conts',
+				name: 'conts',
+				component: () =>import('./views/contents.vue'),
 			
+			},
+			{
+				path: '/cont',
+				name: 'cont',
+				component: () =>import('./views/content.vue'),
+			
+			},
 			
 		],	
 	},
