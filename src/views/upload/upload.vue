@@ -135,7 +135,7 @@ export default {
 		return{
 			bqList:['禁止匿名转载；禁止商业使用；禁止个人使用。','禁止匿名转载；禁止商业使用。','不限制用途。'],
 			isPhto:false,
-			chekin:false,
+			chekin:true,
 			isshowT1:false,
 			isshowT2:false,
 			ck2:'',
