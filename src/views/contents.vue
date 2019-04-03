@@ -277,6 +277,9 @@ export default {
 .seed2_1_1_1{
 	margin-bottom: 17px;
 }
+.seed2_1_1_1 img{
+	max-width: 100% !important;
+}
 .seed2_1_1_1>img{
 	display: inline-block;
 	width: 100px;

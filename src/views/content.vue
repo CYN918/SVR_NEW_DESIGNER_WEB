@@ -526,4 +526,8 @@ export default {
 .pl_02_1>div:nth-child(2){
 	display: inline-block;
 }
+.seed2_1_1_1 img{
+	max-width: 100% !important;
+	height: auto !important;
+}
 </style>

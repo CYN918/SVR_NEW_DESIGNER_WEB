@@ -360,7 +360,7 @@ export default {
 			let str = '';
 			if(this.upConfig.type[0]=='image/gif'){
 				list.map((el,index,va)=>{
-					str+='<img src="'+el+'"/>';
+					str+='<p style="max-width:100%;height:auto;"><img style="max-width:100%;height:auto" src="'+el+'"/></p>';
 				});
 				this.uD.execCommand('insertHtml', str);
 				return

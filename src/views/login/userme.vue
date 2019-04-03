@@ -102,7 +102,7 @@ export default {
 				this.$router.push({path: '/login'})
 			}
 			let pr = {
-				access_token:JSON.parse(token),
+				access_token:JSON.parse(token).access_token,
 				avatar:this.caver,
 				username:this.form.username,
 				sex:this.form.sex,
@@ -111,8 +111,10 @@ export default {
 				province:this.form.citye[1],
 				city:this.form.citye[2],
 			}
-			this.api.addSelfInfo(pr).then(()=>{
-				this.$router.push({path: '/userme'})
+			this.api.addSelfInfo(pr).then((da)=>{
+
+				localStorage.setItem('userT',JSON.stringify(da));
+				this.$router.push({path: '/'})
 			});
 		},
 		pdys1(){
