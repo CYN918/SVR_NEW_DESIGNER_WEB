@@ -130,7 +130,7 @@ export default {
 				let pr = {			
 					mobile_zone:params.mobile_zone,
 					mobile:params.mobile,	
-					password:this.MD5(params.password),
+					password:params.password,
 					login_type:'password',
 				};
 				this.api.login(pr).then((da)=>{	

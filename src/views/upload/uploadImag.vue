@@ -32,7 +32,7 @@
 						<div><span>{{el.file_name.split('.')[0]}}</span><span>{{el.s}}</span></div>
 					</div>
 					<div v-else class="zzched" @click="onxz(el)">
-						<img :src="configData.type[0]=='audio/ogg'?'/imge/m.jpg':el.url"/>
+						<img :src="configData.type[0]=='audio/ogg'?'/imge/m.jpg':configData.type[0]=='video/mp4'?'cover_img':el.url"/>
 						<div><span>{{el.file_name}}</span><span>{{el.file_size_format}}</span></div>
 						<div :class="['zzched_1',checkin.indexOf(el.fid)!=-1?'zzched2':'']"></div>
 					</div>					

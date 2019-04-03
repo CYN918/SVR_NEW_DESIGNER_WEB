@@ -140,11 +140,13 @@ let	pass = localStorage.getItem('pass');
 		next();
 		return
 	}
-	if(JSON.parse(token).is_detail==0){
-		next('/userme');
+	if(JSON.parse(token).is_detail==0 && to.fullPath!='/userme'){
+		next('/userme');	
 		return
 	}
-	if(['/login','/login2','/register','/modifyPassword'].indexOf(to.fullPath)!=-1){
+	
+	
+	if(JSON.parse(token).is_detail==1 && ['/login','/login2','/register','/modifyPassword','/userme'].indexOf(to.fullPath)!=-1){
 		next('/');	
 		return
 	}

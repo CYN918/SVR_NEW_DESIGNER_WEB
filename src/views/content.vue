@@ -26,10 +26,32 @@
 			<div class="seed2_1">
 				<div class="seed2_1_1" >
 					<div class="seed2_1_1_1" v-html="contDat.content"></div>
-					<div class="seed2_1_1_2">标签<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span><span class="iconfont">&#xe73c;</span><div>下载附件（{{contDat.attachment?contDat.attachment.file_size_format:''}}）</div></div>
+					<div class="seed2_1_1_2">
+						标签<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span>
+						<span class="iconfont">&#xe73c;</span>
+						<div v-if="contDat.attachment_id">下载附件（{{contDat.attachment.file_size_format}}）</div>
+					</div>
 				</div>
 				<div class="seed2_1_2">
-					<div class="seed2_1_2_1"><div>说点什么吧<span>0/140</span></div><span>评论</span></div>
+					<div class="seed2_1_2_1">
+						<Input class="userBoxd2" v-model="pl"  :oType="'max'" :max="140"   :type="'text'" :placeholder="'说点什么吧'" ref="tageds"></Input>	
+						<span @click="addComment(contDat.username)">评论</span>
+					</div>
+					<div class="pl_01">共126条评论</div>
+					<div class="pl_02">
+						<div class="pl_02_1">
+							<img :src="contDat.avatar">
+							<div>
+								<span>Rachel Palmer</span><span>3天前</span><span>删除</span>
+								<div>怎么才能做到一个人物画联想到那么多小可爱</div>
+							</div>
+							<div>
+								<span>回复</span><span>收起回复</span> <span class="iconfont pend">&#xe672; 123</span><span></span>
+								<div></div>
+							</div>
+						</div>
+						
+					</div>		
 				</div>
 			</div>
 			<div class="seed2_2">
@@ -86,21 +108,28 @@
 </template>
 
 <script>
+import Input from '../components/input'
+import {Message} from 'element-ui'
 export default {
+	components:{Input},
 	data(){
 		return{
-			prom:{
-				
-			},
+			pl:'',
 			data:{
 				username:"xxxx",
 				xx:'禁止匿名转载；禁止商业使用。临摹作品，同人作品原型版归原作者所有。',
 			},
 			contDat:{},
+			page:{
+				limit:10,
+				page:0,
+				access_token:'',
+			}
 		}
 	},
 	mounted: function () {	
-		this.init();		
+		this.init();
+		this.getCommentList()
 	}, 
 	methods: {
 		init(){		
@@ -109,7 +138,8 @@ export default {
 				work_id:this.$route.query.id,
 			}
 			if(token){
-				pr.access_token = JSON.parse(token).access_token;
+				this.page.access_token = JSON.parse(token).access_token;
+				pr.access_token =this.page.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
 				da.labels = JSON.parse(da.labels)
@@ -120,6 +150,42 @@ export default {
 		
 		backType(){
 		
+		},
+		getCommentList(){
+			let pr = {
+				work_id:this.$route.query.id,
+				page:this.page.page,
+				limit:this.page.limit,
+			}
+			if(this.page.access_token){
+				pr.access_token = this.page.access_token;
+			}
+			
+			this.api.getCommentList(pr).then((da)=>{
+				console.log(da);
+			});
+		},
+		addComment(name,fid){
+			let cond = ['@'+name,this.pl];
+			
+			let pr = {
+				work_id:this.$route.query.id,
+				content	:JSON.stringify(cond),
+			
+			};
+			if(fid){
+					pr.feed_id = fid;
+			}
+			if(!this.page.access_token){
+				Message({message: '请先登录'});
+				return
+			}
+			pr.access_token = this.page.access_token;
+			this.api.addComment(pr).then((da)=>{
+				Message({message: '评论成功'});
+				this.$refs.tageds.clearValue();
+			});	
+			
 		},
 	}
 
@@ -421,6 +487,7 @@ export default {
 	float: right;
 }
 .seed2_1_2_1>span{
+	vertical-align: top;
 	display: inline-block;
 	background: #666666;
 	border-radius: 5px;
@@ -431,5 +498,32 @@ export default {
 	font-size: 14px;
 	color: #FFFFFF;
 	margin-left: 20px;
+}
+.seed2_1_2_1 .myInput{
+	border:none;
+}
+.seed2_1_2_1 .myInput input{
+	background:none;
+}
+.seed2_1_2_1 .inptud{
+	margin-bottom:0;
+}
+.pl_01,.pl_02{
+	width: 871px;
+	margin: 0 auto;
+	text-align: left;
+}
+.pl_01{
+	border-top: 1px solid #E6E6E6;
+	padding-top: 26px;
+	font-size: 14px;
+	color: #666666;
+	margin-bottom: 27px;
+}
+.pl_02_1>img{
+	display: inline-block;
+}
+.pl_02_1>div:nth-child(2){
+	display: inline-block;
 }
 </style>
