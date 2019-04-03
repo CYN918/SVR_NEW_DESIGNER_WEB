@@ -102,7 +102,7 @@ export default {
 				this.$router.push({path: '/login'})
 			}
 			let pr = {
-				access_token:JSON.parse(token)
+				access_token:JSON.parse(token),
 				avatar:this.caver,
 				username:this.form.username,
 				sex:this.form.sex,
