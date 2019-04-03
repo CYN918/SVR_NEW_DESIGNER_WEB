@@ -97,8 +97,12 @@ export default {
 			if(!this.btnType){
 				return
 			}
+			let token = localStorage.getItem('userT');
+			if(!token){
+				this.$router.push({path: '/login'})
+			}
 			let pr = {
-				access_token:localStorage.getItem('userT'),
+				access_token:JSON.parse(token)
 				avatar:this.caver,
 				username:this.form.username,
 				sex:this.form.sex,
@@ -107,7 +111,9 @@ export default {
 				province:this.form.citye[1],
 				city:this.form.citye[2],
 			}
-			this.api.addSelfInfo(pr);
+			this.api.addSelfInfo(pr).then(()=>{
+				this.$router.push({path: '/userme'})
+			});
 		},
 		pdys1(){
 			this.btnType = '';	    	
