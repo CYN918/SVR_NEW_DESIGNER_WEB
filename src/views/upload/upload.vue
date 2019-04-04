@@ -32,7 +32,7 @@
 					<div @click="showupFm"><div>+</div>上传封面</div>
 					
 				</div>
-				<div class="page2_1_3">上传附件<span>ZIP，20M以内</span></div>
+				<div class="page2_1_3">上传附件<span>ZIP/RAR，20M以内</span></div>
 				<div class="page2_1_4">
 					<div class="page2Tbnd1">选择附件</div>
 					<input @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
@@ -387,7 +387,6 @@ export default {
 		getWorkId(){
 			let p = localStorage.getItem('userT');
 			if(!p){
-				localStorage.setItem('userT','');
 				Message({message: '登录过期请先登录'});
 				setTimeout(()=>{				
 					this.$router.push({path:'/login'})
@@ -552,12 +551,12 @@ export default {
 			xhr.send(formData);
 		},
 		qxclosd(obj){
+			console.log(obj.xhr);
 			if(obj.xhr){
 				obj.xhr.abort();
-				
 				return
 			}
-			this.form.attachment_id='';
+			
 			this.upfjData = {};
 		},
 		getClassify(){
