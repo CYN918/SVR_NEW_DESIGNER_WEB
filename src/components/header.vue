@@ -108,6 +108,7 @@ export default {
 .header_4>div>img{
 	display: block;
 	width: 100%;
+	border-radius: 50%;
 }
 
 

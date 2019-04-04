@@ -6,7 +6,7 @@
 					{{contDat.work_name}}
 				</div>
 				<div class="seed1_2">
-					<span class="seed1_2_1">刚刚</span>
+					<span class="seed1_2_1">{{backtime(contDat.create_time)}}</span>
 					<span class="seed1_2_2"><span class="iconfont">&#xe616;</span>0</span>
 					<span class="seed1_2_3"><span class="iconfont">&#xe672;</span>0</span>
 					<span class="seed1_2_4"><span class="iconfont">&#xe64c;</span>分享</span>
@@ -39,19 +39,46 @@
 					</div>
 					<div class="pl_01">共126条评论</div>
 					<div class="pl_02">
-						<div class="pl_02_1">
-							<img :src="contDat.avatar">
-							<div>
-								<span>Rachel Palmer</span><span>3天前</span><span>删除</span>
-								<div>怎么才能做到一个人物画联想到那么多小可爱</div>
+						<div v-for="(el,index) in hfData" :key="index">
+							
+						
+							<div  class="pl_02_1">
+								<img :src="el.avatar">
+								<div>
+									<span>{{el.username}}</span><span>{{backtime(el.create_time)}}</span><span class="iconfont pend" @click="delethf(el.feed_id,el.comment_id,index)">&#xe602;</span>
+									<div><span class="atren">{{backComt(el.content)[0]}}</span>{{backComt(el.content)[1]}}</div>
+								</div>
+								<div>
+									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span>&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
+									<div class="hfBox" v-if="el.isshowfh">
+										<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="9999" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
+										<span @click="addfu2(el.feed_id,el.username)">回复</span>
+									</div>
+								</div>
 							</div>
-							<div>
-								<span>回复</span><span>收起回复</span> <span class="iconfont pend">&#xe672; 123</span><span></span>
-								<div></div>
-							</div>
+							<div v-if="el.isshowsub" v-for="(el2,index2) in el.sub_comment" :key="index2" class="pl_02_1xxc">
+								<div class="pl_02_1">
+									<img :src="el2.avatar">
+									<div>
+										<span>{{el2.username}}</span><span>{{backtime(el2.create_time)}}</span><span class="iconfont pend">&#xe602;</span>
+										<div>{{el2.content}}</div>
+									</div>
+									<div class="yasfh">
+										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span>&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
+										<div class="hfBox" v-if="el2.isshowfh">
+											<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="9999" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
+											<span @click="addfu2(el2.feed_id,el2.username)">回复</span>
+										</div>
+									</div>								
+								</div>
+							</div>	
+								
+								
 						</div>
 						
-					</div>		
+					</div>	
+						
+					<div class="addmpl" @click="addmpl"><span class="hfdZ_4">{{ishavepltip}}</span></div>	
 				</div>
 			</div>
 			<div class="seed2_2">
@@ -85,7 +112,7 @@
 							</div>
 							<div class="i_listd2_2">
 								<span>{{el.classify_1+'-'+el.classify_2}}</span>
-								<span>2019-03-25 19:16:05</span>
+								<span>{{backtime(el.create_time)}}</span>
 							</div>
 							<div class="i_listd2_3">
 								<span><img src="https://img.zcool.cn/community/01e9b65c986887a801214168d67106.jpg@260w_195h_1c_1e_1o_100sh.jpg" alt=""></span>
@@ -122,9 +149,20 @@ export default {
 			contDat:{},
 			page:{
 				limit:10,
-				page:0,
+				page:1,
 				access_token:'',
-			}
+			},
+			hfnc:'',
+			hfData:[],
+			pl2:'',
+			onPl:{
+				fj:-1,
+				zj:-1,
+			},
+			plType:0,
+			plfsOn:-1,
+			ishavepl:0,
+			ishavepltip:'查看更多评论',
 		}
 	},
 	mounted: function () {	
@@ -132,13 +170,28 @@ export default {
 		this.getCommentList()
 	}, 
 	methods: {
+		addmpl(){
+			if(this.ishavepl==1){
+				this.ishavepltip='没有更多评论了！';				
+				return
+			}
+			this.page.page++;
+			this.getCommentList();
+		},
+		backtime(time){
+			return window.getTimes(time)
+		},
 		init(){		
 			let token = localStorage.getItem('userT');
 			let pr = {
 				work_id:this.$route.query.id,
 			}
 			if(token){
-				this.page.access_token = JSON.parse(token).access_token;
+				let dd = JSON.parse(token);
+				this.page.access_token = dd.access_token;
+				this.page.open_id = dd.open_id;
+				this.page.avatar = dd.avatar;
+				this.page.username = dd.username;
 				pr.access_token =this.page.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
@@ -147,7 +200,14 @@ export default {
 				
 			});
 		},
-		
+		backComt(data){
+			try{
+				data = JSON.parse(data);			
+			}catch(e){
+				data = ['',data];
+			}
+			return data;
+		},
 		backType(){
 		
 		},
@@ -162,10 +222,23 @@ export default {
 			}
 			
 			this.api.getCommentList(pr).then((da)=>{
-				console.log(da);
+				if(da.data.length==0){
+					this.ishavepl=1;
+					this.ishavepltip='没有更多评论了!';
+				}
+				this.hfData = this.hfData.concat(da.data); 
+				
+				this.hfnum = da.total;
 			});
 		},
-		addComment(name,fid){
+		addComment(name){
+			if(this.plType==1){
+				Message({message: '正在发送评论请稍后'});
+				return
+			}
+			if(this.pl == "" || this.pl == undefined || this.pl == null || (this.pl.length>0 && this.pl.trim().length == 0)){
+			    return
+			}  
 			let cond = ['@'+name,this.pl];
 			
 			let pr = {
@@ -173,8 +246,54 @@ export default {
 				content	:JSON.stringify(cond),
 			
 			};
+			
+			if(!this.page.access_token){
+				Message({message: '请先登录'});
+				return
+			}
+			
+			this.plType=1;
+
+			pr.access_token = this.page.access_token;
+			this.api.addComment(pr).then((da)=>{
+				
+				this.hfData.unshift({
+					avatar: this.page.avatar,					
+					content: pr.content,
+					create_time: "2019-04-02 18:45:52",
+					feed_id: this.hfData[1].feed_id,
+					like_num: 0,
+					open_id: this.page.open_id,
+					username:this.page.username,
+				});				
+				Message({message: '评论成功'});
+				this.plType=0;
+				this.$refs.tageds.clearValue();
+			}).catch(()=>{
+				this.plType=0;
+			});	
+			
+		},
+		delethf(fid,zid,on,on2){
+			
+		},
+		addfu2(fid,name){
+			if(this.plType==1){
+				Message({message: '正在发送评论请稍后'});
+				return
+			}
+			this.plType=1;
+			if(this.pl2 == "" || this.pl2 == undefined || this.pl2 == null || (this.pl2.length>0 && this.pl2.trim().length == 0)){
+                return
+            }  
+			let cond = ['@'+name,this.pl2];			
+			let pr = {
+				work_id:this.$route.query.id,
+				content	:JSON.stringify(cond),
+			
+			};
 			if(fid){
-					pr.feed_id = fid;
+				pr.feed_id = fid;
 			}
 			if(!this.page.access_token){
 				Message({message: '请先登录'});
@@ -182,10 +301,63 @@ export default {
 			}
 			pr.access_token = this.page.access_token;
 			this.api.addComment(pr).then((da)=>{
+				
+				this.hfData[this.onPl.fj].sub_comment.unshift({
+					avatar: this.page.avatar,					
+					content: pr.content,
+					create_time: "2019-04-02 18:45:52",
+					feed_id: this.hfData[this.onPl.fj].comment_id,
+					like_num: 0,
+					open_id: this.page.open_id,
+					username:this.page.username,
+				});
 				Message({message: '评论成功'});
-				this.$refs.tageds.clearValue();
+				this.plType=0;
+				this.$refs.tageds2.clearValue();
+
+				this.$refs.tageds1.clearValue();
+			}).catch(()=>{
+				this.plType=0;
 			});	
+		},
 			
+		showFhd(on){
+			if(!this.hfData[on].isshowsub){
+				this.$set(this.hfData[on],'isshowsub',1);
+				this.$set(this.hfData[on],'isshowsubWZ','收起回复');
+				return
+			}
+			this.$set(this.hfData[on],'isshowsub','');
+			this.$set(this.hfData[on],'isshowsubWZ','展开共'+this.hfData[on].sub_comment.length+'条回复');						
+		},
+		showFhk(on,on2){			
+			if(this.onPl.zj!=-1){
+				this.$set(this.hfData[this.onPl.fj].sub_comment[this.onPl.zj],'isshowfh','');
+			}
+			if(this.onPl.zj==-1 && this.onPl.fj!=-1){
+				console.log(this.onPl.fj)
+				this.$set(this.hfData[this.onPl.fj],'isshowfh','');
+			}			
+			this.onPl = {
+				fj:on===undefined?-1:on,
+				zj:on2===undefined?-1:on2,
+			};
+			if(on2>=0){
+				if(this.hfData[on].sub_comment[on2].isshowfh){
+					this.$set(this.hfData[on].sub_comment[on2],'isshowfh','');
+					
+					return
+				}
+				this.hfnc = '回复：'+this.hfData[on].sub_comment[on2].username;
+				this.$set(this.hfData[on].sub_comment[on2],'isshowfh',1);	
+				return
+			}
+			if(this.hfData[on].isshowfh){
+				this.$set(this.hfData[on],'isshowfh','');
+				return
+			}
+			this.hfnc = '回复：'+this.hfData[on].username;
+			this.$set(this.hfData[on],'isshowfh',1);				
 		},
 	}
 
@@ -193,6 +365,11 @@ export default {
 </script>
 
 <style>
+.atren{
+	font-size: 14px;
+	color: #FF5121;
+	margin-right: 20px;
+}
 .seed{
 	padding-bottom: 120px;
 }
@@ -518,16 +695,158 @@ export default {
 	padding-top: 26px;
 	font-size: 14px;
 	color: #666666;
-	margin-bottom: 27px;
+	margin-bottom: 7px;
 }
 .pl_02_1>img{
 	display: inline-block;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	margin-right: 15px;
+	border-radius: 50%;
 }
 .pl_02_1>div:nth-child(2){
 	display: inline-block;
+	font-size: 14px;
+	color: #1E1E1E;
+	vertical-align: top;
+}
+.pl_02_1>div:nth-child(2)>span:nth-child(1){
+	display: inline-block;
+	margin-right: 44px;
+	margin-bottom: 12px;
+}
+.pl_02_1>div:nth-child(2)>span:nth-child(2){
+	display: inline-block;
+	font-size: 14px;
+	color: #999999;
+	margin-right: 44px;
+}
+.pl_02_1>div:nth-child(2)>span:nth-child(3){
+	display: inline-block;
+	position: relative;
+	color: #FF5121;
+	opacity: 0;
+}
+.hfdZ_1{
+	
+}
+.pl_02_1>div:nth-child(2)>span:nth-child(3):hover{
+	opacity: 1;
+}
+.pl_02_1>div:nth-child(2)>span:nth-child(4){
+	display: block;
+	font-size: 14px;
+	color: #333333;
+	
 }
 .seed2_1_1_1 img{
 	max-width: 100% !important;
 	height: auto !important;
+}
+.pl_02_1>div:nth-child(3){
+	margin-top: 31px;
+	font-size: 14px;
+	color: #1E1E1E;
+}
+.hfdZ_3{
+	margin-right: 32px;
+	margin-left: 60px;
+	cursor: pointer;
+}
+.hfdZ_3:hover{
+	opacity: .7;
+}
+.hfdZ_4{
+	display: inline-block;
+}
+.hfdZ_4:after{
+content: "";
+    display: inline-block;
+    width: 8.5px;
+    height: 8.5px;
+    border: 1px solid #979797;
+    border-top: 0;
+    border-right: 0;
+    margin-left: 15px;
+	-webkit-transform: rotate(-45deg) translateY(-5px);
+	transform: rotate(-45deg) translateY(-5px);    
+    -webkit-transform-origin: 25%;
+    transform-origin: 50% 50%;
+	
+}
+.hfdZ_4.ishowfud:after{
+	-bwekit-transform: rotate(136deg) translateY(0px) translateX(3px);
+	transform: rotate(136deg) translateY(0px) translateX(3px);
+}
+.hfdZ_1{
+	float: right;
+	font-size: 14px;
+	color: #999999;
+	margin-right: 60px;
+	
+}
+.pl_02_1xxc .hfdZ_1{
+	margin-right: 0;
+}
+
+.hfdZ_1>span{
+	margin-right: 12px;
+	
+}
+.hfdZ_2{
+    float: right;
+    font-size: 17px;
+    color: #999999;
+    margin: 1px 23px;
+	opacity: 0;
+}
+.hfdZ_2:hover{
+	opacity: 1;
+}
+.pl_02_1{
+	border-bottom: 1px solid #E6E6E6;
+	padding: 20px 0;
+}
+.hfBox{
+	display: flex;
+	width: 100%;
+	margin: 17px auto 0;
+}
+.hfBox .tip{
+	display: none;
+}
+.hfBox .nubMax{
+	display: none;
+}
+.hfBox .userBoxd2{
+	flex: 1;
+	margin-left: 58px;
+	margin-bottom: 20px;
+	
+}
+.hfBox .myInput{
+	border: 1px solid #979797;
+	border-radius: 5px;
+	padding: 1px;
+}
+.hfBox span{
+	display: inline-block;
+	background: #666666;
+	border-radius: 5px;
+	width: 102px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 14px;
+	color: #fff;
+	margin-left: 14px;
+}
+.pl_02_1xxc{
+	width: 86%;
+	margin: 29px auto;
+} 
+.addmpl{
+	margin-top: 40px;
 }
 </style>

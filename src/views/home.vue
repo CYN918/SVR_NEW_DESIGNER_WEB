@@ -15,7 +15,7 @@
 				<img class="i_listd1" :src="el.face_pic" alt="">
 				<div class="i_listd2">
 					<div class="i_listd2_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
-					<div class="i_listd2_2"><span>{{el.classify_1+'-'+el.classify_2}}</span><span>{{el.create_time}}</span></div>
+					<div class="i_listd2_2"><span>{{el.classify_1+'-'+el.classify_2}}</span><span>{{backtime(el.create_time)}}</span></div>
 					<div class="i_listd2_3">
 						<span><img :src="el.face_pic" alt=""></span>
 						
@@ -63,6 +63,10 @@ export default {
 		
 	}, 
 	methods: {
+		backtime(time){
+		
+			return	window.getTimes(time);
+		},	
 		opend(ur){
 			if(!ur){return}
 			window.open(ur);
@@ -106,7 +110,6 @@ export default {
 				this.List = da.data;
 				this.total = da.total;
 				this.loading.close();
-				console.log(da);
 			})
 		},
 		handleSizeChange(val) {

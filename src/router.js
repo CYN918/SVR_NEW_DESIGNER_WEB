@@ -116,10 +116,25 @@ router.beforeEach((to, from, next) => {
 // 		tonek=false;
 // 	}
 let token = localStorage.getItem('userT');
+if(token){
+	try{
+		window.userInfo = JSON.parse(token);
+	}catch(e){
+		//TODO handle the exception
+	}
+	
+}
 let	pass = localStorage.getItem('pass');
-	if(!token){//未登录
-		if(pass){
-			api.login(JSON.parse(pass)).then((da)=>{				
+if(pass){
+	try{
+		window.passIn = JSON.parse(pass);
+	}catch(e){
+		//TODO handle the exception
+	}
+}
+	if(!window.userInfo){//未登录
+		if(window.passIn){
+			api.login(window.passIn).then((da)=>{				
 				localStorage.setItem('userT',JSON.stringify(da));				
 				if(da.is_detail==0){
 					next('/userme');	
@@ -140,13 +155,13 @@ let	pass = localStorage.getItem('pass');
 		next();
 		return
 	}
-	if(JSON.parse(token).is_detail==0 && to.fullPath!='/userme'){
+	if(window.userInfo.is_detail==0 && to.fullPath!='/userme'){
 		next('/userme');	
 		return
 	}
 	
 	
-	if(JSON.parse(token).is_detail==1 && ['/login','/login2','/register','/modifyPassword','/userme'].indexOf(to.fullPath)!=-1){
+	if(window.userInfo.is_detail==1 && ['/login','/login2','/register','/modifyPassword','/userme'].indexOf(to.fullPath)!=-1){
 		next('/');	
 		return
 	}

@@ -63,7 +63,7 @@
 							</div>
 							<div class="i_listd2_2">
 								<span>{{el.classify_1+'-'+el.classify_2}}</span>
-								<span>2019-03-25 19:16:05</span>
+								<span>{{backtime(el.create_time)}}</span>
 							</div>
 							<div class="i_listd2_3">
 								<span><img src="https://img.zcool.cn/community/01e9b65c986887a801214168d67106.jpg@260w_195h_1c_1e_1o_100sh.jpg" alt=""></span>
@@ -278,7 +278,7 @@ export default {
 	margin-bottom: 17px;
 }
 .seed2_1_1_1 img{
-	max-width: 100% !important;
+	max-width: 100%;
 }
 .seed2_1_1_1>img{
 	display: inline-block;
