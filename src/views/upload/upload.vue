@@ -32,7 +32,7 @@
 					<div @click="showupFm"><div>+</div>上传封面</div>
 					
 				</div>
-				<div class="page2_1_3">上传附件<span>ZIP/RAR，20M以内</span></div>
+				<div class="page2_1_3">上传附件<span>ZIP，20M以内</span></div>
 				<div class="page2_1_4">
 					<div class="page2Tbnd1">选择附件</div>
 					<input @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
@@ -63,7 +63,7 @@
 				<div class="page2_2_1">
 					<div class="page2_2_1_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
 					<div class="page2_2_1_2">
-						<div><Input class="userBoxd2" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>还可添加{{5-form.labels.length}}个标签</div>
+						<div><Input class="userBoxd2" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>	还可添加2个标签</div>
 						
 						
 						<div class="page2_2_1_2x">
@@ -387,6 +387,7 @@ export default {
 		getWorkId(){
 			let p = localStorage.getItem('userT');
 			if(!p){
+				localStorage.setItem('userT','');
 				Message({message: '登录过期请先登录'});
 				setTimeout(()=>{				
 					this.$router.push({path:'/login'})
@@ -551,12 +552,12 @@ export default {
 			xhr.send(formData);
 		},
 		qxclosd(obj){
-			console.log(obj.xhr);
 			if(obj.xhr){
 				obj.xhr.abort();
+				
 				return
 			}
-			
+			this.form.attachment_id='';
 			this.upfjData = {};
 		},
 		getClassify(){

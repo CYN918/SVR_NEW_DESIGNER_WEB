@@ -17,10 +17,28 @@ let wb = [
 				component: () => import('./views/home.vue')
 			},
 			{
-				path: '/event',
-				name: 'event',
-				component: () => import('./views/event.vue')
+				path: '/activvity',
+				name: 'activvity',
+				component: () => import('./views/activvity/list.vue'),
+				
 			},
+			{
+				path: '/detailed',
+				name: 'detailed',
+				component: () => import('./views/activvity/com.vue'),
+				children:[
+					{path: '/detailed',
+					name: 'detailed_detailed',
+					component: () => import('./views/activvity/detailed.vue'),},
+					{path: '/detailed/into',
+					name: 'detailed_into',
+					component: () => import('./views/activvity/into.vue'),},
+					{path: '/detailed/admission',
+					name: 'detailed_admission',
+					component: () => import('./views/activvity/admission.vue'),},
+				]
+			},
+			
 			{
 				path: '/upload',
 				name: 'upload',

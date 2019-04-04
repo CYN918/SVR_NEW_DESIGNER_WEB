@@ -3,7 +3,7 @@
 		<img class="header_1 pend" src="/imge/log.png">
 		<span class="header_2">
 			<router-link class="pend" to="/">首页</router-link>
-			<router-link class="last pend" to="/event">活动</router-link>
+			<router-link class="last pend" to="/activvity">活动</router-link>
 		</span>
 		<div class="header_3">
 			<span class="iconfont pend">&#xe609;</span>

@@ -85,4 +85,25 @@ export default {
 	},
 	
 	
+	
+	/*Activvity*/
+	a_getList:{
+		url:'/Api/Activity/getActivityList',method:'post',baseURL:0,
+	},
+	a_getInfo:{
+		url:'/Api/Activity/getActivityInfo',method:'post',baseURL:0,
+	},
+	a_getInfo:{
+		url:'/Api/Activity/getActivityInfo',method:'post',baseURL:0,
+	},
+	
+	a_getWork:{
+		url:'/Api/Activity/getActivityWork',method:'post',baseURL:0,
+	},
+	
+	a_AttendActivity:{
+		url:'/Api/Activity/AttendActivity',method:'post',baseURL:0,
+	},
+	
+	
 }
