@@ -49,7 +49,7 @@ export default {
 		this.initHead()
 	}, 
 	methods:{
-		initHead(){			
+		initHead(){					
 			if(window.userInfo){
 				this.userMssge = window.userInfo;
 			}

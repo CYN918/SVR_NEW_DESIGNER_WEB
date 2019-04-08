@@ -48,7 +48,7 @@
 							<div  class="pl_02_1">
 								<img :src="el.avatar">
 								<div>
-									<span>{{el.username}}</span><span>{{backtime(el.create_time)}}</span><span class="iconfont pend" @click="delethf(el.feed_id,el.comment_id,index)">&#xe602;</span>
+									<span>{{el.username}}</span><span>{{backtime(el.create_time)}}</span><span v-if="!isoutTime(el.create_time)" class="iconfont pend" @click="showHb(el.feed_id,el.comment_id,index)">&#xe602;</span>
 									<div>{{backComt(el.content)[0]}}</div>
 								</div>
 								<div>
@@ -63,7 +63,7 @@
 								<div class="pl_02_1">
 									<img :src="el2.avatar">
 									<div>
-										<span>{{el2.username}}</span><span>{{backtime(el2.create_time)}}</span><span class="iconfont pend">&#xe602;</span>
+										<span>{{el2.username}}</span><span>{{backtime(el2.create_time)}}</span><span @click="showHb(el2.feed_id,el2.comment_id,index,index2)" class="iconfont pend">&#xe602;</span>
 										<div><span class="atren">{{backComt(el2.content)[0]}}</span>{{backComt(el2.content)[1]}}</div>
 									</div>
 									<div class="yasfh">
@@ -135,6 +135,13 @@
 			</div>
 		</div>
 		
+		<div v-show="isshowd" class="loginoutBox">
+			<div class="loginoutBox1">
+				<img @click="hindHb()" class="loginoutBox2" src="/imge/cj_00.png">
+				<div class="loginoutBox3">确定退出登录?</div>
+				<div class="loginoutBox4"><span @click="hindHb()">取消</span><span @click="delComment()">确定</span></div>
+			</div>
+		</div>
 	</div>
 	
 </template>
@@ -151,6 +158,7 @@ export default {
 				username:"xxxx",
 				xx:'禁止匿名转载；禁止商业使用。临摹作品，同人作品原型版归原作者所有。',
 			},
+			isshowd:false,
 			hfnum:0,
 			contDat:{},
 			page:{
@@ -169,6 +177,11 @@ export default {
 			plfsOn:-1,
 			ishavepl:0,
 			ishavepltip:'查看更多评论',
+			deletData:{
+				
+			},
+			deletType:0,
+			deletOn:[],
 		}
 	},
 	mounted: function () {	
@@ -176,6 +189,48 @@ export default {
 		this.getCommentList()
 	}, 
 	methods: {
+		delComment(){
+			if(this.deletType==1){
+				Message({message: '正在删除评论请稍后'});
+				return
+			}			
+			this.deletType = 1;
+			this.api.delComment(this.deletData).then(()=>{
+				this.deletType = 0;	
+				if(this.deletOn.length>1){
+					this.hfData[this.deletOn[0]].sub_comment.splice(this.deletOn[1],1);
+				}else{
+					this.hfData.splice(this.deletOn[0],1);
+				}	
+				Message({message: '删除评论成功'});			
+				this.hindHb();
+			}).catch(()=>{
+				this.deletType = 0;		
+			});
+			
+
+		},
+		isoutTime(t){
+			return ((new Date()).valueOf()- (new Date(t)).valueOf(t))>=(5*60*1000)
+	
+		},
+		showHb(fid,cid,on,on2){
+			this.isshowd = true;	
+			this.deletData = {
+				access_token:window.userInfo.access_token,
+				work_id:this.$route.query.id,
+				comment_id:cid,
+				feed_id:fid,				
+			};
+			this.deletOn = [on];
+			if(!on2 && on2!=0){
+				return
+			}
+			this.deletOn.push(on2);
+		},
+		hindHb(){
+			this.isshowd = false;
+		},
 		addmpl(){
 			if(this.ishavepl==1){
 				this.ishavepltip='没有更多评论了！';				
@@ -206,7 +261,6 @@ export default {
 			});
 		},
 		backComt(data){
-			console.log(data);
 			try{
 				data = JSON.parse(data);			
 			}catch(e){
@@ -268,22 +322,18 @@ export default {
 					comment_id:da.comment_id,
 					content: pr.content,
 					create_time: new Date().Format("yyyy-MM-dd HH:mm:ss"),
-					feed_id: this.hfData[1].feed_id,
+					feed_id:da.comment_id,
 					like_num: 0,
 					open_id: this.page.open_id,
 					username:name,
 					sub_comment:[]
-				});	
-				console.log(this.hfData)			
+				});			
 				Message({message: '评论成功'});
 				this.plType=0;
 				this.$refs.tageds.clearValue();
 			}).catch(()=>{
 				this.plType=0;
 			});	
-			
-		},
-		delethf(fid,zid,on,on2){
 			
 		},
 		addfu2(fid,name){
@@ -316,17 +366,22 @@ export default {
 					this.onPl.fj = 0;
 				}
 				
+				if(!this.hfData[this.onPl.fj].sub_comment){
+				
+					this.$set(this.hfData,sub_comment,[])
+					
+				}
 				this.hfData[this.onPl.fj].sub_comment.unshift({
 					avatar: this.page.avatar,					
 					content: pr.content,
 					create_time: new Date().Format("yyyy-MM-dd HH:mm:ss"),
 					feed_id: this.hfData[this.onPl.fj].comment_id,
 					like_num: 0,
+					comment_id:da.comment_id,
 					open_id: this.page.open_id,
 					username:name,
 				});
-				
-				console.log(this.hfData[this.onPl.fj])
+								
 				Message({message: '评论成功'});
 				this.plType=0;
 				this.$refs.tageds2.clearValue();
@@ -747,14 +802,12 @@ export default {
 	display: inline-block;
 	position: relative;
 	color: #FF5121;
-	opacity: 0;
+	
 }
 .hfdZ_1{
 	
 }
-.pl_02_1>div:nth-child(2)>span:nth-child(3):hover{
-	opacity: 1;
-}
+
 .pl_02_1>div:nth-child(2)>span:nth-child(4){
 	display: block;
 	font-size: 14px;

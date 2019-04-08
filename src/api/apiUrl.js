@@ -108,6 +108,13 @@ export default {
 	a_AttendActivity:{
 		url:'/Api/Activity/AttendActivity',method:'post',baseURL:0,
 	},
-	
+	/*删除评论*/
+	delComment:{
+		url:'/Api/Work/delComment',method:'post',baseURL:0,
+	},
+	/*xx*/
+	addLike:{
+		url:'/Api/Like/addLike',method:'post',baseURL:0,
+	},
 	
 }

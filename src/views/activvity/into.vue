@@ -45,7 +45,7 @@ export default {
 		
 	},
 	mounted: function () {	
-		this.getHList()
+		this.a_getWork()
 	}, 
 	methods:{
 		getHList(){

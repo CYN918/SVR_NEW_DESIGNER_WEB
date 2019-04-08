@@ -1,5 +1,5 @@
 <template>
-	<div v-html="dataD.info">
+	<div class="contf" v-html="dataD.info">
 		
 	</div>
 </template>
@@ -38,4 +38,8 @@ export default {
 </script>
 
 <style>
+.contf{
+	width: 1300px;
+	margin: 0 auto;
+}
 </style>

@@ -53,6 +53,8 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 			if(result=='104'){	
 				localStorage.setItem('userT','');
 				let	pass = localStorage.getItem('pass');
+				window.userInfo='';
+				
 				if(pass){
 					axios({
 						method: 'post',
@@ -66,6 +68,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 						}
 						window.location.href = '#/';																	
 					}).catch(()=>{	
+						window.passIn='';
 						localStorage.setItem('pass','');
 						window.location.href = '#/login';			
 					});						
