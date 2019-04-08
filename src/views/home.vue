@@ -60,7 +60,7 @@ export default {
 	mounted: function () {	
 		this.getBanner();
 		this.getHList();
-		
+		console.log(this.$route.fullPath)
 	}, 
 	methods: {
 		backtime(time){

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-html="dataD.info">
 		
 	</div>
 </template>
@@ -10,7 +10,7 @@ export default {
 	data(){	
 		return{
 			dataList:[],
-			
+			dataD:{}
 		}
 		
 	},
@@ -24,7 +24,7 @@ export default {
 				return
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{			
-				console.log(da);			
+				this.dataD = da;			
 			});
 		},
 		

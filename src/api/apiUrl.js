@@ -4,6 +4,10 @@ export default {
 // 	login:{
 // 		url:'/Passport/User/login',method:'post',baseURL:0,
 // 	},
+	logout:{
+		url:'/Api/User/logout',method:'post',baseURL:0
+	},
+	
 /*获取用户信息*/
 	getSelfInfo:{
 		url:'/Api/User/getSelfInfo',method:'post',baseURL:0

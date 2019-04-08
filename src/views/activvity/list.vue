@@ -74,6 +74,9 @@ export default {
 
 <style>
 .ac_list_Box{
+	min-width: 1300px;
+	box-sizing: border-box;
+	overflow-x: hidden;
 	padding: 20px 0 80px;
 	
 }

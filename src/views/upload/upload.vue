@@ -209,8 +209,6 @@ export default {
 		'form.content'() {
 			this.checkPage1();
 		},
-		
-		
 		'form.face_pic'() {
 			this.checkPage2();
 			this.setAutoSave();
@@ -304,7 +302,7 @@ export default {
 		},
 		setAutoSave(){
 			clearTimeout(this.autoSave.obj);
-			this.autoSave.obj = setTimeout(()=>{
+			this.autoSave.obj = setTimeout(()=>{				
 				this.checkAutoSave();
 			},30000);
 		},
@@ -323,6 +321,11 @@ export default {
 			}
 			/*内容不同开始保存*/
 			this.autoSave.saveData = da;
+			if(this.$route.fullPath!='/upload'){
+				/*已离开不再保存*/
+				return 
+			}
+			
 			this.saveData(dat,'自动保存成功');
 		},
 		init(O){
@@ -557,6 +560,7 @@ export default {
 				
 				return
 			}
+			console.log(22222222);
 			this.form.attachment_id='';
 			this.upfjData = {};
 		},

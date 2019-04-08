@@ -12,6 +12,7 @@ html,body,div,img,p,ul,li{
 }
 html,body{
 	min-width: 1300px;
+	overflow-x: hidden;
 	
 }
 html{

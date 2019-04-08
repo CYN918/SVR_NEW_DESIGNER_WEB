@@ -7,8 +7,8 @@
 				</div>
 				<div class="seed1_2">
 					<span class="seed1_2_1">{{backtime(contDat.create_time)}}</span>
-					<span class="seed1_2_2"><span class="iconfont">&#xe616;</span>0</span>
-					<span class="seed1_2_3"><span class="iconfont">&#xe672;</span>0</span>
+					<span class="seed1_2_2"><span class="iconfont">&#xe616;</span>{{hfnum}}</span>
+					<span class="seed1_2_3"><span class="iconfont">&#xe672;</span>{{contDat.like_num}}</span>
 					<span class="seed1_2_4"><span class="iconfont">&#xe64c;</span>分享</span>
 					<span class="seed1_2_5"><span class="iconfont">&#xe652;</span>推荐</span>
 				</div>
@@ -25,7 +25,7 @@
 		<div class="seed2">
 			<div class="seed2_1">
 				<div class="seed2_1_1" >
-					<div class="seed2_1_1_1" v-html="contDat.content"></div>
+					<div class="seed2_1_1_1x" v-html="contDat.content"></div>
 					<div class="seed2_1_1_2">
 						标签<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span>
 						<span class="iconfont">&#xe73c;</span>
@@ -35,10 +35,13 @@
 				<div class="seed2_1_2">
 					<div class="seed2_1_2_1">
 						<Input class="userBoxd2" v-model="pl"  :oType="'max'" :max="140"   :type="'text'" :placeholder="'说点什么吧'" ref="tageds"></Input>	
-						<span @click="addComment(contDat.username)">评论</span>
+						<span @click="addComment(contDat.user_info.username)">评论</span>
+						<div class="myplde" v-if="hfnum==0">
+							还没有人评论，快来抢沙发吧~
+						</div>
 					</div>
-					<div class="pl_01">共126条评论</div>
-					<div class="pl_02">
+					<div class="pl_01" v-if="hfnum>0">共{{hfnum}}条评论</div>
+					<div class="pl_02" v-if="hfnum>0">
 						<div v-for="(el,index) in hfData" :key="index">
 							
 						
@@ -46,12 +49,12 @@
 								<img :src="el.avatar">
 								<div>
 									<span>{{el.username}}</span><span>{{backtime(el.create_time)}}</span><span class="iconfont pend" @click="delethf(el.feed_id,el.comment_id,index)">&#xe602;</span>
-									<div><span class="atren">{{backComt(el.content)[0]}}</span>{{backComt(el.content)[1]}}</div>
+									<div>{{backComt(el.content)[0]}}</div>
 								</div>
 								<div>
-									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span>&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
+									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span>&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
 									<div class="hfBox" v-if="el.isshowfh">
-										<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="9999" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
+										<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 										<span @click="addfu2(el.feed_id,el.username)">回复</span>
 									</div>
 								</div>
@@ -61,12 +64,12 @@
 									<img :src="el2.avatar">
 									<div>
 										<span>{{el2.username}}</span><span>{{backtime(el2.create_time)}}</span><span class="iconfont pend">&#xe602;</span>
-										<div>{{el2.content}}</div>
+										<div><span class="atren">{{backComt(el2.content)[0]}}</span>{{backComt(el2.content)[1]}}</div>
 									</div>
 									<div class="yasfh">
 										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span>&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
 										<div class="hfBox" v-if="el2.isshowfh">
-											<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="9999" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
+											<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
 											<span @click="addfu2(el2.feed_id,el2.username)">回复</span>
 										</div>
 									</div>								
@@ -82,23 +85,25 @@
 				</div>
 			</div>
 			<div class="seed2_2">
-				<div class="seed2_1_1">
+				<div class="seed2_1_1" v-if="contDat.user_info">
 					<div class="seed2_1_1_1">
-						<img :src="contDat.avatar" alt="">
+						<img class="contavatar" :src="contDat.user_info.avatar" alt="">
 						<div>
-							<div>{{contDat.username}}</div>
-							<div>{{contDat.city}}  |  {{contDat.province}}</div>
-							<div><span v-if="contDat.is_platform_work">xx</span> xx</div>
+							<div>{{contDat.user_info.username}}</div>
+							<div>{{contDat.user_info.city}}  |  {{contDat.user_info.province}}</div>
+							<div><span v-if="contDat.user_info.is_platform_work">xx</span> xx</div>
 						</div>
 					</div>
 					<div class="seed2_2_1_2">
-						<div>粉丝<div>{{contDat.fans_num}}</div></div>
-						<div>人气<div>{{contDat.popular_num}}</div></div>
-						<div>创作<div>{{contDat.work_num}}</div></div>
+						<div>粉丝<div>{{contDat.user_info.fans_num}}</div></div>
+						<div>人气<div>{{contDat.user_info.popular_num}}</div></div>
+						<div>创作<div>{{contDat.user_info.work_num}}</div></div>
 					</div>
 					<div class="seed2_1_1_3">
-						<span>关注</span>
-						<span>私信</span>
+						<span v-if="contDat.user_info.follow_flag>0">已关注</span>
+						<span v-if="contDat.user_info.follow_flag==0">关注</span>
+						<span v-if="contDat.user_info.follow_flag==0">私信</span>
+						<span v-if="page.open_id==contDat.user_info.open_id">进入主页</span>
 					</div>
 				</div>
 				<div class="seed2_1_2">
@@ -146,6 +151,7 @@ export default {
 				username:"xxxx",
 				xx:'禁止匿名转载；禁止商业使用。临摹作品，同人作品原型版归原作者所有。',
 			},
+			hfnum:0,
 			contDat:{},
 			page:{
 				limit:10,
@@ -182,16 +188,15 @@ export default {
 			return window.getTimes(time)
 		},
 		init(){		
-			let token = localStorage.getItem('userT');
+			// let token = localStorage.getItem('userT');
 			let pr = {
 				work_id:this.$route.query.id,
 			}
-			if(token){
-				let dd = JSON.parse(token);
-				this.page.access_token = dd.access_token;
-				this.page.open_id = dd.open_id;
-				this.page.avatar = dd.avatar;
-				this.page.username = dd.username;
+			if(window.userInfo){
+				this.page.access_token = window.userInfo.access_token;
+				this.page.open_id = window.userInfo.open_id;
+				this.page.avatar = window.userInfo.avatar;
+				this.page.username = window.userInfo.username;
 				pr.access_token =this.page.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
@@ -201,6 +206,7 @@ export default {
 			});
 		},
 		backComt(data){
+			console.log(data);
 			try{
 				data = JSON.parse(data);			
 			}catch(e){
@@ -239,7 +245,7 @@ export default {
 			if(this.pl == "" || this.pl == undefined || this.pl == null || (this.pl.length>0 && this.pl.trim().length == 0)){
 			    return
 			}  
-			let cond = ['@'+name,this.pl];
+			let cond = [this.pl];
 			
 			let pr = {
 				work_id:this.$route.query.id,
@@ -253,19 +259,22 @@ export default {
 			}
 			
 			this.plType=1;
-
+		
 			pr.access_token = this.page.access_token;
 			this.api.addComment(pr).then((da)=>{
 				
 				this.hfData.unshift({
-					avatar: this.page.avatar,					
+					avatar: this.page.avatar,
+					comment_id:da.comment_id,
 					content: pr.content,
-					create_time: "2019-04-02 18:45:52",
+					create_time: new Date().Format("yyyy-MM-dd HH:mm:ss"),
 					feed_id: this.hfData[1].feed_id,
 					like_num: 0,
 					open_id: this.page.open_id,
-					username:this.page.username,
-				});				
+					username:name,
+					sub_comment:[]
+				});	
+				console.log(this.hfData)			
 				Message({message: '评论成功'});
 				this.plType=0;
 				this.$refs.tageds.clearValue();
@@ -286,6 +295,7 @@ export default {
 			if(this.pl2 == "" || this.pl2 == undefined || this.pl2 == null || (this.pl2.length>0 && this.pl2.trim().length == 0)){
                 return
             }  
+			
 			let cond = ['@'+name,this.pl2];			
 			let pr = {
 				work_id:this.$route.query.id,
@@ -301,16 +311,22 @@ export default {
 			}
 			pr.access_token = this.page.access_token;
 			this.api.addComment(pr).then((da)=>{
+		
+				if(!this.onPl.fj){
+					this.onPl.fj = 0;
+				}
 				
 				this.hfData[this.onPl.fj].sub_comment.unshift({
 					avatar: this.page.avatar,					
 					content: pr.content,
-					create_time: "2019-04-02 18:45:52",
+					create_time: new Date().Format("yyyy-MM-dd HH:mm:ss"),
 					feed_id: this.hfData[this.onPl.fj].comment_id,
 					like_num: 0,
 					open_id: this.page.open_id,
-					username:this.page.username,
+					username:name,
 				});
+				
+				console.log(this.hfData[this.onPl.fj])
 				Message({message: '评论成功'});
 				this.plType=0;
 				this.$refs.tageds2.clearValue();
@@ -330,12 +346,13 @@ export default {
 			this.$set(this.hfData[on],'isshowsub','');
 			this.$set(this.hfData[on],'isshowsubWZ','展开共'+this.hfData[on].sub_comment.length+'条回复');						
 		},
-		showFhk(on,on2){			
+		showFhk(on,on2){		
+			
 			if(this.onPl.zj!=-1){
 				this.$set(this.hfData[this.onPl.fj].sub_comment[this.onPl.zj],'isshowfh','');
 			}
 			if(this.onPl.zj==-1 && this.onPl.fj!=-1){
-				console.log(this.onPl.fj)
+		
 				this.$set(this.hfData[this.onPl.fj],'isshowfh','');
 			}			
 			this.onPl = {
@@ -522,6 +539,10 @@ export default {
 }
 .seed2_1_1_1>img{
 	display: inline-block;
+	
+	
+}
+.contavatar{
 	width: 100px;
 	height: 100px;
 	border-radius: 50%;
@@ -740,7 +761,8 @@ export default {
 	color: #333333;
 	
 }
-.seed2_1_1_1 img{
+
+.seed2_1_1_1x img{
 	max-width: 100% !important;
 	height: auto !important;
 }

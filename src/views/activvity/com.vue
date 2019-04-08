@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="detail_topBox">
-			<img class="detail_topBox_1" src="" alt="">
+			<img class="detail_topBox_1" :src="infoData.banner" alt="">
 			<div class="detail_topBox_2">
 				<span @click="downMoble" class="pend">下载模板</span><span @click="showZp" class="iconfont pend">&#xe61e;上传作品</span>
 			</div>
@@ -65,6 +65,7 @@ export default {
 			work_id:[],
 			bindType:0,
 			ishowzp:false,
+			infoData:{}
 		}
 		
 	},
@@ -109,7 +110,7 @@ export default {
 				return
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{			
-				console.log(da);			
+				this.infoData = da;
 			});
 		},		
 		godefle(on){
@@ -148,9 +149,9 @@ export default {
 				work_id:this.work_id.join(','),
 			};
 			this.api.a_AttendActivity(pr).then(()=>{
-				this.bindType=0;
-				this.closeZp = false;
+				this.bindType=0;				
 				Message({message: '上传成功'});
+				this.closeZp();
 			}).catch(()=>{
 				this.bindType = 0;
 			})
@@ -169,9 +170,9 @@ export default {
 <style>
 .detail_topBox{
 	min-width: 1300px;
-	min-height: 420px;
+	
 	position: relative;
-	border-bottom: 1px solid #000000;
+	
 	margin-bottom: 30px;
 }
 .detail_topBox_1{
