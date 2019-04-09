@@ -113,6 +113,7 @@ export default {
 				city:this.form.citye[2],
 			}
 			this.api.addSelfInfo(pr).then((da)=>{
+<<<<<<< HEAD
 				if(!da){
 					return
 				}
@@ -126,6 +127,10 @@ export default {
 				window.userInfo.is_detail =1;
 				localStorage.setItem('userT',JSON.stringify(window.userInfo));
 				this.$router.push({path:'/index'})
+=======
+				localStorage.setItem('userT',JSON.stringify(da));
+				this.$router.push({path: '/'})
+>>>>>>> 96eb6155a5135d19fac48e093ff3f455d9a64629
 			});
 		},
 		pdys1(){
@@ -139,7 +144,7 @@ export default {
 			}
 			this.btnType = 'btnType';
 		},
-		
+
 	},
 	watch: {
 	    'form.username'(val) {
