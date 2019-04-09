@@ -49,10 +49,10 @@ export default {
 		this.initHead()
 	}, 
 	methods:{
-		initHead(){					
+		initHead(){	
+			this.userMssge = '';
 			if(window.userInfo){
-				this.userMssge = window.userInfo;
-			
+				this.userMssge = window.userInfo;			
 			}
 		},
 		goUpload(){
@@ -63,7 +63,10 @@ export default {
 			let p = {
 				access_token:this.userMssge.access_token
 			};
-			this.api.logout(p).then(()=>{
+			this.api.logout(p).then((da)=>{
+				if(!da){
+					return
+				}
 				this.showHb(false);
 				localStorage.setItem('pass','');			
 				localStorage.setItem('userT','');
@@ -78,7 +81,6 @@ export default {
 	},
 	watch: {	
 		'$route': function() {
-			console.log(2222222222);
 			this.initHead()
 		}
 	},

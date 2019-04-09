@@ -113,8 +113,22 @@ export default {
 		url:'/Api/Work/delComment',method:'post',baseURL:0,
 	},
 	/*xx*/
+	
 	addLike:{
 		url:'/Api/Like/addLike',method:'post',baseURL:0,
+	},
+	delLike:{
+		url:'/Api/Like/delLike',method:'post',baseURL:0,
+	},	
+	getPersonalWorkList:{
+		url:'/Api/Activity/getPersonalWorkList',method:'post',baseURL:0,
+	},
+	
+	Follow_add:{
+		url:'/Api/Follow/add',method:'post',baseURL:0,
+	},
+	Follow_del:{
+		url:'/Api/Follow/del',method:'post',baseURL:0,
 	},
 	
 }
