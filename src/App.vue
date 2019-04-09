@@ -265,4 +265,8 @@ input:-ms-input-placeholder{
 .pagesddd{
 	padding-bottom: 135px;
 }
+.wsj{
+	display: block;
+	margin: 0 auto;
+}
 </style>

@@ -86,6 +86,10 @@ export default {
 			
 			this.ajaxType=1;
 			this.api.login(params).then((da)=>{	
+				if(!da){
+					this.ajaxType=0;
+					return
+				}
 				this.ajaxType=0;
 				localStorage.setItem('userT',JSON.stringify(da));	
 				if(this.islogin===true){

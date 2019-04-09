@@ -81,6 +81,7 @@ export default {
 		}
 	},
 	mounted: function () {	
+		console.log(window.userInfo)
 	}, 
 	methods: {
 		showisPhto(){
@@ -97,12 +98,12 @@ export default {
 			if(!this.btnType){
 				return
 			}
-			let token = localStorage.getItem('userT');
-			if(!token){
+			
+			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 			}
 			let pr = {
-				access_token:JSON.parse(token).access_token,
+				access_token:window.userInfo.access_token,
 				avatar:this.caver,
 				username:this.form.username,
 				sex:this.form.sex,
@@ -112,9 +113,19 @@ export default {
 				city:this.form.citye[2],
 			}
 			this.api.addSelfInfo(pr).then((da)=>{
-
-				localStorage.setItem('userT',JSON.stringify(da));
-				this.$router.push({path: '/'})
+				if(!da){
+					return
+				}
+				window.userInfo.avatar = pr.avatar;
+				window.userInfo.username = pr.username;
+				window.userInfo.sex = pr.sex;
+				window.userInfo.vocation = pr.vocatio;
+				window.userInfo.country = pr.country;
+				window.userInfo.province = pr.province;
+				window.userInfo.city = pr.citye;
+				window.userInfo.is_detail =1;
+				localStorage.setItem('userT',JSON.stringify(window.userInfo));
+				this.$router.push({path:'/index'})
 			});
 		},
 		pdys1(){

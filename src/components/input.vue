@@ -117,7 +117,11 @@ export default {
 	    },
 	    'form.mobile_zone'(val){
 	    	let p = this.chekFn(this.input);
+			console.log(p)
 	    	if(p){
+				if(p.text){
+					p = p.text;
+				}
 	    		this.setErr("errd",p);
 	    		return
 	    	}

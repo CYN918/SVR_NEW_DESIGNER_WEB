@@ -522,6 +522,7 @@ export default {
 				}
 			};
 			let uploadComplete = (data)=>{
+				
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;
 					this.upfjData.fid=da.fid;
@@ -559,8 +560,7 @@ export default {
 				obj.xhr.abort();
 				
 				return
-			}
-			console.log(22222222);
+			}		
 			this.form.attachment_id='';
 			this.upfjData = {};
 		},

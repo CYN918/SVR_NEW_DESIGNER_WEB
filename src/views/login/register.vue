@@ -121,11 +121,25 @@ export default {
 				Message({message: '正在提交'});
 				return
 			}
-			let params = this.form;
+		
+			let params = {
+				mobile:this.form.mobile_zone,
+				mobile_zone: this.form.mobile_zone,
+				mobile: this.form.mobile,
+				verify_code: this.form.verify_code,
+				password: this.form.password,
+				password_repass:this.form.password_repass
+			};
 			params.password = this.MD5(params.password);
 			params.password_repass = this.MD5(params.password_repass);
 			this.ajaxType=1;
-			this.api.register(params).then(()=>{
+			this.api.register(params).then((da)=>{
+				
+				if(!da){
+					this.ajaxType=0;
+					return
+				}
+				
 				Message({message: '注册成功'});
 				let pr = {			
 					mobile_zone:params.mobile_zone,
@@ -134,8 +148,13 @@ export default {
 					login_type:'password',
 				};
 				this.api.login(pr).then((da)=>{	
+					
+					if(!da){
+						return
+					}
 					this.ajaxType=0;
-					localStorage.setItem('userT',JSON.stringify(da));						
+					localStorage.setItem('userT',JSON.stringify(da));
+					window.userInfo = da;										
 					this.$router.push({path: '/userme'})	
 				}).catch(()=>{
 					Message({message: '自定登录失败请稍后自行登录'});
@@ -171,7 +190,6 @@ export default {
 	},
 	watch: {
 	    'form.mobile'(val) {
-	    	console.log(1111)
 	    	this.pdys1();
 	    },
 	    'form.password'(val) {

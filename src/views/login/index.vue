@@ -69,7 +69,7 @@ export default {
 }
 .lgoin_s2{
 	position: relative;
-	width: 61% !important;
+	/* width: 61% !important; */
 	
 }
 .lgoin_s2:after{

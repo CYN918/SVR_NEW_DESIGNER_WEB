@@ -52,6 +52,7 @@ export default {
 		initHead(){					
 			if(window.userInfo){
 				this.userMssge = window.userInfo;
+			
 			}
 		},
 		goUpload(){
@@ -77,6 +78,7 @@ export default {
 	},
 	watch: {	
 		'$route': function() {
+			console.log(2222222222);
 			this.initHead()
 		}
 	},

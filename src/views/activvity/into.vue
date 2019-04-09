@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<ul class="i_listd" >
+			<img class="wsj" v-if="List.length<1" src="/imge/wsj.png" alt="">
 			<li v-for="(el,index) in List" :key="index" @click="openxq(index)">
 				<img class="i_listd1" :src="el.face_pic" alt="">
 				<div class="i_listd2">
@@ -18,7 +19,7 @@
 				</div>
 			</li>
 		</ul>
-		<el-pagination class="pagesddd"
+		<el-pagination v-if="List.length>0" class="pagesddd"
 		background
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"

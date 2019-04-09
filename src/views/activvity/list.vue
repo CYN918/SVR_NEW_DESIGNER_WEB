@@ -13,7 +13,7 @@
 					</div>
 				</div>				
 			</li>
-			<el-pagination class="pagesddd fycen"
+			<el-pagination v-if="dataList.length>0" class="pagesddd fycen"
 			background
 			@size-change="handleSizeChange"
 			@current-change="handleCurrentChange"
