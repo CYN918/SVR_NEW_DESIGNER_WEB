@@ -29,16 +29,16 @@
 					<div class="seed2_1_1_2">
 						标签<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span>
 						<span class="iconfont">&#xe73c;</span>
-						<div v-if="contDat.attachment_id">下载附件（{{contDat.attachment.file_size_format}}）</div>
+						<div  v-if="contDat.attachment_id" @click="downFile(contDat.attachment.url)">下载附件（{{contDat.attachment.file_size_format}}）</div>
 					</div>
 				</div>
 				<div class="seed2_1_2">
 					<div class="seed2_1_2_1">
 						<Input class="userBoxd2" v-model="pl"  :oType="'max'" :max="140"   :type="'text'" :placeholder="'说点什么吧'" ref="tageds"></Input>	
 						<span @click="addComment(contDat.user_info.username)">评论</span>
-						<div class="myplde" v-if="hfnum==0">
+						<p class="myplde" v-if="hfnum==0">
 							还没有人评论，快来抢沙发吧~
-						</div>
+						</p>
 					</div>
 					<div class="pl_01" v-if="hfnum>0">共{{hfnum}}条评论</div>
 					<div class="pl_02" v-if="hfnum>0">
@@ -81,7 +81,7 @@
 						
 					</div>	
 						
-					<div class="addmpl" @click="addmpl"><span class="hfdZ_4">{{ishavepltip}}</span></div>	
+					<div v-if="hfnum>0" class="addmpl" @click="addmpl"><span class="hfdZ_4">{{ishavepltip}}</span></div>	
 				</div>
 			</div>
 			<div class="seed2_2">
@@ -100,10 +100,15 @@
 						<div>创作<div>{{contDat.user_info.work_num}}</div></div>
 					</div>
 					<div class="seed2_1_1_3">
-						<span v-if="contDat.user_info.follow_flag>0">已关注</span>
-						<span v-if="contDat.user_info.follow_flag==0">关注</span>
-						<span v-if="contDat.user_info.follow_flag==0">私信</span>
-						<span v-if="page.open_id==contDat.user_info.open_id">进入主页</span>
+						<div v-if="page.open_id==contDat.user_info.open_id"><span>进入主页</span></div>
+						<div v-else>
+							<span v-if="contDat.user_info.follow_flag>0">已关注</span>
+							<span v-else>关注</span>
+							<span>私信</span>
+						</div>
+						
+						
+						
 					</div>
 				</div>
 				<div class="seed2_1_2">
@@ -189,6 +194,9 @@ export default {
 		this.getCommentList()
 	}, 
 	methods: {
+		downFile(flid){
+			window.open(flid);
+		},
 		delComment(){
 			if(this.deletType==1){
 				Message({message: '正在删除评论请稍后'});
@@ -327,7 +335,8 @@ export default {
 					open_id: this.page.open_id,
 					username:name,
 					sub_comment:[]
-				});			
+				});		
+				this.hfnum+=1;
 				Message({message: '评论成功'});
 				this.plType=0;
 				this.$refs.tageds.clearValue();
@@ -381,11 +390,10 @@ export default {
 					open_id: this.page.open_id,
 					username:name,
 				});
-								
+							
 				Message({message: '评论成功'});
 				this.plType=0;
 				this.$refs.tageds2.clearValue();
-
 				this.$refs.tageds1.clearValue();
 			}).catch(()=>{
 				this.plType=0;
@@ -640,7 +648,7 @@ export default {
 .seed2_2_1_2{
 	margin-bottom: 16px;
 }
-.seed2_1_1_3>span{
+.seed2_1_1_3>div>span{
 	cursor: pointer;
 	display: inline-block;
 	border: 1px solid #979797;
@@ -651,10 +659,10 @@ export default {
 	text-align: center;
 	line-height: 40px;
 }
-.seed2_1_1_3>span:hover{
+.seed2_1_1_3>div>span:hover{
 	opacity: .7;
 }
-.seed2_1_1_3>span:first-child{
+.seed2_1_1_3>div>span:first-child{
 	background: #FF5121;
 	border-color: #FF5121;
 	color: #fff;
@@ -710,6 +718,7 @@ export default {
 	float: right;
 }
 .seed2_1_1_2>div{
+	cursor: pointer;
 	background: #E6E6E6;
 	border-radius: 5px;
 	font-size: 14px;
@@ -923,5 +932,10 @@ content: "";
 } 
 .addmpl{
 	margin-top: 40px;
+}
+.myplde{
+	margin: 77px auto 38px;
+	font-size: 14px;
+	color: #666666;
 }
 </style>
