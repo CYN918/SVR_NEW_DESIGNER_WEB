@@ -28,7 +28,7 @@
 			<div class="page2_1">
 				<div class="page2_1_1">封面图<span class="btRed"></span></div>
 				<div class="page2_1_2">
-					<img v-if="form.face_pic" :src="form.face_pic" alt="">
+						<img v-if="form.face_pic" :src="form.face_pic" alt="">
 					<div @click="showupFm"><div>+</div>上传封面</div>
 					
 				</div>
@@ -812,6 +812,7 @@ export default {
 	width: 100%;
 	height: 100%;
 	pointer-events: none;
+	background:#E6E6E6 ;
 }
 .page2_1_2>div{	
 	background: #E6E6E6;

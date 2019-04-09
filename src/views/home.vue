@@ -17,7 +17,7 @@
 					<div class="i_listd2_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
 					<div class="i_listd2_2"><span>{{el.classify_1+'-'+el.classify_2}}</span><span>{{backtime(el.create_time)}}</span></div>
 					<div class="i_listd2_3">
-						<span><img :src="el.face_pic" alt=""></span>
+						<span><img :src="el.user_info.avatar" alt=""></span>
 						
 						<div>
 							<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
