@@ -63,7 +63,11 @@
 				<div class="page2_2_1">
 					<div class="page2_2_1_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
 					<div class="page2_2_1_2">
+<<<<<<< HEAD
 						<div><Input class="userBoxd2" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>还可添加{{form.labels.length}}个标签</div>
+=======
+						<div><Input class="userBoxd2" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>	还可添加2个标签</div>
+>>>>>>> e2bca0f162055aa7c90198910725e83ce485daa0
 						
 						
 						<div class="page2_2_1_2x">
@@ -210,8 +214,6 @@ export default {
 		'form.content'() {
 			this.checkPage1();
 		},
-		
-		
 		'form.face_pic'() {
 			this.checkPage2();
 			this.setAutoSave();
@@ -305,7 +307,7 @@ export default {
 		},
 		setAutoSave(){
 			clearTimeout(this.autoSave.obj);
-			this.autoSave.obj = setTimeout(()=>{
+			this.autoSave.obj = setTimeout(()=>{				
 				this.checkAutoSave();
 			},30000);
 		},
@@ -324,6 +326,11 @@ export default {
 			}
 			/*内容不同开始保存*/
 			this.autoSave.saveData = da;
+			if(this.$route.fullPath!='/upload'){
+				/*已离开不再保存*/
+				return 
+			}
+			
 			this.saveData(dat,'自动保存成功');
 		},
 		init(O){
@@ -558,6 +565,7 @@ export default {
 				
 				return
 			}
+			console.log(22222222);
 			this.form.attachment_id='';
 			this.upfjData = {};
 		},

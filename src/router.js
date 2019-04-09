@@ -12,15 +12,55 @@ let wb = [
 		component: () => import('./views/index.vue'),
 		children:[
 			{
-				path: '/',
+				path: '/index',
 				name: 'home',
 				component: () => import('./views/home.vue')
 			},
 			{
-				path: '/event',
-				name: 'event',
-				component: () => import('./views/event.vue')
+				path: '/recommend',
+				name: 'recommend',
+				component: () => import('./views/user/recommend.vue')
 			},
+			{
+				path: '/info',
+				name: 'info',
+				component: () => import('./views/user/info.vue')
+			},
+			{
+				path: '/works',
+				name: 'works',
+				component: () => import('./views/user/works.vue')
+			},
+			{
+				path: '/follow',
+				name: 'follow',
+				component: () => import('./views/user/follow.vue')
+			},
+			
+			
+			{
+				path: '/activvity',
+				name: 'activvity',
+				component: () => import('./views/activvity/list.vue'),
+				
+			},
+			{
+				path: '/detailed',
+				name: 'detailed',
+				component: () => import('./views/activvity/com.vue'),
+				children:[
+					{path: '/detailed',
+					name: 'detailed_detailed',
+					component: () => import('./views/activvity/detailed.vue'),},
+					{path: '/detailed/into',
+					name: 'detailed_into',
+					component: () => import('./views/activvity/into.vue'),},
+					{path: '/detailed/admission',
+					name: 'detailed_admission',
+					component: () => import('./views/activvity/admission.vue'),},
+				]
+			},
+			
 			{
 				path: '/upload',
 				name: 'upload',
@@ -115,7 +155,18 @@ router.beforeEach((to, from, next) => {
 // 		localStorage.setItem("token","");
 // 		tonek=false;
 // 	}
+
+
+
+
+
 let token = localStorage.getItem('userT');
+
+if(to.fullPath=='/'){
+	next('/index');	
+	return
+}
+
 if(token){
 	try{
 		window.userInfo = JSON.parse(token);
@@ -140,7 +191,7 @@ if(pass){
 					next('/userme');	
 					return
 				}
-				next('/');	
+				next('/index');	
 				return																			
 			}).catch(()=>{	
 				localStorage.setItem('pass','');
@@ -149,7 +200,7 @@ if(pass){
 			return
 		}
 		if(['/upload'].indexOf(to.fullPath)!=-1){
-			next('/');	
+			next('/index');	
 			return
 		}
 		next();
@@ -162,6 +213,7 @@ if(pass){
 	
 	
 	if(window.userInfo.is_detail==1 && ['/login','/login2','/register','/modifyPassword','/userme'].indexOf(to.fullPath)!=-1){
+		console.log(111111);
 		next('/');	
 		return
 	}

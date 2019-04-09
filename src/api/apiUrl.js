@@ -4,6 +4,10 @@ export default {
 // 	login:{
 // 		url:'/Passport/User/login',method:'post',baseURL:0,
 // 	},
+	logout:{
+		url:'/Api/User/logout',method:'post',baseURL:0
+	},
+	
 /*获取用户信息*/
 	getSelfInfo:{
 		url:'/Api/User/getSelfInfo',method:'post',baseURL:0
@@ -84,5 +88,33 @@ export default {
 		url:'/Api/Work/getCommentList',method:'post',baseURL:0,
 	},
 	
+	
+	
+	/*Activvity*/
+	a_getList:{
+		url:'/Api/Activity/getActivityList',method:'post',baseURL:0,
+	},
+	a_getInfo:{
+		url:'/Api/Activity/getActivityInfo',method:'post',baseURL:0,
+	},
+	a_getInfo:{
+		url:'/Api/Activity/getActivityInfo',method:'post',baseURL:0,
+	},
+	
+	a_getWork:{
+		url:'/Api/Activity/getActivityWork',method:'post',baseURL:0,
+	},
+	
+	a_AttendActivity:{
+		url:'/Api/Activity/AttendActivity',method:'post',baseURL:0,
+	},
+	/*删除评论*/
+	delComment:{
+		url:'/Api/Work/delComment',method:'post',baseURL:0,
+	},
+	/*xx*/
+	addLike:{
+		url:'/Api/Like/addLike',method:'post',baseURL:0,
+	},
 	
 }

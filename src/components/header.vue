@@ -2,17 +2,36 @@
 	<header class="header">
 		<img class="header_1 pend" src="/imge/log.png">
 		<span class="header_2">
-			<router-link class="pend" to="/">首页</router-link>
-			<router-link class="last pend" to="/event">活动</router-link>
+			<router-link class="pend" to="/index">首页</router-link>
+			<router-link class="last pend" to="/activvity">活动</router-link>
 		</span>
 		<div class="header_3">
 			<span class="iconfont pend">&#xe609;</span>
 			<span class="iconfont pend">&#xe65b;</span>
 			<span class="iconfont pend" @click="goUpload">&#xe61e;</span>
-			<span class="header_4" v-if="userMssge"><div><img :src="userMssge.avatar" alt=""></div>{{userMssge.username}}</span>	
+			<span class="header_4" v-if="userMssge">
+				<div><img :src="userMssge.avatar" alt=""></div>
+				<div  class="userBpx">
+					<router-link to="/works">{{userMssge.username}}</router-link>
+					<ul> 
+						<router-link  to="/activvity"><li><span class="iconfont">&#xe620;</span>我的创作</li></router-link>
+						<router-link  to="/activvity"><li><span class="iconfont">&#xe624;</span>我的关注</li></router-link>
+						<router-link  to="/activvity"><li><span class="iconfont">&#xe62d;</span>我的收益</li></router-link>
+						<router-link  to="/activvity"><li><span class="iconfont">&#xe63d;</span>账号设置</li></router-link>
+						<a @click="showHb(true)"><li><span class="iconfont">&#xe622;</span>退出登录</li></a>
+					</ul>
+				</div>
+			</span>	
 			<span class="header_4" v-else><router-link class="pend" to="/login">登录</router-link><span>|</span><router-link class="pend" to="/register">注册</router-link></span>			
 					
 					
+		</div>
+		<div v-show="isshowd" class="loginoutBox">
+			<div class="loginoutBox1">
+				<img @click="showHb(false)" class="loginoutBox2" src="/imge/cj_00.png">
+				<div class="loginoutBox3">确定退出登录?</div>
+				<div class="loginoutBox4"><span @click="showHb(false)">取消</span><span @click="logout()">确定</span></div>
+			</div>
 		</div>
 	</header>
 </template>
@@ -23,20 +42,42 @@ export default {
 	data(){	
 		return{
 			userMssge:'',
-		}
-		
+			isshowd:false,
+		}		
 	},
 	mounted: function () {	
-		let p = localStorage.getItem('userT');
-		if(p){
-			this.userMssge = JSON.parse(p);
-		}
+		this.initHead()
 	}, 
 	methods:{
+		initHead(){					
+			if(window.userInfo){
+				this.userMssge = window.userInfo;
+			}
+		},
 		goUpload(){
-			if(!this.userMssge){return}
-			this.$router.push({path:'/upload'})
-			
+			if(!this.userMssge){this.$router.push({path:'/login'}); return}
+			this.$router.push({path:'/upload'})			
+		},
+		logout(){
+			let p = {
+				access_token:this.userMssge.access_token
+			};
+			this.api.logout(p).then(()=>{
+				this.showHb(false);
+				localStorage.setItem('pass','');			
+				localStorage.setItem('userT','');
+				window.userInfo='';
+				window.passIn = '';
+				this.$router.push({path: '/login'})	
+			});
+		},
+		showHb(is){
+			this.isshowd = is;
+		}
+	},
+	watch: {	
+		'$route': function() {
+			this.initHead()
 		}
 	},
 	
@@ -53,8 +94,9 @@ export default {
     background: #323232;
 }
 .header_1{
-    margin: 0 97px 0 60px;
-    width: 135px;   
+    margin: 13px 97px 0 60px;
+    width: 135px; 
+	height: 36px;
 }
 .header>span{
 	flex: 1;
@@ -79,19 +121,21 @@ export default {
     background: #FCFCFC;
 }
 .header_3{
-	width: 301px;
+	width: 234px;
 	color: #fff;
-	margin-right: 66px;
+	margin-right: 100px;
 }
 .header_3>span{
 	line-height: 60px;
 	margin-right: 31px;
 }
 .header_4{
-    margin-right: 66px !important;
+    margin-right: 0 !important;
+	cursor: pointer;
 }
 .header_4>a{
 	color: #fff;
+	
 }
 .header_4>span{
 	margin: 0 10px;
@@ -110,6 +154,120 @@ export default {
 	width: 100%;
 	border-radius: 50%;
 }
+.header_4{
+	position: relative;
+	display: inline-block;
+}
+.header_4>.userBpx{
+	display: none;
+	position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #FFFFFF;
+    -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    border-radius: 5px;
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+    width: 170px;
+    height: 264px;
+    z-index: 9999;
+    margin-right: 0;
+}
+.header_4:hover>.userBpx{
+	display: block;
+}
+.userBpx>a{
+	display: block;
+    font-size: 14px;
+    color: #1E1E1E;
+    border-bottom: 1px solid #E6E6E6;
+    width: 170px;
+    text-align: center;
+    line-height: 53px;
+	margin: 0;
+	padding: 0;
+}
+.userBpx>a:hover{
+	background: #E6E6E6;
+	cursor: pointer;
+}
+.userBpx>ul>a>li{
+	font-size: 14px;
+	color: #1E1E1E;
+	text-align: center;
+	line-height: 42px;
+}
+.userBpx>ul>a>li>span{
+	margin-right: 10px;
+	font-size: 15px;
+}
+.userBpx>ul>a:nth-child(3)>li>span{
+	font-size: 19px;
+}
+.userBpx>ul>a>li:hover{
+	background: #E6E6E6;
+	cursor: pointer;
+}
+.userBpx>ul>a:last-child>li{
+	border-top: 1px solid #E6E6E6;
+}
+.loginoutBox{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.4);
+	z-index: 9999;
+}
+.loginoutBox1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin:  auto;
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	width: 420px;
+	height: 143px;
 
-
+}
+.loginoutBox2{
+	position: absolute;
+    top: -45px;
+    right: -45px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+}
+.loginoutBox3{
+	font-size: 14px;
+	color: #1D1E1F;
+	margin: 26px auto 27px;
+}
+.loginoutBox4>span{
+	display: inline-block;
+	border: 1px solid #999999;
+	border-radius: 5px;
+	width: 100px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	box-sizing: border-box;
+	font-size: 14px;
+	color: #333333;
+	cursor: pointer;
+}
+.loginoutBox4>span:hover{
+	opacity: .7;
+}
+.loginoutBox4>span:last-child{
+	background: #333333;
+	border-color: #333;
+	color: #fff;
+	margin-left: 30px;
+}
 </style>

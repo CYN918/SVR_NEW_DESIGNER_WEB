@@ -7,8 +7,8 @@
 				</div>
 				<div class="seed1_2">
 					<span class="seed1_2_1">{{backtime(contDat.create_time)}}</span>
-					<span class="seed1_2_2"><span class="iconfont">&#xe616;</span>0</span>
-					<span class="seed1_2_3"><span class="iconfont">&#xe672;</span>0</span>
+					<span class="seed1_2_2"><span class="iconfont">&#xe616;</span>{{hfnum}}</span>
+					<span class="seed1_2_3"><span class="iconfont">&#xe672;</span>{{contDat.like_num}}</span>
 					<span class="seed1_2_4"><span class="iconfont">&#xe64c;</span>分享</span>
 					<span class="seed1_2_5"><span class="iconfont">&#xe652;</span>推荐</span>
 				</div>
@@ -25,7 +25,7 @@
 		<div class="seed2">
 			<div class="seed2_1">
 				<div class="seed2_1_1" >
-					<div class="seed2_1_1_1" v-html="contDat.content"></div>
+					<div class="seed2_1_1_1x" v-html="contDat.content"></div>
 					<div class="seed2_1_1_2">
 						标签<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span>
 						<span class="iconfont">&#xe73c;</span>
@@ -35,23 +35,26 @@
 				<div class="seed2_1_2">
 					<div class="seed2_1_2_1">
 						<Input class="userBoxd2" v-model="pl"  :oType="'max'" :max="140"   :type="'text'" :placeholder="'说点什么吧'" ref="tageds"></Input>	
-						<span @click="addComment(contDat.username)">评论</span>
+						<span @click="addComment(contDat.user_info.username)">评论</span>
+						<div class="myplde" v-if="hfnum==0">
+							还没有人评论，快来抢沙发吧~
+						</div>
 					</div>
-					<div class="pl_01">共126条评论</div>
-					<div class="pl_02">
+					<div class="pl_01" v-if="hfnum>0">共{{hfnum}}条评论</div>
+					<div class="pl_02" v-if="hfnum>0">
 						<div v-for="(el,index) in hfData" :key="index">
 							
 						
 							<div  class="pl_02_1">
 								<img :src="el.avatar">
 								<div>
-									<span>{{el.username}}</span><span>{{backtime(el.create_time)}}</span><span class="iconfont pend" @click="delethf(el.feed_id,el.comment_id,index)">&#xe602;</span>
-									<div><span class="atren">{{backComt(el.content)[0]}}</span>{{backComt(el.content)[1]}}</div>
+									<span>{{el.username}}</span><span>{{backtime(el.create_time)}}</span><span v-if="!isoutTime(el.create_time)" class="iconfont pend" @click="showHb(el.feed_id,el.comment_id,index)">&#xe602;</span>
+									<div>{{backComt(el.content)[0]}}</div>
 								</div>
 								<div>
-									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span>&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
+									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span>&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
 									<div class="hfBox" v-if="el.isshowfh">
-										<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="9999" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
+										<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 										<span @click="addfu2(el.feed_id,el.username)">回复</span>
 									</div>
 								</div>
@@ -60,13 +63,13 @@
 								<div class="pl_02_1">
 									<img :src="el2.avatar">
 									<div>
-										<span>{{el2.username}}</span><span>{{backtime(el2.create_time)}}</span><span class="iconfont pend">&#xe602;</span>
-										<div>{{el2.content}}</div>
+										<span>{{el2.username}}</span><span>{{backtime(el2.create_time)}}</span><span @click="showHb(el2.feed_id,el2.comment_id,index,index2)" class="iconfont pend">&#xe602;</span>
+										<div><span class="atren">{{backComt(el2.content)[0]}}</span>{{backComt(el2.content)[1]}}</div>
 									</div>
 									<div class="yasfh">
 										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span>&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
 										<div class="hfBox" v-if="el2.isshowfh">
-											<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="9999" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
+											<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
 											<span @click="addfu2(el2.feed_id,el2.username)">回复</span>
 										</div>
 									</div>								
@@ -82,23 +85,25 @@
 				</div>
 			</div>
 			<div class="seed2_2">
-				<div class="seed2_1_1">
+				<div class="seed2_1_1" v-if="contDat.user_info">
 					<div class="seed2_1_1_1">
-						<img :src="contDat.avatar" alt="">
+						<img class="contavatar" :src="contDat.user_info.avatar" alt="">
 						<div>
-							<div>{{contDat.username}}</div>
-							<div>{{contDat.city}}  |  {{contDat.province}}</div>
-							<div><span v-if="contDat.is_platform_work">xx</span> xx</div>
+							<div>{{contDat.user_info.username}}</div>
+							<div>{{contDat.user_info.city}}  |  {{contDat.user_info.province}}</div>
+							<div><span v-if="contDat.user_info.is_platform_work">xx</span> xx</div>
 						</div>
 					</div>
 					<div class="seed2_2_1_2">
-						<div>粉丝<div>{{contDat.fans_num}}</div></div>
-						<div>人气<div>{{contDat.popular_num}}</div></div>
-						<div>创作<div>{{contDat.work_num}}</div></div>
+						<div>粉丝<div>{{contDat.user_info.fans_num}}</div></div>
+						<div>人气<div>{{contDat.user_info.popular_num}}</div></div>
+						<div>创作<div>{{contDat.user_info.work_num}}</div></div>
 					</div>
 					<div class="seed2_1_1_3">
-						<span>关注</span>
-						<span>私信</span>
+						<span v-if="contDat.user_info.follow_flag>0">已关注</span>
+						<span v-if="contDat.user_info.follow_flag==0">关注</span>
+						<span v-if="contDat.user_info.follow_flag==0">私信</span>
+						<span v-if="page.open_id==contDat.user_info.open_id">进入主页</span>
 					</div>
 				</div>
 				<div class="seed2_1_2">
@@ -130,6 +135,13 @@
 			</div>
 		</div>
 		
+		<div v-show="isshowd" class="loginoutBox">
+			<div class="loginoutBox1">
+				<img @click="hindHb()" class="loginoutBox2" src="/imge/cj_00.png">
+				<div class="loginoutBox3">确定退出登录?</div>
+				<div class="loginoutBox4"><span @click="hindHb()">取消</span><span @click="delComment()">确定</span></div>
+			</div>
+		</div>
 	</div>
 	
 </template>
@@ -146,6 +158,8 @@ export default {
 				username:"xxxx",
 				xx:'禁止匿名转载；禁止商业使用。临摹作品，同人作品原型版归原作者所有。',
 			},
+			isshowd:false,
+			hfnum:0,
 			contDat:{},
 			page:{
 				limit:10,
@@ -163,6 +177,11 @@ export default {
 			plfsOn:-1,
 			ishavepl:0,
 			ishavepltip:'查看更多评论',
+			deletData:{
+				
+			},
+			deletType:0,
+			deletOn:[],
 		}
 	},
 	mounted: function () {	
@@ -170,6 +189,48 @@ export default {
 		this.getCommentList()
 	}, 
 	methods: {
+		delComment(){
+			if(this.deletType==1){
+				Message({message: '正在删除评论请稍后'});
+				return
+			}			
+			this.deletType = 1;
+			this.api.delComment(this.deletData).then(()=>{
+				this.deletType = 0;	
+				if(this.deletOn.length>1){
+					this.hfData[this.deletOn[0]].sub_comment.splice(this.deletOn[1],1);
+				}else{
+					this.hfData.splice(this.deletOn[0],1);
+				}	
+				Message({message: '删除评论成功'});			
+				this.hindHb();
+			}).catch(()=>{
+				this.deletType = 0;		
+			});
+			
+
+		},
+		isoutTime(t){
+			return ((new Date()).valueOf()- (new Date(t)).valueOf(t))>=(5*60*1000)
+	
+		},
+		showHb(fid,cid,on,on2){
+			this.isshowd = true;	
+			this.deletData = {
+				access_token:window.userInfo.access_token,
+				work_id:this.$route.query.id,
+				comment_id:cid,
+				feed_id:fid,				
+			};
+			this.deletOn = [on];
+			if(!on2 && on2!=0){
+				return
+			}
+			this.deletOn.push(on2);
+		},
+		hindHb(){
+			this.isshowd = false;
+		},
 		addmpl(){
 			if(this.ishavepl==1){
 				this.ishavepltip='没有更多评论了！';				
@@ -182,16 +243,15 @@ export default {
 			return window.getTimes(time)
 		},
 		init(){		
-			let token = localStorage.getItem('userT');
+			// let token = localStorage.getItem('userT');
 			let pr = {
 				work_id:this.$route.query.id,
 			}
-			if(token){
-				let dd = JSON.parse(token);
-				this.page.access_token = dd.access_token;
-				this.page.open_id = dd.open_id;
-				this.page.avatar = dd.avatar;
-				this.page.username = dd.username;
+			if(window.userInfo){
+				this.page.access_token = window.userInfo.access_token;
+				this.page.open_id = window.userInfo.open_id;
+				this.page.avatar = window.userInfo.avatar;
+				this.page.username = window.userInfo.username;
 				pr.access_token =this.page.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
@@ -239,7 +299,7 @@ export default {
 			if(this.pl == "" || this.pl == undefined || this.pl == null || (this.pl.length>0 && this.pl.trim().length == 0)){
 			    return
 			}  
-			let cond = ['@'+name,this.pl];
+			let cond = [this.pl];
 			
 			let pr = {
 				work_id:this.$route.query.id,
@@ -253,28 +313,27 @@ export default {
 			}
 			
 			this.plType=1;
-
+		
 			pr.access_token = this.page.access_token;
 			this.api.addComment(pr).then((da)=>{
 				
 				this.hfData.unshift({
-					avatar: this.page.avatar,					
+					avatar: this.page.avatar,
+					comment_id:da.comment_id,
 					content: pr.content,
-					create_time: "2019-04-02 18:45:52",
-					feed_id: this.hfData[1].feed_id,
+					create_time: new Date().Format("yyyy-MM-dd HH:mm:ss"),
+					feed_id:da.comment_id,
 					like_num: 0,
 					open_id: this.page.open_id,
-					username:this.page.username,
-				});				
+					username:name,
+					sub_comment:[]
+				});			
 				Message({message: '评论成功'});
 				this.plType=0;
 				this.$refs.tageds.clearValue();
 			}).catch(()=>{
 				this.plType=0;
 			});	
-			
-		},
-		delethf(fid,zid,on,on2){
 			
 		},
 		addfu2(fid,name){
@@ -286,6 +345,7 @@ export default {
 			if(this.pl2 == "" || this.pl2 == undefined || this.pl2 == null || (this.pl2.length>0 && this.pl2.trim().length == 0)){
                 return
             }  
+			
 			let cond = ['@'+name,this.pl2];			
 			let pr = {
 				work_id:this.$route.query.id,
@@ -301,16 +361,27 @@ export default {
 			}
 			pr.access_token = this.page.access_token;
 			this.api.addComment(pr).then((da)=>{
+		
+				if(!this.onPl.fj){
+					this.onPl.fj = 0;
+				}
 				
+				if(!this.hfData[this.onPl.fj].sub_comment){
+				
+					this.$set(this.hfData,sub_comment,[])
+					
+				}
 				this.hfData[this.onPl.fj].sub_comment.unshift({
 					avatar: this.page.avatar,					
 					content: pr.content,
-					create_time: "2019-04-02 18:45:52",
+					create_time: new Date().Format("yyyy-MM-dd HH:mm:ss"),
 					feed_id: this.hfData[this.onPl.fj].comment_id,
 					like_num: 0,
+					comment_id:da.comment_id,
 					open_id: this.page.open_id,
-					username:this.page.username,
+					username:name,
 				});
+								
 				Message({message: '评论成功'});
 				this.plType=0;
 				this.$refs.tageds2.clearValue();
@@ -330,12 +401,13 @@ export default {
 			this.$set(this.hfData[on],'isshowsub','');
 			this.$set(this.hfData[on],'isshowsubWZ','展开共'+this.hfData[on].sub_comment.length+'条回复');						
 		},
-		showFhk(on,on2){			
+		showFhk(on,on2){		
+			
 			if(this.onPl.zj!=-1){
 				this.$set(this.hfData[this.onPl.fj].sub_comment[this.onPl.zj],'isshowfh','');
 			}
 			if(this.onPl.zj==-1 && this.onPl.fj!=-1){
-				console.log(this.onPl.fj)
+		
 				this.$set(this.hfData[this.onPl.fj],'isshowfh','');
 			}			
 			this.onPl = {
@@ -522,6 +594,10 @@ export default {
 }
 .seed2_1_1_1>img{
 	display: inline-block;
+	
+	
+}
+.contavatar{
 	width: 100px;
 	height: 100px;
 	border-radius: 50%;
@@ -726,21 +802,20 @@ export default {
 	display: inline-block;
 	position: relative;
 	color: #FF5121;
-	opacity: 0;
+	
 }
 .hfdZ_1{
 	
 }
-.pl_02_1>div:nth-child(2)>span:nth-child(3):hover{
-	opacity: 1;
-}
+
 .pl_02_1>div:nth-child(2)>span:nth-child(4){
 	display: block;
 	font-size: 14px;
 	color: #333333;
 	
 }
-.seed2_1_1_1 img{
+
+.seed2_1_1_1x img{
 	max-width: 100% !important;
 	height: auto !important;
 }

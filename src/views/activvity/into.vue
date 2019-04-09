@@ -1,15 +1,5 @@
 <template>
 	<div>
-		<div class="banner">
-			<div class="banner1">
-				<img v-for="(el,index) in banners" @click="opend(el.jump_url)" :class="[banOn==index?'action':'']" :src="el.banner_pic" alt="">
-			</div>
-			<div class="banner_nav1">
-				<span v-for="(el,index) in banners" @click="checkBan(index)" :class="[banOn==index?'action':'']"></span>
-			</div>
-			<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
-			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
-		</div>
 		<ul class="i_listd" >
 			<li v-for="(el,index) in List" :key="index" @click="openxq(index)">
 				<img class="i_listd1" :src="el.face_pic" alt="">
@@ -42,75 +32,53 @@
 </template>
 
 <script>
-import { Loading } from 'element-ui';
 export default {
-	name: 'home',
-	data(){
-		return {
-			banners:[],
+	name: 'home',	 
+	data(){	
+		return{
 			List:[],
-			banOn:0,
 			page:1,
 			limit:40,
 			total:0,
 			loading: '',
-			
 		}
+		
 	},
 	mounted: function () {	
-		this.getBanner();
-		this.getHList();
-		console.log(this.$route.fullPath)
+		this.a_getWork()
 	}, 
-	methods: {
-		backtime(time){
-		
-			return	window.getTimes(time);
-		},	
-		opend(ur){
-			if(!ur){return}
-			window.open(ur);
-		},
-		openxq(on){
-			window.open('#/cont?id='+this.List[on].work_id)
-		},
-		getBanner(){
-			this.api.getBanner().then((da)=>{
-				this.banners = da;
-				setInterval(()=>{
-					this.checkBan2();
-				},5000);
-			});
-			
-		},
-		checkBan(on){
-			this.banOn = on;
-		},
-		checkBan1(){
-			if(this.banOn>0){
-				this.banOn--;
-				return
-			}
-			this.banOn = this.banners.length-1;
-		},
-		checkBan2(){
-			if(this.banOn<this.banners.length-1){
-				this.banOn++;
-				return
-			}
-			this.banOn = 0;
-		},
+	methods:{
 		getHList(){
 			let params = {
 				page:this.page,
 				limit:this.limit
 			}
-			this.loading = Loading.service({ fullscreen: true });
 			this.api.getHList(params).then((da)=>{
 				this.List = da.data;
 				this.total = da.total;
-				this.loading.close();
 			})
+		},
+		a_getWork(){
+			if(!this.$route.query.id){
+				this.$router.push({path:'/activvity'})	
+				return
+			}
+			let pr = {
+				type:1,
+				activity_id:this.$route.query.id
+			};
+			this.api.a_getWork(pr).then((da)=>{			
+				console.log(da);
+				this.List = da.data;
+				this.total = da.total;
+			});
+		},
+		openxq(on){
+			window.open('#/cont?id='+this.List[on].work_id)
+		},
+		backtime(time){
+		
+			return	window.getTimes(time);
 		},
 		handleSizeChange(val) {
 			this.limit = val;
@@ -120,10 +88,12 @@ export default {
 			this.page = val;
 			this.getHList();
 		}
-	}
+	},
+	
+	
+	
 }
 </script>
 
 <style>
-
 </style>

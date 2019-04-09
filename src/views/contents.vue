@@ -26,30 +26,35 @@
 			<div class="seed2_1">
 				<div class="seed2_1_1" >
 					<div class="seed2_1_1_1" v-html="contDat.content"></div>
-					<div class="seed2_1_1_2">标签<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span><span class="iconfont">&#xe73c;</span><div v-if="contDat.attachment.file_size_format">下载附件（{{contDat.attachment.file_size_format}}）</div></div>
+					<div class="seed2_1_1_2">标签<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span><span class="iconfont">&#xe73c;</span><div v-if="contDat.attachment">下载附件（{{contDat.attachment.file_size_format}}）</div></div>
 				</div>
 				<div class="seed2_1_2">
 					<div class="seed2_1_2_1"><div>说点什么吧<span>0/140</span></div><span>评论</span></div>
+					<div class="myplde">
+						还没有人评论，快来抢沙发吧~
+					</div>
 				</div>
+				
+				
 			</div>
 			<div class="seed2_2">
-				<div class="seed2_1_1">
+				<div class="seed2_1_1" v-if="contDat.user_info">
 					<div class="seed2_1_1_1">
-						<img :src="contDat.avatar" alt="">
+						<img :src="contDat.user_info.avatar" alt="">
 						<div>
-							<div>{{contDat.username}}</div>
-							<div>{{contDat.city}}  |  {{contDat.province}}</div>
-							<div><span v-if="contDat.is_platform_work">xx</span> xx</div>
+							<div>{{contDat.user_info.username}}</div>
+							<div>{{contDat.user_info.city}}  |  {{contDat.user_info.province}}</div>
+							<div><span v-if="contDat.user_info.is_platform_work">xx</span> xx</div>
 						</div>
 					</div>
 					<div class="seed2_2_1_2">
-						<div>粉丝<div>{{contDat.fans_num}}</div></div>
-						<div>人气<div>{{contDat.popular_num}}</div></div>
-						<div>创作<div>{{contDat.work_num}}</div></div>
+						<div>粉丝<div>{{contDat.user_info.fans_num}}</div></div>
+						<div>人气<div>{{contDat.user_info.popular_num}}</div></div>
+						<div>创作<div>{{contDat.user_info.work_num}}</div></div>
 					</div>
 					<div class="seed2_1_1_3">
-						<span>关注</span>
-						<span>私信</span>
+					
+						<span style="background:#666;border-color: #666;">进入主页</span>
 					</div>
 				</div>
 				<div class="seed2_1_2">
@@ -437,5 +442,10 @@ export default {
 	font-size: 14px;
 	color: #FFFFFF;
 	margin-left: 20px;
+}
+.myplde{
+	margin: 77px auto 38px;
+	font-size: 14px;
+	color: #666666;
 }
 </style>

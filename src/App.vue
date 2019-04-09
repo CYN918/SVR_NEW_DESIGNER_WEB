@@ -12,6 +12,7 @@ html,body,div,img,p,ul,li{
 }
 html,body{
 	min-width: 1300px;
+	overflow-x: hidden;
 	
 }
 html{
@@ -26,6 +27,7 @@ a{list-style-type: none}
 a:visited{text-decoration:none;}
 a:hover{text-decoration:none;}
 a:active{text-decoration:none;}
+li{list-style-type: none}
 @font-face {
 	font-family: 'iconfont';
 	src: url('/font/iconfont.eot');
