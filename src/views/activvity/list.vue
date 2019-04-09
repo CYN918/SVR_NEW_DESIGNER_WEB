@@ -48,7 +48,10 @@ export default {
 		a_getList(){
 				
 			this.api.a_getList(this.pL).then((da)=>{
-				console.log(da);
+				if(!da){					
+					return
+				}
+				
 				this.dataList =da.data;
 				this.pL.total = da.total;
 			});
@@ -62,7 +65,7 @@ export default {
 			this.a_getList();
 		},
 		goDetailed(id){
-			console.log(2222222)
+			
 			this.$router.push({path:'/detailed',query:{id:id}});	
 		}
 	},

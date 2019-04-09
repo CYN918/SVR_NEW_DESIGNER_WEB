@@ -55,6 +55,9 @@ export default {
 				limit:this.limit
 			}
 			this.api.getHList(params).then((da)=>{
+				if(!da){
+					return
+				}
 				this.List = da.data;
 				this.total = da.total;
 			})
@@ -69,7 +72,9 @@ export default {
 				activity_id:this.$route.query.id
 			};
 			this.api.a_getWork(pr).then((da)=>{			
-				console.log(da);
+				if(!da){
+					return
+				}
 				this.List = da.data;
 				this.total = da.total;
 			});

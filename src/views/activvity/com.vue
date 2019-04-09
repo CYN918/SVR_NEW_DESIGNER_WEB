@@ -109,7 +109,10 @@ export default {
 				this.$router.push({path:'/activvity'})	
 				return
 			}
-			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{			
+			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{	
+				if(!da){
+					return
+				}
 				this.infoData = da;
 			});
 		},		
@@ -128,6 +131,9 @@ export default {
 				limit:this.limit
 			}
 			this.api.getHList(params).then((da)=>{
+				if(!da){
+					return
+				}
 				this.zpList = da.data;
 			})
 		},
@@ -148,7 +154,11 @@ export default {
 				activity_id:this.$route.query.id,
 				work_id:this.work_id.join(','),
 			};
-			this.api.a_AttendActivity(pr).then(()=>{
+			this.api.a_AttendActivity(pr).then((da)=>{
+				if(!da){
+					this.bindType=0;	
+					return
+				}
 				this.bindType=0;				
 				Message({message: '上传成功'});
 				this.closeZp();

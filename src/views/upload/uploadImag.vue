@@ -150,6 +150,9 @@ export default {
 				file_type:this.configData.getType,
 			}
 			this.api.getFList(params).then((da)=>{
+				if(!da){
+					return
+				}
 				this.list =da.data;
 			})
 		},

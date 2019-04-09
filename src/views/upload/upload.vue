@@ -400,6 +400,9 @@ export default {
 				access_token:JSON.parse(p).access_token
 			};
 			this.api.getWorkId(params).then((da)=>{
+				if(!da){
+					return
+				}
 				this.form.work_id = da.work_id;
 			});
 		},
@@ -577,7 +580,9 @@ export default {
 			};
 			
 			this.api.getClassify(pr).then((da)=>{
-				
+				if(!da){
+					return
+				}
 				let p = JSON.stringify(da);
 				p = p.replace(/classify_name/g,"label");
 				p = p.replace(/id/g,"value");
