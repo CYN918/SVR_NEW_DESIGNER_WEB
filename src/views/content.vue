@@ -91,7 +91,7 @@
 						<div>
 							<div>{{contDat.user_info.username}}</div>
 							<div>{{contDat.user_info.city}}  |  {{contDat.user_info.province}}</div>
-							<div><span v-if="contDat.user_info.is_platform_work">xx</span> xx</div>
+							<div><span v-if="contDat.user_info.is_platform_work">{{contDat.user_info.vocation}}</span>{{contDat.user_info.vocation}}</div>
 						</div>
 					</div>
 					<div class="seed2_2_1_2">
@@ -100,6 +100,11 @@
 						<div>创作<div>{{contDat.user_info.work_num}}</div></div>
 					</div>
 					<div class="seed2_1_1_3">
+
+						<span v-if="contDat.user_info.follow_flag>0">已关注</span>
+						<span v-if="contDat.user_info.follow_flag==0&&show">关注</span>
+						<span v-if="contDat.user_info.follow_flag==0&&show">私信</span>
+
 						<div v-if="page.open_id==contDat.user_info.open_id"><span>进入主页</span></div>
 						<div v-else>
 							<span @click="showHb2" v-if="contDat.user_info.follow_flag>0">已关注</span>
@@ -108,7 +113,7 @@
 						</div>
 						
 						
-						
+
 					</div>
 				</div>
 				<div class="seed2_1_2">
@@ -143,7 +148,9 @@
 		<div v-show="isshowd" class="loginoutBox">
 			<div class="loginoutBox1">
 				<img @click="hindHb()" class="loginoutBox2" src="/imge/cj_00.png">
+
 				<div class="loginoutBox3">确定删该条除评论?</div>
+
 				<div class="loginoutBox4"><span @click="hindHb()">取消</span><span @click="delComment()">确定</span></div>
 			</div>
 		</div>
@@ -175,6 +182,7 @@ export default {
 				username:"xxxx",
 				xx:'禁止匿名转载；禁止商业使用。临摹作品，同人作品原型版归原作者所有。',
 			},
+			show:true,
 			isshowd:false,
 			isshowd2:false,
 			
@@ -386,7 +394,12 @@ export default {
 			this.api.getWorkDetail(pr).then((da)=>{
 				da.labels = JSON.parse(da.labels)
 				this.contDat = da;
-				
+				if(window.userInfo.open_id==da.user_info.open_id){
+				    this.show= false;
+				}else {
+                    this.show= true;
+				}
+				console.log(window.userInfo.open_id)
 			});
 		},
 		backComt(data){
@@ -426,7 +439,7 @@ export default {
 				return
 			}
 			if(this.plType==1){
-				Message({message: '正在发送评论请稍后'});
+				Message({message: '评论为空'});
 				return
 			}
 			if(this.pl == "" || this.pl == undefined || this.pl == null || (this.pl.length>0 && this.pl.trim().length == 0)){
@@ -442,7 +455,7 @@ export default {
 			
 			if(!this.page.access_token){
 				Message({message: '请先登录'});
-				return
+                this.$router.push({path: '/login'})
 			}
 			
 			this.plType=1;
@@ -460,19 +473,23 @@ export default {
 					open_id: this.page.open_id,
 					username:name,
 					sub_comment:[]
-				});		
+
+				});
+
 				this.hfnum+=1;
 				Message({message: '评论成功'});
 				this.plType=0;
+				this.pl2='';
 				this.$refs.tageds.clearValue();
 			}).catch(()=>{
 				this.plType=0;
-			});	
+			});
 			
 		},
+
 		addfu2(fid,name){
 			if(this.plType==1){
-				Message({message: '正在发送评论请稍后'});
+				Message({message: '评论为空'});
 				return
 			}
 			this.plType=1;
@@ -518,6 +535,7 @@ export default {
 							
 				Message({message: '评论成功'});
 				this.plType=0;
+                this.pl2='';
 				this.$refs.tageds2.clearValue();
 				this.$refs.tageds1.clearValue();
 			}).catch(()=>{
@@ -930,8 +948,10 @@ export default {
 	font-size: 14px;
 	color: #1E1E1E;
 	vertical-align: top;
-	max-width: 86%;
-    word-break: break-word;
+
+	max-width: 100%;
+    word-break: break-all;
+
     line-height: 21px;
 }
 .pl_02_1>div:nth-child(2)>span:nth-child(1){

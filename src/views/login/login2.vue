@@ -10,7 +10,7 @@
 			<Input v-model="form.verify_code" @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 			<div class="lgoin_s2zy">
 				<span><el-checkbox v-model="islogin">自动登录</el-checkbox></span>
-				<router-link class="last pend" to="/modifyPassword">忘记密码</router-link>
+				<!--<router-link class="last pend" to="/modifyPassword">忘记密码</router-link>-->
 			</div>
 			<el-form-item>
 				<el-button class="lgoin_s4" type="primary" @click="submitForm('myform')">登录</el-button>				
