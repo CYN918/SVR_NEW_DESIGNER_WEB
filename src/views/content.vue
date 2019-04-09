@@ -154,6 +154,9 @@
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
 		</div>
+		
+		
+		
 	</div>
 	
 </template>
@@ -172,6 +175,7 @@ export default {
 			},
 			isshowd:false,
 			isshowd2:false,
+			
 			hfnum:0,
 			contDat:{},
 			page:{
@@ -877,6 +881,7 @@ export default {
 	float: right;
 }
 .seed2_1_2_1>span{
+	cursor: pointer;
 	vertical-align: top;
 	display: inline-block;
 	background: #666666;
@@ -923,7 +928,7 @@ export default {
 	font-size: 14px;
 	color: #1E1E1E;
 	vertical-align: top;
-	max-width: 100%;
+	max-width: 86%;
     word-break: break-word;
     line-height: 21px;
 }

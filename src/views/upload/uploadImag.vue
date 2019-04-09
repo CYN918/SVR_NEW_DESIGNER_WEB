@@ -215,7 +215,7 @@ export default {
 			formData.append('relation_type','work')
 			formData.append('timestamp',times)
 			let xhr = new XMLHttpRequest();
-			this.list.unshift({type:'up',file_name:fld.name,s:123213,bf:0,xhr:xhr,show:1});
+			this.list.unshift({type:'up',file_name:fld.name,s:fileSize,bf:0,xhr:xhr,show:1});
 			let p = this.list[0];
 			let uploadProgress = (evt)=>{		
 				if(evt.lengthComputable) {
@@ -306,6 +306,7 @@ export default {
 }
 .uploadBoxd2_2_3:hover>div{
 	display: block;
+	z-index: 9;
 }
 .uploadBoxd2_2_3:before{
 	display: none;
