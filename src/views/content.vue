@@ -8,9 +8,9 @@
 				<div class="seed1_2">
 					<span class="seed1_2_1">{{backtime(contDat.create_time)}}</span>
 					<span class="seed1_2_2"><span class="iconfont">&#xe616;</span>{{hfnum}}</span>
-					<span class="seed1_2_3"><span class="iconfont">&#xe672;</span>{{contDat.like_num}}</span>
+					<span class="seed1_2_3"><span @click="addLike('work',contDat.work_id,contDat)" :class="['iconfont',contDat.liked?'likeis':'']">&#xe672;</span>{{contDat.like_num}}</span>
 					<span class="seed1_2_4"><span class="iconfont">&#xe64c;</span>分享</span>
-					<span class="seed1_2_5"><span class="iconfont">&#xe652;</span>推荐</span>
+					<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat)"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
 				</div>
 				<div class="seed1_3">
 					{{contDat.classify_1+'-'+contDat.classify_2+'-'+contDat.classify_3}}
@@ -48,11 +48,11 @@
 							<div  class="pl_02_1">
 								<img :src="el.avatar">
 								<div>
-									<span>{{el.username}}</span><span>{{backtime(el.create_time)}}</span><span v-if="!isoutTime(el.create_time)" class="iconfont pend" @click="showHb(el.feed_id,el.comment_id,index)">&#xe602;</span>
+									<span>{{el.username}}</span><span>{{backtime(el.create_time)}}</span><span v-if="!isoutTime(el.create_time,el.open_id)" class="iconfont pend" @click="showHb(el.feed_id,el.comment_id,index)">&#xe602;</span>
 									<div>{{backComt(el.content)[0]}}</div>
 								</div>
 								<div>
-									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span>&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
+									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
 									<div class="hfBox" v-if="el.isshowfh">
 										<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 										<span @click="addfu2(el.feed_id,el.username)">回复</span>
@@ -63,11 +63,11 @@
 								<div class="pl_02_1">
 									<img :src="el2.avatar">
 									<div>
-										<span>{{el2.username}}</span><span>{{backtime(el2.create_time)}}</span><span @click="showHb(el2.feed_id,el2.comment_id,index,index2)" class="iconfont pend">&#xe602;</span>
+										<span>{{el2.username}}</span><span>{{backtime(el2.create_time)}}</span><span v-if="!isoutTime(el2.create_time,el2.open_id)" @click="showHb(el2.feed_id,el2.comment_id,index,index2)" class="iconfont pend">&#xe602;</span>
 										<div><span class="atren">{{backComt(el2.content)[0]}}</span>{{backComt(el2.content)[1]}}</div>
 									</div>
 									<div class="yasfh">
-										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span>&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
+										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
 										<div class="hfBox" v-if="el2.isshowfh">
 											<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
 											<span @click="addfu2(el2.feed_id,el2.username)">回复</span>
@@ -102,8 +102,8 @@
 					<div class="seed2_1_1_3">
 						<div v-if="page.open_id==contDat.user_info.open_id"><span>进入主页</span></div>
 						<div v-else>
-							<span v-if="contDat.user_info.follow_flag>0">已关注</span>
-							<span v-else>关注</span>
+							<span @click="showHb2" v-if="contDat.user_info.follow_flag>0">已关注</span>
+							<span @click="Follow_add()" v-else>关注</span>
 							<span>私信</span>
 						</div>
 						
@@ -113,7 +113,7 @@
 				</div>
 				<div class="seed2_1_2">
 					<div class="seed2_1_2_1">TA的更多作品</div>
-					<div class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
+					<div @click="seeWorks(el.work_id)" class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
 						<img :src="el.face_pic" alt="" class="i_listd1">
 						<div class="i_listd2">
 							<div class="i_listd2_1">
@@ -143,8 +143,15 @@
 		<div v-show="isshowd" class="loginoutBox">
 			<div class="loginoutBox1">
 				<img @click="hindHb()" class="loginoutBox2" src="/imge/cj_00.png">
-				<div class="loginoutBox3">确定退出登录?</div>
+				<div class="loginoutBox3">确定删该条除评论?</div>
 				<div class="loginoutBox4"><span @click="hindHb()">取消</span><span @click="delComment()">确定</span></div>
+			</div>
+		</div>
+		<div v-show="isshowd2" class="loginoutBox">
+			<div class="loginoutBox1">
+				<img @click="hindHb2()" class="loginoutBox2" src="/imge/cj_00.png">
+				<div class="loginoutBox3">是否取消关注?</div>
+				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
 		</div>
 	</div>
@@ -164,6 +171,7 @@ export default {
 				xx:'禁止匿名转载；禁止商业使用。临摹作品，同人作品原型版归原作者所有。',
 			},
 			isshowd:false,
+			isshowd2:false,
 			hfnum:0,
 			contDat:{},
 			page:{
@@ -187,6 +195,8 @@ export default {
 			},
 			deletType:0,
 			deletOn:[],
+			follwTyle:0,
+			addLink:0,
 		}
 	},
 	mounted: function () {	
@@ -194,6 +204,105 @@ export default {
 		this.getCommentList()
 	}, 
 	methods: {
+		
+		addLike(type,id,obj){
+			
+			if(!window.userInfo){
+				this.$router.push({path: '/login'})
+				return
+			}
+			let msg1 = '正在点赞',
+			apiname = 'addLike',
+			msg2 = '点赞成功',
+			numd=1,
+			td = true;
+			if(obj.liked==true){
+				msg1 = '正在取消';
+				apiname = 'delLike';
+				msg2 = '取消成功';
+				td = false;
+				numd=-1;
+			}
+			if(this.addLink==1){
+				Message({message: msg1});
+				return 
+			}
+			this.addLink=1;
+			let pr = {
+				access_token:window.userInfo.access_token,
+				like_type:type,
+				id:id
+			};
+			
+			
+			this.api[apiname](pr).then((da)=>{
+				if(!da){
+					this.addLink=0;
+					return
+				}
+				obj.liked=td;
+				obj.like_num+=numd;
+				Message({message: msg2});
+				this.addLink=0;					
+			}).catch(()=>{
+				this.addLink=0;	
+			});
+		},
+		
+		Follow_del(){
+			
+			if(this.follwTyle==1){
+				return
+			}
+			this.follwTyle=1;
+			let pr = {
+				access_token:window.userInfo.access_token,
+				follow_id:this.contDat.user_info.open_id
+			};
+			this.api.Follow_del(pr).then((da)=>{
+				if(!da){
+					this.follwTyle=0;
+					return
+				}
+				this.follwTyle=0;
+				this.hindHb2();
+				this.contDat.user_info.follow_flag=0;
+				Message({message: '取消关注成功'});
+			}).catch(()=>{
+				this.follwTyle = 0;		
+			});
+		},
+		Follow_add(){
+			if(!window.userInfo){
+				this.$router.push({path: '/login'})
+				return
+			}
+			if(this.follwTyle==1){
+				return
+			}
+			this.follwTyle=1;
+			let pr = {
+				access_token:window.userInfo.access_token,
+				follow_id:this.contDat.user_info.open_id
+			};
+			this.api.Follow_add(pr).then((da)=>{
+				if(!da){
+					this.follwTyle=0;
+					return
+				}
+				this.follwTyle=0;
+				this.contDat.user_info.follow_flag=1;
+				Message({message: '关注成功'});
+			}).catch(()=>{
+				this.follwTyle = 0;		
+			});
+			
+
+		},
+		seeWorks(id){
+			console.log(id)
+			this.$router.push({path:'/cont',query:{id:id}});	
+		},
 		downFile(flid){
 			window.open(flid);
 		},
@@ -218,9 +327,9 @@ export default {
 			
 
 		},
-		isoutTime(t){
-			return ((new Date()).valueOf()- (new Date(t)).valueOf(t))>=(5*60*1000)
-	
+		isoutTime(t,id){	
+		
+			return (((new Date()).valueOf()- (new Date(t)).valueOf(t))>=(5*60*1000)) || window.userInfo.open_id!=id;	
 		},
 		showHb(fid,cid,on,on2){
 			this.isshowd = true;	
@@ -238,6 +347,12 @@ export default {
 		},
 		hindHb(){
 			this.isshowd = false;
+		},
+		hindHb2(){
+			this.isshowd2 = false;
+		},
+		showHb2(){
+			this.isshowd2 = true;
 		},
 		addmpl(){
 			if(this.ishavepl==1){
@@ -300,6 +415,10 @@ export default {
 			});
 		},
 		addComment(name){
+			if(!window.userInfo){
+				this.$router.push({path: '/login'})
+				return
+			}
 			if(this.plType==1){
 				Message({message: '正在发送评论请稍后'});
 				return
@@ -410,7 +529,10 @@ export default {
 			this.$set(this.hfData[on],'isshowsubWZ','展开共'+this.hfData[on].sub_comment.length+'条回复');						
 		},
 		showFhk(on,on2){		
-			
+			if(!window.userInfo){
+				this.$router.push({path: '/login'})
+				return
+			}
 			if(this.onPl.zj!=-1){
 				this.$set(this.hfData[this.onPl.fj].sub_comment[this.onPl.zj],'isshowfh','');
 			}
@@ -439,7 +561,13 @@ export default {
 			this.hfnc = '回复：'+this.hfData[on].username;
 			this.$set(this.hfData[on],'isshowfh',1);				
 		},
-	}
+	},
+	watch: {	
+		'$route': function() {
+			this.init();
+			this.getCommentList()
+		}
+	},
 
 }
 </script>
@@ -795,6 +923,9 @@ export default {
 	font-size: 14px;
 	color: #1E1E1E;
 	vertical-align: top;
+	max-width: 100%;
+    word-break: break-word;
+    line-height: 21px;
 }
 .pl_02_1>div:nth-child(2)>span:nth-child(1){
 	display: inline-block;
@@ -885,7 +1016,7 @@ content: "";
     margin: 1px 23px;
 	opacity: 0;
 }
-.hfdZ_2:hover{
+.pl_02_1:hover .hfdZ_2{
 	opacity: 1;
 }
 .pl_02_1{
@@ -937,5 +1068,8 @@ content: "";
 	margin: 77px auto 38px;
 	font-size: 14px;
 	color: #666666;
+}
+.likeis{
+	color: red !important;
 }
 </style>

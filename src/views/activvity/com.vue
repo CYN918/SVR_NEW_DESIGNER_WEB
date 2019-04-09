@@ -21,10 +21,11 @@
 				<div class="pushDeletBox3">选择参与活动的作品</div>
 				<div class="pushDeletBox4">
 					<ul class="zp_box">
-						<li @click="checkZp(el.work_id)" :class="work_id.indexOf(el.work_id)!=-1?'chekonzp':''" v-for="(el,index) in zpList" :key="index">
+						
+						<li @click="checkZp(el.work_id)" :class="(work_id.indexOf(el.work_id)!=-1 || el.is_attend==1)?'chekonzp':''" v-for="(el,index) in zpList" :key="index">
 							<img class="zp_box_1" :src="el.face_pic">
 							<div class="zp_box_2">
-								{{el.work_name.slice(0,10)}}
+								{{el.work_name.slice(0,10)}}{{work_id.indexOf(el.work_id)!=-1 || el.is_attend==1}}
 								<img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt="">
 							</div>
 							<div class="zp_box_3">
@@ -72,13 +73,16 @@ export default {
 	mounted: function () {	
 		this.setOnd();
 		this.a_getInfo();
-		this.getHList();
+		this.getPersonalWorkList();
 	}, 
 	methods:{
 		closeZp(){
 			this.ishowzp=false;
 		},
 		showZp(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'});
+			}
 			this.ishowzp = true;
 		},
 		checkZp(id){
@@ -121,6 +125,20 @@ export default {
 		},
 		downMoble(){
 		
+		},
+		getPersonalWorkList(){
+			let pr = {
+				activity_id:this.$route.query.id,
+				access_token:window.userInfo.access_token,
+				page:this.page,
+				limit:this.limit,
+			};
+			this.api.getPersonalWorkList(pr).then((da)=>{
+				if(!da){
+					return
+				}
+				this.zpList = da.data;
+			})
 		},
 		gopushzp(){
 			this.$router.push({path:'/upload'});
