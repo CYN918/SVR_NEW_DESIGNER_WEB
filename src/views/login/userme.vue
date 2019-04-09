@@ -112,7 +112,6 @@ export default {
 				city:this.form.citye[2],
 			}
 			this.api.addSelfInfo(pr).then((da)=>{
-
 				localStorage.setItem('userT',JSON.stringify(da));
 				this.$router.push({path: '/'})
 			});
@@ -128,7 +127,7 @@ export default {
 			}
 			this.btnType = 'btnType';
 		},
-		
+
 	},
 	watch: {
 	    'form.username'(val) {

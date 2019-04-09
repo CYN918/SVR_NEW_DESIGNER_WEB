@@ -44,12 +44,12 @@ export default {
 			chekPhpne:function(val){
 				if(this.form.mobile_zone!='86'){
 					if(!(typeof val === 'number' && val%1 === 0)){
-						return {type:false,text:'请输入正确的手机号码',cls:'errd'}; 					
+						return {type:false,text:'请输入正确的手机号码',cls:'errd'};
 					}			
 					return true; 
 				}	
 				if(!(/^1[34578]\d{9}$/.test(val))){ 
-					return {type:false,text:'请输入正确的手机号码',cls:'errd'}; 
+					return {type:false,text:'请输入正确的手机号码',cls:'errd'};
 				} 
 				return true;
 			},

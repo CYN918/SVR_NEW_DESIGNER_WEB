@@ -263,4 +263,5 @@ input:-ms-input-placeholder{
 .pagesddd{
 	padding-bottom: 135px;
 }
+.citysbos3_1{border-bottom: 1px solid transparent!important;}
 </style>

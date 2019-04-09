@@ -39,7 +39,7 @@
 				</li>				
 			</ul>
 			<div class="uploadBoxd2_4">
-				<div class="uploadBoxd2_4_1">已选一项，最多可选50项</div>
+				<div class="uploadBoxd2_4_1">已选{{this.checkin.length}}项，最多可选50项</div>
 				<div @click="closed">取消</div>
 				<div @click="deleteFile">删除</div>
 				<div class="uploadBoxd2_4_2" @click="InImg">插入</div>
@@ -104,8 +104,9 @@ export default {
 					Message({message: '删除成功'});
 					for(let i=0,n=this.deletObj.length;i<n;i++){
 						this.deletObj[i].type='none';						
-					}	
-					console.log()	
+					}
+                    window.reload();
+					console.log()
 				}else{
 					Message({message: '删除失败'});	
 				}

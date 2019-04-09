@@ -63,7 +63,7 @@
 				<div class="page2_2_1">
 					<div class="page2_2_1_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
 					<div class="page2_2_1_2">
-						<div><Input class="userBoxd2" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>还可添加{{5-form.labels.length}}个标签</div>
+						<div><Input class="userBoxd2" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>还可添加{{form.labels.length}}个标签</div>
 						
 						
 						<div class="page2_2_1_2x">
@@ -146,6 +146,7 @@ export default {
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
 				is_platform_work:0,
+				content:'从这里开始编辑作品类容...'
 			},
 			uD:{},
 			upConfig:'',
@@ -336,7 +337,7 @@ export default {
 			this.saveData(0,'保存成功');			
 		},
 		setChekin(type){
-			if(!this.form.work_name){
+			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){
 				Message({message: '请先填写标题'});
 				return
 			}
@@ -405,7 +406,7 @@ export default {
 			
 		},
 		seeCg(){
-			if(!this.form.work_name){Message({message: '请先填写标题'});return}
+			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
 			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}
@@ -417,15 +418,15 @@ export default {
 			},1000)			
 		},
 		savZp(){
-			if(!this.form.work_name){Message({message: '请先填写标题'});return}
+			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
 			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}			
 			this.saveData(this.setSaveData(1,1),'上传成功',()=>{setTimeout(()=>{this.$router.push({path:'/'})},1000)});
 		},
 		userSave(){
-			if(!this.form.work_name){Message({message: '请先填写标题'});return}
-			if(!this.form.content){Message({message: '请先填内容'});return}
+			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
+            if(!this.form.content){Message({message: '请先填内容'});return}
 			this.saveData(this.setSaveData(0,0),'草稿保存成功');
 				
 		},
@@ -697,7 +698,6 @@ export default {
 .upBoxd1_2{
 	width: 1080px;
 	margin-bottom: 60px;
-	
 }
 .edui-default .edui-editor-toolbarboxouter{
 	border: none !important;
@@ -1126,4 +1126,5 @@ export default {
 	background: #FF5121;
 	border-color: #FF5121 !important;
 }
+
 </style>
