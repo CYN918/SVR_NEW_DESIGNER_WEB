@@ -104,7 +104,6 @@
 						<span v-if="contDat.user_info.follow_flag>0">已关注</span>
 						<span v-if="contDat.user_info.follow_flag==0&&show">关注</span>
 						<span v-if="contDat.user_info.follow_flag==0&&show">私信</span>
-						<span v-if="page.open_id==contDat.user_info.open_id">进入主页</span>
 
 						<div v-if="page.open_id==contDat.user_info.open_id"><span>进入主页</span></div>
 						<div v-else>
@@ -162,6 +161,9 @@
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
 		</div>
+		
+		
+		
 	</div>
 	
 </template>
@@ -181,6 +183,7 @@ export default {
 			show:true,
 			isshowd:false,
 			isshowd2:false,
+			
 			hfnum:0,
 			contDat:{},
 			page:{
@@ -896,6 +899,7 @@ export default {
 	float: right;
 }
 .seed2_1_2_1>span{
+	cursor: pointer;
 	vertical-align: top;
 	display: inline-block;
 	background: #666666;
@@ -942,8 +946,10 @@ export default {
 	font-size: 14px;
 	color: #1E1E1E;
 	vertical-align: top;
+
 	max-width: 100%;
     word-break: break-all;
+
     line-height: 21px;
 }
 .pl_02_1>div:nth-child(2)>span:nth-child(1){
