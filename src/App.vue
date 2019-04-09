@@ -265,12 +265,12 @@ input:-ms-input-placeholder{
 .pagesddd{
 	padding-bottom: 135px;
 }
-<<<<<<< HEAD
+
 .wsj{
 	display: block;
 	margin: 0 auto;
 }
-=======
+
 .citysbos3_1{border-bottom: 1px solid transparent!important;}
->>>>>>> 96eb6155a5135d19fac48e093ff3f455d9a64629
+
 </style>
