@@ -116,7 +116,7 @@ export default {
 		},
 		startCrop(){
 			if(this.opType==1){
-				Message({message: '正在上传请稍后'});
+				Message({message: '封面不能为空'});
 				return
 			}
 			this.opType=1;

@@ -71,7 +71,7 @@ export default {
 	}, 
 	methods: {
 		ajaxYzm(){
-			if(this.chekPhpne(this.form.mobile)){
+			if(!this.chekPhpne(this.form.mobile)){
 				Message({message: '请先填写手机号码'});
 				return
 			}
