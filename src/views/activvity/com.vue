@@ -2,8 +2,16 @@
 	<div>
 		<div class="detail_topBox">
 			<img class="detail_topBox_1" :src="infoData.banner" alt="">
+			
+			<div class="detail_topBoxx_1">
+			<div class="detail_topBox_2x">
+				<div class="detail_topBox_2x_1">{{infoData.activity_name}}</div>
+				<div class="detail_topBox_2x_2">{{infoData.category_name}}:<span>投稿时间：{{backtimed(infoData.start_time) }} 至 {{backtimed(infoData.end_time)}}</span></div>
+			</div>
 			<div class="detail_topBox_2">
-				<span @click="downMoble" class="pend">下载模板</span><span @click="showZp" class="iconfont pend">&#xe61e;上传作品</span>
+				<div v-if="infoData.end_time>new Date()"><span @click="downMoble" class="detail_topBox_2_1 pend">下载模板</span><span  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
+				<span v-else class="detail_topBox_2_3">已结束</span>
+			</div>
 			</div>
 		</div>
 		<div class="detail_nav">
@@ -76,6 +84,12 @@ export default {
 		this.getPersonalWorkList();
 	}, 
 	methods:{
+		backtimed(timed){
+			if(!timed){
+				return
+			}
+			return timed.substring(0,10)
+		},
 		closeZp(){
 			this.ishowzp=false;
 		},
@@ -210,10 +224,10 @@ export default {
 .detail_topBox_2{
 	position: absolute;
 	bottom: 30px;
-	right: 16.615%;
+	right: 0;
 	
 }
-.detail_topBox_2>span{
+.detail_topBox_2_2,.detail_topBox_2_1{
 	display: inline-block;
 	width: 140px;
 	height: 40px;
@@ -223,12 +237,16 @@ export default {
 	color: #FFFFFF;
 	border-radius: 5px;
 }
-.detail_topBox_2>span:nth-child(1){
+.detail_topBox_2_1{
 	background: #333333;
 	margin-right: 15px;
 }
-.detail_topBox_2>span:nth-child(2){
+.detail_topBox_2_2{
 	background: #FF5121;
+}
+.detail_topBox_2_3{
+	font-size: 24px;
+	color: #FFFFFF;
 }
 .detail_nav{
 	text-align: left;
@@ -413,5 +431,27 @@ export default {
 }
 .zp_box_4>div>span:last-child{
 	margin-right: 0;
+}
+.detail_topBoxx_1{
+	position: absolute;
+	width: 1300px;
+	left: 50%;
+	bottom: 0;
+	transform: translateX(-50%);
+}
+.detail_topBox_2x{
+	position: absolute;
+	bottom: 30px;
+	left: 0;
+	text-align: left;
+}
+.detail_topBox_2x_1{
+	font-size: 24px;
+	color: #FFFFFF;
+	margin-bottom: 7px;
+}
+.detail_topBox_2x_2{
+	font-size: 14px;
+	color: #FFFFFF;
 }
 </style>

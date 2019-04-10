@@ -209,12 +209,9 @@ if(pass){
 	if(window.userInfo.is_detail==0 && to.fullPath!='/userme'){
 		next('/userme');	
 		return
-	}
-	
-	
+	}	
 	if(window.userInfo.is_detail==1 && ['/login','/login2','/register','/modifyPassword','/userme'].indexOf(to.fullPath)!=-1){
-		console.log(111111);
-		next('/');	
+		next('/index');	
 		return
 	}
 	next();	

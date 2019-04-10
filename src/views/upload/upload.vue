@@ -206,6 +206,7 @@ export default {
 			this.checkPage1();			
 		},
 		'form.content'() {
+			
 			this.checkPage1();
 		},
 		'form.face_pic'() {
@@ -365,15 +366,17 @@ export default {
 					str+='<p style="max-width:100%;height:auto;"><img style="max-width:100%;height:auto" src="'+el+'"/></p>';
 				});
 				this.uD.execCommand('insertHtml', str);
+				
 				return
+				
 			}
 			
 			if(this.upConfig.type[0]=='video/mp4'){
 				list.map((el,index,va)=>{
-					str+='<p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';
-					
+					str+='<p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
 				});
 				this.uD.execCommand('insertHtml', str);
+				
 				return
 			}
 			if(this.upConfig.type[0]=='audio/ogg'){
@@ -381,6 +384,7 @@ export default {
 					str+='<p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
 				});
 				this.uD.execCommand('insertHtml', str);
+				
 				return
 			}
 			
@@ -465,6 +469,7 @@ export default {
 		checkPage1(){
 			this.ck2 = "";
 			if(!this.form.work_name){return false}
+			console.log(this.form.content)
 			if(!this.form.content){return false}
 			this.ck2 = "onck2";
 			this.setAutoSave();
@@ -718,7 +723,7 @@ export default {
 .upBoxd{
 	height: 597px;
 }
-.UpBtn1{display: block !important;}
+.UpBtn1{display: block !important;margin-bottom: 120px;}
 .UpBtn1>div{
 	display: inline-block;
 	border: 1px solid #999999;

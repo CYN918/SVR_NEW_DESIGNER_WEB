@@ -12,7 +12,7 @@
 			<span class="header_4" v-if="userMssge">
 				<div><img :src="userMssge.avatar" alt=""></div>
 				<div  class="userBpx">
-					<router-link to="/works">{{userMssge.username}}</router-link>
+					<a @click="goUser">{{userMssge.username.substring(0,9)}}</a>
 					<ul> 
 						<router-link  to="/activvity"><li><span class="iconfont">&#xe620;</span>我的创作</li></router-link>
 						<router-link  to="/activvity"><li><span class="iconfont">&#xe624;</span>我的关注</li></router-link>
@@ -59,6 +59,10 @@ export default {
 			if(!this.userMssge){this.$router.push({path:'/login'}); return}
 			this.$router.push({path:'/upload'})			
 		},
+		goUser(){
+			this.$router.push({path: '/works',query:{id:window.userInfo.open_id}})	
+		},
+		
 		logout(){
 			let p = {
 				access_token:this.userMssge.access_token
@@ -185,6 +189,7 @@ export default {
 	display: block;
     font-size: 14px;
     color: #1E1E1E;
+	font-weight: bold;
     border-bottom: 1px solid #E6E6E6;
     width: 170px;
     text-align: center;
@@ -200,15 +205,23 @@ export default {
 	font-size: 14px;
 	color: #1E1E1E;
 	text-align: center;
-	line-height: 42px;
+	line-height: 40px;
+}
+.userBpx>ul>a:first-child>li{
+	margin-top: 4px;
+}
+.userBpx>ul>a:last-child>li>span{
+	font-size: 17px;
+}
+.userBpx>ul>a:nth-child(2)>li>span{
+	font-size: 17px;
 }
 .userBpx>ul>a>li>span{
+	vertical-align: bottom;
 	margin-right: 10px;
-	font-size: 15px;
+	font-size: 21px;
 }
-.userBpx>ul>a:nth-child(3)>li>span{
-	font-size: 19px;
-}
+
 .userBpx>ul>a>li:hover{
 	background: #E6E6E6;
 	cursor: pointer;

@@ -35,7 +35,7 @@
 				<div class="seed2_1_2">
 					<div class="seed2_1_2_1">
 						<Input class="userBoxd2" v-model="pl"  :oType="'max'" :max="140"   :type="'text'" :placeholder="'说点什么吧'" ref="tageds"></Input>	
-						<span @click="addComment(contDat.user_info.username)">评论</span>
+						<span @click="addComment()">评论</span>
 						<p class="myplde" v-if="hfnum==0">
 							还没有人评论，快来抢沙发吧~
 						</p>
@@ -433,7 +433,7 @@ export default {
 				this.hfnum = da.total;
 			});
 		},
-		addComment(name){
+		addComment(){
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 				return
@@ -471,7 +471,7 @@ export default {
 					feed_id:da.comment_id,
 					like_num: 0,
 					open_id: this.page.open_id,
-					username:name,
+					username:window.userInfo.username,
 					sub_comment:[]
 
 				});

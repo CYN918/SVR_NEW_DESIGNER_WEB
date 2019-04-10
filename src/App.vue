@@ -11,6 +11,7 @@ html,body,div,img,p,ul,li{
 	border: none;
 }
 html,body{
+	margin: 0 auto;
 	min-width: 1300px;
 	overflow-x: hidden;
 	
@@ -79,6 +80,14 @@ input:-ms-input-placeholder{
 .videoBox{
 	
 	
+}
+.cropper-view-box[data-v-6dae58fd]{
+	
+	outline-color: #FF5121 !important;
+    outline-color: rgba(51, 153, 255, 0.75);
+}
+.crop-point[data-v-6dae58fd]{
+	background: #FF5121 !important;
 }
 .videoBox>video{
 	width: 100%;

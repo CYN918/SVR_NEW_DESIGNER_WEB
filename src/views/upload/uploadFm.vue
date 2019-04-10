@@ -119,8 +119,9 @@ export default {
 				Message({message: '正在上传请稍后'});
 				return
 			}
-			this.opType=1;
+			
 			this.$refs.cropper.getCropData(data => {
+				
 				function dataURLtoFile(dataurl) {
 					  var arr = dataurl.split(',');
 					  var mime = arr[0].match(/:(.*?);/)[1];
@@ -153,7 +154,7 @@ export default {
 				formData.append('related_id',token)
 				formData.append('classify_1','avatar')
 				formData.append('timestamp',times)
-		
+				this.opType=1;
 				this.$ajax.post('http://139.129.221.123/File/File/insert', formData)
 				.then((da)=>{	
 					this.opType=0;

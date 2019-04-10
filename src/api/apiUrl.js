@@ -131,4 +131,10 @@ export default {
 		url:'/Api/Follow/del',method:'post',baseURL:0,
 	},
 	
+	/*个人中心*/
+	getUserDetail:{
+		url:'/Api/User/getUserDetail',method:'post',baseURL:0,
+	},
+	
+	
 }
