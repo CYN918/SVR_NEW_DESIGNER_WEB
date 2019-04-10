@@ -90,8 +90,8 @@
 						<img class="contavatar" :src="contDat.user_info.avatar" alt="">
 						<div>
 							<div>{{contDat.user_info.username}}</div>
-							<div>{{contDat.user_info.city}}  |  {{contDat.user_info.province}}</div>
-							<div><span v-if="contDat.user_info.is_platform_work">{{contDat.user_info.vocation}}</span>{{contDat.user_info.vocation}}</div>
+							<div> {{contDat.user_info.vocation}} | {{contDat.user_info.province}} {{contDat.user_info.city}}</div>
+							<!--<div><span v-if="contDat.user_info.is_platform_work">{{contDat.user_info.vocation}}</span></div>-->
 						</div>
 					</div>
 					<div class="seed2_2_1_2">
@@ -101,9 +101,6 @@
 					</div>
 					<div class="seed2_1_1_3">
 
-						<span v-if="contDat.user_info.follow_flag>0">已关注</span>
-						<span v-if="contDat.user_info.follow_flag==0&&show">关注</span>
-						<span v-if="contDat.user_info.follow_flag==0&&show">私信</span>
 
 						<div v-if="page.open_id==contDat.user_info.open_id"><span>进入主页</span></div>
 						<div v-else>
