@@ -16,7 +16,7 @@
 					{{contDat.classify_1+'-'+contDat.classify_2+'-'+contDat.classify_3}}
 					<span  class="iconfont seed1_3_1">&#xe654;
 					<div>
-						<div>{{'作品版权由【'+contDat.username+'】解释，'+contDat.copyright}}</div>
+						<div>{{'作品版权由【'+contDat.user_info.username+'】解释，'+contDat.copyright}}</div>
 					</div>
 					</span>			
 				</div>
@@ -127,7 +127,7 @@
 								<span>{{backtime(el.create_time)}}</span>
 							</div>
 							<div class="i_listd2_3">
-								<span><img src="https://img.zcool.cn/community/01e9b65c986887a801214168d67106.jpg@260w_195h_1c_1e_1o_100sh.jpg" alt=""></span>
+								<span><img :src="el.user_info.avatar" alt=""></span>
 								<div>
 								<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
 								<span class="iconfont pend">&#xe672; {{el.like_num}}</span>
@@ -160,7 +160,7 @@
 		</div>
 		
 		
-		
+		<Report></Report>
 	</div>
 	
 </template>
@@ -168,8 +168,10 @@
 <script>
 import Input from '../components/input'
 import {Message} from 'element-ui'
+import Report from '../components/report'
+
 export default {
-	components:{Input},
+	components:{Input,Report},
 	data(){
 		return{
 			pl:'',
