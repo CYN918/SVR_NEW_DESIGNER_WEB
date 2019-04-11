@@ -528,10 +528,11 @@ export default {
 				}
 				
 				if(!this.hfData[this.onPl.fj].sub_comment){
-					this.$set(this.hfData,sub_comment,[])
+					this.$set(this.hfData[this.onPl.fj],'sub_comment',[]);
 				}
+
 				this.hfData[this.onPl.fj].sub_comment.unshift({
-					avatar: this.page.avatar,					
+					avatar: this.page.avatar,
 					content: pr.content,
 					create_time: new Date().Format("yyyy-MM-dd HH:mm:ss"),
 					feed_id: this.hfData[this.onPl.fj].comment_id,
@@ -540,6 +541,7 @@ export default {
 					open_id: this.page.open_id,
 					username:name,
 				});
+
 				Message({message: '评论成功'});
                 this.initFu(on, on2);
 			}).catch((err)=>{
