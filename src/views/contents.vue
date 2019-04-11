@@ -43,7 +43,7 @@
 						<img :src="contDat.user_info.avatar" alt="">
 						<div>
 							<div>{{contDat.user_info.username}}</div>
-							<div>{{contDat.user_info.city}}  |  {{contDat.user_info.province}}</div>
+							<div>{{contDat.user_info.vocation}}  |  {{contDat.user_info.province}}  {{contDat.user_info.city}}</div>
 							<div><span v-if="contDat.user_info.is_platform_work">xx</span> xx</div>
 						</div>
 					</div>

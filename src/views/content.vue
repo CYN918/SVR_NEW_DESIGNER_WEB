@@ -91,7 +91,7 @@
 						<div>
 							<div>{{contDat.user_info.username}}</div>
 							<div> {{contDat.user_info.vocation}} | {{contDat.user_info.province}} {{contDat.user_info.city}}</div>
-							<!--<div><span v-if="contDat.user_info.is_platform_work">{{contDat.user_info.vocation}}</span></div>-->
+							<div><span v-if="contDat.user_info.is_platform_work">xx</span></div>
 						</div>
 					</div>
 					<div class="seed2_2_1_2">
@@ -146,7 +146,7 @@
 			<div class="loginoutBox1">
 				<img @click="hindHb()" class="loginoutBox2" src="/imge/cj_00.png">
 
-				<div class="loginoutBox3">确定删该条除评论?</div>
+				<div class="loginoutBox3">确定删除该条评论?</div>
 
 				<div class="loginoutBox4"><span @click="hindHb()">取消</span><span @click="delComment()">确定</span></div>
 			</div>
@@ -476,7 +476,6 @@ export default {
 				this.hfnum+=1;
 				Message({message: '评论成功'});
 				this.plType=0;
-				this.pl2='';
 				this.$refs.tageds.clearValue();
 			}).catch(()=>{
 				this.plType=0;
@@ -532,9 +531,8 @@ export default {
 							
 				Message({message: '评论成功'});
 				this.plType=0;
-                this.pl2='';
+                this.$refs.tageds1.clearValue();
 				this.$refs.tageds2.clearValue();
-				this.$refs.tageds1.clearValue();
 			}).catch(()=>{
 				this.plType=0;
 			});	
