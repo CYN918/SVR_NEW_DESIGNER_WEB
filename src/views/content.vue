@@ -661,7 +661,7 @@ export default {
 	margin-right: 6px;
 }
 .seed1_2_5{
-	margin-right: 50px;
+	margin-right: 0px;
 }
 .seed1_3{
 	font-size: 14px;
