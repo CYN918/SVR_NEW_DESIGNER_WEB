@@ -50,10 +50,10 @@
 									<div>{{backComt(el.content)[0]}}</div>
 								</div>
 								<div>
-									<span class="hfdZ_3" @click="showFhk(index)">回11复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
+									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
 									<div class="hfBox" v-if="el.isshowfh">
 										<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
-										<span @click="addfu2(el.feed_id,el.username,index)">回22复</span>
+										<span @click="addfu2(el.feed_id,el.username,index)">回复</span>
 									</div>
 								</div>
 							</div>
@@ -65,10 +65,10 @@
 										<div><span class="atren">{{backComt(el2.content)[0]}}</span>{{backComt(el2.content)[1]}}</div>
 									</div>
 									<div class="yasfh">
-										<span class="hfdZ_3" @click="showFhk(index,index2)">回33复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
+										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
 										<div class="hfBox" v-if="el2.isshowfh">
 											<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
-											<span @click="addfu2(el2.feed_id,el2.username,index,index2)">回44复</span>
+											<span @click="addfu2(el2.feed_id,el2.username,index,index2)">回复</span>
 										</div>
 									</div>								
 								</div>
