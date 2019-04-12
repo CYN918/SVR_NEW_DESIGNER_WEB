@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<img class="login_x1" src="/imge/llog.png" alt="">
+		<img class="login_x1" src="/imge/llog.png" alt="" @click="jump">
 		<p class="login_x2">云创设计，最赚钱的设计师平台</p>
 		<el-form ref="myform" :model="form">
 			<div class="login_x3">
@@ -87,6 +87,11 @@ export default {
 				
 			});
 		},
+        jump(){
+            this.$router.push({
+                path:'/index'
+            })
+        },
 		setYzm(val){
 			this.form.mobile_zone = val;
 		},

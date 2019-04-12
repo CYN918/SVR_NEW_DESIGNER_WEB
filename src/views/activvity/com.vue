@@ -2,7 +2,10 @@
 	<div>
 		<div class="detail_topBox">
 			<img class="detail_topBox_1" :src="infoData.banner" alt="">
+<<<<<<< HEAD
 			<div class="detail_topBoxx_1po">
+=======
+>>>>>>> cba2d8516a3357913361d889cabea25e8f0768b4
 			<div class="detail_topBoxx_1">
 			<div class="detail_topBox_2x">
 				<div class="detail_topBox_2x_1">{{infoData.activity_name}}</div>
@@ -68,6 +71,7 @@ export default {
 	name: 'home',	 
 	data(){	
 		return{
+		    show:false,
 			ond:1,
 			zpList:[],
 			page:1,
@@ -133,6 +137,11 @@ export default {
 					return
 				}
 				this.infoData = da;
+				if(this.infoData.status==0){
+				    this.show=true;
+				}else{
+                    this.show=false;
+				}
 			});
 		},		
 		godefle(on){
@@ -433,7 +442,10 @@ export default {
 .zp_box_4>div>span:last-child{
 	margin-right: 0;
 }
-.detail_topBoxx_1po{
+
+
+.detail_topBoxx_1{
+
 	position: absolute;
 	left: 0;
 	bottom: 0;

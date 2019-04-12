@@ -812,7 +812,7 @@ export default {
 	opacity: .7;
 }
 .page2_1_2:hover>img{
-	opacity: 0;
+	opacity: 0.2;
 }
 .page2_1_2>img{
 	position: absolute;

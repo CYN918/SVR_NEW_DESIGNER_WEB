@@ -409,7 +409,7 @@ export default {
 }
 .uploadBoxd2_3>li{
 	display: inline-block;
-	width: 239px;
+	width: 236px;
 	margin: 0 20px 17px 0;
 
 }

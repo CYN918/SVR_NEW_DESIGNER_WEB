@@ -43,8 +43,6 @@
 					<div class="pl_01" v-if="hfnum>0">共{{hfnum}}条评论</div>
 					<div class="pl_02" v-if="hfnum>0">
 						<div v-for="(el,index) in hfData" :key="index">
-							
-						
 							<div  class="pl_02_1">
 								<img :src="el.avatar">
 								<div>
@@ -55,7 +53,7 @@
 									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
 									<div class="hfBox" v-if="el.isshowfh">
 										<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
-										<span @click="addfu2(el.feed_id,el.username)">回复</span>
+										<span @click="addfu2(el.feed_id,el.username,index)">回复</span>
 									</div>
 								</div>
 							</div>
@@ -70,7 +68,7 @@
 										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
 										<div class="hfBox" v-if="el2.isshowfh">
 											<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
-											<span @click="addfu2(el2.feed_id,el2.username)">回复</span>
+											<span @click="addfu2(el2.feed_id,el2.username,index,index2)">回复</span>
 										</div>
 									</div>								
 								</div>
@@ -91,7 +89,7 @@
 						<div>
 							<div>{{contDat.user_info.username}}</div>
 							<div> {{contDat.user_info.vocation}} | {{contDat.user_info.province}} {{contDat.user_info.city}}</div>
-							<!--<div><span v-if="contDat.user_info.is_platform_work">{{contDat.user_info.vocation}}</span></div>-->
+							<div><span v-if="contDat.user_info.is_platform_work">xx</span></div>
 						</div>
 					</div>
 					<div class="seed2_2_1_2">
@@ -146,7 +144,7 @@
 			<div class="loginoutBox1">
 				<img @click="hindHb()" class="loginoutBox2" src="/imge/cj_00.png">
 
-				<div class="loginoutBox3">确定删该条除评论?</div>
+				<div class="loginoutBox3">确定删除该条评论?</div>
 
 				<div class="loginoutBox4"><span @click="hindHb()">取消</span><span @click="delComment()">确定</span></div>
 			</div>
@@ -425,10 +423,9 @@ export default {
 					this.ishavepl=1;
 					this.ishavepltip='没有更多评论了!';
 				}
-				this.hfData = this.hfData.concat(da.data); 
-				
+				this.hfData = this.hfData.concat(da.data);
 				this.hfnum = da.total;
-			});
+            });
 		},
 		addComment(){
 			if(!window.userInfo){
@@ -476,25 +473,46 @@ export default {
 				this.hfnum+=1;
 				Message({message: '评论成功'});
 				this.plType=0;
-				this.pl2='';
 				this.$refs.tageds.clearValue();
 			}).catch(()=>{
 				this.plType=0;
 			});
 			
 		},
-
-		addfu2(fid,name){
-			if(this.plType==1){
-				Message({message: '评论为空'});
+		initFu(on, on2){
+            this.plType=0;
+            if(on >= 0){
+                this.$set(this.hfData[on],'isshowfh','');
+			}
+			if(on2 >= 0){
+                this.$set(this.hfData[on].sub_comment[on2],'isshowfh','');
+			}
+            if(on2 >= 0){
+                this.$refs.tageds2.value = '';
+            }else{
+                this.$refs.tageds1.value = '';
+			}
+            this.pl2 = '';
+		},
+		addfu2(fid,name,on,on2){
+            if(!this.page.access_token){
+                Message({message: '请先登录'});
+                return
+            }
+		    if(this.plType==1){
+				Message({message: '正在回复中'});
+				console.log(this.plType);
 				return
 			}
-			this.plType=1;
-			if(this.pl2 == "" || this.pl2 == undefined || this.pl2 == null || (this.pl2.length>0 && this.pl2.trim().length == 0)){
-                return
-            }  
-			
-			let cond = ['@'+name,this.pl2];			
+			if(this.pl2 == "" 
+				|| this.pl2 == undefined 
+				|| this.pl2 == null 
+				|| (this.pl2.length>0 && this.pl2.trim().length == 0)){
+                Message({message: '评论为空'});
+	  			return
+      }
+            this.plType=1;
+			let cond = ['@'+name,this.pl2];
 			let pr = {
 				work_id:this.$route.query.id,
 				content	:JSON.stringify(cond),
@@ -503,24 +521,18 @@ export default {
 			if(fid){
 				pr.feed_id = fid;
 			}
-			if(!this.page.access_token){
-				Message({message: '请先登录'});
-				return
-			}
 			pr.access_token = this.page.access_token;
 			this.api.addComment(pr).then((da)=>{
-		
 				if(!this.onPl.fj){
 					this.onPl.fj = 0;
 				}
 				
 				if(!this.hfData[this.onPl.fj].sub_comment){
-				
-					this.$set(this.hfData,sub_comment,[])
-					
+					this.$set(this.hfData[this.onPl.fj],'sub_comment',[]);
 				}
+
 				this.hfData[this.onPl.fj].sub_comment.unshift({
-					avatar: this.page.avatar,					
+					avatar: this.page.avatar,
 					content: pr.content,
 					create_time: new Date().Format("yyyy-MM-dd HH:mm:ss"),
 					feed_id: this.hfData[this.onPl.fj].comment_id,
@@ -529,14 +541,12 @@ export default {
 					open_id: this.page.open_id,
 					username:name,
 				});
-							
+
 				Message({message: '评论成功'});
+                this.initFu(on, on2);
+			}).catch((err)=>{
 				this.plType=0;
-                this.pl2='';
-				this.$refs.tageds2.clearValue();
-				this.$refs.tageds1.clearValue();
-			}).catch(()=>{
-				this.plType=0;
+				console.log('err:' + err.toString());
 			});	
 		},
 			
@@ -558,7 +568,6 @@ export default {
 				this.$set(this.hfData[this.onPl.fj].sub_comment[this.onPl.zj],'isshowfh','');
 			}
 			if(this.onPl.zj==-1 && this.onPl.fj!=-1){
-		
 				this.$set(this.hfData[this.onPl.fj],'isshowfh','');
 			}			
 			this.onPl = {
@@ -568,7 +577,6 @@ export default {
 			if(on2>=0){
 				if(this.hfData[on].sub_comment[on2].isshowfh){
 					this.$set(this.hfData[on].sub_comment[on2],'isshowfh','');
-					
 					return
 				}
 				this.hfnc = '回复：'+this.hfData[on].sub_comment[on2].username;
@@ -663,7 +671,7 @@ export default {
 	margin-right: 6px;
 }
 .seed1_2_5{
-	margin-right: 50px;
+	margin-right: 0px;
 }
 .seed1_3{
 	font-size: 14px;
