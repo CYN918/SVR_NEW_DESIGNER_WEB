@@ -145,4 +145,11 @@ export default {
 		url:'/Api/User/changeUserCenterBanner',method:'post',baseURL:0,
 	},
 	
+	followList:{
+		url:'/Api/Follow/followList',method:'post',baseURL:0,
+	},
+	fansList:{
+		url:'/Api/Follow/fansList',method:'post',baseURL:0,
+	},
+	
 }
