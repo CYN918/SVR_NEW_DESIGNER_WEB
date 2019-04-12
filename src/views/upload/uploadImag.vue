@@ -102,7 +102,7 @@ export default {
 				this.deldetType=0;
 				if(response.data.result==0){
 					Message({message: '删除成功'});
-                    this.getList();
+                    this.closed();
 					for(let i=0,n=this.deletObj.length;i<n;i++){
 						this.deletObj[i].type='none';						
 					}
