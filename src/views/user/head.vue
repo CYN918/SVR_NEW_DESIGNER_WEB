@@ -273,7 +273,7 @@ export default {
 							}
 							this.hindSetBg();
 							this.userMessage.user_center_banner_pic = ds.data.url;
-							 
+							this.userBg =  ds.data.url;
 							this.opType=0;
 						}).catch(()=>{
 							this.opType=0;
