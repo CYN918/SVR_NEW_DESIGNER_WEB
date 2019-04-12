@@ -141,6 +141,8 @@ export default {
 	likeList:{
 		url:'/Api/like/likeList',method:'post',baseURL:0,
 	},
-	
+	changeUserCenterBanner:{
+		url:'/Api/User/changeUserCenterBanner',method:'post',baseURL:0,
+	},
 	
 }

@@ -36,8 +36,9 @@
 					<div class="forddf_btnd_1">
 						<span class="forddf">主页链接</span><span>{{userInfo.n}}</span>
 					</div>		
-					<span class="forddf_btnd">更新资料</span>			
+							
 				</div>
+				<span v-if="isMe()" class="forddf_btnd">更新资料</span>	
 			</div>
 		</div>
 		

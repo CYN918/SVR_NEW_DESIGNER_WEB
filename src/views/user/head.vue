@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		<div class="u_top2">
-			<img class="u_top2_1" :src="userBg" alt="">
+			<img class="u_top2_1" :src="userMessage.user_center_banner_pic?userMessage.user_center_banner_pic:userBg" alt="">
 			<div class="dwek">
 				<div v-if="isMe()"  class="u_top2_2">				
 					<div class="u_top2_2_1">
@@ -258,11 +258,26 @@ export default {
 				formData.append('timestamp',times)
 				this.opType=1;
 				this.$ajax.post('http://139.129.221.123/File/File/insert', formData)
-				.then((da)=>{	
-					this.opType=0;
+				.then((da)=>{						
 					let ds = da.data;
-					if(ds.result==0){
-						this.userBg = ds.data.url;
+					if(ds.result==0){						
+						let pr = {
+							user_center_banner_pic:ds.data.url,
+							access_token:window.userInfo.access_token
+						};
+						this.api.changeUserCenterBanner(pr).then((da)=>{
+							if(!da){
+						
+								this.opType=0;
+								return
+							}
+							this.hindSetBg();
+							this.userMessage.user_center_banner_pic = ds.data.url;
+							 
+							this.opType=0;
+						}).catch(()=>{
+							this.opType=0;
+						});
 					
 					}else{
 						// msg(response.msg);

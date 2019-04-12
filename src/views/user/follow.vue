@@ -12,19 +12,19 @@
 					</div>
 				</div>
 			</div>
-			<ul v-if="List.length>0" class="i_listd2" >
+			<ul v-if="List.length==0" class="i_listd2" >
 				<li>
 					<img src="/imge/nav_tx.png" alt="">
 					<div class="i_listd2_1">
 						<div>12231</div>
 						<div>广东 | 深圳{{List.length}}</div>
-						<div class="i_listd2_2">
+						<div class="i_listd2_d">
 							<span>粉丝<span>2694</span></span>
 							<span>人气<span>2694</span></span>
 							<span>创作<span>2694</span></span>
 						</div>
 						<div>这个人很懒，什么都没说~</div>
-						<div>
+						<div class="btns_foll">
 							<span>互相关注</span>
 							<span>私信</span>
 						</div>
@@ -230,14 +230,34 @@ export default {
 .i_listd2_1>div:nth-child(3){
 	
 }
-.i_listd2_2>span{
+.i_listd2_1>div:nth-child(4){
+	font-size: 12px;
+	color: #999999;
+}
+.btns_foll>span{
+	cursor: pointer;
+	display: inline-block;
+	border: 1px solid #999999;
+	border-radius: 5px;
+	width: 98px;
+	height: 38px;
+	text-align: center;
+	line-height: 38px;
+	font-size: 14px;
+	color: #333333;
+	margin-right: 20px;
+}
+.btns_foll>span:last-child{
+	margin-right: 0;
+}
+.i_listd2_d>span{
 	display: inline-block;
 	margin-right: 20px;
 	font-size: 14px;
 	color: #1E1E1E;
 	font-weight: bold;
 }
-.i_listd2_2>span>span{
+.i_listd2_d>span>span{
 	margin-left: 10px;
 }
 </style>
