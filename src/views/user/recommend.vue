@@ -11,7 +11,7 @@
 					</div>
 				</div>
 			</div>
-			<ul class="i_listd" >
+			<ul v-if="List.length>0" class="i_listd" >
 				<li v-for="(el,index) in List" :key="index">
 					<img @click="openxq(index)"  class="i_listd1" :src="el.face_pic" alt="">
 					<div class="i_listd2">
@@ -29,7 +29,8 @@
 					</div>
 				</li>
 			</ul>
-			<el-pagination class="pagesddd"
+			<div class="pagesddd"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
+			<el-pagination v-if="List.length>0" class="pagesddd"
 			background
 			@size-change="handleSizeChange"
 			@current-change="handleCurrentChange"

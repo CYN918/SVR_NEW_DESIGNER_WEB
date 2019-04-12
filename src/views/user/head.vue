@@ -592,4 +592,9 @@ export default {
 	height: 1px;
 	background: #FF5121;
 }
+.wusj2{
+	display: block;
+	margin: 0 auto;
+	width: 680px;
+}
 </style>

@@ -12,12 +12,12 @@
 					</div>
 				</div>
 			</div>
-			<ul class="i_listd2" >
+			<ul v-if="List.length>0" class="i_listd2" >
 				<li>
 					<img src="/imge/nav_tx.png" alt="">
 					<div class="i_listd2_1">
 						<div>12231</div>
-						<div>广东 | 深圳</div>
+						<div>广东 | 深圳{{List.length}}</div>
 						<div class="i_listd2_2">
 							<span>粉丝<span>2694</span></span>
 							<span>人气<span>2694</span></span>
@@ -39,7 +39,8 @@
 					</div>
 				</li>
 			</ul>
-			<el-pagination class="pagesddd"
+			<div class="pagesddd"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
+			<el-pagination v-if="List.length>0" class="pagesddd"
 			background
 			@size-change="handleSizeChange"
 			@current-change="handleCurrentChange"
@@ -82,7 +83,7 @@ export default {
 		}
 	},
 	mounted: function () {			
-		this.getHList();
+		//this.getHList();
 		
 	}, 
 	methods: {
