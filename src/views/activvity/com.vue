@@ -2,7 +2,7 @@
 	<div>
 		<div class="detail_topBox">
 			<img class="detail_topBox_1" :src="infoData.banner" alt="">
-			
+			<div class="detail_topBoxx_1po">
 			<div class="detail_topBoxx_1">
 			<div class="detail_topBox_2x">
 				<div class="detail_topBox_2x_1">{{infoData.activity_name}}</div>
@@ -11,6 +11,7 @@
 			<div class="detail_topBox_2">
 				<div v-if="infoData.end_time>new Date()"><span @click="downMoble" class="detail_topBox_2_1 pend">下载模板</span><span  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
 				<span v-else class="detail_topBox_2_3">已结束</span>
+			</div>
 			</div>
 			</div>
 		</div>
@@ -432,12 +433,19 @@ export default {
 .zp_box_4>div>span:last-child{
 	margin-right: 0;
 }
-.detail_topBoxx_1{
+.detail_topBoxx_1po{
 	position: absolute;
-	width: 1300px;
-	left: 50%;
+	left: 0;
 	bottom: 0;
-	transform: translateX(-50%);
+	width: 100%;
+	background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, #000000 100%);
+}
+.detail_topBoxx_1{
+	position: relative;
+	margin: 0 auto;
+	width: 1300px;
+	height: 100px;
+	
 }
 .detail_topBox_2x{
 	position: absolute;

@@ -135,6 +135,12 @@ export default {
 	getUserDetail:{
 		url:'/Api/User/getUserDetail',method:'post',baseURL:0,
 	},
+	getUserWorkList:{
+		url:'/Api/Work/getUserWorkList',method:'post',baseURL:0,
+	},
+	likeList:{
+		url:'/Api/like/likeList',method:'post',baseURL:0,
+	},
 	
 	
 }
