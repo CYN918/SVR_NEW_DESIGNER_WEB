@@ -95,9 +95,6 @@ export default {
 			this.getHList();
 		}
 	},
-	
-	
-	
 }
 </script>
 

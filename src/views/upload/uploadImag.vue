@@ -26,7 +26,7 @@
 							        <div class="circleProgress leftcircle" :style="{transform:'rotate('+backRigh(el.bf)+'deg)'}"></div>
 							    </div>								
 							</div>
-							<div class="loadingsdsd">{{el.bf+'%'}}</div>
+							<div class="loadingsdsd">{{bf+'%'}}</div>
 							<div class="qxclos" @click="qxclosd(el)">取消上传</div>
 						</div>
 						<div><span>{{el.file_name.split('.')[0]}}</span><span>{{el.s}}</span></div>
@@ -56,6 +56,7 @@ export default {
 	},
     data() {
       	return {
+      	    bf:0,
         	dialogImageUrl: '',
         	dialogVisible: false,
         	list:[],
@@ -180,7 +181,17 @@ export default {
 		qxclosd(obj){
 			obj.xhr.abort();
 		},
-      	fileUp(flie){  		
+        time(){
+            var _this=this;
+            _this.bf=0;
+            var timer = setInterval(function () {
+                if(_this.bf<99){
+                    _this.bf++
+                }
+            },100);
+        },
+      	fileUp(flie){
+		    this.time();
       		let fld = flie.target.files[0];    	
       		if(this.configData.type.indexOf(fld.type)==-1){
       			Message({message: '格式不正确'});
@@ -206,7 +217,7 @@ export default {
 				token.open_id,
 				times
 			];
-			
+
 			let formData = new FormData();
 			formData.append('app_id',1001);
 			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
@@ -233,6 +244,7 @@ export default {
 					p.fid=da.fid
 					this.$refs.upnfile.value ='';			
 					Message({message: '文件上传成功'});
+					this.bf=100;
 				}
 				
 			};
