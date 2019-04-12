@@ -421,7 +421,7 @@ export default {
 	width: 100%;
 	height: 135px;
 	border-radius: 5px;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+	box-shadow: 8px 8px 4px 0 rgba(0,0,0,0.20);
 	margin-bottom: 6px;
 }
 .uploadBoxd2_3>li>div>div{
@@ -470,7 +470,7 @@ export default {
 }
 .uploadBoxd2_4>.uploadBoxd2_4_1{
 	position: absolute;
-	top: 20px;
+	top: 12px;
 	left: 28px;
 	border: none;
 	width: auto;

@@ -128,7 +128,7 @@ export default {
 			
 			this.ajaxType=1;
 			this.api.modifyPassword(params).then(()=>{	
-				this.$router.push({path: '/login'});
+				this.$router.push({path: '/register'});
 				this.ajaxType=0;
 			}).catch(()=>{
 				

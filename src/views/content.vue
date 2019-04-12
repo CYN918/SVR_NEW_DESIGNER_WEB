@@ -310,7 +310,7 @@ export default {
 		},
 		seeWorks(id){
 			console.log(id)
-			this.$router.push({path:'/cont',query:{id:id}});	
+			this.$router.push({path:'/cont',query:{id:id}});
 		},
 		downFile(flid){
 			window.open(flid);
@@ -539,7 +539,7 @@ export default {
 					like_num: 0,
 					comment_id:da.comment_id,
 					open_id: this.page.open_id,
-					username:name,
+					username:window.userInfo.username,
 				});
 
 				Message({message: '评论成功'});

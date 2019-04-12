@@ -5,10 +5,10 @@
 			<div class="detail_topBoxx_1">
 			<div class="detail_topBox_2x">
 				<div class="detail_topBox_2x_1">{{infoData.activity_name}}</div>
-				<div class="detail_topBox_2x_2">{{infoData.category_name}}:<span>投稿时间：{{backtimed(infoData.start_time) }} 至 {{backtimed(infoData.end_time)}}</span></div>
+				<div class="detail_topBox_2x_2">{{infoData.category_name}}:<span>{{backtimed(infoData.start_time) }} 至 {{backtimed(infoData.end_time)}}</span></div>
 			</div>
 			<div class="detail_topBox_2">
-				<div v-if="infoData.end_time>new Date()"><span @click="downMoble" class="detail_topBox_2_1 pend">下载模板</span><span  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
+				<div v-if="new Date(infoData.end_time).getTime()>new Date().getTime()"><span @click="downMoble" class="detail_topBox_2_1 pend">下载模板</span><span  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>
 				<span v-else class="detail_topBox_2_3">已结束</span>
 			</div>
 			</div>
@@ -229,7 +229,7 @@ export default {
 .detail_topBox_2{
 	position: absolute;
 	bottom: 30px;
-	right: 0;
+	right:15.5%;
 	
 }
 .detail_topBox_2_2,.detail_topBox_2_1{
@@ -440,15 +440,17 @@ export default {
 
 .detail_topBoxx_1{
 	position: absolute;
-	width: 1300px;
+	width: 100%;
 	left: 50%;
 	bottom: 0;
+	height: 100px;
+	background: rgba(0,0,0,0.5);
 	transform: translateX(-50%);
 }
 .detail_topBox_2x{
 	position: absolute;
 	bottom: 30px;
-	left: 0;
+	left:15.5%;
 	text-align: left;
 }
 .detail_topBox_2x_1{

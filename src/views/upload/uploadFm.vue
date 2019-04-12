@@ -76,10 +76,9 @@
 </template>
 
 <script>
-import {Message} from 'element-ui'
+import {Message} from 'element-ui';
 export default {
-	name: 'login',	
-
+	name: 'login',
 	data(){		
 		return{	
 			previewStyle2:{},
