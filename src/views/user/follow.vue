@@ -30,12 +30,18 @@
 						</div>
 					</div>
 					<div class="lunbox">
+						<div class="lunbox_left">
+							<img src="/imge/icon/left.png" alt="">
+						</div>
 						<ul>
-							<li><img src="/imge/nav_tx.png" alt=""></li>
-							<li><img src="/imge/nav_tx.png" alt=""></li>
-							<li><img src="/imge/nav_tx.png" alt=""></li>
-							<li><img src="/imge/nav_tx.png" alt=""></li>
+							<li><img src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png" alt=""></li>
+							<li><img src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png" alt=""></li>
+							<li><img src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png" alt=""></li>
+							<li><img src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png" alt=""></li>
 						</ul>
+						<div class="lunbox_right">
+							<img src="/imge/icon/right.png" alt="">
+						</div>
 					</div>
 				</li>
 			</ul>
@@ -222,17 +228,20 @@ export default {
 	margin-top: 10px;
 	font-size: 16px;	
 	color: #2D2D2D;
+	margin-bottom: 2px;
 }
 .i_listd2_1>div:nth-child(2){
 	font-size: 12px;
 	color: #999999;
+	margin-bottom: 14px;
 }
 .i_listd2_1>div:nth-child(3){
-	
+	margin-bottom: 3px;
 }
 .i_listd2_1>div:nth-child(4){
 	font-size: 12px;
 	color: #999999;
+	margin-bottom: 17px;
 }
 .btns_foll>span{
 	cursor: pointer;
@@ -259,5 +268,57 @@ export default {
 }
 .i_listd2_d>span>span{
 	margin-left: 10px;
+}
+.lunbox>ul>li{
+	display: inline-block;
+}
+.lunbox{
+	position: relative;
+    float: right;
+    display: inline-block;
+    width: 807px;
+    height: 150px;
+    overflow: hidden;
+   
+
+}
+.lunbox_left,.lunbox_right{
+	position: absolute;
+	top: 0;
+	background: rgba(0,0,0,.3);
+	width: 40px;
+	height: 150px;
+	cursor: pointer;
+}
+.lunbox_left:hover,.lunbox_right:hover{
+	background: #000;
+}
+.lunbox_left{
+	left: 0;
+}
+.lunbox_left>img,.lunbox_right>img{
+    display: block;
+    margin: 61px auto 0;
+    width: 28px;
+}
+.lunbox_right{
+	right: 0;
+}
+.lunbox>ul{
+	overflow: hidden;
+	height: 150px;
+	white-space: nowrap;
+	
+}
+.lunbox>ul>li{
+	width: 200px;
+	height: 150px;
+	border-radius: 3.28px 3.28px 5px 5px;
+	margin-right: 13px;
+}
+.lunbox>ul>li>img{
+	display: block;
+	width: 200px;
+	height: 150px;
 }
 </style>
