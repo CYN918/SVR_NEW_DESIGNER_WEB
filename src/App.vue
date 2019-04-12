@@ -13,8 +13,6 @@ html,body,div,img,p,ul,li{
 html,body{
 	margin: 0 auto;
 	min-width: 1300px;
-	overflow-x: hidden;
-	
 }
 html{
 	height:100%;
@@ -163,6 +161,7 @@ input:-ms-input-placeholder{
 	text-align: left;
 }
 .i_listd>li{
+	cursor: pointer;
 	display: inline-block;
 	overflow: hidden;
 	width: 309.8px;
@@ -239,6 +238,7 @@ input:-ms-input-placeholder{
 	overflow: hidden;
 }
 .i_listd2_3>span>img{
+	cursor: pointer;
 	display: block;
 	width: 100%;
 	height: 100%;

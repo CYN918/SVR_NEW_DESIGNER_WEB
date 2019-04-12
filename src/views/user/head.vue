@@ -32,22 +32,56 @@
 					<input type="file" id="uploads" accept="image/png, image/jpeg, image/jpg" @change="uploadImg">	
 				</span>
 			</div>
-			<div class="upFm_yb_2">
-				
-																		
+		</div>
+		<div class="u_top2">
+			<img class="u_top2_1" :src="userMessage.user_center_banner_pic?userMessage.user_center_banner_pic:userBg" alt="">
+			<div class="dwek">
+				<div v-if="isMe()"  class="u_top2_2">				
+					<div class="u_top2_2_1">
+						<div @click="showSetBg">设置背景图</div>
+						<div>分享</div>
+					</div>
+				</div>
 			</div>
 			
 		</div>
-		<div class="u_top2">
-			<img class="u_top2_1" :src="userBg" alt="">
-			<div v-if="userMessage && user"  class="u_top2_2">				
-				<div class="u_top2_2_1">
-					<div @click="showSetBg">设置背景图</div>
-					<div>分享</div>
+		<div class="u_top3">
+			<img class="u_top3_1" :src="userMessage.avatar"></img>
+			<div class="u_top3_2">
+				<div class="u_top3_2_1">{{userMessage.username}}</div>
+				<div class="u_top3_2_2">{{userMessage.province+'-'+userMessage.city}}</div>
+				<div class="u_top3_2_3">{{userMessage.personal_sign?userMessage.personal_sign:'这个人很懒，什么都没说~'}}</div>
+			</div>
+			<div class="u_top3_3">
+				<span>粉丝<span>{{userMessage.fans_num}}</span></span>
+				<span>人气<span>{{userMessage.popular_num}}</span></span>
+				<span>创作<span>{{userMessage.work_num}}</span></span>
+			</div>
+			<div class="u_top3_4">
+				<router-link v-if="isMe()" class="u_top3_4_1" to="/upload">上传作品</router-link>
+				<div class="u_top3_4_2" v-else>
+					<span @click="gzclick" :class="userMessage.follow_flag==1?'qgz':''">{{userMessage.follow_flag==1?'已关注':'关注'}}</span>
+					<span>私信</span>
 				</div>
+				
+			</div>
+			
+		</div>
+		
+		<div class="userNavBox">
+			<router-link :to="{ path:'/works',query:{ id:qurId}}">作品</router-link>
+			<router-link :to="{ path:'/recommend',query:{ id:qurId}}">推荐</router-link>
+			<router-link :to="{ path:'/follow',query:{ id:qurId}}">关注</router-link>
+			<router-link :to="{ path:'/info',query:{ id:qurId}}">资料</router-link>
+		</div>
+		
+		<div v-show="isshowd2" class="loginoutBox">
+			<div class="loginoutBox1">
+				<img @click="hindHb2()" class="loginoutBox2" src="/imge/cj_00.png">
+				<div class="loginoutBox3">是否取消关注?</div>
+				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
 		</div>
-		<div class="u_top3"></div>
 	</div>
 </template>
 
@@ -73,18 +107,86 @@ export default {
 			isUpbg:false,
 			opType:0,
 			userMessage:'',
+			isshowd2:false,
+			follwTyle:0,
+			qurId:'',
 		}
 	},
 	mounted: function () {	
 		this.init();		
 	}, 
+	created() {
+      this.qurId = this.$route.query.id;
+    },
 	methods: {	
+		gzclick(){
+			if(this.userMessage.follow_flag==1){
+				this.showHb2();
+				return
+			}
+			this.Follow_add();
+		},
+		Follow_del(){
+			
+			if(this.follwTyle==1){
+				return
+			}
+			this.follwTyle=1;
+			let pr = {
+				access_token:window.userInfo.access_token,
+				follow_id:this.userMessage.open_id
+			};
+			this.api.Follow_del(pr).then((da)=>{
+				if(!da){
+					this.follwTyle=0;
+					return
+				}
+				this.follwTyle=0;
+				this.hindHb2();
+				this.userMessage.follow_flag=0;
+				Message({message: '取消关注成功'});
+			}).catch(()=>{
+				this.follwTyle = 0;		
+			});
+		},
+		Follow_add(){
+			if(!window.userInfo){
+				this.$router.push({path: '/login'})
+				return
+			}
+			if(this.follwTyle==1){
+				return
+			}
+			this.follwTyle=1;
+			let pr = {
+				access_token:window.userInfo.access_token,
+				follow_id:this.userMessage.open_id
+			};
+			this.api.Follow_add(pr).then((da)=>{
+				if(!da){
+					this.follwTyle=0;
+					return
+				}
+				this.follwTyle=0;
+				this.userMessage.follow_flag=1;
+				Message({message: '关注成功'});
+			}).catch(()=>{
+				this.follwTyle = 0;		
+			});
+			
+		
+		},
+		hindHb2(){
+			this.isshowd2=false;
+		},
+		showHb2(){
+			this.isshowd2=true;
+		},
 		init(){
 			if(!this.$route.query.id){
 				this.$router.push({path: '/index'});	
 				return
 			}
-			this.userMessage = window.userInfo;
 			let pr = {
 				user_open_id:this.$route.query.id
 			};
@@ -95,11 +197,18 @@ export default {
 				if(!da){
 					return
 				}
+				this.userMessage = da;
+				if(this.$parent.setData){
+					this.$parent.setData(this.userMessage);
+				}
 				
 			}).catch(()=>{
 				
 			});
 		},		
+		isMe(){
+			return this.$route.query.id ==  window.userInfo.open_id;
+		},
 		showSetBg(){
 			this.option.img = this.userBg;
 			this.isUpbg=true;
@@ -149,11 +258,26 @@ export default {
 				formData.append('timestamp',times)
 				this.opType=1;
 				this.$ajax.post('http://139.129.221.123/File/File/insert', formData)
-				.then((da)=>{	
-					this.opType=0;
+				.then((da)=>{						
 					let ds = da.data;
-					if(ds.result==0){
-						this.userBg = ds.data.url;
+					if(ds.result==0){						
+						let pr = {
+							user_center_banner_pic:ds.data.url,
+							access_token:window.userInfo.access_token
+						};
+						this.api.changeUserCenterBanner(pr).then((da)=>{
+							if(!da){
+						
+								this.opType=0;
+								return
+							}
+							this.hindSetBg();
+							this.userMessage.user_center_banner_pic = ds.data.url;
+							this.userBg =  ds.data.url;
+							this.opType=0;
+						}).catch(()=>{
+							this.opType=0;
+						});
 					
 					}else{
 						// msg(response.msg);
@@ -210,6 +334,14 @@ export default {
 	display: block;
 	width: 100%;
 }
+.dwek{
+	position: absolute;
+	top: 0;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	width: 1300px;
+}
 .u_top2_2{
 	background: rgba(0,0,0,.3);
 	border-radius: 10px;
@@ -217,7 +349,7 @@ export default {
 	height: 20px;
 	position: absolute;
 	top: 30px;
-	right: 310px;
+	right: 0;
 	cursor: pointer;
 }
 .u_top2_2:after{
@@ -324,5 +456,160 @@ export default {
 	height: 100%;
 	opacity: 0;
 	cursor: pointer;
+}
+.u_top3{
+	position: relative;
+	margin: -78px auto 0;
+	background: #FFFFFF;
+	box-shadow: 0 3px 6px 0 rgba(0,0,0,0.10);
+	border-radius: 10.16px;
+	box-sizing: border-box;
+	padding: 30px 40px;
+	width: 1300px;
+	height: 160px;
+	text-align: left;
+}
+.u_top3_1{
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-right: 20px;
+	vertical-align: middle;
+}
+.u_top3_2{
+	display: inline-block;
+	vertical-align: middle;
+}
+.u_top3_2_1{
+	line-height: 33px;
+	font-size: 24px;
+	color: #2D2D2D;
+}
+.u_top3_2_2{
+	font-size: 12px;
+	color: #999999;
+	margin-bottom: 14px;
+}
+.u_top3_2_3{
+	font-size: 14px;
+	color: #666666;
+}
+.u_top3_3{
+	display: inline-block;
+	vertical-align: middle;
+	margin:  0 87.9px 0;
+}
+.u_top3_3>span{
+	position: relative;
+	display: inline-block;
+	width: 181px;
+	text-align: center;
+	font-size: 14px;
+	color: #999999;
+}
+.u_top3_3>span:after{
+	content: "";
+	position: absolute;
+	top:50%;
+	right: 0;
+	transform: translateY(-50%);
+	width: 1px;
+	height: 34px;
+	background: #E6E6E6;
+}
+.u_top3_3>span:last-child:after{
+	display: none;
+}
+.u_top3_3>span>span{
+	display: block;
+	text-align: center;
+	margin-top: 2px;
+	font-size: 24px;
+	color: #1E1E1E;
+}
+.u_top3_4{
+	
+	position: absolute;
+	right: 41px;
+	top: 50%;
+	transform: translateY(-50%);
+	
+	
+}
+.u_top3_4_1{
+	display: block;
+	background: #FF5121;
+	border-radius: 5px;
+	width: 120px;
+	height: 41px;
+	line-height: 41px;
+	font-size: 16px;
+	color: #FFFFFF;
+	text-align: center;
+}
+.u_top3_4_1:hover{
+	opacity: .7;
+}
+.u_top3_4_2>span{
+	cursor: pointer;
+	display: inline-block;
+	border: 1px solid #999999;
+	border-radius: 5px;
+	width: 118px;
+	height: 39px;
+	line-height: 39px;
+	font-size: 16px;
+	color: #333333;
+	text-align: center;
+	margin-right: 30px;
+	
+}
+.u_top3_4_2>span:last-child{
+	margin-right: 0;
+}
+.u_top3_4_2>.qgz{
+	background: #FF5121;
+	border-color: #FF5121;
+	color: #fff;
+}
+.userNavBox{
+	margin-top: 36px;
+	border-bottom: 1px solid #E6E6E6;
+	height: 37px;
+}
+.userNavBox>a{
+	display: inline-block;
+	height: 100%;
+	margin-right: 72px;
+	font-size: 16px;
+	color: #1E1E1E;
+
+}
+.userNavBox>a:hover{
+	color: #FF5121;
+}
+.userNavBox>a:last-child{
+	margin-right: 0;
+}
+.userNavBox>.router-link-active{
+	position: relative;
+	color: #FF5121;
+	font-weight: bold;
+}
+.userNavBox>.router-link-active:after{
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 94%;
+	height: 1px;
+	background: #FF5121;
+}
+.wusj2{
+	display: block;
+	margin: 0 auto;
+	width: 680px;
 }
 </style>

@@ -2,14 +2,20 @@
 	<div>
 		<div class="detail_topBox">
 			<img class="detail_topBox_1" :src="infoData.banner" alt="">
+
+			<div class="detail_topBoxx_1po">
+
 			<div class="detail_topBoxx_1">
 			<div class="detail_topBox_2x">
 				<div class="detail_topBox_2x_1">{{infoData.activity_name}}</div>
 				<div class="detail_topBox_2x_2">{{infoData.category_name}}:<span>{{backtimed(infoData.start_time) }} 至 {{backtimed(infoData.end_time)}}</span></div>
 			</div>
 			<div class="detail_topBox_2">
-				<div v-if="new Date(infoData.end_time).getTime()>new Date().getTime()"><span @click="downMoble" class="detail_topBox_2_1 pend">下载模板</span><span  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>
+
+				<div v-if="new Date(infoData.end_time) > new Date()"><span @click="downMoble" class="detail_topBox_2_1 pend">下载模板</span><span  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
+
 				<span v-else class="detail_topBox_2_3">已结束</span>
+			</div>
 			</div>
 			</div>
 		</div>
@@ -17,8 +23,7 @@
 			<a  @click="godefle('/detailed')" :class="['pend',ond==1?'router-link-exact-active':'']">活动详情</a>
 			<a  @click="godefle('/detailed/into')" :class="['pend',ond==2?'router-link-exact-active':'']">入围作品</a>
 			<a @click="godefle('/detailed/admission')" :class="['pend',ond==3?'router-link-exact-active':'']">录用作品</a>
-		<!-- 	<a :class="['pend',ond==2?'2','']"></a>
-			<a :class="['pend',ond==3?'3','']"></a>	 -->		
+				
 			<span class="detail_nav_1 iconfont pend">&#xe64c; 分享</span>
 		</div>
 		<router-view/>
@@ -229,7 +234,7 @@ export default {
 .detail_topBox_2{
 	position: absolute;
 	bottom: 30px;
-	right:15.5%;
+	right:0;
 	
 }
 .detail_topBox_2_2,.detail_topBox_2_1{
@@ -438,19 +443,28 @@ export default {
 	margin-right: 0;
 }
 
-.detail_topBoxx_1{
+.detail_topBoxx_1po{
 	position: absolute;
-	width: 100%;
-	left: 50%;
+	left: 0;
 	bottom: 0;
+	width: 100%;
+	background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, #000000 100%);
+}
+.detail_topBoxx_1{
+
+	width: 1300px;
+	
+}
+.detail_topBoxx_1{
+	position: relative;
+	margin: 0 auto;
+	width: 1300px;
 	height: 100px;
-	background: rgba(0,0,0,0.5);
-	transform: translateX(-50%);
+	
 }
 .detail_topBox_2x{
 	position: absolute;
 	bottom: 30px;
-	left:15.5%;
 	text-align: left;
 }
 .detail_topBox_2x_1{

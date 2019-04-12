@@ -11,15 +11,15 @@
 			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
 		</div>
 		<ul class="i_listd" >
-			<li v-for="(el,index) in List" :key="index" @click="openxq(index)">
-				<img class="i_listd1" :src="el.face_pic" alt="">
+			<li v-for="(el,index) in List" :key="index">
+				<img @click="openxq(index)"  class="i_listd1" :src="el.face_pic" alt="">
 				<div class="i_listd2">
-					<div class="i_listd2_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
-					<div class="i_listd2_2"><span>{{el.classify_1+'-'+el.classify_2}}</span><span>{{backtime(el.create_time)}}</span></div>
+					<div @click="openxq(index)" class="i_listd2_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
+					<div @click="openxq(index)" class="i_listd2_2"><span>{{el.classify_1+'-'+el.classify_2}}</span><span>{{backtime(el.create_time)}}</span></div>
 					<div class="i_listd2_3">
-						<span><img :src="el.user_info.avatar" alt=""></span>
+						<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
 						
-						<div>
+						<div @click="openxq(index)">
 							<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
 							<span class="iconfont pend">&#xe672; {{el.like_num}}</span>
 							<span class="iconfont pend">&#xe616; {{el.comment_num}}</span>
@@ -63,6 +63,9 @@ export default {
 		
 	}, 
 	methods: {
+		goUser(on){
+			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
+		},
 		backtime(time){
 		
 			return	window.getTimes(time);
