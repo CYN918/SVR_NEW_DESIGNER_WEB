@@ -409,6 +409,7 @@ export default {
 		
 		},
 		getCommentList(){
+		    this.hfData=[];
 			let pr = {
 				work_id:this.$route.query.id,
 				page:this.page.page,
