@@ -591,11 +591,11 @@ export default {
 				p = p.replace(/classify_name/g,"label");
 				p = p.replace(/id/g,"value");
 				p = p.replace(/sub_data/g,"children");
-	
 				this.page2.classify = JSON.parse(p);
 				console.log(p)
 			})
 		},
+
 	}
 }
 </script>
