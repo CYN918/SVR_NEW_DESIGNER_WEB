@@ -248,7 +248,7 @@ export default {
 }
 .upFm_yl_1_1{
 	width: 297.9px;
-	height: 222.3px;
+	height: 207.3px;
 	overflow: hidden;
 }
 .upFm_yl_1_1 img {
@@ -256,7 +256,8 @@ export default {
 	width: 100%;
 }
 .upFm_yl_1_2{
-	padding: 9.6px;
+	padding:0 9.6px 9.6px 9.6px;
+
 	text-align: left;
 }
 .upFm_yl_1_2_1{
@@ -272,6 +273,7 @@ export default {
 }
 
 .upFm_yl_1_2_2{
+	line-height: 30px;
 	font-size: 12.19px;
 	color: #878787;
 	text-align: left;
@@ -304,7 +306,7 @@ export default {
 	float: right;
 }
 .upFm_yl_1_2_3>div>span{
-	margin-right: 13.9px;
+	margin-right: 30px;
 	font-size: 12.19px;
 	color: #999999;
 }
