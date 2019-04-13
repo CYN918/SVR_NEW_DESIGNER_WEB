@@ -32,6 +32,31 @@ let wb = [
 				component: () => import('./views/user/works.vue')
 			},
 			{
+				path: '/myAll',
+				name: 'myAll',
+				component: () => import('./views/user/myAll.vue')
+			},
+			{
+				path: '/myExamine',
+				name: 'myExamine',
+				component: () => import('./views/user/myExamine.vue')
+			},
+			{
+				path: '/myNotPass',
+				name: 'myNotPass',
+				component: () => import('./views/user/myNotPass.vue')
+			},
+			{
+				path: '/myPass',
+				name: 'myPass',
+				component: () => import('./views/user/myPass.vue')
+			},
+			{
+				path: '/myDraft',
+				name: 'myDraft',
+				component: () => import('./views/user/myDraft.vue')
+			},
+			{
 				path: '/follow',
 				name: 'follow',
 				component: () => import('./views/user/follow.vue')
