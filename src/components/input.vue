@@ -1,7 +1,7 @@
 <template>
 	<div :class="['inptud',passqd]" >
 		<div  :class="['myInput',inputType]">
-			<el-select :style="{width:'86px'}" class="lgoin_s1" v-if="oType=='phone'" v-model="form.mobile_zone">
+			<el-select :style="{width:'90px'}" class="lgoin_s1" v-if="oType=='phone'" v-model="form.mobile_zone">
 				<el-option
 				v-for="item in xnData"
 				:key="item.label"

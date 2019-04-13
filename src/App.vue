@@ -192,10 +192,22 @@ input:-ms-input-placeholder{
 .banner1>img.action{
 	display: block;
 }
+.i_listd1x1{
+	width: 309.8px;
+	height: 231.9px;
+	overflow: hidden
+}
 .i_listd1{
 	display: block;
 	width: 309.8px;
 	height: 231.9px;
+	-webkit-transition: -webkit-transform .25s linear;
+	transition: transform .25s linear;
+}
+.i_listd1:hover{
+	
+	-webkit-transform: scale(1.4);
+	transform: scale(1.4);
 }
 .i_listd2{
 	padding: 5px 10px;
@@ -247,7 +259,7 @@ input:-ms-input-placeholder{
 	float: right;
 }
 .i_listd2_3>div>span{
-	margin-right: 13.9px;
+	margin-right: 24.5px;
 	font-size: 12.19px;
 	color: #999999;
 }
@@ -411,13 +423,10 @@ input:-ms-input-placeholder{
 .loginBox{
 	position: relative;
 	width: 100%;
+	overflow-x: hidden
 	
 }
-.loginBoxbg{
-	display: block;
-	width: 1920px;
 
-}
 .logindboxd{
 	position: fixed;
 	top: 0;
@@ -741,5 +750,14 @@ input:-ms-input-placeholder{
 }
 .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li{
 	margin: 0 16px 0 0;
+}
+.i_listd2_3x1{
+	line-height: 14px
+}
+.i_listd2_3x1>span>img{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 6px;
+	
 }
 </style>
