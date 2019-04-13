@@ -591,11 +591,11 @@ export default {
 				p = p.replace(/classify_name/g,"label");
 				p = p.replace(/id/g,"value");
 				p = p.replace(/sub_data/g,"children");
-	
 				this.page2.classify = JSON.parse(p);
 				console.log(p)
 			})
 		},
+
 	}
 }
 </script>
@@ -722,7 +722,7 @@ export default {
 .upBoxd{
 	height: 597px;
 }
-.UpBtn1{display: block !important;margin-bottom: 120px;}
+.UpBtn1{display: block !important;margin-bottom: 800px;}
 .UpBtn1>div{
 	display: inline-block;
 	border: 1px solid #999999;

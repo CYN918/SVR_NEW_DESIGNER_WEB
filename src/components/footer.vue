@@ -15,7 +15,7 @@
 
 <style>
 .footerBox{
-	position: absolute;
+	position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -25,7 +25,7 @@
 	font-size: 16px;
 	color: #FFFFFF;
 	line-height: 75px;
-	
+	z-index: 100000;
 }
 .footerBox>span{
 	margin-right: 72px;
