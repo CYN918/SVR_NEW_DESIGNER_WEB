@@ -1,7 +1,7 @@
 <template>
 	<div :class="['inptud',passqd]" >
 		<div  :class="['myInput',inputType]">
-			<el-select class="lgoin_s1" v-if="oType=='phone'" v-model="form.mobile_zone">
+			<el-select :style="{width:'86px'}" class="lgoin_s1" v-if="oType=='phone'" v-model="form.mobile_zone">
 				<el-option
 				v-for="item in xnData"
 				:key="item.label"
@@ -183,125 +183,5 @@ export default {
 </script>
 
 <style>
-.inptud{
-	width: 100%;
-	height: 40px;
-	margin-bottom: 22px;
-}
-.myInput{
-	position: relative;
-	display: flex;
-    width: 100%;
-    border-bottom: 1px solid #ddd;
 
-    line-height: 39px;
-    -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
-    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
-}
-.myInput input{
-	border: none;
-	outline: none;
-	box-sizing: border-box;
-    padding-left: 15px;
-    height: 40px;
-    flex: 1;
-}
-.myInput .inputType1{
-	padding: 0 47px 0 15px;	
-}
-.errd>.myInput{
-	border-color:#F56C6C;
-}
-.onIn>.myInput{
-	border-color: #409EFF;
-}
-/*.onIn{
-	
-}
-.sussd{
-	
-}
-.errd{
-	
-}*/
-.inptud .tip{
-	color: #F56C6C;
-    font-size: 12px;
-    line-height: 27px;
-    text-align: left;
-    padding: 0 15px;
-}
-.lgoin_s2{
-	width: 0px !important;
-}
-.lgoin_s2:after {
-    content: "";
-    position: absolute;
-    top: 10px;
-    left: 0;
-    width: 1px;
-    height: 20px;
-    background: #EEEEEE;
-}
-
-
-.inptud>.tip>span{
-	position: relative;
-	display: inline-block;
-	height: 4px;
-	background: #F5F5F5;
-	border-radius: 2.5px;
-	margin-left: 11px;
-	vertical-align: middle;
-}
-.inptud>.tip>span:after{
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	background: #FF0000;
-	border-radius: 2.5px;
-}
-.errd2>.tip>span{	
-	width: 120px;
-}
-.errd3>.tip{
-	color: #FF9A00;
-}
-.errd2>.tip>span:after{	
-	width: 40px;	
-}
-.errd2>.myInput{
-	border-color:#F56C6C;
-}
-.errd3>.myInput{
-	color: #FF9A00;
-}
-.errd3>.tip{
-	color: #FF9A00;
-}
-.errd3>.tip>span{	
-	width: 120px;
-}
-.errd3>.tip>span:after{	
-	width: 80px;
-	background: #FF9A00;
-}
-.errd4>.tip{
-	color: #51C514;
-}
-.errd4>.myInput{
-	color: #51C514;
-}
-.errd4>.tip>span{	
-	width: 120px;
-}
-.errd4>.tip>span:after{	
-	width: 120px;	
-	background: #51C514;
-}
-.errd5>.myInput{
-	color: #F56C6C;
-}
 </style>
