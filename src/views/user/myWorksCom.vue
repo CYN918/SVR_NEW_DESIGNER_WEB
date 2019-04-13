@@ -268,8 +268,8 @@ export default {
 	cursor: pointer;
 	width: 309.8px;
 	height: 231.6px;
-	-webkit-transition: transform .25s linear;
-	transition: transform .25s linear;
+	-webkit-transition: transform .1s linear;
+	transition: transform .1s linear;
 }
 .myListBox_1:hover>.myListBox_1_1{
 	-webkit-transform: scale(1.02);

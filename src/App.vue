@@ -201,8 +201,8 @@ input:-ms-input-placeholder{
 	display: block;
 	width: 309.8px;
 	height: 231.9px;
-	-webkit-transition: -webkit-transform .25s linear;
-	transition: transform .25s linear;
+	-webkit-transition: -webkit-transform .1s linear;
+	transition: transform .1s linear;
 }
 .i_listd1:hover{
 	
