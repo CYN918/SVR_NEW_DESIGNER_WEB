@@ -723,7 +723,7 @@ export default {
 .upBoxd{
 	height: 597px;
 }
-.UpBtn1{display: block !important;margin-bottom: 800px;}
+.UpBtn1{display: block !important;margin-bottom: 120px;}
 .UpBtn1>div{
 	display: inline-block;
 	border: 1px solid #999999;
@@ -1004,7 +1004,7 @@ export default {
     border-radius: 5px;
     
     height: 44px;
-    padding: 1px 20px;
+    padding: 1px 10px;
 }
 .page2_2_1_2x>span{
 	box-sizing: border-box;
@@ -1142,5 +1142,5 @@ export default {
 	background: #FF5121;
 	border-color: #FF5121 !important;
 }
-
+.el-select{width: 100%}
 </style>
