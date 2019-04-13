@@ -722,7 +722,7 @@ export default {
 .upBoxd{
 	height: 597px;
 }
-.UpBtn1{display: block !important;margin-bottom: 200px;}
+.UpBtn1{display: block !important;margin-bottom: 800px;}
 .UpBtn1>div{
 	display: inline-block;
 	border: 1px solid #999999;
