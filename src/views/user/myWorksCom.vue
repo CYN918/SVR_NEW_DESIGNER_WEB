@@ -272,8 +272,8 @@ export default {
 	transition: transform .25s linear;
 }
 .myListBox_1:hover>.myListBox_1_1{
-	-webkit-transform: scale(1.04);
-	transform: scale(1.04);
+	-webkit-transform: scale(1.02);
+	transform: scale(1.02);
 }
 .myListBox_1>.myListBox_1_2{
 	cursor: pointer;
