@@ -155,7 +155,7 @@ export default {
 		url:'/Api/Work/getSelfWorkList',method:'post',baseURL:0,
 	},
 	delWork:{
-		url:'/Api/Work/del',method:'post',baseURL:0,
+		url:'/Api/Work/delWork',method:'post',baseURL:0,
 	},
 	
 }
