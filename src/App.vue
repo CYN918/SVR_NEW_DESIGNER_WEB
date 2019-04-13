@@ -1329,4 +1329,10 @@ content: "";
 	width: 17px;
 	margin-right: 8px;
 }
+.page2_2_2_2_2>.el-select>.el-input>.el-input__inner{
+	padding-left: 10px;
+}
+.el-cascader>.el-input>.el-input__inner{
+	padding-left: 10px;
+}
 </style>
