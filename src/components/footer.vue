@@ -15,7 +15,7 @@
 
 <style>
 .footerBox{
-	position: fixed;
+	/*position: fixed;*/
     bottom: 0;
     left: 0;
     width: 100%;
