@@ -135,5 +135,7 @@ export default {
 </script>
 
 <style>
-
+.lgoin_s6{
+	border-radius: 0 0 8px 8px;
+}
 </style>
