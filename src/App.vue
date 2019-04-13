@@ -53,9 +53,9 @@ li{list-style-type: none}
 .pend{
 	cursor: pointer;	
 }
-.pend:hover{
-	opacity: .7;
-}
+/*.pend:hover{*/
+	/*opacity: .7;*/
+/*}*/
  input::-webkit-input-placeholder{
     color:#c0c4cc;
 }
@@ -205,7 +205,6 @@ input:-ms-input-placeholder{
 	transition: transform .1s linear;
 }
 .i_listd1:hover{
-	
 	-webkit-transform: scale(1.02);
 	transform: scale(1.02);
 }
@@ -1329,7 +1328,6 @@ content: "";
 	width: 17px;
 	margin-right: 8px;
 }
-
 .plBoxd{padding: 30px 0;}
 
 .page2_2_2_2_2>.el-select>.el-input>.el-input__inner{
@@ -1338,5 +1336,4 @@ content: "";
 .el-cascader>.el-input>.el-input__inner{
 	padding-left: 10px;
 }
-
 </style>

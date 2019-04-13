@@ -486,10 +486,10 @@ export default {
 			return true
 		},
 		fileUpfj(flie){
-			let fld = flie.target.files[0];   
-			console.log(fld.type)
-			if(['application/x-zip-compressed','application/zip'].indexOf(fld.type)==-1){
-				Message({message: '格式不正确'});
+			let fld = flie.target.files[0];
+            if(['application/x-zip-compressed','application/zip'].indexOf(fld.type)==-1){
+
+                Message({message: '格式不正确'});
 				return
 			}
 			if(fld.size>20*1024*1024){
@@ -721,7 +721,7 @@ export default {
 	margin: 20px 0;
 }
 .upBoxd{
-	height: 597px;
+	height: 756px;
 }
 .UpBtn1{display: block !important;margin-bottom: 120px;}
 .UpBtn1>div{

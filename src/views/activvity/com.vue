@@ -476,4 +476,13 @@ export default {
 	font-size: 14px;
 	color: #FFFFFF;
 }
+.detail_topBox_2_2:hover{
+	background: #FF6940;
+}
+.detail_topBox_2_2:active{
+	background: #FF3700;
+}
+.detail_topBox_2_1:hover{
+	background: #4E4E4E;
+}
 </style>
