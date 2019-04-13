@@ -28,9 +28,6 @@ export default {
 	position: relative;
 	width: 100%;
 	overflow-x: hidden;
-	background: url("../../../public/imge/lo1.png") no-repeat;
-	background-size:cover;
-	background-attachment: fixed;
 }
 .loginBoxbg{
 	display: block;

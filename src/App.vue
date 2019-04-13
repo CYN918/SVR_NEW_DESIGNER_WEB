@@ -43,7 +43,7 @@ li{list-style-type: none}
 	-moz-osx-font-smoothing: grayscale;
 }
 #app {
-	font-family: 'Avenir', Helvetica, Arial, sans-serif;
+	font-family: 'PingFangSC-Medium','Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;

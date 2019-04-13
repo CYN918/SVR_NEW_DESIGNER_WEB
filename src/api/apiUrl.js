@@ -151,5 +151,11 @@ export default {
 	fansList:{
 		url:'/Api/Follow/fansList',method:'post',baseURL:0,
 	},
+	getSelfWorkList:{
+		url:'/Api/Work/getSelfWorkList',method:'post',baseURL:0,
+	},
+	delWork:{
+		url:'/Api/Work/del',method:'post',baseURL:0,
+	},
 	
 }

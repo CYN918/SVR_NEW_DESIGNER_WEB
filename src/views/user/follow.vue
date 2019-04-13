@@ -12,36 +12,35 @@
 					</div>
 				</div>
 			</div>
-			<ul v-if="List.length==0" class="i_listd2" >
-				<li>
-					<img src="/imge/nav_tx.png" alt="">
+			<ul v-if="List.length>0" class="i_listd2" >
+				<li v-for="(el,index) in List" :key="index">
+					<img :src="el.avatar">
 					<div class="i_listd2_1">
-						<div>12231</div>
-						<div>广东 | 深圳{{List.length}}</div>
+						<div>{{el.username}}</div>
+						<div>{{el.province}} | {{el.city}}</div>
 						<div class="i_listd2_d">
-							<span>粉丝<span>2694</span></span>
-							<span>人气<span>2694</span></span>
-							<span>创作<span>2694</span></span>
+							<span>粉丝<span>{{el.fans_num}}</span></span>
+							<span>人气<span>{{el.popular_num}}</span></span>
+							<span>创作<span>{{el.work_num}}</span></span>
 						</div>
-						<div>这个人很懒，什么都没说~</div>
+						<div>{{el.personal_sign?el.personal_sign:'这个人很懒，什么都没说~'}}</div>
 						<div class="btns_foll">
-							<span>互相关注</span>
+							<span v-if="el.follow_flag==2">互相关注</span>
+							<span v-else-if="el.follow_flag==1">已关注</span>
+							<span v-else>关注</span>
 							<span>私信</span>
 						</div>
 					</div>
 					<div class="lunbox">
-						<div class="lunbox_left">
+						<!-- <div class="lunbox_left">
 							<img src="/imge/icon/left.png" alt="">
-						</div>
-						<ul>
-							<li><img src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png" alt=""></li>
-							<li><img src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png" alt=""></li>
-							<li><img src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png" alt=""></li>
-							<li><img src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png" alt=""></li>
+						</div> -->
+						<ul v-if="el.works.length>0">
+							<li v-if="index2<3" v-for="(el2,index2) in el.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
 						</ul>
-						<div class="lunbox_right">
+						<!-- <div class="lunbox_right">
 							<img src="/imge/icon/right.png" alt="">
-						</div>
+						</div> -->
 					</div>
 				</li>
 			</ul>
@@ -85,17 +84,18 @@ export default {
 				{name:'TA关注的人',key:1},
 				{name:'TA的粉丝',key:1},
 			],
+			onType:'followList',
 			
 		}
 	},
 	mounted: function () {			
-		//this.getHList();
+		this.followList();
 		
 	}, 
 	methods: {
 		sxFn(on){
 			this.sxtj = on;
-			
+			//this.onType = 'fansList';
 		},
 		goUser(on){
 			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
@@ -106,9 +106,27 @@ export default {
 		},	
 	
 		openxq(on){
-			window.open('#/cont?id='+this.List[on].work_id)
+			
+			window.open('#/cont?id='+on)
 		},
 		
+		followList(){
+			let pr = {
+				access_token:window.userInfo.access_token,
+				user_open_id:this.$route.query.id,
+				page:this.page,
+				limit:this.limit
+			};
+			this.api[this.onType](pr).then((da)=>{
+				if(!da){
+					return
+				}
+				this.List = da.data;
+				this.total = da.total;
+				console.log(this.List);
+				
+			})
+		},
 		
 		getHList(){
 			let params = {
@@ -276,23 +294,29 @@ export default {
 	position: relative;
     float: right;
     display: inline-block;
-    width: 807px;
-    height: 150px;
+   
+    height: 154px;
     overflow: hidden;
+	padding: 2px 0;
    
 
 }
+
+.lunbox:hover>.lunbox_left,.lunbox:hover>.lunbox_right{
+	display: block;
+}
+
 .lunbox_left,.lunbox_right{
+	cursor: pointer;
+	display: none;
 	position: absolute;
-	top: 0;
+	top: 3px;
 	background: rgba(0,0,0,.3);
 	width: 40px;
-	height: 150px;
-	cursor: pointer;
+	height: 152px;
+	z-index: 9;
 }
-.lunbox_left:hover,.lunbox_right:hover{
-	background: #000;
-}
+
 .lunbox_left{
 	left: 0;
 }
@@ -306,19 +330,33 @@ export default {
 }
 .lunbox>ul{
 	overflow: hidden;
-	height: 150px;
+	height: 154px;
 	white-space: nowrap;
+	padding: 2px 0 ;
+	width: 760px;
 	
 }
 .lunbox>ul>li{
-	width: 200px;
+	width: 240px;
 	height: 150px;
 	border-radius: 3.28px 3.28px 5px 5px;
 	margin-right: 13px;
+	overflow: hidden;
 }
 .lunbox>ul>li>img{
 	display: block;
-	width: 200px;
+	width: 240px;
 	height: 150px;
+	-webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    
 }
+.lunbox>ul>li>img:hover{
+	-webkit-transition: -webkit-transform .25s linear;
+	-webkit-transform: scale(1.4);
+	transition: transform .25s linear;
+	transform: scale(1.4);
+	cursor: pointer;
+}
+
 </style>
