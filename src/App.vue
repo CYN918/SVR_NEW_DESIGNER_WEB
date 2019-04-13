@@ -206,8 +206,8 @@ input:-ms-input-placeholder{
 }
 .i_listd1:hover{
 	
-	-webkit-transform: scale(1.1);
-	transform: scale(1.1);
+	-webkit-transform: scale(1.04);
+	transform: scale(1.04);
 }
 .i_listd2{
 	padding: 5px 10px;
