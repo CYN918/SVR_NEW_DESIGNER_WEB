@@ -206,8 +206,8 @@ input:-ms-input-placeholder{
 }
 .i_listd1:hover{
 	
-	-webkit-transform: scale(1.4);
-	transform: scale(1.4);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
 }
 .i_listd2{
 	padding: 5px 10px;
@@ -756,8 +756,9 @@ input:-ms-input-placeholder{
 }
 .i_listd2_3x1>span>img{
 	display: inline-block;
-	vertical-align: middle;
+	vertical-align: bottom;
 	margin-right: 6px;
+	width: 15px;
 	
 }
 </style>

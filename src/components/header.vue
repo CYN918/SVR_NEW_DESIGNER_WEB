@@ -156,8 +156,8 @@ export default {
 .header_4>div{
 	display: inline-block;
 	vertical-align: middle;
-	width: 44px;
-	height: 44px;
+	width: 32px;
+	height: 32px;
 	overflow: hidden;
 	margin-right: 12px;
 	overflow: hidden;

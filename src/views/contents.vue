@@ -71,11 +71,12 @@
 								<span>{{backtime(el.create_time)}}</span>
 							</div>
 							<div class="i_listd2_3">
-								<span><img src="https://img.zcool.cn/community/01e9b65c986887a801214168d67106.jpg@260w_195h_1c_1e_1o_100sh.jpg" alt=""></span>
-								<div>
-								<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
-								<span class="iconfont pend">&#xe672; {{el.like_num}}</span>
-								<span class="iconfont pend">&#xe616; {{el.comment_num}}</span>
+								<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
+								
+								<div class="i_listd2_3x1" @click="openxq(index)">
+									<span class="pend"><img src="/imge/icon/zs_icon_gk.png">{{el.view_num}}</span>
+									<span class="pend"><img src="/imge/icon/zs_icon_dz.png">{{el.like_num}}</span>
+									<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.comment_num}}</span>
 								</div>
 							</div>
 						</div>

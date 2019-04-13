@@ -1,27 +1,43 @@
 <template>
 	<div class="seed">
-		<div class="seed1box">
+		<div class="seed1box" ref="topNav">
 			<div class="seed1">
+			<div class="seed11">
 				<div class="seed1_1">
 					{{contDat.work_name}}
 				</div>
 				<div class="seed1_2">
-					<span class="seed1_2_1">{{backtime(contDat.create_time)}}</span>
-					<span class="seed1_2_2"><span class="iconfont">&#xe616;</span>{{hfnum}}</span>
-					<span class="seed1_2_3"><span @click="addLike('work',contDat.work_id,contDat)" :class="['iconfont',contDat.liked?'likeis':'']">&#xe672;</span>{{contDat.like_num}}</span>
-					<span class="seed1_2_4"><span class="iconfont">&#xe64c;</span>分享</span>
-					<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat)"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
+					<span class="seed1_2_1">{{backtime(contDat.create_time)}}</span>					
 				</div>
 				<div class="seed1_3">
 					{{contDat.classify_1+'-'+contDat.classify_2+'-'+contDat.classify_3}}
 					<span  class="iconfont seed1_3_1">&#xe654;
 					<div>
-						<div>{{'作品版权由【'+contDat.user_info.username+'】解释，'+contDat.copyright}}</div>
+						<div v-if="contDat.user_info">{{'作品版权由【'+contDat.user_info.username+'】解释，'+contDat.copyright}}</div>
 					</div>
 					</span>			
 				</div>
 			</div>
+			<div class="seed12">
+				<span class="seed1_2_2"><img src="/imge/icon/zs_icon_xx.png">{{hfnum}}</span>
+				<span class="seed1_2_3"><img @click="addLike('work',contDat.work_id,contDat)" src="/imge/icon/zs_icon_dz.png">{{contDat.like_num}}</span>
+				<span class="seed1_2_4"><span class="iconfont">&#xe64c;</span>分享</span>
+				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat)"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
+			</div>
+			</div>
 		</div>
+		<div v-if="topTyped==true" class="topNav_x_1">
+			<div class="topNav_x_2">
+			<div class="topNav_x_1_1">
+				{{contDat.work_name}}
+			</div>
+			<div class="topNav_x_1_2">
+				<span class="seed1_2_4"><span class="iconfont">&#xe64c;</span>分享</span>
+				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat)"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
+			</div>
+			</div>
+		</div>
+		
 		<div class="seed2">
 			<div class="seed2_1">
 				<div class="seed2_1_1" >
@@ -113,8 +129,9 @@
 				</div>
 				<div class="seed2_1_2">
 					<div class="seed2_1_2_1">TA的更多作品</div>
+					<div class="seed2_1_2_1x1">
 					<div @click="seeWorks(el.work_id)" class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
-						<img :src="el.face_pic" alt="" class="i_listd1">
+						<div class="i_listd1x2"><img :src="el.face_pic" alt="" class="i_listd1"></div>
 						<div class="i_listd2">
 							<div class="i_listd2_1">
 								<span>{{el.work_name}}</span>
@@ -124,15 +141,18 @@
 								<span>{{el.classify_1+'-'+el.classify_2}}</span>
 								<span>{{backtime(el.create_time)}}</span>
 							</div>
+							
 							<div class="i_listd2_3">
-								<span><img :src="el.user_info.avatar" alt=""></span>
-								<div>
-								<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
-								<span class="iconfont pend">&#xe672; {{el.like_num}}</span>
-								<span class="iconfont pend">&#xe616; {{el.comment_num}}</span>
+								<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
+								
+								<div class="i_listd2_3x1" @click="openxq(index)">
+									<span class="pend"><img src="/imge/icon/zs_icon_gk.png">{{el.view_num}}</span>
+									<span class="pend"><img src="/imge/icon/zs_icon_dz.png">{{el.like_num}}</span>
+									<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.comment_num}}</span>
 								</div>
 							</div>
 						</div>
+					</div>
 					</div>
 					
 					
@@ -206,9 +226,11 @@ export default {
 			deletOn:[],
 			follwTyle:0,
 			addLink:0,
+			topTyped:false,
 		}
 	},
 	mounted: function () {	
+		
 		this.init();
 		this.getCommentList()
 	}, 
@@ -375,10 +397,25 @@ export default {
 			return window.getTimes(time)
 		},
 		init(){		
-			// let token = localStorage.getItem('userT');
+			
+			window.onscroll = ()=>{
+				let t = document.documentElement.scrollTop||document.body.scrollTop;
+				if(this.topTyped==0){
+					if(t>188){
+						this.topTyped=true;
+					}
+					return
+				}
+				if(t<=188){
+					this.topTyped=false;
+				}
+				console.log(this.topTyped)
+			}
+			
 			let pr = {
 				work_id:this.$route.query.id,
 			}
+			
 			if(window.userInfo){
 				this.page.access_token = window.userInfo.access_token;
 				this.page.open_id = window.userInfo.open_id;
@@ -394,7 +431,7 @@ export default {
 				}else {
                     this.show= true;
 				}
-				console.log(window.userInfo.open_id)
+				
 			});
 		},
 		backComt(data){
@@ -622,11 +659,11 @@ export default {
 .seed1{
 	width: 1300px;
 	margin: 0 auto;
-	padding: 15px 0;
+	
 	text-align: left;
 }
 .seed1_1{
-
+	padding-top: 15px;
 	font-size: 24px;
 	color: #1E1E1E;
 	margin-bottom: 12px;
@@ -634,11 +671,11 @@ export default {
 .seed1_2{
 	font-size: 14px;
 	color: #666666;
-
-	text-align: right;
+	margin-bottom: 13px;
+	text-align: left;
 }
 .seed1_2_1{
-	float: left;
+	
 	padding-top: 8px;
 }
 
@@ -728,6 +765,9 @@ export default {
 	margin: 0 auto;
 	
 }
+.seed2_1_1_1x>p{
+	margin-bottom: 30px;
+}
 .seed2>.seed2_2,.seed2>.seed2_1>div{
 	background: #FFFFFF;
 	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
@@ -754,6 +794,21 @@ export default {
 }
 .seed2_1_2{
 	padding: 40px;
+	height: 481px;
+    overflow: hidden;
+	overflow-y: auto;
+}
+.seed2_1_2::-webkit-scrollbar {
+    width: 6px;     
+    height: 1px;
+}
+.seed2_1_2::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: #535353;
+}
+.seed2_1_2::-webkit-scrollbar-track {
+    background: none;
 }
 .seed2_1_1_1{
 	margin-bottom: 17px;
@@ -974,8 +1029,7 @@ export default {
 .pl_02_1>div:nth-child(2)>span:nth-child(3){
 	display: inline-block;
 	position: relative;
-	color: #FF5121;
-	
+	color: #999;
 }
 .hfdZ_1{
 	
@@ -1104,5 +1158,53 @@ content: "";
 }
 .likeis{
 	color: red !important;
+}
+.i_listd1x2{
+	width: 269.9px;
+	height: 201.5px;
+	overflow: hidden;
+}
+.seed11{
+	display: inline-block;
+}
+.seed12{
+	margin-top: 45px;
+	float: right;
+}
+.topNav_x_1{
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #FFFFFF;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+    line-height: 80px;
+}
+.topNav_x_1>.topNav_x_2{
+	width: 1300px;
+	margin: 0 auto;
+	text-align: left;
+}
+.topNav_x_1_1{
+	display: inline-block;
+	font-size: 24px;
+	color: #1E1E1E;
+	line-height: 80px;
+}
+.topNav_x_1_2{
+	float: right;
+	line-height: 80px;
+}
+.seed1_2_3>img{
+	vertical-align: bottom;
+	display: inline-block;
+	width: 17px;
+	margin-right: 8px;
+}
+.seed1_2_2>img{
+	vertical-align: bottom;
+	display: inline-block;
+	width: 17px;
+	margin-right: 8px;
 }
 </style>

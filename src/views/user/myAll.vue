@@ -20,7 +20,7 @@
 					<div class="myListBox_4">
 						
 						<span class="myListBox_4_1" v-if="el.status!=0">{{el.status==2?'修改设置':'编辑'}}</span>
-						<span class="myListBox_4_2">删除</span>
+						<span class="myListBox_4_2" @click="showTopc('delet',el.work_id)">删除</span>
 					</div>
 					
 				</li>
@@ -36,15 +36,18 @@
 			:total="total">   
 			</el-pagination>
 		</div>
-		<div class="myListBox_6">
+		<div v-show="istopc" class="myListBox_6">
 			<div class="myListBox_6_1">
-				<img class="myListBox_6_2" src="/imge/cj_00.png" alt="">
-				<div class="myListBox_6_3">修改作品设置提交，平台审核通过后即可修改成功</div>
-				<div class="myListBox_6_3">确定修改作品设置？</div>
+				<img @click="hindTopc" class="myListBox_6_2" src="/imge/cj_00.png" alt="">
+				<div v-if="topcType=='set'" class="myListBox_6_3">修改作品设置提交，平台审核通过后即可修改成功</div>
+				<div v-if="topcType=='set'" class="myListBox_6_3">确定修改作品设置？</div>
+				<div v-if="topcType=='delet'" class="myListBox_6_3">确定删除该作品？</div>
 				<div class="myListBox_6_4">
-					<span>取消</span>
-					<span>确定</span>
+					<span @click="hindTopc">取消</span>
+					<span v-if="topcType=='delet'" @click="delWork()" class="myListBox_6_4_2">确定</span>
+					<span v-if="topcType=='set'" class="myListBox_6_4_2">确定</span>
 				</div>
+
 			</div>
 		</div>	
 	</div>
@@ -58,6 +61,8 @@ export default {
 	name: 'myAll',
 	data(){
 		return {
+			istopc:false,
+			topcType:'',
 			worksType:'',
 			banners:[],
 			List:[],
@@ -66,6 +71,7 @@ export default {
 			limit:40,
 			total:0,
 			loading: '',
+			deletWorkid:'',
 			
 		}
 	},
@@ -75,8 +81,30 @@ export default {
 		
 	}, 
 	methods: {
+		showTopc(type,id){
+			this.deletWorkid = id;
+			this.topcType = type;
+			this.istopc = true;
+		},
+		hindTopc(){
+			this.topcType = '';
+			this.deletWorkid = '';
+			this.istopc = false;
+		},
 		delWork(){
-			
+			let pr = {
+				access_token:window.userInfo.access_token,
+				work_id:this.deletWorkid
+			};
+			this.api.delWork(pr).then((da)=>{
+				if(!da){
+					this.delWorkType = 0;
+					return
+				}
+				this.delWorkType = 0;
+			}).catch(()=>{
+				this.delWorkType = 0;		
+			});
 		},
 		goUser(on){
 			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
@@ -231,8 +259,8 @@ export default {
 	transition: transform .25s linear;
 }
 .myListBox_1:hover>.myListBox_1_1{
-	-webkit-transform: scale(1.4);
-	transform: scale(1.4);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
 }
 .myListBox_1>.myListBox_1_2{
 	cursor: pointer;
@@ -351,5 +379,30 @@ export default {
 	color: #1E1E1E;
 	text-align: center;
 	margin-bottom: 4px;
+}
+.myListBox_6_4{
+	margin-top: 27px;
+	text-align: center;
+}
+.myListBox_6_4>span{
+	cursor: pointer;
+	
+	display: inline-block;
+	border: 1px solid #999999;
+	border-radius: 5px;
+	width: 98px;
+	height: 38px;
+	line-height: 38px;
+	font-size: 14px;
+	color: #333333;
+	text-align: center;
+	margin:0 10px;
+}
+.myListBox_6_4>span:hover{
+	opacity: .7;
+}
+.myListBox_6_4>.myListBox_6_4_2{
+	background: #333333;
+	color: #fff;
 }
 </style>
