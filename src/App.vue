@@ -1329,14 +1329,14 @@ content: "";
 	width: 17px;
 	margin-right: 8px;
 }
-<<<<<<< HEAD
+
 .plBoxd{padding: 30px 0;}
-=======
+
 .page2_2_2_2_2>.el-select>.el-input>.el-input__inner{
 	padding-left: 10px;
 }
 .el-cascader>.el-input>.el-input__inner{
 	padding-left: 10px;
 }
->>>>>>> b4416070b5aa18db37476b95a6cdda67349760d2
+
 </style>
