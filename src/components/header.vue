@@ -197,10 +197,11 @@ export default {
 	font-weight: bold;
     border-bottom: 1px solid #E6E6E6;
     width: 170px;
-    text-align: center;
+    text-align: left;
+	padding-left: 25px;
     line-height: 53px;
 	margin: 0;
-	padding: 0;
+	/*padding: 0;*/
 }
 .userBpx>a:hover{
 	background: #E6E6E6;
@@ -209,7 +210,8 @@ export default {
 .userBpx>ul>a>li{
 	font-size: 14px;
 	color: #1E1E1E;
-	text-align: center;
+	text-align: left;
+	padding-left: 25px;
 	line-height: 40px;
 }
 .userBpx>ul>a:first-child>li{

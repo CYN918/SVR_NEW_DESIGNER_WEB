@@ -281,5 +281,5 @@ input:-ms-input-placeholder{
 }
 
 .citysbos3_1{border-bottom: 1px solid transparent!important;}
-
+.el-select{width:100%}
 </style>

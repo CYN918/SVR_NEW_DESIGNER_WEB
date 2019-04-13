@@ -77,8 +77,7 @@
 							:options="page2.classify"
 							v-model="selectedOptions"
 							>
-							</el-cascader>	
-						
+							</el-cascader>
 						</div>
 					</div>
 					<div class="page2_2_2_2">
@@ -994,6 +993,9 @@ export default {
 	vertical-align: middle;
 	margin-bottom: 0;
 	
+}
+.inptud{
+	height: 47px!important;
 }
 .page2_2_1_2 .myInput{
 	box-sizing: border-box;

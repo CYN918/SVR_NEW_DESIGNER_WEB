@@ -26,7 +26,7 @@
 							        <div class="circleProgress leftcircle" :style="{transform:'rotate('+backRigh(el.bf)+'deg)'}"></div>
 							    </div>								
 							</div>
-							<div class="loadingsdsd">{{el.bf+'%'}}</div>
+							<div class="loadingsdsd">{{bf+'%'}}</div>
 							<div class="qxclos" @click="qxclosd(el)">取消上传</div>
 						</div>
 						<div><span>{{el.file_name.split('.')[0]}}</span><span>{{el.s}}</span></div>
@@ -56,6 +56,7 @@ export default {
 	},
     data() {
       	return {
+      	    bf:0,
         	dialogImageUrl: '',
         	dialogVisible: false,
         	list:[],
@@ -102,10 +103,10 @@ export default {
 				this.deldetType=0;
 				if(response.data.result==0){
 					Message({message: '删除成功'});
+                    this.closed();
 					for(let i=0,n=this.deletObj.length;i<n;i++){
 						this.deletObj[i].type='none';						
 					}
-                    window.reload();
 					console.log()
 				}else{
 					Message({message: '删除失败'});	
@@ -180,7 +181,17 @@ export default {
 		qxclosd(obj){
 			obj.xhr.abort();
 		},
-      	fileUp(flie){  		
+        time(){
+            var _this=this;
+            _this.bf=0;
+            var timer = setInterval(function () {
+                if(_this.bf<99){
+                    _this.bf++
+                }
+            },100);
+        },
+      	fileUp(flie){
+		    this.time();
       		let fld = flie.target.files[0];    	
       		if(this.configData.type.indexOf(fld.type)==-1){
       			Message({message: '格式不正确'});
@@ -206,7 +217,7 @@ export default {
 				token.open_id,
 				times
 			];
-			
+
 			let formData = new FormData();
 			formData.append('app_id',1001);
 			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
@@ -233,6 +244,7 @@ export default {
 					p.fid=da.fid
 					this.$refs.upnfile.value ='';			
 					Message({message: '文件上传成功'});
+					this.bf=100;
 				}
 				
 			};
@@ -421,7 +433,7 @@ export default {
 	width: 100%;
 	height: 135px;
 	border-radius: 5px;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+	box-shadow: 8px 8px 4px 0 rgba(0,0,0,0.20);
 	margin-bottom: 6px;
 }
 .uploadBoxd2_3>li>div>div{
@@ -470,7 +482,7 @@ export default {
 }
 .uploadBoxd2_4>.uploadBoxd2_4_1{
 	position: absolute;
-	top: 20px;
+	top: 12px;
 	left: 28px;
 	border: none;
 	width: auto;

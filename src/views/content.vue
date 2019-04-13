@@ -310,7 +310,7 @@ export default {
 		},
 		seeWorks(id){
 			console.log(id)
-			this.$router.push({path:'/cont',query:{id:id}});	
+			this.$router.push({path:'/cont',query:{id:id}});
 		},
 		downFile(flid){
 			window.open(flid);
@@ -409,6 +409,7 @@ export default {
 		
 		},
 		getCommentList(){
+		    this.hfData=[];
 			let pr = {
 				work_id:this.$route.query.id,
 				page:this.page.page,
