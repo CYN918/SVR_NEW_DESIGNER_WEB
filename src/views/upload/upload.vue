@@ -487,6 +487,7 @@ export default {
 		},
 		fileUpfj(flie){
 			let fld = flie.target.files[0];   
+			console.log(fld.type)
 			if(['application/x-zip-compressed'].indexOf(fld.type)==-1){
 				Message({message: '格式不正确'});
 				return
