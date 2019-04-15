@@ -596,8 +596,7 @@ export default {
                 console.log(p)
 			})
 		},
-
-	}
+    }
 }
 </script>
 <style>

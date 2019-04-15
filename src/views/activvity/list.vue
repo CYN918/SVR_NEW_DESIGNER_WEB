@@ -57,7 +57,7 @@ export default {
 			});
 		},
 		handleSizeChange(val) {
-			this.pL.page_size = val;
+			this.pL.limit = val;
 			this.a_getList();
 		},
 		handleCurrentChange(val) {
