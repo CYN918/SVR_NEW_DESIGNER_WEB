@@ -115,7 +115,7 @@
 			<div class="UpBtn1_1" @click="seeCg" v-if="!chekin">预览</div><div @click="savZp" :class="['UpBtn1_2',ck3]" v-if="!chekin">提交发布</div>
 		</div>
 		
-		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
+		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver" :InputValue="form.work_name" :type="selectedOptions"></upoloadcaver>
 	</div>
 </template>
 
@@ -593,7 +593,7 @@ export default {
 				p = p.replace(/id/g,"value");
 				p = p.replace(/sub_data/g,"children");
 				this.page2.classify = JSON.parse(p);
-				console.log(p)
+                console.log(p)
 			})
 		},
 

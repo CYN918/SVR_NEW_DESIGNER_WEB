@@ -13,12 +13,12 @@
 					</div>				
 					<div class="upFm_yl_1_2">
 						<div class="upFm_yl_1_2_1">
-							<span>机甲概念设计</span>
+							<span>{{InputValue}}</span>
 							<img src="/imge/zs_icon_tj.png" alt="">
 						</div>
 						<div class="upFm_yl_1_2_2">
-							<span>插画-概念设计</span>
-							<span>2019-03-25 19:16:05</span>
+							<span>原创-平面</span>
+							<span>{{(new Date()).Format("yyyy-MM-dd ")}}</span>
 						</div>
 						<div class="upFm_yl_1_2_3">
 							<span><img src="https://img.zcool.cn/community/01e9b65c986887a801214168d67106.jpg@260w_195h_1c_1e_1o_100sh.jpg" alt=""></span>
@@ -78,9 +78,13 @@
 <script>
 import {Message} from 'element-ui';
 export default {
+    props:{
+		InputValue:'',
+        type:'',
+	},
 	name: 'login',
 	data(){		
-		return{	
+		return{
 			previewStyle2:{},
 			previews:{},
 			option:{
@@ -94,7 +98,7 @@ export default {
 			opType:0,
 		}
 	},	
-	mounted: function () {	
+	mounted: function () {
 	}, 
 	methods: {
 		close(){
