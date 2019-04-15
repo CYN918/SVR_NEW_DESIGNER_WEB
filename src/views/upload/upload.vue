@@ -177,7 +177,7 @@ export default {
 					title2:'格式支持mp3、Ogg、Wav，文件大小不超过50M',
 					btn:'上传音频素材',
 					max:50*1024*1024,
-					type:['audio/ogg','audio/mp3','audio/wav'],
+					type:['audio/ogg','audio/mp3','audio/wav','audio/mpeg'],
 					getType:'audio'
 				}
 				

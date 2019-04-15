@@ -182,7 +182,8 @@ export default {
 			obj.xhr.abort();
 		},
       	fileUp(flie){
-      		let fld = flie.target.files[0];    	
+      		let fld = flie.target.files[0];
+      		console.log(fld.type);
       		if(this.configData.type.indexOf(fld.type)==-1){
       			Message({message: '格式不正确'});
       			return
