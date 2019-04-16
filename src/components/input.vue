@@ -80,6 +80,9 @@ export default {
 		value: { 
 　　　　　	default: '',
 　　　　	},
+		valued:{
+			default:'',
+		},	
 		chekFn:{
 			type:Function,
 			default:()=>{}
@@ -97,9 +100,14 @@ export default {
 	},
 	mounted: function () {	
 		
+		
 
 	}, 
 	watch: {
+		'valued'(){
+			this.input = this.valued;
+			console.log(this.valued+'xxxxxx')
+		},
 	    'input'(val,oldeval) {
 			this.numd = this.input.length;
 			if(this.max>0 && this.numd>this.max){

@@ -2,11 +2,11 @@
 	<div>
 		<tophead></tophead>
 		<div class="myAllbox">
-			<ul class="myListBox" >
+			<ul v-if="List.length>0" class="myListBox" >
 				<li v-for="(el,index) in List" :key="index">
 					<div @click="openxq(index)" class="myListBox_1">
 						<img class="myListBox_1_1" :src="el.face_pic">
-						<div v-if="el.status!=0" :class="['myListBox_1_2',el.status==-2?'wtg':'balck']">{{el.status==0?'待审核':el.status==-2?'未通过':'草稿'}}</div>
+						<div v-if="el.status!=2" :class="['myListBox_1_2',el.status==-2?'wtg':'balck']">{{el.status==0?'待审核':el.status==-2?'未通过':'草稿'}}</div>
 					</div>
 					<div @click="openxq(index)" class="myListBox_2">
 						<span class="myListBox_2_1" :title="el.work_name">{{el.work_name}}</span>
@@ -18,8 +18,9 @@
 						<span class="myListBox_3_2">{{backtime(el.create_time)}}</span>
 					</div>
 					<div class="myListBox_4">
-						
-						<span class="myListBox_4_1" v-if="el.status!=0">{{el.status==2?'修改设置':'编辑'}}</span>
+						<span class="myListBox_4_1" v-if="el.status==2">修改设置</span>
+						<span @click="updata(el.work_id)" class="myListBox_4_1" v-else-if="el.status!=0">编辑</span>
+					
 						<span class="myListBox_4_2" @click="showTopc('delet',index)">删除</span>
 					</div>
 					
@@ -84,6 +85,12 @@ export default {
 		
 	}, 
 	methods: {
+		updata(id){
+			if(!id){
+				return
+			}
+			this.$router.push({path: '/upload',query:{id:id}});	
+		},
 		showTopc(type,on){
 			this.deletWorkon = on;
 			this.topcType = type;
@@ -241,9 +248,13 @@ export default {
 .worksBox_2_1>div:hover{
 	background: #E6E6E6;
 }
+.myListBox{
+	min-height: 514px;
+}
 .myAllbox{
 	text-align: left;
 	width: 1300px;
+	
 	margin: 20px auto 0;
 }
 .myListBox>li{
@@ -420,6 +431,6 @@ export default {
 }
 .myWorkNoData>img{
 	display: block;
-	margin: 100px auto;
+	margin: 179px auto;
 }
 </style>
