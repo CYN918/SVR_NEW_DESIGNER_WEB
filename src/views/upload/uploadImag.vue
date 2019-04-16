@@ -8,7 +8,7 @@
 					<div>{{configData.title}}</div>
 					<div>{{configData.title2}}
 						<span v-if="configData.tip" class="iconfont uploadBoxd2_2_3">&#xe636;
-							<div><div v-for="(el,index) in configData.tip" :key="index">{{el}}</div></div>							
+							<div><div v-for="(el,index) in configData.tip" :key="index">{{el}}</div></div>
 						</span>					
 					</div>
 				</div>
@@ -71,7 +71,7 @@ export default {
     },
 	mounted: function () {	
 		this.getList();
-		console.log(this.configData.type[0])
+		console.log(this.configData.type[0]);
 	}, 	
     methods: {
 		InImg(){
