@@ -86,7 +86,7 @@ export default {
 	data(){		
 		return{
 			previewStyle2:{},
-			previews:{},
+			previews:{ },
 			option:{
 				img:'',
 				outputSize:1,
@@ -99,6 +99,7 @@ export default {
 		}
 	},	
 	mounted: function () {
+
 	}, 
 	methods: {
 		close(){

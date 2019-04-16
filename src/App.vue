@@ -1339,4 +1339,7 @@ content: "";
 .edui-editor-imagescale{
 	top:149px!important;
 }
+.is-active{
+	color:#FF5121!important;
+}
 </style>
