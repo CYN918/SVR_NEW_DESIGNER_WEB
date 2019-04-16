@@ -16,7 +16,7 @@
 					<img @click="openxq(index)"  class="i_listd1" :src="el.face_pic" alt="">
 					<div class="i_listd2">
 						<div @click="openxq(index)" class="i_listd2_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
-						<div @click="openxq(index)" class="i_listd2_2"><span>{{el.classify_1+'-'+el.classify_2}}</span><span>{{backtime(el.create_time)}}</span></div>
+						<div @click="openxq(index)" class="i_listd2_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
 						<div class="i_listd2_3">
 							<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
 							

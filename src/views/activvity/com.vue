@@ -41,7 +41,7 @@
 								<img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt="">
 							</div>
 							<div class="zp_box_3">
-								{{el.classify_1+'-'+el.classify_2}}
+								{{el.classify_1_name+'-'+el.classify_2_name}}
 								<span>{{backtime(el.create_time)}}</span>
 							</div>
 							<div class="zp_box_4">

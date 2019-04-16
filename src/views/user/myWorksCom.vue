@@ -14,11 +14,12 @@
 					</div>
 					
 					<div @click="openxq(index)" class="myListBox_3">
-						<span class="myListBox_3_1">{{el.classify_1+'-'+el.classify_2}}</span>
+						<span class="myListBox_3_1">{{el.classify_1_name+'-'+el.classify_2_name}}</span>
 						<span class="myListBox_3_2">{{backtime(el.create_time)}}</span>
 					</div>
 					<div class="myListBox_4">
-						<span class="myListBox_4_1" v-if="el.status==2">修改设置</span>
+					
+						<span class="myListBox_4_1" @click="showissetDatasXX(index)" v-if="el.status==2">修改设置</span>
 						<span @click="updata(el.work_id)" class="myListBox_4_1" v-else-if="el.status!=0">编辑</span>
 					
 						<span class="myListBox_4_2" @click="showTopc('delet',index)">删除</span>
@@ -52,19 +53,91 @@
 
 			</div>
 		</div>	
+		
+		<div v-show="issetDatasXX" class="setDatasXX">
+			<div class="setDatasXX_1">
+				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="/imge/cj_00.png" alt="">
+				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
+				<div class="setDatasXX_4">
+					
+					<div class="setDatasXX_4_2">
+						<div class="setDatasXX_4_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
+						<div><Input class="setDatasXX_4_3" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>还可添加{{5-form.labels.length}}个标签</div>
+						<div class="setDatasXX_4_4">
+							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
+						</div>
+					</div>
+				</div>
+				<div class="setDatasXX_5">
+					<div class="setDatasXX_5_1">
+						<div class="setDatasXX_5_1_1">作品类型<span class="setDatasXX_5_2_2"></span></div>
+						<div class="setDatasXX_5_1_2">
+							<el-cascader 
+							:options="page2.classify"
+							v-model="selectedOptions"
+							>
+							</el-cascader>
+						</div>
+					</div>
+					<div class="setDatasXX_5_2">
+						<div class="setDatasXX_5_1_1">版权说明<span class="setDatasXX_5_2_2"></span></div>
+						<div class="setDatasXX_5_2_3">
+							<el-select v-model="form.copyright" placeholder="请选择">
+								<el-option
+								v-for="item in bqList"
+								:key="item.label"
+								:label="item.label"
+								:value="item.label">
+								</el-option>
+							</el-select>
+							
+						</div>
+					</div>
+				</div>
+				<div class="setDatasXX_6">
+					<div class="setDatasXX_6_1">是否设为平台投稿作品<span class="setDatasXX_6_2"></span><span class="setDatasXX_6_3">设置后，若该作品符合平台需求，则平台客服会联系创作者进行商业洽谈</span></div>
+					<div class="setDatasXX_6_4">
+						<label>
+							<div :class="form.is_platform_work==1?'chekdOn':''"><div></div>
+							<input class="page2_1_4file" v-model="form.is_platform_work" value="1" type="radio" name="isme" ></div>是
+						</label>
+						<label>
+							<div :class="form.is_platform_work==0?'chekdOn':''"><div></div>
+							<input class="page2_1_4file" v-model="form.is_platform_work" value="0" type="radio" name="isme" ></div>否
+						</label>
+					</div>
+				</div>
+				<div class="setDatasXX_7">
+					<span @click="hindissetDatasXX">取消</span><span @click="upDataSet">确定</span>
+				</div>
+			</div>
+		</div>
+		
 	</div>
 </template>
 
 <script>
 import tophead from './myHead';
 import {Message} from 'element-ui'
+import Input from '../../components/input'
 import { Loading } from 'element-ui';
 export default {
 	props:['isType'],
-	components:{tophead},
+	components:{tophead,Input},
 	name: 'myAll',
 	data(){
 		return {
+			form:{labels:[]},
+			selectedOptions:[],
+			page2:{
+				classify:[],
+				classify_1:0,
+				classify_2:0,
+				classify_3:0,
+			},
+			tags:'',
+			bqList:[{label:'禁止匿名转载；禁止商业使用；禁止个人使用。'},{label:'禁止匿名转载；禁止商业使用。'},{label:'不限制用途。'}],
+			issetDatasXX:false,
 			istopc:false,
 			topcType:'',
 			worksType:'',
@@ -76,6 +149,8 @@ export default {
 			total:0,
 			loading: '',
 			deletWorkid:'',
+			setDataOn:'',
+			setDataData:{},
 			
 		}
 	},
@@ -85,6 +160,93 @@ export default {
 		
 	}, 
 	methods: {
+		upDataSet(){
+		
+			if(!window.userInfo){
+				Message({message: '登录过期请先登录'});
+				setTimeout(()=>{
+					this.$router.push({path:'/login'})
+				},1000);
+				return
+			}	
+			let pr = this.form;
+			pr.is_publish = 1;
+			pr.step = 1;
+			pr.access_token = window.userInfo.access_token;		
+			pr = JSON.stringify(data);
+			pr = JSON.parse(pr);
+			
+			pr.labels = JSON.stringify(pr.labels);
+			this.api.saveWorks(pr).then((da)=>{
+				if(!da){
+					return
+				}
+				Message({message:'修改成功'});
+				this.hindissetDatasXX();				
+			});		
+		},
+		showissetDatasXX(on){
+			this.issetDatasXX = true;
+			this.setDataOn = on;
+			this.form = this.List[on];
+			this.form.labels = JSON.parse(this.form.labels);
+			this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
+			if(this.page2.classify.length>0){
+				return;
+			}
+			this.getClassify();
+		},
+		hindissetDatasXX(){
+			this.issetDatasXX = false;
+			this.setDataOn = '';
+			this.form = {labels:[]};
+			this.selectedOptions = [];
+		},
+		deletTage(on){
+		
+			this.form.labels.splice(on,1);
+		},
+		keydown(){
+			if(!this.tags){
+				return
+			}
+			if(this.form.labels.indexOf(this.tags)!=-1){
+				Message({message: '该标签已添加'});
+				return
+			}
+			if(this.form.labels.length===5){
+				Message({message: '最多填写5个标签'});
+				return
+			}
+			this.form.labels.push(this.tags);
+			this.tags = '';
+			this.$refs.tageds.clearValue();
+		},
+		getClassify(){
+			
+			if(!window.userInfo){
+				Message({message: '登录过期请先登录'});
+				setTimeout(()=>{
+					this.$router.push({path:'/login'})
+				},1000);
+				return
+			}
+			let pr ={
+				access_token:window.userInfo.access_token,
+			};
+			
+			this.api.getClassify(pr).then((da)=>{
+				if(!da){
+					return
+				}
+				let p = JSON.stringify(da);
+				p = p.replace(/classify_name/g,"label");
+				p = p.replace(/id/g,"value");
+				p = p.replace(/sub_data/g,"children");
+				this.page2.classify = JSON.parse(p);
+		        console.log(p)
+			})
+		},
 		updata(id){
 			if(!id){
 				return
@@ -432,5 +594,199 @@ export default {
 .myWorkNoData>img{
 	display: block;
 	margin: 179px auto;
+}
+.setDatasXX{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.5);
+}
+.setDatasXX_1{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	
+	width: 1020px;
+	height: 709px;
+}
+.setDatasXX_3{
+	
+	background: #FFFFFF;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+	line-height: 64px;
+	font-size: 14px;
+	color: #333333;
+	text-align: left;
+	padding-left: 30px;
+	margin-bottom: 20px;
+}
+.setDatasXX_4{
+	padding: 0 30px;
+	text-align: left;
+}
+.setDatasXX_4_1{
+	font-size: 14px;
+	color: #333333;
+	margin-bottom: 17px;
+}
+.setDatasXX_4_1>span{
+	font-size: 14px;
+	color: #999999;
+	margin-left: 29px;
+}
+.setDatasXX_4_2{
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	width: 960px;
+	
+	box-sizing: border-box;
+	padding: 30px;
+	margin: 0 auto 20px;
+}
+.setDatasXX_4_3{
+	display: inline-block;
+    width: 360px;
+    vertical-align: middle;
+    margin-bottom: 0;
+}
+.setDatasXX_4_3>.myInput{
+	border: 1px solid #979797;
+	border-radius: 5px;
+	width: 329px;
+	height: 38px;
+	overflow: hidden;
+    padding: 0 10px;
+}
+.setDatasXX_4_4>span{
+	display: inline-block;
+	background: #E6E6E6;
+	border-radius: 5px;
+	padding: 5px 3px 5px 10px;
+	font-size: 14px;
+	color: #999999;
+	margin: 12px 10px 0 0;
+}
+.setDatasXX_4_4>span>span{
+	font-size: 13px;
+    margin-left: 12px;
+}
+.setDatasXX_5,.setDatasXX_6{
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	width: 960px;
+	
+	box-sizing: border-box;
+	padding: 30px;
+	margin: 0 auto 20px;
+	text-align: left;
+}
+.setDatasXX_5_1{
+	display: inline-block;
+	margin-right: 221px;
+}
+.setDatasXX_5_2{
+	display: inline-block;
+}
+.setDatasXX_5_1_1{
+	font-size: 14px;
+	color: #333333;
+	margin-bottom: 17px;
+}
+.setDatasXX_5_2_2{
+	display: inline-block;
+	vertical-align: middle;
+	width: 4px;
+	height: 4px;
+	background: #FF0000;
+	margin-left: 9px;
+}
+.setDatasXX_6_1{
+	font-size: 14px;
+	color: #333333;
+	margin-bottom: 19px;
+}
+.setDatasXX_6_2{
+	display: inline-block;
+	vertical-align: middle;
+	width: 4px;
+	height: 4px;
+	background: #FF0000;
+	margin-left: 9px;
+	margin-right: 30px;
+}
+.setDatasXX_6_3{
+	font-size: 14px;
+	color: #999999;
+}
+.setDatasXX_6_4>label{
+	position: relative;
+	display: inline-block;
+	margin-right: 30px;
+	cursor: pointer;
+}
+.setDatasXX_6_4 input{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+.setDatasXX_6_4>label>div{
+	display: inline-block;
+	margin-right: 10px;
+}
+.setDatasXX_6_4>label>div>div{
+	display: inline-block;
+	border: 1px solid #999999;
+	border-radius: 2px;
+	width: 8px;
+	height: 8px;
+}
+.chekdOn>div{
+	background: #FF5121;
+	border-color: #FF5121 !important;
+}
+.setDatasXX_7{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background: #FFFFFF;
+	box-shadow: 2px 0 0 4px rgba(0,0,0,0.05);
+	border-radius: 0 0 5px 5px;
+	line-height: 100px;
+}
+.setDatasXX_7>span{
+	display: inline-block;
+	border: 1px solid #999999;
+	border-radius: 5px;
+	width: 98px;
+	height: 38px;
+	line-height: 38px;
+	font-size: 14px;
+	color: #333333;
+	text-align: center;
+	margin:0 15px;
+	cursor: pointer;
+}
+.setDatasXX_7>span:last-child{
+	background: #333333;
+	color: #fff;
+}
+.setDatasXX_5_2_3 .el-select{
+	width: 357px;
+}
+.setDatasXX_5_2_3 .el-select input{
+	padding: 0 10px;
 }
 </style>

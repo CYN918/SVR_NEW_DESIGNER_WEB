@@ -40,20 +40,20 @@
 				<div v-if="upfjData.type" class="page2_1_5">{{upfjData.type}}<span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span>{{upfjData.bf+'%'}}</div>
 				<div class="page2_1_6" v-if="upfjData.type">
 					<div><div class="page2Tbnd1" >重新上传</div><input @change="fileUpfj" class="page2_1_4file" type="file"></div>
-					<span class="iconfont">&#xe621;附件名称<span @click="qxclosd(fileUpfj)" class="iconfont pend">&#xe619;</span></span>
+					<span class="iconfont" :title="upfjData.name">&#xe621;{{upfjData.name?upfjData.name.substring(0,4):''}}<span @click="qxclosd(fileUpfj)" class="iconfont pend">&#xe619;</span></span>
 					
 				</div>
 				<div class="page2_1_7">
 					<div>附件内容</div>
 					<div class="page2_1_7_r">
 						<label>
-							<div><div :class="form.attachement_visible==1?'chekdOn':''"></div>
-							<input class="page2_1_4file" type="radio" v-model="form.attachement_visible" value="1" name="isme" ></div>
+							<div><div :class="form.attachment_visible==1?'chekdOn':''"></div>
+							<input class="page2_1_4file" type="radio" v-model="form.attachment_visible" value="1" name="isme" ></div>
 							所有人可见
 						</label>
 						<label>
-							<div><div :class="form.attachement_visible==0?'chekdOn':''"></div>
-							<input class="page2_1_4file" type="radio" v-model="form.attachement_visible" value="0" name="isme" ></div>
+							<div><div :class="form.attachment_visible==0?'chekdOn':''"></div>
+							<input class="page2_1_4file" type="radio" v-model="form.attachment_visible" value="0" name="isme" ></div>
 							仅自己可见
 						</label>
 					</div>
@@ -278,6 +278,7 @@ export default {
 		},
 		
 		deletTage(on){
+		
 			this.form.labels.splice(on,1);
 		},
 		seletB1(on){
@@ -426,9 +427,23 @@ export default {
 				}
 				this.form = da
 				this.csz = da.work_name;
-				console.log(this.csz)
+				this.form.labels = JSON.parse(this.form.labels);
+
+				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
 				
 				
+				
+				
+				if(this.form.attachment){
+					this.upfjData.fid=this.form.attachment_id;
+					this.upfjData.type='上传成功';
+					this.$refs.upnfile2.value ='';		
+					this.form.attachment_id = da.attachment_id;	
+					this.upfjData.bf = 100;
+					this.upfjData.name = this.form.attachment.file_name;
+				}
+				
+				// console.log(this.form.attachment_visible)
 			})
 
 		},
@@ -507,6 +522,7 @@ export default {
 		},
 		fileUpfj(flie){
 			let fld = flie.target.files[0];
+			
             if(['application/x-zip-compressed','application/zip'].indexOf(fld.type)==-1){
 
                 Message({message: '格式不正确'});
@@ -954,6 +970,7 @@ export default {
 	color: #333333;
 }
 .page2_1_6>span>span{
+	vertical-align: middle;
 	margin-left: 9px;
 	color: #999;
 }

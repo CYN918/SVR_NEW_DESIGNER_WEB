@@ -10,7 +10,7 @@
 					<span class="seed1_2_1">刚刚</span>					
 				</div>
 				<div class="seed1_3">
-					{{contDat.classify_1+'-'+contDat.classify_2+'-'+contDat.classify_3}}
+					{{contDat.classify_1_name+'-'+contDat.classify_2_name+'-'+contDat.classify_3_name}}
 					<span  class="iconfont seed1_3_1">&#xe654;
 					<div>
 						<div v-if="contDat.user_info">{{'作品版权由【'+contDat.user_info.username+'】解释，'+contDat.copyright}}</div>
