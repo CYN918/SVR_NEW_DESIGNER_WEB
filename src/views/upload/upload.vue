@@ -10,7 +10,7 @@
 		<div v-show="chekin" class="upBoxd">
 			<div class="upBoxd1">
 				<div class="upBoxd1_1">
-					<Input class="userBoxd2" v-model="form.work_name"  :oType="'max'" :max="50"   :type="'text'" :placeholder="'请输入作品标题…'"></Input>	
+					<Input class="userBoxd2" v-model="form.work_name" :valued="csz"  :oType="'max'" :max="50"   :type="'text'" :placeholder="'请输入作品标题…'"></Input>	
 				</div>
 				<div class="upBoxd1_2">
 					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
@@ -137,8 +137,10 @@ export default {
 			isshowT2:false,
 			ck2:'',
 			ck3:'',
+			csz:'',
 			chekusername:()=>{},
 			form:{
+				work_name:'cs',
 				attachement_visible:1,
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
@@ -239,9 +241,12 @@ export default {
 			this.setAutoSave();
 		},
 	},
-	mounted: function () {	
+	created:function(){
 		this.init();
 		this.getClassify();
+	},
+	mounted: function () {	
+		
 	}, 
 	methods: {
 		/*page2*/
@@ -328,8 +333,16 @@ export default {
 			this.saveData(dat,'自动保存成功');
 		},
 		init(O){
-			if(O){
-				this.getData();
+			if(!window.userInfo){
+				Message({message: '请先登录'});
+					setTimeout(()=>{				
+						this.$router.push({path:'/login'})
+					},2000);
+				return
+			}	
+			
+			if(this.$route.query.id){
+				this.getData(this.$route.query.id);
 				return
 			}
 			this.getWorkId();
@@ -390,17 +403,9 @@ export default {
 			
 		},
 		getWorkId(){
-			let p = localStorage.getItem('userT');
-			if(!p){
-				localStorage.setItem('userT','');
-				Message({message: '登录过期请先登录'});
-				setTimeout(()=>{				
-					this.$router.push({path:'/login'})
-				},2000);
-				return
-			}			
+					
 			let params = {
-				access_token:JSON.parse(p).access_token
+				access_token:window.userInfo.access_token
 			};
 			this.api.getWorkId(params).then((da)=>{
 				if(!da){
@@ -409,8 +414,23 @@ export default {
 				this.form.work_id = da.work_id;
 			});
 		},
-		getData(){
-			
+		getData(id){
+			let pr = {
+				access_token:window.userInfo.access_token,
+				work_id:id,
+				is_draft:1
+			};
+			this.api.getWorkDetail(pr).then((da)=>{
+				if(!da){
+					return
+				}
+				this.form = da
+				this.csz = da.work_name;
+				console.log(this.csz)
+				
+				
+			})
+
 		},
 		seeCg(){
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}

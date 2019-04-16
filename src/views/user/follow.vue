@@ -6,13 +6,13 @@
 				共{{total}}粉丝
 				
 				<div class="worksBox_2">
-					{{sxData[sxtj].name}}
+					{{sxData[sxOn][sxtj].name}}
 					<div class="worksBox_2_1">
-						<div @click="sxFn(index)" :class="sxtj==index?'oncdf':''" v-for="(el,index) in sxData">{{el.name}}</div>
+						<div @click="sxFn(index)" :class="sxtj==index?'oncdf':''" v-for="(el,index) in sxData[sxOn]">{{el.name}}</div>
 					</div>
 				</div>
 			</div>
-			<ul v-if="List.length>0" class="i_listd2" >
+			<ul v-if="List.length>0 && sxtj==0" class="i_listd2" >
 				<li v-for="(el,index) in List" :key="index">
 					<img :src="el.avatar">
 					<div class="i_listd2_1">
@@ -25,24 +25,39 @@
 						</div>
 						<div>{{el.personal_sign?el.personal_sign:'这个人很懒，什么都没说~'}}</div>
 						<div class="btns_foll">
-							<span v-if="el.follow_flag==2">互相关注</span>
-							<span v-else-if="el.follow_flag==1">已关注</span>
-							<span v-else>关注</span>
+							<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
+							<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
+							<span @click="Follow_add(index)" v-else>关注</span>
 							<span>私信</span>
 						</div>
 					</div>
 					<div class="lunbox">
-						<!-- <div class="lunbox_left">
-							<img src="/imge/icon/left.png" alt="">
-						</div> -->
+						
 						<ul v-if="el.works.length>0">
 							<li v-if="index2<3" v-for="(el2,index2) in el.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
 						</ul>
-						<!-- <div class="lunbox_right">
-							<img src="/imge/icon/right.png" alt="">
-						</div> -->
+						
 					</div>
 				</li>
+			</ul>
+			<ul v-if="List.length>0 && sxtj==1" class="follwfs">
+				<li v-for="(el,index) in List" :key="index">
+					<img class="follwfs_1" :src="el.avatar">
+					<div class="follwfs_2">{{el.username}}</div>
+					<div class="follwfs_3">{{el.province}} | {{el.city}}</div>
+					<div class="follwfs_4">
+						<span><span>粉丝</span>{{el.fans_num}}</span>
+						<span><span>人气</span>{{el.popular_num}}</span>
+						<span><span>创作</span>{{el.work_num}}</span>
+					</div>
+					<div class="follwfs_5">
+						<span>私信</span>
+						<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
+						<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
+						<span @click="Follow_add(index)" v-else>关注</span>						
+					</div>
+				</li>
+				
 			</ul>
 			<div class="pagesddd"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
 			<el-pagination v-if="List.length>0" class="pagesddd"
@@ -57,17 +72,26 @@
 			</el-pagination>
 		</div>
 		
+		<div v-show="isshowd2" class="loginoutBox">
+			<div class="loginoutBox1">
+				<img @click="hindHb2()" class="loginoutBox2" src="/imge/cj_00.png">
+				<div class="loginoutBox3">是否取消关注?</div>
+				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
 import tophead from './head';
+import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 export default {
 	name: 'works',
 	components:{tophead},
 	data(){
 		return {
+			isshowd2:false,
 			banners:[],
 			List:[],
 			banOn:0,
@@ -75,17 +99,22 @@ export default {
 			limit:40,
 			total:0,
 			loading: '',
+			sxOn:0,
 			sxtj:0,
 			sxData:[
+				[
 				{name:'我关注的人',key:1},
 				{name:'我的粉丝',key:1},
+				],
+				[
+					{name:'TA关注的人',key:1},
+					{name:'TA的粉丝',key:1},
+				]
 			],
-			sxData2:[
-				{name:'TA关注的人',key:1},
-				{name:'TA的粉丝',key:1},
-			],
+		
 			onType:'followList',
-			
+			follwTyle:0,
+			openOns:'',
 		}
 	},
 	mounted: function () {			
@@ -93,8 +122,83 @@ export default {
 		
 	}, 
 	methods: {
+		showFpllwodel(on){
+			this.isshowd2 = true;
+			this.openOns = on;
+		},
+		Follow_del(){
+			if(!this.openOns && this.openOns!=0){
+				return
+			}
+			
+			if(this.follwTyle==1){
+				return
+			}
+			this.follwTyle=1;
+			let pr = {
+				access_token:window.userInfo.access_token,
+				follow_id:this.List[this.openOns].open_id
+			};
+			this.api.Follow_del(pr).then((da)=>{
+				if(!da){
+					this.follwTyle=0;
+					return
+				}
+				this.follwTyle=0;
+				this.hindHb2();
+				Message({message: '取消关注成功'});
+				if(this.sxOn==0){
+				
+					this.List.splice(this.openOns,1);
+				
+					return
+				}
+				this.List[this.openOns].follow_flag = 0;
+				
+			}).catch(()=>{
+				this.follwTyle = 0;		
+			});
+		},
+		Follow_add(on){
+			if(!window.userInfo){
+				this.$router.push({path: '/login'})
+				return
+			}
+			if(this.follwTyle==1){
+				return
+			}
+			this.follwTyle=1;
+			let pr = {
+				access_token:window.userInfo.access_token,
+				follow_id:this.List[on].open_id
+			};
+			this.api.Follow_add(pr).then((da)=>{
+				if(!da){
+					this.follwTyle=0;
+					return
+				}
+				this.List[on].follow_flag = da.follow_flag;
+				this.follwTyle=0;
+				// this.contDat.user_info.follow_flag=1;
+				Message({message: '关注成功'});
+			}).catch(()=>{
+				this.follwTyle = 0;		
+			});
+			
+		
+		},
+		hindHb2(){
+			this.isshowd2 = false;
+			this.openIdd = '';
+		},
 		sxFn(on){
 			this.sxtj = on;
+			
+			this.onType = 'followList';
+			if(on==1){
+				this.onType = 'fansList';
+			}
+			this.followList();
 			//this.onType = 'fansList';
 		},
 		goUser(on){
@@ -111,6 +215,10 @@ export default {
 		},
 		
 		followList(){
+			if(this.$route.query.id!=window.userInfo.open_id){
+				this.sxOn = 1;
+			}
+			console.log(this.sxOn)
 			let pr = {
 				access_token:window.userInfo.access_token,
 				user_open_id:this.$route.query.id,
@@ -198,7 +306,7 @@ export default {
 	position: absolute;
 	top: 19px;
 	right: 0;
-
+	z-index: 9;
 	background: #FFFFFF;
 	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
 	border-radius: 5px;
@@ -330,33 +438,106 @@ export default {
 }
 .lunbox>ul{
 	overflow: hidden;
-	height: 154px;
+	height: 186px;
 	white-space: nowrap;
-	padding: 2px 0 ;
-	width: 760px;
+	
+
 	
 }
 .lunbox>ul>li{
-	width: 240px;
-	height: 150px;
+	
+	width: 248px;
+	height: 186px;
 	border-radius: 3.28px 3.28px 5px 5px;
 	margin-right: 13px;
 	overflow: hidden;
 }
 .lunbox>ul>li>img{
 	display: block;
-	width: 240px;
-	height: 150px;
+	width: 248px;
+	height: 186px;
 	-webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
     box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
     
 }
 .lunbox>ul>li>img:hover{
-	-webkit-transition: -webkit-transform .25s linear;
-	-webkit-transform: scale(1.4);
-	transition: transform .25s linear;
-	transform: scale(1.4);
+	-webkit-transition: -webkit-transform .1s linear;
+	-webkit-transform: scale(1.1);
+	transition: transform .1s linear;
+	transform: scale(1.1);
 	cursor: pointer;
 }
-
+.follwfs{
+	width: 1300px;
+	margin: 0 auto;
+	text-align: left;
+}
+.follwfs>li{
+	display: inline-block;
+	text-align: center;
+	padding-top: 50px;
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	width: 310px;
+	height: 300px;
+	margin: 0 20px 20px 0;
+}
+.follwfs>li:nth-child(4n+4){
+	margin-right: 0;
+}
+.follwfs_1{
+	
+	display: block;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin: 0 auto 16px;
+}
+.follwfs_2{
+	text-align: center;
+	font-size: 16px;
+	color: #1E1E1E;
+	margin-bottom: 2px;
+}
+.follwfs_3{
+	text-align: center;
+	font-size: 12px;
+	color: #999999;
+	margin-bottom: 25.2px;
+}
+.follwfs_4>span{
+	width: 33%;
+	display: inline-block;
+	font-size: 16px;
+	color: #1E1E1E;
+	text-align: center;
+}
+.follwfs_4>span>span{
+	display: block;
+	font-size: 12px;
+	color: #999999;
+	margin-bottom: 1.5px;
+}
+.follwfs_4{
+	margin-bottom: 25.3px;
+}
+.follwfs_5>span{
+	display: inline-block;
+	border: 1px solid #979797;
+	border-radius: 5px;
+	width: 118px;
+	height: 38px;
+	line-height: 38px;
+	font-size: 14px;
+	color: #666666;
+	text-align: center;
+	margin:0 10px;
+	cursor: pointer;
+}
+.follwfs_5>span:last-child{
+	background: #FF5121;
+	border-color: #FF5121;
+	color: #fff;
+}
 </style>
