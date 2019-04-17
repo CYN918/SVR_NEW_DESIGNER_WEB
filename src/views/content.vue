@@ -522,6 +522,7 @@ export default {
             if(on >= 0){
                 this.$set(this.hfData[on],'isshowfh','');
 			}
+			console.log(on2);
 			if(on2 >= 0){
                 this.$set(this.hfData[on].sub_comment[on2],'isshowfh','');
 			}

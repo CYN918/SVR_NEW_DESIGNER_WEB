@@ -158,4 +158,9 @@ export default {
 		url:'/Api/Work/delWork',method:'post',baseURL:0,
 	},
 	
+	dynamic:{
+		url:'/Api/Follow/dynamic',method:'post',baseURL:0,
+	},
+	
+	
 }

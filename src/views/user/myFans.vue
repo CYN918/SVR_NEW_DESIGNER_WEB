@@ -1,46 +1,8 @@
 <template>
 	<div>
 		<tophead></tophead>
-		<div class="worksBox">
-			<div class="worksBox_1">
-				共{{total}}粉丝
-				
-				<div class="worksBox_2">
-					{{sxData[sxOn][sxtj].name}}
-					<div class="worksBox_2_1">
-						<div @click="sxFn(index)" :class="sxtj==index?'oncdf':''" v-for="(el,index) in sxData[sxOn]">{{el.name}}</div>
-					</div>
-				</div>
-			</div>
-			<ul v-if="List.length>0 && sxtj==0" class="i_listd2" >
-				<li v-for="(el,index) in List" :key="index">
-					<img :src="el.avatar">
-					<div class="i_listd2_1">
-						<div>{{el.username}}</div>
-						<div>{{el.province}} | {{el.city}}</div>
-						<div class="i_listd2_d">
-							<span>粉丝<span>{{el.fans_num}}</span></span>
-							<span>人气<span>{{el.popular_num}}</span></span>
-							<span>创作<span>{{el.work_num}}</span></span>
-						</div>
-						<div>{{el.personal_sign?el.personal_sign:'这个人很懒，什么都没说~'}}</div>
-						<div class="btns_foll">
-							<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
-							<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
-							<span @click="Follow_add(index)" v-else>关注</span>
-							<span>私信</span>
-						</div>
-					</div>
-					<div class="lunbox">
-						
-						<ul v-if="el.works.length>0">
-							<li v-if="index2<3" v-for="(el2,index2) in el.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
-						</ul>
-						
-					</div>
-				</li>
-			</ul>
-			<ul v-if="List.length>0 && sxtj==1" class="follwfs">
+		<div class="worksBox worksBox3">
+			<ul v-if="List.length>0"  class="follwfs">
 				<li v-for="(el,index) in List" :key="index">
 					<img class="follwfs_1" :src="el.avatar">
 					<div class="follwfs_2">{{el.username}}</div>
@@ -59,7 +21,7 @@
 				</li>
 				
 			</ul>
-			<div class="pagesddd"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
+			<div v-if="List.length==0" class="pagesddd wsjzt"><img  class="wusj2" src="/imge/wsj2.png" alt=""></div>
 			<el-pagination v-if="List.length>0" class="pagesddd"
 			background
 			@size-change="handleSizeChange"
@@ -83,7 +45,7 @@
 </template>
 
 <script>
-import tophead from './head';
+import tophead from './myHead2';
 import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 export default {
@@ -147,12 +109,7 @@ export default {
 				this.follwTyle=0;
 				this.hindHb2();
 				Message({message: '取消关注成功'});
-				if(this.sxOn==0){
 				
-					this.List.splice(this.openOns,1);
-				
-					return
-				}
 				this.List[this.openOns].follow_flag = 0;
 				
 			}).catch(()=>{
@@ -191,16 +148,7 @@ export default {
 			this.isshowd2 = false;
 			this.openIdd = '';
 		},
-		sxFn(on){
-			this.sxtj = on;
-			
-			this.onType = 'followList';
-			if(on==1){
-				this.onType = 'fansList';
-			}
-			this.followList();
-			//this.onType = 'fansList';
-		},
+	
 		goUser(on){
 			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
 		},
@@ -215,23 +163,20 @@ export default {
 		},
 		
 		followList(){
-			if(this.$route.query.id!=window.userInfo.open_id){
-				this.sxOn = 1;
-			}
-			console.log(this.sxOn)
+			
 			let pr = {
 				access_token:window.userInfo.access_token,
-				user_open_id:this.$route.query.id,
+				user_open_id:window.userInfo.open_id,
 				page:this.page,
 				limit:this.limit
 			};
-			this.api[this.onType](pr).then((da)=>{
+			this.api.fansList(pr).then((da)=>{
 				if(!da){
 					return
 				}
 				this.List = da.data;
 				this.total = da.total;
-				
+				console.log(this.List);
 				
 			})
 		},
@@ -523,5 +468,11 @@ export default {
 	background: #FF5121;
 	border-color: #FF5121;
 	color: #fff;
+}
+.worksBox3 .follwfs{
+	min-height: 572px;
+}
+.wsjzt{
+	min-height: 602px;
 }
 </style>

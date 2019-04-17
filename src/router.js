@@ -104,6 +104,22 @@ let wb = [
 				component: () =>import('./views/content.vue'),
 			
 			},
+			 
+			{
+				path: '/myDynamic',
+				name: 'myDynamic',
+				component: () => import('./views/user/myDynamic.vue')
+			},
+			{
+				path: '/myCreators',
+				name: 'myCreators',
+				component: () => import('./views/user/myCreators.vue')
+			},
+			{
+				path: '/myFans',
+				name: 'myFans',
+				component: () => import('./views/user/myFans.vue')
+			},
 			
 		],	
 	},

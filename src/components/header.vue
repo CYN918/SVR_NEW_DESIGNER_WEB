@@ -15,7 +15,7 @@
 					<a @click="goUser">{{userMssge.username.substring(0,9)}}</a>
 					<ul> 
 						<router-link  to="/myAll"><li><span class="iconfont">&#xe620;</span>我的创作</li></router-link>
-						<router-link  to="/activvity"><li><span class="iconfont">&#xe624;</span>我的关注</li></router-link>
+						<router-link  to="/myDynamic"><li><span class="iconfont">&#xe624;</span>我的关注</li></router-link>
 						<router-link  to="/activvity"><li><span class="iconfont">&#xe62d;</span>我的收益</li></router-link>
 						<router-link  to="/activvity"><li><span class="iconfont">&#xe63d;</span>账号设置</li></router-link>
 						<a @click="showHb(true)"><li><span class="iconfont">&#xe622;</span>退出登录</li></a>

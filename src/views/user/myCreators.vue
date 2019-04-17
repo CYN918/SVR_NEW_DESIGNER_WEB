@@ -1,17 +1,8 @@
 <template>
 	<div>
 		<tophead></tophead>
-		<div class="worksBox">
-			<div class="worksBox_1">
-				共{{total}}粉丝
-				
-				<div class="worksBox_2">
-					{{sxData[sxOn][sxtj].name}}
-					<div class="worksBox_2_1">
-						<div @click="sxFn(index)" :class="sxtj==index?'oncdf':''" v-for="(el,index) in sxData[sxOn]">{{el.name}}</div>
-					</div>
-				</div>
-			</div>
+		<div class="worksBox worksBox4">
+		
 			<ul v-if="List.length>0 && sxtj==0" class="i_listd2" >
 				<li v-for="(el,index) in List" :key="index">
 					<img :src="el.avatar">
@@ -39,27 +30,9 @@
 						
 					</div>
 				</li>
-			</ul>
-			<ul v-if="List.length>0 && sxtj==1" class="follwfs">
-				<li v-for="(el,index) in List" :key="index">
-					<img class="follwfs_1" :src="el.avatar">
-					<div class="follwfs_2">{{el.username}}</div>
-					<div class="follwfs_3">{{el.province}} | {{el.city}}</div>
-					<div class="follwfs_4">
-						<span><span>粉丝</span>{{el.fans_num}}</span>
-						<span><span>人气</span>{{el.popular_num}}</span>
-						<span><span>创作</span>{{el.work_num}}</span>
-					</div>
-					<div class="follwfs_5">
-						<span>私信</span>
-						<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
-						<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
-						<span @click="Follow_add(index)" v-else>关注</span>						
-					</div>
-				</li>
 				
-			</ul>
-			<div class="pagesddd"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
+			</ul>			
+			<div class="pagesddd wsjzt" v-if="List.length==0"><img  class="wusj2" src="/imge/wsj2.png" alt=""></div>
 			<el-pagination v-if="List.length>0" class="pagesddd"
 			background
 			@size-change="handleSizeChange"
@@ -70,12 +43,11 @@
 			layout="prev,pager, next,sizes, jumper"
 			:total="total">   
 			</el-pagination>
-		</div>
-		
+		</div>		
 		<div v-show="isshowd2" class="loginoutBox">
 			<div class="loginoutBox1">
 				<img @click="hindHb2()" class="loginoutBox2" src="/imge/cj_00.png">
-				<div class="loginoutBox3">是否取消关注?</div>
+				<div class="loginoutBox3" v-if="List[openOns]">确定取消关注【{{List[openOns].username}}】？</div>
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
 		</div>
@@ -83,7 +55,7 @@
 </template>
 
 <script>
-import tophead from './head';
+import tophead from './myHead2';
 import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 export default {
@@ -125,6 +97,7 @@ export default {
 		showFpllwodel(on){
 			this.isshowd2 = true;
 			this.openOns = on;
+			console.log(this.List[this.openOns])
 		},
 		Follow_del(){
 			if(!this.openOns && this.openOns!=0){
@@ -191,52 +164,33 @@ export default {
 			this.isshowd2 = false;
 			this.openIdd = '';
 		},
-		sxFn(on){
-			this.sxtj = on;
-			
-			this.onType = 'followList';
-			if(on==1){
-				this.onType = 'fansList';
-			}
-			this.followList();
-			//this.onType = 'fansList';
-		},
+		
 		goUser(on){
 			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
 		},
-		backtime(time){
-		
+		backtime(time){		
 			return	window.getTimes(time);
 		},	
 	
-		openxq(on){
-			
+		openxq(on){			
 			window.open('#/cont?id='+on)
 		},
 		
 		followList(){
-			if(this.$route.query.id!=window.userInfo.open_id){
-				this.sxOn = 1;
-			}
-			console.log(this.sxOn)
 			let pr = {
 				access_token:window.userInfo.access_token,
-				user_open_id:this.$route.query.id,
+				user_open_id:window.userInfo.open_id,
 				page:this.page,
 				limit:this.limit
 			};
-			this.api[this.onType](pr).then((da)=>{
+			this.api.followList(pr).then((da)=>{
 				if(!da){
 					return
 				}
 				this.List = da.data;
-				this.total = da.total;
-				
-				
+				this.total = da.total;				
 			})
 		},
-		
-		
 		handleSizeChange(val) {
 			this.limit = val;
 			this.followList();
@@ -523,5 +477,11 @@ export default {
 	background: #FF5121;
 	border-color: #FF5121;
 	color: #fff;
+}
+.wsjzt{
+	min-height: 602px;
+}
+.worksBox4 .i_listd2{
+	min-height: 522px;
 }
 </style>
