@@ -5,9 +5,9 @@
 		
 			<ul v-if="List.length>0 && sxtj==0" class="i_listd2" >
 				<li v-for="(el,index) in List" :key="index">
-					<img :src="el.avatar">
+					<img @click="goUser(index)" :src="el.avatar">
 					<div class="i_listd2_1">
-						<div>{{el.username}}</div>
+						<div @click="goUser(index)">{{el.username}}</div>
 						<div>{{el.province}} | {{el.city}}</div>
 						<div class="i_listd2_d">
 							<span>粉丝<span>{{el.fans_num}}</span></span>
@@ -166,7 +166,7 @@ export default {
 		},
 		
 		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
+			this.$router.push({path: '/works',query:{id:this.List[on].open_id}})	
 		},
 		backtime(time){		
 			return	window.getTimes(time);

@@ -14,9 +14,9 @@
 			</div>
 			<ul v-if="List.length>0 && sxtj==0" class="i_listd2" >
 				<li v-for="(el,index) in List" :key="index">
-					<img :src="el.avatar">
+					<img @click="goUser(index)" :src="el.avatar">
 					<div class="i_listd2_1">
-						<div>{{el.username}}</div>
+						<div @click="goUser(index)">{{el.username}}</div>
 						<div>{{el.province}} | {{el.city}}</div>
 						<div class="i_listd2_d">
 							<span>粉丝<span>{{el.fans_num}}</span></span>
@@ -24,7 +24,7 @@
 							<span>创作<span>{{el.work_num}}</span></span>
 						</div>
 						<div>{{el.personal_sign?el.personal_sign:'这个人很懒，什么都没说~'}}</div>
-						<div class="btns_foll">
+						<div class="btns_foll" v-if="!isMe(el.open_id)">
 							<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
 							<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
 							<span @click="Follow_add(index)" v-else>关注</span>
@@ -42,15 +42,15 @@
 			</ul>
 			<ul v-if="List.length>0 && sxtj==1" class="follwfs">
 				<li v-for="(el,index) in List" :key="index">
-					<img class="follwfs_1" :src="el.avatar">
-					<div class="follwfs_2">{{el.username}}</div>
+					<img @click="goUser(index)" class="follwfs_1" :src="el.avatar">
+					<div @click="goUser(index)" class="follwfs_2">{{el.username}}</div>
 					<div class="follwfs_3">{{el.province}} | {{el.city}}</div>
 					<div class="follwfs_4">
 						<span><span>粉丝</span>{{el.fans_num}}</span>
 						<span><span>人气</span>{{el.popular_num}}</span>
 						<span><span>创作</span>{{el.work_num}}</span>
 					</div>
-					<div class="follwfs_5">
+					<div class="follwfs_5" v-if="!isMe(el.open_id)">
 						<span>私信</span>
 						<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
 						<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
@@ -122,6 +122,13 @@ export default {
 		
 	}, 
 	methods: {
+		isMe(id){
+			if(!window.userInfo){
+				return false
+			}
+			
+			return id==window.userInfo.open_id;
+		},
 		showFpllwodel(on){
 			this.isshowd2 = true;
 			this.openOns = on;
@@ -202,7 +209,7 @@ export default {
 			//this.onType = 'fansList';
 		},
 		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
+			this.$router.push({path: '/works',query:{id:this.List[on].open_id}})	
 		},
 		backtime(time){
 		

@@ -60,9 +60,9 @@
 					<div class="pl_02" v-if="hfnum>0">
 						<div v-for="(el,index) in hfData" :key="index">
 							<div  class="pl_02_1">
-								<img :src="el.avatar">
+								<img @click="goUser(el.open_id)" :src="el.avatar">
 								<div>
-									<span>{{el.username}}</span><span>{{backtime(el.create_time)}}</span><span v-if="!isoutTime(el.create_time,el.open_id)" class="iconfont pend" @click="showHb(el.feed_id,el.comment_id,index)">&#xe602;</span>
+									<span @click="goUser(el.open_id)">{{el.username}}</span><span>{{backtime(el.create_time)}}</span><span v-if="!isoutTime(el.create_time,el.open_id)" class="iconfont pend" @click="showHb(el.feed_id,el.comment_id,index)">&#xe602;</span>
 									<div>{{backComt(el.content)[0]}}</div>
 								</div>
 								<div>
@@ -75,9 +75,9 @@
 							</div>
 							<div v-if="el.isshowsub" v-for="(el2,index2) in el.sub_comment" :key="index2" class="pl_02_1xxc">
 								<div class="pl_02_1">
-									<img :src="el2.avatar">
+									<img @click="goUser(el2.open_id)" :src="el2.avatar">
 									<div>
-										<span>{{el2.username}}</span><span>{{backtime(el2.create_time)}}</span><span v-if="!isoutTime(el2.create_time,el2.open_id)" @click="showHb(el2.feed_id,el2.comment_id,index,index2)" class="iconfont pend">&#xe602;</span>
+										<span @click="goUser(el2.open_id)">{{el2.username}}</span><span>{{backtime(el2.create_time)}}</span><span v-if="!isoutTime(el2.create_time,el2.open_id)" @click="showHb(el2.feed_id,el2.comment_id,index,index2)" class="iconfont pend">&#xe602;</span>
 										<div><span class="atren">{{backComt(el2.content)[0]}}</span>{{backComt(el2.content)[1]}}</div>
 									</div>
 									<div class="yasfh">
@@ -101,9 +101,9 @@
 			<div class="seed2_2">
 				<div class="seed2_1_1" v-if="contDat.user_info">
 					<div class="seed2_1_1_1">
-						<img class="contavatar" :src="contDat.user_info.avatar" alt="">
+						<img @click="goUser(contDat.user_info.open_id)" class="contavatar" :src="contDat.user_info.avatar" alt="">
 						<div>
-							<div>{{contDat.user_info.username}}</div>
+							<div @click="goUser(contDat.user_info.open_id)">{{contDat.user_info.username}}</div>
 							<div> {{contDat.user_info.vocation}} | {{contDat.user_info.province}} {{contDat.user_info.city}}</div>
 							<div><span v-if="contDat.user_info.is_platform_work">xx</span></div>
 						</div>
@@ -130,11 +130,11 @@
 				<div class="seed2_1_2">
 					<div class="seed2_1_2_1">TA的更多作品</div>
 					<div class="seed2_1_2_1x1">
-					<div @click="seeWorks(el.work_id)" class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
-						<div class="i_listd1x2"><img :src="el.face_pic" alt="" class="i_listd1"></div>
+					<div  class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
+						<div class="i_listd1x2" @click="seeWorks(el.work_id)"><img :src="el.face_pic" alt="" class="i_listd1"></div>
 						<div class="i_listd2">
 							<div class="i_listd2_1">
-								<span>{{el.work_name}}</span>
+								<span @click="seeWorks(el.work_id)">{{el.work_name}}</span>
 								<img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt="">
 							</div>
 							<div class="i_listd2_2">
@@ -143,7 +143,7 @@
 							</div>
 							
 							<div class="i_listd2_3">
-								<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
+								<span><img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt=""></span>
 								
 								<div class="i_listd2_3x1" @click="openxq(index)">
 									<span class="pend"><img src="/imge/icon/zs_icon_gk.png">{{el.view_num}}</span>
@@ -235,7 +235,9 @@ export default {
 		this.getCommentList()
 	}, 
 	methods: {
-		
+		goUser(id){
+			this.$router.push({path: '/works',query:{id:id}})	
+		},
 		addLike(type,id,obj){
 			
 			if(!window.userInfo){

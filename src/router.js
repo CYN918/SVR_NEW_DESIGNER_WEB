@@ -120,6 +120,26 @@ let wb = [
 				name: 'myFans',
 				component: () => import('./views/user/myFans.vue')
 			},
+			{
+				path: '/setUser',
+				name: 'setUser',
+				component: () => import('./views/set/user.vue')
+			},
+			{
+				path: '/setSecurity',
+				name: 'setSecurity',
+				component: () => import('./views/set/security.vue')
+			},
+			{
+				path: '/setPersonal',
+				name: 'setPersonal',
+				component: () => import('./views/set/personal.vue')
+			},
+			{
+				path: '/setEnterprise',
+				name: 'setEnterprise',
+				component: () => import('./views/set/enterprise.vue')
+			},
 			
 		],	
 	},

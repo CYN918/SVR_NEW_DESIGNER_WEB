@@ -243,8 +243,8 @@ input:-ms-input-placeholder{
 }
 .i_listd2_3>span{
 	display: inline-block;
-	width: 16px;
-	height: 16px;
+	width: 20px;
+	height: 20px;
 	border-radius: 50%;
 	overflow: hidden;
 }
@@ -256,6 +256,7 @@ input:-ms-input-placeholder{
 }
 .i_listd2_3>div{
 	float: right;
+	margin-top: 4px;
 }
 .i_listd2_3>div>span{
 	margin-right: 24.5px;

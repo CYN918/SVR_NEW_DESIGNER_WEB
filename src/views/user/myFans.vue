@@ -4,8 +4,8 @@
 		<div class="worksBox worksBox3">
 			<ul v-if="List.length>0"  class="follwfs">
 				<li v-for="(el,index) in List" :key="index">
-					<img class="follwfs_1" :src="el.avatar">
-					<div class="follwfs_2">{{el.username}}</div>
+					<img @click="goUser(index)" class="follwfs_1" :src="el.avatar">
+					<div @click="goUser(index)" class="follwfs_2">{{el.username}}</div>
 					<div class="follwfs_3">{{el.province}} | {{el.city}}</div>
 					<div class="follwfs_4">
 						<span><span>粉丝</span>{{el.fans_num}}</span>
@@ -150,7 +150,7 @@ export default {
 		},
 	
 		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
+			this.$router.push({path: '/works',query:{id:this.List[on].open_id}})	
 		},
 		backtime(time){
 		
@@ -176,7 +176,6 @@ export default {
 				}
 				this.List = da.data;
 				this.total = da.total;
-				console.log(this.List);
 				
 			})
 		},
