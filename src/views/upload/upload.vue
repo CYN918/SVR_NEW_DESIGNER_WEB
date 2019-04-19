@@ -291,6 +291,7 @@ export default {
 		},
 		showupFm(){
 			this.isPhto = true;
+			this.$refs.upoloadcaver.setImgd(this.form.face_pic);
 		},
 		close(img){
 			this.isPhto = false;
@@ -360,7 +361,20 @@ export default {
 				Message({message: '请先填写内容'});
 				return
 			}
+			
+			
 			this.chekin = type;
+			let regex = /<img.*?src="(.*?)"/;
+			
+			let src = regex.exec(this.form.content);
+			if(!src){
+				return
+			}
+			src = src[1];			
+			if(!this.form.face_pic){
+				this.form.face_pic = src;
+			}
+			
 		},
 		ready (editorInstance) {
 			this.uD = editorInstance;
