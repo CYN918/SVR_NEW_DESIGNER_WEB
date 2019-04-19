@@ -12,7 +12,7 @@
 						<span>用户名</span><span>{{userInfo.username}}</span>
 					</div>
 					<div>
-						<span>性别</span><span>{{userInfo.sex}}</span>
+						<span>性别</span><span>{{userInfo.sex=='1'?'女':'男'}}</span>
 					</div>
 					<div>
 						<span>职业</span><span>{{userInfo.vocation}}</span>
