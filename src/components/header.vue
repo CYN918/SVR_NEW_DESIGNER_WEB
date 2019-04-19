@@ -10,7 +10,7 @@
 			<span class="iconfont pend">&#xe65b;</span>
 			<span class="iconfont pend" @click="goUpload">&#xe61e;</span>
 			<span class="header_4" v-if="userMssge">
-				<div><img :src="userMssge.avatar" alt=""></div>
+				<div @click="goUser"><img :src="userMssge.avatar" alt=""></div>
 				<div  class="userBpx">
 					<a @click="goUser">{{userMssge.username.substring(0,9)}}</a>
 					<ul> 

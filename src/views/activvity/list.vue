@@ -162,6 +162,7 @@ export default {
     width: 100%;
     left: 0;
 	text-align: center;
+	box-sizing: border-box;
 }
 
 </style>
