@@ -389,7 +389,7 @@ export default {
 		},
 		addmpl(){
 			if(this.ishavepl==1){
-				this.ishavepltip='没有更多评论了！';				
+				this.ishavepltip='没有更多评论了!';
 				return
 			}
 			this.page.page++;
