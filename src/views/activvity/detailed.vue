@@ -24,7 +24,8 @@ export default {
 				return
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{			
-				this.dataD = da;			
+				this.dataD = da;
+                console.log(da)
 			});
 		},
 		
