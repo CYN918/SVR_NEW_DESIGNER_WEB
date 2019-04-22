@@ -3,8 +3,7 @@
 		<tophead></tophead>
 		<div class="worksBox">
 			<div class="worksBox_1">
-				共{{total}}粉丝
-				
+				共{{ sxtj==1?total+'粉丝':total+'关注'}}
 				<div class="worksBox_2">
 					{{sxData[sxOn][sxtj].name}}
 					<div class="worksBox_2_1">
