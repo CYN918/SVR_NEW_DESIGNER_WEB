@@ -162,5 +162,8 @@ export default {
 		url:'/Api/Follow/dynamic',method:'post',baseURL:0,
 	},
 	
+	Userupdate:{
+		url:'/Api/User/update',method:'post',baseURL:0,
+	},
 	
 }

@@ -23,13 +23,23 @@ export default {
 			value: { 
 	　　　　　	default: '',
 	　　　　	},
-
-		},		
+			valued:{
+				default: '',
+			}
+		},	
+	mounted: function () {	
+		this.input =  this.valued;
+		this.gjOn = this.valued-1;
+	
+	}, 
 	watch: {
 	    'input'(val) {
-			console.log(this.input)
 	    	this.$emit('input', this.input); 	    		      		      	
 	    },
+		'valued'(){
+			this.input = this.valued;
+			this.gjOn = this.valued-1;
+		},
 	},
 	methods: {
 		checkgj(on){	

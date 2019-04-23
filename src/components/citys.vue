@@ -1,22 +1,22 @@
 <template>
-	<div @="kk" :class="['citysbos',opType]">
+	<div  :class="['citysbos',opType]">
 		<input class="citysbos1" v-model="msgF" type="text" placeholder="请选择">
 		<div @click="check" class="citysbos2">
 		</div>
 		<div class="citysbos3">
 			<div class="citysbos3_1">
-				<label v-for="(el,index) in options" :class="[gjOn==index?'onchek':'']" :key="index">
+				<label v-for="(v,k,index) in options" :class="[k==gjd?'onchek':'']" :key="index">
 					<span></span>
-					<input name="gj" @click="checkgj(index)" v-model="gjd" :value="el.n" type="radio">
-					{{el.n}}
+					<input name="gj" @click="checkgj1(k)" v-model="gjd" :value="k" type="radio">
+					{{k}}
 				</label>			
 			</div>
 			<div class="citysbos3_2">
-				<div class="citysbos3_2_1 citysbos3_2_2c" v-if="options[gjOn].c.length>0">
-					<span @click="checksj(index)" v-for="(el,index) in options[gjOn].c" :class="[sjOn==index?'onchek1':'']">{{el.n}}</span>
+				<div class="citysbos3_2_1 citysbos3_2_2c" v-if="options[gjd]">
+					<span @click="checksj2(k)" v-for="(v,k,index) in options[gjd]" :class="[gsf==k?'onchek1':'']">{{k}}</span>
 				</div>
-				<div class="citysbos3_2_2 citysbos3_2_2c" v-if="options[gjOn].c.length>0">
-					<span @click="checkcj(index)" :title="el.n" v-for="(el,index) in options[gjOn].c[sjOn].c" :class="[cjOn==index?'onchek1':'']">{{el.n}}</span>
+				<div class="citysbos3_2_2 citysbos3_2_2c" v-if="options[gjd]">
+					<span @click="checkcj3(k)" :title="k" v-for="(v,k,index) in options[gjd][gsf]" :class="[k==gss?'onchek1':'']">{{k}}</span>
 				</div>
 			</div>
 		</div>
@@ -31,13 +31,19 @@ export default {
 			opType:'',
 			options:window.citysData,
 			gjd:'中国',
+			gsf:'北京市',
+			gss:'东城区',
 			gjOn:0,
 			sjOn:0,
 			cjOn:0,
 			input:'',
 		}
 	},
+	props:{
+		valued:Array,
+	},
 	mounted: function () {	
+		this.input =this.valued;
 		this.setData();
 	
 	}, 
@@ -51,40 +57,38 @@ export default {
 	},
 	watch: {
 	    'input'(val) {
+			
 	    	this.$emit('input', this.input); 	    		      		      	
 	    },
+		'valued'(){
+		
+			this.input = this.valued;
+			
+		},
 	},
 	methods: {
-		kk(){
-			console.log(22)
+
+		checkgj1(v){
+			this.gjd = v;
+			this.setData();
+		},
+		checksj2(v){
+			this.gsf = v;
+			this.setData();
+		},
+		checkcj3(v){
+			this.gss = v;
+			this.check();
 		},
 		setData(){
-			if(this.gjOn==1){
-				return
-			}
-			this.input = [this.options[this.gjOn].n,this.options[this.gjOn].c[this.sjOn].n,this.options[this.gjOn].c[this.sjOn].c[this.cjOn].n];
+			this.input = [this.gjd,this.gsf,this.gss];
 		},
 		check(){
 			this.opType = this.opType==''?'opType':'';
 			this.setData();
 		},
-		checkgj(on){	
-			this.gjOn =on;
-			this.sjOn=0;
-			this.cjOn=0;
-			
-			this.setData();
-		},
-		checksj(on){
-			this.sjOn =on;
-			this.cjOn=0;
-			this.setData();
-		},
-		checkcj(on){
-			this.cjOn =on;
-			this.check();
-			this.setData();
-		},
+		
+		
 	}
 }
 </script>

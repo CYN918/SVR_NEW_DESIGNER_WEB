@@ -105,8 +105,7 @@ export default {
 	}, 
 	watch: {
 		'valued'(){
-			this.input = this.valued;
-			console.log(this.valued+'xxxxxx')
+			this.input = this.valued;			
 		},
 	    'input'(val,oldeval) {
 			this.numd = this.input.length;
@@ -125,7 +124,7 @@ export default {
 	    },
 	    'form.mobile_zone'(val){
 	    	let p = this.chekFn(this.input);
-			console.log(p)
+			
 	    	if(p){
 				if(p.text){
 					p = p.text;

@@ -15,7 +15,12 @@
 
 <script>
 export default {
-	props:['Data'],
+	props:{
+		valued:{
+			default:0,
+		},
+		Data:Array
+	},
 	data(){
 		return{
 			opType:'',			
@@ -24,9 +29,16 @@ export default {
 		}
 	},
 	mounted: function () {	
+		
+		this.gjOn = this.valued;
 		this.setData();	
 	}, 
 	watch: {
+		'valued'(){
+			this.gjOn = this.valued;
+			this.input = this.Data[this.gjOn].n;
+			
+		},
 	    'input'(val) {
 			this.input = val;
 	    	this.$emit('input', this.input); 	    		      		      	
