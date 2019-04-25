@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<tophead></tophead>
+		<tophead :navData="navDatad"></tophead>
 		<div class="setUserBox">
 			<div class="setUserBoxs">
 				<div class="setUserBoxs_nav">
@@ -26,7 +26,7 @@
 							<span>手机号</span><div class="xgnamed">{{form.mobile}}<span @click="openTc1(2)">修改</span></div> 
 						</div>
 						<div>
-							<span>邮箱</span><div class="xgnamed">{{form.email}}<span>修改</span></div> 
+							<span>邮箱</span><div v-if="form.email" class="xgnamed">{{form.email}}<span @click="openTc1(3)">修改</span></div><div @click="openTc1(3)" class="bindEamil" v-else>绑定邮箱</div> 
 						</div>
 						<div>
 							<span>性别</span><rideo class="setUserRiode" :valued="form.sex"  :Data="sexData" v-model="form.sex"></rideo>	
@@ -116,6 +116,27 @@
 				</div>
 			</div>
 			
+			<div v-if="tAncType==3" class="tc_sucd_1">
+				<img class="tc_sucd_1X" @click="closeTc1" src="/imge/cj_00.png"/>
+				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入email"></el-input>
+				<div class="emailyzm">
+					<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
+					<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>
+				</div>
+				<div class="tc_sucd_1_2">
+					<span @click="closeTc1">取消</span>
+					<span @click="qdTc3">确定</span>
+				</div>
+			</div>
+			<div v-if="tAncType==4" class="tc_sucd_1">
+				<img class="tc_sucd_1X" @click="closeTc1" src="/imge/cj_00.png"/>
+				<img class="tAncType4_1" src="/imge/email01.png" alt="">
+				<div class="tAncType4_2">
+					激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/>
+					请及时登录邮箱，点击邮件中的链接激活帐户。
+				</div>
+			</div>
+			
 		</div>
 	</div>
 </template>
@@ -134,6 +155,13 @@ export default {
 	components:{upoloadcaver,Input,Citys,Select,rideo,tophead},
 	data(){
 		return {
+			navDatad:{
+				title:'账号设置',
+				list:[
+					{n:'基本信息',u:'/setUser'},
+					{n:'账号安全',u:'/setSecurity'},
+				],
+			},
 			tancData:{
 				mobile_zone:'86',
 				old_mobile_zone:'86'
@@ -176,7 +204,7 @@ export default {
 				return true
 			},
 			chekPhpne:function(val){
-				if(this.tancData.old_mobile_zone!='86'){
+				if(this.form.mobile_zone!='86'){
 					if(!(typeof val === 'number' && val%1 === 0)){
 						return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 					
 					}			
@@ -188,7 +216,7 @@ export default {
 				return true;
 			},
 			chekPhpne2:function(val){
-				if(this.tancData.mobile_zone!='86'){
+				if(this.form.mobile_zone!='86'){
 					if(!(typeof val === 'number' && val%1 === 0)){
 						return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 					
 					}			
@@ -229,6 +257,9 @@ export default {
 		
 	}, 
 	methods: {
+		Verifycodeget(){
+			this.$set(this.tancData,'pic_verifyimg','http://139.129.221.123/Passport/Verifycode/get?client_id='+window.userInfo.open_id+'&t='+(new Date()).valueOf())
+		},
 		setYzm(val){
 			this.tancData.mobile_zone = val;
 		},
@@ -262,6 +293,26 @@ export default {
 				
 			});
 		},
+		qdTc3(){
+			let pr = {
+				access_token:window.userInfo.access_token,
+				third_part:'email',
+				type:'add',
+				email:this.tancData.email,
+				pic_verify:this.tancData.pic_verify,
+				
+			};
+			this.api.Bindbind(pr).then((da)=>{
+				if(!da){
+					return
+				}
+				this.tancData.email = '';	
+				this.tancData.pic_verify = '';
+				this.tAncType=4;
+
+				
+			});
+		},
 		qdTc2(){
 			let pr = {
 				access_token:window.userInfo.access_token,
@@ -275,6 +326,18 @@ export default {
 				
 			};
 			this.api.Bindbind(pr).then((da)=>{
+				if(!da){
+					return
+				}
+				this.form.mobile = this.tancData.newMoble;
+				this.tancData.mobile_zone = '86';
+				this.tancData.newMoble = '';
+				this.tancData.oldMoble = '';
+				this.tancData.old_mobile_zone = '86';
+				this.tancData.verify_code = '';			
+				this.tAncType=0;
+				Message({message: '修改成功'});
+				
 				
 			});
 		},
@@ -302,6 +365,9 @@ export default {
 			this.tAncType=0;
 		},
 		openTc1(on){
+			if(on==3){
+				this.Verifycodeget();
+			}
 			this.tAncType=on;
 		},
 		
@@ -388,11 +454,16 @@ export default {
 		
 		},
 		getUserDetail(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+				return
+			}
+			
 			let pr = {
 				access_token:window.userInfo.access_token,
 				user_open_id:window.userInfo.open_id
 			};
-			this.api.getUserDetail(pr).then((da)=>{
+			this.api.getSelfInfo(pr).then((da)=>{
 				if(!da){
 					return
 				}
@@ -425,274 +496,4 @@ export default {
 
 <style>
 
-.setUserBox{
-	min-height: 754px;
-}
-.setUserBoxs{
-	padding-top: 20px;
-	width: 1300px;
-	margin: 0 auto;
-	text-align: left;
-}
-.setUserBoxs_nav{
-	margin-right: 20px;
-	vertical-align: top;
-	display: inline-block;
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	width: 310px;
-	height: 206px;
-}
-.setUserBoxs_nav>div{
-	position: relative;
-	line-height: 50px;
-	font-size: 16px;
-	color: #1E1E1E;
-	border-bottom: 1px solid #E6E6E6;
-	text-indent: 30px;
-	cursor: pointer;
-}
-.setUserBoxs_nav>div:last-child{
-	border-bottom: 0;
-}
-.setUserBoxs_nav>div.action{
-	color: #FF5121;
-}
-.setUserBoxs_nav>div.action:after{
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	background: #FF5121;
-	width: 3px;
-	height: 100%;
-	
-}
-.setUserBoxs_cent{
-	display: inline-block;
-}
-.setUserBoxs_cent>div{
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	width: 910px;
-	padding: 27px 30px;
-	margin-bottom: 20px;
-}
-.suc_title{
-	font-size: 15px;
-	color: #1E1E1E;
-	margin-bottom: 37px;
-}
-.suc_1>div>span{
-	display: inline-block;
-	vertical-align: middle;
-	margin-right: 74px;
-	width: 42px;
-	font-size: 14px;
-	color: #999999;
-	text-align: justify;
-	text-align-last: justify;
-}
-.suc_1>div{
-	margin-bottom: 25px;
-}
-.suc_1_1_1{
-	position: relative;
-	display: inline-block;
-	vertical-align: middle;
-	border-radius: 50%;
-	overflow: hidden;
-}
-.suc_1_1_1>img{
-	display: inline-block;
-	vertical-align: middle;
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-}
-.suc_1_1_1:hover>div{
-	display: block;
-}
-.suc_1_1_1>div{
-	display: none;
-	cursor: pointer;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0,0,0,.5);
-	text-align: center;
-	font-size: 14px;
-	color: #FFFFFF;
-	text-align: center;
-	line-height: 100px;
-	
-}
-.suc_1>.suc_1_1>span{
-	margin-right: 54px;
-}
-.suc_1>.suc_1_3>span{
-	width: 56px;
-	margin-right: 60px;
-}
-.xgnamed{
-	min-width: 150px;
-	display: inline-block;
-	vertical-align: middle;
-}
-.xgnamed>span{
-	float: right;
-	font-size: 14px;
-	color: #FF5121;
-	width: 58px;
-	text-align: right;
-	cursor: pointer;
-}
-.setUserRiode{
-	display: inline-block;
-}
-.setUserRiode>label>span{
-	width: 8px;
-	height: 8px;
-	border-radius: 0;
-	margin-right: 10px;
-}
-.setUserRiode>label>span:after{
-	width: 8px;
-	height: 8px;
-	border-radius: 2px;
-}
-.setUserRiode>.onchek>span:after{
-	background:  #FF5121;
-
-	border:1px solid  #FF5121;
-}
-.setUserSeLET{
-	display: inline-block;
-}
-.userBoxd2_1{
-	display: inline-block;
-    width: 549px;
-    margin-bottom: 0;
-    vertical-align: middle;
-}
-.userBoxd2_2{
-	display: inline-block;
-    width: 250px;
-    margin-bottom: 0;
-    vertical-align: middle;	
-}
-.suc_3xInput{
-	display: inline-block;
-	width: 250px;
-}
-.suc_3xInput input{
-	border: none;
-	border-bottom: 1px solid #ddd;
-	border-radius: 0;
-	padding: 0;
-}
-.suc_3xInputx{
-	vertical-align: middle;
-	margin-left: 21px;
-	width: 129px;
-}
-.navDwzc .setUserBoxs_nav{
-	display: none;
-}
-.navDwzc .fixdon{
-	display: block;
-}
-
-.fixdon{
-	position: fixed;
-	top: 0;
-}
-.navDwzc{
-	position: fixed;
-	top: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 1300px;
-}
-.setUserBoxs_cent>.suc_btndf{
-	background: #FF5121;
-	border-radius: 5px;
-	width: 140px;
-	height: 40px;
-	text-align: center;
-	line-height: 40px;
-	font-size: 16px;
-	color: #FFFFFF;
-	margin: 60px auto;
-	padding: 0;
-	cursor: pointer;
-}
-.suc_3xInputx{
-	vertical-align: middle;
-}
-.suc_3xInputx input{
-	border: none;
-	border-bottom: 1px solid #DDDDDD;
-	border-radius: 0;
-}
-.tc_sucd{
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 999;
-	background: rgba(0,0,0,.5);
-}
-.tc_sucd_1{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%,-50%);
-	transform: translate(-50%,-50%);
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	padding: 40px;
-}
-.tc_sucd_1_1{
-	width: 340px;
-	margin-bottom: 40px;
-}
-.tc_sucd_1_2>span{
-	cursor: pointer;
-	display: inline-block;
-	border: 1px solid #999999;
-	border-radius: 5px;
-	width: 98px;
-	height: 38px;
-	font-size: 14px;
-	line-height: 38px;
-	color: #333333;
-	text-align: center;
-	margin: 0 15px;
-}
-.tc_sucd_1_2>span:hover{
-	opacity: .7;
-}
-.tc_sucd_1_2>span:last-child{
-	background: #333;
-	border-color: #333;
-	color: #fff;
-}
-.tc_sucd_1X{
-	position: absolute;
-	cursor: pointer;
-	top: -26px;
-	right: -26px;
-	width: 26px;
-	height: 26px;
-}
-.tc_sucd_2_1{
-	width: 340px;
-}
 </style>

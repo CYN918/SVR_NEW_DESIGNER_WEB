@@ -140,7 +140,12 @@ let wb = [
 				name: 'setEnterprise',
 				component: () => import('./views/set/enterprise.vue')
 			},
-			
+			{
+				path: '/message',
+				name: 'message',
+				component: () => import('./views/messgeCl/index.vue'),
+				
+			},
 		],	
 	},
 	{

@@ -170,5 +170,11 @@ export default {
 		url:'/Api/Bind/bind',method:'post',baseURL:0,
 	},
 	
+	Verifycodeget:{
+		url:'/Passport/Verifycode/get',method:'get',baseURL:0,
+	},
+	identifyAuth1:{
+		url:'/Api/User/identifyAuth1',method:'get',baseURL:0,
+	},
 	
 }

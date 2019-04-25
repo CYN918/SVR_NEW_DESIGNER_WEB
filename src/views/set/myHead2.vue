@@ -1,10 +1,10 @@
 <template>
 	<div class="setHeadBox">
 		<div class="setHeadBox_1">
-			<span class="setHeadBox_2">账号设置</span>
+			<span class="setHeadBox_2">{{navData.title}}</span>
 			<div class="setHeadBox_3">
-				<router-link  to="/setUser">基本信息</router-link>
-				<router-link  to="/setSecurity">账号安全</router-link>				
+				<router-link v-for="(el,index) in navData.list"  :to="el.u">{{el.n}}</router-link>
+							
 			</div>
 		</div>
 	</div>
@@ -13,6 +13,7 @@
 <script>
 export default {
 	name: 'index',
+	props:['navData'],
 	data(){
 		return{
 			
@@ -40,10 +41,11 @@ export default {
 .setHeadBox_2{
 	font-size: 24px;
 	color: #1E1E1E;
+    display: inline-block;
+    width: 361px;
 }
 .setHeadBox_3{
 	display: inline-block;
-	margin-left: 265px;
 }
 .setHeadBox_3>a{
 	position: relative;
