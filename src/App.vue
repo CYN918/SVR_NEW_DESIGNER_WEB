@@ -553,7 +553,7 @@ input:-ms-input-placeholder{
 .lgoin_s3x2{
 	position: relative;
     display: inline-block;
-    width: 70px;
+    min-width: 70px;
 	line-height: 40px;
     vertical-align: middle;
     color: #FF5121;

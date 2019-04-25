@@ -20,10 +20,10 @@
 							<span>头像</span><div class="suc_1_1_1"><img  :src="form.avatar" alt=""><div @click="showisPhto">修改头像</div></div>
 						</div>
 						<div>
-							<span>用户名</span><div class="xgnamed">{{form.username}}<span>修改</span></div> 
+							<span>用户名</span><div class="xgnamed">{{form.username}}<span @click="openTc1(1)">修改</span></div> 
 						</div>
 						<div>
-							<span>手机号</span><div class="xgnamed">{{form.mobile}}<span>修改</span></div> 
+							<span>手机号</span><div class="xgnamed">{{form.mobile}}<span @click="openTc1(2)">修改</span></div> 
 						</div>
 						<div>
 							<span>邮箱</span><div class="xgnamed">{{form.email}}<span>修改</span></div> 
@@ -94,6 +94,29 @@
 			
 		</div>
 		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
+		
+		<div v-if="tAncType>0" class="tc_sucd">
+			<div v-if="tAncType==1" class="tc_sucd_1">
+				<img class="tc_sucd_1X" @click="closeTc1" src="/imge/cj_00.png"/>
+				<Input class="tc_sucd_1_1" v-model="tancData.userName"  :oType="'max'" :max="15"  :chekFn="chekusername" :type="'text'" :placeholder="'请输入新的用户名'"></Input>		
+				<div class="tc_sucd_1_2">
+					<span @click="closeTc1">取消</span>
+					<span @click="qdTc1">确定</span>
+				</div>
+			</div>
+			
+			<div v-if="tAncType==2" class="tc_sucd_1">
+				<img class="tc_sucd_1X" @click="closeTc1" src="/imge/cj_00.png"/>
+				<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
+				<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
+				<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+				<div class="tc_sucd_1_2">
+					<span @click="closeTc1">取消</span>
+					<span @click="qdTc2">确定</span>
+				</div>
+			</div>
+			
+		</div>
 	</div>
 </template>
 
@@ -111,6 +134,10 @@ export default {
 	components:{upoloadcaver,Input,Citys,Select,rideo,tophead},
 	data(){
 		return {
+			tancData:{
+				mobile_zone:'86',
+				old_mobile_zone:'86'
+			},
 			navDta:[
 				'个人资料',
 				'教育背景',
@@ -148,6 +175,42 @@ export default {
 				
 				return true
 			},
+			chekPhpne:function(val){
+				if(this.tancData.old_mobile_zone!='86'){
+					if(!(typeof val === 'number' && val%1 === 0)){
+						return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 					
+					}			
+					return true; 
+				}	
+				if(!(/^1[34578]\d{9}$/.test(val))){ 
+					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
+				} 
+				return true;
+			},
+			chekPhpne2:function(val){
+				if(this.tancData.mobile_zone!='86'){
+					if(!(typeof val === 'number' && val%1 === 0)){
+						return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 					
+					}			
+					return true; 
+				}	
+				if(!(/^1[34578]\d{9}$/.test(val))){ 
+					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
+				} 
+				return true;
+			},
+			chekverify:function(val){
+				if(!val){
+					return {type:false,text:'请填写验证码',cls:'errd5'}; 
+				}
+				if(!(/^\S*$/.test(val))){ 				
+					return {type:false,text:'验证码不能有空格',cls:'errd5'}; 
+				} 			
+				if(val.length!=6){
+					return {type:false,text:'请填写6位验证码',cls:'errd5'}
+				}
+				return true
+			},
 			vocationOn:0,
 			inDad:[
 				{label:'仅自己可见',value:'0'},
@@ -155,7 +218,10 @@ export default {
 			],
 			topTyped:false,
 			navdOn:0,
-			postData:{}
+			postData:{},
+			tAncType:0,
+		
+			
 		}
 	},
 	mounted: function () {			
@@ -163,6 +229,82 @@ export default {
 		
 	}, 
 	methods: {
+		setYzm(val){
+			this.tancData.mobile_zone = val;
+		},
+		setYzmOld(val){
+			this.tancData.old_mobile_zone = val;
+		},
+		ajaxYzm(){
+			let pd = this.tancData.newMoble;
+			if(this.tancData.mobile_zone!='86'){
+				if(!(typeof pd === 'number' && pd%1 === 0)){
+					Message({message: '请输入正确的手机号码'});
+					return 					
+				}			
+			}else{
+				if(!(/^1[34578]\d{9}$/.test(pd))){ 
+					Message({message: '请输入正确的手机号码'});
+					return
+				} 
+				
+			}		
+			let params = {
+				mobile:this.tancData.newMoble,
+				mobile_zone:this.tancData.mobile_zone
+			};
+			this.api.sendVerifyCode(params).then((da)=>{	
+				if(!da){
+					return
+				}
+				this.$refs.verify.runTimer(60);
+			}).catch(()=>{
+				
+			});
+		},
+		qdTc2(){
+			let pr = {
+				access_token:window.userInfo.access_token,
+				third_part:'mobile',
+				type:'update',
+				old_mobile_zone:this.tancData.old_mobile_zone,
+				old_mobile:this.tancData.oldMoble,
+				mobile_zone:this.tancData.mobile_zone,
+				mobile:this.tancData.newMoble,
+				verify_code:this.tancData.verify_code,
+				
+			};
+			this.api.Bindbind(pr).then((da)=>{
+				
+			});
+		},
+		qdTc1(){
+			
+			let postData = {
+				access_token:window.userInfo.access_token,
+				username:this.tancData.userName,				
+			};
+			this.api.Userupdate(postData).then((da)=>{
+				if(!da){
+					return
+				}
+				this.form.username = this.tancData.userName;
+				this.tancData.userName = '';
+				this.tAncType=0;
+				Message({message: '修改成功'});
+			});
+		},
+		closeTc1(){		
+			if(this.tAncType==1){			
+				this.tancData.userName = '';				
+			}	
+			
+			this.tAncType=0;
+		},
+		openTc1(on){
+			this.tAncType=on;
+		},
+		
 		init(){
 			this.getUserDetail();
 			document.documentElement.scrollTop =1;
@@ -456,6 +598,7 @@ export default {
 .suc_3xInputx{
 	vertical-align: middle;
 	margin-left: 21px;
+	width: 129px;
 }
 .navDwzc .setUserBoxs_nav{
 	display: none;
@@ -495,5 +638,61 @@ export default {
 	border: none;
 	border-bottom: 1px solid #DDDDDD;
 	border-radius: 0;
+}
+.tc_sucd{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	background: rgba(0,0,0,.5);
+}
+.tc_sucd_1{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	padding: 40px;
+}
+.tc_sucd_1_1{
+	width: 340px;
+	margin-bottom: 40px;
+}
+.tc_sucd_1_2>span{
+	cursor: pointer;
+	display: inline-block;
+	border: 1px solid #999999;
+	border-radius: 5px;
+	width: 98px;
+	height: 38px;
+	font-size: 14px;
+	line-height: 38px;
+	color: #333333;
+	text-align: center;
+	margin: 0 15px;
+}
+.tc_sucd_1_2>span:hover{
+	opacity: .7;
+}
+.tc_sucd_1_2>span:last-child{
+	background: #333;
+	border-color: #333;
+	color: #fff;
+}
+.tc_sucd_1X{
+	position: absolute;
+	cursor: pointer;
+	top: -26px;
+	right: -26px;
+	width: 26px;
+	height: 26px;
+}
+.tc_sucd_2_1{
+	width: 340px;
 }
 </style>

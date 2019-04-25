@@ -166,4 +166,9 @@ export default {
 		url:'/Api/User/update',method:'post',baseURL:0,
 	},
 	
+	Bindbind:{
+		url:'/Api/Bind/bind',method:'post',baseURL:0,
+	},
+	
+	
 }
