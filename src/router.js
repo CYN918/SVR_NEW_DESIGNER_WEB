@@ -146,6 +146,12 @@ let wb = [
 				component: () => import('./views/messgeCl/index.vue'),
 				
 			},
+			{
+				path: '/profit',
+				name: 'profit',
+				component: () => import('./views/profit/index.vue'),
+				
+			},
 		],	
 	},
 	{

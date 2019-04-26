@@ -17,15 +17,39 @@
 					<div class="suc_1">
 						<div class="suc_title">主体信息<div class="xhds"></div></div>
 						<div class="suc_1_9">
-							<span>身份证姓名</span><el-input class="suc_1_9_1" v-model="form.name" placeholder="请输入企业/机构名称"></el-input>
+							<span>身份证姓名</span><el-input class="suc_1_9_1" v-model="postData.name" placeholder="请输入企业/机构名称"></el-input>
 						</div>
 						<div class="suc_1_9">
-							<span>身份证号码</span><el-input class="suc_1_9_1" v-model="form.id_card" placeholder="请输入统一社会信用代码"></el-input>
+							<span>身份证号码</span><el-input class="suc_1_9_1" v-model="postData.id_card" placeholder="请输入统一社会信用代码"></el-input>
 						</div>
+						
 						<div class="suc_1_9">
 							<span>身份证正面照片</span>
 							<div class="suc_1_9_2">
 								<span class="suc_1_9_3">上传照片<input @change="fileUp" ref="upnfile"  type="file"></span>
+								<div class="suc_1_9_4 iconfont">&#xe65c;
+									<div class="suc_1_9_5">
+										<div class="suc_1_9_6">
+											<div class="suc_1_9_9">证件上传示例</div>
+											<div class="suc_1_9_8"><span></span>四角完整</div>
+											<div class="suc_1_9_8"><span></span>亮度均匀</div>
+											<div class="suc_1_9_8"><span></span>照片清晰</div>
+										</div>
+										<img class="suc_1_9_7" src="/imge/sfz_zm.png" alt="">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="suc_1_10">
+							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
+							<div class="suc_1_10_2">上传身份证正面照片<img v-if="postData.front_photo" class="suc_1_10_3" :src="postData.front_photo" alt=""></div>
+						</div>
+						
+						
+						<div class="suc_1_9">
+							<span>身份证反面照片</span>
+							<div class="suc_1_9_2">
+								<span class="suc_1_9_3">上传照片<input @change="fileUp2" ref="upnfile"  type="file"></span>
 								<div class="suc_1_9_4 iconfont">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">
@@ -41,67 +65,72 @@
 						</div>
 						<div class="suc_1_10">
 							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
-							<div class="suc_1_10_2">上传身份证正面照片<img v-if="form.back_photo" class="suc_1_10_3" :src="form.back_photo" alt=""></div>
-						</div>
-						<div class="suc_1_9">
-							<span>身份证反面照片</span>
+							<div class="suc_1_10_2">上传身份证反面照片<img v-if="postData.back_photo" class="suc_1_10_3" :src="postData.back_photo" alt=""></div>
 						</div>
 						<div class="suc_1_9">
 							<span>手持身份证照片</span>
+							<div class="suc_1_9_2">
+								<span class="suc_1_9_3">上传照片<input @change="fileUp3" ref="upnfile"  type="file"></span>
+								<div class="suc_1_9_4 iconfont">&#xe65c;
+									<div class="suc_1_9_5">
+										<div class="suc_1_9_6">
+											<div class="suc_1_9_9">证件上传示例</div>
+											<div class="suc_1_9_8"><span></span>四角完整</div>
+											<div class="suc_1_9_8"><span></span>亮度均匀</div>
+											<div class="suc_1_9_8"><span></span>照片清晰</div>
+										</div>
+										<img class="suc_1_9_7" src="/imge/sfz_sc.png" alt="">
+									</div>
+								</div>
+							</div>
 						</div>
+						<div class="suc_1_10">
+							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
+							<div class="suc_1_10_2">上传手持身份证照片<img v-if="postData.bank_hold_photo" class="suc_1_10_3" :src="postData.bank_hold_photo" alt=""></div>
+						</div>
+	
 						
 					</div>
 					<div class="suc_1 suc_2">
 						<div class="suc_title">银行卡信息<div class="xhds"></div></div>
 						<div class="suc_1_9">
-							<span>收款账户名</span>
+							<span>收款账户名</span><el-input class="suc_1_9_1" v-model="postData.account_name" placeholder="收款账户名需与身份证验证信息一致"></el-input>
 						</div>
 						<div class="suc_1_9">
-							<span>银行卡号</span>
+							<span>银行卡号</span><el-input class="suc_1_9_1" @blur="getBINKname" v-model="postData.bank_card_no" placeholder="请输入银行卡号"></el-input>
 						</div>
 						<div class="suc_1_9">
-							<span>银行预留手机号</span>
+							<span>银行预留手机号</span><el-input class="suc_1_9_1" v-model="postData.reserve_phone" placeholder="请输入手机号码"></el-input>
 						</div>
 						<div class="suc_1_9">
-							<span>所属开户银行</span>
+							<span>所属开户银行</span><el-input class="suc_1_9_1" v-model="postData.bankName" placeholder="无法识别时请手动输入"></el-input>
 						</div>
 						<div class="suc_1_9">
 							<span>所属开户支行</span>
+							<el-input class="suc_1_9_1" v-model="postData.branch_bank" placeholder="请输入所属开户支行"></el-input>
+							
 						</div>
+						
+						
 					</div>
 					<div class="suc_1 suc_3">
 						<div class="suc_title">身份验证<div class="xhds"></div></div>
 						<div class="suc_1_9">
-							<span>手机号</span>
-							<el-input class="suc_3xInput" v-model="form.weixin" placeholder="请输入内容"></el-input>
-							<!-- <el-select class="suc_3xInputx" v-model="form.weixin_visible" placeholder="请选择">
-								<el-option
-								  v-for="item in inDad"
-								  :key="item.value"
-								  :label="item.label"
-								  :value="item.value">
-								</el-option>
-							</el-select> -->
+							<span>手机号</span><div class="suc_1_9_c">{{form.mobile}}</div><span @click="openTc1(2)" class="suc_1_9_c1">更换号码</span>
+			
 							
 						</div>
 						<div class="suc_1_9">
 							<span>验证码</span>
-							<el-input class="suc_3xInput " v-model="form.qq" placeholder="请输入内容"></el-input>
-							<!-- <el-select class="suc_3xInputx" v-model="form.qq_visible" placeholder="请选择">
-								<el-option
-								  v-for="item in inDad"
-								  :key="item.value"
-								  :label="item.label"
-								  :value="item.value">
-								</el-option>
-							</el-select> -->
-						
+							<Input class="suc_1_9yzm" v-model="postData.verify_code"  @ajaxYzm="ajaxYzmZd" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 						</div>
 						
 						
 					</div>
-					
-					<div class="suc_btndf" @click="Userupdate">保存资料</div>
+					<p class="rz_qr">
+						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span>狮大大平台供稿人协议</span>
+					</p>
+					<div :class="['suc_btndf2',isPostky?'ispos':'']" @click="Userupdate">申请认证平台供稿人</div>
 				</div>
 			</div>
 			
@@ -168,6 +197,8 @@ export default {
 	components:{upoloadcaver,Input,Citys,Select,rideo,tophead},
 	data(){
 		return {
+			postData:{},
+			zhData:[],
 			navDatad:{
 				title:'平台供稿人-认证申请',
 				list:[
@@ -175,7 +206,7 @@ export default {
 					{n:'企业',u:'/setEnterprise'},
 				],
 			},
-			
+			ischecked:false,
 			navDta:[
 				'主体信息',
 				'银行卡信息',
@@ -185,13 +216,162 @@ export default {
 			navdOn:0,
 			topTyped:false,
 			tAncType:0,
+			options:[],
+			isPostky:false,
+			props: {
+				value: 'label',
+				children: 'cities'
+			},
+			chekPhpne:function(val){
+				if(this.form.mobile_zone!='86'){
+					if(!(typeof val === 'number' && val%1 === 0)){
+						return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 					
+					}			
+					return true; 
+				}	
+				if(!(/^1[34578]\d{9}$/.test(val))){ 
+					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
+				} 
+				return true;
+			},
+			chekPhpne2:function(val){
+				if(this.form.mobile_zone!='86'){
+					if(!(typeof val === 'number' && val%1 === 0)){
+						return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 					
+					}			
+					return true; 
+				}	
+				if(!(/^1[34578]\d{9}$/.test(val))){ 
+					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
+				} 
+				return true;
+			},
+			chekverify:function(val){
+				if(!val){
+					return {type:false,text:'请填写验证码',cls:'errd5'}; 
+				}
+				if(!(/^\S*$/.test(val))){ 				
+					return {type:false,text:'验证码不能有空格',cls:'errd5'}; 
+				} 			
+				if(val.length!=6){
+					return {type:false,text:'请填写6位验证码',cls:'errd5'}
+				}
+				return true
+			},
+			tancData:{mobile_zone:'86',old_mobile_zone:'86'}
+		}
+	},
+	watch: {
+		'postData.name'() {
+			this.checkPost();
+		},
+		'postData.id_card'() {
+			this.checkPost();
+		},
+		'postData.front_photo'() {
+			this.checkPost();
+		},
+		'postData.back_photo'() {
+			this.checkPost();
+		},
+		'postData.bank_hold_photo'() {
+			this.checkPost();
+		},
+		'postData.account_name'() {
+			this.checkPost();
+		},
+		'postData.bank_card_no'() {
+			this.checkPost();
+		},
+		'postData.reserve_phone'() {
+			this.checkPost();
+		},
+		'postData.branch_bank'() {
+			this.checkPost();
+		},
+		'postData.verify_code'() {
+			this.checkPost();
+		},
+		'ischecked'(){
+			this.checkPost();
 		}
 	},
 	mounted: function () {			
 		this.init();
-		
 	}, 
 	methods: {
+		checkPost(){
+			
+			this.isPostky = false;
+			if(!this.ischecked){
+				return
+			}
+			if(!this.postData.name){
+				return
+			}
+			if(!this.postData.id_card){
+				return
+			}
+			if(!this.postData.front_photo){
+				return
+			}
+			if(!this.postData.back_photo){
+				return
+			}
+			if(!this.postData.bank_hold_photo){
+				return
+			}
+			if(!this.postData.account_name){
+				return
+			}
+			if(!this.postData.bank_card_no){
+				return
+			}
+			if(!this.postData.reserve_phone){
+				return
+			}
+			if(!this.postData.branch_bank){
+				return
+			}			
+			if(!this.postData.verify_code){
+				return
+			}
+			
+			
+			this.isPostky = true;
+			
+			
+			
+			
+			
+			
+			
+			
+		},
+		
+		getBINKname(){
+			
+			if(!this.form.bank_card_no){
+				return
+			}
+			this.$ajax.get('https://ccdcapi.alipay.com/validateAndCacheCardInfo.json', {
+				params: {
+				  _input_charset: 'utf-8',
+				  cardNo:this.form.bank_card_no,
+				  cardBinCheck:true
+				}
+			  })
+			  .then(function (response) {
+				console.log(response);
+			  })
+			  .catch(function (error) {
+				console.log(error);
+			  });
+
+			
+			
+			 
+		},
 		fileUp(flie){
 			let fld = flie.target.files[0];
 			if(['image/jpeg','image/png'].indexOf(fld.type)==-1){
@@ -223,16 +403,150 @@ export default {
 			
 			
 			let uploadProgress = (evt)=>{		
-				// if(evt.lengthComputable) {
-				// 	let percent = Math.round(evt.loaded * 100 / evt.total);
-		  //           percent = percent>98?98:percent;
-				// 	p.bf  = Math.floor(percent);
-				// }
+				if(evt.lengthComputable) {
+					let percent = Math.round(evt.loaded * 100 / evt.total);
+					percent = percent>98?98:percent;
+					percent  = Math.floor(percent);
+				}
 			};
 			let uploadComplete = (data)=>{
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;					
-					this.$set(this.form,'back_photo',da.url)
+					this.$set(this.postData,'front_photo',da.url)
+					;
+					Message({message: '文件上传成功'});
+				}
+				
+			};
+			let uploadFailed = ()=>{
+				// delete p;
+				// p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '文件上传失败请稍后重试'});
+				
+			};
+			let uploadCanceled = ()=>{
+				// p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '取消成功'});
+				
+			};
+			xhr.upload.addEventListener("progress",uploadProgress, false);
+			xhr.addEventListener("load",uploadComplete, false);
+			xhr.addEventListener("error",uploadFailed, false);
+			xhr.addEventListener("abort",uploadCanceled, false);
+			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.send(formData);
+			
+		},
+		fileUp2(flie){
+			let fld = flie.target.files[0];
+			if(['image/jpeg','image/png'].indexOf(fld.type)==-1){
+				Message({message: '格式不正确'});
+				return
+			}
+			if(fld.size>(20*1024*1024)){
+				Message({message: '文件过大'});
+				return
+			}
+			
+			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				app_secret,
+				window.userInfo.open_id,
+				times
+			];
+		
+			let formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',window.userInfo.open_id)
+			formData.append('file',fld)
+			formData.append('relation_type','work')
+			formData.append('timestamp',times)
+			let xhr = new XMLHttpRequest();
+			
+			
+			let uploadProgress = (evt)=>{		
+				if(evt.lengthComputable) {
+					let percent = Math.round(evt.loaded * 100 / evt.total);
+					percent = percent>98?98:percent;
+					percent  = Math.floor(percent);
+				}
+			};
+			let uploadComplete = (data)=>{
+				if(data.currentTarget.response){
+					let da = JSON.parse(data.currentTarget.response).data;					
+					this.$set(this.postData,'back_photo',da.url)
+					console.log(da);
+					Message({message: '文件上传成功'});
+				}
+				
+			};
+			let uploadFailed = ()=>{
+				// delete p;
+				// p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '文件上传失败请稍后重试'});
+				
+			};
+			let uploadCanceled = ()=>{
+				// p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '取消成功'});
+				
+			};
+			xhr.upload.addEventListener("progress",uploadProgress, false);
+			xhr.addEventListener("load",uploadComplete, false);
+			xhr.addEventListener("error",uploadFailed, false);
+			xhr.addEventListener("abort",uploadCanceled, false);
+			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.send(formData);
+			
+		},
+		fileUp3(flie){
+			let fld = flie.target.files[0];
+			if(['image/jpeg','image/png'].indexOf(fld.type)==-1){
+				Message({message: '格式不正确'});
+				return
+			}
+			if(fld.size>(20*1024*1024)){
+				Message({message: '文件过大'});
+				return
+			}
+			
+			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				app_secret,
+				window.userInfo.open_id,
+				times
+			];
+		
+			let formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',window.userInfo.open_id)
+			formData.append('file',fld)
+			formData.append('relation_type','work')
+			formData.append('timestamp',times)
+			let xhr = new XMLHttpRequest();
+			
+			
+			let uploadProgress = (evt)=>{		
+				if(evt.lengthComputable) {
+					let percent = Math.round(evt.loaded * 100 / evt.total);
+					percent = percent>98?98:percent;
+					percent  = Math.floor(percent);
+				}
+			};
+			let uploadComplete = (data)=>{
+				if(data.currentTarget.response){
+					let da = JSON.parse(data.currentTarget.response).data;					
+					this.$set(this.postData,'bank_hold_photo',da.url)
 					console.log(da);
 					Message({message: '文件上传成功'});
 				}
@@ -271,6 +585,34 @@ export default {
 		setYzmOld(val){
 			this.tancData.old_mobile_zone = val;
 		},
+		ajaxYzmZd(){
+			let pd = this.form.mobile;
+			if(this.form.mobile_zone!='86'){
+				if(!(typeof pd === 'number' && pd%1 === 0)){
+					Message({message: '请输入正确的手机号码'});
+					return 					
+				}			
+			}else{
+				if(!(/^1[34578]\d{9}$/.test(pd))){ 
+					Message({message: '请输入正确的手机号码'});
+					return
+				} 
+				
+			}		
+			let params = {
+				mobile:this.form.mobile,
+				mobile_zone:this.form.mobile_zone
+			};
+			this.api.sendVerifyCode(params).then((da)=>{	
+				if(!da){
+					return
+				}
+				Message({message: '验证码已发送'});
+				this.$refs.verify.runTimer(60);
+			}).catch(()=>{
+				
+			});
+		},
 		ajaxYzm(){
 			let pd = this.tancData.newMoble;
 			if(this.tancData.mobile_zone!='86'){
@@ -293,6 +635,7 @@ export default {
 				if(!da){
 					return
 				}
+				Message({message: '验证码已发送'});
 				this.$refs.verify.runTimer(60);
 			}).catch(()=>{
 				
@@ -396,15 +739,12 @@ export default {
 					this.topTyped=false;
 				}
 				
-				if(t>=480){
-					this.navdOn =3;
-					return
-				}
-				if(t>=320){
+
+				if(t>=1048){
 					this.navdOn =2;
 					return
 				}
-				if(t>=160){
+				if(t>=800){
 					this.navdOn =1;
 					return
 				}
@@ -416,31 +756,37 @@ export default {
 		},
 		setNavd(on){
 			this.navdOn = on;
-			this.setScll(160*on)
+			this.setScll(800*on)
 			
 		},
 		Userupdate(){
-			let postData = {
+			if(!this.isPostky){
+				return
+			}
+			let pr = {
 				access_token:window.userInfo.access_token,
-				username:this.form.username,
-				sex:this.form.sex,
-				vocation:this.form.vocation,
-				avatar:this.form.avatar,
-				country:this.form.citye[0],
-				province:this.form.citye[1],
-				city:this.form.citye[2],
-				personal_sign:this.form.personal_sign,
-				education_school:this.form.education_school,
-				weixin:this.form.weixin,
-				weixin_visible:this.form.weixin_visible,
-				qq:this.form.qq,
-				qq_visible:this.form.qq_visible
+				type:1,
+				name:this.postData.name,
+				id_card:this.postData.id_card,
+				front_photo:this.postData.front_photo,
+				back_photo:this.postData.back_photo,
+				bank_hold_photo:this.postData.bank_hold_photo,
+				account_name:this.postData.account_name,
+				bank_card_no:this.postData.bank_card_no,
+				reserve_phone:this.postData.reserve_phone,
+				branch_bank:this.postData.branch_bank,
+				verify_code:this.postData.verify_code,
+				mobile_zone:this.form.mobile_zone,
+				mobile:this.form.mobile,
 			};
-			this.api.Userupdate(postData).then((da)=>{
+			this.api.identifyAuth1(pr).then((da)=>{
 				if(!da){
 					return
 				}
-				Message({message: '修改成功'});
+				Message({message: '申请已提交审核'});
+				setTimeout(()=>{
+					this.$router.push({path:'/profit'})
+				},2000);
 			});
 			
 		},
@@ -492,148 +838,5 @@ export default {
 </script>
 
 <style>
-.suc_1 >.suc_1_9> span{
-	display: inline-block;
-	width: 157px;
-	text-align: left;
-	margin-right: 0;
-	text-align-last:auto;
-}
-.suc_1_9_1{
-	display: inline-block;
-	width: 300px;
-}
-.suc_1_9_1 input{
-	border: none;
-	border-radius: 0;
-	border-bottom: 1px solid #DDDDDD;
-	padding: 0;
-}
-.suc_1_9_2{
-	display: inline-block;
-}
-.suc_1_9_3{
-	display: inline-block;
-	border: 1px solid #999999;
-	border-radius: 5px;
-	font-size: 14px;
-	color: #333333;
-	text-align: center;
-	width: 98px;
-	line-height: 38px;
-	cursor: pointer;
 
-}
-.suc_1_9_4{
-	position: relative;
-	display: inline-block;
-    margin-left: 20px;
-    font-size: 20px;
-    vertical-align: middle;
-	cursor: pointer;
-}
-.suc_1_9_4:hover>.suc_1_9_5{
-	display: block;
-}
-.suc_1_9_5{
-	display: none;
-	position: absolute;
-	background: #FFFFFF;
-	box-shadow: 0 3px 6px 0 rgba(0,0,0,0.10);
-	border-radius: 5px 5px 5px 5px 1px 1px 1px;
-	padding: 30px;
-	top: 0;
-    left: 28px;
-	z-index: 9;
-	white-space: nowrap;
-
-}
-.suc_1_9_5:after{
-	content: "";
-	position: absolute;
-	left: 0;
-	top:0;
-
-	background: #fff;
-	border: 1px solid #fff;
-
-    width: 10px;
-    height: 10px;
-    border-left: 1px solid rgba(0, 0, 0, 0.08);
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    -webkit-transform: rotate(-45deg) translate(-88%,19%);
-    transform: rotate(-45deg) translate(-88%,19%);
-    z-index: 20;
- 
-}
-.suc_1_9_6{
-	vertical-align: top;
-	display: inline-block;
-
-}
-.suc_1_9_7{
-	margin-left: 29px;
-	vertical-align: top;
-	display: inline-block;
-	width: 260px;
-}
-.suc_1_9_9{
-	font-size: 14px;
-	color: #333333;
-	margin-bottom: 13px;
-}
-.suc_1_9_8{
-	font-size: 14px;
-	color: #999999;
-	
-}
-.suc_1_9_8>span{
-	display: inline-block;
-	background: #999999;
-	width: 4px;
-	height: 4px;
-	border-radius: 50%;
-	vertical-align: middle;
-	margin-right: 6px;
-	margin-bottom: 6px;
-}
-.suc_1_10{
-	margin-left: 157px;
-	margin-top: -20px;
-}
-.suc_1_10_1{
-	font-size: 14px;
-	color: #666666;
-	margin-bottom: 18px;
-}
-.suc_1_10_2{
-	position: relative;
-	overflow: hidden;
-	background: rgba(216, 216, 216, .3);
-	border-radius: 10px;
-	width: 300px;
-	height: 189px;
-	text-align: center;
-	line-height: 189px;
-	font-size: 14px;
-	color: #333333;
-}
-.suc_1_10_3{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-.suc_1_9_3{
-	position: relative;
-}
-.suc_1_9_3>input{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	opacity: 0;
-}
 </style>
