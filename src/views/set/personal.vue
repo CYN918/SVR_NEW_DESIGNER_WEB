@@ -17,19 +17,31 @@
 					<div class="suc_1">
 						<div class="suc_title">主体信息<div class="xhds"></div></div>
 						<div class="suc_1_9">
-							<span>身份证姓名</span><el-input class="suc_1_9_1" v-model="input" placeholder="请输入企业/机构名称"></el-input>
+							<span>身份证姓名</span><el-input class="suc_1_9_1" v-model="form.name" placeholder="请输入企业/机构名称"></el-input>
 						</div>
 						<div class="suc_1_9">
-							<span>身份证号码</span><el-input class="suc_1_9_1" v-model="input" placeholder="请输入统一社会信用代码"></el-input>
+							<span>身份证号码</span><el-input class="suc_1_9_1" v-model="form.id_card" placeholder="请输入统一社会信用代码"></el-input>
 						</div>
 						<div class="suc_1_9">
 							<span>身份证正面照片</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">上传照片</span>
-								<div class="suc_1_9_4">
-									<div class="suc_1_9_5"></div>
+								<span class="suc_1_9_3">上传照片<input @change="fileUp" ref="upnfile"  type="file"></span>
+								<div class="suc_1_9_4 iconfont">&#xe65c;
+									<div class="suc_1_9_5">
+										<div class="suc_1_9_6">
+											<div class="suc_1_9_9">证件上传示例</div>
+											<div class="suc_1_9_8"><span></span>四角完整</div>
+											<div class="suc_1_9_8"><span></span>亮度均匀</div>
+											<div class="suc_1_9_8"><span></span>照片清晰</div>
+										</div>
+										<img class="suc_1_9_7" src="/imge/sfz_bm.png" alt="">
+									</div>
 								</div>
 							</div>
+						</div>
+						<div class="suc_1_10">
+							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
+							<div class="suc_1_10_2">上传身份证正面照片<img v-if="form.back_photo" class="suc_1_10_3" :src="form.back_photo" alt=""></div>
 						</div>
 						<div class="suc_1_9">
 							<span>身份证反面照片</span>
@@ -62,27 +74,27 @@
 						<div class="suc_1_9">
 							<span>手机号</span>
 							<el-input class="suc_3xInput" v-model="form.weixin" placeholder="请输入内容"></el-input>
-							<el-select class="suc_3xInputx" v-model="form.weixin_visible" placeholder="请选择">
+							<!-- <el-select class="suc_3xInputx" v-model="form.weixin_visible" placeholder="请选择">
 								<el-option
 								  v-for="item in inDad"
 								  :key="item.value"
 								  :label="item.label"
 								  :value="item.value">
 								</el-option>
-							</el-select>
+							</el-select> -->
 							
 						</div>
 						<div class="suc_1_9">
 							<span>验证码</span>
 							<el-input class="suc_3xInput " v-model="form.qq" placeholder="请输入内容"></el-input>
-							<el-select class="suc_3xInputx" v-model="form.qq_visible" placeholder="请选择">
+							<!-- <el-select class="suc_3xInputx" v-model="form.qq_visible" placeholder="请选择">
 								<el-option
 								  v-for="item in inDad"
 								  :key="item.value"
 								  :label="item.label"
 								  :value="item.value">
 								</el-option>
-							</el-select>
+							</el-select> -->
 						
 						</div>
 						
@@ -94,7 +106,7 @@
 			</div>
 			
 		</div>
-		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
+		
 		
 		<div v-if="tAncType>0" class="tc_sucd">
 			<div v-if="tAncType==1" class="tc_sucd_1">
@@ -172,6 +184,7 @@ export default {
 			form:{},
 			navdOn:0,
 			topTyped:false,
+			tAncType:0,
 		}
 	},
 	mounted: function () {			
@@ -179,6 +192,73 @@ export default {
 		
 	}, 
 	methods: {
+		fileUp(flie){
+			let fld = flie.target.files[0];
+			if(['image/jpeg','image/png'].indexOf(fld.type)==-1){
+				Message({message: '格式不正确'});
+				return
+			}
+			if(fld.size>(20*1024*1024)){
+				Message({message: '文件过大'});
+				return
+			}
+	
+			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				app_secret,
+				window.userInfo.open_id,
+				times
+			];
+		
+			let formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',window.userInfo.open_id)
+			formData.append('file',fld)
+			formData.append('relation_type','work')
+			formData.append('timestamp',times)
+			let xhr = new XMLHttpRequest();
+			
+			
+			let uploadProgress = (evt)=>{		
+				// if(evt.lengthComputable) {
+				// 	let percent = Math.round(evt.loaded * 100 / evt.total);
+		  //           percent = percent>98?98:percent;
+				// 	p.bf  = Math.floor(percent);
+				// }
+			};
+			let uploadComplete = (data)=>{
+				if(data.currentTarget.response){
+					let da = JSON.parse(data.currentTarget.response).data;					
+					this.$set(this.form,'back_photo',da.url)
+					console.log(da);
+					Message({message: '文件上传成功'});
+				}
+				
+			};
+			let uploadFailed = ()=>{
+				// delete p;
+				// p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '文件上传失败请稍后重试'});
+				
+			};
+			let uploadCanceled = ()=>{
+				// p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '取消成功'});
+				
+			};
+			xhr.upload.addEventListener("progress",uploadProgress, false);
+			xhr.addEventListener("load",uploadComplete, false);
+			xhr.addEventListener("error",uploadFailed, false);
+			xhr.addEventListener("abort",uploadCanceled, false);
+			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.send(formData);
+			
+		},
 		identifyAuth1(){
 			
 		},
@@ -393,14 +473,6 @@ export default {
 					return
 				}
 				this.form = da;
-				for(let i=0,n=this.zy.length;i<n;i++){
-					if(this.zy[i].n ==this.form.vocation){
-						this.vocationOn = i;
-						break
-					}
-					
-				}
-				console.log(this.form.qq_visible)
 				this.form.citye = [this.form.country,this.form.province,this.form.city]
 			
 			})
@@ -451,5 +523,117 @@ export default {
 	line-height: 38px;
 	cursor: pointer;
 
+}
+.suc_1_9_4{
+	position: relative;
+	display: inline-block;
+    margin-left: 20px;
+    font-size: 20px;
+    vertical-align: middle;
+	cursor: pointer;
+}
+.suc_1_9_4:hover>.suc_1_9_5{
+	display: block;
+}
+.suc_1_9_5{
+	display: none;
+	position: absolute;
+	background: #FFFFFF;
+	box-shadow: 0 3px 6px 0 rgba(0,0,0,0.10);
+	border-radius: 5px 5px 5px 5px 1px 1px 1px;
+	padding: 30px;
+	top: 0;
+    left: 28px;
+	z-index: 9;
+	white-space: nowrap;
+
+}
+.suc_1_9_5:after{
+	content: "";
+	position: absolute;
+	left: 0;
+	top:0;
+
+	background: #fff;
+	border: 1px solid #fff;
+
+    width: 10px;
+    height: 10px;
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    -webkit-transform: rotate(-45deg) translate(-88%,19%);
+    transform: rotate(-45deg) translate(-88%,19%);
+    z-index: 20;
+ 
+}
+.suc_1_9_6{
+	vertical-align: top;
+	display: inline-block;
+
+}
+.suc_1_9_7{
+	margin-left: 29px;
+	vertical-align: top;
+	display: inline-block;
+	width: 260px;
+}
+.suc_1_9_9{
+	font-size: 14px;
+	color: #333333;
+	margin-bottom: 13px;
+}
+.suc_1_9_8{
+	font-size: 14px;
+	color: #999999;
+	
+}
+.suc_1_9_8>span{
+	display: inline-block;
+	background: #999999;
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	vertical-align: middle;
+	margin-right: 6px;
+	margin-bottom: 6px;
+}
+.suc_1_10{
+	margin-left: 157px;
+	margin-top: -20px;
+}
+.suc_1_10_1{
+	font-size: 14px;
+	color: #666666;
+	margin-bottom: 18px;
+}
+.suc_1_10_2{
+	position: relative;
+	overflow: hidden;
+	background: rgba(216, 216, 216, .3);
+	border-radius: 10px;
+	width: 300px;
+	height: 189px;
+	text-align: center;
+	line-height: 189px;
+	font-size: 14px;
+	color: #333333;
+}
+.suc_1_10_3{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.suc_1_9_3{
+	position: relative;
+}
+.suc_1_9_3>input{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
 }
 </style>
