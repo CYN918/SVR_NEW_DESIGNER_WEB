@@ -283,6 +283,10 @@ export default {
 			if(!this.postData.code){
 				return
 			}
+			if(this.postData.code.length>18){
+				Message({message: '统一社会信用代码格式不正确'});
+				return
+			}
 			if(!this.postData.business_license){
 				return
 			}

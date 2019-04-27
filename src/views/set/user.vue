@@ -476,7 +476,6 @@ export default {
 					}
 					
 				}
-				console.log(this.form.qq_visible)
 				this.form.citye = [this.form.country,this.form.province,this.form.city]
 			
 			})

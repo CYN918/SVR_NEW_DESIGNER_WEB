@@ -333,7 +333,6 @@ export default {
 
 		},
 		seeWorks(id){
-			console.log(id)
 			this.$router.push({path:'/cont',query:{id:id}});
 		},
 		downFile(flid){
@@ -411,7 +410,7 @@ export default {
 				if(t<=188){
 					this.topTyped=false;
 				}
-				console.log(this.topTyped)
+
 			}
 			
 			let pr = {
@@ -537,8 +536,6 @@ export default {
             this.pl2 = '';
 		},
 		addfu2(fid,name,on,on2,comId){
-			console.log(name);
-			console.log(comId);
             if(!this.page.access_token){
                 Message({message: '请先登录'});
                 return

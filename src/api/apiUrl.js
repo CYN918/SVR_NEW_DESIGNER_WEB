@@ -179,7 +179,9 @@ export default {
 	identifyAuth:{
 		url:'/Api/User/identifyAuth',method:'post',baseURL:0,
 	},
-	
+	getCounter:{
+		url:'/Api/Message/getCounter',method:'post',baseURL:0,
+	},
 
 	
 }

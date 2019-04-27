@@ -7,7 +7,7 @@
 		</span>
 		<div class="header_3">
 			<span class="iconfont pend">&#xe609;</span>
-			<span class="iconfont pend">&#xe65b;</span>
+			<span class="iconfont pend messgeH1">&#xe65b;<div v-if="messgNum.unread_total_num>0" class="messgeH2">{{messgNum.unread_total_num}}</div></span>
 			<span class="iconfont pend" @click="goUpload">&#xe61e;</span>
 			<span class="header_4" v-if="userMssge">
 				<div @click="goUser"><img :src="userMssge.avatar" alt=""></div>
@@ -43,6 +43,7 @@ export default {
 		return{
 			userMssge:'',
 			isshowd:false,
+			messgNum:{},
 		}		
 	},
 	mounted: function () {	
@@ -55,6 +56,7 @@ export default {
             })
         },
 		initHead(){	
+			this.getMessgNumber();
 			this.userMssge = '';
 			if(window.userInfo){
 				this.userMssge = window.userInfo;			
@@ -86,11 +88,25 @@ export default {
 		},
 		showHb(is){
 			this.isshowd = is;
+		},
+		
+		getMessgNumber(){
+			let pr = {
+				access_token:window.userInfo.access_token
+			};
+			this.api.getCounter(pr).then((da)=>{
+				if(!da){
+					return
+				}
+				this.messgNum = da;
+		
+			})
 		}
 	},
 	watch: {	
 		'$route': function() {
-			this.initHead()
+			this.initHead();
+			this.getMessgNumber();
 		}
 	},
 	
@@ -293,5 +309,24 @@ export default {
 	border-color: #333;
 	color: #fff;
 	margin-left: 30px;
+}
+.messgeH1{
+	position: relative;
+}
+.messgeH2{
+	display: block;
+	position: absolute;
+	top: -7px;
+	left: 7px;
+	background: #F4523B;
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	font-size: 12px;
+	color: #FFFFFF;
+	letter-spacing: 0;
+	text-align: center;
+	
+	border-radius: 50%;
 }
 </style>

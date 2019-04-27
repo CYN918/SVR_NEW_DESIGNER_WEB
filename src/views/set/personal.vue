@@ -312,6 +312,10 @@ export default {
 			if(!this.postData.id_card){
 				return
 			}
+			if(this.postData.id_card.length>18){
+				Message({message: '身份证格式不正确'});
+				return
+			}
 			if(!this.postData.front_photo){
 				return
 			}
@@ -779,7 +783,7 @@ export default {
 				mobile_zone:this.form.mobile_zone,
 				mobile:this.form.mobile,
 			};
-			this.api.identifyAuth1(pr).then((da)=>{
+			this.api.identifyAuth(pr).then((da)=>{
 				if(!da){
 					return
 				}
