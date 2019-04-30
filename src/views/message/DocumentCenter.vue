@@ -142,6 +142,7 @@
     }
 .content{
     text-align: left;
+    min-height: 666px;
 }
 .content_1,.content_2,.content_3,.content_4{
     margin: 80px;
