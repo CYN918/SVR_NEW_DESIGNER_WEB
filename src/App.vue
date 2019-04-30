@@ -68,17 +68,8 @@ input:-moz-placeholder{
 input:-ms-input-placeholder{
     color:#c0c4cc;
 }
-.rideoBox{
-	
-}
-.rideoBox>audio{
-	
-}
 
-.videoBox{
-	
-	
-}
+
 .cropper-view-box[data-v-6dae58fd]{
 	
 	outline-color: #FF5121 !important;
@@ -175,7 +166,9 @@ input:-ms-input-placeholder{
 .i_listd>li:nth-child(4n+4){
 	margin-right: 0;
 }
-
+.homeMinheifh{
+	min-height: 404px
+}
 .banner1{
 	position: relative;
 	overflow: hidden;

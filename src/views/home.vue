@@ -10,7 +10,7 @@
 			<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
 			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
 		</div>
-		<ul class="i_listd" >
+		<ul class="i_listd homeMinheifh">
 			<li v-for="(el,index) in List" :key="index">
 				<div @click="openxq(index)" class="i_listd1x1"><img class="i_listd1" :src="el.face_pic"></div>
 				
@@ -29,7 +29,7 @@
 				</div>
 			</li>
 		</ul>
-		<el-pagination class="pagesddd"
+		<el-pagination class="pagesddd" v-if="List.length>0"
 		background
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"
@@ -111,8 +111,13 @@ export default {
 			}
 			this.loading = Loading.service({ fullscreen: true });
 			this.api.getHList(params).then((da)=>{
+				this.loading.close();
+				if(!da){
+					return
+				}
 				this.List = da.data;
 				this.total = da.total;
+			}).catch(()=>{
 				this.loading.close();
 			})
 		},
