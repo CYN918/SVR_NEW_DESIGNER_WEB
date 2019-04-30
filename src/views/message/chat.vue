@@ -16,18 +16,27 @@
 				<div class="sxBodx1">
 					<div class="sxBodx2">
 						<div class="sxBodx2_1">
-							<span :class="['sxBodx2_1_n1','sxBodx2_1_n1x']">最近联系</span>
-							<span :class="['sxBodx2_1_n1']">我关注的</span>
+							<span @click="checkNav(0)" :class="['sxBodx2_1_n1',sxType==0?'sxBodx2_1_n1x':'']">最近联系</span>
+							<span @click="checkNav(1)" :class="['sxBodx2_1_n1',sxType==1?'sxBodx2_1_n1x':'']">我关注的</span>
 						</div>
-						<div class="sxBodx2_2">
-							<ul class="sxBodx2_2x">
+						<div class="sxBodx2_2" ref="listDom">
+							<ul v-if="sxType==0" class="sxBodx2_2x">
 								<li v-for="(el,index) in listData">
-									<img src="/imge/nav_tx.png" alt="">
+									<img :src="el.user_info.avatar" alt="">
 									<div>
-										<div class="sxBodx2_2x_1">Don Gibson<span class="sxBodx2_2x_2">18:00</span></div>
-										<div class="sxBodx2_2x_3">你好！你的作品很棒，我能请…</div>
+										<div class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
+										<div class="sxBodx2_2x_3">{{el.last_message}}</div>
 									</div>
-								</li>
+								</li>								
+							</ul>
+							<ul v-if="sxType==1" class="sxBodx2_2x">
+								<li v-for="(el,index) in listData">
+									<img :src="el.avatar" alt="">
+									<div>
+										<div class="sxBodx2_2x_1">{{el.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
+										<div class="sxBodx2_2x_3">{{el.last_message}}</div>
+									</div>
+								</li>								
 							</ul>
 						</div>
 						<div class="sxBodx2_3"></div>
@@ -38,38 +47,42 @@
 						<div class="sxBodx2_1">
 							<div class="sxBodx3_1_1">Harriett Bass<span class="sxBodx3_1_2">与你的对话</span><span class="sxBodx3_1_3 iconfont">&#xe73c;</span></div>
 						</div>
-						<div class="sxBodx3_2">
+						<div class="sxBodx3_2" id="meegBox" ref="messgDom">
 							
 							<ul>
-								<li>
-									<div class="sxBodx3_2x_1">昨天16:00</div>
 								
-								</li>
-								<li>
-									<div class="jyb_x2">
-									<div class="sxBodx3_2xbox sxBodx3_2x_2">
-										<img src="/imge/nav_tx.png" alt="">
-										<div class="sxBodx3_2x_3b sxBodx3_2x_3">你好！你的作品很棒哦</div>
-									</div>
-									</div>
-									
-								</li>
-								<li>
-									<div class="jyb_x1">
-									<div class="sxBodx3_2xbox sxBodx3_2x_4">
+								
+								<div v-for="(el,index) in messGlist" :key="index">
+									<li v-if="index==0 || el.istimed"><div class="sxBodx3_2x_1">{{backtime(el.create_time)}}</div></li>
+									<li>
+										<div v-if="!checkisme(el.open_id)" class="jyb_x2">
+										<div class="sxBodx3_2xbox sxBodx3_2x_2">
+											<img :src="el.user_info.avatar" alt="">
+											<div class="sxBodx3_2x_3b sxBodx3_2x_3">{{el.content}}</div>
+										</div>
+										</div>
 										
-										<div class="sxBodx3_2x_3b sxBodx3_2x_5">谢谢，希望可以一起学习进步！谢谢，希望可以一起学习进步！谢谢，希望可以一起学习进步！谢谢，希望可以一起学习进步！</div>
-										<img src="/imge/nav_tx.png" alt="">
-									</div>
-									</div>
-								</li>
-								<li>
-									<div class="sxBodx3_2x_1">昨天16:00</div>
+										<div v-else class="jyb_x1">
+										<div class="sxBodx3_2xbox sxBodx3_2x_4">
+											
+											<div class="sxBodx3_2x_3b sxBodx3_2x_5">{{el.content}}</div>
+											<img :src="el.user_info.avatar" alt="">
+										</div>
+										</div>
+									</li>
+								</div>
 								
+								<li>
+									<div class="sxBodx3_2x_1">{{backtime(Date.parse(new Date())/1000)}}</div>								
 								</li>
 							</ul>
 						</div>
-						<div class="sxBodx2_3"></div>
+						<div class="sxBodx2_3 sxBodx2_3xx">
+							<div class="hfBox xxbox_c">
+								<Input class="userBoxd2" v-model="postMessg" :oType="'max'" :max="200" :type="'text'"  ref="tageds1"></Input>	
+								<span @click="addChatMessage()">回复</span>
+							</div>
+						</div>
 					</div>
 					
 				</div>
@@ -101,10 +114,19 @@ export default {
 			total:0,
 			page:1,
 			onType:'notify',
-			listData:new Array(10),
+			listData:[],
 			addLink:0,
 			plType:0,
 			pl2:'',
+			messgOn:0,
+			messGlimit:5,
+			messPage:1,
+			messGlist:[],
+			postMessg:'',
+			getAjxType1:0,
+			getAjxType2:0,
+			getAjxType3:0,
+			sxType:0,
 		}
 	},
 	mounted: function () {			
@@ -112,6 +134,42 @@ export default {
 		
 	}, 
 	methods: {
+		checkNav(on){
+			if(this.sxType==on){
+				return
+			}
+			this.sxType=on;
+		},
+		addChatMessage(){
+			if(this.getAjxType3==1){
+				Message({message: '正在发送'});
+				return
+			}
+			let pr = {
+				access_token:window.userInfo.access_token,
+				chat_type:'private',
+				content_type:'text',
+				content:this.postMessg,
+				to_id:this.listData[this.messgOn].user_info.open_id,
+			};
+			this.getAjxType3 = 1;
+			this.api.addChatMessage(pr).then((da)=>{
+				this.getAjxType3 = 0;
+				if(!da){
+					return
+				}
+				this.$refs.tageds1.setData('');
+				
+				Message({message: '发送成功'});
+				
+			}).catch(()=>{
+				this.getAjxType3=0;
+			});
+		},
+		checkisme(id){
+
+			return id==window.userInfo.open_id;
+		},
 		setNavd(on){
 			let urld = ['notify','comment','chat'];
 			this.$router.push({path: urld[on]});	
@@ -129,18 +187,33 @@ export default {
 		// },
 		
 		backtime(t){		
-			let time = new Date(t*1000);
-			let ym = time.getMonth();
-			if(ym<10){
-				ym = '0'+ym;
-			}
-			return time.getDate()+'-'+ym+'-'+time.getFullYear();
+			return window.getTimes(t*1000)
 		},
+		getMessageList(){
+	
+			let pr = {
+				access_token:window.userInfo.access_token,
+				chat_id:this.listData[this.messgOn].chat_id,
+				to_open_id:this.listData[this.messgOn].user_info.open_id,
+				
+				limit:this.messGlimit,
+			};
+			this.api.getMessageList(pr).then((da)=>{
+				if(!da){
+					return
+				}
+			
+				this.messGlist = da.reverse();
 		
+			});
+			
+		},
 		init(){
 			this.pushCk();
 			this.getMessgNumber();
 			this.getMessgList();
+			// this.followList();
+			
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
 			window.onscroll = ()=>{
@@ -160,7 +233,80 @@ export default {
 				}
 	
 				
+			};
+			this.addEvent2(this.$refs.listDom);
+			this.addEvent1(this.$refs.messgDom);
+			
+		},
+		addEvent2(obj){
+			
+			obj.onscroll = ()=>{
+				let t = obj.scrollTop||obj.scrollTop;
+				let b = obj.scrollHeight-580;
+				if(t==b && this.getAjxType1==0){
+					
+					let pr = {
+						access_token:window.userInfo.access_token,
+						type:'chat',
+						page:this.page,
+						limit:this.limit
+					};
+					this.getAjxType1=1;
+					this.api.getMessgList(pr).then((da)=>{
+						this.getAjxType1=0;
+						if(!da){return}
+						this.page++;
+						this.listData = this.listData.concat(da.data);						
+						if(da.data.length==0){
+							this.getAjxType1=1;
+							return
+						}	
+					}).catch(()=>{
+						this.getAjxType1=0;
+					});
+					
+				}
+			
 			}
+		},
+		addEvent1(obj){
+			obj.scrollTop = obj.scrollHeight-540;
+			
+			setTimeout(()=>{
+				obj.scrollTop = obj.scrollHeight-540;
+			},300);	
+					
+			
+			obj.onscroll = ()=>{
+				let t = obj.scrollTop||obj.scrollTop;
+				if(t==0 && this.getAjxType2==0){
+					this.getAjxType2=1;
+					let pr = {
+						access_token:window.userInfo.access_token,
+						chat_id:this.listData[this.messgOn].chat_id,
+						to_open_id:this.listData[this.messgOn].user_info.open_id,
+						time:this.messGlist[0].create_time,
+						limit:this.messGlimit,
+					};
+					this.api.getMessageList(pr).then((da)=>{
+						this.getAjxType2=0;
+						if(!da){
+							return
+						}
+						this.messGlist[0].istimed = true;
+						this.messGlist = da.reverse().concat(this.messGlist);
+						if(da.length==0){
+							this.getAjxType2=1;
+							return
+						}	
+						
+					}).catch(()=>{
+						this.getAjxType2=0;
+					});
+				}
+			
+			}
+			
 		},
 		pushCk(){
 	
@@ -210,11 +356,25 @@ export default {
 			};
 			this.api.getMessgList(pr).then((da)=>{
 				if(!da){return}
-				this.listData = da.data;
-				this.total = da.total;
+				for(let i=0,n=7;i<n;i++){
+					this.listData.push(da.data[0])
+				}
+			
+				this.getMessageList();
 			});
 		},
-
+		followList(){
+			let pr = {
+				user_open_id:window.userInfo.open_id,
+				page:this.page,
+				limit:this.limit,
+			};
+			this.api.followList(pr).then((da)=>{
+				if(!da){return}
+								
+				// this.getMessageList();
+			});
+		},
 
 
 	}
@@ -345,7 +505,7 @@ export default {
 	overflow: hidden;
     overflow-y: auto;
     width: 100%;
-    height: 580px;
+    height: 540px;
 }
 .sxBodx3_2x_1{
 	display: block;
@@ -422,5 +582,19 @@ export default {
     top: 19px;
     right: -5px;
     background: #ff5121;
+}
+.sxBodx2_3xx{
+	height: 100px;
+}
+.xxbox_c .nubMax{
+	display: block;
+}
+.xxbox_c .myInput {
+	padding: 0 10px;
+    box-sizing: border-box;
+}
+.xxbox_c{
+	width: 90%;
+    margin: 30px 37px 0;
 }
 </style>

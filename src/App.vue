@@ -2134,7 +2134,7 @@ content: "";
 	margin: 62px auto;
 }
 
-.pagesdddxf .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li{
+.pagesdddxf .el-pager li{
 	width: 40px;
 	height: 40px;
 	box-sizing: border-box;

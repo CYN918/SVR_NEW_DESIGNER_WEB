@@ -202,5 +202,12 @@ export default {
 	Messageread:{
 		url:'/Api/Message/read',method:'post',baseURL:0,
 	},
-
+	getMessageList:{
+		url:'/Api/Message/getMessageList',method:'post',baseURL:0,
+	},
+	addChatMessage:{
+		url:'/Api/Message/addChatMessage',method:'post',baseURL:0,
+	},
+	
+	
 }
