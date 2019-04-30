@@ -167,6 +167,12 @@ let wb = [
 				component: () => import('./views/message/chat.vue'),
 				
 			},
+            {
+                path: '/documentCenter',
+                name: 'document-center',
+                component: () => import('./views/message/DocumentCenter.vue'),
+
+            },
 		],	
 	},
 	{
