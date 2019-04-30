@@ -2010,4 +2010,27 @@ content: "";
 	background: #FF5121;
 	color: #fff;
 }
+.el-radio__input.is-checked .el-radio__inner{
+	background:  #ff5121!important;
+	color:  #ff5121!important ;
+	border-color:#ff5121!important;
+}
+.is-checked  .el-radio__label{
+	color:#ff5121!important;
+}
+.el-radio__inner:hover{
+	border-color: #FF5121!important;
+}
+.el-button--primary{
+	border: 1px solid #999999;
+	border-radius: 5px;
+	background: transparent!important;
+	width: 100px;
+	height: 40px;
+	font-family: PingFangSC-Regular;
+	font-size: 14px;
+	color: #333333!important;
+	text-align: center;;
+}
+.el-upload-list{display: none}
 </style>

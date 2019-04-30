@@ -57,12 +57,10 @@ let wb = [
 				component: () => import('./views/user/myDraft.vue')
 			},
 			{
-				path: '/follow',
-				name: 'follow',
-				component: () => import('./views/user/follow.vue')
-			},
-			
-			
+                path: '/follow',
+                name: 'follow',
+                component: () => import('./views/user/follow.vue')
+            },
 			{
 				path: '/activvity',
 				name: 'activvity',
@@ -104,7 +102,6 @@ let wb = [
 				component: () =>import('./views/content.vue'),
 			
 			},
-			 
 			{
 				path: '/myDynamic',
 				name: 'myDynamic',
