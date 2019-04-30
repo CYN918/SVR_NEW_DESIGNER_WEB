@@ -103,7 +103,7 @@
 							<span>银行预留手机号</span><el-input class="suc_1_9_1" v-model="postData.reserve_phone" placeholder="请输入手机号码"></el-input>
 						</div>
 						<div class="suc_1_9">
-							<span>所属开户银行</span><el-input class="suc_1_9_1" v-model="postData.bankName" placeholder="无法识别时请手动输入"></el-input>
+							<span>所属开户银行</span><el-input class="suc_1_9_1" v-model="postData.bank_name" placeholder="无法识别时请手动输入"></el-input>
 						</div>
 						<div class="suc_1_9">
 							<span>所属开户支行</span>
@@ -292,6 +292,10 @@ export default {
 		'postData.verify_code'() {
 			this.checkPost();
 		},
+		'postData.bank_name'() {
+			this.checkPost();
+		},
+		
 		'ischecked'(){
 			this.checkPost();
 		}
@@ -336,7 +340,10 @@ export default {
 			}
 			if(!this.postData.branch_bank){
 				return
-			}			
+			}	
+			if(!this.postData.bank_name){
+				return
+			}
 			if(!this.postData.verify_code){
 				return
 			}
@@ -541,11 +548,11 @@ export default {
 			
 			
 			let uploadProgress = (evt)=>{		
-				if(evt.lengthComputable) {
-					let percent = Math.round(evt.loaded * 100 / evt.total);
-					percent = percent>98?98:percent;
-					percent  = Math.floor(percent);
-				}
+				// if(evt.lengthComputable) {
+				// 	let percent = Math.round(evt.loaded * 100 / evt.total);
+				// 	percent = percent>98?98:percent;
+				// 	percent  = Math.floor(percent);
+				// }
 			};
 			let uploadComplete = (data)=>{
 				if(data.currentTarget.response){
@@ -756,7 +763,7 @@ export default {
 				this.navdOn =0;
 				
 
-;			}
+			}
 		},
 		setNavd(on){
 			this.navdOn = on;
@@ -780,6 +787,7 @@ export default {
 				reserve_phone:this.postData.reserve_phone,
 				branch_bank:this.postData.branch_bank,
 				verify_code:this.postData.verify_code,
+				bank_name:this.postData.bank_name,
 				mobile_zone:this.form.mobile_zone,
 				mobile:this.form.mobile,
 			};

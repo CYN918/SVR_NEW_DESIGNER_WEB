@@ -149,6 +149,24 @@ let wb = [
 				component: () => import('./views/profit/index.vue'),
 				
 			},
+			{
+				path: '/notify',
+				name: 'notify',
+				component: () => import('./views/message/notify.vue'),
+				
+			},
+			{
+				path: '/comment',
+				name: 'comment',
+				component: () => import('./views/message/comment.vue'),
+				
+			},
+			{
+				path: '/chat',
+				name: 'chat',
+				component: () => import('./views/message/chat.vue'),
+				
+			},
 		],	
 	},
 	{

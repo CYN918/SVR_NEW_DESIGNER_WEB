@@ -174,7 +174,7 @@ export default {
 	getCounter:{
 		url:'/Api/Message/getCounter',method:'post',baseURL:0,
 	},
-	//获取举报分类
+
     Report_getClassify:{
 		url:'/Api/Report/getClassify',method:'post'
 	},
@@ -189,5 +189,18 @@ export default {
 	//添加反馈
     Feedback_add:{
 		url:'Api/Feedback/add',method:'post'
-	}
+	},
+
+	getMessgList:{
+		url:'/Api/Message/getList',method:'post',baseURL:0,
+	},
+	
+	getNotice:{
+		url:'/Api/Message/getNotice',method:'post',baseURL:0,
+	},
+	
+	Messageread:{
+		url:'/Api/Message/read',method:'post',baseURL:0,
+	},
+
 }

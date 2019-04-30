@@ -158,6 +158,7 @@ input:-ms-input-placeholder{
 .i_listd{
 	width: 1300px;
 	margin: 0 auto;
+	min-height: 239px;
 	text-align: left;
 }
 .i_listd>li{
@@ -1367,7 +1368,7 @@ content: "";
 }
 .setUserBoxs_nav>div{
 	position: relative;
-	line-height: 50px;
+	line-height: 59px;
 	font-size: 16px;
 	color: #1E1E1E;
 	border-bottom: 1px solid #E6E6E6;
@@ -2033,4 +2034,128 @@ content: "";
 	text-align: center;;
 }
 .el-upload-list{display: none}
+
+/*message*/
+.tjsj_2{
+	display: inline-block;
+	width: 119px;
+	font-size: 16px;
+	color: #1E1E1E;
+}
+.tjsj_1{
+    background: #F4523B;
+    font-size: 12px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    padding: 2px 7px;
+    border-radius: 10px;
+	
+}
+.messgdo{
+	min-height: 834px;
+}
+.comment_1{
+	display: inline-block;
+	vertical-align: top;
+	border-radius: 50%;
+	width: 48px;
+	height: 48px;
+	
+}
+.comment_2{
+	vertical-align: top;
+	display: inline-block;
+	margin: 0 169px 0 20px;
+	width: 486px;
+}
+.comment_3{
+	vertical-align: top;
+	display: inline-block;
+	border-radius: 5px;
+	width: 187px;
+	height: 140px;
+}
+
+.comment_2_1{
+	font-size: 14px;
+	color: #1E1E1E;
+	margin-bottom: 5px;
+}
+.comment_2_2{
+	color: #999999;
+	margin-left: 30px;
+}
+.comment_2_3{
+	font-size: 14px;
+	color: #999999;
+	line-height: 24px;
+	margin-bottom: 11px;
+}
+.comment_2_4{
+	cursor: pointer;
+	font-size: 14px;
+	color: #FF5121;
+}
+.comment_2_5{
+	font-size: 14px;
+	color: #1E1E1E;
+	line-height: 24px;
+	height: 53px;
+	margin-bottom: 7px;
+}
+.comment_2_6{
+	display: inline-block;
+    width: 18px;
+    vertical-align: middle;
+}
+.comment_2_7{
+	margin-left: 22px;
+	font-size: 14px;
+	color: #FF5121;
+}
+.hfdZ_23{
+	font-size: 14px;
+    color: #999999;
+    margin-right: 60px;
+}
+.xxbox_c{
+	
+}
+.xxbox_c .userBoxd2{
+	margin: 0;
+}
+.xxbox_c .myInput input{
+	height: 37px;
+	padding: 0 10px;
+}
+.comment_2_7_1{
+	margin-left: 20px;
+}
+.comment_2_9{
+    width: 842px;
+    border-top: 1px solid #E6E6E6;
+    margin-top: 27px;
+    padding-top: 30px;
+}
+.pagesdddxf{
+	margin: 62px auto;
+}
+
+.pagesdddxf .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li{
+	width: 40px;
+	height: 40px;
+	box-sizing: border-box;
+	line-height: 40px;
+}
+.pagesdddxf button{
+	width: 40px;
+	height: 40px;
+	box-sizing: border-box;
+	line-height: 40px;
+}
+.pagesdddxf  .el-input__inner{
+	height: 40px !important;
+	box-sizing: border-box;
+
+}
 </style>

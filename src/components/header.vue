@@ -7,7 +7,33 @@
 		</span>
 		<div class="header_3">
 			<span class="iconfont pend">&#xe609;</span>
-			<span class="iconfont pend messgeH1">&#xe65b;<div v-if="messgNum.unread_total_num>0" class="messgeH2">{{messgNum.unread_total_num}}</div></span>
+			<span class="iconfont pend messgeH1"><span @click="showisXXNav">&#xe65b;</span>
+				<div @click="showisXXNav" v-if="messgNum.unread_total_num>0" class="messgeH2">{{messgNum.unread_total_num}}</div>
+				<div v-if="isXXNav" @click="hidisXXNav" class="messgeH3Boxf1"></div>
+				<div v-if="isXXNav" class="messgeH3">
+					<div class="messgeH3_1">
+						<span @click="getNotice('notify')" :class="[messgNum.unread_notify_num>0?'onckf':'']"><img :src="backnav('notify',1)" alt=""></span>
+						<span @click="getNotice('comment')" :class="[messgNum.unread_comment_num>0?'onckf':'']"><img :src="backnav('comment',2)" alt=""></span>
+						<span @click="getNotice('chat')" :class="[messgNum.unread_chat_num>0?'onckf':'']"><img :src="backnav('chat',3)" alt=""></span></div>
+					<div class="messgeH3_2">
+						<div class="messgeH3_2_x1">
+							<ul class="xxBox_1">
+								<li v-for="(el,index) in mData" :key="index">
+									<div>{{el.title}}</div>								
+								</li>							
+							</ul>
+							
+							<div v-if="mData.length==0" class="messgeH3_2_1"><img  src="/imge/wxx.png" alt="">暂无新的消息</div>
+						</div>
+						
+						
+					</div>
+					
+				
+					<div class="messgeH3_3">查看全部</div>
+				</div>
+				
+			</span>
 			<span class="iconfont pend" @click="goUpload">&#xe61e;</span>
 			<span class="header_4" v-if="userMssge">
 				<div @click="goUser"><img :src="userMssge.avatar" alt=""></div>
@@ -44,12 +70,34 @@ export default {
 			userMssge:'',
 			isshowd:false,
 			messgNum:{},
+			messgType:0,
+			messgMessGd0:'',
+			messgMessGd1:'',
+			messgMessGd2:'',
+			mData:[],
+			navType:'',
+			isXXNav:false,
 		}		
 	},
 	mounted: function () {	
 		this.initHead()
+		
 	}, 
 	methods:{
+		backnav(on,on2){
+			let str = '/imge/xx_'+on2;
+			if(this.navType!=on){
+				str+=on2;
+			}
+			return str+'.png';
+		},
+		showisXXNav(){
+			this.isXXNav = true;
+			this.getNotice();
+		},
+		hidisXXNav(){
+			this.isXXNav = false;
+		},
         jump(){
             this.$router.push({
                 path:'/index'
@@ -101,10 +149,46 @@ export default {
 				this.messgNum = da;
 		
 			})
-		}
+		},
+		getNotice(type){	
+			this.navType = type?type:'notify';
+			let pr = {
+				access_token:window.userInfo.access_token,
+				type:this.navType,
+			};
+			this.api.getNotice(pr).then((da)=>{
+				if(!da){return}
+
+				this.mData= da;
+				this.getMessgNumber();
+				if(this.mData.length==0){
+					return
+				}
+				if(this.navType!='notify'){
+					return
+				}
+				let ids = '';
+				for(let i=0,n=this.mData.length;i<n;i++){
+					ids+=','+this.mData[i].op_open_id;
+				}
+				ids = ids.slice(1);
+				let op = {
+					access_token:window.userInfo.access_token,
+					type:'notify',
+					read_ids:ids,
+				};
+				this.api.Messageread(op).then((da)=>{
+					if(!da){
+						return
+					}
+				})
+				
+			});
+		},
 	},
 	watch: {	
 		'$route': function() {
+			this.hidisXXNav();
 			this.initHead();
 			this.getMessgNumber();
 		}
@@ -328,5 +412,116 @@ export default {
 	text-align: center;
 	
 	border-radius: 50%;
+}
+.messgeH3{
+    position: absolute;
+    top: 39px;
+    left: -245px;
+    background: #FFFFFF;
+    -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    border-radius: 5px;
+    width: 269px;
+    height: 320px;
+	z-index: 99;
+}
+.messgeH3_1{
+	background: #FFFFFF;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+	border-radius: 5px 5px 0 0;
+	line-height: 60px;
+	width: 100%;
+	height: 60px;
+}
+.messgeH3_1>span.onckf:before{
+	content: "";
+	position: absolute;
+	right: 30px;
+	top: 0;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: #F4523B;
+}
+.messgeH3_1>span{
+	position: relative;
+	margin-top: 16px;
+	display: inline-block;
+	width: 88px;
+	height: 28px;
+	border-right:1px solid rgba(0, 0, 0, 0.05);
+}
+.messgeH3_1>span:last-child{
+	border: none;
+}
+.messgeH3_1>span>img{
+	display: block;
+	margin: 0 auto;
+	width: 28px;
+}
+.messgeH3_2{
+	width: 100%;
+	height: 210px;
+	overflow: hidden;
+	overflow-y: auto;
+}
+.messgeH3_2_1{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	font-size: 14px;
+	color: #999999;
+	text-align: center;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
+.messgeH3_2_1>img{
+	display: block;
+	width: 100px;
+	margin-bottom: 13px;
+}
+.messgeH3_3{
+	background: #FFFFFF;
+	box-shadow: 2px 0 4px 0 rgba(0,0,0,0.05);
+	border-radius: 5px 5px 0 0;
+	font-size: 14px;
+	color: #1E1E1E;
+	line-height: 50px;
+	text-align: center;
+	width: 100%;
+	height: 50px;
+}
+.xxBox_1>li{
+	position: relative;
+	border: 1px solid #E6E6E6;
+	width: 100%;
+	height: 73px;
+	font-size: 14px;
+	color: #1E1E1E;
+}
+.xxBox_1>li>div{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	width: 211px;
+	line-height: 18px;
+    text-align: left;
+}
+.xxBox_1>li:last-child{
+	border: none;
+}
+.messgeH3_2_x1{
+	overflow: hidden;
+	overflow-y: auto;
+}
+.messgeH3Boxf1{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 98;
 }
 </style>

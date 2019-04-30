@@ -80,7 +80,7 @@
 							<span>企业银行账户</span><el-input @blur="getBINKname" class="suc_1_9_1" v-model="postData.bank_card_no" placeholder="请输入企业银行账户"></el-input>
 						</div>
 						<div class="suc_1_9">
-							<span>所属开户银行</span><el-input class="suc_1_9_1" v-model="postData.bankName" placeholder="无法识别时请手动输入"></el-input>
+							<span>所属开户银行</span><el-input class="suc_1_9_1" v-model="postData.bank_name" placeholder="无法识别时请手动输入"></el-input>
 						</div>
 						<div class="suc_1_9">
 							<span>所属开户支行</span>
@@ -263,6 +263,10 @@ export default {
 		'postData.verify_code'() {
 			this.checkPost();
 		},		
+		'postData.bank_name'() {
+			this.checkPost();
+		},	
+		
 		'ischecked'(){
 			this.checkPost();
 		}
@@ -302,6 +306,10 @@ export default {
 			if(!this.postData.branch_bank){
 				return
 			}
+			if(!this.postData.bank_name){
+				return
+			}
+			
 			if(!this.postData.verify_code){
 				return
 			}			
@@ -668,6 +676,7 @@ export default {
 				bank_card_no:this.postData.bank_card_no,
 				branch_bank:this.postData.branch_bank,				
 				verify_code:this.postData.verify_code,
+				bank_name:this.postData.bank_name,
 				mobile_zone:this.form.mobile_zone,
 				mobile:this.form.mobile,
 			};
