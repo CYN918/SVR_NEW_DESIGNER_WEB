@@ -6,7 +6,12 @@
 			<router-link class="last pend" to="/activvity">活动</router-link>
 		</span>
 		<div class="header_3">
-			<span class="iconfont pend">&#xe609;</span>
+			<span :class="['iconfont','searcBox','pend',searchType?'issearch':'']">
+				&#xe609;
+				<div @click="showsearch()"  class="searcBox3"></div>
+				<el-input v-if="searchType" class="searcBox4" @blur="hind" ref="serll" v-model="searcCont" placeholder="请输入搜索内容"></el-input>
+				<div v-if="searchType" class="searcBox5"></div>
+			</span>
 			<span class="iconfont pend">&#xe65b;</span>
 			<span class="iconfont pend" @click="goUpload">&#xe61e;</span>
 			<span class="header_4" v-if="userMssge">
@@ -33,6 +38,7 @@
 				<div class="loginoutBox4"><span @click="showHb(false)">取消</span><span @click="logout()">确定</span></div>
 			</div>
 		</div>
+		
 	</header>
 </template>
 
@@ -43,12 +49,31 @@ export default {
 		return{
 			userMssge:'',
 			isshowd:false,
+			searchType:false,
+			searcCont:'',
 		}		
 	},
 	mounted: function () {	
 		this.initHead()
 	}, 
 	methods:{
+		hind(){
+//			this.searchType=false;
+//			this.searcCont='';
+			
+		},
+		showsearch(){
+			
+			
+			if(this.searchType==true){
+				
+			}
+			this.searchType = this.searchType?false:true;
+			setTimeout(()=>{
+				this.$refs.serll.focus();
+			},300);
+			
+		},
         jump(){
             this.$router.push({
                 path:'/index'
@@ -139,6 +164,7 @@ export default {
 	margin-right: 100px;
 }
 .header_3>span{
+	display: inline-block;
 	line-height: 60px;
 	margin-right: 31px;
 }
@@ -293,5 +319,50 @@ export default {
 	border-color: #333;
 	color: #fff;
 	margin-left: 30px;
+}
+.searcBox{
+	position: relative;
+	-webkit-transition: -webkit-transform .3s;
+	transition: transform .3s;
+}
+.issearch{
+	-webkit-transform: translateX(-300px);
+	transform: translateX(-300px);
+}
+
+.searcBox3{
+	position: absolute;
+    top: 20px;
+    left: 0;
+    width: 20px;
+    height: 35%;
+}
+.searcBox4{
+	opacity: 0;
+    position: absolute;
+    background: none;
+    width: 240px;
+    border: none;
+    top: 0;
+    left: 12px;
+    -webkit-animation: xs .5s .3s forwards;
+    animation: xs .5s .3s forwards;
+}
+.searcBox4 .el-input__inner{
+	background: none;
+	border: none;
+	color: #fff;
+}
+.searcBox5{
+	position: absolute;
+
+}
+@-webkit-keyframes xs{
+	from{opacity: 0;}
+	to{opacity: 1;}
+}
+@keyframes xs{
+	from{opacity: 0;}
+	to{opacity: 1;}
 }
 </style>
