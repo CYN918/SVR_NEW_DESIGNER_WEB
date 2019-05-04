@@ -13,17 +13,18 @@
 					</div>
 				</div>				
 			</li>
-			<el-pagination v-if="dataList.length>0" class="pagesddd fycen"
-			background
-			@size-change="handleSizeChange"
-			@current-change="handleCurrentChange"
-			:current-page="pL.page"
-			:page-sizes="[20, 40, 80, 120]"
-			:page-size="pL.limit"
-			layout="prev,pager, next,sizes, jumper"
-			:total="pL.total">   
-			</el-pagination>
+			
 		</ul>
+		<el-pagination v-if="dataList.length>0" class="pagesddd fycen"
+		background
+		@size-change="handleSizeChange"
+		@current-change="handleCurrentChange"
+		:current-page="pL.page"
+		:page-sizes="[20, 40, 80, 120]"
+		:page-size="pL.limit"
+		layout="prev,pager, next,sizes, jumper"
+		:total="pL.total">   
+		</el-pagination>
 	</div>
 </template>
 
@@ -163,6 +164,7 @@ export default {
     left: 0;
 	text-align: center;
 	box-sizing: border-box;
+	z-index: -1;
 }
 
 </style>

@@ -114,7 +114,6 @@
 			<div class="UpBtn1_1" v-if="!chekin" @click="setChekin(true)">上一步</div><div @click="userSave" class="UpBtn1_1">保存</div><div v-if="chekin" :class="['UpBtn1_2',ck2]" @click="setChekin(false)">下一步</div>
 			<div class="UpBtn1_1" @click="seeCg" v-if="!chekin">预览</div><div @click="savZp" :class="['UpBtn1_2',ck3]" v-if="!chekin">提交发布</div>
 		</div>
-		
 		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver" :InputValue="form.work_name" :type="selectedOptions"></upoloadcaver>
 	</div>
 </template>
@@ -246,7 +245,7 @@ export default {
 		this.getClassify();
 	},
 	mounted: function () {	
-		
+
 	}, 
 	methods: {
 		/*page2*/

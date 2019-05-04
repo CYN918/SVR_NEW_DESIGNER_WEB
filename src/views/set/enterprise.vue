@@ -15,85 +15,104 @@
 				
 				<div class="setUserBoxs_cent">
 					<div class="suc_1">
-						<div class="suc_title">个人资料</div>
-						<div class="suc_1_1">
-							<span>头像</span><div class="suc_1_1_1"><img  :src="form.avatar" alt=""><div @click="showisPhto">修改头像</div></div>
+						<div class="suc_title">主体信息<div class="xhds"></div></div>
+						<div class="suc_1_9">
+							<span>企业/机构名称</span><el-input class="suc_1_9_1" v-model="postData.company_name" placeholder="企业/机构名称"></el-input>
 						</div>
-						<div>
-							<span>用户名</span><div class="xgnamed">{{form.username}}<span @click="openTc1(1)">修改</span></div> 
+						<div class="suc_1_9">
+							<span>统一社会信用代码</span><el-input class="suc_1_9_1" v-model="postData.code" placeholder="请输入统一社会信用代码"></el-input>
 						</div>
-						<div>
-							<span>手机号</span><div class="xgnamed">{{form.mobile}}<span @click="openTc1(2)">修改</span></div> 
+						<div class="suc_1_9">
+							<span>营业执照</span>
+							<div class="suc_1_9_2">
+								<span class="suc_1_9_3">上传照片<input @change="fileUp" ref="upnfile"  type="file"></span>
+								<div class="suc_1_9_4 iconfont">&#xe65c;
+									<div class="suc_1_9_5">
+										<div class="suc_1_9_6">
+											<div class="suc_1_9_9">证件上传示例</div>
+											<div class="suc_1_9_8"><span></span>四角完整</div>
+											<div class="suc_1_9_8"><span></span>亮度均匀</div>
+											<div class="suc_1_9_8"><span></span>照片清晰</div>
+										</div>
+										<img class="suc_1_9_7" src="/imge/sfz_zm.png" alt="">
+									</div>
+								</div>
+							</div>
 						</div>
-						<div>
-							<span>邮箱</span><div v-if="form.email" class="xgnamed">{{form.email}}<span @click="openTc1(3)">修改</span></div><div @click="openTc1(3)" class="bindEamil" v-else>绑定邮箱</div> 
+						<div class="suc_1_10">
+							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
+							<div class="suc_1_10_2">上传营业执照照片<img v-if="postData.business_license" class="suc_1_10_3" :src="postData.business_license" alt=""></div>
 						</div>
-						<div>
-							<span>性别</span><rideo class="setUserRiode" :valued="form.sex"  :Data="sexData" v-model="form.sex"></rideo>	
+						<div class="suc_1_9">
+							<span>开户许可证</span>
+							<div class="suc_1_9_2">
+								<span class="suc_1_9_3">上传照片<input @change="fileUp2" ref="upnfile"  type="file"></span>
+								<div class="suc_1_9_4 iconfont">&#xe65c;
+									<div class="suc_1_9_5">
+										<div class="suc_1_9_6">
+											<div class="suc_1_9_9">证件上传示例</div>
+											<div class="suc_1_9_8"><span></span>四角完整</div>
+											<div class="suc_1_9_8"><span></span>亮度均匀</div>
+											<div class="suc_1_9_8"><span></span>照片清晰</div>
+										</div>
+										<img class="suc_1_9_7" src="/imge/sfz_bm.png" alt="">
+									</div>
+								</div>
+							</div>
 						</div>
-						<div>
-							<span>职业</span><Select class="setUserSeLET" :valued="vocationOn" :Data="zy" v-model="form.vocation"></Select>	
+						<div class="suc_1_10">
+							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
+							<div class="suc_1_10_2">上传开户许可证照片<img v-if="postData.opening_permit" class="suc_1_10_3" :src="postData.opening_permit" alt=""></div>
 						</div>
-						<div>
-							<span>所在地</span><Citys :valued="form.citye" class="setUserSeLET" v-model="form.citye"></Citys>
+						
+						<div class="suc_1_9 ridieodf ridieodf2">
+							<span>提供发票税率</span><el-radio v-model="postData.tax_rate_type" label="1">增值税专用发票，税率6%或17%</el-radio>
+						</div>	
+						<div class="suc_1_11 ridieodf">
+							
+							<el-radio v-model="postData.tax_rate_type" label="2">增值税专用发票，税率3%</el-radio>
 						</div>
-						<div class="suc_1_3">
-							<span>个性签名</span><Input :valued="form.personal_sign" class="userBoxd2_1" v-model="form.personal_sign"  :oType="'max'" :max="30"  :chekFn="chekusername" :type="'text'" :placeholder="'请输入签名'"></Input>		
-						</div>
+						
 					</div>
 					<div class="suc_1 suc_2">
-						<div class="suc_title">教育背景</div>
-						<div class="suc_1_3">
-							<span>学校名称</span>
-							<Input class="userBoxd2_2" :valued="form.education_school" v-model="form.education_school"  :oType="'max'" :max="20"  :chekFn="chekusername" :type="'text'" :placeholder="'请输入学校名称'"></Input>		
+						<div class="suc_title">银行卡信息<div class="xhds"></div></div>
+						<div class="suc_1_9">
+							<span>企业银行账户</span><el-input @blur="getBINKname" class="suc_1_9_1" v-model="postData.bank_card_no" placeholder="请输入企业银行账户"></el-input>
+						</div>
+						<div class="suc_1_9">
+							<span>所属开户银行</span><el-input class="suc_1_9_1" v-model="postData.bank_name" placeholder="无法识别时请手动输入"></el-input>
+						</div>
+						<div class="suc_1_9">
+							<span>所属开户支行</span>
+							<el-input class="suc_1_9_1" v-model="postData.branch_bank" placeholder="请输入所属开户支行"></el-input>
+							
+							
+							
 						</div>
 					</div>
 					<div class="suc_1 suc_3">
-						<div class="suc_title">联系方式</div>
-						<div class="suc_1_3">
-							<span>微信号</span>
-							<el-input class="suc_3xInput" v-model="form.weixin" placeholder="请输入内容"></el-input>
-							<el-select class="suc_3xInputx" v-model="form.weixin_visible" placeholder="请选择">
-								<el-option
-								  v-for="item in inDad"
-								  :key="item.value"
-								  :label="item.label"
-								  :value="item.value">
-								</el-option>
-							</el-select>
+						<div class="suc_title">身份验证<div class="xhds"></div></div>
+						<div class="suc_1_9">
+							<span>手机号</span><div class="suc_1_9_c">{{form.mobile}}</div><span @click="openTc1(2)" class="suc_1_9_c1">更换号码</span>
+			
 							
 						</div>
-						<div class="suc_1_3">
-							<span>QQ号</span>
-							<el-input class="suc_3xInput " v-model="form.qq" placeholder="请输入内容"></el-input>
-							<el-select class="suc_3xInputx" v-model="form.qq_visible" placeholder="请选择">
-								<el-option
-								  v-for="item in inDad"
-								  :key="item.value"
-								  :label="item.label"
-								  :value="item.value">
-								</el-option>
-							</el-select>
-						
+						<div class="suc_1_9">
+							<span>验证码</span>
+							<Input class="suc_1_9yzm" v-model="postData.verify_code"  @ajaxYzm="ajaxYzmZd" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 						</div>
 						
 						
 					</div>
-					<div class="suc_1 suc_4">
-						<div class="suc_title">个人链接</div>
-						<div class="suc_1_3">
-							<span>主页链接</span>
-							<!-- <el-input class="suc_3xInput" v-model="input" placeholder="请输入内容"></el-input> -->
-							<span>zookingsoft.com.cn</span>
-						</div>
-					</div>
-					
-					<div class="suc_btndf" @click="Userupdate">保存资料</div>
+					<p class="rz_qr">
+						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span>狮大大平台供稿人协议</span>
+					</p>
+					<div :class="['suc_btndf2',isPostky?'ispos':'']" @click="Userupdate">申请认证平台供稿人</div>
 				</div>
 			</div>
 			
 		</div>
-		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
+		
 		
 		<div v-if="tAncType>0" class="tc_sucd">
 			<div v-if="tAncType==1" class="tc_sucd_1">
@@ -155,6 +174,8 @@ export default {
 	components:{upoloadcaver,Input,Citys,Select,rideo,tophead},
 	data(){
 		return {
+			postData:{},
+			zhData:[],
 			navDatad:{
 				title:'平台供稿人-认证申请',
 				list:[
@@ -162,45 +183,21 @@ export default {
 					{n:'企业',u:'/setEnterprise'},
 				],
 			},
-			tancData:{
-				mobile_zone:'86',
-				old_mobile_zone:'86'
-			},
+			isPostky:false,
+			ischecked:false,
 			navDta:[
 				'主体信息',
 				'银行卡信息',
 				'身份验证',			
-			],
+			],			
 			form:{},
-			sexData:[{n:'男',v:1},{n:'女',v:2}],	
-			isPhto:false,
-			zy:[
-				{n:"平面设计师"},
-				{n:"插画师"},
-				{n:"三维设计师"},
-				{n:"网页设计师"},
-				{n:"UI设计师"},
-				{n:"动画师"},
-				{n:"产品设计师"},
-				{n:"室内设计师"},
-				{n:"摄影师"},
-				{n:"学生"},
-				{n:"设计爱好者"},
-				{n:"UX设计师"},
-				{n:"新媒体设计师"},
-				{n:"概念设计师"},
-				{n:"特效合成师"},
-				{n:"建筑师"},
-				{n:"服装设计师"},
-				{n:"手工艺人"},
-				{n:"艺术工作者"},
-				{n:"教育工作者"},
-			],
-			caver:'/imge/nav_tx.png',
-				
-			chekusername:function(val){
-				
-				return true
+			navdOn:0,
+			topTyped:false,
+			tAncType:0,
+			options:[],
+			props: {
+				value: 'label',
+				children: 'cities'
 			},
 			chekPhpne:function(val){
 				if(this.form.mobile_zone!='86'){
@@ -238,24 +235,248 @@ export default {
 				}
 				return true
 			},
-			vocationOn:0,
-			inDad:[
-				{label:'仅自己可见',value:'0'},
-				{label:'所有人可见',value:'1'}
-			],
-			topTyped:false,
-			navdOn:0,
-			postData:{},
-			tAncType:0,
+			tancData:{mobile_zone:'86',old_mobile_zone:'86'}
+		}
+	},
+	watch: {
+		'postData.company_name'() {
+			this.checkPost();
+		},
+		'postData.code'() {
+			this.checkPost();
+		},
+		'postData.business_license'() {
+			this.checkPost();
+		},
+		'postData.opening_permit'() {
+			this.checkPost();
+		},
+		'postData.tax_rate_type'() {
+			this.checkPost();
+		},
+		'postData.bank_card_no'() {
+			this.checkPost();
+		},
+		'postData.branch_bank'() {
+			this.checkPost();
+		},
+		'postData.verify_code'() {
+			this.checkPost();
+		},		
+		'postData.bank_name'() {
+			this.checkPost();
+		},	
 		
-			
+		'ischecked'(){
+			this.checkPost();
 		}
 	},
 	mounted: function () {			
 		this.init();
-		
 	}, 
 	methods: {
+		checkPost(){
+			
+			this.isPostky = false;
+			if(!this.ischecked){
+				return
+			}
+			if(!this.postData.company_name){
+				return
+			}
+			if(!this.postData.code){
+				return
+			}
+			if(this.postData.code.length>18){
+				Message({message: '统一社会信用代码格式不正确'});
+				return
+			}
+			if(!this.postData.business_license){
+				return
+			}
+			if(!this.postData.opening_permit){
+				return
+			}
+			if(!this.postData.tax_rate_type){
+				return
+			}
+			if(!this.postData.bank_card_no){
+				return
+			}
+			if(!this.postData.branch_bank){
+				return
+			}
+			if(!this.postData.bank_name){
+				return
+			}
+			
+			if(!this.postData.verify_code){
+				return
+			}			
+			this.isPostky = true;
+		},
+
+		getBINKname(){
+			
+			if(!this.form.bank_card_no){
+				return
+			}
+			this.$ajax.get('https://ccdcapi.alipay.com/validateAndCacheCardInfo.json', {
+				params: {
+				  _input_charset: 'utf-8',
+				  cardNo:this.form.bank_card_no,
+				  cardBinCheck:true
+				}
+			  })
+			  .then(function (response) {
+				console.log(response);
+			  })
+			  .catch(function (error) {
+				console.log(error);
+			  });
+
+			
+			
+			 
+		},
+		fileUp(flie){
+			let fld = flie.target.files[0];
+			if(['image/jpeg','image/png'].indexOf(fld.type)==-1){
+				Message({message: '格式不正确'});
+				return
+			}
+			if(fld.size>(20*1024*1024)){
+				Message({message: '文件过大'});
+				return
+			}
+	
+			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				app_secret,
+				window.userInfo.open_id,
+				times
+			];
+		
+			let formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',window.userInfo.open_id)
+			formData.append('file',fld)
+			formData.append('relation_type','work')
+			formData.append('timestamp',times)
+			let xhr = new XMLHttpRequest();
+			
+			
+			let uploadProgress = (evt)=>{		
+				if(evt.lengthComputable) {
+					let percent = Math.round(evt.loaded * 100 / evt.total);
+					percent = percent>98?98:percent;
+					percent  = Math.floor(percent);
+				}
+			};
+			let uploadComplete = (data)=>{
+				if(data.currentTarget.response){
+					let da = JSON.parse(data.currentTarget.response).data;					
+					this.$set(this.postData,'business_license',da.url)
+					console.log(da);
+					Message({message: '文件上传成功'});
+				}
+				
+			};
+			let uploadFailed = ()=>{
+				// delete p;
+				// p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '文件上传失败请稍后重试'});
+				
+			};
+			let uploadCanceled = ()=>{
+				// p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '取消成功'});
+				
+			};
+			xhr.upload.addEventListener("progress",uploadProgress, false);
+			xhr.addEventListener("load",uploadComplete, false);
+			xhr.addEventListener("error",uploadFailed, false);
+			xhr.addEventListener("abort",uploadCanceled, false);
+			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.send(formData);
+			
+		},
+		fileUp2(flie){
+			let fld = flie.target.files[0];
+			if(['image/jpeg','image/png'].indexOf(fld.type)==-1){
+				Message({message: '格式不正确'});
+				return
+			}
+			if(fld.size>(20*1024*1024)){
+				Message({message: '文件过大'});
+				return
+			}
+			
+			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				app_secret,
+				window.userInfo.open_id,
+				times
+			];
+		
+			let formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',window.userInfo.open_id)
+			formData.append('file',fld)
+			formData.append('relation_type','work')
+			formData.append('timestamp',times)
+			let xhr = new XMLHttpRequest();
+			
+			
+			let uploadProgress = (evt)=>{		
+				if(evt.lengthComputable) {
+					let percent = Math.round(evt.loaded * 100 / evt.total);
+					percent = percent>98?98:percent;
+					percent  = Math.floor(percent);
+				}
+			};
+			let uploadComplete = (data)=>{
+				if(data.currentTarget.response){
+					let da = JSON.parse(data.currentTarget.response).data;					
+					this.$set(this.postData,'opening_permit',da.url)
+					console.log(da);
+					Message({message: '文件上传成功'});
+				}
+				
+			};
+			let uploadFailed = ()=>{
+				// delete p;
+				// p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '文件上传失败请稍后重试'});
+				
+			};
+			let uploadCanceled = ()=>{
+				// p.type="none";
+				this.$refs.upnfile.value ='';
+				Message({message: '取消成功'});
+				
+			};
+			xhr.upload.addEventListener("progress",uploadProgress, false);
+			xhr.addEventListener("load",uploadComplete, false);
+			xhr.addEventListener("error",uploadFailed, false);
+			xhr.addEventListener("abort",uploadCanceled, false);
+			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.send(formData);
+			
+		},
+		
+		identifyAuth1(){
+			
+		},
 		Verifycodeget(){
 			this.$set(this.tancData,'pic_verifyimg','http://139.129.221.123/Passport/Verifycode/get?client_id='+window.userInfo.open_id+'&t='+(new Date()).valueOf())
 		},
@@ -264,6 +485,34 @@ export default {
 		},
 		setYzmOld(val){
 			this.tancData.old_mobile_zone = val;
+		},
+		ajaxYzmZd(){
+			let pd = this.form.mobile;
+			if(this.form.mobile_zone!='86'){
+				if(!(typeof pd === 'number' && pd%1 === 0)){
+					Message({message: '请输入正确的手机号码'});
+					return 					
+				}			
+			}else{
+				if(!(/^1[34578]\d{9}$/.test(pd))){ 
+					Message({message: '请输入正确的手机号码'});
+					return
+				} 
+				
+			}		
+			let params = {
+				mobile:this.form.mobile,
+				mobile_zone:this.form.mobile_zone
+			};
+			this.api.sendVerifyCode(params).then((da)=>{	
+				if(!da){
+					return
+				}
+				Message({message: '验证码已发送'});
+				this.$refs.verify.runTimer(60);
+			}).catch(()=>{
+				
+			});
 		},
 		ajaxYzm(){
 			let pd = this.tancData.newMoble;
@@ -287,6 +536,7 @@ export default {
 				if(!da){
 					return
 				}
+				Message({message: '验证码已发送'});
 				this.$refs.verify.runTimer(60);
 			}).catch(()=>{
 				
@@ -386,19 +636,17 @@ export default {
 					}
 					
 				}
+	
 				if(t<=188){
 					this.topTyped=false;
 				}
 				
-				if(t>=480){
-					this.navdOn =3;
-					return
-				}
-				if(t>=320){
+
+				if(t>=690){
 					this.navdOn =2;
 					return
 				}
-				if(t>=160){
+				if(t>=490){
 					this.navdOn =1;
 					return
 				}
@@ -410,31 +658,36 @@ export default {
 		},
 		setNavd(on){
 			this.navdOn = on;
-			this.setScll(160*on)
+			this.setScll(490*on)
 			
 		},
 		Userupdate(){
-			let postData = {
+			if(!this.isPostky){
+				return
+			}
+			let pr = {
 				access_token:window.userInfo.access_token,
-				username:this.form.username,
-				sex:this.form.sex,
-				vocation:this.form.vocation,
-				avatar:this.form.avatar,
-				country:this.form.citye[0],
-				province:this.form.citye[1],
-				city:this.form.citye[2],
-				personal_sign:this.form.personal_sign,
-				education_school:this.form.education_school,
-				weixin:this.form.weixin,
-				weixin_visible:this.form.weixin_visible,
-				qq:this.form.qq,
-				qq_visible:this.form.qq_visible
+				type:2,
+				company_name:this.postData.company_name,
+				code:this.postData.code,
+				business_license:this.postData.business_license,
+				opening_permit:this.postData.opening_permit,
+				tax_rate_type:this.postData.tax_rate_type,
+				bank_card_no:this.postData.bank_card_no,
+				branch_bank:this.postData.branch_bank,				
+				verify_code:this.postData.verify_code,
+				bank_name:this.postData.bank_name,
+				mobile_zone:this.form.mobile_zone,
+				mobile:this.form.mobile,
 			};
-			this.api.Userupdate(postData).then((da)=>{
+			this.api.identifyAuth(pr).then((da)=>{
 				if(!da){
 					return
 				}
-				Message({message: '修改成功'});
+				Message({message: '申请已提交审核'});
+				setTimeout(()=>{
+					this.$router.push({path:'/profit'})
+				},2000);
 			});
 			
 		},
@@ -467,14 +720,6 @@ export default {
 					return
 				}
 				this.form = da;
-				for(let i=0,n=this.zy.length;i<n;i++){
-					if(this.zy[i].n ==this.form.vocation){
-						this.vocationOn = i;
-						break
-					}
-					
-				}
-				console.log(this.form.qq_visible)
 				this.form.citye = [this.form.country,this.form.province,this.form.city]
 			
 			})

@@ -183,7 +183,6 @@ export default {
 		},
       	fileUp(flie){
       		let fld = flie.target.files[0];
-      		console.log(fld.type);
       		if(this.configData.type.indexOf(fld.type)==-1){
       			Message({message: '格式不正确'});
       			return
@@ -271,7 +270,6 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	
 	z-index: 999;
 }
 .uploadBoxd1{

@@ -1,15 +1,6 @@
 <template>
 	<div>
-		<div class="banner">
-			<div class="banner1">
-				<img v-for="(el,index) in banners" @click="opend(el.jump_url)" :class="[banOn==index?'action':'']" :src="el.banner_pic" alt="">
-			</div>
-			<div class="banner_nav1">
-				<span v-for="(el,index) in banners" @click="checkBan(index)" :class="[banOn==index?'action':'']"></span>
-			</div>
-			<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
-			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
-		</div>
+		<tophead :onNav="1"></tophead>
 		<ul class="i_listd homeMinheifh">
 			<li v-for="(el,index) in List" :key="index">
 				<div @click="openxq(index)" class="i_listd1x1"><img class="i_listd1" :src="el.face_pic"></div>
@@ -43,14 +34,14 @@
 </template>
 
 <script>
-import { Loading } from 'element-ui';
+import { Loading } from 'element-ui';	
+import tophead from './head';
 export default {
+	components:{tophead},
 	name: 'home',
 	data(){
 		return {
-			banners:[],
 			List:[],
-			banOn:0,
 			page:1,
 			limit:40,
 			total:0,
@@ -59,7 +50,6 @@ export default {
 		}
 	},
 	mounted: function () {	
-		this.getBanner();
 		this.getHList();
 		
 	}, 
@@ -71,38 +61,9 @@ export default {
 		
 			return	window.getTimes(time);
 		},	
-		opend(ur){
-			if(!ur){return}
-			window.open(ur);
-		},
+
 		openxq(on){
 			window.open('#/cont?id='+this.List[on].work_id)
-		},
-		getBanner(){
-			this.api.getBanner().then((da)=>{
-				this.banners = da;
-				setInterval(()=>{
-					this.checkBan2();
-				},5000);
-			});
-			
-		},
-		checkBan(on){
-			this.banOn = on;
-		},
-		checkBan1(){
-			if(this.banOn>0){
-				this.banOn--;
-				return
-			}
-			this.banOn = this.banners.length-1;
-		},
-		checkBan2(){
-			if(this.banOn<this.banners.length-1){
-				this.banOn++;
-				return
-			}
-			this.banOn = 0;
 		},
 		getHList(){
 			let params = {

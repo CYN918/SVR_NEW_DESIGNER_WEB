@@ -140,6 +140,9 @@ export default {
 	    },
    	},
    	methods: {
+		setData(da){
+			this.input = da;
+		},
 		clearValue(){
 			this.input="";
 		},

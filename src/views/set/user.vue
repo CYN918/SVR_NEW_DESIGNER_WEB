@@ -288,6 +288,7 @@ export default {
 				if(!da){
 					return
 				}
+				Message({message: '验证码已发送'});
 				this.$refs.verify.runTimer(60);
 			}).catch(()=>{
 				
@@ -475,7 +476,6 @@ export default {
 					}
 					
 				}
-				console.log(this.form.qq_visible)
 				this.form.citye = [this.form.country,this.form.province,this.form.city]
 			
 			})

@@ -57,12 +57,10 @@ let wb = [
 				component: () => import('./views/user/myDraft.vue')
 			},
 			{
-				path: '/follow',
-				name: 'follow',
-				component: () => import('./views/user/follow.vue')
-			},
-			
-			
+                path: '/follow',
+                name: 'follow',
+                component: () => import('./views/user/follow.vue')
+            },
 			{
 				path: '/activvity',
 				name: 'activvity',
@@ -104,7 +102,6 @@ let wb = [
 				component: () =>import('./views/content.vue'),
 			
 			},
-			 
 			{
 				path: '/myDynamic',
 				name: 'myDynamic',
@@ -146,6 +143,48 @@ let wb = [
 				component: () => import('./views/messgeCl/index.vue'),
 				
 			},
+			{
+				path: '/profit',
+				name: 'profit',
+				component: () => import('./views/profit/index.vue'),
+				
+			},
+			{
+				path: '/notify',
+				name: 'notify',
+				component: () => import('./views/message/notify.vue'),
+				
+			},
+			{
+				path: '/comment',
+				name: 'comment',
+				component: () => import('./views/message/comment.vue'),
+				
+			},
+			{
+				path: '/chat',
+				name: 'chat',
+				component: () => import('./views/message/chat.vue'),
+				
+			},
+			{
+				path: '/searchUser',
+				name: 'searchUser',
+				component: () => import('./views/search/searchUser.vue'),
+				
+			},
+			{
+				path: '/searchWorks',
+				name: 'searchWorks',
+				component: () => import('./views/search/searchWorks.vue'),
+				
+			},
+            {
+                path: '/documentCenter',
+                name: 'document-center',
+                component: () => import('./views/message/DocumentCenter.vue'),
+
+            },
 		],	
 	},
 	{

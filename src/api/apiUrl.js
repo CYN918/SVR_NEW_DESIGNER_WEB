@@ -80,10 +80,6 @@ export default {
 	addComment:{
 		url:'/Api/Work/addComment',method:'post',baseURL:0,
 	},
-	
-	delComment:{
-		url:'/Api/Work/delComment',method:'post',baseURL:0,
-	},
 	getCommentList:{
 		url:'/Api/Work/getCommentList',method:'post',baseURL:0,
 	},
@@ -97,10 +93,6 @@ export default {
 	a_getInfo:{
 		url:'/Api/Activity/getActivityInfo',method:'post',baseURL:0,
 	},
-	a_getInfo:{
-		url:'/Api/Activity/getActivityInfo',method:'post',baseURL:0,
-	},
-	
 	a_getWork:{
 		url:'/Api/Activity/getActivityWork',method:'post',baseURL:0,
 	},
@@ -174,7 +166,48 @@ export default {
 		url:'/Passport/Verifycode/get',method:'get',baseURL:0,
 	},
 	identifyAuth1:{
-		url:'/Api/User/identifyAuth1',method:'get',baseURL:0,
+		url:'/Api/User/identifyAuth1',method:'post',baseURL:0,
 	},
+	identifyAuth:{
+		url:'/Api/User/identifyAuth',method:'post',baseURL:0,
+	},
+	getCounter:{
+		url:'/Api/Message/getCounter',method:'post',baseURL:0,
+	},
+
+    Report_getClassify:{
+		url:'/Api/Report/getClassify',method:'post'
+	},
+	//添加举报
+    Report_addReport:{
+		url:'/Api/Report/addReport',method:'post'
+	},
+	//反馈类型
+    Feedback_getClassify:{
+		url:'/Api/Feedback/getClassify',method:'post'
+	},
+	//添加反馈
+    Feedback_add:{
+		url:'Api/Feedback/add',method:'post'
+	},
+
+	getMessgList:{
+		url:'/Api/Message/getList',method:'post',baseURL:0,
+	},
+	
+	getNotice:{
+		url:'/Api/Message/getNotice',method:'post',baseURL:0,
+	},
+	
+	Messageread:{
+		url:'/Api/Message/read',method:'post',baseURL:0,
+	},
+	getMessageList:{
+		url:'/Api/Message/getMessageList',method:'post',baseURL:0,
+	},
+	addChatMessage:{
+		url:'/Api/Message/addChatMessage',method:'post',baseURL:0,
+	},
+	
 	
 }

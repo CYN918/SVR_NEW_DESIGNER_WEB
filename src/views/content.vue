@@ -44,7 +44,7 @@
 					<div class="seed2_1_1_1x" v-html="contDat.content"></div>
 					<div class="seed2_1_1_2">
 						标签<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span>
-						<span class="iconfont">&#xe73c;</span>
+						<span class="iconfont" @click="SHOWreport()">&#xe73c;</span>
 						<div  v-if="contDat.attachment_id" @click="downFile(contDat.attachment.url)">下载附件（{{contDat.attachment.file_size_format}}）</div>
 					</div>
 				</div>
@@ -66,10 +66,10 @@
 									<div>{{backComt(el.content)[0]}}</div>
 								</div>
 								<div>
-									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
+									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2" @click="alterReport(index)">&#xe664;</span>
 									<div class="hfBox" v-if="el.isshowfh">
 										<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
-										<span @click="addfu2(el.feed_id,el.username,index)">回复</span>
+										<span @click="addfu2(el.feed_id,el.username,index,index,el.comment_id)">回复</span>
 									</div>
 								</div>
 							</div>
@@ -81,22 +81,20 @@
 										<div><span class="atren">{{backComt(el2.content)[0]}}</span>{{backComt(el2.content)[1]}}</div>
 									</div>
 									<div class="yasfh">
-										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2">&#xe664;</span>
+										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2" @click="alterReport(index,index2)">&#xe664;</span>
 										<div class="hfBox" v-if="el2.isshowfh">
 											<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
-											<span @click="addfu2(el2.feed_id,el2.username,index,index2)">回复</span>
+											<span @click="addfu2(el2.feed_id,el2.username,index,index2,el2.comment_id)">回复</span>
 										</div>
 									</div>								
 								</div>
-							</div>	
-								
-								
+							</div>
 						</div>
-						
-					</div>	
-						
-					<div v-if="hfnum>0" class="addmpl" @click="addmpl"><span class="hfdZ_4">{{ishavepltip}}</span></div>	
+					</div>
+					<div v-if="hfnum>0" class="addmpl" @click="addmpl"><span class="hfdZ_4">{{ishavepltip}}</span></div>
+					<RPT v-if="isRep" :accused_open_id="open_id" :position="position" :link_id="link_id"></RPT>
 				</div>
+
 			</div>
 			<div class="seed2_2">
 				<div class="seed2_1_1" v-if="contDat.user_info">
@@ -176,22 +174,22 @@
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
 		</div>
-		
-		
-		<Report></Report>
 	</div>
-	
 </template>
 
 <script>
 import Input from '../components/input'
 import {Message} from 'element-ui'
-import Report from '../components/report'
+import RPT from './user/report'
 
 export default {
-	components:{Input,Report},
+	components:{Input,RPT},
 	data(){
 		return{
+		    isRep:false,
+			open_id:'',
+            link_id:'',
+            position:'',
 			pl:'',
 			data:{
 				username:"xxxx",
@@ -229,14 +227,24 @@ export default {
 			topTyped:false,
 		}
 	},
-	mounted: function () {	
-		
+	mounted: function () {
 		this.init();
-		this.getCommentList()
+		this.getCommentList();
 	}, 
 	methods: {
 		goUser(id){
 			this.$router.push({path: '/works',query:{id:id}})	
+		},
+        alterReport(a,b){
+		    this.isRep=true;
+			this.getCommentList(a,b);
+		},
+        SHOWreport(){
+            this.isRep=true;
+            this.init();
+		},
+        closed(){
+		    this.isRep=false
 		},
 		addLike(type,id,obj){
 			
@@ -266,7 +274,6 @@ export default {
 				like_type:type,
 				id:id
 			};
-			
 			
 			this.api[apiname](pr).then((da)=>{
 				if(!da){
@@ -333,7 +340,6 @@ export default {
 
 		},
 		seeWorks(id){
-			console.log(id)
 			this.$router.push({path:'/cont',query:{id:id}});
 		},
 		downFile(flid){
@@ -411,7 +417,7 @@ export default {
 				if(t<=188){
 					this.topTyped=false;
 				}
-				console.log(this.topTyped)
+
 			}
 			
 			let pr = {
@@ -428,6 +434,9 @@ export default {
 			this.api.getWorkDetail(pr).then((da)=>{
 				da.labels = JSON.parse(da.labels)
 				this.contDat = da;
+				this.open_id = da.user_info.open_id;
+				this.link_id = da.work_id;
+				this.position = 'work';
 				if(window.userInfo.open_id==da.user_info.open_id){
 				    this.show= false;
 				}else {
@@ -447,18 +456,26 @@ export default {
 		backType(){
 		
 		},
-		getCommentList(){
-		 
+		getCommentList(a,b){
 			let pr = {
 				work_id:this.$route.query.id,
 				page:this.page.page,
 				limit:this.page.limit,
-			}
+			};
 			if(this.page.access_token){
 				pr.access_token = this.page.access_token;
 			}
-			
 			this.api.getCommentList(pr).then((da)=>{
+			    if(a!=undefined&&b==undefined){
+			        this.open_id = da.data[a].open_id;
+			        this.link_id = da.data[a].comment_id;
+			        this.position = 'comment'
+				}
+				if(a!=undefined&&b!=undefined){
+                    this.open_id = da.data[a].sub_comment[b].open_id;
+                    this.link_id = da.data[a].sub_comment[b].comment_id;
+                    this.position = 'comment'
+				}
 				if(da.data.length==0){
 					this.ishavepl=1;
 					this.ishavepltip='没有更多评论了!';
@@ -484,6 +501,7 @@ export default {
 			let pr = {
 				work_id:this.$route.query.id,
 				content	:JSON.stringify(cond),
+				
 			
 			};
 			
@@ -524,7 +542,7 @@ export default {
             if(on >= 0){
                 this.$set(this.hfData[on],'isshowfh','');
 			}
-			console.log(on2);
+			
 			if(on2 >= 0){
                 this.$set(this.hfData[on].sub_comment[on2],'isshowfh','');
 			}
@@ -535,7 +553,7 @@ export default {
 			}
             this.pl2 = '';
 		},
-		addfu2(fid,name,on,on2){
+		addfu2(fid,name,on,on2,comId){
             if(!this.page.access_token){
                 Message({message: '请先登录'});
                 return
@@ -557,7 +575,7 @@ export default {
 			let pr = {
 				work_id:this.$route.query.id,
 				content	:JSON.stringify(cond),
-			
+				to_comment_id:comId,
 			};
 			if(fid){
 				pr.feed_id = fid;
@@ -643,5 +661,5 @@ export default {
 </script>
 
 <style>
-
+.iconfont{cursor: pointer}
 </style>
