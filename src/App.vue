@@ -2151,4 +2151,29 @@ content: "";
 	box-sizing: border-box;
 
 }
+
+html,body{
+	height: 100%;
+}
+#app{
+	height: 100%;
+}
+#app>div{
+	height: 100%;
+}
+#app>div>div{
+	box-sizing: border-box;
+	height: 100%;
+	padding: 60px 0 75px;
+}
+.header{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.footerBox{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
 </style>

@@ -1,9 +1,9 @@
 <template>
 	<div>	
-		<tophead :onNav="2"></tophead>
+		<tophead :clasd="clasd"  :onNav="2" ref="mytopcs"></tophead>
 		<div class="worksBox worksBox4">
 		
-			<ul v-if="List.length>0 && sxtj==0" class="i_listd2" >
+			<ul v-if="List.length>0" class="i_listd2" >
 				<li v-for="(el,index) in List" :key="index">
 					<img @click="goUser(index)" :src="el.avatar">
 					<div class="i_listd2_1">
@@ -73,19 +73,28 @@ export default {
 			limit:40,
 			total:0,
 			loading: '',
-			sxOn:0,
-			sxtj:0,
-			sxData:[
-				[
-				{name:'我关注的人',key:1},
-				{name:'我的粉丝',key:1},
-				],
-				[
-					{name:'TA关注的人',key:1},
-					{name:'TA的粉丝',key:1},
-				]
+			clasd:[
+				{label:"平面设计师"},
+				{label:"插画师"},
+				{label:"三维设计师"},
+				{label:"网页设计师"},
+				{label:"UI设计师"},
+				{label:"动画师"},
+				{label:"产品设计师"},
+				{label:"室内设计师"},
+				{label:"摄影师"},
+				{label:"学生"},
+				{label:"设计爱好者"},
+				{label:"UX设计师"},
+				{label:"新媒体设计师"},
+				{label:"概念设计师"},
+				{label:"特效合成师"},
+				{label:"建筑师"},
+				{label:"服装设计师"},
+				{label:"手工艺人"},
+				{label:"艺术工作者"},
+				{label:"教育工作者"},
 			],
-		
 			onType:'followList',
 			follwTyle:0,
 			openOns:'',
@@ -122,14 +131,8 @@ export default {
 				this.follwTyle=0;
 				this.hindHb2();
 				Message({message: '取消关注成功'});
-				if(this.sxOn==0){
-				
-					this.List.splice(this.openOns,1);
-				
-					return
-				}
-				this.List[this.openOns].follow_flag = 0;
-				
+				this.List.splice(this.openOns,1);
+
 			}).catch(()=>{
 				this.follwTyle = 0;		
 			});
@@ -179,18 +182,24 @@ export default {
 		},
 		
 		followList(){
-			let pr = {
-				access_token:window.userInfo.access_token,
-				user_open_id:window.userInfo.open_id,
+			let query = this.$route.query.cont || '';
+			let params = {
+				query:query,
+				type:'user',
 				page:this.page,
 				limit:this.limit
 			};
-			this.api.followList(pr).then((da)=>{
+			this.$refs.mytopcs.setCont(query);
+			this.loading = Loading.service({ fullscreen: true });
+			this.api.Searchsearch(params).then((da)=>{
+				this.loading.close();
 				if(!da){
 					return
 				}
 				this.List = da.data;
-				this.total = da.total;				
+				this.total = da.total;
+			}).catch(()=>{
+				this.loading.close();
 			})
 		},
 		handleSizeChange(val) {
@@ -201,7 +210,14 @@ export default {
 			this.page = val;
 			this.followList();
 		}
-	}
+	},
+	watch: {	
+		'$route': function() {
+			this.followList();
+			
+		},
+		
+	},
 }
 </script>
 

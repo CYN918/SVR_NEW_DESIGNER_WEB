@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Header>11</Header>
+		<Header></Header>
 		<router-view/>
 		<Footer>Footer</Footer>
 	</div>

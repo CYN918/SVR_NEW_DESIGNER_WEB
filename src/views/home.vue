@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="csBox">
 		<div class="banner">
 			<div class="banner1">
 				<img v-for="(el,index) in banners" @click="opend(el.jump_url)" :class="[banOn==index?'action':'']" :src="el.banner_pic" alt="">

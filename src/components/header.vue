@@ -6,20 +6,33 @@
 			<router-link class="last pend" to="/activvity">活动</router-link>
 		</span>
 		<div class="header_3">
-
 			<span :class="['iconfont','searcBox','pend',searchType?'issearch':'']">
 				&#xe609;
 				<div @click="showsearch()"  class="searcBox3"></div>
-				<el-input v-if="searchType" class="searcBox4" @blur="hind" ref="serll" v-model="searcCont" placeholder="请输入搜索内容"></el-input>
+				<el-input v-if="searchType" class="searcBox4"  @keyup.enter.native="keydown($event)" @blur="hind" ref="serll" v-model="searcCont" placeholder="请输入搜索内容"></el-input>
 				<div v-if="searchType" class="searcBox5">
-					<div class="searcBox5_3">
-						<div class="searcBox5_1">最近搜索</div>
-						<div class="searcBox5_2" @click="gosearch(el)" v-for="(el,index) in data1">{{el}}</div>
+					<div v-if="!searcCont||searcCont.split(' ').join('').length == 0">
+						<div class="searcBox5_3" v-if="data1.length>0">
+							<div class="searcBox5_1">最近搜索</div>
+							<div class="searcBox5_2" @click="gosearch(el)" v-for="(el,index) in data1">{{el}}</div>
+						</div>
+						<div v-if="data2.length>0">
+							<div class="searcBox5_1">热门搜索</div>
+							<div class="searcBox5_2" @click="gosearch(el)" v-for="(el,index) in data2">{{el.words}}</div>
+						</div>
 					</div>
-					<div>
-						<div class="searcBox5_1">热门搜索</div>
-						<div class="searcBox5_2" @click="gosearch(el)" v-for="(el,index) in data1">{{el}}</div>
+					<div v-else>
+						<div class="searcBox5_3 searcBox5_2xv" v-if="data1.length>0">							
+							<div class="searcBox5_2 " @click="gosearch(el)" v-for="(el,index) in data1">{{el.work_name}}</div>
+						</div>
+						<div v-if="data2.length>0">
+							<div class="searcBox5_1">创作者</div>
+							<div class="searcBox5_2" @click="gouser(el.open_id)" v-for="(el,index) in data2"><img class="searcBox5_2imf" :src="el.avatar" alt="">{{el.username}}</div>
+						</div>
 					</div>
+					
+					
+					
 				</div>
 			</span>
 
@@ -35,7 +48,7 @@
 						<div class="messgeH3_2_x1">
 							<ul class="xxBox_1">
 								<li v-for="(el,index) in mData" :key="index">
-									<div>{{el.title}}</div>								
+									<div @click="goMssg(index)">{{el.title}}</div>								
 								</li>							
 							</ul>
 							
@@ -46,7 +59,7 @@
 					</div>
 					
 				
-					<div class="messgeH3_3">查看全部</div>
+					<div @click="goMssg()" class="messgeH3_3">查看全部</div>
 				</div>
 				
 			</span>
@@ -99,8 +112,9 @@ export default {
 			mData:[],
 			navType:'',
 			isXXNav:false,
-			data1:['英雄联盟','英雄联盟'],
-			data2:['英雄联盟'],
+			data1:[],
+			data2:[],
+			sccy:0,
 
 		}		
 	},
@@ -109,21 +123,50 @@ export default {
 		
 	}, 
 	methods:{
+		goMssg(on){
+			this.$router.push({path:this.navType,query:{id:on}})	
+		},
+		keydown(){
+			this.hind();
+			this.gosearch(this.searcCont);
+		},
+		gouser(id){
+			this.$router.push({path: '/works',query:{id:id}})	
+		},
 		gosearch(name){
-			this.$router.push({path:'/searchWorks',query:{cont:name}});
+			let na = name.words || name.work_name || name.username || name;
+			let hotc = localStorage.getItem("scrllhot");
+			let on = -1;
+			let len = 0;
+			if(hotc){
+				hotc = 
+				hotc = JSON.parse(hotc);
+				on = hotc.indexOf(na);
+				len = hotc.length;
+			}else{
+				hotc = [];
+			}
+			if(on!=-1){
+				hotc.splice(on,1);			
+				hotc.unshift(na);
+			}
+			if(on==-1){
+				if(len==5){
+					hotc.splice(on,1);
+				}
+				hotc.unshift(na);
+			}
+			localStorage.setItem('scrllhot',JSON.stringify(hotc));
+			this.searcCont = '';
+			this.$router.push({path:'/searchWorks',query:{cont:na}});
 		},
 		hind(){
 			setTimeout(()=>{
 				this.searchType=false;
 				this.searcCont='';
-			},300);
-//			
-//			
-			
+			},200);
 		},
 		showsearch(){
-			
-			
 			if(this.searchType==true){
 				if(!this.searcCont){
 					return
@@ -159,6 +202,7 @@ export default {
         },
 		initHead(){	
 			this.getMessgNumber();
+			this.getHotWords();
 			this.userMssge = '';
 			if(window.userInfo){
 				this.userMssge = window.userInfo;			
@@ -239,12 +283,52 @@ export default {
 				
 			});
 		},
+		getHotWords(){
+			this.api.getHotWords().then((da)=>{
+				if(!da){
+					return
+				}
+				let hotc = localStorage.getItem("scrllhot");
+				if(hotc){
+					this.data1 = JSON.parse(hotc);
+				}
+				
+				this.data2 = da;
+				
+			});
+		},
+		Searchsug(n){
+			let pr = {
+				query:n
+			};
+			this.api.Searchsug(pr).then((da)=>{
+				if(!da){
+					return
+				}
+				if(!this.searcCont||this.searcCont.split(" ").join("").length == 0){
+					return
+				}
+				this.data1 = da.works;
+				this.data2 = da.user;
+				console.log(da);
+			});
+		}
 	},
 	watch: {	
 		'$route': function() {
 			this.hidisXXNav();
 			this.initHead();
 			this.getMessgNumber();
+		},
+		'searcCont':function(el,old){			
+			if(el==old){
+				return
+			}
+			if(!this.searcCont||this.searcCont.split(" ").join("").length == 0){
+				this.getHotWords();
+				return
+			}
+			this.Searchsug(this.searcCont);
 		}
 	},
 	
@@ -487,6 +571,9 @@ export default {
 .searcBox5{
 	opacity: 0;
     position: absolute;
+	max-height: 340px;
+    overflow: hidden;
+    overflow-y: auto;
     top: 55px;
     left: 0;
 	background: #FFFFFF;
@@ -494,6 +581,7 @@ export default {
 	border-radius: 5px;
     width: 300px;
     z-index: 99;
+
     -webkit-animation: xs .5s .3s forwards;
     animation: xs .5s .3s forwards;
 }
@@ -510,7 +598,7 @@ export default {
 	line-height: 17px;
 	color: #999999;
 
-	margin: 8px 0 18px 24px;
+	margin:8px 0 18px 24px;
 	text-align: left;
 }
 .searcBox5_2{
@@ -654,5 +742,16 @@ export default {
 	height: 100%;
 	z-index: 98;
 
+}
+.searcBox5_2imf{
+	display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-right: 4px;
+    border-radius: 50%;
+}
+.searcBox5_2xv>div:first-child{
+	margin-top: 8px;
 }
 </style>

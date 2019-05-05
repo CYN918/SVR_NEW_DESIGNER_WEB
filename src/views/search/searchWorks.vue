@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<tophead :onNav="1"></tophead>
-		<ul class="i_listd homeMinheifh">
+		<tophead :clasd="clasd"  :onNav="1" ref="mytopcs"></tophead>
+		<ul v-if="List.length>0" class="i_listd homeMinheifh homeMinheifh2">
 			<li v-for="(el,index) in List" :key="index">
 				<div @click="openxq(index)" class="i_listd1x1"><img class="i_listd1" :src="el.face_pic"></div>
 				
@@ -20,6 +20,7 @@
 				</div>
 			</li>
 		</ul>
+		<div class="pagesddd wsjzt" v-if="List.length==0"><img  class="wusj2" src="/imge/wsj2.png" alt=""></div>
 		<el-pagination class="pagesddd" v-if="List.length>0"
 		background
 		@size-change="handleSizeChange"
@@ -46,14 +47,19 @@ export default {
 			limit:40,
 			total:0,
 			loading: '',
+			querys:'',
+			clasd:[],
 			
 		}
 	},
 	mounted: function () {	
 		this.getHList();
-		
+		this.getClassify();
 	}, 
 	methods: {
+		sreond(type){
+			console.log(type)
+		},
 		goUser(on){
 			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
 		},
@@ -65,13 +71,18 @@ export default {
 		openxq(on){
 			window.open('#/cont?id='+this.List[on].work_id)
 		},
+
 		getHList(){
+			let query = this.$route.query.cont || '';
 			let params = {
+				query:query,
+				type:'work',
 				page:this.page,
 				limit:this.limit
-			}
+			};
+			this.$refs.mytopcs.setCont(query);
 			this.loading = Loading.service({ fullscreen: true });
-			this.api.getHList(params).then((da)=>{
+			this.api.Searchsearch(params).then((da)=>{
 				this.loading.close();
 				if(!da){
 					return
@@ -89,11 +100,39 @@ export default {
 		handleCurrentChange(val) {
 			this.page = val;
 			this.getHList();
-		}
-	}
+		},
+		getClassify(){
+			
+			let pr ={
+				access_token:window.userInfo.access_token,
+			};
+			
+			this.api.getClassify(pr).then((da)=>{
+				if(!da){
+					return
+				}
+				let p = JSON.stringify(da);
+				p = p.replace(/classify_name/g,"label");
+				p = p.replace(/id/g,"value");
+				p = p.replace(/sub_data/g,"children");
+				p = JSON.parse(p);
+				this.clasd = p;
+
+			})
+		},
+	},
+	watch: {	
+		'$route': function() {
+			this.getHList();
+			
+		},
+		
+	},
 }
 </script>
 
 <style>
-
+.homeMinheifh2{
+	min-height: 494px;
+}
 </style>

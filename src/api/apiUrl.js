@@ -208,6 +208,19 @@ export default {
 	addChatMessage:{
 		url:'/Api/Message/addChatMessage',method:'post',baseURL:0,
 	},
+	getHotWords:{
+		url:'/Api/Search/getHotWords',method:'post',baseURL:0,
+	},
+	Searchsug:{
+		url:'/Api/Search/sug',method:'post',baseURL:0,
+	},
+	
+	Searchsearch:{
+		url:'/Api/Search/search',method:'post',baseURL:0,
+	},
+	getChatDetail:{
+		url:'/Api/Message/getChatDetail',method:'post',baseURL:0,
+	},
 	
 	
 }

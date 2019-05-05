@@ -22,19 +22,19 @@
 						<div class="sxBodx2_2" ref="listDom">
 							<ul v-if="sxType==0" class="sxBodx2_2x">
 								<li v-for="(el,index) in listData">
-									<img :src="el.user_info.avatar" alt="">
+									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div>
-										<div class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
-										<div class="sxBodx2_2x_3">{{el.last_message}}</div>
+										<div @click="cheond(index)" class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
+										<div @click="cheond(index)" class="sxBodx2_2x_3">{{el.last_message}}</div>
 									</div>
 								</li>								
 							</ul>
 							<ul v-if="sxType==1" class="sxBodx2_2x">
 								<li v-for="(el,index) in listData">
-									<img :src="el.avatar" alt="">
+									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div>
-										<div class="sxBodx2_2x_1">{{el.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
-										<div class="sxBodx2_2x_3">{{el.last_message}}</div>
+										<div @click="cheond(index)" class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
+										<div @click="cheond(index)" class="sxBodx2_2x_3">{{el.content}}</div>
 									</div>
 								</li>								
 							</ul>
@@ -57,7 +57,7 @@
 									<li>
 										<div v-if="!checkisme(el.open_id)" class="jyb_x2">
 										<div class="sxBodx3_2xbox sxBodx3_2x_2">
-											<img :src="el.user_info.avatar" alt="">
+											<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 											<div class="sxBodx3_2x_3b sxBodx3_2x_3">{{el.content}}</div>
 										</div>
 										</div>
@@ -66,7 +66,7 @@
 										<div class="sxBodx3_2xbox sxBodx3_2x_4">
 											
 											<div class="sxBodx3_2x_3b sxBodx3_2x_5">{{el.content}}</div>
-											<img :src="el.user_info.avatar" alt="">
+											<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 										</div>
 										</div>
 									</li>
@@ -127,6 +127,7 @@ export default {
 			getAjxType2:0,
 			getAjxType3:0,
 			sxType:0,
+			chatType:'chat',
 		}
 	},
 	mounted: function () {			
@@ -134,10 +135,28 @@ export default {
 		
 	}, 
 	methods: {
+		goUser(id){
+			this.$router.push({path: '/works',query:{id:id}})	
+		},
+		cheond(on){
+			if(this.messgOn==on){
+				return
+			}
+			this.messgOn = on;
+			this.getMessageList();
+		},
 		checkNav(on){
 			if(this.sxType==on){
 				return
 			}
+			this.chatType = 'chat';
+			this.listData = [];
+			if(on==1){
+				this.chatType = 'chat_follow';
+				
+				
+			}
+			this.getMessgList();
 			this.sxType=on;
 		},
 		addChatMessage(){
@@ -202,14 +221,17 @@ export default {
 				if(!da){
 					return
 				}
-			
+				this.pushCk();
 				this.messGlist = da.reverse();
 		
 			});
 			
 		},
 		init(){
-			this.pushCk();
+			if(this.$router.query.id){
+				this.getChatDetail(this.$router.query.id);
+			}
+		
 			this.getMessgNumber();
 			this.getMessgList();
 			// this.followList();
@@ -309,16 +331,21 @@ export default {
 			
 		},
 		pushCk(){
-	
-			// let op = {
-			// 	access_token:window.userInfo.access_token,
-			// 	type:'notify',
-			// };
-			// this.api.Messageread(op).then((da)=>{
-			// 	if(!da){
-			// 		return
-			// 	}
-			// })
+			let op = {
+				access_token:window.userInfo.access_token,
+				type:'chat',
+			};
+			if(!this.listData[this.messgOn].chat_id){
+				op.to_open_id = this.listData[this.messgOn].user_info.open_id;
+			}else{
+				op.chat_id = this.listData[this.messgOn].chat_id;
+			}
+			
+			this.api.Messageread(op).then((da)=>{
+				if(!da){
+					return
+				}
+			})
 		},
 		setScll(top){
 			
@@ -345,21 +372,31 @@ export default {
 		
 			})
 		},
-		
-		getMessgList(type){
-
+		getChatDetail(id){
 			let pr = {
 				access_token:window.userInfo.access_token,
-				type:'chat',
+				chat_id:id
+			};
+			this.api.getChatDetail(pr).then((da)=>{
+				if(!da){return}
+				console.log(da);
+			});
+		},
+		getMessgList(type){
+			
+			let pr = {
+				access_token:window.userInfo.access_token,
+				type:this.chatType,
 				page:this.page,
 				limit:this.limit
 			};
+			
+			
+			
 			this.api.getMessgList(pr).then((da)=>{
 				if(!da){return}
-				for(let i=0,n=7;i<n;i++){
-					this.listData.push(da.data[0])
-				}
-			
+
+				this.listData = da.data;
 				this.getMessageList();
 			});
 		},
