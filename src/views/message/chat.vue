@@ -21,22 +21,26 @@
 						</div>
 						<div class="sxBodx2_2" ref="listDom">
 							<ul v-if="sxType==0" class="sxBodx2_2x">
-								<li v-for="(el,index) in listData">
+								<div  v-for="(el,index) in listData">
+									<li v-if="!checkInchat(el.chat_id)">
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div>
 										<div @click="cheond(index)" class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
 										<div @click="cheond(index)" class="sxBodx2_2x_3">{{el.last_message}}</div>
 									</div>
-								</li>								
+									</li>
+								</div>								
 							</ul>
 							<ul v-if="sxType==1" class="sxBodx2_2x">
-								<li v-for="(el,index) in listData">
+								<div v-for="(el,index) in listData">
+									<li>
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div>
 										<div @click="cheond(index)" class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
 										<div @click="cheond(index)" class="sxBodx2_2x_3">{{el.content}}</div>
 									</div>
-								</li>								
+									</li>
+								</div>								
 							</ul>
 						</div>
 						<div class="sxBodx2_3"></div>
@@ -128,6 +132,10 @@ export default {
 			getAjxType3:0,
 			sxType:0,
 			chatType:'chat',
+			onTypedf:0,
+			ondfgData:'',
+			chatid:'',
+			chatTYD:0,
 		}
 	},
 	mounted: function () {			
@@ -135,6 +143,18 @@ export default {
 		
 	}, 
 	methods: {
+		checkInchat(id){
+			if(id == this.chatid){
+				if(this.chatTYD==1 ){
+					return true;
+				}
+				
+				this.chatTYD=1;
+				return false;
+			}			
+			return false
+			
+		},
 		goUser(id){
 			this.$router.push({path: '/works',query:{id:id}})	
 		},
@@ -153,8 +173,6 @@ export default {
 			this.listData = [];
 			if(on==1){
 				this.chatType = 'chat_follow';
-				
-				
 			}
 			this.getMessgList();
 			this.sxType=on;
@@ -193,17 +211,6 @@ export default {
 			let urld = ['notify','comment','chat'];
 			this.$router.push({path: urld[on]});	
 		},
-		// goUserIn(on){
-		// 	this.$router.push({path: '/works',query:{id:this.listData[on].user_info.open_id}})	
-		// },
-		// handleSizeChange(val) {
-		// 	this.limit = val;
-		// 	this.getMessgList();
-		// },
-		// handleCurrentChange(val) {
-		// 	this.page = val;
-		// 	this.getMessgList();
-		// },
 		
 		backtime(t){		
 			return window.getTimes(t*1000)
@@ -228,13 +235,13 @@ export default {
 			
 		},
 		init(){
-			if(this.$router.query.id){
-				this.getChatDetail(this.$router.query.id);
+	
+			if(this.$route.query && this.$route.query.id){	
+				this.getChatDetail(this.$route.query.id);
 			}
 		
 			this.getMessgNumber();
 			this.getMessgList();
-			// this.followList();
 			
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
@@ -380,6 +387,16 @@ export default {
 			this.api.getChatDetail(pr).then((da)=>{
 				if(!da){return}
 				console.log(da);
+				
+				
+				this.ondfgData = da;
+				this.chatid = this.ondfgData.chat_id;
+				if(this.listData.length>0){
+					this.listData.unshift(da);
+					this.onTypedf=1;
+				}
+
+				
 			});
 		},
 		getMessgList(type){
@@ -396,20 +413,12 @@ export default {
 			this.api.getMessgList(pr).then((da)=>{
 				if(!da){return}
 
-				this.listData = da.data;
+				this.listData = da.data;		
+				if(this.onTypedf==0){
+					this.listData.unshift(this.ondfgData);				
+				}
+		
 				this.getMessageList();
-			});
-		},
-		followList(){
-			let pr = {
-				user_open_id:window.userInfo.open_id,
-				page:this.page,
-				limit:this.limit,
-			};
-			this.api.followList(pr).then((da)=>{
-				if(!da){return}
-								
-				// this.getMessageList();
 			});
 		},
 
@@ -503,21 +512,21 @@ export default {
 	height:580px;
 	
 }
-.sxBodx2_2x>li{
+.sxBodx2_2x>div>li{
 	padding: 21px 30px 0;
 	display: block;
 	width: 100%;
 	height: 69px;
 	border-bottom: 2px solid rgba(151, 151, 151, .1);
 }
-.sxBodx2_2x>li>img{
+.sxBodx2_2x>div>li>img{
 	display: inline-block;
 	vertical-align: top;
 	border-radius: 50%;
 	width: 32px;
 	height: 32px;
 }
-.sxBodx2_2x>li>div{
+.sxBodx2_2x>div>li>div{
 	display: inline-block;
 	margin-left: 10px;
 	width: 207px;

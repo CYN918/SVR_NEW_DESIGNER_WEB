@@ -11,15 +11,10 @@ html,body,div,img,p,ul,li{
 	border: none;
 }
 html,body{
+	position: relative;
 	margin: 0 auto;
 	min-width: 1300px;
-}
-html{
 	height:100%;
-}
-body{
-	position: relative;
-	min-height:100%;
 }
 a{list-style-type: none}
 :link{text-decoration:none;}
@@ -27,6 +22,28 @@ a:visited{text-decoration:none;}
 a:hover{text-decoration:none;}
 a:active{text-decoration:none;}
 li{list-style-type: none}
+#app{
+	height: 100%;
+}
+#app>div{
+	height: 100%;
+}
+#app>div>div{
+	box-sizing: border-box;
+	min-height: 100%;
+	padding: 60px 0 75px;
+}
+.header{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.footerBox{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+
 @font-face {
 	font-family: 'iconfont';
 	src: url('/font/iconfont.eot');
@@ -2152,28 +2169,4 @@ content: "";
 
 }
 
-html,body{
-	height: 100%;
-}
-#app{
-	height: 100%;
-}
-#app>div{
-	height: 100%;
-}
-#app>div>div{
-	box-sizing: border-box;
-	height: 100%;
-	padding: 60px 0 75px;
-}
-.header{
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-.footerBox{
-	position: fixed;
-	bottom: 0;
-	left: 0;
-}
 </style>

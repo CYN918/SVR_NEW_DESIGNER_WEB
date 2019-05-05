@@ -124,7 +124,13 @@ export default {
 	}, 
 	methods:{
 		goMssg(on){
-			this.$router.push({path:this.navType,query:{id:on}})	
+			console.log(on);
+			if(on || on==0){
+				
+				this.$router.push({path:this.navType,query:{id:this.mData[on].chat_id}})	
+				return
+			}
+			this.$router.push({path:this.navType})	
 		},
 		keydown(){
 			this.hind();
@@ -618,7 +624,7 @@ export default {
 .messgeH2{
 	display: block;
 	position: absolute;
-	top: -7px;
+	top: 7px;
 	left: 7px;
 	background: #F4523B;
 	width: 18px;
