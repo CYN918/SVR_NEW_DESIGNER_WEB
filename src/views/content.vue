@@ -21,7 +21,7 @@
 			<div class="seed12">
 				<span class="seed1_2_2"><img src="/imge/icon/zs_icon_xx.png">{{hfnum}}</span>
 				<span class="seed1_2_3"><img @click="addLike('work',contDat.work_id,contDat)" src="/imge/icon/zs_icon_dz.png">{{contDat.like_num}}</span>
-				<span class="seed1_2_4"><span class="iconfont">&#xe64c;</span>分享</span>
+				<span class="seed1_2_4" @click="fxclick"><span class="iconfont">&#xe64c;</span>分享</span>
 				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat)"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
 			</div>
 			</div>
@@ -32,7 +32,7 @@
 				{{contDat.work_name}}
 			</div>
 			<div class="topNav_x_1_2">
-				<span class="seed1_2_4"><span class="iconfont">&#xe64c;</span>分享</span>
+				<span class="seed1_2_4" @click="fxclick"><span class="iconfont">&#xe64c;</span>分享</span>
 				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat)"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
 			</div>
 			</div>
@@ -174,6 +174,7 @@
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
 		</div>
+		<fxd :shareData="shareData" ref="fxd"></fxd>
 	</div>
 </template>
 
@@ -181,11 +182,12 @@
 import Input from '../components/input'
 import {Message} from 'element-ui'
 import RPT from './user/report'
-
+import fxd from '../components/share';
 export default {
-	components:{Input,RPT},
+	components:{Input,RPT,fxd},
 	data(){
 		return{
+			shareData:{},
 		    isRep:false,
 			open_id:'',
             link_id:'',
@@ -232,6 +234,9 @@ export default {
 		this.getCommentList();
 	}, 
 	methods: {
+		fxclick(){
+			this.$refs.fxd.showShare(true);
+		},
 		goUser(id){
 			this.$router.push({path: '/works',query:{id:id}})	
 		},
@@ -437,6 +442,15 @@ export default {
 				this.open_id = da.user_info.open_id;
 				this.link_id = da.work_id;
 				this.position = 'work';
+				this.shareData = {
+					url:'https://www.baidu.com',
+					title:this.contDat.work_name,
+					pics:this.contDat.face_pic,
+					desc:'分享类容',
+					summary:'分享描述',
+				};
+			
+				this.$refs.fxd.setUrl(this.shareData);
 				if(window.userInfo.open_id==da.user_info.open_id){
 				    this.show= false;
 				}else {

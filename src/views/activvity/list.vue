@@ -86,7 +86,7 @@ export default {
 }
 .ac_list_Box_0{
 	width: 1300px;
-	margin: 0 auto;
+	margin: 20px auto 0;
 	text-align: left;
 	padding-bottom: 120px;
 }

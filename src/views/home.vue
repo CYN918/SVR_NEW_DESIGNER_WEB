@@ -39,12 +39,15 @@
 		layout="prev,pager, next,sizes, jumper"
 		:total="total">   
 		</el-pagination>
+
 	</div>
 </template>
 
 <script>
+
 import { Loading } from 'element-ui';
 export default {
+
 	name: 'home',
 	data(){
 		return {
