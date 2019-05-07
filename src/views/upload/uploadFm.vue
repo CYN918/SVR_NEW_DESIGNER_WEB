@@ -60,6 +60,7 @@
 					效果预览
 					<div>上传图片支持JPG、PNG，大小<10M<br/>建议尺寸为800×600 px</div>
 				</div>
+				<div class="upFm_yb_2">重新上传<input class="fileinpd" type="file" accept="image/png, image/jpeg, image/jpg" @change="uploadImg"></div>
 				<div class="upFm_yb_3">
 					<img @click="changeScale(1)" src="/imge/cj_01.png" alt="">
 					<img @click="changeScale(-1)" src="/imge/cj_02.png" alt="">

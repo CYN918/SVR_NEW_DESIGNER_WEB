@@ -153,7 +153,7 @@ export default {
 				this.follwTyle=0;
 				this.hindHb2();
 				Message({message: '取消关注成功'});
-				if(this.sxOn==0){
+				if(this.sxtj==0){
 				
 					this.List.splice(this.openOns,1);
 				
@@ -185,7 +185,6 @@ export default {
 				}
 				this.List[on].follow_flag = da.follow_flag;
 				this.follwTyle=0;
-				// this.contDat.user_info.follow_flag=1;
 				Message({message: '关注成功'});
 			}).catch(()=>{
 				this.follwTyle = 0;		
