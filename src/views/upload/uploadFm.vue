@@ -1,15 +1,20 @@
 <template>
 	<div class="upFm">
-		<div class="upFm_bg" @click="close"></div>
+		<div class="upFm_bg" ></div>
 		<div class="upFm_box">
+			<img @click="close" src="/imge/cj_00.png" class="uploadBoxd2_1">
 			<div class="upFm_yl">
 				<div class="upFm_yl_1">
 					<div class="upFm_yl_1_1" >
+						<div class="upFm_yl_1_1x">+</div>
+						<div class="upFm_yl_1_1x2">
 						<div :style="previewStyle2">
 						<div :style="previews.div" class="preview">
 							<img :src="previews.url" :style="previews.img">
 						</div>
 						</div>
+						</div>
+						<input class="fileinpd" type="file" id="uploads" accept="image/png, image/jpeg, image/jpg" @change="uploadImg">	
 					</div>				
 					<div class="upFm_yl_1_2">
 						<div class="upFm_yl_1_2_1">
@@ -54,10 +59,6 @@
 				<div class="upFm_yb_1">
 					效果预览
 					<div>上传图片支持JPG、PNG，大小<10M<br/>建议尺寸为800×600 px</div>
-				</div>
-				<div class="upFm_yb_2">
-					重新上传
-					<input type="file" id="uploads" accept="image/png, image/jpeg, image/jpg" @change="uploadImg">															
 				</div>
 				<div class="upFm_yb_3">
 					<img @click="changeScale(1)" src="/imge/cj_01.png" alt="">
@@ -257,9 +258,31 @@ export default {
 	height: 297.9px;
 }
 .upFm_yl_1_1{
+	position: relative;
 	width: 297.9px;
 	height: 207.3px;
 	overflow: hidden;
+}
+.upFm_yl_1_1:hover>.upFm_yl_1_1x{
+	z-index: 9;
+	background: red;
+}
+
+.upFm_yl_1_1x{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	width: 22.9px;
+    height: 22.9px;
+    border-radius: 50%;
+    font-size: 21px;
+    text-align: center;
+    line-height: 22.9px;
+    background: #FF5121;
+    color: #E6E6E6;
+
 }
 .upFm_yl_1_1 img {
 	display: inline-block;
@@ -396,4 +419,19 @@ export default {
 	color: #fff;
 	margin-left: 38px;
 }
+.fileinpd{
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+.upFm_yl_1_1x2{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}	
 </style>

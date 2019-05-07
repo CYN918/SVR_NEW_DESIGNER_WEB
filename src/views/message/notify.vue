@@ -1,6 +1,5 @@
 <template>
-	<div>
-		
+	<div>		
 		<div class="setUserBox messgdo">
 			<div class="setUserBoxs">
 				<div class="setUserBoxs_nav">

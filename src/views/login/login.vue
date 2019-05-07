@@ -19,9 +19,9 @@
 		</el-form>
 		<div class="lgoin_s6x"></div>
 		<div class="lgoin_s6">
-			<img src="/imge/01.png" alt="">
-			<img src="/imge/02.png" alt="">
-			<img src="/imge/03.png" alt="">
+			<img @click="thirdLogin('qq')" src="/imge/01.png" alt="">
+			<img @click="thirdLogin('weixin')" src="/imge/02.png" alt="">
+			<img @click="thirdLogin('weibo')" src="/imge/03.png" alt="">
 		</div>
 	</div>
 </template>
@@ -62,7 +62,13 @@ export default {
 	mounted: function () {	
 	
 	}, 
-	methods: {		
+	methods: {	
+		thirdLogin(type){
+			if(!type){return}
+
+			window.location.href='http://139.129.221.123/Passport/user/thirdLogin?type='+type;
+
+		},
 		setYzm(val){
 			this.form.mobile_zone = val;
 		},

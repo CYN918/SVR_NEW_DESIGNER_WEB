@@ -39,10 +39,8 @@
 
 <style>
 .footerBox{
-	/*position: fixed;*/
-    bottom: 0;
-    left: 0;
-    width: 100%;
+	margin-top: -75px;
+	width: 100%;
 	min-width: 1300px;
     height: 75px;
     background: #2e2f30;

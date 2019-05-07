@@ -4,6 +4,12 @@ export default {
 // 	login:{
 // 		url:'/Passport/User/login',method:'post',baseURL:0,
 // 	},
+
+	thirdLogin:{
+		url:'/Passport/user/thirdLogin',method:'get',baseURL:0
+	},
+	
+
 	logout:{
 		url:'/Api/User/logout',method:'post',baseURL:0
 	},

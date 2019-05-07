@@ -124,9 +124,7 @@ export default {
 	}, 
 	methods:{
 		goMssg(on){
-			console.log(on);
-			if(on || on==0){
-				
+			if(on || on==0){				
 				this.$router.push({path:this.navType,query:{id:this.mData[on].chat_id}})	
 				return
 			}
@@ -223,8 +221,11 @@ export default {
 		},
 		
 		logout(){
+			if(!window.userInfo){
+				return
+			}
 			let p = {
-				access_token:this.userMssge.access_token
+				access_token:window.userInfo.access_token
 			};
 			this.api.logout(p).then((da)=>{
 				if(!da){
@@ -243,6 +244,9 @@ export default {
 		},
 		
 		getMessgNumber(){
+			if(!window.userInfo){
+				return
+			}
 			let pr = {
 				access_token:window.userInfo.access_token
 			};
@@ -255,6 +259,9 @@ export default {
 			})
 		},
 		getNotice(type){	
+			if(!window.userInfo){
+				return
+			}
 			this.navType = type?type:'notify';
 			let pr = {
 				access_token:window.userInfo.access_token,
@@ -316,7 +323,7 @@ export default {
 				}
 				this.data1 = da.works;
 				this.data2 = da.user;
-				console.log(da);
+		
 			});
 		}
 	},
@@ -469,6 +476,8 @@ export default {
 	font-size: 17px;
 }
 .userBpx>ul>a>li>span{
+	display: inline-block;
+    width: 20px;
 	vertical-align: bottom;
 	margin-right: 10px;
 	font-size: 21px;

@@ -164,7 +164,7 @@ export default {
     left: 0;
 	text-align: center;
 	box-sizing: border-box;
-	z-index: -1;
+
 }
 
 </style>

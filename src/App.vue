@@ -38,11 +38,7 @@ li{list-style-type: none}
 	top: 0;
 	left: 0;
 }
-.footerBox{
-	position: fixed;
-	bottom: 0;
-	left: 0;
-}
+
 
 @font-face {
 	font-family: 'iconfont';

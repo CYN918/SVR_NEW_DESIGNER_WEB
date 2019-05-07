@@ -221,6 +221,12 @@ let wb = [
 		name: 'userme',
 		component: () => import('./views/login/userme.vue')
 		
+	},
+	{
+		path: '/userme2',
+		name: 'userme2',
+		component: () => import('./views/login/userme2.vue')
+		
 	}	
 ];
 router.addRoutes(wb);
@@ -274,6 +280,7 @@ if(to.fullPath=='/'){
 
 if(token){
 	try{
+		console.log(JSON.parse(token))
 		window.userInfo = JSON.parse(token);
 	}catch(e){
 		//TODO handle the exception
@@ -311,14 +318,35 @@ if(pass){
 		next();
 		return
 	}
-	if(window.userInfo.is_detail==0 && to.fullPath!='/userme'){
-		next('/userme');	
-		return
-	}	
+	if(window.userInfo.is_detail==0){
+		
+		if(!window.userInfo.mobile || window.userInfo.mobile=='null'){
+			if(to.fullPath!='/userme2'){
+				console.log(window.userInfo.mobile)
+				next('/userme2');	
+				return
+			}
+			next();	
+			return
+		}
+
+		
+		if(to.fullPath!='/userme'){
+			next('/userme');	
+			return
+		}
+		
+	}
+
 	if(window.userInfo.is_detail==1 && ['/login','/login2','/register','/modifyPassword','/userme'].indexOf(to.fullPath)!=-1){
 		next('/index');	
 		return
 	}
+	
+	
+	
+	
+	
 	next();	
 	return	
 })

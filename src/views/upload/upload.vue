@@ -10,7 +10,7 @@
 		<div v-show="chekin" class="upBoxd">
 			<div class="upBoxd1">
 				<div class="upBoxd1_1">
-					<Input class="userBoxd2" v-model="form.work_name" :valued="csz"  :oType="'max'" :max="50"   :type="'text'" :placeholder="'请输入作品标题…'"></Input>	
+					<Input class="userBoxdC" v-model="form.work_name" :valued="csz"  :oType="'max'" :max="50"   :type="'text'" :placeholder="'请输入作品标题…'"></Input>	
 				</div>
 				<div class="upBoxd1_2">
 					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
@@ -34,12 +34,12 @@
 				</div>
 				<div class="page2_1_3">上传附件<span>ZIP，20M以内</span></div>
 				<div class="page2_1_4">
-					<div class="page2Tbnd1">选择附件</div>
+					<div class="page2Tbnd1">{{fjtext}}</div>
 					<input @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
 				</div>
 				<div v-if="upfjData.type" class="page2_1_5">{{upfjData.type}}<span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span>{{upfjData.bf+'%'}}</div>
 				<div class="page2_1_6" v-if="upfjData.type">
-					<div><div class="page2Tbnd1" >重新上传</div><input @change="fileUpfj" class="page2_1_4file" type="file"></div>
+					
 					<span class="iconfont" :title="upfjData.name">&#xe621;{{upfjData.name?upfjData.name.substring(0,4):''}}<span @click="qxclosd(fileUpfj)" class="iconfont pend">&#xe619;</span></span>
 					
 				</div>
@@ -129,6 +129,7 @@ export default {
 	components:{VueUeditorWrap,UplodImg,Input,upoloadcaver},
 	data(){
 		return{
+			ifBjType:0,
 			bqList:[{label:'禁止匿名转载；禁止商业使用；禁止个人使用。'},{label:'禁止匿名转载；禁止商业使用。'},{label:'不限制用途。'}],
 			isPhto:false,
 			chekin:true,
@@ -137,14 +138,16 @@ export default {
 			ck2:'',
 			ck3:'',
 			csz:'',
+			fjtext:'选择附件',
 			chekusername:()=>{},
 			form:{
-				work_name:'cs',
-				attachement_visible:1,
+				work_name:'',
+				
+				attachment_visible:'1',
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
 				is_platform_work:0,
-				content:'从这里开始编辑作品类容...'
+				content:'<p style="color:#999">从这里开始编辑作品类容...</p>'
 			},
 			uD:{},
 			upConfig:'',
@@ -356,7 +359,7 @@ export default {
 				Message({message: '请先填写标题'});
 				return
 			}
-			if(!this.form.content){
+			if(!this.form.content || this.ifBjType==0){
 				Message({message: '请先填写内容'});
 				return
 			}
@@ -377,6 +380,23 @@ export default {
 		},
 		ready (editorInstance) {
 			this.uD = editorInstance;
+		
+			editorInstance.addListener('focus',(editor)=>{
+				if(this.ifBjType==0){
+					this.form.content = '';
+					this.ifBjType=1;
+				}
+			});
+			editorInstance.addListener('blur',(editor)=>{
+			
+				if(this.ifBjType==1 && this.form.content==''){
+			
+					this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
+					this.ifBjType=0;
+				}
+			
+			});
+
 		},
 		closed(){
 			this.isshowd=false;
@@ -391,8 +411,13 @@ export default {
 				list.map((el,index,va)=>{
 					str+='<p style="max-width:100%;height:auto;"><img style="max-width:100%;height:auto" src="'+el+'"/></p>';
 				});
-				this.uD.execCommand('insertHtml', str);
 				
+				
+				this.uD.execCommand('insertHtml', str);
+				if(!this.form.content){
+					this.form.content = str;
+					return
+				}
 				return
 				
 			}
@@ -402,7 +427,10 @@ export default {
 					str+='<p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
 				});
 				this.uD.execCommand('insertHtml', str);
-				
+				if(!this.form.content){
+					this.form.content = str;
+					return
+				}
 				return
 			}
 			if(this.upConfig.type[0]=='audio/ogg'){
@@ -410,7 +438,10 @@ export default {
 					str+='<p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
 				});
 				this.uD.execCommand('insertHtml', str);
-				
+				if(!this.form.content){
+					this.form.content = str;
+					return
+				}
 				return
 			}
 			
@@ -516,8 +547,10 @@ export default {
 		checkPage1(){
 			this.ck2 = "";
 			if(!this.form.work_name){return false}
-			console.log(this.form.content)
 			if(!this.form.content){return false}
+			if(this.ifBjType==0){
+				return false;
+			}
 			this.ck2 = "onck2";
 			this.setAutoSave();
 			return true
@@ -582,6 +615,7 @@ export default {
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;
 					this.upfjData.fid=da.fid;
+					this.fjtext= '重新上传';
 					this.upfjData.type='上传成功';
 					this.$refs.upnfile2.value ='';		
 					this.form.attachment_id = da.fid;	
@@ -612,6 +646,7 @@ export default {
 			xhr.send(formData);
 		},
 		qxclosd(obj){
+			this.fjtext = '选择附件';
 			if(obj.xhr){
 				obj.xhr.abort();
 				
@@ -674,7 +709,8 @@ export default {
 	position: relative;
 	font-size: 16px;
 	line-height: 74px;
-	color: #1E1E1E;
+	
+	color: #999999;
 	margin-right: 59px;
 }
 .topNavComBox1>a:after{
@@ -685,6 +721,12 @@ export default {
 	transform: translateX(-50%);
 	width: 58px;
 	height: 2px;
+}
+.topNavComBox1>a.onchekd{
+	color: #1E1E1E;
+}
+.topNavComBox1 .nubMax{
+	font-weight: 200;
 }
 .onchekd:after{
 	background: #FF5121;
@@ -757,6 +799,9 @@ export default {
 }
 .upBoxd1_2{
 	width: 1080px;
+	height: 440px;
+	padding: 1px;
+	overflow: hidden;
 	margin-bottom: 60px;
 }
 .edui-default .edui-editor-toolbarboxouter{
@@ -1049,7 +1094,7 @@ export default {
 }
 .page2_2_1_2 .myInput{
 	box-sizing: border-box;
-    border: 1px solid #979797;
+    border: 1px solid #dcdfe6;
     border-radius: 5px;
     
     height: 44px;
@@ -1187,9 +1232,19 @@ export default {
 	font-size: 14px;
 	color: #333333;
 }
-.chekdOn{
+.page2_1_7_r .chekdOn>div{
 	background: #FF5121;
-	border-color: #FF5121 !important;
+	border-color: #FF5121;
 }
 .el-select{width: 100%}
+.upBoxd1_2 iframe{
+	padding: 0 22px;
+	box-sizing: border-box;
+}
+.el-cascader .el-input.is-focus .el-input__inner{
+	border-color: #FF5121 !important;
+}
+.el-input.is-active .el-input__inner, .el-input__inner:focus{
+	border-color: #FF5121 !important;
+}
 </style>

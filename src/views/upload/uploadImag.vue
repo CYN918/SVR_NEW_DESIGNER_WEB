@@ -32,7 +32,7 @@
 						<div><span>{{el.file_name.split('.')[0]}}</span><span>{{el.s}}</span></div>
 					</div>
 					<div v-else class="zzched" @click="onxz(el)">
-						<img :src="configData.type[0]=='audio/ogg'?'/imge/m.jpg':configData.type[0]=='video/mp4'?el.cover_img:el.url"/>
+						<div class="imgxzd"><img :src="configData.type[0]=='audio/ogg'?'/imge/m.jpg':configData.type[0]=='video/mp4'?el.cover_img:el.url"/></div>
 						<div><span>{{el.file_name}}</span><span>{{el.file_size_format}}</span></div>
 						<div :class="['zzched_1',checkin.indexOf(el.fid)!=-1?'zzched2':'']"></div>
 					</div>					
@@ -71,7 +71,6 @@ export default {
     },
 	mounted: function () {	
 		this.getList();
-		console.log(this.configData.type[0]);
 	}, 	
     methods: {
 		InImg(){
@@ -412,19 +411,13 @@ export default {
 	display: inline-block;
 	width: 236px;
 	margin: 0 20px 17px 0;
+	vertical-align: top;
 
 }
 .uploadBoxd2_3>li:nth-child(3n+3){
 	margin-right: 0;
 }
-.uploadBoxd2_3>li>div>img{
-	display: block;
-	width: 100%;
-	height: 135px;
-	border-radius: 5px;
-	box-shadow: 0 2px 4px 0 rgba(0, 0, 0,0.2);
-	margin-bottom: 6px;
-}
+
 .uploadBoxd2_3>li>div>div{
 	text-align: left;
 	font-size: 14px;
@@ -567,10 +560,12 @@ export default {
 .zzched{
 	position: relative;
 	cursor: pointer;
+	width: 239px;
+	height: 135px;
 	
 }
 .zzched:hover:after{
-	background: none;
+	background: rgba(225,225,225,.3);
 }
 .zzched:after{
 	content: "";
@@ -579,7 +574,7 @@ export default {
 	left: 0;
 	width: 100%;
 	height:135px;
-	background: rgba(0,0,0,.3);
+	
 }
 .zzched_1{
 	position: absolute;
@@ -593,5 +588,22 @@ export default {
 .zzched2{
 	border-color: #FF5121;
 	background: #FF5121;
+}
+.imgxzd{
+	position: relative;
+	width: 100%;
+	height: 135px;
+	overflow: hidden;
+}
+.imgxzd>img{
+	position: relative;
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
 }
 </style>

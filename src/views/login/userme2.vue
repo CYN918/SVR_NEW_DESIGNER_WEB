@@ -5,6 +5,26 @@
 			<div class="yhtop1">用户资料完善</div>
 			<div class="yhtop2">基本信息设置</div>
 			<div class="newUsermeBOX">
+				<div class="newUserme2">
+					<div class="userBoxd">
+						<span>手机号</span>
+						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.mobiles" :inputType="'phones'"  :placeholder="'请输入手机号'"></inptPhone>
+					</div>
+					<div class="userBoxd">
+						<span>验证码</span>
+						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.verifys" :inputType="'verifys'"  :placeholder="'输入 6 位短信验证码'"></inptPhone>
+					</div>
+					<div class="userBoxd">
+						<span>登录密码</span>
+						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.password" :inputType="'password'" :type="'password'" :placeholder="'6 - 16位密码，区分大小写'"></inptPhone>						
+					</div>
+					<div class="userBoxd">
+						<span>确认密码</span>
+						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.password_repass" :inputType="'password_repass'" :type="'password'"  :placeholder="'确认密码'"></inptPhone>	
+					</div>
+				</div>
+			</div>
+			<div class="newUsermeBOX">
 				<div class="newUserme">
 					<div class="nav_tx">
 						<span>头像</span>
@@ -41,11 +61,68 @@ import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
 import Footer from '../../components/footer';
+import inptPhone from '../../components/input/input_phone';
 export default {
 	name: 'login',
-	components:{upoloadcaver,Input,Citys,Select,rideo,Footer},
+	components:{upoloadcaver,Input,Citys,Select,rideo,Footer,inptPhone},
 	data(){		
 		return{	
+			vp_r(val){
+				if(!val){
+					return {type:false,text:'请确认密码',cls:'errd'}
+				}
+				if(this.$parent.$parent.form.password != val){
+					return {type:false,text:'两次密码不一致',cls:'errd'}
+				}
+				return true
+			},
+			chekPssword(val){	
+				if(!val){
+					return {type:false,text:'请输入密码',cls:'errd'}
+				}
+				if(!(/^\S*$/.test(val))){ 				
+					return {type:false,text:'密码不能有空格',cls:'errd'}
+				} 				
+				let len = val.length;				
+				if(len<6){
+					return {type:false,text:'强度：太短',cls:'errd2'}
+				}
+				if(len<10){
+					return {type:true,text:'强度：中等',cls:'errd3'}
+				}
+				
+				if(len>16){
+					return {type:false,text:'密码请小于16位',cls:'errd'}
+				}
+				if(len<17){
+					return {type:true,text:'强度：安全',cls:'errd4'}
+				}
+				return false;
+			},
+			chekPhpne:function(val){
+				if(this.form.mobile_zone!='86'){
+					if(!(typeof val === 'number' && val%1 === 0)){
+						return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 					
+					}			
+					return true; 
+				}	
+				if(!(/^1[34578]\d{9}$/.test(val))){ 
+					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
+				} 
+				return true;
+			},
+			chekverify:function(val){
+				if(!val){
+					return {type:false,text:'请填写验证码',cls:'errd5'}; 
+				}
+				if(!(/^\S*$/.test(val))){ 				
+					return {type:false,text:'验证码不能有空格',cls:'errd5'}; 
+				} 			
+				if(val.length!=6){
+					return {type:false,text:'请填写6位验证码',cls:'errd5'}
+				}
+				return true
+			},
 			isPhto:false,
 			caver:'/imge/nav_tx.png',
 			form:{
@@ -81,13 +158,39 @@ export default {
 				{n:"教育工作者"},
 			],
 			btnType:'',
-			
+			phones:false,
+			verifys:false,
+			password:false,
+			password_repass:false,
 		}
 	},
-	mounted: function () {	
-		console.log(window.userInfo)
-	}, 
+	mounted: function () {}, 
 	methods: {
+
+		checkphoneBack(type,on){
+			this[on] = type;			
+		},
+
+		setYzm(val){
+			this.form.mobile_zone = val;
+		},
+		ajaxYzm(){
+			let pd = this.chekPhpne(this.form.mobile);
+			if(pd!=true && pd.type!=true){
+				Message({message: '请先填写手机号码'});
+				return
+			}
+			this.$refs.verify.runTimer(60);			
+			let params = {
+				mobile:this.form.mobile,
+				mobile_zone:this.form.mobile_zone
+			};
+			this.api.sendVerifyCode(params).then(()=>{	
+				
+			}).catch(()=>{
+				
+			});
+		},
 		showisPhto(){
 			this.$refs.upoloadcaver.setImgd(this.caver);
 			this.isPhto=true;
@@ -133,7 +236,19 @@ export default {
 			});
 		},
 		pdys1(){
-			this.btnType = '';	    	
+			this.btnType = '';	 
+			if(this.phones==false){
+				return
+			}	
+			if(this.verifys==false){
+				return
+			}	
+			if(this.password==false){
+				return
+			}	
+			if(this.password_repass==false){
+				return
+			}	
 			let pd = this.chekusername(this.form.username);
 			if(pd!=true && pd.type!=true){
 				return
@@ -141,17 +256,36 @@ export default {
 			if(!this.form.sex){
 				return
 			}
+			
+			
+			
+			
+			
+			
 			this.btnType = 'btnType';
 		},
 		
 	},
 	watch: {
-	    'form.username'(val) {
+	    'form.username'() {
 	    	this.pdys1();
 	    },
-	    'form.sex'(val) {
+	    'form.sex'() {
 	    	this.pdys1();
 	    },
+		'phones'(){
+			this.pdys1();
+		},
+		'verifys'(){
+			this.pdys1();
+		},
+		'password'(){
+			this.pdys1();
+		},
+		'password_repass'(){
+			this.pdys1();
+		},
+
 	}
 }
 </script>
@@ -183,6 +317,7 @@ export default {
 	text-indent: 310px;
 }
 .newUserme{
+	box-sizing: border-box;
 	height: 742px;
     position: relative;
 	margin: 40px auto 40px;
@@ -291,5 +426,21 @@ export default {
 }
 .btnType{
 	background: #FF5121;
+}
+.newUserme_x1{
+	width: 350px;
+}
+.newUserme2{
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	margin: 20px auto -20px;
+	box-sizing: border-box;
+	padding: 44px 110px;
+	width: 860px;
+	height: 245px;
+}
+.newUserme2 .userBoxd{
+	margin-bottom: 0;
 }
 </style>
