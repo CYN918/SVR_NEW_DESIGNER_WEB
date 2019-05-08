@@ -16,7 +16,7 @@
 				</span>
 			</div>
 			<div class="usertc_5">
-				<span class="csys">关注</span><span @click="gosx">私信</span>
+				<span class="csys" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><span @click="gosx">私信</span>
 			</div>
 		</div>
 	
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import {Message} from 'element-ui'
 export default {
 	name: 'myInput',
 	data(){
@@ -40,12 +41,71 @@ export default {
 			fs:0,
 			rq:0,
 			cz:0,
-			
+			follwTyle:0,
 		}
 	},
 	methods: {
 		gosx(){
-			this.$router.push({path:'/chat',query:{id:this.tcData.user_info.open_id}});
+			this.$router.push({path:'/chat',query:{openid:this.tcData.user_info.open_id,avatar:this.tcData.user_info.avatar,username:this.tcData.user_info.username}});
+		},
+		backtype(to){
+			return to==2?'互相关注':to==1?'已关注':'关注';
+		},
+		gzFn(on){
+			
+			if(on==0){
+				this.Follow_add();
+				return
+			}
+			this.Follow_del();
+		},
+		Follow_add(on){
+			if(!window.userInfo){
+				this.$router.push({path: '/login'})
+				return
+			}
+			if(this.follwTyle==1){
+				return
+			}
+			if(!this.tcData.user_info.open_id){
+				return
+			}
+			this.follwTyle=1;
+			let pr = {
+				access_token:window.userInfo.access_token,
+				follow_id:this.tcData.user_info.open_id
+			};
+			this.api.Follow_add(pr).then((da)=>{
+				this.follwTyle=0;
+				if(!da){return}
+				this.$set(this.tcData.user_info,'follow_flag',1);
+			
+				Message({message: '关注成功'});
+			}).catch(()=>{
+				this.follwTyle = 0;		
+			});
+			
+		
+		},
+		Follow_del(){
+			
+			if(this.follwTyle==1){
+				return
+			}
+			this.follwTyle=1;
+			let pr = {
+				access_token:window.userInfo.access_token,
+				follow_id:this.tcData.user_info.open_id
+			};
+			this.api.Follow_del(pr).then((da)=>{
+				this.follwTyle=0;
+				if(!da){return}
+				Message({message: '取消关注成功'});
+				this.$set(this.tcData.user_info,'follow_flag',0);
+				
+			}).catch(()=>{
+				this.follwTyle = 0;		
+			});
 		},
 	}
 }

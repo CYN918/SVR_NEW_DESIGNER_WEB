@@ -236,8 +236,8 @@ export default {
 		},
 		init(){
 	
-			if(this.$route.query && this.$route.query.id){	
-				this.getChatDetail(this.$route.query.id);
+			if(this.$route.query && (this.$route.query.id || this.$route.query.openid)){	
+				this.getChatDetail();
 			}
 		
 			this.getMessgNumber();
@@ -379,11 +379,18 @@ export default {
 		
 			})
 		},
-		getChatDetail(id){
+		getChatDetail(){
+			
 			let pr = {
-				access_token:window.userInfo.access_token,
-				chat_id:id
+				access_token:window.userInfo.access_token,				
 			};
+			
+			if(this.$route.query.id){
+				pr.chat_id = this.$route.query.id;
+			}
+			if(this.$route.query.openid){
+				pr.to_open_id = this.$route.query.openid;
+			}
 			this.api.getChatDetail(pr).then((da)=>{
 				if(!da){return}
 				console.log(da);

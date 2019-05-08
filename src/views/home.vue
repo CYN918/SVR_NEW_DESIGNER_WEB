@@ -112,7 +112,11 @@ export default {
 			let params = {
 				page:this.page,
 				limit:this.limit
+			};
+			if(window.userInfo){
+				params.access_token = window.userInfo.access_token;
 			}
+			
 			this.loading = Loading.service({ fullscreen: true });
 			this.api.getHList(params).then((da)=>{
 				this.loading.close();
