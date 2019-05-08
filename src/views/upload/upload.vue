@@ -1109,7 +1109,7 @@ export default {
 	height: 27px;
     line-height: 27px;
 	font-size: 14px;
-	color: #999;
+	color: #e6e6e6;
 	margin-right: 20px;
 }
 .page2_2_1_2x>span>span{

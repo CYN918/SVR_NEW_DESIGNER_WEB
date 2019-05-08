@@ -812,6 +812,7 @@ input:-ms-input-placeholder{
 .seed1_2_2,.seed1_2_3{
 	display: inline-block;
 	font-size: 14px;
+	line-height: 24px;
 	color: #999999;
 	margin-right: 48px;
 }
@@ -1013,7 +1014,10 @@ input:-ms-input-placeholder{
 }
 .seed2_2>div{
 	border-bottom: 1px solid #E6E6E6;
-	padding: 41px 30px;
+	padding: 41px 30px 0;
+}
+.seed2_2>.seed2_1_1{
+	padding-bottom: 30px
 }
 .seed2_1_2_1{
 	font-size: 16px;
@@ -1024,7 +1028,8 @@ input:-ms-input-placeholder{
 	background: #F6F6F6;
 	border-radius: 5.08px;
 	width: 270px;
-	margin: 0 auto;
+	margin: 0 auto 30px;
+	cursor: pointer;
 	text-align: left;
 }
 .seed2_1_2_2>img{
@@ -1032,10 +1037,7 @@ input:-ms-input-placeholder{
 	width: 100%;
 	height: 201px;
 }
-.seed2_1_2_2{
-	cursor: pointer;
-	margin-bottom: 40px;
-}
+
 .seed2_1_2_2:hover{
 	opacity: .7;
 }
@@ -1329,13 +1331,13 @@ content: "";
 .seed1_2_3>img{
 	vertical-align: bottom;
 	display: inline-block;
-	width: 17px;
+	width: 24px;
 	margin-right: 8px;
 }
 .seed1_2_2>img{
 	vertical-align: bottom;
 	display: inline-block;
-	width: 17px;
+	width: 24px;
 	margin-right: 8px;
 }
 .plBoxd{padding: 30px 0;}

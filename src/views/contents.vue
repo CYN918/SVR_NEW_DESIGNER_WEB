@@ -19,10 +19,10 @@
 				</div>
 			</div>
 			<div class="seed12">
-				<span class="seed1_2_2"><img src="/imge/icon/zs_icon_xx.png">{{hfnum}}</span>
+				<span class="seed1_2_2"><img src="/imge/icon/zs_icon_xx.png">{{hfnum?hfnum:0}}</span>
 				<span class="seed1_2_3"><img src="/imge/icon/zs_icon_dz.png">{{contDat.like_num}}</span>
-				<span class="seed1_2_4"><span class="iconfont">&#xe64c;</span>分享</span>
-				<span class="seed1_2_5"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
+				<span class="seed1_2_4">分享</span>
+				<span class="seed1_2_5">推荐</span>
 			</div>
 			</div>
 		</div>
@@ -32,8 +32,8 @@
 				{{contDat.work_name}}
 			</div>
 			<div class="topNav_x_1_2">
-				<span class="seed1_2_4"><span class="iconfont">&#xe64c;</span>分享</span>
-				<span class="seed1_2_5"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
+				<span class="seed1_2_4">分享</span>
+				<span class="seed1_2_5">推荐</span>
 			</div>
 			</div>
 		</div>
@@ -69,11 +69,11 @@
 					</div>
 					<div class="seed2_1_1_3">
 					
-						<span style="background:#666;border-color: #666;">进入主页</span>
+						<span class="jrzybtn_x1">进入主页</span>
 					</div>
 				</div>
 				<div class="seed2_1_2">
-					<div class="seed2_1_2_1">TA的更多作品</div>
+					<div class="seed2_1_2_1" style="color: #333;">TA的更多作品</div>
 					<div class="seed2_1_2_1x1">
 					<div @click="seeWorks(el.work_id)" class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
 						<div class="i_listd1x2"><img :src="el.face_pic" alt="" class="i_listd1"></div>
@@ -168,5 +168,15 @@ export default {
 </script>
 
 <style>
-
+.jrzybtn_x1{
+	display: inline-block;
+	background: #666666;
+	border-radius: 5px;
+	width: 150px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 16px;
+	color: #FFFFFF;
+	text-align: center;
+}
 </style>
