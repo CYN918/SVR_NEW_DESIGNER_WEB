@@ -62,6 +62,11 @@ let wb = [
                 component: () => import('./views/user/follow.vue')
             },
 			{
+			    path: '/followFans',
+			    name: 'followFans',
+			    component: () => import('./views/user/fans.vue')
+			},
+			{
 				path: '/activvity',
 				name: 'activvity',
 				component: () => import('./views/activvity/list.vue'),

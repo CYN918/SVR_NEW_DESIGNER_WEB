@@ -5,13 +5,13 @@
 			<div class="usertc_2">{{tcData.user_info.username}}</div>
 			<div class="usertc_3">{{tcData.user_info.city+' | '+tcData.user_info.vocation}}</div>
 			<div class="usertc_4">
-				<span>
+				<span @click="goFans('/followFans')">
 					粉丝<div>{{tcData.user_info.fans_num}}</div>				
 				</span>
 				<span>
 					人气<div>{{tcData.user_info.follow_num}}</div>				
 				</span>
-				<span>
+				<span @click="goFans('/works')">
 					创作<div>{{tcData.user_info.work_num}}</div>				
 				</span>
 			</div>
@@ -47,6 +47,9 @@ export default {
 	methods: {
 		gosx(){
 			this.$router.push({path:'/chat',query:{openid:this.tcData.user_info.open_id,avatar:this.tcData.user_info.avatar,username:this.tcData.user_info.username}});
+		},
+		goFans(d){
+			this.$router.push({path:d,query:{id:this.tcData.user_info.open_id}});
 		},
 		backtype(to){
 			return to==2?'互相关注':to==1?'已关注':'关注';

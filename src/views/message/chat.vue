@@ -22,7 +22,7 @@
 						<div class="sxBodx2_2" ref="listDom">
 							<ul v-if="sxType==0" class="sxBodx2_2x">
 								<div  v-for="(el,index) in listData">
-									<li v-if="!checkInchat(el.chat_id)">
+									<li v-if="checkInchat(el.open_id)==false">
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div>
 										<div @click="cheond(index)" class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
@@ -59,7 +59,7 @@
 								<div v-for="(el,index) in messGlist" :key="index">
 									<li v-if="index==0 || el.istimed"><div class="sxBodx3_2x_1">{{backtime(el.create_time)}}</div></li>
 									<li>
-										<div v-if="!checkisme(el.open_id)" class="jyb_x2">
+										<div v-if="checkisme(el.open_id)==false" class="jyb_x2">
 										<div class="sxBodx3_2xbox sxBodx3_2x_2">
 											<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 											<div class="sxBodx3_2x_3b sxBodx3_2x_3">{{el.content}}</div>
@@ -136,6 +136,7 @@ export default {
 			ondfgData:'',
 			chatid:'',
 			chatTYD:0,
+			
 		}
 	},
 	mounted: function () {			
@@ -145,13 +146,15 @@ export default {
 	methods: {
 		checkInchat(id){
 			if(id == this.chatid){
+				console.log(22222);
 				if(this.chatTYD==1 ){
 					return true;
 				}
 				
 				this.chatTYD=1;
 				return false;
-			}			
+			}	
+			console.log(333);		
 			return false
 			
 		},
@@ -393,11 +396,25 @@ export default {
 			}
 			this.api.getChatDetail(pr).then((da)=>{
 				if(!da){return}
-				console.log(da);
 				
-				
+				if(typeof da=='Array'){
+					this.ondfgData = {
+						open_id: this.$route.query.openid,
+						user_info:{
+							open_id:this.$route.query.openid,
+							username:this.$route.query.username,
+							avatar:this.$route.query.avatar
+						}
+					};
+					this.chatid = this.ondfgData.open_id;
+					if(this.listData.length>0){
+						this.listData.unshift(this.ondfgData);
+						this.onTypedf=1;
+					}
+					return;
+				}
 				this.ondfgData = da;
-				this.chatid = this.ondfgData.chat_id;
+				this.chatid = this.ondfgData.open_id;
 				if(this.listData.length>0){
 					this.listData.unshift(da);
 					this.onTypedf=1;
@@ -422,7 +439,9 @@ export default {
 
 				this.listData = da.data;		
 				if(this.onTypedf==0){
-					this.listData.unshift(this.ondfgData);				
+					
+					this.listData.unshift(this.ondfgData);	
+								console.log(this.listData)
 				}
 		
 				this.getMessageList();

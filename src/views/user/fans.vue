@@ -3,7 +3,7 @@
 		<tophead></tophead>
 		<div class="worksBox">
 			<div class="worksBox_1">
-				共{{ sxtj==1?total+'粉丝':total+'关注'}}
+				共{{ total+'位粉丝'}}
 				<div class="worksBox_2">
 					{{sxData[sxOn][sxtj].name}}
 					<div class="worksBox_2_1">
@@ -11,35 +11,7 @@
 					</div>
 				</div>
 			</div>
-			<ul v-if="List.length>0 && sxtj==0" class="i_listd2" >
-				<li v-for="(el,index) in List" :key="index">
-					<img @click="goUser(index)" :src="el.avatar">
-					<div class="i_listd2_1">
-						<div @click="goUser(index)">{{el.username}}</div>
-						<div>{{el.province}} | {{el.city}}</div>
-						<div class="i_listd2_d">
-							<span>粉丝<span>{{el.fans_num}}</span></span>
-							<span>人气<span>{{el.popular_num}}</span></span>
-							<span>创作<span>{{el.work_num}}</span></span>
-						</div>
-						<div>{{el.personal_sign?el.personal_sign:'这个人很懒，什么都没说~'}}</div>
-						<div class="btns_foll" v-if="!isMe(el.open_id)">
-							<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
-							<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
-							<span @click="Follow_add(index)" v-else>关注</span>
-							<span>私信</span>
-						</div>
-					</div>
-					<div class="lunbox">
-						
-						<ul v-if="el.works.length>0">
-							<li v-if="index2<3" v-for="(el2,index2) in el.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
-						</ul>
-						
-					</div>
-				</li>
-			</ul>
-			<ul v-if="List.length>0 && sxtj==1" class="follwfs">
+			<ul v-if="List.length>0" class="follwfs">
 				<li v-for="(el,index) in List" :key="index">
 					<img @click="goUser(index)" class="follwfs_1" :src="el.avatar">
 					<div @click="goUser(index)" class="follwfs_2">{{el.username}}</div>
@@ -54,6 +26,9 @@
 						<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
 						<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
 						<span @click="Follow_add(index)" v-else>关注</span>						
+					</div>
+					<div class="follwfs_5" v-else>
+						<span @click="goHome">进入主页</span>							
 					</div>
 				</li>
 				
@@ -99,19 +74,11 @@ export default {
 			total:0,
 			loading: '',
 			sxOn:0,
-			sxtj:0,
+			sxtj:1,
 			sxData:[
-				[
-				{name:'我关注的人',key:1},
-				{name:'我的粉丝',key:1},
-				],
-				[
-					{name:'TA关注的人',key:1},
-					{name:'TA的粉丝',key:1},
-				]
-			],
-		
-			onType:'followList',
+				[{name:'我关注的人',key:1},{name:'我的粉丝',key:1}],
+				[{name:'TA关注的人',key:1},{name:'TA的粉丝',key:1}]
+			],		
 			follwTyle:0,
 			openOns:'',
 		}
@@ -121,6 +88,9 @@ export default {
 		
 	}, 
 	methods: {
+		goHome(){
+			this.$router.push({path:'/works',query:{id:window.userInfo.open_id}});			
+		},
 		isMe(id){
 			if(!window.userInfo){
 				return false
@@ -197,14 +167,10 @@ export default {
 			this.openIdd = '';
 		},
 		sxFn(on){
-			this.sxtj = on;
-			
-			this.onType = 'followList';
 			if(on==1){
-				this.onType = 'fansList';
+				return
 			}
-			this.followList();
-			//this.onType = 'fansList';
+			this.$router.push({path: '/follow',query:{id:this.$route.query.id}})	
 		},
 		goUser(on){
 			this.$router.push({path: '/works',query:{id:this.List[on].open_id}})	
@@ -223,14 +189,13 @@ export default {
 			if(this.$route.query.id!=window.userInfo.open_id){
 				this.sxOn = 1;
 			}
-			console.log(this.sxOn)
 			let pr = {
 				access_token:window.userInfo.access_token,
 				user_open_id:this.$route.query.id,
 				page:this.page,
 				limit:this.limit
 			};
-			this.api[this.onType](pr).then((da)=>{
+			this.api.fansList(pr).then((da)=>{
 				if(!da){
 					return
 				}

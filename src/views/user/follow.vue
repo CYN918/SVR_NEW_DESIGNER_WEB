@@ -116,7 +116,10 @@ export default {
 			openOns:'',
 		}
 	},
-	mounted: function () {			
+	mounted: function () {	
+		if(this.$route.query.id!=window.userInfo.open_id){
+			this.sxOn = 1;
+		}
 		this.followList();
 		
 	}, 
@@ -197,47 +200,31 @@ export default {
 			this.openIdd = '';
 		},
 		sxFn(on){
-			this.sxtj = on;
-			
-			this.onType = 'followList';
-			if(on==1){
-				this.onType = 'fansList';
+			if(on==0){
+				return
 			}
-			this.followList();
-			//this.onType = 'fansList';
+			this.$router.push({path: '/followFans',query:{id:this.$route.query.id}})							
 		},
 		goUser(on){
 			this.$router.push({path: '/works',query:{id:this.List[on].open_id}})	
 		},
-		backtime(time){
-		
+		backtime(time){		
 			return	window.getTimes(time);
-		},	
-	
-		openxq(on){
-			
+		},		
+		openxq(on){			
 			window.open('#/cont?id='+on)
-		},
-		
-		followList(){
-			if(this.$route.query.id!=window.userInfo.open_id){
-				this.sxOn = 1;
-			}
-			console.log(this.sxOn)
+		},		
+		followList(){			
 			let pr = {
 				access_token:window.userInfo.access_token,
 				user_open_id:this.$route.query.id,
 				page:this.page,
 				limit:this.limit
 			};
-			this.api[this.onType](pr).then((da)=>{
-				if(!da){
-					return
-				}
+			this.api.followList(pr).then((da)=>{
+				if(!da){return}
 				this.List = da.data;
 				this.total = da.total;
-				
-				
 			})
 		},
 		
