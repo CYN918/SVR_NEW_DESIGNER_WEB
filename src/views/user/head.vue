@@ -301,7 +301,7 @@ export default {
 			if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)||e.target.files.length==0) {
 				return
 			}
-			if(fld.size>10*1024*1024){
+			if(file.size>10*1024*1024){
       			Message({message: '文件过大'});
       			return
       		}
@@ -316,6 +316,11 @@ export default {
 			this.option.img = data;
 			}
 			reader.readAsArrayBuffer(file);
+		},
+	},
+	watch: {	
+		'$route': function() {
+			this.init();
 		},
 	}
 }	

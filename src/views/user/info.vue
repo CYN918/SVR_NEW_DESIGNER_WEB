@@ -109,6 +109,7 @@ export default {
 	text-align-last: justify;
 }
 .info_box>div>div>span:last-child{
+	color: #333;
 	text-align: left;
 	width: auto;
 }

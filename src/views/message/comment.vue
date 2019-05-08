@@ -249,7 +249,7 @@ export default {
 	
 			let op = {
 				access_token:window.userInfo.access_token,
-				type:'notify',
+				type:'comment',
 			};
 			this.api.Messageread(op).then((da)=>{
 				if(!da){

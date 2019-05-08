@@ -27,6 +27,7 @@
 						</div>
 					</div>
 				</div>
+				<userTc :tcData="el"></userTc>
 			</li>
 		</ul>
 		<el-pagination class="pagesddd" v-if="List.length>0"
@@ -44,10 +45,10 @@
 </template>
 
 <script>
-
 import { Loading } from 'element-ui';
+import userTc from '../components/userTc';
 export default {
-
+	components:{userTc},
 	name: 'home',
 	data(){
 		return {

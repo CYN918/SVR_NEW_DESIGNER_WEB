@@ -119,7 +119,13 @@ export default {
 			this.page = val;
 			this.getHList();
 		}
+	},
+	watch: {	
+		'$route': function() {
+			this.getHList();
+		},
 	}
+	
 }
 </script>
 

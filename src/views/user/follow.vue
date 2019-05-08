@@ -309,7 +309,7 @@ export default {
 	color: #333333;
 }
 .worksBox_2_1>.oncdf{
-	background: #E6E6E6;
+	color: #FF5121;
 }
 .worksBox_2_1>div:hover{
 	background: #E6E6E6;

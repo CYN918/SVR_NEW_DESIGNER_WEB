@@ -168,7 +168,6 @@ input:-ms-input-placeholder{
 .i_listd>li{
 	cursor: pointer;
 	display: inline-block;
-	overflow: hidden;
 	width: 309.8px;
 	height: 312.9px;
 	background: #F6F6F6;
@@ -181,6 +180,9 @@ input:-ms-input-placeholder{
 }
 .homeMinheifh{
 	min-height: 404px
+}
+.homeMinheifh>li{
+	position: relative;
 }
 .banner1{
 	position: relative;
