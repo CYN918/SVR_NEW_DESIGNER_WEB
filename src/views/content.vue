@@ -246,7 +246,6 @@ export default {
 		},
         SHOWreport(){
             this.isRep=true;
-            this.init();
 		},
         closed(){
 		    this.isRep=false

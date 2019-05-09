@@ -22,22 +22,22 @@
 						<div class="sxBodx2_2" ref="listDom">
 							<ul v-if="sxType==0" class="sxBodx2_2x">
 								<div  v-for="(el,index) in listData">
-									<li v-if="checkInchat(el.open_id)==false">
+									<li v-if="checkInchat(index,el.user_info.open_id)==false">
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
-									<div>
-										<div @click="cheond(index)" class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
-										<div @click="cheond(index)" class="sxBodx2_2x_3">{{el.last_message}}</div>
+									<div @click="cheond(index)">
+										<div class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
+										<div class="sxBodx2_2x_3">{{el.last_message}}</div>
 									</div>
 									</li>
 								</div>								
 							</ul>
 							<ul v-if="sxType==1" class="sxBodx2_2x">
 								<div v-for="(el,index) in listData">
-									<li>
+									<li v-if="checkInchat(index,el.user_info.open_id)==false">
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
-									<div>
-										<div @click="cheond(index)" class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
-										<div @click="cheond(index)" class="sxBodx2_2x_3">{{el.content}}</div>
+									<div @click="cheond(index)">
+										<div class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
+										<div class="sxBodx2_2x_3">{{el.content}}</div>
 									</div>
 									</li>
 								</div>								
@@ -46,18 +46,25 @@
 						<div class="sxBodx2_3"></div>
 					</div>
 					
-					<div class="sxBodx3">
-				
+					<div class="sxBodx3">				
 						<div class="sxBodx2_1">
-							<div class="sxBodx3_1_1">Harriett Bass<span class="sxBodx3_1_2">与你的对话</span><span class="sxBodx3_1_3 iconfont">&#xe73c;</span></div>
+							<div class="sxBodx3_1_1" >
+								{{listData[0]?listData[0].user_info.username:''}}
+								<span class="sxBodx3_1_2">与你的对话</span>
+								<span class="sxBodx3_1_3 iconfont">&#xe73c;
+									<div class="sxBodx3_1_3xzk1">
+										<div class="sxBodx3_1_3xzk">
+											<div @click="isRepfn">举报</div>
+											<div v-if="sxType==0" @click="delChat">删除对话</div>
+										</div>
+									</div>
+								</span>
+							</div>
 						</div>
-						<div class="sxBodx3_2" id="meegBox" ref="messgDom">
-							
+						<div class="sxBodx3_2" id="meegBox" ref="messgDom">							
 							<ul>
-								
-								
 								<div v-for="(el,index) in messGlist" :key="index">
-									<li v-if="index==0 || el.istimed"><div class="sxBodx3_2x_1">{{backtime(el.create_time)}}</div></li>
+									<li v-if="el.isshowtime"><div class="sxBodx3_2x_1">{{backtimed(el.create_time)}}</div></li>
 									<li>
 										<div v-if="checkisme(el.open_id)==false" class="jyb_x2">
 										<div class="sxBodx3_2xbox sxBodx3_2x_2">
@@ -87,24 +94,27 @@
 								<span @click="addChatMessage()">回复</span>
 							</div>
 						</div>
-					</div>
-					
+					</div>					
 				</div>
 			</div>
 			
 		</div>
-		
+		<RPT v-if="isRep" :accused_open_id="jbopen_id" :position="'message'" :link_id="jblink_id"></RPT>
 	</div>
 </template>
 
 <script>
-import Input from '../../components/input';
+import Input from '../../components/input'
 import {Message} from 'element-ui'
+import RPT from '../../components/report'
 export default {
-	components:{Input},
+	components:{Input,RPT},
 	name: 'chat',
 	data(){
 		return {
+			isRep:false,
+			jbopen_id:'',
+			jblink_id:'',
 			hfnc:'',
 			messgNum:{},
 			navDta:[
@@ -136,7 +146,10 @@ export default {
 			ondfgData:'',
 			chatid:'',
 			chatTYD:0,
-			
+			urlOpen:0,
+			deletArr:[],
+			deletType:0,
+			onTimed:'',
 		}
 	},
 	mounted: function () {			
@@ -144,19 +157,75 @@ export default {
 		
 	}, 
 	methods: {
-		checkInchat(id){
-			if(id == this.chatid){
-				console.log(22222);
-				if(this.chatTYD==1 ){
-					return true;
-				}
-				
-				this.chatTYD=1;
-				return false;
-			}	
-			console.log(333);		
-			return false
+		backtimed(timed){
+			let tid = new Date(timed*1000);
 			
+			let str = '';
+			
+			
+			
+			str += tid.getFullYear();
+			let yf = tid.getMonth();
+			if(yf<10){
+				yf = '0'+yf;
+			}
+			str +='-'+yf;
+			let day = tid.getDate();
+			if(day<10){
+				day = '0'+day;
+			}
+			str +='-'+day;
+			return str
+		},
+		closed(){
+			this.isRep = false;
+		},
+		isRepfn(){
+			if(!this.listData[this.messgOn] || !this.listData[this.messgOn].chat_id){
+				Message({message: '数据错误该信息无法举报'});
+				return
+			}
+			
+			this.jbopen_id = this.listData[this.messgOn].user_info.open_id;
+			this.jblink_id = this.listData[this.messgOn].chat_id;
+			this.isRep = true;
+		},
+		delChat(){	
+			if(this.deletType==1){
+				Message({message: '正在删除请稍后'});
+				return
+			}
+			
+			let pr = {
+				access_token:window.userInfo.access_token,
+				
+			};			
+			if(!this.listData[this.messgOn].chat_id){
+				this.listData.splice(this.messgOn,1);
+				Message({message: '删除成功'});
+				this.$route.query.openid = '';
+				this.getMessgList();
+				return
+			}
+			
+			this.deletType==1;
+			
+			pr.chat_id=this.listData[this.messgOn].chat_id;
+			this.api.delChat(pr).then((da)=>{
+				this.deletType=0;
+				if(!da){return}
+			
+				Message({message: '删除成功'});
+				this.getMessgList();
+			}).catch(()=>{
+				this.deletType=0;
+			});
+		},
+		checkInchat(on,id){
+			if(on>0 && id== this.listData[0].user_info.open_id){
+				return true;
+			}
+			return false			
 		},
 		goUser(id){
 			this.$router.push({path: '/works',query:{id:id}})	
@@ -166,6 +235,7 @@ export default {
 				return
 			}
 			this.messgOn = on;
+			
 			this.getMessageList();
 		},
 		checkNav(on){
@@ -177,6 +247,15 @@ export default {
 			if(on==1){
 				this.chatType = 'chat_follow';
 			}
+			this.messgOn = 0;
+			this.messPage = 1;
+			this.page=1;
+			if(this.$route.query && (this.$route.query.id || this.$route.query.openid)){
+		
+				this.urlOpen=1;
+				this.onTypedf=0;
+				this.getChatDetail();
+			}
 			this.getMessgList();
 			this.sxType=on;
 		},
@@ -184,6 +263,9 @@ export default {
 			if(this.getAjxType3==1){
 				Message({message: '正在发送'});
 				return
+			}
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
 			}
 			let pr = {
 				access_token:window.userInfo.access_token,
@@ -219,7 +301,9 @@ export default {
 			return window.getTimes(t*1000)
 		},
 		getMessageList(){
-	
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+			}
 			let pr = {
 				access_token:window.userInfo.access_token,
 				chat_id:this.listData[this.messgOn].chat_id,
@@ -232,20 +316,33 @@ export default {
 					return
 				}
 				this.pushCk();
+				
+				for(let i=0,n=da.length;i<n;i++){
+					if(i==0){
+						da[i].isshowtime = 1;
+						continue
+					}
+					
+					if(da[i].create_time-da[i-1].create_time>5*60){
+						da[i].isshowtime = 1;
+						continue
+					}
+					
+				}
+				
 				this.messGlist = da.reverse();
 		
 			});
 			
 		},
-		init(){
-	
-			if(this.$route.query && (this.$route.query.id || this.$route.query.openid)){	
+		init(){	
+			if(this.$route.query && (this.$route.query.id || this.$route.query.openid)){
+				this.urlOpen=1;
 				this.getChatDetail();
 			}
-		
-			this.getMessgNumber();
-			this.getMessgList();
 			
+			this.getMessgList();
+			this.getMessgNumber();
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
 			window.onscroll = ()=>{
@@ -266,17 +363,20 @@ export default {
 	
 				
 			};
+				
 			this.addEvent2(this.$refs.listDom);
 			this.addEvent1(this.$refs.messgDom);
 			
 		},
-		addEvent2(obj){
-			
+		addEvent2(obj){				
 			obj.onscroll = ()=>{
 				let t = obj.scrollTop||obj.scrollTop;
 				let b = obj.scrollHeight-580;
+			
 				if(t==b && this.getAjxType1==0){
-					
+					if(!window.userInfo){
+						this.$router.push({path:'/login'})
+					}
 					let pr = {
 						access_token:window.userInfo.access_token,
 						type:'chat',
@@ -300,19 +400,23 @@ export default {
 				}
 			
 			}
+			
 		},
 		addEvent1(obj){
+				
 			obj.scrollTop = obj.scrollHeight-540;
 			
 			setTimeout(()=>{
 				obj.scrollTop = obj.scrollHeight-540;
 			},300);	
 					
-			
 			obj.onscroll = ()=>{
 				let t = obj.scrollTop||obj.scrollTop;
 				if(t==0 && this.getAjxType2==0){
 					this.getAjxType2=1;
+					if(!window.userInfo){
+						this.$router.push({path:'/login'})
+					}
 					let pr = {
 						access_token:window.userInfo.access_token,
 						chat_id:this.listData[this.messgOn].chat_id,
@@ -325,7 +429,17 @@ export default {
 						if(!da){
 							return
 						}
-						this.messGlist[0].istimed = true;
+						for(let i=0,n=da.length;i<n;i++){
+							if(i==0){
+								da[i].isshowtime = 1;
+								continue
+							}
+							
+							if(da[i].create_time-da[i-1].create_time>5*60){
+								da[i].isshowtime = 1;
+								continue
+							}							
+						}
 						this.messGlist = da.reverse().concat(this.messGlist);
 						if(da.length==0){
 							this.getAjxType2=1;
@@ -338,29 +452,32 @@ export default {
 				}
 			
 			}
+		
 			
 		},
 		pushCk(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+			}
 			let op = {
 				access_token:window.userInfo.access_token,
 				type:'chat',
 			};
-			if(!this.listData[this.messgOn].chat_id){
+			if(this.listData[this.messgOn].chat_id){
+				op.chat_id = this.listData[this.messgOn].chat_id;
+				
+			}else if(this.listData[this.messgOn].user_info.open_id){
 				op.to_open_id = this.listData[this.messgOn].user_info.open_id;
 			}else{
-				op.chat_id = this.listData[this.messgOn].chat_id;
-			}
-			
+				return
+			}			
 			this.api.Messageread(op).then((da)=>{
-				if(!da){
-					return
-				}
+				if(!da){return}
 			})
 		},
 		setScll(top){
 			
-			if (document.documentElement && document.documentElement.scrollTop) {
-			
+			if (document.documentElement && document.documentElement.scrollTop) {			
                 document.documentElement.scrollTop = Number(top);
             }
             if (document.body) {			
@@ -368,6 +485,9 @@ export default {
 			}	
 		},
 		getMessgNumber(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+			}
 			let pr = {
 				access_token:window.userInfo.access_token
 			};
@@ -378,16 +498,17 @@ export default {
 				this.messgNum = da;
 				this.navDta[0].l = 0;
 				this.navDta[1].l = this.messgNum.unread_comment_num;
-				this.navDta[2].l = this.messgNum.unread_chat_num;
-		
+				this.navDta[2].l = this.messgNum.unread_chat_num;		
 			})
 		},
 		getChatDetail(){
-			
+		
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+			}
 			let pr = {
 				access_token:window.userInfo.access_token,				
-			};
-			
+			};			
 			if(this.$route.query.id){
 				pr.chat_id = this.$route.query.id;
 			}
@@ -395,56 +516,64 @@ export default {
 				pr.to_open_id = this.$route.query.openid;
 			}
 			this.api.getChatDetail(pr).then((da)=>{
-				if(!da){return}
-				
-				if(typeof da=='Array'){
+				if(!da){return}	
+					
+				if(!da.user_info){
 					this.ondfgData = {
-						open_id: this.$route.query.openid,
+						open_id: window.userInfo.open_id,
 						user_info:{
 							open_id:this.$route.query.openid,
 							username:this.$route.query.username,
 							avatar:this.$route.query.avatar
 						}
 					};
-					this.chatid = this.ondfgData.open_id;
+					this.chatid = this.ondfgData.user_info.open_id;
 					if(this.listData.length>0){
 						this.listData.unshift(this.ondfgData);
+						this.getMessageList();
+						this.urlOpen=0;
 						this.onTypedf=1;
 					}
 					return;
 				}
 				this.ondfgData = da;
-				this.chatid = this.ondfgData.open_id;
+				this.chatid = this.ondfgData.user_info.open_id;
 				if(this.listData.length>0){
 					this.listData.unshift(da);
 					this.onTypedf=1;
+					this.urlOpen=0;
+					this.getMessageList();
 				}
-
+				
 				
 			});
 		},
 		getMessgList(type){
-			
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+			}
 			let pr = {
 				access_token:window.userInfo.access_token,
 				type:this.chatType,
 				page:this.page,
 				limit:this.limit
 			};
-			
-			
-			
+			this.chatTYD=0;
 			this.api.getMessgList(pr).then((da)=>{
 				if(!da){return}
-
-				this.listData = da.data;		
-				if(this.onTypedf==0){
-					
-					this.listData.unshift(this.ondfgData);	
-								console.log(this.listData)
+				this.listData = da.data;	
+				if(this.urlOpen==0){
+					this.getMessageList();
+					return
 				}
-		
-				this.getMessageList();
+				if(this.onTypedf==0 && this.ondfgData){
+					this.listData.unshift(this.ondfgData);	
+					this.getMessageList();
+					this.urlOpen=0;
+					return
+				}
+						
+				
 			});
 		},
 
@@ -546,6 +675,7 @@ export default {
 	border-bottom: 2px solid rgba(151, 151, 151, .1);
 }
 .sxBodx2_2x>div>li>img{
+	cursor: pointer;
 	display: inline-block;
 	vertical-align: top;
 	border-radius: 50%;
@@ -553,9 +683,11 @@ export default {
 	height: 32px;
 }
 .sxBodx2_2x>div>li>div{
+	cursor: pointer;
 	display: inline-block;
 	margin-left: 10px;
 	width: 207px;
+	min-height: 57px;
 }
 .sxBodx2_2x_1{
 	font-size: 14px;
@@ -668,5 +800,40 @@ export default {
 .xxbox_c{
 	width: 90%;
     margin: 30px 37px 0;
+}
+.sxBodx3_1_3{
+	position: absolute;
+    right: 33px;
+    top: 0;
+}	
+.sxBodx3_1_3:hover>.sxBodx3_1_3xzk1{
+	display: block;
+}
+.sxBodx3_1_3xzk1{
+	display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 53px;
+    height: 60px;
+}
+.sxBodx3_1_3xzk{
+	position: absolute;
+    top: 44px;
+    right: 2px;
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	width: 102px;
+	padding: 10px 0;
+}
+.sxBodx3_1_3xzk>div{
+	cursor: pointer;
+	font-size: 14px;
+	color: #333333;
+	line-height: 30px;
+}
+.sxBodx3_1_3xzk>div:hover{
+	background: #E6E6E6;
 }
 </style>

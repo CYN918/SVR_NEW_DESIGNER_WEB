@@ -46,7 +46,10 @@
 						<span>所在地</span>
 						<Citys v-model="form.citye"></Citys>						
 					</div>
-					<div :class="['yhtop5',btnType]" @click="addSelfInfo">进入首页</div>
+					<div class="yhtop6f">
+						<div class="yhtop5 btnType" @click="goOut">退出</div>
+						<div :class="['yhtop5',btnType]" @click="addSelfInfo">进入首页</div>
+					</div>
 				</div>
 			</div>
 			
@@ -67,62 +70,7 @@ export default {
 	components:{upoloadcaver,Input,Citys,Select,rideo,Footer,inptPhone},
 	data(){		
 		return{	
-			vp_r(val){
-				if(!val){
-					return {type:false,text:'请确认密码',cls:'errd'}
-				}
-				if(this.$parent.$parent.form.password != val){
-					return {type:false,text:'两次密码不一致',cls:'errd'}
-				}
-				return true
-			},
-			chekPssword(val){	
-				if(!val){
-					return {type:false,text:'请输入密码',cls:'errd'}
-				}
-				if(!(/^\S*$/.test(val))){ 				
-					return {type:false,text:'密码不能有空格',cls:'errd'}
-				} 				
-				let len = val.length;				
-				if(len<6){
-					return {type:false,text:'强度：太短',cls:'errd2'}
-				}
-				if(len<10){
-					return {type:true,text:'强度：中等',cls:'errd3'}
-				}
-				
-				if(len>16){
-					return {type:false,text:'密码请小于16位',cls:'errd'}
-				}
-				if(len<17){
-					return {type:true,text:'强度：安全',cls:'errd4'}
-				}
-				return false;
-			},
-			chekPhpne:function(val){
-				if(this.form.mobile_zone!='86'){
-					if(!(typeof val === 'number' && val%1 === 0)){
-						return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 					
-					}			
-					return true; 
-				}	
-				if(!(/^1[34578]\d{9}$/.test(val))){ 
-					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
-				} 
-				return true;
-			},
-			chekverify:function(val){
-				if(!val){
-					return {type:false,text:'请填写验证码',cls:'errd5'}; 
-				}
-				if(!(/^\S*$/.test(val))){ 				
-					return {type:false,text:'验证码不能有空格',cls:'errd5'}; 
-				} 			
-				if(val.length!=6){
-					return {type:false,text:'请填写6位验证码',cls:'errd5'}
-				}
-				return true
-			},
+			
 			isPhto:false,
 			caver:'/imge/nav_tx.png',
 			form:{
@@ -166,7 +114,22 @@ export default {
 	},
 	mounted: function () {}, 
 	methods: {
-
+		goOut(){
+			let p = {
+				access_token:window.userInfo.access_token
+			};
+			this.api.logout(p).then((da)=>{
+				if(!da){
+					return
+				}			
+				localStorage.setItem('pass','');			
+				localStorage.setItem('userT','');
+				window.userInfo='';
+				window.passIn = '';
+				this.$router.push({path: '/login'})	
+			});
+		},
+		
 		checkphoneBack(type,on){
 			this[on] = type;			
 		},
@@ -376,7 +339,15 @@ export default {
 	color: #333333;
 	padding: 0;
 }
-.yhtop5{
+.yhtop6f{
+	position: absolute;
+    bottom: 65px;
+    left: 0;
+	width: 100%;
+}
+.yhtop6f>div{
+	display: inline-block;
+	margin: 0 15px;
 	width: 200px;
 	height: 40px;
 	font-size: 16px;
@@ -385,12 +356,8 @@ export default {
 	background: #999999;
 	line-height: 40px;
 	border-radius: 5px;
-	margin: 0 auto;
-	position: absolute;
-    bottom: 65px;
-    left: 50%;
-    transform: translateX(-50%);
 }
+
 .yhtop5:hover{
 	cursor: pointer;
 	opacity: .7;

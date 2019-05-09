@@ -213,7 +213,7 @@ export default {
 				return;
 			}
 			if(len<17){
-				this.checkBack(false);
+				this.checkBack(true);
 				this.setErro('pherr4','强度：安全');
 				return;
 			}

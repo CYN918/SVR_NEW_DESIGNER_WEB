@@ -26,7 +26,11 @@
 						<span>所在地</span>
 						<Citys v-model="form.citye"></Citys>						
 					</div>
-					<div :class="['yhtop5',btnType]" @click="addSelfInfo">进入首页</div>
+					<div class="yhtop6f">
+						<div class="yhtop5 btnType" @click="goOut">退出</div>
+						<div :class="['yhtop5',btnType]" @click="addSelfInfo">进入首页</div>
+					</div>
+					
 				</div>
 			</div>
 			
@@ -88,6 +92,21 @@ export default {
 		console.log(window.userInfo)
 	}, 
 	methods: {
+		goOut(){
+			let p = {
+				access_token:window.userInfo.access_token
+			};
+			this.api.logout(p).then((da)=>{
+				if(!da){
+					return
+				}			
+				localStorage.setItem('pass','');			
+				localStorage.setItem('userT','');
+				window.userInfo='';
+				window.passIn = '';
+				this.$router.push({path: '/login'})	
+			});
+		},
 		showisPhto(){
 			this.$refs.upoloadcaver.setImgd(this.caver);
 			this.isPhto=true;
@@ -241,7 +260,15 @@ export default {
 	color: #333333;
 	padding: 0;
 }
-.yhtop5{
+.yhtop6f{
+	position: absolute;
+    bottom: 65px;
+    left: 0;
+	width: 100%;
+}
+.yhtop6f>div{
+	display: inline-block;
+	margin: 0 15px;
 	width: 200px;
 	height: 40px;
 	font-size: 16px;
@@ -250,11 +277,6 @@ export default {
 	background: #999999;
 	line-height: 40px;
 	border-radius: 5px;
-	margin: 0 auto;
-	position: absolute;
-    bottom: 65px;
-    left: 50%;
-    transform: translateX(-50%);
 }
 .yhtop5:hover{
 	cursor: pointer;

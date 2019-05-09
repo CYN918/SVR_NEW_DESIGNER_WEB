@@ -228,6 +228,9 @@ export default {
 		url:'/Api/Message/chatDetail',method:'post',baseURL:0,
 	},
 	
+	delChat:{
+		url:'/Api/Message/delChat',method:'post',baseURL:0,
+	},
 
 	
 	
