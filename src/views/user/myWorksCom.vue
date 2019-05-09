@@ -437,10 +437,18 @@ export default {
 	height: 231.6px;
 	overflow: hidden;
 }
-.myListBox_1>.myListBox_1_1{
+.myListBox_1>.myListBox_1_1{	
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
 	cursor: pointer;
-	width: 309.8px;
-	height: 231.6px;
+	max-height: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	margin: auto;
 	-webkit-transition: transform .1s linear;
 	transition: transform .1s linear;
 }
