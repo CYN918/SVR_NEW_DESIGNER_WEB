@@ -107,9 +107,9 @@
 						</div>
 					</div>
 					<div class="seed2_2_1_2">
-						<div>粉丝<div>{{contDat.user_info.fans_num}}</div></div>
+						<div @click="goFans('/followFans',contDat.user_info.open_id)">粉丝<div>{{contDat.user_info.fans_num}}</div></div>
 						<div>人气<div>{{contDat.user_info.popular_num}}</div></div>
-						<div>创作<div>{{contDat.user_info.work_num}}</div></div>
+						<div @click="goFans('/works',contDat.user_info.open_id)">创作<div>{{contDat.user_info.work_num}}</div></div>
 					</div>
 					<div class="seed2_1_1_3">
 
@@ -118,7 +118,7 @@
 						<div v-else>
 							<span @click="showHb2" v-if="contDat.user_info.follow_flag>0">已关注</span>
 							<span @click="Follow_add()" v-else>关注</span>
-							<span>私信</span>
+							<span @click="gosx(contDat)">私信</span>
 						</div>
 						
 						
@@ -234,6 +234,13 @@ export default {
 		this.getCommentList();
 	}, 
 	methods: {
+		
+		gosx(el){
+			this.$router.push({path:'/chat',query:{openid:el.open_id,avatar:el.avatar,username:el.username}});
+		},
+		goFans(d,id){
+			this.$router.push({path:d,query:{id:id}});
+		},
 		fxclick(){
 			this.$refs.fxd.showShare(true);
 		},
