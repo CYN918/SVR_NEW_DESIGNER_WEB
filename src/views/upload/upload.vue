@@ -143,7 +143,7 @@ export default {
 			form:{
 				work_name:'',
 				
-				attachment_visible:'1',
+				attachment_visible:1,
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
 				is_platform_work:0,
@@ -202,9 +202,11 @@ export default {
 				classify_3:0,
 			},
 			selectedOptions:[],
+			dmtData:'',
+			zk_wrokids:[],
 		}  
 	},
-	watch: {		
+	watch: {	
 		'form.work_name'(val,oldval) {				
 			this.checkPage1();			
 		},
@@ -295,11 +297,12 @@ export default {
 			this.isPhto = true;
 			this.$refs.upoloadcaver.setImgd(this.form.face_pic);
 		},
-		close(img){
+		close(img,fmid){
 			this.isPhto = false;
 			if(img){
 				this.form.face_pic = img;
-			}			
+			}	
+			this.zk_wrokids[0] = fmid;	
 		},
 		showTd(on){
 			this[on] = true;
@@ -373,75 +376,76 @@ export default {
 				return
 			}
 			src = src[1];			
-			if(!this.form.face_pic){
-				this.form.face_pic = src;
-			}
+			// if(!this.form.face_pic){
+			// 	this.form.face_pic = src;
+			// }
 			
 		},
 		ready (editorInstance) {
 			this.uD = editorInstance;
 		
-			editorInstance.addListener('focus',(editor)=>{
-				if(this.ifBjType==0){
-					this.form.content = '';
-					this.ifBjType=1;
-				}
+			editorInstance.addListener('focus',(editor)=>{			
+					if(this.ifBjType==0){
+						this.form.content = '';
+						this.ifBjType=1;				
+					}
 			});
 			editorInstance.addListener('blur',(editor)=>{
-			
-				if(this.ifBjType==1 && this.form.content==''){
-			
+				if(this.ifBjType==1 && this.form.content==''){			
 					this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
 					this.ifBjType=0;
-				}
-			
+				}	
 			});
 
 		},
-		closed(){
+		closed(cr){
 			this.isshowd=false;
+			if(cr){
+				return
+			}
+			if(this.ifBjType==1 && this.form.content==''){			
+				this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
+				this.ifBjType=0;
+			}
 		},
 		showUp(on){
 			this.upConfig = this.upList[on];
 			this.isshowd = true;
+			if(this.ifBjType == 0){
+				this.ifBjType = 1;
+				this.form.content = '';
+			}
+			
 		},
-		inImg(list){
+		inImg(list,ids){
+		
 			let str = '';
 			if(this.upConfig.type[0]=='image/gif'){
 				list.map((el,index,va)=>{
-					str+='<p style="max-width:100%;height:auto;"><img style="max-width:100%;height:auto" src="'+el+'"/></p>';
-				});
-				
-				
-				this.uD.execCommand('insertHtml', str);
-				if(!this.form.content){
-					this.form.content = str;
-					return
-				}
+					str+='<p style="max-width:100%;height:auto;"><img zk_workid="'+ids[index]+'" style="max-width:100%;height:auto" src="'+el+'"/></p>';
+				});								
+				this.uD.execCommand('insertHtml', str);	
+				this.uD.execCommand( 'insertparagraph' )
 				return
 				
 			}
 			
 			if(this.upConfig.type[0]=='video/mp4'){
 				list.map((el,index,va)=>{
-					str+='<p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
+					str+='<p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
 				});
+				
 				this.uD.execCommand('insertHtml', str);
-				if(!this.form.content){
-					this.form.content = str;
-					return
-				}
+				this.uD.execCommand( 'insertparagraph' )
 				return
 			}
 			if(this.upConfig.type[0]=='audio/ogg'){
 				list.map((el,index,va)=>{					
-					str+='<p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
+					str+='<p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio zk_workid="'+ids[index]+'" style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
 				});
+			
 				this.uD.execCommand('insertHtml', str);
-				if(!this.form.content){
-					this.form.content = str;
-					return
-				}
+				this.uD.execCommand( 'insertparagraph' )
 				return
 			}
 			
@@ -474,10 +478,6 @@ export default {
 				this.form.labels = JSON.parse(this.form.labels);
 
 				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
-				
-				
-				
-				
 				if(this.form.attachment){
 					this.upfjData.fid=this.form.attachment_id;
 					this.upfjData.type='上传成功';
@@ -486,8 +486,6 @@ export default {
 					this.upfjData.bf = 100;
 					this.upfjData.name = this.form.attachment.file_name;
 				}
-				
-				// console.log(this.form.attachment_visible)
 			})
 
 		},
@@ -507,8 +505,13 @@ export default {
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
-			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}			
-			this.saveData(this.setSaveData(1,1),'上传成功',()=>{setTimeout(()=>{this.$router.push({path:'/'})},1000)});
+			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}	
+			let str = this.form.content;
+			let arr = str.match(/(?<=(zk_workid="))[^"]*?(?=")/ig);
+            this.zk_wrokids = this.zk_wrokids.concat(arr);
+			let dp = this.setSaveData(1,1);
+			dp.link_ids = this.zk_wrokids.join(',');
+			this.saveData(dp,'上传成功',()=>{setTimeout(()=>{this.$router.push({path:'/'})},1000)});
 		},
 		userSave(){
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
@@ -614,7 +617,8 @@ export default {
 				
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;
-					this.upfjData.fid=da.fid;
+					this.upfjData.fid=da.fid;					
+					this.zk_wrokids[1] = da.fid;
 					this.fjtext= '重新上传';
 					this.upfjData.type='上传成功';
 					this.$refs.upnfile2.value ='';		
@@ -677,7 +681,7 @@ export default {
 				p = p.replace(/id/g,"value");
 				p = p.replace(/sub_data/g,"children");
 				this.page2.classify = JSON.parse(p);
-                console.log(p)
+         
 			})
 		},
     }
@@ -1045,6 +1049,9 @@ export default {
 	position: relative;
 	margin-right: 10px;
 }
+
+
+
 .page2_1_7_r>label>div>div{
 	vertical-align: middle;
 	box-sizing: border-box;
@@ -1052,6 +1059,12 @@ export default {
 	border-radius: 2px;
 	width: 8px;
 	height: 8px;
+}
+
+
+.page2_1_7_r>label>div>div.chekdOn{
+	border-color: rgb(255, 81, 33);
+	background: rgb(255, 81, 33);
 }
 .page2_1_7_r>label{
 	cursor: pointer;

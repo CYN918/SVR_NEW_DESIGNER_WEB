@@ -45,19 +45,15 @@ export default {
 			if(!da){
 				return
 			}
-			this.fxUrl1 = 'http://service.weibo.com/share/share.php?url=';
-			this.fxUrl1+=window.location.href;
-			this.fxUrl1+='&sharesource=weibo&title='+da.title;			
-			this.fxUrl1+='&pic='+da.pic+'&appkey=2706825840&sudaref=zixuephp.net&display=0&retcode=6102#_loginLayer_1528860698455';
-			
+			this.fxUrl1 = 'http://service.weibo.com/share/share.php?url='+da.url+'&title='+da.title+'&ralateUid=1733083617&appkey=163310332&pic='+da.pic+'#_loginLayer_1557135339222';
 			this.fxUrl2 = 'http://connect.qq.com/widget/shareqq/index.html?url=';
 			this.fxUrl2+=window.location.href;
-			this.fxUrl2+='&title='+da.title+'&desc='+da.desc+'&summary='+da.summary;
-			this.fxUrl2+='&pic='+da.pic;
+			this.fxUrl2+='&title='+da.title+'&pics='+da.pic+'&summary='+da.summary;
+			this.fxUrl2+=;
 			
-			this.fxUrl3 = 'https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=';
-			this.fxUrl3+=window.location.href+'?sharesource=qzone';
-			this.fxUrl3+='&title='+da.title+'&pic='+da.pic+'&summary='+da.summary;
+			
+			this.fxUrl3 = 'https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+da.href+'&title='+da.title+'&pics='+da.pic+'&summary='+da.summary+'&desc=&site=xx';
+			
 	
 		
 		},

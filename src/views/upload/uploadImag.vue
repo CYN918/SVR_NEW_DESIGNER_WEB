@@ -74,8 +74,8 @@ export default {
 	}, 	
     methods: {
 		InImg(){
-			this.$parent.inImg(this.checIurl);
-			this.closed();
+			this.$parent.inImg(this.checIurl,this.checkin);
+			this.closed(1);
 		},
 		deleteFile(){	
 			if(this.deldetType==1){
@@ -106,7 +106,6 @@ export default {
 					for(let i=0,n=this.deletObj.length;i<n;i++){
 						this.deletObj[i].type='none';						
 					}
-					console.log()
 				}else{
 					Message({message: '删除失败'});	
 				}
@@ -117,8 +116,9 @@ export default {
 				Message({message: '删除失败'});	
 			});
 		},
-		closed(){
-			this.$parent.closed();
+		closed(on){
+		
+			this.$parent.closed(on);
 		},
 		onxz(obj){
 			let lend = this.checkin.indexOf(obj.fid);

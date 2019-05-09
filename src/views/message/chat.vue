@@ -83,9 +83,6 @@
 									</li>
 								</div>
 								
-								<li>
-									<div class="sxBodx3_2x_1">{{backtime(Date.parse(new Date())/1000)}}</div>								
-								</li>
 							</ul>
 						</div>
 						<div class="sxBodx2_3 sxBodx2_3xx">
@@ -133,7 +130,7 @@ export default {
 			plType:0,
 			pl2:'',
 			messgOn:0,
-			messGlimit:5,
+			messGlimit:6,
 			messPage:1,
 			messGlist:[],
 			postMessg:'',
@@ -159,11 +156,16 @@ export default {
 	methods: {
 		backtimed(timed){
 			let tid = new Date(timed*1000);
-			
+		
 			let str = '';
-			
-			
-			
+			let hos = tid.getHours();
+			if(hos<10){
+				hos = '0'+hos;
+			}
+			let fz = tid.getMinutes();
+			if(fz<10){
+				fz = '0'+fz;
+			}
 			str += tid.getFullYear();
 			let yf = tid.getMonth();
 			if(yf<10){
@@ -175,7 +177,7 @@ export default {
 				day = '0'+day;
 			}
 			str +='-'+day;
-			return str
+			return str+' '+hos+':'+fz;
 		},
 		closed(){
 			this.isRep = false;
@@ -297,7 +299,10 @@ export default {
 			this.$router.push({path: urld[on]});	
 		},
 		
-		backtime(t){		
+		backtime(t){	
+			if(!t){
+				return '';
+			}
 			return window.getTimes(t*1000)
 		},
 		getMessageList(){
@@ -317,19 +322,19 @@ export default {
 				}
 				this.pushCk();
 				
-				for(let i=0,n=da.length;i<n;i++){
-					if(i==0){
-						da[i].isshowtime = 1;
-						continue
-					}
-					
-					if(da[i].create_time-da[i-1].create_time>5*60){
+				let lend = da.length;
+				for(let i=0,n=lend;i<n;i++){
+					if(i==0){continue}		
+	
+					if(da[i-1].create_time-da[i].create_time>5*60){
 						da[i].isshowtime = 1;
 						continue
 					}
 					
 				}
-				
+				if(!da[lend-1].isshowtime){
+					da[lend-1].isshowtime=1;
+				}
 				this.messGlist = da.reverse();
 		
 			});
@@ -429,16 +434,21 @@ export default {
 						if(!da){
 							return
 						}
-						for(let i=0,n=da.length;i<n;i++){
+						let lend = da.length;
+						for(let i=0,n=lend;i<n;i++){
 							if(i==0){
-								da[i].isshowtime = 1;
+								if(this.messGlist[0]-da[i].create_time<5*60)
+								this.messGlist[0].isshowtime = '';								
 								continue
 							}
-							
-							if(da[i].create_time-da[i-1].create_time>5*60){
+						
+							if(da[i-1].create_time-da[i].create_time>5*60){
 								da[i].isshowtime = 1;
 								continue
 							}							
+						}
+						if(!da[lend-1].isshowtime){
+							da[lend-1].isshowtime=1;
 						}
 						this.messGlist = da.reverse().concat(this.messGlist);
 						if(da.length==0){

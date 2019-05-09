@@ -6,7 +6,7 @@
 			<div class="upFm_yl">
 				<div class="upFm_yl_1">
 					<div class="upFm_yl_1_1" >
-						<div class="upFm_yl_1_1x">+</div>
+						
 						<div class="upFm_yl_1_1x2">
 						<div :style="previewStyle2">
 						<div :style="previews.div" class="preview">
@@ -14,7 +14,7 @@
 						</div>
 						</div>
 						</div>
-						<input class="fileinpd" type="file" id="uploads" accept="image/png, image/jpeg, image/jpg" @change="uploadImg">	
+						
 					</div>				
 					<div class="upFm_yl_1_2">
 						<div class="upFm_yl_1_2_1">
@@ -53,6 +53,8 @@
 				@realTime="realTime"				
 				>
 				</vueCropper>
+				<div v-if="!isImff" class="upFm_yl_1_1x">+</div>
+				<input v-if="!isImff" class="fileinpd" type="file" id="uploads" accept="image/png, image/jpeg, image/jpg" @change="uploadImg">	
 			</div>
 			
 			<div class="upFm_yb">
@@ -98,11 +100,23 @@ export default {
 				fixedBox:true,
 			},
 			opType:0,
+			isImff:'',
 		}
 	},	
 	mounted: function () {
 
 	}, 
+	watch: {
+		'option.img'() {			
+			this.isImff = '';
+			if(this.option.img){
+				this.isImff = 1;
+			}
+		},
+	
+	},
+	
+	
 	methods: {
 		
 		close(){
@@ -172,7 +186,7 @@ export default {
 					let ds = da.data;
 					if(ds.result==0){
 						this.caver = ds.data.url;
-						this.$parent.close(this.caver);	
+						this.$parent.close(this.caver,ds.data.fid);	
 					}else{
 						// msg(response.msg);
 					}
@@ -247,6 +261,7 @@ export default {
 	margin-right: 20.1px;
 }
 .upFm_box>div.upFm_yr{
+	position: relative;
 	width: 400px;
 	height: 300px;
 	background: rgba(0,0,0,.4);
