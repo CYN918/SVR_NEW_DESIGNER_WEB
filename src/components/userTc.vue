@@ -1,7 +1,7 @@
 <template>
 	<div class="usertc_6">
 		<div class="usertc_0">
-			<img class="usertc_1" :src="tcData.user_info.avatar" alt="">
+			<img @click="goFans('/works')" class="usertc_1" :src="tcData.user_info.avatar" alt="">
 			<div class="usertc_2">{{tcData.user_info.username}}</div>
 			<div class="usertc_3">{{tcData.user_info.city+' | '+tcData.user_info.vocation}}</div>
 			<div class="usertc_4">
@@ -45,6 +45,7 @@ export default {
 		}
 	},
 	methods: {
+
 		gosx(){
 			this.$router.push({path:'/chat',query:{openid:this.tcData.user_info.open_id,avatar:this.tcData.user_info.avatar,username:this.tcData.user_info.username}});
 		},

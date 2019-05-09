@@ -18,9 +18,9 @@
 						<div @click="goUser(index)">{{el.username}}</div>
 						<div>{{el.province}} | {{el.city}}</div>
 						<div class="i_listd2_d">
-							<span>粉丝<span>{{el.fans_num}}</span></span>
+							<span  @click="goFans('/followFans',el.open_id)">粉丝<span>{{el.fans_num}}</span></span>
 							<span>人气<span>{{el.popular_num}}</span></span>
-							<span>创作<span>{{el.work_num}}</span></span>
+							<span @click="goFans('/works',el.open_id)">创作<span>{{el.work_num}}</span></span>
 						</div>
 						<div>{{el.personal_sign?el.personal_sign:'这个人很懒，什么都没说~'}}</div>
 						<div class="btns_foll" v-if="!isMe(el.open_id)">
@@ -39,25 +39,7 @@
 					</div>
 				</li>
 			</ul>
-			<ul v-if="List.length>0 && sxtj==1" class="follwfs">
-				<li v-for="(el,index) in List" :key="index">
-					<img @click="goUser(index)" class="follwfs_1" :src="el.avatar">
-					<div @click="goUser(index)" class="follwfs_2">{{el.username}}</div>
-					<div class="follwfs_3">{{el.province}} | {{el.city}}</div>
-					<div class="follwfs_4">
-						<span><span>粉丝</span>{{el.fans_num}}</span>
-						<span><span>人气</span>{{el.popular_num}}</span>
-						<span><span>创作</span>{{el.work_num}}</span>
-					</div>
-					<div class="follwfs_5" v-if="!isMe(el.open_id)">
-						<span>私信</span>
-						<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
-						<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
-						<span @click="Follow_add(index)" v-else>关注</span>						
-					</div>
-				</li>
-				
-			</ul>
+			
 			<div class="pagesddd"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
 			<el-pagination v-if="List.length>0" class="pagesddd"
 			background
@@ -124,6 +106,9 @@ export default {
 		
 	}, 
 	methods: {
+		goFans(d,id){
+			this.$router.push({path:d,query:{id:id}});
+		},
 		isMe(id){
 			if(!window.userInfo){
 				return false

@@ -8,12 +8,12 @@
 					<div @click="goUser(index)" class="follwfs_2">{{el.username}}</div>
 					<div class="follwfs_3">{{el.province}} | {{el.city}}</div>
 					<div class="follwfs_4">
-						<span><span>粉丝</span>{{el.fans_num}}</span>
+						<span @click="goFans('/followFans',el.open_id)"><span>粉丝</span>{{el.fans_num}}</span>
 						<span><span>人气</span>{{el.popular_num}}</span>
-						<span><span>创作</span>{{el.work_num}}</span>
+						<span  @click="goFans('/works',el.open_id)"><span>创作</span>{{el.work_num}}</span>
 					</div>
 					<div class="follwfs_5">
-						<span>私信</span>
+						<span @click="gosx(el)">私信</span>
 						<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
 						<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
 						<span @click="Follow_add(index)" v-else>关注</span>						
@@ -84,6 +84,12 @@ export default {
 		
 	}, 
 	methods: {
+		gosx(el){
+			this.$router.push({path:'/chat',query:{openid:el.open_id,avatar:el.avatar,username:el.username}});
+		},
+		goFans(d,id){
+			this.$router.push({path:d,query:{id:id}});
+		},
 		showFpllwodel(on){
 			this.isshowd2 = true;
 			this.openOns = on;

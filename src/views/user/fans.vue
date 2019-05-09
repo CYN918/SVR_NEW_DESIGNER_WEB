@@ -17,9 +17,9 @@
 					<div @click="goUser(index)" class="follwfs_2">{{el.username}}</div>
 					<div class="follwfs_3">{{el.province}} | {{el.city}}</div>
 					<div class="follwfs_4">
-						<span><span>粉丝</span>{{el.fans_num}}</span>
+						<span @click="goFans('/followFans',el.open_id)"><span>粉丝</span>{{el.fans_num}}</span>
 						<span><span>人气</span>{{el.popular_num}}</span>
-						<span><span>创作</span>{{el.work_num}}</span>
+						<span @click="goFans('/works',el.open_id)"><span>创作</span>{{el.work_num}}</span>
 					</div>
 					<div class="follwfs_5" v-if="!isMe(el.open_id)">
 						<span>私信</span>
@@ -87,7 +87,15 @@ export default {
 		this.followList();
 		
 	}, 
+	watch: {	
+		'$route': function() {
+			this.followList();
+		},
+	},
 	methods: {
+		goFans(d,id){
+			this.$router.push({path:d,query:{id:id}});
+		},
 		goHome(){
 			this.$router.push({path:'/works',query:{id:window.userInfo.open_id}});			
 		},

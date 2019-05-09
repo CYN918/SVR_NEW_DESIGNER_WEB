@@ -53,9 +53,9 @@
 				<div class="u_top3_2_3">{{userMessage.personal_sign?userMessage.personal_sign:'这个人很懒，什么都没说~'}}</div>
 			</div>
 			<div class="u_top3_3">
-				<span>粉丝<span>{{userMessage.fans_num}}</span></span>
+				<span  @click="goFans('/followFans',userMessage.open_id)">粉丝<span>{{userMessage.fans_num}}</span></span>
 				<span>人气<span>{{userMessage.popular_num}}</span></span>
-				<span>创作<span>{{userMessage.work_num}}</span></span>
+				<span @click="goFans('/works',userMessage.open_id)">创作<span>{{userMessage.work_num}}</span></span>
 			</div>
 			<div class="u_top3_4">
 				<router-link v-if="isMe()" class="u_top3_4_1" to="/upload">上传作品</router-link>
@@ -119,6 +119,9 @@ export default {
       this.qurId = this.$route.query.id;
     },
 	methods: {	
+		goFans(d,id){
+			this.$router.push({path:d,query:{id:id}});
+		},
 		gzclick(){
 			if(this.userMessage.follow_flag==1){
 				this.showHb2();
