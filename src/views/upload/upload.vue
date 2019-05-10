@@ -40,7 +40,7 @@
 				<div v-if="upfjData.type" class="page2_1_5">{{upfjData.type}}<span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span>{{upfjData.bf+'%'}}</div>
 				<div class="page2_1_6" v-if="upfjData.type">
 					
-					<span class="iconfont" :title="upfjData.name">&#xe621;{{upfjData.name?upfjData.name.substring(0,4):''}}<span @click="qxclosd(fileUpfj)" class="iconfont pend">&#xe619;</span></span>
+					<span class="iconfont" :title="upfjData.file_name">&#xe621;{{upfjData.file_name?upfjData.file_name.substring(0,10):''}}<span @click="qxclosd(fileUpfj)" class="iconfont pend">&#xe619;</span></span>
 					
 				</div>
 				<div class="page2_1_7">
@@ -484,7 +484,7 @@ export default {
 					this.$refs.upnfile2.value ='';		
 					this.form.attachment_id = da.attachment_id;	
 					this.upfjData.bf = 100;
-					this.upfjData.name = this.form.attachment.file_name;
+					this.upfjData.file_name = this.form.attachment.file_name;
 				}
 			})
 
@@ -607,6 +607,7 @@ export default {
 				xhr:xhr,
 				type:'上传中'
 			};
+			console.log(this.upfjData)
 			let uploadProgress = (evt)=>{		
 				if(evt.lengthComputable) {
 					let percent = Math.round(evt.loaded * 100 / evt.total);
@@ -818,6 +819,7 @@ export default {
 	margin: 20px 0;
 }
 .upBoxd{
+	min-width: 1305px;
 	height: 756px;
 }
 .UpBtn1{display: block !important;margin-bottom: 120px;}

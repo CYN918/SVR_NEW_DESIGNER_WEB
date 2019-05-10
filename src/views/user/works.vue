@@ -108,6 +108,8 @@ export default {
 			this.api.getUserWorkList(params).then((da)=>{
 				this.List = da.data;
 				this.total = da.total;
+				document.documentElement.scrollTop =0;
+				document.body.scrollTop =0;
 				this.loading.close();
 			})
 		},

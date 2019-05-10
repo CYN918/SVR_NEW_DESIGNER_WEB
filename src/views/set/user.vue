@@ -486,8 +486,9 @@ export default {
 		},
 		close(img){
 			if(img){
-				this.caver = img;
+				this.form.avatar = img;
 			}
+			
 			this.isPhto=false;
 		},
 	}

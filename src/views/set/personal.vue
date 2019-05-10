@@ -17,10 +17,10 @@
 					<div class="suc_1">
 						<div class="suc_title">主体信息<div class="xhds"></div></div>
 						<div class="suc_1_9">
-							<span>身份证姓名</span><el-input class="suc_1_9_1" v-model="postData.name" placeholder="请输入企业/机构名称"></el-input>
+							<span>身份证姓名</span><el-input class="suc_1_9_1" v-model="postData.name" placeholder="请输入姓名"></el-input>
 						</div>
 						<div class="suc_1_9">
-							<span>身份证号码</span><el-input class="suc_1_9_1" v-model="postData.id_card" placeholder="请输入统一社会信用代码"></el-input>
+							<span>身份证号码</span><el-input class="suc_1_9_1" v-model="postData.id_card" placeholder="请输入身份证号码"></el-input>
 						</div>
 						
 						<div class="suc_1_9">

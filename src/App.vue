@@ -896,7 +896,7 @@ input:-ms-input-placeholder{
 }
 .seed2{
 	width: 1300px;
-	margin: 0 auto;
+	margin: 0 auto 45px;
 	
 }
 .seed2_1_1_1x>p{
@@ -1241,6 +1241,9 @@ content: "";
 .pl_02_1:hover .hfdZ_2{
 	opacity: 1;
 }
+.pl_02 .pl_02_1:last-child{
+	border-bottom: 0;
+}
 .pl_02_1{
 	border-bottom: 1px solid #E6E6E6;
 	padding: 20px 0;
@@ -1249,6 +1252,9 @@ content: "";
 	display: flex;
 	width: 100%;
 	margin: 17px auto 0;
+}
+.hfBox input{
+	padding: 0 10px;
 }
 .hfBox .tip{
 	display: none;

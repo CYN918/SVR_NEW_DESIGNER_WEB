@@ -38,7 +38,7 @@
 					</div>		
 							
 				</div>
-				<span v-if="isMe()" class="forddf_btnd">更新资料</span>	
+				<span v-if="isMe()" @click="gouser" class="forddf_btnd">更新资料</span>	
 			</div>
 		</div>
 		
@@ -69,6 +69,9 @@ export default {
 				return false
 			}
 			return this.$route.query.id ==  window.userInfo.open_id;
+		},
+		gouser(){
+			this.$router.push({path: '/setUser'})
 		},
 	}
 }

@@ -123,7 +123,7 @@ export default {
 			this.$router.push({path:d,query:{id:id}});
 		},
 		gzclick(){
-			if(this.userMessage.follow_flag==1){
+			if(this.userMessage.follow_flag==1 || this.userMessage.follow_flag==2){
 				this.showHb2();
 				return
 			}
@@ -147,6 +147,7 @@ export default {
 				this.follwTyle=0;
 				this.hindHb2();
 				this.userMessage.follow_flag=0;
+				this.$router.push({path: this.$route.fullPath+'&p=1'})
 				Message({message: '取消关注成功'});
 			}).catch(()=>{
 				this.follwTyle = 0;		
@@ -172,6 +173,9 @@ export default {
 				}
 				this.follwTyle=0;
 				this.userMessage.follow_flag=1;
+				this.$router.push({path: this.$route.fullPath+'&p=1'})
+				
+				
 				Message({message: '关注成功'});
 			}).catch(()=>{
 				this.follwTyle = 0;		
@@ -201,7 +205,6 @@ export default {
 					return
 				}
 				this.userMessage = da;
-				console.log(da)
 				if(this.$parent.setData){
 					this.$parent.setData(this.userMessage);
 				}

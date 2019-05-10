@@ -37,15 +37,15 @@
 						<li @click="checkZp(el.work_id)" :class="(work_id.indexOf(el.work_id)!=-1 || el.is_attend==1)?'chekonzp':''" v-for="(el,index) in zpList" :key="index">
 							<img class="zp_box_1" :src="el.face_pic">
 							<div class="zp_box_2">
-								{{el.work_name.slice(0,10)}}{{work_id.indexOf(el.work_id)!=-1 || el.is_attend==1}}
-								<img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt="">
+								{{el.work_name.slice(0,10)}}
+								<img v-if="el.is_recommend==1" :src="el.face_pic" alt="">
 							</div>
 							<div class="zp_box_3">
 								{{el.classify_1_name+'-'+el.classify_2_name}}
 								<span>{{backtime(el.create_time)}}</span>
 							</div>
 							<div class="zp_box_4">
-								<img :src="el.face_pic" alt="">
+								<img :src="el.user_info.avatar" alt="">
 								<div>
 									<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
 									<span class="iconfont pend">&#xe672; {{el.like_num}}</span>
@@ -162,6 +162,7 @@ export default {
 					return
 				}
 				this.zpList = da.data;
+				console.log(this.zpList);
 			})
 		},
 		gopushzp(){
@@ -177,6 +178,7 @@ export default {
 					return
 				}
 				this.zpList = da.data;
+				console.log(this.zpList);
 			})
 		},
 		backtime(time){		

@@ -98,6 +98,11 @@ export default {
 			openOns:'',
 		}
 	},
+	watch: {	
+		'$route': function() {
+			this.followList();
+		},
+	},
 	mounted: function () {	
 		if(!window.userInfo){
 			this.sxOn = 1;
@@ -220,6 +225,8 @@ export default {
 				if(!da){return}
 				this.List = da.data;
 				this.total = da.total;
+				document.documentElement.scrollTop =0;
+				document.body.scrollTop =0;
 			})
 		},
 		
@@ -458,7 +465,7 @@ export default {
 	margin-right: 0;
 }
 .follwfs_1{
-	
+	cursor: pointer;
 	display: block;
 	width: 100px;
 	height: 100px;

@@ -55,6 +55,8 @@ export default {
 				
 				this.dataList =da.data;
 				this.pL.total = da.total;
+				document.documentElement.scrollTop =0;
+				document.body.scrollTop =0;
 			});
 		},
 		handleSizeChange(val) {

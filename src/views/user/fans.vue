@@ -216,7 +216,8 @@ export default {
 				}
 				this.List = da.data;
 				this.total = da.total;
-				
+				document.documentElement.scrollTop =0;
+				document.body.scrollTop =0;
 				
 			})
 		},
@@ -456,7 +457,7 @@ export default {
 	margin-right: 0;
 }
 .follwfs_1{
-	
+	cursor: pointer;
 	display: block;
 	width: 100px;
 	height: 100px;
@@ -476,11 +477,15 @@ export default {
 	margin-bottom: 25.2px;
 }
 .follwfs_4>span{
+	cursor: pointer;
 	width: 33%;
 	display: inline-block;
 	font-size: 16px;
 	color: #1E1E1E;
 	text-align: center;
+}
+.follwfs_4>span:nth-child(2){
+	cursor: none;
 }
 .follwfs_4>span>span{
 	display: block;

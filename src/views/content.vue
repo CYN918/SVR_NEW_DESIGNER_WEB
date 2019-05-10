@@ -19,7 +19,7 @@
 				</div>
 			</div>
 			<div class="seed12">
-				<span class="seed1_2_2"><img src="/imge/icon/zs_icon_xx.png">{{hfnum}}</span>
+				<span class="seed1_2_2" @click="gopl"><img src="/imge/icon/zs_icon_xx.png">{{hfnum}}</span>
 				<span class="seed1_2_3"><img @click="addLike('work',contDat.work_id,contDat)" src="/imge/icon/zs_icon_dz.png">{{contDat.like_num}}</span>
 				<span class="seed1_2_4" @click="fxclick"><span class="iconfont">&#xe64c;</span>分享</span>
 				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat)"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
@@ -48,7 +48,7 @@
 						<div  v-if="contDat.attachment_id" @click="downFile(contDat.attachment.url)">下载附件（{{contDat.attachment.file_size_format}}）</div>
 					</div>
 				</div>
-				<div class="plBoxd">
+				<div class="plBoxd" ref="firstAnchor">
 					<div class="seed2_1_2_1">
 						<Input class="userBoxd2" v-model="pl"  :oType="'max'" :max="140"   :type="'text'" :placeholder="'说点什么吧'" ref="tageds"></Input>	
 						<span @click="addComment()">评论</span>
@@ -82,7 +82,7 @@
 									</div>
 									<div class="yasfh">
 										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el2.open_id,el2.comment_id,'comment')">&#xe664;</span>
-										<div class="hfBox" v-if="el2.isshowfh">
+										<div class="hfBox" v-if="el2.isshowfh==1">
 											<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
 											<span @click="addfu2(el2.feed_id,el2.username,index,index2,el2.comment_id)">回复</span>
 										</div>
@@ -91,7 +91,7 @@
 							</div>
 						</div>
 					</div>
-					<div v-if="hfnum>0" class="addmpl" @click="addmpl"><span class="hfdZ_4">{{ishavepltip}}</span></div>
+					<div v-if="hfnum>9" class="addmpl" @click="addmpl"><span class="hfdZ_4">{{ishavepltip}}</span></div>
 					<RPT ref="report"></RPT>
 				</div>
 
@@ -227,6 +227,8 @@ export default {
 			follwTyle:0,
 			addLink:0,
 			topTyped:false,
+			work_id:'',
+			
 		}
 	},
 	mounted: function () {
@@ -234,7 +236,10 @@ export default {
 		this.getCommentList();
 	}, 
 	methods: {
-		
+		gopl(){			
+			document.documentElement.scrollTop =this.$refs.firstAnchor.offsetTop;
+			document.body.scrollTop =this.$refs.firstAnchor.offsetTop;
+		},
 		gosx(el){
 			this.$router.push({path:'/chat',query:{openid:el.open_id,avatar:el.avatar,username:el.username}});
 		},
@@ -378,7 +383,7 @@ export default {
 			this.isshowd = true;	
 			this.deletData = {
 				access_token:window.userInfo.access_token,
-				work_id:this.$route.query.id,
+				work_id:this.work_id,
 				comment_id:cid,
 				feed_id:fid,				
 			};
@@ -409,7 +414,7 @@ export default {
 			return window.getTimes(time)
 		},
 		init(){		
-			
+			this.work_id = this.$route.query.id;
 			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(this.topTyped==0){
@@ -425,7 +430,7 @@ export default {
 			}
 			
 			let pr = {
-				work_id:this.$route.query.id,
+				work_id:this.work_id,
 			}
 			
 			if(window.userInfo){
@@ -469,7 +474,7 @@ export default {
 		},
 		getCommentList(a,b){
 			let pr = {
-				work_id:this.$route.query.id,
+				work_id:this.work_id,
 				page:this.page.page,
 				limit:this.page.limit,
 			};
@@ -500,7 +505,7 @@ export default {
 			let cond = [this.pl];
 			
 			let pr = {
-				work_id:this.$route.query.id,
+				work_id:this.work_id,
 				content	:JSON.stringify(cond),
 				
 			
@@ -545,7 +550,9 @@ export default {
 			}
 			
 			if(on2 >= 0){
+			
                 this.$set(this.hfData[on].sub_comment[on2],'isshowfh','');
+					console.log(this.hfData[on].sub_comment[on2]);
 			}
             if(on2 >= 0){
                 this.$refs.tageds2.value = '';
@@ -570,11 +577,11 @@ export default {
 				|| (this.pl2.length>0 && this.pl2.trim().length == 0)){
                 Message({message: '评论为空'});
 	  			return
-      }
+      		}
             this.plType=1;
 			let cond = ['@'+name,this.pl2];
 			let pr = {
-				work_id:this.$route.query.id,
+				work_id:this.work_id,
 				content	:JSON.stringify(cond),
 				to_comment_id:comId,
 			};
@@ -583,14 +590,17 @@ export default {
 			}
 			pr.access_token = this.page.access_token;
 			this.api.addComment(pr).then((da)=>{
+				if(!da){
+					return
+				}
+				this.initFu(on, on2);
 				if(!this.onPl.fj){
 					this.onPl.fj = 0;
-				}
-				
+				}				
 				if(!this.hfData[this.onPl.fj].sub_comment){
 					this.$set(this.hfData[this.onPl.fj],'sub_comment',[]);
 				}
-
+				
 				this.hfData[this.onPl.fj].sub_comment.unshift({
 					avatar: this.page.avatar,
 					content: pr.content,
@@ -603,7 +613,7 @@ export default {
 				});
 
 				Message({message: '评论成功'});
-                this.initFu(on, on2);
+                
 			}).catch((err)=>{
 				this.plType=0;
 				console.log('err:' + err.toString());

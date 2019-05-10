@@ -194,7 +194,9 @@ export default {
 					return
 				}
 				this.List = da.data;
-				this.total = da.total;				
+				this.total = da.total;	
+				document.documentElement.scrollTop =0;
+				document.body.scrollTop =0;			
 			})
 		},
 		handleSizeChange(val) {
