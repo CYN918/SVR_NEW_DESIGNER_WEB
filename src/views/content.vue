@@ -44,7 +44,7 @@
 					<div class="seed2_1_1_1x" v-html="contDat.content"></div>
 					<div class="seed2_1_1_2">
 						标签<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span>
-						<span class="iconfont" @click="SHOWreport()">&#xe73c;</span>
+						<span class="iconfont" @click="showReport(contDat.user_info.open_id,contDat.work_id,'work')">&#xe73c;</span>
 						<div  v-if="contDat.attachment_id" @click="downFile(contDat.attachment.url)">下载附件（{{contDat.attachment.file_size_format}}）</div>
 					</div>
 				</div>
@@ -66,7 +66,7 @@
 									<div>{{backComt(el.content)[0]}}</div>
 								</div>
 								<div>
-									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2" @click="alterReport(index)">&#xe664;</span>
+									<span class="hfdZ_3" @click="showFhk(index)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el.open_id,el.comment_id,'comment')">&#xe664;</span>
 									<div class="hfBox" v-if="el.isshowfh">
 										<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 										<span @click="addfu2(el.feed_id,el.username,index,index,el.comment_id)">回复</span>
@@ -81,7 +81,7 @@
 										<div><span class="atren">{{backComt(el2.content)[0]}}</span>{{backComt(el2.content)[1]}}</div>
 									</div>
 									<div class="yasfh">
-										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2" @click="alterReport(index,index2)">&#xe664;</span>
+										<span class="hfdZ_3" @click="showFhk(index,index2)">回复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el2.open_id,el2.comment_id,'comment')">&#xe664;</span>
 										<div class="hfBox" v-if="el2.isshowfh">
 											<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
 											<span @click="addfu2(el2.feed_id,el2.username,index,index2,el2.comment_id)">回复</span>
@@ -92,7 +92,7 @@
 						</div>
 					</div>
 					<div v-if="hfnum>0" class="addmpl" @click="addmpl"><span class="hfdZ_4">{{ishavepltip}}</span></div>
-					<RPT v-if="isRep" :accused_open_id="open_id" :position="position" :link_id="link_id"></RPT>
+					<RPT ref="report"></RPT>
 				</div>
 
 			</div>
@@ -181,7 +181,7 @@
 <script>
 import Input from '../components/input'
 import {Message} from 'element-ui'
-import RPT from './user/report'
+import RPT from '../components/report'
 import fxd from '../components/share';
 export default {
 	components:{Input,RPT,fxd},
@@ -247,15 +247,8 @@ export default {
 		goUser(id){
 			this.$router.push({path: '/works',query:{id:id}})	
 		},
-        alterReport(a,b){
-		    this.isRep=true;
-			this.getCommentList(a,b);
-		},
-        SHOWreport(){
-            this.isRep=true;
-		},
-        closed(){
-		    this.isRep=false
+		showReport(id,lid,ad){
+			this.$refs.report.showReport(id,lid,ad);
 		},
 		addLike(type,id,obj){
 			
@@ -445,9 +438,7 @@ export default {
 			this.api.getWorkDetail(pr).then((da)=>{
 				da.labels = JSON.parse(da.labels)
 				this.contDat = da;
-				this.open_id = da.user_info.open_id;
-				this.link_id = da.work_id;
-				this.position = 'work';
+				
 				this.shareData = {
 					url:'https://www.baidu.com',
 					title:this.contDat.work_name,
@@ -486,16 +477,6 @@ export default {
 				pr.access_token = this.page.access_token;
 			}
 			this.api.getCommentList(pr).then((da)=>{
-			    if(a!=undefined&&b==undefined){
-			        this.open_id = da.data[a].open_id;
-			        this.link_id = da.data[a].comment_id;
-			        this.position = 'comment'
-				}
-				if(a!=undefined&&b!=undefined){
-                    this.open_id = da.data[a].sub_comment[b].open_id;
-                    this.link_id = da.data[a].sub_comment[b].comment_id;
-                    this.position = 'comment'
-				}
 				if(da.data.length==0){
 					this.ishavepl=1;
 					this.ishavepltip='没有更多评论了!';

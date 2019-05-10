@@ -63,9 +63,11 @@ export default {
 	
 		setData(data){
 			this.userInfo = data;
-			console.log(this.userInfo)
 		},
 		isMe(){
+			if(!window.userInfo){
+				return false
+			}
 			return this.$route.query.id ==  window.userInfo.open_id;
 		},
 	}

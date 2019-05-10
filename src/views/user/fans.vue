@@ -194,15 +194,22 @@ export default {
 		},
 		
 		followList(){
-			if(this.$route.query.id!=window.userInfo.open_id){
-				this.sxOn = 1;
-			}
 			let pr = {
-				access_token:window.userInfo.access_token,
+				
 				user_open_id:this.$route.query.id,
 				page:this.page,
 				limit:this.limit
 			};
+			if(!window.userInfo){
+				this.sxOn = 1;
+			}
+			if(window.userInfo){
+				pr.access_token = window.userInfo.access_token;
+				if(this.$route.query.id!=window.userInfo.open_id){
+					this.sxOn = 1;					
+				}
+			}
+	
 			this.api.fansList(pr).then((da)=>{
 				if(!da){
 					return

@@ -211,6 +211,9 @@ export default {
 			});
 		},		
 		isMe(){
+			if(!window.userInfo){
+				return false;
+			}
 			return this.$route.query.id ==  window.userInfo.open_id;
 		},
 		showSetBg(){

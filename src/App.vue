@@ -432,19 +432,20 @@ input:-ms-input-placeholder{
 .loginBox{
 	position: relative;
 	width: 100%;
+	height: auto !important;
 	overflow-x: hidden
 	
 }
 
-.logindboxd{
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
+// .logindboxd{
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	width: 100%;
+// 	height: 100%;
+// }
 .login_1{
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%,-50%);

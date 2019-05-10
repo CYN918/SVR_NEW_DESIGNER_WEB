@@ -1,8 +1,8 @@
 <template>
-    <div class="upRpt">
+    <div class="upRpt" v-if="showd">
         <div class="upRpt_bg">
             <div class="upRpt_content">
-                <img class="uploadBoxd2_1" @click="closed" src="/imge/cj_00.png"/>
+                <img class="uploadBoxd2_1" @click="hidReport" src="/imge/cj_00.png"/>
                 <div class="upRpt_title">
                     <span>举报</span>
                 </div>
@@ -22,7 +22,7 @@
                     </el-input>
                 </div>
                 <div class="upRpt_btn">
-                    <span class="qx" @click="closed">取消</span>
+                    <span class="qx" @click="hidReport">取消</span>
                     <span class="tj" @click="AddReport">提交意见</span>
                 </div>
             </div>
@@ -33,7 +33,6 @@
 <script>
     import {Message} from 'element-ui'
     export default {
-        props:['accused_open_id','link_id','position'],
         name: "report",
         data () {
             return {
@@ -41,17 +40,46 @@
                 detail:'',
                 list:[],
                 classify_name:'其他',
+				showd:false,
+				accused_open_id:'',
+				link_id:'',
+				position:'',
+				ajaxType:0,
             }
         },
         mounted(){
             this.getReport();
         },
         methods:{
+			initData(){
+				this.classify = 0;
+				this.detail = '';
+			},
+			showReport(id,lid,ad){
+				if(!window.userInfo){
+					Message({message: '请先登录'});
+						setTimeout(()=>{				
+							this.$router.push({path:'/login'})
+						},2000);
+					return
+				}	
+				if(!id){return}
+				if(!lid){return}
+				if(!ad){return}
+				this.initData();
+				this.accused_open_id = id;
+				this.link_id = lid;
+				this.position = ad;
+				this.showd = true;
+			},
+			hidReport(){
+				this.showd = false;
+			},
             getReport(){
+				if(!window.userInfo){ return}				
                 let p = window.userInfo.access_token;
                 this.api.Report_getClassify({access_token:p}).then((res)=>{
                     this.list = res;
-                    console.log(this.list)
                 })
             },
             AddReport(){
@@ -59,26 +87,30 @@
                     Message('举报原因不能为空');
                     return
                 }
-                let p = window.userInfo.access_token;
-                this.api.Report_addReport({access_token:p,classify_id:this.list[this.classify].id,classify_name:this.list[this.classify].classify_name,detail:this.detail,link_id:this.link_id,accused_open_id:this.accused_open_id,position:this.position}).then((res)=>{
+				if(this.ajaxType==1){
+					Message('正在提交请稍后');
+					return;
+				}
+				let pr = {
+					access_token:window.userInfo.access_token,
+					classify_id:this.list[this.classify].id,
+					classify_name:this.list[this.classify].classify_name,
+					detail:this.detail,
+					link_id:this.link_id,
+					accused_open_id:this.accused_open_id,
+					position:this.position
+				};
+				this.ajaxType=1;
+                this.api.Report_addReport(pr).then((res)=>{
+					this.ajaxType=0;
+					if(!res){return}
                     Message('提交成功');
-
-                })
-            },
-            closed(){
-                this.$parent.closed();
+					this.hidReport();	
+                }).catch(()=>{
+					this.ajaxType=0;
+				});
             },
         },
-        // watch: {
-        //     classify_id: {
-        //         handler(newName, oldName) {
-        //             alert(newName, oldName)
-        //         },
-        //         deep: true,
-        //         immediate: true
-        //
-        //     }
-        // }
     }
 </script>
 

@@ -21,7 +21,7 @@
 						</div>
 						<div class="sxBodx2_2" ref="listDom">
 							<ul v-if="sxType==0" class="sxBodx2_2x">
-								<div  v-for="(el,index) in listData">
+								<div  v-for="(el,index) in listData" :class="index==messgOn?'oncheckx_1':''">
 									<li v-if="checkInchat(index,el.user_info.open_id)==false">
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div @click="cheond(index)">
@@ -32,7 +32,7 @@
 								</div>								
 							</ul>
 							<ul v-if="sxType==1" class="sxBodx2_2x">
-								<div v-for="(el,index) in listData">
+								<div v-for="(el,index) in listData" :class="index==messgOn?'oncheckx_1':''">
 									<li v-if="checkInchat(index,el.user_info.open_id)==false">
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div @click="cheond(index)">
@@ -49,7 +49,7 @@
 					<div class="sxBodx3">				
 						<div class="sxBodx2_1">
 							<div class="sxBodx3_1_1" >
-								{{listData[0]?listData[0].user_info.username:''}}
+								{{listData[messgOn]?listData[messgOn].user_info.username:''}}
 								<span class="sxBodx3_1_2">与你的对话</span>
 								<span class="sxBodx3_1_3 iconfont">&#xe73c;
 									<div class="sxBodx3_1_3xzk1">
@@ -96,7 +96,7 @@
 			</div>
 			
 		</div>
-		<RPT v-if="isRep" :accused_open_id="jbopen_id" :position="'message'" :link_id="jblink_id"></RPT>
+		<RPT ref="report"></RPT>
 	</div>
 </template>
 
@@ -109,7 +109,6 @@ export default {
 	name: 'chat',
 	data(){
 		return {
-			isRep:false,
 			jbopen_id:'',
 			jblink_id:'',
 			hfnc:'',
@@ -179,18 +178,15 @@ export default {
 			str +='-'+day;
 			return str+' '+hos+':'+fz;
 		},
-		closed(){
-			this.isRep = false;
+		showReport(id,lid,ad){
+			
 		},
 		isRepfn(){
 			if(!this.listData[this.messgOn] || !this.listData[this.messgOn].chat_id){
 				Message({message: '数据错误该信息无法举报'});
 				return
 			}
-			
-			this.jbopen_id = this.listData[this.messgOn].user_info.open_id;
-			this.jblink_id = this.listData[this.messgOn].chat_id;
-			this.isRep = true;
+			this.$refs.report.showReport(this.listData[this.messgOn].user_info.open_id,this.listData[this.messgOn].chat_id,'message');
 		},
 		delChat(){	
 			if(this.deletType==1){
@@ -845,5 +841,8 @@ export default {
 }
 .sxBodx3_1_3xzk>div:hover{
 	background: #E6E6E6;
+}
+.oncheckx_1{
+	background: rgba(244, 244, 244, 0.46);
 }
 </style>

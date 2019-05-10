@@ -99,6 +99,9 @@ export default {
 		}
 	},
 	mounted: function () {	
+		if(!window.userInfo){
+			this.sxOn = 1;
+		}else
 		if(this.$route.query.id!=window.userInfo.open_id){
 			this.sxOn = 1;
 		}
@@ -130,9 +133,12 @@ export default {
 			}
 			this.follwTyle=1;
 			let pr = {
-				access_token:window.userInfo.access_token,
+				
 				follow_id:this.List[this.openOns].open_id
 			};
+			if(window.userInfo){
+				pr.access_token = window.userInfo.access_token;
+			}
 			this.api.Follow_del(pr).then((da)=>{
 				if(!da){
 					this.follwTyle=0;
@@ -162,10 +168,12 @@ export default {
 				return
 			}
 			this.follwTyle=1;
-			let pr = {
-				access_token:window.userInfo.access_token,
+			let pr = {			
 				follow_id:this.List[on].open_id
 			};
+			if(window.userInfo){
+				pr.access_token = window.userInfo.access_token;
+			}
 			this.api.Follow_add(pr).then((da)=>{
 				if(!da){
 					this.follwTyle=0;
@@ -200,12 +208,14 @@ export default {
 			window.open('#/cont?id='+on)
 		},		
 		followList(){			
-			let pr = {
-				access_token:window.userInfo.access_token,
+			let pr = {			
 				user_open_id:this.$route.query.id,
 				page:this.page,
 				limit:this.limit
 			};
+			if(window.userInfo){
+				pr.access_token = window.userInfo.access_token;
+			}
 			this.api.followList(pr).then((da)=>{
 				if(!da){return}
 				this.List = da.data;

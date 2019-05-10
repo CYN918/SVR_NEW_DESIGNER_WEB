@@ -1,7 +1,8 @@
 <template>
 	<div class="loginBox">
-		<img class="loginBoxbg" src="/imge/lo1.png" alt="">
-		<div class="logindboxd">
+		
+		<div class="logindboxd" style="padding: 0;">
+			<img class="loginBoxbg" src="/imge/lo1.png" alt="">
 		<div class="login_1">
 			<div class="login_2">
 				<router-view/>
@@ -19,9 +20,7 @@ export default {
 	name: 'login',
 	components:{Footer},
 	data(){
-		return{
-
-		}
+		return{}
 	}
 }
 </script>

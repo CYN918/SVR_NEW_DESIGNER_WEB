@@ -337,10 +337,13 @@ export default {
 			if(el==old){
 				return
 			}
+			this.data1 = [];
+			this.data2 = [];
 			if(!this.searcCont||this.searcCont.split(" ").join("").length == 0){
 				this.getHotWords();
 				return
 			}
+			
 			this.Searchsug(this.searcCont);
 		}
 	},
