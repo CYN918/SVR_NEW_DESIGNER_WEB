@@ -25,6 +25,7 @@
 				<span class="seed1_2_5">推荐</span>
 			</div>
 			</div>
+			<div class="zdc"></div>
 		</div>
 		<div v-if="topTyped==true" class="topNav_x_1">
 			<div class="topNav_x_2">
@@ -36,6 +37,7 @@
 				<span class="seed1_2_5">推荐</span>
 			</div>
 			</div>
+			<div class="zdc"></div>
 		</div>
 		<div class="seed2">
 			<div class="seed2_1">
@@ -50,7 +52,7 @@
 					</div>
 				</div>
 				
-				
+				<div class="zdc"></div>
 			</div>
 			<div class="seed2_2">
 				<div class="seed2_1_1" v-if="contDat.user_info">
@@ -96,13 +98,17 @@
 									<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.comment_num}}</span>
 								</div>
 							</div>
+							<div class="zdc"></div>
 						</div>
+						
 					</div>
+					
 					</div>
 					
 					
 				</div>
 			</div>
+			
 		</div>
 		
 	</div>
@@ -178,5 +184,15 @@ export default {
 	font-size: 16px;
 	color: #FFFFFF;
 	text-align: center;
+}
+.zdc{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: none !important;
+	cursor: initial;
 }
 </style>

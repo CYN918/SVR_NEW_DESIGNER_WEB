@@ -39,14 +39,14 @@
 
 <style>
 .footerBox{
-	margin-top: -75px;
+	margin-top: -60px;
 	width: 100%;
 	min-width: 1300px;
-    height: 75px;
+    height: 60px;
     background: #2e2f30;
-	font-size: 16px;
+	font-size: 14px;
 	color: #FFFFFF;
-	line-height: 75px;
+	line-height: 60px;
 	z-index: 100000;
 }
 .footerBox>span{

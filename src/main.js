@@ -211,7 +211,14 @@ Date.prototype.Format = function (fmt) {
     if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
+Vue.prototype.zkMyFun = window.zkMyFun;
 
+Vue.prototype.checkLogin = ()=>{
+	if(!window.userInfo){
+		router.push({path: '/login'})
+		return false;
+	}
+};
 import VueCropper from 'vue-cropper' 
 import { Button, Select,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination } from 'element-ui'
 Vue.use(VueCropper)

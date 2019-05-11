@@ -87,8 +87,8 @@
 						</div>
 						<div class="sxBodx2_3 sxBodx2_3xx">
 							<div class="hfBox xxbox_c">
-								<Input class="userBoxd2" v-model="postMessg" :oType="'max'" :max="200" :type="'text'"  ref="tageds1"></Input>	
-								<span @click="addChatMessage()">回复</span>
+								<Input :keyup="keydown" class="userBoxd2" v-model="postMessg" :oType="'max'" :max="200" :type="'text'"  ref="tageds1"></Input>	
+								<span :class="chekcont()==true?'iscsbtn':''" @click="addChatMessage()">回复</span>
 							</div>
 						</div>
 					</div>					
@@ -153,6 +153,12 @@ export default {
 		
 	}, 
 	methods: {
+		keydown(){
+			this.addChatMessage();
+		},
+		chekcont(){
+			return this.zkMyFun.checkWz(this.postMessg);
+		},
 		backtimed(timed){
 			let tid = new Date(timed*1000);
 		
@@ -166,7 +172,7 @@ export default {
 				fz = '0'+fz;
 			}
 			str += tid.getFullYear();
-			let yf = tid.getMonth();
+			let yf = tid.getMonth()+1;
 			if(yf<10){
 				yf = '0'+yf;
 			}
@@ -248,7 +254,8 @@ export default {
 			this.messgOn = 0;
 			this.messPage = 1;
 			this.page=1;
-			if(this.$route.query && (this.$route.query.id || this.$route.query.openid)){
+			this.ondfgData = '';
+			if(on==0 && this.$route.query && (this.$route.query.id || this.$route.query.openid)){
 		
 				this.urlOpen=1;
 				this.onTypedf=0;
@@ -258,6 +265,11 @@ export default {
 			this.sxType=on;
 		},
 		addChatMessage(){
+			if(this.zkMyFun.checkWz(this.postMessg)==false){
+				Message({message: '内容不能为空'});
+				return
+			}
+			
 			if(this.getAjxType3==1){
 				Message({message: '正在发送'});
 				return
@@ -272,6 +284,7 @@ export default {
 				content:this.postMessg,
 				to_id:this.listData[this.messgOn].user_info.open_id,
 			};
+			let mesd = this.postMessg;
 			this.getAjxType3 = 1;
 			this.api.addChatMessage(pr).then((da)=>{
 				this.getAjxType3 = 0;
@@ -281,7 +294,22 @@ export default {
 				this.$refs.tageds1.setData('');
 				
 				Message({message: '发送成功'});
+				let pdata = {
+					content:mesd,
+					create_time: Date.parse(new Date())/1000,
+					is_del:0,
+					open_id:window.userInfo.open_id,
+					user_info:{
+						avatar:window.userInfo.avatar,
+						open_id:window.userInfo.open_id,
+					}
+				};
+				if(pdata.create_time-this.messGlist[this.messGlist.length-1].create_time>5*60){
+					pdata.isshowtime = 1;
+				}
+				this.messGlist.push(pdata);
 				
+			
 			}).catch(()=>{
 				this.getAjxType3=0;
 			});
@@ -320,8 +348,17 @@ export default {
 				
 				let lend = da.length;
 				for(let i=0,n=lend;i<n;i++){
-					if(i==0){continue}		
-	
+					if(i==0){
+						if(lend == 1){
+							da[i].isshowtime = 1;
+							continue
+						}
+						if(da[0].create_time-da[1].create_time>5*60){
+							da[i].isshowtime = 1;
+							continue
+						}
+						continue
+					}						
 					if(da[i-1].create_time-da[i].create_time>5*60){
 						da[i].isshowtime = 1;
 						continue
@@ -332,12 +369,13 @@ export default {
 					da[lend-1].isshowtime=1;
 				}
 				this.messGlist = da.reverse();
+				console.log(this.messGlist);
 		
 			});
 			
 		},
 		init(){	
-			if(this.$route.query && (this.$route.query.id || this.$route.query.openid)){
+			if(this.sxType==0 && this.$route.query && (this.$route.query.id || this.$route.query.openid)){
 				this.urlOpen=1;
 				this.getChatDetail();
 			}
@@ -433,11 +471,16 @@ export default {
 						let lend = da.length;
 						for(let i=0,n=lend;i<n;i++){
 							if(i==0){
-								if(this.messGlist[0]-da[i].create_time<5*60)
-								this.messGlist[0].isshowtime = '';								
+								if(lend == 1){
+									da[i].isshowtime = 1;
+									continue
+								}
+								if(da[0].create_time-da[1].create_time>5*60){
+									da[i].isshowtime = 1;
+									continue
+								}
 								continue
-							}
-						
+							}	
 							if(da[i-1].create_time-da[i].create_time>5*60){
 								da[i].isshowtime = 1;
 								continue
@@ -710,6 +753,11 @@ export default {
 	font-size: 14px;
 	color: #666666;
 	line-height: 24px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+    width: 100%;
+
 }
 .sxBodx3_2{
 	overflow: hidden;
@@ -740,7 +788,7 @@ export default {
 	font-size: 14px;
 	padding:15px 30px;
 	background: #F4F4F4;
-	border-radius: 5px 5px 5px 5px 2px 2px 2px;
+	border-radius: 5px;
 	max-width: 344px;
 }
 .sxBodx3_2x_3{
@@ -844,5 +892,8 @@ export default {
 }
 .oncheckx_1{
 	background: rgba(244, 244, 244, 0.46);
+}
+.iscsbtn{
+	background: #FF5121 !important;
 }
 </style>

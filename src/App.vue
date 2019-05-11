@@ -31,7 +31,7 @@ li{list-style-type: none}
 #app>div>div{
 	box-sizing: border-box;
 	min-height: 100%;
-	padding: 60px 0 75px;
+	padding: 60px 0;
 }
 .header{
 	position: absolute;
@@ -204,6 +204,7 @@ input:-ms-input-placeholder{
 .i_listd1x1{
 	width: 309.8px;
 	height: 231.9px;
+	border-radius: 5px 5px 0 0;
 	overflow: hidden
 }
 .i_listd1{
@@ -218,6 +219,7 @@ input:-ms-input-placeholder{
 	transform: scale(1.02);
 }
 .i_listd2{
+	cursor: pointer;
 	padding: 5px 10px;
 }
 .i_listd2_1{
@@ -326,6 +328,7 @@ input:-ms-input-placeholder{
 	outline: none;
 	box-sizing: border-box;
     padding-left: 0 ;
+	font-size: 14px;
     height: 40px;
     flex: 1;
 }
@@ -782,6 +785,7 @@ input:-ms-input-placeholder{
 	padding-bottom: 120px;
 }
 .seed1box{
+	position: relative;
 	min-width: 1300px;
 	height: 128px;
 	background: #FFFFFF;
@@ -895,6 +899,7 @@ input:-ms-input-placeholder{
 	display: block;
 }
 .seed2{
+	position: relative;
 	width: 1300px;
 	margin: 0 auto 45px;
 	
@@ -915,6 +920,7 @@ input:-ms-input-placeholder{
 	margin-bottom: 20px;
 }
 .seed2_1{
+	position: relative;
 	display: inline-block;
 	width: 950px;
 	vertical-align: top;
@@ -1006,6 +1012,9 @@ input:-ms-input-placeholder{
 	text-align: center;
 	line-height: 40px;
 }
+.lastsedd_1{
+	margin-left: 20px;
+}
 .seed2_1_1_3>div>span:hover{
 	opacity: .7;
 }
@@ -1013,7 +1022,7 @@ input:-ms-input-placeholder{
 	background: #FF5121;
 	border-color: #FF5121;
 	color: #fff;
-	margin-right: 20px;
+
 }
 .seed2_2>div{
 	border-bottom: 1px solid #E6E6E6;
@@ -1028,11 +1037,12 @@ input:-ms-input-placeholder{
 	margin-bottom: 18px;
 }
 .seed2_1_2_2{
+	position: relative;
 	background: #F6F6F6;
 	border-radius: 5.08px;
 	width: 270px;
 	margin: 0 auto 30px;
-	cursor: pointer;
+
 	text-align: left;
 }
 .seed2_1_2_2>img{
@@ -1041,9 +1051,7 @@ input:-ms-input-placeholder{
 	height: 201px;
 }
 
-.seed2_1_2_2:hover{
-	opacity: .7;
-}
+
 .seed2_1_1_2{
 	text-align: left;
 }
@@ -1301,6 +1309,7 @@ content: "";
 	color: red !important;
 }
 .i_listd1x2{
+	cursor: pointer;
 	width: 269.9px;
 	height: 201.5px;
 	overflow: hidden;
@@ -2060,14 +2069,22 @@ content: "";
 	color: #1E1E1E;
 }
 .tjsj_1{
+    text-indent: 0;
+    display: inline-block;
     background: #F4523B;
     font-size: 12px;
     color: #FFFFFF;
     letter-spacing: 0;
-    padding: 2px 7px;
-    border-radius: 10px;
+    min-width: 8px;
+    height: 14px;
+    border-radius: 9px;
+    vertical-align: text-bottom;
+    text-align: center;
+    line-height: 14px;
+    padding: 2px 5px;
 	
 }
+
 .messgdo{
 	min-height: 834px;
 }

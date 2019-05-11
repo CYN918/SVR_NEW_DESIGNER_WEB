@@ -382,7 +382,9 @@ export default {
     content: "";
     position: absolute;
     bottom: 12px;
-    left: 5px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
     width: 76%;
     height: 2px;
     background: #FCFCFC;

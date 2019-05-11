@@ -22,7 +22,7 @@
 						</div>
 						<div>
 							<span>邮箱</span><div class="userSZ_1">可以使用邮箱  {{form.email}}</div>
-							<div class="userSZ_2"><span v-if="!form.email" @click="openTc1(2)">立即绑定</span><span @click="openTc1(2)">修改</span></div>
+							<div class="userSZ_2"><span v-if="!form.email" @click="openTc1(2)">立即绑定</span><span v-else @click="openTc1(2)">修改</span></div>
 						</div>
 						<div class="suc_1_3">
 							<span>登录密码</span><div class="userSZ_1">密码要求至少包含字母，符号或数字中的两项且长度超过6位</div>

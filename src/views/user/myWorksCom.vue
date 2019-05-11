@@ -298,7 +298,11 @@ export default {
 			window.open(ur);
 		},
 		openxq(on){
-			window.open('#/cont?id='+this.List[on].work_id)
+			if(this.$route.fullPath=="/myPass"){
+				window.open('#/cont?id='+this.List[on].work_id);
+				return
+			}
+			window.open('#/conts?id='+this.List[on].work_id)
 		},
 	
 		checkBan(on){

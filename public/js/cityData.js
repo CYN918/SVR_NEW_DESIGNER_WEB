@@ -40,3 +40,13 @@ function formatDate(now) {
 	var second=now.getSeconds(); 
 	return year+"-"+month+"-"+date; 
 } 
+
+window.zkMyFun = {
+	checkWz:function(da){
+		if(da == ""|| da.trim().length == 0){			
+			return false;
+		}
+		return true;
+	},
+	
+}
