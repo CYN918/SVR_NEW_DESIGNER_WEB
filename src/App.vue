@@ -492,6 +492,7 @@ input:-ms-input-placeholder{
 }
 .lgoin_s4{
 	margin-top: 17px;
+	margin-bottom: 22px;
 	width: 100%;
 	background: #999 !important;
 	border-color:#999  !important;

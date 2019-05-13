@@ -203,11 +203,6 @@ let wb = [
 				component: () => import('./views/login/login.vue')
 			},
 			{
-				path: '/login2',
-				name: 'login2',
-				component: () => import('./views/login/login2.vue')
-			},
-			{
 				path: '/register',
 				name: 'register',
 				component: () => import('./views/login/register.vue')
@@ -218,9 +213,9 @@ let wb = [
 				component: () => import('./views/login/modifyPassword.vue')
 			},
 			
-			
 		],	
 	},
+	
 	{
 		path: '/userme',
 		name: 'userme',
@@ -230,92 +225,33 @@ let wb = [
 	{
 		path: '/userme2',
 		name: 'userme2',
-		component: () => import('./views/login/userme2.vue')
-		
+		component: () => import('./views/login/userme2.vue')		
 	}	
 ];
 router.addRoutes(wb);
-
-
-
-
-
-
-function checkUserType(){
-	
-	if(usermessg){
-		api.login(JSON.parse(usermessg)).then((response)=>{					
-			localStorage.setItem('userT',response.access_token);
-			api.getSelfInfo({access_token:response.access_token}).then((data)=>{					
-				localStorage.setItem('userType',data.is_detail);	
-				if(data.is_detail==0){
-					next('/userme');					
-					return
-				}
-				next();				
-			}).catch(()=>{
-				next();	
-			});	
-			return																			
-		}).catch(()=>{			
-			next('/login');			
-		});	
+//自动登录
+let token = localStorage.getItem('userT');
+if(token){
+	try{window.userInfo = JSON.parse(token);}catch(e){}
+}
+let passd = localStorage.getItem('pass');
+if(passd){
+	try{window.passIn = JSON.parse(passd);}catch(e){}
+}
+router.beforeEach((to, from, next) => {
+	/*重定向首页*/
+	if(to.fullPath=='/'){
+		next('/index');	
 		return
 	}
-}
-
-//自动登录
-router.beforeEach((to, from, next) => {
-	/*登录过期*/
-// 	if(+localStorage.getItem('logintime')+(24*60*60*1000)<=Date.parse(new Date())){
-// 		localStorage.setItem("token","");
-// 		tonek=false;
-// 	}
-
-
-
-
-
-let token = localStorage.getItem('userT');
-
-if(to.fullPath=='/'){
-	next('/index');	
-	return
-}
-
-if(token){
-	try{
-		console.log(JSON.parse(token))
-		window.userInfo = JSON.parse(token);
-	}catch(e){
-		//TODO handle the exception
-	}
-	
-}
-let	pass = localStorage.getItem('pass');
-if(pass){
-	try{
-		window.passIn = JSON.parse(pass);
-	}catch(e){
-		//TODO handle the exception
-	}
-}
-	if(!window.userInfo){//未登录
+	/*未登录*/
+	if(!window.userInfo){
+		/*自动登录*/
 		if(window.passIn){
-			api.login(window.passIn).then((da)=>{				
-				localStorage.setItem('userT',JSON.stringify(da));				
-				if(da.is_detail==0){
-					next('/userme');	
-					return
-				}
-				next('/index');	
-				return																			
-			}).catch(()=>{	
-				localStorage.setItem('pass','');
-				next('/login');			
-			});	
+			next('/login');	
 			return
 		}
+		/*未登录不可进入页面*/
 		if(['/upload'].indexOf(to.fullPath)!=-1){
 			next('/index');	
 			return
@@ -323,35 +259,30 @@ if(pass){
 		next();
 		return
 	}
+	/*是否填写信息*/
 	if(window.userInfo.is_detail==0){
 		
 		if(!window.userInfo.mobile || window.userInfo.mobile=='null'){
 			if(to.fullPath!='/userme2'){
-				console.log(window.userInfo.mobile)
 				next('/userme2');	
 				return
 			}
-			next();	
+			next();
 			return
 		}
-
-		
 		if(to.fullPath!='/userme'){
 			next('/userme');	
 			return
 		}
-		
+		next();
+		return
 	}
-
+	
+	/*排除已登录不可进入页面*/
 	if(window.userInfo.is_detail==1 && ['/login','/login2','/register','/modifyPassword','/userme'].indexOf(to.fullPath)!=-1){
 		next('/index');	
 		return
 	}
-	
-	
-	
-	
-	
 	next();	
 	return	
 })

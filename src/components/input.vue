@@ -140,7 +140,12 @@ export default {
 	    },
    	},
    	methods: {
-		setData(da){
+		initData(){
+			this.form.mobile_zone = 86;
+			this.input = '';
+			this.setErr('outIn','');	
+		},
+		setData(da){			
 			this.input = da;
 		},
 		clearValue(){

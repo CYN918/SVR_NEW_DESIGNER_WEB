@@ -233,7 +233,7 @@ export default {
 	},
 	mounted: function () {
 		this.init();
-		this.getCommentList();
+		
 	}, 
 	methods: {
 		keydown(){
@@ -428,6 +428,8 @@ export default {
 			return window.getTimes(time)
 		},
 		init(){		
+			this.hfData = [];
+			this.getCommentList();
 			this.work_id = this.$route.query.id;
 			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
@@ -715,7 +717,7 @@ export default {
 	watch: {	
 		'$route': function() {
 			this.init();
-			this.getCommentList()
+			
 		}
 	},
 
