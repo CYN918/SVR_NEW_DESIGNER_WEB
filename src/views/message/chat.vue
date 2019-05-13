@@ -308,11 +308,19 @@ export default {
 					pdata.isshowtime = 1;
 				}
 				this.messGlist.push(pdata);
+				this.setMssageSc(this.$refs.messgDom);			
+					
 				
+			
 			
 			}).catch(()=>{
 				this.getAjxType3=0;
 			});
+		},
+		setMssageSc(obj){
+			setTimeout(()=>{
+				obj.scrollTop = obj.scrollHeight;
+			},100);
 		},
 		checkisme(id){
 
@@ -426,12 +434,13 @@ export default {
 					this.api.getMessgList(pr).then((da)=>{
 						this.getAjxType1=0;
 						if(!da){return}
-						this.page++;
-						this.listData = this.listData.concat(da.data);						
 						if(da.data.length==0){
 							this.getAjxType1=1;
 							return
-						}	
+						}
+						this.page++;
+						this.listData = this.listData.concat(da.data);						
+							
 					}).catch(()=>{
 						this.getAjxType1=0;
 					});
@@ -523,15 +532,6 @@ export default {
 			this.api.Messageread(op).then((da)=>{
 				if(!da){return}
 			})
-		},
-		setScll(top){
-			
-			if (document.documentElement && document.documentElement.scrollTop) {			
-                document.documentElement.scrollTop = Number(top);
-            }
-            if (document.body) {			
-                document.body.scrollTop = Number(top);				
-			}	
 		},
 		getMessgNumber(){
 			if(!window.userInfo){
