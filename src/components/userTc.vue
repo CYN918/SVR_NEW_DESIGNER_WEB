@@ -15,8 +15,11 @@
 					创作<div>{{tcData.user_info.work_num}}</div>				
 				</span>
 			</div>
-			<div class="usertc_5">
+			<div v-if="isme()==false" class="usertc_5">
 				<span class="csys" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><span @click="gosx">私信</span>
+			</div>
+			<div v-else class="usertc_5">
+				<span class="csys" @click="goFans('/works')">进入主页</span>
 			</div>
 		</div>
 	
@@ -51,6 +54,9 @@ export default {
 		},
 		goFans(d){
 			this.$router.push({path:d,query:{id:this.tcData.user_info.open_id}});
+		},
+		isme(){
+			return window.userInfo.open_id == this.tcData.user_info.open_id;
 		},
 		backtype(to){
 			return to==2?'互相关注':to==1?'已关注':'关注';
