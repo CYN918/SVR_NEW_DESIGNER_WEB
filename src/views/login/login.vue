@@ -7,7 +7,7 @@
 		</div>	
 		<component v-bind:is="btnType" ref="loginFrom"></component>			
 		<el-button :class="['lgoin_s4',btnType2]" type="primary" @click="loginUp">登录</el-button>		
-		<p class="lgoin_s5">没有账号？<router-link class="pend" to="/register">注册</router-link></p>
+		<p class="lgoin_s5"><span>没有账号？<router-link class="pend" to="/register">注册</router-link></span><span><router-link class="pend" to="/index">返回首页</router-link></span></p>
 		<div class="lgoin_s6x"></div>
 		<div class="lgoin_s6">
 			<img @click="thirdLogin('qq')" src="/imge/01.png" alt="">

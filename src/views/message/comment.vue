@@ -208,13 +208,16 @@ export default {
 			return pd[0];
 		},
 		backtime(t){
-		
-			let time = new Date(t*1000);
-			let ym = time.getMonth();
+			let time = new Date(t);		
+			let ym = time.getMonth()+1;
+			let dm = time.getDate();
 			if(ym<10){
 				ym = '0'+ym;
 			}
-			return time.getDate()+'-'+ym+'-'+time.getFullYear();
+			if(dm<10){
+				dm = '0'+dm;
+			}
+			return time.getFullYear()+'-'+ym+'-'+dm;
 		},
 		goWork(id){
 			console.log(id);

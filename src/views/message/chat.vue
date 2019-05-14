@@ -1,6 +1,5 @@
 <template>
-	<div>
-		
+	<div>		
 		<div class="setUserBox messgdo">
 			<div class="setUserBoxs">
 				<div class="setUserBoxs_nav">
@@ -44,8 +43,7 @@
 							</ul>
 						</div>
 						<div class="sxBodx2_3"></div>
-					</div>
-					
+					</div>					
 					<div class="sxBodx3">				
 						<div class="sxBodx2_1">
 							<div class="sxBodx3_1_1" >
@@ -269,7 +267,6 @@ export default {
 				Message({message: '内容不能为空'});
 				return
 			}
-			
 			if(this.getAjxType3==1){
 				Message({message: '正在发送'});
 				return
@@ -304,10 +301,16 @@ export default {
 						open_id:window.userInfo.open_id,
 					}
 				};
-				if(pdata.create_time-this.messGlist[this.messGlist.length-1].create_time>5*60){
+				let mslen = this.messGlist.length;
+			
+				if(mslen>0 && pdata.create_time-this.messGlist[mslen-1].create_time>5*60){
 					pdata.isshowtime = 1;
 				}
+				if(mslen==0){
+					pdata.isshowtime=1;
+				}
 				this.messGlist.push(pdata);
+				
 				this.setMssageSc(this.$refs.messgDom);			
 					
 				
@@ -373,11 +376,10 @@ export default {
 					}
 					
 				}
-				if(!da[lend-1].isshowtime){
+				if(da[lend-1] && !da[lend-1].isshowtime){
 					da[lend-1].isshowtime=1;
 				}
 				this.messGlist = da.reverse();
-				console.log(this.messGlist);
 		
 			});
 			
@@ -531,6 +533,7 @@ export default {
 			}			
 			this.api.Messageread(op).then((da)=>{
 				if(!da){return}
+				this.getMessgNumber();
 			})
 		},
 		getMessgNumber(){

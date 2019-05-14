@@ -48,7 +48,7 @@
 		<div class="u_top3">
 			<img class="u_top3_1" :src="userMessage.avatar"></img>
 			<div class="u_top3_2">
-				<div class="u_top3_2_1">{{userMessage.username}}</div>
+				<div class="u_top3_2_1">{{userMessage.username?userMessage.username.substring(0,9):''}}</div>
 				<div class="u_top3_2_2">{{userMessage.province+'-'+userMessage.city}}</div>
 				<div class="u_top3_2_3">{{userMessage.personal_sign?userMessage.personal_sign:'这个人很懒，什么都没说~'}}</div>
 			</div>
@@ -515,9 +515,11 @@ export default {
 	color: #666666;
 }
 .u_top3_3{
-	display: inline-block;
-	vertical-align: middle;
-	margin:  0 87.9px 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
 }
 .u_top3_3>span{
 	position: relative;

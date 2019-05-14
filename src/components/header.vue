@@ -124,10 +124,13 @@ export default {
 	}, 
 	methods:{
 		goMssg(on){
+			setTimeout(()=>{
+				this.getMessgNumber();
+			},500);
 			if(on || on==0){				
 				this.$router.push({path:this.navType,query:{id:this.mData[on].chat_id}})	
 				return
-			}
+			}			
 			this.$router.push({path:this.navType})	
 		},
 		keydown(){
