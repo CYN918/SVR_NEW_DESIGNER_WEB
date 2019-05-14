@@ -58,6 +58,7 @@
 									</div>
 								</span>
 							</div>
+							<div v-if="isxsdh==true" class="zdxs"></div>
 						</div>
 						<div class="sxBodx3_2" id="meegBox" ref="messgDom">							
 							<ul>
@@ -144,6 +145,7 @@ export default {
 			deletArr:[],
 			deletType:0,
 			onTimed:'',
+			isxsdh:false,
 		}
 	},
 	mounted: function () {			
@@ -193,6 +195,10 @@ export default {
 			this.$refs.report.showReport(this.listData[this.messgOn].user_info.open_id,this.listData[this.messgOn].chat_id,'message');
 		},
 		delChat(){	
+			this.isxsdh=true;
+			setTimeout(()=>{
+				this.isxsdh=false;
+			},200);
 			if(this.deletType==1){
 				Message({message: '正在删除请稍后'});
 				return
@@ -909,5 +915,12 @@ export default {
 }
 .iscsbtn{
 	background: #FF5121 !important;
+}
+.zdxs{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
 }
 </style>

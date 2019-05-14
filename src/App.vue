@@ -2207,5 +2207,14 @@ content: "";
 	box-sizing: border-box;
 
 }
-
+.el-pagination__sizes .el-input .el-input__inner:hover{
+  
+    border-color: #FF5121;
+}
+.el-input__inner:hover{
+	border-color: #FF5121;
+}
+.el-pagination.is-background .el-pager li:not(.disabled):hover{
+	color: #FF5121;
+}
 </style>

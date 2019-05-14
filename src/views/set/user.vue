@@ -331,12 +331,16 @@ export default {
 					return
 				}
 				this.form.mobile = this.tancData.newMoble;
+				this.form.mobile_zone = this.tancData.mobile_zone;
 				this.tancData.mobile_zone = '86';
 				this.tancData.newMoble = '';
 				this.tancData.oldMoble = '';
 				this.tancData.old_mobile_zone = '86';
 				this.tancData.verify_code = '';			
 				this.tAncType=0;
+				window.userInfo.mobile = this.form.newMoble;
+				window.userInfo.mobile_zone = this.form.mobile_zone;
+				localStorage.setItem('userT',JSON.stringify(window.userInfo));
 				Message({message: '修改成功'});
 				
 				
@@ -355,6 +359,8 @@ export default {
 				this.form.username = this.tancData.userName;
 				this.tancData.userName = '';
 				this.tAncType=0;
+				window.userInfo.username = this.form.username;
+				localStorage.setItem('userT',JSON.stringify(window.userInfo));
 				Message({message: '修改成功'});
 			});
 		},
@@ -436,6 +442,20 @@ export default {
 				if(!da){
 					return
 				}
+				window.userInfo.username = postData.username;
+				window.userInfo.sex = postData.sex;
+				window.userInfo.vocation = postData.vocation;
+				window.userInfo.avatar = postData.avatar;
+				window.userInfo.country = postData.country;
+				window.userInfo.province = postData.province;
+				window.userInfo.city = postData.city;
+				window.userInfo.personal_sign = postData.personal_sign;
+				window.userInfo.education_school = postData.education_school;
+				window.userInfo.weixin = postData.weixin;
+				window.userInfo.weixin_visible = postData.weixin_visible;
+				window.userInfo.qq = postData.qq;
+				window.userInfo.qq_visible = postData.qq_visible;				
+				localStorage.setItem('userT',JSON.stringify(window.userInfo));
 				Message({message: '修改成功'});
 			});
 			
@@ -487,6 +507,7 @@ export default {
 		close(img){
 			if(img){
 				this.form.avatar = img;
+			
 			}
 			
 			this.isPhto=false;

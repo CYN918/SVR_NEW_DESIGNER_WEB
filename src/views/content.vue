@@ -126,7 +126,7 @@
 					</div>
 				</div>
 				<div class="seed2_1_2">
-					<div class="seed2_1_2_1">TA的更多作品</div>
+					<div class="seed2_1_2_1 pend" @click="goUser(contDat.user_info.open_id)">TA的更多作品</div>
 					<div class="seed2_1_2_1x1">
 					<div  class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
 						<div class="i_listd1x2" @click="seeWorks(el.work_id)"><img :src="el.face_pic" alt="" class="i_listd1"></div>
