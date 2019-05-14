@@ -247,6 +247,9 @@ router.beforeEach((to, from, next) => {
 	}
 	/*未登录*/
 	if(!window.userInfo){
+		if(to.path=='/login'){		
+			window.frompath = from.fullPath;
+		}
 		/*自动登录*/
 		if(window.passIn){
 			next('/login');	

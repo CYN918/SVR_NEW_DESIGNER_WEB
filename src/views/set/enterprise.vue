@@ -66,11 +66,11 @@
 						</div>
 						
 						<div class="suc_1_9 ridieodf ridieodf2">
-							<span>提供发票税率</span><el-radio v-model="postData.tax_rate_type" label="1">增值税专用发票，税率6%或17%</el-radio>
+							<span>提供发票税率</span><el-radio v-model="postData.tax_rate_type" value="1" label="1">增值税专用发票，税率6%或17%</el-radio>
 						</div>	
 						<div class="suc_1_11 ridieodf">
 							
-							<el-radio v-model="postData.tax_rate_type" label="2">增值税专用发票，税率3%</el-radio>
+							<el-radio v-model="postData.tax_rate_type" value="2" label="2">增值税专用发票，税率3%</el-radio>
 						</div>
 						
 					</div>
@@ -174,7 +174,7 @@ export default {
 	components:{upoloadcaver,Input,Citys,Select,rideo,tophead},
 	data(){
 		return {
-			postData:{},
+			postData:{tax_rate_type:"1"},
 			zhData:[],
 			navDatad:{
 				title:'平台供稿人-认证申请',
