@@ -314,7 +314,7 @@ input{
 .picURl{
     border: 1px solid #ddd;
     width: 133px;
-    height: 100px;
+    max-height: 100px;
     border-radius: 5px;
     margin-right: 20px;
 }

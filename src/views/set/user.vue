@@ -436,6 +436,7 @@ export default {
 				weixin:this.form.weixin,
 				weixin_visible:this.form.weixin_visible,
 				qq:this.form.qq,
+				home_page:this.form.home_page,
 				qq_visible:this.form.qq_visible
 			};
 			this.api.Userupdate(postData).then((da)=>{
@@ -454,7 +455,8 @@ export default {
 				window.userInfo.weixin = postData.weixin;
 				window.userInfo.weixin_visible = postData.weixin_visible;
 				window.userInfo.qq = postData.qq;
-				window.userInfo.qq_visible = postData.qq_visible;				
+				window.userInfo.qq_visible = postData.qq_visible;	
+				window.userInfo.home_page = postData.home_page;
 				localStorage.setItem('userT',JSON.stringify(window.userInfo));
 				Message({message: '修改成功'});
 			});

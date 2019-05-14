@@ -23,18 +23,24 @@
 					<div>
 						<span>手机号</span><span>{{userInfo.mobile}}</span>
 					</div>
-					<div>
+					<div v-if="userInfo.email">
 						<span>邮箱</span><span>{{userInfo.email}}</span>
 					</div>
-					<div>
+					<div v-if="userInfo.weixin && userInfo.qq_visible==1">
+						<span>微信</span><span>{{userInfo.weixin}}</span>
+					</div>
+					<div v-if="userInfo.qq && userInfo.weixin_visible==1">
+						<span>qq</span><span>{{userInfo.qq}}</span>
+					</div>
+					<div v-if="userInfo.personal_sign">
 						<span class="forddf">个性签名</span><span>{{userInfo.personal_sign}}</span>
 					</div>
 				</div>
 				
-				<div>
+				<div v-if="userInfo.home_page">
 					<h1>个人资料</h1>
 					<div class="forddf_btnd_1">
-						<span class="forddf">主页链接</span><span>{{userInfo.n}}</span>
+						<span class="forddf">主页链接</span><span>{{userInfo.home_page}}</span>
 					</div>		
 							
 				</div>
