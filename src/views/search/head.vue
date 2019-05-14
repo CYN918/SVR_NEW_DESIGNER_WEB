@@ -13,9 +13,9 @@
 				<el-select v-model="setcti" placeholder="请选择">
 					<el-option
 					  v-for="item in clasd"
-					  :key="item.label"
+					  :key="(item.value||item.value==0)?item.value:item.label"
 					  :label="item.label"
-					  :value="item.label">
+					  :value="(item.value||item.value==0)?item.value:item.label">
 					</el-option>
 				</el-select>
 			</div>

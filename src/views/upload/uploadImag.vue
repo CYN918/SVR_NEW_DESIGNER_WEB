@@ -12,7 +12,7 @@
 						</span>					
 					</div>
 				</div>
-				<div class="uploadBoxd2_2_2">{{configData.btn}}<input @change="fileUp" class="uploadBoxd2_2_2_1" ref="upnfile"  type="file" /></div>				
+				<div class="uploadBoxd2_2_2">{{configData.btn}}<input @change="fileUp" class="uploadBoxd2_2_2_1" ref="upnfile" :accept="typexz"  multiple="multiple" type="file" /></div>				
 			</div>
 			<ul class="uploadBoxd2_3" ref="imgd">
 				<li v-for="(el,index) in list" :key="index" v-if="el.type!='none'">
@@ -67,6 +67,7 @@ export default {
 			deletObj:[],
 			checIurl:[],
 			deldetType:0,
+			typexz:'',
       	};
     },
 	mounted: function () {	
@@ -133,6 +134,14 @@ export default {
 			this.checkin.splice(lend,1);
 		},
 		getList(){
+			if(this.configData){
+				for(let i=0,n=this.configData.length;i<n;i++){
+					this.typexz+=','+this.configData.type;
+				}
+				this.typexz = this.typexz.substring(1);
+			}
+			
+			
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
 			let token = JSON.parse(localStorage.getItem('userT'));
 			let times = (Date.parse(new Date())/1000);
@@ -180,23 +189,22 @@ export default {
 		qxclosd(obj){
 			obj.xhr.abort();
 		},
-      	fileUp(flie){
-      		let fld = flie.target.files[0];
-      		if(this.configData.type.indexOf(fld.type)==-1){
-      			Message({message: '格式不正确'});
-      			return
-      		}
-      		if(fld.size>this.configData.max){
-      			Message({message: '文件过大'});
-      			return
-      		}
-      		let fileSize = 0;
-      		if(fld.size > 1024 * 1024){
-      		 	fileSize = (Math.round(fld.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
-      		}else{
-      			fileSize = (Math.round(fld.size * 100 / 1024) / 100).toString() + 'KB';
-      		}               
-      			
+		clPic(fld,on){
+			if(this.configData.type.indexOf(fld.type)==-1){
+				Message({message: '第'+on+1+'个文件格式不正确'});
+				return
+			}
+			if(fld.size>this.configData.max){
+				Message({message: '第'+on+1+'个文件过大'});
+				return
+			}
+			let fileSize = 0;
+			if(fld.size > 1024 * 1024){
+			 	fileSize = (Math.round(fld.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
+			}else{
+				fileSize = (Math.round(fld.size * 100 / 1024) / 100).toString() + 'KB';
+			}               
+				
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
 			let token = JSON.parse(localStorage.getItem('userT'));
 			let times = (Date.parse(new Date())/1000);
@@ -206,7 +214,7 @@ export default {
 				token.open_id,
 				times
 			];
-
+			
 			let formData = new FormData();
 			formData.append('app_id',1001);
 			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
@@ -220,7 +228,7 @@ export default {
 			let uploadProgress = (evt)=>{		
 				if(evt.lengthComputable) {
 					let percent = Math.round(evt.loaded * 100 / evt.total);
-                    percent = percent>98?98:percent;
+			        percent = percent>98?98:percent;
 					p.bf  = Math.floor(percent);
 				}
 			};
@@ -256,6 +264,12 @@ export default {
 			xhr.addEventListener("abort",uploadCanceled, false);
 			xhr.open("POST", "http://139.129.221.123/File/File/insert");
 			xhr.send(formData);
+		},
+		
+      	fileUp(flie){
+			for(let i=0,n=flie.target.files.length;i<n;i++){
+				this.clPic(flie.target.files[i],i);
+			}
       		
       	},
     }

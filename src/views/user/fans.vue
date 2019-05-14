@@ -485,7 +485,7 @@ export default {
 	text-align: center;
 }
 .follwfs_4>span:nth-child(2){
-	cursor: none;
+	cursor: initial;
 }
 .follwfs_4>span>span{
 	display: block;

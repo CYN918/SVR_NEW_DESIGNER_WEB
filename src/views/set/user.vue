@@ -83,7 +83,7 @@
 						<div class="suc_title">个人链接</div>
 						<div class="suc_1_3">
 							<span>主页链接</span>
-							<!-- <el-input class="suc_3xInput" v-model="input" placeholder="请输入内容"></el-input> -->
+							<el-input class="suc_3xInput" v-model="form.home_page" placeholder="请输入内容"></el-input>
 							<span>zookingsoft.com.cn</span>
 						</div>
 					</div>

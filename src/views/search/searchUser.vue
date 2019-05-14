@@ -98,6 +98,7 @@ export default {
 			onType:'followList',
 			follwTyle:0,
 			openOns:'',
+			classd:'',
 		}
 	},
 	mounted: function () {			
@@ -105,6 +106,12 @@ export default {
 		
 	}, 
 	methods: {
+		sreond(type){
+			if(type==this.classd){return}
+			this.classd = type;
+			this.page = 1;
+			this.followList();
+		},
 		showFpllwodel(on){
 			this.isshowd2 = true;
 			this.openOns = on;
@@ -183,15 +190,18 @@ export default {
 		
 		followList(){
 			let query = this.$route.query.cont || '';
-			let params = {
+			let pr = {
 				query:query,
 				type:'user',
 				page:this.page,
 				limit:this.limit
 			};
+			if(this.classd){
+				pr.vocation = this.classd;
+			}
 			this.$refs.mytopcs.setCont(query);
 			this.loading = Loading.service({ fullscreen: true });
-			this.api.Searchsearch(params).then((da)=>{
+			this.api.Searchsearch(pr).then((da)=>{
 				this.loading.close();
 				if(!da){
 					return

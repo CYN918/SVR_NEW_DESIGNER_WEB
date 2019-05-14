@@ -49,6 +49,7 @@ export default {
 			loading: '',
 			querys:'',
 			clasd:[],
+			classd:'',
 			
 		}
 	},
@@ -58,7 +59,10 @@ export default {
 	}, 
 	methods: {
 		sreond(type){
-			console.log(type)
+			if(type==this.classd){return}
+			this.classd = type;
+			this.page = 1;
+			this.getHList();
 		},
 		goUser(on){
 			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
@@ -74,15 +78,18 @@ export default {
 
 		getHList(){
 			let query = this.$route.query.cont || '';
-			let params = {
+			let pr = {
 				query:query,
 				type:'work',
 				page:this.page,
 				limit:this.limit
 			};
+			if(this.classd){
+				pr.classify_1 = this.classd;
+			}
 			this.$refs.mytopcs.setCont(query);
 			this.loading = Loading.service({ fullscreen: true });
-			this.api.Searchsearch(params).then((da)=>{
+			this.api.Searchsearch(pr).then((da)=>{
 				this.loading.close();
 				if(!da){
 					return

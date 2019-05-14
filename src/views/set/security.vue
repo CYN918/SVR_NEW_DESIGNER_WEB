@@ -17,7 +17,7 @@
 					<div class="suc_1">
 						<div class="suc_title">账号设置</div>
 						<div>
-							<span>手机号</span><div class="userSZ_1">可以使用手机号 {{form.mobile}} 马上登陆</div>
+							<span>手机号</span><div class="userSZ_1">可以使用手机号 {{form.mobile}} 马上登录</div>
 							<div class="userSZ_2"><span @click="openTc1(1)">修改</span></div>
 						</div>
 						<div>
@@ -372,6 +372,9 @@ export default {
 		setYzm(val){
 			this.tancData.mobile_zone = val;
 		},
+		setYzmOld(val){
+			this.tancData.old_mobile_zone = val;
+		},
 		ajaxYzm(){
 			let pd = this.tancData.newMoble;
 			if(this.tancData.mobile_zone!='86'){
@@ -421,6 +424,18 @@ export default {
 			});
 		},
 		qdTc2(){
+			if(this.chekPhpne(this.tancData.oldMoble).type==false){
+				Message({message: '请填写正确的旧手机号'});
+				return
+			}
+			if(this.chekPhpne2(this.tancData.newMoble).type==false){
+				Message({message: '请填写正确的新手机号'});
+				return
+			}
+			if(this.chekverify(this.tancData.verify_code).type==false){
+				Message({message: '请填写正确的验证码'});
+				return
+			}
 			let pr = {
 				access_token:window.userInfo.access_token,
 				third_part:'mobile',

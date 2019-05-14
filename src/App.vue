@@ -1560,7 +1560,7 @@ content: "";
 .suc_3xInputx{
 	vertical-align: middle;
 	margin-left: 21px;
-	width: 129px;
+	width: 129px !important;
 }
 .navDwzc .setUserBoxs_nav{
 	display: none;
