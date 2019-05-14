@@ -866,7 +866,7 @@ export default {
 	border-radius: 5px;
 	margin-right: 20px;
 	width: 310px;
-	height: 561px;
+
 	padding: 30px;
 }
 .page2_2{
@@ -1089,7 +1089,7 @@ export default {
 }
 .page2_2_1_1{
 	text-align: left;
-	font-size: 14px;
+	font-size: 12px;
 	color: #333333;
 	margin-bottom: 17px;
 }
@@ -1124,13 +1124,13 @@ export default {
 .page2_2_1_2x>span{
 	box-sizing: border-box;
 	display: inline-block;
-	background: #333333;
+	background: #e6e6e6;
 	border-radius: 5px;
 	padding: 0 10px;
 	height: 27px;
     line-height: 27px;
 	font-size: 14px;
-	color: #e6e6e6;
+	color: #666;
 	margin-right: 20px;
 }
 .page2_2_1_2x>span>span{
@@ -1242,7 +1242,7 @@ export default {
 	margin-bottom: 13px;
 }
 .page2_2_3_1>span:last-child{
-	font-size: 14px;
+	font-size: 12px;
 	color: #999999;
 	margin-left: 30px;
 	
@@ -1271,5 +1271,8 @@ export default {
 .edui-default .edui-editor-toolbarbox{
 	position: relative !important; 
 	background: #fff;
+}
+.page2_2_2_2_2 .el-input.is-active .el-input__inner, .el-input__inner:focus{
+	border-color: #C0C4CC !important;
 }
 </style>

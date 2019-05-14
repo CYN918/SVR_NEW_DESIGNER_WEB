@@ -174,6 +174,8 @@ input:-ms-input-placeholder{
 	border-radius: 5.08px;
 	margin-right: 20.2px;
 	margin-bottom: 21.0px;
+	box-sizing: border-box;
+	border: 1px solid rgba(246,246,246,1);
 }
 .i_listd>li:nth-child(4n+4){
 	margin-right: 0;
@@ -202,7 +204,7 @@ input:-ms-input-placeholder{
 	display: block;
 }
 .i_listd1x1{
-	width: 309.8px;
+	width: 100%;
 	height: 231.9px;
 	border-radius: 5px 5px 0 0;
 	overflow: hidden
@@ -915,7 +917,7 @@ input:-ms-input-placeholder{
 .seed2{
 	position: relative;
 	width: 1300px;
-	margin: 0 auto 45px;
+	margin: 0 auto 60px;
 	
 }
 .seed2_1_1_1x>p{
@@ -953,12 +955,12 @@ input:-ms-input-placeholder{
 	overflow-y: auto;
 }
 .seed2_1_2::-webkit-scrollbar {
-    width: 6px;     
+    width: 2px;     
     height: 1px;
 }
 .seed2_1_2::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    -webkit-box-shadow: inset 0 0 5px rgba(246, 246, 246,.6);
     background: #535353;
 }
 .seed2_1_2::-webkit-scrollbar-track {
@@ -1056,7 +1058,8 @@ input:-ms-input-placeholder{
 	border-radius: 5.08px;
 	width: 270px;
 	margin: 0 auto 30px;
-
+	box-sizing: border-box;
+	border: 1px solid #f6f6f6;
 	text-align: left;
 }
 .seed2_1_2_2>img{
@@ -1083,8 +1086,8 @@ input:-ms-input-placeholder{
 }
 .seed2_1_1_2>span.iconfont{
 	border: none;
-	margin-left: 17px;
-	margin-top: 12px;
+	margin: 0;
+	margin-top: 6px;
 	float: right;
 }
 .seed2_1_1_2>div{
@@ -1500,6 +1503,9 @@ content: "";
 	width: 56px;
 	margin-right: 60px;
 }
+.suc_1 > div:last-child{
+	margin-bottom: 0;
+}
 .xgnamed{
 	min-width: 150px;
 	display: inline-block;
@@ -1589,7 +1595,7 @@ content: "";
 	line-height: 40px;
 	font-size: 16px;
 	color: #FFFFFF;
-	margin: 60px auto;
+	margin: 60px auto 160px;
 	padding: 0;
 	cursor: pointer;
 }

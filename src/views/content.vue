@@ -20,7 +20,7 @@
 			</div>
 			<div class="seed12">
 				<span class="seed1_2_2" @click="gopl"><img src="/imge/icon/zs_icon_xx.png">{{hfnum}}</span>
-				<span class="seed1_2_3"><img @click="addLike('work',contDat.work_id,contDat)" src="/imge/icon/zs_icon_dz.png">{{contDat.like_num}}</span>
+				<span class="seed1_2_3"><span @click="addLike('work',contDat.work_id,contDat)" :class="['iconfont',contDat.liked?'likeis':'']">&#xe672;</span>{{contDat.like_num}}</span>
 				<span class="seed1_2_4" @click="fxclick"><span class="iconfont">&#xe64c;</span>分享</span>
 				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
 			</div>
@@ -125,7 +125,7 @@
 
 					</div>
 				</div>
-				<div class="seed2_1_2">
+				<div class="seed2_1_2" v-if="contDat.more_work.length>0">
 					<div class="seed2_1_2_1 pend" @click="goUser(contDat.user_info.open_id)">TA的更多作品</div>
 					<div class="seed2_1_2_1x1">
 					<div  class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
@@ -154,6 +154,10 @@
 					</div>
 					
 					
+				</div>
+				<div class="seed2_1_2xx" v-else>
+					你正在浏览TA首次发布的作品<br/>作为老前辈, 送个赞鼓励下吧~
+					<span :class="['iconfont','seed1_2_5','seed1_2_5xx',contDat.liked?'likeis':'']" class="" @click="addLike('work',contDat.work_id,contDat,'推荐')"><span>&#xe652;</span>推荐</span>
 				</div>
 			</div>
 		</div>
@@ -729,5 +733,10 @@ export default {
 .iconfont{cursor: pointer}
 .iscsbtn{
 	background: #FF5121 !important;
+}
+.seed1_2_5xx{
+	background: #333333;
+	color: #fff;
+	margin: 40px auto;
 }
 </style>

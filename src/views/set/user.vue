@@ -397,28 +397,32 @@ export default {
 				if(t<=188){
 					this.topTyped=false;
 				}
-				
-				if(t>=480){
-					this.navdOn =3;
-					return
-				}
-				if(t>=320){
-					this.navdOn =2;
-					return
-				}
-				if(t>=160){
-					this.navdOn =1;
-					return
-				}
-				
-				this.navdOn =0;
+				// 
+				// if(t>=800){
+				// 	this.navdOn =3;
+				// 	return
+				// }
+				// if(t>=800){
+				// 	this.navdOn =2;
+				// 	return
+				// }
+				// if(t>=800){
+				// 	this.navdOn =1;
+				// 	return
+				// }
+				// 
+				// this.navdOn =0;
 				
 
 ;			}
 		},
 		setNavd(on){
 			this.navdOn = on;
-			this.setScll(160*on)
+			if(on==0){
+				this.setScll(1);
+				return
+			}
+			this.setScll(800)
 			
 		},
 		Userupdate(){

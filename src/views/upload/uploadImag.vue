@@ -456,6 +456,7 @@ export default {
 	border-top: 1px solid rgba(0,0,0,0.03);
 	width: 818px;
 	height: 88px;
+	border-radius: 0 0 5px 5px;
 }
 .uploadBoxd2_4>div{
 	display: inline-block;
@@ -480,6 +481,7 @@ export default {
 	position: absolute;
 	top: 12px;
 	left: 28px;
+	font-size: 12px;
 	border: none;
 	width: auto;
 }
