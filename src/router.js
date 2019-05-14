@@ -17,6 +17,12 @@ let wb = [
 				component: () => import('./views/home.vue')
 			},
 			{
+				path: '/upload',
+				name: 'upload',
+				component: () =>import('./views/upload/upload.vue'),
+			
+			},
+			{
 				path: '/recommend',
 				name: 'recommend',
 				component: () => import('./views/user/recommend.vue')
@@ -89,12 +95,7 @@ let wb = [
 				]
 			},
 			
-			{
-				path: '/upload',
-				name: 'upload',
-				component: () =>import('./views/upload/upload.vue'),
 			
-			},
 			{
 				path: '/conts',
 				name: 'conts',

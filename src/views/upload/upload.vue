@@ -507,7 +507,12 @@ export default {
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
 			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}	
 			let str = this.form.content;
-			let arr = str.match(/(?<=(zk_workid="))[^"]*?(?=")/ig);
+			var matchReg = /zk_workid=".*?(?=")/gi;
+			let arr = str.match(matchReg);
+			
+			for(let i=0,n=arr.length;i<n;i++){
+				arr[i] = arr[i].split('"')[1];
+			}
             this.zk_wrokids = this.zk_wrokids.concat(arr);
 			let dp = this.setSaveData(1,1);
 			dp.link_ids = this.zk_wrokids.join(',');
@@ -1262,5 +1267,9 @@ export default {
 }
 .el-input.is-active .el-input__inner, .el-input__inner:focus{
 	border-color: #FF5121 !important;
+}
+.edui-default .edui-editor-toolbarbox{
+	position: relative !important; 
+	background: #fff;
 }
 </style>

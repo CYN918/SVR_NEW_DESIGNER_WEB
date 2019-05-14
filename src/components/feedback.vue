@@ -225,7 +225,7 @@
 }
 .upfdb_content{
     width:794px;
-    height: 723px;
+    min-height: 723px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -309,9 +309,10 @@ input{
     display: block!important;
     margin-top: 18px;
     width: 133px;
-    height: 100px;
+    max-height: 100px;
 }
 .picURl{
+	position: relative;
     border: 1px solid #ddd;
     width: 133px;
     max-height: 100px;
@@ -319,14 +320,17 @@ input{
     margin-right: 20px;
 }
 .picURl>img{
+	position: relative;
+	
     width: 133px;
     height: 100px;
-    position: relative;
-    top:-20px;
+
+    top:0;
+	left: 0;
 }
 .right{
-    position: relative;
-    right:-116px;
+    position: absolute;
+    right:0;
     color: #fff;
     z-index: 9999;
     cursor: pointer;
