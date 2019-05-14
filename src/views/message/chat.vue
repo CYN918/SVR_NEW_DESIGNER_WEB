@@ -206,7 +206,12 @@ export default {
 				this.listData.splice(this.messgOn,1);
 				Message({message: '删除成功'});
 				this.$route.query.openid = '';
-				this.getMessgList();
+				if(this.listData.length>0){
+					this.getMessgList();
+				}else{
+					this.messGlist = [];
+				}
+				
 				return
 			}
 			
@@ -263,6 +268,9 @@ export default {
 			this.sxType=on;
 		},
 		addChatMessage(){
+			if(this.listData.length==0){
+				return
+			}
 			if(this.zkMyFun.checkWz(this.postMessg)==false){
 				Message({message: '内容不能为空'});
 				return
@@ -341,6 +349,9 @@ export default {
 			return window.getTimes(t*1000)
 		},
 		getMessageList(){
+			if(!this.listData[this.messgOn]){
+				return
+			}
 			if(!window.userInfo){
 				this.$router.push({path:'/login'})
 			}

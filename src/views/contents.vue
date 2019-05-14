@@ -61,7 +61,7 @@
 						<div>
 							<div>{{contDat.user_info.username}}</div>
 							<div>{{contDat.user_info.vocation}}  |  {{contDat.user_info.province}}  {{contDat.user_info.city}}</div>
-							<div><span v-if="contDat.user_info.is_platform_work">xx</span> xx</div>
+							<div><span v-if="contDat.user_info.is_platform_work"></span> </div>
 						</div>
 					</div>
 					<div class="seed2_2_1_2">

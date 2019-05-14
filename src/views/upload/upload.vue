@@ -211,7 +211,6 @@ export default {
 			this.checkPage1();			
 		},
 		'form.content'() {
-			
 			this.checkPage1();
 		},
 		'form.face_pic'() {
@@ -485,7 +484,8 @@ export default {
 					this.form.attachment_id = da.attachment_id;	
 					this.upfjData.bf = 100;
 					this.upfjData.file_name = this.form.attachment.file_name;
-				}
+				};
+				this.ifBjType=1;
 			})
 
 		},
@@ -551,6 +551,7 @@ export default {
 			this.ck2 = "";
 			if(!this.form.work_name){return false}
 			if(!this.form.content){return false}
+			console.log(222222)
 			if(this.ifBjType==0){
 				return false;
 			}
@@ -813,7 +814,7 @@ export default {
 	border: none !important;
 	background: none !important;
 	text-align: left;
-	padding-left: 35.2px;
+	padding-left: 21.2px;
 }
 .edui-editor-toolbarboxinner>div{
 	margin: 20px 0;
