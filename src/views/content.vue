@@ -429,8 +429,9 @@ export default {
 		},
 		init(){		
 			this.hfData = [];
-			this.getCommentList();
+			
 			this.work_id = this.$route.query.id;
+			this.getCommentList();
 			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(this.topTyped==0){

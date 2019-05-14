@@ -56,6 +56,7 @@
 				this.detail = '';
 			},
 			showReport(id,lid,ad){
+				
 				if(!window.userInfo){
 					Message({message: '请先登录'});
 						setTimeout(()=>{				
@@ -64,11 +65,11 @@
 					return
 				}	
 				if(!id){return}
-				if(!lid){return}
+				// if(!lid){return}
 				if(!ad){return}
 				this.initData();
 				this.accused_open_id = id;
-				this.link_id = lid;
+				this.link_id = lid?lid:id;
 				this.position = ad;
 				this.showd = true;
 			},

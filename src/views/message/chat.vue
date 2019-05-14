@@ -186,7 +186,7 @@ export default {
 			
 		},
 		isRepfn(){
-			if(!this.listData[this.messgOn] || !this.listData[this.messgOn].chat_id){
+			if(!this.listData[this.messgOn] || (!this.listData[this.messgOn].chat_id && !this.listData[this.messgOn].user_info.open_id)){
 				Message({message: '数据错误该信息无法举报'});
 				return
 			}
