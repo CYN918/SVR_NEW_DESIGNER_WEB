@@ -61,7 +61,7 @@
 							<div v-if="isxsdh==true" class="zdxs"></div>
 						</div>
 						<div class="sxBodx3_2" id="meegBox" ref="messgDom">							
-							<ul>
+							<ul v-if="listData.length>0">
 								<div v-for="(el,index) in messGlist" :key="index">
 									<li v-if="el.isshowtime"><div class="sxBodx3_2x_1">{{backtimed(el.create_time)}}</div></li>
 									<li>
@@ -486,7 +486,7 @@ export default {
 					}
 					let pr = {
 						access_token:window.userInfo.access_token,
-						chat_id:this.listData[this.messgOn].chat_id,
+						chat_id:this.listData[this.messgOn].chat_id?this.listData[this.messgOn].chat_id:this.listData[this.messgOn].open_id,
 						to_open_id:this.listData[this.messgOn].user_info.open_id,
 						time:this.messGlist[0].create_time,
 						limit:this.messGlimit,
