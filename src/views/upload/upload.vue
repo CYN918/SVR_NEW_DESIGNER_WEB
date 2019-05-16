@@ -509,11 +509,12 @@ export default {
 			let str = this.form.content;
 			var matchReg = /zk_workid=".*?(?=")/gi;
 			let arr = str.match(matchReg);
-			
-			for(let i=0,n=arr.length;i<n;i++){
-				arr[i] = arr[i].split('"')[1];
-			}
-            this.zk_wrokids = this.zk_wrokids.concat(arr);
+			if(arr){
+				for(let i=0,n=arr.length;i<n;i++){
+					arr[i] = arr[i].split('"')[1];
+				}
+				this.zk_wrokids = this.zk_wrokids.concat(arr);
+			}	
 			let dp = this.setSaveData(1,1);
 			dp.link_ids = this.zk_wrokids.join(',');
 			this.saveData(dp,'上传成功',()=>{setTimeout(()=>{this.$router.push({path:'/'})},1000)});

@@ -152,10 +152,11 @@ export default {
 				this.follwTyle=0;
 				this.hindHb2();
 				Message({message: '取消关注成功'});
-				if(this.sxtj==0){
-				
-					this.List.splice(this.openOns,1);
-				
+				if(this.total>0){
+					this.total--;
+				}
+				if(this.sxtj==0){				
+					this.List.splice(this.openOns,1);				
 					return
 				}
 				this.List[this.openOns].follow_flag = 0;
@@ -187,6 +188,8 @@ export default {
 				this.List[on].follow_flag = da.follow_flag;
 				this.follwTyle=0;
 				Message({message: '关注成功'});
+				this.total++;
+				
 			}).catch(()=>{
 				this.follwTyle = 0;		
 			});

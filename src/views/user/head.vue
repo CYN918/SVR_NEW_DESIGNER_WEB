@@ -39,7 +39,7 @@
 				<div v-if="isMe()"  class="u_top2_2">				
 					<div class="u_top2_2_1">
 						<div @click="showSetBg">设置背景图</div>
-						<div>分享</div>
+						<div @click="fxclick">分享</div>
 					</div>
 				</div>
 			</div>
@@ -61,7 +61,7 @@
 				<router-link v-if="isMe()" class="u_top3_4_1" to="/upload">上传作品</router-link>
 				<div class="u_top3_4_2" v-else>
 					<span @click="gzclick" :class="userMessage.follow_flag==1||userMessage.follow_flag==2?'qgz':''">{{userMessage.follow_flag==1||userMessage.follow_flag==2?'已关注':'关注'}}</span>
-					<span>私信</span>
+					<span @click="gsxd">私信</span>
 				</div>
 				
 			</div>
@@ -82,16 +82,20 @@
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
 		</div>
+		<fxd :shareData="shareData" ref="fxd"></fxd>
 	</div>
 </template>
 
 <script>
 
 import {Message} from 'element-ui'
+import fxd from '../../components/share';
 export default {
+	components:{fxd},
 	name: 'index',
 	data(){
 		return{
+			shareData:{},
 			userBg:'/imge/grzx_bg.png',
 			previewStyle2:{},
 			previews:{},
@@ -119,6 +123,12 @@ export default {
       this.qurId = this.$route.query.id;
     },
 	methods: {	
+		fxclick(){
+			this.$refs.fxd.showShare(true);
+		},
+		gsxd(){
+			this.$router.push({path:'/chat',query:{openid:this.userMessage.open_id,avatar:this.userMessage.avatar,username:this.userMessage.username}});
+		},
 		goFans(d,id){
 			this.$router.push({path:d,query:{id:id}});
 		},
@@ -194,6 +204,15 @@ export default {
 				this.$router.push({path: '/index'});	
 				return
 			}
+			this.shareData = {
+				url:'https://www.baidu.com',
+				title:"name",
+				pics:'/',
+				desc:'分享类容',
+				summary:'分享描述',
+			};
+						
+			this.$refs.fxd.setUrl(this.shareData);
 			let pr = {
 				user_open_id:this.$route.query.id
 			};

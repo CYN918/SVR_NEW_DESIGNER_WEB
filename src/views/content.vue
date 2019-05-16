@@ -125,7 +125,7 @@
 
 					</div>
 				</div>
-				<div class="seed2_1_2" v-if="contDat.more_work.length>0">
+				<div class="seed2_1_2" v-if="contDat.more_work && contDat.more_work.length>0">
 					<div class="seed2_1_2_1 pend" @click="goUser(contDat.user_info.open_id)">TA的更多作品</div>
 					<div class="seed2_1_2_1x1">
 					<div  class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
@@ -241,11 +241,11 @@ export default {
 	}, 
 	methods: {
 		keydown(){
-			console.log(11111111111);
+			
 		
 		},
 		keydown2(){
-			console.log(11111111111);
+
 		
 		},
 		gopl(){			
@@ -256,7 +256,7 @@ export default {
 			this.$router.push({path: '/works',query:{id:window.userInfo.open_id}})
 		},
 		gosx(el){
-			this.$router.push({path:'/chat',query:{openid:el.open_id,avatar:el.avatar,username:el.username}});
+			this.$router.push({path:'/chat',query:{openid:el.user_info.open_id,avatar:el.user_info.avatar,username:el.user_info.username}});
 		},
 		goFans(d,id){
 			this.$router.push({path:d,query:{id:id}});

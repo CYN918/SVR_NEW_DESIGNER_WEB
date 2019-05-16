@@ -198,13 +198,9 @@ export default {
 				Message({message: '第'+on+1+'个文件过大'});
 				return
 			}
-			let fileSize = 0;
-			if(fld.size > 1024 * 1024){
-			 	fileSize = (Math.round(fld.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
-			}else{
-				fileSize = (Math.round(fld.size * 100 / 1024) / 100).toString() + 'KB';
-			}               
-				
+			let fileSize = this.backSize(fld.size);
+			              
+			
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
 			let token = JSON.parse(localStorage.getItem('userT'));
 			let times = (Date.parse(new Date())/1000);
@@ -238,8 +234,11 @@ export default {
 					p.type="img";
 					p.url = da.url;
 					p.file_name = da.file_name;
-					p.s = da.file_size;	
-					p.fid=da.fid
+					p.s = this.backSize(da.file_size);	
+					p.fid=da.fid;
+					if(da.cover_img){
+						this.$set(p,'cover_img',da.cover_img);
+					}
 					this.$refs.upnfile.value ='';			
 					Message({message: '文件上传成功'});
 				}
@@ -265,7 +264,15 @@ export default {
 			xhr.open("POST", "http://139.129.221.123/File/File/insert");
 			xhr.send(formData);
 		},
-		
+		backSize(fld){
+			let fileSize = 0;
+			if(fld > 1024 * 1024){
+			 	fileSize = (Math.round(fld * 100 / (1024 * 1024)) / 100).toString() + 'MB';
+			}else{
+				fileSize = (Math.round(fld * 100 / 1024) / 100).toString() + 'KB';
+			} 
+			return fileSize;
+		},	
       	fileUp(flie){
 			for(let i=0,n=flie.target.files.length;i<n;i++){
 				this.clPic(flie.target.files[i],i);

@@ -26,10 +26,10 @@
 					<div v-if="userInfo.email">
 						<span>邮箱</span><span>{{userInfo.email}}</span>
 					</div>
-					<div v-if="userInfo.weixin && userInfo.qq_visible==1">
+					<div v-if="userInfo.weixin && (userInfo.qq_visible==1 || isMe())">
 						<span>微信</span><span>{{userInfo.weixin}}</span>
 					</div>
-					<div v-if="userInfo.qq && userInfo.weixin_visible==1">
+					<div v-if="userInfo.qq && (userInfo.weixin_visible==1 || isMe())">
 						<span>qq</span><span>{{userInfo.qq}}</span>
 					</div>
 					<div v-if="userInfo.personal_sign">
