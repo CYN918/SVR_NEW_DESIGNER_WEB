@@ -34,8 +34,7 @@ export default {
 			if(!window.userInfo){
 				this.$router.push({path:'/login'})
 				return
-			}
-			
+			}			
 			let pr = {
 				access_token:window.userInfo.access_token,
 				user_open_id:window.userInfo.open_id
@@ -44,9 +43,7 @@ export default {
 				if(!da){
 					return
 				}
-				this.userData = da;
-				console.log(this.userData)
-			
+				this.userData = da;			
 			})
 		},
 	},

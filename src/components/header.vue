@@ -396,7 +396,7 @@ export default {
 .header_3{
 	width: 234px;
 	color: #fff;
-	margin-right: 100px;
+	margin-right: 60px;
 }
 .header_3>span{
 	display: inline-block;

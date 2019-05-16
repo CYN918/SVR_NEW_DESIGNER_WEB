@@ -17,7 +17,7 @@
 					<div class="suc_1">
 						<div class="suc_title">主体信息<div class="xhds"></div></div>
 						<div class="suc_1_9">
-							<span>身份证姓名</span><el-input class="suc_1_9_1" v-model="postData.name" placeholder="请输入姓名"></el-input>
+							<span>身份证姓名</span><el-input  class="suc_1_9_1" v-model="postData.name" placeholder="请输入姓名"></el-input>
 						</div>
 						<div class="suc_1_9">
 							<span>身份证号码</span><el-input class="suc_1_9_1" v-model="postData.id_card" placeholder="请输入身份证号码"></el-input>
@@ -86,7 +86,7 @@
 						</div>
 						<div class="suc_1_10">
 							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
-							<div class="suc_1_10_2">上传手持身份证照片<img v-if="postData.bank_hold_photo" class="suc_1_10_3" :src="postData.bank_hold_photo" alt=""></div>
+							<div class="suc_1_10_2">上传手持身份证照片<img v-if="postData.hand_hold_photo" class="suc_1_10_3" :src="postData.hand_hold_photo" alt=""></div>
 						</div>
 	
 						
@@ -206,6 +206,7 @@ export default {
 					{n:'企业',u:'/setEnterprise'},
 				],
 			},
+			check_type:0,
 			ischecked:false,
 			navDta:[
 				'主体信息',
@@ -274,7 +275,7 @@ export default {
 		'postData.back_photo'() {
 			this.checkPost();
 		},
-		'postData.bank_hold_photo'() {
+		'postData.hand_hold_photo'() {
 			this.checkPost();
 		},
 		'postData.account_name'() {
@@ -304,6 +305,9 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		checkSfz(el){
+			
+		},
 		checkPost(){
 			
 			this.isPostky = false;
@@ -316,28 +320,31 @@ export default {
 			if(!this.postData.id_card){
 				return
 			}
-			if(this.postData.id_card.length>18){
-				Message({message: '身份证格式不正确'});
-				return
-			}
+			
+			let regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
+			if(!regIdNo.test(this.postData.id_card)){  				  
+				return 
+			}  
+
 			if(!this.postData.front_photo){
 				return
 			}
 			if(!this.postData.back_photo){
 				return
 			}
-			if(!this.postData.bank_hold_photo){
+			if(!this.postData.hand_hold_photo){
 				return
 			}
 			if(!this.postData.account_name){
 				return
 			}
-			if(!this.postData.bank_card_no){
+			
+			if(this.checkBankno(this.postData.bank_card_no)==false){
 				return
 			}
-			if(!this.postData.reserve_phone){
-				return
-			}
+			if(!(/^1[34578]\d{9}$/.test(this.postData.reserve_phone))){
+				return	
+			} 
 			if(!this.postData.branch_bank){
 				return
 			}	
@@ -359,7 +366,22 @@ export default {
 			
 			
 		},
-		
+		postCheck(){
+			if(!(/^1[34578]\d{9}$/.test(this.postData.reserve_phone))){
+				Message({message: '请输入正确的手机号码'}); 	
+				return false;
+			} 
+			let regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
+			if(!regIdNo.test(this.postData.id_card)){  
+				Message({message: '请输入正确的身份证号'});  
+				return false;
+			}  
+			if(this.checkBankno(this.postData.bank_card_no)==false){
+				Message({message: '请输入正确的银行卡号'});
+				return false;
+			}
+			
+		},		
 		getBINKname(){
 			
 			if(!this.form.bank_card_no){
@@ -557,7 +579,7 @@ export default {
 			let uploadComplete = (data)=>{
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;					
-					this.$set(this.postData,'bank_hold_photo',da.url)
+					this.$set(this.postData,'hand_hold_photo',da.url)
 					console.log(da);
 					Message({message: '文件上传成功'});
 				}
@@ -765,15 +787,77 @@ export default {
 
 			}
 		},
+		checkBankno(bankno) {
+    var lastNum = bankno.substr(bankno.length - 1, 1);//取出最后一位（与luhm进行比较）
+    var first15Num = bankno.substr(0, bankno.length - 1);//前15或18位
+    var newArr = [];
+
+    for (var i = first15Num.length - 1; i > -1; i--) { //前15或18位倒序存进数组
+        newArr.push(first15Num.substr(i, 1));
+    }
+
+    var arrJiShu = []; //奇数位*2的积 <9
+    var arrJiShu2 = []; //奇数位*2的积 >9
+    var arrOuShu = []; //偶数位数组
+    for (var j = 0; j < newArr.length; j++) {
+        if ((j + 1) % 2 == 1) {//奇数位
+            if (parseInt(newArr[j]) * 2 < 9)
+                arrJiShu.push(parseInt(newArr[j]) * 2); else
+                arrJiShu2.push(parseInt(newArr[j]) * 2);
+        }
+        else //偶数位
+            arrOuShu.push(newArr[j]);
+    }
+
+    var jishu_child1 = [];//奇数位*2 >9 的分割之后的数组个位数
+    var jishu_child2 = [];//奇数位*2 >9 的分割之后的数组十位数
+    for (var h = 0; h < arrJiShu2.length; h++) {
+        jishu_child1.push(parseInt(arrJiShu2[h]) % 10);
+        jishu_child2.push(parseInt(arrJiShu2[h]) / 10);
+    }
+
+    var sumJiShu = 0; //奇数位*2 < 9 的数组之和
+    var sumOuShu = 0; //偶数位数组之和
+    var sumJiShuChild1 = 0; //奇数位*2 >9 的分割之后的数组个位数之和
+    var sumJiShuChild2 = 0; //奇数位*2 >9 的分割之后的数组十位数之和
+    var sumTotal = 0;
+    for (var m = 0; m < arrJiShu.length; m++) {
+        sumJiShu = sumJiShu + parseInt(arrJiShu[m]);
+    }
+    for (var n = 0; n < arrOuShu.length; n++) {
+        sumOuShu = sumOuShu + parseInt(arrOuShu[n]);
+    }
+    for (var p = 0; p < jishu_child1.length; p++) {
+        sumJiShuChild1 = sumJiShuChild1 + parseInt(jishu_child1[p]);
+        sumJiShuChild2 = sumJiShuChild2 + parseInt(jishu_child2[p]);
+    }
+    //计算总和
+    sumTotal = parseInt(sumJiShu) + parseInt(sumOuShu) + parseInt(sumJiShuChild1) + parseInt(sumJiShuChild2);
+    //计算Luhm值
+    var k = parseInt(sumTotal) % 10 == 0 ? 10 : parseInt(sumTotal) % 10;
+    var luhm = 10 - k;
+    if (lastNum == luhm) {
+        return true;
+    }
+    else {
+        return false;
+    }
+},
+
 		setNavd(on){
 			this.navdOn = on;
 			this.setScll(800*on)
 			
 		},
 		Userupdate(){
-			if(!this.isPostky){
+			if(this.postCheck()==false){
 				return
 			}
+			if(!this.isPostky){
+				Message({message: '请填写所有信息'});
+				return
+			}
+			
 			let pr = {
 				access_token:window.userInfo.access_token,
 				type:1,
@@ -781,7 +865,7 @@ export default {
 				id_card:this.postData.id_card,
 				front_photo:this.postData.front_photo,
 				back_photo:this.postData.back_photo,
-				bank_hold_photo:this.postData.bank_hold_photo,
+				hand_hold_photo:this.postData.hand_hold_photo,
 				account_name:this.postData.account_name,
 				bank_card_no:this.postData.bank_card_no,
 				reserve_phone:this.postData.reserve_phone,
@@ -790,6 +874,7 @@ export default {
 				bank_name:this.postData.bank_name,
 				mobile_zone:this.form.mobile_zone,
 				mobile:this.form.mobile,
+				check_type:this.check_type,
 			};
 			this.api.identifyAuth(pr).then((da)=>{
 				if(!da){
@@ -831,6 +916,17 @@ export default {
 					return
 				}
 				this.form = da;
+				let pod = this.form.contributor_format_status;
+				if(pod==0 || pod == 1){
+					this.check_type = 1;
+				}
+				if(pod==2){
+					this.check_type = 3;
+				}
+				if(pod==-1){
+					this.check_type = 2;
+				}
+		
 				this.form.citye = [this.form.country,this.form.province,this.form.city]
 			
 			})
