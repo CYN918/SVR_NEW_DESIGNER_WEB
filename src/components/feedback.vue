@@ -78,7 +78,7 @@
                 box:false,
                 list:[],
                 typeList:[],
-                link_type:'',
+                link_type:'手机',
                 relation_type:"user_info",
                 app_id:'1001',
                 imgType:['image/gif','image/jpeg','image/png'],

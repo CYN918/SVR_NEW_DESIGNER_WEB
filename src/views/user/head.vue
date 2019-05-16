@@ -41,8 +41,8 @@
 						<div @click="showSetBg">设置背景图</div>
 						<div @click="fxclick">分享</div>
 					</div>
-					<div v-else class="u_top2_2_1">
-						<div @click="showSetBg">举报</div>
+					<div v-else class="u_top2_2_2">
+						<div @click="showReport(userMessage.open_id,userMessage.open_id,'user')">举报</div>
 					</div>
 				</div>
 			</div>
@@ -86,15 +86,17 @@
 			</div>
 		</div>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
+		<RPT ref="report"></RPT>
 	</div>
 </template>
 
 <script>
 
 import {Message} from 'element-ui'
+import RPT from '../../components/report'
 import fxd from '../../components/share';
 export default {
-	components:{fxd},
+	components:{fxd,RPT},
 	name: 'index',
 	data(){
 		return{
@@ -125,7 +127,11 @@ export default {
 	created() {
       this.qurId = this.$route.query.id;
     },
+	
 	methods: {	
+		showReport(id,lid,ad){
+			this.$refs.report.showReport(id,lid,ad);
+		},
 		fxclick(){
 			this.$refs.fxd.showShare(true);
 		},
@@ -411,13 +417,13 @@ export default {
     transform: rotate(227deg);
     transform-origin: 45% 35%;
 }
-.u_top2_2:hover>.u_top2_2_1{
+.u_top2_2:hover>.u_top2_2_1,.u_top2_2:hover>.u_top2_2_2{
 	display: block;
 }
 .u_top2_2_1{
 	display: none;
 	position: absolute;
-    top: 0;
+    top: 0px;
     right: 0;
     transform: translateY(25%);
     background: #FFFFFF;
@@ -427,10 +433,26 @@ export default {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 109px;
-    height: 80px;
+    height: auto;
     padding: 10px 0;
 }
-.u_top2_2_1>div{
+.u_top2_2_2{
+	display: none;
+	position: absolute;
+	top: 6px;
+	right: 0;
+	transform: translateY(25%);
+	background: #FFFFFF;
+	-webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 109px;
+	height: auto;
+	padding: 10px 0;
+}
+.u_top2_2_1>div,.u_top2_2_2>div{
 	cursor: pointer;
 	font-size: 14px;
 	color: #333333;
@@ -438,7 +460,7 @@ export default {
 	text-align: left;
 	text-indent: 20px;
 }
-.u_top2_2_1>div:hover{
+.u_top2_2_1>div:hover,.u_top2_2_2>div:hover{
 	background: #E6E6E6;
 }
 .upBg2{
