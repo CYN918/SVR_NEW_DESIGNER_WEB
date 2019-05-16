@@ -409,7 +409,7 @@ export default {
 	margin-bottom: 20px;
 }
 .uploadBoxd2_3{
-    margin: 9px 22px 9px 30px;
+    margin: 9px 0px 9px 25px;
     height: 377px;
     text-align: left;
     overflow: hidden;
@@ -429,15 +429,12 @@ export default {
     background: none;
 }
 .uploadBoxd2_3>li{
-	display: inline-block;
-	width: 236px;
-	margin: 0 20px 17px 0;
-	vertical-align: top;
+    display: inline-block;
+    width: 236px;
+    margin: 0 10px 17px;
+    vertical-align: top;
+}
 
-}
-.uploadBoxd2_3>li:nth-child(3n+3){
-	margin-right: 0;
-}
 
 .uploadBoxd2_3>li>div>div{
 	text-align: left;

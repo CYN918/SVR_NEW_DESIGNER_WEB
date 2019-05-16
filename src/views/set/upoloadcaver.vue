@@ -12,6 +12,7 @@
 				:autoCropWidth="option.autoCropWidth"
 				:autoCropHeight="option.autoCropHeight"
 				:autoCrop="true"
+				outputType="'jpeg,png'"
 				@realTime="realTime"				
 				>
 				</vueCropper>

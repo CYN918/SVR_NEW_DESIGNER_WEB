@@ -173,16 +173,13 @@ export default {
 			pr.is_publish = 1;
 			pr.step = 1;
 			pr.access_token = window.userInfo.access_token;		
-			pr = JSON.stringify(data);
-			pr = JSON.parse(pr);
-			
 			pr.labels = JSON.stringify(pr.labels);
 			this.api.saveWorks(pr).then((da)=>{
 				if(!da){
 					return
 				}
-				Message({message:'修改成功'});
-				this.hindissetDatasXX();				
+				this.hindissetDatasXX();	
+				Message({message:'修改成功正在审核'});							
 			});		
 		},
 		showissetDatasXX(on){

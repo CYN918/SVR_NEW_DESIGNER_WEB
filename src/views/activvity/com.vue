@@ -12,7 +12,7 @@
 			</div>
 			<div class="detail_topBox_2">
 
-				<div v-if="new Date(infoData.end_time) > new Date()"><span @click="downMoble" class="detail_topBox_2_1 pend">下载模板</span><span  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
+				<div v-if="new Date(infoData.end_time) > new Date()"><span v-if="infoData.template_url" @click="downMoble(infoData.template_url)" class="detail_topBox_2_1 pend">下载模板</span><span  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
 
 				<span v-else class="detail_topBox_2_3">已结束</span>
 			</div>
@@ -147,8 +147,8 @@ export default {
 		godefle(on){
 			this.$router.push({path:on,query:{id:this.$route.query.id}});	
 		},
-		downMoble(){
-		
+		downMoble(url){
+			window.open(url);
 		},
 		getPersonalWorkList(){
 			let pr = {

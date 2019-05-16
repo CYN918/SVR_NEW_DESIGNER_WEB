@@ -65,10 +65,11 @@ export default {
 			loading: '',
 			sxtj:0,
 			sxData:[
-				{name:'时间最新',key:1},
-				{name:'推荐最多',key:2},
-				{name:'评论最多',key:3}
+				{name:'时间最新',key:'create_time'},
+				{name:'推荐最多',key:'like_num'},
+				{name:'评论最多',key:'comment_num'}
 			],
+			sort:'create_time',
 			
 		}
 	},
@@ -78,8 +79,14 @@ export default {
 	}, 
 	methods: {
 		sxFn(on){
+			if(this.sxtj==on){
+				return
+			}
 			this.sxtj = on;
-			console.log(this.sxtj)
+			
+			this.sort = this.sxData[on].key;
+			this.page=1;
+			this.getHList();
 		},
 		goUser(on){
 			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
@@ -99,7 +106,8 @@ export default {
 				
 				user_open_id:this.$route.query.id,
 				page:this.page,
-				limit:this.limit
+				limit:this.limit,
+				sort:this.sort,
 			};
 			if(window.userInfo){
 				params.access_token = window.userInfo.access_token;
