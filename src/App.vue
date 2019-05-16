@@ -225,7 +225,7 @@ input:-ms-input-placeholder{
 	padding: 5px 10px;
 }
 .i_listd2_1{
-	font-size: 16.25px;
+	font-size: 14px;
 	text-align: left;
 	color: #1E1E1E;	
 	margin-bottom: 3px;
@@ -536,6 +536,9 @@ input:-ms-input-placeholder{
 	display: inline-block;
 	width: 50%
 	
+}
+.lgoin_s5>a{
+	color: #FF5121;
 }
 .lgoin_s5>span:nth-child(1){
 	text-align: left;

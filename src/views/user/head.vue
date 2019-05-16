@@ -204,15 +204,7 @@ export default {
 				this.$router.push({path: '/index'});	
 				return
 			}
-			this.shareData = {
-				url:'https://www.baidu.com',
-				title:"name",
-				pics:'/',
-				desc:'分享类容',
-				summary:'分享描述',
-			};
-						
-			this.$refs.fxd.setUrl(this.shareData);
+			
 			let pr = {
 				user_open_id:this.$route.query.id
 			};
@@ -224,6 +216,16 @@ export default {
 					return
 				}
 				this.userMessage = da;
+				this.shareData = {
+					url:window.location.href,
+					title:userMessage.username+"的主页-狮圈儿创作者平台",
+					pics:userMessage.avatar,
+					desc:'分享类容',
+					summary:'的主页-狮圈儿创作者平台',
+				};
+						
+				this.$refs.fxd.setUrl(this.shareData);
+				
 				if(this.$parent.setData){
 					this.$parent.setData(this.userMessage);
 				}

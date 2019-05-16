@@ -24,7 +24,7 @@
 			<a  @click="godefle('/detailed/into')" :class="['pend',ond==2?'router-link-exact-active':'']">入围作品</a>
 			<a @click="godefle('/detailed/admission')" :class="['pend',ond==3?'router-link-exact-active':'']">录用作品</a>
 				
-			<span class="detail_nav_1 iconfont pend">&#xe64c; 分享</span>
+			<span @click="fxclick" class="detail_nav_1 iconfont pend">&#xe64c; 分享</span>
 		</div>
 		<router-view/>
 		<div v-if="ishowzp" class="pushDeletBox">
@@ -61,16 +61,20 @@
 				</div>
 			</div>
 		</div>
+		<fxd :shareData="shareData" ref="fxd"></fxd>
 	</div>
 	
 </template>
 
 <script>
 import {Message} from 'element-ui'
+import fxd from '../../components/share';
 export default {
+	components:{fxd},
 	name: 'home',	 
 	data(){	
 		return{
+			shareData:{},
 		    show:false,
 			ond:1,
 			zpList:[],
@@ -89,6 +93,9 @@ export default {
 		this.getPersonalWorkList();
 	}, 
 	methods:{
+		fxclick(){
+			this.$refs.fxd.showShare(true);
+		},
 		backtimed(timed){
 			if(!timed){
 				return
@@ -137,6 +144,14 @@ export default {
 					return
 				}
 				this.infoData = da;
+				this.shareData = {
+					url:window.location.href,
+					title:da.activity_name+'-狮圈儿创作者平台',
+					pics:da.banner,
+					desc:'惊现大神快来膜拜',
+					summary:da.activity_name+'-狮圈儿创作者平台',
+				};
+				this.$refs.fxd.setUrl(this.shareData);
 				if(this.infoData.status==0){
 				    this.show=true;
 				}else{

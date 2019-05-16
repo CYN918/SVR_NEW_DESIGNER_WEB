@@ -127,15 +127,16 @@ export default {
 			
 			
 			this.ajaxType=1;
-			this.api.modifyPassword(params).then(()=>{	
-				
+			this.api.modifyPassword(params).then((da)=>{	
+				if(!da){
+					return;
+				}
 				this.ajaxType=0;
 				Message({message: '修改成功'});
 				setTimeout(()=>{
 					this.$router.push({path: '/login'});
 				},1000)
-			}).catch(()=>{
-				
+			}).catch(()=>{				
 				this.ajaxType=0;
 			});	
 		},

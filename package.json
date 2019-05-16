@@ -12,6 +12,8 @@
     "element-ui": "^2.6.1",
     "vue": "^2.6.6",
     "vue-cropper": "^0.4.9",
+    "vue-qart": "^2.2.0",
+    "vue-qr": "^2.1.0",
     "vue-router": "^3.0.1",
     "vue-ueditor-wrap": "^2.4.0"
   },

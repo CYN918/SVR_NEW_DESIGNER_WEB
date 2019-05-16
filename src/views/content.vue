@@ -466,13 +466,12 @@ export default {
 				this.contDat = da;
 				
 				this.shareData = {
-					url:'https://www.baidu.com',
-					title:this.contDat.work_name,
+					url:window.location.href,
+					title:this.contDat.work_name+'-狮圈儿创作者平台',
 					pics:this.contDat.face_pic,
-					desc:'分享类容',
-					summary:'分享描述',
+					desc:'惊现大神快来膜拜',
+					summary:this.contDat.work_name+'-狮圈儿创作者平台',
 				};
-			
 				this.$refs.fxd.setUrl(this.shareData);
 				if(window.userInfo.open_id==da.user_info.open_id){
 				    this.show= false;

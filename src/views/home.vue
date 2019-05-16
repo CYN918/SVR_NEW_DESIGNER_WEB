@@ -12,22 +12,7 @@
 		</div>
 		<ul class="i_listd homeMinheifh">
 			<li v-for="(el,index) in List" :key="index">
-				<div @click="openxq(index)" class="i_listd1x1"><img class="i_listd1" :src="el.face_pic"></div>
-				
-				<div class="i_listd2">
-					<div @click="openxq(index)" class="i_listd2_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
-					<div @click="openxq(index)" class="i_listd2_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
-					<div class="i_listd2_3">
-						<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
-						
-						<div class="i_listd2_3x1" @click="openxq(index)">
-							<span class="pend"><img src="/imge/icon/zs_icon_gk.png">{{el.view_num}}</span>
-							<span class="pend"><img src="/imge/icon/zs_icon_dz.png">{{el.like_num}}</span>
-							<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.comment_num}}</span>
-						</div>
-					</div>
-				</div>
-				<userTc :tcData="el"></userTc>
+				<list1 :el="el"></list1>			
 			</li>
 		</ul>
 		<el-pagination class="pagesddd" v-if="List.length>0"
@@ -47,8 +32,9 @@
 <script>
 import { Loading } from 'element-ui';
 import userTc from '../components/userTc';
+import list1 from '../components/list1';
 export default {
-	components:{userTc},
+	components:{userTc,list1},
 	name: 'home',
 	data(){
 		return {
@@ -68,20 +54,6 @@ export default {
 		
 	}, 
 	methods: {
-		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
-		},
-		backtime(time){
-		
-			return	window.getTimes(time);
-		},	
-		opend(ur){
-			if(!ur){return}
-			window.open(ur);
-		},
-		openxq(on){
-			window.open('#/cont?id='+this.List[on].work_id)
-		},
 		getBanner(){
 			this.api.getBanner().then((da)=>{
 				this.banners = da;

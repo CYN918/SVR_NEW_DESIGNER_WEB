@@ -1,0 +1,171 @@
+<template>
+	<div class="list1_box">
+		<div @click="openxq(index)" class="list1_box_1"><img class="list1_box_2" :src="el.face_pic"></div>		
+		<div class="list1_box_3">
+			<div @click="openxq(index)" class="list1_box_3_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
+			<div @click="openxq(index)" class="list1_box_3_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
+			<div class="list1_box_3_3">
+				<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
+				<span class="list1_box_3_6">{{backName(el.user_info.username)}}</span>
+				<div class="list1_box_3_4" @click="openxq(index)">
+					<span class="pend"><img src="/imge/icon/zs_icon_gk.png">{{el.view_num}}</span>
+					<span class="pend"><img src="/imge/icon/zs_icon_dz.png">{{el.like_num}}</span>
+					<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.comment_num}}</span>
+				</div>
+			</div>
+		</div>
+		<userTc :tcData="el"></userTc>
+	</div>
+</template>
+
+<script>
+import userTc from '../components/userTc';
+export default {
+	components:{userTc},
+	props:{
+		el:{
+			type:Object,
+			default:{}
+		}
+	},
+	data(){
+		return{
+			shareData:{},
+		}
+	},
+	methods: {	
+		goUser(on){
+			this.$router.push({path: '/works',query:{id:this.el.user_info.open_id}})	
+		},
+		backtime(time){
+		
+			return	window.getTimes(time);
+		},
+		backName(n){
+			let a = n;
+			if(a.length>6){
+				a = a.slice(0,6)+'...';
+			}
+			return a;
+		},
+		opend(ur){
+			if(!ur){return}
+			window.open(ur);
+		},
+		openxq(on){
+			window.open('#/cont?id='+this.el.work_id)
+		},
+	}
+}
+</script>
+
+<style>
+.list1_box{
+    display: inline-block;
+    width: 309.8px;
+    height: 312.9px;
+    background: #F6F6F6;
+    border-radius: 5.08px;
+    margin-right: 20.2px;
+    margin-bottom: 21.0px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #f6f6f6;
+}
+.list1_box_1{
+	width: 100%;
+    height: 231.9px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+.list1_box_2{
+	display: block;
+    width: 309.8px;
+    height: 231.9px;
+    -webkit-transition: -webkit-transform .1s linear;
+    transition: -webkit-transform .1s linear;
+    transition: transform .1s linear;
+    transition: transform .1s linear, -webkit-transform .1s linear;
+}
+.list1_box_2:hover {
+	-webkit-transform: scale(1.02);
+	transform: scale(1.02);
+}
+.list1_box_3{
+	cursor: pointer;
+	padding: 5px 10px;
+}
+.list1_box_3_1{
+  font-size: 14px;
+  text-align: left;
+  color: #1E1E1E;
+  margin-bottom: 3px;
+}
+.list1_box_3_1>img{
+  float: right;
+  width: 14px;
+  height: 14px;
+  margin-top: 3px;
+}
+.list1_box_3_2{
+  font-size: 12px;
+  color: #878787;
+  text-align: left;
+  margin-bottom: 5px;
+}
+.list1_box_3_3 {
+  font-size: 12px;
+  color: #999999;
+  text-align: left;
+}
+.list1_box_3_3 > div {
+  display: inline-block;
+}
+.list1_box_3_2 > span:last-child {
+  float: right;
+}
+.list1_box_3_3 > span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.list1_box_3_3 > span.list1_box_3_6{
+	width: auto;
+    margin-left: 5px;
+    overflow: auto;
+    border-radius: 0;
+}
+.list1_box_3_3 > span > img {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.list1_box_3_3 > div {
+  float: right;
+  margin-top: 4px;
+}
+.list1_box_3_3 > div > span {
+  margin-right: 24.5px;
+  font-size: 12.19px;
+  color: #999999;
+}
+.list1_box_3_3 > div > span:last-child {
+  margin-right: 0;
+}
+
+
+
+.list1_box_3_4 {
+  line-height: 14px;
+}
+.list1_box_3_4 > span > img {
+  display: inline-block;
+  vertical-align: bottom;
+  margin-right: 6px;
+  width: 15px;
+}
+</style>

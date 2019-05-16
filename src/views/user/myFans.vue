@@ -1,6 +1,18 @@
 <template>
 	<div>
 		<tophead></tophead>
+		<div class="dysxboxd">
+		<div class="dysxbox">
+			<el-select @change="getCsData" v-model="value" placeholder="请选择">
+				<el-option 
+				  v-for="item in options"
+				  :key="item.value"
+				  :label="item.label"
+				  :value="item.value">
+				</el-option>
+			  </el-select>
+		</div>
+		</div>
 		<div class="worksBox worksBox3">
 			<ul v-if="List.length>0"  class="follwfs">
 				<li v-for="(el,index) in List" :key="index">
@@ -77,6 +89,12 @@ export default {
 			onType:'followList',
 			follwTyle:0,
 			openOns:'',
+			value:'all',
+			options:[
+				{value:'all',label:'全部'},
+				{value:2,label:'互相关注的'},
+				{value:1,label:'未关注的'}
+			],
 		}
 	},
 	mounted: function () {			
@@ -84,6 +102,12 @@ export default {
 		
 	}, 
 	methods: {
+		getCsData(){
+			
+			this.page=1;
+			this.limit=40;
+			this.followList();
+		},
 		gosx(el){
 			this.$router.push({path:'/chat',query:{openid:el.open_id,avatar:el.avatar,username:el.username}});
 		},
@@ -133,7 +157,8 @@ export default {
 			this.follwTyle=1;
 			let pr = {
 				access_token:window.userInfo.access_token,
-				follow_id:this.List[on].open_id
+				follow_id:this.List[on].open_id,
+				
 			};
 			this.api.Follow_add(pr).then((da)=>{
 				if(!da){
@@ -174,7 +199,8 @@ export default {
 				access_token:window.userInfo.access_token,
 				user_open_id:window.userInfo.open_id,
 				page:this.page,
-				limit:this.limit
+				limit:this.limit,
+				follow_flag:this.value
 			};
 			this.api.fansList(pr).then((da)=>{
 				if(!da){
@@ -202,6 +228,22 @@ export default {
 </script>
 
 <style>
+	.dysxboxd{
+		position: relative;
+		width: 1300px;
+		margin: 0 auto;
+	}
+	.dysxbox{
+		position: absolute;
+		top: -60px;
+		right: 1px;
+	}
+	.dysxbox input{
+		border: none;
+		width: 120px;
+		font-size: 14px;
+		color: #999999;
+	}
 .worksBox{
 	margin: 17px auto 0;
 }

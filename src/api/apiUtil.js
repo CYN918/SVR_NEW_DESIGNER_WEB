@@ -40,7 +40,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 	if(!url){return}		
 	let instance = createApiInstance(config,on,Type)
 	instance.interceptors.response.use(response => {
-		let {result, msg, data} = response.data;
+		let {result, msg, data} = response.data;		
 		if(result==0){
 			if(isType.suktip){
 				Message({message: '操作成功',type: 'success'});
@@ -53,8 +53,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 			if(result=='104'){	
 				localStorage.setItem('userT','');
 				let	pass = localStorage.getItem('pass');
-				window.userInfo='';
-				
+				window.userInfo='';				
 				if(pass){
 					axios({
 						method: 'post',
@@ -77,6 +76,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 				return
 			}
 			Message({dangerouslyUseHTMLString:true,message: data});
+			return
 		}
 	},error => {	  
 		Message({message: '服务器故障',type: 'warning'});

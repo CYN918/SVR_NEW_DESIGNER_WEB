@@ -375,7 +375,7 @@ export default {
 .header>span>a{
 	position: relative;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 14px;
 	color: #FFFFFF;
 	line-height: 60px;
 }
