@@ -218,12 +218,12 @@ export default {
 				this.userMessage = da;
 				this.shareData = {
 					url:window.location.href,
-					title:userMessage.username+"的主页-狮圈儿创作者平台",
-					pics:userMessage.avatar,
+					title:this.userMessage.username+"的主页-狮圈儿创作者平台",
+					pics:this.userMessage.avatar,
 					desc:'分享类容',
 					summary:'的主页-狮圈儿创作者平台',
 				};
-						
+				console.log(this.shareData);		
 				this.$refs.fxd.setUrl(this.shareData);
 				
 				if(this.$parent.setData){
