@@ -116,7 +116,9 @@
                 }
                 let params={access_token:window.userInfo.access_token,classify_id:this.typeList[this.classify].id,classify_name:this.typeList[this.classify].classify_name,detail:this.detail,pic:JSON.stringify(this.imgList),link_type:this.link_type,link:this.link}
                 this.api.Feedback_add(params).then((res)=>{
-
+					if(!res){return}
+					Message('提交成功');
+					this.qx();
                 })
             },
             del(index){

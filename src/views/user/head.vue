@@ -36,10 +36,13 @@
 		<div class="u_top2">
 			<img class="u_top2_1" :src="userMessage.user_center_banner_pic?userMessage.user_center_banner_pic:userBg" alt="">
 			<div class="dwek">
-				<div v-if="isMe()"  class="u_top2_2">				
-					<div class="u_top2_2_1">
+				<div   class="u_top2_2">				
+					<div v-if="isMe()" class="u_top2_2_1">
 						<div @click="showSetBg">设置背景图</div>
 						<div @click="fxclick">分享</div>
+					</div>
+					<div v-else class="u_top2_2_1">
+						<div @click="showSetBg">举报</div>
 					</div>
 				</div>
 			</div>

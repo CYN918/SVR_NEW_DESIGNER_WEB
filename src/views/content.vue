@@ -84,7 +84,7 @@
 										<span class="hfdZ_3" @click="showFhks(el2)">回复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el2.open_id,el2.comment_id,'comment')">&#xe664;</span>
 										<div class="hfBox" v-if="el2.isshowfh==1">
 											<Input :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
-											<span :class="chekcont(pl2)==true?'iscsbtn':''" @click="addComment(index,index2)">回复</span>
+											<span :class="chekcont(pl2)==true?'iscsbtn':''" @click="addComment(pl2,index,index2)">回复</span>
 										</div>
 									</div>								
 								</div>
@@ -530,7 +530,7 @@ export default {
 			if(this.zkMyFun.checkWz(pl)==false){				
 				return
 			}
-			
+		
 			let backData = (on,on2)=>{
 			
 				let pr = {
@@ -541,7 +541,7 @@ export default {
 				};
 				
 				if(on || on==0){
-					console.log(this.hfData[on]);
+					pr.feed_id = this.hfData[on].feed_id;
 					pr.to_comment_id = this.hfData[on].to_comment_id;
 					pr.follow_flag = this.hfData[on].open_id;
 				}
@@ -601,7 +601,7 @@ export default {
 			if(on2 >= 0){
 			
                 this.$set(this.hfData[on].sub_comment[on2],'isshowfh','');
-					console.log(this.hfData[on].sub_comment[on2]);
+	
 			}
             if(on2 >= 0){
                 this.$refs.tageds2.value = '';
@@ -620,7 +620,6 @@ export default {
             }
 		    if(this.plType==1){
 				Message({message: '正在回复中'});
-				console.log(this.plType);
 				return
 			}
 			
