@@ -29,6 +29,7 @@ li{list-style-type: none}
 	height: 100%;
 }
 #app>div>div{
+	
 	box-sizing: border-box;
 	min-height: 100%;
 	padding: 60px 0;

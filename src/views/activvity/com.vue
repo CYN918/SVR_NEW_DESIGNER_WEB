@@ -12,7 +12,7 @@
 			</div>
 			<div class="detail_topBox_2">
 
-				<div v-if="new Date(infoData.end_time) > new Date()"><span v-if="infoData.template_url" @click="downMoble(infoData.template_url)" class="detail_topBox_2_1 pend">下载模板</span><span  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
+				<div v-if="new Date(infoData.end_time) > new Date()"><span v-if="infoData.template_url" @click="downMoble(infoData.template_url)" class="detail_topBox_2_1 pend">下载模板</span><span v-if="infoData.setting_type!=1"  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
 
 				<span v-else class="detail_topBox_2_3">已结束</span>
 			</div>
@@ -21,8 +21,8 @@
 		</div>
 		<div class="detail_nav">
 			<a  @click="godefle('/detailed')" :class="['pend',ond==1?'router-link-exact-active':'']">活动详情</a>
-			<a  @click="godefle('/detailed/into')" :class="['pend',ond==2?'router-link-exact-active':'']">入围作品</a>
-			<a @click="godefle('/detailed/admission')" :class="['pend',ond==3?'router-link-exact-active':'']">录用作品</a>
+			<a v-if="infoData.setting_type>2"  @click="godefle('/detailed/into')" :class="['pend',ond==2?'router-link-exact-active':'']">入围作品</a>
+			<a v-if="infoData.setting_type>3" @click="godefle('/detailed/admission')" :class="['pend',ond==3?'router-link-exact-active':'']">录用作品</a>
 				
 			<span @click="fxclick" class="detail_nav_1 iconfont pend">&#xe64c; 分享</span>
 		</div>

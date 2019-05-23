@@ -44,7 +44,18 @@
 					<div class="suc_1 suc_3">
 						<div class="suc_title">平台投稿人-认证信息</div>
 						<div class="suc_1_3">
-							<span>认证状态</span><div class="rzzt_1">{{form.is_contributor==1?'已认证':'未认证'}}</div><div v-if="form.is_contributor==0" class="rzzt_2" @click="gosetPersonal">立即认证</div><div v-else class="rzzt_2" @click="gosetPersonal">修改</div>
+							<span>认证状态</span><div class="rzzt_1">
+							{{form.is_contributor==1?'已认证':form.contributor_format_status==1?'认证中':'未认证'}}
+							</div>
+							<div v-if="form.contributor_format_status==0" class="rzzt_2" @click="gosetPersonal">
+								立即认证
+							</div>
+							<div v-else-if="form.contributor_format_status!=1" class="rzzt_2" @click="gosetPersonal">
+								修改
+							</div>
+							<div v-else class="rzzt_2" style="border: none;">
+								认证中
+							</div>
 						</div>
 					</div>
 					
