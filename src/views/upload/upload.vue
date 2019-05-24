@@ -17,9 +17,9 @@
 				</div>
 			</div>
 			<div class="upBoxd2">
-				<div @click="showUp(0)"><span class="iconfont">&#xe695;</span>上传图片</div>
-				<div @click="showUp(1)"><span class="iconfont">&#xe650;</span>上传视频</div>
-				<div @click="showUp(2)"><span class="iconfont">&#xe680;</span>上传音频</div>
+				<div @click="showUp(0)"><img class="svgImg1" src="/imge/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
+				<div @click="showUp(1)"><img class="svgImg1" src="/imge/svg/sc_icon_scyp.svg" alt="" />上传视频</div>
+				<div @click="showUp(2)"><img class="svgImg1" src="/imge/svg/sc_icon_scsp.svg" alt="" />上传音频</div>
 			</div>
 			<UplodImg v-if="isshowd" :configData="upConfig"></UplodImg>
 			
@@ -1275,5 +1275,11 @@ export default {
 }
 .page2_2_2_2_2 .el-input.is-active .el-input__inner, .el-input__inner:focus{
 	border-color: #C0C4CC !important;
+}
+.svgImg1{
+	display: inline-block;
+	width: 28px;
+    vertical-align: middle;
+    margin-right: 12px;
 }
 </style>

@@ -69,11 +69,11 @@
 				<div  class="userBpx">
 					<a @click="goUser">{{userMssge.username.substring(0,9)}}</a>
 					<ul> 
-						<router-link  to="/myAll"><li><span class="iconfont">&#xe620;</span>我的创作</li></router-link>
-						<router-link  to="/myDynamic"><li><span class="iconfont">&#xe624;</span>我的关注</li></router-link>
-						<router-link  to="/activvity"><li><span class="iconfont">&#xe62d;</span>我的收益</li></router-link>
-						<router-link  to="/setUser"><li><span class="iconfont">&#xe63d;</span>账号设置</li></router-link>
-						<a @click="showHb(true)"><li><span class="iconfont">&#xe622;</span>退出登录</li></a>
+						<router-link  to="/myAll"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></router-link>
+						<router-link  to="/myDynamic"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></router-link>
+						<router-link  to="/activvity"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></router-link>
+						<router-link  to="/setUser"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></router-link>
+						<a @click="showHb(true)"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
 					</ul>
 				</div>
 			</span>	
@@ -83,7 +83,7 @@
 		</div>
 		<div v-show="isshowd" class="loginoutBox">
 			<div class="loginoutBox1">
-				<img @click="showHb(false)" class="loginoutBox2" src="/imge/cj_00.png">
+				<img @click="showHb(false)" src="/imge/svg/upload/yh_zlws_tx_gb.svg" class="loginoutBox2 pend">
 				<div class="loginoutBox3">确定退出登录?</div>
 				<div class="loginoutBox4"><span @click="showHb(false)">取消</span><span @click="logout()">确定</span></div>
 			</div>
@@ -779,5 +779,10 @@ export default {
 }
 .pdxf{
 	display: inline-block;
+}
+.svgImg2{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
 }
 </style>

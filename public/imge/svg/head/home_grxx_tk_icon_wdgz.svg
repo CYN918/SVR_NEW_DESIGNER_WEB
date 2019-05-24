@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="14px" viewBox="0 0 16 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54 (76480) - https://sketchapp.com -->
+    <title>home_grxx_tk_icon_wdgz</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-1010.000000, -429.000000)" id="home_grxx_tk_icon_wdgz">
+            <g transform="translate(1004.000000, 422.000000)">
+                <rect id="Rectangle-Copy-22" x="0" y="0" width="28" height="28"></rect>
+                <g id="关注" transform="translate(7.000000, 8.000000)" fill-rule="nonzero" stroke="#000000">
+                    <path d="M9.91675211,5.37199247e-06 L9.91675201,5.37196334e-06 C8.81754932,-0.000313625177 7.76518504,0.428098988 7.00010536,1.18735016 L7.00010557,1.18735037 C6.23512959,0.427912626 5.18264049,-0.000533813071 4.08336291,5.58263062e-06 C1.83173244,5.58263062e-06 0,1.77496842 0,3.95625139 C0,4.87310032 0.331325222,5.76658713 0.965366067,6.50846126 L6.17807745,11.663865 L6.17807743,11.663865 C6.39297873,11.8789896 6.68985492,12.0003999 7,12 C7.31205559,11.999999 7.60375866,11.8804512 7.82251196,11.6644321 L13.0679634,6.47252678 L13.0679634,6.47252676 C13.6709348,5.76223313 14.0001977,4.87329978 13.9999999,3.95624581 C14.0000982,1.77487047 12.1684691,0 9.91673301,0" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

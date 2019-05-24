@@ -965,7 +965,7 @@ input:-ms-input-placeholder{
 }
 .seed2_1_2{
 	padding: 40px;
-	height: 481px;
+	max-height: 481px;
     overflow: hidden;
 	overflow-y: auto;
 }
@@ -2240,5 +2240,10 @@ content: "";
 }
 .el-pagination.is-background .el-pager li:not(.disabled):hover{
 	color: #FF5121;
+}
+.svgImgx2{
+    display: inline-block;
+    vertical-align: sub;
+    margin-right: 6px;
 }
 </style>

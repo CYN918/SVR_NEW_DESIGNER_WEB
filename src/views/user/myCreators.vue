@@ -348,7 +348,7 @@ export default {
 	position: relative;
     float: right;
     display: inline-block;
-   
+	width: 783px;
     height: 154px;
     overflow: hidden;
 	padding: 2px 0;

@@ -19,10 +19,10 @@
 				</div>
 			</div>
 			<div class="seed12">
-				<span class="seed1_2_2"><img src="/imge/icon/zs_icon_xx.png">{{hfnum?hfnum:0}}</span>
-				<span class="seed1_2_3"><img src="/imge/icon/zs_icon_dz.png">{{contDat.like_num}}</span>
-				<span class="seed1_2_4">分享</span>
-				<span class="seed1_2_5">推荐</span>
+				<span class="seed1_2_2"><img src="/imge/icon/zs_icon_xx.png">0</span>
+				<span class="seed1_2_3"><img src="/imge/icon/zs_icon_dz.png">0</span>
+				<span class="seed1_2_4"><img class="svgImgx2" src="/imge/svg/cent/sc_icon_share.svg"/>分享</span>
+				<span class="seed1_2_5"><img class="svgImgx2" src="/imge/svg/cent/sc_icon_tj.svg"/>推荐</span>
 			</div>
 			</div>
 			<div class="zdc"></div>
@@ -33,8 +33,8 @@
 				{{contDat.work_name}}
 			</div>
 			<div class="topNav_x_1_2">
-				<span class="seed1_2_4">分享</span>
-				<span class="seed1_2_5">推荐</span>
+				<span class="seed1_2_4"><img class="svgImgx2" src="/imge/svg/cent/sc_icon_share.svg"/>分享</span>
+				<span class="seed1_2_5"><img class="svgImgx2" src="/imge/svg/cent/sc_icon_tj.svg"/>推荐</span>
 			</div>
 			</div>
 			<div class="zdc"></div>
@@ -54,10 +54,11 @@
 				
 				<div class="zdc"></div>
 			</div>
-			<div class="seed2_2">
+			<div class="seed2_2p">
+			<div :class="['seed2_2',isfix]">
 				<div class="seed2_1_1" v-if="contDat.user_info">
 					<div class="seed2_1_1_1">
-						<img :src="contDat.user_info.avatar" alt="">
+						<img class="contavatar" :src="contDat.user_info.avatar" alt="">
 						<div>
 							<div>{{contDat.user_info.username}}</div>
 							<div>{{contDat.user_info.vocation}}  |  {{contDat.user_info.province}}  {{contDat.user_info.city}}</div>
@@ -105,7 +106,7 @@
 					
 					</div>
 					
-					
+					</div>
 				</div>
 			</div>
 			
@@ -119,6 +120,7 @@
 export default {
 	data(){
 		return{
+			isfix:'',
 			prom:{
 				
 			},
@@ -143,11 +145,13 @@ export default {
 				if(this.topTyped==0){
 					if(t>188){
 						this.topTyped=true;
+						this.isfix = 'isfix';
 					}
 					return
 				}
 				if(t<=188){
 					this.topTyped=false;
+					this.isfix = '';
 				}
 				console.log(this.topTyped)
 			}
@@ -191,7 +195,7 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 9999;
+	z-index: 996;
 	background: none !important;
 	cursor: initial;
 }

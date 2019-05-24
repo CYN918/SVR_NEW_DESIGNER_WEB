@@ -21,8 +21,8 @@
 			<div class="seed12">
 				<span class="seed1_2_2" @click="gopl"><img src="/imge/icon/zs_icon_xx.png">{{hfnum}}</span>
 				<span class="seed1_2_3"><span @click="addLike('work',contDat.work_id,contDat)" :class="['iconfont',contDat.liked?'likeis':'']">&#xe672;</span>{{contDat.like_num}}</span>
-				<span class="seed1_2_4" @click="fxclick"><span class="iconfont">&#xe64c;</span>分享</span>
-				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
+				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="/imge/svg/cent/sc_icon_tj.svg"/>分享</span>
+				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="/imge/svg/cent/sc_icon_tj.svg"/>推荐</span>
 			</div>
 			</div>
 		</div>
@@ -32,8 +32,8 @@
 				{{contDat.work_name}}
 			</div>
 			<div class="topNav_x_1_2">
-				<span class="seed1_2_4" @click="fxclick"><span class="iconfont">&#xe64c;</span>分享</span>
-				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><span  :class="['iconfont',contDat.liked?'likeis':'']">&#xe652;</span>推荐</span>
+				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="/imge/svg/cent/sc_icon_tj.svg"/>分享</span>
+				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="/imge/svg/cent/sc_icon_tj.svg"/>推荐</span>
 			</div>
 			</div>
 		</div>

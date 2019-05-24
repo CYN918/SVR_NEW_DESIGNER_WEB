@@ -311,6 +311,7 @@ export default {
 								this.opType=0;
 								return
 							}
+							Message({message: '保存成功'});
 							this.hindSetBg();
 							this.userMessage.user_center_banner_pic = ds.data.url;
 							this.userBg =  ds.data.url;

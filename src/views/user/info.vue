@@ -85,7 +85,7 @@ export default {
 
 <style>
 .info_boxd{
-	padding-bottom: 135px;
+	padding-bottom: 60px;
 }
 .info_box{
 	box-sizing: border-box;

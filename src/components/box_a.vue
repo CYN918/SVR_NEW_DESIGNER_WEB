@@ -2,7 +2,7 @@
 	<div class="list1_box">
 		<div @click="openxq(index)" class="list1_box_1"><img class="list1_box_2" :src="el.face_pic"></div>		
 		<div class="list1_box_3">
-			<div @click="openxq(index)" class="list1_box_3_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
+			<div @click="openxq(index)" class="list1_box_3_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img class="svgImgx2" v-if="el.is_recommend==1" src="/imge/svg/zs_icon_tj.svg"/></div>
 			<div @click="openxq(index)" class="list1_box_3_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
 			<div class="list1_box_3_3">
 				<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>

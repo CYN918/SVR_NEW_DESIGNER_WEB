@@ -2,7 +2,7 @@
 	<div class="upFm">
 		<div class="upFm_bg" ></div>
 		<div class="upFm_box">
-			<img @click="close" src="/imge/cj_00.png" class="uploadBoxd2_1">
+			<img @click="close" src="/imge/svg/upload/yh_zlws_tx_gb.svg" class="uploadBoxd2_1">
 			<div class="upFm_yl">
 				<div class="upFm_yl_1">
 					<div class="upFm_yl_1_1" >
@@ -60,13 +60,14 @@
 			<div class="upFm_yb">
 				<div class="upFm_yb_1">
 					效果预览
-					<div>上传图片支持JPG、PNG，大小<10M<br/>建议尺寸为800×600 px</div>
+					<div>上传图片支持JPG、PNG、gif，大小<10M<br/>建议尺寸为800×600 px</div>
 				</div>
 				<div class="upFm_yb_2">重新上传<input class="fileinpd" type="file" accept="image/png, image/jpeg, image/jpg" @change="uploadImg"></div>
 				<div class="upFm_yb_3">
-					<img @click="changeScale(1)" src="/imge/cj_01.png" alt="">
-					<img @click="changeScale(-1)" src="/imge/cj_02.png" alt="">
-					<img @click="rotateLeft" src="/imge/cj_03.png" alt="">
+					
+					<img class="pend" @click="changeScale(1)" src="/imge/svg/upload/yh_zlws_tx_fd.svg" alt="">
+					<img class="pend" @click="changeScale(-1)" src="/imge/svg/upload/yh_zlws_tx_sx.svg" alt="">
+					<img class="pend" @click="rotateLeft" src="/imge/svg/upload/yh_zlws_tx_sz.svg" alt="">
 				</div>
 			</div>
 			
@@ -205,7 +206,7 @@ export default {
 		},
 		uploadImg(e){
 			let file = e.target.files[0];
-			if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)||e.target.files.length==0) {
+			if (!/\.(jpg|jpeg|png|JPG|PNG|GIF)$/.test(e.target.value)||e.target.files.length==0) {
 				return
 			}
 			let reader = new FileReader()
@@ -399,9 +400,7 @@ export default {
 	float: right;
 }
 .upFm_yb_3>img{
-	width: 23px;
 	margin-right: 33px;
-	cursor: pointer;
 }
 .upFm_yb_3>img:hover{
 	opacity: .7;
