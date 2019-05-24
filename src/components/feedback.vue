@@ -29,10 +29,11 @@
                     <div class="upfdb_name noMar" >
                         <span class="top">相关图片</span>
                         <div>
-                            <div class="upImg">
+                            <div class="upImg pend">
                                 <span>上传图片</span>
+								<input type="file" class="input_img" ref="upload" @change="fileUp"/>
                             </div>
-                            <input type="file" class="input_img" ref="upload" @change="fileUp"/>
+                            
                             <span class="ts">最多上传3张,格式jpeg、jpg、png,大小不超过2M</span>
                             <div class="block" >
                                 <div class="picURl" v-for="(item,index) in imgList">
@@ -338,12 +339,14 @@ input{
     cursor: pointer;
 }
 .upImg{
+	position: relative;
     border: 1px solid #999999;
     border-radius: 5px;
     width: 100px;
     height: 40px;
     text-align: center;
 }
+
 .upImg>span{
     display: block;
     line-height: 40px;
@@ -355,12 +358,12 @@ input{
 
 }
 .input_img{
-    width: 100px;
-    height: 40px;
-    position: relative;
-    left: -106px;
-    top:-8px;
-    border-bottom: 0px!important;
+
+    position: absolute;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;    
     opacity: 0;
 }
 .ts{
@@ -392,5 +395,8 @@ input{
 .tj{
     background: #FF5121;
     color: #FFFFFF;
+}
+.input_img[data-v-91b125d6]{
+	cursor: pointer;
 }
 </style>

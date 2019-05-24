@@ -66,7 +66,7 @@
 									<div>{{backComt(el.content)[0]}}</div>
 								</div>
 								<div>
-									<span class="hfdZ_3" @click="showFhks(el)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el.open_id,el.comment_id,'comment')">&#xe664;</span>
+									<span class="hfdZ_3" @click="showFhks(el)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el.open_id,el.comment_id,'comment')">&#xe664;</span>
 									<div  class="hfBox" v-if="el.isshowfh">
 										<Input onblur="alert(1)" :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 										<span  :class="chekcont(pl2)==true?'iscsbtn':''" @click="addComment(pl2,index)">回复</span>
@@ -118,7 +118,7 @@
 							<div @click="goUserzy" v-if="page.open_id==contDat.user_info.open_id"><span>进入主页</span></div>
 							<div v-else>
 								<span @click="showHb2" v-if="contDat.user_info.follow_flag>0">已关注</span>
-								<span @click="Follow_add()" v-else>关注</span>
+								<span class="jsBtn" @click="Follow_add()" v-else>关注</span>
 								<span class="lastsedd_1 pend" @click="gosx(contDat)">私信</span>
 							</div>
 							
@@ -127,7 +127,7 @@
 						</div>
 					</div>
 					<div class="seed2_1_2" v-if="contDat.more_work && contDat.more_work.length>0">
-						<div class="seed2_1_2_1 pend" @click="goUser(contDat.user_info.open_id)">TA的更多作品</div>
+						<div class="seed2_1_2_1 pend" @click="goOpen('#/works?id='+contDat.user_info.open_id)">TA的更多作品</div>
 						<div class="seed2_1_2_1x1">
 						<div  class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
 							<div class="i_listd1x2" @click="seeWorks(el.work_id)"><img :src="el.face_pic" alt="" class="i_listd1"></div>
@@ -250,6 +250,9 @@ export default {
 		keydown2(){
 
 		
+		},
+		goOpen(ud){
+			window.open(ud);
 		},
 		gopl(){			
 			document.documentElement.scrollTop =this.$refs.firstAnchor.offsetTop;

@@ -6,9 +6,8 @@
 			<router-link class="last pend" to="/activvity">活动</router-link>
 		</span>
 		<div class="header_3">
-			<span :class="['iconfont','searcBox','pend',searchType?'issearch':'']">
-				&#xe609;
-				<div @click="showsearch()"  class="searcBox3"></div>
+			<span :class="['searcBox',searchType?'issearch':'']">
+				<span @click="showsearch()" class="pdxf iconfont pend">&#xe609;</span>
 				<el-input v-if="searchType" class="searcBox4"  @keyup.enter.native="keydown($event)" @blur="hind" ref="serll" v-model="searcCont" placeholder="请输入搜索内容"></el-input>
 				<div v-if="searchType" class="searcBox5">
 					<div v-if="!searcCont||searcCont.split(' ').join('').length == 0">
@@ -777,5 +776,8 @@ export default {
 }
 .searcBox5_2xv>div:first-child{
 	margin-top: 8px;
+}
+.pdxf{
+	display: inline-block;
 }
 </style>

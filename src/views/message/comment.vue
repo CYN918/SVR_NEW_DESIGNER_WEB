@@ -18,8 +18,8 @@
 						<img class="comment_1" :src="el.comment.avatar" alt="">
 						<div class="comment_2">
 							<div class="comment_2_1">{{el.comment.username}}<span class="comment_2_2">{{backtime(el.comment.create_time)}}</span></div>
-							<div class="comment_2_3" v-if="el.op_cname=='回复'">{{el.op_cname}} 你在原创作品 <span class="comment_2_4" @click="goWork(el.work.work_id)">【{{el.work.work_name}}】</span> 的评论</div>
-							<div class="comment_2_3" v-if="el.op_cname=='评论'">{{el.op_cname}}  你的作品 <span class="comment_2_4" @click="goWork(el.work.work_id)">【{{el.work.work_name}}】</span></div>
+							<div class="comment_2_3" v-if="el.op_cname=='回复'">{{el.op_cname}} 你在原创作品 <span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span> 的评论</div>
+							<div class="comment_2_3" v-if="el.op_cname=='评论'">{{el.op_cname}}  你的作品 <span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span></div>
 							<div class="comment_2_5">{{backcont(el.comment.content)}}</div>
 							<div>
 								<span class="iconfont pend hfdZ_23">

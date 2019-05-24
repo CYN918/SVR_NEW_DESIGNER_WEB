@@ -5,21 +5,21 @@
 		
 			<ul v-if="List.length>0" class="i_listd2" >
 				<li v-for="(el,index) in List" :key="index">
-					<img @click="goUser(index)" :src="el.avatar">
+					<img @click="goFans('/works',el.open_id)" :src="el.avatar">
 					<div class="i_listd2_1">
-						<div @click="goUser(index)">{{el.username}}</div>
+						<div @click="goFans('/works',el.open_id)">{{el.username}}</div>
 						<div>{{el.province}} | {{el.city}}</div>
 						<div class="i_listd2_d">
-							<span>粉丝<span>{{el.fans_num}}</span></span>
+							<span @click="goFans('/followFans',el.open_id)">粉丝<span>{{el.fans_num}}</span></span>
 							<span>人气<span>{{el.popular_num}}</span></span>
-							<span>创作<span>{{el.work_num}}</span></span>
+							<span @click="goFans('/works',el.open_id)">创作<span>{{el.work_num}}</span></span>
 						</div>
 						<div>{{el.personal_sign?el.personal_sign:'这个人很懒，什么都没说~'}}</div>
 						<div class="btns_foll">
 							<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
 							<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
-							<span @click="Follow_add(index)" v-else>关注</span>
-							<span>私信</span>
+							<span class="jsBtn" @click="Follow_add(index)" v-else>关注</span>
+							<span @click="gosx(index)">私信</span>
 						</div>
 					</div>
 					<div class="lunbox">
@@ -106,6 +106,12 @@ export default {
 		
 	}, 
 	methods: {
+		goFans(d,id){
+			this.$router.push({path:d,query:{id:id}});
+		},
+		gosx(on){
+			this.$router.push({path:'/chat',query:{openid:this.List[on].open_id,avatar:this.List[on].avatar,username:this.List[on].username}});
+		},
 		sreond(type){
 			if(type==this.classd){return}
 			this.classd = type;
@@ -115,7 +121,6 @@ export default {
 		showFpllwodel(on){
 			this.isshowd2 = true;
 			this.openOns = on;
-			console.log(this.List[this.openOns])
 		},
 		Follow_del(){
 			if(!this.openOns && this.openOns!=0){
@@ -138,7 +143,8 @@ export default {
 				this.follwTyle=0;
 				this.hindHb2();
 				Message({message: '取消关注成功'});
-				this.List.splice(this.openOns,1);
+				this.List[this.openOns].follow_flag=0;
+			
 
 			}).catch(()=>{
 				this.follwTyle = 0;		
@@ -176,10 +182,6 @@ export default {
 			this.isshowd2 = false;
 			this.openIdd = '';
 		},
-		
-		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].open_id}})	
-		},
 		backtime(time){		
 			return	window.getTimes(time);
 		},	
@@ -198,6 +200,9 @@ export default {
 			};
 			if(this.classd){
 				pr.vocation = this.classd;
+			}
+			if(window.userInfo){
+				pr.access_token=window.userInfo.access_token;
 			}
 			this.$refs.mytopcs.setCont(query);
 			this.loading = Loading.service({ fullscreen: true });

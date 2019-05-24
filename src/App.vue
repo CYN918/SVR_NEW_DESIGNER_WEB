@@ -1049,11 +1049,11 @@ input:-ms-input-placeholder{
 .seed2_1_1_3>div>span:hover{
 	opacity: .7;
 }
-.seed2_1_1_3>div>span:first-child{
-	background: #FF5121;
-	border-color: #FF5121;
-	color: #fff;
 
+.jsBtn{
+	background: #FF5121 !important;
+	border-color: #FF5121 !important;
+	color: #fff !important;
 }
 .seed2_2>div{
 	border-bottom: 1px solid #E6E6E6;
@@ -1334,7 +1334,7 @@ content: "";
 	margin-top: 40px;
 }
 .myplde{
-	margin: 77px auto 38px;
+	margin: 18px auto 0;
 	font-size: 14px;
 	color: #666666;
 }
@@ -2173,6 +2173,8 @@ content: "";
 	min-height: 33px;
     max-height: 53px;
 	margin-bottom: 7px;
+	overflow: hidden;
+    text-overflow: ellipsis;
 }
 .comment_2_6{
 	display: inline-block;
