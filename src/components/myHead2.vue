@@ -1,25 +1,22 @@
 <template>
 	<div class="setHeadBox">
 		<div class="setHeadBox_1">
-			<span class="setHeadBox_2">{{navData.title}}</span>
+			<span class="setHeadBox_2">{{config.title}}</span>
 			<div class="setHeadBox_3">
-				<router-link v-for="(el,index) in navData.list"  :to="el.u">{{el.n}}</router-link>
-							
+				<router-link v-for="(el,index) in config.arr"  :to="el.u">{{el.n}}</router-link>							
 			</div>
 		</div>
 	</div>
 </template>
-
 <script>
 export default {
-	name: 'index',
-	props:['navData'],
-	data(){
-		return{
-			
+	name: 'myhead2',
+	props:{
+		config:{
+			type:Object,
+			default:{}
 		}
 	},
-
 }	
 </script>
 

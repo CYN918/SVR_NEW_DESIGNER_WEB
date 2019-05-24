@@ -10,47 +10,37 @@
 			<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
 			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
 		</div>
-		<ul class="i_listd homeMinheifh">
-			<li v-for="(el,index) in List" :key="index">
-				<list1 :el="el"></list1>			
-			</li>
-		</ul>
-		<el-pagination class="pagesddd" v-if="List.length>0"
-		background
-		@size-change="handleSizeChange"
-		@current-change="handleCurrentChange"
-		:current-page="page"
-		:page-sizes="[40, 80, 120, 160]"
-		:page-size="limit"
-		layout="prev,pager, next,sizes, jumper"
-		:total="total">   
-		</el-pagination>
-
+		<list class="" :config="data">
+			<template v-slot:todo="{ todo }">
+				<box_a :el="todo"></box_a>
+			</template>			
+		</list>
 	</div>
 </template>
 
 <script>
 import { Loading } from 'element-ui';
-import userTc from '../components/userTc';
-import list1 from '../components/list1';
+import list from '../components/list';
+import box_a from '../components/box_a';
 export default {
-	components:{userTc,list1},
+	components:{list,box_a},
 	name: 'home',
 	data(){
 		return {
+			data:{
+				type:'box_a',
+				ajax:{
+					url:'getHList',
+				}
+			},
 			banners:[],
-			List:[],
 			banOn:0,
-			page:1,
-			limit:40,
-			total:0,
-			loading: '',
+			
 			
 		}
 	},
 	mounted: function () {	
 		this.getBanner();
-		this.getHList();
 		
 	}, 
 	methods: {
@@ -80,41 +70,10 @@ export default {
 			}
 			this.banOn = 0;
 		},
-		getHList(){
-			let params = {
-				page:this.page,
-				limit:this.limit
-			};
-			if(window.userInfo){
-				params.access_token = window.userInfo.access_token;
-			}
-			
-			this.loading = Loading.service({ fullscreen: true });
-			this.api.getHList(params).then((da)=>{
-				this.loading.close();
-				if(!da){
-					return
-				}
-				this.List = da.data;
-				this.total = da.total;
-				document.documentElement.scrollTop =0;
-				document.body.scrollTop =0;
-			}).catch(()=>{
-				this.loading.close();
-			})
-		},
-		handleSizeChange(val) {
-			this.limit = val;
-			this.getHList();
-		},
-		handleCurrentChange(val) {
-			this.page = val;
-			this.getHList();
-		}
+		
 	}
 }
 </script>
 
 <style>
-
 </style>

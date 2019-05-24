@@ -149,7 +149,9 @@ export default {
 			this.input = da;
 		},
 		clearValue(){
+			console.log(this.input);
 			this.input="";
+			console.log(this.input);
 		},
    		setErr(cls,text){
 			this.passqd=cls;

@@ -6,7 +6,7 @@
 			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
 			<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 			<Input v-model="form.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'6 - 16位密码，区分大小写'"></Input>			
-			<Input v-model="form.password_repass"  :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认密码'"  ></Input>
+			<Input v-model="form.password_repass" :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认密码'"  ></Input>
 			<el-form-item>
 				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">注册</el-button>				
 			</el-form-item>
@@ -88,8 +88,18 @@ export default {
 		}
 	},
 	mounted: function () {	
+		this.init();
 	}, 
 	methods: {
+		init(){
+			document.addEventListener('keydown',(e)=>{
+				if(e.keyCode==13){				
+				if(this.$route.fullPath=='/register'){
+					this.submitForm('myform');
+				}
+				}					
+			});
+		},
         jump(){
             this.$router.push({
                 path:'/index'

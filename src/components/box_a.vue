@@ -6,7 +6,7 @@
 			<div @click="openxq(index)" class="list1_box_3_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
 			<div class="list1_box_3_3">
 				<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
-				<span class="list1_box_3_6">{{backName(el.user_info.username)}}</span>
+				<span @click="goUser(index)" class="list1_box_3_6">{{backName(el.user_info.username)}}</span>
 				<div class="list1_box_3_4" @click="openxq(index)">
 					<span class="pend"><img src="/imge/icon/zs_icon_gk.png">{{el.view_num}}</span>
 					<span class="pend"><img src="/imge/icon/zs_icon_dz.png">{{el.like_num}}</span>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import userTc from '../components/userTc';
+import userTc from './userTc';
 export default {
 	components:{userTc},
 	props:{

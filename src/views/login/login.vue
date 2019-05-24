@@ -30,6 +30,7 @@ export default {
 		}
 	},
 	mounted: function () {	
+		this.init();
 	}, 
 	methods: {	
 		init(){			
@@ -37,6 +38,14 @@ export default {
 				this.loginPost(window.passIn);
 				return
 			}
+			
+			document.addEventListener('keydown',(e)=>{
+				if(e.keyCode==13){				
+				if(this.$route.fullPath=='/login'){
+					this.loginUp();
+				}					
+			}
+			},false)
 		},
 		jump(){
 		    this.$router.push({

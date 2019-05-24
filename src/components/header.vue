@@ -36,8 +36,8 @@
 				</div>
 			</span>
 
-			<span class="iconfont pend messgeH1"><span @click="showisXXNav">&#xe65b;</span>
-				<div @click="showisXXNav" v-if="messgNum.unread_total_num>0" class="messgeH2">{{messgNum.unread_total_num}}</div>
+			<span class="iconfont  messgeH1"><span class="pend" @click="showisXXNav">&#xe65b;<div @click="showisXXNav" v-if="messgNum.unread_total_num>0" class="messgeH2">{{messgNum.unread_total_num}}</div></span>
+				
 				<div v-if="isXXNav" @click="hidisXXNav" class="messgeH3Boxf1"></div>
 				<div v-if="isXXNav" class="messgeH3">
 					<div class="messgeH3_1">
@@ -665,7 +665,7 @@ export default {
     border-radius: 5px;
     width: 269px;
     height: 320px;
-	z-index: 99;
+	z-index: 999;
 }
 .messgeH3_1{
 	background: #FFFFFF;
@@ -764,7 +764,7 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 98;
+	z-index: 997;
 
 }
 .searcBox5_2imf{

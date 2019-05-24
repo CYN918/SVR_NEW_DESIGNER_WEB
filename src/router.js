@@ -8,6 +8,7 @@ const router = new Router({
 let wb = [
 	{
 		path: '/',
+		redirect: '/index',
 		name: 'index',
 		component: () => import('./views/index.vue'),
 		children:[
@@ -191,8 +192,44 @@ let wb = [
                 component: () => import('./views/message/DocumentCenter.vue'),
 
             },
+			{
+			    path: '/text',
+				redirect: '/text/about',
+			    name: 'text',
+			    component: () => import('./views/message/text.vue'),
+				
+				children:[
+					{
+					    path: '/text/about',
+					    name: 'about',
+					    component: () => import('./views/message/about.vue'),
+					
+					},
+					{
+					    path: '/text/userProtocol',
+					    name: 'userProtocol',
+					    component: () => import('./views/message/userProtocol.vue'),
+					
+					},
+					{
+					    path: '/text/authorization',
+					    name: 'authorization',
+					    component: () => import('./views/message/authorization.vue'),
+					
+					},
+					{
+					    path: '/text/help',
+					    name: 'help',
+					    component: () => import('./views/message/help.vue'),
+					
+					},
+				],
+			},
+			
+			
 		],	
 	},
+	/*login_*/	
 	{
 		path: '/login',
 		name: 'login',
@@ -212,22 +249,24 @@ let wb = [
 				path: '/modifyPassword',
 				name: 'modifyPassword',
 				component: () => import('./views/login/modifyPassword.vue')
-			},
-			
+			},			
 		],	
 	},
 	
 	{
 		path: '/userme',
 		name: 'userme',
-		component: () => import('./views/login/userme.vue')
-		
+		component: () => import('./views/login/userme.vue')		
 	},
 	{
 		path: '/userme2',
 		name: 'userme2',
 		component: () => import('./views/login/userme2.vue')		
-	}	
+	}	,
+	{
+		path:'*',
+		redirect: '/index',
+	}
 ];
 router.addRoutes(wb);
 //自动登录
@@ -236,57 +275,39 @@ if(token){
 	try{window.userInfo = JSON.parse(token);}catch(e){}
 }
 let passd = localStorage.getItem('pass');
+console.log(passd)
 if(passd){
+		
 	try{window.passIn = JSON.parse(passd);}catch(e){}
 }
 router.beforeEach((to, from, next) => {
-	/*重定向首页*/
-	if(to.fullPath=='/'){
-		next('/index');	
-		return
-	}
-	/*未登录*/
-	if(!window.userInfo){
-		if(to.path=='/login'){		
-			window.frompath = from.fullPath;
+	window.scrollTo(0,0);
+	/*未登录有自动登录*/
+	if(!window.userInfo && window.passIn){
+		if(to.fullPath!='/login'){
+			next('/login');
 		}
 		/*自动登录*/
-		if(window.passIn){
-			next('/login');	
-			return
-		}
-		/*未登录不可进入页面*/
-		if(['/upload'].indexOf(to.fullPath)!=-1){
-			next('/index');	
-			return
-		}
 		next();
 		return
-	}
+	}	
 	/*是否填写信息*/
-	if(window.userInfo.is_detail==0){
-		
+	if(window.userInfo && window.userInfo.is_detail==0){		
 		if(!window.userInfo.mobile || window.userInfo.mobile=='null'){
 			if(to.fullPath!='/userme2'){
-				next('/userme2');	
+				next('/userme2');
 				return
 			}
 			next();
 			return
 		}
 		if(to.fullPath!='/userme'){
-			next('/userme');	
+			next('/userme');
 			return
 		}
 		next();
 		return
-	}
-	
-	/*排除已登录不可进入页面*/
-	if(window.userInfo.is_detail==1 && ['/login','/login2','/register','/modifyPassword','/userme'].indexOf(to.fullPath)!=-1){
-		next('/index');	
-		return
-	}
+	}	
 	next();	
 	return	
 })

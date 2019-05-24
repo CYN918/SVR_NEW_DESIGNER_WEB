@@ -128,7 +128,7 @@
 						
 					</div>
 					<p class="rz_qr">
-						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span>狮大大平台供稿人协议</span>
+						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span @click="goPu('#/text/authorization')" class="pend">《狮圈儿供稿人协议》</span>
 					</p>
 					<div :class="['suc_btndf2',isPostky?'ispos':'']" @click="Userupdate">申请认证平台供稿人</div>
 				</div>
@@ -305,6 +305,11 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		goPu(ud){
+			if(!ud){return}
+			window.open(ud)
+	
+		},
 		checkSfz(el){
 			
 		},

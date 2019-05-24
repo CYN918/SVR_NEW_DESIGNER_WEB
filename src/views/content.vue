@@ -50,7 +50,7 @@
 				</div>
 				<div class="plBoxd" ref="firstAnchor">
 					<div class="seed2_1_2_1">
-						<Input class="userBoxd2" v-model="pl"  :keyup.enter="keydown" :oType="'max'" :max="140"   :type="'text'" :placeholder="'说点什么吧'" ref="tageds"></Input>	
+						<Input class="userBoxd2" v-model="pl"   :oType="'max'" :max="140"   :type="'text'" :placeholder="'说点什么吧'" ref="tageds"></Input>	
 						<span :class="chekcont(pl)==true?'iscsbtn':''" @click="addComment(pl)">评论</span>
 						<p class="myplde" v-if="hfnum==0">
 							还没有人评论，快来抢沙发吧~
@@ -67,8 +67,8 @@
 								</div>
 								<div>
 									<span class="hfdZ_3" @click="showFhks(el)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:'展开共'+el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el.open_id,el.comment_id,'comment')">&#xe664;</span>
-									<div class="hfBox" v-if="el.isshowfh">
-										<Input :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
+									<div  class="hfBox" v-if="el.isshowfh">
+										<Input onblur="alert(1)" :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 										<span  :class="chekcont(pl2)==true?'iscsbtn':''" @click="addComment(pl2,index)">回复</span>
 									</div>
 								</div>
@@ -83,7 +83,7 @@
 									<div class="yasfh">
 										<span class="hfdZ_3" @click="showFhks(el2)">回复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el2.open_id,el2.comment_id,'comment')">&#xe664;</span>
 										<div class="hfBox" v-if="el2.isshowfh==1">
-											<Input :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds2"></Input>	
+											<Input :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 											<span :class="chekcont(pl2)==true?'iscsbtn':''" @click="addComment(pl2,index,index2)">回复</span>
 										</div>
 									</div>								
@@ -96,68 +96,70 @@
 				</div>
 
 			</div>
-			<div class="seed2_2">
-				<div class="seed2_1_1" v-if="contDat.user_info">
-					<div class="seed2_1_1_1">
-						<img @click="goUser(contDat.user_info.open_id)" class="contavatar" :src="contDat.user_info.avatar" alt="">
-						<div>
-							<div @click="goUser(contDat.user_info.open_id)">{{contDat.user_info.username}}</div>
-							<div> {{contDat.user_info.vocation}} | {{contDat.user_info.province}} {{contDat.user_info.city}}</div>
-							<div><span v-if="contDat.user_info.is_platform_work">xx</span></div>
-						</div>
-					</div>
-					<div class="seed2_2_1_2">
-						<div @click="goFans('/followFans',contDat.user_info.open_id)">粉丝<div>{{contDat.user_info.fans_num}}</div></div>
-						<div>人气<div>{{contDat.user_info.popular_num}}</div></div>
-						<div @click="goFans('/works',contDat.user_info.open_id)">创作<div>{{contDat.user_info.work_num}}</div></div>
-					</div>
-					<div class="seed2_1_1_3">
-
-
-						<div @click="goUserzy" v-if="page.open_id==contDat.user_info.open_id"><span>进入主页</span></div>
-						<div v-else>
-							<span @click="showHb2" v-if="contDat.user_info.follow_flag>0">已关注</span>
-							<span @click="Follow_add()" v-else>关注</span>
-							<span class="lastsedd_1" @click="gosx(contDat)">私信</span>
-						</div>
-						
-						
-
-					</div>
-				</div>
-				<div class="seed2_1_2" v-if="contDat.more_work && contDat.more_work.length>0">
-					<div class="seed2_1_2_1 pend" @click="goUser(contDat.user_info.open_id)">TA的更多作品</div>
-					<div class="seed2_1_2_1x1">
-					<div  class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
-						<div class="i_listd1x2" @click="seeWorks(el.work_id)"><img :src="el.face_pic" alt="" class="i_listd1"></div>
-						<div class="i_listd2">
-							<div class="i_listd2_1">
-								<span @click="seeWorks(el.work_id)">{{el.work_name}}</span>
-								<img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt="">
+			<div class="seed2_2p">
+				<div :class="['seed2_2',isfix]">
+					<div class="seed2_1_1" v-if="contDat.user_info">
+						<div class="seed2_1_1_1">
+							<img @click="goUser(contDat.user_info.open_id)" class="contavatar pend" :src="contDat.user_info.avatar" alt="">
+							<div>
+								<div class="pend" @click="goUser(contDat.user_info.open_id)">{{contDat.user_info.username}}</div>
+								<div> {{contDat.user_info.vocation}} | {{contDat.user_info.province}} {{contDat.user_info.city}}</div>
+								<div><span v-if="contDat.user_info.is_platform_work">xx</span></div>
 							</div>
-							<div class="i_listd2_2">
-								<span>{{el.classify_1_name+'-'+el.classify_2_name}}</span>
-								<span>{{backtime(el.create_time)}}</span>
+						</div>
+						<div class="seed2_2_1_2">
+							<div class="pend" @click="goFans('/followFans',contDat.user_info.open_id)">粉丝<div>{{contDat.user_info.fans_num}}</div></div>
+							<div>人气<div>{{contDat.user_info.popular_num}}</div></div>
+							<div class="pend" @click="goFans('/works',contDat.user_info.open_id)">创作<div>{{contDat.user_info.work_num}}</div></div>
+						</div>
+						<div class="seed2_1_1_3">
+				
+				
+							<div @click="goUserzy" v-if="page.open_id==contDat.user_info.open_id"><span>进入主页</span></div>
+							<div v-else>
+								<span @click="showHb2" v-if="contDat.user_info.follow_flag>0">已关注</span>
+								<span @click="Follow_add()" v-else>关注</span>
+								<span class="lastsedd_1 pend" @click="gosx(contDat)">私信</span>
 							</div>
 							
-							<div class="i_listd2_3">
-								<span><img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt=""></span>
+							
+				
+						</div>
+					</div>
+					<div class="seed2_1_2" v-if="contDat.more_work && contDat.more_work.length>0">
+						<div class="seed2_1_2_1 pend" @click="goUser(contDat.user_info.open_id)">TA的更多作品</div>
+						<div class="seed2_1_2_1x1">
+						<div  class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
+							<div class="i_listd1x2" @click="seeWorks(el.work_id)"><img :src="el.face_pic" alt="" class="i_listd1"></div>
+							<div class="i_listd2">
+								<div class="i_listd2_1">
+									<span @click="seeWorks(el.work_id)">{{el.work_name}}</span>
+									<img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt="">
+								</div>
+								<div class="i_listd2_2">
+									<span>{{el.classify_1_name+'-'+el.classify_2_name}}</span>
+									<span>{{backtime(el.create_time)}}</span>
+								</div>
 								
-								<div class="i_listd2_3x1" @click="openxq(index)">
-									<span class="pend"><img src="/imge/icon/zs_icon_gk.png">{{el.view_num}}</span>
-									<span class="pend"><img src="/imge/icon/zs_icon_dz.png">{{el.like_num}}</span>
-									<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.comment_num}}</span>
+								<div class="i_listd2_3">
+									<span><img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt=""></span>
+									
+									<div class="i_listd2_3x1" @click="openxq(index)">
+										<span class="pend"><img src="/imge/icon/zs_icon_gk.png">{{el.view_num}}</span>
+										<span class="pend"><img src="/imge/icon/zs_icon_dz.png">{{el.like_num}}</span>
+										<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.comment_num}}</span>
+									</div>
 								</div>
 							</div>
 						</div>
+						</div>
+						
+						
 					</div>
+					<div class="seed2_1_2xx" v-else>
+						你正在浏览TA首次发布的作品<br/>作为老前辈, 送个赞鼓励下吧~
+						<span :class="['iconfont','seed1_2_5','seed1_2_5xx',contDat.liked?'likeis':'']" class="" @click="addLike('work',contDat.work_id,contDat,'推荐')"><span>&#xe652;</span>推荐</span>
 					</div>
-					
-					
-				</div>
-				<div class="seed2_1_2xx" v-else>
-					你正在浏览TA首次发布的作品<br/>作为老前辈, 送个赞鼓励下吧~
-					<span :class="['iconfont','seed1_2_5','seed1_2_5xx',contDat.liked?'likeis':'']" class="" @click="addLike('work',contDat.work_id,contDat,'推荐')"><span>&#xe652;</span>推荐</span>
 				</div>
 			</div>
 		</div>
@@ -191,6 +193,7 @@ export default {
 	components:{Input,RPT,fxd},
 	data(){
 		return{
+			isfix:'',
 			shareData:{},
 		    isRep:false,
 			open_id:'',
@@ -431,9 +434,9 @@ export default {
 		backtime(time){
 			return window.getTimes(time)
 		},
-		init(){		
-			this.hfData = [];
-			
+
+		init(){				
+			this.hfData = [];			
 			this.work_id = this.$route.query.id;
 			this.getCommentList();
 			window.onscroll = ()=>{
@@ -441,11 +444,13 @@ export default {
 				if(this.topTyped==0){
 					if(t>188){
 						this.topTyped=true;
+						this.isfix = 'isfix';
 					}
 					return
 				}
 				if(t<=188){
 					this.topTyped=false;
+					this.isfix = '';
 				}
 
 			}
@@ -531,15 +536,13 @@ export default {
 				return
 			}
 		
-			let backData = (on,on2)=>{
-			
+			let backData = (on,on2)=>{			
 				let pr = {
 					access_token:window.userInfo.access_token,
 					work_id:this.work_id,
 					follow_flag : this.contDat.user_info.open_id,
 					content:JSON.stringify((!on && on!=0)?[pl]:[(on2 || on2==0)?'@'+this.hfData[on].sub_comment[on2].username:'@'+this.hfData[on].username,pl]),					
-				};
-				
+				};				
 				if(on || on==0){
 					pr.feed_id = this.hfData[on].feed_id;
 					pr.to_comment_id = this.hfData[on].to_comment_id;
@@ -557,7 +560,10 @@ export default {
 				this.plType=0;
 				if(!da){return}
 				Message({message: '评论成功'});	
+				
 				if(on || on==0){
+					
+					
 					if(!this.hfData[on].sub_comment){
 						this.$set(this.hfData[on],'sub_comment',[]);						
 					}
@@ -570,7 +576,16 @@ export default {
 						avatar: window.userInfo.avatar,
 						open_id: window.userInfo.open_id,
 						username:window.userInfo.username,
-					});		
+					});	
+					if(on2 || on2==0){
+						this.$set(this.hfData[on].sub_comment[on2+1],'isshowfh','');
+						return
+					}else{
+						this.$set(this.hfData[on],'isshowsub',1);
+						this.$set(this.hfData[on],'isshowsubWZ','收起回复');	
+					}	
+					this.$set(this.hfData[on],'isshowfh','');	
+						
 					return
 				}			
 				
@@ -586,99 +601,29 @@ export default {
 					username:window.userInfo.username,
 					sub_comment:[]
 				});
-				this.hfnum+=1;				
+				
+				this.hfnum+=1;
+				
+				
 			}).catch(()=>{
 				this.plType=0;
 			});
 			
 		},
-		initFu(on, on2){
-            this.plType=0;
-            if(on >= 0){
-                this.$set(this.hfData[on],'isshowfh','');
-			}
-			
-			if(on2 >= 0){
-			
-                this.$set(this.hfData[on].sub_comment[on2],'isshowfh','');
-	
-			}
-            if(on2 >= 0){
-                this.$refs.tageds2.value = '';
-            }else{
-                this.$refs.tageds1.value = '';
-			}
-            this.pl2 = '';
-		},
 		chekcont(msg){
 			return this.zkMyFun.checkWz(msg);
 		},
-		addfu2(fid,name,on,on2,comId){
-            if(!this.page.access_token){
-                Message({message: '请先登录'});
-                return
-            }
-		    if(this.plType==1){
-				Message({message: '正在回复中'});
-				return
-			}
-			
-			if(this.chekcont(this.pl2)==false){
-                Message({message: '评论为空'});
-	  			return
-      		}
-            this.plType=1;
-			let cond = ['@'+name,this.pl2];
-			let pr = {
-				work_id:this.work_id,
-				content	:JSON.stringify(cond),
-				to_comment_id:comId,
-			};
-			if(fid){
-				pr.feed_id = fid;
-			}
-			pr.access_token = this.page.access_token;
-			this.api.addComment(pr).then((da)=>{
-				if(!da){
-					return
-				}				
-				if(on2){
-					if(!this.hfData[on].sub_comment){
-						this.$set(this.hfData[on],'sub_comment',[]);						
-					}
-					this.hfData[on].sub_comment.unshift({
-						avatar: this.page.avatar,
-						content: pr.content,
-						create_time: new Date().Format("yyyy-MM-dd HH:mm:ss"),
-						feed_id: this.hfData[on].comment_id,
-						like_num: 0,
-						comment_id:da.comment_id,
-						open_id: this.page.open_id,
-						username:window.userInfo.username,
-					});					
-				}
-				this.initFu(on, on2);				
-				Message({message: '评论成功'});              
-			}).catch(()=>{
-				this.plType=0;
-			});	
-		},
-			
+		
 		showFhd(on){
 			if(!this.hfData[on].isshowsub){
 				this.$set(this.hfData[on],'isshowsub',1);
 				this.$set(this.hfData[on],'isshowsubWZ','收起回复');
 				return
 			}
+			
 			this.$set(this.hfData[on],'isshowsub','');
 			this.$set(this.hfData[on],'isshowsubWZ','展开共'+this.hfData[on].sub_comment.length+'条回复');						
 		},
-		// checkisLogin(){
-		// 	if(!window.userInfo){
-		// 		this.$router.push({path: '/login'})
-		// 		return false;
-		// 	}
-		// },
 		showFhks(on){			
 			if(this.checkLogin()==false){
 				return;
@@ -697,40 +642,9 @@ export default {
 				return
 			}
 			this.onhfObj = on;
-			this.$set(on,'isshowfh','');
-				
+			this.$set(on,'isshowfh','');				
 		},
-		showFhk(on,on2){		
-			if(!window.userInfo){
-				this.$router.push({path: '/login'})
-				return
-			}
-			if(this.onPl.zj!=-1){
-				this.$set(this.hfData[this.onPl.fj].sub_comment[this.onPl.zj],'isshowfh','');
-			}
-			if(this.onPl.zj==-1 && this.onPl.fj!=-1){
-				this.$set(this.hfData[this.onPl.fj],'isshowfh','');
-			}			
-			this.onPl = {
-				fj:on===undefined?-1:on,
-				zj:on2===undefined?-1:on2,
-			};
-			if(on2>=0){
-				if(this.hfData[on].sub_comment[on2].isshowfh){
-					this.$set(this.hfData[on].sub_comment[on2],'isshowfh','');
-					return
-				}
-				this.hfnc = '回复：'+this.hfData[on].sub_comment[on2].username;
-				this.$set(this.hfData[on].sub_comment[on2],'isshowfh',1);	
-				return
-			}
-			if(this.hfData[on].isshowfh){
-				this.$set(this.hfData[on],'isshowfh','');
-				return
-			}
-			this.hfnc = '回复：'+this.hfData[on].username;
-			this.$set(this.hfData[on],'isshowfh',1);				
-		},
+		
 	},
 	watch: {	
 		'$route': function() {

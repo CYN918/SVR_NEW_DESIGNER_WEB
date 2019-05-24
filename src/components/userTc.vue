@@ -2,7 +2,7 @@
 	<div class="usertc_6">
 		<div class="usertc_0">
 			<img @click="goFans('/works')" class="usertc_1" :src="tcData.user_info.avatar" alt="">
-			<div class="usertc_2">{{tcData.user_info.username}}</div>
+			<div @click="goFans('/works')" class="usertc_2">{{tcData.user_info.username}}</div>
 			<div class="usertc_3">{{tcData.user_info.city+' | '+tcData.user_info.vocation}}</div>
 			<div class="usertc_4">
 				<span @click="goFans('/followFans')">
@@ -56,6 +56,9 @@ export default {
 			this.$router.push({path:d,query:{id:this.tcData.user_info.open_id}});
 		},
 		isme(){
+			if(!window.userInfo){
+				return false;
+			}
 			return window.userInfo.open_id == this.tcData.user_info.open_id;
 		},
 		backtype(to){
