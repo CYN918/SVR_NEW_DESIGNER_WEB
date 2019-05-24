@@ -10,7 +10,7 @@
 			<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
 			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
 		</div>
-		<list class="" :config="data">
+		<list class="ac_list_Box" :config="data">
 			<template v-slot:todo="{ todo }">
 				<box_a :el="todo"></box_a>
 			</template>			
@@ -76,4 +76,36 @@ export default {
 </script>
 
 <style>
+.ac_list_Box{
+	position: relative;
+	min-width: 1300px;
+	box-sizing: border-box;
+	overflow-x: hidden;
+	padding: 20px 0 80px;
+	
+}
+.ac_list_Box_0{
+	width: 1300px;
+	margin: 20px auto 0;
+	text-align: left;
+	padding-bottom: 120px;
+}
+.ac_list_Box_0 li{
+
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	background: #F6F6F6;
+	border-radius: 0 0 5px 5px;
+	margin: 0 20px 20px 0;
+	width: 640px;
+	height: 460px;
+	vertical-align: top;
+}
+.ac_list_Box_0 li:hover{
+	opacity: .7;
+}
+.ac_list_Box_0 li:nth-child(2n+2){
+	margin-right: 0;
+}
 </style>

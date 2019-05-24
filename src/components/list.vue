@@ -1,6 +1,6 @@
 <template>
 	<div>
-	<ul>
+	<ul class="i_listd">
 		<li v-for="(el,index) in List" :key="index">
 			<slot name="todo" v-bind:todo="el"></slot>			
 		</li>

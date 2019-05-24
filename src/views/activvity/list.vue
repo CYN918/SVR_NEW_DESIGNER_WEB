@@ -1,5 +1,5 @@
 <template>
-	
+	<div>
 	<div class="ac_list_Box">
 		<ul class="ac_list_Box_0">
 			<li @click="goDetailed(el.id)" v-for="(el,index) in dataList" :key="index">
@@ -25,6 +25,7 @@
 		layout="prev,pager, next,sizes, jumper"
 		:total="pL.total">   
 		</el-pagination>
+	</div>
 	</div>
 </template>
 
