@@ -1,8 +1,9 @@
 <template>
     <div  class="upfdb">
         <div class="upfdb_bg">
+			<div class="usdsgsga"><img class="upfdb_img"  src="/imge/cj_00.png" @click="qx"/>
             <div class="upfdb_content">
-                <img class="upfdb_img"  src="/imge/cj_00.png" @click="qx"/>
+                
                 <div class="upfdb_title">
                     <span>意见反馈</span>
                 </div>
@@ -60,7 +61,7 @@
                     <span class="tj" @click="addFdb">提交意见</span>
                 </div>
             </div>
-
+			</div>	
         </div>
     </div>
 </template>
@@ -144,19 +145,19 @@
                 }
 
                 let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-                let token = JSON.parse(localStorage.getItem('userT'));
+      
                 let times = (Date.parse(new Date())/1000);
                 let arr = [
                     1001,
                     app_secret,
-                    token.open_id,
+                    window.userInfo.open_id,
                     times
                 ];
                 this.box= true;
                 let formData = new FormData();
                 formData.append('app_id',1001);
                 formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-                formData.append('user',token.open_id)
+                formData.append('user',window.userInfo.open_id)
                 formData.append('file',fld)
                 formData.append('relation_type','user_info')
                 formData.append('timestamp',times)
@@ -226,16 +227,24 @@
     width: 100%;
     height: 100%;
 }
+.usdsgsga{
+	width:794px;
+	max-height:680px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	
+}
 .upfdb_content{
-    width:794px;
-    min-height: 723px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background: #FFFFFF;
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-    border-radius: 5px;
+    width: 100%;
+	width:794px;
+	max-height:680px;
+	overflow: hidden;
+	overflow-y: auto;	
 }
 .noMar{
     margin-bottom: 0!important;
@@ -250,7 +259,7 @@
 }
 .upfdb_title{
     width:100%;
-    height: 74px;
+    height: 50px;
     border-bottom:1px solid #E6E6E6 ;
     text-align: left;
     margin-bottom: 27px;
@@ -261,7 +270,7 @@
     font-size: 16px;
     color: #1E1E1E;
     font-weight: bold;
-    line-height: 74px;
+    line-height: 50px;
     margin-left: 29px;
 }
 .upfdb_content_1{
@@ -275,7 +284,7 @@
     margin-right: 60px;
 }
 .upfdb_name{
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 .upfdb_name div {
     display: inline-block;
@@ -373,7 +382,7 @@ input{
     color: #999999;
 }
 .upRpt_btn{
-    margin-top: 40px;
+    margin-bottom: 10px;
     text-align: center;
 }
 .upRpt_btn>span{

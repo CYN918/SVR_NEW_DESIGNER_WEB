@@ -526,8 +526,8 @@ export default {
 				
 		},
 		setSaveData(type,step){
-			let p = localStorage.getItem('userT');
-			if(!p){
+			
+			if(!window.userInfo){
 				Message({message: '登录过期请先登录'});
 				setTimeout(()=>{
 					this.$router.push({path:'/login'})
@@ -537,7 +537,7 @@ export default {
 			let pr = this.form;
 			pr.is_publish = type || 0;
 			pr.step = step||0;
-			pr.access_token = JSON.parse(p).access_token;		
+			pr.access_token = window.userInfo.access_token;		
 			return pr;
 		},
 		saveData(data,messg,fn){	
@@ -591,19 +591,19 @@ export default {
 		           
 				
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-			let token = JSON.parse(localStorage.getItem('userT'));
+		
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
 				1001,
 				app_secret,
-				token.open_id,
+				window.userInfo.open_id,
 				times
 			];
 			
 			let formData = new FormData();
 			formData.append('app_id',1001);
 			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-			formData.append('user',token.open_id)
+			formData.append('user',window.userInfo.open_id)
 			formData.append('file',fld)
 			formData.append('relation_type','work')
 			formData.append('timestamp',times)
@@ -668,8 +668,8 @@ export default {
 			this.upfjData = {};
 		},
 		getClassify(){
-			let token = localStorage.getItem('userT');
-			if(!token){
+			
+			if(!window.userInfo){
 				Message({message: '登录过期请先登录'});
 				setTimeout(()=>{
 					this.$router.push({path:'/login'})
@@ -677,7 +677,7 @@ export default {
 				return
 			}
 			let pr ={
-				access_token:JSON.parse(token).access_token,
+				access_token:window.userInfo.access_token,
 			};
 			
 			this.api.getClassify(pr).then((da)=>{
@@ -1264,7 +1264,7 @@ export default {
 }
 .el-select{width: 100%}
 .upBoxd1_2 iframe{
-	padding: 0 22px;
+	padding: 20px 22px;
 	box-sizing: border-box;
 }
 .el-cascader .el-input.is-focus .el-input__inner{

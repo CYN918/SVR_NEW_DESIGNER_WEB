@@ -155,12 +155,12 @@ export default {
 				}
 				console.log(this.topTyped)
 			}
-			let token = localStorage.getItem('userT');
+			
 			let pr = {
 				work_id:this.$route.query.id,
 			}
-			if(token){
-				pr.access_token = JSON.parse(token).access_token;
+			if(window.userInfo){
+				pr.access_token = window.userInfo.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
 				da.labels = JSON.parse(da.labels)

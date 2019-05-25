@@ -215,7 +215,7 @@ export default {
     position: absolute;
     bottom: 10px;
     left: 0;
-    width: 54px;
+    width: 35px;
     height: 29px;
 }
 .usertc_6:hover>.usertc_0{

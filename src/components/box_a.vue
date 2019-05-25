@@ -1,13 +1,13 @@
 <template>
 	<div class="list1_box">
-		<div @click="openxq(index)" class="list1_box_1"><img class="list1_box_2" :src="el.face_pic"></div>		
+		<div @click="openxq()" class="list1_box_1"><img class="list1_box_2" :src="el.face_pic"></div>		
 		<div class="list1_box_3">
-			<div @click="openxq(index)" class="list1_box_3_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img class="svgImgx2" v-if="el.is_recommend==1" src="/imge/svg/zs_icon_tj.svg"/></div>
-			<div @click="openxq(index)" class="list1_box_3_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
+			<div @click="openxq()" class="list1_box_3_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img class="svgImgx2" v-if="el.is_recommend==1" src="/imge/svg/zs_icon_tj.svg"/></div>
+			<div @click="openxq()" class="list1_box_3_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
 			<div class="list1_box_3_3">
-				<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
-				<span @click="goUser(index)" class="list1_box_3_6">{{backName(el.user_info.username)}}</span>
-				<div class="list1_box_3_4" @click="openxq(index)">
+				<span><img @click="goUser()" :src="el.user_info.avatar" alt=""></span>
+				<span @click="goUser()" class="list1_box_3_6">{{backName(el.user_info.username)}}</span>
+				<div class="list1_box_3_4" @click="openxq()">
 					<span class="pend"><img src="/imge/icon/zs_icon_gk.png">{{el.view_num}}</span>
 					<span class="pend"><img src="/imge/icon/zs_icon_dz.png">{{el.like_num}}</span>
 					<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.comment_num}}</span>
@@ -52,7 +52,7 @@ export default {
 			if(!ur){return}
 			window.open(ur);
 		},
-		openxq(on){
+		openxq(){
 			window.open('#/cont?id='+this.el.work_id)
 		},
 	}
@@ -61,6 +61,7 @@ export default {
 
 <style>
 .list1_box{
+	position: relative;
     display: inline-block;
     width: 309.8px;
     height: 312.9px;

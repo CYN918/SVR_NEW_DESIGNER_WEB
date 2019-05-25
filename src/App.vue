@@ -894,6 +894,7 @@ input:-ms-input-placeholder{
     color: #FFFFFF;
     background: #323232;
     border-radius: 6px;
+	z-index: 10;
 }
 .seed1_3_1>div>div{
 	white-space: nowrap;
@@ -2251,6 +2252,7 @@ content: "";
     display: inline-block;
     vertical-align: sub;
     margin-right: 6px;
+	margin-bottom: 2px;
 }
 
 

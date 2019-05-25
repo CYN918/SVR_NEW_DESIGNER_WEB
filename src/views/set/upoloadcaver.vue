@@ -101,21 +101,20 @@ export default {
 					  //return new Blob([u8arr],{type:mime});
 				}
 				let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-				let token = localStorage.getItem('userT');
 				let times = (Date.parse(new Date())/1000);
 				let arr = [
 					1001,
 					'6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',
-					token,
+					window.userInfo.open_id,
 					times
 				];
 				let formData = new FormData();
 				formData.append('app_id',1001);
 				formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-				formData.append('user',token)
+				formData.append('user',window.userInfo.open_id)
 				formData.append('file',dataURLtoFile(data))
 				formData.append('relation_type','user_info')
-				formData.append('related_id',token)
+				formData.append('related_id',window.userInfo.open_id)
 				formData.append('classify_1','avatar')
 				formData.append('timestamp',times)
 		

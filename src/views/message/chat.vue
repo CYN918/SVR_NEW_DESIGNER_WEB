@@ -25,7 +25,7 @@
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div @click="cheond(index)">
 										<div class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
-										<div class="sxBodx2_2x_3">{{el.last_message}}</div>
+										<div class="sxBodx2_2x_3">{{el.last_message?el.last_message:el.user_info.vocation +' | '+el.user_info.city}}</div>
 									</div>
 									</li>
 								</div>								
@@ -36,7 +36,7 @@
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div @click="cheond(index)">
 										<div class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
-										<div class="sxBodx2_2x_3">{{el.content}}</div>
+										<div class="sxBodx2_2x_3">{{el.user_info.vocation +' | '+el.user_info.city}}</div>
 									</div>
 									</li>
 								</div>								
@@ -87,7 +87,7 @@
 						<div class="sxBodx2_3 sxBodx2_3xx">
 							<div class="hfBox xxbox_c">
 								<Input :keyup="keydown" class="userBoxd2" v-model="postMessg" :oType="'max'" :max="200" :type="'text'"  ref="tageds1"></Input>	
-								<span :class="chekcont()==true?'iscsbtn':''" @click="addChatMessage()">回复</span>
+								<span :class="chekcont()==true?'iscsbtn':''" @click="addChatMessage()">发送</span>
 							</div>
 						</div>
 					</div>					
@@ -303,8 +303,6 @@ export default {
 					return
 				}
 				this.$refs.tageds1.setData('');
-				
-				Message({message: '发送成功'});
 				let pdata = {
 					content:mesd,
 					create_time: Date.parse(new Date())/1000,

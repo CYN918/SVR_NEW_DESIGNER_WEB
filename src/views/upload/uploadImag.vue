@@ -98,17 +98,17 @@ export default {
 				return
 			}
 			if(this.checkin.length==0){return}
-			let token = JSON.parse(localStorage.getItem('userT'));
+	
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
 				1001,
-				token.open_id,
+				window.userInfo.open_id,
 				times
 			];
 			let formData = new FormData();
 			formData.append('app_id',1001);
 			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-			formData.append('user',token.open_id)
+			formData.append('user',window.userInfo.open_id)
 			formData.append('fid',this.checkin)
 			formData.append('timestamp',times)
 			this.deldetType=1;
@@ -157,18 +157,18 @@ export default {
 			
 			
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-			let token = JSON.parse(localStorage.getItem('userT'));
+	
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
 				1001,
 				app_secret,
-				token.open_id,
+				window.userInfo.open_id,
 				times
 			];
 			let params = {
 				app_id:1001,
 				sign:this.MD5(encodeURIComponent(arr.sort())),
-				user:token.open_id,
+				user:window.userInfo.open_id,
 				timestamp:times,
 				file_type:this.configData.getType,
 			}
@@ -216,19 +216,18 @@ export default {
 			              
 			
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-			let token = JSON.parse(localStorage.getItem('userT'));
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
 				1001,
 				app_secret,
-				token.open_id,
+				window.userInfo.open_id,
 				times
 			];
 			
 			let formData = new FormData();
 			formData.append('app_id',1001);
 			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-			formData.append('user',token.open_id)
+			formData.append('user',window.userInfo.open_id)
 			formData.append('file',fld)
 			formData.append('relation_type','work')
 			formData.append('timestamp',times)

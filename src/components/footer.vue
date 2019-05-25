@@ -48,6 +48,7 @@ export default {
 
 <style>
 .footerBox{
+	position: relative;
 	margin-top: -60px;
 	width: 100%;
 	min-width: 1300px;
