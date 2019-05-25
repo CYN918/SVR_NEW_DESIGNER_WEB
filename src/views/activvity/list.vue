@@ -1,20 +1,22 @@
 <template>
 	<div>
-	<div class="ac_list_Box">
-		<ul class="ac_list_Box_0">
-			<li @click="goDetailed(el.id)" v-for="(el,index) in dataList" :key="index">
-				<img class="ac_list_Box_1" :src="'http://zk-web-object.oss-cn-qingdao.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png'" alt="">
-				<div class="ac_list_Box_2">
-					<div class="ac_list_Box_4">{{el.activity_name}}</div>
-					<div class="ac_list_Box_5"><span>{{el.category_name}}</span>投稿时间：{{el.start_time.split(" ")[0]}} 至 {{el.end_time.split(" ")[0]}}</div>
-					<div class="ac_list_Box_3">
-						<span v-if="el.left_day" class="ac_list_Box_6">{{el.left_day}}天</span><span v-if="el.left_day" class="ac_list_Box_7">距离截止</span>
-						<span v-if="!el.left_day" class="ac_list_Box_8">已结束</span>
-					</div>
-				</div>				
-			</li>
+		<div class="ac_list_Box">
+			<ul class="ac_list_Box_0">
+				<li @click="goDetailed(el.id)" v-for="(el,index) in dataList" :key="index">
+					<img class="ac_list_Box_1" :src="'http://zk-web-object.oss-cn-qingdao.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png'" alt="">
+					<div class="ac_list_Box_2">
+						<div class="ac_list_Box_4">{{el.activity_name}}</div>
+						<div class="ac_list_Box_5"><span>{{el.category_name}}</span>投稿时间：{{el.start_time.split(" ")[0]}} 至 {{el.end_time.split(" ")[0]}}</div>
+						<div class="ac_list_Box_3">
+							<span v-if="el.left_day" class="ac_list_Box_6">{{el.left_day}}天</span><span v-if="el.left_day" class="ac_list_Box_7">距离截止</span>
+							<span v-if="!el.left_day" class="ac_list_Box_8">已结束</span>
+						</div>
+					</div>				
+				</li>
+				
+			</ul>
 			
-		</ul>
+		</div>
 		<el-pagination v-if="dataList.length>0" class="pagesddd fycen"
 		background
 		@size-change="handleSizeChange"
@@ -25,7 +27,6 @@
 		layout="prev,pager, next,sizes, jumper"
 		:total="pL.total">   
 		</el-pagination>
-	</div>
 	</div>
 </template>
 

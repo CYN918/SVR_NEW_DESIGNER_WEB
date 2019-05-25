@@ -1,5 +1,5 @@
 <template>
-	<div class="csBox">
+	<div class="myCentBox">
 		<div class="banner">
 			<div class="banner1">
 				<img v-for="(el,index) in banners" @click="opend(el.jump_url)" :class="[banOn==index?'action':'']" :src="el.banner_pic" alt="">
@@ -10,7 +10,7 @@
 			<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
 			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
 		</div>
-		<list class="ac_list_Box" :config="data">
+		<list  class="" :config="data">
 			<template v-slot:todo="{ todo }">
 				<box_a :el="todo"></box_a>
 			</template>			
@@ -90,7 +90,7 @@ export default {
 	text-align: left;
 	padding-bottom: 120px;
 }
-.ac_list_Box_0 li{
+.ac_list_Box_0>li{
 
 	cursor: pointer;
 	position: relative;
@@ -102,10 +102,10 @@ export default {
 	height: 460px;
 	vertical-align: top;
 }
-.ac_list_Box_0 li:hover{
+.ac_list_Box_0>li:hover{
 	opacity: .7;
 }
-.ac_list_Box_0 li:nth-child(2n+2){
+.ac_list_Box_0>li:nth-child(2n+2){
 	margin-right: 0;
 }
 </style>

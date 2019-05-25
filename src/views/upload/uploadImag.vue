@@ -218,6 +218,7 @@ export default {
 			formData.append('file',fld)
 			formData.append('relation_type','work')
 			formData.append('timestamp',times)
+			formData.append('is_callback',1)
 			let xhr = new XMLHttpRequest();
 			this.list.unshift({type:'up',file_name:fld.name,s:fileSize,bf:0,xhr:xhr,show:1});
 			let p = this.list[0];

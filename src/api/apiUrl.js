@@ -232,6 +232,8 @@ export default {
 		url:'/Api/Message/delChat',method:'post',baseURL:0,
 	},
 
-	
+	contributorInfo:{
+		url:'/user/contributorInfo',method:'post',baseURL:0,
+	},
 	
 }

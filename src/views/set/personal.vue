@@ -206,7 +206,7 @@ export default {
 					{n:'企业',u:'/setEnterprise'},
 				],
 			},
-			check_type:0,
+			check_type:1,
 			ischecked:false,
 			navDta:[
 				'主体信息',
@@ -759,8 +759,7 @@ export default {
 		
 		init(){
 			this.getUserDetail();
-			document.documentElement.scrollTop =1;
-			document.body.scrollTop =1;
+			
 			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(t==0){
@@ -914,25 +913,17 @@ export default {
 			
 			let pr = {
 				access_token:window.userInfo.access_token,
-				user_open_id:window.userInfo.open_id
+				contributor_type:1
 			};
-			this.api.getSelfInfo(pr).then((da)=>{
+			this.api.contributorInfo(pr).then((da)=>{
 				if(!da){
 					return
 				}
+				console.log(da)
 				this.form = da;
-				let pod = this.form.contributor_format_status;
-				if(pod==0 || pod == 1){
-					this.check_type = 1;
-				}
-				if(pod==2){
-					this.check_type = 3;
-				}
-				if(pod==-1){
-					this.check_type = 2;
-				}
+				
 		
-				this.form.citye = [this.form.country,this.form.province,this.form.city]
+				
 			
 			})
 		},

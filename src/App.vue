@@ -298,10 +298,7 @@ input:-ms-input-placeholder{
 	margin-bottom: 62.1px;
 }
 .pagesddd{
-	position: absolute;
-    bottom: 60px;
-    width: 100%;
-    text-align: center;
+	padding-bottom: 135px;
 }
 
 .wsj{
