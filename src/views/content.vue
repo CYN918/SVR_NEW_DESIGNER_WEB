@@ -542,18 +542,18 @@ export default {
 			let backData = (on,on2)=>{			
 				let pr = {
 					access_token:window.userInfo.access_token,
-					work_id:this.work_id,
-					follow_flag : this.contDat.user_info.open_id,
+					work_id:this.work_id,		
+					to_open_id:this.contDat.user_info.open_id,
 					content:JSON.stringify((!on && on!=0)?[pl]:[(on2 || on2==0)?'@'+this.hfData[on].sub_comment[on2].username:'@'+this.hfData[on].username,pl]),					
 				};				
 				if(on || on==0){
 					pr.feed_id = this.hfData[on].feed_id;
 					pr.to_comment_id = this.hfData[on].to_comment_id;
-					pr.follow_flag = this.hfData[on].open_id;
+					pr.to_open_id = this.hfData[on].open_id;
 				}
 				if(on2 || on2==0){
 					pr.feed_id = this.hfData[on].sub_comment[on2].feed_id;
-					pr.follow_flag = this.hfData[on].sub_comment[on2].open_id;
+					pr.to_open_id = this.hfData[on].sub_comment[on2].open_id;
 				}
 				return pr;
 			};			
