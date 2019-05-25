@@ -174,6 +174,7 @@ export default {
 	components:{upoloadcaver,Input,Citys,Select,rideo,tophead},
 	data(){
 		return {
+			check_type:1,
 			postData:{tax_rate_type:"1"},
 			zhData:[],
 			navDatad:{
@@ -625,9 +626,8 @@ export default {
 		},
 		
 		init(){
-			this.getUserDetail();
-			document.documentElement.scrollTop =1;
-			document.body.scrollTop =1;
+			
+			
 			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(t==0){
@@ -681,8 +681,9 @@ export default {
 				branch_bank:this.postData.branch_bank,				
 				verify_code:this.postData.verify_code,
 				bank_name:this.postData.bank_name,
-				mobile_zone:this.form.mobile_zone,
-				mobile:this.form.mobile,
+				mobile_zone:window.userInfo.mobile_zone,
+				mobile:window.userInfo.mobile,
+				check_type:this.check_type,
 			};
 			this.api.identifyAuth(pr).then((da)=>{
 				if(!da){

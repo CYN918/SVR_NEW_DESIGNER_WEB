@@ -32,8 +32,8 @@
 						<div><span>{{el.file_name.split('.')[0]}}</span><span>{{el.s}}</span></div>
 					</div>
 					<div v-else class="zzched" @click="onxz(el)">
-						<div class="imgxzd"><img :src="configData.type[0]=='audio/ogg'?'/imge/m.jpg':configData.type[0]=='video/mp4'?el.cover_img:el.url"/></div>
-						<div><span>{{el.file_name}}</span><span>{{el.file_size_format}}</span></div>
+						<div class="imgxzd" :style="Imgbj(el.url,el.cover_img)"></div>
+						<div class="imgxzd2"><span>{{el.file_name}}</span><span>{{el.file_size_format}}</span></div>
 						<div :class="['zzched_1',checkin.indexOf(el.fid)!=-1?'zzched2':'']"></div>
 					</div>					
 				</li>				
@@ -74,6 +74,20 @@ export default {
 		this.getList();
 	}, 	
     methods: {
+		Imgbj(a,b){
+			
+			let p = "background-image: url(";
+			switch (this.configData.getType){
+				case 'image': p+=a;
+					break;
+				case 'video': p+=b;
+					break;
+				case 'audio': p+='/imge/m.jpg';
+					break;	
+			}
+			return p+");";
+			
+		},
 		InImg(){
 			this.$parent.inImg(this.checIurl,this.checkin);
 			this.closed(1);
@@ -220,7 +234,7 @@ export default {
 			formData.append('timestamp',times)
 			formData.append('is_callback',1)
 			let xhr = new XMLHttpRequest();
-			this.list.unshift({type:'up',file_name:fld.name,s:fileSize,bf:0,xhr:xhr,show:1});
+			this.list.unshift({type:'up',file_name:fld.name,file_size_format:fileSize,bf:0,xhr:xhr,show:1});
 			let p = this.list[0];
 			let uploadProgress = (evt)=>{		
 				if(evt.lengthComputable) {
@@ -235,7 +249,7 @@ export default {
 					p.type="img";
 					p.url = da.url;
 					p.file_name = da.file_name;
-					p.s = this.backSize(da.file_size);	
+					p.file_size_format = da.file_size;	
 					p.fid=da.fid;
 					if(da.cover_img){
 						this.$set(p,'cover_img',da.cover_img);
@@ -434,6 +448,10 @@ export default {
     width: 236px;
     margin: 0 10px 17px;
     vertical-align: top;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: 1px solid #f6f6f6;
+	overflow: hidden;
 }
 
 
@@ -448,12 +466,17 @@ export default {
 	
 }
 .uploadBoxd2_3>li>div>div>span:first-child{
-	width: 71%;
+    width: 63%;
     height: 20px;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 .uploadBoxd2_3>li>div>div>span:last-child{
-	float: right;
+    float: right;
+    padding: 0 5px 0 0;
+    width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .uploadBoxd2_4{
 	position: relative;
@@ -506,8 +529,7 @@ export default {
 	width: 100%;
 	height: 135px;
 	margin-bottom: 6px;
-	-webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0,0.2);
-	box-shadow: 0 2px 4px 0 rgba(0, 0, 0,0.2)
+
 }
 .qxclos{
 	cursor: pointer;
@@ -582,7 +604,7 @@ export default {
 	position: relative;
 	cursor: pointer;
 	width: 239px;
-	height: 135px;
+
 	
 }
 .zzched:hover:after{
@@ -594,7 +616,7 @@ export default {
 	top: 0;
 	left: 0;
 	width: 100%;
-	height:135px;
+	height:168px;
 	
 }
 .zzched_1{
@@ -615,16 +637,14 @@ export default {
 	width: 100%;
 	height: 135px;
 	overflow: hidden;
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
 }
-.imgxzd>img{
-	position: relative;
-    max-height: 100%;
-    max-width: 100%;
-    width: auto;
-    height: auto;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
+
+.imgxzd2{
+	width: 100%;
+	box-sizing: border-box;
+	padding: 5px;
 }
 </style>

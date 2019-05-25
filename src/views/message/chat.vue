@@ -42,7 +42,7 @@
 								</div>								
 							</ul>
 						</div>
-						<div class="sxBodx2_3"></div>
+					
 					</div>					
 					<div class="sxBodx3">				
 						<div class="sxBodx2_1">
@@ -733,7 +733,7 @@ export default {
 	overflow: hidden;
 	overflow-y: auto;
 	width:100%;
-	height:580px;
+	height:640px;
 	
 }
 .sxBodx2_2x>div>li{
@@ -763,6 +763,10 @@ export default {
 	line-height: 20px;
 	color: #1E1E1E;
 	margin-bottom: 5px;
+	width: 136px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .sxBodx2_2x_2{
 	float: right;

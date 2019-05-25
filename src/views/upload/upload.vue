@@ -811,10 +811,14 @@ export default {
 }
 .upBoxd1_2{
 	width: 1080px;
-	height: 440px;
+	min-height: 440px;
+	max-height: 600px;
 	padding: 1px;
 	overflow: hidden;
 	margin-bottom: 60px;
+	-webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    border-radius: 5px;
 }
 .edui-default .edui-editor-toolbarboxouter{
 	border: none !important;
@@ -829,7 +833,7 @@ export default {
 	min-width: 1305px;
 	height: 756px;
 }
-.UpBtn1{display: block !important;margin-bottom: 120px;}
+.UpBtn1{display: block !important;margin-bottom: 60px;}
 .UpBtn1>div{
 	display: inline-block;
 	border: 1px solid #999999;

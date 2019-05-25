@@ -29,7 +29,7 @@ li{list-style-type: none}
 	height: 100%;
 }
 #app>div>div{
-	
+	position: relative;
 	box-sizing: border-box;
 	min-height: 100%;
 	padding: 60px 0;
@@ -162,7 +162,7 @@ input:-ms-input-placeholder{
 }
 .i_listd{
 	width: 1300px;
-	margin: 0 auto;
+	margin: 0 auto 120px;
 	min-height: 239px;
 	text-align: left;
 }
@@ -294,11 +294,13 @@ input:-ms-input-placeholder{
     color: #FFF;
 	border-color: #FF5121;
 }
-.i_listd{
-	margin-bottom: 62.1px;
-}
+
 .pagesddd{
-	padding-bottom: 135px;
+	position: absolute;
+	bottom: 120px;
+	left: 0;
+	width: 100%;
+	text-align: center;
 }
 
 .wsj{
@@ -1086,6 +1088,8 @@ input:-ms-input-placeholder{
 
 .seed2_1_1_2{
 	text-align: left;
+    height: 40px;
+    line-height: 40px;
 }
 .seed2_1_1_2>span{
 	display: inline-block;
@@ -1095,6 +1099,7 @@ input:-ms-input-placeholder{
 	font-size: 14px;
 	color: #999999;
 	margin-right: 12px;
+	line-height: 20px;
 }
 .seed2_1_1_2>span:first-child{
 	margin-left: 18px;
@@ -1109,6 +1114,7 @@ input:-ms-input-placeholder{
 	cursor: pointer;
 	background: #E6E6E6;
 	border-radius: 5px;
+	margin-right: 10px;
 	font-size: 14px;
 	color: #666666;
 	text-align: center;
@@ -2245,5 +2251,24 @@ content: "";
     display: inline-block;
     vertical-align: sub;
     margin-right: 6px;
+}
+
+
+.btns{
+	display: inline-block;
+    border: 1px solid #979797;
+    border-radius: 5px;
+    width: 118px;
+    height: 38px;
+    line-height: 38px;
+    font-size: 14px;
+    color: #666666;
+    text-align: center;
+    margin: 0 10px;
+}
+.btns_js{
+	background: #FF5121;
+    border-color: #FF5121;
+    color: #fff;
 }
 </style>

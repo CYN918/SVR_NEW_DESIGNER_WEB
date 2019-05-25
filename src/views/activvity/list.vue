@@ -17,7 +17,7 @@
 			</ul>
 			
 		</div>
-		<el-pagination v-if="dataList.length>0" class="pagesddd fycen"
+		<el-pagination v-if="dataList.length>0" class="pagesddd"
 		background
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"
@@ -91,9 +91,8 @@ export default {
 }
 .ac_list_Box_0{
 	width: 1300px;
-	margin: 20px auto 0;
+	margin: 20px auto 60px;
 	text-align: left;
-	padding-bottom: 120px;
 }
 .ac_list_Box_0>li{
 	cursor: pointer;
@@ -161,15 +160,6 @@ export default {
 	font-size: 16px;
 	color: #999999;
 	margin-bottom: 12px;
-}
-.fycen{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    left: 0;
-	text-align: center;
-	box-sizing: border-box;
-
 }
 
 </style>

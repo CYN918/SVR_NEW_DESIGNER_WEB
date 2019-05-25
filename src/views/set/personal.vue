@@ -758,8 +758,11 @@ export default {
 		},
 		
 		init(){
-			this.getUserDetail();
-			
+			this.form.mobile = window.userInfo.mobile;
+			if(1==2){
+				this.getUserDetail();
+			}		
+				this.getUserDetail();
 			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(t==0){
@@ -861,7 +864,7 @@ export default {
 				Message({message: '请填写所有信息'});
 				return
 			}
-			
+			console.log(window.userInfo);
 			let pr = {
 				access_token:window.userInfo.access_token,
 				type:1,
@@ -876,8 +879,8 @@ export default {
 				branch_bank:this.postData.branch_bank,
 				verify_code:this.postData.verify_code,
 				bank_name:this.postData.bank_name,
-				mobile_zone:this.form.mobile_zone,
-				mobile:this.form.mobile,
+				mobile_zone:window.userInfo.mobile_zone,
+				mobile:window.userInfo.mobile,
 				check_type:this.check_type,
 			};
 			this.api.identifyAuth(pr).then((da)=>{
@@ -913,7 +916,7 @@ export default {
 			
 			let pr = {
 				access_token:window.userInfo.access_token,
-				contributor_type:1
+				contribute_type:1
 			};
 			this.api.contributorInfo(pr).then((da)=>{
 				if(!da){

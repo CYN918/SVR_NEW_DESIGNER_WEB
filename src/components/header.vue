@@ -167,6 +167,7 @@ export default {
 			this.$router.push({path:'/searchWorks',query:{cont:na}});
 		},
 		hind(){
+			return
 			setTimeout(()=>{
 				this.searchType=false;
 				this.searcCont='';
@@ -358,6 +359,10 @@ export default {
 
 <style>
 .header{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9;
 	width: 100%;
 	display: flex;
     height: 60px;
@@ -564,8 +569,8 @@ export default {
 	transition: transform .3s;
 }
 .issearch{
-	-webkit-transform: translateX(-300px);
-	transform: translateX(-300px);
+	-webkit-transform: translateX(-235px);
+	transform: translateX(-235px);
 }
 
 .searcBox3{
@@ -602,7 +607,7 @@ export default {
 	background: #FFFFFF;
 	box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);
 	border-radius: 5px;
-    width: 300px;
+    width: 240px;
     z-index: 99;
 
     -webkit-animation: xs .5s .3s forwards;
@@ -656,7 +661,7 @@ export default {
 }
 .messgeH3{
     position: absolute;
-    top: 39px;
+    top: 60px;
     left: -245px;
     background: #FFFFFF;
     -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);

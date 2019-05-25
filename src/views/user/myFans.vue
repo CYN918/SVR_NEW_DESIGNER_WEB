@@ -24,11 +24,11 @@
 						<span><span>人气</span>{{el.popular_num}}</span>
 						<span  @click="goFans('/works',el.open_id)"><span>创作</span>{{el.work_num}}</span>
 					</div>
-					<div class="follwfs_5">
-						<span @click="gosx(el)">私信</span>
-						<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
-						<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
-						<span @click="Follow_add(index)" v-else>关注</span>						
+					<div>
+						<span class="btns pend" @click="gosx(el)">私信</span>
+						<span class="btns pend" @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
+						<span class="btns pend" @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
+						<span class="btns btns_js pend" @click="Follow_add(index)" v-else>关注</span>						
 					</div>
 				</li>
 				
@@ -315,7 +315,7 @@ export default {
 	height: 215px;
 	margin: 0 auto 20px;
 }
-.i_listd2{margin-bottom: 40px;}
+.i_listd2{margin-bottom: 120px;}
 .i_listd2>li>img{
 	display: inline-block;
 	margin: 0 20px 0 30px;
@@ -500,26 +500,8 @@ export default {
 .follwfs_4{
 	margin-bottom: 25.3px;
 }
-.follwfs_5>span{
-	display: inline-block;
-	border: 1px solid #979797;
-	border-radius: 5px;
-	width: 118px;
-	height: 38px;
-	line-height: 38px;
-	font-size: 14px;
-	color: #666666;
-	text-align: center;
-	margin:0 10px;
-	cursor: pointer;
-}
-.follwfs_5>span:last-child{
-	background: #FF5121;
-	border-color: #FF5121;
-	color: #fff;
-}
 .worksBox3 .follwfs{
-	min-height: 572px;
+	margin-bottom: 120px;
 }
 .wsjzt{
 	min-height: 602px;

@@ -28,7 +28,7 @@
 				</li>
 			</ul>
 			<div class="myWorkNoData"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
-			<el-pagination v-if="List.length>0" class="myListBox_5"
+			<el-pagination v-if="List.length>0" class="pagesddd"
 			background
 			@size-change="handleSizeChange"
 			@current-change="handleCurrentChange"
@@ -414,7 +414,7 @@ export default {
 	background: #E6E6E6;
 }
 .myListBox{
-	min-height: 514px;
+	margin-bottom:120px;
 }
 .myAllbox{
 	text-align: left;
@@ -531,11 +531,7 @@ export default {
 .myListBox_4>span:hover{
 	color: #FF5121;
 }
-.myListBox_5{
-	margin-top:42px;
-	padding-bottom: 135px;
-	text-align: center;
-}
+
 .myListBox_6{
 	position: fixed;
 	top: 0;

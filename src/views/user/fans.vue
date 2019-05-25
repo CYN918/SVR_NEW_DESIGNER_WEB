@@ -307,7 +307,7 @@ export default {
 	height: 215px;
 	margin: 0 auto 20px;
 }
-.i_listd2{margin-bottom: 40px;}
+.i_listd2{margin-bottom:120px;}
 .i_listd2>li>img{
 	display: inline-block;
 	margin: 0 20px 0 30px;
@@ -439,7 +439,7 @@ export default {
 }
 .follwfs{
 	width: 1300px;
-	margin: 0 auto;
+	margin: 0 auto 120px;
 	text-align: left;
 }
 .follwfs>li{
