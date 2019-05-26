@@ -16,9 +16,10 @@
 		<div class="mygzBox">
 		<ul class="i_listd" v-if="List.length>0">
 			<li  v-for="(el,index) in List" :key="index">
-				<div @click="openxq(index)" class="i_listd1x1"><img class="i_listd1" :src="el.work.face_pic"> <div v-if="el.like_user" class="whotj">{{el.like_user.username.slice(0,10)}}<span>推荐过</span></div></div>
-				
-				<div class="i_listd2">
+				<box_a :el="el.work"></box_a>
+				<!--<div @click="openxq(index)" class="i_listd1x1"><img class="i_listd1" :src="el.work.face_pic"> <div v-if="el.like_user" class="whotj">{{el.like_user.username.slice(0,10)}}<span>推荐过</span></div></div>
+				-->
+				<!--<div class="i_listd2">
 					<div @click="openxq(index)" class="i_listd2_1"><span :title="el.work.work_name">{{el.work.work_name.slice(0,10)}}</span> <img v-if="el.work.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
 					<div @click="openxq(index)" class="i_listd2_2"><span>{{el.work.classify_1_name+'-'+el.work.classify_2_name}}</span><span>{{backtime(el.work.create_time)}}</span></div>
 					<div class="i_listd2_3">
@@ -30,11 +31,11 @@
 							<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.work.comment_num}}</span>
 						</div>
 					</div>
-				</div>
+				</div>-->
 			</li>
 		</ul>
 		<div class="pagesddd wsjzt" v-if="List.length==0"><img  class="wusj2" src="/imge/wsj2.png" alt=""></div>
-		<el-pagination v-if="List.length>0" class="pagesddd"
+		<el-pagination v-if="total>40" class="pagesddd"
 		background
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"
@@ -51,9 +52,9 @@
 <script>
 import { Loading } from 'element-ui';
 import tophead from './myHead2';
-
+import box_a from '../../components/box_a';
 export default {
-	components:{tophead},
+	components:{tophead,box_a},
 	data(){
 		return{
 			List:[],

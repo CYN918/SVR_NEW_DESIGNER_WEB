@@ -8,7 +8,7 @@
 				<div class="newUserme2">
 					<div class="userBoxd">
 						<span>手机号</span>
-						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.mobiles" :inputType="'phones'"  :placeholder="'请输入手机号'"></inptPhone>
+						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.mobile" :inputType="'phones'"  :placeholder="'请输入手机号'"></inptPhone>
 					</div>
 					<div class="userBoxd">
 						<span>验证码</span>
@@ -137,23 +137,7 @@ export default {
 		setYzm(val){
 			this.form.mobile_zone = val;
 		},
-		ajaxYzm(){
-			let pd = this.chekPhpne(this.form.mobile);
-			if(pd!=true && pd.type!=true){
-				Message({message: '请先填写手机号码'});
-				return
-			}
-			this.$refs.verify.runTimer(60);			
-			let params = {
-				mobile:this.form.mobile,
-				mobile_zone:this.form.mobile_zone
-			};
-			this.api.sendVerifyCode(params).then(()=>{	
-				
-			}).catch(()=>{
-				
-			});
-		},
+		
 		showisPhto(){
 			this.$refs.upoloadcaver.setImgd(this.caver);
 			this.isPhto=true;
@@ -174,6 +158,8 @@ export default {
 			}
 			let pr = {
 				access_token:window.userInfo.access_token,
+				mobile:this.form.mobiles.mobile,
+				mobile_zone:this.form.mobiles.mobile,
 				avatar:this.caver,
 				username:this.form.username,
 				sex:this.form.sex,
@@ -186,6 +172,8 @@ export default {
 				if(!da){
 					return
 				}
+				window.userInfo.mobile = pr.mobile;
+				window.userInfo.mobile_zone = pr.mobile_zone;
 				window.userInfo.avatar = pr.avatar;
 				window.userInfo.username = pr.username;
 				window.userInfo.sex = pr.sex;
@@ -200,18 +188,21 @@ export default {
 		},
 		pdys1(){
 			this.btnType = '';	 
-			if(this.phones==false){
+			if(!this.form.mobiles){
+				return
+			}
+			if(!this.form.verifys){
 				return
 			}	
-			if(this.verifys==false){
+			if(!this.form.password){
 				return
 			}	
-			if(this.password==false){
+			if(!this.form.password_repass){
 				return
 			}	
-			if(this.password_repass==false){
+			if(this.form.password_repass!=this.form.password){
 				return
-			}	
+			}
 			let pd = this.chekusername(this.form.username);
 			if(pd!=true && pd.type!=true){
 				return
@@ -219,12 +210,6 @@ export default {
 			if(!this.form.sex){
 				return
 			}
-			
-			
-			
-			
-			
-			
 			this.btnType = 'btnType';
 		},
 		
@@ -236,16 +221,16 @@ export default {
 	    'form.sex'() {
 	    	this.pdys1();
 	    },
-		'phones'(){
+	    'form.mobiles'(){
 			this.pdys1();
 		},
-		'verifys'(){
+		'form.verifys'(){
 			this.pdys1();
 		},
-		'password'(){
+		'form.password'(){
 			this.pdys1();
 		},
-		'password_repass'(){
+		'form.password_repass'(){
 			this.pdys1();
 		},
 

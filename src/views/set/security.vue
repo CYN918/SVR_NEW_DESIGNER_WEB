@@ -53,9 +53,7 @@
 							<div v-else-if="form.contributor_format_status!=1" class="rzzt_2" @click="gosetPersonal">
 								修改
 							</div>
-							<div v-else class="rzzt_2" style="border: none;">
-								认证中
-							</div>
+						
 						</div>
 					</div>
 					

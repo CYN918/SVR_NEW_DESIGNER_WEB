@@ -74,7 +74,7 @@
 		<div class="userNavBox">
 			<router-link :to="{ path:'/works',query:{ id:qurId}}">作品</router-link>
 			<router-link :to="{ path:'/recommend',query:{ id:qurId}}">推荐</router-link>
-			<router-link :to="{ path:'/follow',query:{ id:qurId}}">关注</router-link>
+			<router-link :class="gofn" :to="{ path:'/follow',query:{ id:qurId}}">关注</router-link>
 			<router-link :to="{ path:'/info',query:{ id:qurId}}">资料</router-link>
 		</div>
 		
@@ -100,6 +100,7 @@ export default {
 	name: 'index',
 	data(){
 		return{
+			gofn:'',
 			shareData:{},
 			userBg:'/imge/grzx_bg.png',
 			previewStyle2:{},
@@ -129,6 +130,7 @@ export default {
     },
 	
 	methods: {	
+
 		showReport(id,lid,ad){
 			this.$refs.report.showReport(id,lid,ad);
 		},
@@ -209,6 +211,10 @@ export default {
 			this.isshowd2=true;
 		},
 		init(){
+		
+			if(this.$route.path=='/followFans'){
+				this.gofn = 'router-link-active';
+			};
 			if(!this.$route.query.id){
 				this.$router.push({path: '/index'});	
 				return
@@ -231,8 +237,7 @@ export default {
 					pics:this.userMessage.avatar,
 					desc:'分享类容',
 					summary:'的主页-狮圈儿创作者平台',
-				};
-				console.log(this.shareData);		
+				};		
 				this.$refs.fxd.setUrl(this.shareData);
 				
 				if(this.$parent.setData){

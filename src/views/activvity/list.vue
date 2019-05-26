@@ -17,7 +17,7 @@
 			</ul>
 			
 		</div>
-		<el-pagination v-if="dataList.length>0" class="pagesddd"
+		<el-pagination v-if="pL.total>40" class="pagesddd"
 		background
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"

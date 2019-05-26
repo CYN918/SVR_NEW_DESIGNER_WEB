@@ -1,8 +1,8 @@
 <template>
 	<div class="searchHaed">
 		<div class="sea_1">
-			<span @click="goto('searchWorks')" :class="['sea_2',onNav==1?'sea_on':'']">作品</span>
-			<span @click="goto('searchUser')" :class="[onNav==2?'sea_on':'']">创作者</span>
+			<span @click="goto('searchWorks')" :class="['sea_2','pend',onNav==1?'sea_on':'']">作品</span>
+			<span @click="goto('searchUser')" :class="['pend',onNav==2?'sea_on':'']">创作者</span>
 			<div class="sea_4">
 				 <el-input
 					@keyup.enter.native="keydown($event)"
@@ -119,6 +119,7 @@ export default {
 	width: 400px;
 	height: 40px;
 	line-height: 40px;
+	padding: 2px 0;
 	border-bottom: 1px solid #131415;
 }
 .sea_4 .el-input{

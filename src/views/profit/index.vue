@@ -4,9 +4,10 @@
 			<img class="pro_cd1" src="/imge/wsj2.png" alt="">
 			<div class="pro_cd2">您还不是平台供稿人</div>
 			<div class="pro_cd3">立即申请将优秀的作品转化为收益</div>
-			<div class="pro_cd4" v-if="userData.is_contributor==0" @click="gosetPersonal">申请认证平台供稿人</div>
-			<div class="pro_cd4 pro_cd5" v-if="userData.is_contributor==2">认证审核中</div>
+			<div class="pro_cd4" v-if="userData.contributor_format_status==0" @click="gosetPersonal">申请认证平台供稿人</div>
+			<div class="pro_cd4 pro_cd5" v-if="userData.contributor_format_status==1">认证审核中</div>
 		</div>
+
 		
 	</div>
 </template>
@@ -34,17 +35,8 @@ export default {
 			if(!window.userInfo){
 				this.$router.push({path:'/login'})
 				return
-			}			
-			let pr = {
-				access_token:window.userInfo.access_token,
-				user_open_id:window.userInfo.open_id
-			};
-			this.api.getSelfInfo(pr).then((da)=>{
-				if(!da){
-					return
-				}
-				this.userData = da;			
-			})
+			}	
+			this.userData = window.userInfo;
 		},
 	},
 }

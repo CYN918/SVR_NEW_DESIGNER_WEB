@@ -66,9 +66,9 @@
 									<div>{{backComt(el.content)[0]}}</div>
 								</div>
 								<div>
-									<span class="hfdZ_3" @click="showFhks(el)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="[el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el.open_id,el.comment_id,'comment')">&#xe664;</span>
+									<span class="hfdZ_3" @click="showFhks(el)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="['pend',el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el.open_id,el.comment_id,'comment')">&#xe664;</span>
 									<div  class="hfBox" v-if="el.isshowfh">
-										<Input onblur="alert(1)" :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
+										<Input :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 										<span  :class="chekcont(pl2)==true?'iscsbtn':''" @click="addComment(pl2,index)">回复</span>
 									</div>
 								</div>
@@ -130,7 +130,8 @@
 						<div class="seed2_1_2_1 pend" @click="goOpen('#/works?id='+contDat.user_info.open_id)">TA的更多作品</div>
 						<div class="seed2_1_2_1x1">
 						<div  class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
-							<div class="i_listd1x2" @click="seeWorks(el.work_id)"><img :src="el.face_pic" alt="" class="i_listd1"></div>
+							<box_a :el="el"></box_a>
+							<!--<div class="i_listd1x2" @click="seeWorks(el.work_id)"><img :src="el.face_pic" alt="" class="i_listd1"></div>
 							<div class="i_listd2">
 								<div class="i_listd2_1">
 									<span @click="seeWorks(el.work_id)">{{el.work_name}}</span>
@@ -150,7 +151,7 @@
 										<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.comment_num}}</span>
 									</div>
 								</div>
-							</div>
+							</div>-->
 						</div>
 						</div>
 						
@@ -190,8 +191,9 @@ import Input from '../components/input'
 import {Message} from 'element-ui'
 import RPT from '../components/report'
 import fxd from '../components/share';
+import box_a from '../components/box_a';
 export default {
-	components:{Input,RPT,fxd},
+	components:{Input,RPT,fxd,box_a},
 	data(){
 		return{
 			isfix:'',
@@ -626,7 +628,7 @@ export default {
 			}
 			
 			this.$set(this.hfData[on],'isshowsub','');
-			this.$set(this.hfData[on],'isshowsubWZ','展开共'+this.hfData[on].sub_comment.length+'条回复');						
+			this.$set(this.hfData[on],'isshowsubWZ',this.hfData[on].sub_comment.length+'条回复');						
 		},
 		showFhks(on){			
 			if(this.checkLogin()==false){

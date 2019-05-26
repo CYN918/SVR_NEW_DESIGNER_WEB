@@ -60,7 +60,7 @@
 			<div class="upFm_yb">
 				<div class="upFm_yb_1">
 					效果预览
-					<div>上传图片支持JPG、PNG、gif，大小<10M<br/>建议尺寸为800×600 px</div>
+					<div>上传图片支持JPG、PNG、GIF，大小<10M<br/>建议尺寸为800×600 px</div>
 				</div>
 				<div class="upFm_yb_2">重新上传<input class="fileinpd" type="file" accept="image/png, image/jpeg, image/jpg" @change="uploadImg"></div>
 				<div class="upFm_yb_3">

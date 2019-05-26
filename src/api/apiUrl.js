@@ -233,7 +233,7 @@ export default {
 	},
 
 	contributorInfo:{
-		url:'/user/contributorInfo',method:'post',baseURL:0,
+		url:'/api/user/contributorInfo',method:'post',baseURL:0,
 	},
 	
 }

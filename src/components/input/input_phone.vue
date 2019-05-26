@@ -128,7 +128,7 @@ export default {
 			
 			
 		},
-	    'mobile_mobile'(val){
+	    'mobile_zone'(val){
 			if(!this.input){
 				return
 			}
@@ -149,7 +149,6 @@ export default {
 		},
 		
 		chekPhpne(){		
-			this.$emit('input',{mobile:this.input,mobile_zone:this.mobile_zone}); 
 			if(this.mobile_zone!='86'){
 				if(!(typeof this.input === 'number' && this.input%1 === 0)){
 					this.checkBack(false);
@@ -162,7 +161,11 @@ export default {
 				this.setErro('pherr','请输入正确的手机号码');
 				return ; 
 			}
-			this.setErro('');	
+			this.setErro('');
+			this.$parent.mobiles = {
+				mobile:this.input,
+				mobile_zone:this.mobile_zone,
+			};	
 			this.checkBack(true); 
 		},
 		chekverify(val){
@@ -238,6 +241,7 @@ export default {
 		
 		
 		ajaxVerifys(){	
+			console.log(this.$parent.mobiles);
 			if(this.$parent.phoneType==false){
 				Message({message: '请填写正确的手机号码'});
 				return

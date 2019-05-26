@@ -577,6 +577,13 @@ export default {
 			return true
 		},
 		fileUpfj(flie){
+			
+			if(this.upfjData && this.upfjData.type){
+				Message({message: '正在上传中请稍后'});
+				return
+			}		
+			
+			
 			let fld = flie.target.files[0];
 			
             if(['application/x-zip-compressed','application/zip'].indexOf(fld.type)==-1){

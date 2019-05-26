@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import {Message} from 'element-ui'
 export default {
 	name: 'login',	
 
@@ -142,6 +143,7 @@ export default {
 		uploadImg(e){
 			let file = e.target.files[0];
 			if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)||e.target.files.length==0) {
+				Message({message: '图片格式不正确'});
 				return
 			}
 			let reader = new FileReader()

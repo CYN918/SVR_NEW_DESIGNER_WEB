@@ -13,7 +13,8 @@
 			</div>
 			<ul v-if="List.length>0" class="i_listd" >
 				<li v-for="(el,index) in List" :key="index">
-					<img @click="openxq(index)"  class="i_listd1" :src="el.face_pic" alt="">
+					<box_a :el="el"></box_a>
+					<!--<img @click="openxq(index)"  class="i_listd1" :src="el.face_pic" alt="">
 					<div class="i_listd2">
 						<div @click="openxq(index)" class="i_listd2_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
 						<div @click="openxq(index)" class="i_listd2_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
@@ -26,11 +27,11 @@
 								<span class="iconfont pend">&#xe616; {{el.comment_num}}</span>
 							</div>
 						</div>
-					</div>
+					</div>-->
 				</li>
 			</ul>
 			<div class="pagesddd"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
-			<el-pagination v-if="List.length>0" class="pagesddd"
+			<el-pagination v-if="total>40" class="pagesddd"
 			background
 			@size-change="handleSizeChange"
 			@current-change="handleCurrentChange"
@@ -48,9 +49,10 @@
 <script>
 import tophead from './head';
 import { Loading } from 'element-ui';
+import box_a from '../../components/box_a';
 export default {
 	name: 'works',
-	components:{tophead},
+	components:{tophead,box_a},
 	data(){
 		return {
 			banners:[],

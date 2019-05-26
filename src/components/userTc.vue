@@ -16,7 +16,7 @@
 				</span>
 			</div>
 			<div v-if="isme()==false" class="usertc_5">
-				<span class="csys" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><span @click="gosx">私信</span>
+				<span class="csys" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><chatBtn :daTSA="chatData"></chatBtn>
 			</div>
 			<div v-else class="usertc_5">
 				<span class="csys" @click="goFans('/works')">进入主页</span>
@@ -27,11 +27,14 @@
 </template>
 
 <script>
+import chatBtn from './chatBtn';
 import {Message} from 'element-ui'
 export default {
+	components:{chatBtn},
 	name: 'myInput',
 	data(){
 		return{
+			chatData:{},
 		}
 	},
 	props: {
@@ -47,6 +50,18 @@ export default {
 			follwTyle:0,
 		}
 	},
+	
+	mounted: function () {	
+		
+		this.chatData = {
+			open_id:this.tcData.user_info.open_id,
+			avatar:this.tcData.user_info.avatar,
+			username:this.tcData.user_info.username,
+			city:this.tcData.user_info.city,
+			vocation:this.tcData.user_info.vocation,
+		};
+	}, 
+	
 	methods: {
 
 		gosx(){

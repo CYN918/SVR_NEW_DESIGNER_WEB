@@ -1,15 +1,21 @@
 <template>
+	
+	
+	
+	
 	<div class="myCentBox">
-		<div class="banner">
-			<div class="banner1">
-				<img v-for="(el,index) in banners" @click="opend(el.jump_url)" :class="[banOn==index?'action':'']" :src="el.banner_pic" alt="">
-			</div>
-			<div class="banner_nav1">
-				<span v-for="(el,index) in banners" @click="checkBan(index)" :class="[banOn==index?'action':'']"></span>
-			</div>
-			<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
-			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
+		
+		<div  class="banner" id="banner1" style="margin: 50px auto;">
+			<div @click="test" class="banner-view"></div>
+			<div class="banner-btn"></div>
+			<div class="banner-number"></div>
+			<div class="banner-progres"></div>
 		</div>
+
+		
+		
+		
+		
 		<list  class="" :config="data">
 			<template v-slot:todo="{ todo }">
 				<box_a :el="todo"></box_a>
@@ -35,7 +41,8 @@ export default {
 			},
 			banners:[],
 			banOn:0,
-			
+			banImg:[],
+			banUrl:[],
 			
 		}
 	},
@@ -44,33 +51,39 @@ export default {
 		
 	}, 
 	methods: {
+		test(){
+			if(this.banUrl[window.banenr2.index]){
+				window.open(this.banUrl[window.banenr2.index]);
+			}
+			
+		},
 		getBanner(){
 			this.api.getBanner().then((da)=>{
 				this.banners = da;
-				setInterval(()=>{
-					this.checkBan2();
-				},5000);
+				for(let i=0,n=da.length;i<n;i++){
+					this.banImg.push(da[i].banner_pic);
+					this.banUrl.push(da[i].jump_url);
+				}
+				window.banenr2 = new FragmentBanner({
+					container : "#banner1",//选择容器 必选
+					imgs : this.banImg,//图片集合 
+					size : {
+						width : 1300,
+						height : 328
+					},					
+					grid : {
+						line : 12,
+						list : 14
+					},
+					index: 0,
+					type : 2,
+					boxTime : 3000,
+					fnTime : 8000
+				});
+
 			});
 			
-		},
-		checkBan(on){
-			this.banOn = on;
-		},
-		checkBan1(){
-			if(this.banOn>0){
-				this.banOn--;
-				return
-			}
-			this.banOn = this.banners.length-1;
-		},
-		checkBan2(){
-			if(this.banOn<this.banners.length-1){
-				this.banOn++;
-				return
-			}
-			this.banOn = 0;
-		},
-		
+		},		
 	}
 }
 </script>

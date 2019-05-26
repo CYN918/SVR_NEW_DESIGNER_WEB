@@ -1060,7 +1060,7 @@ input:-ms-input-placeholder{
 }
 .seed2_2>div{
 	border-bottom: 1px solid #E6E6E6;
-	padding: 41px 30px 0;
+	padding: 41px 0 0;
 }
 .seed2_2>.seed2_1_1{
 	padding-bottom: 30px
@@ -1074,7 +1074,7 @@ input:-ms-input-placeholder{
 	position: relative;
 	background: #F6F6F6;
 	border-radius: 5.08px;
-	width: 270px;
+	width: 310px;
 	margin: 0 auto 30px;
 	box-sizing: border-box;
 	border: 1px solid #f6f6f6;
@@ -1459,6 +1459,7 @@ content: "";
 }
 .setUserBoxs_cent{
 	display: inline-block;
+	width: 910px;
 }
 .setUserBoxs_cent>div{
 	background: #FFFFFF;
@@ -1467,6 +1468,12 @@ content: "";
 	width: 910px;
 	padding: 27px 30px;
 	margin-bottom: 20px;
+}
+.setUserBoxs_cent>.poerrsas{
+	position: relative;
+	border: none;
+    box-shadow: none;
+    min-height: 420px;
 }
 .suc_title{
 	font-size: 15px;
@@ -2272,5 +2279,24 @@ content: "";
 	background: #FF5121;
     border-color: #FF5121;
     color: #fff;
+}
+
+.el-message{
+	width: 180px;
+    min-height: 60px; 
+    background: rgb(236, 206, 197);
+    border-radius: 5px;
+    color: #FF5121;
+    text-align: center;
+    border: none;
+}
+.el-message .el-icon-info{
+	display: none;
+}
+.el-message--info .el-message__content{
+	color: #FF5121;
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 0;
 }
 </style>

@@ -14,6 +14,8 @@
 				</div>
 				
 				<div class="setUserBoxs_cent">
+					<div class="poerrsas"><noData v-if="listData.length==0"></noData></div>
+					
 					<div v-for="(el,index) in listData" :key="index">
 						<img class="comment_1" :src="el.comment.avatar" alt="">
 						<div class="comment_2">
@@ -51,7 +53,7 @@
 			</div>
 			
 		</div>
-		<el-pagination class="pagesdddxf"
+		<el-pagination class="pagesdddxf" v-if="total>40"
 		background
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"
@@ -66,9 +68,10 @@
 
 <script>
 import Input from '../../components/input';
+import noData from '../../components/nodata'
 import {Message} from 'element-ui'
 export default {
-	components:{Input},
+	components:{Input,noData},
 	name: 'chat',
 	data(){
 		return {
@@ -305,7 +308,7 @@ export default {
 			};
 			this.api.getMessgList(pr).then((da)=>{
 				if(!da){return}
-				this.listData = da.data;
+//				this.listData = da.data;
 				this.total = da.total;
 			});
 		},

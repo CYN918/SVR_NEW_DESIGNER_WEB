@@ -19,7 +19,7 @@
 				</div>
 			</li>
 		</ul>
-		<el-pagination v-if="List.length>0" class="pagesddd"
+		<el-pagination v-if="total>40" class="pagesddd"
 		background
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"

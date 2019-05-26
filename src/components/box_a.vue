@@ -8,9 +8,12 @@
 				<span><img @click="goUser()" :src="el.user_info.avatar" alt=""></span>
 				<span @click="goUser()" class="list1_box_3_6">{{backName(el.user_info.username)}}</span>
 				<div class="list1_box_3_4" @click="openxq()">
-					<span class="pend"><img src="/imge/icon/zs_icon_gk.png">{{el.view_num}}</span>
-					<span class="pend"><img src="/imge/icon/zs_icon_dz.png">{{el.like_num}}</span>
-					<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.comment_num}}</span>
+					<span class="pend"><img class="ImgSvg" src="/imge/svg/see/zs_icon_dz.svg">{{el.view_num}}</span>
+					<span class="pend"><img class="ImgSvg" src="/imge/svg/see/zs_icon_gk.svg">{{el.like_num}}</span>
+					<span class="pend"><img class="ImgSvg" src="/imge/svg/see/zs_icon_xx.svg">{{el.comment_num}}</span>
+					
+					
+					
 				</div>
 			</div>
 		</div>
@@ -19,6 +22,7 @@
 </template>
 
 <script>
+
 import userTc from './userTc';
 export default {
 	components:{userTc},
@@ -60,6 +64,12 @@ export default {
 </script>
 
 <style>
+.ImgSvg{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 6px;
+  	width: 15px;
+}
 .list1_box{
 	position: relative;
     display: inline-block;
@@ -162,11 +172,5 @@ export default {
 
 .list1_box_3_4 {
   line-height: 14px;
-}
-.list1_box_3_4 > span > img {
-  display: inline-block;
-  vertical-align: bottom;
-  margin-right: 6px;
-  width: 15px;
 }
 </style>

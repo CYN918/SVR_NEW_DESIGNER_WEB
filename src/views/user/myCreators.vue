@@ -33,7 +33,7 @@
 				
 			</ul>			
 			<div class="pagesddd wsjzt" v-if="List.length==0"><img  class="wusj2" src="/imge/wsj2.png" alt=""></div>
-			<el-pagination v-if="List.length>0" class="pagesddd"
+			<el-pagination v-if="total>40" class="pagesddd"
 			background
 			@size-change="handleSizeChange"
 			@current-change="handleCurrentChange"

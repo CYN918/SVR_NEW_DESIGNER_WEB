@@ -19,34 +19,25 @@
 							<span @click="checkNav(1)" :class="['sxBodx2_1_n1',sxType==1?'sxBodx2_1_n1x':'']">我关注的</span>
 						</div>
 						<div class="sxBodx2_2" ref="listDom">
-							<ul v-if="sxType==0" class="sxBodx2_2x">
+							<ul class="sxBodx2_2x">
 								<div  v-for="(el,index) in listData" :class="index==messgOn?'oncheckx_1':''">
-									<li v-if="checkInchat(index,el.user_info.open_id)==false">
+									<li v-if="index==0 || (index>0 && zdOpen_id!=el.user_info.open_id)">
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div @click="cheond(index)">
 										<div class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
 										<div class="sxBodx2_2x_3">{{el.last_message?el.last_message:el.user_info.vocation +' | '+el.user_info.city}}</div>
 									</div>
 									</li>
-								</div>								
+								</div>
+								<noData v-if="listData.length==0"></noData>								
 							</ul>
-							<ul v-if="sxType==1" class="sxBodx2_2x">
-								<div v-for="(el,index) in listData" :class="index==messgOn?'oncheckx_1':''">
-									<li v-if="checkInchat(index,el.user_info.open_id)==false">
-									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
-									<div @click="cheond(index)">
-										<div class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
-										<div class="sxBodx2_2x_3">{{el.user_info.vocation +' | '+el.user_info.city}}</div>
-									</div>
-									</li>
-								</div>								
-							</ul>
+							
 						</div>
 					
 					</div>					
 					<div class="sxBodx3">				
 						<div class="sxBodx2_1">
-							<div class="sxBodx3_1_1" >
+							<div class="sxBodx3_1_1"  v-if="listData.length>0">
 								{{listData[messgOn]?listData[messgOn].user_info.username:''}}
 								<span class="sxBodx3_1_2">与你的对话</span>
 								<span class="sxBodx3_1_3 iconfont">&#xe73c;
@@ -83,8 +74,9 @@
 								</div>
 								
 							</ul>
+							<noData v-if="listData.length==0"></noData>
 						</div>
-						<div class="sxBodx2_3 sxBodx2_3xx">
+						<div v-if="listData.length>0" class="sxBodx2_3 sxBodx2_3xx">
 							<div class="hfBox xxbox_c">
 								<Input :keyup="keydown" class="userBoxd2" v-model="postMessg" :oType="'max'" :max="200" :type="'text'"  ref="tageds1"></Input>	
 								<span :class="chekcont()==true?'iscsbtn':''" @click="addChatMessage()">发送</span>
@@ -103,11 +95,14 @@
 import Input from '../../components/input'
 import {Message} from 'element-ui'
 import RPT from '../../components/report'
+import noData from '../../components/nodata'
 export default {
-	components:{Input,RPT},
+	components:{Input,RPT,noData},
 	name: 'chat',
 	data(){
 		return {
+			isNoData:'',
+			isNoData2:'',
 			jbopen_id:'',
 			jblink_id:'',
 			hfnc:'',
@@ -129,7 +124,6 @@ export default {
 			pl2:'',
 			messgOn:0,
 			messGlimit:6,
-			messPage:1,
 			messGlist:[],
 			postMessg:'',
 			getAjxType1:0,
@@ -146,6 +140,9 @@ export default {
 			deletType:0,
 			onTimed:'',
 			isxsdh:false,
+			zdOpen_id:'',
+			isNomSSG:0,
+			isNouSSG:0,
 		}
 	},
 	mounted: function () {			
@@ -153,6 +150,108 @@ export default {
 		
 	}, 
 	methods: {
+		init(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'});
+			}
+			this.addEvent2(this.$refs.listDom);
+			this.addEvent1(this.$refs.messgDom);
+
+			this.getUserList();			
+		},
+		getUserList(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'});
+				return
+			}
+			let pr = {
+				access_token:window.userInfo.access_token,
+				type:this.chatType,
+				page:this.page,
+				limit:this.limit
+			};
+			this.getAjxType1=1;
+			this.api.getMessgList(pr).then((da)=>{
+				this.getAjxType1=0;
+				if(!da){return}
+				if(this.listData.length>0){
+					if(da.data.length==0){
+						this.isNouSSG =1;
+						return;
+					}
+					this.listData = this.listData.concat(da.data);
+					return;
+				}				
+				if(this.$route.query && this.$route.query.open_id){				
+					this.zdOpen_id = this.$route.query.open_id;
+					da.data.unshift({user_info:this.$route.query});
+				}		
+				this.listData = da.data;
+				this.getMessageList();
+			}).catch(()=>{
+				this.getAjxType1=0;
+			});
+		},
+		getMessageList(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'});
+				return
+			}				
+			let pr = {
+				access_token:window.userInfo.access_token,
+				time:Date.parse(new Date())/1000,
+				limit:this.messGlimit,
+			};
+			if(this.messGlist[0]){
+				pr.time = this.messGlist[0].create_time;
+			}
+			if(this.listData[this.messgOn].chat_id){
+				pr.chat_id = this.listData[this.messgOn].chat_id;
+			}
+			if(this.listData[this.messgOn].user_info.open_id){
+				pr.to_open_id = this.listData[this.messgOn].user_info.open_id;
+			}
+			this.getAjxType1=0;
+			this.api.getMessageList(pr).then((da)=>{
+				this.getAjxType2=0;
+				if(!da){return}
+				this.pushCk();				
+				let lend = da.length;
+				if(lend==0){
+					this.isNomSSG=1;
+					return;
+				}
+				
+				for(let i=0;i<lend;i++){
+					if(i==0){
+						if(lend == 1){
+							da[i].isshowtime = 1;
+							continue
+						}
+						if(da[0].create_time-da[1].create_time>5*60){
+							da[i].isshowtime = 1;
+							continue
+						}
+						continue
+					}						
+					if(da[i-1].create_time-da[i].create_time>5*60){
+						da[i].isshowtime = 1;
+						continue
+					}					
+				}
+				if(da[lend-1] && !da[lend-1].isshowtime){
+					da[lend-1].isshowtime=1;
+				}
+				da = da.reverse();				
+				if(this.messGlist.length>0){
+					this.messGlist = da.concat(this.messGlist);
+					return
+				}
+				this.messGlist = da;
+			}).catch(()=>{
+				this.getAjxType2=0;
+			});			
+		},
 		keydown(){
 			this.addChatMessage();
 		},
@@ -184,9 +283,6 @@ export default {
 			str +='-'+day;
 			return str+' '+hos+':'+fz;
 		},
-		showReport(id,lid,ad){
-			
-		},
 		isRepfn(){
 			if(!this.listData[this.messgOn] || (!this.listData[this.messgOn].chat_id && !this.listData[this.messgOn].user_info.open_id)){
 				Message({message: '数据错误该信息无法举报'});
@@ -207,38 +303,28 @@ export default {
 			let pr = {
 				access_token:window.userInfo.access_token,
 				
-			};			
+			};	
+		
 			if(!this.listData[this.messgOn].chat_id){
 				this.listData.splice(this.messgOn,1);
 				Message({message: '删除成功'});
-				this.$route.query.openid = '';
-				if(this.listData.length>0){
-					this.getMessgList();
-				}else{
-					this.messGlist = [];
-				}
-				
-				return
-			}
-			
-			this.deletType==1;
-			
+//				this.$router.push({path:'/chat'});
+	
+				this.messGlist = [];
+		
+			}			
+			this.deletType==1;			
 			pr.chat_id=this.listData[this.messgOn].chat_id;
 			this.api.delChat(pr).then((da)=>{
 				this.deletType=0;
 				if(!da){return}
-			
+				this.messGlist = [];
 				Message({message: '删除成功'});
+				this.messgOn=0;				
 				this.getMessgList();
 			}).catch(()=>{
 				this.deletType=0;
 			});
-		},
-		checkInchat(on,id){
-			if(on>0 && id== this.listData[0].user_info.open_id){
-				return true;
-			}
-			return false			
 		},
 		goUser(id){
 			this.$router.push({path: '/works',query:{id:id}})	
@@ -247,34 +333,35 @@ export default {
 			if(this.messgOn==on){
 				return
 			}
+			this.isNomSSG = 0; 
 			this.messgOn = on;
-			
+			this.messgPage
+			this.messGlist = [];
 			this.getMessageList();
 		},
 		checkNav(on){
 			if(this.sxType==on){
 				return
 			}
-			this.chatType = 'chat';
+			this.messGlist = [];			
 			this.listData = [];
+			this.chatType = 'chat';
 			if(on==1){
 				this.chatType = 'chat_follow';
 			}
 			this.messgOn = 0;
-			this.messPage = 1;
 			this.page=1;
 			this.ondfgData = '';
-			if(on==0 && this.$route.query && (this.$route.query.id || this.$route.query.openid)){
-		
-				this.urlOpen=1;
-				this.onTypedf=0;
-				this.getChatDetail();
-			}
-			this.getMessgList();
 			this.sxType=on;
+			this.isNouSSG =0;
+			this.getUserList();			
 		},
 		addChatMessage(){
-			if(this.listData.length==0){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'});
+				return
+			}
+			if(!this.listData[this.messgOn]){
 				return
 			}
 			if(this.zkMyFun.checkWz(this.postMessg)==false){
@@ -285,9 +372,7 @@ export default {
 				Message({message: '正在发送'});
 				return
 			}
-			if(!window.userInfo){
-				this.$router.push({path:'/login'})
-			}
+			
 			let pr = {
 				access_token:window.userInfo.access_token,
 				chat_type:'private',
@@ -299,9 +384,7 @@ export default {
 			this.getAjxType3 = 1;
 			this.api.addChatMessage(pr).then((da)=>{
 				this.getAjxType3 = 0;
-				if(!da){
-					return
-				}
+				if(!da){return}
 				this.$refs.tageds1.setData('');
 				let pdata = {
 					content:mesd,
@@ -352,180 +435,34 @@ export default {
 			}
 			return window.getTimes(t*1000)
 		},
-		getMessageList(){
-			if(!this.listData[this.messgOn]){
-				return
-			}
-			if(!window.userInfo){
-				this.$router.push({path:'/login'})
-			}
-			let pr = {
-				access_token:window.userInfo.access_token,
-				chat_id:this.listData[this.messgOn].chat_id,
-				to_open_id:this.listData[this.messgOn].user_info.open_id,
-				
-				limit:this.messGlimit,
-			};
-			this.api.getMessageList(pr).then((da)=>{
-				if(!da){
-					return
-				}
-				this.pushCk();
-				
-				let lend = da.length;
-				for(let i=0,n=lend;i<n;i++){
-					if(i==0){
-						if(lend == 1){
-							da[i].isshowtime = 1;
-							continue
-						}
-						if(da[0].create_time-da[1].create_time>5*60){
-							da[i].isshowtime = 1;
-							continue
-						}
-						continue
-					}						
-					if(da[i-1].create_time-da[i].create_time>5*60){
-						da[i].isshowtime = 1;
-						continue
-					}
-					
-				}
-				if(da[lend-1] && !da[lend-1].isshowtime){
-					da[lend-1].isshowtime=1;
-				}
-				this.messGlist = da.reverse();
-		
-			});
-			
-		},
-		init(){	
-			if(this.sxType==0 && this.$route.query && (this.$route.query.id || this.$route.query.openid)){
-				this.urlOpen=1;
-				this.getChatDetail();
-			}
-			
-			this.getMessgList();
-			this.getMessgNumber();
-			document.documentElement.scrollTop =1;
-			document.body.scrollTop =1;
-			window.onscroll = ()=>{
-				let t = document.documentElement.scrollTop||document.body.scrollTop;
-				if(t==0){
-					document.documentElement.scrollTop =1;
-					document.body.scrollTop =1;
-				}
-				if(this.topTyped==false){
-					if(t>188){
-						this.topTyped=true;
-					}
-					
-				}
-				if(t<=188){
-					this.topTyped=false;
-				}
-	
-				
-			};
-				
-			this.addEvent2(this.$refs.listDom);
-			this.addEvent1(this.$refs.messgDom);
-			
-		},
 		addEvent2(obj){				
 			obj.onscroll = ()=>{
+				if(this.isNouSSG ==1){
+					return;
+				}
+				if(this.getAjxType1==1){
+					return
+				}
 				let t = obj.scrollTop||obj.scrollTop;
 				let b = obj.scrollHeight-580;
-			
-				if(t==b && this.getAjxType1==0){
-					if(!window.userInfo){
-						this.$router.push({path:'/login'})
-					}
-					let pr = {
-						access_token:window.userInfo.access_token,
-						type:'chat',
-						page:this.page,
-						limit:this.limit
-					};
-					this.getAjxType1=1;
-					this.api.getMessgList(pr).then((da)=>{
-						this.getAjxType1=0;
-						if(!da){return}
-						if(da.data.length==0){
-							this.getAjxType1=1;
-							return
-						}
-						this.page++;
-						this.listData = this.listData.concat(da.data);						
-							
-					}).catch(()=>{
-						this.getAjxType1=0;
-					});
-					
-				}
-			
-			}
-			
+				if(t!=b){return}
+				this.page++;
+				this.getUserList();
+			}			
 		},
-		addEvent1(obj){
-				
-			obj.scrollTop = obj.scrollHeight-540;
-			
+		addEvent1(obj){				
+			obj.scrollTop = obj.scrollHeight-540;			
 			setTimeout(()=>{
 				obj.scrollTop = obj.scrollHeight-540;
-			},300);	
-					
+			},300);						
 			obj.onscroll = ()=>{
-				let t = obj.scrollTop||obj.scrollTop;
-				if(t==0 && this.getAjxType2==0){
-					this.getAjxType2=1;
-					if(!window.userInfo){
-						this.$router.push({path:'/login'})
-					}
-					let pr = {
-						access_token:window.userInfo.access_token,
-						chat_id:this.listData[this.messgOn].chat_id?this.listData[this.messgOn].chat_id:this.listData[this.messgOn].open_id,
-						to_open_id:this.listData[this.messgOn].user_info.open_id,
-						time:this.messGlist[0].create_time,
-						limit:this.messGlimit,
-					};
-					this.api.getMessageList(pr).then((da)=>{
-						this.getAjxType2=0;
-						if(!da){
-							return
-						}
-						let lend = da.length;
-						for(let i=0,n=lend;i<n;i++){
-							if(i==0){
-								if(lend == 1){
-									da[i].isshowtime = 1;
-									continue
-								}
-								if(da[0].create_time-da[1].create_time>5*60){
-									da[i].isshowtime = 1;
-									continue
-								}
-								continue
-							}	
-							if(da[i-1].create_time-da[i].create_time>5*60){
-								da[i].isshowtime = 1;
-								continue
-							}							
-						}
-						if(!da[lend-1].isshowtime){
-							da[lend-1].isshowtime=1;
-						}
-						this.messGlist = da.reverse().concat(this.messGlist);
-						if(da.length==0){
-							this.getAjxType2=1;
-							return
-						}	
-						
-					}).catch(()=>{
-						this.getAjxType2=0;
-					});
+				if(this.isNomSSG==1){
+					return;
 				}
-			
+				if(this.getAjxType2==1){return}
+				let t = obj.scrollTop||obj.scrollTop;
+				if(t!=0){return}
+				this.getMessageList();
 			}
 		
 			
@@ -541,10 +478,9 @@ export default {
 			if(this.listData[this.messgOn].chat_id){
 				op.chat_id = this.listData[this.messgOn].chat_id;
 				
-			}else if(this.listData[this.messgOn].user_info.open_id){
+			} 
+			if(this.listData[this.messgOn].user_info.open_id){
 				op.to_open_id = this.listData[this.messgOn].user_info.open_id;
-			}else{
-				return
 			}			
 			this.api.Messageread(op).then((da)=>{
 				if(!da){return}
@@ -568,81 +504,7 @@ export default {
 				this.navDta[2].l = this.messgNum.unread_chat_num;		
 			})
 		},
-		getChatDetail(){
-		
-			if(!window.userInfo){
-				this.$router.push({path:'/login'})
-			}
-			let pr = {
-				access_token:window.userInfo.access_token,				
-			};			
-			if(this.$route.query.id){
-				pr.chat_id = this.$route.query.id;
-			}
-			if(this.$route.query.openid){
-				pr.to_open_id = this.$route.query.openid;
-			}
-			this.api.getChatDetail(pr).then((da)=>{
-				if(!da){return}	
-					
-				if(!da.user_info){
-					this.ondfgData = {
-						open_id: window.userInfo.open_id,
-						user_info:{
-							open_id:this.$route.query.openid,
-							username:this.$route.query.username,
-							avatar:this.$route.query.avatar
-						}
-					};
-					this.chatid = this.ondfgData.user_info.open_id;
-					if(this.listData.length>0){
-						this.listData.unshift(this.ondfgData);
-						this.getMessageList();
-						this.urlOpen=0;
-						this.onTypedf=1;
-					}
-					return;
-				}
-				this.ondfgData = da;
-				this.chatid = this.ondfgData.user_info.open_id;
-				if(this.listData.length>0){
-					this.listData.unshift(da);
-					this.onTypedf=1;
-					this.urlOpen=0;
-					this.getMessageList();
-				}
-				
-				
-			});
-		},
-		getMessgList(type){
-			if(!window.userInfo){
-				this.$router.push({path:'/login'})
-			}
-			let pr = {
-				access_token:window.userInfo.access_token,
-				type:this.chatType,
-				page:this.page,
-				limit:this.limit
-			};
-			this.chatTYD=0;
-			this.api.getMessgList(pr).then((da)=>{
-				if(!da){return}
-				this.listData = da.data;	
-				if(this.urlOpen==0){
-					this.getMessageList();
-					return
-				}
-				if(this.onTypedf==0 && this.ondfgData){
-					this.listData.unshift(this.ondfgData);	
-					this.getMessageList();
-					this.urlOpen=0;
-					return
-				}
-						
-				
-			});
-		},
+	
 
 
 	}

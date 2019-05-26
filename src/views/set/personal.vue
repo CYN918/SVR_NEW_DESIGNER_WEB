@@ -213,7 +213,7 @@ export default {
 				'银行卡信息',
 				'身份验证',			
 			],			
-			form:{},
+			form:{mobile_zone:'86'},
 			navdOn:0,
 			topTyped:false,
 			tAncType:0,
@@ -759,6 +759,7 @@ export default {
 		
 		init(){
 			this.form.mobile = window.userInfo.mobile;
+			this.form.mobile_zone = window.userInfo.mobile_zone;
 			if(1==2){
 				this.getUserDetail();
 			}		
@@ -887,6 +888,9 @@ export default {
 				if(!da){
 					return
 				}
+				window.userInfo.contributor_format_status = 1;
+				window.userInfo.contributor_type = 1;
+				localStorage.setItem('userT',JSON.stringify(window.userInfo));
 				Message({message: '申请已提交审核'});
 				setTimeout(()=>{
 					this.$router.push({path:'/profit'})
@@ -922,12 +926,19 @@ export default {
 				if(!da){
 					return
 				}
-				console.log(da)
-				this.form = da;
-				
-		
-				
-			
+				if(da.check_status==0){
+					this.check_type = 1;
+				}
+				if(da.check_status==1){
+					this.$router.push({path: '/index'})			
+				}
+				if(da.check_status==-1){
+					this.check_type = 2;
+				}
+				if(da.check_status==2){
+					this.check_type = 3;
+				}
+				this.postData = da; 
 			})
 		},
 		showisPhto(){

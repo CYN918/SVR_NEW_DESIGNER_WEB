@@ -167,7 +167,6 @@ export default {
 			this.$router.push({path:'/searchWorks',query:{cont:na}});
 		},
 		hind(){
-			return
 			setTimeout(()=>{
 				this.searchType=false;
 				this.searcCont='';
@@ -362,7 +361,7 @@ export default {
 	position: absolute;
 	top: 0;
 	left: 0;
-	z-index: 9;
+	z-index: 9999;
 	width: 100%;
 	display: flex;
     height: 60px;

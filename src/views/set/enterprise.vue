@@ -177,13 +177,7 @@ export default {
 			check_type:1,
 			postData:{tax_rate_type:"1"},
 			zhData:[],
-			navDatad:{
-				title:'平台供稿人-认证申请',
-				list:[
-					{n:'个人',u:'/setPersonal'},
-					{n:'企业',u:'/setEnterprise'},
-				],
-			},
+			navDatad:{},
 			isPostky:false,
 			ischecked:false,
 			navDta:[
@@ -191,7 +185,7 @@ export default {
 				'银行卡信息',
 				'身份验证',			
 			],			
-			form:{},
+			form:{mobile_zone:'86'},
 			navdOn:0,
 			topTyped:false,
 			tAncType:0,
@@ -292,7 +286,7 @@ export default {
 			if(!this.postData.code){
 				return
 			}
-			if(this.postData.code.length>18){
+			if(this.postData.code.length!=18){
 				Message({message: '统一社会信用代码格式不正确'});
 				return
 			}
@@ -499,6 +493,7 @@ export default {
 					return 					
 				}			
 			}else{
+				console.log(22222);
 				if(!(/^1[34578]\d{9}$/.test(pd))){ 
 					Message({message: '请输入正确的手机号码'});
 					return
@@ -626,8 +621,15 @@ export default {
 		},
 		
 		init(){
-			
-			
+			this.form.mobile = window.userInfo.mobile;
+			this.form.mobile_zone = window.userInfo.mobile_zone;
+			this.navDatad = {
+				title:'平台供稿人-认证申请',
+				list:[
+					{n:'个人',u:'/setPersonal'},
+					{n:'企业',u:'/setEnterprise'},
+				],
+			};
 			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(t==0){
@@ -690,6 +692,9 @@ export default {
 					return
 				}
 				Message({message: '申请已提交审核'});
+				window.userInfo.contributor_format_status = 1;
+				window.userInfo.contributor_type = 2;
+				localStorage.setItem('userT',JSON.stringify(window.userInfo));
 				setTimeout(()=>{
 					this.$router.push({path:'/profit'})
 				},2000);
@@ -718,15 +723,26 @@ export default {
 			
 			let pr = {
 				access_token:window.userInfo.access_token,
-				user_open_id:window.userInfo.open_id
+				contribute_type:1
 			};
-			this.api.getSelfInfo(pr).then((da)=>{
+			this.api.contributorInfo(pr).then((da)=>{
 				if(!da){
 					return
 				}
-				this.form = da;
-				this.form.citye = [this.form.country,this.form.province,this.form.city]
-			
+				if(da.check_status==0){
+					this.check_type = 1;
+				}
+				if(da.check_status==1){
+					this.$router.push({path: '/index'})			
+				}
+				if(da.check_status==-1){
+					this.check_type = 2;
+				}
+				if(da.check_status==2){
+					this.check_type = 3;
+				}
+				this.postData = da; 
+				this.postData = da;
 			})
 		},
 		showisPhto(){
