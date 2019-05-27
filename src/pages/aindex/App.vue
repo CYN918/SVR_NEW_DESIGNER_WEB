@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<!-- <img class="bgd" src="/imge/app/bg1.png" alt=""> -->
+		<!-- <img class="bgd" src="/imge/app/bg2.png" alt=""> -->
 		<router-view/>
 	</div>
 </template>

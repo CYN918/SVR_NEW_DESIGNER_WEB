@@ -173,7 +173,7 @@ export default {
 			};
 			this.api.getMessgList(pr).then((da)=>{
 				if(!da){return}
-//				this.listData = da.data;
+				this.listData = da.data;
 
 				this.total = da.total;
 			});

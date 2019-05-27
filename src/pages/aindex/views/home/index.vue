@@ -57,4 +57,32 @@ export default {
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
 }
+
+.homeList{
+	width: 14.3rem;
+	margin: 0 auto 1.7rem;
+	
+}
+.homeList_1{
+    width: 100%;
+    height: 9.4rem;
+    border-radius: .4rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+	margin-bottom: .6rem;
+}
+.nox{
+	padding: 0 .5rem;
+}
+.homeList_2{
+    font-size: .74rem;
+    margin-bottom: .4rem;
+    height: .7rem;
+    line-height: .7rem;
+}
+.rigto{    
+	float: right;
+    font-size: .46rem;
+
+}
 </style>
