@@ -1,9 +1,12 @@
 <template>
-	<div class="homeNav">
-		<router-link to="/index">首页推荐</router-link>
-		<router-link to="/activvity">最新活动</router-link>
+	<div>
+		<div class="homeNav">
+			<router-link to="/index">首页推荐</router-link>
+			<router-link to="/activvity">最新活动</router-link>		
+		</div>		
 		<router-view/>
 	</div>
+	
 </template>
 
 <script>
@@ -29,7 +32,7 @@ export default {
 .homeNav{
 	height: 2.5rem;
 	line-height: 2.3rem;
-	margin-bottom: 2rem;
+
 	text-align: center;
 	box-shadow:0px 2px 4px 0px rgba(0,0,0,0.05);
 }

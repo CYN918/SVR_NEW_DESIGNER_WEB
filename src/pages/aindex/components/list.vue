@@ -1,8 +1,10 @@
 <template>
-	<ul>
+	<ul class="boxd">
 		<li v-for="(el,index) in List" :key="index">
 			<slot name="todo" v-bind:todo="el"></slot>			
 		</li>
+		
+		<span v-if="total>List.length" @click="addMo" class="btns">查看更多</span>
 	</ul>
 </template>
 
@@ -20,7 +22,7 @@ export default {
 	data(){
 		return{
 			shareData:{},
-			List:[1,2,3,4,5,6],
+			List:[],
 			page:1,
 			limit:10,
 			total:0,
@@ -31,8 +33,11 @@ export default {
 		this.getData();		
 	}, 
 	methods: {	
+		addMo(){
+			this.page++;
+			this.getData();
+		},
 		getData(){
-			window.scrollTo(0,0);
 			let params = {
 				page:this.page,
 				limit:this.limit
@@ -46,8 +51,13 @@ export default {
 				if(!da){
 					return
 				}
-				this.List = da.data;
 				this.total = da.total;
+				if(this.List.length>0){
+					this.List = this.List.concat(da.data);
+					return
+				}
+				this.List = da.data;
+								
 			}).catch(()=>{
 
 			})
@@ -58,5 +68,22 @@ export default {
 </script>
 
 <style>
+.boxd{
+	width: 100%;
+	padding: 1.29rem 0;
+}
+.btns{
+	display: block;
+    width: 8.45rem;
+    height: 1.8rem;
 
+    margin: 0 auto;
+    text-align: center;
+
+    border: 1px solid #000;
+    border-radius: .2rem;
+    font-size: .7rem;
+    line-height: 1.8rem;
+    text-align: center;
+}
 </style>

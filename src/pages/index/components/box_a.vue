@@ -8,9 +8,9 @@
 				<span><img @click="goUser()" :src="el.user_info.avatar" alt=""></span>
 				<span @click="goUser()" class="list1_box_3_6">{{backName(el.user_info.username)}}</span>
 				<div class="list1_box_3_4" @click="openxq()">
-					<span class="pend"><img class="ImgSvg" src="/imge/svg/see/zs_icon_dz.svg">{{el.view_num}}</span>
-					<span class="pend"><img class="ImgSvg" src="/imge/svg/see/zs_icon_gk.svg">{{el.like_num}}</span>
-					<span class="pend"><img class="ImgSvg" src="/imge/svg/see/zs_icon_xx.svg">{{el.comment_num}}</span>
+					<span class="pend"><img  class="ImgSvg" src="/imge/svg/see/zs_icon_gk.svg">{{el.view_num}}</span>
+					<span class="pend"><img class="ImgSvg tof2d" src="/imge/svg/see/zs_icon_dz.svg">{{el.like_num}}</span>
+					<span class="pend"><img class="ImgSvg tof1d" src="/imge/svg/see/zs_icon_xx.svg">{{el.comment_num}}</span>
 					
 					
 					
@@ -172,5 +172,11 @@ export default {
 
 .list1_box_3_4 {
   line-height: 14px;
+}
+.tof2d{
+	margin-top: .-2rem;
+}
+.tof1d{
+	margin-top: -.1rem;
 }
 </style>

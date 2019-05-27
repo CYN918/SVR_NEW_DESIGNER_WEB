@@ -26,7 +26,6 @@ export default {
 <style>
 .footerBox{
 
-    bottom: 0;
     width: 100%;
     height: 7.82rem;
 	text-align: center;
