@@ -11,7 +11,6 @@
 		</ListTemp>
 	</div>
 </template>
-
 <script>
 import ListTemp from '../../components/list';
 export default {

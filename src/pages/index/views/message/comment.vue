@@ -38,10 +38,10 @@
 							</div>
 							
 							<div v-if="el.op_cname=='回复' && el.isshowsub" class="comment_2_9">
-								<img class="comment_1" :src="el.comment.avatar" alt="">
+								<img class="comment_1" :src="el.to_comment.avatar" alt="">
 								<div class="comment_2">
-									<div class="comment_2_1">{{el.comment.username}}<span class="comment_2_2">{{backtime(el.comment.create_time)}}</span></div>
-									<div class="comment_2_5">{{backcont(el.comment.content)}}</div>
+									<div class="comment_2_1">{{el.to_comment.username}}<span class="comment_2_2">{{backtime(el.to_comment.create_time)}}</span></div>
+									<div class="comment_2_5">{{backcont(el.to_comment.content)}}</div>
 								</div>							
 							</div>
 						</div>

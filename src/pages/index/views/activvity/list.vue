@@ -3,7 +3,7 @@
 		<div class="ac_list_Box">
 			<ul class="ac_list_Box_0">
 				<li @click="goDetailed(el.id)" v-for="(el,index) in dataList" :key="index">
-					<img class="ac_list_Box_1" :src="'http://zk-web-object.oss-cn-qingdao.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png'" alt="">
+					<img class="ac_list_Box_1" :src="el.banner" alt="">
 					<div class="ac_list_Box_2">
 						<div class="ac_list_Box_4">{{el.activity_name}}</div>
 						<div class="ac_list_Box_5"><span>{{el.category_name}}</span>投稿时间：{{el.start_time.split(" ")[0]}} 至 {{el.end_time.split(" ")[0]}}</div>
@@ -12,10 +12,8 @@
 							<span v-if="!el.left_day" class="ac_list_Box_8">已结束</span>
 						</div>
 					</div>				
-				</li>
-				
-			</ul>
-			
+				</li>				
+			</ul>			
 		</div>
 		<el-pagination v-if="pL.total>40" class="pagesddd"
 		background

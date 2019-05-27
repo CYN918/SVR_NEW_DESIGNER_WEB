@@ -28,6 +28,11 @@ let wb = [
 					}
 				]
 			},
+			{
+				path: '/cont',
+				name: 'cont',
+				component: () => import('./views/cont.vue'),
+			}
 		],	
 	},
 ];

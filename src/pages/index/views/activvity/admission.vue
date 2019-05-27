@@ -3,20 +3,7 @@
 		<ul class="i_listd" >
 			<img class="wsj" v-if="List.length<1" src="/imge/wsj.png" alt="">
 			<li v-for="(el,index) in List" :key="index" @click="openxq(index)">
-				<img class="i_listd1" :src="el.face_pic" alt="">
-				<div class="i_listd2">
-					<div class="i_listd2_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
-					<div class="i_listd2_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
-					<div class="i_listd2_3">
-						<span><img :src="el.face_pic" alt=""></span>
-						
-						<div>
-							<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
-							<span class="iconfont pend">&#xe672; {{el.like_num}}</span>
-							<span class="iconfont pend">&#xe616; {{el.comment_num}}</span>
-						</div>
-					</div>
-				</div>
+				<box_a :el="el"></box_a>
 			</li>
 		</ul>
 		<el-pagination v-if="total>40" class="pagesddd"
@@ -33,7 +20,9 @@
 </template>
 
 <script>
+import box_a from '../../components/box_a';
 export default {
+	components:{box_a},
 	name: 'home',	 
 	data(){	
 		return{
