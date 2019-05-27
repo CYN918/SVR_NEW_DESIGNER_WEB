@@ -7,6 +7,20 @@ var apiRoutes = express.Router();
 app.use('/api',apiRoutes)
 
 module.exports = {
+	pages: {
+        index: {            
+            entry: 'src/pages/index/main.js',
+            template: 'public/index.html',
+            filename: 'index.html',
+            
+        },
+        aindex: {            
+            entry: 'src/pages/aindex/main.js',
+            template: 'public/aindex.html',
+            filename: 'aindex.html',
+            
+        },
+    },
     // 基本路径
     publicPath: './',
     // 输出文件目录
