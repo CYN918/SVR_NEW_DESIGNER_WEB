@@ -13,7 +13,7 @@
 				</div>
 				
 				<div class="setUserBoxs_cent">
-					<div class="poerrsas"><noData v-if="listData.length==0"></noData></div>
+					<div class="poerrsas" v-if="listData.length==0"><noData></noData></div>
 					<div v-for="(el,index) in listData" :key="index">
 						<img class="comment_1" @click="goUserIn(index)" :src="el.user_info.avatar" alt="">
 						<div class="comment_2">
