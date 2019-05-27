@@ -1618,7 +1618,7 @@ content: "";
 	line-height: 40px;
 	font-size: 16px;
 	color: #FFFFFF;
-	margin: 60px auto 160px;
+	margin: 60px auto;
 	padding: 0;
 	cursor: pointer;
 }
