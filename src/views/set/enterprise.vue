@@ -623,13 +623,7 @@ export default {
 		init(){
 			this.form.mobile = window.userInfo.mobile;
 			this.form.mobile_zone = window.userInfo.mobile_zone;
-			this.navDatad = {
-				title:'平台供稿人-认证申请',
-				list:[
-					{n:'个人',u:'/setPersonal'},
-					{n:'企业',u:'/setEnterprise'},
-				],
-			};
+			this.getUserDetail();
 			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(t==0){
@@ -720,7 +714,10 @@ export default {
 				this.$router.push({path:'/login'})
 				return
 			}
-			
+			if(window.userInfo.contributor_type==1){
+				this.$router.push({path:'/setPersonal'})
+				return
+			}
 			let pr = {
 				access_token:window.userInfo.access_token,
 				contribute_type:1
@@ -760,8 +757,9 @@ export default {
 						],
 					};
 				}
+
 				this.postData = da; 
-				this.postData = da;
+	
 			})
 		},
 		showisPhto(){

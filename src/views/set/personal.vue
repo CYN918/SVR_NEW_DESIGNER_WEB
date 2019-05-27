@@ -911,7 +911,10 @@ export default {
 				this.$router.push({path:'/login'})
 				return
 			}
-			
+			if(window.userInfo.contributor_type==2){
+				this.$router.push({path:'/setEnterprise'})
+				return
+			}
 			let pr = {
 				access_token:window.userInfo.access_token,
 				contribute_type:1
@@ -930,8 +933,10 @@ export default {
 						],
 					};
 				}
+			
 				if(da.check_status==1){
-					this.$router.push({path: '/index'})			
+					this.$router.push({path: '/index'})	
+					return
 				}
 				if(da.check_status==-1){
 					this.check_type = 2;
