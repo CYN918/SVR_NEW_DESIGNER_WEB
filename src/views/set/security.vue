@@ -307,8 +307,7 @@ export default {
 			let pr = {
 				access_token:window.userInfo.access_token,
 				third_part:type,
-				type:type2,
-				
+				type:type2,				
 			};
 			this.api.Bindbind(pr).then((da)=>{
 				if(!da){
