@@ -211,6 +211,7 @@ export default {
 			this.checkPage1();			
 		},
 		'form.content'() {
+			console.log(this.form.content)
 			this.checkPage1();
 		},
 		'form.face_pic'() {
@@ -384,13 +385,15 @@ export default {
 		ready (editorInstance) {
 			this.uD = editorInstance;
 		
-			editorInstance.addListener('focus',(editor)=>{			
+			editorInstance.addListener('focus',(editor)=>{	
+			
 					if(this.ifBjType==0){
 						this.form.content = '';
 						this.ifBjType=1;				
 					}
 			});
 			editorInstance.addListener('blur',(editor)=>{
+				console.log(this.form.content);
 				if(this.ifBjType==1 && this.form.content==''){			
 					this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
 					this.ifBjType=0;
@@ -432,20 +435,21 @@ export default {
 			
 			if(this.upConfig.type[0]=='video/mp4'){
 				list.map((el,index,va)=>{
-					str+='<p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
+					str+='<p style="display:none">1</p><p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
 				});
-				
+				this.uD.execCommand( 'insertparagraph' );
 				this.uD.execCommand('insertHtml', str);
-				this.uD.execCommand( 'insertparagraph' )
+				
+				
 				return
 			}
 			if(this.upConfig.type[0]=='audio/ogg'){
 				list.map((el,index,va)=>{					
-					str+='<p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio zk_workid="'+ids[index]+'" style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
+					str+='<p style="display:none">1</p><p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio zk_workid="'+ids[index]+'" style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
 				});
-			
-				this.uD.execCommand('insertHtml', str);
 				this.uD.execCommand( 'insertparagraph' )
+				this.uD.execCommand('insertHtml', str);
+				
 				return
 			}
 			
