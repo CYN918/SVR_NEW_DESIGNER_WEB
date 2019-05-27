@@ -341,6 +341,7 @@ export default {
 		init(O){
 			if(!window.userInfo){
 				Message({message: '请先登录'});
+				return
 					setTimeout(()=>{				
 						this.$router.push({path:'/login'})
 					},2000);

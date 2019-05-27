@@ -440,18 +440,11 @@ input:-ms-input-placeholder{
 .loginBox{
 	position: relative;
 	width: 100%;
-	height: auto !important;
+	height: 100%;
 	overflow-x: hidden
 	
 }
 
-// .logindboxd{
-// 	position: fixed;
-// 	top: 0;
-// 	left: 0;
-// 	width: 100%;
-// 	height: 100%;
-// }
 .login_1{
 	position: fixed;
 	top: 50%;
@@ -2289,6 +2282,7 @@ content: "";
     color: #FF5121;
     text-align: center;
     border: none;
+	z-index: 9999 !important;
 }
 .el-message .el-icon-info{
 	display: none;

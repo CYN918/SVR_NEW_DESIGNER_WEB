@@ -291,6 +291,10 @@ export default {
 	}, 
 	methods: {
 		gosetPersonal(){
+			if(this.form.contributor_type==2){
+				this.$router.push({path: '/setEnterprise'})
+				return
+			}
 			this.$router.push({path: '/setPersonal'})
 		},
 		qdTc6(){

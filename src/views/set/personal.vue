@@ -199,13 +199,7 @@ export default {
 		return {
 			postData:{},
 			zhData:[],
-			navDatad:{
-				title:'平台供稿人-认证申请',
-				list:[
-					{n:'个人',u:'/setPersonal'},
-					{n:'企业',u:'/setEnterprise'},
-				],
-			},
+			navDatad:{},
 			check_type:1,
 			ischecked:false,
 			navDta:[
@@ -928,17 +922,40 @@ export default {
 				}
 				if(da.check_status==0){
 					this.check_type = 1;
+					this.navDatad = {
+						title:'平台供稿人-认证申请',
+						list:[
+							{n:'个人',u:'/setPersonal'},
+							{n:'企业',u:'/setEnterprise'},
+						],
+					};
 				}
 				if(da.check_status==1){
 					this.$router.push({path: '/index'})			
 				}
 				if(da.check_status==-1){
 					this.check_type = 2;
+					this.navDatad = {
+						title:'平台供稿人-认证申请',
+						list:[
+							{n:'个人',u:'/setPersonal'},							
+						],
+					};
 				}
 				if(da.check_status==2){
 					this.check_type = 3;
+					this.navDatad = {
+						title:'平台供稿人-认证申请',
+						list:[
+							{n:'个人',u:'/setPersonal'},						
+						],
+					};
 				}
 				this.postData = da; 
+				
+
+				
+				
 			})
 		},
 		showisPhto(){
