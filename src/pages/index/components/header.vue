@@ -71,7 +71,7 @@
 					<ul> 
 						<router-link  to="/myAll"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></router-link>
 						<router-link  to="/myDynamic"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></router-link>
-						<router-link  to="/activvity"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></router-link>
+						<router-link  to="/profit"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></router-link>
 						<router-link  to="/setUser"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></router-link>
 						<a @click="showHb(true)"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
 					</ul>
