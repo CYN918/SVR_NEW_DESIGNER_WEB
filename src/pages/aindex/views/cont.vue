@@ -214,6 +214,7 @@ export default {
 .centbox_x_3_1>span{
 	display: inline-block;
 	overflow: hidden;
+	vertical-align: middle;
 
     margin-left: .7rem;
 }
@@ -235,7 +236,7 @@ export default {
 
 
 .ht{
-	margin: .5rem auto;
+	margin: px2rem(20) auto;
 	height: .5rem;
 	background: rgba(248,249,251,1);
 }
@@ -268,8 +269,9 @@ export default {
 .workxx_1>div>span{
 	vertical-align: top;
 	display: inline-block;
+	line-height: px2rem(17);
 	margin-left: 1.1rem;
-    max-width: 11rem;
+    max-width: 10rem;
 	margin-bottom: .25rem;
 }
 .pl_1{
