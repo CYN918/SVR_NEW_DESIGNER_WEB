@@ -486,7 +486,7 @@ export default {
 				this.contDat = da;
 				
 				this.shareData = {
-					url:window.location.href,
+					url:'http://dev-web-ndesigner.idatachain.cn/aindex.html#/cont?id='+this.$route.query.id,
 					title:this.contDat.work_name+'-狮圈儿创作者平台',
 					pics:this.contDat.face_pic,
 					desc:'惊现大神快来膜拜',

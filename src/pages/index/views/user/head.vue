@@ -42,6 +42,7 @@
 						<div @click="fxclick">分享</div>
 					</div>
 					<div v-else class="u_top2_2_2">
+						<div @click="fxclick">分享</div>
 						<div @click="showReport(userMessage.open_id,userMessage.open_id,'user')">举报</div>
 					</div>
 				</div>
@@ -232,7 +233,7 @@ export default {
 				}
 				this.userMessage = da;
 				this.shareData = {
-					url:window.location.href,
+					url:url:'http://dev-web-ndesigner.idatachain.cn/aindex.html#/user?id='+this.$route.query.id,
 					title:this.userMessage.username+"的主页-狮圈儿创作者平台",
 					pics:this.userMessage.avatar,
 					desc:'分享类容',
@@ -684,5 +685,10 @@ export default {
 	display: block;
 	margin: 0 auto;
 	width: 680px;
+}
+
+.noData_x_01{
+	text-align: center;
+    margin: 60px auto;
 }
 </style>

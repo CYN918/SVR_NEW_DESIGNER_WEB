@@ -1,8 +1,8 @@
 <template>
 	<header class="header">
-		<img class="log" src="/imge/app/log.png" alt="">
+		<img @click="goIndex" class="log" src="/imge/app/log.png" alt="">
 		狮大大
-		<span class="fxbtn">分享</span>
+		<span class="fxbtn"></span>
 	</header>
 </template>
 
@@ -10,22 +10,13 @@
 export default {
 	name: 'home',	 
 	data(){	
-		return{
-			
-
-		}		
+		return{}		
 	},
-	mounted: function () {	
-		
-		
-	}, 
 	methods:{
-		
+		goIndex(){
+			this.$router.push({path: '/index'});
+		}
 	},
-
-	
-	
-	
 }
 </script>
 

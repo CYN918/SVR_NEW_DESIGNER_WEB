@@ -14,25 +14,9 @@
 			<ul v-if="List.length>0" class="i_listd" >
 				<li  v-for="(el,index) in List" :key="index">
 					<box_a :el="el"></box_a>
-					<!--<img @click="openxq(index)"  class="i_listd1" :src="el.face_pic" alt="">
-					<div class="i_listd2">
-						<div @click="openxq(index)" class="i_listd2_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
-						<div @click="openxq(index)" class="i_listd2_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
-						<div class="i_listd2_3">
-							<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
-							
-							<div @click="openxq(index)">
-								<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
-								<span class="iconfont pend">&#xe672; {{el.like_num}}</span>
-								<span class="iconfont pend">&#xe616; {{el.comment_num}}</span>
-							</div>
-						</div>
-					</div>-->
 				</li>
-				
-				
 			</ul>
-			<div class="pagesddd"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
+			<div class="noData_x_01"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
 			<el-pagination v-if="total>40" class="pagesddd"
 			background
 			@size-change="handleSizeChange"
@@ -103,8 +87,7 @@ export default {
 		
 		
 		getHList(){
-			let params = {
-				
+			let params = {			
 				user_open_id:this.$route.query.id,
 				page:this.page,
 				limit:this.limit,
@@ -200,4 +183,5 @@ export default {
 .worksBox_2_1>div:hover{
 	background: #E6E6E6;
 }
+
 </style>

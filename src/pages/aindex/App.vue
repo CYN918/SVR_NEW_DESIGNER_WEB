@@ -23,4 +23,9 @@ a:hover{text-decoration:none;}
 a:active{text-decoration:none;}
 li{list-style-type: none}
 .bgd{position: absolute;top: 0;left: 0;z-index: -1;width: 100%}
+.fgx{
+	background:rgba(248,249,251,1);
+	width: 100%;
+	height:px2rem(10);	
+}
 </style>

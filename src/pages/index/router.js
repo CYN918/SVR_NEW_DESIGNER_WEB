@@ -281,6 +281,10 @@ if(passd){
 	try{window.passIn = JSON.parse(passd);}catch(e){}
 }
 router.beforeEach((to, from, next) => {
+	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+		window.location.href = "http://dev-web-ndesigner.idatachain.cn/aindex.html#/";
+		return
+	}
 	window.scrollTo(0,0);
 	/*未登录有自动登录*/
 	if(!window.userInfo && window.passIn){

@@ -19,8 +19,8 @@
 					</span>
 				</div>
 			</div>
-			<div class="cont_page">
-				<div class="cont_box_c" v-html="contDat.content"></div>
+			<div class="cont_page" v-html="contDat.content">
+
 			</div>
 			<div @click="showWorks" :class="['cont_box_c','workxx',isshowwor?'onwor':'']">作品信息</div>
 			<div v-if="isshowwor" class=" cont_box_c workxx_1">
@@ -32,7 +32,7 @@
 		<div class="ht"></div>
 		<div class="plcont">
 			<div class="cont_box_c pl_1">{{hfnum}} 条评论</div>
-			<ul class="boxd">
+			<ul class="boxd2">
 				<li v-for="(el,index) in hfData" :key="index">
 					<div class="userBox">
 						<img class="userBox_1" :src="el.avatar">
@@ -167,7 +167,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .cent_banner{
 	display: block;
 	width: 100%;
@@ -175,13 +175,14 @@ export default {
 .cont_box_c{
 	padding: 0 .8rem;
 }
-.userBox{margin-bottom: .8rem;}
+.userBox{padding: px2rem(20)}
 .userBox_1{
 	vertical-align: top;
 	display: inline-block;
-    width: 1.8rem;
+    width: px2rem(44);
+	height: px2rem(44);
     border-radius: 50%;
-    margin: .2rem .4rem 0 .8rem;	
+	margin-right: px2rem(4);
 }
 .userBox_2{
 	vertical-align: top;
@@ -189,11 +190,11 @@ export default {
 }
 .userBox_3{
 	margin-bottom: .3rem;
-	font-size: .6rem;
+	font-size: px2rem(14);
     line-height: 1rem;
 }
 .userBox_4{
-	font-size: .5rem;
+	font-size: px2rem(12);
 	color: #cacaca;
 }
 .centbox_x_2{
@@ -225,7 +226,7 @@ export default {
 	margin-right: .1rem;
 }
 .cont_page{
-	padding: .8rem 0;
+	padding: px2rem(20);
 	border-top: 1px solid #ebebeb;
 }
 .cont_page img{
@@ -276,11 +277,11 @@ export default {
     margin-bottom: .5rem;
     line-height: 2rem;
 }
-.boxd>li{
+.boxd2>li{
     border-bottom: 1px solid #ebebeb;
     padding: .8rem 0;
 }
-.boxd>li:first-child{
+.boxd2>li:first-child{
 	border-top: 1px solid #ebebeb;
 }
 .pl2_01{margin-bottom: .6rem;}
