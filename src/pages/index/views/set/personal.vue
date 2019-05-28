@@ -694,6 +694,18 @@ export default {
 			});
 		},
 		qdTc2(){
+			if(!this.tancData.oldMoble){
+				alert(1);
+				return
+			}
+			if(!this.tancData.newMoble){
+				alert(1);
+				return
+			}
+			if(!this.tancData.verify_code){
+				alert(2);
+				return
+			}
 			let pr = {
 				access_token:window.userInfo.access_token,
 				third_part:'mobile',

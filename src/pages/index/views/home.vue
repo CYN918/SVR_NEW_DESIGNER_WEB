@@ -1,22 +1,16 @@
 <template>
-	
-	
-	
-	
-	<div class="myCentBox">
-		
-		<div  class="banner" id="banner1" style="margin: 50px auto;">
-			<div @click="test" class="banner-view"></div>
-			<div class="banner-btn"></div>
-			<div class="banner-number"></div>
-			<div class="banner-progres"></div>
+	<div class="csBox">
+		<div class="banner">
+			<div class="banner1">
+				<img v-for="(el,index) in banners" @click="opend(el.jump_url)" :class="[banOn==index?'action':'actionno']" :src="el.banner_pic" alt="">
+			</div>
+			<div class="banner_nav1">
+				<span v-for="(el,index) in banners" @click="checkBan(index)" :class="[banOn==index?'action':'']"></span>
+			</div>
+			<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
+			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
 		</div>
-
-		
-		
-		
-		
-		<list  class="" :config="data">
+		<list class="" :config="data">
 			<template v-slot:todo="{ todo }">
 				<box_a :el="todo"></box_a>
 			</template>			
@@ -41,8 +35,7 @@ export default {
 			},
 			banners:[],
 			banOn:0,
-			banImg:[],
-			banUrl:[],
+			jsan:''
 			
 		}
 	},
@@ -51,74 +44,46 @@ export default {
 		
 	}, 
 	methods: {
-		test(){
-			if(this.banUrl[window.banenr2.index]){
-				window.open(this.banUrl[window.banenr2.index]);
-			}
-			
-		},
 		getBanner(){
 			this.api.getBanner().then((da)=>{
-				this.banners = da;
-				for(let i=0,n=da.length;i<n;i++){
-					this.banImg.push(da[i].banner_pic);
-					this.banUrl.push(da[i].jump_url);
-				}
-				window.banenr2 = new FragmentBanner({
-					container : "#banner1",//选择容器 必选
-					imgs : this.banImg,//图片集合 
-					size : {
-						width : 1300,
-						height : 328
-					},					
-					grid : {
-						line : 12,
-						list : 14
-					},
-					index: 0,
-					type : 2,
-					boxTime : 3000,
-					fnTime : 8000
-				});
-
+				this.banners = da;				
+				this.jsan = setTimeout(()=>{
+					this.checkBan2();
+				},5000);
 			});
 			
-		},		
+		},
+		checkBan(on){
+			this.jsan = setTimeout(()=>{
+				this.checkBan2();
+			},5000);
+			this.banOn = on;
+		},
+		checkBan1(){
+			this.jsan = setTimeout(()=>{
+				this.checkBan2();
+			},5000);
+			if(this.banOn>0){
+				this.banOn--;
+				return
+			}
+			this.banOn = this.banners.length-1;
+		},
+		checkBan2(){
+			clearTimeout(this.jsan);				
+			this.jsan = setTimeout(()=>{
+				this.checkBan2();
+			},5000);
+			if(this.banOn<this.banners.length-1){
+				this.banOn++;				
+				return
+			}
+			this.banOn = 0;
+		},
+		
 	}
 }
 </script>
 
 <style>
-.ac_list_Box{
-	position: relative;
-	min-width: 1300px;
-	box-sizing: border-box;
-	overflow-x: hidden;
-	padding: 20px 0 80px;
-	
-}
-.ac_list_Box_0{
-	width: 1300px;
-	margin: 20px auto 0;
-	text-align: left;
-	padding-bottom: 120px;
-}
-.ac_list_Box_0>li{
-
-	cursor: pointer;
-	position: relative;
-	display: inline-block;
-	background: #F6F6F6;
-	border-radius: 0 0 5px 5px;
-	margin: 0 20px 20px 0;
-	width: 640px;
-	height: 460px;
-	vertical-align: top;
-}
-.ac_list_Box_0>li:hover{
-	opacity: .7;
-}
-.ac_list_Box_0>li:nth-child(2n+2){
-	margin-right: 0;
-}
 </style>

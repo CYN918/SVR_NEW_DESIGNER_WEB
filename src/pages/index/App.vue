@@ -194,15 +194,43 @@ input:-ms-input-placeholder{
 	height: 100%;
 }
 .banner1>img{
+	opacity: 0;
 	display: block;
-	width: 100%;
+	min-width: 100%;
+	min-height: 100%;
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
 	display: none;
 }
 .banner1>img.action{
+	-webkit-animation: jxd 2s forwards;
+	animation: jxd 2s forwards;
 	display: block;
+
+}
+.banner1>img.actionno{
+	-webkit-animation: jxd2 2s forwards;
+	animation: jxd2 2s forwards;
+	display: block;
+}
+@-webkit-keyframes jxd{
+	from {opacity: 0}
+	to{opacity: 1}
+}
+@keyframes jxd{
+	from {opacity: 0}
+	to{opacity: 1}	
+}
+@-webkit-keyframes jxd2{
+	from {opacity: 1;visibility: visible;}
+	to{opacity: 0;visibility: hidden;}
+}
+@keyframes jxd2{
+	from {opacity: 1;visibility: visible;}
+	to{opacity: 0;visibility: hidden;}	
 }
 .i_listd1x1{
 	width: 100%;
