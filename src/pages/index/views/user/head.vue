@@ -41,7 +41,7 @@
 						<div @click="showSetBg">设置背景图</div>
 						<div @click="fxclick">分享</div>
 					</div>
-					<div v-else class="u_top2_2">
+					<div v-else class="u_top2_2_1">
 						<div @click="fxclick">分享</div>
 						<div @click="showReport(userMessage.open_id,userMessage.open_id,'user')">举报</div>
 					</div>

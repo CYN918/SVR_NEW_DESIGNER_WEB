@@ -1,25 +1,25 @@
 <template>
 	<div class="usertc_6">
 		<div class="usertc_0">
-			<img @click="goFans('/works')" class="usertc_1" :src="tcData.user_info.avatar" alt="">
-			<div @click="goFans('/works')" class="usertc_2">{{tcData.user_info.username}}</div>
+			<img @click="goFans('/works')" class="usertc_1 pend" :src="tcData.user_info.avatar" alt="">
+			<div @click="goFans('/works')" class="usertc_2 pend">{{tcData.user_info.username}}</div>
 			<div class="usertc_3">{{tcData.user_info.city+' | '+tcData.user_info.vocation}}</div>
 			<div class="usertc_4">
-				<span @click="goFans('/followFans')">
+				<span class="pend" @click="goFans('/followFans')">
 					粉丝<div>{{tcData.user_info.fans_num}}</div>				
 				</span>
 				<span>
 					人气<div>{{tcData.user_info.follow_num}}</div>				
 				</span>
-				<span @click="goFans('/works')">
+				<span class="pend" @click="goFans('/works')">
 					创作<div>{{tcData.user_info.work_num}}</div>				
 				</span>
 			</div>
 			<div v-if="isme()==false" class="usertc_5">
-				<span class="csys" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><chatBtn :daTSA="chatData"></chatBtn>
+				<span class="csys pend" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><chatBtn class="pend" :daTSA="chatData"></chatBtn>
 			</div>
 			<div v-else class="usertc_5">
-				<span class="csys" @click="goFans('/works')">进入主页</span>
+				<span class="csys pend" @click="goFans('/works')">进入主页</span>
 			</div>
 		</div>
 	

@@ -22,25 +22,18 @@ a:visited{text-decoration:none;}
 a:hover{text-decoration:none;}
 a:active{text-decoration:none;}
 li{list-style-type: none}
-#app{
-	height: 100%;
+input::-webkit-input-placeholder{
+    color:#c0c4cc;
 }
-#app>div{
-	height: 100%;
+input::-moz-placeholder{   
+    color:#c0c4cc;
 }
-#app>div>div{
-	position: relative;
-	box-sizing: border-box;
-	min-height: 100%;
-	padding: 60px 0;
+input:-moz-placeholder{ 
+   	color:#c0c4cc;
 }
-.header{
-	position: absolute;
-	top: 0;
-	left: 0;
+input:-ms-input-placeholder{
+    color:#c0c4cc;
 }
-
-
 @font-face {
 	font-family: 'iconfont';
 	src: url('/font/iconfont.eot');
@@ -56,13 +49,22 @@ li{list-style-type: none}
 	-webkit-text-stroke-width: 0.2px;
 	-moz-osx-font-smoothing: grayscale;
 }
-#app {
+#app{
 	font-family: 'PingFangSC-Medium','Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
-
+	height: 100%;
+}
+#app>div{
+	height: 100%;
+}
+#app>div>div{
+	position: relative;
+	box-sizing: border-box;
+	min-height: 100%;
+	padding: 60px 0;
 }
 .pend{
 	cursor: pointer;	
@@ -70,22 +72,10 @@ li{list-style-type: none}
 .pend:hover{
 	opacity: .7;
 }
- input::-webkit-input-placeholder{
-    color:#c0c4cc;
-}
-input::-moz-placeholder{   
-    color:#c0c4cc;
-}
-input:-moz-placeholder{ 
-   	color:#c0c4cc;
-}
-input:-ms-input-placeholder{
-    color:#c0c4cc;
-}
 
 
-.cropper-view-box[data-v-6dae58fd]{
-	
+
+.cropper-view-box[data-v-6dae58fd]{	
 	outline-color: #FF5121 !important;
     outline-color: rgba(51, 153, 255, 0.75);
 }
@@ -95,143 +85,14 @@ input:-ms-input-placeholder{
 .videoBox>video{
 	width: 100%;
 }
-.banner{
-	position: relative;
-	margin: 20px auto;
-	width: 1300px;
-	height: 328px;
-	-webkit-box-shadow: 0 0 8px 0 rgba(0,0,0,.2);
-	box-shadow: 0 0 8px 0 rgba(0,0,0,.2);
-    border-radius: 5px;
-	overflow: hidden;
-}
-.banner_jt{
-	position: absolute;
-	top: 144px;
-	width: 36px;
-	height: 36px;
-	opacity: 0.2;
-	background: #000000;
-	border-radius: 5.62px;
-}
-.banner_jt:after{
-    content: "";
-    position: absolute;
-	
-    top: 50%;
-    left: 50%;
-    width: 10px;
-    height: 10px;
-    border: 2px solid #fff;
-    border-right: 0;
-    border-bottom: 0;
-    -webkit-transform: translate(-35%,-50%) rotate(-45deg);
-    transform: translate(-35%,-50%) rotate(-45deg);
-}
-.banner_jt1{	
-    left: 44px;
-}
-.banner_jt2{	
-    right: 44px;
-    -webkit-transform: rotate(180deg);
-	transform: rotate(180deg);
-}
-.banner_nav1{
-	position: absolute;
-	bottom: 15px;
-	width: 100%;
-	text-align: center;
-}
-.banner_nav1>span{
-	width: 8px;
-	height: 8px;
-	display: inline-block;
-	background: #D8D8D8;
-	border-radius: 2px;
-	margin-right: 5px;
-}
-.banner_nav1>span:last-child{
-	margin-right: 0;
-}
-.banner_nav1>span.action{
-	background: #FF5121;
-}
-.banner_nav1>span:hover{
-	cursor: pointer;
 
-}
-.i_listd{
-	width: 1300px;
-	margin: 0 auto 120px;
-	min-height: 239px;
-	text-align: left;
-}
-.i_listd>li{
-	cursor: pointer;
-	display: inline-block;
-	width: 309.8px;
-	height: 312.9px;
-	background: #F6F6F6;
-	border-radius: 5.08px;
-	margin-right: 20.2px;
-	margin-bottom: 21.0px;
-	box-sizing: border-box;
-	border: 1px solid rgba(246,246,246,1);
-}
-.i_listd>li:nth-child(4n+4){
-	margin-right: 0;
-}
 .homeMinheifh{
 	min-height: 404px
 }
 .homeMinheifh>li{
 	position: relative;
 }
-.banner1{
-	position: relative;
-	overflow: hidden;
-	width: 100%;
-	height: 100%;
-}
-.banner1>img{
-	opacity: 0;
-	display: block;
-	min-width: 100%;
-	min-height: 100%;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%,-50%);
-	transform: translate(-50%,-50%);
-	display: none;
-}
-.banner1>img.action{
-	-webkit-animation: jxd 2s forwards;
-	animation: jxd 2s forwards;
-	display: block;
 
-}
-.banner1>img.actionno{
-	-webkit-animation: jxd2 2s forwards;
-	animation: jxd2 2s forwards;
-	display: block;
-}
-@-webkit-keyframes jxd{
-	from {opacity: 0}
-	to{opacity: 1}
-}
-@keyframes jxd{
-	from {opacity: 0}
-	to{opacity: 1}	
-}
-@-webkit-keyframes jxd2{
-	from {opacity: 1;visibility: visible;}
-	to{opacity: 0;visibility: hidden;}
-}
-@keyframes jxd2{
-	from {opacity: 1;visibility: visible;}
-	to{opacity: 0;visibility: hidden;}	
-}
 .i_listd1x1{
 	width: 100%;
 	height: 231.9px;

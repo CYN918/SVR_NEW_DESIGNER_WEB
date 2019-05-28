@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="csBox">
 		<tophead></tophead>
 		<div class="worksBox">
 			<div class="worksBox_1">
@@ -10,44 +10,40 @@
 						<div @click="sxFn(index)" :class="sxtj==index?'oncdf':''" v-for="(el,index) in sxData">{{el.name}}</div>
 					</div>
 				</div>
-			</div>
-			<ul v-if="List.length>0" class="i_listd" >
-				<li  v-for="(el,index) in List" :key="index">
-					<box_a :el="el"></box_a>
-				</li>
-			</ul>
-			<div class="noData_x_01"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
-			<el-pagination v-if="total>40" class="pagesddd"
-			background
-			@size-change="handleSizeChange"
-			@current-change="handleCurrentChange"
-			:current-page="page"
-			:page-sizes="[40, 80, 120, 160]"
-			:page-size="limit"
-			layout="prev,pager, next,sizes, jumper"
-			:total="total">   
-			</el-pagination>
+			</div>					
 		</div>
+		<list :config="data" ref="listDom">
+			<template v-slot:todo="{ todo }">
+				<box_a :el="todo"></box_a>
+			</template>			
+		</list>	
 		
 	</div>
 </template>
 
 <script>
 import tophead from './head';
-import { Loading } from 'element-ui';
+import list from '../../components/list';
 import box_a from '../../components/box_a';
 export default {
 	name: 'works',
-	components:{tophead,box_a},
+	components:{tophead,list,box_a},
 	data(){
 		return {
-			banners:[],
-			List:[],
-			banOn:0,
-			page:1,
-			limit:40,
-			total:0,
-			loading: '',
+			data:{
+				ajax:{
+					url:'getUserWorkList',					
+				},
+				setp:(da)=>{
+					if(!this.$route.query.id){
+						this.$router.push({path:'/index'})	
+						return false
+					}
+					da.sort = 'create_time';
+					da.user_open_id = this.$route.query.id;
+					return true;
+				}
+			},	
 			sxtj:0,
 			sxData:[
 				{name:'时间最新',key:'create_time'},
@@ -55,11 +51,12 @@ export default {
 				{name:'评论最多',key:'comment_num'}
 			],
 			sort:'create_time',
+			total:0,
 			
 		}
 	},
 	mounted: function () {			
-		this.getHList();
+		
 		
 	}, 
 	methods: {
@@ -67,58 +64,19 @@ export default {
 			if(this.sxtj==on){
 				return
 			}
-			this.sxtj = on;
-			
+			this.sxtj = on;			
 			this.sort = this.sxData[on].key;
 			this.page=1;
-			this.getHList();
+			this.$refs.listDom.sxfn((da)=>{
+				da.sort = this.sort;
+				da.user_open_id = this.$route.query.id;
+			});
 		},
-		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
-		},
-		backtime(time){
-		
-			return	window.getTimes(time);
-		},	
-	
-		openxq(on){
-			window.open('#/cont?id='+this.List[on].work_id)
-		},
-		
-		
-		getHList(){
-			let params = {			
-				user_open_id:this.$route.query.id,
-				page:this.page,
-				limit:this.limit,
-				sort:this.sort,
-			};
-			if(window.userInfo){
-				params.access_token = window.userInfo.access_token;
-			}
-			this.loading = Loading.service({ fullscreen: true });
-			this.api.getUserWorkList(params).then((da)=>{
-				this.List = da.data;
-				this.total = da.total;
-				document.documentElement.scrollTop =0;
-				document.body.scrollTop =0;
-				this.loading.close();
-			})
-		},
-		handleSizeChange(val) {
-			this.limit = val;
-			this.getHList();
-		},
-		handleCurrentChange(val) {
-			this.page = val;
-			this.getHList();
+		settotal(n){
+			this.total = n;
 		}
 	},
-	watch: {	
-		'$route': function() {
-			this.getHList();
-		},
-	}
+
 	
 }
 </script>

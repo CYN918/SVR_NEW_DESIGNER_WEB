@@ -1,29 +1,28 @@
 <template>
-	<div>
-	<ul class="i_listd">
+	<ul class="listBox">
 		<li v-for="(el,index) in List" :key="index">
 			<slot name="todo" v-bind:todo="el"></slot>			
 		</li>
+		<el-pagination class="pagesddd" v-if="total>40"
+		background
+		@size-change="handleSizeChange"
+		@current-change="handleCurrentChange"
+		:current-page="page"
+		:page-sizes="[40, 80, 120, 160]"
+		:page-size="limit"
+		layout="prev,pager, next,sizes, jumper"
+		:total="total">   
+		</el-pagination>
+		<div v-if="isNodeat" class="emptyData">
+			<img src="/imge/k/empty_nodata@3x.png"/>
+		</div>
 	</ul>
-	<el-pagination class="pagesddd" v-if="total>40"
-	background
-	@size-change="handleSizeChange"
-	@current-change="handleCurrentChange"
-	:current-page="page"
-	:page-sizes="[40, 80, 120, 160]"
-	:page-size="limit"
-	layout="prev,pager, next,sizes, jumper"
-	:total="total">   
-	</el-pagination>
-	</div>
+	
 </template>
 
 <script>
-import box_a from './box_a';
-import box_b from './box_b';
 import { Loading } from 'element-ui';
 export default {
-	components:{box_a,box_b},
 	props:{
 		config:{
 			type:Object,
@@ -32,24 +31,34 @@ export default {
 	},
 	data(){
 		return{
-			shareData:{},
 			List:[],
 			page:1,
 			limit:40,
 			total:0,
+			isNodeat:'',
 			loading: '',
 		}
 	},
 	mounted: function () {	
 		this.getData();		
 	}, 
-	methods: {	
-		getData(){
-			
+	methods: {
+		sxfn(da){
+			this.getData(da);
+		},
+		getData(da){			
 			let params = {
 				page:this.page,
 				limit:this.limit
 			};
+	
+			if(this.config.setp && !da){
+				this.config.setp(params);
+			}
+		
+			if(da){
+				da(params);
+			}
 			if(window.userInfo){
 				params.access_token = window.userInfo.access_token;
 			}			
@@ -58,10 +67,15 @@ export default {
 				this.loading.close();
 				if(!da){
 					return
-				}
-				
+				}				
 				this.List = da.data;
 				this.total = da.total;
+				if(this.$parent.settotal){
+					this.$parent.settotal(da.total);
+				}
+				if(this.List.length==0){
+					this.isNodeat=1;
+				}				
 				window.scrollTo(0,0);
 			}).catch(()=>{
 				this.loading.close();
@@ -79,7 +93,26 @@ export default {
 	}
 }
 </script>
-
 <style>
-
+.listBox{
+	margin: 0 auto 120px;
+	text-align: left;
+	width: 1300px;  
+}
+.listBox>li{
+	display: inline-block;
+	vertical-align: top;
+}
+.csBox .listBox>li:nth-child(4n+4)>div{
+	margin-right: 0;
+}
+.emptyData{
+	width: 1300px;
+    margin: 120px auto;
+    text-align: center;
+}
+.emptyData>img{
+	display: block;
+	margin: 0 auto;
+}
 </style>

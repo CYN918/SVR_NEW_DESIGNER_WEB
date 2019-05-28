@@ -1,43 +1,33 @@
 <template>
 	<div>
 		<tophead></tophead>
-		<div class="myAllbox">
-			<ul v-if="List.length>0" class="myListBox" >
-				<li v-for="(el,index) in List" :key="index">
-					<div @click="openxq(index)" class="myListBox_1">
-						<img class="myListBox_1_1" :src="el.face_pic">
-						<div v-if="el.status!=2" :class="['myListBox_1_2',el.status==-2?'wtg':'balck']">{{el.status==0?'待审核':el.status==-2?'未通过':'草稿'}}</div>
+		<div class="csBox opodd">
+			<list :config="data" ref="listDom">
+				<template v-slot:todo="{ todo }">
+					<div class="mylists">
+						<div @click="openxq(todo)" class="myListBox_1">
+							<img class="myListBox_1_1" :src="todo.face_pic">
+							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
+						</div>
+						<div @click="openxq(todo)" class="myListBox_2">
+							<span class="myListBox_2_1" :title="todo.work_name">{{todo.work_name}}</span>
+							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="/imge/zs_icon_tj.png">
+						</div>
+						
+						<div @click="openxq(todo)" class="myListBox_3">
+							<span class="myListBox_3_1">{{todo.classify_1_name+'-'+todo.classify_2_name}}</span>
+							<span class="myListBox_3_2">{{backtime(todo.create_time)}}</span>
+						</div>
+						<div class="myListBox_4">
+						
+							<span class="myListBox_4_1" @click="showissetDatasXX(todo)" v-if="todo.status==2">修改设置</span>
+							<span @click="updata(todo.work_id)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>
+						
+							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span>
+						</div>			
 					</div>
-					<div @click="openxq(index)" class="myListBox_2">
-						<span class="myListBox_2_1" :title="el.work_name">{{el.work_name}}</span>
-						<img v-if="el.is_recommend==1" class="myListBox_2_2" src="/imge/zs_icon_tj.png">
-					</div>
-					
-					<div @click="openxq(index)" class="myListBox_3">
-						<span class="myListBox_3_1">{{el.classify_1_name+'-'+el.classify_2_name}}</span>
-						<span class="myListBox_3_2">{{backtime(el.create_time)}}</span>
-					</div>
-					<div class="myListBox_4">
-					
-						<span class="myListBox_4_1" @click="showissetDatasXX(index)" v-if="el.status==2">修改设置</span>
-						<span @click="updata(el.work_id)" class="myListBox_4_1" v-else-if="el.status!=0">编辑</span>
-					
-						<span class="myListBox_4_2" @click="showTopc('delet',index)">删除</span>
-					</div>
-					
-				</li>
-			</ul>
-			<div class="myWorkNoData"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
-			<el-pagination v-if="total>40" class="pagesddd"
-			background
-			@size-change="handleSizeChange"
-			@current-change="handleCurrentChange"
-			:current-page="page"
-			:page-sizes="[40, 80, 120, 160]"
-			:page-size="limit"
-			layout="prev,pager, next,sizes, jumper"
-			:total="total">   
-			</el-pagination>
+				</template>			
+			</list>
 		</div>
 		<div v-show="istopc" class="myListBox_6">
 			<div class="myListBox_6_1">
@@ -50,10 +40,8 @@
 					<span v-if="topcType=='delet'" @click="delWork()" class="myListBox_6_4_2">确定</span>
 					<span v-if="topcType=='set'" class="myListBox_6_4_2">确定</span>
 				</div>
-
 			</div>
-		</div>	
-		
+		</div>			
 		<div v-show="issetDatasXX" class="setDatasXX">
 			<div class="setDatasXX_1">
 				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="/imge/cj_00.png" alt="">
@@ -64,7 +52,7 @@
 						<div class="setDatasXX_4_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
 						<div><Input class="setDatasXX_4_3" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>还可添加{{5-form.labels.length}}个标签</div>
 						<div class="setDatasXX_4_4">
-							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
+							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(todo)" class="iconfont pend">&#xe619;</span></span>
 						</div>
 					</div>
 				</div>
@@ -115,15 +103,14 @@
 		
 	</div>
 </template>
-
 <script>
 import tophead from './myHead';
 import {Message} from 'element-ui'
 import Input from '../../components/input'
-import { Loading } from 'element-ui';
+import list from '../../components/list';
 export default {
 	props:['isType'],
-	components:{tophead,Input},
+	components:{tophead,Input,list},
 	name: 'myAll',
 	data(){
 		return {
@@ -141,27 +128,27 @@ export default {
 			istopc:false,
 			topcType:'',
 			worksType:'',
-			banners:[],
-			List:[],
-			banOn:0,
-			page:1,
-			limit:40,
-			total:0,
-			loading: '',
+
+
 			deletWorkid:'',
 			setDataOn:'',
 			setDataData:{},
 			
+			data:{
+				ajax:{
+					url:'getSelfWorkList',
+				},
+				setp:(da)=>{
+					da.status = this.$parent.isType;
+					return true;
+				}
+			},
+			
 		}
 	},
-	mounted: function () {	
-		
-		this.getHList();
-		
-	}, 
+	mounted: function(){}, 
 	methods: {
-		upDataSet(){
-		
+		upDataSet(){		
 			if(!window.userInfo){
 				Message({message: '登录过期请先登录'});
 				setTimeout(()=>{
@@ -185,7 +172,7 @@ export default {
 		showissetDatasXX(on){
 			this.issetDatasXX = true;
 			this.setDataOn = on;
-			this.form = this.List[on];
+			this.form = on;
 			this.form.labels = JSON.parse(this.form.labels);
 			this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
 			if(this.page2.classify.length>0){
@@ -251,7 +238,7 @@ export default {
 			this.$router.push({path: '/upload',query:{id:id}});	
 		},
 		showTopc(type,on){
-			this.deletWorkon = on;
+			this.deletWorkon = on.work_id;
 			this.topcType = type;
 			this.istopc = true;
 		},
@@ -268,23 +255,24 @@ export default {
 			this.delWorkType=1;
 			let pr = {
 				access_token:window.userInfo.access_token,
-				work_id:this.List[this.deletWorkon].work_id
+				work_id:this.deletWorkon
 			};
 			this.api.delWork(pr).then((da)=>{
-				if(!da){
-					this.delWorkType = 0;
+				this.delWorkType = 0;
+				
+				if(!da){					
 					return
 				}
-				this.List.splice(this.deletWorkon,1)
-				Message({message: '删除成功'});
+				this.$refs.listDom.getData();
 				this.hindTopc();
+				Message({message: '删除成功'});				
 				this.delWorkType = 0;
 			}).catch(()=>{
 				this.delWorkType = 0;		
 			});
 		},
 		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
+			this.$router.push({path: '/works',query:{id:on.user_info.open_id}})	
 		},
 		backtime(time){
 		
@@ -296,64 +284,26 @@ export default {
 		},
 		openxq(on){
 			if(this.$route.fullPath=="/myPass"){
-				window.open('#/cont?id='+this.List[on].work_id);
+				window.open('#/cont?id='+on.work_id);
 				return
 			}
-			window.open('#/conts?id='+this.List[on].work_id)
+			window.open('#/conts?id='+on.work_id)
 		},
-	
-		checkBan(on){
-			this.banOn = on;
-		},
-		checkBan1(){
-			if(this.banOn>0){
-				this.banOn--;
-				return
-			}
-			this.banOn = this.banners.length-1;
-		},
-		checkBan2(){
-			if(this.banOn<this.banners.length-1){
-				this.banOn++;
-				return
-			}
-			this.banOn = 0;
-		},
-		getHList(){
-			console.log(this.$parent.isType)
-			
-			let params = {
-				access_token:window.userInfo.access_token,
-				status:this.$parent.isType,
-				page:this.page,
-				limit:this.limit
-			};
-			this.loading = Loading.service({ fullscreen: true });
-			this.api.getSelfWorkList(params).then((da)=>{
-				this.loading.close();
-				if(!da){
-					return;
-				}
-				this.List = da.data;
-				this.total = da.total;
-				document.documentElement.scrollTop =0;
-				document.body.scrollTop =0;
-				this.loading.close();
-			})
-		},
-		handleSizeChange(val) {
-			this.limit = val;
-			this.getHList();
-		},
-		handleCurrentChange(val) {
-			this.page = val;
-			this.getHList();
-		}
 	}
 }
 </script>
 
 <style>
+.mylists{
+	margin: 0 20px 20px 0;
+    background: #F6F6F6;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1px solid #f6f6f6;
+}
+.opodd{
+	padding-top: 20px;
+}
 .worksBox{
 	margin: 17px auto 0;
 }
@@ -436,7 +386,7 @@ export default {
 }
 .myListBox_1{
 	position: relative;
-	width: 309.8px;
+	width: 308px;
 	height: 231.6px;
 	overflow: hidden;
 }

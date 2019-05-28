@@ -166,9 +166,9 @@ export default {
 			window.open(url);
 		},
 		getPersonalWorkList(){
+			if(!window.userInfo){return}
 			let pr = {
 				activity_id:this.$route.query.id,
-				access_token:window.userInfo.access_token,
 				page:this.page,
 				limit:this.limit,
 			};
@@ -177,7 +177,6 @@ export default {
 					return
 				}
 				this.zpList = da.data;
-				console.log(this.zpList);
 			})
 		},
 		gopushzp(){

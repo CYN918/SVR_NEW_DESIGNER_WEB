@@ -1,75 +1,39 @@
-<template>
-	<div>
-		<div class="ac_list_Box">
-			<ul class="ac_list_Box_0">
-				<li @click="goDetailed(el.id)" v-for="(el,index) in dataList" :key="index">
-					<img class="ac_list_Box_1" :src="el.banner" alt="">
+<template>	
+	<div class="activvit">
+		<list :config="data">
+			<template v-slot:todo="{ todo }">
+				<div class="ac_list_Box_0" @click="go(todo.id)">
+					<img class="ac_list_Box_1" :src="todo.banner" alt="">
 					<div class="ac_list_Box_2">
-						<div class="ac_list_Box_4">{{el.activity_name}}</div>
-						<div class="ac_list_Box_5"><span>{{el.category_name}}</span>投稿时间：{{el.start_time.split(" ")[0]}} 至 {{el.end_time.split(" ")[0]}}</div>
+						<div class="ac_list_Box_4">{{todo.activity_name}}</div>
+						<div class="ac_list_Box_5"><span>{{todo.category_name}}</span>投稿时间：{{todo.start_time.split(" ")[0]}} 至 {{todo.end_time.split(" ")[0]}}</div>
 						<div class="ac_list_Box_3">
-							<span v-if="el.left_day" class="ac_list_Box_6">{{el.left_day}}天</span><span v-if="el.left_day" class="ac_list_Box_7">距离截止</span>
-							<span v-if="!el.left_day" class="ac_list_Box_8">已结束</span>
+							<span v-if="todo.left_day" class="ac_list_Box_6">{{todo.left_day}}天</span><span v-if="todo.left_day" class="ac_list_Box_7">距离截止</span>
+							<span v-if="!todo.left_day" class="ac_list_Box_8">已结束</span>
 						</div>
-					</div>				
-				</li>				
-			</ul>			
-		</div>
-		<el-pagination v-if="pL.total>40" class="pagesddd"
-		background
-		@size-change="handleSizeChange"
-		@current-change="handleCurrentChange"
-		:current-page="pL.page"
-		:page-sizes="[20, 40, 80, 120]"
-		:page-size="pL.limit"
-		layout="prev,pager, next,sizes, jumper"
-		:total="pL.total">   
-		</el-pagination>
+					</div>
+				</div>
+			</template>			
+		</list>
 	</div>
 </template>
 
 <script>
+import list from '../../components/list';
 export default {
-	name: 'home',	 
+	components:{list},
+	name: 'activvity_list',	 
 	data(){	
 		return{
-			dataList:[],
-			pL:{
-				page:1,
-				limit:20,
-				total:0,
-			}
-		}
-		
-	},
-	mounted: function () {	
-		this.a_getList()
-	}, 
-	methods:{
-		a_getList(){
-				
-			this.api.a_getList(this.pL).then((da)=>{
-				if(!da){					
-					return
+			data:{
+				ajax:{
+					url:'a_getList',
 				}
-				
-				this.dataList =da.data;
-				this.pL.total = da.total;
-				document.documentElement.scrollTop =0;
-				document.body.scrollTop =0;
-			});
-		},
-		handleSizeChange(val) {
-			this.pL.limit = val;
-			this.page=1;
-			this.a_getList();
-		},
-		handleCurrentChange(val) {
-			this.pL.page = val;
-			this.a_getList();
-		},
-		goDetailed(id){
-			
+			},	
+		}		
+	},
+	methods:{		
+		go(id){
 			this.$router.push({path:'/detailed',query:{id:id}});	
 		}
 	},
@@ -80,35 +44,16 @@ export default {
 </script>
 
 <style>
-.ac_list_Box{
-	position: relative;
-	min-width: 1300px;
-	box-sizing: border-box;
-	overflow-x: hidden;
-	padding: 20px 0 80px;
-	
+.activvit .listBox>li:nth-child(2n+2)>div{
+	margin-right: 0;
 }
 .ac_list_Box_0{
-	width: 1300px;
-	margin: 20px auto 60px;
-	text-align: left;
-}
-.ac_list_Box_0>li{
-	cursor: pointer;
-	position: relative;
-	display: inline-block;
+	padding-top: 20px;
 	background: #F6F6F6;
-	border-radius: 0 0 5px 5px;
+	border-radius: 5px;
 	margin: 0 20px 20px 0;
 	width: 640px;
 	height: 460px;
-	vertical-align: top;
-}
-.ac_list_Box_0>li:hover{
-	opacity: .7;
-}
-.ac_list_Box_0>li:nth-child(2n+2){
-	margin-right: 0;
 }
 .ac_list_Box_1{
 
