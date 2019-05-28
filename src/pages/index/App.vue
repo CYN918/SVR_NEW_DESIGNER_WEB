@@ -2275,13 +2275,22 @@ content: "";
 }
 
 .el-message{
-	width: 180px;
-    min-height: 60px; 
     background: rgb(236, 206, 197);
     border-radius: 5px;
     color: #FF5121;
     text-align: center;
     border: none;
+	width: auto !important;
+    min-width: auto;
+	min-height: auto;
+    padding: 0;
+    border: none;
+    height: auto;
+    min-height: auto;
+    padding: 19px 42px;
+	
+	
+	
 	z-index: 9999 !important;
 }
 .el-message .el-icon-info{

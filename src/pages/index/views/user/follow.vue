@@ -27,7 +27,7 @@
 							<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
 							<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
 							<span @click="Follow_add(index)" v-else>关注</span>
-							<span>私信</span>
+							<span @click="gosx(el)">私信</span>
 						</div>
 					</div>
 					<div class="lunbox">
@@ -114,6 +114,15 @@ export default {
 		
 	}, 
 	methods: {
+		gosx(el){
+			this.$router.push({path:'/chat',query:{
+				open_id:el.open_id,
+				avatar:el.avatar,
+				username:el.username,
+				city:el.city,
+				vocation:el.vocation,
+			}});
+		},
 		goFans(d,id){
 			this.$router.push({path:d,query:{id:id}});
 		},

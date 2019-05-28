@@ -109,7 +109,13 @@ export default {
 			this.followList();
 		},
 		gosx(el){
-			this.$router.push({path:'/chat',query:{openid:el.open_id,avatar:el.avatar,username:el.username}});
+			this.$router.push({path:'/chat',query:{
+				open_id:el.open_id,
+				avatar:el.avatar,
+				username:el.username,
+				city:el.city,
+				vocation:el.vocation,
+			}});
 		},
 		goFans(d,id){
 			this.$router.push({path:d,query:{id:id}});

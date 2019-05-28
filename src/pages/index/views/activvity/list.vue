@@ -61,6 +61,7 @@ export default {
 		},
 		handleSizeChange(val) {
 			this.pL.limit = val;
+			this.page=1;
 			this.a_getList();
 		},
 		handleCurrentChange(val) {

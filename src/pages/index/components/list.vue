@@ -5,7 +5,7 @@
 			<slot name="todo" v-bind:todo="el"></slot>			
 		</li>
 	</ul>
-	<el-pagination class="pagesddd" v-if="total>limit"
+	<el-pagination class="pagesddd" v-if="total>40"
 	background
 	@size-change="handleSizeChange"
 	@current-change="handleCurrentChange"
@@ -45,7 +45,7 @@ export default {
 	}, 
 	methods: {	
 		getData(){
-			window.scrollTo(0,0);
+			
 			let params = {
 				page:this.page,
 				limit:this.limit
@@ -59,14 +59,17 @@ export default {
 				if(!da){
 					return
 				}
+				
 				this.List = da.data;
 				this.total = da.total;
+				window.scrollTo(0,0);
 			}).catch(()=>{
 				this.loading.close();
 			})
 		},
 		handleSizeChange(val) {
 			this.limit = val;
+			this.page=1;
 			this.getData();
 		},
 		handleCurrentChange(val) {
