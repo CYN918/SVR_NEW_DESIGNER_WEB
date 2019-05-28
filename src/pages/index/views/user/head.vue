@@ -233,7 +233,7 @@ export default {
 				}
 				this.userMessage = da;
 				this.shareData = {
-					url:url:'http://dev-web-ndesigner.idatachain.cn/aindex.html#/user?id='+this.$route.query.id,
+					url:'http://dev-web-ndesigner.idatachain.cn/aindex.html#/user?id='+this.$route.query.id,
 					title:this.userMessage.username+"的主页-狮圈儿创作者平台",
 					pics:this.userMessage.avatar,
 					desc:'分享类容',
