@@ -42,7 +42,7 @@ export default {
 			shareType:false,
 			config:{
 				value: '',
-				logo:'/imge/log.png'
+				logo:'/imge/llog.png'
 			},
 		}
 	},
@@ -83,7 +83,8 @@ export default {
 	left: 0;
 	background: rgba(0,0,0,.2);
 	width: 100%;
-	height: 100%;	
+	height: 100%;
+	z-index: 10000;
 }
 .fixCoBox1{
 	position: absolute;
