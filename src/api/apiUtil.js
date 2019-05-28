@@ -52,26 +52,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 		}else{			
 			if(result=='104'){	
 				localStorage.setItem('userT','');
-				let	pass = localStorage.getItem('pass');
 				window.userInfo='';				
-				if(pass){
-					axios({
-						method: 'post',
-						url: '/user/12345',
-						data:JSON.stringify(pass)
-					}).then((da)=>{				
-						localStorage.setItem('userT',JSON.stringify(da));				
-						if(da.is_detail==0){
-							window.location.href = '#/userme';	
-							return
-						}
-						window.location.href = '#/';																	
-					}).catch(()=>{	
-						window.passIn='';
-						localStorage.setItem('pass','');
-						window.location.href = '#/login';			
-					});						
-				}				
 				window.location.href = '#/login';		
 				return
 			}

@@ -765,9 +765,9 @@ input:-ms-input-placeholder{
 	width: 80px;
 	height: 28px;
 	line-height: 28px;
-	text-align: center;
-	font-size: 20px;
 	color: #333333;
+	text-align: left;
+    margin-left: 5px;
 }
 .phoshc5_1>#uploads{
 	position: absolute;
