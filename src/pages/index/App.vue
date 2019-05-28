@@ -967,6 +967,7 @@ input:-ms-input-placeholder{
 	position: relative;
 	display: inline-block;
 	width: 330px;
+	min-height: 800px;
 	margin-left: 20px;
 }
 .seed2_1{
@@ -981,6 +982,7 @@ input:-ms-input-placeholder{
 	background: #FFFFFF;
 	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
 	border-radius: 5px;
+	
 	
 }
 .isfix{
@@ -2330,4 +2332,9 @@ content: "";
     font-size: 16px;
     padding: 10px 0;
 }
+
+/*comt*/
+
+
+
 </style>
