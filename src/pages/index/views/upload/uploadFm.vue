@@ -184,7 +184,7 @@ export default {
 				
 				
 				this.opType=1;
-				this.$ajax.post('http://139.129.221.123/File/File/insert', formData)
+				this.$ajax.post(window.basrul+'/File/File/insert', formData)
 				.then((da)=>{	
 					this.opType=0;
 					let ds = da.data;

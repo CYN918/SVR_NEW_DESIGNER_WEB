@@ -72,6 +72,28 @@ input:-ms-input-placeholder{
 .pend:hover{
 	opacity: .7;
 }
+.tancBox{
+	z-index: 10000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,.3);
+	
+	width: 100%;
+	height: 100%;
+}
+.tanc1{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+	border-radius:5px;
+}
+
+
 
 
 

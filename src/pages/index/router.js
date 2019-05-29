@@ -154,6 +154,20 @@ let wb = [
 				path: '/profit',
 				name: 'profit',
 				component: () => import('./views/profit/index.vue'),
+				children:[
+					{
+						path: '/profit',
+						name: 'profit',
+						component: () => import('./views/profit/works.vue'),
+						
+					},
+					{
+						path: '/money',
+						name: 'money',
+						component: () => import('./views/profit/money.vue'),
+						
+					},
+				]
 				
 			},
 			{
@@ -274,27 +288,12 @@ let token = localStorage.getItem('userT');
 if(token){
 	try{window.userInfo = JSON.parse(token);}catch(e){}
 }
-let passd = localStorage.getItem('pass');
-console.log(passd)
-if(passd){
-		
-	try{window.passIn = JSON.parse(passd);}catch(e){}
-}
 router.beforeEach((to, from, next) => {
 	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
 		window.location.href = "http://dev-web-ndesigner.idatachain.cn/aindex.html#/";
 		return
 	}
 	window.scrollTo(0,0);
-	/*未登录有自动登录*/
-	if(!window.userInfo && window.passIn){
-		if(to.fullPath!='/login'){
-			next('/login');
-		}
-		/*自动登录*/
-		next();
-		return
-	}	
 	/*是否填写信息*/
 	if(window.userInfo && window.userInfo.is_detail==0){		
 		if(!window.userInfo.mobile || window.userInfo.mobile=='null'){

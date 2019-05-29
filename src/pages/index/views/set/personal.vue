@@ -467,7 +467,7 @@ export default {
 			xhr.addEventListener("load",uploadComplete, false);
 			xhr.addEventListener("error",uploadFailed, false);
 			xhr.addEventListener("abort",uploadCanceled, false);
-			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.open("POST", window.basrul+"/File/File/insert");
 			xhr.send(formData);
 			
 		},
@@ -534,7 +534,7 @@ export default {
 			xhr.addEventListener("load",uploadComplete, false);
 			xhr.addEventListener("error",uploadFailed, false);
 			xhr.addEventListener("abort",uploadCanceled, false);
-			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.open("POST", window.basrul+"/File/File/insert");
 			xhr.send(formData);
 			
 		},
@@ -601,7 +601,7 @@ export default {
 			xhr.addEventListener("load",uploadComplete, false);
 			xhr.addEventListener("error",uploadFailed, false);
 			xhr.addEventListener("abort",uploadCanceled, false);
-			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.open("POST", window.basrul+"/File/File/insert");
 			xhr.send(formData);
 			
 		},
@@ -609,7 +609,7 @@ export default {
 			
 		},
 		Verifycodeget(){
-			this.$set(this.tancData,'pic_verifyimg','http://139.129.221.123/Passport/Verifycode/get?client_id='+window.userInfo.open_id+'&t='+(new Date()).valueOf())
+			this.$set(this.tancData,'pic_verifyimg',window.basrul+'/Passport/Verifycode/get?client_id='+window.userInfo.open_id+'&t='+(new Date()).valueOf())
 		},
 		setYzm(val){
 			this.tancData.mobile_zone = val;

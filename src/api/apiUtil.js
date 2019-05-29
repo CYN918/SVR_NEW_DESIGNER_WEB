@@ -8,10 +8,6 @@ const generateApiMap = (map) => {
 	}
 	return facade
 };
-// PASSPORT_HOST = 139.129.221.123;
-// API_HOST = 139.129.221.123;
-// UPLOAD_HOST = 139.129.221.123 ;
-const baseURLs = ['http://139.129.221.123',];
 const toMethod = (options) => {
 	options.method = options.method || 'post'
 	return (params = {}, attachedParams, config = {}) => {	
@@ -20,10 +16,16 @@ const toMethod = (options) => {
 }
 // 创建axios实例
 const createApiInstance = (config = {},on,Type) => {
+	let basrurl = 'http://139.129.221.123';
+	
+	if(window.location.host=='https://shiquaner-api.zookingsoft.com'){
+		basrurl = 'https://shiquaner-api.zookingsoft.com';
+	}
+	window.basrul = basrurl;
 	let ds = on?on:0;
 	const _config = {
 		withCredentials: true, // 跨域
-		baseURL: baseURLs[ds],		
+		baseURL: basrurl,		
 		headers:{
 			'Authorization':'Bearer '+localStorage.getItem('token'),
 			'Content-Type':Type?Type:'application/x-www-form-urlencoded'

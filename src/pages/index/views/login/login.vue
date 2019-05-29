@@ -33,12 +33,12 @@ export default {
 		this.init();
 	}, 
 	methods: {	
-		init(){			
-			if(window.passIn){
-				this.loginPost(window.passIn);
-				return
+		init(){	
+			let passIN = localStorage.getItem('pass');
+			if(passIN){
+				this.loginPost(JSON.parse(passIN),'ispass');
+				return;
 			}
-			
 			document.addEventListener('keydown',(e)=>{
 				if(e.keyCode==13){				
 				if(this.$route.fullPath=='/login'){
@@ -59,7 +59,7 @@ export default {
 		},
 		thirdLogin(type){
 			if(!type){return}
-			window.location.href='http://139.129.221.123/Passport/user/thirdLogin?type='+type;
+			window.location.href=window.basrul+'/Passport/user/thirdLogin?type='+type;
 		},
 		loginUp(){
 			let params = this.$refs.loginFrom.pushData();
@@ -80,9 +80,12 @@ export default {
 			this.ajaxType=1;
 			this.loginPost(params);				
 		},
-		loginPost(data){
+		loginPost(data,ispass){
 			this.api.login(data).then((da)=>{	
 				if(!da){
+					if(ispass){
+						localStorage.setItem('pass','');
+					}
 					this.ajaxType=0;
 					return
 				}

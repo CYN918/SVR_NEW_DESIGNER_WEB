@@ -646,7 +646,7 @@ export default {
 			xhr.addEventListener("load",uploadComplete, false);
 			xhr.addEventListener("error",uploadFailed, false);
 			xhr.addEventListener("abort",uploadCanceled, false);
-			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.open("POST", window.basrul+"/File/File/insert");
 			xhr.send(formData);
 		},
 		qxclosd(obj){

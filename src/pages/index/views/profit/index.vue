@@ -24,18 +24,13 @@
 				<div>
 					<img src="/imge/pro/2.png">
 					<div class="pbx_1_1">
-						<span>{{da.num}}</span>					
+						<span>{{da.num3}}</span>					
 					</div>
 					<div class="pbx_1_2">累计供稿作品</div>
 				</div>
 			</div>
 		</div>
-		<div class="proNav2">
-			<div class="proNav2_1">
-				<router-link class="pend" to="/profit">录用记录</router-link>
-				<router-link class="last pend" to="/activvity">提现记录</router-link>
-			</div>			
-		</div>
+		<router-view/>
 	</div>
 	
 </template>
@@ -49,7 +44,7 @@ export default {
 	data(){
 		return {
 			topConifg:{title:'我的收益'},
-			da:{num1:999,num2:999},
+			da:{num1:999,num2:999,num3:0},
 			mo:{num1:999,num2:999},
 			min1:'&#xe6a2;',
 			min2:'&#xe6a2;',
@@ -180,14 +175,5 @@ export default {
 	display: inline-block;
     width: 140px;
     text-align: right;
-}
-
-.proNav2{
-	padding-top: 7px;
-	border-bottom: 2px solid #E6E6E6;
-}
-.proNav2_1{
-	height: 48px;
-	width: 1300px;
 }
 </style>
