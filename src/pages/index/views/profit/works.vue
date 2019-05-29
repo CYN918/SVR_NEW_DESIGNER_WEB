@@ -59,10 +59,11 @@
 							<span>分成单价</span>	
 							<span>
 								￥2.00/千次曝光 
-								<span class="whd">
-									11
-								</span>
-							</span>							
+								
+							</span>		
+							<div @mouseover="setshow('1')" @mouseout="setHid" class="whd iconfont">&#xe65c;
+								
+							</div>					
 						</div>
 						<div class="pr_tc3_1"><span>展示量</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1"><span>结算收益</span><span>酷派动态锁屏主题展...</span></div>
@@ -108,6 +109,27 @@
 				<img @click="close" src="/imge/cj_00.png" class="pr_tc_1x pend">
 			</div>
 		</div>
+		
+		
+		
+		<div :style="bzdsd" class="pr_tc3_x_1">
+			<div>渠道信息</div>
+			<div>
+				<div class="pr_tc3_1"><span>投放渠道</span><span>酷派动态锁屏主题展...</span></div>
+				<div class="pr_tc3_1"><span>分成指标</span><span>酷派动态锁屏主题展...</span></div>
+				<div class="pr_tc3_1"><span>分成单价</span><span>酷派动态锁屏主题展...</span></div>
+			</div>
+			<ul>
+				<li></li>
+			</ul>
+			
+			
+			<div @mouseover="onRl" @mouseout="outRl" class="tcxjts">
+				<span></span>
+			</div>
+		</div>
+		
+		
 	</div>
 </template>
 
@@ -143,6 +165,9 @@ export default {
 			},	
 			title:['录用作品信息','所属活动信息','总结算收益','订单状态','操作'],
 			isxq:'1',
+			bzdsd:'',
+			isOnc:'',
+			ykan:''
 		}
 	},
 	mounted: function(){}, 
@@ -152,6 +177,30 @@ export default {
 		},
 		close(){
 			this.isxq = '';
+		},
+		setshow(a){		
+			clearTimeout(this.ykan);
+			let zb = event.toElement.getBoundingClientRect();
+			this.bzdsd = 'display:block;top:'+zb.y+'px;left:'+(zb.x+30)+'px;';
+		},
+		setHid(){
+			clearTimeout(this.ykan);
+			this.ykan = setTimeout(()=>{
+				console.log(44444444444);
+				this.bzdsd = '';
+			},500);
+			
+		},
+		onRl(){
+			console.log(2222222222222222);
+			clearTimeout(this.ykan);
+		},
+		outRl(){
+			clearTimeout(this.ykan);
+			this.ykan = setTimeout(()=>{
+				console.log(33333333333);
+				// this.bzdsd = '';
+			},200);
 		}
 	}
 }
@@ -295,9 +344,9 @@ export default {
 }
 .pr_tc{
 	max-width: 650px;
-    max-height: 577px;
-    overflow: hidden;
-    overflow-y: auto;
+    height: 620px;
+ 
+
 }
 .pr_tc_1{
     width: 650px;
@@ -340,6 +389,9 @@ export default {
 .pr_tc3{
 	padding: 30px 30px 10px;
 	text-align: left;
+	height: 350px;
+    overflow: hidden;
+    overflow-y: auto;
 }
 .pr_tc3>li{
 	position: relative;
@@ -372,6 +424,7 @@ export default {
 	line-height:30px;
 }
 .pr_tc3_1{
+	position: relative;
 	margin-bottom: 13px;
 }
 .pr_tc3_1>span{
@@ -405,4 +458,39 @@ export default {
 	top: 0;
 	
 }
+.pr_tc3_x_1{
+	z-index: 10000;
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translateY(-50%);
+	width: 320px;
+	height:560px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+	border-radius:5px;
+	
+}
+.tcxjts{
+	position: absolute;
+	top: 50%;
+	left: -20px;
+	transform: translateY(-50%);
+	width: 30px;
+	height: 30px;
+	background: red;
+}
+.tcxjts>span{
+	display: block;
+	border: 1px solid #fff;
+	width: 10px;
+	height: 10px;
+	border-left: 1px solid rgba(0,0,0,.08);
+	border-top: 1px solid rgba(0,0,0,.08);
+	-webkit-transform: rotate(-45deg) translate(-88%,19%);
+	transform: rotate(-45deg) translate(-88%,19%);
+	
+}
+
 </style>
