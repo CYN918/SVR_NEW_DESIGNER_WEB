@@ -5,7 +5,7 @@
 			<router-link class="last pend" to="/money">提现记录</router-link>
 			
 			<div class="pr_seBox">
-				<div>
+				<div v-if="config.list1">
 					录用形式：
 					<el-select @change="sxFn1" v-model="v1" placeholder="请选择">
 						<el-option 

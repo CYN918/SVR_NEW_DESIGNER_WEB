@@ -29,9 +29,6 @@
 							<div class="searcBox5_2" @click="gouser(el.open_id)" v-for="(el,index) in data2"><img class="searcBox5_2imf" :src="el.avatar" alt="">{{el.username}}</div>
 						</div>
 					</div>
-					
-					
-					
 				</div>
 			</span>
 

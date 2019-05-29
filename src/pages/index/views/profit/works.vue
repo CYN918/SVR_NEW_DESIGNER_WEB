@@ -61,9 +61,7 @@
 								￥2.00/千次曝光 
 								
 							</span>		
-							<div @mouseover="setshow('1')" @mouseout="setHid" class="whd iconfont">&#xe65c;
-								
-							</div>					
+							<div @mouseover="setshow('1')" @mouseout="setHid" class="whd iconfont">&#xe65c;</div>					
 						</div>
 						<div class="pr_tc3_1"><span>展示量</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1"><span>结算收益</span><span>酷派动态锁屏主题展...</span></div>
@@ -75,7 +73,8 @@
 						<div class="pr_tc3_1"><span>分成指标</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1">
 							<span>分成单价</span>
-													
+							<span></span>
+							<div  @mouseover="setshow('1')" @mouseout="setHid" class="whd pend iconfont">&#xe65c;</div>
 						</div>
 						<div class="pr_tc3_1"><span>展示量</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1"><span>结算收益</span><span>酷派动态锁屏主题展...</span></div>
@@ -86,7 +85,9 @@
 						<div class="pr_tc3_1"><span>投放渠道</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1"><span>分成指标</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1">
-							<span>分成单价</span>							
+							<span>分成单价</span>
+							<span></span>
+							<div @mouseover="setshow('1')" @mouseout="setHid" class="whd iconfont">&#xe65c;</div>
 						</div>
 						<div class="pr_tc3_1"><span>展示量</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1"><span>结算收益</span><span>酷派动态锁屏主题展...</span></div>
@@ -113,14 +114,59 @@
 		
 		
 		<div @mouseover="onRl" @mouseout="outRl" :style="bzdsd" class="pr_tc3_x_1">
-			<div class="pr_tc3_x_1d">渠道信息</div>
-			<div class="pr_tc3_x_2d">
-				<div class="pr_tc3_1"><span>投放渠道</span><span>酷派动态锁屏主题展...</span></div>
-				<div class="pr_tc3_1"><span>分成指标</span><span>酷派动态锁屏主题展...</span></div>
-				<div class="pr_tc3_1"><span>分成单价</span><span>酷派动态锁屏主题展...</span></div>
+			<div class="pr_tc3_x_1e">
+				<div class="pr_tc3_x_1d">渠道信息</div>
+				<div class="pr_tc3_x_2d">
+					<div class="pr_tc3_1"><span>投放渠道</span><span>酷派动态锁屏主题展...</span></div>
+					<div class="pr_tc3_1"><span>分成指标</span><span>酷派动态锁屏主题展...</span></div>
+					<div class="pr_tc3_1"><span>分成单价</span><span>酷派动态锁屏主题展...</span></div>
+					<div class="pr_tc3_x_2d_1">个人分成单价 = 渠道分成单价 * 个人评级价格(买断价格) /总评级价格</div>
+				</div>
 			</div>
-			<ul>
-				<li></li>
+			<div class="hxlll"></div>
+			<ul class="hxlll_1">
+				<li>
+					<div class="prList1_1 prList1_1f" style="background-image: url(http://zk-new-designer.oss-cn-beijing.aliyuncs.com/058ffd3ada2d7b0d799c2097e7c6a11f.png);"></div>
+					<div class="hxlll_2">
+						<div class="hxlll_4">
+							交易形式：买断式<br/>
+							买断价格：￥2000.00 <br/>
+							贡献占比：25%
+						</div>
+						<div class="hxlll_3">
+							<img src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/587e34d86a23a3839ee93a8ff992df70.png" alt="">
+							<span>asfas</span>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="prList1_1 prList1_1f" style="background-image: url(http://zk-new-designer.oss-cn-beijing.aliyuncs.com/058ffd3ada2d7b0d799c2097e7c6a11f.png);"></div>
+					<div class="hxlll_2">
+						<div class="hxlll_4">
+							交易形式：买断式<br/>
+							买断价格：￥2000.00 <br/>
+							贡献占比：25%
+						</div>
+						<div class="hxlll_3">
+							<img src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/587e34d86a23a3839ee93a8ff992df70.png" alt="">
+							<span>asfas</span>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="prList1_1 prList1_1f" style="background-image: url(http://zk-new-designer.oss-cn-beijing.aliyuncs.com/058ffd3ada2d7b0d799c2097e7c6a11f.png);"></div>
+					<div class="hxlll_2">
+						<div class="hxlll_4">
+							交易形式：买断式<br/>
+							买断价格：￥2000.00 <br/>
+							贡献占比：25%
+						</div>
+						<div class="hxlll_3">
+							<img src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/587e34d86a23a3839ee93a8ff992df70.png" alt="">
+							<span>asfas</span>
+						</div>
+					</div>
+				</li>
 			</ul>
 			
 			
@@ -174,8 +220,10 @@ export default {
 	methods: {
 		show(o){
 			this.isxq = 1;
+			document.body.style.overflow="hidden";
 		},
 		close(){
+			document.body.style.overflow="";
 			this.isxq = '';
 		},
 		setshow(a){		
@@ -184,21 +232,19 @@ export default {
 			this.bzdsd = 'display:block;top:'+zb.y+'px;left:'+(zb.x+30)+'px;';
 		},
 		setHid(){
-			return
 			clearTimeout(this.ykan);
 			this.ykan = setTimeout(()=>{
 				this.bzdsd = '';
-			},200);			
+			},50);			
 		},
 		onRl(){
 			clearTimeout(this.ykan);
 		},
 		outRl(){
-			return
 			clearTimeout(this.ykan);
 			this.ykan = setTimeout(()=>{
 				this.bzdsd = '';
-			},200);
+			},50);
 		}
 	}
 }
@@ -468,10 +514,13 @@ export default {
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
 	border-radius:5px;
-	box-sizing: border-box;
-    padding: 26px 30px;
+	
     text-align: left;
 	
+}
+.pr_tc3_x_1e{
+	box-sizing: border-box;
+	padding: 26px 30px;
 }
 .tcxjts{
 	position: absolute;
@@ -480,7 +529,6 @@ export default {
 	transform: translateY(-50%);
 	width: 30px;
 	height: 30px;
-	background: red;
 }
 .tcxjts>span{
 	display: block;
@@ -489,14 +537,66 @@ export default {
 	height: 10px;
 	border-left: 1px solid rgba(0,0,0,.08);
 	border-top: 1px solid rgba(0,0,0,.08);
-	-webkit-transform: rotate(-45deg) translate(-88%,19%);
-	transform: rotate(-45deg) translate(-88%,19%);
+	-webkit-transform:rotate(-45deg) translate(-22%,172%);
+	transform: rotate(-45deg) translate(-22%,172%);
+    background: #fff;
 	
 }
 .pr_tc3_x_1d{
+	margin-bottom: 14px;
 	font-size:16px;
 	font-weight:500;
 	color:rgba(30,30,30,1);
 	line-height:22px;
+}
+.pr_tc3_x_2d_1{
+	font-size:14px;
+	font-weight:400;
+	color:rgba(153,153,153,1);
+	line-height:20px;
+}
+.hxlll{
+	width: 100%;
+	height: 2px;
+	background: #E6E6E6;
+}
+.hxlll_1{
+    padding: 24px 27px;
+    height: 252px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.hxlll_2{
+	display: inline-block;
+	vertical-align: top;
+}
+.hxlll_4{
+	font-size: 12px;
+    font-weight: 400;
+    color: rgba(153,153,153,1);
+    line-height: 17px;
+    display: inline-block;
+	margin-bottom: 17px;
+}
+.hxlll_3>img{
+	display: inline-block;
+	margin-right: 10px;
+	vertical-align: middle;
+	width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.hxlll_3>span{
+	font-size:14px;
+	font-weight:400;
+	color:rgba(30,30,30,1);
+	line-height:20px;
+}
+.prList1_1f{
+	width: 120px;
+	height: 90px;
+}
+.hxlll_1>li{
+	margin-bottom: 20px;
 }
 </style>

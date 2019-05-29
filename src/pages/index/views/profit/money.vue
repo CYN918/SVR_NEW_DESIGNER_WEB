@@ -41,12 +41,6 @@ export default {
 	data(){
 		return {
 			sxConfig:{
-				list1:[
-					{label:'全部记录',value:0},
-					{label:'买断式',value:1},
-					{label:'分成式',value:2}
-				],
-				v1:0,
 				list2:[
 					{label:'全部记录',value:0},
 					{label:'近一周',value:1},
