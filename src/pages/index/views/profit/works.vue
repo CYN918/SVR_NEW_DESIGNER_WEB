@@ -56,7 +56,13 @@
 						<div class="pr_tc3_1"><span>投放渠道</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1"><span>分成指标</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1">
-							<span>分成单价</span>							
+							<span>分成单价</span>	
+							<span>
+								￥2.00/千次曝光 
+								<span class="whd">
+									11
+								</span>
+							</span>							
 						</div>
 						<div class="pr_tc3_1"><span>展示量</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1"><span>结算收益</span><span>酷派动态锁屏主题展...</span></div>
@@ -67,7 +73,8 @@
 						<div class="pr_tc3_1"><span>投放渠道</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1"><span>分成指标</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1">
-							<span>分成单价</span>							
+							<span>分成单价</span>
+													
 						</div>
 						<div class="pr_tc3_1"><span>展示量</span><span>酷派动态锁屏主题展...</span></div>
 						<div class="pr_tc3_1"><span>结算收益</span><span>酷派动态锁屏主题展...</span></div>
@@ -381,10 +388,21 @@ export default {
 	line-height:20px;
 }
 .pr_tc3_1>span:nth-child(2){
+	position: relative;
 	font-size:14px;
 	font-family:PingFangSC-Regular;
 	font-weight:400;
 	color:rgba(30,30,30,1);
 	line-height:20px;
+	width: 145px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.whd{
+	position: absolute;
+	right: 0;
+	top: 0;
+	
 }
 </style>
