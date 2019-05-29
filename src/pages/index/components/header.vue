@@ -2,7 +2,7 @@
 	<header class="header">
 		<img class="header_1 pend" src="/imge/log.png" @click="jump">
 		<span class="header_2">
-			<router-link class="pend" to="/index">首页</router-link>
+			<router-link class="pend" to="/index"></router-link>
 			<router-link class="last pend" to="/activvity">活动</router-link>
 		</span>
 		<div class="header_3">

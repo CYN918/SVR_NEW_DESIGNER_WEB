@@ -112,9 +112,9 @@
 		
 		
 		
-		<div :style="bzdsd" class="pr_tc3_x_1">
-			<div>渠道信息</div>
-			<div>
+		<div @mouseover="onRl" @mouseout="outRl" :style="bzdsd" class="pr_tc3_x_1">
+			<div class="pr_tc3_x_1d">渠道信息</div>
+			<div class="pr_tc3_x_2d">
 				<div class="pr_tc3_1"><span>投放渠道</span><span>酷派动态锁屏主题展...</span></div>
 				<div class="pr_tc3_1"><span>分成指标</span><span>酷派动态锁屏主题展...</span></div>
 				<div class="pr_tc3_1"><span>分成单价</span><span>酷派动态锁屏主题展...</span></div>
@@ -124,7 +124,7 @@
 			</ul>
 			
 			
-			<div @mouseover="onRl" @mouseout="outRl" class="tcxjts">
+			<div  class="tcxjts">
 				<span></span>
 			</div>
 		</div>
@@ -184,22 +184,20 @@ export default {
 			this.bzdsd = 'display:block;top:'+zb.y+'px;left:'+(zb.x+30)+'px;';
 		},
 		setHid(){
+			return
 			clearTimeout(this.ykan);
 			this.ykan = setTimeout(()=>{
-				console.log(44444444444);
 				this.bzdsd = '';
-			},500);
-			
+			},200);			
 		},
 		onRl(){
-			console.log(2222222222222222);
 			clearTimeout(this.ykan);
 		},
 		outRl(){
+			return
 			clearTimeout(this.ykan);
 			this.ykan = setTimeout(()=>{
-				console.log(33333333333);
-				// this.bzdsd = '';
+				this.bzdsd = '';
 			},200);
 		}
 	}
@@ -470,6 +468,9 @@ export default {
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
 	border-radius:5px;
+	box-sizing: border-box;
+    padding: 26px 30px;
+    text-align: left;
 	
 }
 .tcxjts{
@@ -492,5 +493,10 @@ export default {
 	transform: rotate(-45deg) translate(-88%,19%);
 	
 }
-
+.pr_tc3_x_1d{
+	font-size:16px;
+	font-weight:500;
+	color:rgba(30,30,30,1);
+	line-height:22px;
+}
 </style>
