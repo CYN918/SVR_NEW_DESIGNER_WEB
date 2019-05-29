@@ -17,7 +17,6 @@ const toMethod = (options) => {
 // 创建axios实例
 const createApiInstance = (config = {},on,Type) => {
 	let basrurl = 'http://139.129.221.123';
-	console.log(window.location.host);
 	if(window.location.host=='shiquaner.zookingsoft.com'){
 		basrurl = 'https://shiquaner-api.zookingsoft.com';
 	}
