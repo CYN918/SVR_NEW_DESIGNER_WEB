@@ -69,6 +69,7 @@ export default {
 					return
 				}				
 				this.List = da.data;
+				console.log(da.data);
 				this.total = da.total;
 				if(this.$parent.settotal){
 					this.$parent.settotal(da.total);

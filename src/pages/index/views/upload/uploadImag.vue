@@ -171,6 +171,7 @@ export default {
 				user:window.userInfo.open_id,
 				timestamp:times,
 				file_type:this.configData.getType,
+				relation_type:'work',
 			}
 			this.api.getFList(params).then((da)=>{
 				if(!da){

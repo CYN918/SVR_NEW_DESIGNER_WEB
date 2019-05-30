@@ -3,7 +3,7 @@
 		<tophead></tophead>
 		<div class="worksBox">
 			<div class="worksBox_1">
-				共{{ sxtj==1?total+'粉丝':total+'关注'}}
+				共{{ total+'关注'}}
 				<div class="worksBox_2">
 					{{sxData[sxOn][sxtj].name}}
 					<div class="worksBox_2_1">
@@ -11,46 +11,36 @@
 					</div>
 				</div>
 			</div>
-			<ul v-if="List.length>0 && sxtj==0" class="i_listd2" >
-				<li v-for="(el,index) in List" :key="index">
-					<img @click="goUser(index)" :src="el.avatar">
-					<div class="i_listd2_1">
-						<div @click="goUser(index)">{{el.username}}</div>
-						<div>{{el.province}} | {{el.city}}</div>
-						<div class="i_listd2_d">
-							<span  @click="goFans('/followFans',el.open_id)">粉丝<span>{{el.fans_num}}</span></span>
-							<span>人气<span>{{el.popular_num}}</span></span>
-							<span @click="goFans('/works',el.open_id)">创作<span>{{el.work_num}}</span></span>
+			<list :config="data" ref="listDom">
+				<template v-slot:todo="{ todo }">
+					<div class="box_2d">
+						<img @click="goUser(todo.open_id)" :src="todo.avatar">
+						<div class="i_listd2_1">
+							<div @click="goUser(todo.open_id)">{{todo.username}}</div>
+							<div>{{todo.province}} | {{todo.city}}</div>
+							<div class="i_listd2_d">
+								<span  @click="goFans('/followFans',todo.open_id)">粉丝<span>{{todo.fans_num}}</span></span>
+								<span>人气<span>{{todo.popular_num}}</span></span>
+								<span @click="goFans('/works',todo.open_id)">创作<span>{{todo.work_num}}</span></span>
+							</div>
+							<div>{{todo.personal_sign?todo.personal_sign:'这个人很懒，什么都没说~'}}</div>
+							<div class="btns_foll" v-if="!isMe(todo.open_id)">
+								<span @click="showFpllwodel(todo)" v-if="todo.follow_flag==2">互相关注</span>
+								<span @click="showFpllwodel(todo)" v-else-if="todo.follow_flag==1">已关注</span>
+								<span @click="Follow_add(todo)" v-else>关注</span>
+								<span @click="gosx(todo)">私信</span>
+							</div>
 						</div>
-						<div>{{el.personal_sign?el.personal_sign:'这个人很懒，什么都没说~'}}</div>
-						<div class="btns_foll" v-if="!isMe(el.open_id)">
-							<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
-							<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
-							<span @click="Follow_add(index)" v-else>关注</span>
-							<span @click="gosx(el)">私信</span>
+						<div class="lunbox">
+							
+							<ul v-if="todo.works.length>0">
+								<li v-if="index2<3" v-for="(el2,index2) in todo.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
+							</ul>
+							
 						</div>
 					</div>
-					<div class="lunbox">
-						
-						<ul v-if="el.works.length>0">
-							<li v-if="index2<3" v-for="(el2,index2) in el.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
-						</ul>
-						
-					</div>
-				</li>
-			</ul>
-			
-			<div class="pagesddd"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
-			<el-pagination v-if="total>40" class="pagesddd"
-			background
-			@size-change="handleSizeChange"
-			@current-change="handleCurrentChange"
-			:current-page="page"
-			:page-sizes="[40, 80, 120, 160]"
-			:page-size="limit"
-			layout="prev,pager, next,sizes, jumper"
-			:total="total">   
-			</el-pagination>
+				</template>			
+			</list>	
 		</div>
 		
 		<div v-show="isshowd2" class="loginoutBox">
@@ -67,11 +57,25 @@
 import tophead from './head';
 import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
+import list from '../../components/list';
 export default {
 	name: 'works',
-	components:{tophead},
+	components:{tophead,list},
 	data(){
 		return {
+			data:{
+				ajax:{
+					url:'followList',					
+				},
+				setp:(da)=>{
+					if(!this.$route.query.id){
+						this.$router.push({path:'/index'})	
+						return false
+					}
+					da.user_open_id =this.$route.query.id;
+					return true;
+				}
+			},	
 			isshowd2:false,
 			banners:[],
 			List:[],
@@ -110,10 +114,13 @@ export default {
 		if(this.$route.query.id!=window.userInfo.open_id){
 			this.sxOn = 1;
 		}
-		this.followList();
+		// this.followList();
 		
 	}, 
 	methods: {
+		settotal(n){
+			this.total = n;
+		},
 		gosx(el){
 			this.$router.push({path:'/chat',query:{
 				open_id:el.open_id,
@@ -138,7 +145,8 @@ export default {
 			this.openOns = on;
 		},
 		Follow_del(){
-			if(!this.openOns && this.openOns!=0){
+	
+			if(!this.openOns){
 				return
 			}
 			
@@ -148,7 +156,7 @@ export default {
 			this.follwTyle=1;
 			let pr = {
 				
-				follow_id:this.List[this.openOns].open_id
+				follow_id:this.openOns.open_id
 			};
 			if(window.userInfo){
 				pr.access_token = window.userInfo.access_token;
@@ -164,11 +172,10 @@ export default {
 				if(this.total>0){
 					this.total--;
 				}
-				if(this.sxtj==0){				
-					this.List.splice(this.openOns,1);				
-					return
-				}
-				this.List[this.openOns].follow_flag = 0;
+		
+				this.$refs.listDom.getData();
+			
+				this.openOns.follow_flag = 0;
 				
 			}).catch(()=>{
 				this.follwTyle = 0;		
@@ -184,7 +191,7 @@ export default {
 			}
 			this.follwTyle=1;
 			let pr = {			
-				follow_id:this.List[on].open_id
+				follow_id:on.open_id
 			};
 			if(window.userInfo){
 				pr.access_token = window.userInfo.access_token;
@@ -194,7 +201,7 @@ export default {
 					this.follwTyle=0;
 					return
 				}
-				this.List[on].follow_flag = da.follow_flag;
+				on.follow_flag = da.follow_flag;
 				this.follwTyle=0;
 				Message({message: '关注成功'});
 				this.total++;
@@ -216,7 +223,7 @@ export default {
 			this.$router.push({path: '/followFans',query:{id:this.$route.query.id}})							
 		},
 		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].open_id}})	
+			this.$router.push({path: '/works',query:{id:on}})	
 		},
 		backtime(time){		
 			return	window.getTimes(time);
@@ -315,7 +322,9 @@ export default {
 .worksBox_2_1>div:hover{
 	background: #E6E6E6;
 }
-.i_listd2>li{
+
+.i_listd2{margin-bottom: 120px;}
+.box_2d{
 	text-align: left;
 	display: block;
 	box-sizing: border-box;
@@ -327,8 +336,7 @@ export default {
 	height: 215px;
 	margin: 0 auto 20px;
 }
-.i_listd2{margin-bottom: 120px;}
-.i_listd2>li>img{
+.box_2d>img{
 	display: inline-block;
 	margin: 0 20px 0 30px;
 	width: 100px;
@@ -456,78 +464,5 @@ export default {
 	transition: transform .1s linear;
 	transform: scale(1.1);
 	cursor: pointer;
-}
-.follwfs{
-	width: 1300px;
-	margin: 0 auto 120px;
-	text-align: left;
-}
-.follwfs>li{
-	display: inline-block;
-	text-align: center;
-	padding-top: 50px;
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	width: 310px;
-	height: 300px;
-	margin: 0 20px 20px 0;
-}
-.follwfs>li:nth-child(4n+4){
-	margin-right: 0;
-}
-.follwfs_1{
-	cursor: pointer;
-	display: block;
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	margin: 0 auto 16px;
-}
-.follwfs_2{
-	text-align: center;
-	font-size: 16px;
-	color: #1E1E1E;
-	margin-bottom: 2px;
-}
-.follwfs_3{
-	text-align: center;
-	font-size: 12px;
-	color: #999999;
-	margin-bottom: 25.2px;
-}
-.follwfs_4>span{
-	width: 33%;
-	display: inline-block;
-	font-size: 16px;
-	color: #1E1E1E;
-	text-align: center;
-}
-.follwfs_4>span>span{
-	display: block;
-	font-size: 12px;
-	color: #999999;
-	margin-bottom: 1.5px;
-}
-.follwfs_4{
-	margin-bottom: 25.3px;
-}
-.follwfs_5>span{
-	display: inline-block;
-	border: 1px solid #979797;
-	border-radius: 5px;
-	width: 118px;
-	height: 38px;
-	line-height: 38px;
-	font-size: 14px;
-	color: #666666;
-	text-align: center;
-	margin:0 10px;
-	cursor: pointer;
-}
-.follwfs_5>span:last-child{
-	background: #FF5121;
-	border-color: #FF5121;
-	color: #fff;
 }
 </style>

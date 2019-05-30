@@ -201,7 +201,7 @@ export default {
 					{label:'近一半年',value:3},
 					{label:'近一年',value:4}
 				],
-				v2:0
+				v2:2
 			},
 			data:{
 				type:'box_a',
@@ -210,7 +210,7 @@ export default {
 				}
 			},	
 			title:['录用作品信息','所属活动信息','总结算收益','订单状态','操作'],
-			isxq:'1',
+			isxq:'',
 			bzdsd:'',
 			isOnc:'',
 			ykan:''

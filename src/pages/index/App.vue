@@ -2217,7 +2217,30 @@ content: "";
 }
 
 /*comt*/
-
-
-
+.botnbox{
+	text-align: center;
+}
+.botnbox>span{
+	display: inline-block;
+	cursor: pointer;
+	margin: 0 10px;
+    border-radius: 5px;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    width: 100px;
+    height: 40px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid rgba(153,153,153,1);
+}
+.botnbox>span:hover{
+	opacity: .7;
+}
+.botnbox>span.ysHei{
+	background: #333333;
+	color: #fff;
+	border-color: #333333;
+}
 </style>

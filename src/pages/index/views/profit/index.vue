@@ -9,7 +9,7 @@
 					<img src="/imge/pro/0.png">
 					<div class="pbx_1_1">
 						<span class="pbx_1_1x">{{da.num1}}</span>
-						<span class="btndf btndfys pend pbx_1_1_1">提现</span>
+						<span @click="showtx()" class="btndf btndfys pend pbx_1_1_1">提现</span>
 					</div>
 					<div class="pbx_1_2 pbx_1_3">账号余额<span @click="checkd(1)" class="iconfont pend pbx_1_4" v-html="min1"></span></div>
 					<div class="pbx_1_2">平台每月10日-15日汇款当月的提现申请</div>
@@ -31,6 +31,63 @@
 			</div>
 		</div>
 		<router-view/>
+		
+		<tacBox v-if="istx">
+			<template v-slot:tanBox="{todo}">
+				<div class="pr_ntc_1">提现</div>
+				<div class="pr_ntc_2">
+					<div :class="['jdt_n','jdtOn'+typedon]">
+						<div class="jdt_n_jdt"><span :style="setJdt()"></span></div>
+						<span v-for="(el,index) in ldList" :key="index" :class="index==typedon?'jdt_n_on':''">
+							<div>{{1+index}}</div>	
+							{{el}}
+						</span>						
+					</div>
+					
+					<div v-if="typedon==0" class="pr_xx_1">
+						<div>
+							<span>企业/机构名称</span><span>**凡</span>
+						</div>
+						<div>
+							<span>企业银行账号</span><span>6666********6666</span>
+						</div>
+						<div>
+							<span>开户银行</span><span>招商银行</span>
+						</div>
+						<div>
+							<span>开户支行</span><span>南山某某支行</span>
+						</div>
+					</div>
+					
+					<div v-if="typedon==1" class="pr_xx_1">
+						<div>
+							<span>账户余额</span><span>￥300，000.00</span>
+						</div>
+						<div>
+							<span>提现金额</span><span><input class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.je" type="text">元</span>
+						</div>
+					</div>
+					
+					<div v-if="typedon==2" class="pr_xx_1">
+						2
+					</div>
+					
+					<div v-if="typedon==3" class="pr_xx_1">
+						3
+					</div>
+					
+					
+					<div class="pr_xx_btns botnbox">
+						<span v-if="typedon>0" @click="next_x(-1)">上一步</span>
+						<span v-if="typedon==0" @click="goUpsuer()">修改银行信息</span>
+						<span v-if="typedon<3" @click="next_x(1)" class="ysHei">下一步</span>
+						<span v-if="typedon==3" @click="" class="ysHei">完成</span>
+					</div>
+				</div>
+				
+			</template>	
+			
+		</tacBox>
 	</div>
 	
 </template>
@@ -38,11 +95,16 @@
 <script>
 import {Message} from 'element-ui'
 import TopNav from '../commd/topNav.vue';
+import tacBox from '../../components/tacBox.vue';
 export default {
-	components:{TopNav},
+	components:{TopNav,tacBox},
 	name: 'profit',	
 	data(){
 		return {
+			istx:'',
+			form:{},
+			typedon:0,
+			ldList:['信息确认','提现金额','发票寄送','身份验证'],
 			topConifg:{title:'我的收益'},
 			da:{num1:999,num2:999,num3:0},
 			mo:{num1:999,num2:999},
@@ -54,6 +116,24 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		showtx(){
+			this.istx = 1;
+		},
+		close(){
+			this.istx = '';
+		},
+		next_x(o){
+			let  p = this.typedon+o;
+			console.log(parseFloat(this.form.je).toString() == "NaN");
+			if(p==2 && (parseFloat(this.form.je).toString() == "NaN" || this.form.je<300) ){
+				Message({message: '请输入正确金额'});
+				return;
+			}
+			this.typedon = p;
+		},
+		setJdt(){		
+			return 'transform: translateX('+(this.typedon*33.33-100)+'%);';
+		},
 		checkd(on){
 			if(on==1){
 				if(this.da.num1=='******'){
@@ -90,6 +170,17 @@ export default {
 				return
 			}	
 			this.userData = window.userInfo;
+		},
+		goUpsuer(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+				return
+			}	
+			if(window.userInfo.contributor_type==2){
+				this.$router.push({path: '/setEnterprise'})
+				return
+			}
+			this.$router.push({path: '/setPersonal'});
 		},
 	},
 }
@@ -175,5 +266,133 @@ export default {
 	display: inline-block;
     width: 140px;
     text-align: right;
+}
+
+
+
+.pr_ntc_1{
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #fff;
+	text-indent: 30px;
+	font-size:16px;
+	font-weight:500;
+	color:rgba(30,30,30,1);
+	text-align: left;
+	line-height: 74px;
+	border-bottom: 1px solid #E6E6E6;
+	width: 100%;
+	height: 74px;
+}
+.pr_ntc_2{
+	padding: 104px 30px 70px;
+	width: 620px;
+	min-height: 249px;
+}
+.jdt_n{
+	position: relative;
+	margin-bottom: 43px;
+}
+.jdt_n_jdt{
+	z-index: -1;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background: #979797;
+	overflow: hidden;
+    width: 68%;
+    height: 2px;	
+}
+.jdt_n_jdt>span{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #67C239;
+	-webkit-transform: translateX(-100%);
+	transform: translateX(-100%);
+}
+.jdt_n>span{
+	display: inline-block;
+	margin-right: 89px;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(153,153,153,1);
+	line-height:20px;
+}
+.jdt_n>span:last-child{
+	margin-right: 0;
+}
+.jdt_n>span>div{
+	background: #67C239;
+	border-radius: 50%;
+	margin: 0 auto 7px;
+	width:20px;
+	height:20px;
+	font-size:14px;
+	text-align: center;
+	font-weight:500;
+	color:rgba(255,255,255,1);
+	line-height:20px;
+	
+}
+.jdt_n>span.jdt_n_on{
+	font-weight:500;
+	color:rgba(30,30,30,1);
+}
+.jdt_n>span.jdt_n_on~span>div{
+	background:rgba(153,153,153,1);
+}
+
+
+.pr_xx_1{
+	display: inline-block;
+	text-align: left;
+	margin: 0 auto 27px;
+	
+}
+.pr_xx_1>div{
+	margin-bottom: 13px;
+}
+.pr_xx_1>div>span{
+	display: inline-block;
+	vertical-align: top;
+}
+.pr_xx_1>div>span:nth-child(1){
+	margin-right: 44px;
+	width:91px;
+	height:20px;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(153,153,153,1);
+	line-height:20px;
+}
+.pr_xx_1>div>span:nth-child(2){
+	font-size:14px;
+	font-weight:400;
+	color:rgba(51,51,51,1);
+	line-height:20px;
+	width: 248px;
+}
+.pr_xx_btns{
+	position: absolute;
+	bottom: 30px;
+	left: 0;
+	width: 100%;
+}
+.pr_xx_btns>span{
+	width: 140px;
+}
+.txje{
+	padding-bottom: 3px;
+    border: none;
+    line-height: 22px;
+    border-bottom: 1px solid #DDDDDD;	
+    width: 215px;
+	outline: none;
 }
 </style>

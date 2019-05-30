@@ -24,6 +24,9 @@ export default {
 		this.getBanner();		
 	}, 
 	methods: {
+		opend(url){
+			window.open(url);
+		},
 		getBanner(){
 			this.api.getBanner().then((da)=>{
 				if(!da){return}

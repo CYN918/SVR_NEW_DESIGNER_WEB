@@ -1,54 +1,46 @@
 <template>
 	<div>
 		<navd :config="sxConfig"></navd>
-		<div class="pr_title">
+		<div class="pr_title2 pr_title2x">
 			<span v-for="(el,index) in title" :key="index">{{el}}</span>
 			
 		</div>
 		<list class="prList" :config="data">
 			<template v-slot:todo="{ todo }">
-				<div class="prList1">
-					<div class="prList1_1" style="background-image: url(http://zk-new-designer.oss-cn-beijing.aliyuncs.com/058ffd3ada2d7b0d799c2097e7c6a11f.png);"></div>
+				<div class="pr_title2 pr_title2x">
+					<span>2019/02/30 18:00</span>
+					<span>深圳掌酷软件…</span>
+					<span>企业/机构</span>
+					<span>2222 ******** 6666</span>
+					<span>招商银行</span>
+					<span>￥50,000.00</span>
+					<span class="prList3"><span class="type1"></span>待处理</span>
+					<span>2019/02/30 18:00</span>
+					<span @click="showCh">撤回</span>
+				</div>
 				
-					<div class="prList1_2">
-						<div class="prList1_3">小魔熊-设计品牌IP形象</div>
-						<div class="prList1_4">原创-平面-海报</div>
-						<div class="prList1_5">2019/02/13 18:00:00</div>
-					</div>
-				</div>
-				<div class="prList1">
-					<div class="prList1_1" style="background-image: url(http://zk-new-designer.oss-cn-beijing.aliyuncs.com/058ffd3ada2d7b0d799c2097e7c6a11f.png);"></div>
-					<div class="prList1_2">
-						<div class="prList1_3">小魔熊-设计品牌IP形象</div>
-						<div class="prList1_4">原创-平面-海报</div>
-						<div class="prList1_5">2019/02/13 18:00:00</div>
-					</div>
-				</div>
-				<div class="prList2">￥50，000.00</div>
-				<div class="prList3"><span :class="todo.id=='711'?'type1':todo.id=='709'?'type2':'type3'"></span>1 条投放中</div>
-				<div class="prList4"><span class="prList4_1 pend">查看详情</span></div>
 			</template>			
 		</list>
+		<tancQr v-if="isCh" :cg="tanData"></tancQr>
 	</div>
 </template>
 
 <script>
 import navd from './navd';
 import list from '../../components/list';
+import tancQr from '../../components/tancQr';
 export default {
-	components:{navd,list},
+	components:{navd,list,tancQr},
 	name: 'pr_works',
 	data(){
 		return {
+			isCh:'',
 			sxConfig:{
 				list2:[
 					{label:'全部记录',value:0},
-					{label:'近一周',value:1},
-					{label:'近一个月',value:2},
-					{label:'近一半年',value:3},
-					{label:'近一年',value:4}
+					{label:'近一年',value:1}
 				],
-				v2:0
+				v2:1
 			},
 			data:{
 				type:'box_a',
@@ -56,12 +48,24 @@ export default {
 					url:'getHList',
 				}
 			},	
-			title:['录用作品信息','所属活动信息','总结算收益','订单状态','操作']
+			title:['提现时间','收款账户名','账号主体','银行卡号','开户银行','提现金额','当前状态','审核时间','操作'],
+			tanData:{
+				title:'确定撤回提现单？',
+				btns:[{n:'取消',fn:'close'},{n:'确定',fn:'pushch',cls:'ysHei'}]
+			}
 		}
 	},
 	mounted: function(){}, 
 	methods: {
-		
+		showCh(){
+			this.isCh=1;
+		},
+		close(){
+			this.isCh='';
+		},
+		pushch(){
+			
+		}
 	}
 }
 </script>
@@ -74,7 +78,7 @@ export default {
     width: 1300px;
     padding: 0 0 160px;
 }
-.prList>li{
+.pr_title2>li{
 	box-sizing: border-box;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
@@ -82,7 +86,7 @@ export default {
 	padding: 30px;
 	width: 100%;
 }
-.pr_title{
+.pr_title2{
 	text-align: left;
 	box-sizing: border-box;
 	margin: 20px auto;
@@ -96,24 +100,37 @@ export default {
 	line-height:20px;
 	width: 1300px;
 }
-.pr_title>span{
+.pr_title2x>span{
 	display: inline-block;
 	text-align: left;
-	margin-right: 112px;
+	margin-right:45px;
 }
-.pr_title>span:nth-child(1){
-	width: 280px;
+.pr_title2x>span:nth-child(1){
+	width: 118px;
 }
-.pr_title>span:nth-child(2){
-	width: 280px;
+.pr_title2x>span:nth-child(2){
+	width: 98px;
 }
-.pr_title>span:nth-child(3){
-	width: 91px;
+.pr_title2x>span:nth-child(3){
+	width: 63px;
 }
-.pr_title>span:nth-child(4){
-	width: 60px;
+.pr_title2x>span:nth-child(4){
+	width: 135px;
 }
-.pr_title>span:nth-child(5){
+.pr_title2x>span:nth-child(5){
+	width: 56px;
+}
+.pr_title2x>span:nth-child(6){
+	width: 120px;
+}
+
+.pr_title2x>span:nth-child(7){
+	width: 118px;
+}
+.pr_title2x>span:nth-child(8){
+	width: 109px;
+}
+.pr_title2x>span:last-child{
 	width: 56px;
 	margin-right: 0;
 }
@@ -122,8 +139,12 @@ export default {
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 105px;
-	height: 75px;
-	line-height: 75px;
+	
+}
+.prList>li>div.pr_title2x{
+	height: auto;
+	line-height: initial;
+	margin: 10px auto;
 }
 .prList>li>div:last-child{
 	margin-right: 0;
