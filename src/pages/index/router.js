@@ -168,6 +168,12 @@ let wb = [
 						component: () => import('./views/profit/money.vue'),
 						
 					},
+					{
+						path: '/fcsy',
+						name: 'fcsy',
+						component: () => import('./views/profit/fcsy.vue'),
+						
+					},
 				]
 				
 			},

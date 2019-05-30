@@ -2,6 +2,7 @@
 	<div class="proNav2">
 		<div class="proNav2_1">
 			<router-link class="pend" to="/profit">录用记录</router-link>
+			<router-link class="pend" to="/fcsy">分成收益</router-link>
 			<router-link class="last pend" to="/money">提现记录</router-link>
 			
 			<div class="pr_seBox">

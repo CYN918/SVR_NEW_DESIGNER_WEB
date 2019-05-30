@@ -304,12 +304,12 @@ export default {
 	margin-left: .3rem;
 }
 .pl_02 .userBox_3{
-	width: 10.1rem;
-	line-height: 1.6rem;
+	width: 8rem;
+	line-height: 1rem;
 }
 .pl2_02_1{
 	float: right;
-	line-height: 1.6rem;
+	line-height: 1rem;
     font-size: .5rem;
 }
 .pl_02 .pl2_02{

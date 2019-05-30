@@ -45,10 +45,9 @@ export default {
     height: 1.8rem;
     background: #ff5121;
     margin: 0 auto;
-    border-radius: .2rem;
+
     font-size: .776rem;
     line-height: 1.8rem;
-	-webkit-box-shadow: 0 0 0.05rem 0.04rem #f93702;
-    box-shadow: 0 0 0.05rem 0.04rem #f93702;
+
 }
 </style>

@@ -204,7 +204,7 @@ window.getTimes =function(ont) {
 		m = s*60,
 		h = m*60,
 		d = h*24,
-		ms = 30*d;
+		ms = 30*d;	
 		if(pt<=0){
 			return '刚刚';
 		}
