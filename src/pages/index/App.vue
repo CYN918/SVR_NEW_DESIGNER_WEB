@@ -210,6 +210,7 @@ input:-ms-input-placeholder{
 	position: absolute;
 	bottom: 120px;
 	left: 0;
+	box-sizing: border-box;
 	width: 100%;
 	text-align: center;
 }

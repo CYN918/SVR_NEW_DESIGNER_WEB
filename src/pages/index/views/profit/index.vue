@@ -6,7 +6,7 @@
 				<div>
 					<img src="/imge/pro/0.png">
 					<div class="pbx_1_1">
-						<span class="pbx_1_1x">{{da.num1}}</span>
+						<span class="pbx_1_1x">{{num1}}</span>
 						<span @click="showtx()" class="btndf btndfys pend pbx_1_1_1">提现</span>
 					</div>
 					<div class="pbx_1_2 pbx_1_3">账号余额<span @click="checkd(1)" class="iconfont pend pbx_1_4" v-html="min1"></span></div>
@@ -15,14 +15,14 @@
 				<div>
 					<img src="/imge/pro/1.png">
 					<div class="pbx_1_1">
-						<span>{{da.num2}}</span>						
+						<span>{{num2}}</span>						
 					</div>
 					<div class="pbx_1_2">累计收益 <span @click="checkd(2)" class="iconfont pend pbx_1_4" v-html="min2"></span></div>
 				</div>
 				<div>
 					<img src="/imge/pro/2.png">
 					<div class="pbx_1_1">
-						<span>{{da.num3}}</span>					
+						<span>{{basDa.total_hirework}}</span>					
 					</div>
 					<div class="pbx_1_2">累计供稿作品</div>
 				</div>
@@ -42,36 +42,84 @@
 						</span>						
 					</div>
 					
-					<div v-if="typedon==0" class="pr_xx_1">
-						<div>
+					<div v-if="typedon==0"  class="pr_xx_1">
+						<div class="pr_xx_1_c">
 							<span>企业/机构名称</span><span>**凡</span>
 						</div>
-						<div>
+						<div class="pr_xx_1_c">
 							<span>企业银行账号</span><span>6666********6666</span>
 						</div>
-						<div>
+						<div class="pr_xx_1_c">
 							<span>开户银行</span><span>招商银行</span>
 						</div>
-						<div>
+						<div class="pr_xx_1_c">
 							<span>开户支行</span><span>南山某某支行</span>
 						</div>
 					</div>
 					
+			
+					
+					
 					<div v-if="typedon==1" class="pr_xx_1">
-						<div>
+						<div class="pr_xx_1_c">
 							<span>账户余额</span><span>￥300，000.00</span>
 						</div>
-						<div>
+						<div class="pr_xx_1_c">
 							<span>提现金额</span><span><input class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.je" type="text">元</span>
 						</div>
 					</div>
 					
-					<div v-if="typedon==2" class="pr_xx_1">
-						2
+					<div v-if="typedon==2" class="txTbox">
+						<div class="txTbox_t">发票说明</div>
+						<div class="txTbox_c">
+							<div class="txTbox_c_fp_1">
+								请将提现金额等额的发票寄出给我们，并提供寄出信息<br/>若提供的是3%税率的发票，则平台将另代替扣除3%税费<br/> 
+								<span class="hszt">如:提现1000元，实际汇款为970元</span>
+							</div>
+						</div>
+						<div class="txTbox_t">平台开票信息</div>
+						<div class="txTbox_c zyfb">
+							<div><span>公司名称</span><span>深圳掌酷软件有限公司</span></div>							
+							<div><span>开户银行</span><span>中国银行深圳科技园支行</span></div>
+							<div><span>企业银行账号</span><span>749763916542</span></div>
+							<div><span>税号</span><span>9144030031 1975518G</span></div>
+							<div><span>联系地址</span><span>广东省深圳市南山区高新园中区科技路11号 伟杰大厦2楼212</span></div>
+						</div>
+						<div class="txTbox_t">寄送信息</div>
+						<div class="txTbox_c zyfb">
+							<div class="up_fp">
+								<span>发票拍照</span>
+								<div class="botnbox">
+									<span class="up_fp_1 up_file">上传照片<input @change="fileUpfj" ref="upnfile2" type="file"></span>
+									<div class="up_fp_2" v-if="upfjData.bf">
+										<div class="up_fp_3">
+											<div class="jdtBox">
+												<div :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></div>										
+											</div>
+										</div>
+										<div>{{upfjData.bf?upfjData.bf+'%':''}}</div>
+										<div @click="qxclosd(fileUpfj)" class="up_fp_4 iconfont pend">&#xe619;</div>
+									</div>
+									<div v-if="upfjData.bf" class="up_fp_5 iconfont" :title="upfjData.file_name">
+										&#xe621; {{upfjData.file_name?upfjData.file_name.substring(0,10):'xxxxxx'}}
+										<span @click="qxclosd(fileUpfj)" class="cldo iconfont pend">&#xe619;</span>
+									</div>
+								</div>
+							</div>
+							<div><span>物流公司名称</span><span><input class="txje" placeholder="请输入物流公司名称" v-model="form.je" type="text"></span></div>
+							<div><span>寄送物流单号</span><span><input class="txje" placeholder="请输入物流单号" v-model="form.je" type="text"></span></div>
+							
+						</div>
+						
 					</div>
 					
 					<div v-if="typedon==3" class="pr_xx_1">
-						3
+						<div class="phodegg">
+							<Input class="tc_sucd_2_1" v-model="form.moble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入新的手机号码'"  ></Input>
+							<span class="uphodefbt pend" @click="editPhone()">修改手机号</span>
+							<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+							
+						</div>
 					</div>
 					
 					
@@ -94,20 +142,47 @@
 import {Message} from 'element-ui'
 import TopNav from '../commd/topNav.vue';
 import tacBox from '../../components/tacBox.vue';
+import Input from '../../components/input'
 export default {
-	components:{TopNav,tacBox},
+	components:{TopNav,tacBox,Input},
 	name: 'profit',	
 	data(){
 		return {
+			basDa:{},
 			istx:'',
 			form:{},
 			typedon:0,
 			ldList:['信息确认','提现金额','发票寄送','身份验证'],
 			topConifg:{title:'我的收益'},
-			da:{num1:999,num2:999,num3:0},
-			mo:{num1:999,num2:999},
+			num1:0,
+			num2:0,
 			min1:'&#xe6a2;',
 			min2:'&#xe6a2;',
+			upfjData:{},
+			chekPhpne:function(val){
+				if(this.form.mobile_zone!='86'){
+					if(!(typeof val === 'number' && val%1 === 0)){
+						return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 					
+					}			
+					return true; 
+				}	
+				if(!(/^1[34578]\d{9}$/.test(val))){ 
+					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
+				} 
+				return true;
+			},
+			chekverify:function(val){
+				if(!val){
+					return {type:false,text:'请填写验证码',cls:'errd5'}; 
+				}
+				if(!(/^\S*$/.test(val))){ 				
+					return {type:false,text:'验证码不能有空格',cls:'errd5'}; 
+				} 			
+				if(val.length!=6){
+					return {type:false,text:'请填写6位验证码',cls:'errd5'}
+				}
+				return true
+			},
 		}
 	},
 	beforeCreate:function(){
@@ -126,6 +201,128 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		getData(){
+			let pr = {};
+			this.api.Income_info(pr).then((da)=>{
+				if(!da){return}
+		
+				this.basDa = da;
+				this.num1 = '￥ '+da.account_balance;
+				this.num2 = '￥ '+da.total_income;
+			})
+		},
+		editPhone(){
+			this.$router.push({path: '/setUser'});
+		},
+		setYzm(val){
+			this.from.mobile_zone = val;
+		},
+		ajaxYzm(){
+			let pd = this.form.moble;
+			if(this.form.mobile_zone!='86'){
+				if(!(typeof pd === 'number' && pd%1 === 0)){
+					Message({message: '请输入正确的手机号码'});
+					return 					
+				}			
+			}else{
+				if(!(/^1[34578]\d{9}$/.test(pd))){ 
+					Message({message: '请输入正确的手机号码'});
+					return
+				} 
+				
+			}		
+			let params = {
+				mobile:this.this.form.moble,
+				mobile_zone:this.form.mobile_zone
+			};
+			this.api.sendVerifyCode(params).then((da)=>{	
+				if(!da){
+					return
+				}
+				Message({message: '验证码已发送'});
+				this.$refs.verify.runTimer(60);
+			}).catch(()=>{
+				
+			});
+		},
+		fileUpfj(flie){			
+			if(this.upfjData && this.upfjData.type){
+				Message({message: '正在上传中请稍后'});
+				return
+			}		
+			let fld = flie.target.files[0],	
+			app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',		
+			times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				app_secret,
+				window.userInfo.open_id,
+				times
+			],
+			formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',window.userInfo.open_id)
+			formData.append('file',fld)
+			formData.append('relation_type','user')
+			formData.append('timestamp',times)
+			formData.append('is_callback',1)
+			let xhr = new XMLHttpRequest();
+			this.upfjData = {
+				file_name:fld.name,
+				bf:0,
+				xhr:xhr,
+				type:'上传中'
+			};
+			let uploadProgress = (evt)=>{		
+				if(evt.lengthComputable) {
+					let percent = Math.round(evt.loaded * 100 / evt.total);
+					this.upfjData.bf  = Math.floor(percent); 
+				}
+			};
+			let uploadComplete = (data)=>{
+				
+				if(data.currentTarget.response){
+					let da = JSON.parse(data.currentTarget.response).data;
+					this.upfjData.fid=da.fid;					
+					this.upfjData.type='上传成功';
+					this.$refs.upnfile2.value ='';		
+					this.form.attachment_id = da.fid;	
+					Message({message: '文件上传成功'});
+				}
+				
+			};
+			let uploadFailed = ()=>{
+				// delete p;
+				p.type="none";
+				this.$refs.upnfile2.value ='';
+				this.this.upfjData = {};
+				Message({message: '文件上传失败请稍后重试'});
+				
+			};
+			let uploadCanceled = ()=>{
+				p.type="none";
+				this.$refs.upnfile2.value ='';
+				this.this.upfjData = {};
+				Message({message: '取消成功'});
+				
+			};
+			xhr.upload.addEventListener("progress",uploadProgress, false);
+			xhr.addEventListener("load",uploadComplete, false);
+			xhr.addEventListener("error",uploadFailed, false);
+			xhr.addEventListener("abort",uploadCanceled, false);
+			xhr.open("POST", window.basrul+"/File/File/insert");
+			xhr.send(formData);
+		},
+		qxclosd(obj){
+			if(obj.xhr){
+				obj.xhr.abort();
+				
+				return
+			}		
+			this.form.attachment_id='';
+			this.upfjData = {};
+		},
 		showtx(){
 			this.istx = 1;
 		},
@@ -134,7 +331,6 @@ export default {
 		},
 		next_x(o){
 			let  p = this.typedon+o;
-			console.log(parseFloat(this.form.je).toString() == "NaN");
 			if(p==2 && (parseFloat(this.form.je).toString() == "NaN" || this.form.je<300) ){
 				Message({message: '请输入正确金额'});
 				return;
@@ -146,30 +342,28 @@ export default {
 		},
 		checkd(on){
 			if(on==1){
-				if(this.da.num1=='******'){
-					this.da.num1 = '￥ '+this.mo.num1;
+				if(this.num1=='******'){
+					this.num1 = '￥ '+this.basDa.account_balance;
 					this.min1 = '&#xe6a2;';
 					return
 				}
-				this.da.num1='******';
+				this.num1='******';
 				this.min1 = '&#xe61f;';
 				return
 			}
 			if(on==2){
-				if(this.da.num2=='******'){
-					this.da.num2 = '￥ '+this.mo.num2;
+				if(this.num2=='******'){
+					this.num2 = '￥ '+this.basDa.total_income;
 					this.min2 = '&#xe6a2;';
 					return
 				}
-				this.da.num2='******';
+				this.num2='******';
 				this.min2 = '&#xe61f;';
 				return
 			}
 		},
 		init(){
-			this.da.num1 = '￥ '+this.mo.num1;
-			this.da.num2 = '￥ '+this.mo.num2;
-			// this.getUserDetail();
+			this.getData();
 		},
 		gosetPersonal(){
 			this.$router.push({path:'/setPersonal'})			
@@ -338,7 +532,7 @@ export default {
 	margin-right: 0;
 }
 .jdt_n>span>div{
-	background: #67C239;
+	background: #C1EDAA;
 	border-radius: 50%;
 	margin: 0 auto 7px;
 	width:20px;
@@ -349,6 +543,9 @@ export default {
 	color:rgba(255,255,255,1);
 	line-height:20px;
 	
+}
+.jdt_n>span.jdt_n_on>div{
+	background: #67C239;
 }
 .jdt_n>span.jdt_n_on{
 	font-weight:500;
@@ -365,14 +562,14 @@ export default {
 	margin: 0 auto 27px;
 	
 }
-.pr_xx_1>div{
+.pr_xx_1>div.pr_xx_1_c{
 	margin-bottom: 13px;
 }
-.pr_xx_1>div>span{
+.pr_xx_1>div.pr_xx_1_c>span{
 	display: inline-block;
 	vertical-align: top;
 }
-.pr_xx_1>div>span:nth-child(1){
+.pr_xx_1>div.pr_xx_1_c>span:nth-child(1){
 	margin-right: 44px;
 	width:91px;
 	height:20px;
@@ -381,7 +578,7 @@ export default {
 	color:rgba(153,153,153,1);
 	line-height:20px;
 }
-.pr_xx_1>div>span:nth-child(2){
+.pr_xx_1>div.pr_xx_1_c>span:nth-child(2){
 	font-size:14px;
 	font-weight:400;
 	color:rgba(51,51,51,1);
@@ -404,5 +601,139 @@ export default {
     border-bottom: 1px solid #DDDDDD;	
     width: 215px;
 	outline: none;
+}
+
+
+.txTbox{
+	margin: 0 auto;
+	text-align: left;
+	width: 550px;
+	
+}
+.txTbox_t{
+	margin-bottom: 12px;
+	font-size:14px;
+	font-weight:500;
+	color:rgba(51,51,51,1);
+	line-height:20px;
+}
+.txTbox_c{
+	width: 410px;
+    margin: 0 auto 25px;
+}
+.txTbox_c_fp_1{
+	font-size:14px;
+	font-weight:400;
+	color:#333333;
+	line-height:21px;
+}
+.txTbox_c_fp_1>span.hszt{
+	color:#999;
+}
+.zyfb{
+	
+	
+}
+.zyfb>div{
+	margin-bottom: 12px;
+}
+.zyfb>div>span{
+	display: inline-block;
+	vertical-align: top;
+	font-size:14px;
+	font-weight:400;
+	line-height:20px;
+}
+.zyfb>div>span:nth-child(1){
+	color:rgba(153,153,153,1);
+	margin-right: 33px;
+	width: 84px;
+}
+.zyfb>div>span:nth-child(2){
+	color:rgba(51,51,51,1);
+	width: 264px;
+}
+.up_fp>span{
+	margin-top: 10px;
+}
+.up_fp>div{
+	display: inline-block;
+}
+
+.jdtBox{
+	position: relative;
+    background: #D8D8D8;
+    border-radius: 4px;
+    width: 100%;
+    height: 4px;
+    overflow: hidden;
+}
+.jdtBox>div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #FF5121;
+}
+.up_fp .botnbox{
+	text-align: left;
+}
+.up_fp .up_fp_1{
+	margin-bottom: 15px;
+}
+.up_fp_2>div{
+	display: inline-block;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(51,51,51,1);
+	line-height:20px;
+}
+.up_fp_3{
+	vertical-align: middle;
+	margin-right: 10px;
+	width: 127px;
+	height: 4px;
+}
+.up_fp_4{
+	margin-left: 22px;
+}
+.up_fp_5{
+	font-size:14px;
+	font-weight:400;
+	color:rgba(51,51,51,1);
+	line-height:20px;
+}
+.cldo{
+	display: inline-block;
+	margin-left: 12px;
+	font-size: 14px;
+	vertical-align: middle;
+}
+.up_file{
+	position: relative;
+}
+.up_file>input{
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+.phodegg{
+	position: relative;
+}
+.phodegg .lgoin_s2{
+	margin-right: 12px;
+    margin-left: 0px;
+}
+.uphodefbt{
+	position: absolute;
+    right: 0;
+    top: 9px;
+    color: #FF5121;
+    font-size: 14px;
 }
 </style>

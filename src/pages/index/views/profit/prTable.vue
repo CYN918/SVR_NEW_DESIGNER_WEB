@@ -1,22 +1,23 @@
 <template>
 	<div class="pr_boxd">
-		<table class="tabld" border="1">
+		<table v-if="List.length>0" class="tabld" border="1">
 			<tr >
-				<th v-for="(el,index) in cg.title" :key="index">{{el}}</th>
+				<th v-for="(el,index) in cg.title" :key="index">{{el.n}}</th>
 			</tr>
-			<tr v-for="(el,index) in da" :key="index">
-				<td>2019/02/30 18:00</td>
-				<td>2019/02/30 18:00</td>
-				<td>2019/02/30 18:00</td>
-				<td>2019/02/30 18:00</td>
-				<td>2019/02/30 18:00</td>
-				<td>买断式</td>
-				<td>2019/02/30 18:00</td>
-			</tr>
-	
-		</table>
-		
-		<el-pagination class="pagesddd"
+			<tr v-for="(el,index) in List" :key="index">
+				<td v-for="(el2,index2) in cg.title" :key="index2">
+					{{xData(el2,el)}}
+					<span @click="clickFn(el2.temp.cFn,el)" :class="el2.temp.cls" v-if="el2.temp">
+						
+						<span v-if="el2.temp.clfn" v-html="el2.temp.clfn(el)"></span>
+						<span v-else>
+							{{el2.temp.poprs?el[el2.temp.poprs]:el2.temp.value?el2.temp.value:''}}
+						</span>
+					</span> 
+				</td>				
+			</tr>	
+		</table>	
+		<el-pagination class="pagesddd" v-if="total>40"
 		background
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"
@@ -26,11 +27,14 @@
 		layout="prev,pager, next,sizes, jumper"
 		:total="total">   
 		</el-pagination>
-		
+		<div v-if="isNodeat" class="emptyData">
+			<img src="/imge/k/empty_nodata@3x.png"/>
+		</div>
 	</div>
 </template>
 
 <script>
+import { Loading } from 'element-ui';
 export default {
 	name: 'prTable',
 	props:{
@@ -38,20 +42,75 @@ export default {
 			type:Object,
 			default:{}
 		},
-	
 	},
 	data(){
 		return {
-			da:[1,2,3,4,5],
+			List:[],
 			page:1,
 			limit:40,
-			total:0
+			total:0,
+			isNodeat:'',
+			loading: '',
 		}
 	},
-	mounted: function(){}, 
+	mounted: function(){
+		this.getData();
+	}, 
 	methods: {
-		getData(){
+		clickFn(n,o){
+			if(!this.$parent[n]){
+				return
+			}
+			this.$parent[n](o);
+		},
+		xData(o1,o2){
+			console.log(o1);
+			if(o1.poprs){
+				return o2[o1.poprs]?o2[o1.poprs]:'';
+			}
 			
+			if(o1.clfn){				
+				return o1.clfn(o2);
+			}
+			
+			if(o1.temp){
+				
+			}
+		},
+		sxfn(da){
+			this.getData(da);
+		},
+		getData(da){			
+			let params = {
+				page:this.page,
+				limit:this.limit
+			};
+			
+			if(this.cg.setp && !da){
+				this.cg.setp(params);
+			}
+		
+			if(da){
+				da(params);
+			}		
+			this.loading = Loading.service({ fullscreen: true });
+			this.api[this.cg.ajax.url](params).then((da)=>{
+				this.loading.close();
+				if(!da){
+					return
+				}				
+				this.List = da.data;
+				this.total = da.total;
+				if(this.$parent.settotal){
+					this.$parent.settotal(da.total);
+				}
+				if(this.List.length==0){
+					this.isNodeat=1;
+				}				
+				window.scrollTo(0,0);
+			}).catch(()=>{
+				this.loading.close();
+			})
 		},
 		handleSizeChange(val) {
 			this.limit = val;
@@ -80,7 +139,7 @@ export default {
 }
 .tabld th{
 	padding-left: 20px;
-	background: gainsboro;
+	background: #e0e0e0;
 	border: none;
 
 }

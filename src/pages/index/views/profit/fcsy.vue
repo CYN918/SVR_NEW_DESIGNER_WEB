@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<navd :config="sxConfig"></navd>
-		<prTable :cg="config"></prTable>
+		<prTable :cg="config" ref="tabds"></prTable>
 	</div>
 </template>
 
@@ -14,37 +14,45 @@ export default {
 	data(){
 		return {
 			config:{
-				title:['结算日期','作品标题','结算收益'],				
+				title:[
+					{n:'结算日期',poprs:'settle_time'},
+					{n:'作品标题',temp:{cFn:'goWork',poprs:'work_name',cls:'pend'}},
+					{n:'结算收益',poprs:'settle_income'},					
+				],					
+				ajax:{
+					url:'Income_flowList',
+				},
+				setp:(da)=>{			
+					da.time =  new Date().getTime()-(30*1000*60*60*24);				
+				},										
 			},
-			dataList:[1,2,3,4,5,6,7],
 			sxConfig:{
-				list1:[
-					{label:'全部记录',value:0},
-					{label:'买断式',value:1},
-					{label:'分成式',value:2}
-				],
-				v1:0,
 				list2:[
 					{label:'全部记录',value:0},
-					{label:'近一周',value:1},
-					{label:'近一个月',value:2},
-					{label:'近一半年',value:3},
-					{label:'近一年',value:4}
+					{label:'近一周',value:7},
+					{label:'近一个月',value:30},
+					{label:'近一半年',value:183},
+					{label:'近一年',value:365}
 				],
-				v2:2
+				v2:30
 			},
-			data:{
-				type:'box_a',
-				ajax:{
-					url:'getHList',
-				}
-			},
-
+			timed:30,
 		}
 	},
 	mounted: function(){}, 
 	methods: {
-
+		goWork(d){
+			this.$router.push({path: '/cont',query:{id:d.work_id}});
+		},
+		setTim(o){
+			this.timed = o;
+			this.$refs.tabds.sxfn((da)=>{	
+				if(this.timed!=0){
+					da.time =  new Date().getTime()-(this.timed*1000*60*60*24);
+				}
+					
+			});
+		}
 	}
 }
 </script>

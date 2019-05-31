@@ -64,10 +64,11 @@ export default {
 			
 		},
 		sxFn1(){
-			console.log(1111111)
+			this.$parent.setType(this.v1);
 		},
 		sxFn2(){
-			console.log(1111111)
+			this.$parent.setTim(this.v2);
+			
 		}
 	}
 }

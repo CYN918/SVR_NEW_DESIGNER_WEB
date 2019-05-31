@@ -236,4 +236,22 @@ export default {
 		url:'/api/user/contributorInfo',method:'post',baseURL:0,
 	},
 	
+	
+	
+	/*收益*/
+	Income_info:{
+		url:'/Api/Income/info',method:'post',baseURL:0,
+	},
+	Income_hireworkList:{
+		url:'/Api/Income/hireworkList',method:'post',baseURL:0,
+	},
+	Income_flowList:{
+		url:'/Api/Income/flowList',method:'post',baseURL:0,
+	},
+	
+	Income_applyList:{
+		url:'/Api/Income/applyList',method:'post',baseURL:0,
+	},
+	
+	
 }
