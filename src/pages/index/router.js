@@ -174,7 +174,14 @@ let wb = [
 						component: () => import('./views/profit/fcsy.vue'),
 						
 					},
+					
 				]
+				
+			},
+			{
+				path: '/noIs',
+				name: 'noIs',
+				component: () => import('./views/profit/noRz.vue'),
 				
 			},
 			{

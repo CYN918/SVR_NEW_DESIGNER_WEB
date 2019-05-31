@@ -325,10 +325,10 @@ export default {
 }
 .uploadBoxd2_1{
 	position: absolute;
-	top: -45px;
-	right: -45px;
-	width: 44px;
-	height: 44px;
+	top: -36px;
+	right: -36px;
+	width: 36px;
+	height: 36px;
 	cursor: pointer;
 	
 }

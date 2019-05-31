@@ -18,7 +18,7 @@
 					</div>				
 					<div class="upFm_yl_1_2">
 						<div class="upFm_yl_1_2_1">
-							<span>{{InputValue}}</span>
+							<span class="maxwz1">{{InputValue}}</span>
 							<img src="/imge/zs_icon_tj.png" alt="">
 						</div>
 						<div class="upFm_yl_1_2_2">
@@ -452,4 +452,11 @@ export default {
 	width: 100%;
 	height: 100%;
 }	
+.maxwz1{
+	max-width: 186px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 </style>

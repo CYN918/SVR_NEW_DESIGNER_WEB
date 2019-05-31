@@ -1,8 +1,6 @@
 <template>
 	<div>
 		<TopNav :data="topConifg"></TopNav>
-		
-		<div v-if="1==2" class="profitBox_1"></div>
 		<div class="profitBox_2">
 			<div class="pbx_1">
 				<div>
@@ -111,6 +109,18 @@ export default {
 			min1:'&#xe6a2;',
 			min2:'&#xe6a2;',
 		}
+	},
+	beforeCreate:function(){
+	
+		if(!window.userInfo){
+			this.$router.push({path: '/index'});
+			return
+		}
+		if(window.contributor_format_status!=2){
+			this.$router.push({path: '/noIs'});
+			return
+		}
+	
 	},
 	mounted: function () {			
 		this.init();
