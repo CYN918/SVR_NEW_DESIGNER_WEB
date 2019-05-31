@@ -66,7 +66,7 @@
 				<div  class="userBpx">
 					<a @click="goUser">{{userMssge.username.substring(0,9)}}</a>
 					<ul> 
-						<router-link  to="/myAll"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></router-link>
+						<router-link  to="/myAll"><li><img class="svgImg2 cztsyscl" src="/imge/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></router-link>
 						<router-link  to="/myDynamic"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></router-link>
 						<router-link  to="/profit"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></router-link>
 						<router-link  to="/setUser"><li><img class="svgImg2" src="/imge/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></router-link>
@@ -785,5 +785,10 @@ export default {
 	display: inline-block;
 	vertical-align: middle;
 	margin-right: 10px;
+}
+.cztsyscl{
+	width: 26px;
+    margin-right: 3px;
+    margin-left: -4px;
 }
 </style>

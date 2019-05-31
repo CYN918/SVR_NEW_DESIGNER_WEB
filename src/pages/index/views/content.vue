@@ -131,36 +131,13 @@
 						<div class="seed2_1_2_1x1">
 						<div  class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
 							<box_a :el="el"></box_a>
-							<!--<div class="i_listd1x2" @click="seeWorks(el.work_id)"><img :src="el.face_pic" alt="" class="i_listd1"></div>
-							<div class="i_listd2">
-								<div class="i_listd2_1">
-									<span @click="seeWorks(el.work_id)">{{el.work_name}}</span>
-									<img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt="">
-								</div>
-								<div class="i_listd2_2">
-									<span>{{el.classify_1_name+'-'+el.classify_2_name}}</span>
-									<span>{{backtime(el.create_time)}}</span>
-								</div>
-								
-								<div class="i_listd2_3">
-									<span><img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt=""></span>
-									
-									<div class="i_listd2_3x1" @click="openxq(index)">
-										<span class="pend"><img src="/imge/icon/zs_icon_gk.png">{{el.view_num}}</span>
-										<span class="pend"><img src="/imge/icon/zs_icon_dz.png">{{el.like_num}}</span>
-										<span class="pend"><img src="/imge/icon/zs_icon_xx.png">{{el.comment_num}}</span>
-									</div>
-								</div>
-							</div>-->
 						</div>
 						</div>
-						
-						
 					</div>
 					<div class="seed2_1_2xx" v-else>
 						你正在浏览TA首次发布的作品<br/>作为老前辈, 送个赞鼓励下吧~
 					
-						<span class="btns seed1_2_5xx" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="/imge/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
+						<span class="btns pend seed1_2_5xx" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="/imge/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
 					</div>
 				</div>
 			</div>

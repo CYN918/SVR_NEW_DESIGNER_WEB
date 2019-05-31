@@ -619,6 +619,7 @@ export default {
 			formData.append('file',fld)
 			formData.append('relation_type','work')
 			formData.append('timestamp',times)
+			formData.append('is_callback',1)
 			let xhr = new XMLHttpRequest();
 			this.upfjData = {
 				file_name:fld.name,
@@ -626,7 +627,6 @@ export default {
 				xhr:xhr,
 				type:'上传中'
 			};
-			console.log(this.upfjData)
 			let uploadProgress = (evt)=>{		
 				if(evt.lengthComputable) {
 					let percent = Math.round(evt.loaded * 100 / evt.total);

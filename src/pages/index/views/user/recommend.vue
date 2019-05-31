@@ -3,7 +3,7 @@
 		<tophead></tophead>
 		<div class="worksBox">
 			<div class="worksBox_1">
-				共发布{{total}}个作品 
+				共推荐{{total}}个作品 
 				<div class="worksBox_2">
 					{{sxData[sxtj].name}}
 					<div class="worksBox_2_1">
