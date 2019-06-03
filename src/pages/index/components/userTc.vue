@@ -9,7 +9,7 @@
 					粉丝<div>{{tcData.user_info.fans_num}}</div>				
 				</span>
 				<span>
-					人气<div>{{tcData.user_info.follow_num}}</div>				
+					人气<div>{{tcData.user_info.popular_num}}</div>				
 				</span>
 				<span class="pend" @click="goFans('/works')">
 					创作<div>{{tcData.user_info.work_num}}</div>				
@@ -52,7 +52,7 @@ export default {
 	},
 	
 	mounted: function () {	
-		
+		console.log(this.tcData)
 		this.chatData = {
 			open_id:this.tcData.user_info.open_id,
 			avatar:this.tcData.user_info.avatar,

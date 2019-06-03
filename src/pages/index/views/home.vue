@@ -1,7 +1,6 @@
 <template>
 	<div class="csBox">
 		<baner></baner>
-		
 		<!-- <div class="proNav2 homdfgs">
 			<div class="proNav2_1">
 				<router-link to="/index">首页推荐</router-link>
@@ -33,8 +32,11 @@ export default {
 			},	
 		}
 	},
-	mounted: function(){}, 
-	methods: {}
+	mounted: function(){
+	}, 
+	methods: {
+
+	}
 }
 </script>
 
