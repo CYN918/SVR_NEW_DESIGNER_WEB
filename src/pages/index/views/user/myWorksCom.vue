@@ -172,12 +172,19 @@ export default {
 		showissetDatasXX(on){
 			this.issetDatasXX = true;
 			this.setDataOn = on;
-			this.form = on;
-			this.form.labels = JSON.parse(this.form.labels);
+			this.$set(this.form,on)
+			
+			try{
+				this.form.labels = JSON.parse(this.form.labels);
+			}catch(e){
+				//TODO handle the exception
+			}
+			
 			this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
 			if(this.page2.classify.length>0){
 				return;
 			}
+			console.log(this.form);
 			this.getClassify();
 		},
 		hindissetDatasXX(){

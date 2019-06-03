@@ -64,7 +64,6 @@ export default {
 			this.$parent[n](o);
 		},
 		xData(o1,o2){
-			console.log(o1);
 			if(o1.poprs){
 				return o2[o1.poprs]?o2[o1.poprs]:'';
 			}

@@ -28,7 +28,7 @@
 				</div>
 			</div>
 		</div>
-		<router-view/>
+		<router-view ref="chartView"/>
 		
 		<tacBox v-if="istx">
 			<template v-slot:tanBox="{todo}">
@@ -44,16 +44,16 @@
 					
 					<div v-if="typedon==0"  class="pr_xx_1">
 						<div class="pr_xx_1_c">
-							<span>企业/机构名称</span><span>**凡</span>
+							<span>企业/机构名称</span><span>{{backname(form.account_name)}}</span>
 						</div>
 						<div class="pr_xx_1_c">
-							<span>企业银行账号</span><span>6666********6666</span>
+							<span>企业银行账号</span><span>{{backBan(form.bank_card_id)}}</span>
 						</div>
 						<div class="pr_xx_1_c">
-							<span>开户银行</span><span>招商银行</span>
+							<span>开户银行</span><span>{{form.bank_name}}</span>
 						</div>
 						<div class="pr_xx_1_c">
-							<span>开户支行</span><span>南山某某支行</span>
+							<span>开户支行</span><span>{{form.bank_subbranch}}</span>
 						</div>
 					</div>
 					
@@ -62,7 +62,7 @@
 					
 					<div v-if="typedon==1" class="pr_xx_1">
 						<div class="pr_xx_1_c">
-							<span>账户余额</span><span>￥300，000.00</span>
+							<span>账户余额</span><span>{{num1}}</span>
 						</div>
 						<div class="pr_xx_1_c">
 							<span>提现金额</span><span><input class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
@@ -98,25 +98,25 @@
 											</div>
 										</div>
 										<div>{{upfjData.bf?upfjData.bf+'%':''}}</div>
-										<div @click="qxclosd(fileUpfj)" class="up_fp_4 iconfont pend">&#xe619;</div>
+										<div @click="qxclosd(fileUpfjd)" class="up_fp_4 iconfont pend">&#xe619;</div>
 									</div>
 									<div v-if="upfjData.bf" class="up_fp_5 iconfont" :title="upfjData.file_name">
 										&#xe621; {{upfjData.file_name?upfjData.file_name.substring(0,10):'xxxxxx'}}
-										<span @click="qxclosd(fileUpfj)" class="cldo iconfont pend">&#xe619;</span>
+										<span @click="qxclosd(fileUpfjd)" class="cldo iconfont pend">&#xe619;</span>
 									</div>
 								</div>
 							</div>
 							<div><span>物流公司名称</span><span><input class="txje" placeholder="请输入物流公司名称" v-model="form.express_company" type="text"></span></div>
 							<div><span>寄送物流单号</span><span><input class="txje" placeholder="请输入物流单号" v-model="form.express_id" type="text"></span></div>
-							
+						
 						</div>
 						
 					</div>
 					
 					<div v-if="typedon==3" class="pr_xx_1">
 						<div class="phodegg">
-							<Input class="tc_sucd_2_1" v-model="form.moble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入新的手机号码'"  ></Input>
-							<span class="uphodefbt pend" @click="editPhone()">修改手机号</span>
+							<div class="hm">{{backPhone()}}<span class="uphodefbt pend" @click="editPhone()">修改手机号</span></div>
+							
 							<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 							
 						</div>
@@ -127,7 +127,7 @@
 						<span v-if="typedon>0" @click="next_x(-1)">上一步</span>
 						<span v-if="typedon==0" @click="goUpsuer()">修改银行信息</span>
 						<span v-if="typedon<3" @click="next_x(1)" class="ysHei">下一步</span>
-						<span v-if="typedon==3" @click="" class="ysHei">完成</span>
+						<span v-if="typedon==3" @click="pushData" class="ysHei">完成</span>
 					</div>
 				</div>
 				
@@ -149,8 +149,9 @@ export default {
 	data(){
 		return {
 			basDa:{},
+			fileUpfjd:'',
 			istx:'',
-			form:{},
+			form:{account_name:'测试',bank_card_id:'xxxxxxxxx',bank_name:'bank_name',bank_subbranch:'xxxx'},
 			typedon:0,
 			ldList:['信息确认','提现金额','发票寄送','身份验证'],
 			topConifg:{title:'我的收益'},
@@ -186,12 +187,11 @@ export default {
 		}
 	},
 	beforeCreate:function(){
-	
 		if(!window.userInfo){
 			this.$router.push({path: '/index'});
 			return
 		}
-		if(window.contributor_format_status!=2){
+		if(window.userInfo.contributor_format_status!=2){
 			this.$router.push({path: '/noIs'});
 			return
 		}
@@ -201,28 +201,61 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		backPhone(){
+			return window.userInfo.mobile_zone+'+'+window.userInfo.mobile;
+		},
+		backBan(da){
+			if(!da){return}
+			return da.substring(0,4)+'*******'+da.substring(-1,4);
+		},
+		backname(da){
+			if(!da){return}
+			let len = da.length,
+			str = da.substring(-1,1),
+			xx = '';
+			for(let i=0;i<len-1;i++){
+				xx+='*';
+			}
+			return xx+str;
+		},
 		init(){
+			
 			this.getData();
+			this.getUserDetail();
 		},
 		getData(){
 			let pr = {};
 			this.api.Income_info(pr).then((da)=>{
+				
 				if(!da){return}
 		
 				this.basDa = da;
-				
-				
 				this.num1 = '￥ '+da.account_balance;
 				this.num2 = '￥ '+da.total_income;				
-				this.form.account_name = da.account_name;
-				this.form.bank_card_id = da.bank_card_id;
-				this.form.bank_name = da.bank_name;				
-				this.form.bank_subbranch = da.bank_subbranch;
+				
 
 			})
 		},
 		pushData(){
-			
+			if(this.chekverify(this.form.verify_code)!=true){
+				Message({message: '请填写正确的验证码'});
+				return
+			}
+			let pr = this.form;
+			this.api.Income_applyCash(pr).then((da)=>{
+				if(da!='undefined'){return}
+				Message({message: '申请成功请耐心等待审核'});
+				this.basDa.account_balance -= pr.cash_money;
+				this.num1 = '￥ '+this.basDa.account_balance;
+				this.form={};
+				
+				
+				this.close();
+				if(this.$refs.chartView.addGetData){
+					this.$refs.chartView.addGetData();
+				}
+							
+			});	
 		},
 		editPhone(){
 			this.$router.push({path: '/setUser'});
@@ -231,22 +264,12 @@ export default {
 			this.from.mobile_zone = val;
 		},
 		ajaxYzm(){
-			let pd = this.form.moble;
-			if(this.form.mobile_zone!='86'){
-				if(!(typeof pd === 'number' && pd%1 === 0)){
-					Message({message: '请输入正确的手机号码'});
-					return 					
-				}			
-			}else{
-				if(!(/^1[34578]\d{9}$/.test(pd))){ 
-					Message({message: '请输入正确的手机号码'});
-					return
-				} 
-				
-			}		
+			if(!window.userInfo){
+				return
+			}
 			let params = {
-				mobile:this.this.form.moble,
-				mobile_zone:this.form.mobile_zone
+				mobile:window.userInfo.mobile,
+				mobile_zone:window.userInfo.mobile_zone
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(!da){
@@ -262,7 +285,11 @@ export default {
 			if(this.upfjData && this.upfjData.type){
 				Message({message: '正在上传中请稍后'});
 				return
-			}		
+			}	
+			if (!/\.(jpg|jpeg|png|JPG|PNG|GIF)$/.test(flie.target.value)||flie.target.files.length==0) {
+				Message({message: '请上传正确的格式'});
+				return
+			}
 			let fld = flie.target.files[0],	
 			app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',		
 			times = (Date.parse(new Date())/1000);
@@ -310,14 +337,14 @@ export default {
 				// delete p;
 				p.type="none";
 				this.$refs.upnfile2.value ='';
-				this.this.upfjData = {};
+				this.upfjData = {};
 				Message({message: '文件上传失败请稍后重试'});
 				
 			};
 			let uploadCanceled = ()=>{
-				p.type="none";
+				// p.type="none";
 				this.$refs.upnfile2.value ='';
-				this.this.upfjData = {};
+				this.upfjData = {};
 				this.form.invoice = '';
 				Message({message: '取消成功'});
 				
@@ -328,13 +355,15 @@ export default {
 			xhr.addEventListener("abort",uploadCanceled, false);
 			xhr.open("POST", window.basrul+"/File/File/insert");
 			xhr.send(formData);
+			this.fileUpfjd = xhr;
+			
 		},
 		qxclosd(obj){
-			if(obj.xhr){
-				obj.xhr.abort();
-				
+			if(obj){
+				obj.abort();			
 				return
 			}
+			
 			this.form.invoice = '';
 			this.form.attachment_id='';
 			this.upfjData = {};
@@ -347,9 +376,25 @@ export default {
 		},
 		next_x(o){
 			let  p = this.typedon+o;
-			if(p==2 && (parseFloat(this.form.je).toString() == "NaN" || this.form.je<300) ){
+			if(p==2 && (parseFloat(this.form.cash_money).toString() == "NaN" || this.form.cash_money<300) ){
 				Message({message: '请输入正确金额'});
 				return;
+			}
+			if(p==3){
+				if(!this.form.invoice){
+					Message({message: '请先上传照片'});
+					return;
+				}
+					  
+				if(!this.form.express_company){
+					Message({message: '请先填写物流公司名称'});
+					return;
+				}
+				if(!this.form.express_id){
+					Message({message: '请先填写物流单号'});
+					return;
+				}
+				
 			}
 			this.typedon = p;
 		},
@@ -382,13 +427,6 @@ export default {
 		gosetPersonal(){
 			this.$router.push({path:'/setPersonal'})			
 		},
-		getUserDetail(){
-			if(!window.userInfo){
-				this.$router.push({path:'/login'})
-				return
-			}	
-			this.userData = window.userInfo;
-		},
 		goUpsuer(){
 			if(!window.userInfo){
 				this.$router.push({path:'/login'})
@@ -399,6 +437,32 @@ export default {
 				return
 			}
 			this.$router.push({path: '/setPersonal'});
+		},
+		
+		
+		getUserDetail(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+				return
+			}
+			let pr = {
+				access_token:window.userInfo.access_token,
+				contribute_type:window.userInfo.contributor_type
+			};
+			this.api.contributorInfo(pr).then((da)=>{
+				if(!da){return}
+				if(da.tax_rate_type==2){
+					this.form.account_name = da.company_name;
+					this.form.bank_card_id = da.bank_card_no;
+					this.form.bank_name = da.bank_name;				
+					this.form.bank_subbranch = da.branch_bank;
+					return
+				}
+				this.form.account_name = da.account_name;
+				this.form.bank_card_id = da.bank_card_id;
+				this.form.bank_name = da.bank_name;				
+				this.form.bank_subbranch = da.bank_subbranch;
+			})
 		},
 	},
 }
@@ -746,8 +810,15 @@ export default {
 .uphodefbt{
 	position: absolute;
     right: 0;
-    top: 9px;
+    top: 0;
     color: #FF5121;
     font-size: 14px;
+}
+.hm{
+	position: relative;
+    height: 40px;
+    border-bottom: 1px solid #ddd;
+    line-height: 40px;
+    margin-bottom: 20px;
 }
 </style>

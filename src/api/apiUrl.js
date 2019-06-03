@@ -253,5 +253,9 @@ export default {
 		url:'/Api/Income/applyList',method:'post',baseURL:0,
 	},
 	
+	Income_applyCash:{
+		url:'/Api/Income/applyCash',method:'post',baseURL:0,
+	},
+	
 	
 }

@@ -468,6 +468,7 @@ export default {
 			});
 		},
 		getData(id){
+			
 			let pr = {
 				access_token:window.userInfo.access_token,
 				work_id:id,
@@ -477,9 +478,14 @@ export default {
 				if(!da){
 					return
 				}
-				this.form = da
+				// this.form = da;
+				this.$set(this.form,da);
 				this.csz = da.work_name;
-				this.form.labels = JSON.parse(this.form.labels);
+				
+				try{
+					this.form.labels = JSON.parse(this.form.labels);
+				}catch(e){}
+				
 
 				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
 				if(this.form.attachment){
@@ -491,6 +497,7 @@ export default {
 					this.upfjData.file_name = this.form.attachment.file_name;
 				};
 				this.ifBjType=1;
+				
 			})
 
 		},

@@ -1,7 +1,7 @@
 <template>
 	<div class="csBox csBoxxxxx">
 		<tophead :clasd="clasd"  :onNav="1" ref="mytopcs"></tophead>
-		<ul v-if="List.length>0" class="i_listd homeMinheifh homeMinheifh2">
+		<ul v-if="List.length>0" class=" i_listd homeMinheifh homeMinheifh2">
 			<li v-for="(el,index) in List" :key="index">
 				<box_a :el="el"></box_a>
 			</li>
@@ -130,7 +130,9 @@ export default {
 	min-height: 494px;
 }
 .csBoxxxxx ul{
-	text-align: left;
+	margin: 0 auto 120px;
+    text-align: left;
+    width: 1300px;
 }
 .csBoxxxxx li{
 	display: inline-block;

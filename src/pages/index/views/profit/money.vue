@@ -99,7 +99,13 @@ export default {
 	},
 	mounted: function(){}, 
 	methods: {
-
+		addGetData(){
+			this.$refs.tabds.sxfn((da)=>{	
+				if(this.timed!=0){
+					da.time =  new Date().getTime()-(this.timed*1000*60*60*24);
+				}					
+			});
+		},
 		chtj(d){
 			alert(111);
 		},
@@ -111,7 +117,13 @@ export default {
 				}
 					
 			});
-		}
+		},
+		
+	},
+	watch: {	
+		'$route': function() {
+			console.log(111111111111111111);
+		},
 	}
 }
 </script>
