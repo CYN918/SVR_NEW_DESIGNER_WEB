@@ -20,7 +20,7 @@
 						</div>
 						<div class="myListBox_4">
 						
-							<span class="myListBox_4_1" @click="showissetDatasXX(todo)" v-if="todo.status==2">修改设置</span>
+							<span class="myListBox_4_1" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</span>
 							<span @click="updata(todo.work_id)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>
 						
 							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span>
@@ -169,23 +169,31 @@ export default {
 				Message({message:'修改成功正在审核'});							
 			});		
 		},
-		showissetDatasXX(on){
-			this.issetDatasXX = true;
-			this.setDataOn = on;
-			this.$set(this.form,on)
+		showissetDatasXX(id){
+			let pr = {
+				access_token:window.userInfo.access_token,
+				work_id:id,
+				is_draft:0
+			};
+			this.api.getWorkDetail(pr).then((da)=>{
+				if(!da){
+					return
+				}
+				this.issetDatasXX = true;
+				this.setDataOn = da;
+				this.form = da;
+				
+				try{
+					this.form.labels = JSON.parse(this.form.labels);
+				}catch(e){}
+				
+				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
+				if(this.page2.classify.length>0){
+					return;
+				}
+				this.getClassify();				
+			})
 			
-			try{
-				this.form.labels = JSON.parse(this.form.labels);
-			}catch(e){
-				//TODO handle the exception
-			}
-			
-			this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
-			if(this.page2.classify.length>0){
-				return;
-			}
-			console.log(this.form);
-			this.getClassify();
 		},
 		hindissetDatasXX(){
 			this.issetDatasXX = false;

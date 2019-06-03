@@ -95,7 +95,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="page2_2_3">
+				<div v-if="checkisptggr()" class="page2_2_3">
 					<div class="page2_2_3_1">是否设为平台投稿作品<span class="btRed"></span><span>设置后，若该作品符合平台需求，则平台客服会联系创作者进行商业洽谈</span></div>
 					<div class="page2_1_7_r">
 						<label>
@@ -211,7 +211,6 @@ export default {
 			this.checkPage1();			
 		},
 		'form.content'() {
-			console.log(this.form.content)
 			this.checkPage1();
 		},
 		'form.face_pic'() {
@@ -254,6 +253,16 @@ export default {
 	}, 
 	methods: {
 		/*page2*/
+		checkisptggr(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'});
+				return '';
+			}
+			if(window.userInfo.contributor_format_status==2){
+				return 1;
+			}
+			return '';
+		},
 		seletClassify(name,on){
 			this.page2[name] = on;
 		},
@@ -384,16 +393,13 @@ export default {
 		},
 		ready (editorInstance) {
 			this.uD = editorInstance;
-		
-			editorInstance.addListener('focus',(editor)=>{	
-			
+			editorInstance.addListener('focus',(editor)=>{				
 					if(this.ifBjType==0){
 						this.form.content = '';
 						this.ifBjType=1;				
 					}
 			});
 			editorInstance.addListener('blur',(editor)=>{
-				console.log(this.form.content);
 				if(this.ifBjType==1 && this.form.content==''){			
 					this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
 					this.ifBjType=0;
@@ -478,15 +484,11 @@ export default {
 				if(!da){
 					return
 				}
-				// this.form = da;
-				this.$set(this.form,da);
-				this.csz = da.work_name;
-				
+				this.form = da;		
+				this.csz = da.work_name;				
 				try{
 					this.form.labels = JSON.parse(this.form.labels);
 				}catch(e){}
-				
-
 				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
 				if(this.form.attachment){
 					this.upfjData.fid=this.form.attachment_id;
@@ -569,7 +571,6 @@ export default {
 			this.ck2 = "";
 			if(!this.form.work_name){return false}
 			if(!this.form.content){return false}
-			console.log(222222)
 			if(this.ifBjType==0){
 				return false;
 			}
