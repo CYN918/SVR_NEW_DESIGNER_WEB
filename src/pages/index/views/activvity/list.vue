@@ -44,11 +44,13 @@ export default {
 </script>
 
 <style>
+.activvit .listBox{
+	margin-top: 20px;
+}
 .activvit .listBox>li:nth-child(2n+2)>div{
 	margin-right: 0;
 }
 .ac_list_Box_0{
-	padding-top: 20px;
 	background: #F6F6F6;
 	border-radius: 5px;
 	margin: 0 20px 20px 0;

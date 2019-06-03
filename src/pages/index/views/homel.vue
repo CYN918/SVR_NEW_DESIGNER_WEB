@@ -2,12 +2,12 @@
 	<div class="csBox">
 		<baner></baner>
 		
-		<!-- <div class="proNav2 homdfgs">
+		<div class="proNav2 homdfgs">
 			<div class="proNav2_1">
 				<router-link to="/index">首页推荐</router-link>
 				<router-link class="pend" to="/indexl">最新发布</router-link>
 			</div>			
-		</div> -->
+		</div>
 		
 		<list :config="data">
 			<template v-slot:todo="{ todo }">
