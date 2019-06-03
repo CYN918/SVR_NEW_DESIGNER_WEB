@@ -39,7 +39,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 		if(window.userInfo){
 			params.access_token = window.userInfo.access_token;
 		}
-		params.access_token = '2578759cba591f0c515541c4f8a966b0';
+		//params.access_token = '2578759cba591f0c515541c4f8a966b0';
 		params = qs.stringify(params);
 	}
 	if(!url){return}		

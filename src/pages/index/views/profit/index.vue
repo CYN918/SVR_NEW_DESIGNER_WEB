@@ -65,7 +65,7 @@
 							<span>账户余额</span><span>￥300，000.00</span>
 						</div>
 						<div class="pr_xx_1_c">
-							<span>提现金额</span><span><input class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.je" type="text">元</span>
+							<span>提现金额</span><span><input class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
 						</div>
 					</div>
 					
@@ -106,8 +106,8 @@
 									</div>
 								</div>
 							</div>
-							<div><span>物流公司名称</span><span><input class="txje" placeholder="请输入物流公司名称" v-model="form.je" type="text"></span></div>
-							<div><span>寄送物流单号</span><span><input class="txje" placeholder="请输入物流单号" v-model="form.je" type="text"></span></div>
+							<div><span>物流公司名称</span><span><input class="txje" placeholder="请输入物流公司名称" v-model="form.express_company" type="text"></span></div>
+							<div><span>寄送物流单号</span><span><input class="txje" placeholder="请输入物流单号" v-model="form.express_id" type="text"></span></div>
 							
 						</div>
 						
@@ -201,15 +201,28 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		init(){
+			this.getData();
+		},
 		getData(){
 			let pr = {};
 			this.api.Income_info(pr).then((da)=>{
 				if(!da){return}
 		
 				this.basDa = da;
+				
+				
 				this.num1 = '￥ '+da.account_balance;
-				this.num2 = '￥ '+da.total_income;
+				this.num2 = '￥ '+da.total_income;				
+				this.form.account_name = da.account_name;
+				this.form.bank_card_id = da.bank_card_id;
+				this.form.bank_name = da.bank_name;				
+				this.form.bank_subbranch = da.bank_subbranch;
+
 			})
+		},
+		pushData(){
+			
 		},
 		editPhone(){
 			this.$router.push({path: '/setUser'});
@@ -286,6 +299,7 @@ export default {
 					let da = JSON.parse(data.currentTarget.response).data;
 					this.upfjData.fid=da.fid;					
 					this.upfjData.type='上传成功';
+					this.form.invoice = da.url;
 					this.$refs.upnfile2.value ='';		
 					this.form.attachment_id = da.fid;	
 					Message({message: '文件上传成功'});
@@ -304,6 +318,7 @@ export default {
 				p.type="none";
 				this.$refs.upnfile2.value ='';
 				this.this.upfjData = {};
+				this.form.invoice = '';
 				Message({message: '取消成功'});
 				
 			};
@@ -319,7 +334,8 @@ export default {
 				obj.xhr.abort();
 				
 				return
-			}		
+			}
+			this.form.invoice = '';
 			this.form.attachment_id='';
 			this.upfjData = {};
 		},
@@ -362,9 +378,7 @@ export default {
 				return
 			}
 		},
-		init(){
-			this.getData();
-		},
+		
 		gosetPersonal(){
 			this.$router.push({path:'/setPersonal'})			
 		},
