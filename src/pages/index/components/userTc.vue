@@ -52,7 +52,6 @@ export default {
 	},
 	
 	mounted: function () {	
-		console.log(this.tcData)
 		this.chatData = {
 			open_id:this.tcData.user_info.open_id,
 			avatar:this.tcData.user_info.avatar,

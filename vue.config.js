@@ -1,12 +1,28 @@
 //模拟数据
 const express = require('express')
 const app = express()
+const CompressionPlugin = require('compression-webpack-plugin');
 //var appData = require('./src/data/goodlist.json')
 //var seller = appData
 var apiRoutes = express.Router();
 app.use('/api',apiRoutes)
 
-module.exports = {
+module.exports = {	
+	configureWebpack: config => {
+		if (process.env.NODE_ENV === 'production') {
+			// 为生产环境修改配置...
+			return {
+				plugins:[new CompressionPlugin({
+					test:/\.js$|.html$|\.css/,
+					threshold:10240,
+					deleteOriginalAssets:false
+				})]
+			}
+		  
+		} else {
+		  // 为开发环境修改配置...
+		}
+	},	
 	pages: {
         index: {            
             entry: 'src/pages/index/main.js',
@@ -28,9 +44,8 @@ module.exports = {
 //  assetsDir: 'static',
     // eslint-loader 是否在保存的时候检查
     lintOnSave: true, 
-    // use the full build with in-browser compiler?
-    // https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
-    runtimeCompiler: true,
+
+    runtimeCompiler: false,
     // webpack配置
     // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
     chainWebpack: () => {},

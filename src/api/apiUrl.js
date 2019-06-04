@@ -256,6 +256,9 @@ export default {
 	Income_applyCash:{
 		url:'/Api/Income/applyCash',method:'post',baseURL:0,
 	},
+	Income_applyCancel:{
+		url:'/Api/Income/applyCancel',method:'post',baseURL:0,
+	},
 	
 	
 }

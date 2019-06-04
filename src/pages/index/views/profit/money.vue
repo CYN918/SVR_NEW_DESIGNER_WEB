@@ -2,14 +2,17 @@
 	<div>
 		<navd :config="sxConfig"></navd>
 		<prTable :cg="config" ref="tabds"></prTable>
+		<tancQr v-if="isCh" :cg="qrCg"></tancQr>
 	</div>
 </template>
 
 <script>
 import navd from './navd';
+import tancQr from '../../components/tancQr';
 import prTable from './prTable';
+import {Message} from 'element-ui'
 export default {
-	components:{navd,prTable},
+	components:{navd,prTable,tancQr},
 	name: 'pr_works',
 	data(){
 		return {
@@ -52,6 +55,9 @@ export default {
 							if(da.check_status==3){
 								return '<span class="cojType cojType2"><i></i>审核不通过</span>';
 							}
+							if(da.check_status==-2){
+								return '<span class="cojType cojType2"><i></i>撤回</span>';
+							}
 						}}
 					},
 					{n:'审核时间',poprs:'check_time'},
@@ -59,18 +65,7 @@ export default {
 							if(da.check_status==0){
 								return '<span class="pend">撤回</span>';
 							}
-							if(da.check_status==1){
-								return '<span class="pend">撤回</span>';
-							}
-							if(da.check_status==2){
-								return '<span class="pend">撤回</span>';
-							}
-							if(da.check_status==3){
-								return '<span>--</span>';
-							}
-							if(da.check_status==3){
-								return '<span class="pend">撤回</span>';
-							}
+							return '<span>--</span>';
 						}}
 					}
 				],
@@ -94,6 +89,13 @@ export default {
 				v2:30
 			},
 			timed:30,
+			cxType:0,
+			qrCg:{
+				title:"确定撤回提现单？",
+				btns:[{n:'取消',fn:'close'},{n:'确定',fn:'tcOk'}],
+			},
+			chid:'',
+			isCh:'',
 
 		}
 	},
@@ -106,8 +108,35 @@ export default {
 				}					
 			});
 		},
+		tcOk(d){
+			if(this.cxType==1){
+				Message({message: '正在提交请稍后'});
+				return
+			}
+			let pr = {
+				apply_id:this.chid
+			};
+			this.cxType=1;
+					
+			this.api.Income_applyCancel(pr).then((da)=>{
+				this.cxType=0;
+				if(!da){return}
+				this.chid='';	
+			}).catch(()=>{				
+				this.cxType=0;
+			});
+		},
 		chtj(d){
-			alert(111);
+			if(d.check_status!=0){
+				return
+			}
+			this.isCh = 1;
+			this.chid = d.apply_id;
+		
+		},
+		close(){
+			this.isCh = '';
+			this.chid='';
 		},
 		setTim(o){
 			this.timed = o;
@@ -120,11 +149,6 @@ export default {
 		},
 		
 	},
-	watch: {	
-		'$route': function() {
-			console.log(111111111111111111);
-		},
-	}
 }
 </script>
 
@@ -138,10 +162,10 @@ export default {
 	width: 6px;
 	height: 6px;
 }
-.cojType1{
+.cojType1>i{
 	background: #67C239;
 }
-.cojType2{
+.cojType2>i{
 	background: #FF0000;
 }
 </style>
