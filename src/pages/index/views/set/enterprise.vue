@@ -4,15 +4,13 @@
 		<div class="setUserBox">
 			<div class="setUserBoxs">
 				<div class="setUserBoxs_nav">
-					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']">{{el}}</div>
-					
+					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']">{{el}}</div>					
 				</div>
 				<div class="navDwzc">
 					<div :class="['setUserBoxs_nav',topTyped?'fixdon':'']">
 						<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']">{{el}}</div>
 					</div>
-				</div>
-				
+				</div>				
 				<div class="setUserBoxs_cent">
 					<div class="suc_1">
 						<div class="suc_title">主体信息<div class="xhds"></div></div>
@@ -25,7 +23,7 @@
 						<div class="suc_1_9">
 							<span>营业执照</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">上传照片<input @change="fileUp" ref="upnfile"  type="file"></span>
+								<span class="suc_1_9_3">上传照片  <uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile></span>
 								<div class="suc_1_9_4 iconfont">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">
@@ -46,7 +44,7 @@
 						<div class="suc_1_9">
 							<span>开户许可证</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">上传照片<input @change="fileUp2" ref="upnfile"  type="file"></span>
+								<span class="suc_1_9_3">上传照片<uploadFile :setJdt="setJdt2" :sussFn="uploadSC2" :cg="fileConfig"></uploadFile></span>
 								<div class="suc_1_9_4 iconfont">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">
@@ -114,16 +112,7 @@
 		</div>
 		
 		
-		<div v-if="tAncType>0" class="tc_sucd">
-			<div v-if="tAncType==1" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="/imge/cj_00.png"/>
-				<Input class="tc_sucd_1_1" v-model="tancData.userName"  :oType="'max'" :max="15"  :chekFn="chekusername" :type="'text'" :placeholder="'请输入新的用户名'"></Input>		
-				<div class="tc_sucd_1_2">
-					<span @click="closeTc1">取消</span>
-					<span @click="qdTc1">确定</span>
-				</div>
-			</div>
-			
+		<div v-if="tAncType>0" class="tc_sucd">			
 			<div v-if="tAncType==2" class="tc_sucd_1">
 				<img class="tc_sucd_1X" @click="closeTc1" src="/imge/cj_00.png"/>
 				<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
@@ -134,28 +123,6 @@
 					<span @click="qdTc2">确定</span>
 				</div>
 			</div>
-			
-			<div v-if="tAncType==3" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="/imge/cj_00.png"/>
-				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入email"></el-input>
-				<div class="emailyzm">
-					<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
-					<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>
-				</div>
-				<div class="tc_sucd_1_2">
-					<span @click="closeTc1">取消</span>
-					<span @click="qdTc3">确定</span>
-				</div>
-			</div>
-			<div v-if="tAncType==4" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="/imge/cj_00.png"/>
-				<img class="tAncType4_1" src="/imge/email01.png" alt="">
-				<div class="tAncType4_2">
-					激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/>
-					请及时登录邮箱，点击邮件中的链接激活帐户。
-				</div>
-			</div>
-			
 		</div>
 	</div>
 </template>
@@ -169,9 +136,11 @@ import Input from '../../components/input'
 import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
+import uploadFile from '../../components/uploadFile'
+import jdt from '../../components/jdt'
 export default {
 	name: 'works',
-	components:{upoloadcaver,Input,Citys,Select,rideo,tophead},
+	components:{upoloadcaver,Input,Citys,Select,rideo,tophead,uploadFile,jdt},
 	data(){
 		return {
 			check_type:1,
@@ -194,6 +163,12 @@ export default {
 				value: 'label',
 				children: 'cities'
 			},
+			fileConfig:{
+				type:['image/jpeg','image/png'],
+				max:20*1024*1024,
+				userType:'user_info',
+			},
+			
 			chekPhpne:function(val){
 				if(this.form.mobile_zone!='86'){
 					if(!(typeof val === 'number' && val%1 === 0)){
@@ -270,6 +245,18 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		uploadSC1(da){
+			this.postData.business_license = da.url;
+		},
+		uploadSC2(da){
+			this.postData.opening_permit = da.url;
+		},
+		setJdt1(on){
+			console.log(on);
+		},
+		setJdt2(on){
+			console.log(on);
+		},
 		goPu(ud){
 			if(!ud){return}
 			window.open(ud);
@@ -316,165 +303,42 @@ export default {
 		},
 
 		getBINKname(){
-			
-			if(!this.form.bank_card_no){
+			if(!this.postData.bank_card_no){
 				return
 			}
 			this.$ajax.get('https://ccdcapi.alipay.com/validateAndCacheCardInfo.json', {
 				params: {
 				  _input_charset: 'utf-8',
-				  cardNo:this.form.bank_card_no,
+				  cardNo:this.postData.bank_card_no,
 				  cardBinCheck:true
 				}
-			  })
-			  .then(function (response) {
-				console.log(response);
-			  })
-			  .catch(function (error) {
-				console.log(error);
-			  });
-
-			
-			
-			 
-		},
-		fileUp(flie){
-			let fld = flie.target.files[0];
-			if(['image/jpeg','image/png'].indexOf(fld.type)==-1){
-				Message({message: '格式不正确'});
-				return
-			}
-			if(fld.size>(20*1024*1024)){
-				Message({message: '文件过大'});
-				return
-			}
-	
-			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-			let times = (Date.parse(new Date())/1000);
-			let arr = [
-				1001,
-				app_secret,
-				window.userInfo.open_id,
-				times
-			];
-		
-			let formData = new FormData();
-			formData.append('app_id',1001);
-			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-			formData.append('user',window.userInfo.open_id)
-			formData.append('file',fld)
-			formData.append('relation_type','work')
-			formData.append('timestamp',times)
-			let xhr = new XMLHttpRequest();
-			
-			
-			let uploadProgress = (evt)=>{		
-				if(evt.lengthComputable) {
-					let percent = Math.round(evt.loaded * 100 / evt.total);
-					percent = percent>98?98:percent;
-					percent  = Math.floor(percent);
+			}).then((response)=>{	
+				
+				if(!response.data.bank){
+					return
 				}
-			};
-			let uploadComplete = (data)=>{
-				if(data.currentTarget.response){
-					let da = JSON.parse(data.currentTarget.response).data;					
-					this.$set(this.postData,'business_license',da.url)
-					console.log(da);
-					Message({message: '文件上传成功'});
-				}
+				let conf = {
+					"PSBC":'中国邮政储蓄银行',
+					"ICBC":'工商银行',
+					"ABC":'农业银行',
+					"BOC":'中国银行',
+					"CCB":'建设银行',
+					"COMM":'交通银行',
+					"CITIC":'中信银行',
+					"CEB":'光大银行',
+					"HXBANK":'华夏银行',
+					"CMBC":'民生银行',
+					"GDB":'广发银行',
+					"SPDB":"浦东发展银行",
+					"CMB":'招商银行',
+					"CIB":'兴业银行',
+					"EGBANK":'恒丰银行',
+					"CZBANK":'浙商银行',
+				}  
+				this.postData.bank_name = conf[response.data.bank ];
+			}).catch(()=>{
 				
-			};
-			let uploadFailed = ()=>{
-				// delete p;
-				// p.type="none";
-				this.$refs.upnfile.value ='';
-				Message({message: '文件上传失败请稍后重试'});
-				
-			};
-			let uploadCanceled = ()=>{
-				// p.type="none";
-				this.$refs.upnfile.value ='';
-				Message({message: '取消成功'});
-				
-			};
-			xhr.upload.addEventListener("progress",uploadProgress, false);
-			xhr.addEventListener("load",uploadComplete, false);
-			xhr.addEventListener("error",uploadFailed, false);
-			xhr.addEventListener("abort",uploadCanceled, false);
-			xhr.open("POST", window.basrul+"/File/File/insert");
-			xhr.send(formData);
-			
-		},
-		fileUp2(flie){
-			let fld = flie.target.files[0];
-			if(['image/jpeg','image/png'].indexOf(fld.type)==-1){
-				Message({message: '格式不正确'});
-				return
-			}
-			if(fld.size>(20*1024*1024)){
-				Message({message: '文件过大'});
-				return
-			}
-			
-			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-			let times = (Date.parse(new Date())/1000);
-			let arr = [
-				1001,
-				app_secret,
-				window.userInfo.open_id,
-				times
-			];
-		
-			let formData = new FormData();
-			formData.append('app_id',1001);
-			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-			formData.append('user',window.userInfo.open_id)
-			formData.append('file',fld)
-			formData.append('relation_type','work')
-			formData.append('timestamp',times)
-			let xhr = new XMLHttpRequest();
-			
-			
-			let uploadProgress = (evt)=>{		
-				if(evt.lengthComputable) {
-					let percent = Math.round(evt.loaded * 100 / evt.total);
-					percent = percent>98?98:percent;
-					percent  = Math.floor(percent);
-				}
-			};
-			let uploadComplete = (data)=>{
-				if(data.currentTarget.response){
-					let da = JSON.parse(data.currentTarget.response).data;					
-					this.$set(this.postData,'opening_permit',da.url)
-					console.log(da);
-					Message({message: '文件上传成功'});
-				}
-				
-			};
-			let uploadFailed = ()=>{
-				// delete p;
-				// p.type="none";
-				this.$refs.upnfile.value ='';
-				Message({message: '文件上传失败请稍后重试'});
-				
-			};
-			let uploadCanceled = ()=>{
-				// p.type="none";
-				this.$refs.upnfile.value ='';
-				Message({message: '取消成功'});
-				
-			};
-			xhr.upload.addEventListener("progress",uploadProgress, false);
-			xhr.addEventListener("load",uploadComplete, false);
-			xhr.addEventListener("error",uploadFailed, false);
-			xhr.addEventListener("abort",uploadCanceled, false);
-			xhr.open("POST", window.basrul+"/File/File/insert");
-			xhr.send(formData);
-			
-		},
-		
-		identifyAuth1(){
-			
+			});
 		},
 		Verifycodeget(){
 			this.$set(this.tancData,'pic_verifyimg',window.basrul+'/Passport/Verifycode/get?client_id='+window.userInfo.open_id+'&t='+(new Date()).valueOf())
@@ -762,20 +626,18 @@ export default {
 	
 			})
 		},
-		showisPhto(){
-			this.$refs.upoloadcaver.setImgd(this.caver);
-			this.isPhto=true;
-		},
-		close(img){
-			if(img){
-				this.caver = img;
-			}
-			this.isPhto=false;
-		},
+
 	}
 }
 </script>
 
 <style>
-
+.jdBox{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width:200px;
+	height: 200px;
+}
 </style>

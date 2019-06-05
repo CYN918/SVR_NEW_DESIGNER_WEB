@@ -39,9 +39,7 @@ export default {
 	addSelfInfo:{
 		url:'/Api/User/addSelfInfo',method:'post',baseURL:0,
 	},
-	File:{
-		url:'/File/File/insert',method:'post',baseURL:0,Type:'multipart/form-data',
-	},
+
 	
 	
 	getBanner:{
@@ -60,7 +58,8 @@ export default {
 		url:'/File/File/delete',method:'post',baseURL:0,Type:'multipart/form-data',
 	},
 	
-	insertFile:{
+	/*文件上传*/
+	pushFile:{
 		url:'/File/File/insert',method:'post',baseURL:0,Type:'multipart/form-data',
 	},
 	
@@ -259,6 +258,5 @@ export default {
 	Income_applyCancel:{
 		url:'/Api/Income/applyCancel',method:'post',baseURL:0,
 	},
-	
-	
+
 }

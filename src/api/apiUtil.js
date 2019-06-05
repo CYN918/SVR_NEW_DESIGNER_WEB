@@ -35,7 +35,7 @@ const createApiInstance = (config = {},on,Type) => {
 }
 const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => {
 	
-	if (method === 'post') {
+	if(method === 'post') {
 		if(window.userInfo){
 			params.access_token = window.userInfo.access_token;
 		}

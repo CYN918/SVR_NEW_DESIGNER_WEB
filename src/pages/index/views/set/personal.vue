@@ -383,22 +383,42 @@ export default {
 		},		
 		getBINKname(){
 			
-			if(!this.form.bank_card_no){
+			if(!this.postData.bank_card_no){
 				return
 			}
 			this.$ajax.get('https://ccdcapi.alipay.com/validateAndCacheCardInfo.json', {
 				params: {
 				  _input_charset: 'utf-8',
-				  cardNo:this.form.bank_card_no,
+				  cardNo:this.postData.bank_card_no,
 				  cardBinCheck:true
 				}
-			  })
-			  .then(function (response) {
-				console.log(response);
-			  })
-			  .catch(function (error) {
-				console.log(error);
-			  });
+			  }).then((response)=>{	
+				
+				if(!response.data.bank){
+					return
+				}
+				let conf = {
+					"PSBC":'中国邮政储蓄银行',
+					"ICBC":'工商银行',
+					"ABC":'农业银行',
+					"BOC":'中国银行',
+					"CCB":'建设银行',
+					"COMM":'交通银行',
+					"CITIC":'中信银行',
+					"CEB":'光大银行',
+					"HXBANK":'华夏银行',
+					"CMBC":'民生银行',
+					"GDB":'广发银行',
+					"SPDB":"浦东发展银行",
+					"CMB":'招商银行',
+					"CIB":'兴业银行',
+					"EGBANK":'恒丰银行',
+					"CZBANK":'浙商银行',
+				}  
+				this.postData.bank_name = conf[response.data.bank ];
+			}).catch(()=>{
+				
+			});
 
 			
 			

@@ -18,11 +18,7 @@ let wb = [
 				name: 'home',
 				component: () => import('./views/home.vue')
 			},
-			{
-				path: '/indexl',
-				name: 'indexl',
-				component: () => import('./views/homel.vue')
-			},
+		
 			{
 				path: '/upload',
 				name: 'upload',

@@ -1,14 +1,13 @@
 <template>
 	<div class="csBox">
 		<baner></baner>
-		<!-- <div class="proNav2 homdfgs">
+		<div class="proNav2 homdfgs">
 			<div class="proNav2_1">
-				<router-link to="/index">首页推荐</router-link>
-				<router-link class="pend" to="/indexl">最新发布</router-link>
+				<a @click="qhNav('')" :class="['pend',type?'':'router-link-active']">首页推荐</a>
+				<a @click="qhNav('rec')" :class="['pend',type?'router-link-active':'']">最新发布</a>
 			</div>			
-		</div> -->
-		
-		<list :config="data">
+		</div>		
+		<list :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
 				<box_a :el="todo"></box_a>
 			</template>			
@@ -28,14 +27,29 @@ export default {
 				type:'box_a',
 				ajax:{
 					url:'getHList',
+				},
+				setp:(da)=>{
+					
+					da.type ='rec';
+					return true;
 				}
+				
 			},	
+			type:'',
 		}
 	},
 	mounted: function(){
 	}, 
 	methods: {
-
+		qhNav(on){
+			if(on==this.type){return}
+			this.type=on;
+			this.$refs.sfafa.sxfn((da)=>{
+				if(this.type){
+					da.type =this.type;
+				}
+			});
+		}
 	}
 }
 </script>
