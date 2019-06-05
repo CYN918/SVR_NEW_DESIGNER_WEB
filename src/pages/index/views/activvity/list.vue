@@ -8,13 +8,14 @@
 						<div class="ac_list_Box_4">{{todo.activity_name}}</div>
 						<div class="ac_list_Box_5"><span>{{todo.category_name}}</span>投稿时间：{{todo.start_time.split(" ")[0]}} 至 {{todo.end_time.split(" ")[0]}}</div>
 						<div class="ac_list_Box_3">
-							<span v-if="todo.left_day" class="ac_list_Box_6">{{todo.left_day}}天</span><span v-if="todo.left_day" class="ac_list_Box_7">距离截止</span>
-							<span v-if="!todo.left_day" class="ac_list_Box_8">已结束</span>
+							<span v-if="todo.status==1" class="ac_list_Box_6">{{todo.left_day==0?'今':todo.left_day}}天</span><span v-if="todo.status==1" class="ac_list_Box_7">距离截止</span>
+							<span v-else-if="todo.status==-1" class="ac_list_Box_8">已结束</span>
 						</div>
 					</div>
 				</div>
 			</template>			
 		</list>
+		
 	</div>
 </template>
 
