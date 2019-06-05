@@ -1,11 +1,9 @@
 <template>
 	<div class="csBox">
 		<baner></baner>
-		<div class="proNav2 homdfgs">
-			<div class="proNav2_1">
-				<a @click="qhNav('')" :class="['pend',type?'':'router-link-active']">首页推荐</a>
-				<a @click="qhNav('rec')" :class="['pend',type?'router-link-active':'']">最新发布</a>
-			</div>			
+		<div class="homghhd">			
+			<a @click="qhNav('')" :class="['pend',type?'':'router-link-active']">首页推荐</a>
+			<a @click="qhNav('rec')" :class="['pend',type?'router-link-active':'']">最新发布</a>	
 		</div>		
 		<list :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
@@ -87,7 +85,33 @@ export default {
 	height: 2px;
 	
 }
-.homdfgs{
+.homghhd{
+	margin: 27px auto 27px;
+	width: 1300px;
 	margin-bottom: 20px;
+	text-align: left;
+}
+	
+.homghhd>a{
+	position: relative;
+	display: inline-block;
+	font-size:16px;
+	font-weight:400;
+	color:rgba(30,30,30,1);
+	line-height:22px;
+	margin-right: 40px;
+}
+.homghhd>a.router-link-active{
+	color: #FF5121;
+}
+.homghhd>a.router-link-active:after{
+	content: "";
+	position: absolute;
+	width: 90%;
+	height: 2px;
+	background: #FF5121;
+	bottom: -7px;
+	left: 50%;
+	transform: translateX(-50%);
 }
 </style>

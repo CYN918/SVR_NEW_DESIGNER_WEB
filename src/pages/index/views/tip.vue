@@ -1,0 +1,196 @@
+<template>
+	<div>
+		<div class="hot_topbox">
+			<img class="hotBaner" src="/imge/hot/banner.png" alt="">
+			<div class="hot_topx">
+				<div class="hot_top_1">狮圈儿供稿人</div>
+				<div class="hot_top_2">设计师稳定收入新平台</div>
+				<div @click="godd" class="hot_top_3 pend">立即申请</div>
+			</div>
+		</div>
+		<div class="hotCent">
+			<div class="hotCent1"><span></span><b>加入狮圈儿的理由</b><span></span></div>
+			<div class="hotCent2">
+				<div>
+					<img src="/imge/hot/1.png" alt="">
+					<div class="hotCent2t">需求稳定</div>
+					<div class="hotCent2c">
+						狮圈儿与头部安卓渠道华为/OPPO/ VIVO /维持长期良好合作关系
+					</div>
+				</div><div>
+					<img src="/imge/hot/2.png" alt="">
+					<div class="hotCent2t">自选收益类型</div>
+					<div class="hotCent2c">
+						买断式or分成式 设计师自选作品收益模式 自主性强
+					</div>
+				</div><div>
+					<img src="/imge/hot/3.png" alt="">
+					<div class="hotCent2t">作品用途清晰</div>
+					<div class="hotCent2c">
+						作品使用路劲&账户收益个人中心公开展示
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+</template>
+<script>
+import baner from './banner';
+import list from '../components/list';
+import box_a from '../components/box_a';
+export default {
+	components:{baner,list,box_a},
+	name: 'home',
+	data(){
+		return {
+			data:{
+				type:'box_a',
+				ajax:{
+					url:'getHList',
+				},
+				setp:(da)=>{
+					
+					da.type ='rec';
+					return true;
+				}
+				
+			},	
+			type:'',
+		}
+	},
+	mounted: function(){
+		this.init();
+	}, 
+	methods: {
+		qhNav(on){
+			if(on==this.type){return}
+			this.type=on;
+			this.$refs.sfafa.sxfn((da)=>{
+				if(this.type){
+					da.type =this.type;
+				}
+			});
+		},
+		init(){
+			if(!window.userInfo){
+				this.$router.push({path: '/index'});
+				return
+			}
+			if(window.userInfo.contributor_format_status!=0){
+				this.$router.push({path: '/index'});
+				return
+			}
+			
+		},
+		godd(){
+			console.log(window.userInfo);
+			if(!window.userInfo){
+				this.$router.push({path: '/login'});
+				return
+			}
+			this.$router.push({path: '/setPersonal'});
+		}
+	}
+}
+</script>
+
+<style>
+.hot_topbox{
+	position: relative;
+	margin-bottom: 60px;
+}
+.hotBaner{
+	display: block;
+	width: 100%;
+}
+.hot_topx{
+	position: absolute;	
+	top: 50%;
+	left: 0;
+	margin: 0 auto;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 100%;	
+}
+.hot_top_1{
+	font-size:36px;
+	font-weight:500;
+	color:rgba(255,255,255,1);
+	line-height:50px;
+	margin-bottom: 10px;
+}
+.hot_top_2{
+	font-size:16px;
+	font-weight:400;
+	color:rgba(255,255,255,1);
+	line-height:22px;
+	margin-bottom: 30px;
+}
+.hot_top_3{
+	margin: 0 auto;
+	width:140px;
+	height:40px;
+	background:rgba(255,255,255,1);
+	border-radius:5px;
+	font-size:14px;
+
+	font-weight:400;
+	color:rgba(51,51,51,1);
+	line-height:40px;
+}
+.hotCent{
+	width: 1300px;
+	margin: 0 auto;
+}
+.hotCent1{
+	font-size:16px;
+
+	font-weight:500;
+	color:rgba(30,30,30,1);
+	line-height:22px;
+	margin-bottom: 30px;
+}
+.hotCent1>span{
+	display: inline-block;
+	transform: rotate(45deg);
+	width: 8px;
+	height: 8px;
+	background: #FF5121;
+	margin: 0 10px;
+}
+.hotCent2>div{
+	display: inline-block;
+	vertical-align: top;
+	width:280px;
+	height:260px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+	border-radius:5px;
+	margin: 0 25px;
+}
+.hotCent2>div>img{
+	display: block;
+	width: 68px;
+	height: 68px;
+	margin: 35px auto 30px;
+}
+.hotCent2t{
+	font-size:16px;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:rgba(0,0,0,1);
+	line-height:22px;
+	margin-bottom: 10px;
+}
+.hotCent2c{
+	width: 186px;
+	margin: 0 auto;
+	font-size:14px;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:rgba(153,153,153,1);
+	line-height:20px;
+}
+</style>

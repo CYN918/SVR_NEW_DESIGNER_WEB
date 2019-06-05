@@ -4,6 +4,7 @@
 		<span class="header_2">
 			<router-link class="pend" to="/index">首页</router-link>
 			<router-link class="last pend" to="/activvity">活动</router-link>
+			<router-link v-if="!isggr" class="last pend" to="/tip">供稿人</router-link>
 		</span>
 		<div class="header_3">
 			<span :class="['searcBox',searchType?'issearch':'']">
@@ -111,6 +112,7 @@ export default {
 			data1:[],
 			data2:[],
 			sccy:0,
+			isggr:'',
 
 		}		
 	},
@@ -164,6 +166,7 @@ export default {
 			this.$router.push({path:'/searchWorks',query:{cont:na}});
 		},
 		hind(){
+			return
 			setTimeout(()=>{
 				this.searchType=false;
 				this.searcCont='';
@@ -208,8 +211,14 @@ export default {
 			this.getHotWords();
 			this.userMssge = '';
 			if(window.userInfo){
-				this.userMssge = window.userInfo;			
+				this.userMssge = window.userInfo;	
+				if(window.userInfo.contributor_format_status!=0){
+					this.isggr=1;
+				}
+			
 			}
+		
+			
 		},
 		goUpload(){
 			if(!this.userMssge){this.$router.push({path:'/login'}); return}
@@ -349,7 +358,6 @@ export default {
 	},
 	
 	
-	
 }
 </script>
 
@@ -380,7 +388,7 @@ export default {
 	line-height: 60px;
 }
 .header .last{
-	margin-left: 100px;
+	margin-left: 85px;
 }
 .header>span>a.router-link-active:after{
     content: "";

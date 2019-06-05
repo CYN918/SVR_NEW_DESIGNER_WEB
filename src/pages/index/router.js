@@ -18,6 +18,12 @@ let wb = [
 				name: 'home',
 				component: () => import('./views/home.vue')
 			},
+			{
+				path: '/tip',
+				name: 'tip',
+				component: () => import('./views/tip.vue'),
+				
+			},
 		
 			{
 				path: '/upload',
@@ -81,6 +87,7 @@ let wb = [
 				component: () => import('./views/activvity/list.vue'),
 				
 			},
+			
 			{
 				path: '/detailed',
 				name: 'detailed',
