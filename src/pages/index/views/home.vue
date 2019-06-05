@@ -1,9 +1,10 @@
 <template>
 	<div class="csBox">
+		
 		<baner></baner>
 		<div class="homghhd">			
-			<a @click="qhNav('')" :class="['pend',type?'':'router-link-active']">首页推荐</a>
-			<a @click="qhNav('rec')" :class="['pend',type?'router-link-active':'']">最新发布</a>	
+			<a @click="qhNav('rec')" :class="['pend',type?'':'router-link-active']">首页推荐</a>
+			<a @click="qhNav('')" :class="['pend',type?'router-link-active':'']">最新发布</a>	
 		</div>		
 		<list :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
