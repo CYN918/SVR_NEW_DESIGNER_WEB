@@ -52,9 +52,7 @@ export default {
 	created(){
 		this.init();
 	},	
-	mounted: function () {			
-		// this.init();		
-	}, 
+
 	methods: {
 		init(){
 			if(!this.$route.query.id){

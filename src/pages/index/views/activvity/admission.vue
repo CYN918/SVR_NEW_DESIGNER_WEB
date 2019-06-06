@@ -21,7 +21,6 @@ export default {
 				},
 				pr:{
 					type:2,
-					// activity_id:this.$route.query.id,
 				}
 			},	
 		}		
@@ -29,9 +28,6 @@ export default {
 	created(){
 		this.init();
 	},
-	mounted: function(){
-		// this.init();
-	}, 
 	methods: {
 		init(){
 			if(!this.$route.query.id){

@@ -25,10 +25,6 @@ export default {
 				ajax:{
 					url:'getHList',
 				},
-				setp:(da)=>{					
-					da.type ='rec';
-					return true;
-				},
 				pr:{
 					type:'rec',
 				}
