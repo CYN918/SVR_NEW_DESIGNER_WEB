@@ -44,10 +44,10 @@
 					
 					<div v-if="typedon==0"  class="pr_xx_1">
 						<div class="pr_xx_1_c">
-							<span>企业/机构名称</span><span>{{backname(form.account_name)}}</span>
+							<span>用户名称</span><span>{{backname(form.account_name)}}</span>
 						</div>
 						<div class="pr_xx_1_c">
-							<span>企业银行账号</span><span>{{backBan(form.bank_card_id)}}</span>
+							<span>银行账号</span><span>{{backBan(form.bank_card_id)}}</span>
 						</div>
 						<div class="pr_xx_1_c">
 							<span>开户银行</span><span>{{form.bank_name}}</span>
@@ -56,10 +56,6 @@
 							<span>开户支行</span><span>{{form.bank_subbranch}}</span>
 						</div>
 					</div>
-					
-			
-					
-					
 					<div v-if="typedon==1" class="pr_xx_1">
 						<div class="pr_xx_1_c">
 							<span>账户余额</span><span>{{num1}}</span>
@@ -369,6 +365,10 @@ export default {
 			this.upfjData = {};
 		},
 		showtx(){
+			if(this.basDa.account_balance<300){
+				Message({message: '账户余额不足'});
+				return
+			}
 			this.istx = 1;
 		},
 		close(){
@@ -451,17 +451,10 @@ export default {
 			};
 			this.api.contributorInfo(pr).then((da)=>{
 				if(!da){return}
-				if(da.tax_rate_type==2){
-					this.form.account_name = da.company_name;
-					this.form.bank_card_id = da.bank_card_no;
-					this.form.bank_name = da.bank_name;				
-					this.form.bank_subbranch = da.branch_bank;
-					return
-				}
 				this.form.account_name = da.account_name;
-				this.form.bank_card_id = da.bank_card_id;
+				this.form.bank_card_id = da.bank_card_no;
 				this.form.bank_name = da.bank_name;				
-				this.form.bank_subbranch = da.bank_subbranch;
+				this.form.bank_subbranch = da.branch_bank;
 			})
 		},
 	},
