@@ -58,7 +58,7 @@ export default {
 		return {
 			data:{
 				ajax:{
-					url:'followList',					
+					url:'fansList',					
 				},
 				pr:{}
 

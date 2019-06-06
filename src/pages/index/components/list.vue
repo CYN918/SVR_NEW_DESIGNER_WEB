@@ -73,6 +73,8 @@ export default {
 				}
 				if(this.List.length==0){
 					this.isNodeat=1;
+				}else{
+					this.isNodeat='';
 				}				
 				window.scrollTo(0,0);
 			}).catch(()=>{

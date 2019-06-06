@@ -2,53 +2,43 @@
 	<div>
 		<tophead></tophead>
 		<div class="worksBox worksBox4">
-		
-			<ul v-if="List.length>0 && sxtj==0" class="i_listd2" >
-				<li v-for="(el,index) in List" :key="index">
-					<img @click="goUser(index)" :src="el.avatar">
+		<list :config="data" ref="listDom">
+			<template v-slot:todo="{ todo }">
+			<div class="wdczz">
+					<img @click="goUser(todo)" :src="todo.avatar">
 					<div class="i_listd2_1">
-						<div @click="goUser(index)">{{el.username}}</div>
-						<div>{{el.province}} | {{el.city}}</div>
+						<div @click="goUser(todo)">{{todo.username}}</div>
+						<div>{{todo.province}} | {{todo.city}}</div>
 						<div class="i_listd2_d">
-							<span @click="goFans('/followFans',el.open_id)">粉丝<span>{{el.fans_num}}</span></span>
-							<span>人气<span>{{el.popular_num}}</span></span>
-							<span @click="goFans('/works',el.open_id)">创作<span>{{el.work_num}}</span></span>
+							<span @click="goFans('/followFans',todo.open_id)">粉丝<span>{{todo.fans_num}}</span></span>
+							<span>人气<span>{{todo.popular_num}}</span></span>
+							<span @click="goFans('/works',todo.open_id)">创作<span>{{todo.work_num}}</span></span>
 						</div>
-						<div>{{el.personal_sign?el.personal_sign:'这个人很懒，什么都没说~'}}</div>
+						<div>{{todo.personal_sign?todo.personal_sign:'这个人很懒，什么都没说~'}}</div>
 						<div class="btns_foll">
-							<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
-							<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
-							<span @click="Follow_add(index)" v-else>关注</span>
-							<span @click="gosx(el)">私信</span>
+							<span @click="showFpllwodel(todo)" v-if="todo.follow_flag==2">互相关注</span>
+							<span @click="showFpllwodel(todo)" v-else-if="todo.follow_flag==1">已关注</span>
+							<span @click="Follow_add(todo)" v-else>关注</span>
+							<span @click="gosx(todo)">私信</span>
 						</div>
 					</div>
 					<div class="lunbox">
 						
-						<ul v-if="el.works.length>0">
-							<li v-if="index2<3" v-for="(el2,index2) in el.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
+						<ul v-if="todo.works.length>0">
+							<li v-if="index2<3" v-for="(el2,index2) in todo.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
 						</ul>
 						
 					</div>
-				</li>
-				
-			</ul>			
-			<div class="pagesddd wsjzt" v-if="List.length==0"><img  class="wusj2" src="/imge/wsj2.png" alt=""></div>
-			<el-pagination v-if="total>40" class="pagesddd"
-			background
-			@size-change="handleSizeChange"
-			@current-change="handleCurrentChange"
-			:current-page="page"
-			:page-sizes="[40, 80, 120, 160]"
-			:page-size="limit"
-			layout="prev,pager, next,sizes, jumper"
-			:total="total">   
-			</el-pagination>
+			</div>		
+		</template>			
+		</list>	
+			
 		</div>		
 		<div v-show="isshowd2" class="loginoutBox">
 			<div class="loginoutBox1">
 				<img @click="hindHb2()" class="loginoutBox2" src="/imge/cj_00.png">
-				<div class="loginoutBox3" v-if="List[openOns]">确定取消关注【{{List[openOns].username}}】？</div>
-				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
+				<div class="loginoutBox3">确定取消关注【{{openOns.username}}】？</div>
+				<div class="loginoutBox4  "><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
 		</div>
 	</div>
@@ -57,12 +47,18 @@
 <script>
 import tophead from './myHead2';
 import {Message} from 'element-ui'
-import { Loading } from 'element-ui';
+import list from '../../components/list';
 export default {
 	name: 'works',
-	components:{tophead},
+	components:{tophead,list},
 	data(){
 		return {
+			data:{
+				ajax:{
+					url:'followList',					
+				},
+				pr:{}				
+			},
 			isshowd2:false,
 			banners:[],
 			List:[],
@@ -89,11 +85,14 @@ export default {
 			openOns:'',
 		}
 	},
-	mounted: function () {			
-		this.followList();
-		
-	}, 
+	created(){
+		this.init();
+	},	
+	
 	methods: {
+		init(){
+			this.data.pr.user_open_id = window.userInfo.open_id;
+		},
 		gosx(el){	
 			this.$router.push({path:'/chat',query:{
 				open_id:el.open_id,
@@ -109,10 +108,9 @@ export default {
 		showFpllwodel(on){
 			this.isshowd2 = true;
 			this.openOns = on;
-			console.log(this.List[this.openOns])
 		},
 		Follow_del(){
-			if(!this.openOns && this.openOns!=0){
+			if(!this.openOns){
 				return
 			}
 			
@@ -122,7 +120,7 @@ export default {
 			this.follwTyle=1;
 			let pr = {
 				access_token:window.userInfo.access_token,
-				follow_id:this.List[this.openOns].open_id
+				follow_id:this.openOns.open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
 				if(!da){
@@ -132,53 +130,19 @@ export default {
 				this.follwTyle=0;
 				this.hindHb2();
 				Message({message: '取消关注成功'});
-				if(this.sxOn==0){
-				
-					this.List.splice(this.openOns,1);
-				
-					return
-				}
-				this.List[this.openOns].follow_flag = 0;
-				
+				this.$refs.listDom.sxfn();				
 			}).catch(()=>{
 				this.follwTyle = 0;		
 			});
 		},
-		Follow_add(on){
-			if(!window.userInfo){
-				this.$router.push({path: '/login'})
-				return
-			}
-			if(this.follwTyle==1){
-				return
-			}
-			this.follwTyle=1;
-			let pr = {
-				access_token:window.userInfo.access_token,
-				follow_id:this.List[on].open_id
-			};
-			this.api.Follow_add(pr).then((da)=>{
-				if(!da){
-					this.follwTyle=0;
-					return
-				}
-				this.List[on].follow_flag = da.follow_flag;
-				this.follwTyle=0;
-				// this.contDat.user_info.follow_flag=1;
-				Message({message: '关注成功'});
-			}).catch(()=>{
-				this.follwTyle = 0;		
-			});
-			
 		
-		},
 		hindHb2(){
 			this.isshowd2 = false;
 			this.openIdd = '';
 		},
 		
 		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].open_id}})	
+			this.$router.push({path: '/works',query:{id:on.open_id}})	
 		},
 		backtime(time){		
 			return	window.getTimes(time);
@@ -188,31 +152,8 @@ export default {
 			window.open('#/cont?id='+on)
 		},
 		
-		followList(){
-			let pr = {
-				access_token:window.userInfo.access_token,
-				user_open_id:window.userInfo.open_id,
-				page:this.page,
-				limit:this.limit
-			};
-			this.api.followList(pr).then((da)=>{
-				if(!da){
-					return
-				}
-				this.List = da.data;
-				this.total = da.total;	
-				document.documentElement.scrollTop =0;
-				document.body.scrollTop =0;			
-			})
-		},
-		handleSizeChange(val) {
-			this.limit = val;
-			this.followList();
-		},
-		handleCurrentChange(val) {
-			this.page = val;
-			this.followList();
-		}
+
+
 	}
 }
 </script>
@@ -277,20 +218,8 @@ export default {
 .worksBox_2_1>div:hover{
 	background: #E6E6E6;
 }
-.i_listd2>li{
-	text-align: left;
-	display: block;
-	box-sizing: border-box;
-	padding-top: 30px;
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	width: 1300px;
-	height: 215px;
-	margin: 0 auto 20px;
-}
-.i_listd2{margin-bottom: 120px;}
-.i_listd2>li>img{
+
+.wdczz>img{
 	display: inline-block;
 	margin: 0 20px 0 30px;
 	width: 100px;
@@ -495,5 +424,18 @@ export default {
 .wsjzt{
 	min-height: 602px;
 }
-
+.wdczz{
+	text-align: left;
+    display: block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-top: 30px;
+    background: #fff;
+    -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,.1);
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,.1);
+    border-radius: 5px;
+    width: 1300px;
+    height: 215px;
+    margin: 0 auto 20px;
+}
 </style>

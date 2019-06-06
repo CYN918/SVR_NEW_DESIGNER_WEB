@@ -94,7 +94,7 @@ export default {
 			},
 			chid:'',
 			isCh:'',
-
+			je:0,
 		}
 	},
 	created(){
@@ -108,7 +108,7 @@ export default {
 			this.config.pr.time =  new Date().getTime()-(this.timed*1000*60*60*24);
 			this.$refs.tabds.sxfn();
 		},
-		tcOk(d){
+		tcOk(){
 			if(this.cxType==1){
 				Message({message: '正在提交请稍后'});
 				return
@@ -120,7 +120,14 @@ export default {
 					
 			this.api.Income_applyCancel(pr).then((da)=>{
 				this.cxType=0;
-				if(!da){return}
+				if(da=='undefined'){return}	
+				this.$parent.basDa.account_balance = this.$parent.basDa.account_balance+(+this.je);
+				this.$parent.num1 = '￥ '+this.$parent.basDa.account_balance;
+				this.close();
+				
+				this.$refs.tabds.sxfn();
+				
+				
 				this.chid='';	
 			}).catch(()=>{				
 				this.cxType=0;
@@ -132,7 +139,7 @@ export default {
 			}
 			this.isCh = 1;
 			this.chid = d.apply_id;
-		
+			this.je = d.cash_money;
 		},
 		close(){
 			this.isCh = '';

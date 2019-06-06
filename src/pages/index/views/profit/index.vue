@@ -29,13 +29,92 @@
 			</div>
 		</div>
 		<router-view ref="chartView"/>
-		
-		<tacBox v-if="istx">
+		<tacBox v-if="istx && userTypes==1">
 			<template v-slot:tanBox="{todo}">
 				<div class="pr_ntc_1">提现</div>
 				<div class="pr_ntc_2">
 					<div :class="['jdt_n','jdtOn'+typedon]">
-						<div class="jdt_n_jdt"><span :style="setJdt()"></span></div>
+						<div style="width: 47%;" class="jdt_n_jdt"><span :style="setJdt2()"></span></div>
+						<span v-for="(el,index) in ldList2" :key="index" :class="index==typedon?'jdt_n_on':''">
+							<div>{{1+index}}</div>	
+							{{el}}
+						</span>						
+					</div>
+					
+					<div v-if="typedon==0"  class="pr_xx_1">
+						<div class="pr_xx_1_c">
+							<span>收款账户名</span><span>{{backname(form.account_name)}}</span>
+						</div>
+						<div class="pr_xx_1_c">
+							<span>银行卡号</span><span>{{backBan(form.bank_card_id)}}</span>
+						</div>
+						<div class="pr_xx_1_c">
+							<span>开户银行</span><span>{{form.bank_name}}</span>
+						</div>
+						<div class="pr_xx_1_c">
+							<span>开户支行</span><span>{{form.bank_subbranch}}</span>
+						</div>
+					</div>
+					<div v-if="typedon==1" class="pr_xx_1">
+						<div class="pr_xx_1_c">
+							<span>账户余额</span><span>{{num1}}</span>
+						</div>
+						<div class="pr_xx_1_c">
+							<span>提现金额</span><span><input class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
+							<div class="xf11l">当月到账金额=当月提现总额-税费<span class="iconfont">
+								&#xe65c;
+								<div class="txtipgr">
+									<div class="titledsx">税费计算</div>
+									<div class="conddf">
+										<span>劳动报酬 X</span>
+										<span>X≤800</span>
+										<span>800＜X≤4000</span>
+										<span>4000＜X≤25000</span>
+										<span>25000＜X≤62500</span>
+										<span>62500＜X</span>
+									</div>
+									<div class="conddf conddf2">
+										<span>个税</span>
+										<span>0</span>
+										<span>(X-800)*20%</span>
+										<span>X*80%*20%</span>
+										<span>X*800*30%-2000</span>
+										<span>X*80%*40%-7000</span>
+									</div>
+								</div>
+							</span></div>
+						</div>
+					</div>
+					
+					
+					
+					<div v-if="typedon==2" class="pr_xx_1">
+						<div class="phodegg">
+							<div class="hm">{{backPhone()}}<span class="uphodefbt pend" @click="editPhone()">修改手机号</span></div>
+							
+							<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+							
+						</div>
+					</div>
+					
+					
+					<div class="pr_xx_btns botnbox">
+						<span v-if="typedon>0" @click="next_x(-1)">上一步</span>
+						<span v-if="typedon==0" @click="goUpsuer()">修改银行信息</span>
+						<span v-if="typedon<2" @click="next_x(1)" class="ysHei">下一步</span>
+						<span v-if="typedon==2" @click="pushData" class="ysHei">完成</span>
+					</div>
+				</div>
+				
+			</template>	
+			
+		</tacBox>
+		<tacBox v-if="istx && userTypes==2">
+			<template v-slot:tanBox="{todo}">
+				<div class="pr_ntc_1">提现</div>
+				<div class="pr_ntc_2">
+					<div :class="['jdt_n','jdtOn'+typedon]">
+						<div  class="jdt_n_jdt"><span :style="setJdt()"></span></div>
 						<span v-for="(el,index) in ldList" :key="index" :class="index==typedon?'jdt_n_on':''">
 							<div>{{1+index}}</div>	
 							{{el}}
@@ -44,10 +123,10 @@
 					
 					<div v-if="typedon==0"  class="pr_xx_1">
 						<div class="pr_xx_1_c">
-							<span>用户名称</span><span>{{backname(form.account_name)}}</span>
+							<span>企业/机构名称</span><span>{{backname(form.account_name)}}</span>
 						</div>
 						<div class="pr_xx_1_c">
-							<span>银行账号</span><span>{{backBan(form.bank_card_id)}}</span>
+							<span>企业银行账号</span><span>{{backBan(form.bank_card_id)}}</span>
 						</div>
 						<div class="pr_xx_1_c">
 							<span>开户银行</span><span>{{form.bank_name}}</span>
@@ -150,6 +229,7 @@ export default {
 			form:{account_name:'测试',bank_card_id:'xxxxxxxxx',bank_name:'bank_name',bank_subbranch:'xxxx'},
 			typedon:0,
 			ldList:['信息确认','提现金额','发票寄送','身份验证'],
+			ldList2:['信息确认','提现金额','身份验证'],
 			topConifg:{title:'我的收益'},
 			num1:0,
 			num2:0,
@@ -180,6 +260,7 @@ export default {
 				}
 				return true
 			},
+			userTypes:1,
 		}
 	},
 	beforeCreate:function(){
@@ -215,7 +296,7 @@ export default {
 			return xx+str;
 		},
 		init(){
-			
+			this.userTypes=window.userInfo.contributor_type;
 			this.getData();
 			this.getUserDetail();
 		},
@@ -239,7 +320,8 @@ export default {
 			}
 			let pr = this.form;
 			this.api.Income_applyCash(pr).then((da)=>{
-				if(da!='undefined'){return}
+		
+				if(da=='undefined'){return}
 				Message({message: '申请成功请耐心等待审核'});
 				this.basDa.account_balance -= pr.cash_money;
 				this.num1 = '￥ '+this.basDa.account_balance;
@@ -380,7 +462,10 @@ export default {
 				Message({message: '请输入正确金额'});
 				return;
 			}
-			if(p==3){
+			
+			
+			
+			if(this.userTypes==2 && p==3){
 				if(!this.form.invoice){
 					Message({message: '请先上传照片'});
 					return;
@@ -397,6 +482,9 @@ export default {
 				
 			}
 			this.typedon = p;
+		},
+		setJdt2(){
+			return 'transform: translateX('+(this.typedon*33.33-100)+'%);';
 		},
 		setJdt(){		
 			return 'transform: translateX('+(this.typedon*33.33-100)+'%);';
@@ -813,5 +901,81 @@ export default {
     border-bottom: 1px solid #ddd;
     line-height: 40px;
     margin-bottom: 20px;
+}
+.xf11l{
+	font-size:13px;
+	font-weight:400;
+	color:rgba(153,153,153,1);
+	line-height:18px;
+	margin: 6px 0 0 135px;
+}
+.xf11l>span{
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 9px;
+}
+.xf11l>span:hover{
+	cursor: pointer;
+}
+.xf11l>span:hover>.txtipgr{
+	display: block;
+}
+.txtipgr{
+	display: none;
+	position: absolute;
+	top: 30px;
+	left: -500px;
+	z-index: 9;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 30px;
+}
+.txtipgr:after{
+    content: "";
+    position: absolute;
+	top: -8px;
+    left: 52%;
+    width: 10px;
+    height: 10px;
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: 9;
+    background: #fff;
+}
+.txtipgr .titledsx{
+	margin-bottom: 11px;
+	text-align: center;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+	line-height:20px;
+}
+.txtipgr .conddf{
+	white-space: nowrap;
+	border: 1px solid #979797;
+	border-right: 0;
+	border-bottom: 0;
+}
+.txtipgr .conddf>span{
+	display: inline-block;
+	width:150px;
+	height:40px;
+	border-right: 1px solid #979797;
+	border-bottom: 1px solid #979797;
+	
+	line-height: 40px;
+	text-align: center;
+	font-size:12px;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+
+}
+.conddf2{
+	border-top: 0;
 }
 </style>

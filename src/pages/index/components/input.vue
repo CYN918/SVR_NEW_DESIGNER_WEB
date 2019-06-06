@@ -23,7 +23,6 @@
 		<div :class="['tip',tpd]">{{eeText}}<span></span></div>
 	</div>
 </template>
-
 <script>
 export default {
 	name: 'myInput',

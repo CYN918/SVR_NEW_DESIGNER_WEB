@@ -13,7 +13,7 @@
 				  </el-select>
 			</div>
 		</div>
-		<div class="csBox">
+		<div class="csBox mygzBox">
 			<list :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
 					<box_a :el="setData(todo)"></box_a>
