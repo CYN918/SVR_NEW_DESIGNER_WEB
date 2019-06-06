@@ -22,9 +22,7 @@ export default {
 				ajax:{
 					url:'Income_flowList',
 				},
-				setp:(da)=>{			
-					da.time =  new Date().getTime()-(30*1000*60*60*24);				
-				},										
+				pr:{}
 			},
 			sxConfig:{
 				list2:[
@@ -39,19 +37,20 @@ export default {
 			timed:30,
 		}
 	},
-	mounted: function(){}, 
+	created(){
+		this.init();
+	},	
 	methods: {
+		init(){			  	
+			this.config.pr.time = new Date().getTime()-(30*1000*60*60*24);
+		},
 		goWork(d){
 			this.$router.push({path: '/cont',query:{id:d.work_id}});
 		},
 		setTim(o){
 			this.timed = o;
-			this.$refs.tabds.sxfn((da)=>{	
-				if(this.timed!=0){
-					da.time =  new Date().getTime()-(this.timed*1000*60*60*24);
-				}
-					
-			});
+			this.config.pr.time = new Date().getTime()-(this.timed*1000*60*60*24);
+			this.$refs.tabds.sxfn();
 		}
 	}
 }

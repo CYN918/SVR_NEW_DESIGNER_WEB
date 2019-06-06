@@ -34,15 +34,9 @@ export default {
 				ajax:{
 					url:'getUserWorkList',					
 				},
-				setp:(da)=>{
-					if(!this.$route.query.id){
-						this.$router.push({path:'/index'})	
-						return false
-					}
-					da.sort = 'create_time';
-					da.user_open_id = this.$route.query.id;
-					return true;
-				}
+				pr:{
+					sort:'create_time',
+				}				
 			},	
 			sxtj:0,
 			sxData:[
@@ -55,22 +49,28 @@ export default {
 			
 		}
 	},
+	created(){
+		this.init();
+	},	
 	mounted: function () {			
-		
-		
+		// this.init();		
 	}, 
 	methods: {
+		init(){
+			if(!this.$route.query.id){
+				this.$router.push({path:'/index'})	
+				return 
+			}
+			this.data.pr.user_open_id = this.$route.query.id;
+		},
 		sxFn(on){
 			if(this.sxtj==on){
 				return
 			}
 			this.sxtj = on;			
 			this.sort = this.sxData[on].key;
-			this.page=1;
-			this.$refs.listDom.sxfn((da)=>{
-				da.sort = this.sort;
-				da.user_open_id = this.$route.query.id;
-			});
+			this.data.pr.sort = this.sort;
+			this.$refs.listDom.sxfn();
 		},
 		settotal(n){
 			this.total = n;

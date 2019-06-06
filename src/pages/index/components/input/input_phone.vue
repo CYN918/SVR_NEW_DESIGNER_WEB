@@ -241,7 +241,6 @@ export default {
 		
 		
 		ajaxVerifys(){	
-			console.log(this.$parent.mobiles);
 			if(this.$parent.phoneType==false){
 				Message({message: '请填写正确的手机号码'});
 				return

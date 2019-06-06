@@ -26,7 +26,10 @@ export default {
 	props:{
 		config:{
 			type:Object,
-			default:{}
+			default:{
+				pr:{},
+			},
+			
 		}
 	},
 	data(){
@@ -37,31 +40,26 @@ export default {
 			total:0,
 			isNodeat:'',
 			loading: '',
+			sxCs:{},
 		}
 	},
 	mounted: function () {	
 		this.getData();		
 	}, 
 	methods: {
-		sxfn(da){
-			this.getData(da);
+		sxfn(){
+			this.page=1;
+			this.limit=40;
+			console.log('进来了')
+			this.getData();			
 		},
-		getData(da){			
+		
+		getData(da){	
 			let params = {
 				page:this.page,
 				limit:this.limit
-			};
-	
-			if(this.config.setp && !da){
-				this.config.setp(params);
-			}
-		
-			if(da){
-				da(params);
-			}
-			if(window.userInfo){
-				params.access_token = window.userInfo.access_token;
-			}			
+			};		
+			params =  Object.assign(params,this.config.pr)		
 			this.loading = Loading.service({ fullscreen: true });
 			this.api[this.config.ajax.url](params).then((da)=>{
 				this.loading.close();

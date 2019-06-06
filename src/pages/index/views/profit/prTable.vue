@@ -40,7 +40,7 @@ export default {
 	props:{
 		cg:{
 			type:Object,
-			default:{}
+			default:{pr:{}}
 		},
 	},
 	data(){
@@ -76,8 +76,10 @@ export default {
 				
 			}
 		},
-		sxfn(da){
-			this.getData(da);
+		sxfn(){
+			this.page=1;
+			this.limit=40;
+			this.getData();
 		},
 		getData(da){			
 			let params = {
@@ -85,13 +87,7 @@ export default {
 				limit:this.limit
 			};
 			
-			if(this.cg.setp && !da){
-				this.cg.setp(params);
-			}
-		
-			if(da){
-				da(params);
-			}		
+			params =  Object.assign(params,this.cg.pr);		
 			this.loading = Loading.service({ fullscreen: true });
 			this.api[this.cg.ajax.url](params).then((da)=>{
 				this.loading.close();

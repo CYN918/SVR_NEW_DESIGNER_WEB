@@ -73,9 +73,7 @@ export default {
 				ajax:{
 					url:'Income_applyList',
 				},
-				setp:(da)=>{			
-					da.time =  new Date().getTime()-(30*1000*60*60*24);				
-				},			
+				pr:{}	
 							
 			},
 			sxConfig:{
@@ -99,14 +97,16 @@ export default {
 
 		}
 	},
-	mounted: function(){}, 
+	created(){
+		this.init();
+	},	
 	methods: {
+		init(){			  	
+			this.config.pr.time = new Date().getTime()-(30*1000*60*60*24);
+		},
 		addGetData(){
-			this.$refs.tabds.sxfn((da)=>{	
-				if(this.timed!=0){
-					da.time =  new Date().getTime()-(this.timed*1000*60*60*24);
-				}					
-			});
+			this.config.pr.time =  new Date().getTime()-(this.timed*1000*60*60*24);
+			this.$refs.tabds.sxfn();
 		},
 		tcOk(d){
 			if(this.cxType==1){
@@ -140,12 +140,8 @@ export default {
 		},
 		setTim(o){
 			this.timed = o;
-			this.$refs.tabds.sxfn((da)=>{	
-				if(this.timed!=0){
-					da.time =  new Date().getTime()-(this.timed*1000*60*60*24);
-				}
-					
-			});
+			this.config.pr.time =  new Date().getTime()-(this.timed*1000*60*60*24);
+			this.$refs.tabds.sxfn();
 		},
 		
 	},

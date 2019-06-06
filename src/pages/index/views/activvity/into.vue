@@ -18,23 +18,26 @@ export default {
 		return{
 			data:{
 				ajax:{
-					url:'a_getWork',
+					url:'a_getWork',					
 				},
-				setp:(da)=>{
-					if(!this.$route.query.id){
-						this.$router.push({path:'/activvity'})	
-						return false
-					}
-					da.type=1;
-					da.activity_id = this.$route.query.id;
-					return true;
+				pr:{
+					type:1,
 				}
 			},	
 		}		
 	}, 
-	methods:{
-
+	created(){
+		this.init();
 	},
+	methods: {
+		init(){
+			if(!this.$route.query.id){
+				this.$router.push({path:'/activvity'})	
+				return false
+			}	
+			this.data.pr.activity_id = this.$route.query.id;
+		}
+	}
 }
 </script>
 <style>

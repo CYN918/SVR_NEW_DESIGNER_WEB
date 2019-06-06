@@ -138,16 +138,20 @@ export default {
 				ajax:{
 					url:'getSelfWorkList',
 				},
-				setp:(da)=>{
-					da.status = this.$parent.isType;
-					return true;
-				}
+				pr:{},
+
 			},
 			
 		}
 	},
-	mounted: function(){}, 
+	created(){
+		this.init();
+	},	
+	
 	methods: {
+		init(){
+			this.data.pr.status = this.$parent.isType;
+		},
 		upDataSet(){		
 			if(!window.userInfo){
 				Message({message: '登录过期请先登录'});
@@ -243,7 +247,6 @@ export default {
 				p = p.replace(/id/g,"value");
 				p = p.replace(/sub_data/g,"children");
 				this.page2.classify = JSON.parse(p);
-		        console.log(p)
 			})
 		},
 		updata(id){

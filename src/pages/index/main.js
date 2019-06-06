@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
 import api from '../../api/index'
-
 import App from './App.vue'
 import router from './router'
 Vue.prototype.$ajax = axios

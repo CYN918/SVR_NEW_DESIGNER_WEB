@@ -37,53 +37,10 @@
 	
 </template>
 <script>
-import baner from './banner';
-import list from '../components/list';
-import box_a from '../components/box_a';
+
 export default {
-	components:{baner,list,box_a},
-	name: 'home',
-	data(){
-		return {
-			data:{
-				type:'box_a',
-				ajax:{
-					url:'getHList',
-				},
-				setp:(da)=>{
-					
-					da.type ='rec';
-					return true;
-				}
-				
-			},	
-			type:'',
-		}
-	},
-	mounted: function(){
-		this.init();
-	}, 
+	name: 'tip',
 	methods: {
-		qhNav(on){
-			if(on==this.type){return}
-			this.type=on;
-			this.$refs.sfafa.sxfn((da)=>{
-				if(this.type){
-					da.type =this.type;
-				}
-			});
-		},
-		init(){
-			if(!window.userInfo){
-				this.$router.push({path: '/index'});
-				return
-			}
-			if(window.userInfo.contributor_format_status!=0){
-				this.$router.push({path: '/index'});
-				return
-			}
-			
-		},
 		godd(){
 			console.log(window.userInfo);
 			if(!window.userInfo){

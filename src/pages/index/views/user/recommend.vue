@@ -34,15 +34,10 @@ export default {
 				ajax:{
 					url:'likeList',					
 				},
-				setp:(da)=>{
-					if(!this.$route.query.id){
-						this.$router.push({path:'/index'})	
-						return false
-					}
-					da.sort = 'create_time';
-					da.user_open_id = this.$route.query.id;
-					return true;
-				}
+				pr:{
+					sort:'create_time',
+				}	
+
 			},	
 			sxtj:0,
 			sxData:[
@@ -54,11 +49,18 @@ export default {
 			
 		}
 	},
-	mounted: function () {			
-		
-		
-	}, 
+	created(){
+		this.init();
+	},	
+	
 	methods: {
+		init(){
+			if(!this.$route.query.id){
+				this.$router.push({path:'/index'})	
+				return 
+			}
+			this.data.pr.user_open_id = this.$route.query.id;
+		},
 		sxFn(on){
 			if(this.sxtj==on){
 				return

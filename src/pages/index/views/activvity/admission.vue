@@ -7,7 +7,6 @@
 		</list>
 	</div>
 </template>
-
 <script>
 import list from '../../components/list';
 import box_a from '../../components/box_a';
@@ -18,23 +17,30 @@ export default {
 		return{
 			data:{
 				ajax:{
-					url:'a_getWork',
+					url:'a_getWork',					
 				},
-				setp:(da)=>{
-					if(!this.$route.query.id){
-						this.$router.push({path:'/activvity'})	
-						return false
-					}
-					da.type=2;
-					da.activity_id = this.$route.query.id;
-					return true;
+				pr:{
+					type:2,
+					// activity_id:this.$route.query.id,
 				}
 			},	
 		}		
 	}, 
-	methods:{
-
+	created(){
+		this.init();
 	},
+	mounted: function(){
+		// this.init();
+	}, 
+	methods: {
+		init(){
+			if(!this.$route.query.id){
+				this.$router.push({path:'/activvity'})	
+				return false
+			}	
+			this.data.pr.activity_id = this.$route.query.id;
+		}
+	}
 }
 </script>
 

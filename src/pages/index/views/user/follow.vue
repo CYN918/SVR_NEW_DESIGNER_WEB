@@ -67,14 +67,7 @@ export default {
 				ajax:{
 					url:'followList',					
 				},
-				setp:(da)=>{
-					if(!this.$route.query.id){
-						this.$router.push({path:'/index'})	
-						return false
-					}
-					da.user_open_id =this.$route.query.id;
-					return true;
-				}
+				pr:{}
 			},	
 			isshowd2:false,
 			banners:[],
@@ -107,17 +100,25 @@ export default {
 			this.followList();
 		},
 	},
-	mounted: function () {	
-		if(!window.userInfo){
-			this.sxOn = 1;
-		}else
-		if(this.$route.query.id!=window.userInfo.open_id){
-			this.sxOn = 1;
-		}
-		// this.followList();
-		
-	}, 
+	created(){
+		console.log(22222222);
+		this.init();
+	},	
+	
 	methods: {
+		init(){			
+			if(!this.$route.query.id){
+				this.$router.push({path:'/index'})	
+				return 
+			}
+			if(!window.userInfo){
+				this.sxOn = 1;
+			}else
+			if(this.$route.query.id!=window.userInfo.open_id){
+				this.sxOn = 1;
+			}
+			this.data.pr.user_open_id = this.$route.query.id;
+		},
 		settotal(n){
 			this.total = n;
 		},

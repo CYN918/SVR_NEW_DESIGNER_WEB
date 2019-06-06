@@ -34,9 +34,7 @@ export default {
 				ajax:{
 					url:'dynamic',					
 				},
-				setp:(da)=>{
-					da.type = 1;
-				}
+				pr:{type:1}
 			},	
 			options:[
 				{value:1,label:'关注人发布的'},
@@ -46,10 +44,9 @@ export default {
 		}
 	},
 	methods: {
-		sxFn(on){			
-			this.$refs.listDom.sxfn((da)=>{
-				da.type = this.value;
-			});
+		sxFn(on){	
+			this.data.pr.type=this.value;			
+			this.$refs.listDom.sxfn();
 		},
 		setData(da){
 			let p = da.work;			

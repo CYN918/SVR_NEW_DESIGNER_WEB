@@ -1,6 +1,5 @@
 <template>
-	<div class="csBox">
-		
+	<div class="csBox">		
 		<baner></baner>
 		<div class="homghhd">			
 			<a @click="qhNav('rec')" :class="['pend',type?'router-link-active':'']">首页推荐</a>
@@ -23,14 +22,15 @@ export default {
 	data(){
 		return {
 			data:{
-				type:'box_a',
 				ajax:{
 					url:'getHList',
 				},
-				setp:(da)=>{
-					
+				setp:(da)=>{					
 					da.type ='rec';
 					return true;
+				},
+				pr:{
+					type:'rec',
 				}
 				
 			},	
@@ -43,11 +43,13 @@ export default {
 		qhNav(on){
 			if(on==this.type){return}
 			this.type=on;
-			this.$refs.sfafa.sxfn((da)=>{
-				if(this.type){
-					da.type =this.type;
-				}
-			});
+			if(on){
+				this.data.pr.type = on;	
+			}
+			else{
+				this.data.pr={};
+			}		
+			this.$refs.sfafa.sxfn();
 		}
 	}
 }

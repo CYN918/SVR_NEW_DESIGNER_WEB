@@ -27,9 +27,7 @@ export default {
 				ajax:{
 					url:'Income_hireworkList',
 				},
-				setp:(da)=>{			
-					da.time =  new Date().getTime()-(30*1000*60*60*24);				
-				},
+				pr:{},
 							
 			},
 			dataList:[1,2,3,4,5,6,7],
@@ -54,8 +52,14 @@ export default {
 
 		}
 	},
-	mounted: function(){}, 
+	created(){
+		this.init();
+	},	
 	methods: {
+		init(){			  	
+			this.config.pr.time = new Date().getTime()-(30*1000*60*60*24);
+		},
+
 		goWork(d){
 			this.$router.push({path: '/cont',query:{id:d.work_id}});
 		},
@@ -64,26 +68,15 @@ export default {
 		},
 		setType(o){
 			this.typed = o;
-			this.$refs.tabds.sxfn((da)=>{
-				if(this.typed!=0){
-					da.hire_type =this.typed;
-				}		
-				if(this.timed!=0){
-					da.time =  new Date().getTime()-(this.timed*1000*60*60*24);
-				}	
-			});
+			if(this.typed!=0){
+				this.config.pr.hire_type =this.typed;
+			}		
+			this.$refs.tabds.sxfn();
 		},
 		setTim(o){
 			this.timed = o;
-			this.$refs.tabds.sxfn((da)=>{
-				if(this.typed!=0){
-					da.hire_type =this.typed;
-				}		
-				if(this.timed!=0){
-					da.time =  new Date().getTime()-(this.timed*1000*60*60*24);
-				}
-					
-			});
+			this.config.pr.time =  new Date().getTime()-(this.timed*1000*60*60*24);
+			this.$refs.tabds.sxfn();
 		}
 	}
 }
