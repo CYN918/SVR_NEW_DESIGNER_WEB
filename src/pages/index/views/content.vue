@@ -528,7 +528,7 @@ export default {
 				};				
 				if(on || on==0){
 					pr.feed_id = this.hfData[on].feed_id;
-					pr.to_comment_id = this.hfData[on].to_comment_id;
+					pr.to_comment_id = this.hfData[on].comment_id;
 					pr.to_open_id = this.hfData[on].open_id;
 				}
 				if(on2 || on2==0){

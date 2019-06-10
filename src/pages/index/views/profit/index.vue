@@ -279,21 +279,22 @@ export default {
 	}, 
 	methods: {
 		backPhone(){
-			return window.userInfo.mobile_zone+'+'+window.userInfo.mobile;
+			return window.userInfo.mobile_zone+'+'+window.userInfo.mobile.substring(0,3)+'*******'+window.userInfo.mobile.substring(7);
+
 		},
 		backBan(da){
-			if(da=='error'){return}
-			return da.substring(0,4)+'*******'+da.substring(-1,4);
+			if(!da){return}
+			return da.substring(0,4)+'*******'+da.substring(da.length-4);
 		},
 		backname(da){
-			if(da=='error'){return}
+			if(!da){return}
 			let len = da.length,
-			str = da.substring(-1,1),
-			xx = '';
+			str = da.substring(0,1);
+		
 			for(let i=0;i<len-1;i++){
-				xx+='*';
+				str+='*';
 			}
-			return xx+str;
+			return str;
 		},
 		init(){
 			this.userTypes=window.userInfo.contributor_type;

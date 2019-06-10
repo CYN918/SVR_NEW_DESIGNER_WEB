@@ -21,8 +21,6 @@ const toMethod = (options) => {
 }
 // 创建axios实例
 const createApiInstance = (config = {},on,Type) => {
-	
-	
 	let ds = on?on:0;
 	const _config = {
 		withCredentials: true, // 跨域
