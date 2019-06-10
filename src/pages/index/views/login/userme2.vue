@@ -8,7 +8,7 @@
 				<div class="newUserme2">
 					<div class="userBoxd">
 						<span>手机号</span>
-						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.mobile" :inputType="'phones'"  :placeholder="'请输入手机号'"></inptPhone>
+						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.mobiles" :inputType="'phones'"  :placeholder="'请输入手机号'"></inptPhone>
 					</div>
 					<div class="userBoxd">
 						<span>验证码</span>
@@ -110,6 +110,7 @@ export default {
 			verifys:false,
 			password:false,
 			password_repass:false,
+		
 		}
 	},
 	mounted: function () {}, 
@@ -187,6 +188,7 @@ export default {
 			});
 		},
 		pdys1(){
+			console.log(this.form);
 			this.btnType = '';	 
 			if(!this.form.mobiles){
 				return
@@ -194,6 +196,7 @@ export default {
 			if(!this.form.verifys){
 				return
 			}	
+			console.log(this.form);
 			if(!this.form.password){
 				return
 			}	

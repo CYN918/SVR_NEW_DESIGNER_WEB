@@ -125,8 +125,6 @@ export default {
 		},
 		'input'(){
 			this.chekFn(this);
-			
-			
 		},
 	    'mobile_zone'(val){
 			if(!this.input){
@@ -148,7 +146,8 @@ export default {
 			this.$emit('checkBack',type,this.inputType);
 		},
 		
-		chekPhpne(){		
+		chekPhpne(){
+			console.log(2222222222);
 			if(this.mobile_zone!='86'){
 				if(!(typeof this.input === 'number' && this.input%1 === 0)){
 					this.checkBack(false);
@@ -162,10 +161,12 @@ export default {
 				return ; 
 			}
 			this.setErro('');
-			this.$parent.mobiles = {
+			
+			this.$parent.form.mobiles = {
 				mobile:this.input,
 				mobile_zone:this.mobile_zone,
 			};	
+
 			this.checkBack(true); 
 		},
 		chekverify(val){
