@@ -97,7 +97,7 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.logout(p).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}			
 				localStorage.setItem('pass','');			
@@ -136,7 +136,7 @@ export default {
 				city:this.form.citye[2],
 			}
 			this.api.addSelfInfo(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				window.userInfo.avatar = pr.avatar;

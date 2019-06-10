@@ -78,7 +78,7 @@ export default {
 			this.loading = Loading.service({ fullscreen: true });
 			this.api.Searchsearch(pr).then((da)=>{
 				this.loading.close();
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.List = da.data;
@@ -102,7 +102,7 @@ export default {
 			};
 			
 			this.api.getClassify(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				let p = JSON.stringify(da);

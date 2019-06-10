@@ -35,7 +35,7 @@ export default {
 					access_token:data.res.data.access_token
 				};
 				this.api.getSelfInfo(pr).then((da)=>{
-					if(!da){return}
+					if(da=='error'){return}
 					da.access_token = data.res.data.access_token;
 					window.userInfo = da;
 					localStorage.setItem('userT',JSON.stringify(da));

@@ -57,7 +57,7 @@ export default {
 				user_open_id:this.$route.query.id
 			};
 			this.api.getUserDetail(pr).then((da)=>{
-				if(!da){return}
+				if(da=='error'){return}
 				this.da = da;
 				window.oioi = da;
 			}).catch(()=>{

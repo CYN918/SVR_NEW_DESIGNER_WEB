@@ -150,7 +150,7 @@ export default {
 			this.ajaxType=1;
 			this.api.register(params).then((da)=>{
 				
-				if(!da){
+				if(da=='error'){
 					this.ajaxType=0;
 					return
 				}
@@ -164,7 +164,7 @@ export default {
 				};
 				this.api.login(pr).then((da)=>{	
 					
-					if(!da){
+					if(da=='error'){
 						return
 					}
 					this.ajaxType=0;

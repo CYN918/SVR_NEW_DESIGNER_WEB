@@ -467,7 +467,7 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.getWorkId(params).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.form.work_id = da.work_id;
@@ -481,7 +481,7 @@ export default {
 				is_draft:1
 			};
 			this.api.getWorkDetail(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.form = da;		
@@ -701,7 +701,7 @@ export default {
 			};
 			
 			this.api.getClassify(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				let p = JSON.stringify(da);

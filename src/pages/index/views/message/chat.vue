@@ -173,7 +173,7 @@ export default {
 			this.getAjxType1=1;
 			this.api.getMessgList(pr).then((da)=>{
 				this.getAjxType1=0;
-				if(!da){return}
+				if(da=='error'){return}
 				if(this.listData.length>0){
 					if(da.data.length==0){
 						this.isNouSSG =1;
@@ -214,7 +214,7 @@ export default {
 			this.getAjxType1=0;
 			this.api.getMessageList(pr).then((da)=>{
 				this.getAjxType2=0;
-				if(!da){return}
+				if(da=='error'){return}
 				this.pushCk();				
 				let lend = da.length;
 				if(lend==0){
@@ -317,7 +317,7 @@ export default {
 			pr.chat_id=this.listData[this.messgOn].chat_id;
 			this.api.delChat(pr).then((da)=>{
 				this.deletType=0;
-				if(!da){return}
+				if(da=='error'){return}
 				this.messGlist = [];
 				Message({message: '删除成功'});
 				this.messgOn=0;				
@@ -384,7 +384,7 @@ export default {
 			this.getAjxType3 = 1;
 			this.api.addChatMessage(pr).then((da)=>{
 				this.getAjxType3 = 0;
-				if(!da){return}
+				if(da=='error'){return}
 				this.$refs.tageds1.setData('');
 				let pdata = {
 					content:mesd,
@@ -483,7 +483,7 @@ export default {
 				op.to_open_id = this.listData[this.messgOn].user_info.open_id;
 			}			
 			this.api.Messageread(op).then((da)=>{
-				if(!da){return}
+				if(da=='error'){return}
 				this.getMessgNumber();
 			})
 		},
@@ -495,7 +495,7 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.getCounter(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.messgNum = da;

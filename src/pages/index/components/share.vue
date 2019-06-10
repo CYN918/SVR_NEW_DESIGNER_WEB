@@ -52,7 +52,7 @@ export default {
 			this.shareType = type?type:false;
 		},
 		setUrl(da){
-			if(!da){return}
+			if(da=='error'){return}
 			let ulrd = encodeURIComponent(da.url);
 			this.config.value = da.url;
 			this.fxUrl1 = 'http://service.weibo.com/share/share.php?appKey=3473072390&title='+da.title+'&url='+ulrd+'&pic='+da.pics+'#_loginLayer_'+(new Date()).valueOf();

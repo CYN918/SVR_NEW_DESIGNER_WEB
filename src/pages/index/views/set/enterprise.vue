@@ -369,7 +369,7 @@ export default {
 				mobile_zone:this.form.mobile_zone
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				Message({message: '验证码已发送'});
@@ -397,7 +397,7 @@ export default {
 				mobile_zone:this.tancData.mobile_zone
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				Message({message: '验证码已发送'});
@@ -416,7 +416,7 @@ export default {
 				
 			};
 			this.api.Bindbind(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.tancData.email = '';	
@@ -439,7 +439,7 @@ export default {
 				
 			};
 			this.api.Bindbind(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.form.mobile = this.tancData.newMoble;
@@ -461,7 +461,7 @@ export default {
 				username:this.tancData.userName,				
 			};
 			this.api.Userupdate(postData).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.form.username = this.tancData.userName;
@@ -546,7 +546,7 @@ export default {
 				check_type:this.check_type,
 			};
 			this.api.identifyAuth(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				Message({message: '申请已提交审核'});
@@ -587,7 +587,7 @@ export default {
 				contribute_type:2
 			};
 			this.api.contributorInfo(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				if(da.check_status==0){

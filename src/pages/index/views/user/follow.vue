@@ -163,7 +163,7 @@ export default {
 				pr.access_token = window.userInfo.access_token;
 			}
 			this.api.Follow_del(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -198,7 +198,7 @@ export default {
 				pr.access_token = window.userInfo.access_token;
 			}
 			this.api.Follow_add(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -242,7 +242,7 @@ export default {
 				pr.access_token = window.userInfo.access_token;
 			}
 			this.api.followList(pr).then((da)=>{
-				if(!da){return}
+				if(da=='error'){return}
 				this.List = da.data;
 				this.total = da.total;
 				document.documentElement.scrollTop =0;

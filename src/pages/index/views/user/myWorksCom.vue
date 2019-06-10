@@ -166,7 +166,7 @@ export default {
 			pr.access_token = window.userInfo.access_token;		
 			pr.labels = JSON.stringify(pr.labels);
 			this.api.saveWorks(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.hindissetDatasXX();	
@@ -180,7 +180,7 @@ export default {
 				is_draft:0
 			};
 			this.api.getWorkDetail(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.issetDatasXX = true;
@@ -239,7 +239,7 @@ export default {
 			};
 			
 			this.api.getClassify(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				let p = JSON.stringify(da);
@@ -278,7 +278,7 @@ export default {
 			this.api.delWork(pr).then((da)=>{
 				this.delWorkType = 0;
 				
-				if(!da){					
+				if(da=='error'){					
 					return
 				}
 				this.$refs.listDom.getData();

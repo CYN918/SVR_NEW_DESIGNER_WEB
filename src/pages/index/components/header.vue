@@ -237,7 +237,7 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.logout(p).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.showHb(false);
@@ -258,7 +258,7 @@ export default {
 				return
 			}
 			this.api.getCounter().then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.messgNum = da;
@@ -275,7 +275,7 @@ export default {
 				type:this.navType,
 			};
 			this.api.getNotice(pr).then((da)=>{
-				if(!da){return}
+				if(da=='error'){return}
 
 				this.mData= da;
 				this.getMessgNumber();
@@ -296,7 +296,7 @@ export default {
 					read_ids:ids,
 				};
 				this.api.Messageread(op).then((da)=>{
-					if(!da){
+					if(da=='error'){
 						return
 					}
 				})
@@ -305,7 +305,7 @@ export default {
 		},
 		getHotWords(){
 			this.api.getHotWords().then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				let hotc = localStorage.getItem("scrllhot");
@@ -322,7 +322,7 @@ export default {
 				query:n
 			};
 			this.api.Searchsug(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				if(!this.searcCont||this.searcCont.split(" ").join("").length == 0){

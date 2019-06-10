@@ -289,7 +289,7 @@ export default {
 			};
 			
 			this.api[apiname](pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.addLink=0;
 					return
 				}
@@ -313,7 +313,7 @@ export default {
 				follow_id:this.contDat.user_info.open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -339,7 +339,7 @@ export default {
 				follow_id:this.contDat.user_info.open_id
 			};
 			this.api.Follow_add(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -541,7 +541,7 @@ export default {
 			this.plType=1;
 			this.api.addComment(pr).then((da)=>{
 				this.plType=0;
-				if(!da){return}
+				if(da=='error'){return}
 				Message({message: '评论成功'});	
 				
 				if(on || on==0){

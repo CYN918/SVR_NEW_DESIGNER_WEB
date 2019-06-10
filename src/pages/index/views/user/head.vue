@@ -162,7 +162,7 @@ export default {
 				follow_id:this.userMessage.open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -189,7 +189,7 @@ export default {
 				follow_id:this.userMessage.open_id
 			};
 			this.api.Follow_add(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -228,7 +228,7 @@ export default {
 				pr.access_token = window.userInfo.access_token;
 			}
 			this.api.getUserDetail(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.userMessage = da;
@@ -312,7 +312,7 @@ export default {
 							access_token:window.userInfo.access_token
 						};
 						this.api.changeUserCenterBanner(pr).then((da)=>{
-							if(!da){
+							if(da=='error'){
 						
 								this.opType=0;
 								return

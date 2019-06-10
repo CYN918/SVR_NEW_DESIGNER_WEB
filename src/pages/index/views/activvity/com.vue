@@ -140,7 +140,7 @@ export default {
 				return
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{	
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.infoData = da;
@@ -173,7 +173,7 @@ export default {
 				limit:this.limit,
 			};
 			this.api.getPersonalWorkList(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.zpList = da.data;
@@ -188,7 +188,7 @@ export default {
 				limit:this.limit
 			}
 			this.api.getHList(params).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.zpList = da.data;
@@ -213,7 +213,7 @@ export default {
 				work_id:this.work_id.join(','),
 			};
 			this.api.a_AttendActivity(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.bindType=0;	
 					return
 				}

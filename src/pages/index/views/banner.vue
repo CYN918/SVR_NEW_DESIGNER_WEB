@@ -29,7 +29,7 @@ export default {
 		},
 		getBanner(){
 			this.api.getBanner().then((da)=>{
-				if(!da){return}
+				if(da=='error'){return}
 				this.list = da;				
 				this.setAn();
 			});			

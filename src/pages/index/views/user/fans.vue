@@ -148,7 +148,7 @@ export default {
 				follow_id:this.openOns.open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -175,7 +175,7 @@ export default {
 				follow_id:on.open_id
 			};
 			this.api.Follow_add(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -229,7 +229,7 @@ export default {
 			}
 	
 			this.api.fansList(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.List = da.data;

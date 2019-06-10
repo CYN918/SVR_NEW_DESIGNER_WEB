@@ -63,7 +63,7 @@ export default {
 			this.loading = Loading.service({ fullscreen: true });
 			this.api[this.config.ajax.url](params).then((da)=>{
 				this.loading.close();
-				if(!da){
+				if(da=='error'){
 					return
 				}				
 				this.List = da.data;

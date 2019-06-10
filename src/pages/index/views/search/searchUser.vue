@@ -136,7 +136,7 @@ export default {
 				follow_id:this.List[this.openOns].open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -164,7 +164,7 @@ export default {
 				follow_id:this.List[on].open_id
 			};
 			this.api.Follow_add(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -208,7 +208,7 @@ export default {
 			this.loading = Loading.service({ fullscreen: true });
 			this.api.Searchsearch(pr).then((da)=>{
 				this.loading.close();
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.List = da.data;

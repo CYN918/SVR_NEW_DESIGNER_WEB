@@ -132,7 +132,7 @@ export default {
 				type:'notify',
 			};
 			this.api.Messageread(op).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 			})
@@ -152,7 +152,7 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.getCounter(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.messgNum = da;
@@ -172,7 +172,7 @@ export default {
 				limit:this.limit
 			};
 			this.api.getMessgList(pr).then((da)=>{
-				if(!da){return}
+				if(da=='error'){return}
 				this.listData = da.data;
 
 				this.total = da.total;

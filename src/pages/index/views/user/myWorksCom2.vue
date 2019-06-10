@@ -178,7 +178,7 @@ export default {
 			
 			pr.labels = JSON.stringify(pr.labels);
 			this.api.saveWorks(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				Message({message:'修改成功'});
@@ -236,7 +236,7 @@ export default {
 			};
 			
 			this.api.getClassify(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				let p = JSON.stringify(da);
@@ -274,7 +274,7 @@ export default {
 				work_id:this.List[this.deletWorkon].work_id
 			};
 			this.api.delWork(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.delWorkType = 0;
 					return
 				}
@@ -330,7 +330,7 @@ export default {
 			this.loading = Loading.service({ fullscreen: true });
 			this.api.getSelfWorkList(params).then((da)=>{
 				this.loading.close();
-				if(!da){
+				if(da=='error'){
 					return;
 				}
 				this.List = da.data;

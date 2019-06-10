@@ -59,6 +59,7 @@ export default {
 		},
 		thirdLogin(type){
 			if(!type){return}
+			console.log(window.basrul);
 			window.location.href=window.basrul+'/Passport/user/thirdLogin?type='+type;
 		},
 		loginUp(){
@@ -82,7 +83,7 @@ export default {
 		},
 		loginPost(data,ispass){
 			this.api.login(data).then((da)=>{	
-				if(!da){
+				if(da=='error'){
 					if(ispass){
 						localStorage.setItem('pass','');
 					}

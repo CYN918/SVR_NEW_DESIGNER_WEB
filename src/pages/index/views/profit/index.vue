@@ -282,11 +282,11 @@ export default {
 			return window.userInfo.mobile_zone+'+'+window.userInfo.mobile;
 		},
 		backBan(da){
-			if(!da){return}
+			if(da=='error'){return}
 			return da.substring(0,4)+'*******'+da.substring(-1,4);
 		},
 		backname(da){
-			if(!da){return}
+			if(da=='error'){return}
 			let len = da.length,
 			str = da.substring(-1,1),
 			xx = '';
@@ -304,7 +304,7 @@ export default {
 			let pr = {};
 			this.api.Income_info(pr).then((da)=>{
 				
-				if(!da){return}
+				if(da=='error'){return}
 		
 				this.basDa = da;
 				this.num1 = '￥ '+da.account_balance;
@@ -320,8 +320,7 @@ export default {
 			}
 			let pr = this.form;
 			this.api.Income_applyCash(pr).then((da)=>{
-		
-				if(da=='undefined'){return}
+				if(da=='error'){return}
 				Message({message: '申请成功请耐心等待审核'});
 				this.basDa.account_balance -= pr.cash_money;
 				this.num1 = '￥ '+this.basDa.account_balance;
@@ -350,7 +349,7 @@ export default {
 				mobile_zone:window.userInfo.mobile_zone
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				Message({message: '验证码已发送'});
@@ -448,7 +447,7 @@ export default {
 		},
 		showtx(){
 			if(this.basDa.account_balance<300){
-				Message({message: '账户余额不足'});
+				Message({message: '账户余额不足300'});
 				return
 			}
 			this.istx = 1;
@@ -541,8 +540,8 @@ export default {
 				contribute_type:window.userInfo.contributor_type
 			};
 			this.api.contributorInfo(pr).then((da)=>{
-				if(!da){return}
-				this.form.account_name = da.account_name;
+				if(da=='error'){return}
+				this.form.account_name = da.account_name?da.account_name:da.company_name;
 				this.form.bank_card_id = da.bank_card_no;
 				this.form.bank_name = da.bank_name;				
 				this.form.bank_subbranch = da.branch_bank;

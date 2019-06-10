@@ -44,7 +44,7 @@ export default {
 				params[this.config.prms.n] = this.config.prms.v();
 			}
 			this.api[this.config.ajaxUrl](params).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.total = da.total;

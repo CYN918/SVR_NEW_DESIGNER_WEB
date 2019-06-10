@@ -128,7 +128,7 @@ export default {
 			
 			this.ajaxType=1;
 			this.api.modifyPassword(params).then((da)=>{	
-				if(!da){
+				if(da=='error'){
 					return;
 				}
 				this.ajaxType=0;

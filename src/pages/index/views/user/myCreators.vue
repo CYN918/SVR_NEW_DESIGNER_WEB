@@ -123,7 +123,7 @@ export default {
 				follow_id:this.openOns.open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}

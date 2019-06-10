@@ -310,7 +310,7 @@ export default {
 				type:type2,				
 			};
 			this.api.Bindbind(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				if(type2=='add'){
@@ -331,7 +331,7 @@ export default {
 				password_repass:this.MD5(this.tancData.password_repass),
 			};
 			this.api.modifyPassword(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.tancData.old_password = '';	
@@ -351,7 +351,7 @@ export default {
 				password_repass:this.MD5(this.tancData.password_repass),
 			};
 			this.api.modifyPassword(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.tancData.mobile_zone = '';	
@@ -406,7 +406,7 @@ export default {
 				mobile_zone:this.tancData.mobile_zone
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				Message({message: '验证码已发送'});
@@ -425,7 +425,7 @@ export default {
 				
 			};
 			this.api.Bindbind(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.tancData.email = '';	
@@ -460,7 +460,7 @@ export default {
 				
 			};
 			this.api.Bindbind(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.form.mobile = this.tancData.newMoble;
@@ -575,7 +575,7 @@ export default {
 				qq_visible:this.form.qq_visible
 			};
 			this.api.Userupdate(postData).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				Message({message: '修改成功'});
@@ -607,7 +607,7 @@ export default {
 				user_open_id:window.userInfo.open_id
 			};
 			this.api.getSelfInfo(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.form = da;

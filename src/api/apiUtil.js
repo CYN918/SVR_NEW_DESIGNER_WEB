@@ -1,6 +1,11 @@
 import axios from 'axios'
 import qs from 'qs'
 import {Message} from 'element-ui'
+let basrurl = 'http://139.129.221.123';
+if(window.location.host=='shiquaner.zookingsoft.com'){
+	basrurl = 'https://shiquaner-api.zookingsoft.com';
+}
+window.basrul = basrurl;
 const generateApiMap = (map) => {
 	let facade = {}
 	for(let el in map){
@@ -16,11 +21,8 @@ const toMethod = (options) => {
 }
 // 创建axios实例
 const createApiInstance = (config = {},on,Type) => {
-	let basrurl = 'http://139.129.221.123';
-	if(window.location.host=='shiquaner.zookingsoft.com'){
-		basrurl = 'https://shiquaner-api.zookingsoft.com';
-	}
-	window.basrul = basrurl;
+	
+	
 	let ds = on?on:0;
 	const _config = {
 		withCredentials: true, // 跨域
@@ -65,7 +67,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 				return
 			}
 			Message({dangerouslyUseHTMLString:true,message: data});
-			return
+			return 'error';
 		}
 	},error => {	  
 		Message({message: '服务器故障',type: 'warning'});

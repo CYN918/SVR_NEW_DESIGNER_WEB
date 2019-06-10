@@ -174,7 +174,7 @@ export default {
 				relation_type:'work',
 			}
 			this.api.getFList(params).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.list =da.data;
