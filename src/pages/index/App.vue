@@ -2189,7 +2189,7 @@ content: "";
 }
 
 .el-message{
-    background: rgb(236, 206, 197);
+    background: #FFEDE8;
     border-radius: 5px;
     color: #FF5121;
     text-align: center;

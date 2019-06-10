@@ -459,11 +459,14 @@ export default {
 		next_x(o){
 			let  p = this.typedon+o;
 			if(p==2 && (parseFloat(this.form.cash_money).toString() == "NaN" || this.form.cash_money<300) ){
-				Message({message: '请输入正确金额'});
+				Message({message: '请输入正确金额,提现金额不得小于300'});
 				return;
 			}
 			
-			
+			if(p==2 && this.form.cash_money>this.basDa.account_balance){
+				Message({message: '余额不足'});
+				return;
+			}
 			
 			if(this.userTypes==2 && p==3){
 				if(!this.form.invoice){

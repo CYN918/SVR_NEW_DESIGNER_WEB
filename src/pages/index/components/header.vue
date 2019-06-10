@@ -207,6 +207,7 @@ export default {
             })
         },
 		initHead(){	
+			this.hidisXXNav();
 			this.getMessgNumber();
 			this.getHotWords();
 			this.userMssge = '';
@@ -256,10 +257,7 @@ export default {
 			if(!window.userInfo){
 				return
 			}
-			let pr = {
-				access_token:window.userInfo.access_token
-			};
-			this.api.getCounter(pr).then((da)=>{
+			this.api.getCounter().then((da)=>{
 				if(!da){
 					return
 				}
@@ -338,9 +336,8 @@ export default {
 	},
 	watch: {	
 		'$route': function() {
-			this.hidisXXNav();
+			
 			this.initHead();
-			this.getMessgNumber();
 		},
 		'searcCont':function(el,old){			
 			if(el==old){
