@@ -731,6 +731,10 @@ input:-ms-input-placeholder{
 	font-size: 24px;
 	color: #1E1E1E;
 	margin-bottom: 12px;
+	max-width: 733px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .seed1_2{
 	font-size: 14px;

@@ -147,7 +147,7 @@ export default {
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
 				is_platform_work:0,
-				content:'<p style="color:#999">从这里开始编辑作品类容...</p>'
+				content:'<p style="color:#999">从这里开始编辑作品内容...</p>'
 			},
 			uD:{},
 			upConfig:'',
@@ -401,7 +401,7 @@ export default {
 			});
 			editorInstance.addListener('blur',(editor)=>{
 				if(this.ifBjType==1 && this.form.content==''){			
-					this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
+					this.form.content = '<p style="color:#999">从这里开始编辑作品内容...</p>';
 					this.ifBjType=0;
 				}	
 			});
@@ -413,7 +413,7 @@ export default {
 				return
 			}
 			if(this.ifBjType==1 && this.form.content==''){			
-				this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
+				this.form.content = '<p style="color:#999">从这里开始编辑作品内容...</p>';
 				this.ifBjType=0;
 			}
 		},

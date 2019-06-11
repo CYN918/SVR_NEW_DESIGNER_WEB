@@ -246,6 +246,7 @@ export default {
 .detail_topBox_1{
 	display: block;
 	width: 100%;
+	height: 620px;
 }
 .detail_topBox_2{
 	position: absolute;

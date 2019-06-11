@@ -33,7 +33,7 @@
 				</div>
 			</span>
 
-			<span class="iconfont  messgeH1"><span class="pend" @click="showisXXNav">&#xe65b;<div @click="showisXXNav" v-if="messgNum.unread_total_num>0" class="messgeH2">{{messgNum.unread_total_num}}</div></span>
+			<span class="iconfont  messgeH1"><span class="pend" @click="showisXXNav">&#xe65b;<div @click="showisXXNav" v-if="messgNum.unread_total_num>0" :class="['messgeH2',messgNum.unread_total_num>9?'messgeH2x':'']">{{backXXnUM(messgNum.unread_total_num)}}</div></span>
 				
 				<div v-if="isXXNav" @click="hidisXXNav" class="messgeH3Boxf1"></div>
 				<div v-if="isXXNav" class="messgeH3">
@@ -121,6 +121,12 @@ export default {
 		
 	}, 
 	methods:{
+		backXXnUM(n){
+			if(n>999){
+				return 999;
+			}
+			return n;
+		},
 		goMssg(on){
 			setTimeout(()=>{
 				this.getMessgNumber();
@@ -166,7 +172,6 @@ export default {
 			this.$router.push({path:'/searchWorks',query:{cont:na}});
 		},
 		hind(){
-			return
 			setTimeout(()=>{
 				this.searchType=false;
 				this.searcCont='';
@@ -529,10 +534,10 @@ export default {
 }
 .loginoutBox2{
 	position: absolute;
-    top: -45px;
-    right: -45px;
-    width: 44px;
-    height: 44px;
+    top: -32px;
+    right: -32px;
+    width: 32px;
+    height: 32px;
     cursor: pointer;
 }
 .loginoutBox3{
@@ -650,7 +655,7 @@ export default {
 	top: 7px;
 	left: 7px;
 	background: #F4523B;
-	width: 18px;
+	min-width: 18px;
 	height: 18px;
 	line-height: 18px;
 	font-size: 12px;
@@ -658,7 +663,7 @@ export default {
 	letter-spacing: 0;
 	text-align: center;
 	
-	border-radius: 50%;
+	border-radius: 9px;
 }
 .messgeH3{
     position: absolute;
@@ -725,12 +730,12 @@ export default {
 .messgeH3_2_1>img{
 	display: block;
 	width: 100px;
-	margin-bottom: 13px;
+	margin: 11px auto 13px;
 }
 .messgeH3_3{
 	background: #FFFFFF;
 	box-shadow: 2px 0 4px 0 rgba(0,0,0,0.05);
-	border-radius: 5px 5px 0 0;
+	border-radius:0 0 5px 5px;
 	font-size: 14px;
 	color: #1E1E1E;
 	line-height: 50px;
@@ -795,5 +800,8 @@ export default {
 	width: 26px;
     margin-right: 3px;
     margin-left: -4px;
+}
+.messgeH2x{
+	padding:0 5px;
 }
 </style>

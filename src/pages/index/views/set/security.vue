@@ -17,7 +17,7 @@
 					<div class="suc_1">
 						<div class="suc_title">账号设置</div>
 						<div>
-							<span>手机号</span><div class="userSZ_1">可以使用手机号 {{form.mobile}} 马上登录</div>
+							<span>手机号</span><div class="userSZ_1">{{form.mobile}}</div>
 							<div class="userSZ_2"><span @click="openTc1(1)">修改</span></div>
 						</div>
 						<div>

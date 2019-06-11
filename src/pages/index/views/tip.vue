@@ -99,7 +99,7 @@ export default {
 }
 .hotCent{
 	width: 1300px;
-	margin: 0 auto;
+	margin: 0 auto 60px;
 }
 .hotCent1{
 	font-size:16px;

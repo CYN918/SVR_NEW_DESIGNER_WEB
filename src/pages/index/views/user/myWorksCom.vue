@@ -494,6 +494,7 @@ export default {
 	line-height: 20px;
 	font-size: 14.22px;
 	color: #333333;
+	margin-bottom: 9px;
 	
 }
 .myListBox_4>span:hover{

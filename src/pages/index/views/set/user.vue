@@ -84,7 +84,7 @@
 						<div class="suc_1_3">
 							<span>主页链接</span>
 							<el-input class="suc_3xInput" v-model="form.home_page" placeholder="请输入内容"></el-input>
-							<span>zookingsoft.com.cn</span>
+							<span>shiquaner.zookingsoft.com</span>
 						</div>
 					</div>
 					
