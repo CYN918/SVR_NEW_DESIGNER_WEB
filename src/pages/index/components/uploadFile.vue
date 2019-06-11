@@ -1,7 +1,6 @@
 <template>
 	<input type="file" @change="fileUp" class="myFileBtn"  :accept="cg.accept"  :multiple="cg.multiple" ref="fileDom"/>	
 </template>
-
 <script>
 import {Message} from 'element-ui'
 export default{
@@ -25,19 +24,15 @@ export default{
 		setJdt:{
 			type:Function,
 			default:(da)=>{}
-		},
-		
+		},		
 	},
 	data(){
 		return{
 			objs:[],
-			upType:'',
-			
+			upType:'',			
 		}
 	},
-	mounted: function () {	
-		
-	}, 	
+	mounted: function () {}, 	
 	methods: {
 		qxclosd(on){
 			this.fO[on].abort();
@@ -46,7 +41,6 @@ export default{
 			if(!window.userInfo){
 				return
 			}
-	
 			if(this.cg.type && this.cg.type.indexOf(fld.type)==-1){
 				Message({message: '文件格式不正确'});
 				return
@@ -84,28 +78,29 @@ export default{
 			let p = this.objs[this.objs.length-1];
 			let uploadProgress = (evt)=>{		
 				if(evt.lengthComputable) {
-					this.setJdt(Math.floor(Math.round(evt.loaded * 100 / evt.total)));
+					let pn = Math.floor(Math.round(evt.loaded * 100 / evt.total));
+					if(pn==100){return}
+					this.setJdt(pn);
 				}
 			};
 			let uploadComplete = (data)=>{
-				this.upType==0;
+				this.upType=0;
+				this.setJdt(100);
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;				
 					this.sussFn(da);				
-					this.$refs.fileDom.value ='';	
-					
+					this.$refs.fileDom.value ='';						
 					Message({message: '上传成功'});
 				}
-				
 			};
 			let uploadFailed = ()=>{
-				this.upType==0;
+				this.upType=0;
 				this.$refs.fileDom.value ='';
 				Message({message: '文件上传失败请稍后重试'});
 				
 			};
 			let uploadCanceled = ()=>{
-				this.upType==0;
+				this.upType=0;
 				this.$refs.fileDom.value ='';
 				Message({message: '取消成功'});
 				

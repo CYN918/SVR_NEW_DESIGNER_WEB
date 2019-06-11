@@ -39,7 +39,11 @@
 						</div>
 						<div class="suc_1_10">
 							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
-							<div class="suc_1_10_2">上传营业执照照片<img v-if="postData.business_license" class="suc_1_10_3" :src="postData.business_license" alt=""></div>
+							<div class="suc_1_10_2">
+								上传营业执照照片
+								<img v-if="postData.business_license" class="suc_1_10_3" :src="postData.business_license" alt="">
+								<jdt v-if="isJdt1" ref="jdt1"></jdt>
+							</div>
 						</div>
 						<div class="suc_1_9">
 							<span>开户许可证</span>
@@ -60,7 +64,11 @@
 						</div>
 						<div class="suc_1_10">
 							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
-							<div class="suc_1_10_2">上传开户许可证照片<img v-if="postData.opening_permit" class="suc_1_10_3" :src="postData.opening_permit" alt=""></div>
+							<div class="suc_1_10_2">
+								上传开户许可证照片
+								<img v-if="postData.opening_permit" class="suc_1_10_3" :src="postData.opening_permit" alt="">
+								<jdt v-if="isJdt2" ref="jdt2"></jdt>
+							</div>
 						</div>
 						
 						<div class="suc_1_9 ridieodf ridieodf2">
@@ -83,35 +91,25 @@
 						<div class="suc_1_9">
 							<span>所属开户支行</span>
 							<el-input class="suc_1_9_1" v-model="postData.branch_bank" placeholder="请输入所属开户支行"></el-input>
-							
-							
-							
 						</div>
 					</div>
 					<div class="suc_1 suc_3">
 						<div class="suc_title">身份验证<div class="xhds"></div></div>
 						<div class="suc_1_9">
 							<span>手机号</span><div class="suc_1_9_c">{{form.mobile}}</div><span @click="openTc1(2)" class="suc_1_9_c1">更换号码</span>
-			
-							
 						</div>
 						<div class="suc_1_9">
 							<span>验证码</span>
 							<Input class="suc_1_9yzm" v-model="postData.verify_code"  @ajaxYzm="ajaxYzmZd" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 						</div>
-						
-						
 					</div>
 					<p class="rz_qr">
 						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span @click="goPU('#/text/authorization')" class="pend">《狮圈儿供稿人协议》</span>
 					</p>
 					<div :class="['suc_btndf2',isPostky?'ispos':'']" @click="Userupdate">申请认证平台供稿人</div>
 				</div>
-			</div>
-			
+			</div>			
 		</div>
-		
-		
 		<div v-if="tAncType>0" class="tc_sucd">			
 			<div v-if="tAncType==2" class="tc_sucd_1">
 				<img class="tc_sucd_1X" @click="closeTc1" src="/imge/cj_00.png"/>
@@ -143,6 +141,15 @@ export default {
 	components:{upoloadcaver,Input,Citys,Select,rideo,tophead,uploadFile,jdt},
 	data(){
 		return {
+			isJdt1:'',
+			isJdt2:'',
+			fileConfig:{
+				type:['image/jpeg','image/png'],
+				max:20*1024*1024,
+				userType:'user_info',
+			},
+			
+			
 			check_type:1,
 			postData:{tax_rate_type:"1"},
 			zhData:[],
@@ -163,12 +170,6 @@ export default {
 				value: 'label',
 				children: 'cities'
 			},
-			fileConfig:{
-				type:['image/jpeg','image/png'],
-				max:20*1024*1024,
-				userType:'user_info',
-			},
-			
 			chekPhpne:function(val){
 				if(this.form.mobile_zone!='86'){
 					if(!(typeof val === 'number' && val%1 === 0)){
@@ -246,16 +247,22 @@ export default {
 	}, 
 	methods: {
 		uploadSC1(da){
+			this.isJdt1='';
 			this.postData.business_license = da.url;
 		},
 		uploadSC2(da){
+			this.isJdt2='';
 			this.postData.opening_permit = da.url;
 		},
 		setJdt1(on){
-			console.log(on);
+			this.isJdt1=1;
+			this.$refs.jdt1.bfb = on;
 		},
 		setJdt2(on){
-			console.log(on);
+			this.isJdt2=1;
+			if(this.$refs.jdt2){
+				this.$refs.jdt2.bfb = on;
+			}		
 		},
 		goPu(ud){
 			if(!ud){return}
@@ -301,7 +308,6 @@ export default {
 			}			
 			this.isPostky = true;
 		},
-
 		getBINKname(){
 			if(!this.postData.bank_card_no){
 				return
@@ -312,8 +318,7 @@ export default {
 				  cardNo:this.postData.bank_card_no,
 				  cardBinCheck:true
 				}
-			}).then((response)=>{	
-				
+			}).then((response)=>{				
 				if(!response.data.bank){
 					return
 				}
@@ -632,12 +637,11 @@ export default {
 </script>
 
 <style>
-.jdBox{
+.jdtboxd{
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%,-50%);
-	width:200px;
-	height: 200px;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
 }
 </style>

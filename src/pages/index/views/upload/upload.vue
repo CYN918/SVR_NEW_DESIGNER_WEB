@@ -638,13 +638,18 @@ export default {
 			let uploadProgress = (evt)=>{		
 				if(evt.lengthComputable) {
 					let percent = Math.round(evt.loaded * 100 / evt.total);
-					this.upfjData.bf  = Math.floor(percent); 
+					let op = Math.floor(percent);
+					if(op==100){
+						return
+					}
+					this.upfjData.bf  = op; 
 				}
 			};
 			let uploadComplete = (data)=>{
-				
+				this.upfjData.bf  = 100;
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;
+					
 					this.upfjData.fid=da.fid;					
 					this.zk_wrokids[1] = da.fid;
 					this.fjtext= '重新上传';

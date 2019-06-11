@@ -31,12 +31,15 @@
 						</div>
 						<div><span>{{el.file_name.split('.')[0]}}</span><span>{{el.s}}</span></div>
 					</div>
-					<div v-else class="zzched" @click="onxz(el)">
+					<div v-else class="zzched" @click="onxz(el,index)">
 						<div class="imgxzd" :style="Imgbj(el.url,el.cover_img)"></div>
 						<div class="imgxzd2"><span>{{el.file_name}}</span><span>{{el.file_size_format}}</span></div>
 						<div :class="['zzched_1',checkin.indexOf(el.fid)!=-1?'zzched2':'']"></div>
 					</div>					
-				</li>				
+				</li>	
+				
+				<img v-if="isnoData" class="upImnoData" src="/imge/k/empty_nodata@3x.png"/>
+				
 			</ul>
 			<div class="uploadBoxd2_4">
 				<div class="uploadBoxd2_4_1">已选{{this.checkin.length}}项，最多可选50项</div>
@@ -68,6 +71,8 @@ export default {
 			checIurl:[],
 			deldetType:0,
 			typexz:'',
+			deletOn:[],
+			isnoData:'',
       	};
     },
 	mounted: function () {	
@@ -89,6 +94,10 @@ export default {
 			
 		},
 		InImg(){
+			if(this.checIurl.length==0){
+				Message({message: '请先选择素材'});
+				return
+			}
 			this.$parent.inImg(this.checIurl,this.checkin);
 			this.closed(1);
 		},
@@ -113,20 +122,26 @@ export default {
 			formData.append('timestamp',times)
 			this.deldetType=1;
 			this.$ajax.post(window.basrul+'/File/File/delete', formData)
-			.then((response)=>{
+			.then((da)=>{
 				this.deldetType=0;
-				if(response.data.result==0){
+				if(da.data.result==0){
 					Message({message: '删除成功'});
-                    this.closed();
-					for(let i=0,n=this.deletObj.length;i<n;i++){
-						this.deletObj[i].type='none';						
+					let pn = 0;
+					for(let i=0,n=this.deletOn.length;i<n;i++){
+						this.list.splice(this.deletOn[i]-pn,1);
+						pn++;				
 					}
+					this.deletOn = [];
+					this.checkin = [];
+					this.checIurl = [];
+					this.deletObj = [];
+					
 				}else{
 					Message({message: '删除失败'});	
 				}
 				
 			})
-			.catch(function (error) {	
+			.catch(()=>{	
 				this.deldetType=0;
 				Message({message: '删除失败'});	
 			});
@@ -135,17 +150,19 @@ export default {
 		
 			this.$parent.closed(on);
 		},
-		onxz(obj){
+		onxz(obj,on){
 			let lend = this.checkin.indexOf(obj.fid);
 			if(lend==-1){
 				this.checkin.push(obj.fid);
 				this.checIurl.push(obj.url);
-				this.deletObj.push(obj)
+				this.deletObj.push(obj);
+				this.deletOn.push(on);
 				return
 			}
 			this.deletObj.splice(lend,1);
 			this.checIurl.splice(lend,1);
 			this.checkin.splice(lend,1);
+			this.deletOn.splice(lend,1);
 		},
 		getList(){
 			if(this.configData){
@@ -172,10 +189,17 @@ export default {
 				timestamp:times,
 				file_type:this.configData.getType,
 				relation_type:'work',
+				limit:40,
+				page:1,
 			}
 			this.api.getFList(params).then((da)=>{
 				if(da=='error'){
 					return
+				}
+				if(da.length==0 && this.list.length==0){
+					this.isnoData=1;
+				}else{
+					this.isnoData='';
 				}
 				this.list =da.data;
 			})
@@ -646,5 +670,10 @@ export default {
 	width: 100%;
 	box-sizing: border-box;
 	padding: 5px;
+}
+
+.upImnoData{
+	display: block;
+	margin: 110px auto 0;   
 }
 </style>

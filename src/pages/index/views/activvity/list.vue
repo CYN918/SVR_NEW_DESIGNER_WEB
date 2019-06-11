@@ -3,7 +3,7 @@
 		<list :config="data">
 			<template v-slot:todo="{ todo }">
 				<div class="ac_list_Box_0" @click="go(todo.id)">
-					<img class="ac_list_Box_1" :src="todo.banner" alt="">
+					<div class="ac_list_Box_2x"><img class="ac_list_Box_1" :src="todo.banner" alt=""></div>					
 					<div class="ac_list_Box_2">
 						<div class="ac_list_Box_4">{{todo.activity_name}}</div>
 						<div class="ac_list_Box_5"><span>{{todo.category_name}}</span>投稿时间：{{todo.start_time.split(" ")[0]}} 至 {{todo.end_time.split(" ")[0]}}</div>
@@ -58,13 +58,7 @@ export default {
 	width: 640px;
 	height: 460px;
 }
-.ac_list_Box_1{
 
-	border-radius: 5px 5px 0 0;
-	display: block;
-	width: 100%;
-	height: 360px;
-}
 .ac_list_Box_2{
 	position: relative;
 	padding: 22px 20px 23px;
@@ -108,5 +102,22 @@ export default {
 	color: #999999;
 	margin-bottom: 12px;
 }
-
+.ac_list_Box_2x{
+	position: relative;
+	border-radius: 5px 5px 0 0;
+	overflow: hidden;
+	display: block;
+	width: 100%;
+	height: 360px;
+}
+.ac_list_Box_1{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+	display: block;
+	min-width: 100%;
+	min-height:100%;
+}
 </style>

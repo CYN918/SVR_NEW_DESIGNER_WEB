@@ -4,8 +4,7 @@
 		<div class="setUserBox">
 			<div class="setUserBoxs">
 				<div class="setUserBoxs_nav">
-					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']">{{el}}</div>
-					
+					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']">{{el}}</div>					
 				</div>
 				<div class="navDwzc">
 					<div :class="['setUserBoxs_nav',topTyped?'fixdon':'']">
@@ -26,7 +25,10 @@
 						<div class="suc_1_9">
 							<span>身份证正面照片</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">上传照片<input @change="fileUp" ref="upnfile"  type="file"></span>
+								<span class="suc_1_9_3">
+									上传照片
+									<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
+								</span>
 								<div class="suc_1_9_4 iconfont">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">
@@ -42,14 +44,21 @@
 						</div>
 						<div class="suc_1_10">
 							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
-							<div class="suc_1_10_2">上传身份证正面照片<img v-if="postData.front_photo" class="suc_1_10_3" :src="postData.front_photo" alt=""></div>
+							<div class="suc_1_10_2">
+								上传身份证正面照片
+								<img v-if="postData.front_photo" class="suc_1_10_3" :src="postData.front_photo" alt="">
+								<jdt v-if="isJdt1" ref="jdt1"></jdt>
+							</div>
 						</div>
 						
 						
 						<div class="suc_1_9">
 							<span>身份证反面照片</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">上传照片<input @change="fileUp2" ref="upnfile"  type="file"></span>
+								<span class="suc_1_9_3">
+									上传照片
+									<uploadFile :setJdt="setJdt2" :sussFn="uploadSC2" :cg="fileConfig"></uploadFile>
+								</span>
 								<div class="suc_1_9_4 iconfont">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">
@@ -65,12 +74,19 @@
 						</div>
 						<div class="suc_1_10">
 							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
-							<div class="suc_1_10_2">上传身份证反面照片<img v-if="postData.back_photo" class="suc_1_10_3" :src="postData.back_photo" alt=""></div>
+							<div class="suc_1_10_2">
+								上传身份证反面照片
+								<img v-if="postData.back_photo" class="suc_1_10_3" :src="postData.back_photo" alt="">
+								<jdt v-if="isJdt2" ref="jdt2"></jdt>
+							</div>
 						</div>
 						<div class="suc_1_9">
 							<span>手持身份证照片</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">上传照片<input @change="fileUp3" ref="upnfile"  type="file"></span>
+								<span class="suc_1_9_3">
+									上传照片
+									<uploadFile :setJdt="setJdt3" :sussFn="uploadSC3" :cg="fileConfig"></uploadFile>
+								</span>
 								<div class="suc_1_9_4 iconfont">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">
@@ -86,7 +102,11 @@
 						</div>
 						<div class="suc_1_10">
 							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
-							<div class="suc_1_10_2">上传手持身份证照片<img v-if="postData.hand_hold_photo" class="suc_1_10_3" :src="postData.hand_hold_photo" alt=""></div>
+							<div class="suc_1_10_2">
+								上传手持身份证照片
+								<img v-if="postData.hand_hold_photo" class="suc_1_10_3" :src="postData.hand_hold_photo" alt="">
+								<jdt v-if="isJdt3" ref="jdt3"></jdt>
+							</div>
 						</div>
 	
 						
@@ -192,11 +212,22 @@ import Input from '../../components/input'
 import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
+import uploadFile from '../../components/uploadFile'
+import jdt from '../../components/jdt'
 export default {
 	name: 'works',
-	components:{upoloadcaver,Input,Citys,Select,rideo,tophead},
+	components:{upoloadcaver,Input,Citys,Select,rideo,tophead,uploadFile,jdt},
 	data(){
 		return {
+			isJdt1:'',
+			isJdt2:'',
+			isJdt3:'',
+			fileConfig:{
+				type:['image/jpeg','image/png'],
+				max:20*1024*1024,
+				userType:'user_info',
+			},
+			
 			postData:{},
 			zhData:[],
 			navDatad:{},
@@ -299,6 +330,36 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		uploadSC1(da){
+			this.isJdt1='';
+			this.postData.front_photo = da.url;
+		},
+		uploadSC2(da){
+			this.isJdt2='';
+			this.postData.back_photo = da.url;
+		},
+		uploadSC3(da){
+			this.isJdt3='';
+			this.postData.hand_hold_photo = da.url;
+		},
+		setJdt1(on){
+			this.isJdt1=1;
+			if(this.$refs.jdt1){
+				this.$refs.jdt1.bfb = on;
+			}		
+		},
+		setJdt2(on){
+			this.isJdt2=1;
+			if(this.$refs.jdt2){
+				this.$refs.jdt2.bfb = on;
+			}		
+		},
+		setJdt3(on){
+			this.isJdt3=1;
+			if(this.$refs.jdt3){
+				this.$refs.jdt3.bfb = on;
+			}		
+		},
 		goPu(ud){
 			if(!ud){return}
 			window.open(ud)
