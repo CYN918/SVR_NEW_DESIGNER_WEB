@@ -36,7 +36,7 @@
 					</div>
 					<div class="userBoxd">
 						<span>性别</span>
-						<rideo :Data="sexData" v-model="form.sex"></rideo>			
+						<rideo class="onusert" :Data="sexData" v-model="form.sex"></rideo>			
 					</div>
 					<div class="userBoxd">
 						<span>职业</span>
@@ -397,5 +397,8 @@ export default {
 }
 .newUserme2 .userBoxd{
 	margin-bottom: 0;
+}
+.onusert{
+	line-height: 40px;
 }
 </style>

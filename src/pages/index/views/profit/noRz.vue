@@ -66,7 +66,7 @@ export default {
 	line-height: 24px;
 }
 .pro_cd4{
-	margin: 0 auto;
+	margin: 0 auto 60px;
 	background: #FF5121;
 	border-radius: 5px;
 	font-size: 16px;
