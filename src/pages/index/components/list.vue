@@ -14,7 +14,7 @@
 		:total="total">   
 		</el-pagination>
 		<div v-if="isNodeat" class="emptyData">
-			<img src="/imge/k/empty_nodata@3x.png"/>
+			<img src="/imge/svg/empty_nodata.svg" alt="">
 		</div>
 	</ul>
 	

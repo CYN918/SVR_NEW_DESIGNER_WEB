@@ -467,8 +467,7 @@ export default {
 				Message({message: '请输入正确金额,提现金额不得小于300'});
 				return;
 			}
-			
-			if(p==2 && this.form.cash_money>this.basDa.account_balance){
+			if(p==2 && this.form.cash_money>+this.basDa.account_balance){
 				Message({message: '余额不足'});
 				return;
 			}

@@ -60,7 +60,7 @@ export default {
 	
 	/*文件上传*/
 	pushFile:{
-		url:'/File/File/insert',method:'post',baseURL:0,Type:'multipart/form-data',
+		url:'/File/File/insert',method:'post',baseURL:0,
 	},
 	
 	

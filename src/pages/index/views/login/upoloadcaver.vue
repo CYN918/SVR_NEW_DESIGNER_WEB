@@ -62,6 +62,7 @@ export default {
 				autoCropWidth:'150px',
 				autoCropHeight:'150px',
 				fixedBox:true,
+				uptype:'',
 			},
 		}
 	},	
@@ -86,6 +87,10 @@ export default {
 			};
 		},
 		startCrop(){
+			if(this.uptype==1){
+				Message({message: '上传中请稍后'});
+				return
+			}
 			this.$refs.cropper.getCropData(data => {
 				function dataURLtoFile(dataurl) {
 					  var arr = dataurl.split(',');
@@ -118,9 +123,10 @@ export default {
 				formData.append('related_id',window.userInfo.open_id);
 				formData.append('classify_1','avatar');
 				formData.append('timestamp',times);
-		
+				this.uptype=1;
 				this.$ajax.post(window.basrul+'/File/File/insert', formData)
 				.then((response)=>{
+					this.uptype=0;
 					if(response.data.result==0){
 						this.caver = response.data.data.url;
 						this.$parent.close(this.caver);	
@@ -129,7 +135,7 @@ export default {
 					}
 				})
 				.catch(function (error) {
-					
+					this.uptype=0;
 					
 				});
 			})

@@ -1,6 +1,8 @@
 <template>
 	<div class="kBg_01">
-		<img src="/imge/k/empty_nodata@3x.png"/>
+		<!-- <img src="/imge/k/empty_nodata@3x.png"/>
+		*  -->
+		<img src="/imge/svg/empty_nodata.svg" alt="">
 		你的数据去火星了
 	</div>
 </template>
