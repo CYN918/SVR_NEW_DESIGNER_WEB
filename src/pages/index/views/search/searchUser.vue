@@ -32,7 +32,9 @@
 				</li>
 				
 			</ul>			
-			<div class="pagesddd wsjzt" v-if="List.length==0"><img  class="wusj2" src="/imge/wsj2.png" alt=""></div>
+			<div v-if="isNodeat" class="emptyData">
+				<img src="/imge/k/empty_nodata@3x.png"/>
+			</div>
 			<el-pagination v-if="total>40" class="pagesddd"
 			background
 			@size-change="handleSizeChange"
@@ -66,7 +68,7 @@ export default {
 	data(){
 		return {
 			isshowd2:false,
-			banners:[],
+			isNodeat:'',
 			List:[],
 			banOn:0,
 			page:1,
@@ -110,7 +112,14 @@ export default {
 			this.$router.push({path:d,query:{id:id}});
 		},
 		gosx(on){
-			this.$router.push({path:'/chat',query:{openid:this.List[on].open_id,avatar:this.List[on].avatar,username:this.List[on].username}});
+			let pr = {
+				open_id:this.List[on].open_id,
+				avatar:this.List[on].avatar,
+				username:this.List[on].username,
+				city:this.List[on].city,
+				vocation:this.List[on].vocation,
+			};
+			this.$router.push({path:'/chat',query:pr});
 		},
 		sreond(type){
 			if(type==this.classd){return}
@@ -211,8 +220,14 @@ export default {
 				if(da=='error'){
 					return
 				}
+				
 				this.List = da.data;
 				this.total = da.total;
+				if(this.List.length==0){
+					this.isNodeat=1;
+				}else{
+					this.isNodeat='';
+				}				
 			}).catch(()=>{
 				this.loading.close();
 			})
@@ -237,6 +252,15 @@ export default {
 </script>
 
 <style>
+.emptyData{
+	width: 1300px;
+	margin: 120px auto;
+	text-align: center;
+}
+.emptyData>img{
+	display: block;
+	margin: 0 auto;
+}
 .worksBox{
 	margin: 17px auto 0;
 }

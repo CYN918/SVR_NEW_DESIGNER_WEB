@@ -38,7 +38,7 @@
 							<img class="zp_box_1" :src="el.face_pic">
 							<div class="zp_box_2">
 								{{el.work_name.slice(0,10)}}
-								<img v-if="el.is_recommend==1" :src="el.face_pic" alt="">
+								<img v-if="el.is_recommend==1" src="/imge/svg/zs_icon_tj.svg" alt="">
 							</div>
 							<div class="zp_box_3">
 								{{el.classify_1_name+'-'+el.classify_2_name}}
@@ -53,6 +53,7 @@
 								</div>
 							</div>
 						</li>
+						<img v-if="isnoData" class="upImnoData" src="/imge/k/empty_nodata@3x.png"/>
 					</ul>
 				</div>
 				<div class="pushDeletBox5">
@@ -83,7 +84,8 @@ export default {
 			work_id:[],
 			bindType:0,
 			ishowzp:false,
-			infoData:{}
+			infoData:{},
+			isnoData:'',
 		}
 		
 	},
@@ -167,6 +169,7 @@ export default {
 			window.open(url);
 		},
 		getPersonalWorkList(){
+			this.isnoData='';
 			if(!window.userInfo){return}
 			let pr = {
 				activity_id:this.$route.query.id,
@@ -174,10 +177,14 @@ export default {
 				limit:this.limit,
 			};
 			this.api.getPersonalWorkList(pr).then((da)=>{
+				
 				if(da=='error'){
 					return
 				}
 				this.zpList = da.data;
+				if(this.zpList.length==0){
+					this.isnoData=1;
+				}
 			})
 		},
 		gopushzp(){
@@ -237,6 +244,10 @@ export default {
 </script>
 
 <style>
+.upImnoData{
+	display: block;
+	margin: 110px auto 0;   
+}
 .detail_topBox{
 	min-width: 1300px;
 	

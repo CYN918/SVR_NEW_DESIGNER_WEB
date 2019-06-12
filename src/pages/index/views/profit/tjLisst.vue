@@ -1,5 +1,5 @@
 <template>
-	<div class="tjEvent">
+	<div v-if="list.length>0" class="tjEvent">
 		<div class="tjEvent_1">
 			推荐活动<router-link class="tjEvent_2 pend" to="/activvity">查看更多</router-link>
 		</div>

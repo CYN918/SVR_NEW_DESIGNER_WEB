@@ -908,6 +908,7 @@ export default {
     border-bottom: 1px solid #ddd;
     line-height: 40px;
     margin-bottom: 20px;
+	background: #ddd;
 }
 .xf11l{
 	font-size:13px;
