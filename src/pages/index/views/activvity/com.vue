@@ -90,7 +90,7 @@ export default {
 	mounted: function () {	
 		this.setOnd();
 		this.a_getInfo();
-		this.getPersonalWorkList();
+		// this.getPersonalWorkList();
 	}, 
 	methods:{
 		fxclick(){
@@ -109,6 +109,7 @@ export default {
 			if(!window.userInfo){
 				this.$router.push({path:'/login'});
 			}
+			this.getPersonalWorkList();
 			this.ishowzp = true;
 		},
 		checkZp(id){

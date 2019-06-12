@@ -23,7 +23,10 @@
 						<div class="suc_1_9">
 							<span>营业执照</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">上传照片  <uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile></span>
+								<span class="suc_1_9_3">
+									上传照片
+									<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
+								</span>
 								<div class="suc_1_9_4 iconfont">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">

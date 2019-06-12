@@ -281,6 +281,7 @@ export default {
 				if(da=='error'){					
 					return
 				}
+				
 				this.$refs.listDom.getData();
 				this.hindTopc();
 				Message({message: '删除成功'});				

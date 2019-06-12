@@ -29,6 +29,9 @@
 			</div>
 		</div>
 		<router-view ref="chartView"/>
+		<tjLisst></tjLisst>
+		
+		
 		<tacBox v-if="istx && userTypes==1">
 			<template v-slot:tanBox="{todo}">
 				<div class="pr_ntc_1">提现</div>
@@ -218,8 +221,9 @@ import {Message} from 'element-ui'
 import TopNav from '../commd/topNav.vue';
 import tacBox from '../../components/tacBox.vue';
 import Input from '../../components/input'
+import tjLisst from './tjLisst'
 export default {
-	components:{TopNav,tacBox,Input},
+	components:{TopNav,tacBox,Input,tjLisst},
 	name: 'profit',	
 	data(){
 		return {
@@ -981,4 +985,5 @@ export default {
 .conddf2{
 	border-top: 0;
 }
+
 </style>

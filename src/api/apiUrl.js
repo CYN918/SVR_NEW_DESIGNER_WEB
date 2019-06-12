@@ -258,5 +258,9 @@ export default {
 	Income_applyCancel:{
 		url:'/Api/Income/applyCancel',method:'post',baseURL:0,
 	},
+	recommendActivity:{
+		url:'/api/activity/recommendActivity',method:'post',baseURL:0,
+	},
 
+	
 }
