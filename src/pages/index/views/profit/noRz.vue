@@ -1,7 +1,7 @@
 <template>
 	<div class="Messgebox">
 		<div>
-			<img class="pro_cd1" src="/imge/wsj2.png" alt="">
+			<img class="pro_cd1" src="/imge/svg/empty_nodata.svg" alt="">
 			<div class="pro_cd2">您还不是平台供稿人</div>
 			<div class="pro_cd3">立即申请将优秀的作品转化为收益</div>
 			<div class="pro_cd4" v-if="userData.contributor_format_status==0" @click="gosetPersonal">申请认证平台供稿人</div>
@@ -37,6 +37,16 @@ export default {
 				this.$router.push({path:'/login'})
 				return
 			}	
+			let pr={};
+			this.api.getSelfInfo(pr).then((da)=>{
+				if(da=='error'){return}
+				if(da.contributor_type!=0){
+					this.$router.push({path: '/profit'});
+					window.userInfo = da;
+					return
+				}
+			});
+			
 			this.userData = window.userInfo;
 		},
 	},

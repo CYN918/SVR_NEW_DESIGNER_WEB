@@ -174,7 +174,7 @@ export default {
 			let pr = {
 				activity_id:this.$route.query.id,
 				page:this.page,
-				limit:this.limit,
+				limit:40,
 			};
 			this.api.getPersonalWorkList(pr).then((da)=>{
 				

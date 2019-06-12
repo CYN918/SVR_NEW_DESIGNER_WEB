@@ -55,7 +55,7 @@
 				<div class="zdc"></div>
 			</div>
 			<div class="seed2_2p">
-			<div :class="['seed2_2',isfix]">
+			<div :class="['seed2_2','.seed2_2xxxx',isfix]">
 				<div class="seed2_1_1" v-if="contDat.user_info">
 					<div class="seed2_1_1_1">
 						<img class="contavatar" :src="contDat.user_info.avatar" alt="">

@@ -80,7 +80,7 @@ export default {
 }
 .proNav2_1{
 	position: relative;
-	text-align: center;
+	text-align: left;
 	margin: 0 auto;
 	line-height: 48px;
 	height: 48px;

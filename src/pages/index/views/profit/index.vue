@@ -272,14 +272,14 @@ export default {
 			this.$router.push({path: '/index'});
 			return
 		}
-		if(window.userInfo.contributor_format_status!=2){
+		if(window.userInfo.contributor_type==0){
 			this.$router.push({path: '/noIs'});
 			return
 		}
 	
 	},
 	mounted: function () {			
-		this.init();
+		this.init();		
 	}, 
 	methods: {
 		backPhone(){
@@ -301,6 +301,7 @@ export default {
 			return str;
 		},
 		init(){
+			
 			this.userTypes=window.userInfo.contributor_type;
 			this.getData();
 			this.getUserDetail();
