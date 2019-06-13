@@ -25,7 +25,7 @@
 					<div class="lunbox">
 						
 						<ul v-if="el.works.length>0">
-							<li v-if="index2<3" v-for="(el2,index2) in el.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
+							<li  v-for="(el2,index2) in el.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
 						</ul>
 						
 					</div>

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { Loading } from 'element-ui';	
+
 import list from '../../components/list';
 import tophead from './head';
 import box_a from '../../components/box_a';
