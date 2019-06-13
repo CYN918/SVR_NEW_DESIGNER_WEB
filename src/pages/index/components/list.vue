@@ -41,6 +41,7 @@ export default {
 			isNodeat:'',
 			loading: '',
 			sxCs:{},
+			goTop:'',
 		}
 	},
 	mounted: function () {	
@@ -75,18 +76,25 @@ export default {
 				}else{
 					this.isNodeat='';
 				}				
-				
+				if(this.goTop){
+					document.documentElement.scrollTop =1;
+					document.body.scrollTop =1;
+					this.goTop='';
+				}
 			}).catch(()=>{
 				this.loading.close();
 			})
 		},
 		handleSizeChange(val) {
-			window.scrollTo(0,0);
+			this.goTop=1;
 			this.limit = val;
 			this.page=1;
+			this.List = [];
 			this.getData();
+			
 		},
 		handleCurrentChange(val) {
+			
 			window.scrollTo(0,0);
 			this.page = val;
 			this.getData();
