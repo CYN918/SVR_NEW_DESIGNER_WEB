@@ -70,6 +70,7 @@
 									<div  class="hfBox" v-if="el.isshowfh">
 										<Input :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 										<span  :class="chekcont(pl2)==true?'iscsbtn':''" @click="addComment(pl2,index)">回复</span>
+										<div class="plyh"></div>
 									</div>
 								</div>
 							</div>
@@ -85,6 +86,7 @@
 										<div class="hfBox" v-if="el2.isshowfh==1">
 											<Input :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 											<span :class="chekcont(pl2)==true?'iscsbtn':''" @click="addComment(pl2,index,index2)">回复</span>
+											<div class="plyh"></div>
 										</div>
 									</div>								
 								</div>
@@ -160,6 +162,7 @@
 			</div>
 		</div>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
+		
 	</div>
 </template>
 
@@ -647,4 +650,5 @@ export default {
 .seed1_2_5xx{
 	margin: 40px auto;
 }
+
 </style>

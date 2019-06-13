@@ -50,7 +50,6 @@ export default {
 		sxfn(){
 			this.page=1;
 			this.limit=40;
-			console.log('进来了')
 			this.getData();			
 		},
 		
@@ -76,17 +75,19 @@ export default {
 				}else{
 					this.isNodeat='';
 				}				
-				window.scrollTo(0,0);
+				
 			}).catch(()=>{
 				this.loading.close();
 			})
 		},
 		handleSizeChange(val) {
+			window.scrollTo(0,0);
 			this.limit = val;
 			this.page=1;
 			this.getData();
 		},
 		handleCurrentChange(val) {
+			window.scrollTo(0,0);
 			this.page = val;
 			this.getData();
 		}

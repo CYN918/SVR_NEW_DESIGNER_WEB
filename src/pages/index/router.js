@@ -144,15 +144,25 @@ let wb = [
 				component: () => import('./views/set/security.vue')
 			},
 			{
-				path: '/setPersonal',
-				name: 'setPersonal',
-				component: () => import('./views/set/personal.vue')
+				path: '/setRz',
+				name: 'setRz',
+				redirect: '/setPersonal',
+				component: () => import('./views/set/rzCom.vue'),
+				children:[
+					{
+						path: '/setPersonal',
+						name: 'setPersonal',
+						component: () => import('./views/set/personal.vue')
+					},
+					{
+						path: '/setEnterprise',
+						name: 'setEnterprise',
+						component: () => import('./views/set/enterprise.vue')
+					},
+					
+				]
 			},
-			{
-				path: '/setEnterprise',
-				name: 'setEnterprise',
-				component: () => import('./views/set/enterprise.vue')
-			},
+	
 			{
 				path: '/message',
 				name: 'message',

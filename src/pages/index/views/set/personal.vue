@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<tophead :navData="navDatad"></tophead>
+	
 		<div class="setUserBox">
 			<div class="setUserBoxs">
 				<div class="setUserBoxs_nav">
@@ -1016,15 +1016,9 @@ export default {
 				if(da=='error'){
 					return
 				}
+				let navd=0;
 				if(da.check_status==0){
 					this.check_type = 1;
-					this.navDatad = {
-						title:'平台供稿人-认证申请',
-						list:[
-							{n:'个人',u:'/setPersonal'},
-							{n:'企业',u:'/setEnterprise'},
-						],
-					};
 				}
 			
 				if(da.check_status==1){
@@ -1033,27 +1027,15 @@ export default {
 				}
 				if(da.check_status==-1){
 					this.check_type = 2;
-					this.navDatad = {
-						title:'平台供稿人-认证申请',
-						list:[
-							{n:'个人',u:'/setPersonal'},							
-						],
-					};
+					navd=1;
 				}
+				
 				if(da.check_status==2){
 					this.check_type = 3;
-					this.navDatad = {
-						title:'平台供稿人-认证申请',
-						list:[
-							{n:'个人',u:'/setPersonal'},						
-						],
-					};
+					navd=1;
 				}
+				this.$parent.setNav(navd);
 				this.postData = da; 
-				
-
-				
-				
 			})
 		},
 		showisPhto(){
