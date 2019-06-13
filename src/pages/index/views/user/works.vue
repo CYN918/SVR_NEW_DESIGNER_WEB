@@ -1,6 +1,5 @@
 <template>
 	<div class="csBox">
-		<tophead></tophead>
 		<div class="worksBox">
 			<div class="worksBox_1">
 				共发布{{total}}个作品 

@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<tophead ref="tophead"></tophead>
 		<div class="info_boxd">
 			<div class="info_box">
 				<div>
@@ -63,12 +62,13 @@ export default {
 		}
 	},
 	mounted: function () {	
-			
+		this.setData();
 	}, 
 	methods: {
 	
-		setData(data){
-			this.userInfo = data;
+		setData(){
+	
+			this.userInfo = this.$parent.userMessage;
 		},
 		isMe(){
 			if(!window.userInfo){

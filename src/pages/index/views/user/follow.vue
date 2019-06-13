@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<tophead></tophead>
 		<div class="worksBox">
 			<div class="worksBox_1">
 				共关注{{ total+'位创作者'}}

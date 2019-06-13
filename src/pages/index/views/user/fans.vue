@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<tophead></tophead>
 		<div class="worksBox csBox">
 			<div class="worksBox_1">
 				共{{ total+'位粉丝'}}

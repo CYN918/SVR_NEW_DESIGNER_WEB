@@ -7,7 +7,7 @@
 			</div>
 		</div>
 		</div>
-		<Footer></Footer>
+		<Footer class="loginfooter"></Footer>
 	</div>
 </template>
 <script>
@@ -31,8 +31,13 @@ export default {
 }
 </script>
 <style>
+.logindboxd{
+	min-height: 100% !important;
+}
 .loginBox{
 	background: url(/imge/lo1.png) no-repeat 0 0/cover;
 }
-
+.loginfooter{
+	background: linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
+}
 </style>

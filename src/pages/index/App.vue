@@ -63,7 +63,7 @@ input:-ms-input-placeholder{
 #app>div>div{
 	position: relative;
 	box-sizing: border-box;
-	min-height: 100%;
+	min-height: 102%;
 	padding: 60px 0;
 }
 .pend{

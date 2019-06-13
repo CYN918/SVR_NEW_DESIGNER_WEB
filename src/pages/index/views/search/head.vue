@@ -4,14 +4,14 @@
 			<span @click="goto('searchWorks')" :class="['sea_2','pend',onNav==1?'sea_on':'']">作品</span>
 			<span @click="goto('searchUser')" :class="['pend',onNav==2?'sea_on':'']">创作者</span>
 			<div class="sea_4">
-				 <el-input
+				 <el-input class="zysdf_1"
 					@keyup.enter.native="keydown($event)"
 					placeholder="请输入内容"
 					v-model="secont">
 					<i @click="keydown" slot="prefix" class="el-input__icon el-icon-search"></i>
 				</el-input>
-				<el-select v-model="setcti" placeholder="请选择">
-					<el-option
+				<el-select class="zysdf_2" v-model="setcti" placeholder="请选择">
+					<el-option 
 					  v-for="item in clasd"
 					  :key="(item.value||item.value==0)?item.value:item.label"
 					  :label="item.label"
@@ -120,12 +120,14 @@ export default {
 	height: 40px;
 	line-height: 40px;
 	padding: 2px 0;
-	border-bottom: 1px solid #131415;
+	border-bottom: 1px solid #c9c7d8;
 }
 .sea_4 .el-input{
+
 	display: inline-block;
     width: 70%;
 }
+
 .sea_4 .el-input__inner{
 	border: none;
 	border-radius: 0;
@@ -133,5 +135,15 @@ export default {
 .sea_4 .el-select{
 	width: 30%;
 	text-align: right;
+}
+.zysdf_1{
+	position: absolute;
+	left: -12px;
+	top: 0;
+}
+.zysdf_2{
+	position: absolute;
+	right: -12px;
+	top: 0;
 }
 </style>

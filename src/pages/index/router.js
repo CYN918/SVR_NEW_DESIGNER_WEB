@@ -31,21 +31,40 @@ let wb = [
 				component: () =>import('./views/upload/upload.vue'),
 			
 			},
+			
 			{
-				path: '/recommend',
-				name: 'recommend',
-				component: () => import('./views/user/recommend.vue')
+				path: '/userd',
+				name: 'userd',
+				component: () => import('./views/user/userCom.vue'),
+				children:[
+					{
+						path: '/works',
+						name: 'works',
+						component: () => import('./views/user/works.vue')
+					},
+					{
+						path: '/recommend',
+						name: 'recommend',
+						component: () => import('./views/user/recommend.vue')
+					},
+					{
+					    path: '/follow',
+					    name: 'follow',
+					    component: () => import('./views/user/follow.vue')
+					},
+					{
+					    path: '/followFans',
+					    name: 'followFans',
+					    component: () => import('./views/user/fans.vue')
+					},
+					{
+						path: '/info',
+						name: 'info',
+						component: () => import('./views/user/info.vue')
+					},
+				],
 			},
-			{
-				path: '/info',
-				name: 'info',
-				component: () => import('./views/user/info.vue')
-			},
-			{
-				path: '/works',
-				name: 'works',
-				component: () => import('./views/user/works.vue')
-			},
+		
 			{
 				path: '/myAll',
 				name: 'myAll',
@@ -71,16 +90,7 @@ let wb = [
 				name: 'myDraft',
 				component: () => import('./views/user/myDraft.vue')
 			},
-			{
-                path: '/follow',
-                name: 'follow',
-                component: () => import('./views/user/follow.vue')
-            },
-			{
-			    path: '/followFans',
-			    name: 'followFans',
-			    component: () => import('./views/user/fans.vue')
-			},
+			
 			{
 				path: '/activvity',
 				name: 'activvity',
