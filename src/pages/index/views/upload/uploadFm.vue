@@ -124,11 +124,7 @@ export default {
 			this.$parent.close(''); 		
 		},
 		setImgd(img){
-// 			console.log(img);
-// 			console.log('过来了');
-// 			// this.option.img = img;
-// 			this.previews.url = img;
-// 			// console.log(this.option.img)
+
 		},
 		realTime(data) {
 			this.previews = data;	

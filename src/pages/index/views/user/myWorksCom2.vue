@@ -244,7 +244,7 @@ export default {
 				p = p.replace(/id/g,"value");
 				p = p.replace(/sub_data/g,"children");
 				this.page2.classify = JSON.parse(p);
-		        console.log(p)
+		    
 			})
 		},
 		updata(id){
@@ -319,7 +319,7 @@ export default {
 			this.banOn = 0;
 		},
 		getHList(){
-			console.log(this.$parent.isType)
+		
 			
 			let params = {
 				access_token:window.userInfo.access_token,

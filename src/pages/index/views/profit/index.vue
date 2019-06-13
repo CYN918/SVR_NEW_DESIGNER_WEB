@@ -58,7 +58,8 @@ export default {
 			this.$router.push({path: '/index'});
 			return
 		}
-		if(window.userInfo.contributor_type==0){
+		
+		if(!window.userInfo.contributor_type || window.userInfo.contributor_type==0){
 			this.$router.push({path: '/noIs'});
 			return
 		}	

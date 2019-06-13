@@ -551,7 +551,7 @@ export default {
 			this.ck2 = "";
 			if(!this.form.work_name){return false}
 			if(!this.form.content){return false}
-			console.log(222222)
+			
 			if(this.ifBjType==0){
 				return false;
 			}

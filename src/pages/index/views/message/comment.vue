@@ -226,7 +226,7 @@ export default {
 			return time.getFullYear()+'-'+ym+'-'+dm;
 		},
 		goWork(id){
-			console.log(id);
+		
 			this.$router.push({path:'/cont',query:{id:id}});
 		},
 		init(){

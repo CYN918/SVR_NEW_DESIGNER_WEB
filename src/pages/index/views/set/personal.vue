@@ -593,7 +593,7 @@ export default {
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;					
 					this.$set(this.postData,'back_photo',da.url)
-					console.log(da);
+					
 					Message({message: '文件上传成功'});
 				}
 				
@@ -660,7 +660,7 @@ export default {
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;					
 					this.$set(this.postData,'hand_hold_photo',da.url)
-					console.log(da);
+				
 					Message({message: '文件上传成功'});
 				}
 				
@@ -952,7 +952,7 @@ export default {
 				Message({message: '请填写所有信息'});
 				return
 			}
-			console.log(window.userInfo);
+		
 			let pr = {
 				access_token:window.userInfo.access_token,
 				type:1,

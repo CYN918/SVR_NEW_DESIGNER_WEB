@@ -58,7 +58,7 @@ export default {
 			this.$router.push({path:d,query:{id:id}});
 		},
 		showFpllwodel(el){
-			console.log(this.$parent);
+		
 			this.$parent.$parent.setSQ(el);
 		},
 		Follow_del(el){

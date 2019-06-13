@@ -32,7 +32,7 @@ export default {
 	name: 'tancQr',
 	methods: {
 		clickFn(fn){
-			console.log(fn);
+		
 			this.$parent[fn]();
 		}
 	}

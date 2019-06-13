@@ -188,7 +188,7 @@ export default {
 			});
 		},
 		pdys1(){
-			console.log(this.form);
+		
 			this.btnType = '';	 
 			if(!this.form.mobiles){
 				return
@@ -196,7 +196,7 @@ export default {
 			if(!this.form.verifys){
 				return
 			}	
-			console.log(this.form);
+		
 			if(!this.form.password){
 				return
 			}	

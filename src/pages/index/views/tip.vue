@@ -42,7 +42,7 @@ export default {
 	name: 'tip',
 	methods: {
 		godd(){
-			console.log(window.userInfo);
+			
 			if(!window.userInfo){
 				this.$router.push({path: '/login'});
 				return

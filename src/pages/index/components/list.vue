@@ -93,9 +93,8 @@ export default {
 			this.getData();
 			
 		},
-		handleCurrentChange(val) {
-			
-			window.scrollTo(0,0);
+		handleCurrentChange(val) {			
+			this.goTop=1;
 			this.page = val;
 			this.getData();
 		}

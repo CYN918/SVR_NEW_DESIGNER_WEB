@@ -76,7 +76,7 @@ export default {
 			this.option.img = img;
 		},
 		realTime(data) {
-			console.log(data);
+			
 			this.previews = data;			
 			this.previewStyle2 = {
 				width: this.previews.w + "px",

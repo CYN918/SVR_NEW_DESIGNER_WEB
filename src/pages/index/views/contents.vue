@@ -153,7 +153,7 @@ export default {
 					this.topTyped=false;
 					this.isfix = '';
 				}
-				console.log(this.topTyped)
+			
 			}
 			
 			let pr = {

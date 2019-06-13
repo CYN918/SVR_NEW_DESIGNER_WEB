@@ -35,7 +35,7 @@ export default {
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{			
 				this.da = da;
-				console.log(da);
+				
 			});
 		},		
 	},

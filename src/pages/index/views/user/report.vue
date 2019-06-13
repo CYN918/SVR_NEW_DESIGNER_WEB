@@ -51,7 +51,7 @@
                 let p = window.userInfo.access_token;
                 this.api.Report_getClassify({access_token:p}).then((res)=>{
                     this.list = res;
-                    console.log(this.list)
+                   
                 })
             },
             AddReport(){

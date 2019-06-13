@@ -89,9 +89,18 @@ export default {
 		}
 	},
 	mounted: function () {	
-		console.log(window.userInfo)
+	
 	}, 
 	methods: {
+		init(){
+			let pr = {
+				access_token:window.userInfo.access_token
+			};
+			this.api.getSelfInfo(pr).then((da)=>{
+				if(da=='error'){return}		
+				window.userInfo = da;				
+			}).catch();
+		},
 		goOut(){
 			let p = {
 				access_token:window.userInfo.access_token
@@ -139,6 +148,7 @@ export default {
 				if(da=='error'){
 					return
 				}
+				this.init();
 				window.userInfo.avatar = pr.avatar;
 				window.userInfo.username = pr.username;
 				window.userInfo.sex = pr.sex;

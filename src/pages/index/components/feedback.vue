@@ -128,7 +128,7 @@
             },
             fileUp(flie){
                 let fld = flie.target.files[0];
-                console.log(fld);
+               
                 if(this.imgType.indexOf(fld.type)==-1){
                     Message({message: '格式不正确'});
                     return
@@ -185,7 +185,7 @@
                             this.imgList = this.imgList.slice(0,3);
                             Message('最多上传3张')
                         }
-                        console.log(this.imgList);
+                    
                         Message({message: '文件上传成功'});
                     }
                 };

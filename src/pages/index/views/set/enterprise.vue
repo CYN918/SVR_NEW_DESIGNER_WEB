@@ -365,7 +365,7 @@ export default {
 					return 					
 				}			
 			}else{
-				console.log(22222);
+				
 				if(!(/^1[34578]\d{9}$/.test(pd))){ 
 					Message({message: '请输入正确的手机号码'});
 					return

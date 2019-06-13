@@ -218,7 +218,7 @@ export default {
 			this.form.bank_name = this.user.bank_name;				
 			this.form.bank_subbranch = this.user.bank_subbranch;
 			this.meny = this.user.meny;
-			console.log(this.form);
+			
 		},
 		close(){
 			this.$parent.close();

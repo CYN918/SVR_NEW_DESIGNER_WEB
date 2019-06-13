@@ -165,7 +165,7 @@ export default {
 	},
 	watch: {
 	    'form.mobile'(val) {
-	    	console.log(1111)
+	   
 	    	this.pdys1();
 	    },
 	    'form.password'(val) {

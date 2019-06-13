@@ -41,7 +41,7 @@ export default {
 			this.shareType = type?type:false;
 		},
 		setUrl(da){
-			console.log(da)
+			
 			if(da=='error'){
 				return
 			}

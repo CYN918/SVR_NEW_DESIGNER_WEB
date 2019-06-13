@@ -147,7 +147,7 @@ export default {
 		},
 		
 		chekPhpne(){
-			console.log(2222222222);
+		
 			if(this.mobile_zone!='86'){
 				if(!(typeof this.input === 'number' && this.input%1 === 0)){
 					this.checkBack(false);

@@ -59,7 +59,6 @@ export default {
 		},
 		thirdLogin(type){
 			if(!type){return}
-			console.log(window.basrul);
 			window.location.href=window.basrul+'/Passport/user/thirdLogin?type='+type;
 		},
 		loginUp(){
@@ -100,12 +99,18 @@ export default {
 				if(da.is_detail==0){
 					this.$router.push({path: '/userme'})	
 					return
-				}
-				
+				}				
 				if(window.frompath){
 					this.$router.push({path: window.frompath})	
 					return
 				}
+				let pr = {
+					access_token:window.userInfo.access_token
+				};
+				this.api.getSelfInfo(pr).then((da)=>{
+					if(da=='error'){return}		
+					window.userInfo = da;				
+				}).catch();
 				this.$router.push({path: '/index'})							
 			}).catch(()=>{
 				this.ajaxType=0;

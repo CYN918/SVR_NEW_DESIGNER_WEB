@@ -200,7 +200,7 @@ export default {
 					return
 				}
 				this.zpList = da.data;
-				console.log(this.zpList);
+			
 			})
 		},
 		backtime(time){		

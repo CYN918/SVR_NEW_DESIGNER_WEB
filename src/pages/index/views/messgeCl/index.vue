@@ -21,7 +21,7 @@ export default {
 				return
 			}
 			let data = JSON.parse(this.$route.query.ret);
-			console.log(data);
+	
 			if(data.res.result!=0){
 				
 				Message({message: data.res.message});
