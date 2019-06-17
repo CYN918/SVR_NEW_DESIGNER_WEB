@@ -32,7 +32,7 @@
 					<div @click="showupFm"><div>+</div>上传封面</div>
 					
 				</div>
-				<div class="page2_1_3">上传附件<span>ZIP，20M以内</span></div>
+				<div class="page2_1_3">上传附件<span>ZIP，1G以内</span></div>
 				<div class="page2_1_4">
 					<div class="page2Tbnd1">{{fjtext}}</div>
 					<input @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
@@ -604,7 +604,7 @@ export default {
                 Message({message: '格式不正确'});
 				return
 			}
-			if(fld.size>20*1024*1024){
+			if(fld.size>1024*1024*1024){
 				Message({message: '文件过大'});
 				return
 			}

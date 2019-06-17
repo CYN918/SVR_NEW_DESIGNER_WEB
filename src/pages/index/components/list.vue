@@ -60,9 +60,9 @@ export default {
 				limit:this.limit
 			};		
 			params =  Object.assign(params,this.config.pr)		
-			this.loading = Loading.service({ fullscreen: true });
+		
 			this.api[this.config.ajax.url](params).then((da)=>{
-				this.loading.close();
+				
 				if(da=='error'){
 					return
 				}				
@@ -82,7 +82,7 @@ export default {
 					this.goTop='';
 				}
 			}).catch(()=>{
-				this.loading.close();
+				
 			})
 		},
 		handleSizeChange(val) {

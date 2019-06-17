@@ -120,7 +120,7 @@ export default {
 	height: 40px;
 	line-height: 40px;
 	padding: 2px 0;
-	border-bottom: 1px solid #c9c7d8;
+	border-bottom: 1px solid #C0C4CC;
 }
 .sea_4 .el-input{
 

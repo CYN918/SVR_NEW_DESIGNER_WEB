@@ -40,7 +40,7 @@ export default {
 			let pr={};
 			this.api.getSelfInfo(pr).then((da)=>{
 				if(da=='error'){return}
-				if(da.contributor_type!=0){
+				if(da.is_contributor!=0){
 					this.$router.push({path: '/profit'});
 					window.userInfo = da;
 					return
