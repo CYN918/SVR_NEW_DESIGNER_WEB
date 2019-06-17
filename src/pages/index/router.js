@@ -14,6 +14,13 @@ let wb = [
 		component: () => import('./views/index.vue'),
 		children:[
 			{
+				path: '/special_first',
+				name: 'special_first',
+				component: () => import('./views/special/first.vue')
+			},
+			
+			
+			{
 				path: '/index',
 				name: 'home',
 				component: () => import('./views/home.vue')

@@ -1,5 +1,5 @@
 <template>
-	<ul class="listBox">
+	<ul class="listBox" ref="adLoDom">
 		<li v-for="(el,index) in List" :key="index">
 			<slot name="todo" v-bind:todo="el"></slot>			
 		</li>
@@ -15,6 +15,7 @@
 		</el-pagination>
 		<div v-if="isNodeat" class="emptyData">
 			<img src="/imge/svg/empty_nodata.svg" alt="">
+			<div class="noDatawan">找不到数据了O(ㄒ﹏ㄒ)O</div>
 		</div>
 	</ul>
 	
@@ -60,9 +61,9 @@ export default {
 				limit:this.limit
 			};		
 			params =  Object.assign(params,this.config.pr)		
-		
+			this.loading = Loading.service({target:this.$refs.adLoDom, fullscreen: true });
 			this.api[this.config.ajax.url](params).then((da)=>{
-				
+				this.loading.close();
 				if(da=='error'){
 					return
 				}				
@@ -82,7 +83,7 @@ export default {
 					this.goTop='';
 				}
 			}).catch(()=>{
-				
+				this.loading.close();
 			})
 		},
 		handleSizeChange(val) {
@@ -122,5 +123,9 @@ export default {
 .emptyData>img{
 	display: block;
 	margin: 0 auto;
+}
+.noDatawan{
+	color: #ff5121;
+    margin-top: 18px;
 }
 </style>

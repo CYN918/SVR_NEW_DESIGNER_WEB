@@ -140,7 +140,16 @@ export default {
 			this.$refs.fxd.showShare(true);
 		},
 		gsxd(){
-			this.$router.push({path:'/chat',query:{openid:this.userMessage.open_id,avatar:this.userMessage.avatar,username:this.userMessage.username}});
+			let pr = {
+				open_id:this.userMessage.open_id,
+				avatar:this.userMessage.avatar,
+				username:this.userMessage.username,
+				city:this.userMessage.city,
+				vocation:this.userMessage.vocation,
+			};
+					
+			this.$router.push({path:'/chat',query:pr});
+			
 		},
 		goFans(d,id){
 			this.$router.push({path:d,query:{id:id}});

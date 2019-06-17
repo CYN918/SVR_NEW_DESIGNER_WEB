@@ -124,9 +124,10 @@ export default {
 		}
 	},
 	mounted: function () {	
+	
 		this.init();		
 	}, 
-	created() {
+	created() {			
       this.qurId = this.$route.query.id;
     },
 	
@@ -139,7 +140,15 @@ export default {
 			this.$refs.fxd.showShare(true);
 		},
 		gsxd(){
-			this.$router.push({path:'/chat',query:{openid:this.userMessage.open_id,avatar:this.userMessage.avatar,username:this.userMessage.username}});
+			let pr = {
+				open_id:this.userMessage.user_info.open_id,
+				avatar:this.userMessage.user_info.avatar,
+				username:this.userMessage.user_info.username,
+				city:this.userMessage.user_info.city,
+				vocation:this.userMessage.user_info.vocation,
+			};
+		
+			this.$router.push({path:'/chat',query:pr});
 		},
 		goFans(d,id){
 			this.$router.push({path:d,query:{id:id}});

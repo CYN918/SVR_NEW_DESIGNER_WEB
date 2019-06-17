@@ -204,6 +204,7 @@ export default {
 			selectedOptions:[],
 			dmtData:'',
 			zk_wrokids:[],
+			saveTyped:'',
 		}  
 	},
 	watch: {	
@@ -516,10 +517,15 @@ export default {
 			},1000)			
 		},
 		savZp(){
+			if(this.saveTyped==1){
+				Message({message: '正在记录请稍后再试'});
+				return
+			}
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
-			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}	
+			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}
+			clearTimeout(this.autoSave.obj);
 			let str = this.form.content;
 			var matchReg = /zk_workid=".*?(?=")/gi;
 			let arr = str.match(matchReg);
@@ -534,8 +540,13 @@ export default {
 			this.saveData(dp,'上传成功',()=>{setTimeout(()=>{this.$router.push({path:'/'})},1000)});
 		},
 		userSave(){
+			if(this.saveTyped==1){
+				Message({message: '正在记录请稍后再试'});
+				return
+			}
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
             if(!this.form.content){Message({message: '请先填内容'});return}
+			clearTimeout(this.autoSave.obj);
 			this.saveData(this.setSaveData(0,0),'草稿保存成功');
 				
 		},
@@ -557,15 +568,18 @@ export default {
 		saveData(data,messg,fn){	
 			let pr = JSON.stringify(data);
 			pr = JSON.parse(pr);
-			
+			this.saveTyped=1
 			pr.labels = JSON.stringify(pr.labels);
 			this.api.saveWorks(pr).then(()=>{
+				this.saveTyped='';
 				Message({message:messg});
 				if(fn){
 					fn();
 				}
 				
-			});
+			}).catch(()=>{
+				this.saveTyped='';
+			});	
 		},
 		checkPage1(){
 			this.ck2 = "";

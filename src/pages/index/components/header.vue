@@ -730,7 +730,7 @@ export default {
 .messgeH3_2_1>img{
 	display: block;
 	width: 100px;
-	margin: 22px auto 13px;
+	margin: 30px auto 0;
 }
 .messgeH3_3{
 	background: #FFFFFF;
