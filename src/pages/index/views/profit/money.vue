@@ -47,12 +47,12 @@ export default {
 								return '<span class="cojType"><i></i>审核中</span>';
 							}
 							if(da.check_status==2){
-								return '<span class="cojType"><i></i>审核中</span>';
+								return '<span class="cojType"><i></i>审核通过</span>';
 							}
 							if(da.check_status==3){
 								return '<span class="cojType cojType1"><i></i>已付款</span>';
 							}
-							if(da.check_status==3){
+							if(da.check_status==-1){
 								return '<span class="cojType cojType2"><i></i>审核不通过</span>';
 							}
 							if(da.check_status==-2){

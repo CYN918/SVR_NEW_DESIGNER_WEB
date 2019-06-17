@@ -1,7 +1,10 @@
 <template>
 	<div class="special_first">
-		<img class="special_first_1" src="/imge/special/first/banner1.png" alt="">
-		
+		<img class="special_first_1" src="/imge/special/first/banner.png" alt="">
+		<div class="special_first_3">
+			<div class="special_first_t"><b>赏金活动</b></div>
+			<div class="special_first_c">供稿人可参与平台活动 发挥自我优势 收获高额赏金<br/><span>前100名</span>入驻供稿人初审通过率为<span>100%</span></div>
+		</div>
 	</div>
 	
 </template>
@@ -68,6 +71,25 @@ export default {
 	line-height:20px;
 }
 .special_first_2>div>div>span{
+	color: #FF5121;
+}
+
+.special_first_t{
+	font-size:68px;
+	font-family:PingFangSC-Semibold;
+	font-weight:600;
+	color:rgba(0,0,0,1);
+	line-height:95px;
+	margin-bottom: 14px;
+}
+.special_first_c{
+	font-size:16px;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:rgb(133, 136, 138);
+	line-height:22px;
+}
+.special_first_c>span{
 	color: #FF5121;
 }
 </style>
