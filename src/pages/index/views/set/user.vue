@@ -172,7 +172,7 @@ export default {
 				'联系方式',
 				'个人链接'				
 			],
-			form:{},
+			form:{qq_visible:1,weixin_visible:1},
 			sexData:[{n:'男',v:1},{n:'女',v:2}],	
 			isPhto:false,
 			zy:[

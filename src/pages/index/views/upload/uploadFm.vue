@@ -180,6 +180,7 @@ export default {
 				
 				
 				this.opType=1;
+				Message({message: '封面正在上传，请稍后'});
 				this.$ajax.post(window.basrul+'/File/File/insert', formData)
 				.then((da)=>{	
 					this.opType=0;

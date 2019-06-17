@@ -45,14 +45,15 @@
 					<div class="seed2_1_1_1" v-html="contDat.content"></div>
 					<div class="seed2_1_1_2">标签<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span><span class="iconfont">&#xe73c;</span><div v-if="contDat.attachment">下载附件（{{contDat.attachment.file_size_format}}）</div></div>
 				</div>
-				<div class="seed2_1_2">
+				<div class="seed2_1_2 possdddg">
 					<div class="seed2_1_2_1"><div>说点什么吧<span>0/140</span></div><span>评论</span></div>
 					<div class="myplde">
 						还没有人评论，快来抢沙发吧~
 					</div>
+					<div class="zdc"></div>
 				</div>
 				
-				<div class="zdc"></div>
+				
 			</div>
 			<div class="seed2_2p">
 			<div :class="['seed2_2','.seed2_2xxxx',isfix]">
@@ -198,5 +199,8 @@ export default {
 	z-index: 996;
 	background: none !important;
 	cursor: initial;
+}
+.possdddg{
+	position: relative;
 }
 </style>
