@@ -8,6 +8,7 @@
 				:outputSize="option.size"
 				:fixed="true"
 				:full="false"
+				:checkCrossOrigin="true"
 				:fixedNumber = [1,.177]
 				:outputType="option.outputType"
 				:autoCropWidth="option.autoCropWidth"
@@ -34,7 +35,7 @@
 			</div>
 		</div>
 		<div class="u_top2">
-			<img class="u_top2_1" :src="userMessage.user_center_banner_pic?userMessage.user_center_banner_pic:userBg" alt="">
+			<img  class="u_top2_1" :src="userMessage.user_center_banner_pic?userMessage.user_center_banner_pic:userBg" alt="">
 			<div class="dwek">
 				<div   class="u_top2_2">				
 					<div v-if="isMe()" class="u_top2_2_1">
@@ -132,7 +133,13 @@ export default {
     },
 	
 	methods: {	
-
+		
+		imgTrick(src) {
+			const img = new Image()
+			img.src = src
+			img.crossOrigin = 'anonymous'
+			return img
+		},
 		showReport(id,lid,ad){
 			this.$refs.report.showReport(id,lid,ad);
 		},
@@ -242,6 +249,7 @@ export default {
 					return
 				}
 				this.userMessage = da;
+				this.userBg = da.user_center_banner_pic;
 				this.shareData = {
 					url:'http://dev-web-ndesigner.idatachain.cn/aindex.html#/user?id='+this.$route.query.id,
 					title:this.userMessage.username+"的主页-狮圈儿创作者平台",
@@ -267,6 +275,7 @@ export default {
 		},
 		showSetBg(){
 			this.option.img = this.userBg;
+			console.log(this.option.img);
 			this.isUpbg=true;
 		},
 		hindSetBg(){

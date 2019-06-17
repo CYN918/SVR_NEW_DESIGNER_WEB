@@ -250,9 +250,22 @@ export default {
 		this.getClassify();
 	},
 	mounted: function () {	
-
+		this.getUserDetail();
 	}, 
 	methods: {
+		
+		getUserDetail(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+				return
+			}	
+			let pr={};
+			this.api.getSelfInfo(pr).then((da)=>{
+				if(da=='error'){return}
+				window.userInfo = da;
+			});
+		},
+		
 		/*page2*/
 		checkisptggr(){
 			if(!window.userInfo){

@@ -1,10 +1,11 @@
 <template>
 	<div class="special_first">
 		<img class="special_first_1" src="/imge/special/first/banner.png" alt="">
-		<div class="special_first_3">
-			<div class="special_first_t"><b>赏金活动</b></div>
-			<div class="special_first_c">供稿人可参与平台活动 发挥自我优势 收获高额赏金<br/><span>前100名</span>入驻供稿人初审通过率为<span>100%</span></div>
-		</div>
+		<div class="special_first_btn_1" @click="go1()"></div>
+		<div class="special_first_btn_2" @click="go2()"></div>
+		<div class="special_first_btn_3" @click="go3(1)"></div>
+		<div class="special_first_btn_4" @click="go3(2)"></div>
+		<div class="special_first_btn_5" @click="go3(3)"></div>
 	</div>
 	
 </template>
@@ -13,20 +14,38 @@
 export default {
 	name: 'tip',
 	methods: {
-		godd(){
-			
+		go1(){
 			if(!window.userInfo){
-				this.$router.push({path: '/login'});
+				this.$router.push({path: '/login'})	
 				return
 			}
-			this.$router.push({path: '/setPersonal'});
-		}
+			
+			if(!window.userInfo.is_contributor || window.userInfo.is_contributor==0){
+				this.$router.push({path: '/setPersonal'});
+				return
+			}	
+			this.$router.push({path: '/profit'});
+			
+
+		},
+		go2(){
+			if(!window.userInfo){
+				this.$router.push({path: '/login'})	
+				return
+			}
+			this.$router.push({path: '/upload'})	
+			
+		},
+		go3(){
+			
+		},
 	}
 }
 </script>
 
 <style>
 .special_first{
+	position: relative;
 	min-height: 100%;
 }
 .special_first_1{
@@ -91,5 +110,45 @@ export default {
 }
 .special_first_c>span{
 	color: #FF5121;
+}
+.special_first_btn_1{
+    position: absolute;
+    top: 63.6%;
+    left: 38%;
+    width: 6.5%;
+    padding: 2%;
+	cursor: pointer;
+}
+.special_first_btn_2{
+    position: absolute;
+    top: 63.6%;
+    left: 51.5%;
+    width: 6.5%;
+    padding: 2%;
+	cursor: pointer;
+}
+.special_first_btn_3{
+    position: absolute;
+    bottom: 6.4%;
+    left: 16.2%;
+    width: 9.5%;
+    padding: 6%;
+
+}
+.special_first_btn_4{
+    position: absolute;
+    bottom: 6.4%;
+    left: 39.2%;
+    width: 9.5%;
+    padding: 6%;
+
+}
+.special_first_btn_5{
+    position: absolute;
+    bottom: 6.4%;
+    left: 62.2%;
+    width: 9.5%;
+    padding: 6%;
+
 }
 </style>
