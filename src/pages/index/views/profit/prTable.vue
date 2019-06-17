@@ -28,7 +28,8 @@
 		:total="total">   
 		</el-pagination>
 		<div v-if="isNodeat" class="emptyData">
-			<img src="/imge/k/empty_nodata@3x.png"/>
+			<img src="/imge/svg/empty_nodata.svg" alt="">
+			<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
 		</div>
 	</div>
 </template>
@@ -142,5 +143,9 @@ export default {
 	padding-left: 20px;
 	border: none;
 	border-bottom: 1px solid #E6E6E6;
+}
+.noDatawan{
+	color: #ff5121;
+    margin-top: 18px;
 }
 </style>

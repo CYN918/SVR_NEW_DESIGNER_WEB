@@ -8,7 +8,7 @@
 				:outputSize="option.size"
 				:fixed="true"
 				:full="false"
-				:checkCrossOrigin="true"
+				:checkCrossOrigin="false"
 				:fixedNumber = [1,.177]
 				:outputType="option.outputType"
 				:autoCropWidth="option.autoCropWidth"

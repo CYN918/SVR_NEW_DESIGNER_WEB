@@ -219,6 +219,7 @@ Vue.prototype.checkLogin = ()=>{
 	}
 };
 import VueCropper from 'vue-cropper' 
+
 import { Button, Select,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination } from 'element-ui'
 Vue.use(VueCropper)
 Vue.component(Input.name, Input)

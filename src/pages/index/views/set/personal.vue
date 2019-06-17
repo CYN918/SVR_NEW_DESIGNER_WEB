@@ -428,7 +428,7 @@ export default {
 		},
 		postCheck(){
 			if(!(/^1[34578]\d{9}$/.test(this.postData.reserve_phone))){
-				Message({message: '请输入正确的手机号码'}); 	
+				Message({message: '请输入正确的银行预留手机号'}); 	
 				return false;
 			} 
 			let regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  

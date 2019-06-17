@@ -15,7 +15,7 @@
 		</el-pagination>
 		<div v-if="isNodeat" class="emptyData">
 			<img src="/imge/svg/empty_nodata.svg" alt="">
-			<div class="noDatawan">找不到数据了O(ㄒ﹏ㄒ)O</div>
+			<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
 		</div>
 	</ul>
 	

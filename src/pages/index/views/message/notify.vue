@@ -15,7 +15,7 @@
 				<div class="setUserBoxs_cent">
 					<div class="poerrsas" v-if="listData.length==0"><noData></noData></div>
 					<div v-for="(el,index) in listData" :key="index">
-						<img class="comment_1" @click="goUserIn(index)" :src="el.user_info.avatar" alt="">
+						<img class="comment_1" @click="goUserIn(index)" src="/imge/svg/GFMRTX.svg" alt="">
 						<div class="comment_2">
 							<div class="comment_2_1" @click="goUserIn(index)">{{(el.op==3 || el.op==4)?el.user_info.username:el.title}}<span class="comment_2_2">{{backtime(el.create_time)}}</span></div>
 							<div class="comment_2_5" v-html="el.content"></div>

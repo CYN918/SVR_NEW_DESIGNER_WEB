@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<img class="login_x1" src="/imge/llog.png" @click="jump">
-		<p class="login_x2">云创设计，最赚钱的设计师平台</p>
+		<p class="login_x2">让创意更有价值，让生活更加自在</p>
 		<div class="login_x3">
 			<span @click="cheackLogin('password')" :class="['pend',btnType=='password'?'cheack':'']">账户密码登录</span><span @click="cheackLogin('verify_code')" :class="['pend',btnType=='verify_code'?'cheack':'']">手机号登录</span>
 		</div>	

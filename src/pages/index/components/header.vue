@@ -376,7 +376,7 @@ export default {
 }
 .header_1{
     margin: 13px 97px 0 60px;
-    width: 135px; 
+    width: 113px; 
 	height: 36px;
 }
 .header>span{

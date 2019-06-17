@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<img class="login_x1" src="/imge/llog.png" alt="" @click="jump">
-		<p class="login_x2">云创设计，最赚钱的设计师平台</p>
+		<p class="login_x2">让创意更有价值，让生活更加自在</p>
 		<el-form ref="myform" :model="form">	
 			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
 			<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
