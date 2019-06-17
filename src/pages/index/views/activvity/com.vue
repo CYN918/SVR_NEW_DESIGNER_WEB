@@ -12,7 +12,7 @@
 			</div>
 			<div class="detail_topBox_2">
 
-				<div v-if="new Date(infoData.end_time) > new Date()"><span v-if="infoData.template_url" @click="downMoble(infoData.template_url)" class="detail_topBox_2_1 pend">下载模板</span><span v-if="infoData.setting_type!=1"  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
+				<div v-if="new Date(infoData.end_time) > new Date()"><span v-if="infoData.is_provide_template==1" @click="downMoble(infoData)" class="detail_topBox_2_1 pend">下载模板</span><span v-if="infoData.setting_type!=1"  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
 
 				<span v-else class="detail_topBox_2_3">已结束</span>
 			</div>
@@ -62,6 +62,14 @@
 				</div>
 			</div>
 		</div>
+		
+		<div v-if="ishowWp" class="pushDeletBox">
+			<div class="pushDeletBox1_x2">
+				<img class="pushDeletBox2" @click="closeWp" src="/imge/cj_00.png">
+				<div class="pushDeletBox1_x2_1" v-html="wpdz"></div>
+				<div class="botnbox"><span @click="closeWp" class="pend">关闭</span></div>
+			</div>
+		</div>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
 	</div>
 	
@@ -77,6 +85,7 @@ export default {
 		return{
 			shareData:{},
 		    show:false,
+			ishowWp:'',
 			ond:1,
 			zpList:[],
 			page:1,
@@ -86,6 +95,7 @@ export default {
 			ishowzp:false,
 			infoData:{},
 			isnoData:'',
+			wpdz:'',
 		}
 		
 	},
@@ -114,6 +124,7 @@ export default {
 			this.getPersonalWorkList();
 			this.ishowzp = true;
 		},
+		
 		checkZp(id){
 			let on = this.work_id.indexOf(id);
 			if(on==-1){
@@ -165,8 +176,19 @@ export default {
 		godefle(on){
 			this.$router.push({path:on,query:{id:this.$route.query.id}});	
 		},
+		closeWp(){
+			this.wpdz = '';
+			this.ishowWp = '';
+		},
 		downMoble(url){
-			window.open(url);
+			if(url.template_file_type==1){
+				window.open(url.template_url);
+				return
+			}
+			this.wpdz = url.online_disk_info;
+			this.ishowWp = 1;
+			
+			
 		},
 		getPersonalWorkList(){
 			this.isnoData='';
@@ -341,6 +363,23 @@ export default {
 	border-radius: 5px;
 	width: 1030px;
 	height: 572px;
+}
+.pushDeletBox1_x2{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	padding: 30px;
+    text-align: left;
+    line-height: 30px;
+    width: 450px;
+}
+.pushDeletBox1_x2_1{
+	margin-bottom: 35px;
 }
 .pushDeletBox2{   
 	position: absolute;
