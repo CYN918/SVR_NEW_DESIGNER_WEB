@@ -105,7 +105,7 @@ export default {
 		return{
 			gofn:'',
 			shareData:{},
-			userBg:'/imge/grzx_bg.svg',
+			userBg:'/imge/svg/grzx_bg.svg',
 			previewStyle2:{},
 			previews:{},
 			option:{
