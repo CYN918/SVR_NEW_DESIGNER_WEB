@@ -72,7 +72,7 @@ export default {
 		return{	
 			
 			isPhto:false,
-			caver:'/imge/svg/GFMRTX.svg',
+			caver:'/imge/svg/MRTX.svg',
 			form:{
 				citye:[],
 				sex:'',

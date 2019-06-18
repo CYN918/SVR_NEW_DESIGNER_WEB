@@ -462,7 +462,7 @@ export default {
 .uploadBoxd2_3::-webkit-scrollbar-thumb {
     border-radius: 4px;
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-    background: #999;
+    background: #e6e6e6;
 }
 .uploadBoxd2_3::-webkit-scrollbar-track {
     background: none;

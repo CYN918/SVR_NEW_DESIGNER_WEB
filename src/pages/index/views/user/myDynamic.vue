@@ -122,4 +122,5 @@ export default {
     padding: 1px 15px;
 	
 }
+
 </style>

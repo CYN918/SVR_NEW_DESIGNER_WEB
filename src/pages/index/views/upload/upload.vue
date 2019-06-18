@@ -17,6 +17,7 @@
 				</div>
 			</div>
 			<div class="upBoxd2">
+				
 				<div @click="showUp(0)"><img class="svgImg1" src="/imge/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
 				<div @click="showUp(1)"><img class="svgImg1" src="/imge/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
 				<div @click="showUp(2)"><img class="svgImg1" src="/imge/svg/sc_icon_scyp.svg" alt="" />上传音频</div>
@@ -849,8 +850,10 @@ export default {
 	color: #1E1E1E;
 }
 .upBoxd2>div{
+	display: inline-block;
 	text-align: center;
 	margin-top: 30px;
+	line-height: 30px;
 	cursor: pointer;
 }
 .upBoxd2>div:hover{
@@ -1127,7 +1130,10 @@ export default {
 	height: 8px;
 }
 
-
+.isUpd>.page2Tbnd1{
+	color: #999;
+    border-color: #999;
+}
 .page2_1_7_r>label>div>div.chekdOn{
 	border-color: rgb(255, 81, 33);
 	background: rgb(255, 81, 33);
@@ -1336,7 +1342,7 @@ export default {
 .svgImg1{
 	display: inline-block;
 	width: 28px;
-    vertical-align: middle;
+	vertical-align: text-bottom;
     margin-right: 12px;
 }
 </style>

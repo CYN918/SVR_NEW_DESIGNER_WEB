@@ -51,7 +51,7 @@ export default {
 	data(){		
 		return{	
 			isPhto:false,
-			caver:'/imge/nav_tx.png',
+			caver:'/imge/svg/MRTX.svg',
 			form:{
 				citye:[],
 				sex:'',
