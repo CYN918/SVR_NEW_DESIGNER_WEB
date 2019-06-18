@@ -232,7 +232,7 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index:9;
+	z-index:9999;
 }
 .upFm_bg{
 	width: 100%;

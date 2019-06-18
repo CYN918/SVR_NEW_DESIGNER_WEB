@@ -245,7 +245,15 @@ export default {
 			this.$router.push({path: '/works',query:{id:window.userInfo.open_id}})
 		},
 		gosx(el){
-			this.$router.push({path:'/chat',query:{openid:el.user_info.open_id,avatar:el.user_info.avatar,username:el.user_info.username}});
+			
+			let pr = {
+				open_id:el.open_id,
+				avatar:el.avatar,
+				username:el.username,
+				city:el.city,
+				vocation:el.vocation,
+			};
+			this.$router.push({path:'/chat',query:pr});
 		},
 		goFans(d,id){
 			this.$router.push({path:d,query:{id:id}});
