@@ -56,7 +56,7 @@
 					</div>
 					
 				
-					<div @click="goMssg()" class="messgeH3_3">查看全部</div>
+					<div @click="goMssg()" class="messgeH3_3 pend">查看全部</div>
 				</div>
 				
 			</span>

@@ -261,6 +261,8 @@ export default {
 	recommendActivity:{
 		url:'/api/activity/recommendActivity',method:'post',baseURL:0,
 	},
-
+	documentget:{
+		url:'/Api/document/get',method:'post',baseURL:0,
+	},
 	
 }

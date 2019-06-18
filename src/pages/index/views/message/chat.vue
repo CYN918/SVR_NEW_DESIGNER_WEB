@@ -187,7 +187,12 @@ export default {
 				}				
 				if(this.$route.query && this.$route.query.open_id){				
 					this.zdOpen_id = this.$route.query.open_id;
-					da.data.unshift({user_info:this.$route.query});
+					if(this.$route.query.open_id=='system_admin'){
+						da.data.unshift({user_info:window.xsmData});
+					}else{
+						da.data.unshift({user_info:this.$route.query});
+					}
+					
 				}		
 				this.listData = da.data;
 				this.getMessageList();

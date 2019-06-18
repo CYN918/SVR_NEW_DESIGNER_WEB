@@ -249,12 +249,12 @@ let wb = [
 				component: () => import('./views/search/searchWorks.vue'),
 				
 			},
-            {
-                path: '/documentCenter',
-                name: 'document-center',
-                component: () => import('./views/message/DocumentCenter.vue'),
-
-            },
+//             {
+//                 path: '/documentCenter',
+//                 name: 'document-center',
+//                 component: () => import('./views/message/DocumentCenter.vue'),
+// 
+//             },
 			{
 			    path: '/text',
 				redirect: '/text/about',
