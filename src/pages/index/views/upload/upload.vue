@@ -28,14 +28,13 @@
 			<div class="page2_1">
 				<div class="page2_1_1">封面图<span class="btRed"></span></div>
 				<div class="page2_1_2">
-						<img v-if="form.face_pic" :src="form.face_pic" alt="">
-					<div @click="showupFm"><div>+</div>上传封面</div>
-					
+					<img v-if="form.face_pic" :src="form.face_pic" alt="">
+					<div @click="showupFm"><div>+</div>上传封面</div>					
 				</div>
 				<div class="page2_1_3">上传附件<span>ZIP，1G以内</span></div>
-				<div class="page2_1_4">
+				<div :class="['page2_1_4',isUpd?'isUpd':'']">
 					<div class="page2Tbnd1">{{fjtext}}</div>
-					<input @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
+					<input v-if="!isUpd" @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
 				</div>
 				<div v-if="upfjData.type" class="page2_1_5">{{upfjData.type}}<span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span>{{upfjData.bf+'%'}}</div>
 				<div class="page2_1_6" v-if="upfjData.type">
@@ -129,6 +128,7 @@ export default {
 	components:{VueUeditorWrap,UplodImg,Input,upoloadcaver},
 	data(){
 		return{
+			isUpd:'',
 			ifBjType:0,
 			bqList:[{label:'禁止匿名转载；禁止商业使用；禁止个人使用。'},{label:'禁止匿名转载；禁止商业使用。'},{label:'不限制用途。'}],
 			isPhto:false,
@@ -616,18 +616,16 @@ export default {
 			this.ck3 = "onck2";
 			return true
 		},
-		fileUpfj(flie){
-			
+		fileUpfj(flie){		
+			if(this.fjtext== '上传中'){
+				return
+			}
 			if(this.upfjData && this.upfjData.type){
 				Message({message: '正在上传中请稍后'});
 				return
 			}		
-			
-			
-			let fld = flie.target.files[0];
-			
+			let fld = flie.target.files[0];			
             if(['application/x-zip-compressed','application/zip'].indexOf(fld.type)==-1){
-
                 Message({message: '格式不正确'});
 				return
 			}
@@ -635,10 +633,7 @@ export default {
 				Message({message: '文件过大'});
 				return
 			}
-		           
-				
-			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-		
+			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';		
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
 				1001,
@@ -662,6 +657,8 @@ export default {
 				xhr:xhr,
 				type:'上传中'
 			};
+			this.isUpd=1;
+			this.fjtext= '上传中';
 			let uploadProgress = (evt)=>{		
 				if(evt.lengthComputable) {
 					let percent = Math.round(evt.loaded * 100 / evt.total);
@@ -674,6 +671,7 @@ export default {
 			};
 			let uploadComplete = (data)=>{
 				this.upfjData.bf  = 100;
+				this.isUpd='';
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;
 					
@@ -681,6 +679,7 @@ export default {
 					this.zk_wrokids[1] = da.fid;
 					this.fjtext= '重新上传';
 					this.upfjData.type='上传成功';
+					
 					this.$refs.upnfile2.value ='';		
 					this.form.attachment_id = da.fid;	
 					Message({message: '文件上传成功'});
@@ -689,16 +688,16 @@ export default {
 			};
 			let uploadFailed = ()=>{
 				// delete p;
-				p.type="none";
 				this.$refs.upnfile2.value ='';
-				this.this.upfjData = {};
+				this.isUpd='';
+				this.upfjData = {};
 				Message({message: '文件上传失败请稍后重试'});
 				
 			};
 			let uploadCanceled = ()=>{
-				p.type="none";
 				this.$refs.upnfile2.value ='';
-				this.this.upfjData = {};
+				this.isUpd='';
+				this.upfjData = {};
 				Message({message: '取消成功'});
 				
 			};
@@ -710,13 +709,14 @@ export default {
 			xhr.send(formData);
 		},
 		qxclosd(obj){
+			this.isUpd='';
 			this.fjtext = '选择附件';
-			if(obj.xhr){
-				obj.xhr.abort();
-				
-				return
-			}		
 			this.form.attachment_id='';
+			if(this.upfjData.xhr){
+				this.upfjData.xhr.abort();				
+			
+			}		
+			
 			this.upfjData = {};
 		},
 		getClassify(){
@@ -1054,7 +1054,7 @@ export default {
 .page2_1_5{
 	text-align: left;
 	font-size: 14px;
-	color: #333333;
+	color: #999;
 	margin-bottom: 7px;
 }
 .page2_1_5>span{
@@ -1065,6 +1065,7 @@ export default {
     margin: 0 8px 0 20px;
     width: 127px;
     height: 4px;
+	vertical-align: middle;
 	overflow: hidden;
 }
 .page2_1_5>span>span{

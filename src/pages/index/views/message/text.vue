@@ -47,7 +47,23 @@ export default {
 				}
 			}
 		
-		}
+		},
+		// getXsm(){
+		// 	
+		// 	
+		// 	let pr = {
+		// 		user_open_id:'system_admin'
+		// 	};
+		// 	this.api.getUserDetail(pr).then((da)=>{
+		// 		if(da=='error'){
+		// 			return
+		// 		}
+		// 		window.xsmData= da;
+		// 		
+		// 	}).catch(()=>{
+		// 		
+		// 	});
+		// },
 	}	
 }	
 </script>
