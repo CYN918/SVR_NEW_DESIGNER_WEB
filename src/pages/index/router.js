@@ -342,7 +342,7 @@ router.beforeEach((to, from, next) => {
 		window.location.href = "http://dev-web-ndesigner.idatachain.cn/aindex.html#/";
 		return
 	}
-	window.scrollTo(0,0);
+
 	/*是否填写信息*/
 	if(window.userInfo && window.userInfo.is_detail==0){		
 		if(!window.userInfo.mobile || window.userInfo.mobile=='null'){

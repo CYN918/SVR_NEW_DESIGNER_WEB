@@ -105,7 +105,7 @@ export default {
 		return{
 			gofn:'',
 			shareData:{},
-			userBg:'/imge/grzx_bg.svg',
+			userBg:'/imge/svg/grzx_bg.svg',
 			previewStyle2:{},
 			previews:{},
 			option:{
@@ -241,15 +241,13 @@ export default {
 			let pr = {
 				user_open_id:this.$route.query.id
 			};
-			if(window.userInfo){
-				pr.access_token = window.userInfo.access_token;
-			}
+
 			this.api.getUserDetail(pr).then((da)=>{
 				if(da=='error'){
 					return
 				}
 				this.userMessage = da;
-				this.userBg = da.user_center_banner_pic;
+				// this.userBg = da.user_center_banner_pic;
 				this.shareData = {
 					url:'http://dev-web-ndesigner.idatachain.cn/aindex.html#/user?id='+this.$route.query.id,
 					title:this.userMessage.username+"的主页-狮圈儿创作者平台",
@@ -275,7 +273,7 @@ export default {
 		},
 		showSetBg(){
 			this.option.img = this.userBg;
-			console.log(this.option.img);
+			
 			this.isUpbg=true;
 		},
 		hindSetBg(){

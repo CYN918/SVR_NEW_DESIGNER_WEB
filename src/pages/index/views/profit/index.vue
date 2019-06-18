@@ -133,6 +133,10 @@ export default {
 				this.$router.push({path:'/login'})
 				return
 			}
+			if(!window.userInfo.contributor_type){
+				this.$router.push({path: '/noIs'});
+				return
+			}
 			let pr = {
 				access_token:window.userInfo.access_token,
 				contribute_type:window.userInfo.contributor_type

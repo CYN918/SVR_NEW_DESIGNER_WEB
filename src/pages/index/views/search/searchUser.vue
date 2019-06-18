@@ -33,7 +33,8 @@
 				
 			</ul>			
 			<div v-if="isNodeat" class="emptyData">
-				<img src="/imge/k/empty_nodata@3x.png"/>
+				<img src="/imge/svg/empty_nodata.svg" alt="">
+				<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
 			</div>
 			<el-pagination v-if="total>40" class="pagesddd"
 			background

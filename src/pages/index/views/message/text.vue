@@ -30,6 +30,7 @@ export default {
 	}, 
 	methods: {
 		init(){
+			this.getXsm();
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
 			window.onscroll = ()=>{
@@ -48,23 +49,27 @@ export default {
 			}
 		
 		},
-		// getXsm(){
-		// 	
-		// 	
-		// 	let pr = {
-		// 		user_open_id:'system_admin'
-		// 	};
-		// 	this.api.getUserDetail(pr).then((da)=>{
-		// 		if(da=='error'){
-		// 			return
-		// 		}
-		// 		window.xsmData= da;
-		// 		
-		// 	}).catch(()=>{
-		// 		
-		// 	});
-		// },
-	}	
+		getXsm(){
+			let pr = {
+				user_open_id:'system_admin'
+			};
+			this.api.getUserDetail(pr).then((da)=>{
+				if(da=='error'){
+					return
+				}
+				window.xsmData= da;
+				
+			}).catch(()=>{
+				
+			});
+		},
+	},
+	watch: {	
+		'$route': function() {
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
+		},
+	}
 }	
 </script>
 

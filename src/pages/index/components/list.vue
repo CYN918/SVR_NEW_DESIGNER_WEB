@@ -90,7 +90,7 @@ export default {
 			this.goTop=1;
 			this.limit = val;
 			this.page=1;
-			this.List = [];
+			// this.List = [];
 			this.getData();
 			
 		},
