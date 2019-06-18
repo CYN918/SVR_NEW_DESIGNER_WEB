@@ -6,7 +6,7 @@
 			<div><span>职业</span><span>{{da.vocation}}</span></div>	
 			<div><span>所在地</span><span>{{da.province+'-'+da.city}}</span></div>	
 			<div><span>个性签名</span><span>{{da.personal_sign?da.personal_sign:'这个人很懒，什么东西也没写'}}</span></div>	
-			<div  v-if="da.home_page"><span>主页链接</span><span>{{da.home_page}}</span></div>	
+			<!-- <div  v-if="da.home_page"><span>主页链接</span><span>{{da.home_page}}</span></div>	 -->
 		</div>
 	</div>
 </template>

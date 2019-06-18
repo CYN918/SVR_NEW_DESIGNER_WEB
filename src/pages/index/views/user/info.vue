@@ -36,13 +36,13 @@
 					</div>
 				</div>
 				
-				<div v-if="userInfo.home_page">
+				<!-- <div v-if="userInfo.home_page">
 					<h1>个人资料</h1>
 					<div class="forddf_btnd_1">
 						<span class="forddf">主页链接</span><span>{{userInfo.home_page+'.shiquaner.zookingsoft.com'}}</span>
 					</div>		
 							
-				</div>
+				</div> -->
 				<span v-if="isMe()" @click="gouser" class="forddf_btnd">更新资料</span>	
 			</div>
 		</div>

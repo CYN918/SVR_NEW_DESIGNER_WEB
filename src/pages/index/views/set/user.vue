@@ -79,14 +79,14 @@
 						
 						
 					</div>
-					<div class="suc_1 suc_4">
+					<!-- <div class="suc_1 suc_4">
 						<div class="suc_title">个人链接</div>
 						<div class="suc_1_3">
 							<span>主页链接</span>
 							<el-input class="suc_3xInput" v-model="form.home_page" placeholder="请输入内容"></el-input>
 							<span>shiquaner.zookingsoft.com</span>
 						</div>
-					</div>
+					</div> -->
 					
 					<div class="suc_btndf" @click="Userupdate">保存资料</div>
 				</div>
@@ -170,7 +170,7 @@ export default {
 				'个人资料',
 				'教育背景',
 				'联系方式',
-				'个人链接'				
+				// '个人链接'				
 			],
 			form:{qq_visible:1,weixin_visible:1},
 			sexData:[{n:'男',v:1},{n:'女',v:2}],	
