@@ -70,15 +70,13 @@
 				
 			</div>
 			
-		</div>
-		
+		</div>		
 		<div class="userNavBox">
 			<router-link :to="{ path:'/works',query:{ id:qurId}}">作品</router-link>
 			<router-link :to="{ path:'/recommend',query:{ id:qurId}}">推荐</router-link>
 			<router-link :class="gofn" :to="{ path:'/follow',query:{ id:qurId}}">关注</router-link>
 			<router-link :to="{ path:'/info',query:{ id:qurId}}">资料</router-link>
-		</div>
-		
+		</div>	
 		<div v-show="isshowd2" class="loginoutBox">
 			<div class="loginoutBox1">
 				<img @click="hindHb2()" class="loginoutBox2" src="/imge/cj_00.png">
@@ -90,9 +88,7 @@
 		<RPT ref="report"></RPT>
 	</div>
 </template>
-
 <script>
-
 import {Message} from 'element-ui'
 import RPT from '../../components/report'
 import fxd from '../../components/share';

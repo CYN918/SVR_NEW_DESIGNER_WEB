@@ -249,7 +249,7 @@ export default {
 					return
 				}
 				this.userMessage = da;
-				this.userBg = da.user_center_banner_pic;
+				// this.userBg = da.user_center_banner_pic;
 				this.shareData = {
 					url:'http://dev-web-ndesigner.idatachain.cn/aindex.html#/user?id='+this.$route.query.id,
 					title:this.userMessage.username+"的主页-狮圈儿创作者平台",
