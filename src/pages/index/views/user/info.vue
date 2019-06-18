@@ -67,8 +67,13 @@ export default {
 	methods: {
 	
 		setData(){
-	
-			this.userInfo = this.$parent.userMessage;
+			if(this.$parent.userMessage){
+				this.userInfo = this.$parent.userMessage;
+				return
+			}
+			setTimeout(()=>{
+				this.setData();
+			},200)
 		},
 		isMe(){
 			if(!window.userInfo){
