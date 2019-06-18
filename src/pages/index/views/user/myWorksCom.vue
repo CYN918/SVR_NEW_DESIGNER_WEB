@@ -52,7 +52,7 @@
 						<div class="setDatasXX_4_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
 						<div><Input class="setDatasXX_4_3" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>还可添加{{5-form.labels.length}}个标签</div>
 						<div class="setDatasXX_4_4">
-							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(todo)" class="iconfont pend">&#xe619;</span></span>
+							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
 						</div>
 					</div>
 				</div>
@@ -141,6 +141,7 @@ export default {
 				pr:{},
 
 			},
+			upType:'',
 			
 		}
 	},
@@ -152,7 +153,11 @@ export default {
 		init(){
 			this.data.pr.status = this.$parent.isType;
 		},
-		upDataSet(){		
+		upDataSet(){	
+			if(this.upType==1){
+				Message({message: '正在提交请稍后'});
+				return
+			}
 			if(!window.userInfo){
 				Message({message: '登录过期请先登录'});
 				setTimeout(()=>{
@@ -160,17 +165,21 @@ export default {
 				},1000);
 				return
 			}	
-			let pr = this.form;
+			let pr = JSON.parse(JSON.stringify(this.form));
 			pr.is_publish = 1;
 			pr.step = 1;
-			pr.access_token = window.userInfo.access_token;		
+			pr.access_token = window.userInfo.access_token;	
 			pr.labels = JSON.stringify(pr.labels);
+			this.upType=1;
 			this.api.saveWorks(pr).then((da)=>{
+				this.upType='';
 				if(da=='error'){
 					return
 				}
 				this.hindissetDatasXX();	
 				Message({message:'修改成功正在审核'});							
+			}).catch((d)=>{
+				this.upType='';
 			});		
 		},
 		showissetDatasXX(id){
@@ -189,6 +198,9 @@ export default {
 				
 				try{
 					this.form.labels = JSON.parse(this.form.labels);
+					try{
+						this.form.labels = JSON.parse(this.form.labels);
+					}catch(e){}
 				}catch(e){}
 				
 				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
@@ -213,6 +225,9 @@ export default {
 			if(!this.tags){
 				return
 			}
+			if(!this.form.labels){
+				this.form.labels = [];
+			}
 			if(this.form.labels.indexOf(this.tags)!=-1){
 				Message({message: '该标签已添加'});
 				return
@@ -221,6 +236,7 @@ export default {
 				Message({message: '最多填写5个标签'});
 				return
 			}
+			
 			this.form.labels.push(this.tags);
 			this.tags = '';
 			this.$refs.tageds.clearValue();
