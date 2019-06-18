@@ -44,7 +44,10 @@
 		</div>			
 		<div v-show="issetDatasXX" class="setDatasXX">
 			<div class="setDatasXX_1">
+				
 				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="/imge/cj_00.png" alt="">
+				<div class="ydbbdf">
+				<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
 				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
 				<div class="setDatasXX_4">
 					
@@ -98,7 +101,7 @@
 				<div class="setDatasXX_7">
 					<span @click="hindissetDatasXX">取消</span><span @click="upDataSet">确定</span>
 				</div>
-			</div>
+			</div></div>
 		</div>
 		
 	</div>
@@ -177,7 +180,7 @@ export default {
 					return
 				}
 				this.hindissetDatasXX();	
-				Message({message:'修改成功正在审核'});							
+				Message({message:'修改成功'});							
 			}).catch((d)=>{
 				this.upType='';
 			});		
@@ -607,7 +610,7 @@ export default {
 	border-radius: 5px;
 	
 	width: 1020px;
-	height: 709px;
+	height: 620px;
 }
 .setDatasXX_3{
 	
@@ -781,5 +784,16 @@ export default {
 }
 .setDatasXX_5_2_3 .el-select input{
 	padding: 0 10px;
+}
+.ydbbdf{
+	overflow-y: auto;
+    height: 83%;
+}
+.dywd{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	box-sizing: border-box;
 }
 </style>

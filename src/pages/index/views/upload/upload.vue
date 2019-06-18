@@ -394,6 +394,8 @@ export default {
 			
 			
 			this.chekin = type;
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			let regex = /<img.*?src="(.*?)"/;
 			
 			let src = regex.exec(this.form.content);
@@ -401,9 +403,7 @@ export default {
 				return
 			}
 			src = src[1];			
-			// if(!this.form.face_pic){
-			// 	this.form.face_pic = src;
-			// }
+			
 			
 		},
 		ready (editorInstance) {
