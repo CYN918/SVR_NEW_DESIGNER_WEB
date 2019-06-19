@@ -404,6 +404,7 @@ export default {
 }
 .u_top2{
 	position: relative;
+	background: #282828;
 }
 .u_top2>img{
 	display: block;
