@@ -319,6 +319,7 @@ export default {
 			this.checkPost();
 		},
 		'postData.bank_name'() {
+
 			this.checkPost();
 		},
 		
@@ -476,7 +477,8 @@ export default {
 					"EGBANK":'恒丰银行',
 					"CZBANK":'浙商银行',
 				}  
-				this.postData.bank_name = conf[response.data.bank ];
+				this.$set(this.postData,'bank_name',conf[response.data.bank ]);
+			
 			}).catch(()=>{
 				
 			});
