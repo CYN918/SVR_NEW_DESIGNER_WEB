@@ -493,6 +493,7 @@ export default {
 		},
 		
 		init(){
+			
 			this.form.mobile = window.userInfo.mobile;
 			this.form.mobile_zone = window.userInfo.mobile_zone;
 			this.getUserDetail();
@@ -594,6 +595,7 @@ export default {
 				access_token:window.userInfo.access_token,
 				contribute_type:2
 			};
+			
 			this.api.contributorInfo(pr).then((da)=>{
 				if(da=='error'){
 					return
@@ -601,6 +603,7 @@ export default {
 				let navd = 0;
 				if(da.check_status==0){
 					this.check_type = 1;
+					da.tax_rate_type = "1";
 				}
 				if(da.check_status==1){
 					this.$router.push({path: '/index'})			
@@ -615,6 +618,7 @@ export default {
 				}
 				this.$parent.setNav(navd);
 				this.postData = da; 
+				console.log(this.postData)
 	
 			})
 		},
