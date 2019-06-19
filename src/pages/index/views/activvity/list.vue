@@ -33,7 +33,15 @@ export default {
 			},	
 		}		
 	},
-	methods:{		
+	created(){
+		this.init();
+	},
+	
+	methods:{	
+		init(){
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
+		},
 		go(id){
 			this.$router.push({path:'/detailed',query:{id:id}});	
 		}
