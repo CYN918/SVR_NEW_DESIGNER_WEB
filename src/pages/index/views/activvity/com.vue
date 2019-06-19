@@ -32,7 +32,7 @@
 				<img class="pushDeletBox2" @click="closeZp" src="/imge/cj_00.png">
 				<div class="pushDeletBox3">选择参与活动的作品</div>
 				<div class="pushDeletBox4">
-					<ul class="zp_box">
+					<ul class="zp_box" @scroll="test">
 						
 						<li @click="checkZp(el.work_id)" :class="(work_id.indexOf(el.work_id)!=-1 || el.is_attend==1)?'chekonzp':''" v-for="(el,index) in zpList" :key="index">
 							<img class="zp_box_1" :src="el.face_pic">
@@ -53,6 +53,8 @@
 								</div>
 							</div>
 						</li>
+						<div ref="botmm"></div>
+						
 						<img v-if="isnoData" class="upImnoData" src="/imge/k/empty_nodata@3x.png"/>
 					</ul>
 				</div>
@@ -96,6 +98,11 @@ export default {
 			infoData:{},
 			isnoData:'',
 			wpdz:'',
+			
+			getType:'',
+			noGd:'',
+			page2:1,
+			total2:0,
 		}
 		
 	},
@@ -105,6 +112,18 @@ export default {
 		// this.getPersonalWorkList();
 	}, 
 	methods:{
+		test(){
+			let data = this.$refs.botmm.getBoundingClientRect();
+			if(data.top<800 && !this.getType && !this.noGd){
+				if(this.total2<40){
+					this.noGd=1;
+					return
+				}
+				
+				this.page2++;
+				this.getPersonalWorkList();
+			}
+		},
 		fxclick(){
 			this.$refs.fxd.showShare(true);
 		},
@@ -195,7 +214,7 @@ export default {
 			if(!window.userInfo){return}
 			let pr = {
 				activity_id:this.$route.query.id,
-				page:this.page,
+				page:this.page2,
 				limit:40,
 			};
 			this.api.getPersonalWorkList(pr).then((da)=>{
@@ -203,6 +222,14 @@ export default {
 				if(da=='error'){
 					return
 				}
+				if(da.data.length==0){
+					this.noGd=1;
+				}
+				if(this.zpList.length>0){
+					this.zpList = this.zpList.concat(da.data);
+					return
+				}
+				
 				this.zpList = da.data;
 				if(this.zpList.length==0){
 					this.isnoData=1;

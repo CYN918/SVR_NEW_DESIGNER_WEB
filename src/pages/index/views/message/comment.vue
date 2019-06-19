@@ -34,7 +34,7 @@
 							</div>
 							<div class="hfBox xxbox_c" v-if="el.isshowfh">
 								<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
-								<span @click="addfu2(index,el.work.work_id,el.comment.comment_id,el.comment.username,el.comment.feed_id)">回复</span>
+								<span :class="chekcont()==true?'iscsbtn':''" @click="addfu2(index,el.work.work_id,el.comment.comment_id,el.comment.username,el.comment.feed_id)">回复</span>
 							</div>
 							
 							<div v-if="el.op_cname=='回复' && el.isshowsub" class="comment_2_9">
@@ -101,6 +101,9 @@ export default {
 	methods: {
 		backTj(n){
 			return  n>999?999:n;
+		},
+		chekcont(){
+			return this.zkMyFun.checkWz(this.pl2);
 		},
 		handleSizeChange(val) {
 			this.limit = val;
@@ -323,5 +326,7 @@ export default {
 </script>
 
 <style>
-
+.iscsbtn{
+	background: #FF5121 !important;
+}
 </style>

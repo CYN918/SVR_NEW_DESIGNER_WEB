@@ -14,7 +14,7 @@
 				</div>
 				<div class="uploadBoxd2_2_2">{{configData.btn}}<input @change="fileUp" class="uploadBoxd2_2_2_1" ref="upnfile" :accept="typexz"  multiple="multiple" type="file" /></div>				
 			</div>
-			<ul class="uploadBoxd2_3" ref="imgd">
+			<ul class="uploadBoxd2_3" ref="imgd" @scroll="test">
 				<li v-for="(el,index) in list" :key="index" v-if="el.type!='none'">
 					<div v-if="el.type=='up'">
 						<div class="loadingsd">
@@ -37,7 +37,7 @@
 						<div :class="['zzched_1',checkin.indexOf(el.fid)!=-1?'zzched2':'']"></div>
 					</div>					
 				</li>	
-				
+				<div ref="botmm"></div>
 				<img v-if="isnoData" class="upImnoData" src="/imge/k/empty_nodata@3x.png"/>
 				
 			</ul>
@@ -73,12 +73,28 @@ export default {
 			typexz:'',
 			deletOn:[],
 			isnoData:'',
+			getType:'',
+			noGd:'',
+			page:1,
+			total:0,
       	};
     },
 	mounted: function () {	
 		this.getList();
 	}, 	
     methods: {
+		test(){
+			let data = this.$refs.botmm.getBoundingClientRect();
+			if(data.top<800 && !this.getType && !this.noGd){
+				if(this.total<40){
+					this.noGd=1;
+					return
+				}
+				this.page++;
+				
+				this.getList();
+			}
+		},
 		Imgbj(a,b){
 			
 			let p = "background-image: url(";
@@ -189,20 +205,34 @@ export default {
 				timestamp:times,
 				file_type:this.configData.getType,
 				relation_type:'work',
-				limit:80,
-				page:1,
-			}
+				limit:40,
+				page:this.page,
+			};
+			this.getType=1;
 			this.api.getFList(params).then((da)=>{
+				this.getType='';
 				if(da=='error'){
 					return
 				}
-				if(da.length==0 && this.list.length==0){
+
+				if(da.data.length==0 || !da){
+					this.noGd=1;
+				}
+				if(da.data.length==0 && this.list.length==0){
 					this.isnoData=1;
 				}else{
 					this.isnoData='';
 				}
+				this.total = da.total;
+				if(this.list.length>0){
+					this.list = this.list.concat(da.data);
+					return
+				}
 				this.list =da.data;
-			})
+				
+			}).catch(()=>{
+				this.getType='';
+			});
 		},
 		backRigh(on){
 			if(on<=50){

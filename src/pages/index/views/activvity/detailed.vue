@@ -41,6 +41,6 @@ export default {
 <style>
 .contf{
 	width: 1300px;
-	margin: 0 auto;
+	margin: 0 auto 60px;
 }
 </style>
