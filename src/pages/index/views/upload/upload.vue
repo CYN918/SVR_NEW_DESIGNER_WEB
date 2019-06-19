@@ -364,6 +364,8 @@ export default {
 			this.saveData(dat,'自动保存成功');
 		},
 		init(O){
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			if(!window.userInfo){
 				Message({message: '请先登录'});
 				return

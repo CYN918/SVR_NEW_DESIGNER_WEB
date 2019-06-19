@@ -16,24 +16,27 @@ export default {
 	methods: {
 		go1(){
 			if(!window.userInfo){
-				this.$router.push({path: '/login'})	
+				window.open(location.origin+'/#/login');
 				return
 			}
 			
 			if(!window.userInfo.is_contributor || window.userInfo.is_contributor==0){
-				this.$router.push({path: '/setPersonal'});
+
+				window.open(location.origin+'/#/setPersonal');
 				return
 			}	
-			this.$router.push({path: '/profit'});
-			
+		
+			window.open(location.origin+'/#/profit');
 
 		},
 		go2(){
 			if(!window.userInfo){
-				this.$router.push({path: '/login'})	
+				window.open(location.origin+'/#/login');
+				
 				return
 			}
-			this.$router.push({path: '/upload'})	
+			
+			window.open(location.origin+'/#/upload');
 			
 		},
 		go3(){
