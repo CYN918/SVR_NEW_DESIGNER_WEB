@@ -494,7 +494,8 @@ export default {
 		},
 		
 		init(){
-			
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.form.mobile = window.userInfo.mobile;
 			this.form.mobile_zone = window.userInfo.mobile_zone;
 			this.getUserDetail();

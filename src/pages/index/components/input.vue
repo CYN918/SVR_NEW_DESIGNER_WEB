@@ -107,7 +107,10 @@ export default {
 			this.input = this.valued;			
 		},
 	    'input'(val,oldeval) {
-			this.numd = this.input.length;
+			if(this.input){
+				this.numd = this.input.length;
+			}
+			
 			if(this.max>0 && this.numd>this.max){
 				this.input = val.substring(0,this.max);
 				return
