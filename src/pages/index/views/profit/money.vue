@@ -18,7 +18,7 @@ export default {
 		return {
 			config:{
 				title:[
-					{n:'提现时间',poprs:'apply_time'},
+					{n:'结算时间',poprs:'apply_time'},
 					{n:'收款账户名',clfn:(da)=>{ 
 							let len = da.account_name.length,
 							str = da.account_name.substring(-1,1),
@@ -34,7 +34,7 @@ export default {
 						},					
 					},
 					{n:'银行卡号',clfn:(da)=>{ 
-							return da.bank_card_id.substring(0,4)+'*******'+da.bank_card_id.substring(-1,4);
+							return da.bank_card_id.substring(0,4)+'*******'+da.bank_card_id.substring(da.bank_card_id.length-4);
 						},					
 					},
 					{n:'开户银行',poprs:'bank_name'},
@@ -121,7 +121,7 @@ export default {
 			this.api.Income_applyCancel(pr).then((da)=>{
 				this.cxType=0;
 				if(da=='undefined'){return}	
-				this.$parent.basDa.account_balance = this.$parent.basDa.account_balance+(+this.je);
+				this.$parent.basDa.account_balance = +this.$parent.basDa.account_balance+(+this.je);
 				this.$parent.num1 = '￥ '+this.$parent.basDa.account_balance;
 				this.close();
 				

@@ -125,7 +125,7 @@ export default {
 .sea_4 .el-input{
 
 	display: inline-block;
-    width: 70%;
+    width: 90%;
 }
 
 .sea_4 .el-input__inner{

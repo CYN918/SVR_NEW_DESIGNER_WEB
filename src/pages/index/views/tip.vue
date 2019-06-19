@@ -27,7 +27,7 @@
 					<img src="/imge/hot/3.png" alt="">
 					<div class="hotCent2t">作品用途清晰</div>
 					<div class="hotCent2c">
-						作品使用路劲&账户收益个人中心公开展示
+						作品使用路径&账户收益个人中心公开展示
 					</div>
 				</div>
 				

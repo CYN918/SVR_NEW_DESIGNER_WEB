@@ -189,7 +189,7 @@ export default {
 				timestamp:times,
 				file_type:this.configData.getType,
 				relation_type:'work',
-				limit:40,
+				limit:80,
 				page:1,
 			}
 			this.api.getFList(params).then((da)=>{

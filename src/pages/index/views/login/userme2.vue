@@ -159,8 +159,12 @@ export default {
 			}
 			let pr = {
 				access_token:window.userInfo.access_token,
+				type:'third_login',
 				mobile:this.form.mobiles.mobile,
 				mobile_zone:this.form.mobiles.mobile,
+				verify_code:this.form.verifys,
+				password:this.form.password,
+				password_repass:this.form.password_repass,
 				avatar:this.caver,
 				username:this.form.username,
 				sex:this.form.sex,

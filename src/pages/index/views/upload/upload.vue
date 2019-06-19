@@ -1133,6 +1133,7 @@ export default {
 .isUpd>.page2Tbnd1{
 	color: #999;
     border-color: #999;
+	cursor: context-menu;
 }
 .page2_1_7_r>label>div>div.chekdOn{
 	border-color: rgb(255, 81, 33);
