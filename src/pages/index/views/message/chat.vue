@@ -192,7 +192,6 @@ export default {
 					}else{
 						da.data.unshift({user_info:this.$route.query});
 					}
-					console.log(da.data);
 				}		
 				this.listData = da.data;
 				this.getMessageList();
@@ -213,7 +212,7 @@ export default {
 			if(this.messGlist[0]){
 				pr.time = this.messGlist[0].create_time;
 			}
-			if(this.listData[this.messgOn].chat_id){
+			if(this.listData[this.messgOn] && this.listData[this.messgOn].chat_id){
 				pr.chat_id = this.listData[this.messgOn].chat_id;
 			}
 			if(this.listData[this.messgOn].user_info.open_id){
@@ -307,29 +306,27 @@ export default {
 				Message({message: '正在删除请稍后'});
 				return
 			}
-			
-			let pr = {
-				access_token:window.userInfo.access_token,
-				
-			};	
-		
-			if(!this.listData[this.messgOn].chat_id){
+			if(!this.listData[this.messgOn].chat_id){				
 				this.listData.splice(this.messgOn,1);
-				Message({message: '删除成功'});
-//				this.$router.push({path:'/chat'});
-	
 				this.messGlist = [];
-		
-			}			
-			this.deletType==1;			
+				Message({message: '删除成功'});
+				return
+			}	
+			this.deletType==1;		
+			let pr = {};
 			pr.chat_id=this.listData[this.messgOn].chat_id;
 			this.api.delChat(pr).then((da)=>{
 				this.deletType=0;
 				if(da=='error'){return}
 				this.messGlist = [];
 				Message({message: '删除成功'});
-				this.messgOn=0;				
-				this.getMessgList();
+				if(this.$route.query.open_id ==pr.chat_id){
+					this.$router.push({path: '/chat'})
+					return
+				}				
+				this.messgOn=0;		
+				this.listData.splice(this.messgOn,1);
+				this.getUserList();
 			}).catch(()=>{
 				this.deletType=0;
 			});

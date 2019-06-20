@@ -229,7 +229,7 @@ export default {
 			this.isshowd2=true;
 		},
 		init(){
-		
+			this.qurId = this.$route.query.id;
 			if(this.$route.path=='/followFans'){
 				this.gofn = 'router-link-active';
 			};

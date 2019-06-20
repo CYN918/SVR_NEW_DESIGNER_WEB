@@ -35,7 +35,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="/imge/sfz_zm.png" alt="">
+										<img class="suc_1_9_7" src="/imge/yyzz.png" alt="">
 									</div>
 								</div>
 							</div>
@@ -60,7 +60,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="/imge/sfz_bm.png" alt="">
+										<img class="suc_1_9_7" src="/imge/khxk.png" alt="">
 									</div>
 								</div>
 							</div>
