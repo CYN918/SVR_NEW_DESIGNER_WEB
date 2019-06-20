@@ -336,7 +336,7 @@ export default {
 			window.open(ur);
 		},
 		openxq(on){
-			if(this.$route.fullPath=="/myPass" || on.status==2){
+			if(on.status==2){
 				window.open('#/cont?id='+on.work_id);
 				return
 			}
