@@ -96,7 +96,8 @@ export default {
 	},
 	watch: {	
 		'$route': function() {
-			this.followList();
+			this.init();
+			this.$refs.listDom.getData();
 		},
 	},
 	created(){

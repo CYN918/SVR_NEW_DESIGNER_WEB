@@ -309,6 +309,7 @@ export default {
 			if(!this.listData[this.messgOn].chat_id){				
 				this.listData.splice(this.messgOn,1);
 				this.messGlist = [];
+				this.$router.push({path: '/chat'})
 				Message({message: '删除成功'});
 				return
 			}	

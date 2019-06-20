@@ -50,8 +50,13 @@ export default {
 	},
 	created(){
 		this.init();
-	},	
-	
+	},
+	watch: {	
+		'$route': function() {
+			this.init();
+			this.$refs.listDom.getData();
+		},
+	},
 	methods: {
 		init(){
 			if(!this.$route.query.id){

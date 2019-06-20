@@ -12,7 +12,7 @@
 			</div>
 			<list :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
-					<div class="follwfs">
+					<div class="follwfsm">
 						<img @click="goUser(todo.open_id)" class="follwfs_1" :src="todo.avatar">
 						<div @click="goUser(todo.open_id)" class="follwfs_2">{{todo.username}}</div>
 						<div class="follwfs_3">{{todo.province}} | {{todo.city}}</div>
@@ -83,7 +83,8 @@ export default {
 	
 	watch: {	
 		'$route': function() {
-			this.followList();
+			this.init();
+			this.$refs.listDom.getData();
 		},
 	},
 	created(){
@@ -232,6 +233,7 @@ export default {
 					return
 				}
 				this.List = da.data;
+				console.log(this.List)
 				this.total = da.total;
 				document.documentElement.scrollTop =0;
 				document.body.scrollTop =0;
@@ -313,7 +315,7 @@ export default {
 	background: #E6E6E6;
 }
 
-.follwfs{
+.follwfsm{
 	display: inline-block;
 	text-align: center;
 	padding-top: 50px;
