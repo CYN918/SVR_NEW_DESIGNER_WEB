@@ -623,7 +623,7 @@ export default {
 			if(this.fjtext== '上传中'){
 				return
 			}
-			if(this.upfjData && this.upfjData.type){
+			if(this.upfjData.type && this.upfjData.type!='上传成功'){
 				Message({message: '正在上传中请稍后'});
 				return
 			}		
@@ -683,9 +683,10 @@ export default {
 					this.fjtext= '重新上传';
 					this.upfjData.type='上传成功';
 					
-					this.$refs.upnfile2.value ='';		
+						
 					this.form.attachment_id = da.fid;	
 					Message({message: '文件上传成功'});
+
 				}
 				
 			};
