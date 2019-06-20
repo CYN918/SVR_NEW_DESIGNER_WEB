@@ -8,8 +8,6 @@
 			<div class="pro_cd4 pro_cd5" v-if="userData.contributor_format_status==1">认证审核中</div>
 			<div class="pro_cd4 pro_cd5" v-if="userData.contributor_format_status==-1" @click="gosetPersonal">认证失败再次认证</div>
 		</div>
-
-		
 	</div>
 </template>
 
@@ -43,11 +41,12 @@ export default {
 				if(da.is_contributor!=0){
 					this.$router.push({path: '/profit'});
 					window.userInfo = da;
+					this.userData = window.userInfo;
+					localStorage.setItem('userT',JSON.stringify(da));	
 					return
 				}
 			});
-			
-			this.userData = window.userInfo;
+
 		},
 	},
 }

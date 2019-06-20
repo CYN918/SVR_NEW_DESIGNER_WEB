@@ -4,10 +4,10 @@
 			<div class="yhtop1">用户资料完善</div>
 			<div class="yhtop2">
 				基本信息设置 
-				<div class="yhtop2Box">
+				<!-- <div class="yhtop2Box">
 					<span @click="chekNav(0)" :class="['pend',navOn==0?'router-link-active':'']">完善资料</span>
 					<span @click="chekNav(1)" :class="['pend',navOn==1?'router-link-active':'']">绑定已有帐号</span>
-				</div>
+				</div> -->
 			</div>
 			<bindData v-if="navOn==0"></bindData>
 			<bindUser v-if="navOn==1"></bindUser>	
