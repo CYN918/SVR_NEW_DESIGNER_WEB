@@ -16,7 +16,7 @@
 				</span>
 			</div>
 			<div v-if="isme()==false" class="usertc_5">
-				<span class="csys pend" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><chatBtn class="pend" :daTSA="chatData"></chatBtn>
+				<span class="csys pend" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><span @click="goChat" class="btns pend">私信</span>
 			</div>
 			<div v-else class="usertc_5">
 				<span class="csys pend" @click="goFans('/works')">进入主页</span>
@@ -27,10 +27,9 @@
 </template>
 
 <script>
-import chatBtn from './chatBtn';
+
 import {Message} from 'element-ui'
 export default {
-	components:{chatBtn},
 	name: 'myInput',
 	data(){
 		return{
@@ -52,19 +51,21 @@ export default {
 	},
 	
 	mounted: function () {	
-		this.chatData = {
-			open_id:this.tcData.user_info.open_id,
-			avatar:this.tcData.user_info.avatar,
-			username:this.tcData.user_info.username,
-			city:this.tcData.user_info.city,
-			vocation:this.tcData.user_info.vocation,
-		};
+		
+		
 	}, 
 	
 	methods: {
-
-		gosx(){
-			this.$router.push({path:'/chat',query:{openid:this.tcData.user_info.open_id,avatar:this.tcData.user_info.avatar,username:this.tcData.user_info.username}});
+		
+		goChat(){
+			let pr = {
+				open_id:this.tcData.user_info.open_id,
+				avatar:this.tcData.user_info.avatar,
+				username:this.tcData.user_info.username,
+				city:this.tcData.user_info.city,
+				vocation:this.tcData.user_info.vocation,
+			};
+			this.$router.push({path:'/chat',query:pr});
 		},
 		goFans(d){
 			this.$router.push({path:d,query:{id:this.tcData.user_info.open_id}});

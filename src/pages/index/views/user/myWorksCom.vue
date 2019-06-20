@@ -168,11 +168,25 @@ export default {
 				},1000);
 				return
 			}	
-			let pr = JSON.parse(JSON.stringify(this.form));
-			pr.is_publish = 1;
-			pr.step = 1;
-			pr.access_token = window.userInfo.access_token;	
-			pr.labels = JSON.stringify(pr.labels);
+
+			let pr = {
+				is_publish:1,
+				work_id:this.form.work_id,
+				work_name:this.form.work_name,
+				content:this.form.content,
+				face_pic:this.form.face_pic,
+				classify_1:this.selectedOptions[0],
+				classify_2:this.selectedOptions[1],
+				classify_3:this.selectedOptions[2],
+				copyright:this.form.copyright,
+				labels:JSON.stringify(this.form.labels),
+				step:2,
+				attachment_id:this.form.attachment_id,
+				attachment_visible:this.form.attachment_visible,
+				is_platform_work:this.form.is_platform_work,
+				link_ids:this.form.link_ids
+			};
+
 			this.upType=1;
 			this.api.saveWorks(pr).then((da)=>{
 				this.upType='';
@@ -180,6 +194,7 @@ export default {
 					return
 				}
 				this.hindissetDatasXX();	
+				this.$refs.listDom.getData();
 				Message({message:'修改成功'});							
 			}).catch((d)=>{
 				this.upType='';
@@ -197,8 +212,8 @@ export default {
 				}
 				this.issetDatasXX = true;
 				this.setDataOn = da;
+		
 				this.form = da;
-				
 				try{
 					this.form.labels = JSON.parse(this.form.labels);
 					try{

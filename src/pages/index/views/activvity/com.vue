@@ -135,6 +135,7 @@ export default {
 		},
 		closeZp(){
 			this.ishowzp=false;
+			this.zpList = [];
 		},
 		showZp(){
 			if(!window.userInfo){
@@ -142,6 +143,7 @@ export default {
 			}
 			this.getPersonalWorkList();
 			this.ishowzp = true;
+			
 		},
 		
 		checkZp(id){
@@ -225,7 +227,7 @@ export default {
 				if(da.data.length==0){
 					this.noGd=1;
 				}
-				if(this.zpList.length>0){
+				if(this.zpList.length>0 && this.page2!=1){
 					this.zpList = this.zpList.concat(da.data);
 					return
 				}
