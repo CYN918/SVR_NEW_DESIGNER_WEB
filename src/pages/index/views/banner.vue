@@ -159,6 +159,7 @@ export default {
 
 }
 .banner1>img.actionno{
+	pointer-events: none;
 	-webkit-animation: jxd2 2s forwards;
 	animation: jxd2 2s forwards;
 	display: block;
