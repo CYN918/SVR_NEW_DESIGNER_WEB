@@ -1,17 +1,17 @@
 <template>
 	<div class="usertc_6">
 		<div class="usertc_0">
-			<img @click="goFans('/works')" class="usertc_1 pend" :src="tcData.user_info.avatar" alt="">
-			<div @click="goFans('/works')" class="usertc_2 pend">{{tcData.user_info.username}}</div>
+			<img @click="goR('/works')" class="usertc_1 pend" :src="tcData.user_info.avatar" alt="">
+			<div @click="goR('/works')" class="usertc_2 pend">{{tcData.user_info.username}}</div>
 			<div class="usertc_3">{{tcData.user_info.city+' | '+tcData.user_info.vocation}}</div>
 			<div class="usertc_4">
-				<span class="pend" @click="goFans('/followFans')">
+				<span class="pend" @click="goR('/followFans')">
 					粉丝<div>{{tcData.user_info.fans_num}}</div>				
 				</span>
 				<span>
 					人气<div>{{tcData.user_info.popular_num}}</div>				
 				</span>
-				<span class="pend" @click="goFans('/works')">
+				<span class="pend" @click="goR('/works')">
 					创作<div>{{tcData.user_info.work_num}}</div>				
 				</span>
 			</div>
@@ -19,7 +19,7 @@
 				<span class="csys pend" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><span @click="goChat" class="btns pend">私信</span>
 			</div>
 			<div v-else class="usertc_5">
-				<span class="csys pend" @click="goFans('/works')">进入主页</span>
+				<span class="csys pend" @click="goR('/works')">进入主页</span>
 			</div>
 		</div>
 	
@@ -67,7 +67,7 @@ export default {
 			};
 			this.$router.push({path:'/chat',query:pr});
 		},
-		goFans(d){
+		goR(d){
 			this.$router.push({path:d,query:{id:this.tcData.user_info.open_id}});
 		},
 		isme(){
