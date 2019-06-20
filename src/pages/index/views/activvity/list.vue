@@ -3,7 +3,7 @@
 		<list :config="data">
 			<template v-slot:todo="{ todo }">
 				<div class="ac_list_Box_0" @click="go(todo.id)">
-					<div class="ac_list_Box_2x"><img class="ac_list_Box_1" :src="todo.banner" alt=""></div>					
+					<div class="ac_list_Box_2x" :style="backBn(todo.banner)"></div>					
 					<div class="ac_list_Box_2">
 						<div class="ac_list_Box_4">{{todo.activity_name}}</div>
 						<div class="ac_list_Box_5"><span>{{todo.category_name}}</span>投稿时间：{{todo.start_time.split(" ")[0]}} 至 {{todo.end_time.split(" ")[0]}}</div>
@@ -44,6 +44,9 @@ export default {
 		},
 		go(id){
 			this.$router.push({path:'/detailed',query:{id:id}});	
+		},
+		backBn(ur){
+			return 'background-image: url('+ur+');'
 		}
 	},
 	
@@ -117,6 +120,9 @@ export default {
 	display: block;
 	width: 100%;
 	height: 360px;
+	background-size: cover;
+    background-position: 50%,50%;
+	
 }
 .ac_list_Box_1{
 	position: absolute;

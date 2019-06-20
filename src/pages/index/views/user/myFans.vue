@@ -432,7 +432,7 @@ export default {
 	height: 300px;
 	margin: 0 20px 20px 0;
 }
-.follwfsffbox>li>div:nth-child(4n+4){
+.follwfsffbox>li:nth-child(4n+4)>div{
 	margin-right: 0;
 }
 .follwfs_1{
