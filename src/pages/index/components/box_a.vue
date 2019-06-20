@@ -1,6 +1,6 @@
 <template>
 	<div class="list1_box">
-		<div @click="openxq()" class="list1_box_1"><img class="list1_box_2" v-lazy="el.face_pic"></div>		
+		<div @click="openxq()" class="list1_box_1" :style="backBn(el.face_pic)"></div>		
 		<div class="list1_box_3">
 			<div @click="openxq()" class="list1_box_3_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img class="svgImgx2" v-if="el.is_recommend==1" src="/imge/svg/zs_icon_tj.svg"/></div>
 			<div @click="openxq()" class="list1_box_3_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
@@ -56,6 +56,9 @@ export default {
 		openxq(){
 			window.open('#/cont?id='+this.el.work_id)
 		},
+		backBn(ur){
+			return 'background-image: url('+ur+');'
+		}
 	}
 }
 </script>
@@ -85,6 +88,9 @@ export default {
     height: 231.9px;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
+	background-size: cover;
+	background-position: 50%,50%;
+	
 }
 .list1_box_2{
 	display: block;
