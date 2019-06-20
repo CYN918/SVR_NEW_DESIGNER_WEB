@@ -180,7 +180,7 @@ export default {
 				}
 				this.infoData = da;
 				this.shareData = {
-					url:'http://dev-web-ndesigner.idatachain.cn/aindex.html#/conta?id='+this.$route.query.id,
+					url:location.origin+'/aindex.html#/conta?id='+this.$route.query.id,
 					title:da.activity_name+'-狮圈儿创作者平台',
 					pics:da.banner,
 					desc:'惊现大神快来膜拜',

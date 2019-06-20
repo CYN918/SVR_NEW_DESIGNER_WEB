@@ -4,7 +4,7 @@
 			
 			<img src="/imge/cj_00.png" @click="showShare(false)" class="fixCoBox2">
 			<div class="sharebox1">
-				<vue-qr class="sharebox1_1" :logoSrc="config.logo" :text="config.value" :size="200" :margin="0"></vue-qr>
+				<vue-qr class="sharebox1_1" :logoSrc="config.logo" :text="config.value" :logoScale="100" :size="200" :margin="0"></vue-qr>
 				分享到微信
 			</div>
 			<div class="sharebox2">
@@ -42,7 +42,7 @@ export default {
 			shareType:false,
 			config:{
 				value: '',
-				logo:'/imge/llog.png'
+				logo:'/imge/svg/MRTX.svg'
 			},
 		}
 	},
@@ -50,6 +50,7 @@ export default {
 	methods: {	
 		showShare(type){
 			this.shareType = type?type:false;
+			console.log(this.shareData)
 		},
 		setUrl(da){
 			if(da=='error'){return}

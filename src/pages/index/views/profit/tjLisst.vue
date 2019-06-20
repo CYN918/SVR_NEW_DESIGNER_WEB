@@ -78,6 +78,7 @@ export default {
 }
 .tjEvent_3>li{
 	display: inline-block;
+	vertical-align: top;
 	width:310px;
 	background:rgba(246,246,246,1);
 	border-radius:0px 0px 5px 5px;

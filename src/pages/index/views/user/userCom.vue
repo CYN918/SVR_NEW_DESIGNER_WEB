@@ -58,9 +58,9 @@
 				<div class="u_top3_2_3">{{userMessage.personal_sign?userMessage.personal_sign:'这个人很懒，什么都没说~'}}</div>
 			</div>
 			<div class="u_top3_3">
-				<span  @click="goFans('/followFans',userMessage.open_id)">粉丝<span>{{userMessage.fans_num}}</span></span>
+				<span class="pend"  @click="goFans('/followFans',userMessage.open_id)">粉丝<span>{{userMessage.fans_num}}</span></span>
 				<span>人气<span>{{userMessage.popular_num}}</span></span>
-				<span @click="goFans('/works',userMessage.open_id)">创作<span>{{userMessage.work_num}}</span></span>
+				<span class="pend" @click="goFans('/works',userMessage.open_id)">创作<span>{{userMessage.work_num}}</span></span>
 			</div>
 			<div class="u_top3_4">
 				<router-link v-if="isMe()" class="u_top3_4_1" to="/upload">上传作品</router-link>
@@ -251,7 +251,7 @@ export default {
 				this.userMessage = da;
 				// this.userBg = da.user_center_banner_pic;
 				this.shareData = {
-					url:'http://dev-web-ndesigner.idatachain.cn/aindex.html#/user?id='+this.$route.query.id,
+					url:location.origin+'/aindex.html#/user?id='+this.$route.query.id,
 					title:this.userMessage.username+"的主页-狮圈儿创作者平台",
 					pics:this.userMessage.avatar,
 					desc:'分享类容',
@@ -404,6 +404,7 @@ export default {
 }
 .u_top2{
 	position: relative;
+	height: 340px;
 	background: #282828;
 }
 .u_top2>img{

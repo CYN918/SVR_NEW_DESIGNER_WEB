@@ -197,7 +197,7 @@ export default {
 				{n:"艺术工作者"},
 				{n:"教育工作者"},
 			],
-			caver:'/imge/nav_tx.png',
+			caver:'/imge/svg/MRTX.svg',
 				
 			chekusername:function(val){
 				
@@ -502,6 +502,7 @@ export default {
 					}
 					
 				}
+			
 				this.form.citye = [this.form.country,this.form.province,this.form.city]
 			
 			})
