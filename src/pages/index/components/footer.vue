@@ -7,7 +7,7 @@
 			<span class="pend" @click="goPu('/text/help')">帮助中心</span>
 			<span class="pend" @click="showFdb">意见反馈</span>
 			<span>©2019 掌酷</span>
-			<span>沪ICP备15021426号</span>
+			<span>粤ICP备15039011号</span>
 			<feedback v-if="fd"></feedback>
 		</footer>
 </template>

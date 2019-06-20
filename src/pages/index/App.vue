@@ -839,6 +839,9 @@ input:-ms-input-placeholder{
 .seed2_2xxxx{
 	min-height: 800px;
 }
+.seed2_1_1_1x{
+	text-align: left;
+}
 .seed2_1_1_1x>p{
 	margin-bottom: 30px;
 }

@@ -121,7 +121,7 @@
 							<div v-else>
 								<span @click="showHb2" v-if="contDat.user_info.follow_flag>0">已关注</span>
 								<span class="jsBtn" @click="Follow_add()" v-else>关注</span>
-								<span class="lastsedd_1 pend" @click="gosx(contDat)">私信</span>
+								<span class="lastsedd_1 pend" @click="gosx(contDat.user_info)">私信</span>
 							</div>
 							
 							
@@ -245,7 +245,7 @@ export default {
 			this.$router.push({path: '/works',query:{id:window.userInfo.open_id}})
 		},
 		gosx(el){
-			
+			console.log(el);
 			let pr = {
 				open_id:el.open_id,
 				avatar:el.avatar,
