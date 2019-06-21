@@ -72,7 +72,7 @@ export default {
 					return
 				}
 				window.userInfo = da;
-				localStorage.setItem('pass',JSON.stringify(data));
+				localStorage.setItem('pass',JSON.stringify(da));
 				this.$router.push({path:'/index'})
 			});
 		},
