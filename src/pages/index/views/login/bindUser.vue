@@ -71,6 +71,8 @@ export default {
 				if(da=='error'){
 					return
 				}
+				window.userInfo = da;
+				localStorage.setItem('pass',JSON.stringify(data));
 				this.$router.push({path:'/index'})
 			});
 		},
