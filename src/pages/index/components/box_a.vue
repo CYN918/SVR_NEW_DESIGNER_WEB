@@ -5,9 +5,7 @@
 			<div @click="openxq()" class="list1_box_3_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img class="svgImgx2" v-if="el.is_recommend==1" src="/imge/svg/zs_icon_tj.svg"/></div>
 			<div @click="openxq()" class="list1_box_3_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
 			<div class="list1_box_3_3">
-
-				<span><img @click="goUser()" :src="el.user_info.avater" alt=""></span>
-
+				<span><img @click="goUser()" :src="el.user_info.avatar" alt=""></span>
 				<span @click="goUser()" class="list1_box_3_6">{{backName(el.user_info.username)}}</span>
 				<div class="list1_box_3_4" @click="openxq()">
 					<span class="pend"><img  class="ImgSvg" src="/imge/svg/see/zs_icon_gk.svg">{{el.view_num}}</span>
