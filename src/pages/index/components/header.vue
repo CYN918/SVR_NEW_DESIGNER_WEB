@@ -82,13 +82,13 @@
 					
 		</div>
 		
-		<!--<div v-show="isshowd" class="loginoutBox">
+		<div v-show="isshowd" class="loginoutBox">
 			<div class="loginoutBox1">
 				<img @click="showHb(false)" src="/imge/svg/upload/yh_zlws_tx_gb.svg" class="loginoutBox2 pend">
 				<div class="loginoutBox3">确定退出登录?</div>
 				<div class="loginoutBox4"><span @click="showHb(false)">取消</span><span @click="logout()">确定</span></div>
 			</div>
-		</div>-->
+		</div>
 		
 	</header>
 </template>
