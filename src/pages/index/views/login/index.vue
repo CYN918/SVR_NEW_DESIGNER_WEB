@@ -35,7 +35,7 @@ export default {
 	min-height: 100% !important;
 }
 .loginBox{
-	background: url(/imge/lo1.png) no-repeat 0 0/cover;
+	background: url(/imge/lo1.jpg) no-repeat 0 0/cover;
 }
 .loginfooter{
 	background: linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
