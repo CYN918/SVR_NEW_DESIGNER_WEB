@@ -71,7 +71,7 @@ export default {
 				if(da=='error'){
 					return
 				}
-				console.log(da);
+	
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));
 				this.$router.push({path:'/index'})

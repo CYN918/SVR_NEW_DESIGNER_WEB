@@ -195,7 +195,7 @@ if(token){
 
 function setTitle(t){
 	let str = '';
-	console.log(t);
+
 	switch (t){
 		case '/index':str = '狮圈儿-创作者平台（Zoocreators）-让创意更有价值，让生活更加自在';
 			break;
