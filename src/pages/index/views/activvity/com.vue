@@ -161,6 +161,7 @@ export default {
 			this.work_id.splice(on,1);
 		},
 		setOnd(){
+			
 			let a = this.$route.path;
 			if(a==='/detailed'){
 				this.ond = 1;
@@ -185,6 +186,8 @@ export default {
 					return
 				}
 				this.infoData = da;
+				document.title=this.infoData.activity_name+'-狮圈儿（Zoocreators）';
+			
 				this.shareData = {
 					url:location.origin+'/aindex.html#/conta?id='+this.$route.query.id,
 					title:da.activity_name+'-狮圈儿创作者平台',

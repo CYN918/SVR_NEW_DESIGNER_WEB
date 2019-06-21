@@ -72,7 +72,7 @@ if(passd){
 }
 router.beforeEach((to, from, next) => {
 	if(!/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-		window.location.href = "http://dev-web-ndesigner.idatachain.cn/#/";
+		window.location.href = location.origin+"/#/";
 		return
 	}
 	window.scrollTo(0,0);	

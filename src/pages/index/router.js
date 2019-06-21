@@ -118,8 +118,8 @@ let wb = [
 				]
 			},
 			
-			{path: '/cont',name: 'conts',component:content,},
-			{path: '/conts',name: 'cont',component:contents,},
+			{path: '/cont',name: 'cont',component:content,},
+			{path: '/conts',name: 'conts',component:contents,},
 			
 			{path: '/myDynamic',name: 'myDynamic',component:myDynamic},
 			{path: '/myCreators',name: 'myCreators',component:myCreators},
@@ -191,12 +191,88 @@ let token = localStorage.getItem('userT');
 if(token){
 	try{window.userInfo = JSON.parse(token);}catch(e){}
 }
+
+
+function setTitle(t){
+	let str = '';
+	console.log(t);
+	switch (t){
+		case '/index':str = '狮圈儿-创作者平台（Zoocreators）-让创意更有价值，让生活更加自在';
+			break;
+		case '/login':
+		case '/register':
+			  str = '注册登录-狮圈儿（Zoocreators）';
+			break;
+		case '/userme':
+		case '/userme2':
+			  str = '完善资料-狮圈儿（Zoocreators）';
+			break;
+		case '/searchWorks':
+		case '/searchUser':
+			  str = '搜索-狮圈儿（Zoocreators）';
+			break;
+		case '/notify':
+		case '/comment':
+		case '/chat':	
+			  str = '消息--狮圈儿（Zoocreators）';
+			break;
+		case '/upload':	
+			  str = '上传作品页-狮圈儿（Zoocreators）';
+			break;	
+		case '/conts':	
+			  str = '作品预览--狮圈儿（Zoocreators）';
+			break;	
+		case '/activvity':	
+			  str = '活动-狮圈儿（Zoocreators）';
+			break;	
+		case '/myAll':	
+		case '/myExamine':
+		case '/myPass':
+		case '/myNotPass':
+		case '/myDraft':		
+			  str = '我的创作-狮圈儿（Zoocreators）';
+			break;	
+		case '/myDynamic':	
+		case '/myCreators':
+		case '/myFans':
+			  str = '我的关注-狮圈儿（Zoocreators）';
+			break;	
+		case '/profit':	
+		case '/fcsy':	
+		case '/money':	
+		case '/noIs':	
+			  str = '我的收益-狮圈儿（Zoocreators）';
+			break;	
+		case '/setUser':
+		case '/setSecurity':
+			  str = '账号设置-狮圈儿（Zoocreators）';
+		case '/setPersonal':
+		case '/setEnterprise':
+			  str = '平台供稿人认证-狮圈儿（Zoocreators）';
+		case '/text/about':
+		case '/text/userProtocol':
+		case '/text/authorization':
+		case '/text/help':
+			  str = '文档服务中心-狮圈儿（Zoocreators）';		
+			
+		// default:str = '狮圈儿-创作者平台（Zoocreators）-让创意更有价值，让生活更加自在';
+			break;
+	}
+	if(str){
+		document.title=str;
+	}
+	
+}
+
+
 router.beforeEach((to, from, next) => {
 	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-		window.location.href = "http://dev-web-ndesigner.idatachain.cn/aindex.html#/";
+		window.location.href = location.origin+"/aindex.html#/";
 		return
 	}
 
+	setTitle(to.path)
+	
 	/*是否填写信息*/
 	if(window.userInfo && window.userInfo.is_detail==0){		
 		if(!window.userInfo.mobile || window.userInfo.mobile=='null'){

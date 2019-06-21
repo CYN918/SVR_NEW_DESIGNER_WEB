@@ -52,11 +52,7 @@ export default {
 		},
 		getClassify(){
 			
-			let pr ={
-				access_token:window.userInfo.access_token,
-			};
-			
-			this.api.getClassify(pr).then((da)=>{
+			this.api.getClassify().then((da)=>{
 				if(da=='error'){
 					return
 				}

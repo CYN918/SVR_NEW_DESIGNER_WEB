@@ -62,7 +62,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 				localStorage.setItem('userT','');
 				window.userInfo='';				
 				window.location.href = '#/login';		
-				return
+				return 'error';
 			}
 			Message({dangerouslyUseHTMLString:true,message: data});
 			return 'error';

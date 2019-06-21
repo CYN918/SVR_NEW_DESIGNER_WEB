@@ -62,14 +62,12 @@ export default {
 				this.$router.push({path: '/login'})
 			}
 			let pr = {
-
 				mobile:this.form.mobiles.mobile,
 				mobile_zone:this.form.mobiles.mobile_zone,
-
+				login_type:'password',
 				password:this.MD5(this.form.password),
-
 			}
-			this.api.addSelfInfo(pr).then((da)=>{
+			this.api.bindExist(pr).then((da)=>{
 				if(da=='error'){
 					return
 				}

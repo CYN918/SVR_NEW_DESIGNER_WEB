@@ -429,7 +429,8 @@ export default {
 			return window.getTimes(time)
 		},
 
-		init(){				
+		init(){	
+			
 			this.hfData = [];			
 			this.work_id = this.$route.query.id;
 			this.getCommentList();
@@ -480,6 +481,8 @@ export default {
 					desc:'惊现大神快来膜拜',
 					summary:this.contDat.work_name+'-狮圈儿创作者平台',
 				};
+				
+				document.title=this.contDat.work_name+'-狮圈儿（Zoocreators）';
 				this.$refs.fxd.setUrl(this.shareData);
 				if(window.userInfo.open_id==da.user_info.open_id){
 				    this.show= false;

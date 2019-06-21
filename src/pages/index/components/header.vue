@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<img class="header_1 pend" src="/imge/log.png" @click="jump">
+		<img class="header_1 pend" src="/imge/svg/nav_logo.svg" @click="jump">
 		
 		<div class="header_2">
 			<router-link class="pend" to="/index">首页</router-link>

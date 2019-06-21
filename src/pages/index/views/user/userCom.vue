@@ -230,7 +230,6 @@ export default {
 		},
 		init(){
 			this.qurId = this.$route.query.id;
-			this.qurId = this.$route.query.id;
 			this.gofn = '';
 			if(this.$route.path=='/followFans'){
 				this.gofn = 'router-link-active';
@@ -243,15 +242,13 @@ export default {
 			let pr = {
 				user_open_id:this.$route.query.id
 			};
-			if(window.userInfo){
-				pr.access_token = window.userInfo.access_token;
-			}
 			this.api.getUserDetail(pr).then((da)=>{
 				if(da=='error'){
 					return
 				}
 				this.userMessage = da;
 				// this.userBg = da.user_center_banner_pic;
+				document.title=this.userMessage.username+'-狮圈儿（Zoocreators）';
 				this.shareData = {
 					url:location.origin+'/aindex.html#/user?id='+this.$route.query.id,
 					title:this.userMessage.username+"的主页-狮圈儿创作者平台",

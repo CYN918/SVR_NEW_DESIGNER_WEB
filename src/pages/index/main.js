@@ -3,11 +3,11 @@ import axios from 'axios'
 import api from '../../api/index'
 import App from './App.vue'
 import router from './router'
-import VueLazyload from 'vue-lazyload'
-console.log(VueLazyload);
-Vue.use(VueLazyload)
+
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
+
+
 Vue.prototype.MD5 = function(string){ 
     function RotateLeft(lValue, iShiftBits) {
         return (lValue<<iShiftBits) | (lValue>>>(32-iShiftBits));

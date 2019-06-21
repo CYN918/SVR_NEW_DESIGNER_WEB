@@ -39,6 +39,7 @@ export default {
 	
 	methods:{	
 		init(){
+		
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
 		},

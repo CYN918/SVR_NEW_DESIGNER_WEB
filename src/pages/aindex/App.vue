@@ -28,4 +28,13 @@ li{list-style-type: none}
 	width: 100%;
 	height:px2rem(10);	
 }
+#app{
+	height: 100%;
+}
+#app>div{
+	height: 100%;
+}
+#app>div>div{
+	min-height: 100%;
+}
 </style>

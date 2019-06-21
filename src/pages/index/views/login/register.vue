@@ -92,6 +92,7 @@ export default {
 	}, 
 	methods: {
 		init(){
+			this.setTitle('注册登录-狮圈儿（Zoocreators）');
 			document.addEventListener('keydown',(e)=>{
 				if(e.keyCode==13){				
 				if(this.$route.fullPath=='/register'){

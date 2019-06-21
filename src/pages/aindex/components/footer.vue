@@ -1,7 +1,7 @@
 <template>
 	<footer class="footerBox">
 		<div class="footerlog">
-			<img class="log" src="/imge/app/log.png" alt="">狮大大
+			<img class="log" src="/imge/app/logo.png" alt="">
 		</div>
 		<div class="footer_1">发现更多有价值的创意</div>
 		<div class="footer_2">Copyright @2019 SHIQUANER</div>
@@ -32,7 +32,7 @@ export default {
 	color: #fff;
 	box-sizing: border-box;
     padding: .4rem 0;
-    background: #ff5121;
+    background: #323232;
 }
 .footerlog{
 	font-size: .7rem;
@@ -45,7 +45,7 @@ export default {
     height: 1.8rem;
     background: #ff5121;
     margin: 0 auto;
-
+	border-radius: .2rem;
     font-size: .776rem;
     line-height: 1.8rem;
 

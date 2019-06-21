@@ -68,6 +68,7 @@ export default {
 		
 	}, 
 	methods: {
+
 		setData(){
 			return this.form;
 		},

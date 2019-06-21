@@ -34,8 +34,10 @@ export default {
 		}
 	},
 	mounted: function(){
+
 	}, 
 	methods: {
+		
 		qhNav(on){
 			if(on==this.type){return}
 			this.type=on;

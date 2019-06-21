@@ -265,4 +265,8 @@ export default {
 		url:'/Api/document/get',method:'post',baseURL:0,
 	},
 	
+	bindExist:{
+		url:'/Api/bind/bindExist',method:'post',baseURL:0,
+	},
+	
 }

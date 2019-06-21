@@ -1,7 +1,7 @@
 <template>
 	<header class="header">
-		<img @click="goIndex" class="log" src="/imge/app/log.png" alt="">
-		狮大大
+		<img @click="goIndex" class="log" src="/imge/app/logo.png" alt="">
+		
 		<span class="fxbtn"></span>
 	</header>
 </template>
@@ -24,15 +24,12 @@ export default {
 .header{
 	width: 100%;
     height: 2.11rem;
-	line-height: 2.11rem;
-    background: #ff5121;
-	font-size: .75rem;
-	color: #fff;
+    background: #323232;
 }
 .log{
 	display: inline-block;
 	vertical-align: middle;
-    width: 1.5rem;
+    width: 3.7rem;
     margin: .4rem;
 }
 .fxbtn{
