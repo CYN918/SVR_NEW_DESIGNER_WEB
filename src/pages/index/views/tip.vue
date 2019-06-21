@@ -92,7 +92,7 @@ export default {
 	background:rgba(255,255,255,1);
 	border-radius:5px;
 	font-size:14px;
-
+	text-align: center;
 	font-weight:400;
 	color:rgba(51,51,51,1);
 	line-height:40px;
@@ -125,6 +125,7 @@ export default {
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
 	border-radius:5px;
+	text-align: center;
 	margin: 0 25px;
 }
 .hotCent2>div>img{

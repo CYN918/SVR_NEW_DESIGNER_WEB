@@ -1,11 +1,13 @@
 <template>
 	<header class="header">
 		<img class="header_1 pend" src="/imge/log.png" @click="jump">
-		<span class="header_2">
+		
+		<div class="header_2">
 			<router-link class="pend" to="/index">首页</router-link>
 			<router-link class="last pend" to="/activvity">活动</router-link>
 			<router-link v-if="!isggr" class="last pend" to="/tip">供稿人</router-link>
-		</span>
+		</div>
+		
 		<div class="header_3">
 			<span :class="['searcBox',searchType?'issearch':'']">
 				<span @click="showsearch()" class="pdxf iconfont pend">&#xe609;</span>
@@ -79,13 +81,14 @@
 					
 					
 		</div>
-		<div v-show="isshowd" class="loginoutBox">
+		
+		<!--<div v-show="isshowd" class="loginoutBox">
 			<div class="loginoutBox1">
 				<img @click="showHb(false)" src="/imge/svg/upload/yh_zlws_tx_gb.svg" class="loginoutBox2 pend">
 				<div class="loginoutBox3">确定退出登录?</div>
 				<div class="loginoutBox4"><span @click="showHb(false)">取消</span><span @click="logout()">确定</span></div>
 			</div>
-		</div>
+		</div>-->
 		
 	</header>
 </template>
@@ -370,29 +373,30 @@ export default {
 	left: 0;
 	z-index: 9999;
 	width: 100%;
-	display: flex;
     height: 60px;
     background: #323232;
 }
 .header_1{
-    margin: 13px 97px 0 60px;
+	position: absolute;
+	top: 12px;
+	left: 60px;   
     width: 113px; 
 	height: 36px;
 }
-.header>span{
-	flex: 1;
+.header_2{
+	margin: 0 auto;
+	width: 1300px;
+	text-align: center;
 }
-.header>span>a{
+.header_2>a{
 	position: relative;
 	display: inline-block;
+	margin: 0 42.5px;
 	font-size: 14px;
 	color: #FFFFFF;
 	line-height: 60px;
 }
-.header .last{
-	margin-left: 85px;
-}
-.header>span>a.router-link-active:after{
+.header_2>a.router-link-active:after{
     content: "";
     position: absolute;
     bottom: 12px;
@@ -403,8 +407,12 @@ export default {
     height: 2px;
     background: #FCFCFC;
 }
+
+
 .header_3{
-	width: 234px;
+	position: absolute;
+	right: 0;
+	top: 0;	
 	color: #fff;
 	margin-right: 60px;
 }
@@ -413,6 +421,8 @@ export default {
 	line-height: 60px;
 	margin-right: 31px;
 }
+
+
 .header_4{
     margin-right: 0 !important;
 	cursor: pointer;

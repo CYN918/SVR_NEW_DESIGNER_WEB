@@ -3,7 +3,6 @@
 		<router-view/>
 	</div>
 </template>
-
 <style lang="scss">
 html,body,div,img,p,ul,li{
 	margin: 0;
@@ -22,18 +21,10 @@ a:visited{text-decoration:none;}
 a:hover{text-decoration:none;}
 a:active{text-decoration:none;}
 li{list-style-type: none}
-input::-webkit-input-placeholder{
-    color:#c0c4cc;
-}
-input::-moz-placeholder{   
-    color:#c0c4cc;
-}
-input:-moz-placeholder{ 
-   	color:#c0c4cc;
-}
-input:-ms-input-placeholder{
-    color:#c0c4cc;
-}
+input::-webkit-input-placeholder{color:#c0c4cc;}
+input::-moz-placeholder{color:#c0c4cc;}
+input:-moz-placeholder{color:#c0c4cc;}
+input:-ms-input-placeholder{color:#c0c4cc;}
 @font-face {
 	font-family: 'iconfont';
 	src: url('/font/iconfont.eot');
@@ -53,8 +44,8 @@ input:-ms-input-placeholder{
 	font-family: 'PingFangSC-Medium','Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
 	color: #2c3e50;
+	text-align: center;
 	height: 100%;
 }
 #app>div{

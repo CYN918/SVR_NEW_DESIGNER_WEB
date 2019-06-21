@@ -1,8 +1,7 @@
 <template>
 	<div>
 		<div class="detail_topBox">
-			<img class="detail_topBox_1" :src="infoData.banner" alt="">
-
+			<div class="detail_topBox_1" :style="backBn(infoData.banner)"></div>
 			<div class="detail_topBoxx_1po">
 
 			<div class="detail_topBoxx_1">
@@ -107,11 +106,18 @@ export default {
 		
 	},
 	mounted: function () {	
+		this.init();
 		this.setOnd();
 		this.a_getInfo();
-		// this.getPersonalWorkList();
 	}, 
-	methods:{
+	methods:{	
+		init(){
+			document.documentElement.scrollTop =0;
+			document.body.scrollTop =0;
+		},
+		backBn(ur){
+			return 'background-image: url('+ur+');'
+		},
 		test(){
 			let data = this.$refs.botmm.getBoundingClientRect();
 			if(data.top<800 && !this.getType && !this.noGd){
@@ -300,15 +306,17 @@ export default {
 	margin: 110px auto 0;   
 }
 .detail_topBox{
-	min-width: 1300px;
-	
-	position: relative;
-	
+	min-width: 1300px;	
+	position: relative;	
 	margin-bottom: 30px;
+	
 }
+
 .detail_topBox_1{
-	display: block;
-	width: 100%;
+	
+	background-size: cover;
+    background-position: 50%,50%;
+    width: 100%;
 	height: 620px;
 }
 .detail_topBox_2{

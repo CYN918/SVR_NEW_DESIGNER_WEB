@@ -118,8 +118,8 @@ let wb = [
 				]
 			},
 			
-			{path: '/conts',name: 'conts',component:content,},
-			{path: '/cont',name: 'cont',component:contents,},
+			{path: '/cont',name: 'conts',component:content,},
+			{path: '/conts',name: 'cont',component:contents,},
 			
 			{path: '/myDynamic',name: 'myDynamic',component:myDynamic},
 			{path: '/myCreators',name: 'myCreators',component:myCreators},
