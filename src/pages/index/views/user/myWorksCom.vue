@@ -11,7 +11,7 @@
 						</div>
 						<div @click="openxq(todo)" class="myListBox_2">
 							<span class="myListBox_2_1" :title="todo.work_name">{{todo.work_name}}</span>
-							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="/imge/zs_icon_tj.png">
+							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/zs_icon_tj.png">
 						</div>
 						
 						<div @click="openxq(todo)" class="myListBox_3">
@@ -31,7 +31,7 @@
 		</div>
 		<div v-show="istopc" class="myListBox_6">
 			<div class="myListBox_6_1">
-				<img @click="hindTopc" class="myListBox_6_2" src="/imge/cj_00.png" alt="">
+				<img @click="hindTopc" class="myListBox_6_2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png" alt="">
 				<div v-if="topcType=='set'" class="myListBox_6_3">修改作品设置提交，平台审核通过后即可修改成功</div>
 				<div v-if="topcType=='set'" class="myListBox_6_3">确定修改作品设置？</div>
 				<div v-if="topcType=='delet'" class="myListBox_6_3">确定删除该作品？</div>
@@ -45,7 +45,7 @@
 		<div v-show="issetDatasXX" class="setDatasXX">
 			<div class="setDatasXX_1">
 				
-				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="/imge/cj_00.png" alt="">
+				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png" alt="">
 				<div class="ydbbdf">
 				<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
 				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>

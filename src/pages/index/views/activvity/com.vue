@@ -28,7 +28,7 @@
 		<router-view/>
 		<div v-if="ishowzp" class="pushDeletBox">
 			<div class="pushDeletBox1">
-				<img class="pushDeletBox2" @click="closeZp" src="/imge/cj_00.png">
+				<img class="pushDeletBox2" @click="closeZp" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png">
 				<div class="pushDeletBox3">选择参与活动的作品</div>
 				<div class="pushDeletBox4">
 					<ul class="zp_box" @scroll="test">
@@ -37,7 +37,7 @@
 							<img class="zp_box_1" :src="el.face_pic">
 							<div class="zp_box_2">
 								{{el.work_name.slice(0,10)}}
-								<img v-if="el.is_recommend==1" src="/imge/svg/zs_icon_tj.svg" alt="">
+								<img v-if="el.is_recommend==1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/zs_icon_tj.svg" alt="">
 							</div>
 							<div class="zp_box_3">
 								{{el.classify_1_name+'-'+el.classify_2_name}}
@@ -54,7 +54,7 @@
 						</li>
 						<div ref="botmm"></div>
 						
-						<img v-if="isnoData" class="upImnoData" src="/imge/k/empty_nodata@3x.png"/>
+						<img v-if="isnoData" class="upImnoData" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/k/empty_nodata@3x.png"/>
 					</ul>
 				</div>
 				<div class="pushDeletBox5">
@@ -66,7 +66,7 @@
 		
 		<div v-if="ishowWp" class="pushDeletBox">
 			<div class="pushDeletBox1_x2">
-				<img class="pushDeletBox2" @click="closeWp" src="/imge/cj_00.png">
+				<img class="pushDeletBox2" @click="closeWp" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png">
 				<div class="pushDeletBox1_x2_1" v-html="wpdz"></div>
 				<div class="botnbox"><span @click="closeWp" class="pend">关闭</span></div>
 			</div>

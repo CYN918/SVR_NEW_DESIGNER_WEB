@@ -35,7 +35,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="/imge/yyzz.png" alt="">
+										<img class="suc_1_9_7" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/ggrrzsl_yyzz.svg" alt="">
 									</div>
 								</div>
 							</div>
@@ -60,7 +60,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="/imge/khxk.png" alt="">
+										<img class="suc_1_9_7" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/ggrrzsl_khykz.svg" alt="">
 									</div>
 								</div>
 							</div>
@@ -115,7 +115,7 @@
 		</div>
 		<div v-if="tAncType>0" class="tc_sucd">			
 			<div v-if="tAncType==2" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="/imge/cj_00.png"/>
+				<img class="tc_sucd_1X" @click="closeTc1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
 				<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
 				<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
 				<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>

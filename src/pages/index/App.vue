@@ -1054,6 +1054,7 @@ input:-ms-input-placeholder{color:#c0c4cc;}
 .seed2_1_2_1>span{
 	cursor: pointer;
 	vertical-align: top;
+	margin-top: 4px;
 	display: inline-block;
 	background: #666666;
 	border-radius: 5px;
@@ -1066,6 +1067,7 @@ input:-ms-input-placeholder{color:#c0c4cc;}
 	margin-left: 20px;
 }
 .seed2_1_2_1 .myInput{
+	margin-top: 3px;
 	border:none;
 }
 .seed2_1_2_1 .myInput input{

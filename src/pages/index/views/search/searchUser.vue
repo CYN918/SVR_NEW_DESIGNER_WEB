@@ -33,7 +33,7 @@
 				
 			</ul>			
 			<div v-if="isNodeat" class="emptyData">
-				<img src="/imge/svg/empty_nodata.svg" alt="">
+				<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/empty_nodata.svg" alt="">
 				<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
 			</div>
 			<el-pagination v-if="total>40" class="pagesddd"
@@ -49,7 +49,7 @@
 		</div>		
 		<div v-show="isshowd2" class="loginoutBox">
 			<div class="loginoutBox1">
-				<img @click="hindHb2()" class="loginoutBox2" src="/imge/cj_00.png">
+				<img @click="hindHb2()" class="loginoutBox2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png">
 				<div class="loginoutBox3" v-if="List[openOns]">确定取消关注【{{List[openOns].username}}】？</div>
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>

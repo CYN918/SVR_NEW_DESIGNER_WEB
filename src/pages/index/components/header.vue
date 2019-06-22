@@ -131,6 +131,10 @@ export default {
 			return n;
 		},
 		goMssg(on){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'});	
+				return
+			}
 			setTimeout(()=>{
 				this.getMessgNumber();
 			},500);

@@ -19,10 +19,10 @@
 				</div>
 			</div>
 			<div class="seed12">
-				<span class="seed1_2_2" @click="gopl"><img src="/imge/icon/zs_icon_xx.png">{{hfnum}}</span>
+				<span class="seed1_2_2" @click="gopl"><img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/icon/zs_icon_xx.png">{{hfnum}}</span>
 				<span class="seed1_2_3"><span @click="addLike('work',contDat.work_id,contDat)" :class="['iconfont',contDat.liked?'likeis':'']">&#xe672;</span>{{contDat.like_num}}</span>
-				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="/imge/svg/cent/sc_icon_share.svg"/>分享</span>
-				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="/imge/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
+				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_share.svg"/>分享</span>
+				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
 			</div>
 			</div>
 		</div>
@@ -32,8 +32,8 @@
 				{{contDat.work_name}}
 			</div>
 			<div class="topNav_x_1_2">
-				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="/imge/svg/cent/sc_icon_share.svg"/>分享</span>
-				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="/imge/svg/cent/sc_icon_tj.svg"/>推荐</span>
+				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_share.svg"/>分享</span>
+				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>推荐</span>
 			</div>
 			</div>
 		</div>
@@ -50,7 +50,7 @@
 				</div>
 				<div class="plBoxd" ref="firstAnchor">
 					<div class="seed2_1_2_1">
-						<Input class="userBoxd2" v-model="pl"   :oType="'max'" :max="140"   :type="'text'" :placeholder="'说点什么吧'" ref="tageds"></Input>	
+						<Input class="userBoxd2xd" v-model="pl"   :oType="'max'" :max="140"   :type="'text'" :placeholder="'说点什么吧'" ref="tageds"></Input>	
 						<span :class="chekcont(pl)==true?'iscsbtn':''" @click="addComment(pl)">评论</span>
 						<p class="myplde" v-if="hfnum==0">
 							还没有人评论，快来抢沙发吧~
@@ -68,7 +68,7 @@
 								<div>
 									<span class="hfdZ_3" @click="showFhks(el)">回复</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="['pend',el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el.open_id,el.comment_id,'comment')">&#xe664;</span>
 									<div  class="hfBox" v-if="el.isshowfh">
-										<Input :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
+										<Input :keyup.enter="keydown2" class="userBoxd2xd" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 										<span  :class="chekcont(pl2)==true?'iscsbtn':''" @click="addComment(pl2,index)">回复</span>
 										<div class="plyh"></div>
 									</div>
@@ -84,7 +84,7 @@
 									<div class="yasfh">
 										<span class="hfdZ_3" @click="showFhks(el2)">回复</span><span class="iconfont pend hfdZ_1"><span @click="addLike('comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el2.open_id,el2.comment_id,'comment')">&#xe664;</span>
 										<div class="hfBox" v-if="el2.isshowfh==1">
-											<Input :keyup.enter="keydown2" class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
+											<Input :keyup.enter="keydown2" class="userBoxd2xd" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 											<span :class="chekcont(pl2)==true?'iscsbtn':''" @click="addComment(pl2,index,index2)">回复</span>
 											<div class="plyh"></div>
 										</div>
@@ -139,7 +139,7 @@
 					<div class="seed2_1_2xx" v-else>
 						你正在浏览TA首次发布的作品<br/>作为老前辈, 送个赞鼓励下吧~
 					
-						<span class="btns pend seed1_2_5xx" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="/imge/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
+						<span class="btns pend seed1_2_5xx" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
 					</div>
 				</div>
 			</div>
@@ -147,7 +147,7 @@
 		
 		<div v-show="isshowd" class="loginoutBox">
 			<div class="loginoutBox1">
-				<img @click="hindHb()" class="loginoutBox2" src="/imge/cj_00.png">
+				<img @click="hindHb()" class="loginoutBox2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png">
 
 				<div class="loginoutBox3">确定删除该条评论?</div>
 
@@ -156,7 +156,7 @@
 		</div>
 		<div v-show="isshowd2" class="loginoutBox">
 			<div class="loginoutBox1">
-				<img @click="hindHb2()" class="loginoutBox2" src="/imge/cj_00.png">
+				<img @click="hindHb2()" class="loginoutBox2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png">
 				<div class="loginoutBox3">是否取消关注?</div>
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
@@ -661,5 +661,10 @@ export default {
 .seed1_2_5xx{
 	margin: 40px auto;
 }
-
+div.nubMax{
+	position: absolute;
+	right: 0;
+	top: 0;
+	line-height: 42px;
+}
 </style>

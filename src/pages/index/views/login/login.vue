@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<img class="login_x1" src="/imge/svg/login_logo.svg" @click="jump">
+		<img class="login_x1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/login_logo.svg" @click="jump">
 		<p class="login_x2">让创意更有价值，让生活更加自在</p>
 		<div class="login_x3">
 			<span @click="cheackLogin('password')" :class="['pend',btnType=='password'?'cheack':'']">账户密码登录</span><span @click="cheackLogin('verify_code')" :class="['pend',btnType=='verify_code'?'cheack':'']">手机号登录</span>
@@ -10,9 +10,9 @@
 		<p class="lgoin_s5"><span>没有账号？<router-link class="pend" to="/register">注册</router-link></span><span><router-link class="pend" to="/index">返回首页</router-link></span></p>
 		<div class="lgoin_s6x"></div>
 		<div class="lgoin_s6">
-			<img @click="thirdLogin('qq')" src="/imge/01.png" alt="">
-			<img @click="thirdLogin('weixin')" src="/imge/02.png" alt="">
-			<img @click="thirdLogin('weibo')" src="/imge/03.png" alt="">
+			<img @click="thirdLogin('qq')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/01.png" alt="">
+			<img @click="thirdLogin('weixin')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/02.png" alt="">
+			<img @click="thirdLogin('weibo')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/03.png" alt="">
 		</div>
 	</div>
 </template>

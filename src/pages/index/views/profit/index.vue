@@ -4,7 +4,7 @@
 		<div class="profitBox_2">
 			<div class="pbx_1">
 				<div>
-					<img src="/imge/pro/0.png">
+					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/pro/0.png">
 					<div class="pbx_1_1">
 						<span class="pbx_1_1x">{{num1}}</span>
 						<span @click="showtx()" class="btndf btndfys pend pbx_1_1_1">提现</span>
@@ -13,14 +13,14 @@
 					<div class="pbx_1_2">每月10日-25日汇款上月10号至当月10号的提现申请</div>
 				</div>
 				<div>
-					<img src="/imge/pro/1.png">
+					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/pro/1.png">
 					<div class="pbx_1_1">
 						<span>{{num2}}</span>						
 					</div>
 					<div class="pbx_1_2">累计收益 <span @click="checkd(2)" class="iconfont pend pbx_1_4" v-html="min2"></span></div>
 				</div>
 				<div>
-					<img src="/imge/pro/2.png">
+					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/pro/2.png">
 					<div class="pbx_1_1">
 						<span>{{basDa.total_hirework}}</span>					
 					</div>
