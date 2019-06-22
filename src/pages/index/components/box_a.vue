@@ -2,15 +2,15 @@
 	<div class="list1_box">
 		<div @click="openxq()" class="list1_box_1" :style="backBn(el.face_pic)"></div>		
 		<div class="list1_box_3">
-			<div @click="openxq()" class="list1_box_3_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img class="svgImgx2" v-if="el.is_recommend==1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//svg/zs_icon_tj.svg"/></div>
+			<div @click="openxq()" class="list1_box_3_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img class="svgImgx2" v-if="el.is_recommend==1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/zs_icon_tj.svg"/></div>
 			<div @click="openxq()" class="list1_box_3_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
 			<div class="list1_box_3_3">
 				<span><img @click="goUser()" :src="el.user_info.avatar" alt=""></span>
 				<span @click="goUser()" class="list1_box_3_6">{{backName(el.user_info.username)}}</span>
 				<div class="list1_box_3_4" @click="openxq()">
-					<span class="pend"><img  class="ImgSvg" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//svg/see/zs_icon_gk.svg">{{el.view_num}}</span>
-					<span class="pend"><img class="ImgSvg tof2d" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//svg/see/zs_icon_dz.svg">{{el.like_num}}</span>
-					<span class="pend"><img class="ImgSvg tof1d" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//svg/see/zs_icon_xx.svg">{{el.comment_num}}</span>
+					<span class="pend"><img  class="ImgSvg" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/see/zs_icon_gk.svg">{{el.view_num}}</span>
+					<span class="pend"><img class="ImgSvg tof2d" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/see/zs_icon_dz.svg">{{el.like_num}}</span>
+					<span class="pend"><img class="ImgSvg tof1d" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/see/zs_icon_xx.svg">{{el.comment_num}}</span>
 				</div>
 			</div>
 		</div>

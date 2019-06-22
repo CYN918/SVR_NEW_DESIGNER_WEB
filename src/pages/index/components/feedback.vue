@@ -1,7 +1,7 @@
 <template>
     <div  class="upfdb">
         <div class="upfdb_bg">
-			<div class="usdsgsga"><img class="upfdb_img"  src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//cj_00.png" @click="qx"/>
+			<div class="usdsgsga"><img class="upfdb_img"  src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png" @click="qx"/>
             <div class="upfdb_content">
                 
                 <div class="upfdb_title">

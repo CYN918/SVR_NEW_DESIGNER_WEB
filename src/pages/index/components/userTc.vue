@@ -39,7 +39,7 @@ export default {
 	props: {
 		tcData:Object,
 		default:{
-			img:'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//nav_tx.png',
+			img:'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/nav_tx.png',
 			name:'未知的',
 			ad:'未知',
 			zy:'',

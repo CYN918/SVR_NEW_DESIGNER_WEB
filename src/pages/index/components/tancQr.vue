@@ -5,7 +5,7 @@
 			<div class="botnbox">
 				<span @click="clickFn(el.fn)" :class="el.cls" v-for="(el,index) in cg.btns">{{el.n}}</span>
 			</div>
-			<img @click="clickFn('close')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//cj_00.png" class="tctilex pend">
+			<img @click="clickFn('close')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png" class="tctilex pend">
 		</div>
 		
 	</div>
