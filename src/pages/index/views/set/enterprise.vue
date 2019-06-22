@@ -496,6 +496,9 @@ export default {
 		init(){
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
+			if(this.$route.query.on){
+				this.setNavd(this.$route.query.on);
+			}
 			this.form.mobile = window.userInfo.mobile;
 			this.form.mobile_zone = window.userInfo.mobile_zone;
 			this.getUserDetail();

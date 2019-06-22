@@ -47,22 +47,22 @@
 						</div>
 						<img @click="goWork(el.work.work_id)" class="comment_3" :src="el.work.face_pic" alt="">
 					</div>
-					
+					<el-pagination class="pagesdddxf" v-if="total>40"
+					background
+					@size-change="handleSizeChange"
+					@current-change="handleCurrentChange"
+					:current-page="page"
+					:page-sizes="[10, 20, 40, 60]"
+					:page-size="limit"
+					layout="prev,pager, next,sizes, jumper"
+					:total="total">   
+					</el-pagination>
 					
 				</div>
 			</div>
 			
 		</div>
-		<el-pagination class="pagesdddxf" v-if="total>40"
-		background
-		@size-change="handleSizeChange"
-		@current-change="handleCurrentChange"
-		:current-page="page"
-		:page-sizes="[10, 20, 40, 60]"
-		:page-size="limit"
-		layout="prev,pager, next,sizes, jumper"
-		:total="total">   
-		</el-pagination>
+		
 	</div>
 </template>
 
@@ -106,10 +106,14 @@ export default {
 			return this.zkMyFun.checkWz(this.pl2);
 		},
 		handleSizeChange(val) {
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.limit = val;
 			this.getMessgList();
 		},
 		handleCurrentChange(val) {
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.page = val;
 			this.getMessgList();
 		},

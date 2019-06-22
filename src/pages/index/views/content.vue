@@ -663,7 +663,7 @@ export default {
 .seed1_2_5xx{
 	margin: 40px auto;
 }
-div.nubMax{
+.seed2_1_2_1 div.nubMax{
 	position: absolute;
 	right: 0;
 	top: 0;

@@ -267,10 +267,10 @@ export default {
 				return
 			}	
 			if(window.userInfo.contributor_type==2){
-				this.$router.push({path: '/setEnterprise'})
+				this.$router.push({path: '/setEnterprise?on=1'})
 				return
 			}
-			this.$router.push({path: '/setPersonal'});
+			this.$router.push({path: '/setPersonal?on=1'});
 		},
 		gosetPersonal(){
 			this.$router.push({path:'/setPersonal'})			

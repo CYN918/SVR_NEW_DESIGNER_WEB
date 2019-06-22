@@ -10,14 +10,21 @@
 					v-model="secont">
 					<i @click="keydown" slot="prefix" class="el-input__icon el-icon-search"></i>
 				</el-input>
-				<el-select class="zysdf_2" v-model="setcti" placeholder="请选择">
+				<el-cascader class="zysdf_2"
+					:options="clasd"
+					v-model="setcti"
+					@change="handleChange">
+				</el-cascader>
+				
+				
+				<!-- <el-select class="zysdf_2" v-model="setcti" placeholder="请选择">
 					<el-option 
 					  v-for="item in clasd"
 					  :key="(item.value||item.value==0)?item.value:item.label"
 					  :label="item.label"
 					  :value="(item.value||item.value==0)?item.value:item.label">
 					</el-option>
-				</el-select>
+				</el-select> -->
 			</div>
 		</div>
 	</div>
@@ -30,10 +37,12 @@ export default {
 	data(){
 		return{
 			secont:'',
-			setcti:'',
+
+			setcti: [],
 		}
 	},
 	methods: {
+		 
 		goto(on){
 			this.$router.push({path:on,query:{cont:this.secont}})	
 		},
@@ -50,6 +59,9 @@ export default {
 				ud = 'searchUser';
 			}
 			this.$router.push({path:ud,query:{cont:this.secont}});
+		},
+		handleChange(value) {
+			// this.$parent.sreond(this.setcti);
 		}
 	},	
 	props:{
@@ -143,7 +155,8 @@ export default {
 }
 .zysdf_2{
 	position: absolute;
-	right: -12px;
-	top: 0;
+    right: -22px;
+    top: 0;
+    width: 160px;
 }
 </style>

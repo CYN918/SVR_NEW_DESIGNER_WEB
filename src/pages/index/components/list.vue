@@ -60,7 +60,7 @@ export default {
 				page:this.page,
 				limit:this.limit
 			};		
-			params =  Object.assign(params,this.config.pr)		
+			params =  Object.assign(params,this.config.pr)	
 			this.loading = Loading.service({target:this.$refs.adLoDom, fullscreen: true });
 			this.api[this.config.ajax.url](params).then((da)=>{
 				this.loading.close();

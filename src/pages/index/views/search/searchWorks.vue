@@ -43,32 +43,41 @@ export default {
 	}, 
 	methods: {
 		init(){
-			this.data.pr.query =this.$route.query.cont || '';	
-			
+			this.data.pr.query =this.$route.query.cont || '';				
 		},
 		getData(){
 			this.data.pr.query =this.$route.query.cont || '';	
 			this.$refs.sfafa.getData();
 		},
-		getClassify(){
-			
+		getClassify(){			
 			this.api.getClassify().then((da)=>{
 				if(da=='error'){
 					return
 				}
 				let p = JSON.stringify(da);
 				p = p.replace(/classify_name/g,"label");
+				
 				p = p.replace(/id/g,"value");
 				p = p.replace(/sub_data/g,"children");
+				
 				p = JSON.parse(p);
-		
+				
+				for(let i=0,n=p.length;i<n;i++){
+					for(let i2=0,n2=p[i].children.length;i2<n2;i2++){
+						p[i].children[i2].children = '';
+					}
+				}
+				
+				
 				p.unshift({label: "全部",value: ""})
+				
 				this.clasd = p;
 		
 			})
 		},
 		sreond(n){
-			this.data.pr.classify_1 = n;
+			this.data.pr.classify_1 = n[0];
+			this.data.pr.classify_2 = n[1];
 			this.getData();
 		},
 	},

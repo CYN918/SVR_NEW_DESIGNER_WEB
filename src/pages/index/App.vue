@@ -1370,6 +1370,7 @@ content: "";
 .setUserBoxs_cent{
 	display: inline-block;
 	width: 910px;
+	margin-bottom: 60px;
 }
 .setUserBoxs_cent>div{
 	background: #FFFFFF;

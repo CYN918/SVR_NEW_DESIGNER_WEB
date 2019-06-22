@@ -151,7 +151,9 @@ export default {
 			this.input = da;
 		},
 		clearValue(){
+			this.numd = 0;
 			this.input="";
+			
 		},
    		setErr(cls,text){
 			this.passqd=cls;

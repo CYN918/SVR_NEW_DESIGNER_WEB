@@ -21,21 +21,22 @@
 							<div class="comment_2_5" v-html="el.content"></div>
 						</div>						
 					</div>
-					
+					<el-pagination class="pagesdddxf" v-if="total>40"
+					background
+					@size-change="handleSizeChange"
+					@current-change="handleCurrentChange"
+					:current-page="page"
+					:page-sizes="[10, 20, 40, 60]"
+					:page-size="limit"
+					layout="prev,pager, next,sizes, jumper"
+					:total="total">   
+					</el-pagination>
 				</div>
+				
 			</div>
 			
 		</div>
-		<el-pagination class="pagesdddxf" v-if="total>40"
-		background
-		@size-change="handleSizeChange"
-		@current-change="handleCurrentChange"
-		:current-page="page"
-		:page-sizes="[10, 20, 40, 60]"
-		:page-size="limit"
-		layout="prev,pager, next,sizes, jumper"
-		:total="total">   
-		</el-pagination>
+		
 	</div>
 </template>
 
@@ -79,10 +80,14 @@ export default {
 			this.$router.push({path: '/works',query:{id:this.listData[on].user_info.open_id}})	
 		},
 		handleSizeChange(val) {
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.limit = val;
 			this.getMessgList();
 		},
 		handleCurrentChange(val) {
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.page = val;
 			this.getMessgList();
 		},

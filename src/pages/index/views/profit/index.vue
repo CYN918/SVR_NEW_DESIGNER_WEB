@@ -10,7 +10,7 @@
 						<span @click="showtx()" class="btndf btndfys pend pbx_1_1_1">提现</span>
 					</div>
 					<div class="pbx_1_2 pbx_1_3">账号余额<span @click="checkd(1)" class="iconfont pend pbx_1_4" v-html="min1"></span></div>
-					<div class="pbx_1_2">每月10日-25日汇款上月10号至当月10号的提现申请</div>
+					<div class="pbx_1_2 pbx_1x_2x">每月10日-25日汇款上月10号至当月10号的提现申请</div>
 				</div>
 				<div>
 					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/pro/1.png">
@@ -158,6 +158,10 @@ export default {
 </script>
 
 <style>
+.pbx_1x_2x{
+	font-size: 14px;
+    color: #adadad;
+}
 .profitBox{
 	background: red;
 	height: 100%;

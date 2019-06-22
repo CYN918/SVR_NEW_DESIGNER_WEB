@@ -204,4 +204,10 @@ export default {
 .possdddg{
 	position: relative;
 }
+.seed2_1_2_1 div.nubMax{
+	position: absolute;
+	right: 0;
+	top: 0;
+	line-height: 42px;
+}
 </style>

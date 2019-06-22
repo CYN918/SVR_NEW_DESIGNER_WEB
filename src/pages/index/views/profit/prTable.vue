@@ -124,6 +124,7 @@ export default {
 <style>
 .pr_boxd{
 	width: 1300px;
+	min-height: 316px;
 	margin: 20px auto 140px;
 }
 .tabld{

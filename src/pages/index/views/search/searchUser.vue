@@ -77,26 +77,26 @@ export default {
 			total:0,
 			loading: '',
 			clasd:[
-				{label:"平面设计师"},
-				{label:"插画师"},
-				{label:"三维设计师"},
-				{label:"网页设计师"},
-				{label:"UI设计师"},
-				{label:"动画师"},
-				{label:"产品设计师"},
-				{label:"室内设计师"},
-				{label:"摄影师"},
-				{label:"学生"},
-				{label:"设计爱好者"},
-				{label:"UX设计师"},
-				{label:"新媒体设计师"},
-				{label:"概念设计师"},
-				{label:"特效合成师"},
-				{label:"建筑师"},
-				{label:"服装设计师"},
-				{label:"手工艺人"},
-				{label:"艺术工作者"},
-				{label:"教育工作者"},
+				{label:"平面设计师",value:"平面设计师"},
+				{label:"插画师",value:"插画师"},
+				{label:"三维设计师",value:"三维设计师"},
+				{label:"网页设计师",value:"网页设计师"},
+				{label:"UI设计师",value:"UI设计师"},
+				{label:"动画师",value:"动画师"},
+				{label:"产品设计师",value:"产品设计师"},
+				{label:"室内设计师",value:"室内设计师"},
+				{label:"摄影师",value:"摄影师"},
+				{label:"学生",value:"学生"},
+				{label:"设计爱好者",value:"设计爱好者"},
+				{label:"UX设计师",value:"UX设计师"},
+				{label:"新媒体设计师",value:"新媒体设计师"},
+				{label:"概念设计师",value:"概念设计师"},
+				{label:"特效合成师",value:"特效合成师"},
+				{label:"建筑师",value:"建筑师"},
+				{label:"服装设计师",value:"服装设计师"},
+				{label:"手工艺人",value:"手工艺人"},
+				{label:"艺术工作者",value:"艺术工作者"},
+				{label:"教育工作者",value:"教育工作者"},
 			],
 			onType:'followList',
 			follwTyle:0,
@@ -123,8 +123,8 @@ export default {
 			this.$router.push({path:'/chat',query:pr});
 		},
 		sreond(type){
-			if(type==this.classd){return}
-			this.classd = type;
+			if(type[0]==this.classd){return}
+			this.classd = type[0];
 			this.page = 1;
 			this.followList();
 		},
