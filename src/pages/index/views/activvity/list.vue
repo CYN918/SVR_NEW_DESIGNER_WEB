@@ -3,7 +3,7 @@
 		<list :config="data">
 			<template v-slot:todo="{ todo }">
 				<div class="ac_list_Box_0" @click="go(todo.id)">
-					<div class="ac_list_Box_2x" :style="backBn(todo.banner)"></div>					
+					<div class="ac_list_Box_2x" :style="backBn(todo.cover_img?todo.cover_img:todo.banner)"></div>					
 					<div class="ac_list_Box_2">
 						<div class="ac_list_Box_4">{{todo.activity_name}}</div>
 						<div class="ac_list_Box_5"><span>{{todo.category_name}}</span>投稿时间：{{todo.start_time.split(" ")[0]}} 至 {{todo.end_time.split(" ")[0]}}</div>
