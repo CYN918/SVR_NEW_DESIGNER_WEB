@@ -33,7 +33,8 @@ export default {
 				this.$router.push({path:'/activvity'})	
 				return
 			}
-			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{			
+			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{	
+				if(da=='error'){return}
 				this.da = da;
 				
 			});

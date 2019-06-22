@@ -24,6 +24,7 @@ export default {
 				return
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{			
+				if(da=='error'){return}
 				this.dataD = da;
               
 			});

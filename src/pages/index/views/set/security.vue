@@ -107,7 +107,7 @@
 					<span @click="checkPwor(1)" :class="isyazfs==1?'checkd':''">短信验证</span>
 				</div>
 				<div class="tc_spasswodr_1_1" v-if="isyazfs==0">
-					<el-input class="elmentIputNoborder" v-model="tancData.old_password" placeholder="旧密码"></el-input>
+					<Input v-model="tancData.old_password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'旧密码'"></Input>
 					<Input v-model="tancData.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'新密码，6-16位'"></Input>			
 					<Input v-model="tancData.password_repass"  :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认新密码，6-16位'"  ></Input>
 					<div class="tc_sucd_1_2">
@@ -391,6 +391,7 @@ export default {
 				this.tancData.password = '';
 				this.tancData.verify_code = '';
 				this.tancData.password_repass = '';
+				this.isyazfs=0;
 				this.tAncType=0;
 				Message({message: '密码修改成功'});
 			})

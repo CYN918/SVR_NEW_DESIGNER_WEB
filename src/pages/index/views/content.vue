@@ -462,6 +462,7 @@ export default {
 				pr.access_token =this.page.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
+				if(da=='error'){return}
 				if(da.length==0){
 					Message({message: '该作品已删除'});	
 					setTimeout(()=>{
@@ -513,6 +514,7 @@ export default {
 				pr.access_token = this.page.access_token;
 			}
 			this.api.getCommentList(pr).then((da)=>{
+				if(da=='error'){return}
 				if(da.data.length==0){
 					this.ishavepl=1;
 					this.ishavepltip='没有更多评论了!';

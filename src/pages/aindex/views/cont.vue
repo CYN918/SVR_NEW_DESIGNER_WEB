@@ -117,6 +117,7 @@ export default {
 				pr.access_token =window.userInfo.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
+				if(da=='error'){return}
 				if(da.length==0){
 					alert('该作品已删除');	
 					window.close();
@@ -136,7 +137,7 @@ export default {
 				pr.access_token = window.userInfo.access_token;
 			}
 			this.api.getCommentList(pr).then((da)=>{
-				if(!pr){return}
+				if(da=='error'){return}
 				this.hfnum = da.total;
 				this.hfData = this.hfData.concat(da.data);
 				

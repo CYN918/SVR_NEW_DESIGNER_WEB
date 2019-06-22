@@ -104,6 +104,7 @@ export default {
 				follow_id:this.tcData.user_info.open_id
 			};
 			this.api.Follow_add(pr).then((da)=>{
+				
 				this.follwTyle=0;
 				if(da=='error'){return}
 				this.$set(this.tcData.user_info,'follow_flag',1);
