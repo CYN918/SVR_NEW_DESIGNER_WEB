@@ -2,7 +2,7 @@
     <div class="upRpt" v-if="showd">
         <div class="upRpt_bg">
             <div class="upRpt_content">
-                <img class="uploadBoxd2_1" @click="hidReport" src="/imge/cj_00.png"/>
+                <img class="uploadBoxd2_1" @click="hidReport" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//cj_00.png"/>
                 <div class="upRpt_title">
                     <span>举报</span>
                 </div>

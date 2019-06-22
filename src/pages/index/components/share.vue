@@ -2,22 +2,22 @@
 	<div v-if="shareType" class="fixCoBox">
 		<div class="fixCoBox1 sharebox">
 			
-			<img src="/imge/cj_00.png" @click="showShare(false)" class="fixCoBox2">
+			<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//cj_00.png" @click="showShare(false)" class="fixCoBox2">
 			<div class="sharebox1">
 				<vue-qr class="sharebox1_1" :logoSrc="config.logo" :text="config.value" :logoScale="100" :size="200" :margin="0"></vue-qr>
 				分享到微信
 			</div>
 			<div class="sharebox2">
 				<a target="_blank" :href="fxUrl1">
-					<img src="/imge/zc_icon_wb.png" alt="">
+					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//zc_icon_wb.png" alt="">
 					新浪
 				</a>
 				<a target="_blank" :href="fxUrl2">
-					<img src="/imge/zc_icon_qq.png" alt="">
+					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//zc_icon_qq.png" alt="">
 					QQ
 				</a>
 				<a target="_blank" :href="fxUrl3">
-					<img src="/imge/Group 5.png" alt="">
+					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//Group 5.png" alt="">
 					QQ空间
 				</a>
 			</div>
@@ -42,7 +42,7 @@ export default {
 			shareType:false,
 			config:{
 				value: '',
-				logo:'/imge/svg/MRTX.svg'
+				logo:'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB//svg/MRTX.svg'
 			},
 		}
 	},
