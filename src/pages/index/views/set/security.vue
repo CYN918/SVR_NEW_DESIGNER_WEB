@@ -369,7 +369,7 @@ export default {
 				Message({message: '请输入正确的密码'});
 				return
 			}
-			if(!this.tancData.password!=this.tancData.password_repass){
+			if(this.tancData.password!=this.tancData.password_repass){
 				Message({message: '两次密码不一致'});
 				return
 			}
