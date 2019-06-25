@@ -49,7 +49,7 @@ import pt_works from './views/profit/works.vue'
 import pt_money from './views/profit/money.vue'
 import pt_fcsy from './views/profit/fcsy.vue'
 import pt_noRz from './views/profit/noRz.vue'
-
+import pt_qtsy from './views/profit/qtsy.vue'
 
 import notify from './views/message/notify.vue'
 import comment from './views/message/comment.vue'
@@ -147,7 +147,8 @@ let wb = [
 				children:[
 					{path: '/profit',name: 'profit',component:pt_works},
 					{path: '/money',name: 'money',component:pt_money},
-					{path: '/fcsy',name: 'fcsy',component:pt_fcsy},					
+					{path: '/fcsy',name: 'fcsy',component:pt_fcsy},		
+					{path: '/qtsy',name: 'qtsy',component:pt_qtsy},												
 				]				
 			},
 			{path: '/noIs',name: 'noIs',component:pt_noRz},

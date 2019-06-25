@@ -44,7 +44,8 @@ export default {
 			document.body.scrollTop =1;
 		},
 		go(id){
-			this.$router.push({path:'/detailed',query:{id:id}});	
+			window.open('/#/detailed?id='+id)
+			
 		},
 		backBn(ur){
 			return 'background-image: url('+ur+');'
