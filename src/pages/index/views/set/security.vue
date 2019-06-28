@@ -71,7 +71,7 @@
 				<img class="tc_sucd_1X" @click="closeTc1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
 				<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
 				<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
-				<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(tancData.newMoble,tancData.newMoble_zone)" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+				<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(tancData.newMoble,tancData.mobile_zone)" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 				<div class="tc_sucd_1_2">
 					<span @click="closeTc1">取消</span>
 					<span @click="qdTc2">确定</span>
@@ -554,6 +554,7 @@ export default {
 					type2:t2
 				};
 			}
+		
 			this.tAncType=on;
 		},
 		
