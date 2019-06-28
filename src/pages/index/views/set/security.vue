@@ -436,7 +436,8 @@ export default {
 			}		
 			let params = {
 				mobile:p,
-				mobile_zone:m
+				mobile_zone:m,
+				type:'register'
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){

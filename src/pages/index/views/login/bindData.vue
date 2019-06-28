@@ -2,21 +2,8 @@
 	<div>
 			<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
 
-			<div class="newUsermeBOX" v-if="navOn==1">
-				<div class="newUserme2">
-					<div class="userBoxd">
-						<span>手机号</span>
-						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.mobiles" :inputType="'phones'"  :placeholder="'请输入手机号'"></inptPhone>
-					</div>
-					
-					<div class="userBoxd">
-						<span>登录密码</span>
-						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.password" :inputType="'password'" :type="'password'" :placeholder="'6 - 16位密码，区分大小写'"></inptPhone>						
-					</div>
-					
-				</div>
-			</div>
-			<div class="newUsermeBOX" v-if="navOn==0">
+
+			<div class="newUsermeBOX">
 				<div class="newUserme2">
 					<div class="userBoxd">
 						<span>手机号</span>
@@ -24,7 +11,7 @@
 					</div>
 					<div class="userBoxd">
 						<span>验证码</span>
-						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.verifys" :inputType="'verifys'"  :placeholder="'输入 6 位短信验证码'"></inptPhone>
+						<inptPhone class="newUserme_x1" :iscf="1" @checkBack="checkphoneBack" v-model="form.verifys" :inputType="'verifys'"  :placeholder="'输入 6 位短信验证码'"></inptPhone>
 					</div>
 					<div class="userBoxd">
 						<span>登录密码</span>
@@ -36,7 +23,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="newUsermeBOX" v-if="navOn==0">
+			<div class="newUsermeBOX">
 				<div class="newUserme">
 					<div class="nav_tx">
 						<span>头像</span>

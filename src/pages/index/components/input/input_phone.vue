@@ -82,7 +82,8 @@ export default {
 		max:{
 			type:Number,
 			default:0,
-		},	
+		},
+		iscf:String,
 		chekFn:{
 			type:Function,
 			default:(obj)=>{
@@ -250,11 +251,18 @@ export default {
 				Message({message: '请填写正确的手机号码'});
 				return
 			}
+			
 			this.runTimer(60);			
 			let params = {
 				mobile:this.$parent.mobiles.mobile,
 				mobile_zone:this.$parent.mobiles.mobile_zone
 			};
+			if(this.iscf==1){
+				params.type = 'register';
+			}
+			if(this.iscf==2){
+				params.type = 'login';
+			}
 			this.api.sendVerifyCode(params).then(()=>{	
 				
 			}).catch(()=>{

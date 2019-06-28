@@ -238,7 +238,7 @@ export default {
 				'银行卡信息',
 				'身份验证',			
 			],			
-			form:{mobile_zone:'86'},
+			form:{mobile_zone:'86',front_photo:'',back_photo:'',hand_hold_photo:''},
 			navdOn:0,
 			topTyped:false,
 			tAncType:0,
@@ -295,12 +295,15 @@ export default {
 			this.checkPost();
 		},
 		'postData.front_photo'() {
+			console.log(111)
 			this.checkPost();
 		},
 		'postData.back_photo'() {
+			console.log(333)
 			this.checkPost();
 		},
 		'postData.hand_hold_photo'() {
+			console.log(222)
 			this.checkPost();
 		},
 		'postData.account_name'() {
@@ -334,14 +337,17 @@ export default {
 		uploadSC1(da){
 			this.isJdt1='';
 			this.postData.front_photo = da.url;
+			this.checkPost();
 		},
 		uploadSC2(da){
 			this.isJdt2='';
 			this.postData.back_photo = da.url;
+			this.checkPost();
 		},
 		uploadSC3(da){
 			this.isJdt3='';
 			this.postData.hand_hold_photo = da.url;
+			this.checkPost();
 		},
 		setJdt1(on){
 			this.isJdt1=1;
@@ -370,7 +376,7 @@ export default {
 			
 		},
 		checkPost(){
-			
+			console.log(2222223)
 			this.isPostky = false;
 			if(!this.ischecked){
 				return
@@ -487,210 +493,7 @@ export default {
 			
 			 
 		},
-		fileUp(flie){
-			let fld = flie.target.files[0];
-			if(['image/jpeg','image/png'].indexOf(fld.type)==-1){
-				Message({message: '格式不正确'});
-				return
-			}
-			if(fld.size>(20*1024*1024)){
-				Message({message: '文件过大'});
-				return
-			}
-	
-			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-			let times = (Date.parse(new Date())/1000);
-			let arr = [
-				1001,
-				app_secret,
-				window.userInfo.open_id,
-				times
-			];
 		
-			let formData = new FormData();
-			formData.append('app_id',1001);
-			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-			formData.append('user',window.userInfo.open_id)
-			formData.append('file',fld)
-			formData.append('relation_type','work')
-			formData.append('timestamp',times)
-			let xhr = new XMLHttpRequest();
-			
-			
-			let uploadProgress = (evt)=>{		
-				if(evt.lengthComputable) {
-					let percent = Math.round(evt.loaded * 100 / evt.total);
-					percent = percent>98?98:percent;
-					percent  = Math.floor(percent);
-				}
-			};
-			let uploadComplete = (data)=>{
-				if(data.currentTarget.response){
-					let da = JSON.parse(data.currentTarget.response).data;					
-					this.$set(this.postData,'front_photo',da.url)
-					;
-					Message({message: '文件上传成功'});
-				}
-				
-			};
-			let uploadFailed = ()=>{
-				// delete p;
-				// p.type="none";
-				this.$refs.upnfile.value ='';
-				Message({message: '文件上传失败请稍后重试'});
-				
-			};
-			let uploadCanceled = ()=>{
-				// p.type="none";
-				this.$refs.upnfile.value ='';
-				Message({message: '取消成功'});
-				
-			};
-			xhr.upload.addEventListener("progress",uploadProgress, false);
-			xhr.addEventListener("load",uploadComplete, false);
-			xhr.addEventListener("error",uploadFailed, false);
-			xhr.addEventListener("abort",uploadCanceled, false);
-			xhr.open("POST", window.basrul+"/File/File/insert");
-			xhr.send(formData);
-			
-		},
-		fileUp2(flie){
-			let fld = flie.target.files[0];
-			if(['image/jpeg','image/png'].indexOf(fld.type)==-1){
-				Message({message: '格式不正确'});
-				return
-			}
-			if(fld.size>(20*1024*1024)){
-				Message({message: '文件过大'});
-				return
-			}
-			
-			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-			let times = (Date.parse(new Date())/1000);
-			let arr = [
-				1001,
-				app_secret,
-				window.userInfo.open_id,
-				times
-			];
-		
-			let formData = new FormData();
-			formData.append('app_id',1001);
-			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-			formData.append('user',window.userInfo.open_id)
-			formData.append('file',fld)
-			formData.append('relation_type','work')
-			formData.append('timestamp',times)
-			let xhr = new XMLHttpRequest();
-			
-			
-			let uploadProgress = (evt)=>{		
-				if(evt.lengthComputable) {
-					let percent = Math.round(evt.loaded * 100 / evt.total);
-					percent = percent>98?98:percent;
-					percent  = Math.floor(percent);
-				}
-			};
-			let uploadComplete = (data)=>{
-				if(data.currentTarget.response){
-					let da = JSON.parse(data.currentTarget.response).data;					
-					this.$set(this.postData,'back_photo',da.url)
-					
-					Message({message: '文件上传成功'});
-				}
-				
-			};
-			let uploadFailed = ()=>{
-				// delete p;
-				// p.type="none";
-				this.$refs.upnfile.value ='';
-				Message({message: '文件上传失败请稍后重试'});
-				
-			};
-			let uploadCanceled = ()=>{
-				// p.type="none";
-				this.$refs.upnfile.value ='';
-				Message({message: '取消成功'});
-				
-			};
-			xhr.upload.addEventListener("progress",uploadProgress, false);
-			xhr.addEventListener("load",uploadComplete, false);
-			xhr.addEventListener("error",uploadFailed, false);
-			xhr.addEventListener("abort",uploadCanceled, false);
-			xhr.open("POST", window.basrul+"/File/File/insert");
-			xhr.send(formData);
-			
-		},
-		fileUp3(flie){
-			let fld = flie.target.files[0];
-			if(['image/jpeg','image/png'].indexOf(fld.type)==-1){
-				Message({message: '格式不正确'});
-				return
-			}
-			if(fld.size>(20*1024*1024)){
-				Message({message: '文件过大'});
-				return
-			}
-			
-			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-			let times = (Date.parse(new Date())/1000);
-			let arr = [
-				1001,
-				app_secret,
-				window.userInfo.open_id,
-				times
-			];
-		
-			let formData = new FormData();
-			formData.append('app_id',1001);
-			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-			formData.append('user',window.userInfo.open_id)
-			formData.append('file',fld)
-			formData.append('relation_type','work')
-			formData.append('timestamp',times)
-			let xhr = new XMLHttpRequest();
-			
-			
-			let uploadProgress = (evt)=>{		
-				// if(evt.lengthComputable) {
-				// 	let percent = Math.round(evt.loaded * 100 / evt.total);
-				// 	percent = percent>98?98:percent;
-				// 	percent  = Math.floor(percent);
-				// }
-			};
-			let uploadComplete = (data)=>{
-				if(data.currentTarget.response){
-					let da = JSON.parse(data.currentTarget.response).data;					
-					this.$set(this.postData,'hand_hold_photo',da.url)
-				
-					Message({message: '文件上传成功'});
-				}
-				
-			};
-			let uploadFailed = ()=>{
-				// delete p;
-				// p.type="none";
-				this.$refs.upnfile.value ='';
-				Message({message: '文件上传失败请稍后重试'});
-				
-			};
-			let uploadCanceled = ()=>{
-				// p.type="none";
-				this.$refs.upnfile.value ='';
-				Message({message: '取消成功'});
-				
-			};
-			xhr.upload.addEventListener("progress",uploadProgress, false);
-			xhr.addEventListener("load",uploadComplete, false);
-			xhr.addEventListener("error",uploadFailed, false);
-			xhr.addEventListener("abort",uploadCanceled, false);
-			xhr.open("POST", window.basrul+"/File/File/insert");
-			xhr.send(formData);
-			
-		},
-		identifyAuth1(){
-			
-		},
 		Verifycodeget(){
 			this.$set(this.tancData,'pic_verifyimg',window.basrul+'/Passport/Verifycode/get?client_id='+window.userInfo.open_id+'&t='+(new Date()).valueOf())
 		},
@@ -716,7 +519,8 @@ export default {
 			}		
 			let params = {
 				mobile:this.form.mobile,
-				mobile_zone:this.form.mobile_zone
+				mobile_zone:this.form.mobile_zone,
+				type:'register'
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
@@ -744,7 +548,8 @@ export default {
 			}		
 			let params = {
 				mobile:this.tancData.newMoble,
-				mobile_zone:this.tancData.mobile_zone
+				mobile_zone:this.tancData.mobile_zone,
+				type:'register'
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){

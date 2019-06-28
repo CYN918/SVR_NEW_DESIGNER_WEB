@@ -282,7 +282,8 @@ export default {
 			}		
 			let params = {
 				mobile:this.tancData.newMoble,
-				mobile_zone:this.tancData.mobile_zone
+				mobile_zone:this.tancData.mobile_zone,
+				type:'register',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){

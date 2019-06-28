@@ -53,7 +53,10 @@
 					
 					<div class="setDatasXX_4_2">
 						<div class="setDatasXX_4_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
-						<div><Input class="setDatasXX_4_3" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>还可添加{{5-form.labels.length}}个标签</div>
+						<div>
+							<Input class="setDatasXX_4_3 setDatasXX_4_3qz" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>
+							<span :class="['tagBtn',isTageok?'istageok':'']">添加标签</span>还可添加{{5-form.labels.length}}个标签
+						</div>
 						<div class="setDatasXX_4_4">
 							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
 						</div>
@@ -125,6 +128,7 @@ export default {
 				classify_2:0,
 				classify_3:0,
 			},
+			isTageok:'',
 			tags:'',
 			bqList:[{label:'禁止匿名转载；禁止商业使用；禁止个人使用。'},{label:'禁止匿名转载；禁止商业使用。'},{label:'不限制用途。'}],
 			issetDatasXX:false,
@@ -151,7 +155,16 @@ export default {
 	created(){
 		this.init();
 	},	
-	
+	watch: {
+		'tags'(){
+			
+			if(this.tags){
+				this.isTageok =1;
+			}else{
+				this.isTageok = '';
+			}
+		}
+	},
 	methods: {
 		init(){
 			this.data.pr.status = this.$parent.isType;
@@ -240,6 +253,9 @@ export default {
 			this.form.labels.splice(on,1);
 		},
 		keydown(){
+			if(!this.isTageok){
+				return
+			}
 			if(!this.tags){
 				return
 			}
@@ -810,5 +826,26 @@ export default {
 	left: 0;
 	width: 100%;
 	box-sizing: border-box;
+}
+.tagBtn{
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	width:100px;
+	height:40px;
+	background:rgba(153,153,153,1);
+	border-radius:5px;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(255,255,255,1);
+	line-height:40px;
+	margin-right: 10px;
+}
+.istageok{
+	background: #FF5121;
+}
+.setDatasXX_4_3qz{
+	height: 40px !important;
 }
 </style>

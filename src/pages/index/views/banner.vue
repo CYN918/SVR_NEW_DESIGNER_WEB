@@ -141,6 +141,7 @@ export default {
 	height: 100%;
 }
 .banner1>img{
+	cursor: pointer;
 	opacity: 0;
 	display: block;
 	min-width: 100%;

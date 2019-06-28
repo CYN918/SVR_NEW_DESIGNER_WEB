@@ -63,7 +63,10 @@
 				<div class="page2_2_1">
 					<div class="page2_2_1_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
 					<div class="page2_2_1_2">
-						<div><Input class="userBoxd2" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>还可添加{{5-form.labels.length}}个标签</div>
+						<div>
+							<Input class="userBoxd2" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>
+							<span :class="['tagBtn',isTageok?'istageok':'']">添加标签</span>还可添加{{5-form.labels.length}}个标签
+						</div>
 						<div class="page2_2_1_2x">
 							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
 						</div>
@@ -136,6 +139,7 @@ export default {
 			chekin:true,
 			isshowT1:false,
 			isshowT2:false,
+			isTageok:'',
 			ck2:'',
 			ck3:'',
 			csz:'',
@@ -245,6 +249,14 @@ export default {
 		'form.is_platform_work'() {
 			this.setAutoSave();
 		},
+		'tags'(){
+			
+			if(this.tags){
+				this.isTageok =1;
+			}else{
+				this.isTageok = '';
+			}
+		}
 	},
 	created:function(){
 		this.init();
@@ -292,6 +304,9 @@ export default {
 			return '选择作品类型';
 		},
 		keydown(){
+			if(!this.isTageok){
+				return
+			}
 			if(!this.tags){
 				return
 			}
@@ -1351,5 +1366,23 @@ export default {
 	width: 28px;
 	vertical-align: text-bottom;
     margin-right: 12px;
+}
+.tagBtn{
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	width:100px;
+	height:40px;
+	background:rgba(153,153,153,1);
+	border-radius:5px;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(255,255,255,1);
+	line-height:40px;
+	margin-right: 10px;
+}
+.istageok{
+	background: #FF5121;
 }
 </style>

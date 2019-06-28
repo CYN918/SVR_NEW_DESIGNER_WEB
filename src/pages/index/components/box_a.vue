@@ -84,6 +84,7 @@ export default {
     border: 1px solid #f6f6f6;
 }
 .list1_box_1{
+	cursor: pointer;
 	width: 100%;
     height: 231.9px;
     border-radius: 5px 5px 0 0;

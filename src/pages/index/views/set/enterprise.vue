@@ -253,10 +253,12 @@ export default {
 		uploadSC1(da){
 			this.isJdt1='';
 			this.postData.business_license = da.url;
+			this.checkPost();
 		},
 		uploadSC2(da){
 			this.isJdt2='';
 			this.postData.opening_permit = da.url;
+			this.checkPost();
 		},
 		setJdt1(on){
 			this.isJdt1=1;
@@ -375,7 +377,8 @@ export default {
 			}		
 			let params = {
 				mobile:this.form.mobile,
-				mobile_zone:this.form.mobile_zone
+				mobile_zone:this.form.mobile_zone,
+				type:'register'
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
@@ -403,7 +406,8 @@ export default {
 			}		
 			let params = {
 				mobile:this.tancData.newMoble,
-				mobile_zone:this.tancData.mobile_zone
+				mobile_zone:this.tancData.mobile_zone,
+				type:'register'
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
