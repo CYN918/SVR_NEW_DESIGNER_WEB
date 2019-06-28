@@ -32,7 +32,7 @@
 					<span>账户余额</span><span>{{meny}}</span>
 				</div>
 				<div class="pr_xx_1_c">
-					<span>提现金额</span><span><input class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
+					<span>提现金额</span><span><input @input="oninput" class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
 				</div>
 			</div>
 				
@@ -41,7 +41,7 @@
 					<span>账户余额</span><span>{{meny}}</span>
 				</div>
 				<div class="pr_xx_1_c">
-					<span>提现金额</span><span><input class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
+					<span>提现金额</span><span><input @input="oninput" class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
 					<div class="xf11l">
 						当月到账金额=当月提现总额-税费
 						<span class="iconfont">
@@ -190,7 +190,17 @@ export default {
 	mounted: function () {			
 		this.init();		
 	},
+
 	methods: {
+		oninput(e){
+			if(e.target.value>+this.meny){
+				this.form.cash_money = this.meny;
+				return
+			}
+			let onm = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null			
+			this.form.cash_money = onm;
+			
+		},
 		backisnext(){
 			if(this.user.type==1 && this.typedon<2){
 				return 1;

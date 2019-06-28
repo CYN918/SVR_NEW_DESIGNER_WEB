@@ -86,10 +86,10 @@ export default {
 			})
 		},
 		showtx(){
-			if(this.basDa.account_balance<300){
-				Message({message: '账户余额不足300'});
-				return
-			}
+			// if(this.basDa.account_balance<300){
+			// 	Message({message: '账户余额不足300'});
+			// 	return
+			// }
 			this.txData.meny = this.basDa.account_balance;
 			this.istx = 1;
 		},
@@ -97,7 +97,7 @@ export default {
 			this.istx = '';
 		},
 		txcg(num){
-			this.basDa.account_balance -=num;
+			this.basDa.account_balance = ((this.basDa.account_balance*100)-(num*100))/100;
 			if(this.num1!='******'){
 				this.num1 = '￥ '+this.basDa.account_balance;
 			}			

@@ -121,7 +121,7 @@ export default {
 			this.api.Income_applyCancel(pr).then((da)=>{
 				this.cxType=0;
 				if(da=='error'){return}	
-				this.$parent.basDa.account_balance = +this.$parent.basDa.account_balance+(+this.je);
+				this.$parent.basDa.account_balance = ((this.$parent.basDa.account_balance*100)+(this.je*100))/100;
 				this.$parent.num1 = '￥ '+this.$parent.basDa.account_balance;
 				this.close();
 				
