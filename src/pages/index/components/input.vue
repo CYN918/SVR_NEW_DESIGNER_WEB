@@ -36,6 +36,7 @@ export default {
 			tpd:'',
 			numd:0,
 			eeText:'',
+			setimed:'',
 			form:{
 				mobile_zone:'86',
 			},			
@@ -181,13 +182,17 @@ export default {
 			}
 			this.$emit('ajaxYzm');	
 		},
+		initYZM(){
+			clearTimeout(this.setimed);		
+			this.timer = '获取验证码';			
+		},
 		runTimer(num){
 			this.timer = num +'秒后重新获取';
 			if(num==0){
 				this.timer = '获取验证码';
 				return
 			}
-			setTimeout(()=>{
+			this.setimed = setTimeout(()=>{
 				num--;
 				this.runTimer(num);
 			},1000)

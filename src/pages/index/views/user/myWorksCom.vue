@@ -234,7 +234,7 @@ export default {
 					}catch(e){}
 				}catch(e){}
 				
-				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
+				this.selectedOptions = [+this.form.classify_1,+this.form.classify_2,+this.form.classify_3];
 				if(this.page2.classify.length>0){
 					return;
 				}

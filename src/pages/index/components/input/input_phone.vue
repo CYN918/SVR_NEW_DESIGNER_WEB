@@ -37,6 +37,7 @@ export default {
 			tpd:'',
 			eeText:'',
 			midf2:this.type,
+			setimed:'',
 			maxerr:'',
 			numd:0,
 			timer:'获取验证码',
@@ -252,7 +253,7 @@ export default {
 				return
 			}
 			
-			this.runTimer(60);			
+					
 			let params = {
 				mobile:this.$parent.mobiles.mobile,
 				mobile_zone:this.$parent.mobiles.mobile_zone
@@ -263,10 +264,12 @@ export default {
 			if(this.iscf==2){
 				params.type = 'login';
 			}
-			this.api.sendVerifyCode(params).then(()=>{	
-				
+			this.api.sendVerifyCode(params).then((da)=>{	
+				if(da=='error'){
+					return
+				}
 			}).catch(()=>{
-				
+				this.runTimer(60);	
 			});
 		},
 		chemima(data){
@@ -296,7 +299,7 @@ export default {
 				this.timer = '获取验证码';
 				return
 			}
-			setTimeout(()=>{
+			this.setimed= setTimeout(()=>{
 				num--;
 				this.runTimer(num);
 			},1000)

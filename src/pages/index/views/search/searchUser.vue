@@ -15,7 +15,7 @@
 							<span @click="goFans('/works',el.open_id)">创作<span>{{el.work_num}}</span></span>
 						</div>
 						<div>{{el.personal_sign?el.personal_sign:'这个人很懒，什么都没说~'}}</div>
-						<div class="btns_foll">
+						<div class="btns_foll"  v-if="!isMe(el.open_id)">
 							<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
 							<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
 							<span class="jsBtn" @click="Follow_add(index)" v-else>关注</span>
@@ -111,6 +111,13 @@ export default {
 	methods: {
 		goFans(d,id){
 			this.$router.push({path:d,query:{id:id}});
+		},
+		isMe(id){
+			if(!window.userInfo){
+				return false
+			}
+			
+			return id==window.userInfo.open_id;
 		},
 		gosx(on){
 			let pr = {

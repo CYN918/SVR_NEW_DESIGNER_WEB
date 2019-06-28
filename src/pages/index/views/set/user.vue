@@ -505,6 +505,7 @@ export default {
 				}
 				this.form.qq_visible+='';
 				this.form.weixin_visible+='';
+
 				this.form.citye = [this.form.country,this.form.province,this.form.city]
 			
 			})

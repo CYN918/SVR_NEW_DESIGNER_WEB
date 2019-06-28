@@ -198,7 +198,7 @@ export default {
 			}
 			this.$router.push({path: '/follow',query:{id:this.$route.query.id}})	
 		},
-		goUser(){
+		goUser(on){
 			this.$router.push({path: '/works',query:{id:on}})	
 		},
 		backtime(time){

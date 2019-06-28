@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<img class="login_x1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/llog.png" alt="" @click="jump">
+		<img class="login_x1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/login_logo.svg" alt="" @click="jump">
 		<p class="login_x2">让创意更有价值，让生活更加自在</p>
 		<el-form ref="myform" :model="form">	
 			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
@@ -92,7 +92,7 @@ export default {
 	}, 
 	methods: {
 		init(){
-			this.setTitle('注册登录-狮圈儿（Zoocreators）');
+			
 			document.addEventListener('keydown',(e)=>{
 				if(e.keyCode==13){				
 				if(this.$route.fullPath=='/register'){
@@ -112,14 +112,17 @@ export default {
 				Message({message: '请先填写手机号码'});
 				return
 			}
-			this.$refs.verify.runTimer(60);			
+				
 			let params = {
 				mobile:this.form.mobile,
 				mobile_zone:this.form.mobile_zone,
 				type:'register',
 			};
-			this.api.sendVerifyCode(params).then(()=>{	
-				
+			this.api.sendVerifyCode(params).then((da)=>{	
+				if(da=='error'){
+					return	
+				}
+				this.$refs.verify.runTimer(60);		
 			}).catch(()=>{
 				
 			});
