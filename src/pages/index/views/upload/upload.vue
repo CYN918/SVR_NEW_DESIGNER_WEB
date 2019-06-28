@@ -263,7 +263,10 @@ export default {
 			let pr={};
 			this.api.getSelfInfo(pr).then((da)=>{
 				if(da=='error'){return}
+			
+				let userData = window.userInfo.access_token;
 				window.userInfo = da;
+				window.userInfo.access_token = userData;
 			});
 		},
 		

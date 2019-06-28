@@ -98,7 +98,9 @@ export default {
 			};
 			this.api.getSelfInfo(pr).then((da)=>{
 				if(da=='error'){return}		
-				window.userInfo = da;				
+				let userData = window.userInfo.access_token;
+				window.userInfo = da;	
+				window.userInfo.access_token = userData;
 			}).catch();
 		},
 		goOut(){

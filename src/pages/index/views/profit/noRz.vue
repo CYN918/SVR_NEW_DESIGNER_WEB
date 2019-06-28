@@ -31,18 +31,22 @@ export default {
 			this.$router.push({path:'/setPersonal'})			
 		},
 		getUserDetail(){
+			console.log(window.userInfo);
 			if(!window.userInfo){
 				this.$router.push({path:'/login'})
 				return
 			}	
 			let pr={};
 			this.api.getSelfInfo(pr).then((da)=>{
+				
 				if(da=='error'){return}
+				let userData = window.userInfo.access_token;
+				window.userInfo = da;
+				window.userInfo.access_token = userData;
+				this.userData = window.userInfo;
+				localStorage.setItem('userT',JSON.stringify(da));	
 				if(da.is_contributor!=0){
 					this.$router.push({path: '/profit'});
-					window.userInfo = da;
-					this.userData = window.userInfo;
-					localStorage.setItem('userT',JSON.stringify(da));	
 					return
 				}
 			});

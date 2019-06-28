@@ -10,9 +10,10 @@
 		<p class="lgoin_s5"><span>没有账号？<router-link class="pend" to="/register">注册</router-link></span><span><router-link class="pend" to="/index">返回首页</router-link></span></p>
 		<div class="lgoin_s6x"></div>
 		<div class="lgoin_s6">
-			<img @click="thirdLogin('qq')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/01.png" alt="">
-			<img @click="thirdLogin('weixin')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/02.png" alt="">
-			<img @click="thirdLogin('weibo')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/03.png" alt="">
+			
+			<img @click="thirdLogin('qq')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/login/zc_icon_qq.svg" alt="">
+			<img @click="thirdLogin('weixin')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/login/zc_icon_wx.svg" alt="">
+			<img @click="thirdLogin('weibo')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/login/zc_icon_wb.svg" alt="">
 		</div>
 	</div>
 </template>
@@ -109,7 +110,9 @@ export default {
 				};
 				this.api.getSelfInfo(pr).then((da)=>{
 					if(da=='error'){return}		
-					window.userInfo = da;				
+					let userData = window.userInfo.access_token;
+					window.userInfo = da;		
+					window.userInfo.access_token = userData;
 				}).catch();
 				this.$router.push({path: '/index'})							
 			}).catch(()=>{
