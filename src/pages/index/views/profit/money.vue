@@ -18,7 +18,7 @@ export default {
 		return {
 			config:{
 				title:[
-					{n:'结算时间',poprs:'apply_time'},
+					{n:'提现时间',poprs:'apply_time'},
 					{n:'收款账户名',clfn:(da)=>{ 
 							let len = da.account_name.length,
 							str = da.account_name.substring(-1,1),

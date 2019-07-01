@@ -196,7 +196,6 @@ if(token){
 
 function setTitle(t){
 	let str = '';
-
 	switch (t){
 		case '/index':str = '狮圈儿-创作者平台（Zoocreators）-让创意更有价值，让生活更加自在';
 			break;
@@ -247,9 +246,11 @@ function setTitle(t){
 		case '/setUser':
 		case '/setSecurity':
 			  str = '账号设置-狮圈儿（Zoocreators）';
+			  break;
 		case '/setPersonal':
 		case '/setEnterprise':
 			  str = '平台供稿人认证-狮圈儿（Zoocreators）';
+			  break;
 		case '/text/about':
 		case '/text/userProtocol':
 		case '/text/authorization':
