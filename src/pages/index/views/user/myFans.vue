@@ -187,7 +187,7 @@ export default {
 		},
 	
 		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].open_id}})	
+			this.$router.push({path: '/works',query:{id:on.open_id}})	
 		},
 		backtime(time){
 		
