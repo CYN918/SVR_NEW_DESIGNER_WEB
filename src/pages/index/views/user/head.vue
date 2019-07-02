@@ -99,7 +99,7 @@ export default {
 		return{
 			gofn:'',
 			shareData:{},
-			userBg:'/imge/svg/grzx_bg.svg',
+			userBg:'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/grzx_bg.svg',
 			previewStyle2:{},
 			previews:{},
 			option:{

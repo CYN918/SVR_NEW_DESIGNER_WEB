@@ -88,7 +88,7 @@ export default {
 		return{	
 			
 			isPhto:false,
-			caver:'/imge/svg/MRTX.svg',
+			caver:'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/MRTX.svg',
 			form:{
 				citye:[],
 				sex:'',

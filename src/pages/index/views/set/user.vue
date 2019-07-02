@@ -197,7 +197,7 @@ export default {
 				{n:"艺术工作者"},
 				{n:"教育工作者"},
 			],
-			caver:'/imge/svg/MRTX.svg',
+			caver:'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/MRTX.svg',
 				
 			chekusername:function(val){
 				

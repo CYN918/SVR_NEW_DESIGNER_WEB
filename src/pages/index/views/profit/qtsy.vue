@@ -16,7 +16,7 @@ export default {
 			config:{
 				title:[
 					{n:'收益类型',poprs:'task_name'},
-					{n:'备注信息',poprs:'task_desc'},
+					{n:'备注信息',html:'task_desc'},
 					{n:'收益发放时间',poprs:'hire_time'},
 					{n:'收益金额',poprs:'income'},
 				],

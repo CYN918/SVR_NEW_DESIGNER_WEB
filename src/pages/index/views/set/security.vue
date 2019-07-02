@@ -198,7 +198,7 @@ export default {
 				{n:"艺术工作者"},
 				{n:"教育工作者"},
 			],
-			caver:'/imge/nav_tx.png',
+			caver:'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/nav_tx.png',
 			vp_r(val){
 				if(!val){
 					return {type:false,text:'请确认密码',cls:'errd'}
