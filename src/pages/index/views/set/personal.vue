@@ -520,7 +520,7 @@ export default {
 			let params = {
 				mobile:this.form.mobile,
 				mobile_zone:this.form.mobile_zone,
-				type:'register'
+	
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
