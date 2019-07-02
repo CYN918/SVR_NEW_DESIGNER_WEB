@@ -229,9 +229,7 @@ export default {
 				this.form = da;
 				try{
 					this.form.labels = JSON.parse(this.form.labels);
-					try{
-						this.form.labels = JSON.parse(this.form.labels);
-					}catch(e){}
+					
 				}catch(e){}
 				
 				this.selectedOptions = [+this.form.classify_1,+this.form.classify_2,+this.form.classify_3];

@@ -225,7 +225,7 @@ export default {
 			this.userMssge = '';
 			if(window.userInfo){
 				this.userMssge = window.userInfo;	
-				if(window.userInfo.contributor_format_status!=0){
+				if(window.userInfo.contributor_format_status){
 					this.isggr=1;
 				}
 			
