@@ -261,13 +261,18 @@ export default {
 			return this.$route.query.id ==  window.userInfo.open_id;
 		},
 		showSetBg(){
-			this.option.img = this.userBg;
+			this.option.img = '';
 			this.isUpbg=true;
 		},
 		hindSetBg(){
 			this.isUpbg=false;
 		},
 		startCrop(){
+			console.log(this.option.img);
+			if(!this.option.img){
+				Message({message: '请上选择图片'});
+				return
+			}
 			if(this.opType==1){
 				Message({message: '正在上传请稍后'});
 				return

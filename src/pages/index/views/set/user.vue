@@ -98,7 +98,7 @@
 		<div v-if="tAncType>0" class="tc_sucd">
 			<div v-if="tAncType==1" class="tc_sucd_1">
 				<img class="tc_sucd_1X" @click="closeTc1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
-				<Input class="tc_sucd_1_1" v-model="tancData.userName"  :oType="'max'" :max="15"  :chekFn="chekusername" :type="'text'" :placeholder="'请输入新的用户名'"></Input>		
+				<Input class="tc_sucd_1_1" v-model="tancData.userName" :isHz="'is'"  :oType="'max'" :max="18"  :chekFn="chekusername" :type="'text'" :placeholder="'请输入新的用户名；一个中文等于两个字母'"></Input>		
 				<div class="tc_sucd_1_2">
 					<span @click="closeTc1">取消</span>
 					<span @click="qdTc1">确定</span>

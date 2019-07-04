@@ -67,7 +67,7 @@
 			<span class="header_4" v-if="userMssge">
 				<div @click="goUser"><img :src="userMssge.avatar" alt=""></div>
 				<div  class="userBpx">
-					<a @click="goUser">{{userMssge.username.substring(0,9)}}</a>
+					<a @click="goUser">{{backnAM(userMssge.username)}}</a>
 					<ul> 
 						<router-link  to="/myAll"><li><img class="svgImg2 cztsyscl" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></router-link>
 						<router-link  to="/myDynamic"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></router-link>
@@ -124,6 +124,30 @@ export default {
 		
 	}, 
 	methods:{
+		backnAM(str){
+			if(!str){
+				return '';
+			}
+			let l = str.length;
+			var len = 0;  
+			for (var i=0; i<l; i++) {  
+				if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {  
+					len++;  
+				} 
+				if(len>17){
+					l = i-1;
+					break;
+				} 
+				len ++; 
+				if(len>17){
+					l = i-1;
+					break;
+				}
+			}  
+			return str.substring(0,l);  
+		
+			
+		},
 		backXXnUM(n){
 			if(n>999){
 				return 999;

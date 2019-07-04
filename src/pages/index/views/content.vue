@@ -33,7 +33,7 @@
 			</div>
 			<div class="topNav_x_1_2">
 				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_share.svg"/>分享</span>
-				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>推荐</span>
+				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
 			</div>
 			</div>
 		</div>

@@ -94,7 +94,8 @@ export default {
 		keyup:{
 			type:Function,
 			default:()=>{}
-		}
+		},
+		isHz:String,
 	},		
 	computed: {
 	},
@@ -110,10 +111,14 @@ export default {
 	    'input'(val,oldeval) {
 			if(this.input){
 				this.numd = this.input.length;
+				if(this.isHz){
+					this.numd = this.backHz(this.input);
+				}				
+			}else{
+				this.numd = 0;
 			}
-			
-			if(this.max>0 && this.numd>this.max){
-				this.input = val.substring(0,this.max);
+			if(this.max>0 && this.numd>this.max){				
+				this.input = oldeval;				
 				return
 			}
 	    	this.$emit('input', this.input); 
@@ -143,6 +148,16 @@ export default {
 	    },
    	},
    	methods: {
+		backHz(str){
+			let n =0;
+			for (var i=0; i<str.length; i++) {  
+				if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {  
+					n++;  
+				} 				
+				n ++; 				
+			} 
+			return n;			
+		},
 		initData(){
 			this.form.mobile_zone = 86;
 			this.input = '';

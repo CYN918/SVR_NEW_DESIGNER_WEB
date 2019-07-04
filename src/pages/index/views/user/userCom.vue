@@ -18,7 +18,7 @@
 				</vueCropper>
 			</div>
 			<div class="upBg2">
-				<span class="upBg2_1">建议尺寸 1300*230px</span>
+				<span class="upBg2_1">建议尺寸 1920*260px</span>
 				<div class="upBg2_2">
 					<img @click="changeScale(1)" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_01.png" alt="">
 					<img @click="changeScale(-1)" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_02.png" alt="">
@@ -53,7 +53,7 @@
 		<div class="u_top3">
 			<img class="u_top3_1" :src="userMessage.avatar"></img>
 			<div class="u_top3_2">
-				<div class="u_top3_2_1">{{userMessage.username?userMessage.username.substring(0,9):''}}</div>
+				<div class="u_top3_2_1">{{backnAM(userMessage.username)}}</div>
 				<div class="u_top3_2_2">{{userMessage.province+'-'+userMessage.city}}</div>
 				<div class="u_top3_2_3">{{userMessage.personal_sign?userMessage.personal_sign:'这个人很懒，什么都没说~'}}</div>
 			</div>
@@ -133,7 +133,31 @@ export default {
     },
 	
 	methods: {	
-		
+		backnAM(str){
+
+			if(!str){
+				return '';
+			}
+			let l = str.length;
+			var len = 0;  
+			for (var i=0; i<l; i++) {  
+				if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {  
+					len++;  
+				} 
+				if(len>17){
+					l = i-1;
+					break;
+				} 
+				len ++; 
+				if(len>17){
+					l = i-1;
+					break;
+				}
+			}  
+			return str.substring(0,l);  
+
+			
+		},
 		imgTrick(src) {
 			const img = new Image()
 			img.src = src
@@ -273,14 +297,19 @@ export default {
 			return this.$route.query.id ==  window.userInfo.open_id;
 		},
 		showSetBg(){
-			this.option.img = this.userBg;
-			console.log(this.option.img);
+			this.option.img = '';
 			this.isUpbg=true;
 		},
 		hindSetBg(){
 			this.isUpbg=false;
 		},
 		startCrop(){
+			
+			
+			if(!this.option.img){
+				Message({message: '请先上传图片'});
+				return
+			}
 			if(this.opType==1){
 				Message({message: '正在上传请稍后'});
 				return
@@ -403,7 +432,7 @@ export default {
 }
 .u_top2{
 	position: relative;
-	height: 340px;
+	height: 260px;
 	background: #282828;
 }
 .u_top2>img{
