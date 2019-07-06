@@ -228,6 +228,13 @@ export default {
 			this.form.bank_name = this.user.bank_name;				
 			this.form.bank_subbranch = this.user.bank_subbranch;
 			this.meny = this.user.meny;
+			if(this.user.code){
+				this.form.code = this.user.code;
+				return
+			}
+			this.form.id_card = this.user.id_card;
+			this.form.reserve_phone = this.user.reserve_phone;
+			
 			
 		},
 		close(){

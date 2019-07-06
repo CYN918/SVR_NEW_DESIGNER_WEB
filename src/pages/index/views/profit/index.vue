@@ -86,10 +86,10 @@ export default {
 			})
 		},
 		showtx(){
-			if(this.basDa.account_balance<300){
-				Message({message: '账户余额不足300'});
-				return
-			}
+			// if(this.basDa.account_balance<300){
+			// 	Message({message: '账户余额不足300'});
+			// 	return
+			// }
 			this.txData.meny = this.basDa.account_balance;
 			this.istx = 1;
 		},
@@ -147,6 +147,12 @@ export default {
 				this.txData.bank_card_id = da.bank_card_no;
 				this.txData.bank_name = da.bank_name;				
 				this.txData.bank_subbranch = da.branch_bank;
+				if(da.id_card){
+					this.txData.id_card = da.id_card;
+					this.txData.reserve_phone = da.reserve_phone;
+					return
+				}
+				this.txData.code = da.code;
 				
 			})
 		},
