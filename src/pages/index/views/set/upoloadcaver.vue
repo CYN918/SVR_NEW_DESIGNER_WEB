@@ -118,6 +118,7 @@ export default {
 				formData.append('related_id',window.userInfo.open_id)
 				formData.append('classify_1','avatar')
 				formData.append('timestamp',times)
+				formData.append('need_check',1);
 		
 				this.$ajax.post(window.basrul+'/File/File/insert', formData)
 				.then((response)=>{

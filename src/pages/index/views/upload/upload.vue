@@ -337,7 +337,7 @@ export default {
 		},
 		showupFm(){
 			this.isPhto = true;
-			this.$refs.upoloadcaver.setImgd(this.form.face_pic);
+			this.$refs.upoloadcaver.setImgd(this.form.face_pic,this.form.work_id);
 		},
 		close(img,fmid){
 			this.isPhto = false;

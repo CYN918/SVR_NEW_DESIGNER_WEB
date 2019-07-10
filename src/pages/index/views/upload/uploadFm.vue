@@ -102,6 +102,7 @@ export default {
 			},
 			opType:0,
 			isImff:'',
+			Zp:''
 		}
 	},	
 	mounted: function () {
@@ -123,8 +124,8 @@ export default {
 		close(){
 			this.$parent.close(''); 		
 		},
-		setImgd(img){
-
+		setImgd(img,id){
+			this.Zp = id;
 		},
 		realTime(data) {
 			this.previews = data;	
@@ -144,7 +145,7 @@ export default {
 			
 			this.$refs.cropper.getCropData(data => {
 				
-				function dataURLtoFile(dataurl) {
+				function dataURLtoFile(dataurl,id) {
 					  var arr = dataurl.split(',');
 					  var mime = arr[0].match(/:(.*?);/)[1];
 					  var bstr = atob(arr[1]);
@@ -154,7 +155,7 @@ export default {
 						  u8arr[n] = bstr.charCodeAt(n);
 					  }
 					  //转换成file对象
-					  return new File([u8arr], 'xxxxxxxxxf.png', {type:mime});
+					  return new File([u8arr], 'fm_'+id+'.png', {type:mime});
 					  //转换成成blob对象
 					  //return new Blob([u8arr],{type:mime});
 				}
@@ -167,11 +168,12 @@ export default {
 					window.userInfo.open_id,
 					times
 				];
+				console.log(dataURLtoFile(data,this.Zp));
 				let formData = new FormData();
 				formData.append('app_id',1001);
 				formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
 				formData.append('user',window.userInfo.open_id)
-				formData.append('file',dataURLtoFile(data))
+				formData.append('file',dataURLtoFile(data,this.Zp))
 				formData.append('relation_type','user_info')
 				formData.append('related_id',window.userInfo.open_id)
 				formData.append('classify_1','avatar')
