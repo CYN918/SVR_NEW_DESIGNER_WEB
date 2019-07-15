@@ -44,6 +44,7 @@ export default {
 	methods: {
 		 
 		goto(on){
+			this.bdtj('搜索页','tab_'+on);
 			this.$router.push({path:on,query:{cont:this.secont}})	
 		},
 		setCont(cd){

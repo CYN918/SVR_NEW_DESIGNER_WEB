@@ -7,7 +7,7 @@
 		</div>	
 		<component v-bind:is="btnType" ref="loginFrom"></component>			
 		<el-button :class="['lgoin_s4',btnType2]" type="primary" @click="loginUp">登录</el-button>		
-		<p class="lgoin_s5"><span>没有账号？<router-link class="pend" to="/register">注册</router-link></span><span><router-link class="pend" to="/index">返回首页</router-link></span></p>
+		<p class="lgoin_s5"><span>没有账号？<a class="pend" @click="gotj('/register')">注册</a></span><span><router-link class="pend" to="/index">返回首页</router-link></span></p>
 		<div class="lgoin_s6x"></div>
 		<div class="lgoin_s6">
 			
@@ -48,17 +48,25 @@ export default {
 			}
 			},false)
 		},
+		gotj(d){
+			this.bdtj('登录页','没有帐号去注册','--');
+			this.$router.push({
+				path:d
+			})
+		},
 		jump(){
 		    this.$router.push({
 				path:'/index'
 			})
 		},
 		cheackLogin(on){	
+			this.bdtj('登录页','tag_'+on,'--')
 			if(on==this.btnType){return}
 			this.btnType = on;
 			this.btnType2 = '';
 		},
 		thirdLogin(type){
+			this.bdtj('登录页','第三方登录_'+type,'--');
 			if(!type){return}
 			window.location.href=window.basrul+'/Passport/user/thirdLogin?type='+type;
 		},
@@ -84,12 +92,14 @@ export default {
 		loginPost(data,ispass){
 			this.api.login(data).then((da)=>{	
 				if(da=='error'){
+					this.bdtj('登录页','登录失败','--');
 					if(ispass){
 						localStorage.setItem('pass','');
 					}
 					this.ajaxType=0;
 					return
 				}
+				this.bdtj('登录页','登录成功','--');
 				this.ajaxType=0;
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));	
@@ -110,12 +120,15 @@ export default {
 				};
 				this.api.getSelfInfo(pr).then((da)=>{
 					if(da=='error'){return}		
+					
 					let userData = window.userInfo.access_token;
 					window.userInfo = da;		
 					window.userInfo.access_token = userData;
 				}).catch();
+				
 				this.$router.push({path: '/index'})							
 			}).catch(()=>{
+				this.bdtj('登录页','登录失败','--');
 				this.ajaxType=0;
 			});	
 		},

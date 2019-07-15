@@ -245,7 +245,7 @@ export default {
 }
 .pbx_1_1x{
 	display: inline-block;
-    width: 140px;
+	white-space:nowrap;
     text-align: right;
 }
 

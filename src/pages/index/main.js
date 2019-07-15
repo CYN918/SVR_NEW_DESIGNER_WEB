@@ -221,6 +221,11 @@ Vue.prototype.checkLogin = ()=>{
 		return false;
 	}
 };
+
+Vue.prototype.bdtj = (a,b,c)=>{
+	_hmt.push(['_trackEvent',a,b,c]);
+};
+
 import VueCropper from 'vue-cropper' 
 
 import { Button, Select,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination } from 'element-ui'

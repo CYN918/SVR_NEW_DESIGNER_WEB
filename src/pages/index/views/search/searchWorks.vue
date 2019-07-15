@@ -4,7 +4,7 @@
 		
 		<list :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
-				<box_a :el="todo"></box_a>
+				<box_a :bdtj="bdtj" :el="todo"></box_a>
 			</template>			
 		</list>
 	</div>
@@ -26,9 +26,11 @@ export default {
 				},
 				pr:{
 					type:'work',
-				}
+				},
+				
+				
 			},	
-			
+			bdtj:[['搜索页','作品'],['搜索页','创作者']],
 			querys:'',
 			clasd:[],
 			

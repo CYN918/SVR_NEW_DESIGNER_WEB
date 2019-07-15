@@ -1,7 +1,7 @@
 <template>
 	<div class="banner">
 		<div class="banner1">
-			<img v-for="(el,index) in list" @click="opend(el.jump_url)" :class="[on==index?'action':'actionno']" :src="el.banner_pic" alt="">
+			<img v-for="(el,index) in list" @click="opend(el.jump_url,index)" :class="[on==index?'action':'actionno']" :src="el.banner_pic" alt="">
 		</div>
 		<div class="banner_nav1">
 			<span v-for="(el,index) in list" @click="checkBan(index)" :class="[on==index?'action':'']"></span>
@@ -24,7 +24,8 @@ export default {
 		this.getBanner();		
 	}, 
 	methods: {
-		opend(url){
+		opend(url,on){
+			this.bdtj('首页','banner'+(on+1),'--');
 			window.open(url);
 		},
 		getBanner(){

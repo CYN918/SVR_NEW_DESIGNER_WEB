@@ -10,7 +10,7 @@
 			<el-form-item>
 				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">注册</el-button>				
 			</el-form-item>
-			<p class="lgoin_s5">已有账号？<router-link class="pend" to="/login">登录</router-link></p>
+			<p class="lgoin_s5">已有账号？<a class="pend" @click="god('/login')">登录</a></p>
 		</el-form>
 	</div>
 </template>
@@ -101,12 +101,19 @@ export default {
 				}					
 			});
 		},
+		god(d){
+			this.bdtj('注册页','已有账号','--')
+			this.$router.push({
+			    path:d
+			})
+		},
         jump(){
             this.$router.push({
                 path:'/index'
             })
         },
 		ajaxYzm(){
+			this.bdtj('注册页','获取验证码','--');
 			let pd = this.chekPhpne(this.form.mobile);
 			if(pd!=true && pd.type!=true){
 				Message({message: '请先填写手机号码'});
@@ -134,6 +141,7 @@ export default {
 			this[data] = this[data]=='password'?'text':'password';
 		},
 		submitForm(formName){
+			this.bdtj('注册页','注册按钮','点击');
 			if(!this.btnType){
 				return
 			}
@@ -156,10 +164,11 @@ export default {
 			this.api.register(params).then((da)=>{
 				
 				if(da=='error'){
+					this.bdtj('注册页','注册失败','--');
 					this.ajaxType=0;
 					return
 				}
-				
+				this.bdtj('注册页','注册成功','--');
 				Message({message: '注册成功'});
 				let pr = {			
 					mobile_zone:params.mobile_zone,
@@ -181,6 +190,7 @@ export default {
 					this.ajaxType=0;
 				});	
 			}).catch(()=>{	
+				this.bdtj('注册页','注册失败','--');
 				Message({message: '注册失败'});
 				this.ajaxType=0;
 			});	

@@ -5,9 +5,9 @@
 		
 			<ul v-if="List.length>0" class="i_listd2" >
 				<li v-for="(el,index) in List" :key="index">
-					<img @click="goFans('/works',el.open_id)" :src="el.avatar">
+					<img @click="goFans('/works',el.open_id,'点头像')" :src="el.avatar">
 					<div class="i_listd2_1">
-						<div @click="goFans('/works',el.open_id)">{{el.username}}</div>
+						<div @click="goFans('/works',el.open_id,'点名字')">{{el.username}}</div>
 						<div>{{el.province}} | {{el.city}}</div>
 						<div class="i_listd2_d">
 							<span @click="goFans('/followFans',el.open_id)">粉丝<span>{{el.fans_num}}</span></span>
@@ -109,7 +109,11 @@ export default {
 		
 	}, 
 	methods: {
-		goFans(d,id){
+		goFans(d,id,a){
+			if(a){
+				this.bdtj('搜索页',a,'--');
+			}
+			
 			this.$router.push({path:d,query:{id:id}});
 		},
 		isMe(id){
@@ -120,6 +124,7 @@ export default {
 			return id==window.userInfo.open_id;
 		},
 		gosx(on){
+			this.bdtj('搜索页','点私信','--');
 			let pr = {
 				open_id:this.List[on].open_id,
 				avatar:this.List[on].avatar,
@@ -136,6 +141,7 @@ export default {
 			this.followList();
 		},
 		showFpllwodel(on){
+			this.bdtj('搜索页','点取消关注','--');
 			this.isshowd2 = true;
 			this.openOns = on;
 		},
@@ -168,6 +174,7 @@ export default {
 			});
 		},
 		Follow_add(on){
+			this.bdtj('搜索页','点关注','--');
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 				return

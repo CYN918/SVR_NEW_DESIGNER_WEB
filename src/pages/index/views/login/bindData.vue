@@ -147,6 +147,7 @@ export default {
 			this.isPhto=false;
 		},
 		addSelfInfo(){
+			this.bdtj('第3方注册完善页面','进入首页','--');
 			if(!this.btnType){
 				return
 			}
@@ -171,7 +172,9 @@ export default {
 				city:this.form.citye[2],
 			}
 			this.api.addSelfInfo(pr).then((da)=>{
+				
 				if(da=='error'){
+					this.bdtj('第3方注册完善页面','进入首页失败','--');
 					return
 				}
 				window.userInfo.mobile = pr.mobile;
@@ -185,6 +188,7 @@ export default {
 				window.userInfo.city = pr.citye;
 				window.userInfo.is_detail =1;
 				localStorage.setItem('userT',JSON.stringify(window.userInfo));
+				this.bdtj('第3方注册完善页面','进入首页成功','--');
 				this.$router.push({path:'/index'})
 			});
 		},

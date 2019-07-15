@@ -1,6 +1,6 @@
 <template>
 	<div class="phoshc">
-		<div class="phoshc1" @click="close"></div>
+		<div class="phoshc1" @click="close('关闭')"></div>
 		<div class="phoshc2">
 			<div class="phoshc3">
 				<vueCropper
@@ -26,7 +26,7 @@
 				</div>				
 				<div class="phoshc4_2">预览效果</div>
 				<div class="phoshc4_3">
-					<div @click="close">取消</div>
+					<div @click="close('取消')">取消</div>
 					<div @click="startCrop">确定</div>
 				</div>
 			</div>
@@ -69,7 +69,8 @@ export default {
 	mounted: function () {	
 	}, 
 	methods: {
-		close(){
+		close(a){
+			this.bdtj('注册页','头像'+a,'--');
 			this.$parent.close(''); 		
 		},
 		setImgd(img){
@@ -87,6 +88,7 @@ export default {
 			};
 		},
 		startCrop(){
+			this.bdtj('注册页','头像确定','--');
 			if(this.uptype==1){
 				Message({message: '上传中请稍后'});
 				return
@@ -148,6 +150,7 @@ export default {
 			this.$refs.cropper.rotateLeft()
 		},
 		uploadImg(e){
+			this.bdtj('注册页','头像重新上传','--');
 			let file = e.target.files[0];
 			if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)||e.target.files.length==0) {
 				Message({message: '图片格式不正确'});

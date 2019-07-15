@@ -114,6 +114,7 @@ export default {
 			this[data] = this[data]=='password'?'text':'password';
 		},
 		submitForm(formName){
+			this.bdtj('重置密码页','重置密码','--');
 			if(!this.btnType){
 				return
 			}
@@ -129,14 +130,17 @@ export default {
 			this.ajaxType=1;
 			this.api.modifyPassword(params).then((da)=>{	
 				if(da=='error'){
+					this.bdtj('重置密码页','重置密码失败','--');
 					return;
 				}
 				this.ajaxType=0;
+				this.bdtj('重置密码页','重置密码成功','--');
 				Message({message: '修改成功'});
 				setTimeout(()=>{
 					this.$router.push({path: '/login'});
 				},1000)
-			}).catch(()=>{				
+			}).catch(()=>{		
+				this.bdtj('重置密码页','重置密码失败','--');
 				this.ajaxType=0;
 			});	
 		},

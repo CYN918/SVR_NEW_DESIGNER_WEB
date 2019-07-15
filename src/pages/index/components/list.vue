@@ -87,13 +87,19 @@ export default {
 			})
 		},
 		handleSizeChange(val) {
+			if(this.config.bdtj){
+				this.bdtj(this.config.bdtj[1][0],this.config.bdtj[1][1],'--');
+			}
 			this.goTop=1;
 			this.limit = val;
 			this.page=1;
 			this.getData();
 			
 		},
-		handleCurrentChange(val) {			
+		handleCurrentChange(val) {	
+			if(this.config.bdtj){
+				this.bdtj(this.config.bdtj[0][0],this.config.bdtj[0][1],'--');
+			}
 			this.goTop=1;
 			this.page = val;
 			this.getData();

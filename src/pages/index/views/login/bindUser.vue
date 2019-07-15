@@ -55,6 +55,7 @@ export default {
 
 
 		addSelfInfo(){
+			this.bdtj('第3方注册完善页面绑定已有帐号','进入首页','--');
 			if(!this.btnType){
 				return
 			}		
@@ -69,11 +70,13 @@ export default {
 			}
 			this.api.bindExist(pr).then((da)=>{
 				if(da=='error'){
+					this.bdtj('第3方注册完善页面绑定已有帐号','进入首页失败','--');
 					return
 				}
 	
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));
+				this.bdtj('第3方注册完善页面绑定已有帐号','进入首页成功','--');
 				this.$router.push({path:'/index'})
 			});
 		},

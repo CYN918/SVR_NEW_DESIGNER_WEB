@@ -23,9 +23,10 @@
 				<span class="seed1_2_3"><img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/icon/zs_icon_dz.png">0</span>
 				<span class="seed1_2_4"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_share.svg"/>分享</span>
 				<span class="seed1_2_5"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>推荐</span>
+				<div class="zdc"></div>
 			</div>
 			</div>
-			<div class="zdc"></div>
+			
 		</div>
 		<div v-if="topTyped==true" class="topNav_x_1">
 			<div class="topNav_x_2">

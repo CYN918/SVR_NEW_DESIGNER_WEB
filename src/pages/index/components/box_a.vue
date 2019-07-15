@@ -27,7 +27,8 @@ export default {
 		el:{
 			type:Object,
 			default:{}
-		}
+		},
+		tjData:Array
 	},
 	data(){
 		return{
@@ -36,10 +37,14 @@ export default {
 	},
 	methods: {	
 		goUser(on){
+			this.tongj(this.tjData[1]);
 			this.$router.push({path: '/works',query:{id:this.el.user_info.open_id}})	
 		},
-		backtime(time){
-		
+		tongj(a){
+			if(!a){return}
+			this.bdtj(a[0],a[1],'--');
+		},
+		backtime(time){		
 			return	window.getTimes(time);
 		},
 		backName(n){
@@ -49,11 +54,8 @@ export default {
 			}
 			return a;
 		},
-		opend(ur){
-			if(!ur){return}
-			window.open(ur);
-		},
 		openxq(){
+			this.tongj(this.tjData[0]);
 			window.open('#/cont?id='+this.el.work_id)
 		},
 		backBn(ur){

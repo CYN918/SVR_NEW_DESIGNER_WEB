@@ -4,7 +4,7 @@
 		<Inputdf v-model="form.password" :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'请输入密码'"></Inputdf>	
 		<div class="lgoin_s2zy">
 			<span><el-checkbox v-model="islogin">自动登录</el-checkbox></span>
-			<router-link class="last pend" to="/modifyPassword">忘记密码</router-link>
+			<a class="last pend" @click="goTj('/modifyPassword')">忘记密码</a>
 		</div>	
 	</div>
 </template>
@@ -52,6 +52,12 @@ export default {
 			}
 			return '';
 		},
+		goTj(d){
+			this.bdtj('登录页','忘记密码','--');
+			this.$router.push({path:d})
+		},
+		
+		
 		setYzm(val){
 			this.form.mobile_zone = val;
 		},
@@ -72,6 +78,9 @@ export default {
 		},
 		'form.password'() {
 			this.pdys1();
+		},
+		'islogin'(){
+			this.bdtj('登录页','自动登录'+this.islogin,'--');
 		},
 	}
 	

@@ -1268,6 +1268,7 @@ content: "";
 	display: inline-block;
 }
 .seed12{
+	position: relative;
 	margin-top: 45px;
 	float: right;
 }

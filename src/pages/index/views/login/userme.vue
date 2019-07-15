@@ -129,6 +129,7 @@ export default {
 			this.isPhto=false;
 		},
 		addSelfInfo(){
+			this.bdtj('手机号注册完善页面','进入首页','--');
 			if(!this.btnType){
 				return
 			}
