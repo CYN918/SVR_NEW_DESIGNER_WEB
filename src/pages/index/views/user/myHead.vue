@@ -3,11 +3,12 @@
 		<div class="myWorks_2">
 			<span class="myWorks_3">我的创作</span>
 			<div class="myWorks_4">
-				<router-link  to="/myAll">全部</router-link>
-				<router-link  to="/myExamine">待审核</router-link>
-				<router-link  to="/myPass">已通过</router-link>
-				<router-link  to="/myNotPass">未通过</router-link>
-				<router-link  to="/myDraft">草稿</router-link>
+				<a :class="['pend',ison=='/myAll'?'router-link-active':'']" @click="goZP('/myAll','全部')">全部</a>
+				<a :class="['pend',ison=='/myExamine'?'router-link-active':'']" @click="goZP('/myExamine','待审核')">待审核</a>
+				<a :class="['pend',ison=='/myPass'?'router-link-active':'']" @click="goZP('/myPass','已通过')">已通过</a>
+				<a :class="['pend',ison=='/myNotPass'?'router-link-active':'']" @click="goZP('/myNotPass','未通过')">未通过</a>
+				<a :class="['pend',ison=='/myDraft'?'router-link-active':'']" @click="goZP('/myDraft','草稿')">草稿</a>
+
 			</div>
 		</div>
 	</div>
@@ -20,20 +21,25 @@ export default {
 	name: 'index',
 	data(){
 		return{
-			
+			ison:'/myAll',
 		}
 	},
+
 	mounted: function () {	
-			
+		this.init()	
 	}, 
 	
 	methods: {	
-			
-		isMe(){
-			
+		init(){
+			this.ison = this.$route.fullPath;
+		},	
+		goZP(a,b){
+			this.bdtj('我的创作','tab_'+b,'--');
+			this.$router.push({path: a})			
 		},
 	
-	}
+	},
+	
 }	
 </script>
 

@@ -3,8 +3,7 @@
 		<div class="setHeadBox_1">
 			<span class="setHeadBox_2">{{navData.title}}</span>
 			<div class="setHeadBox_3">
-				<router-link v-for="(el,index) in navData.list"  :to="el.u">{{el.n}}</router-link>
-							
+				<a v-for="(el,index) in navData.list" :class="['pend',ison==el.u?'router-link-active':'']" @click="goZP(el.u,el.bdtj)">{{el.n}}</a>								
 			</div>
 		</div>
 	</div>
@@ -16,9 +15,28 @@ export default {
 	props:['navData'],
 	data(){
 		return{
-			
+			ison:'',
 		}
 	},
+	mounted: function () {	
+		this.init();	
+	}, 
+	
+	methods: {	
+		init(){
+			this.ison = this.$route.fullPath;
+		},	
+		goZP(a,b){
+			this.bdtj(b[0],b[1],'--');
+			this.$router.push({path: a})			
+		},
+	
+	},
+	watch: {	
+		'$route': function() {
+			this.init();
+		},
+	}
 
 }	
 </script>

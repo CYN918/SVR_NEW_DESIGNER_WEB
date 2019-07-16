@@ -21,7 +21,7 @@
 						<div class="myListBox_4">
 						
 							<span class="myListBox_4_1" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</span>
-							<span @click="updata(todo.work_id)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>
+							<span @click="updata(todo)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>
 						
 							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span>
 						</div>			
@@ -136,7 +136,6 @@ export default {
 			topcType:'',
 			worksType:'',
 
-
 			deletWorkid:'',
 			setDataOn:'',
 			setDataData:{},
@@ -213,12 +212,13 @@ export default {
 				this.upType='';
 			});		
 		},
-		showissetDatasXX(id){
+		showissetDatasXX(id,on){
 			let pr = {
 				access_token:window.userInfo.access_token,
 				work_id:id,
 				is_draft:0
 			};
+			this.bdtj('我的创作','已通过-修改设置','--');
 			this.api.getWorkDetail(pr).then((da)=>{
 				if(da=='error'){
 					return
@@ -297,13 +297,32 @@ export default {
 				this.page2.classify = JSON.parse(p);
 			})
 		},
-		updata(id){
+		backType(t){
+			let a = '';
+			if(t==-1){
+				a = '草稿';
+			}
+			if(t==-2){
+				a = '未通过';
+			}
+			if(t==0){
+				a = '待审核';
+			}
+			if(t==2){
+				a = '已通过';
+			}
+			return a;
+		},
+		updata(o){
+			let id = o.work_id;
 			if(!id){
 				return
 			}
+			this.bdtj('我的创作',this.backType(o.status)+'-编辑','--');
 			this.$router.push({path: '/upload',query:{id:id}});	
 		},
 		showTopc(type,on){
+			this.bdtj('我的创作',this.backType(on.status)+'-删除','--');
 			this.deletWorkon = on.work_id;
 			this.topcType = type;
 			this.istopc = true;
@@ -350,6 +369,7 @@ export default {
 			window.open(ur);
 		},
 		openxq(on){
+			this.bdtj('我的创作','点击作品','--');
 			if(on.status==2){
 				window.open('#/cont?id='+on.work_id);
 				return

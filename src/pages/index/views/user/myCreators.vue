@@ -5,9 +5,9 @@
 		<list :config="data" ref="listDom">
 			<template v-slot:todo="{ todo }">
 			<div class="wdczz">
-					<img @click="goUser(todo)" :src="todo.avatar">
+					<img @click="goUser(todo,'点头像')" :src="todo.avatar">
 					<div class="i_listd2_1">
-						<div @click="goUser(todo)">{{todo.username}}</div>
+						<div @click="goUser(todo,'点昵称')">{{todo.username}}</div>
 						<div>{{todo.province}} | {{todo.city}}</div>
 						<div class="i_listd2_d">
 							<span @click="goFans('/followFans',todo.open_id)">粉丝<span>{{todo.fans_num}}</span></span>
@@ -18,7 +18,6 @@
 						<div class="btns_foll">
 							<span @click="showFpllwodel(todo)" v-if="todo.follow_flag==2">互相关注</span>
 							<span @click="showFpllwodel(todo)" v-else-if="todo.follow_flag==1">已关注</span>
-							<span @click="Follow_add(todo)" v-else>关注</span>
 							<span @click="gosx(todo)">私信</span>
 						</div>
 					</div>
@@ -94,6 +93,7 @@ export default {
 			this.data.pr.user_open_id = window.userInfo.open_id;
 		},
 		gosx(el){	
+			this.bdtj('我的关注','创作者-私信','--');
 			this.$router.push({path:'/chat',query:{
 				open_id:el.open_id,
 				avatar:el.avatar,
@@ -106,6 +106,7 @@ export default {
 			this.$router.push({path:d,query:{id:id}});
 		},
 		showFpllwodel(on){
+			this.bdtj('我的关注','创作者-取消关注','--');
 			this.isshowd2 = true;
 			this.openOns = on;
 		},
@@ -141,7 +142,10 @@ export default {
 			this.openIdd = '';
 		},
 		
-		goUser(on){
+		goUser(on,a){
+			if(a){
+				this.bdtj('我的关注','创作者-'+a,'--');
+			}
 			this.$router.push({path: '/works',query:{id:on.open_id}})	
 		},
 		backtime(time){		

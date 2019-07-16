@@ -17,8 +17,8 @@
 			<list class="follwfsffbox" :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
 				<div class="follwfsff">
-					<img @click="goUser(todo)" class="follwfs_1" :src="todo.avatar">
-					<div @click="goUser(todo)" class="follwfs_2">{{todo.username}}</div>
+					<img @click="goUser(todo,'点头像')" class="follwfs_1" :src="todo.avatar">
+					<div @click="goUser(todo,'点昵称')" class="follwfs_2">{{todo.username}}</div>
 					<div class="follwfs_3">{{todo.province}} | {{todo.city}}</div>
 					<div class="follwfs_4">
 						<span @click="goFans('/followFans',todo.open_id)"><span>粉丝</span>{{todo.fans_num}}</span>
@@ -106,10 +106,12 @@ export default {
 			this.data.pr.user_open_id = window.userInfo.open_id;
 		},
 		getCsData(){	
+			
 			this.data.pr.follow_flag = this.value;
 			this.$refs.listDom.sxfn();
 		},
 		gosx(el){
+			this.bdtj('我的关注','粉丝-私信','--');
 			this.$router.push({path:'/chat',query:{
 				open_id:el.open_id,
 				avatar:el.avatar,
@@ -122,6 +124,7 @@ export default {
 			this.$router.push({path:d,query:{id:id}});
 		},
 		showFpllwodel(on){
+			this.bdtj('我的关注','粉丝-取消关注','--');
 			this.isshowd2 = true;
 			this.openOns = on;
 		},
@@ -154,6 +157,7 @@ export default {
 			});
 		},
 		Follow_add(on){
+			this.bdtj('我的关注','粉丝-关注','--');
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 				return
@@ -186,7 +190,10 @@ export default {
 			this.openIdd = '';
 		},
 	
-		goUser(on){
+		goUser(on,a){
+			if(a){
+				this.bdtj('我的关注','粉丝-'+a,'--');
+			}
 			this.$router.push({path: '/works',query:{id:on.open_id}})	
 		},
 		backtime(time){

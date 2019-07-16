@@ -145,8 +145,7 @@ export default {
 	cursor: pointer;
 	opacity: 0;
 	display: block;
-	min-width: 100%;
-	min-height: 100%;
+	width: 100%;
 	position: absolute;
 	top: 50%;
 	left: 50%;

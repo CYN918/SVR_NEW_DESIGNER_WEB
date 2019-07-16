@@ -3,9 +3,9 @@
 		<img class="header_1 pend" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/nav_logo.svg" @click="jump">
 		
 		<div class="header_2">
-			<router-link class="pend" to="/index">首页</router-link>
-			<router-link class="last pend" to="/activvity">活动</router-link>
-			<router-link v-if="!isggr" class="last pend" to="/tip">供稿人</router-link>
+			<a :class="['pend',ison=='/index'?'router-link-active':'']" @click="goZP('/index','首页')">首页</a>
+			<a :class="['last pend',ison=='/activvity'?'router-link-active':'']" @click="goZP('/activvity','活动')">活动</a>
+			<a v-if="!isggr" :class="['last pend',ison=='/tip'?'router-link-active':'']" @click="goZP('/tip','供稿人')">供稿人</a>
 		</div>
 		
 		<div class="header_3">
@@ -35,7 +35,8 @@
 				</div>
 			</span>
 
-			<span class="iconfont  messgeH1"><span class="pend" @click="showisXXNav">&#xe65b;<div @click="showisXXNav" v-if="messgNum && messgNum.unread_total_num>0" :class="['messgeH2',messgNum.unread_total_num>9?'messgeH2x':'']">{{backXXnUM(messgNum.unread_total_num)}}</div></span>
+			<span class="iconfont  messgeH1">
+				<span class="pend" @click="showisXXNav">&#xe65b;<div @click="showisXXNav" v-if="messgNum && messgNum.unread_total_num>0" :class="['messgeH2',messgNum.unread_total_num>9?'messgeH2x':'']">{{backXXnUM(messgNum.unread_total_num)}}</div></span>
 				
 				<div v-if="isXXNav" @click="hidisXXNav" class="messgeH3Boxf1"></div>
 				<div v-if="isXXNav" class="messgeH3">
@@ -65,21 +66,20 @@
 
 			<span class="iconfont pend" @click="goUpload">&#xe61e;</span>
 			<span class="header_4" v-if="userMssge">
-				<div @click="goUser"><img :src="userMssge.avatar" alt=""></div>
+				<div @click="goUser('头像')"><img :src="userMssge.avatar" alt=""></div>
 				<div  class="userBpx">
-					<a @click="goUser">{{backnAM(userMssge.username)}}</a>
+					<a @click="goUser('昵称')">{{backnAM(userMssge.username)}}</a>
 					<ul> 
-						<router-link  to="/myAll"><li><img class="svgImg2 cztsyscl" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></router-link>
-						<router-link  to="/myDynamic"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></router-link>
-						<router-link  to="/profit"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></router-link>
-						<router-link  to="/setUser"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></router-link>
+						<a @click="goZP('/myAll','我的创作')"><li><img class="svgImg2 cztsyscl" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></a>
+						<a @click="goZP('/myDynamic','我的关注')"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></a>
+						<a @click="goZP('/profit','我的收益')"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></a>
+						<a @click="goZP('/setUser','账号设置')"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></a>
 						<a @click="showHb(true)"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
 					</ul>
 				</div>
 			</span>	
-			<span class="header_4" v-else><router-link class="pend" to="/login">登录</router-link><span>|</span><router-link class="pend" to="/register">注册</router-link></span>			
-					
-					
+			<span class="header_4" v-else>
+				<a class="pend" @click="goZP('/login','登录')">登录</a><span>|</span><a class="pend" @click="goZP('/register','注册')">注册</a></span>				
 		</div>
 		
 		<div v-show="isshowd" class="loginoutBox">
@@ -116,7 +116,7 @@ export default {
 			data2:[],
 			sccy:0,
 			isggr:'',
-
+			ison:'/index',
 		}		
 	},
 	mounted: function () {	
@@ -176,6 +176,7 @@ export default {
 			this.$router.push({path: '/works',query:{id:id}})	
 		},
 		gosearch(name){
+			this.bdtj('通用模块','顶部栏—输入后搜索','--');
 			let na = name.words || name.work_name || name.username || name;
 			let hotc = localStorage.getItem("scrllhot");
 			let on = -1;
@@ -209,6 +210,7 @@ export default {
 			},200);
 		},
 		showsearch(){
+			this.bdtj('通用模块','顶部栏点击_搜索','--');
 			if(this.searchType==true){
 				if(!this.searcCont){
 					return
@@ -230,6 +232,7 @@ export default {
 			return str+'.png';
 		},
 		showisXXNav(){
+			this.bdtj('通用模块','顶部栏点击_消息','--');
 			this.isXXNav = true;
 			this.getNotice();
 		},
@@ -238,11 +241,17 @@ export default {
 
 		},
         jump(){
+			this.bdtj('通用模块','顶部栏-点击logo','--');
             this.$router.push({
                 path:'/index'
             })
         },
+		goZP(a,b){
+			this.bdtj('通用模块','顶部栏点击_'+b,'--');
+			this.$router.push({path: a})			
+		},
 		initHead(){	
+			this.ison = this.$route.fullPath;
 			this.hidisXXNav();
 			this.getMessgNumber();
 			this.getHotWords();
@@ -261,7 +270,8 @@ export default {
 			if(!this.userMssge){this.$router.push({path:'/login'}); return}
 			this.$router.push({path:'/upload'})			
 		},
-		goUser(){
+		goUser(a){
+			this.bdtj('通用模块','顶部栏点击_'+a,'--');
 			this.$router.push({path: '/works',query:{id:window.userInfo.open_id}})	
 		},
 		
@@ -286,6 +296,9 @@ export default {
 			});
 		},
 		showHb(is){
+			if(is==true){
+				this.bdtj('通用模块','顶部栏点击_退出','--');
+			}
 			this.isshowd = is;
 		},
 		

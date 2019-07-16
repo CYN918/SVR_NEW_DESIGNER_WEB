@@ -2,7 +2,7 @@
 	<div class="upFm">
 		<div class="upFm_bg" ></div>
 		<div class="upFm_box">
-			<img @click="close" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/upload/yh_zlws_tx_gb.svg" class="uploadBoxd2_1">
+			<img @click="closeds('关闭')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/upload/yh_zlws_tx_gb.svg" class="uploadBoxd2_1">
 			<div class="upFm_yl">
 				<div class="upFm_yl_1">
 					<div class="upFm_yl_1_1" >
@@ -73,7 +73,7 @@
 			
 			
 			<div class="upFm_ybt">
-				<div @click="close">取消</div>
+				<div @click="closeds('取消')">取消</div>
 				<div @click="startCrop">确定</div>
 			</div>
 		</div>
@@ -121,7 +121,10 @@ export default {
 	
 	methods: {
 		
-		close(){
+		closeds(a){
+			if(a){
+				this.bdtj('封面上传弹窗',a,'--');
+			}
 			this.$parent.close(''); 		
 		},
 		setImgd(img,id){
@@ -138,6 +141,7 @@ export default {
 			};
 		},
 		startCrop(){
+			this.bdtj('封面上传弹窗','确定','--');
 			if(this.opType==1){
 				Message({message: '封面正在上传，请稍后'});
 				return
@@ -207,6 +211,7 @@ export default {
 			this.$refs.cropper.rotateLeft()
 		},
 		uploadImg(e){
+			this.bdtj('封面上传弹窗','重新上传','--');
 			let file = e.target.files[0];
 			if (!/\.(jpg|jpeg|png|JPG|PNG|GIF)$/.test(e.target.value)||e.target.files.length==0) {
 				return

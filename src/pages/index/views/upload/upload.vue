@@ -4,7 +4,7 @@
 			<div class="topNavComBox1">
 				<div class="topNavComBox2">上传作品</div>
 				<a :class="['pend',chekin?'onchekd':'']" @click="setChekin(true)">编辑作品内容</a>
-				<a :class="['pend',!chekin?'onchekd':'']" @click="setChekin(false)">其他信息设置</a>
+				<a :class="['pend',!chekin?'onchekd':'']" @click="setChekin(false,'其他信息设置')">其他信息设置</a>
 			</div>
 		</div>
 		<div v-show="chekin" class="upBoxd">
@@ -18,9 +18,9 @@
 			</div>
 			<div class="upBoxd2">
 				
-				<div @click="showUp(0)"><img class="svgImg1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
-				<div @click="showUp(1)"><img class="svgImg1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
-				<div @click="showUp(2)"><img class="svgImg1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/sc_icon_scyp.svg" alt="" />上传音频</div>
+				<div @click="showUp(0,'上传图片')"><img class="svgImg1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
+				<div @click="showUp(1,'上传视频')"><img class="svgImg1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
+				<div @click="showUp(2,'上传音频')"><img class="svgImg1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/sc_icon_scyp.svg" alt="" />上传音频</div>
 			</div>
 			<UplodImg v-if="isshowd" :configData="upConfig"></UplodImg>
 			
@@ -114,7 +114,7 @@
 			</div>
 		</div>
 		<div class="UpBtn1">
-			<div class="UpBtn1_1" v-if="!chekin" @click="setChekin(true)">上一步</div><div @click="userSave" class="UpBtn1_1">保存</div><div v-if="chekin" :class="['UpBtn1_2',ck2]" @click="setChekin(false)">下一步</div>
+			<div class="UpBtn1_1" v-if="!chekin" @click="setChekin(true,'上一步')">上一步</div><div @click="userSave" class="UpBtn1_1">保存</div><div v-if="chekin" :class="['UpBtn1_2',ck2]" @click="setChekin(false,'下一步')">下一步</div>
 			<div class="UpBtn1_1" @click="seeCg" v-if="!chekin">预览</div><div @click="savZp" :class="['UpBtn1_2',ck3]" v-if="!chekin">提交发布</div>
 		</div>
 		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver" :InputValue="form.work_name" :type="selectedOptions"></upoloadcaver>
@@ -336,6 +336,7 @@ export default {
 			this.closeTd('isshowT2');
 		},
 		showupFm(){
+			this.bdtj('上传作品-其他信息设置','上传封面','--');
 			this.isPhto = true;
 			this.$refs.upoloadcaver.setImgd(this.form.face_pic,this.form.work_id);
 		},
@@ -402,17 +403,34 @@ export default {
 		saved(){
 			this.saveData(0,'保存成功');			
 		},
-		setChekin(type){
+		setChekin(type,b){
+			let p = '上传作品-编辑作品类容';
+			if(this.chekin==false){
+				p = '上传作品-其他信息设置';
+			}
+			if(b){
+				this.bdtj(p,b,'--');
+			}
+			
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){
+			
+				if(b){
+					this.bdtj(p,b+'失败','--');
+				}
 				Message({message: '请先填写标题'});
 				return
 			}
 			if(!this.form.content || this.ifBjType==0){
+				if(b){
+					this.bdtj(p,b+'失败','--');
+				}
 				Message({message: '请先填写内容'});
 				return
 			}
 			
-			
+			if(b && b!='其他信息设置'){
+				this.bdtj(p,b+'成功','--');
+			}
 			this.chekin = type;
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
@@ -452,7 +470,8 @@ export default {
 				this.ifBjType=0;
 			}
 		},
-		showUp(on){
+		showUp(on,a){
+			this.bdtj('上传作品-编辑作品类容',a,'--');
 			this.upConfig = this.upList[on];
 			this.isshowd = true;
 			if(this.ifBjType == 0){
@@ -539,6 +558,8 @@ export default {
 
 		},
 		seeCg(){
+			this.bdtj('上传作品-其他信息设置','预览','--');
+			
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
@@ -571,9 +592,19 @@ export default {
 			}	
 			let dp = this.setSaveData(1,1);
 			dp.link_ids = this.zk_wrokids.join(',');
-			this.saveData(dp,'上传成功',()=>{setTimeout(()=>{this.$router.push({path:'/'})},1000)});
+			this.saveData(
+				dp,
+				'上传成功',
+				()=>{this.bdtj('上传作品-其他信息设置','提交发布成功','--');setTimeout(()=>{this.$router.push({path:'/myAll'})},1000)},
+				()=>{this.bdtj('上传作品-其他信息设置','提交发布失败','--');},
+			);
 		},
 		userSave(){
+			let p = '上传作品-编辑作品类容';
+			if(this.chekin==false){
+				p = '上传作品-其他信息设置';
+			}
+			this.bdtj(p,'保存','--');
 			if(this.saveTyped==1){
 				Message({message: '正在记录请稍后再试'});
 				return
@@ -599,12 +630,18 @@ export default {
 			pr.access_token = window.userInfo.access_token;		
 			return pr;
 		},
-		saveData(data,messg,fn){	
+		saveData(data,messg,fn,fn2){	
 			let pr = JSON.stringify(data);
 			pr = JSON.parse(pr);
 			this.saveTyped=1
 			pr.labels = JSON.stringify(pr.labels);
-			this.api.saveWorks(pr).then(()=>{
+			this.api.saveWorks(pr).then((da)=>{
+				if(da=='error'){
+					if(fn2){
+						fn2();
+					}
+					return
+				}
 				this.saveTyped='';
 				Message({message:messg});
 				if(fn){
@@ -613,6 +650,9 @@ export default {
 				
 			}).catch(()=>{
 				this.saveTyped='';
+				if(fn2){
+					fn2();
+				}
 			});	
 		},
 		checkPage1(){
@@ -638,6 +678,7 @@ export default {
 			return true
 		},
 		fileUpfj(flie){		
+			this.bdtj('上传作品-其他信息设置','上传附件','--');
 			if(this.fjtext== '上传中'){
 				return
 			}

@@ -2,7 +2,7 @@
     <div class="upRpt" v-if="showd">
         <div class="upRpt_bg">
             <div class="upRpt_content">
-                <img class="uploadBoxd2_1" @click="hidReport" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+                <img class="uploadBoxd2_1" @click="hidReport('关闭')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
                 <div class="upRpt_title">
                     <span>举报</span>
                 </div>
@@ -22,7 +22,7 @@
                     </el-input>
                 </div>
                 <div class="upRpt_btn">
-                    <span class="qx" @click="hidReport">取消</span>
+                    <span class="qx" @click="hidReport('取消')">取消</span>
                     <span class="tj" @click="AddReport">提交意见</span>
                 </div>
             </div>
@@ -73,7 +73,10 @@
 				this.position = ad;
 				this.showd = true;
 			},
-			hidReport(){
+			hidReport(a){
+				if(a){
+					this.bdtj('举报弹窗',a,'--');
+				}
 				this.showd = false;
 			},
             getReport(){
@@ -84,11 +87,14 @@
                 })
             },
             AddReport(){
+				this.bdtj('举报弹窗','提交举报','--');
                 if(!this.detail){
+					this.bdtj('举报弹窗','提交举报失败','--');
                     Message('举报原因不能为空');
                     return
                 }
 				if(this.ajaxType==1){
+					this.bdtj('举报弹窗','提交举报失败','--');
 					Message('正在提交请稍后');
 					return;
 				}
@@ -104,10 +110,12 @@
 				this.ajaxType=1;
                 this.api.Report_addReport(pr).then((res)=>{
 					this.ajaxType=0;
-					if(!res){return}
+					if(!res){this.bdtj('举报弹窗','提交举报失败','--');return}
+					this.bdtj('举报弹窗','提交举报成功','--');
                     Message('提交成功');
 					this.hidReport();	
                 }).catch(()=>{
+					this.bdtj('举报弹窗','提交举报失败','--');
 					this.ajaxType=0;
 				});
             },

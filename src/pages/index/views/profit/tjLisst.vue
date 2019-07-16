@@ -1,7 +1,7 @@
 <template>
 	<div v-if="list.length>0" class="tjEvent">
 		<div class="tjEvent_1">
-			推荐活动<router-link class="tjEvent_2 pend" to="/activvity">查看更多</router-link>
+			推荐活动<a class="tjEvent_2 pend" @click="go('/activvity')">查看更多</a>
 		</div>
 		<ul class="tjEvent_3">
 			<li @click="goEvent(el.id)" class="pend" v-for="(el,index) in list" :key="index">
@@ -43,7 +43,12 @@ export default {
 			if(!d){return}
 			return d.split(" ")[0]
 		},
+		go(a){
+			this.bdtj('我的收益','推荐活动更多','--');
+			this.$router.push({path:a});
+		},
 		goEvent(id){
+			this.bdtj('我的收益','推荐活动','--');
 			this.$router.push({path:'/detailed',query:{id:id}});
 		},
 	},

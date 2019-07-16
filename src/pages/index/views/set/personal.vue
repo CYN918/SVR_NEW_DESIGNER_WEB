@@ -25,11 +25,11 @@
 						<div class="suc_1_9">
 							<span>身份证正面照片</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">
+								<span class="suc_1_9_3" @click="scsk('身份证正面照')">
 									上传照片
 									<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
 								</span>
-								<div class="suc_1_9_4 iconfont">&#xe65c;
+								<div class="suc_1_9_4 iconfont" @click="scsk('身份证正面照？')">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">
 											<div class="suc_1_9_9">证件上传示例</div>
@@ -55,11 +55,11 @@
 						<div class="suc_1_9">
 							<span>身份证反面照片</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">
+								<span class="suc_1_9_3" @click="scsk('身份证反面照片')">
 									上传照片
 									<uploadFile :setJdt="setJdt2" :sussFn="uploadSC2" :cg="fileConfig"></uploadFile>
 								</span>
-								<div class="suc_1_9_4 iconfont">&#xe65c;
+								<div class="suc_1_9_4 iconfont" @click="scsk('身份证反面照片？')">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">
 											<div class="suc_1_9_9">证件上传示例</div>
@@ -83,11 +83,11 @@
 						<div class="suc_1_9">
 							<span>手持身份证照片</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">
+								<span class="suc_1_9_3" @click="scsk('手持身份证照片')">
 									上传照片
 									<uploadFile :setJdt="setJdt3" :sussFn="uploadSC3" :cg="fileConfig"></uploadFile>
 								</span>
-								<div class="suc_1_9_4 iconfont">&#xe65c;
+								<div class="suc_1_9_4 iconfont" @click="scsk('手持身份证照片？')">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">
 											<div class="suc_1_9_9">证件上传示例</div>
@@ -190,14 +190,7 @@
 					<span @click="qdTc3">确定</span>
 				</div>
 			</div>
-			<div v-if="tAncType==4" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
-				<img class="tAncType4_1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/email01.png" alt="">
-				<div class="tAncType4_2">
-					激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/>
-					请及时登录邮箱，点击邮件中的链接激活帐户。
-				</div>
-			</div>
+	
 			
 		</div>
 	</div>
@@ -206,17 +199,13 @@
 <script>
 
 import {Message} from 'element-ui'
-import tophead from './myHead2';
-import upoloadcaver from './upoloadcaver';
 import Input from '../../components/input'
 import Citys from '../../components/citys'
-import Select from '../../components/select'
-import rideo from '../../components/rideo'
 import uploadFile from '../../components/uploadFile'
 import jdt from '../../components/jdt'
 export default {
 	name: 'works',
-	components:{upoloadcaver,Input,Citys,Select,rideo,tophead,uploadFile,jdt},
+	components:{Input,Citys,uploadFile,jdt},
 	data(){
 		return {
 			isJdt1:'',
@@ -334,6 +323,9 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		scsk(a){
+			this.bdtj('个人认证页面',a,'--');
+		},
 		uploadSC1(da){
 			this.isJdt1='';
 			this.postData.front_photo = da.url;
@@ -368,6 +360,7 @@ export default {
 			}		
 		},
 		goPu(ud){
+			this.bdtj('个人认证页面','供稿人协议','--');
 			if(!ud){return}
 			window.open(ud)
 	
@@ -504,6 +497,7 @@ export default {
 			this.tancData.old_mobile_zone = val;
 		},
 		ajaxYzmZd(){
+			this.bdtj('个人认证页面','获取验证码','--');
 			let pd = this.form.mobile;
 			if(this.form.mobile_zone!='86'){
 				if(!(typeof pd === 'number' && pd%1 === 0)){
@@ -648,6 +642,9 @@ export default {
 			if(on==3){
 				this.Verifycodeget();
 			}
+			if(on==2){
+				this.bdtj('个人认证页面','更换手机号','--');
+			}
 			this.tAncType=on;
 		},
 		
@@ -757,10 +754,13 @@ export default {
 			
 		},
 		Userupdate(){
+			this.bdtj('个人认证页面','申请成为供稿人','--');
 			if(this.postCheck()==false){
+				this.bdtj('个人认证页面','申请成为供稿人失败','--');
 				return
 			}
 			if(!this.isPostky){
+				this.bdtj('个人认证页面','申请成为供稿人失败','--');
 				Message({message: '请填写所有信息'});
 				return
 			}
@@ -785,8 +785,10 @@ export default {
 			};
 			this.api.identifyAuth(pr).then((da)=>{
 				if(da=='error'){
+					this.bdtj('个人认证页面','申请成为供稿人失败','--');
 					return
 				}
+				this.bdtj('个人认证页面','申请成为供稿人成功','--');
 				window.userInfo.contributor_format_status = 1;
 				window.userInfo.contributor_type = 1;
 				localStorage.setItem('userT',JSON.stringify(window.userInfo));
@@ -849,10 +851,6 @@ export default {
 				this.$parent.setNav(navd);
 				this.postData = da; 
 			})
-		},
-		showisPhto(){
-			this.$refs.upoloadcaver.setImgd(this.caver);
-			this.isPhto=true;
 		},
 		close(img){
 			if(img){

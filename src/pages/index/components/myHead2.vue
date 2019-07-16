@@ -3,7 +3,7 @@
 		<div class="setHeadBox_1">
 			<span class="setHeadBox_2">{{config.title}}</span>
 			<div class="setHeadBox_3">
-				<router-link v-for="(el,index) in config.arr"  :to="el.u">{{el.n}}</router-link>							
+				<a v-for="(el,index) in config.arr" :class="['pend',ison==el.u?'router-link-active':'']" @click="goZP(el.u,el.n)">{{el.n}}</a>						
 			</div>
 		</div>
 	</div>
@@ -17,6 +17,32 @@ export default {
 			default:{}
 		}
 	},
+	data(){
+		return{
+			ison:'',
+		}
+	},
+	mounted: function () {	
+		this.init();	
+	}, 
+	
+	methods: {	
+		init(){
+			console.log(this.$route.fullPath);
+			this.ison = this.$route.fullPath;
+		},	
+		goZP(a,b){
+			this.bdtj('文档服务中心','tab_'+b,'--');
+			this.$router.push({path: a})			
+		},
+	
+	},
+	watch: {	
+		'$route': function() {
+			this.init();
+		},
+	}
+	
 }	
 </script>
 

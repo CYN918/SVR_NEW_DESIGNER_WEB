@@ -1,13 +1,13 @@
 <template>
 
 		<footer class="footerBox">
-			<span class="pend" @click="goPu('/text/about')">关于我们</span>
-			<span class="pend" @click="goPu('/text/userProtocol')">用户协议</span>
-			<span class="pend" @click="goPu('/text/authorization')">授权协议</span>
-			<span class="pend" @click="goPu('/text/help')">帮助中心</span>
+			<span class="pend" @click="goPu('/text/about','关于我们')">关于我们</span>
+			<span class="pend" @click="goPu('/text/userProtocol','用户协议')">用户协议</span>
+			<span class="pend" @click="goPu('/text/authorization','授权协议')">授权协议</span>
+			<span class="pend" @click="goPu('/text/help','帮助中心')">帮助中心</span>
 			<span class="pend" @click="showFdb">意见反馈</span>
 			<span>©2019 掌酷</span>
-			<span>粤ICP备15039011号</span>
+			<span @click="banh">粤ICP备15039011号</span>
 			<feedback v-if="fd"></feedback>
 		</footer>
 </template>
@@ -22,11 +22,17 @@ export default {
 			}
 		},
 		methods:{
-			goPu(ud){
+			banh(){
+				this.bdtj('通用模块','底部栏点击_备案号','--');
+			},
+			goPu(ud,b){
+				
+				this.bdtj('通用模块','底部栏点击_'+b,'--');
 				if(!ud){return}
 				this.$router.push({path:ud})
 			},
 	        showFdb(){
+				this.bdtj('通用模块','底部栏点击_意见反馈','--');
 				if(!window.userInfo || !window.userInfo.access_token){
 					Message('请先登录');
 					return

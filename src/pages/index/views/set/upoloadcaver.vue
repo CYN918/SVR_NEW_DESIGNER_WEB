@@ -27,12 +27,12 @@
 				</div>				
 				<div class="phoshc4_2">预览效果</div>
 				<div class="phoshc4_3">
-					<div @click="close">取消</div>
+					<div @click="close('取消')">取消</div>
 					<div @click="startCrop">确定</div>
 				</div>
 			</div>
 			<div class="phoshc5">
-				<div class="phoshc5_1">
+				<div class="phoshc5_1" @click="bdscff('重新上传')">
 					重新上传
 					<input type="file" id="uploads" accept="image/png, image/jpeg, image/jpg" @change="uploadImg">															
 				</div>
@@ -69,7 +69,13 @@ export default {
 	mounted: function () {	
 	}, 
 	methods: {
-		close(){
+		bdscff(a){
+			this.bdtj('帐号设置','基本信息-头像弹窗'+a,'--');
+		},
+		close(a){
+			if(a){
+				this.bdscff(a);
+			}
 			this.$parent.close(''); 		
 		},
 		setImgd(img){
@@ -86,6 +92,7 @@ export default {
 			};
 		},
 		startCrop(){
+			this.bdscff('确定');
 			this.$refs.cropper.getCropData(data => {
 				function dataURLtoFile(dataurl) {
 					  var arr = dataurl.split(',');

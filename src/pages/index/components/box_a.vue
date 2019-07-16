@@ -14,7 +14,7 @@
 				</div>
 			</div>
 		</div>
-		<userTc :tcData="el"></userTc>
+		<userTc :tcData="el" :tjData="tjData"></userTc>
 	</div>
 </template>
 
@@ -55,6 +55,7 @@ export default {
 			return a;
 		},
 		openxq(){
+			if(this.tjData[0])
 			this.tongj(this.tjData[0]);
 			window.open('#/cont?id='+this.el.work_id)
 		},

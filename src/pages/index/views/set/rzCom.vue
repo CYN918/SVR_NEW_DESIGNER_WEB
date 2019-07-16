@@ -4,8 +4,9 @@
 			<div class="setHeadBox_1">
 				<span class="setHeadBox_2">平台供稿人-认证申请</span>
 				<div class="setHeadBox_3">
-					<router-link v-if="navOn==0 || navOn==1" to="/setPersonal">个人</router-link>
-					<router-link v-if="navOn==0 || navOn==2" to="/setEnterprise">企业</router-link>		
+					<a></a>
+					<a v-if="navOn==0 || navOn==1"  :class="[ison=='/setPersonal'?'router-link-active':'']" @click="goZP('/setPersonal','个人')">个人</a>	
+					<a v-if="navOn==0 || navOn==2"  :class="[ison=='/setEnterprise'?'router-link-active':'']" @click="goZP('/setEnterprise','企业')">企业</a>		
 				</div>
 			</div>
 		</div>
@@ -19,13 +20,32 @@ export default {
 	data(){
 		return{
 			navOn:0,
+			ison:'',
 		}
-	},
-	methods: {
+	},	
+	mounted: function () {	
+		this.init();	
+	}, 
+	
+	methods: {	
+		init(){
+			this.ison = this.$route.fullPath;
+		},	
+		goZP(a,b){
+			this.bdtj('认证页面','tab_'+b,'--');
+			this.$router.push({path: a})			
+		},
 		setNav(on){
 			this.navOn=on;
 		}
+	
+	},
+	watch: {	
+		'$route': function() {
+			this.init();
+		},
 	}
+	
 	
 }	
 </script>

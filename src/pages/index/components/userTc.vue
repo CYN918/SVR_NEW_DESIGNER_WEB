@@ -38,16 +38,7 @@ export default {
 	},
 	props: {
 		tcData:Object,
-		default:{
-			img:'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/nav_tx.png',
-			name:'未知的',
-			ad:'未知',
-			zy:'',
-			fs:0,
-			rq:0,
-			cz:0,
-			follwTyle:0,
-		}
+		tjData:Array,
 	},
 	
 	mounted: function () {	
@@ -67,7 +58,10 @@ export default {
 			};
 			this.$router.push({path:'/chat',query:pr});
 		},
-		goR(d){
+		goR(d){	
+			if(this.tjData.length>0){
+				this.bdtj(this.tjData[1][0],this.tjData[1][1],'--');
+			}
 			this.$router.push({path:d,query:{id:this.tcData.user_info.open_id}});
 		},
 		isme(){

@@ -1,7 +1,7 @@
 <template>
     <div  class="upfdb">
         <div class="upfdb_bg">
-			<div class="usdsgsga"><img class="upfdb_img"  src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png" @click="qx"/>
+			<div class="usdsgsga"><img class="upfdb_img"  src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png" @click="qx('关闭')"/>
             <div class="upfdb_content">
                 
                 <div class="upfdb_title">
@@ -57,7 +57,7 @@
 
                 </div>
                 <div class="upRpt_btn">
-                    <span class="qx" @click="qx">取消</span>
+                    <span class="qx" @click="qx('取消')">取消</span>
                     <span class="tj" @click="addFdb">提交意见</span>
                 </div>
             </div>
@@ -96,29 +96,38 @@
                     this.typeList = res;
                 })
             },
-            qx(){
+            qx(a){
+				if(a){
+					this.bdtj('意见反馈弹窗',a,'--');
+				}
                 this.$parent.heid();
             },
             addFdb(){
+				this.bdtj('意见反馈弹窗','提交意见','--');
                 if(!this.detail){
+					this.bdtj('意见反馈弹窗','提交意见失败','--');
                     Message('请输入问题描述');
                     return
                 }
                 if(!this.imgList){
+					this.bdtj('意见反馈弹窗','提交意见失败','--');
                     Message('请上传截图');
                     return
                 }
                 if(!this.link_type){
+					this.bdtj('意见反馈弹窗','提交意见失败','--');
                     Message('联系方式不能为空');
                     return
                 }
                 if(!this.link){
+					this.bdtj('意见反馈弹窗','提交意见失败','--');
                     Message('联系方式不能为空');
                     return
                 }
                 let params={access_token:window.userInfo.access_token,classify_id:this.typeList[this.classify].id,classify_name:this.typeList[this.classify].classify_name,detail:this.detail,pic:JSON.stringify(this.imgList),link_type:this.link_type,link:this.link}
                 this.api.Feedback_add(params).then((res)=>{
-					if(!res){return}
+					if(!res){this.bdtj('意见反馈弹窗','提交意见失败','--');return}
+					this.bdtj('意见反馈弹窗','提交意见成功','--');
 					Message('提交成功');
 					this.qx();
                 })
@@ -127,6 +136,7 @@
                 this.imgList.splice(index,1)
             },
             fileUp(flie){
+				this.bdtj('意见反馈弹窗','上次图片','--');
                 let fld = flie.target.files[0];
                
                 if(this.imgType.indexOf(fld.type)==-1){

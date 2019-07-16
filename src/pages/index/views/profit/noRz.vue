@@ -28,6 +28,7 @@ export default {
 			this.getUserDetail();
 		},
 		gosetPersonal(){
+			this.bdtj('我的收益','申请认证平台供稿人','--');
 			this.$router.push({path:'/setPersonal'})			
 		},
 		getUserDetail(){

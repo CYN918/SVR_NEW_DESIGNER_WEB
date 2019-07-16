@@ -2,7 +2,7 @@
 	<div class="uploadBoxd">
 		<div class="uploadBoxd1" ></div>
 		<div class="uploadBoxd2">
-			<img class="uploadBoxd2_1" @click="closed" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+			<img class="uploadBoxd2_1" @click="closedxf('关闭')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
 			<div class="uploadBoxd2_2">
 				<div class="uploadBoxd2_2_1">
 					<div>{{configData.title}}</div>
@@ -43,7 +43,7 @@
 			</ul>
 			<div class="uploadBoxd2_4">
 				<div class="uploadBoxd2_4_1">已选{{this.checkin.length}}项，最多可选50项</div>
-				<div @click="closed">取消</div>
+				<div @click="closedxf('取消')">取消</div>
 				<div @click="deleteFile">删除</div>
 				<div class="uploadBoxd2_4_2" @click="InImg">插入</div>
 			</div>
@@ -110,6 +110,7 @@ export default {
 			
 		},
 		InImg(){
+			this.bdtj(this.configData.title,'插入','--');
 			if(this.checIurl.length==0){
 				Message({message: '请先选择素材'});
 				return
@@ -166,6 +167,10 @@ export default {
 		
 			this.$parent.closed(on);
 		},
+		closedxf(a){
+			this.bdtj(this.configData.title,a,'--');
+			this.$parent.closed();
+		},		
 		onxz(obj,on){
 			let lend = this.checkin.indexOf(obj.fid);
 			if(lend==-1){
@@ -256,6 +261,7 @@ export default {
 			this.loadList[on].show='';
 		},
 		qxclosd(obj){
+			this.bdtj(this.configData.title,'取消上传','--');
 			obj.xhr.abort();
 		},
 		clPic(fld,on){
@@ -343,6 +349,7 @@ export default {
 			return fileSize;
 		},	
       	fileUp(flie){
+			this.bdtj(this.configData.title,this.configData.btn,'--');
 			for(let i=0,n=flie.target.files.length;i<n;i++){
 				this.clPic(flie.target.files[i],i);
 			}

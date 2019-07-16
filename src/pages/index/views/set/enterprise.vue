@@ -23,11 +23,11 @@
 						<div class="suc_1_9">
 							<span>营业执照</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">
+								<span class="suc_1_9_3" @click="scsk('营业执照')">
 									上传照片
 									<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
 								</span>
-								<div class="suc_1_9_4 iconfont">&#xe65c;
+								<div class="suc_1_9_4 iconfont" @click="scsk('营业执照？')">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">
 											<div class="suc_1_9_9">证件上传示例</div>
@@ -51,8 +51,8 @@
 						<div class="suc_1_9">
 							<span>开户许可证</span>
 							<div class="suc_1_9_2">
-								<span class="suc_1_9_3">上传照片<uploadFile :setJdt="setJdt2" :sussFn="uploadSC2" :cg="fileConfig"></uploadFile></span>
-								<div class="suc_1_9_4 iconfont">&#xe65c;
+								<span class="suc_1_9_3"  @click="scsk('开户许可证')">上传照片<uploadFile :setJdt="setJdt2" :sussFn="uploadSC2" :cg="fileConfig"></uploadFile></span>
+								<div class="suc_1_9_4 iconfont"  @click="scsk('开户许可证？')">&#xe65c;
 									<div class="suc_1_9_5">
 										<div class="suc_1_9_6">
 											<div class="suc_1_9_9">证件上传示例</div>
@@ -131,17 +131,13 @@
 <script>
 
 import {Message} from 'element-ui'
-import tophead from './myHead2';
-import upoloadcaver from './upoloadcaver';
 import Input from '../../components/input'
 import Citys from '../../components/citys'
-import Select from '../../components/select'
-import rideo from '../../components/rideo'
 import uploadFile from '../../components/uploadFile'
 import jdt from '../../components/jdt'
 export default {
 	name: 'works',
-	components:{upoloadcaver,Input,Citys,Select,rideo,tophead,uploadFile,jdt},
+	components:{Input,Citys,uploadFile,jdt},
 	data(){
 		return {
 			isJdt1:'',
@@ -250,6 +246,9 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		scsk(a){
+			this.bdtj('企业认证页面',a,'--');
+		},
 		uploadSC1(da){
 			this.isJdt1='';
 			this.postData.business_license = da.url;
@@ -271,6 +270,7 @@ export default {
 			}		
 		},
 		goPu(ud){
+			this.bdtj('企业认证页面','供稿人协议','--');
 			if(!ud){return}
 			window.open(ud);
 		},
@@ -361,6 +361,7 @@ export default {
 			this.tancData.old_mobile_zone = val;
 		},
 		ajaxYzmZd(){
+			this.bdtj('企业认证页面','获取验证码','--');
 			let pd = this.form.mobile;
 			if(this.form.mobile_zone!='86'){
 				if(!(typeof pd === 'number' && pd%1 === 0)){
@@ -494,6 +495,9 @@ export default {
 			if(on==3){
 				this.Verifycodeget();
 			}
+			if(on==2){
+				this.bdtj('企业认证页面','更换手机号','--');
+			}
 			this.tAncType=on;
 		},
 		
@@ -544,7 +548,9 @@ export default {
 			
 		},
 		Userupdate(){
+			this.bdtj('企业认证页面','申请成为供稿人','--');
 			if(!this.isPostky){
+				this.bdtj('企业认证页面','申请成为供稿人失败','--');
 				return
 			}
 			let pr = {
@@ -565,8 +571,10 @@ export default {
 			};
 			this.api.identifyAuth(pr).then((da)=>{
 				if(da=='error'){
+					this.bdtj('企业认证页面','申请成为供稿人失败','--');
 					return
 				}
+				this.bdtj('企业认证页面','申请成为供稿人成功','--');
 				Message({message: '申请已提交审核'});
 				window.userInfo.contributor_format_status = 1;
 				window.userInfo.contributor_type = 2;

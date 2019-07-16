@@ -1,11 +1,10 @@
 <template>
 	<div class="proNav2">
 		<div class="proNav2_1">
-			<router-link class="pend" to="/profit">录用记录</router-link>
-			<router-link class="pend" to="/fcsy">分成收益</router-link>
-			<router-link class="pend" to="/qtsy">其他收益</router-link>
-			<router-link class="last pend" to="/money">提现记录</router-link>
-			
+			<a :class="['pend',ison=='/profit'?'router-link-active':'']" @click="goZP('/profit','录用记录')">录用记录</a>
+			<a :class="['pend',ison=='/fcsy'?'router-link-active':'']" @click="goZP('/fcsy','分成收益')">分成收益</a>
+			<a :class="['pend',ison=='/qtsy'?'router-link-active':'']" @click="goZP('/qtsy','其他收益')">其他收益</a>
+			<a :class="['last pend',ison=='/money'?'router-link-active':'']" @click="goZP('/money','提现记录')">提现记录</a>
 			<div class="pr_seBox">
 				<div v-if="config.list1">
 					录用形式：
@@ -49,6 +48,7 @@ export default {
 		return {
 			v1:'',
 			v2:'',
+			ison:'profit'
 		}
 	},
 	mounted: function(){
@@ -62,7 +62,7 @@ export default {
 			if(this.config.v2 || this.config.v2==0){
 				this.v2 = this.config.v2;
 			}
-			
+			this.ison = this.$route.fullPath;
 		},
 		sxFn1(){
 			this.$parent.setType(this.v1);
@@ -70,7 +70,11 @@ export default {
 		sxFn2(){
 			this.$parent.setTim(this.v2);
 			
-		}
+		},
+		goZP(a,b){
+			this.bdtj('我的收益','tab_'+b,'--');
+			this.$router.push({path: a})			
+		},
 	}
 }
 </script>

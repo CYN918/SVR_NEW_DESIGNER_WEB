@@ -20,7 +20,7 @@
 			</div>
 			<div class="seed12">
 				<span class="seed1_2_2" @click="gopl"><img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/icon/zs_icon_xx.png">{{hfnum}}</span>
-				<span class="seed1_2_3"><span @click="addLike('work',contDat.work_id,contDat)" :class="['iconfont',contDat.liked?'likeis':'']">&#xe672;</span>{{contDat.like_num}}</span>
+				<span class="seed1_2_3"><span @click="addLike('work',contDat.work_id,contDat,'顶部栏','推荐icon')" :class="['iconfont',contDat.liked?'likeis':'']">&#xe672;</span>{{contDat.like_num}}</span>
 				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_share.svg"/>分享</span>
 				<span class="seed1_2_5" @click="addLike('work',contDat.work_id,contDat,'推荐')"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
 			</div>
@@ -238,6 +238,7 @@ export default {
 			window.open(ud);
 		},
 		gopl(){			
+			this.bdtj('作品详情','顶部栏-评论icon','--');
 			document.documentElement.scrollTop =this.$refs.firstAnchor.offsetTop;
 			document.body.scrollTop =this.$refs.firstAnchor.offsetTop;
 		},

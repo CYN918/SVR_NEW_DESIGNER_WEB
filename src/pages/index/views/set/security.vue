@@ -159,8 +159,8 @@ export default {
 			navDatad:{
 				title:'账号设置',
 				list:[
-					{n:'基本信息',u:'/setUser'},
-					{n:'账号安全',u:'/setSecurity'},
+					{n:'基本信息',u:'/setUser',bdtj:['帐号设置','tag_帐号安全_点击基本信息']},
+					{n:'账号安全',u:'/setSecurity',bdtj:['帐号设置','tag_帐号安全_点击帐号安全']},
 				],
 			},
 			isyazfs:0,

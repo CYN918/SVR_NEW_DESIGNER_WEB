@@ -3,9 +3,11 @@
 		<div class="myWorks_2">
 			<span class="myWorks_3">我的关注</span>
 			<div class="myWorks_4">
-				<router-link  to="/myDynamic">动态</router-link>
-				<router-link  to="/myCreators">创作者</router-link>
-				<router-link  to="/myFans">粉丝</router-link>
+				<a :class="['pend',ison=='/myDynamic'?'router-link-active':'']" @click="goZP('/myDynamic','动态')">动态</a>
+				<a :class="['pend',ison=='/myCreators'?'router-link-active':'']" @click="goZP('/myCreators','创作者')">创作者</a>
+				<a :class="['pend',ison=='/myFans'?'router-link-active':'']" @click="goZP('/myFans','粉丝')">粉丝</a>
+				
+
 		
 			</div>
 		</div>
@@ -19,17 +21,20 @@ export default {
 	name: 'index',
 	data(){
 		return{
-			
+			ison:'/myDynamic',
 		}
 	},
 	mounted: function () {	
-			
+		this.init();	
 	}, 
 	
 	methods: {	
-			
-		isMe(){
-			
+		init(){
+			this.ison = this.$route.fullPath;
+		},	
+		goZP(a,b){
+			this.bdtj('我的关注','tab_'+b,'--');
+			this.$router.push({path: a})			
 		},
 	
 	}

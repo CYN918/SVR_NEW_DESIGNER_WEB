@@ -88,6 +88,7 @@ export default {
 		},
 		handleSizeChange(val) {
 			if(this.config.bdtj){
+				console.log(this.config.bdtj)
 				this.bdtj(this.config.bdtj[1][0],this.config.bdtj[1][1],'--');
 			}
 			this.goTop=1;

@@ -117,15 +117,15 @@
 			</div>
 			
 			<div v-if="tAncType==3" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+				<img class="tc_sucd_1X" @click="closeTc1('绑定邮箱弹窗-关闭')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
 				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入email"></el-input>
 				<div class="emailyzm">
 					<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
 					<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>
 				</div>
 				<div class="tc_sucd_1_2">
-					<span @click="closeTc1">取消</span>
-					<span @click="qdTc3">确定</span>
+					<span @click="closeTc1('绑定邮箱弹窗-取消')">取消</span>
+					<span @click="qdTc3('绑定邮箱弹窗-确定')">确定</span>
 				</div>
 			</div>
 			<div v-if="tAncType==4" class="tc_sucd_1">
@@ -158,9 +158,10 @@ export default {
 			navDatad:{
 				title:'账号设置',
 				list:[
-					{n:'基本信息',u:'/setUser'},
-					{n:'账号安全',u:'/setSecurity'},
+					{n:'基本信息',u:'/setUser',bdtj:['帐号设置','tag_基本信息_点击基本信息']},
+					{n:'账号安全',u:'/setSecurity',bdtj:['帐号设置','tag_基本信息_点击帐号安全']},
 				],
+			
 			},
 			tancData:{
 				mobile_zone:'86',
@@ -373,7 +374,14 @@ export default {
 			this.tAncType=0;
 		},
 		openTc1(on){
+			if(on==1){
+				this.bdtj('帐号设置','基本信息-修改昵称','--');
+			}
+			if(on==2){
+				this.bdtj('帐号设置','基本信息-修改手机号','--');
+			}
 			if(on==3){
+				this.bdtj('帐号设置','基本信息-绑定邮箱','--');
 				this.Verifycodeget();
 			}
 			this.tAncType=on;
@@ -398,24 +406,9 @@ export default {
 				if(t<=188){
 					this.topTyped=false;
 				}
-				// 
-				// if(t>=800){
-				// 	this.navdOn =3;
-				// 	return
-				// }
-				// if(t>=800){
-				// 	this.navdOn =2;
-				// 	return
-				// }
-				// if(t>=800){
-				// 	this.navdOn =1;
-				// 	return
-				// }
-				// 
-				// this.navdOn =0;
-				
 
-;			}
+
+			}
 		},
 		setNavd(on){
 			this.navdOn = on;
@@ -427,6 +420,7 @@ export default {
 			
 		},
 		Userupdate(){
+			this.bdtj('帐号设置','基本信息-保存资料','--');
 			let postData = {
 				access_token:window.userInfo.access_token,
 				username:this.form.username,

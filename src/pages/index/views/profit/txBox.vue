@@ -241,6 +241,9 @@ export default {
 			this.$parent.close();
 		},
 		next_x(o){
+			if(o==1){
+				this.bdtj('我的收益','下一步','--');
+			}
 			let  p = this.typedon+o;
 			if(p==2 && (parseFloat(this.form.cash_money).toString() == "NaN" || this.form.cash_money<300) ){
 				Message({message: '请输入正确金额,提现金额不得小于300'});
@@ -279,6 +282,7 @@ export default {
 			this.upfjData = {};
 		},
 		goUpsuer(){
+			this.bdtj('我的收益','修改账户信息','--');
 			if(!window.userInfo){
 				this.$router.push({path:'/login'})
 				return
@@ -380,6 +384,7 @@ export default {
 			
 		},
 		pushData(){
+			this.bdtj('我的收益','完成提现提交','--');
 			if(this.chekverify(this.form.verify_code)!=true){
 				Message({message: '请填写正确的验证码'});
 				return
@@ -392,6 +397,7 @@ export default {
 			});	
 		},
 		editPhone(){
+			this.bdtj('我的收益','更换手机号','--');
 			this.$router.push({path: '/setUser'});
 		},
 		setYzm(val){
