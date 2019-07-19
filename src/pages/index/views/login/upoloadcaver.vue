@@ -134,10 +134,11 @@ export default {
 						this.caver = response.data.data.url;
 						this.$parent.close(this.caver);	
 					}else{
-						// msg(response.msg);
+						Message({message: response.data});
 					}
 				})
 				.catch(function (error) {
+					Message({message:'网络故障'});
 					this.uptype=0;
 					
 				});

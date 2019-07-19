@@ -63,6 +63,12 @@ export default {
 				this.$router.push({path:'/index'})	
 				return 
 			}
+			let pd = '他人视角-推荐Tag-';
+			if(window.userInfo && this.$route.query.id ==  window.userInfo.open_id){
+				pd='自己视角-推荐Tag-';
+			}
+			this.data.bdtj = [['个人主页',pd+'翻页'],['个人主页',pd+'更改单页显示数']];
+			this.bdtj = [['个人主页',pd+'作品'],['个人主页',pd+'创作者']];
 			this.data.pr.user_open_id = this.$route.query.id;
 		},
 		sxFn(on){

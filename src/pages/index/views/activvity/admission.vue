@@ -2,7 +2,7 @@
 	<div class="csBox">
 		<list :config="data">
 			<template v-slot:todo="{ todo }">
-				<box_a :el="todo"></box_a>
+				<box_a :tjData="bdtjdata" :el="todo"></box_a>
 			</template>			
 		</list>
 	</div>
@@ -21,8 +21,10 @@ export default {
 				},
 				pr:{
 					type:2,
-				}
+				},
+				bdtj:[['活动','Tag-录用作品-翻页'],['活动','Tag-录用作品-更改单页显示数']]
 			},	
+			bdtjdata:[['活动','Tag-录用作品-作品'],['活动','Tag-录用作品-创作者']],
 		}		
 	}, 
 	created(){

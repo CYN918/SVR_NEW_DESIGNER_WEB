@@ -13,8 +13,8 @@
 			<list :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
 					<div class="follwfsm">
-						<img @click="goUser(todo.open_id)" class="follwfs_1" :src="todo.avatar">
-						<div @click="goUser(todo.open_id)" class="follwfs_2">{{todo.username}}</div>
+						<img @click="goUser(todo.open_id,'头像')" class="follwfs_1" :src="todo.avatar">
+						<div @click="goUser(todo.open_id,'昵称')" class="follwfs_2">{{todo.username}}</div>
 						<div class="follwfs_3">{{todo.province}} | {{todo.city}}</div>
 						<div class="follwfs_4">
 							<span @click="goFans('/followFans',todo.open_id)"><span>粉丝</span>{{todo.fans_num}}</span>
@@ -22,10 +22,10 @@
 							<span @click="goFans('/works',todo.open_id)"><span>创作</span>{{todo.work_num}}</span>
 						</div>
 						<div class="follwfs_5" v-if="!isMe(todo.open_id)">
-							<span @click="gosx(todo)">私信</span>
-							<span @click="showFpllwodel(todo)" v-if="todo.follow_flag==2">互相关注</span>
-							<span @click="showFpllwodel(todo)" v-else-if="todo.follow_flag==1">已关注</span>
-							<span @click="Follow_add(todo)" v-else>关注</span>						
+							<span @click="gosx(todo,'私信')">私信</span>
+							<span @click="showFpllwodel(todo,'已关注')" v-if="todo.follow_flag==2">互相关注</span>
+							<span @click="showFpllwodel(todo,'已关注')" v-else-if="todo.follow_flag==1">已关注</span>
+							<span @click="Follow_add(todo,'关注')" v-else>关注</span>						
 						</div>
 						<div class="follwfs_5" v-else>
 							<span @click="goHome">进入主页</span>							
@@ -78,6 +78,7 @@ export default {
 			],		
 			follwTyle:0,
 			openOns:'',
+			tjZt:'他人视角-',
 		}
 	},
 	
@@ -91,23 +92,27 @@ export default {
 		this.init();
 	},	
 	methods: {
+		bdtjCom(a){
+			this.bdtj('个人主页',this.tjZt+'tag_粉丝-'+a,'--');
+		},
 		init(){			
 			if(!this.$route.query.id){
 				this.$router.push({path:'/index'})	
 				return 
 			}
-			if(!window.userInfo){
-				this.sxOn = 1;
-			}else
-			if(this.$route.query.id!=window.userInfo.open_id){
-				this.sxOn = 1;
+			this.sxOn = 1;
+			if(window.userInfo && this.$route.query.id==window.userInfo.open_id){
+				this.sxOn = 0;
+				this.tjZt = '自己视角-';
 			}
+
 			this.data.pr.user_open_id = this.$route.query.id;
 		},
 		settotal(n){
 			this.total = n;
 		},
-		gosx(da){
+		gosx(da,a){
+			this.bdtjCom(a);
 			let pr = {
 				open_id:da.open_id,
 				avatar:da.avatar,
@@ -130,7 +135,8 @@ export default {
 			
 			return id==window.userInfo.open_id;
 		},
-		showFpllwodel(on){
+		showFpllwodel(on,a){
+			this.bdtjCom(a);
 			this.isshowd2 = true;
 			this.openOns = on;
 		},
@@ -161,7 +167,8 @@ export default {
 				this.follwTyle = 0;		
 			});
 		},
-		Follow_add(on){
+		Follow_add(on,a){
+			this.bdtjCom(a);
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 				return
@@ -198,7 +205,8 @@ export default {
 			}
 			this.$router.push({path: '/follow',query:{id:this.$route.query.id}})	
 		},
-		goUser(on){
+		goUser(on,a){
+			this.bdtjCom(a);
 			this.$router.push({path: '/works',query:{id:on}})	
 		},
 		backtime(time){

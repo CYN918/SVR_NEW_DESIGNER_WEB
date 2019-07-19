@@ -131,6 +131,7 @@ export default {
 			}
 		},
 		fxclick(){
+			this.bdtjCom('分享')
 			this.$refs.fxd.showShare(true);
 		},
 		backtimed(timed){
@@ -140,10 +141,12 @@ export default {
 			return timed.substring(0,10)
 		},
 		closeZp(){
+			this.bdtjCom('关闭参与活动');
 			this.ishowzp=false;
 			this.zpList = [];
 		},
 		showZp(){
+			this.bdtjCom('上传作品');
 			if(!window.userInfo){
 				this.$router.push({path:'/login'});
 			}
@@ -194,6 +197,7 @@ export default {
 					pics:da.banner,
 					desc:'惊现大神快来膜拜',
 					summary:da.activity_name+'-狮圈儿创作者平台',
+					bdtj:['活动','分享弹窗-']
 				};
 				this.$refs.fxd.setUrl(this.shareData);
 				if(this.infoData.status==0){
@@ -210,7 +214,11 @@ export default {
 			this.wpdz = '';
 			this.ishowWp = '';
 		},
+		bdtjCom(a){
+			this.bdtj('活动',a,'--');
+		},
 		downMoble(url){
+			this.bdtjCom('下载模版')
 			if(url.template_file_type==1){
 				window.open(url.template_url);
 				return
@@ -248,6 +256,7 @@ export default {
 			})
 		},
 		gopushzp(){
+			this.bdtjCom('发布新作品')
 			this.$router.push({path:'/upload'});
 		},
 		getHList(){
@@ -267,6 +276,7 @@ export default {
 			return	window.getTimes(time);
 		},
 		pushOk(){
+			this.bdtjCom('确定上传');
 			if(this.bindType==1){
 				Message({message: '正在上传中'});
 				return

@@ -222,9 +222,19 @@ Vue.prototype.checkLogin = ()=>{
 	}
 };
 
+
+
+
+
 Vue.prototype.bdtj = (a,b,c)=>{
 	_hmt.push(['_trackEvent',a,b,c]);
 };
+
+Vue.prototype.go = (a,b,c)=>{
+	router.push({path:a,b})
+	_hmt.push(['_trackEvent',a,b,c]);
+};
+
 
 import VueCropper from 'vue-cropper' 
 

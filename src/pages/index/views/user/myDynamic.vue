@@ -16,7 +16,7 @@
 		<div class="csBox mygzBox">
 			<list :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
-					<box_a :tjData="bdtj" :el="setData(todo)"></box_a>
+					<box_a :tjData="bdtjdata" :el="setData(todo)"></box_a>
 					<div v-if="todo.like_user" class="tjname">{{todo.like_user.username+' 推荐过'}}</div>
 				</template>			
 			</list>	
@@ -37,7 +37,7 @@ export default {
 				},
 				pr:{type:1}
 			},	
-			bdtj:[['我的关注','动态列表作品'],['我的关注','动态列表创作者']],
+			bdtjdata:[['我的关注','动态列表作品'],['我的关注','动态列表创作者']],
 			options:[
 				{value:1,label:'关注人发布的'},
 				{value:2,label:'关注人推荐的'}

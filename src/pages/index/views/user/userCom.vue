@@ -38,12 +38,12 @@
 			<img  class="u_top2_1" :src="userMessage.user_center_banner_pic?userMessage.user_center_banner_pic:userBg" alt="">
 			<div class="dwek">
 				<div   class="u_top2_2">				
-					<div v-if="isMe()" class="u_top2_2_1">
-						<div @click="showSetBg">设置背景图</div>
-						<div @click="fxclick">分享</div>
+					<div v-if="userTped" class="u_top2_2_1">
+						<div @click="showSetBg('设置背景图')">设置背景图</div>
+						<div @click="fxclick('分享')">分享</div>
 					</div>
 					<div v-else class="u_top2_2_1">
-						<div @click="fxclick">分享</div>
+						<div @click="fxclick('分享')">分享</div>
 						<div @click="showReport(userMessage.open_id,userMessage.open_id,'user')">举报</div>
 					</div>
 				</div>
@@ -58,9 +58,9 @@
 				<div class="u_top3_2_3">{{userMessage.personal_sign?userMessage.personal_sign:'这个人很懒，什么都没说~'}}</div>
 			</div>
 			<div class="u_top3_3">
-				<span class="pend"  @click="goFans('/followFans',userMessage.open_id)">粉丝<span>{{userMessage.fans_num}}</span></span>
+				<span class="pend"  @click="goFans('/followFans',userMessage.open_id,'粉丝数')">粉丝<span>{{userMessage.fans_num}}</span></span>
 				<span>人气<span>{{userMessage.popular_num}}</span></span>
-				<span class="pend" @click="goFans('/works',userMessage.open_id)">创作<span>{{userMessage.work_num}}</span></span>
+				<span class="pend" @click="goFans('/works',userMessage.open_id,'创作')">创作<span>{{userMessage.work_num}}</span></span>
 			</div>
 			<div class="u_top3_4">
 				<router-link v-if="isMe()" class="u_top3_4_1" to="/upload">上传作品</router-link>
@@ -74,10 +74,10 @@
 		</div>
 		
 		<div class="userNavBox">
-			<router-link :to="{ path:'/works',query:{ id:qurId}}">作品</router-link>
-			<router-link :to="{ path:'/recommend',query:{ id:qurId}}">推荐</router-link>
-			<router-link :class="gofn" :to="{ path:'/follow',query:{ id:qurId}}">关注</router-link>
-			<router-link :to="{ path:'/info',query:{ id:qurId}}">资料</router-link>
+			<a :class="['pend',ison=='/works'?'router-link-active':'']" @click="goZP('/works','tag_作品')">作品</a>
+			<a :class="['pend',ison=='/recommend'?'router-link-active':'']" @click="goZP('/recommend','tag_推荐')">推荐</a>
+			<a :class="['pend',ison=='/follow' || gofn?'router-link-active':'']" @click="goZP('/follow','tag_关注')">关注</a>
+			<a :class="['pend',ison=='/info'?'router-link-active':'']" @click="goZP('/info','tag_资料')">资料</a>
 		</div>
 		
 		<div v-show="isshowd2" class="loginoutBox">
@@ -123,6 +123,8 @@ export default {
 			isshowd2:false,
 			follwTyle:0,
 			qurId:'',
+			userTped:'',
+			ison:'',
 		}
 	},
 	mounted: function () {	
@@ -133,6 +135,10 @@ export default {
     },
 	
 	methods: {	
+		goZP(a,b){
+			this.bdtjCom(b);
+			this.$router.push({path: a,query:{id:this.qurId}})			
+		},
 		backnAM(str){
 
 			if(!str){
@@ -165,9 +171,11 @@ export default {
 			return img
 		},
 		showReport(id,lid,ad){
+			this.bdtjCom('举报');
 			this.$refs.report.showReport(id,lid,ad);
 		},
-		fxclick(){
+		fxclick(a){
+			this.bdtjCom(a);
 			this.$refs.fxd.showShare(true);
 		},
 		gsxd(){
@@ -182,7 +190,14 @@ export default {
 			this.$router.push({path:'/chat',query:pr});
 			
 		},
-		goFans(d,id){
+		bdtjCom(a){
+			let b = this.userTped?'自己视角-':'他人视角-';		
+			this.bdtj('个人主页',b+a,'--');
+		},
+		goFans(d,id,c){
+			if(c){
+				this.bdtjCom(c);
+			}
 			this.$router.push({path:d,query:{id:id}});
 		},
 		gzclick(){
@@ -253,6 +268,9 @@ export default {
 			this.isshowd2=true;
 		},
 		init(){
+			
+			this.ison = this.$route.path;
+			if(this.isMe()==true){this.userTped=1}
 			this.qurId = this.$route.query.id;
 			this.gofn = '';
 			if(this.$route.path=='/followFans'){
@@ -296,7 +314,8 @@ export default {
 			}
 			return this.$route.query.id ==  window.userInfo.open_id;
 		},
-		showSetBg(){
+		showSetBg(a){
+			this.bdtjCom(a);
 			this.option.img = '';
 			this.isUpbg=true;
 		},
@@ -305,7 +324,7 @@ export default {
 		},
 		startCrop(){
 			
-			
+			this.bdtjCom('设置封面图-保存');
 			if(!this.option.img){
 				Message({message: '请先上传图片'});
 				return
@@ -383,13 +402,20 @@ export default {
 				});
 			})
 		},
-		changeScale(num){			
+		changeScale(num){	
+			let p = '放大';
+			if(num==1){
+				p = '缩小';
+			}
+			this.bdtjCom('设置封面图-'+p);
 			this.$refs.cropper.changeScale(num); 
 		},
-		rotateLeft(){			
+		rotateLeft(){	
+			this.bdtjCom('设置封面图-旋转');
 			this.$refs.cropper.rotateLeft()
 		},
 		uploadImg(e){
+			this.bdtjCom('设置封面图-上传图片');
 			let file = e.target.files[0];
 			if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)||e.target.files.length==0) {
 				return

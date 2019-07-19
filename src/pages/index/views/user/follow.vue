@@ -13,21 +13,21 @@
 			<list :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
 					<div class="box_2d">
-						<img @click="goUser(todo.open_id)" :src="todo.avatar">
+						<img @click="goUser(todo.open_id,'头像')" :src="todo.avatar">
 						<div class="i_listd2_1">
-							<div @click="goUser(todo.open_id)">{{todo.username}}</div>
+							<div @click="goUser(todo.open_id,'昵称')">{{todo.username}}</div>
 							<div>{{todo.province}} | {{todo.city}}</div>
 							<div class="i_listd2_d">
-								<span  @click="goFans('/followFans',todo.open_id)">粉丝<span>{{todo.fans_num}}</span></span>
+								<span  @click="goFans('/followFans',todo.open_id,'')">粉丝<span>{{todo.fans_num}}</span></span>
 								<span>人气<span>{{todo.popular_num}}</span></span>
 								<span @click="goFans('/works',todo.open_id)">创作<span>{{todo.work_num}}</span></span>
 							</div>
 							<div>{{todo.personal_sign?todo.personal_sign:'这个人很懒，什么都没说~'}}</div>
 							<div class="btns_foll" v-if="!isMe(todo.open_id)">
-								<span @click="showFpllwodel(todo)" v-if="todo.follow_flag==2">互相关注</span>
-								<span @click="showFpllwodel(todo)" v-else-if="todo.follow_flag==1">已关注</span>
-								<span @click="Follow_add(todo)" v-else>关注</span>
-								<span @click="gosx(todo)">私信</span>
+								<span @click="showFpllwodel(todo,'已关注')" v-if="todo.follow_flag==2">互相关注</span>
+								<span @click="showFpllwodel(todo,'已关注')" v-else-if="todo.follow_flag==1">已关注</span>
+								<span @click="Follow_add(todo,'关注')" v-else>关注</span>
+								<span @click="gosx(todo,'私信')">私信</span>
 							</div>
 						</div>
 						<div class="lunbox">
@@ -92,6 +92,7 @@ export default {
 			onType:'followList',
 			follwTyle:0,
 			openOns:'',
+			tjZt:'他人视角-',
 		}
 	},
 	watch: {	
@@ -111,18 +112,22 @@ export default {
 				this.$router.push({path:'/index'})	
 				return 
 			}
-			if(!window.userInfo){
-				this.sxOn = 1;
-			}else
-			if(this.$route.query.id!=window.userInfo.open_id){
-				this.sxOn = 1;
+			this.sxOn = 1;
+			
+			if(window.userInfo && this.$route.query.id==window.userInfo.open_id){
+				this.sxOn = 0;
+				this.tjZt='自己视角-';
 			}
 			this.data.pr.user_open_id = this.$route.query.id;
+		},
+		bdtjCom(a){
+			this.bdtj('个人主页',this.tjZt+'tag_关注-'+a,'--');
 		},
 		settotal(n){
 			this.total = n;
 		},
-		gosx(el){
+		gosx(el,a){
+			this.bdtjCom(a);
 			this.$router.push({path:'/chat',query:{
 				open_id:el.open_id,
 				avatar:el.avatar,
@@ -141,7 +146,8 @@ export default {
 			
 			return id==window.userInfo.open_id;
 		},
-		showFpllwodel(on){
+		showFpllwodel(on,a){
+			this.bdtjCom(a);
 			this.isshowd2 = true;
 			this.openOns = on;
 		},
@@ -182,7 +188,8 @@ export default {
 				this.follwTyle = 0;		
 			});
 		},
-		Follow_add(on){
+		Follow_add(on,a){
+			this.bdtjCom(a);
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 				return
@@ -223,7 +230,8 @@ export default {
 			}
 			this.$router.push({path: '/followFans',query:{id:this.$route.query.id}})							
 		},
-		goUser(on){
+		goUser(on,a){
+			this.bdtjCom(a);
 			this.$router.push({path: '/works',query:{id:on}})	
 		},
 		backtime(time){		

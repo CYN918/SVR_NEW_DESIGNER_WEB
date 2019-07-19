@@ -2,7 +2,7 @@
 	<div class="activvit">
 		<list :config="data">
 			<template v-slot:todo="{ todo }">
-				<div class="ac_list_Box_0" @click="go(todo.id)">
+				<div class="ac_list_Box_0" @click="go(todo.id,todo.status==-1?'已结束':'进行中')">
 					<div class="ac_list_Box_2x" :style="backBn(todo.cover_img?todo.cover_img:todo.banner)"></div>					
 					<div class="ac_list_Box_2">
 						<div class="ac_list_Box_4">{{todo.activity_name}}</div>
@@ -29,7 +29,9 @@ export default {
 			data:{
 				ajax:{
 					url:'a_getList',
-				}
+
+				},
+				bdtj:[['活动','活动列表-翻页'],['活动','活动列表-更改单页显示数']]
 			},	
 		}		
 	},
@@ -38,12 +40,16 @@ export default {
 	},
 	
 	methods:{	
+		bdtjCom(a){
+			this.bdtj('活动','活动列表-'+a,'--');
+		},
 		init(){
 		
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
 		},
-		go(id){
+		go(id,a){
+			this.bdtjCom(a);
 			window.open('/#/detailed?id='+id)
 			
 		},

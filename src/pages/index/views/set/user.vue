@@ -97,22 +97,22 @@
 		
 		<div v-if="tAncType>0" class="tc_sucd">
 			<div v-if="tAncType==1" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+				<img class="tc_sucd_1X" @click="closeTc1('修改昵称弹窗-关闭')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
 				<Input class="tc_sucd_1_1" v-model="tancData.userName" :isHz="'is'"  :oType="'max'" :max="18"  :chekFn="chekusername" :type="'text'" :placeholder="'请输入新的用户名；一个中文等于两个字母'"></Input>		
 				<div class="tc_sucd_1_2">
-					<span @click="closeTc1">取消</span>
-					<span @click="qdTc1">确定</span>
+					<span @click="closeTc1('修改昵称弹窗-取消')">取消</span>
+					<span @click="qdTc1('修改昵称弹窗-确定')">确定</span>
 				</div>
 			</div>
 			
 			<div v-if="tAncType==2" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+				<img class="tc_sucd_1X" @click="closeTc1('修改手机号弹窗-关闭')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
 				<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
 				<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
 				<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 				<div class="tc_sucd_1_2">
-					<span @click="closeTc1">取消</span>
-					<span @click="qdTc2">确定</span>
+					<span @click="closeTc1('修改手机号弹窗-取消')">取消</span>
+					<span @click="qdTc2('修改手机号弹窗-确定')">确定</span>
 				</div>
 			</div>
 			
@@ -268,6 +268,7 @@ export default {
 			this.tancData.old_mobile_zone = val;
 		},
 		ajaxYzm(){
+			this.bdtj('帐号设置','基本信息-修改手机号弹窗-发送验证码','--');
 			let pd = this.tancData.newMoble;
 			if(this.tancData.mobile_zone!='86'){
 				if(!(typeof pd === 'number' && pd%1 === 0)){
@@ -330,6 +331,7 @@ export default {
 			};
 			this.api.Bindbind(pr).then((da)=>{
 				if(da=='error'){
+					this.bdtj('帐号设置','基本信息-修改手机号弹窗-修改失败','--');
 					return
 				}
 				this.form.mobile = this.tancData.newMoble;
@@ -343,6 +345,7 @@ export default {
 				window.userInfo.mobile = this.form.newMoble;
 				window.userInfo.mobile_zone = this.form.mobile_zone;
 				localStorage.setItem('userT',JSON.stringify(window.userInfo));
+				this.bdtj('帐号设置','基本信息-修改手机号弹窗-修改成功','--');
 				Message({message: '修改成功'});
 				
 				
@@ -366,7 +369,10 @@ export default {
 				Message({message: '修改成功'});
 			});
 		},
-		closeTc1(){		
+		closeTc1(a){	
+			if(a){
+				this.bdtj('帐号设置','基本信息-'+a,'--');
+			}
 			if(this.tAncType==1){			
 				this.tancData.userName = '';				
 			}	

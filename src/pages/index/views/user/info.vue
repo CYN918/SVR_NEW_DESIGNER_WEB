@@ -82,6 +82,7 @@ export default {
 			return this.$route.query.id ==  window.userInfo.open_id;
 		},
 		gouser(){
+			this.bdtj('个人主页','自己视角-资料Tag-更新资料','--');
 			this.$router.push({path: '/setUser'})
 		},
 	}

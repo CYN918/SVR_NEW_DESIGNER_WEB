@@ -4,12 +4,12 @@
 		<div class="setUserBox">
 			<div class="setUserBoxs">
 				<div class="setUserBoxs_nav">
-					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']">{{el}}</div>
+					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index,el.bdtj)" :class="[index==navdOn?'action':'']">{{el.n}}</div>
 					
 				</div>
 				<div class="navDwzc">
 					<div :class="['setUserBoxs_nav',topTyped?'fixdon':'']">
-						<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']">{{el}}</div>
+						<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index,el.bdtj)" :class="[index==navdOn?'action':'']">{{el.n}}</div>
 					</div>
 				</div>
 				
@@ -18,11 +18,11 @@
 						<div class="suc_title">账号设置</div>
 						<div>
 							<span>手机号</span><div class="userSZ_1">{{form.mobile}}</div>
-							<div class="userSZ_2"><span @click="openTc1(1)">修改</span></div>
+							<div class="userSZ_2"><span @click="openTc1(1,'手机号','修改')">修改</span></div>
 						</div>
 						<div>
 							<span>邮箱</span><div class="userSZ_1">可以使用邮箱  {{form.email}}</div>
-							<div class="userSZ_2"><span v-if="!form.email" @click="openTc1(2)">立即绑定</span><span v-else @click="openTc1(2)">修改</span></div>
+							<div class="userSZ_2"><span v-if="!form.email" @click="openTc1(2,'邮箱','绑定')">立即绑定</span><span v-else @click="openTc1(2,'邮箱','修改')">修改</span></div>
 						</div>
 						<div class="suc_1_3">
 							<span>登录密码</span><div class="userSZ_1">密码要求至少包含字母，符号或数字中的两项且长度超过6位</div>
@@ -47,10 +47,10 @@
 							<span>认证状态</span><div class="rzzt_1">
 							{{form.is_contributor==1?'已认证':form.contributor_format_status==1?'认证中':'未认证'}}
 							</div>
-							<div v-if="form.contributor_format_status==0" class="rzzt_2" @click="gosetPersonal">
+							<div v-if="form.contributor_format_status==0" class="rzzt_2" @click="gosetPersonal('认证')">
 								立即认证
 							</div>
-							<div v-else-if="form.contributor_format_status!=1" class="rzzt_2" @click="gosetPersonal">
+							<div v-else-if="form.contributor_format_status!=1" class="rzzt_2" @click="gosetPersonal('修改')">
 								修改
 							</div>
 						
@@ -169,9 +169,9 @@ export default {
 				old_mobile_zone:'86'
 			},
 			navDta:[
-				'账号设置',
-				'第三方账号绑定',
-				'平台投稿人-认证信息',			
+				{n:'账号设置',bdtj:'账号设置'},
+				{n:'第三方账号绑定',bdtj:'第三方账号绑定'},
+				{n:'平台投稿人-认证信息',bdtj:'平台投稿人-认证信息'},		
 			],
 			form:{},
 			sexData:[{n:'男',v:1},{n:'女',v:2}],	
@@ -290,7 +290,8 @@ export default {
 		
 	}, 
 	methods: {
-		gosetPersonal(){
+		gosetPersonal(a){
+			this.bdtj('帐号设置','帐号安全-'+a,'--');
 			if(this.form.contributor_type==2){
 				this.$router.push({path: '/setEnterprise'})
 				return
@@ -304,6 +305,7 @@ export default {
 			this.bindXg(this.jbnData.type,this.jbnData.type2);
 		},
 		bindXg(type,type2){
+			this.bdtj('帐号设置','帐号安全-'+type+'-'+type2,'--');
 			let pr = {
 				access_token:window.userInfo.access_token,
 				third_part:type,
@@ -554,7 +556,9 @@ export default {
 					type2:t2
 				};
 			}
-		
+			if(t2){
+				this.bdtj('帐号设置','帐号安全-'+t+'-'+t2,'--');
+			}
 			this.tAncType=on;
 		},
 		
@@ -594,12 +598,15 @@ export default {
 
 ;			}
 		},
-		setNavd(on){
+		setNavd(on,tj){
+			this.bdtj('帐号设置','帐号安全-'+tj,'--');
 			this.navdOn = on;
 			this.setScll(77*on)
 			
 		},
 		Userupdate(){
+			
+			this.bdtj('帐号设置','帐号安全-保存资料','--');
 			let postData = {
 				access_token:window.userInfo.access_token,
 				username:this.form.username,

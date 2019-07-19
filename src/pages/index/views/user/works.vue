@@ -13,7 +13,7 @@
 		</div>
 		<list :config="data" ref="listDom">
 			<template v-slot:todo="{ todo }">
-				<box_a :el="todo"></box_a>
+				<box_a :el="todo" :tjData="bdtjdata"></box_a>
 			</template>			
 		</list>	
 		
@@ -35,8 +35,9 @@ export default {
 				},
 				pr:{
 					sort:'create_time',
-				}				
+				},
 			},	
+			bdtjdata:[],
 			sxtj:0,
 			sxData:[
 				{name:'时间最新',key:'create_time'},
@@ -63,6 +64,12 @@ export default {
 				this.$router.push({path:'/index'})	
 				return 
 			}
+			let pd = '他人视角-作品Tag-';
+			if(window.userInfo && this.$route.query.id ==  window.userInfo.open_id){
+				pd='自己视角-作品Tag-';
+			}
+			this.data.bdtj = [['个人主页',pd+'翻页'],['个人主页',pd+'更改单页显示数']];
+			this.bdtjdata = [['个人主页',pd+'作品'],['个人主页',pd+'创作者']];
 			this.data.pr.user_open_id = this.$route.query.id;
 		},
 		sxFn(on){

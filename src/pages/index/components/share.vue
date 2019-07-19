@@ -8,15 +8,16 @@
 				分享到微信
 			</div>
 			<div class="sharebox2">
-				<a target="_blank" :href="fxUrl1">
+				
+				<a @click="tzld(fxUrl1,'新浪')">
 					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/zc_icon_wb.png" alt="">
 					新浪
 				</a>
-				<a target="_blank" :href="fxUrl2">
+				<a @click="tzld(fxUrl2,'QQ')">
 					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/zc_icon_qq.png" alt="">
 					QQ
 				</a>
-				<a target="_blank" :href="fxUrl3">
+				<a @click="tzld(fxUrl3,'QQ空间')">
 					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/Group 5.png" alt="">
 					QQ空间
 				</a>
@@ -49,8 +50,17 @@ export default {
 	mounted: function () {}, 
 	methods: {	
 		showShare(type){
+			if(this.shareData.bdtj){
+				this.bdtj(this.shareData.bdtj[0],this.shareData.bdtj[1]+'关闭','--')
+			}
 			this.shareType = type?type:false;
-			console.log(this.shareData)
+		},
+		tzld(ur,a){
+			if(this.shareData.bdtj){
+				this.bdtj(this.shareData.bdtj[0],this.shareData.bdtj[1]+a,'--')
+			}
+			
+			window.open(ur);
 		},
 		setUrl(da){
 			if(da=='error'){return}
