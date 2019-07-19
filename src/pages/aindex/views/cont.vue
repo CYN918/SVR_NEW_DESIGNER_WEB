@@ -41,7 +41,7 @@
 							<div class="userBox_4 pl2_01">{{backtime(el.create_time)}}</div>
 							
 							
-							<div class="pl_01 pl2_02">{{backComt(el.content)[0]}}</div>
+							<div class="pl_01 pl2_02">{{backComt(el.content)}}</div>
 							<div v-if="el.sub_comment" class="pl_02">
 								<div class="userBox">
 									<img class="userBox_1" :src="el.sub_comment[0].avatar">
@@ -49,7 +49,7 @@
 										<div class="userBox_3">{{el.sub_comment[0].username}}<span class="pl2_02_1">{{backtime(el.sub_comment[0].create_time)}}</span></div>
 										
 									</div>	
-									<div class="pl_01 pl2_02">{{backComt(el.sub_comment[0].content)[0]}}</div>
+									<div class="pl_01 pl2_02">{{backComt(el.sub_comment[0].content)}}</div>
 									<div v-if="el.isshowfh">
 										<div v-for="(el2,index2) in el.sub_comment">
 											<div v-if="index2>0">
@@ -59,12 +59,12 @@
 													<div class="userBox_2">
 														<div class="userBox_3">{{el2.username}}<span class="pl2_02_1">{{backtime(el2.create_time)}}</span></div>												
 													</div>	
-													<div class="pl_01 pl2_02">{{backComt(el2.content)[0]}}</div>
+													<div class="pl_01 pl2_02">{{backComt(el2.content)}}</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<div @click="zkpl(index)" :class="['pl_01','pl2_03','workxx',el.isshowfh?'onwor':'']">展开更多评论</div>
+									<div v-if="el.sub_comment.length>0" @click="zkpl(index)" :class="['pl_01','pl2_03','workxx',el.isshowfh?'onwor':'']">展开更多评论</div>
 								</div>
 								
 							</div>
@@ -144,18 +144,28 @@ export default {
 		    });
 		},
 		backtime(time){
+			console.log(22222);
 			return	window.getTimes(time);
 		},	
 		showWorks(){
 			this.isshowwor = this.isshowwor?'':'on'
 		},
 		backComt(data){
+			let p = '';
 			try{
-				data = JSON.parse(data);			
+				data = JSON.parse(data);	
+			
+				p = data[0];
+				
+				if(data.length>1){
+					p +=' '+data[1];
+				}
+					
 			}catch(e){
-				data = ['',data];
+				p=data;
 			}
-			return data;
+		
+			return p;
 		},
 		zkpl(on){
 			if(this.hfData[on].isshowfh){

@@ -9,6 +9,10 @@
 			<span>©2019 掌酷</span>
 			<span @click="banh">粤ICP备15039011号</span>
 			<feedback v-if="fd"></feedback>
+			
+			<a class="qqKf" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:363741945:51" alt="在线咨询" title="在线咨询"/></a>
+			
+			
 		</footer>
 </template>
 <script>
@@ -70,5 +74,10 @@ export default {
 }
 .footerBox>span:last-child{
 	margin-right: 0;
+}
+.qqKf{
+	position: fixed;
+	bottom: 120px;
+	right: 40px;
 }
 </style>
