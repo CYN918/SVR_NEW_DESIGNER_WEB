@@ -133,7 +133,7 @@ export default {
 						this.caver = response.data.data.url;
 						this.$parent.close(this.caver);	
 					}else{
-						Message({message: response.data});
+						Message({message: response.data.data});
 					}
 				})
 				.catch(function (error) {
