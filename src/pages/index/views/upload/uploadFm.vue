@@ -50,6 +50,7 @@
 				:autoCropWidth="option.autoCropWidth"
 				:autoCropHeight="option.autoCropHeight"
 				:autoCrop="true"
+				:enlarge="2"
 				@realTime="realTime"				
 				>
 				</vueCropper>
@@ -94,11 +95,12 @@ export default {
 			previews:{ },
 			option:{
 				img:'',
-				outputSize:1,
+				outputSize:4,
 				outputType:'png',
 				autoCrop:true,
 				autoCropWidth:300,
 				fixedBox:true,
+				
 			},
 			opType:0,
 			isImff:'',

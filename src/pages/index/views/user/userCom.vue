@@ -13,7 +13,8 @@
 				:outputType="option.outputType"
 				:autoCropWidth="option.autoCropWidth"
 				:autoCropHeight="option.autoCropHeight"
-				:autoCrop="true"							
+				:autoCrop="true"
+				:enlarge="2"							
 				>
 				</vueCropper>
 			</div>

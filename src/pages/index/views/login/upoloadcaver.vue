@@ -12,6 +12,7 @@
 				:autoCropWidth="option.autoCropWidth"
 				:autoCropHeight="option.autoCropHeight"
 				:autoCrop="true"
+				:enlarge="2"
 				@realTime="realTime"				
 				>
 				</vueCropper>
