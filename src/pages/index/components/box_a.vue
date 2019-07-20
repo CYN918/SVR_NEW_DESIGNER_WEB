@@ -37,7 +37,7 @@ export default {
 	},
 	methods: {	
 		goUser(on){
-			if(this.tjData[1]){
+			if(this.tjData && this.tjData[1]){
 				this.tongj(this.tjData[1]);
 			}
 			
@@ -58,7 +58,7 @@ export default {
 			return a;
 		},
 		openxq(){
-			if(this.tjData[0]){
+			if(this.tjData && this.tjData[0]){
 				this.tongj(this.tjData[0]);
 			}
 			
