@@ -37,7 +37,10 @@ export default {
 	},
 	methods: {	
 		goUser(on){
-			this.tongj(this.tjData[1]);
+			if(this.tjData[1]){
+				this.tongj(this.tjData[1]);
+			}
+			
 			this.$router.push({path: '/works',query:{id:this.el.user_info.open_id}})	
 		},
 		tongj(a){
@@ -55,8 +58,10 @@ export default {
 			return a;
 		},
 		openxq(){
-			if(this.tjData[0])
-			this.tongj(this.tjData[0]);
+			if(this.tjData[0]){
+				this.tongj(this.tjData[0]);
+			}
+			
 			window.open('#/cont?id='+this.el.work_id)
 		},
 		backBn(ur){
