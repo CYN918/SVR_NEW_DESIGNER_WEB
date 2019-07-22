@@ -1,7 +1,7 @@
 <template>
 	<footer class="footerBox">
 		<div class="footerlog">
-			<img class="log" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/app/logo.png" alt="">
+			<img class="log" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/app/logo.png" alt="">
 		</div>
 		<div class="footer_1">发现更多有价值的创意</div>
 		<div class="footer_2">Copyright @2019 SHIQUANER</div>

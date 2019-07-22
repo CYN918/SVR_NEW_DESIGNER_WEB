@@ -18,9 +18,9 @@
 			</div>
 			<div class="upBoxd2">
 				
-				<div @click="showUp(0,'上传图片')"><img class="svgImg1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
-				<div @click="showUp(1,'上传视频')"><img class="svgImg1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
-				<div @click="showUp(2,'上传音频')"><img class="svgImg1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/sc_icon_scyp.svg" alt="" />上传音频</div>
+				<div @click="showUp(0,'上传图片')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
+				<div @click="showUp(1,'上传视频')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
+				<div @click="showUp(2,'上传音频')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/sc_icon_scyp.svg" alt="" />上传音频</div>
 			</div>
 			<UplodImg v-if="isshowd" :configData="upConfig"></UplodImg>
 			

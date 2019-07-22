@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<!-- <img class="bgd" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/app/bg3.png" alt=""> -->
+		<!-- <img class="bgd" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/app/bg3.png" alt=""> -->
 		<router-view/>
 	</div>
 </template>

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<img class="login_x1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/login_logo.svg" @click="jump">
+		<img class="login_x1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/login_logo.svg" @click="jump">
 		<p class="login_x2">让创意更有价值，让生活更加自在</p>
 		<div class="login_x3">
 			<span @click="cheackLogin('password')" :class="['pend',btnType=='password'?'cheack':'']">账户密码登录</span><span @click="cheackLogin('verify_code')" :class="['pend',btnType=='verify_code'?'cheack':'']">手机号登录</span>
@@ -11,9 +11,9 @@
 		<div class="lgoin_s6x"></div>
 		<div class="lgoin_s6">
 			
-			<img @click="thirdLogin('qq')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/login/zc_icon_qq.svg" alt="">
-			<img @click="thirdLogin('weixin')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/login/zc_icon_wx.svg" alt="">
-			<img @click="thirdLogin('weibo')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/login/zc_icon_wb.svg" alt="">
+			<img @click="thirdLogin('qq')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/login/zc_icon_qq.svg" alt="">
+			<img @click="thirdLogin('weixin')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/login/zc_icon_wx.svg" alt="">
+			<img @click="thirdLogin('weibo')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/login/zc_icon_wb.svg" alt="">
 		</div>
 	</div>
 </template>

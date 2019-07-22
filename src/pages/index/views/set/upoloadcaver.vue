@@ -38,9 +38,9 @@
 					<input type="file" id="uploads" accept="image/png, image/jpeg, image/jpg" @change="uploadImg">															
 				</div>
 				<div class="phoshc5_2">
-					<img @click="changeScale(1)" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_01.png" alt="">
-					<img @click="changeScale(-1)" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_02.png" alt="">
-					<img @click="rotateLeft" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_03.png" alt="">
+					<img @click="changeScale(1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_01.png" alt="">
+					<img @click="changeScale(-1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_02.png" alt="">
+					<img @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_03.png" alt="">
 				</div>
 			</div>
 		</div>

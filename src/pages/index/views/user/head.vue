@@ -19,9 +19,9 @@
 			<div class="upBg2">
 				<span class="upBg2_1">建议尺寸 1300*230px</span>
 				<div class="upBg2_2">
-					<img @click="changeScale(1)" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_01.png" alt="">
-					<img @click="changeScale(-1)" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_02.png" alt="">
-					<img @click="rotateLeft" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_03.png" alt="">
+					<img @click="changeScale(1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_01.png" alt="">
+					<img @click="changeScale(-1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_02.png" alt="">
+					<img @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_03.png" alt="">
 				</div>
 			</div>
 			<div class="upBg3">
@@ -79,7 +79,7 @@
 		</div>	
 		<div v-show="isshowd2" class="loginoutBox">
 			<div class="loginoutBox1">
-				<img @click="hindHb2()" class="loginoutBox2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png">
+				<img @click="hindHb2()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
 				<div class="loginoutBox3">是否取消关注?</div>
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
@@ -99,7 +99,7 @@ export default {
 		return{
 			gofn:'',
 			shareData:{},
-			userBg:'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/grzx_bg.svg',
+			userBg:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/grzx_bg.svg',
 			previewStyle2:{},
 			previews:{},
 			option:{

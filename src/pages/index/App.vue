@@ -27,11 +27,11 @@ input:-moz-placeholder{color:#c0c4cc;}
 input:-ms-input-placeholder{color:#c0c4cc;}
 @font-face {
 	font-family: 'iconfont';
-	src: url('/font/iconfont.eot');
-	src: url('/font/iconfont.eot?#iefix') format('embedded-opentype'),
-	url('/font/iconfont.woff') format('woff'),
-	url('/font/iconfont.ttf') format('truetype'),
-	url('/font/iconfont.svg#iconfont') format('svg');
+	src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.eot');
+	src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.eot?#iefix') format('embedded-opentype'),
+	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.woff') format('woff'),
+	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.ttf') format('truetype'),
+	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.svg#iconfont') format('svg');
 }
 .iconfont{
 	font-family:"iconfont" !important;

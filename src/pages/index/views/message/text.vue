@@ -2,10 +2,11 @@
 	<div>
 		<headNav :config="navData" ref="xtop"></headNav>
 		<headNav v-if="topTyped==true" class="dbxfyS" :config="navData" ref="xtop"></headNav>
-		<router-view/>
+		<div class="content">
+			<div v-html="comt"></div>
+		</div>
 	</div>
 </template>
-
 <script>
 import headNav from '../../components/myHead2'
 export default {
@@ -16,13 +17,15 @@ export default {
 			navData:{
 				title:'文档服务中心',
 				arr:[
-					{u:'/text/about',n:'关于我们'},
-					{u:'/text/userProtocol',n:'用户协议'},
-					{u:'/text/authorization',n:'授权协议'},
-					{u:'/text/help',n:'帮助中心'}
+					{u:'/about',n:'关于我们'},
+					{u:'/userProtocol',n:'用户协议'},
+					{u:'/authorization',n:'授权协议'},
+					{u:'/help',n:'帮助中心'}
 				]
 			},
 			topTyped:false,
+			comt:'',
+			isaj:'',
 		}
 	},	
 	mounted: function(){
@@ -30,11 +33,13 @@ export default {
 	}, 
 	methods: {
 		init(){
+			this.isaj = '';
 			this.getXsm();
+			this.getMrData();
+			this.getPzData();
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
-			window.onscroll = ()=>{
-				
+			window.onscroll = ()=>{				
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(t==0){
 					document.documentElement.scrollTop =1;
@@ -57,17 +62,27 @@ export default {
 				if(da=='error'){
 					return
 				}
-				window.xsmData= da;
-				
-			}).catch(()=>{
-				
-			});
+				window.xsmData= da;				
+			})
+		},		
+		getMrData(){			
+			this.$ajax.get('/js/'+this.$route.name+'.json').then((da)=>{
+				if(!this.isaj){
+					this.comt = da.data;
+				}				  
+			})			
 		},
+		getPzData(){			
+			this.api.documentget({type:this.$route.name}).then((da)=>{
+				if(da=="error" || !da.document){return}
+				this.isaj = 1;
+				this.comt = da.document;
+			})
+		}
 	},
 	watch: {	
 		'$route': function() {
-			document.documentElement.scrollTop =1;
-			document.body.scrollTop =1;
+			this.init();
 		},
 	}
 }	
@@ -90,5 +105,4 @@ export default {
 	width: 100%;
 
 }
-
 </style>

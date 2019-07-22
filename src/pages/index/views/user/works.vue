@@ -21,12 +21,11 @@
 </template>
 
 <script>
-import tophead from './head';
 import list from '../../components/list';
 import box_a from '../../components/box_a';
 export default {
 	name: 'works',
-	components:{tophead,list,box_a},
+	components:{list,box_a},
 	data(){
 		return {
 			data:{

@@ -16,12 +16,8 @@ import followFans from './views/user/fans.vue'
 import info from './views/user/info.vue'
 
 
-import myAll from './views/user/myAll.vue'
-import myExamine from './views/user/myExamine.vue'
-import myNotPass from './views/user/myNotPass.vue'
-import myPass from './views/user/myPass.vue'
-import myDraft from './views/user/myDraft.vue'
 
+import myWorksCom from './views/user/myWorksCom.vue'
 
 import av_list from './views/activvity/list.vue'
 import av_com from './views/activvity/com.vue'
@@ -59,10 +55,6 @@ import searchUser from './views/search/searchUser.vue'
 import searchWorks from './views/search/searchWorks.vue'
 
 import tx_index from './views/message/text.vue'
-import tx_about from './views/message/about.vue'
-import tx_userProtocol from './views/message/userProtocol.vue'
-import tx_authorization from './views/message/authorization.vue'
-import tx_help from './views/message/help.vue'
 
 import lg_index from './views/login/index.vue'
 import lg_login from './views/login/login.vue'
@@ -100,11 +92,11 @@ let wb = [
 					{path: '/info',name: 'info',component:info},
 				],
 			},		
-			{path: '/myAll',name: 'myAll',component:myAll},
-			{path: '/myExamine',name: 'myExamine',component:myExamine},
-			{path: '/myNotPass',name: 'myNotPass',component:myNotPass},
-			{path: '/myPass',name: 'myPass',component:myPass},
-			{path: '/myDraft',name: 'myDraft',component:myDraft},
+			{path: '/myAll',name: 'myAll',component:myWorksCom},
+			{path: '/myExamine',name: 'myExamine',component:myWorksCom},
+			{path: '/myNotPass',name: 'myNotPass',component:myWorksCom},
+			{path: '/myPass',name: 'myPass',component:myWorksCom},
+			{path: '/myDraft',name: 'myDraft',component:myWorksCom},
 			
 			{path: '/activvity',name: 'activvity',component:av_list},			
 			{
@@ -157,18 +149,11 @@ let wb = [
 			{path: '/chat',name: 'chat',component:chat},
 			{path: '/searchUser',name: 'searchUser',component:searchUser},
 			{path: '/searchWorks',name: 'searchWorks',component:searchWorks},
-			{
-			    path: '/text',
-				redirect: '/text/about',
-			    name: 'text',
-			    component:tx_index,				
-				children:[
-					{path: '/text/about',name: 'about',component:tx_about,},
-					{path: '/text/userProtocol',name: 'userProtocol',component:tx_userProtocol},
-					{path: '/text/authorization',name: 'authorization',component:tx_authorization},
-					{path: '/text/help',name: 'help',component:tx_help},
-				],
-			},
+						
+			{path: '/about',name: 'about',component:tx_index},
+			{path: '/userProtocol',name: 'userProtocol',component:tx_index},
+			{path: '/authorization',name: 'authorization',component:tx_index},
+			{path: '/help',name: 'help',component:tx_index},
 		],	
 	},
 	/*login_*/	
@@ -251,10 +236,10 @@ function setTitle(t){
 		case '/setEnterprise':
 			  str = '平台供稿人认证-狮圈儿（Zoocreators）';
 			  break;
-		case '/text/about':
-		case '/text/userProtocol':
-		case '/text/authorization':
-		case '/text/help':
+		case '/about':
+		case '/userProtocol':
+		case '/authorization':
+		case '/help':
 			  str = '文档服务中心-狮圈儿（Zoocreators）';		
 			
 		// default:str = '狮圈儿-创作者平台（Zoocreators）-让创意更有价值，让生活更加自在';

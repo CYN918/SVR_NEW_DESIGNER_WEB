@@ -111,22 +111,19 @@ export default {
 .wsjzt{
 	min-height: 602px;
 }
-.tjname{
-    
+.tjname{   
     position: absolute;
 	top: 192px;
     left: 10px;
     height: 31px;
     background: rgba(0,0,0,.5);
     border-radius: 20px;
-
     font-size: 14px;
     font-family: PingFangSC-Regular;
     font-weight: 400;
     color: rgba(255,255,255,1);
     line-height: 31px;
-    padding: 1px 15px;
-	
+    padding: 1px 15px;	
 }
 
 </style>

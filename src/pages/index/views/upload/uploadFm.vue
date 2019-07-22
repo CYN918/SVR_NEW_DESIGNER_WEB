@@ -2,7 +2,7 @@
 	<div class="upFm">
 		<div class="upFm_bg" ></div>
 		<div class="upFm_box">
-			<img @click="closeds('关闭')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/upload/yh_zlws_tx_gb.svg" class="uploadBoxd2_1">
+			<img @click="closeds('关闭')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_gb.svg" class="uploadBoxd2_1">
 			<div class="upFm_yl">
 				<div class="upFm_yl_1">
 					<div class="upFm_yl_1_1" >
@@ -19,7 +19,7 @@
 					<div class="upFm_yl_1_2">
 						<div class="upFm_yl_1_2_1">
 							<span class="maxwz1">{{InputValue}}</span>
-							<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/zs_icon_tj.png" alt="">
+							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zs_icon_tj.png" alt="">
 						</div>
 						<div class="upFm_yl_1_2_2">
 							<span>原创-平面</span>
@@ -66,9 +66,9 @@
 				<div class="upFm_yb_2">重新上传<input class="fileinpd" type="file" accept="image/png, image/jpeg, image/jpg" @change="uploadImg"></div>
 				<div class="upFm_yb_3">
 					
-					<img class="pend" @click="changeScale(1)" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/upload/yh_zlws_tx_fd.svg" alt="">
-					<img class="pend" @click="changeScale(-1)" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/upload/yh_zlws_tx_sx.svg" alt="">
-					<img class="pend" @click="rotateLeft" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/upload/yh_zlws_tx_sz.svg" alt="">
+					<img class="pend" @click="changeScale(1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_fd.svg" alt="">
+					<img class="pend" @click="changeScale(-1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_sx.svg" alt="">
+					<img class="pend" @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_sz.svg" alt="">
 				</div>
 			</div>
 			

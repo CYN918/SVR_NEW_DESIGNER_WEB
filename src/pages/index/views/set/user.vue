@@ -97,7 +97,7 @@
 		
 		<div v-if="tAncType>0" class="tc_sucd">
 			<div v-if="tAncType==1" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1('修改昵称弹窗-关闭')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+				<img class="tc_sucd_1X" @click="closeTc1('修改昵称弹窗-关闭')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 				<Input class="tc_sucd_1_1" v-model="tancData.userName" :isHz="'is'"  :oType="'max'" :max="18"  :chekFn="chekusername" :type="'text'" :placeholder="'请输入新的用户名；一个中文等于两个字母'"></Input>		
 				<div class="tc_sucd_1_2">
 					<span @click="closeTc1('修改昵称弹窗-取消')">取消</span>
@@ -106,7 +106,7 @@
 			</div>
 			
 			<div v-if="tAncType==2" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1('修改手机号弹窗-关闭')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+				<img class="tc_sucd_1X" @click="closeTc1('修改手机号弹窗-关闭')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 				<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
 				<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
 				<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
@@ -117,7 +117,7 @@
 			</div>
 			
 			<div v-if="tAncType==3" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1('绑定邮箱弹窗-关闭')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+				<img class="tc_sucd_1X" @click="closeTc1('绑定邮箱弹窗-关闭')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入email"></el-input>
 				<div class="emailyzm">
 					<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
@@ -129,8 +129,8 @@
 				</div>
 			</div>
 			<div v-if="tAncType==4" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
-				<img class="tAncType4_1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/email01.png" alt="">
+				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
+				<img class="tAncType4_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/email01.png" alt="">
 				<div class="tAncType4_2">
 					激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/>
 					请及时登录邮箱，点击邮件中的链接激活帐户。
@@ -198,7 +198,7 @@ export default {
 				{n:"艺术工作者"},
 				{n:"教育工作者"},
 			],
-			caver:'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/MRTX.svg',
+			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg',
 				
 			chekusername:function(val){
 				

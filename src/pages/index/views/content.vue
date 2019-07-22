@@ -19,10 +19,10 @@
 				</div>
 			</div>
 			<div class="seed12">
-				<span class="seed1_2_2" @click="gopl"><img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/icon/zs_icon_xx.png">{{hfnum}}</span>
+				<span class="seed1_2_2" @click="gopl"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/icon/zs_icon_xx.png">{{hfnum}}</span>
 				<span class="seed1_2_3"><span @click="addLikeNe('顶部栏-推荐icon','work',contDat.work_id,contDat)" :class="['iconfont',contDat.liked?'likeis':'']">&#xe672;</span>{{contDat.like_num}}</span>
-				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_share.svg"/>分享</span>
-				<span class="seed1_2_5" @click="addLikeNe('顶部栏-推荐','work',contDat.work_id,contDat)"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
+				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/cent/sc_icon_share.svg"/>分享</span>
+				<span class="seed1_2_5" @click="addLikeNe('顶部栏-推荐','work',contDat.work_id,contDat)"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
 			</div>
 			</div>
 		</div>
@@ -32,8 +32,8 @@
 				{{contDat.work_name}}
 			</div>
 			<div class="topNav_x_1_2">
-				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_share.svg"/>分享</span>
-				<span class="seed1_2_5" @click="addLikeNe('顶部栏-推荐','work',contDat.work_id,contDat)"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
+				<span class="seed1_2_4" @click="fxclick"><img class="svgImgx2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/cent/sc_icon_share.svg"/>分享</span>
+				<span class="seed1_2_5" @click="addLikeNe('顶部栏-推荐','work',contDat.work_id,contDat)"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
 			</div>
 			</div>
 		</div>
@@ -144,7 +144,7 @@
 					<div class="seed2_1_2xx" v-else>
 						你正在浏览TA首次发布的作品<br/>作为老前辈, 送个赞鼓励下吧~
 					
-						<span class="btns pend seed1_2_5xx" @click="addLikeNe('创作者信息-更多作品-推荐','work',contDat.work_id,contDat)"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
+						<span class="btns pend seed1_2_5xx" @click="addLikeNe('创作者信息-更多作品-推荐','work',contDat.work_id,contDat)"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
 					</div>
 				</div>
 			</div>
@@ -152,7 +152,7 @@
 		
 		<div v-show="isshowd" class="loginoutBox">
 			<div class="loginoutBox1">
-				<img @click="hindHb()" class="loginoutBox2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png">
+				<img @click="hindHb()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
 
 				<div class="loginoutBox3">确定删除该条评论?</div>
 
@@ -161,7 +161,7 @@
 		</div>
 		<div v-show="isshowd2" class="loginoutBox">
 			<div class="loginoutBox1">
-				<img @click="hindHb2()" class="loginoutBox2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png">
+				<img @click="hindHb2()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
 				<div class="loginoutBox3">是否取消关注?</div>
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>

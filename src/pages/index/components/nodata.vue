@@ -1,8 +1,8 @@
 <template>
 	<div class="kBg_01">
-		<!-- <img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/k/empty_nodata@3x.png"/>
+		<!-- <img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
 		*  -->
-		<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/empty_nodata.svg" alt="">
+		<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
 		你的数据去火星了
 	</div>
 </template>

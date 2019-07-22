@@ -137,7 +137,7 @@
 			</div>
 	
 					
-				<img @click="close" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png" class="newTanc_2">
+				<img @click="close" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" class="newTanc_2">
 			</div>		
 		</div>
 

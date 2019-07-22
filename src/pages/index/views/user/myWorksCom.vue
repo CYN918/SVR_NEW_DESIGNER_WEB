@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<tophead></tophead>
+		<tophead :con="navData"></tophead>
 		<div class="csBox opodd">
 			<list :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
@@ -11,7 +11,7 @@
 						</div>
 						<div @click="openxq(todo)" class="myListBox_2">
 							<span class="myListBox_2_1" :title="todo.work_name">{{todo.work_name}}</span>
-							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/zs_icon_tj.png">
+							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zs_icon_tj.png">
 						</div>
 						
 						<div @click="openxq(todo)" class="myListBox_3">
@@ -31,7 +31,7 @@
 		</div>
 		<div v-show="istopc" class="myListBox_6">
 			<div class="myListBox_6_1">
-				<img @click="hindTopc" class="myListBox_6_2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png" alt="">
+				<img @click="hindTopc" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" alt="">
 				<div v-if="topcType=='set'" class="myListBox_6_3">修改作品设置提交，平台审核通过后即可修改成功</div>
 				<div v-if="topcType=='set'" class="myListBox_6_3">确定修改作品设置？</div>
 				<div v-if="topcType=='delet'" class="myListBox_6_3">确定删除该作品？</div>
@@ -45,7 +45,7 @@
 		<div v-show="issetDatasXX" class="setDatasXX">
 			<div class="setDatasXX_1">
 				
-				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png" alt="">
+				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" alt="">
 				<div class="ydbbdf">
 				<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
 				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
@@ -120,6 +120,17 @@ export default {
 	name: 'myAll',
 	data(){
 		return {
+			navData:{
+				title:'我的创作',
+				list:[
+					{a:'/myAll',b:'全部'},
+					{a:'/myExamine',b:'待审核'},
+					{a:'/myPass',b:'已通过'},
+					{a:'/myNotPass',b:'未通过'},					
+					{a:'/myDraft',b:'草稿'}
+				],
+				bdtj:'我的创作'				
+			},
 			form:{labels:[]},
 			selectedOptions:[],
 			page2:{
@@ -147,8 +158,14 @@ export default {
 				pr:{},
 
 			},
-			upType:'',
-			
+			upType:'',			
+			isTypeList:{
+				myAll:'all',
+				myExamine:'0',
+				myNotPass:'-2',
+				myPass:'2',
+				myDraft:'-1'
+			}
 		}
 	},
 	created(){
@@ -162,11 +179,15 @@ export default {
 			}else{
 				this.isTageok = '';
 			}
-		}
+		},
+		'$route': function() {
+			this.init();
+			this.$refs.listDom.getData();
+		},
 	},
 	methods: {
 		init(){
-			this.data.pr.status = this.$parent.isType;
+			this.data.pr.status =  this.isTypeList[this.$route.name];
 		},
 		upDataSet(){	
 			if(this.upType==1){

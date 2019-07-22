@@ -23,11 +23,11 @@ export default {
 			let data = JSON.parse(this.$route.query.ret);
 	
 			if(data.res.result!=0){
+				this.$router.push({path: '/index'})
 				
-				Message({message: data.res.message});
 				setTimeout(()=>{
-					this.$router.push({path: '/index'})
-				},2000);
+					Message({message: data.res.message});
+				},500);
 				return
 			}
 			if(data.operate=='login'){
@@ -39,10 +39,10 @@ export default {
 					da.access_token = data.res.data.access_token;
 					window.userInfo = da;
 					localStorage.setItem('userT',JSON.stringify(da));
-					Message({message: '登录成功'});
+					this.$router.push({path: '/index'})					
 					setTimeout(()=>{
-						this.$router.push({path: '/index'})
-					},2000);
+						Message({message: '登录成功'});
+					},500);
 				}).catch();
 				return
 			}

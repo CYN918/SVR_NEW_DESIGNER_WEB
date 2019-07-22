@@ -2,7 +2,7 @@
 	<div v-if="shareType" class="fixCoBox">
 		<div class="fixCoBox1 sharebox">
 			
-			<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png" @click="showShare(false)" class="fixCoBox2">
+			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" @click="showShare(false)" class="fixCoBox2">
 			<div class="sharebox1">
 				<vue-qr class="sharebox1_1" :logoSrc="config.logo" :text="config.value" :logoScale="100" :size="200" :margin="0"></vue-qr>
 				分享到微信
@@ -10,15 +10,15 @@
 			<div class="sharebox2">
 				
 				<a @click="tzld(fxUrl1,'新浪')">
-					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/zc_icon_wb.png" alt="">
+					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zc_icon_wb.png" alt="">
 					新浪
 				</a>
 				<a @click="tzld(fxUrl2,'QQ')">
-					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/zc_icon_qq.png" alt="">
+					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zc_icon_qq.png" alt="">
 					QQ
 				</a>
 				<a @click="tzld(fxUrl3,'QQ空间')">
-					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/Group 5.png" alt="">
+					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/Group 5.png" alt="">
 					QQ空间
 				</a>
 			</div>
@@ -43,7 +43,7 @@ export default {
 			shareType:false,
 			config:{
 				value: '',
-				logo:'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/MRTX.svg'
+				logo:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg'
 			},
 		}
 	},

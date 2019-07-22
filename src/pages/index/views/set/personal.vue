@@ -37,7 +37,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/sfz_zm.png" alt="">
+										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/sfz_zm.png" alt="">
 									</div>
 								</div>
 							</div>
@@ -67,7 +67,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/sfz_bm.png" alt="">
+										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/sfz_bm.png" alt="">
 									</div>
 								</div>
 							</div>
@@ -95,7 +95,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/sfz_sc.png" alt="">
+										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/sfz_sc.png" alt="">
 									</div>
 								</div>
 							</div>
@@ -148,7 +148,7 @@
 						
 					</div>
 					<p class="rz_qr">
-						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span @click="goPu('#/text/authorization')" class="pend">《狮圈儿供稿人协议》</span>
+						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span @click="goPu('#/authorization')" class="pend">《狮圈儿供稿人协议》</span>
 					</p>
 					<div :class="['suc_btndf2',isPostky?'ispos':'']" @click="Userupdate">申请认证平台供稿人</div>
 				</div>
@@ -159,7 +159,7 @@
 		
 		<div v-if="tAncType>0" class="tc_sucd">
 			<div v-if="tAncType==1" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 				<Input class="tc_sucd_1_1" v-model="tancData.userName"  :oType="'max'" :max="15"  :chekFn="chekusername" :type="'text'" :placeholder="'请输入新的用户名'"></Input>		
 				<div class="tc_sucd_1_2">
 					<span @click="closeTc1">取消</span>
@@ -168,7 +168,7 @@
 			</div>
 			
 			<div v-if="tAncType==2" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 				<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
 				<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
 				<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
@@ -179,7 +179,7 @@
 			</div>
 			
 			<div v-if="tAncType==3" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入email"></el-input>
 				<div class="emailyzm">
 					<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>

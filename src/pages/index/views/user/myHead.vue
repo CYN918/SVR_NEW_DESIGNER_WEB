@@ -1,45 +1,48 @@
 <template>
 	<div class="myWorks_1">
 		<div class="myWorks_2">
-			<span class="myWorks_3">我的创作</span>
+			<span class="myWorks_3">{{con.title}}</span>
 			<div class="myWorks_4">
-				<a :class="['pend',ison=='/myAll'?'router-link-active':'']" @click="goZP('/myAll','全部')">全部</a>
-				<a :class="['pend',ison=='/myExamine'?'router-link-active':'']" @click="goZP('/myExamine','待审核')">待审核</a>
-				<a :class="['pend',ison=='/myPass'?'router-link-active':'']" @click="goZP('/myPass','已通过')">已通过</a>
-				<a :class="['pend',ison=='/myNotPass'?'router-link-active':'']" @click="goZP('/myNotPass','未通过')">未通过</a>
-				<a :class="['pend',ison=='/myDraft'?'router-link-active':'']" @click="goZP('/myDraft','草稿')">草稿</a>
-
+				<a v-for="(el,index) in con.list" :key="index" :class="['pend',ison==el.a?'router-link-active':'']" @click="goZP(el)">{{el.b}}</a>
 			</div>
 		</div>
 	</div>
 </template>
-
 <script>
-
-import {Message} from 'element-ui'
 export default {
-	name: 'index',
+	props:{
+		con:{
+			type:Object,
+			default:{
+				title:'',
+				list:[]
+			}
+		},
+	},
 	data(){
 		return{
-			ison:'/myAll',
+			ison:''
 		}
 	},
-
+	watch: {
+		'$route': function() {
+			this.init();
+		},
+	},
 	mounted: function () {	
 		this.init()	
-	}, 
-	
+	}, 	
 	methods: {	
 		init(){
 			this.ison = this.$route.fullPath;
 		},	
-		goZP(a,b){
-			this.bdtj('我的创作','tab_'+b,'--');
-			this.$router.push({path: a})			
-		},
-	
-	},
-	
+		goZP(el){
+			if(this.con.bdtj){
+				this.bdtj(this.con.bdtj,'tab_'+el.b,'--');
+			}			
+			this.$router.push({path:el.a})			
+		},	
+	},	
 }	
 </script>
 
@@ -64,9 +67,6 @@ export default {
 	font-size: 24px;
 	color: #1E1E1E;
 }
-.myWorks_4{
-
-}
 .myWorks_4>a{
 	position: relative;
 	display: inline-block;
@@ -84,8 +84,7 @@ export default {
 	content: "";
 	position: absolute;
 	bottom: -1px;
-	left: 5%;
-	
+	left: 5%;	
 	width: 90%;
 	height: 2px;
 	background: #FF5121;

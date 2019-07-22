@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<img class="header_1 pend" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/nav_logo.svg" @click="jump">
+		<img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/nav_logo.svg" @click="jump">
 		
 		<div class="header_2">
 			<a :class="['pend',ison=='/index'?'router-link-active':'']" @click="goZP('/index','首页')">首页</a>
@@ -52,7 +52,7 @@
 								</li>							
 							</ul>
 							
-							<div v-if="mData.length==0" class="messgeH3_2_1"><img  src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/wxx.png" alt="">暂无新的消息</div>
+							<div v-if="mData.length==0" class="messgeH3_2_1"><img  src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/wxx.png" alt="">暂无新的消息</div>
 						</div>
 						
 						
@@ -70,11 +70,11 @@
 				<div  class="userBpx">
 					<a @click="goUser('昵称')">{{backnAM(userMssge.username)}}</a>
 					<ul> 
-						<a @click="goZP('/myAll','我的创作')"><li><img class="svgImg2 cztsyscl" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></a>
-						<a @click="goZP('/myDynamic','我的关注')"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></a>
-						<a @click="goZP('/profit','我的收益')"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></a>
-						<a @click="goZP('/setUser','账号设置')"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></a>
-						<a @click="showHb(true)"><li><img class="svgImg2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
+						<a @click="goZP('/myAll','我的创作')"><li><img class="svgImg2 cztsyscl" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></a>
+						<a @click="goZP('/myDynamic','我的关注')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></a>
+						<a @click="goZP('/profit','我的收益')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></a>
+						<a @click="goZP('/setUser','账号设置')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></a>
+						<a @click="showHb(true)"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
 					</ul>
 				</div>
 			</span>	
@@ -84,7 +84,7 @@
 		
 		<div v-show="isshowd" class="loginoutBox">
 			<div class="loginoutBox1">
-				<img @click="showHb(false)" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/upload/yh_zlws_tx_gb.svg" class="loginoutBox2 pend">
+				<img @click="showHb(false)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_gb.svg" class="loginoutBox2 pend">
 				<div class="loginoutBox3">确定退出登录?</div>
 				<div class="loginoutBox4"><span @click="showHb(false)">取消</span><span @click="logout()">确定</span></div>
 			</div>
@@ -225,7 +225,7 @@ export default {
 			
 		},
 		backnav(on,on2){
-			let str = 'http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/xx_'+on2;
+			let str = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/xx_'+on2;
 			if(this.navType!=on){
 				str+=on2;
 			}

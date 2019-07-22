@@ -32,7 +32,7 @@ module.exports = {
 	
 	
     // 基本路径
-    publicPath: './',
+    publicPath: 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/',
     // 输出文件目录
     outputDir: 'dist',
 //  assetsDir: 'static',
@@ -42,8 +42,19 @@ module.exports = {
     runtimeCompiler: false,
     // webpack配置
     // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-    chainWebpack: () => {},
-    configureWebpack: () => {},
+    chainWebpack: config => {
+        config
+            .plugin('webpack-bundle-analyzer')
+            .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+   	},
+ 	configureWebpack: {
+        externals: {           
+			// 'vue': 'Vue',
+			// 'vue-router': 'VueRouter',
+   //          'axios':'axios',
+			// 'element-ui': 'ELEMENT'
+        }
+   	},
     filenameHashing:false,
 // vue-loader 配置项
 // https://vue-loader.vuejs.org/en/options.html

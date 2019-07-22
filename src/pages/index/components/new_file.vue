@@ -1,7 +1,7 @@
 <template>
 	<div class="fixCoBox">
 		<div class="fixCoBox1 sharebox">
-			<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png" class="fixCoBox2">
+			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" class="fixCoBox2">
 			<div class="sharebox1"></div>
 			<div class="sharebox2">
 				<a :href="fxUrl1">新浪</a>

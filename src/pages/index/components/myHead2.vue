@@ -3,7 +3,7 @@
 		<div class="setHeadBox_1">
 			<span class="setHeadBox_2">{{config.title}}</span>
 			<div class="setHeadBox_3">
-				<a v-for="(el,index) in config.arr" :class="['pend',ison==el.u?'router-link-active':'']" @click="goZP(el.u,el.n)">{{el.n}}</a>						
+				<a v-for="(el,index) in config.arr" :key="index" :class="['pend',ison==el.u?'router-link-active':'']" @click="goZP(el.u,el.n)">{{el.n}}</a>						
 			</div>
 		</div>
 	</div>
@@ -12,10 +12,7 @@
 export default {
 	name: 'myhead2',
 	props:{
-		config:{
-			type:Object,
-			default:{}
-		}
+		config:Object
 	},
 	data(){
 		return{
@@ -28,7 +25,6 @@ export default {
 	
 	methods: {	
 		init(){
-			console.log(this.$route.fullPath);
 			this.ison = this.$route.fullPath;
 		},	
 		goZP(a,b){

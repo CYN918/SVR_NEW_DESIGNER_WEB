@@ -2,7 +2,7 @@
     <div class="upRpt">
         <div class="upRpt_bg">
             <div class="upRpt_content">
-                <img class="uploadBoxd2_1" @click="closed" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+                <img class="uploadBoxd2_1" @click="closed" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
                 <div class="upRpt_title">
                     <span>举报</span>
                 </div>

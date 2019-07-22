@@ -1,5 +1,5 @@
 import axios from 'axios'
-import qs from 'qs'
+
 import {Message} from 'element-ui'
 let basrurl = 'http://139.129.221.123';
 if(window.location.host=='shiquaner.zookingsoft.com'){
@@ -33,6 +33,13 @@ const createApiInstance = (config = {},on,Type) => {
 	config = Object.assign(_config, config);
 	return axios.create(config)
 }
+function backFormData(d){
+	let f = new FormData();
+	for(let el in d){
+		f.append(el,d[el]);				
+	}	
+	return f;
+}
 const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => {
 	
 	if(method === 'post') {
@@ -43,7 +50,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 				params.access_token = window.userInfo.access_token;
 			}catch(e){}
 		}
-		params = qs.stringify(params);
+		params = backFormData(params);
 	}
 	if(!url){return}		
 	let instance = createApiInstance(config,on,Type)

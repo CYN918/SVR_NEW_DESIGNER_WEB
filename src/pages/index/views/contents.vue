@@ -19,10 +19,10 @@
 				</div>
 			</div>
 			<div class="seed12">
-				<span class="seed1_2_2"><img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/icon/zs_icon_xx.png">0</span>
-				<span class="seed1_2_3"><img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/icon/zs_icon_dz.png">0</span>
-				<span class="seed1_2_4"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_share.svg"/>分享</span>
-				<span class="seed1_2_5"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>推荐</span>
+				<span class="seed1_2_2"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/icon/zs_icon_xx.png">0</span>
+				<span class="seed1_2_3"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/icon/zs_icon_dz.png">0</span>
+				<span class="seed1_2_4"><img class="svgImgx2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/cent/sc_icon_share.svg"/>分享</span>
+				<span class="seed1_2_5"><img class="svgImgx2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/cent/sc_icon_tj.svg"/>推荐</span>
 				<div class="zdc"></div>
 			</div>
 			</div>
@@ -34,8 +34,8 @@
 				{{contDat.work_name}}
 			</div>
 			<div class="topNav_x_1_2">
-				<span class="seed1_2_4"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_share.svg"/>分享</span>
-				<span class="seed1_2_5"><img class="svgImgx2" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/cent/sc_icon_tj.svg"/>推荐</span>
+				<span class="seed1_2_4"><img class="svgImgx2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/cent/sc_icon_share.svg"/>分享</span>
+				<span class="seed1_2_5"><img class="svgImgx2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/cent/sc_icon_tj.svg"/>推荐</span>
 			</div>
 			</div>
 			<div class="zdc"></div>
@@ -85,7 +85,7 @@
 						<div class="i_listd2">
 							<div class="i_listd2_1">
 								<span>{{el.work_name}}</span>
-								<img v-if="el.is_recommend==1" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/zs_icon_tj.png" alt="">
+								<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zs_icon_tj.png" alt="">
 							</div>
 							<div class="i_listd2_2">
 								<span>{{el.classify_1+'-'+el.classify_2}}</span>
@@ -96,9 +96,9 @@
 								<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
 								
 								<div class="i_listd2_3x1" @click="openxq(index)">
-									<span class="pend"><img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/icon/zs_icon_gk.png">{{el.view_num}}</span>
-									<span class="pend"><img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/icon/zs_icon_dz.png">{{el.like_num}}</span>
-									<span class="pend"><img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/icon/zs_icon_xx.png">{{el.comment_num}}</span>
+									<span class="pend"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/icon/zs_icon_gk.png">{{el.view_num}}</span>
+									<span class="pend"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/icon/zs_icon_dz.png">{{el.like_num}}</span>
+									<span class="pend"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/icon/zs_icon_xx.png">{{el.comment_num}}</span>
 								</div>
 							</div>
 							<div class="zdc"></div>

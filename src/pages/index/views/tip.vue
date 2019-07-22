@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="hot_topbox">
-			<img class="hotBaner" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/hot/banner.png" alt="">
+			<img class="hotBaner" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/hot/banner.png" alt="">
 			<div class="hot_topx">
 				<div class="hot_top_1">狮圈儿供稿人</div>
 				<div class="hot_top_2">设计师稳定收入新平台</div>
@@ -12,19 +12,19 @@
 			<div class="hotCent1"><span></span><b>加入狮圈儿的理由</b><span></span></div>
 			<div class="hotCent2">
 				<div>
-					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/hot/1.png" alt="">
+					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/hot/1.png" alt="">
 					<div class="hotCent2t">需求稳定</div>
 					<div class="hotCent2c">
 						狮圈儿与头部安卓渠道华为/OPPO/ VIVO /维持长期良好合作关系
 					</div>
 				</div><div>
-					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/hot/2.png" alt="">
+					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/hot/2.png" alt="">
 					<div class="hotCent2t">自选收益类型</div>
 					<div class="hotCent2c">
 						买断式or分成式 设计师自选作品收益模式 自主性强
 					</div>
 				</div><div>
-					<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/hot/3.png" alt="">
+					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/hot/3.png" alt="">
 					<div class="hotCent2t">作品用途清晰</div>
 					<div class="hotCent2c">
 						作品使用路径&账户收益个人中心公开展示

@@ -2,7 +2,7 @@
 	<div class="uploadBoxd">
 		<div class="uploadBoxd1" ></div>
 		<div class="uploadBoxd2">
-			<img class="uploadBoxd2_1" @click="closedxf('关闭')" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/cj_00.png"/>
+			<img class="uploadBoxd2_1" @click="closedxf('关闭')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 			<div class="uploadBoxd2_2">
 				<div class="uploadBoxd2_2_1">
 					<div>{{configData.title}}</div>
@@ -38,7 +38,7 @@
 					</div>					
 				</li>	
 				<div ref="botmm"></div>
-				<img v-if="isnoData" class="upImnoData" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/k/empty_nodata@3x.png"/>
+				<img v-if="isnoData" class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
 				
 			</ul>
 			<div class="uploadBoxd2_4">

@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<img @click="goIndex" class="log" src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/app/logo.png" alt="">
+		<img @click="goIndex" class="log" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/app/logo.png" alt="">
 		
 		<span class="fxbtn"></span>
 	</header>

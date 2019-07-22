@@ -14,7 +14,7 @@
 		:total="total">   
 		</el-pagination>
 		<div v-if="isNodeat" class="emptyData">
-			<img src="http://c3p.vanmatt.com/imgUrl/SVR_NEW_DESIGNER_WEB/svg/empty_nodata.svg" alt="">
+			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
 			<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
 		</div>
 	</ul>
