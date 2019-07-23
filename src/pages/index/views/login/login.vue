@@ -19,6 +19,7 @@
 </template>
 <script>
 import password from './login3'
+import {Message} from 'element-ui'
 import verify_code from './login4'
 export default {
 	components:{password,verify_code},

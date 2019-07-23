@@ -16934,7 +16934,7 @@ UE.plugins['fiximgclick'] = (function () {
                 resizer.className = 'edui-editor-imagescale';
                 resizer.innerHTML = hands.join('');
                 resizer.style.cssText += ';display:none;border:1px solid #3b77ff;z-index:' + (me.editor.options.zIndex) + ';';
-
+				console.log(111111)
                 me.editor.ui.getDom().appendChild(cover);
                 me.editor.ui.getDom().appendChild(resizer);
 

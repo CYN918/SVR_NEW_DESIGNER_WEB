@@ -1398,6 +1398,7 @@ export default {
 .edui-default .edui-editor-toolbarbox{
 	position: relative !important; 
 	background: #fff;
+	z-index: 9999;
 }
 .page2_2_2_2_2 .el-input.is-active .el-input__inner, .el-input__inner:focus{
 	border-color: #C0C4CC !important;

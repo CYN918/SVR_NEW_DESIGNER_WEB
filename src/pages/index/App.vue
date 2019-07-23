@@ -1317,9 +1317,7 @@ content: "";
 .el-cascader>.el-input>.el-input__inner{
 	padding-left: 10px;
 }
-.edui-editor-imagescale{
-	top:149px!important;
-}
+
 .is-active{
 	color:#FF5121!important;
 }
