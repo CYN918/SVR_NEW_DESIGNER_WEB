@@ -7,7 +7,6 @@ import router from './router'
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
 
-
 Vue.prototype.MD5 = function(string){ 
     function RotateLeft(lValue, iShiftBits) {
         return (lValue<<iShiftBits) | (lValue>>>(32-iShiftBits));
@@ -254,7 +253,40 @@ Vue.component(FormItem.name, FormItem)
 Vue.component(Message.name, Message)
 Vue.component(Checkbox.name, Checkbox)
 Vue.config.productionTip = false
-
+Vue.prototype.checkLo = function(o){
+	api[o.api](o.pr).then((da)=>{
+		if(da=='error'){if(o.er2){o.er2()} return}
+		if(da=='islogin'){			
+			let passIN = localStorage.getItem('pass');
+			if(passIN){
+				Message({message: '登陆过期~~自动登陆中请稍后'});
+				this.checkLo({
+					api:'login',
+					pr:JSON.parse(passIN),
+					su:(da)=>{						
+						window.userInfo = da;
+						Message({message: '登陆成功'});
+						localStorage.setItem('userT',JSON.stringify(da));	
+						this.checkLo(o);
+					},
+					err2:()=>{
+						router.push({path: '/login'})
+					}
+				});
+				return;
+			}
+			router.push({path: '/login'})
+			return;
+		}
+		if(o.su){
+			o.su(da);
+		}
+	}).catch((err)=>{
+		if(o.er1){
+			o.er1();
+		}
+	});
+}
 new Vue({
   router,
   render: h => h(App)

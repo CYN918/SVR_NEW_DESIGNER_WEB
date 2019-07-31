@@ -50,6 +50,7 @@ export default {
 				this.data.pr={};
 			}		
 			this.$refs.sfafa.sxfn();
+			
 		}
 	}
 }
@@ -117,4 +118,5 @@ export default {
 	left: 50%;
 	transform: translateX(-50%);
 }
+
 </style>

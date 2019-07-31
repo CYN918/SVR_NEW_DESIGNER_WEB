@@ -353,18 +353,27 @@ export default {
 			});
 		},
 		getHotWords(){
-			this.api.getHotWords().then((da)=>{
-				if(da=='error'){
-					return
-				}
-				let hotc = localStorage.getItem("scrllhot");
-				if(hotc){
-					this.data1 = JSON.parse(hotc);
+			this.checkLo({
+				api:'getHotWords',
+				pr:{},
+				su:(da)=>{
+					let hotc = localStorage.getItem("scrllhot");
+					if(hotc){
+						this.data1 = JSON.parse(hotc);
+					}
+					
+					this.data2 = da;
 				}
 				
-				this.data2 = da;
-				
-			});
+			})
+			
+			// this.api.getHotWords().then((da)=>{
+			// 	if(da=='error'){
+			// 		return
+			// 	}
+			// 	
+			// 	
+			// });
 		},
 		Searchsug(n){
 			let pr = {

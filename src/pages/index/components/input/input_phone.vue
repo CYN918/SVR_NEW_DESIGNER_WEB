@@ -264,10 +264,14 @@ export default {
 			if(this.iscf==2){
 				params.type = 'login';
 			}
+			
+		
+			
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
 					return
 				}
+				
 			}).catch(()=>{
 				this.runTimer(60);	
 			});

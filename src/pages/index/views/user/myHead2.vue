@@ -6,22 +6,16 @@
 				<a :class="['pend',ison=='/myDynamic'?'router-link-active':'']" @click="goZP('/myDynamic','动态')">动态</a>
 				<a :class="['pend',ison=='/myCreators'?'router-link-active':'']" @click="goZP('/myCreators','创作者')">创作者</a>
 				<a :class="['pend',ison=='/myFans'?'router-link-active':'']" @click="goZP('/myFans','粉丝')">粉丝</a>
-				
-
-		
 			</div>
 		</div>
 	</div>
 </template>
-
 <script>
-
-import {Message} from 'element-ui'
 export default {
 	name: 'index',
 	data(){
 		return{
-			ison:'/myDynamic',
+			ison:'',
 		}
 	},
 	mounted: function () {	

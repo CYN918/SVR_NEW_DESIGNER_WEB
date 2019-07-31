@@ -516,46 +516,35 @@ export default {
 			
 		},
 		getWorkId(){
-					
-			let params = {
-				access_token:window.userInfo.access_token
-			};
-			this.api.getWorkId(params).then((da)=>{
-				if(da=='error'){
-					return
-				}
-				this.form.work_id = da.work_id;
-			});
-		},
-		getData(id){
-			
-			let pr = {
-				access_token:window.userInfo.access_token,
-				work_id:id,
-				is_draft:1
-			};
-			this.api.getWorkDetail(pr).then((da)=>{
-				if(da=='error'){
-					return
-				}
-				this.form = da;		
-				this.csz = da.work_name;				
-				try{
-					this.form.labels = JSON.parse(this.form.labels);
-				}catch(e){}
-				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
-				if(this.form.attachment){
-					this.upfjData.fid=this.form.attachment_id;
-					this.upfjData.type='上传成功';
-					this.$refs.upnfile2.value ='';		
-					this.form.attachment_id = da.attachment_id;	
-					this.upfjData.bf = 100;
-					this.upfjData.file_name = this.form.attachment.file_name;
-				};
-				this.ifBjType=1;
-				
+			this.checkLo({
+				api:'getWorkId',
+				pr:{},
+				su:(da)=>{this.form.work_id = da.work_id;console.log(this.form.work_id)}
 			})
-
+		},
+		getData(id){			
+			this.checkLo({
+				api:'getWorkDetail',
+				pr:{				
+					work_id:id,
+					is_draft:1
+				},
+				su:(da)=>{
+					this.form = da;		
+					this.csz = da.work_name;				
+					try{this.form.labels = JSON.parse(this.form.labels);}catch(e){}
+					this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
+					if(this.form.attachment){
+						this.upfjData.fid=this.form.attachment_id;
+						this.upfjData.type='上传成功';
+						this.$refs.upnfile2.value ='';		
+						this.form.attachment_id = da.attachment_id;	
+						this.upfjData.bf = 100;
+						this.upfjData.file_name = this.form.attachment.file_name;
+					};
+					this.ifBjType=1;
+				}
+			})
 		},
 		seeCg(){
 			this.bdtj('上传作品-其他信息设置','预览','--');
