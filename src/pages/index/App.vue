@@ -16,6 +16,10 @@ html,body{
 	min-width: 1300px;
 	height:100%;
 }
+img{
+	outline-width: 0px;
+	vertical-align: top;
+}
 a{list-style-type: none}
 :link{text-decoration:none;}
 a:visited{text-decoration:none;}
