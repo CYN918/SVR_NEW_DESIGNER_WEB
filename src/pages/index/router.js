@@ -63,6 +63,8 @@ import lg_modifyPassword from './views/login/modifyPassword.vue'
 import lg_userme from './views/login/userme.vue'
 import lg_userme2 from './views/login/userme2.vue'
 
+import pr_index from './views/project/index.vue'
+import pr_cents from './views/project/cents.vue'
 
 Vue.use(Router)
 const router = new Router({
@@ -154,7 +156,16 @@ let wb = [
 			{path: '/userProtocol',name: 'userProtocol',component:tx_index},
 			{path: '/authorization',name: 'authorization',component:tx_index},
 			{path: '/help',name: 'help',component:tx_index},
+			
+			{path: '/project',name: 'project',component:pr_index},
+			{path: '/prcent',name: 'prcent',component:pr_cents},
+			
 		],	
+		
+		
+		
+		
+		
 	},
 	/*login_*/	
 	{

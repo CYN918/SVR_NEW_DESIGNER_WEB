@@ -45,4 +45,7 @@ export default {
 	margin: 0 auto 60px;
 	text-align: left;
 }
+.contf img{
+	max-width: 100%;
+}
 </style>

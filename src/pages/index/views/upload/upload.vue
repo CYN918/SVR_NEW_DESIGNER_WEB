@@ -158,7 +158,7 @@ export default {
 			upConfig:'',
 			myConfig: {
 			  autoHeightEnabled: false,
-			  initialFrameHeight: 324,
+			  initialFrameHeight: 500,
 			  initialFrameWidth: '100%',
 			  UEDITOR_HOME_URL: '/UEditor/'
 			},			

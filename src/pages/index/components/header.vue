@@ -3,9 +3,12 @@
 		<img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/nav_logo.svg" @click="jump">
 		
 		<div class="header_2">
-			<a :class="['pend',ison=='/index'?'router-link-active':'']" @click="goZP('/index','首页')">首页</a>
-			<a :class="['last pend',ison=='/activvity'?'router-link-active':'']" @click="goZP('/activvity','活动')">活动</a>
-			<a v-if="!isggr" :class="['last pend',ison=='/tip'?'router-link-active':'']" @click="goZP('/tip','供稿人')">供稿人</a>
+			<a 
+			v-for="(el,index) in topNData" 
+			:key="index" 
+			:class="['pend',ison==el.path?'router-link-active':'']"
+			@click="goZP(el.path,el.n)"
+			>{{el.n}}</a>
 		</div>
 		
 		<div class="header_3">
@@ -100,7 +103,7 @@ export default {
 		return{
 			userMssge:'',
 			isshowd:false,
-
+			
 			searchType:false,
 			searcCont:'',
 
@@ -117,6 +120,12 @@ export default {
 			sccy:0,
 			isggr:'',
 			ison:'/index',
+			topNData:[
+				{path:'/index',n:'首页'},
+				// {path:'/project',n:'项目'},
+				// {path:'/pictures',n:'作品'},
+				{path:'/activvity',n:'活动'},
+			]
 		}		
 	},
 	mounted: function () {	
@@ -258,11 +267,15 @@ export default {
 			this.userMssge = '';
 			if(window.userInfo){
 				this.userMssge = window.userInfo;	
-				if(window.userInfo.contributor_format_status){
-					this.isggr=1;
+				if(!window.userInfo.contributor_format_status && this.topNData[this.topNData.length-1].n!='供稿人'){
+					this.topNData.push({path:'/tip',n:'供稿人'});
 				}
-			
+				return
 			}
+			if(this.topNData[this.topNData.length-1].n!='供稿人'){
+				this.topNData.push({path:'/tip',n:'供稿人'});
+			}
+			
 		
 			
 		},
@@ -424,38 +437,31 @@ export default {
 	z-index: 9999;
 	width: 100%;
     height: 60px;
-    background: #323232;
+    background: #fff;
+	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+	box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
 }
 .header_1{
 	position: absolute;
-	top: 12px;
-	left: 60px;   
-    width: 113px; 
-	height: 36px;
+	top: 11px;
+	left: 100px;   
+    width: 104px;
+    height: 34px;
 }
 .header_2{
-	margin: 0 auto;
-	width: 1300px;
-	text-align: center;
+	text-align: left;
+	margin-left: 310px;
 }
 .header_2>a{
 	position: relative;
 	display: inline-block;
 	margin: 0 42.5px;
 	font-size: 14px;
-	color: #FFFFFF;
+	color: #666;
 	line-height: 60px;
 }
-.header_2>a.router-link-active:after{
-    content: "";
-    position: absolute;
-    bottom: 12px;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-    width: 76%;
-    height: 2px;
-    background: #FCFCFC;
+.header_2>a.router-link-active{
+    color: #FF5121;
 }
 
 
@@ -463,7 +469,7 @@ export default {
 	position: absolute;
 	right: 0;
 	top: 0;	
-	color: #fff;
+	color: #666;
 	margin-right: 60px;
 }
 .header_3>span{
@@ -478,7 +484,7 @@ export default {
 	cursor: pointer;
 }
 .header_4>a{
-	color: #fff;
+	color: #666;
 	
 }
 .header_4>span{
@@ -660,7 +666,7 @@ export default {
 .searcBox4 .el-input__inner{
 	background: none;
 	border: none;
-	color: #fff;
+	color: #666;
 }
 .searcBox5{
 	opacity: 0;
@@ -719,7 +725,7 @@ export default {
 	height: 18px;
 	line-height: 18px;
 	font-size: 12px;
-	color: #FFFFFF;
+	color: #fff;
 	letter-spacing: 0;
 	text-align: center;
 	

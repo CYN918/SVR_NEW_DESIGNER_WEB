@@ -19,14 +19,14 @@
 					<div class="upFm_yl_1_2">
 						<div class="upFm_yl_1_2_1">
 							<span class="maxwz1">{{InputValue}}</span>
-							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zs_icon_tj.png" alt="">
+							
 						</div>
 						<div class="upFm_yl_1_2_2">
 							<span>原创-平面</span>
 							<span>{{(new Date()).Format("yyyy-MM-dd ")}}</span>
 						</div>
 						<div class="upFm_yl_1_2_3">
-							<span><img src="https://img.zcool.cn/community/01e9b65c986887a801214168d67106.jpg@260w_195h_1c_1e_1o_100sh.jpg" alt=""></span>
+							<span><img :src="usertx" alt=""></span>
 							<div>
 								<span class="iconfont pend">&#xe6a2; 9</span>
 								<span class="iconfont pend">&#xe672; 0</span>
@@ -44,13 +44,17 @@
 				:img="option.img"
 				:outputSize="option.size"
 				:fixed="true"
-				:full="false"
-				:fixedNumber = [1,.683]
+				:full="true"
+				:fixedNumber = [1,.75]
 				:outputType="option.outputType"
 				:autoCropWidth="option.autoCropWidth"
 				:autoCropHeight="option.autoCropHeight"
 				:autoCrop="true"
-				:enlarge="2"
+				:enlarge="1"
+				:canMoveBox="false"
+				:centerBox="true"
+				:fixedBox="true"
+			
 				@realTime="realTime"				
 				>
 				</vueCropper>
@@ -98,13 +102,15 @@ export default {
 				outputSize:4,
 				outputType:'png',
 				autoCrop:true,
-				autoCropWidth:300,
+				autoCropWidth:400,
+				autoCropHeight:300,
 				fixedBox:true,
 				
 			},
 			opType:0,
 			isImff:'',
-			Zp:''
+			Zp:'',
+			usertx:'',
 		}
 	},	
 	mounted: function () {
@@ -130,10 +136,15 @@ export default {
 			this.$parent.close(''); 		
 		},
 		setImgd(img,id){
+			this.option.img = img;
 			this.Zp = id;
+			this.usertx = window.userInfo.avatar;
 		},
 		realTime(data) {
 			this.previews = data;	
+	
+			
+			
 			this.previewStyle2 = {
 				width: this.previews.w + "px",
 				height: this.previews.h + "px",

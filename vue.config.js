@@ -7,9 +7,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 var apiRoutes = express.Router();
 app.use('/api',apiRoutes)
 
-module.exports = {	
-	
-
+module.exports = {		
 	pages: {
         index: {            
             entry: 'src/pages/index/main.js',
@@ -24,15 +22,9 @@ module.exports = {
             
         },
     },
-	
-
-
-	
-	
-	
-	
     // 基本路径
     publicPath: 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/',
+	// publicPath: './',
     // 输出文件目录
     outputDir: 'dist',
 //  assetsDir: 'static',

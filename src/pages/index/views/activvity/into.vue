@@ -1,6 +1,6 @@
 <template>
 	<div class="csBox">
-		<list :config="data">
+		<list :config="data" :nodTip="nodTip">
 			<template v-slot:todo="{ todo }">
 				<box_a :tjData="bdtjdata" :el="todo"></box_a>
 			</template>			
@@ -23,8 +23,10 @@ export default {
 				pr:{
 					type:1,
 				},
+				
 				bdtj:[['活动','Tag-入围作品-翻页'],['活动','Tag-入围作品-更改单页显示数']]
 			},	
+			nodTip:'还没有入围作品，敬请期待',
 			bdtjdata:[['活动','Tag-入围作品-作品'],['活动','Tag-入围作品-创作者']],
 		}		
 	}, 

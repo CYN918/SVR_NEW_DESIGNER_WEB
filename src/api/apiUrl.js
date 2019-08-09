@@ -269,4 +269,11 @@ export default {
 		url:'/Api/bind/bindExist',method:'post',baseURL:0,
 	},
 	
+	pr_list:{
+		url:'/api/project/list',method:'post',baseURL:0,
+	},
+	pr_classify:{
+		url:'/api/project/classify',method:'post',baseURL:0,
+	},
+	
 }

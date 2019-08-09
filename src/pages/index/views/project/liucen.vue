@@ -1,0 +1,126 @@
+<template>
+	<div class="centLcen">
+		<div class="centLcen_1">作业流程指南</div>
+		<div class="centLcen_2">
+			<div class="centLcen_2_1">
+				<span>1</span>
+				<span>项目报名</span>
+			</div>
+			<div class="centLcen_2_2">							
+				<div>如何报名项目？</div>
+				<div>报名条件是什么？</div>
+			</div>
+		</div>
+		<div class="centLcen_2">
+			<div class="centLcen_2_1">
+				<span>2</span>
+				<span>项目中标</span>
+			</div>
+			<div class="centLcen_2_2">							
+				<div>如何提高中标率？</div>
+				<div>如何得知是否中标？</div>
+			</div>
+		</div>
+		<div class="centLcen_2">
+			<div class="centLcen_2_1">
+				<span>3</span>
+				<span>项目制作</span>
+			</div>
+			<div class="centLcen_2_2">							
+				<div>项目要求是什么？</div>
+				<div>特殊原因无法制作？</div>
+			</div>
+		</div>
+		<div class="centLcen_2">
+			<div class="centLcen_2_1">
+				<span>4</span>
+				<span>项目交稿</span>
+			</div>
+			<div class="centLcen_2_2">							
+				<div>项目要求是什么？</div>
+				<div>交稿延期了怎么办？</div>
+			</div>
+		</div>
+		<div class="centLcen_2">
+			<div class="centLcen_2_1">
+				<span>5</span>
+				<span>平台验收</span>
+			</div>
+			<div class="centLcen_2_2">							
+				<div>验收标准是什么？</div>
+			</div>
+		</div>
+		<div class="centLcen_2">
+			<div class="centLcen_2_1">
+				<span>6</span>
+				<span>获得收益</span>
+			</div>
+			<div class="centLcen_2_2">							
+				<div>收益价格怎么定？</div>
+				<div>什么是分成收益？</div>
+			</div>
+		</div>
+	</div>	
+</template>
+<script>
+export default {
+	data(){
+		return{
+			shareData:{},
+		}
+	},
+	methods: {	
+		
+	}
+}
+</script>
+<style>
+.centLcen{
+	padding: 40px 0 32px;
+}
+.centLcen_1{
+	margin-bottom: 20px;
+	font-size:16px;
+	font-weight:400;
+	color:rgba(51,51,51,1);
+	line-height:22px;
+}
+.centLcen_2{
+	text-align: left;
+	padding: 0 40px;
+	margin-bottom: 20px;
+}
+
+.centLcen_2_1{
+	margin-bottom: 5px;
+}
+.centLcen_2_1>span:nth-child(1){
+	margin-right: 15px;
+	display: inline-block;
+	border-radius: 50%;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(0,0,0,0.25);
+	line-height:31px;
+	text-align: center;
+	width:31px;
+	height:31px;
+	border:1px solid rgba(0,0,0,0.15);
+}
+.centLcen_2_1>span:nth-child(2){
+	display: inline-block;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(51,51,51,1);
+	line-height:20px;
+}
+.centLcen_2_2{
+	margin-left: 17px;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(187,187,187,1);
+	line-height:20px;
+	border-left: 1px solid rgba(217,217,217,1);
+	padding:0 0 0 30px;
+}
+</style>

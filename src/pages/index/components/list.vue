@@ -15,7 +15,7 @@
 		</el-pagination>
 		<div v-if="isNodeat" class="emptyData">
 			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
-			<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
+			<div class="noDatawan">{{nodTip}}</div>
 		</div>
 	</ul>
 	
@@ -31,6 +31,10 @@ export default {
 				pr:{},
 			},
 			
+		},
+		nodTip:{
+			type:String,
+			default:'找不到数据了o(╥﹏╥)o',
 		}
 	},
 	data(){
@@ -65,6 +69,12 @@ export default {
 			this.api[this.config.ajax.url](params).then((da)=>{
 				this.loading.close();
 				if(da=='error'){
+					if(this.List.length==0){
+						this.isNodeat=1;
+					}else{
+						this.isNodeat='';
+					}	
+					// this.List = [1,2,3,4,5,6,7,8,9,10];
 					return
 				}				
 				this.List = da.data;
@@ -83,6 +93,12 @@ export default {
 					this.goTop='';
 				}
 			}).catch(()=>{
+				if(this.List.length==0){
+					this.isNodeat=1;
+				}else{
+					this.isNodeat='';
+				}	
+				
 				this.loading.close();
 			})
 		},
