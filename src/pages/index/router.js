@@ -121,7 +121,7 @@ let wb = [
 			{path: '/myFans',name: 'myFans',component:myFans},
 			
 			{path: '/setUser',name: 'setUser',component:set_user},
-			{path: '/setSkill',name: 'setSkill',component:setSkill},
+			// {path: '/setSkill',name: 'setSkill',component:setSkill},
 			{path: '/setSecurity',name: 'setSecurity',component:set_security},
 			{
 				path: '/setRz',
@@ -159,8 +159,8 @@ let wb = [
 			{path: '/authorization',name: 'authorization',component:tx_index},
 			{path: '/help',name: 'help',component:tx_index},
 			
-			{path: '/project',name: 'project',component:pr_index},
-			{path: '/prcent',name: 'prcent',component:pr_cents},
+			// {path: '/project',name: 'project',component:pr_index},
+			// {path: '/prcent',name: 'prcent',component:pr_cents},
 			
 		],	
 		

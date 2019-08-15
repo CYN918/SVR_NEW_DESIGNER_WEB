@@ -23,8 +23,8 @@ module.exports = {
         },
     },
     // 基本路径
-    publicPath: 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/',
-	// publicPath: './',
+    // publicPath: 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/',
+	publicPath: './',
     // 输出文件目录
     outputDir: 'dist',
 //  assetsDir: 'static',
