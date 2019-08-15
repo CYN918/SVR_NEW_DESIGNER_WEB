@@ -159,8 +159,8 @@ let wb = [
 			{path: '/authorization',name: 'authorization',component:tx_index},
 			{path: '/help',name: 'help',component:tx_index},
 			
-			// {path: '/project',name: 'project',component:pr_index},
-			// {path: '/prcent',name: 'prcent',component:pr_cents},
+			{path: '/project',name: 'project',component:pr_index},
+			{path: '/prcent',name: 'prcent',component:pr_cents},
 			
 		],	
 		
