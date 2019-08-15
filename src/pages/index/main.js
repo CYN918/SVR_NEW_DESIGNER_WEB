@@ -252,6 +252,7 @@ Vue.component(Form.name, Form)
 Vue.component(FormItem.name, FormItem)
 Vue.component(Message.name, Message)
 Vue.component(Checkbox.name, Checkbox)
+Vue.prototype.$message = Message;
 Vue.config.productionTip = false
 Vue.prototype.checkLo = function(o){
 	api[o.api](o.pr).then((da)=>{

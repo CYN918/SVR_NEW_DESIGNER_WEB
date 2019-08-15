@@ -1,26 +1,30 @@
 <template>
-	<div class="pr_cent_1">
-		<img class="pr_cent_1_1" src="" alt="">
-		<div class="sjxd">
-			额外奖金¥500
+	<div @click="openCent()" class="pr_cent_1">
+		<img class="pr_cent_1_1" :src="el.banner" alt="">
+		<div class="sjxd" v-if="el.extra_reward">
+			额外奖金¥{{el.extra_reward}}
 		</div>
 		<div class="pr_cent_2">
 			<div class="pr_cent_2_1">
-				<div class="pr_cent_2_2">留学公司宣传海报设计标题</div>
-				<div class="pr_cent_2_3">项目类型：图标设计</div>
-				<div class="pr_cent_2_4">领域范围：<span>室内</span><span>平面</span><span>品牌</span></div>				
+				<div class="pr_cent_2_2">{{el.name}}</div>
+				<div class="pr_cent_2_3">项目类型：{{el.classify_name}}</div>
+				<div class="pr_cent_2_4">领域范围：<span v-for="(ed,index) in el.fields">{{ed}}</span></div>				
 			</div>
 			<div class="pr_cent_2_5">
 				<div class="pr_cent_2_6">
-					<img class="cicon" src="/imge/project/01.png" alt="">￥ 500.00 ~ ￥ 800.00
+					<img class="cicon" src="/imge/project/01.png" alt="">{{el.expected_profit}}
 				</div>
 				<div class="pr_cent_2_7">
 					<span class="pr_cent_2_7zy">
 						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/02.png" alt="">报名人数</div>
-						<div class="pr_cent_2_9"><span class="pr_hs">1723</span></div><i></i></span>
+						<div class="pr_cent_2_9"><span class="pr_hs">{{el.sign_up_num}}</span></div><i></i></span>
 					<span>
 						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/03.png" alt="">报名时间</div>						
-						<div class="pr_cent_2_9"><span class="pr_hs">10</span>时<span class="pr_hs">10</span>分<span class="pr_hs">10</span>秒</div>
+						<div class="pr_cent_2_9">
+							<span v-for="(od,name) in el.left_time" :key="name">
+								<span class="pr_hs">{{od}}</span>{{name}}
+							</span>
+						</div>
 					</span>
 				</div>
 			</div>
@@ -36,7 +40,11 @@ export default {
 		el:{
 			type:Object,
 			default:{}
-		},		
+		},	
+		djs:{
+			type:Number,
+			default:0,
+		}
 	},
 	data(){
 		return{
@@ -44,7 +52,12 @@ export default {
 		}
 	},
 	methods: {	
-		
+		openCent(){
+			if(this.el.id){
+				window.open('/#/prcent?id='+this.el.id)
+			}
+			
+		}
 	}
 }
 </script>
@@ -56,6 +69,7 @@ export default {
 	height:232px;
 	background:rgba(255,255,255,1);
 	border-radius:5px;
+	cursor: pointer;
 }
 .pr_cent_1_1{
 	display: block;

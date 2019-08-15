@@ -11,13 +11,14 @@
 				<span 
 				v-for="(el,index) in prLn" 
 				:key="index"
-				:class="['pr_02_2',onId==el.id?'pr_02_2On':'']"
+				:class="['pr_02_2 pend',type==index?'pr_02_2On':'']"
+				@click="qhNav(index)"
 				>{{el.classify_name+'（'+el.project_num+'）'}}</span>
 				<span class="pr_02_3 pend">项目承接指南</span>
 			</div>
-			<list :config="data" class="iopdlf_01" ref="sfafa">
+			<list :page="setPage" :config="data" class="iopdlf_01" ref="sfafa">
 				<template v-slot:todo="{ todo }">
-					<cent></cent>
+					<cent :djs="djson" :el="todo"></cent>
 					
 					<!-- <box_a :tjData="bdtjdata" :el="todo"></box_a> -->
 				</template>			
@@ -38,15 +39,16 @@ export default {
 					url:'pr_list',
 				},
 				pr:{
-					type:'rec',
+					
 				},
 				bdtj:[['首页','翻页'],['首页','更改单页显示数']]
 				
 			},	
+			setPage:{page:1,limit:10,size:[10,20,40,60]},
 			bdtjdata:[['首页','作品'],['首页','创作者']],
-			type:'rec',
+			type:0,
 			cont:50,
-			onId:0,
+			djson:0,
 			prLn:[],
 		}
 	},
@@ -61,24 +63,16 @@ export default {
 				}
 				this.prLn = da;
 			})
-			this.prLn = [				
-				{id:0,classify_name:'全部',project_num:50},
-				{id:1,classify_name:'视觉设计',project_num:10},
-				{id:2,classify_name:'设计加工',project_num:40},
-				{id:3,classify_name:'图标设计',project_num:40},
-				{id:4,classify_name:'动效加工',project_num:40},
-				{id:5,classify_name:'动作脚本',project_num:40},
-			];
 		},
 		qhNav(on){
 			if(on==this.type){return}
 			this.type=on;
-			if(on){
-				this.data.pr.type = on;	
-			}
-			else{
-				this.data.pr={};
-			}		
+			if(this.prLn[on].id){
+				this.data.pr.classify_id = this.prLn[on].id;
+				
+			}else{
+				this.data.pr = {};
+			}			
 			this.$refs.sfafa.sxfn();
 			
 		}

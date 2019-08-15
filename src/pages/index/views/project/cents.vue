@@ -3,29 +3,30 @@
 		<div class="cens_01">
 			<div class="cens_02">
 				<div class="cens_02_1 oijdiv">				
-					<img class="cens_02_1_img" src="" alt="">
-					<div class="sjxd" @mouseout="mod()" @mouseover="modx($event,0)">
-						额外奖金¥500
+					<img class="cens_02_1_img" :src="deta.banner" alt="">
+					<div v-if="deta.extra_reward" class="sjxd" @mouseout="mod()" @mouseover="modx($event,0)">
+						额外奖金¥{{deta.extra_reward}}
 					</div>
 					<div class="cens_02_1_cent">
 						<div class="cens_x0">
-							<div class="cens_x1">留学公司宣传海报设计的最长标题字符</div>
-							<div class="cens_x2">项目类型：图标设计</div>
-							<div class="cens_x3">领域范围：<span>室内</span></div>
+							<div class="cens_x1">{{deta.name}}</div>
+							<div class="cens_x2">项目类型：{{deta.name}}</div>
+							<div class="cens_x3">领域范围：<span v-for="(el,index) in deta.fields" :key="index">{{el}}</span></div>
 						</div>
 						<div>
 							<div class="cens_x4">
 								<div class="icon_ff_1"><img src="/imge/project/04.png" alt="">预计收益</div>
-								<div class="cens_x4_1">￥ 500.00 ~ ￥ 800.00<img @mouseout="mod()" @mouseover="modx($event,1)" src="/imge/project/09.png" ></div>
+								<div class="cens_x4_1">{{deta.expected_profit}}<img @mouseout="mod()" @mouseover="modx($event,1)" src="/imge/project/09.png" ></div>
 							</div>
 							<div class="cens_x5">
 								<div class="icon_ff_1"><img src="/imge/project/08.png" alt="">制作周期</div>
-								<div class="cens_x4_1 cens_x4_1_x1"><span>13</span>天</div>
+								<div v-if="deta.prodection_cycle_d" class="cens_x4_1 cens_x4_1_x1"><span>{{deta.prodection_cycle_d}}</span>天</div>
+								<div v-else class="cens_x4_1 cens_x4_1_x1"><span>{{deta.production_cycle_h}}</span>小时</div>
 							</div>
 							
 						</div>
 						<div>
-							<div class="icon_ff_1"><img src="/imge/project/05.png" alt=""><span>1723</span>人已报名</div>
+							<div class="icon_ff_1"><img src="/imge/project/05.png" alt=""><span>{{deta.sign_up_num}}</span>人已报名</div>
 						</div>
 					</div>
 				</div>
@@ -36,7 +37,7 @@
 				</div>
 			</div>
 			<div class="cens_03 oijdiv">
-				<xmDp></xmDp>
+				<xmDp v-if="deta.status" :djs="djsTime" :isbm="deta.is_sign_up" :typed="deta.status"></xmDp>
 				<div class="centShar botx_01">
 					<span class="pend">
 						<img src="/imge/project/06.png" alt="">
@@ -51,6 +52,7 @@
 			</div>
 		</div>
 		<tipd :tipCent="csff" :style="sfas" ref="csdf"></tipd>
+		<component v-bind:is="tcZj"  :datad="tcData"></component>
 	</div>
 	
 </template>
@@ -59,10 +61,17 @@
 import liucen from './liucen';
 import tipd from './cenTip';
 import xmDp from './xmDp';
+import pr_rz from './pr_rz';
+import qxBm from './qxBm';
+import bmXm from './bmXm';
+
+
 export default {
-	components:{liucen,tipd,xmDp},
+	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm},
 	data(){
 		return{
+			tcZj:'',
+			tcData:'',
 			shareData:{},
 			sfas:'display:none',
 			csff:'项目验收价格，会根据验收稿的质量有所浮动，但只要稿件完成度符合项目需求，则验收价格不会低于“预计收益”的范围区间。',
@@ -72,10 +81,25 @@ export default {
 				'点击打开QQ咨询项目顾问'
 			],
 			xmOn:3,
-			xm:[{n:'招标期',cl:'c_zmq'},{n:'选标期',cl:'c_zmq'},{n:'制作期',cl:'c_zmq2'},{n:'待验收',cl:'c_zmq3'},{}]
+			xm:[{n:'招标期',cl:'c_zmq'},{n:'选标期',cl:'c_zmq'},{n:'制作期',cl:'c_zmq2'},{n:'待验收',cl:'c_zmq3'},{}],
+			
+			deta:{},
+			djsTime:{},
 		}
 	},
+	mounted: function(){
+		this.init();
+	}, 
 	methods: {	
+		init(){
+		
+			if(!this.$route.query.id){
+				this.$router.push({path:'/project'});
+				return
+			}
+			this.getData();
+			
+		},
 		mod(e){
 			this.sfas = 'display:none';
 		},
@@ -85,7 +109,32 @@ export default {
 		},	
 		setPos(x,y){
 			this.sfas = 'top:'+y+'px;left:'+x+'px';
+		},
+		close(){
+			this.tcZj = '';
+		},
+		showTc(a,b){
+			console.log(b);
+			this.tcZj = a;
+			this.tcData = b;
+		},
+		setBm(on){
+			this.deta.is_sign_up=on;
+		},
+		getData(){
+			
+			let pr = {
+				id : this.$route.query.id
+			};
+			this.api.pr_detail(pr).then((da)=>{
+				if(da=='error'){return}
+				this.deta = da;
+				this.djsTime = da.left_time;
+			}).catch(()=>{
+				
+			});
 		}
+		
 	}
 }
 </script>
@@ -138,7 +187,7 @@ export default {
 	padding: 30px 0;
 	margin: 0 auto;
 	width:780px;
-	background: red;
+
 }
 
 .centShar>span{

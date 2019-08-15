@@ -275,5 +275,19 @@ export default {
 	pr_classify:{
 		url:'/api/project/classify',method:'post',baseURL:0,
 	},
+	pr_detail:{
+		url:'/api/project/detail',method:'post',baseURL:0,
+	},
+	pr_check:{
+		url:'/api/project/qualification',method:'post',baseURL:0,
+	},
+
+	pr_cancelSignup:{
+		url:'/api/project/cancelSignup',method:'post',baseURL:0,
+	},
+	
+	pr_signup:{
+		url:'/api/project/signup',method:'post',baseURL:0,
+	},
 	
 }

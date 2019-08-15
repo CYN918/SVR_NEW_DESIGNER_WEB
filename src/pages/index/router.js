@@ -33,6 +33,7 @@ import myCreators from './views/user/myCreators.vue'
 import myFans from './views/user/myFans.vue'
 
 import set_user from './views/set/user.vue'
+import setSkill from './views/set/skill.vue'
 import set_security from './views/set/security.vue'
 import set_rzCom from './views/set/rzCom.vue'
 import set_personal from './views/set/personal.vue'
@@ -120,6 +121,7 @@ let wb = [
 			{path: '/myFans',name: 'myFans',component:myFans},
 			
 			{path: '/setUser',name: 'setUser',component:set_user},
+			{path: '/setSkill',name: 'setSkill',component:setSkill},
 			{path: '/setSecurity',name: 'setSecurity',component:set_security},
 			{
 				path: '/setRz',

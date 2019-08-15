@@ -160,6 +160,7 @@ export default {
 				title:'账号设置',
 				list:[
 					{n:'基本信息',u:'/setUser',bdtj:['帐号设置','tag_帐号安全_点击基本信息']},
+					{n:'能力资料',u:'/setSkill',bdtj:['能力资料','tag_基本信息_点击能力资料']},
 					{n:'账号安全',u:'/setSecurity',bdtj:['帐号设置','tag_帐号安全_点击帐号安全']},
 				],
 			},

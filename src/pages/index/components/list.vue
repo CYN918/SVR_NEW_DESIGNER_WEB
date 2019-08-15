@@ -7,9 +7,9 @@
 		background
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"
-		:current-page="page"
-		:page-sizes="[40, 80, 120, 160]"
-		:page-size="limit"
+		:current-page="page.page"
+		:page-sizes="page.size"
+		:page-size="page.limit"
 		layout="prev,pager, next,sizes, jumper"
 		:total="total">   
 		</el-pagination>
@@ -31,17 +31,29 @@ export default {
 				pr:{},
 			},
 			
+			
 		},
 		nodTip:{
 			type:String,
 			default:'找不到数据了o(╥﹏╥)o',
+		},
+		page:{
+			type:Object,
+			default:
+				()=>{
+					return{
+						limit:40,
+						page:1,
+						size:[40, 80, 120, 160],
+					}
+				}
+			
 		}
+		
 	},
 	data(){
 		return{
 			List:[],
-			page:1,
-			limit:40,
 			total:0,
 			isNodeat:'',
 			loading: '',
@@ -54,15 +66,16 @@ export default {
 	}, 
 	methods: {
 		sxfn(){
-			this.page=1;
-			this.limit=40;
+			this.page.page=1;
+			this.page.limit=this.page.size[0];
 			this.getData();			
 		},
 		
 		getData(da){	
+			console.log(this.page);
 			let params = {
-				page:this.page,
-				limit:this.limit
+				page:this.page.page,
+				limit:this.page.limit
 			};		
 			params =  Object.assign(params,this.config.pr)	
 			this.loading = Loading.service({target:this.$refs.adLoDom, fullscreen: true });
@@ -108,8 +121,8 @@ export default {
 				this.bdtj(this.config.bdtj[1][0],this.config.bdtj[1][1],'--');
 			}
 			this.goTop=1;
-			this.limit = val;
-			this.page=1;
+			this.page.limit = val;
+			this.page.page=1;
 			this.getData();
 			
 		},
@@ -118,7 +131,7 @@ export default {
 				this.bdtj(this.config.bdtj[0][0],this.config.bdtj[0][1],'--');
 			}
 			this.goTop=1;
-			this.page = val;
+			this.page.page = val;
 			this.getData();
 		}
 	}

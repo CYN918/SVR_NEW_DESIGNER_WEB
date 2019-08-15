@@ -66,11 +66,11 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 			return data
 		}else{			
 			if(result=='104'){	
-				return 'islogin';
-				// localStorage.setItem('userT','');
-				// window.userInfo='';				
-				// window.location.href = '#/login';		
-				// return 'error';
+				// return 'islogin';
+				localStorage.setItem('userT','');
+				window.userInfo='';				
+				window.location.href = '#/login';		
+				return 'error';
 			}
 			Message({dangerouslyUseHTMLString:true,message: data});
 			return 'error';
