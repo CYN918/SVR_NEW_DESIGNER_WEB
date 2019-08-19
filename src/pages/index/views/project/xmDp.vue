@@ -65,12 +65,13 @@ export default {
 	methods: {
 		init(){
 			this.xmTypeOn = this.obj.status-1;
-			if(this.isbm==1){
+			if(this.obj.is_sign_up==1){
 				this.xmType[0].btns = [{n:'已报名',tcFn:'showTc',tcFncs:'qxBm',cl:'cenDjs_4ys'}];	
 			}
 			this.da = this.xmType[this.xmTypeOn];	
 		
 			// this.endjg = '￥8,000';
+			this.deal_type=2;
 			if(this.deal_type==2){
 				this.xmType[4].n = '项目分成价值';
 				this.xmType[4].btns.unshift({n:'分成收益',tcFn:'showTc2'});		

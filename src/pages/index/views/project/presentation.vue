@@ -7,20 +7,20 @@
 					<img class="pr_bg_03_1_1" src="" alt="">
 					<div class="pr_bg_03_1_2">
 						<div class="pr_bg_03_1_2_1">
-							<div class="pr_bg_03_1_2_1_1">项目名称：项目名称项目名称项目名称</div>
-							<div class="pr_bg_03_1_2_1_2">项目类型：设计加工<span></span>成交方式：买断式</div>
+							<div class="pr_bg_03_1_2_1_1">项目名称：{{das.name}}</div>
+							<div class="pr_bg_03_1_2_1_2">项目类型：{{das.classify_name}}<span></span>成交方式：{{das.deal_type}}</div>
 						</div>
 						<div class="pr_bg_03_1_2_2">
-							项目评价<span>A</span>
+							项目评价<span>{{das.level}}</span>
 						</div>
 						<div class="pr_bg_03_1_2_3">
-							擅长领域：<span>室内</span>
+							擅长领域：<span v-for="(el,index) in das.fields" :key="index">{{el}}</span>
 						</div>
 					</div>
 				</div>
 				<div class="pr_bg_03_2">
 					<div class="pr_bg_03_2_1">最终成交价格</div>
-					<div class="pr_bg_03_2_2">￥8,000</div>
+					<div class="pr_bg_03_2_2">¥ {{das.deal_price}}</div>
 					<div class="pr_bg_03_2_3">感谢您本次的项目合作，如有疑问可前往 <router-link to="/help">帮助中心</router-link> 了解更多</div>
 				</div>
 			</div>
@@ -31,17 +31,17 @@
 				<div class="pr_bg_04_3">
 					<div>
 						<div class="pr_bg_04_3_1">验收价格</div>
-						<div class="pr_bg_04_3_2">+ ¥ 1,140.00</div>
+						<div class="pr_bg_04_3_2">+ ¥ {{das.acceptance_price}}</div>
 					</div><div>
 						<div class="pr_bg_04_3_1">额外奖金</div>
-						<div class="pr_bg_04_3_2">+ ¥ 1,140.00</div>
+						<div class="pr_bg_04_3_2">+ ¥ {{das.extra_reward}}</div>
 					</div><div>
-						<div class="pr_bg_04_3_1">3天 延期交稿</div>
-						<div class="pr_bg_04_3_2 pr_bg_04_3_3">+ ¥ 1,140.00</div>
+						<div class="pr_bg_04_3_1">{{das.delay_day}}天 延期交稿</div>
+						<div class="pr_bg_04_3_2 pr_bg_04_3_3">- ¥ {{das.deduction_price}}</div>
 						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,0)" src="/imge/project/09.png">
 					</div><div>
-						<div class="pr_bg_04_3_1">5% 收益加成</div>
-						<div class="pr_bg_04_3_2">+ ¥ 1,140.00</div>
+						<div class="pr_bg_04_3_1">{{das.gain_share_rate}} 收益加成</div>
+						<div class="pr_bg_04_3_2">+ ¥ {{das.gain_share_price}}</div>
 						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,1)" src="/imge/project/09.png">
 					</div>
 					
@@ -66,10 +66,17 @@ export default {
 		return{
 			sfas:'',
 			csff:'ccccccc',
-			tips:['aaaaaaaaaaaaa','bbbbbbbbbbbbbb']
+			tips:['aaaaaaaaaaaaa','bbbbbbbbbbbbbb'],
+			das:{}
 		}
 	},
+	mounted: function(){
+		this.init();
+	}, 
 	methods: {	
+		init(){
+			this.pr_gtreport();
+		},
 		mod(e){
 			this.sfas = 'display:none';
 		},
@@ -86,15 +93,14 @@ export default {
 		goTo(on){
 			this.$router.push({path: on})	
 		},
-		pr_revokeDelivery(){
+		pr_gtreport(){
 		
-			this.api.pr_revokeDelivery({
-				project_id:this.$parent.deta.id,
+			this.api.pr_gtreport({
+				project_id:2,
 			}).then((da)=>{
 				if(da=='error'){return}
-				this.$parent.setStaus('3');
-				this.$message.error("撤回稿件成功");
-				this.$parent.close();
+				this.das = da;
+				console.log(da);
 			}).catch(()=>{
 				
 			});

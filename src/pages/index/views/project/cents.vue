@@ -147,7 +147,7 @@ export default {
 			};
 			this.api.pr_detail(pr).then((da)=>{
 				if(da=='error'){return}
-	
+				
 				this.deta = da;
 			}).catch(()=>{
 				

@@ -314,5 +314,13 @@ export default {
 		url:'/api/project/evaluate',method:'post',baseURL:0,
 	},
 	
+	pr_gtreport:{
+		url:'/api/project/report',method:'post',baseURL:0,
+	},
+	
+	pr_personalList:{
+		url:'/api/project/personalList',method:'post',baseURL:0,
+	},
+	
 	
 }

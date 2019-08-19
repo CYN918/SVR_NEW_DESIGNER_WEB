@@ -80,7 +80,13 @@ export default {
 			
 		},
 		checkZp(o){
-			this.postData.work_ids.push(o);
+			let ond = this.postData.work_ids.indexOf(o);
+			if(ond==-1){
+				this.postData.work_ids.push(o);
+				return
+			}
+			this.postData.work_ids.splice(ond,1)
+			
 		},
 		close(){			
 			this.$parent.close();

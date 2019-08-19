@@ -1,20 +1,23 @@
 <template>
-	<div>
+	<div class="opfi">
 		<tophead :con="navData"></tophead>
-		<div class="csBox opodd">
-			<list :config="data" ref="listDom">
+		<div class="csBox opfi2">
+			<list :config="data" class="iopdlf_01" ref="listDom">
 				<template v-slot:todo="{ todo }">
-					111111
+					<cent :djs="djson" :el="todo"></cent>
 				</template>			
 			</list>
+			
 		</div>
 	</div>
 </template>
 <script>
 import tophead from './myHead';
+
 import list from '../../components/list';
+import cent from '../project/cent_1';
 export default {
-	components:{tophead,list},
+	components:{tophead,list,cent},
 	name: 'myAll',
 	data(){
 		return {
@@ -29,19 +32,21 @@ export default {
 				bdtj:'我的项目'				
 			},
 			isTypeList:{
-				projectAll:'all',
-				projectBm:'0',
-				projectZz:'-2',
-				projectYs:'2',
+				projectAll:'',
+				projectBm:'1',
+				projectZz:'2',
+				projectYs:'3',
 			},
 			
 			data:{
 				ajax:{
-					url:'getSelfWorkList',
+					url:'pr_personalList',
+				
 				},
 				pr:{},
 
 			},
+			djson:0,
 			
 		}
 	},
@@ -57,7 +62,9 @@ export default {
 	},
 	methods: {
 		init(){
-			this.data.pr.status =  this.isTypeList[this.$route.name];
+			this.data.pr = {};
+			if(this.$route.name=='projectAll'){return}			
+			this.data.pr.type =  this.isTypeList[this.$route.name];
 		},
 		
 	}
@@ -65,7 +72,18 @@ export default {
 </script>
 
 <style>
-.opodd{
-	padding-top: 20px;
+.opfi{
+	background: #eeee;
+}
+.opfi2{
+	padding-top: 40px;
+}
+.iopdlf_01>li{
+	display: inline-block;
+	margin-bottom: 40px;
+	margin-right: 20px;
+}
+.iopdlf_01>li:nth-child(2n+2){
+	margin-right: 0;
 }
 </style>
