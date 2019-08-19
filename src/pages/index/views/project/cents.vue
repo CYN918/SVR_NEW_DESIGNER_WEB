@@ -37,10 +37,10 @@
 				</div>
 			</div>
 			<div class="cens_03 oijdiv">
-				<xmDp v-if="deta.status" :djs="djsTime" :isbm="deta.is_sign_up" :typed="deta.status"></xmDp>
+				<xmDp v-if="deta.status" :obj="deta" ref="xmDp"></xmDp>
 				<div class="centShar botx_01">
 					<span class="pend">
-						<img src="/imge/project/06.png" alt="">
+						<img @click="sharc" src="/imge/project/06.png" alt="">
 						分享项目
 					</span>
 					<span class="pend">
@@ -64,10 +64,17 @@ import xmDp from './xmDp';
 import pr_rz from './pr_rz';
 import qxBm from './qxBm';
 import bmXm from './bmXm';
+import shareD from './share';
+import pushGj from './pushGj';
+import qxGj from './qxGj';
+import Log from './log';
+import Stop from './stop';
+import question from './question';
+import presentation from './presentation';
 
 
 export default {
-	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm},
+	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm,shareD,pushGj,qxGj,Log,Stop,question,presentation},
 	data(){
 		return{
 			tcZj:'',
@@ -100,6 +107,13 @@ export default {
 			this.getData();
 			
 		},
+		sharc(){
+			this.tcZj = 'shareD';
+			this.tcData = {
+				name:this.deta.name,
+				banner:this.deta.banner
+			};
+		},
 		mod(e){
 			this.sfas = 'display:none';
 		},
@@ -120,6 +134,11 @@ export default {
 		},
 		setBm(on){
 			this.deta.is_sign_up=on;
+			this.$refs.xmDp.setBm(this.deta.is_sign_up);
+		},
+		setStaus(on){
+			this.deta.status= on;
+			this.$refs.xmDp.setStuts(on);
 		},
 		getData(){
 			
@@ -128,8 +147,8 @@ export default {
 			};
 			this.api.pr_detail(pr).then((da)=>{
 				if(da=='error'){return}
+	
 				this.deta = da;
-				this.djsTime = da.left_time;
 			}).catch(()=>{
 				
 			});

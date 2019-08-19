@@ -11,9 +11,12 @@
 			</div>
 			<div class="detail_topBox_2">
 
-				<div v-if="new Date(infoData.end_time) > new Date()"><span v-if="infoData.is_provide_template==1" @click="downMoble(infoData)" class="detail_topBox_2_1 pend">下载模板</span><span v-if="infoData.setting_type!=1"  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
+				<div v-if="infoData.status==1">
+					<span v-if="infoData.is_provide_template==1" @click="downMoble(infoData)" class="detail_topBox_2_1 pend">下载模板</span>
+					<span v-if="infoData.setting_type!=1"  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span>
+				</div>			
 
-				<span v-else class="detail_topBox_2_3">已结束</span>
+				<span v-if="infoData.status==-1" class="detail_topBox_2_3">已结束</span>
 			</div>
 			</div>
 			</div>

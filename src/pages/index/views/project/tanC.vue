@@ -22,10 +22,10 @@ export default {
 	},
 	methods: {	
 		init(){
-			document.body.style='overflow-y: hidden;';
+			// document.body.style='overflow-y: hidden;';
 		},
 		close(){
-			document.body.style='';
+			// document.body.style='';
 			this.$parent.close();
 		},
 	}

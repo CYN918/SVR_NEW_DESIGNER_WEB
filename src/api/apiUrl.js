@@ -290,4 +290,29 @@ export default {
 		url:'/api/project/signup',method:'post',baseURL:0,
 	},
 	
+	pr_delivery:{
+		url:'/api/project/delivery',method:'post',baseURL:0,
+	},
+	
+	pr_revokeDelivery:{
+		url:'/api/project/revokeDelivery',method:'post',baseURL:0,
+	},
+	
+	pr_deliveryList:{
+		url:'/api/project/deliveryList',method:'post',baseURL:0,
+	},
+	
+	pr_terminate:{
+		url:'/api/project/terminate',method:'post',baseURL:0,
+	},
+	
+	pr_question:{
+		url:'/api/project/question',method:'post',baseURL:0,
+	},
+	
+	pr_evaluate:{
+		url:'/api/project/evaluate',method:'post',baseURL:0,
+	},
+	
+	
 }

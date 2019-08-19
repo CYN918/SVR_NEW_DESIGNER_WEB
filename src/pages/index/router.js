@@ -18,6 +18,7 @@ import info from './views/user/info.vue'
 
 
 import myWorksCom from './views/user/myWorksCom.vue'
+import myProjectCom from './views/user/myProjectCom.vue'
 
 import av_list from './views/activvity/list.vue'
 import av_com from './views/activvity/com.vue'
@@ -54,8 +55,11 @@ import chat from './views/message/chat.vue'
 
 import searchUser from './views/search/searchUser.vue'
 import searchWorks from './views/search/searchWorks.vue'
+import searchProject from './views/search/searchProject.vue'
+
 
 import tx_index from './views/message/text.vue'
+import tx_help from './views/message/help.vue'
 
 import lg_index from './views/login/index.vue'
 import lg_login from './views/login/login.vue'
@@ -66,6 +70,8 @@ import lg_userme2 from './views/login/userme2.vue'
 
 import pr_index from './views/project/index.vue'
 import pr_cents from './views/project/cents.vue'
+import pr_presentation from './views/project/presentation.vue'
+
 
 Vue.use(Router)
 const router = new Router({
@@ -100,6 +106,11 @@ let wb = [
 			{path: '/myNotPass',name: 'myNotPass',component:myWorksCom},
 			{path: '/myPass',name: 'myPass',component:myWorksCom},
 			{path: '/myDraft',name: 'myDraft',component:myWorksCom},
+			
+			{path: '/projectAll',name: 'projectAll',component:myProjectCom},
+			{path: '/projectBm',name: 'projectBm',component:myProjectCom},
+			{path: '/projectZz',name: 'projectZz',component:myProjectCom},
+			{path: '/projectYs',name: 'projectYs',component:myProjectCom},
 			
 			{path: '/activvity',name: 'activvity',component:av_list},			
 			{
@@ -153,14 +164,19 @@ let wb = [
 			{path: '/chat',name: 'chat',component:chat},
 			{path: '/searchUser',name: 'searchUser',component:searchUser},
 			{path: '/searchWorks',name: 'searchWorks',component:searchWorks},
+			{path: '/searchProject',name: 'searchProject',component:searchProject},			
+						
+						
 						
 			{path: '/about',name: 'about',component:tx_index},
 			{path: '/userProtocol',name: 'userProtocol',component:tx_index},
 			{path: '/authorization',name: 'authorization',component:tx_index},
-			{path: '/help',name: 'help',component:tx_index},
+			{path: '/help',name: 'help',component:tx_help},
 			
 			{path: '/project',name: 'project',component:pr_index},
 			{path: '/prcent',name: 'prcent',component:pr_cents},
+			{path: '/presentation',name: 'pr_presentation',component:pr_presentation},
+			
 			
 		],	
 		
