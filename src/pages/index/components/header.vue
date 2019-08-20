@@ -521,7 +521,7 @@ export default {
     -webkit-transform: translateY(100%);
     transform: translateY(100%);
     width: 170px;
-    height: 264px;
+    height: 310px;
     z-index: 9999;
     margin-right: 0;
 }

@@ -147,6 +147,17 @@ export default {
 	line-height:18px;
 	margin-bottom: 21px;
 }
+.pr_cent_2_4>span{
+	display: inline-block;
+    margin: 0 3px;
+    padding: 2px 10px;
+    background: rgba(244,246,249,1);
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(187,187,187,1);
+    line-height: 18px;
+}
 .cicon{
 	display: inline-block;
 	vertical-align: middle;

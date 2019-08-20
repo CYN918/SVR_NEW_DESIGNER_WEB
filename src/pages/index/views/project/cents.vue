@@ -20,8 +20,10 @@
 							</div>
 							<div class="cens_x5">
 								<div class="icon_ff_1"><img src="/imge/project/08.png" alt="">制作周期</div>
-								<div v-if="deta.prodection_cycle_d" class="cens_x4_1 cens_x4_1_x1"><span>{{deta.prodection_cycle_d}}</span>天</div>
-								<div v-else class="cens_x4_1 cens_x4_1_x1"><span>{{deta.production_cycle_h}}</span>小时</div>
+								<div  class="cens_x4_1 cens_x4_1_x1" v-html="backZq(deta.production_cycle_d,deta.production_cycle_h)">
+									
+								</div>
+								
 							</div>
 							
 						</div>
@@ -107,11 +109,21 @@ export default {
 			this.getData();
 			
 		},
+		backZq(a,b){
+			let str = '';
+			if(a){
+				str+='<span>'+a+'</span>天';
+			}
+			if(b){
+				str+='<span>'+b+'</span>小时';
+			}
+			return str;
+		},
 		sharc(){
 			this.tcZj = 'shareD';
 			this.tcData = {
 				name:this.deta.name,
-				banner:this.deta.banner
+				banner:this.deta.banner,
 			};
 		},
 		mod(e){
@@ -331,7 +343,7 @@ export default {
 }
 .cens_x4_1>span{
 	color:rgba(255,81,33,1);
-	margin-right: 4px;
+	margin:0 4px;
 }
 .cens_x4_1_x1{
 	color:rgba(187,187,187,1);
