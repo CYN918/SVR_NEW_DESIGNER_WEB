@@ -10,7 +10,7 @@
 					<div class="cens_02_1_cent">
 						<div class="cens_x0">
 							<div class="cens_x1">{{deta.name}}</div>
-							<div class="cens_x2">项目类型：{{deta.name}}</div>
+							<div class="cens_x2">项目类型：{{deta.classify_name}}</div>
 							<div class="cens_x3">领域范围：<span v-for="(el,index) in deta.fields" :key="index">{{el}}</span></div>
 						</div>
 						<div>

@@ -12,14 +12,16 @@
 			</div>
 			<div class="pr_cent_2_5">
 				<div class="pr_cent_2_6">
-					<img class="cicon" src="/imge/project/01.png" alt="">{{el.expected_profit}}
+					<img class="cicon" src="/imge/project/02.png" alt="">{{el.expected_profit}}
 				</div>
 				<div class="pr_cent_2_7">
 					<span class="pr_cent_2_7zy">
-						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/02.png" alt="">报名人数</div>
-						<div class="pr_cent_2_9"><span class="pr_hs">{{el.sign_up_num}}</span></div><i></i></span>
+						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/03.png" alt="">报名人数</div>
+						<div class="pr_cent_2_9">
+							<span class="pr_hs">{{el.sign_up_num}}</span>
+						</div><i></i></span>
 					<span>
-						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/03.png" alt="">报名时间</div>						
+						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/01.png" alt="">报名时间</div>						
 						<div class="pr_cent_2_9">
 							<span v-for="(od,name) in el.left_time" :key="name">
 								<span class="pr_hs">{{od}}</span>{{name}}
@@ -206,13 +208,12 @@ export default {
 .pr_cent_2_9{
 	text-align: right;
 	text-indent: 30px;
-}
-
-.pr_cent_2_9{
 	font-size:12px;
 	font-weight:400;
 	color:rgba(187,187,187,1);
 	line-height:18px;	
 	white-space: nowrap;
+	text-align: left;
 }
+
 </style>

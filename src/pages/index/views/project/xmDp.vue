@@ -7,8 +7,8 @@
 				<div v-if="djsshow.h" class="cenDjs_2">
 					<span>{{djsshow.d}}</span>d<span>{{djsshow.h}}</span>h<span>{{djsshow.m}}</span>m<span>{{djsshow.s}}</span>s
 				</div>
-				<div v-if="da.yue" class="cenDjs_2">
-					<span>27</span>月<span>02</span>号<span>27</span>点
+				<div v-if="obj.delivery_deadline_format && obj.status==3" class="cenDjs_2">
+					<span>{{obj.delivery_deadline_format.m}}</span>月<span>{{obj.delivery_deadline_format.d}}</span>号<span>{{obj.delivery_deadline_format.H}}</span>点
 				</div>
 				<div  class="cenDjs_3">{{da.n}}<div class="cenDjs_zzf">{{endjg}}</div> </div>
 			</div>
@@ -77,6 +77,12 @@ export default {
 				this.xmType[4].btns.unshift({n:'分成收益',tcFn:'showTc2'});		
 				this.xmType[4].t.icon = 'fc';		
 			}
+			
+			if(this.obj.delivery_deadline_format && this.obj.status==3){
+				
+			}
+			
+			
 			if(this.obj.left_time &&  this.obj.status==1){
 				this.da.djs = this.obj.left_time;
 				this.djsfn(this.da.djs);

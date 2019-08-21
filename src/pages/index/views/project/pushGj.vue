@@ -32,7 +32,7 @@
 				
 				<div class="pushGj_03">
 					<div class="pushGj_03_1">备注说明</div>
-					<textarea placeholder="请输入终止理由…" class="pushGj_03_2">{{eell}}</textarea>
+					<textarea placeholder="请输入备注说明…" class="pushGj_03_2">{{eell}}</textarea>
 				</div>
 			</div>
 			<div class="bmXm_01Btn">
@@ -86,12 +86,12 @@ export default {
 				project_id:this.$parent.deta.id,
 				file_name:this.fileList3[0].file_name,
 				file_url:this.fileList3[0].url,
-				file_size:this.fileList3[0].file_size,
+				file_size:this.fileList3[0].size,
 				remark:this.eell,
 			}).then((da)=>{
 				if(da=='error'){return}
 				this.$parent.setStaus('4');
-				this.$message.error("交稿成功请耐心等待验收");
+				this.$message({message:"交稿成功请耐心等待验收"});
 				this.close();
 			}).catch(()=>{
 				
