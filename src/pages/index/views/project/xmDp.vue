@@ -77,7 +77,7 @@ export default {
 				this.xmType[4].btns.unshift({n:'分成收益',tcFn:'showTc2'});		
 				this.xmType[4].t.icon = 'fc';		
 			}
-			if(this.obj.left_time){
+			if(this.obj.left_time &&  this.obj.status==1){
 				this.da.djs = this.obj.left_time;
 				this.djsfn(this.da.djs);
 			}
