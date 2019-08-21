@@ -33,9 +33,9 @@
 					</div>
 				</div>
 				
-				<div class="cens_02_2 oijdiv">
-					<div class="cens_02_2hd">需要做的</div>
-					<div class="cens_02_2ce">sadasd</div>
+				<div v-for="(el,index) in deta.desc" :key="index" class="cens_02_2 oijdiv">
+					<div class="cens_02_2hd">{{el.module_title}}</div>
+					<div class="cens_02_2ce" v-html="el.module_content"></div>
 				</div>
 			</div>
 			<div class="cens_03 oijdiv">
@@ -53,7 +53,7 @@
 				<liucen></liucen>
 			</div>
 		</div>
-		<tipd :tipCent="csff" :style="sfas" ref="csdf"></tipd>
+		<tipd  :tipCent="csff" :style="sfas" ref="csdf"></tipd>
 		<component v-bind:is="tcZj"  :datad="tcData"></component>
 	</div>
 	

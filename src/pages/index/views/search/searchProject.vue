@@ -4,7 +4,7 @@
 		
 		<list :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
-				<box_a :bdtj="bdtjdata" :el="todo"></box_a>
+				<cent :djs="djson" :el="todo"></cent>
 			</template>			
 		</list>
 	</div>
@@ -14,9 +14,9 @@
 
 import list from '../../components/list';
 import tophead from './head';
-import box_a from '../../components/box_a';
+import cent from '../project/cent_1';
 export default {
-	components:{tophead,list,box_a},
+	components:{tophead,list,cent},
 	name: 'home',
 	data(){
 		return {
@@ -25,7 +25,7 @@ export default {
 					url:'Searchsearch',
 				},
 				pr:{
-					type:'work',
+					type:'project',
 				},
 				
 				
@@ -33,6 +33,7 @@ export default {
 			bdtjdata:[['搜索页','作品'],['搜索页','创作者']],
 			querys:'',
 			clasd:[],
+			djson:0,
 			
 		}
 	},
