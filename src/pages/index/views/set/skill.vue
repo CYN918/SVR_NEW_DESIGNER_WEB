@@ -243,7 +243,7 @@ export default {
 			this.form.style.splice(ond,1);
 		},
 		chekfield(on){
-			let ond = this.form.style.indexOf(on);
+			let ond = this.form.field.indexOf(on);
 			if(ond==-1){
 				this.form.field.push(on);
 				return

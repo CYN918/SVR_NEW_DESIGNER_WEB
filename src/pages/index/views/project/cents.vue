@@ -312,10 +312,10 @@ export default {
 }
 .icon_ff_1>img{
 	display: inline-block;
-	vertical-align: middle;
-	margin-right: 5px;
-	width: 28px;
-	height: 28px;
+	vertical-align: text-bottom;
+	margin-right: 10px;
+    width: 18px;
+    height: 18px;
 }
 .icon_ff_1>span{
 	font-size:14px;
@@ -350,13 +350,13 @@ export default {
 }
 
 .cens_x4_1>img{
-	cursor: pointer;
-	display: inline-block;
-	margin-top: 4px;
-	margin-left: 5px;
-	vertical-align: top;
-	width: 14px;
-	height: 14px;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 3px;
+    margin-left: 5px;
+    vertical-align: top;
+    width: 12px;
+    height: 12px;
 }
 
 

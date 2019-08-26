@@ -15,7 +15,7 @@
 import tophead from './myHead';
 
 import list from '../../components/list';
-import cent from '../project/cent_1';
+import cent from '../project/cent_2';
 export default {
 	components:{tophead,list,cent},
 	name: 'myAll',

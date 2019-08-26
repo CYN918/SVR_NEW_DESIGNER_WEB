@@ -196,16 +196,16 @@ export default {
 }
 .cicon{
 	display: inline-block;
-	vertical-align: text-bottom;
-	margin-right: 10px;
-	width: 18px;
-	height: 18px;
+	vertical-align: middle;
+	margin-right: 5px;
+	width: 26px;
+	height: 26px;
 }
 .pr_cent_2_6{
 	font-size:14px;
 	font-weight:600;
 	color:rgba(255,81,33,1);
-	line-height:18px;
+	line-height:20px;
 	margin-bottom: 10px;
 }
 .pr_cent_2_7>span{
