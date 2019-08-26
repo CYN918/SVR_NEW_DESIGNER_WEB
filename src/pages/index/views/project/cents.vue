@@ -15,11 +15,11 @@
 						</div>
 						<div>
 							<div class="cens_x4">
-								<div class="icon_ff_1"><img src="/imge/project/04.png" alt="">预计收益</div>
-								<div class="cens_x4_1">{{deta.expected_profit}}<img @mouseout="mod()" @mouseover="modx($event,1)" src="/imge/project/09.png" ></div>
+								<div class="icon_ff_1"><img src="/imge/project/04.svg" alt="">预计收益</div>
+								<div class="cens_x4_1">{{deta.expected_profit}}<img @mouseout="mod()" @mouseover="modx($event,1)" src="/imge/project/09.svg" ></div>
 							</div>
 							<div class="cens_x5">
-								<div class="icon_ff_1"><img src="/imge/project/08.png" alt="">制作周期</div>
+								<div class="icon_ff_1"><img src="/imge/project/08.svg" alt="">制作周期</div>
 								<div  class="cens_x4_1 cens_x4_1_x1" v-html="backZq(deta.production_cycle_d,deta.production_cycle_h)">
 									
 								</div>
@@ -28,7 +28,7 @@
 							
 						</div>
 						<div v-if="deta.status==1 || deta.status==2">
-							<div class="icon_ff_1"><img src="/imge/project/05.png" alt=""><span>{{deta.sign_up_num}}</span>人已报名</div>
+							<div class="icon_ff_1"><img src="/imge/project/05.svg" alt=""><span>{{deta.sign_up_num}}</span>人已报名</div>
 						</div>
 					</div>
 				</div>
@@ -42,11 +42,11 @@
 				<xmDp v-if="deta.status" :obj="deta" ref="xmDp"></xmDp>
 				<div class="centShar botx_01">
 					<span class="pend">
-						<img @click="sharc" src="/imge/project/06.png" alt="">
+						<img @click="sharc" src="/imge/project/06.svg" alt="">
 						分享项目
 					</span>
 					<span class="pend">
-						<img @mouseout="mod()" @mouseover="modx($event,2)" src="/imge/project/07.png" alt="">
+						<img @mouseout="mod()" @mouseover="modx($event,2)" src="/imge/project/07.svg" alt="">
 						项目顾问
 					</span>
 				</div>
@@ -159,7 +159,7 @@ export default {
 			};
 			this.api.pr_detail(pr).then((da)=>{
 				if(da=='error'){return}
-				da.deal_price=800;
+			
 				this.deta = da;
 			}).catch(()=>{
 				

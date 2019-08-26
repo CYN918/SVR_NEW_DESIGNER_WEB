@@ -38,11 +38,11 @@
 					</div><div>
 						<div class="pr_bg_04_3_1">{{das.delay_day}}天 延期交稿</div>
 						<div class="pr_bg_04_3_2 pr_bg_04_3_3">- ¥ {{das.deduction_price}}</div>
-						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,0)" src="/imge/project/09.png">
+						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,0)" src="/imge/project/09.svg">
 					</div><div>
 						<div class="pr_bg_04_3_1">{{das.gain_share_rate}} 收益加成</div>
 						<div class="pr_bg_04_3_2">+ ¥ {{das.gain_share_price}}</div>
-						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,1)" src="/imge/project/09.png">
+						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,1)" src="/imge/project/09.svg">
 					</div>
 					
 					

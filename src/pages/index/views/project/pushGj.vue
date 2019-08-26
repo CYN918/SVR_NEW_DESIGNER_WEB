@@ -16,14 +16,14 @@
 					  action="customize"
 					 
 					  >
-					  <i class="el-icon-upload"><img src="/imge/project/pus.png"></i>
+					  <i class="el-icon-upload"><img src="/imge/project/pus.svg"></i>
 					  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 					  <div class="el-upload__tip" slot="tip">文件大小为1GB以内</div>
 					</el-upload>
 					
 					<div class="lid">
 						<li v-for="(el,key) in fileList3" :key="key">
-							<div class="lid_1"><img src="/imge/project/pus1.png">{{el.file_name}}<img src="/imge/project/cj_00.png" @click="clodfile(el,key)" class="closeX pend"/></div>
+							<div class="lid_1"><img src="/imge/project/pus1.svg">{{el.file_name}}<img src="/imge/project/cj_00.svg" @click="clodfile(el,key)" class="closeX pend"/></div>
 							<div class="lid_2"><span :style="{transform:'translateX('+-(100-el.bf)+'%)'}"></span></div>
 						</li>
 						

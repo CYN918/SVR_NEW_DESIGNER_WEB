@@ -12,16 +12,16 @@
 			</div>
 			<div class="pr_cent_2_5">
 				<div class="pr_cent_2_6">
-					<img class="cicon" src="/imge/project/02.png" alt="">{{el.expected_profit}}
+					<img class="cicon" src="/imge/project/02.svg" alt="">{{el.expected_profit}}
 				</div>
 				<div class="pr_cent_2_7">
 					<span class="pr_cent_2_7zy">
-						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/03.png" alt="">报名人数</div>
+						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/03.svg" alt="">报名人数</div>
 						<div class="pr_cent_2_9">
 							<span class="pr_hs">{{el.sign_up_num}}</span>
 						</div><i></i></span>
 					<span>
-						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/01.png" alt="">报名时间</div>						
+						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/01.svg" alt="">报名时间</div>						
 						<div class="pr_cent_2_9" v-html="djtime">
 							<span v-for="(el2,keys) in el.left_time" :key="keys">
 								<span class="pr_hs">'+(el2>9>el2:'0'+el2)+'</span>keys
