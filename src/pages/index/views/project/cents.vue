@@ -159,7 +159,7 @@ export default {
 			};
 			this.api.pr_detail(pr).then((da)=>{
 				if(da=='error'){return}
-				
+				da.deal_price=800;
 				this.deta = da;
 			}).catch(()=>{
 				

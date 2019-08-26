@@ -322,5 +322,9 @@ export default {
 		url:'/api/project/personalList',method:'post',baseURL:0,
 	},
 	
+	saveSkill:{
+		url:'/api/user/saveSkill',method:'post',baseURL:0,
+	},
+	
 	
 }

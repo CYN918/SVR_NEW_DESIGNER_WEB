@@ -7,10 +7,16 @@
 				<div v-if="djsshow.h" class="cenDjs_2">
 					<span>{{djsshow.d}}</span>d<span>{{djsshow.h}}</span>h<span>{{djsshow.m}}</span>m<span>{{djsshow.s}}</span>s
 				</div>
-				<div v-if="obj.delivery_deadline_format && obj.status==3" class="cenDjs_2">
+				<div v-if="obj.delivery_deadline_format && obj.status==3 && obj.is_delay!=1" class="cenDjs_2">
 					<span>{{obj.delivery_deadline_format.m}}</span>月<span>{{obj.delivery_deadline_format.d}}</span>号<span>{{obj.delivery_deadline_format.H}}</span>点
 				</div>
-				<div  class="cenDjs_3">{{da.n}}<div class="cenDjs_zzf">{{endjg}}</div> </div>
+				
+				<div v-if="obj.is_delay" class="cenDjs_2">
+					<div class="is_seldf">项目已延期交稿</div>
+					<span>{{obj.delay_time.d}}</span>天<span>{{obj.delay_time.h}}</span>时
+				</div>
+				<div v-if="obj.is_delay!=1"  class="cenDjs_3">{{da.n}}<div class="cenDjs_zzf">{{'￥'+obj.deal_price}}</div> </div>
+				
 			</div>
 			
 			<div class="cenDjs_4">
@@ -70,17 +76,13 @@ export default {
 			}
 			this.da = this.xmType[this.xmTypeOn];	
 		
-			// this.endjg = '￥8,000';
-			this.deal_type=2;
 			if(this.deal_type==2){
 				this.xmType[4].n = '项目分成价值';
-				this.xmType[4].btns.unshift({n:'分成收益',tcFn:'showTc2'});		
+				this.xmType[4].btns.unshift({n:'分成收益',tcFn:'gofn',tcFncs:'/profit'});		
 				this.xmType[4].t.icon = 'fc';		
 			}
 			
-			if(this.obj.delivery_deadline_format && this.obj.status==3){
-				
-			}
+			
 			
 			
 			if(this.obj.left_time &&  this.obj.status==1){
@@ -112,6 +114,7 @@ export default {
 		
 			
 		},
+		
 		gofn(on){
 			this.$router.push({path:on})	
 		},
@@ -343,6 +346,7 @@ export default {
 	height: 138px;
 }
 .cenDjs_zzf{
+	margin-top: 5px;
 	font-size:28px;
 	font-weight:600;
 	color:rgba(255,81,33,1);
@@ -402,5 +406,13 @@ export default {
 	width: 55px;
     height: 26px;
     top: 11px;
+}
+.is_seldf{
+	font-size:16px;
+	font-family:PingFangSC;
+	font-weight:400;
+	color:rgba(40,40,40,1);
+	line-height:22px;
+	margin-bottom: 10px;
 }
 </style>

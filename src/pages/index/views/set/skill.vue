@@ -276,7 +276,9 @@ export default {
 				return
 			}
 			this.bdtj('帐号设置','完善资料-保存资料','--');
-			this.api.Userupdate(this.form).then((da)=>{
+			
+			
+			this.api.saveSkill(this.form).then((da)=>{
 				if(da=='error'){
 					return
 				}
