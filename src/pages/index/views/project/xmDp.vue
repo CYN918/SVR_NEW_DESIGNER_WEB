@@ -11,7 +11,7 @@
 					<span>{{obj.delivery_deadline_format.m}}</span>月<span>{{obj.delivery_deadline_format.d}}</span>号<span>{{obj.delivery_deadline_format.H}}</span>点
 				</div>
 				
-				<div v-if="obj.is_delay" class="cenDjs_2">
+				<div v-if="obj.is_delay" class="cenDjs_2_yq">
 					<div class="is_seldf">项目已延期交稿</div>
 					<span>{{obj.delay_time.d}}</span>天<span>{{obj.delay_time.h}}</span>时
 				</div>
@@ -24,7 +24,7 @@
 			</div>
 			<div class="cenDjs_5">{{da.btn_tip}}</div>
 		</div>
-		<img v-if="da.t && da.t.icon" class="tg_iocn_1" :src="'/imge/project/'+da.t.icon+'.png'" alt="">
+		<img v-if="da.t && da.t.icon" class="tg_iocn_1" :src="'/imge/project/'+da.t.icon+'.svg'" alt="">
 		<div v-if="da.t" :class="['sjxdpo',da.t.cl]">
 			{{da.t.n}}
 		</div>
@@ -339,11 +339,10 @@ export default {
     border-bottom: 9px solid #fff;
 }
 .tg_iocn_1{
-	position: absolute;
-	top: -16px;
-	right: -17px;
-	width: 138px;
-	height: 138px;
+    position: absolute;
+	top: 4px;
+    right: 2px;
+    width: 107px;
 }
 .cenDjs_zzf{
 	margin-top: 5px;
@@ -414,5 +413,21 @@ export default {
 	color:rgba(40,40,40,1);
 	line-height:22px;
 	margin-bottom: 10px;
+}
+.cenDjs_2_yq{
+	padding-top: 70px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(187,187,187,1);
+    line-height: 20px;
+}
+.cenDjs_2_yq>span{
+	margin: 0 5px 0 10px;
+	font-size:28px;
+	font-family:PingFangSC-Semibold;
+	font-weight:600;
+	color:rgba(255,81,33,1);
+	line-height:40px;
 }
 </style>

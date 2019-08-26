@@ -7,7 +7,7 @@
 		<div class="pr_cent_2">
 			<div class="pr_cent_2_1">
 				<div class="pr_cent_2_2">{{el.name}}</div>
-				<div class="pr_cent_2_3">项目类型：{{el.classify_name+djs}}</div>
+				<div class="pr_cent_2_3">项目类型：{{el.classify_name}}</div>
 				<div class="pr_cent_2_4">领域范围：<span v-for="(ed,index) in el.fields">{{ed}}</span></div>				
 			</div>
 			<div class="pr_cent_2_5">
