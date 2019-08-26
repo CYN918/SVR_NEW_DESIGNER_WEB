@@ -30,7 +30,7 @@ export default {
 			}).then((da)=>{
 				if(da=='error'){return}
 				this.$parent.setStaus('3');
-				this.$message.error("撤回稿件成功");
+				this.$message({message:"撤回稿件成功"});
 				this.$parent.close();
 			}).catch(()=>{
 				

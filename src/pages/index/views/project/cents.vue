@@ -27,7 +27,7 @@
 							</div>
 							
 						</div>
-						<div>
+						<div v-if="deta.status==1 || deta.status==2">
 							<div class="icon_ff_1"><img src="/imge/project/05.png" alt=""><span>{{deta.sign_up_num}}</span>人已报名</div>
 						</div>
 					</div>

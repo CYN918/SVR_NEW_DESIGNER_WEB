@@ -7,7 +7,7 @@
 		<div class="pr_cent_2">
 			<div class="pr_cent_2_1">
 				<div class="pr_cent_2_2">{{el.name}}</div>
-				<div class="pr_cent_2_3">项目类型：{{el.classify_name}}</div>
+				<div class="pr_cent_2_3">项目类型：{{el.classify_name+djs}}</div>
 				<div class="pr_cent_2_4">领域范围：<span v-for="(ed,index) in el.fields">{{ed}}</span></div>				
 			</div>
 			<div class="pr_cent_2_5">
@@ -22,9 +22,9 @@
 						</div><i></i></span>
 					<span>
 						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/01.png" alt="">报名时间</div>						
-						<div class="pr_cent_2_9">
-							<span v-for="(od,name) in el.left_time" :key="name">
-								<span class="pr_hs">{{od}}</span>{{name}}
+						<div class="pr_cent_2_9" v-html="djtime">
+							<span v-for="(el2,keys) in el.left_time" :key="keys">
+								<span class="pr_hs">'+(el2>9>el2:'0'+el2)+'</span>keys
 							</span>
 						</div>
 					</span>
@@ -43,22 +43,56 @@ export default {
 			type:Object,
 			default:{}
 		},	
-		djs:{
-			type:Number,
-			default:0,
-		}
+	
 	},
 	data(){
 		return{
 			shareData:{},
+			djtime:'',
 		}
 	},
+	mounted: function(){
+		this.backtims();
+	}, 
+	
 	methods: {	
 		openCent(){
 			if(this.el.id){
 				window.open('/#/prcent?id='+this.el.id)
 			}
 			
+		},
+		backtims(){
+			
+			let a = this.el.left_time;
+			if(!a || a.length==0){return}
+			let str = '';
+			if(a.s>0){
+				a.s--;				
+			}else
+			
+			if(a.m>0){
+				a.s = 59;
+				a.m--;
+			}else
+			if(a.h>0){
+				a.s = 59;
+				a.m = 59;
+				a.h--;
+				
+			}else
+			if(a.d>0){
+				a.s = 59;
+				a.m = 59;
+				a.h = 23;
+				a.d--;
+				
+			}else{
+				this.$parent.getData();
+				return
+			}
+			this.djtime = '<span><span class="pr_hs">'+a.d+'</span>d<span class="pr_hs">'+(a.h>9?a.h:'0'+a.h)+'</span>h<span class="pr_hs">'+(a.m>9?a.m:'0'+a.m)+'</span>m<span class="pr_hs">'+(a.s>9?a.s:'0'+a.s)+'</span>s</span>';	
+		
 		}
 	}
 }

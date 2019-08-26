@@ -4,7 +4,7 @@
 		<div class="csBox opfi2">
 			<list :config="data" class="iopdlf_01" ref="listDom">
 				<template v-slot:todo="{ todo }">
-					<cent :djs="djson" :el="todo"></cent>
+					<cent :el="todo"></cent>
 				</template>			
 			</list>
 			
@@ -44,14 +44,16 @@ export default {
 				
 				},
 				pr:{},
+				isDjs:1,
 
 			},
-			djson:0,
+		
 			
 		}
 	},
 	created(){
 		this.init();
+		this.star();
 	},	
 	watch: {
 		
@@ -61,6 +63,7 @@ export default {
 		},
 	},
 	methods: {
+		
 		init(){
 			this.data.pr = {};
 			if(this.$route.name=='projectAll'){return}			

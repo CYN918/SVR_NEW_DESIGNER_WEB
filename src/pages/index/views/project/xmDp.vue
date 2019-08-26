@@ -24,7 +24,7 @@
 		</div>
 		
 		
-		<div class="worksBox_2 tg_iocn_2">
+		<div v-if="obj.status==3 || obj.status==4" class="worksBox_2 tg_iocn_2">
 			<div class="worksBox_2_1">
 				<div @click="showTc(el.cs)" v-for="(el,index) in options">{{el.n}}</div>
 			</div>

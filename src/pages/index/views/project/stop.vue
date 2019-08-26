@@ -53,7 +53,7 @@ export default {
 				reason:this.reason
 			}).then((da)=>{
 				if(da=='error'){return}				
-				this.$message.error("项目已终止");
+				this.$message({message:"项目已终止"});
 				this.$parent.close();
 				this.$router.push({path: '/index'})	
 			}).catch(()=>{

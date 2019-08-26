@@ -132,7 +132,7 @@ let wb = [
 			{path: '/myFans',name: 'myFans',component:myFans},
 			
 			{path: '/setUser',name: 'setUser',component:set_user},
-			// {path: '/setSkill',name: 'setSkill',component:setSkill},
+			{path: '/setSkill',name: 'setSkill',component:setSkill},
 			{path: '/setSecurity',name: 'setSecurity',component:set_security},
 			{
 				path: '/setRz',
