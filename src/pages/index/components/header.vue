@@ -73,9 +73,9 @@
 				<div  class="userBpx">
 					<a @click="goUser('昵称')">{{backnAM(userMssge.username)}}</a>
 					<ul> 
-						<a @click="goZP('/projectAll','我的项目')"><li><img class="svgImg2 cztsyscl" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的项目</li></a>						
-						<a @click="goZP('/myAll','我的创作')"><li><img class="svgImg2 cztsyscl" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></a>
-						<a @click="goZP('/myDynamic','我的关注')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></a>
+						<a @click="goZP('/projectAll','我的项目')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdxm.svg" alt="" />我的项目</li></a>						
+						<a @click="goZP('/myAll','我的创作')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></a>
+						<a @click="goZP('/myDynamic','我的关注')"><li><img class="svgImg2 ts_svg_img" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></a>
 						<a @click="goZP('/profit','我的收益')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></a>
 						<a @click="goZP('/setUser','账号设置')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></a>
 						<a @click="showHb(true)"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
@@ -542,7 +542,7 @@ export default {
 	/*padding: 0;*/
 }
 .userBpx>a:hover{
-	background: #E6E6E6;
+	background: #F2F2F2;
 	cursor: pointer;
 }
 .userBpx>ul>a>li{
@@ -570,11 +570,11 @@ export default {
 }
 
 .userBpx>ul>a>li:hover{
-	background: #E6E6E6;
+	background: #F2F2F2;
 	cursor: pointer;
 }
 .userBpx>ul>a:last-child>li{
-	border-top: 1px solid #E6E6E6;
+	border-top: 1px solid #F2F2F2;
 }
 .loginoutBox{
 	position: fixed;
@@ -860,13 +860,12 @@ export default {
 }
 .svgImg2{
 	display: inline-block;
-	vertical-align: middle;
+	vertical-align: top;
 	margin-right: 10px;
+	margin-top: 9px;
 }
-.cztsyscl{
-	width: 26px;
-    margin-right: 3px;
-    margin-left: -4px;
+.ts_svg_img{
+	margin-top: 11px;
 }
 .messgeH2x{
 	padding:0 5px;

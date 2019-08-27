@@ -1,65 +1,16 @@
 <template>
 	<div class="centLcen">
 		<div class="centLcen_1">作业流程指南</div>
-		<div class="centLcen_2">
+		<div class="centLcen_2" v-for="(el,index) in List" :key="index">
 			<div class="centLcen_2_1">
-				<span>1</span>
-				<span>项目报名</span>
+				<span>{{index+1}}</span>
+				<span>{{el.t}}</span>
 			</div>
 			<div class="centLcen_2_2">							
-				<div>如何报名项目？</div>
-				<div>报名条件是什么？</div>
+				<a target="_blank" v-for="(el2,index2) in el.L" :href="el2.u" :key="index2">{{el2.n}}</a>				
 			</div>
 		</div>
-		<div class="centLcen_2">
-			<div class="centLcen_2_1">
-				<span>2</span>
-				<span>项目中标</span>
-			</div>
-			<div class="centLcen_2_2">							
-				<div>如何提高中标率？</div>
-				<div>如何得知是否中标？</div>
-			</div>
-		</div>
-		<div class="centLcen_2">
-			<div class="centLcen_2_1">
-				<span>3</span>
-				<span>项目制作</span>
-			</div>
-			<div class="centLcen_2_2">							
-				<div>项目要求是什么？</div>
-				<div>特殊原因无法制作？</div>
-			</div>
-		</div>
-		<div class="centLcen_2">
-			<div class="centLcen_2_1">
-				<span>4</span>
-				<span>项目交稿</span>
-			</div>
-			<div class="centLcen_2_2">							
-				<div>项目要求是什么？</div>
-				<div>交稿延期了怎么办？</div>
-			</div>
-		</div>
-		<div class="centLcen_2">
-			<div class="centLcen_2_1">
-				<span>5</span>
-				<span>平台验收</span>
-			</div>
-			<div class="centLcen_2_2">							
-				<div>验收标准是什么？</div>
-			</div>
-		</div>
-		<div class="centLcen_2">
-			<div class="centLcen_2_1">
-				<span>6</span>
-				<span>获得收益</span>
-			</div>
-			<div class="centLcen_2_2">							
-				<div>收益价格怎么定？</div>
-				<div>什么是分成收益？</div>
-			</div>
-		</div>
+		
 	</div>	
 </template>
 <script>
@@ -67,6 +18,15 @@ export default {
 	data(){
 		return{
 			shareData:{},
+			List:[
+				{t:'项目报名',L:[{n:'如何报名项目？',u:'1'},{n:'如何报名项目？',u:''}]},
+				{t:'项目中标',L:[{n:'如何提高中标率？',u:''},{n:'如何得知是否中标？',u:''}]},
+				{t:'项目制作',L:[{n:'项目要求是什么？',u:''},{n:'特殊原因无法制作？',u:''}]},
+				{t:'项目交稿',L:[{n:'项目要求是什么？',u:''},{n:'交稿延期了怎么办？',u:''}]},
+				{t:'平台验收',L:[{n:'验收标准是什么？',u:''}]},
+				{t:'获得收益',L:[{n:'收益价格怎么定？',u:''},{n:'什么是分成收益？',u:''}]},
+				
+			]
 		}
 	},
 	methods: {	
@@ -116,11 +76,19 @@ export default {
 }
 .centLcen_2_2{
 	margin-left: 17px;
+	
+	border-left: 1px solid rgba(217,217,217,1);
+	padding:0 0 0 30px;
+}
+.centLcen_2_2>a{
+	display: block;
 	font-size:14px;
 	font-weight:400;
 	color:rgba(187,187,187,1);
 	line-height:20px;
-	border-left: 1px solid rgba(217,217,217,1);
-	padding:0 0 0 30px;
+	margin-bottom: 5px;
+}
+.centLcen_2_2>a:hover{
+	color:#ff5121;
 }
 </style>

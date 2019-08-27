@@ -1,5 +1,26 @@
 <template>
-	<div @click="openCent()" class="pr_cent_1">
+	<div class="pr_cent2_1">
+		<div class="pr_cent2_2">
+			<img class="pr_cent2_3" :src="el.banner"/>
+		</div>
+		<div class="pr_cent2_4">
+			<div class="pr_cent2_5">
+				<div class="pr_cent2_6">{{el.name}}</div>
+				<div class="pr_cent2_7">项目类型：{{el.classify_name}}</div>
+				<div class="pr_cent2_8">领域范围：<span v-for="(ed,index) in el.fields">{{ed}}</span></div>	
+			</div>
+			<div class="pr_cent2_9">
+				<div class="pr_cent2_10">
+					<div>预计收益：￥500.00~￥800.00</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="sjxd" v-if="el.extra_reward">
+			额外奖金¥{{el.extra_reward}}
+		</div>
+	</div>
+	<!-- <div @click="openCent()" class="pr_cent_1">
 		<img class="pr_cent_1_1" :src="el.banner" alt="">
 		<div class="sjxd" v-if="el.extra_reward">
 			额外奖金¥{{el.extra_reward}}
@@ -31,7 +52,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </template>
 
 <script>
@@ -99,155 +120,63 @@ export default {
 </script>
 
 <style>
-.pr_cent_1{
+.pr_cent2_1{
 	position: relative;
-	width:640px;
-	height:232px;
+	width:600px;
+	height:212px;
+	padding: 20px;
 	background:rgba(255,255,255,1);
 	border-radius:5px;
-	cursor: pointer;
 }
-.pr_cent_1_1{
-	display: block;
-	position: absolute;
-	bottom: 20px;
-	left: 20px;
-	background: rgba(244,246,249,1);
+.pr_cent2_2{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 20px;
 	overflow: hidden;
-	width:310px;
-	height:232px;
+	width:283px;
+	height:212px;
 	box-shadow:0px 5px 15px 0px rgba(0,0,0,0.1);
 	border-radius:5px 5px 5px 5px;
 }
-.sjxd{
-	position: absolute;
-	top: 0;
-	right: 21px;
-	width:65px;
-	height:58px;
-	background:rgba(255,81,33,.1);
-	border-radius:0px 0px 2px 4px;
-	font-size:12px;
-	text-align: center;
-	font-weight:400;
-	color:rgba(255,81,33,1);
-	line-height:17px;
-	box-sizing: border-box;
-	padding: 5px;
+.pr_cent2_3{
+	display: block;
+	width: 100%;
+	height: 100%;
 }
-.sjxd:after{
-	content: "";
-	position: absolute;
-	bottom: 0;
-	left: 0;
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 32.5px solid transparent;
-    border-right: 32.5px solid transparent;
-    border-bottom: 9px solid #fff;
-
-}
-.pr_cent_2{
-	margin-left: 350px;
-	padding-top: 20px;
-}
-.pr_cent_2_1{
-	
-	border-bottom: 1px solid rgba(216,216,216,.3);
-	margin-bottom: 11px;
-}
-.pr_cent_2_2{
-	margin-bottom: 10px;
-	font-size:16px;
-	font-weight:400;
-	color:rgba(40,40,40,1);
-	line-height:22px;
-	overflow: hidden;
-	white-space: nowrap;
-}
-.pr_cent_2_3{
-	font-size:12px;
-	font-weight:400;
-	color:rgba(187,187,187,1);
-	line-height:18px;
-	margin-bottom: 6px;
-}
-.pr_cent_2_4{
-	font-size:12px;
-	font-weight:400;
-	color:rgba(187,187,187,1);
-	line-height:18px;
-	margin-bottom: 20px;
-}
-.pr_cent_2_4>span{
-	display: inline-block;
-    margin: 0 3px 5px;
-    padding: 2px 10px;
-    background: rgba(244,246,249,1);
-    border-radius: 5px;
-    font-size: 12px;
-    font-weight: 400;
-    color: rgba(187,187,187,1);
-    line-height: 18px;
-}
-.cicon{
-	display: inline-block;
-	vertical-align: middle;
-	margin-right: 5px;
-	width: 26px;
-	height: 26px;
-}
-.pr_cent_2_6{
-	font-size:14px;
-	font-weight:600;
-	color:rgba(255,81,33,1);
-	line-height:20px;
-	margin-bottom: 10px;
-}
-.pr_cent_2_7>span{
+.pr_cent2_4{
 	display: inline-block;
 	vertical-align: top;
-	width: 110px;
-	margin-right: 24px;
+	width:290px;
 }
-.pr_cent_2_7zy{
-	position: relative;
-}
-.pr_cent_2_7zy>i{
-	position: absolute;
-	top: 5.5px;
-	right: 0;
-	width: 1px;
-	height: 15px;
-	background: rgba(151,151,151,.3);
-}
-.pr_cent_2_8{
-	height: 26px;
-	line-height: 26px;
-	font-size:12px;
-	font-weight:400;
-	color:rgba(187,187,187,1);
+.pr_cent2_5{
+	width:290px;
+	border-bottom: 1px solid rgba(216,216,216,.3);
 
 }
-.pr_hs{
-	font-size:14px;
-	font-weight:400;
-	color:rgba(255,81,33,1);
-	line-height:20px;
+.pr_cent2_6{
+	font-size:16px;
+	color:rgba(40,40,40,1);
+	line-height:22px;
+	margin-bottom: 10px;
 }
-.pr_cent_2_9{
-	text-align: right;
-	text-indent: 30px;
+.pr_cent2_7,.pr_cent2_8{
 	font-size:12px;
-	font-weight:400;
 	color:rgba(187,187,187,1);
-	line-height:18px;	
-	white-space: nowrap;
-	text-align: left;
+	
 }
-
+.pr_cent2_7{
+	margin-bottom: 4px;
+	line-height:18px;
+}
+.pr_cent2_8{margin-bottom: 20px;line-height:22px;}
+.pr_cent2_8>span{
+	display: inline-block;vertical-align: top;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	padding: 0 8px;
+	height: 22px;
+	background:rgba(244,246,249,1);
+	border-radius:5px;
+}
 </style>

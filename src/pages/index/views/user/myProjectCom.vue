@@ -53,7 +53,7 @@ export default {
 	},
 	created(){
 		this.init();
-		this.star();
+	
 	},	
 	watch: {
 		
