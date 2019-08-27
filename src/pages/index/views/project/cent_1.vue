@@ -91,7 +91,7 @@ export default {
 				this.$parent.getData();
 				return
 			}
-			this.djtime = '<span><span class="pr_hs">'+a.d+'</span>d<span class="pr_hs">'+(a.h>9?a.h:'0'+a.h)+'</span>h<span class="pr_hs">'+(a.m>9?a.m:'0'+a.m)+'</span>m<span class="pr_hs">'+(a.s>9?a.s:'0'+a.s)+'</span>s</span>';	
+			this.djtime = '<span><span class="pr_hs">'+a.d+'</span>天<span class="pr_hs">'+(a.h>9?a.h:'0'+a.h)+'</span>时<span class="pr_hs">'+(a.m>9?a.m:'0'+a.m)+'</span>分<span class="pr_hs">'+(a.s>9?a.s:'0'+a.s)+'</span>秒</span>';	
 		
 		}
 	}

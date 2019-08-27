@@ -75,6 +75,11 @@ export default {
 	}, 
 	methods: {	
 		init(){
+	
+			if(!this.$route.query.id){
+				this.$router.push({path:'/index'})	
+			}
+			
 			this.pr_gtreport();
 		},
 		mod(e){
@@ -96,7 +101,7 @@ export default {
 		pr_gtreport(){
 		
 			this.api.pr_gtreport({
-				project_id:2,
+				project_id:this.$route.query.id,
 			}).then((da)=>{
 				if(da=='error'){return}
 				this.das = da;

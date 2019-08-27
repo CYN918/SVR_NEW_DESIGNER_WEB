@@ -178,7 +178,7 @@ export default {
 	background:rgba(244,246,249,1);
 }
 .cens_01{
-	padding: 40px 0 60px;
+	padding: 20px 0 60px;
 	margin: 0 auto;
 	width: 1300px;
 }
@@ -355,7 +355,7 @@ export default {
 .cens_x4_1>img{
 	cursor: pointer;
 	display: inline-block;
-	margin-top: 4px;
+	margin-top: 2px;
 	margin-left: 5px;
 	vertical-align: top;
 	width: 14px;

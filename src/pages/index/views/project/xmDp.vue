@@ -5,7 +5,7 @@
 		<div class="yu_o9">
 			<div class="yu_o9_1bx">
 				<div v-if="djsshow.h" class="cenDjs_2">
-					<span>{{djsshow.d}}</span>d<span>{{djsshow.h}}</span>h<span>{{djsshow.m}}</span>m<span>{{djsshow.s}}</span>s
+					<span>{{djsshow.d}}<span class="cenDjs_2_dy_01">天</span></span><span>{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
 				</div>
 				<div v-if="obj.delivery_deadline_format && obj.status==3 && obj.is_delay!=1" class="cenDjs_2">
 					<span>{{obj.delivery_deadline_format.m}}</span>月<span>{{obj.delivery_deadline_format.d}}</span>号<span>{{obj.delivery_deadline_format.H}}</span>点
@@ -56,7 +56,7 @@ export default {
 				{t:{n:'已验收',cl:'c_zmq4',icon:'md'},n:'最终成交价格',cl:'cenDjs_x_2',btn_tip:'项目验收完成，感谢与你本次的合作',Zj:'qxGj',btns:[
 						
 						{n:'项目评价',tcFn:'showTc',tcFncs:'question'},
-						{n:'验收报告',tcFn:'gofn',tcFncs:'presentation'},
+						{n:'验收报告',tcFn:'goyans',tcFncs:'presentation'},
 					],
 				},				
 			],
@@ -72,10 +72,13 @@ export default {
 		init(){
 			this.xmTypeOn = this.obj.status-1;
 			if(this.obj.is_sign_up==1){
-				this.xmType[0].btns = [{n:'已报名',tcFn:'showTc',tcFncs:'qxBm',cl:'cenDjs_4ys'}];	
+				this.xmType[0].btns = [{n:'取消报名',tcFn:'showTc',tcFncs:'qxBm'}];	
 			}
 			this.da = this.xmType[this.xmTypeOn];	
-		
+			if(obj.is_evaluated==1){
+				this.xmType[4].btns[0].n = '已评价';
+				this.xmType[4].btns[0].tcFn = 'ypj';
+			}
 			if(this.deal_type==2){
 				this.xmType[4].n = '项目分成价值';
 				this.xmType[4].btns.unshift({n:'分成收益',tcFn:'gofn',tcFncs:'/profit'});		
@@ -97,7 +100,7 @@ export default {
 		},
 		setBm(on){
 			if(on==1){
-				this.xmType[0].btns = [{n:'已报名',tcFn:'showTc',tcFncs:'qxBm',cl:'cenDjs_4ys'}];	
+				this.xmType[0].btns = [{n:'取消报名',tcFn:'showTc',tcFncs:'qxBm'}];	
 				return
 			}
 			this.xmType[0].btns = [{n:'报名项目',tcFn:'showTc1',tcFncs:'pr_rz',cl:'cenDjs_4ys'}];	
@@ -106,7 +109,9 @@ export default {
 			this.xmTypeOn = on-1;
 			this.da = this.xmType[this.xmTypeOn];
 		},
-		
+		ypj(){
+			this.$message({message:'你已经评价过了'});
+		},
 		clickFn(n,b){
 			if(n){
 				this[n](b);
@@ -114,7 +119,9 @@ export default {
 		
 			
 		},
-		
+		goyans(on){
+			this.$router.push({path:on,query:{id:this.obj.id}})	
+		},
 		gofn(on){
 			this.$router.push({path:on})	
 		},
@@ -215,9 +222,9 @@ export default {
 .cenDjs_2>span{
 	margin: 0 5px 0 10px;
 	font-size:28px;
-	font-family:PingFangSC-Semibold;
+	font-family:PingFangSC;
 	font-weight:600;
-	color:rgba(255,81,33,1);
+	color:rgba(255,81,33,1);		
 	line-height:40px;
 }
 .cenDjs_3{
@@ -429,5 +436,16 @@ export default {
 	font-weight:600;
 	color:rgba(255,81,33,1);
 	line-height:40px;
+	
+	
+	
+}
+.cenDjs_2_dy_01{
+	display: inline-block;
+    vertical-align: top;
+	font-size:22px;
+	font-family:PingFangSC;
+	font-weight:400;
+	color:rgba(187,187,187,1);
 }
 </style>

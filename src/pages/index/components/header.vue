@@ -703,12 +703,15 @@ export default {
 	text-align: left;
 }
 .searcBox5_2{
-	font-size: 14px;
-	color: #333333;
-	line-height: 20px;
-	margin-left: 24px;
-	text-align: left;
-	margin-bottom: 20px;
+    font-size: 14px;
+    color: #333333;
+    line-height: 40px;
+    text-align: left;
+    text-indent: 24px;
+	cursor: pointer;
+}
+.searcBox5_2:hover{
+	background: #F2F2F2;
 }
 .searcBox5_3{
 	margin-bottom: 7px;

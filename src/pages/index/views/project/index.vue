@@ -1,10 +1,12 @@
 <template>
 	<div class="pr_box">		
 		<div class="pr_01">
-			<div class="pr_01_1">
-				找到值得心仪的接单项目让<span class="pr_01_2">创意完美实现</span>。
+			<div>
+				<div class="pr_01_1">
+					找到值得心仪的接单项目让<span class="pr_01_2">创意完美实现</span>。
+				</div>
+				<div class="pr_01_3">每日，平台都会发布不同的项目需求，专业平台团队把控，只发布优质稳定的项目。</div>
 			</div>
-			<div class="pr_01_3">每日，平台都会发布不同的项目需求，专业平台团队把控，只发布优质稳定的项目。</div>
 		</div>
 		<div class="pr_02">
 			<div class="pr_02_1">
@@ -85,9 +87,13 @@ export default {
 	background:rgba(244,246,249,1);
 }
 .pr_01{
-	padding: 40px 0 60px 310px;
+	padding: 20px 0;
     text-align: left;
 	background: #fff;
+}
+.pr_01>div{
+	margin: 0 auto;
+	width: 1300px;
 }
 .pr_01_1{
 	margin-bottom: 20px;
@@ -103,7 +109,6 @@ export default {
 	color: #fff;	
 }
 .pr_01_3{
-	margin-bottom: 60px;
 	font-size:14px;
 	font-weight:400;
 	color:rgba(102,102,102,1);
