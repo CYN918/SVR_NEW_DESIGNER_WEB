@@ -92,6 +92,7 @@ export default {
 				if(da=='error'){return}
 				this.$parent.setStaus('4');
 				this.$message({message:"交稿成功请耐心等待验收"});
+				this.$parent.getData();
 				this.close();
 			}).catch(()=>{
 				

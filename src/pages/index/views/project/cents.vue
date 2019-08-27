@@ -58,6 +58,9 @@
 		</div>
 		<tipd  :tipCent="csff" :style="sfas" ref="csdf"></tipd>
 		<component v-bind:is="tcZj"  :datad="tcData"></component>
+		
+		
+		<topGd v-if="topTyped==1 && deta.status==1"></topGd>
 	</div>
 	
 </template>
@@ -76,10 +79,10 @@ import Log from './log';
 import Stop from './stop';
 import question from './question';
 import presentation from './presentation';
-
+import topGd from './topGd';
 
 export default {
-	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm,shareD,pushGj,qxGj,Log,Stop,question,presentation},
+	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm,shareD,pushGj,qxGj,Log,Stop,question,presentation,topGd},
 	data(){
 		return{
 			tcZj:'',
@@ -97,21 +100,40 @@ export default {
 			
 			deta:{},
 			djsTime:{},
+			savGd:'',
+			topTyped:'',
 		}
 	},
 	mounted: function(){
 		this.init();
 	}, 
 	methods: {	
-		init(){
-		
+		init(){		
 			if(!this.$route.query.id){
 				this.$router.push({path:'/project'});
 				return
 			}
-			this.getData();
-			
+					
+			this.getData();			
 		},
+		autoS(){
+			let t = document.documentElement.scrollTop||document.body.scrollTop;
+			if(t==0){
+				document.documentElement.scrollTop =1;
+				document.body.scrollTop =1;
+			}
+			if(this.topTyped==''){
+				if(t>188){
+					this.topTyped=1;
+				}
+				
+			}
+			if(t<=188){
+				this.topTyped='';
+			}
+		},
+		
+		
 		backZq(a,b){
 			let str = '';
 			if(a){
@@ -143,7 +165,6 @@ export default {
 			this.tcZj = '';
 		},
 		showTc(a,b){
-			console.log(b);
 			this.tcZj = a;
 			this.tcData = b;
 		},
@@ -161,8 +182,12 @@ export default {
 				id : this.$route.query.id
 			};
 			this.api.pr_detail(pr).then((da)=>{
-				if(da=='error'){return}
-			
+				if(da=='error'){return}			
+				document.removeEventListener('scroll',this.autoS);	
+				if(da.status==1 && da.is_sign_up==0){
+					document.addEventListener('scroll',this.autoS,false);	
+				}
+				
 				this.deta = da;
 			}).catch(()=>{
 				

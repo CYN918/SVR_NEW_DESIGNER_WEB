@@ -54,7 +54,7 @@ export default {
 			}).then((da)=>{
 				if(da=='error'){return}				
 				this.$message({message:"项目已终止"});
-				this.$parent.close();
+				this.$parent.close();				
 				this.$router.push({path: '/index'})	
 			}).catch(()=>{
 				

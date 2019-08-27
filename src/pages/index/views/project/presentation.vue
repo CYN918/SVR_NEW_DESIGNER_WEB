@@ -8,7 +8,7 @@
 					<div class="pr_bg_03_1_2">
 						<div class="pr_bg_03_1_2_1">
 							<div class="pr_bg_03_1_2_1_1">项目名称：{{das.name}}</div>
-							<div class="pr_bg_03_1_2_1_2">项目类型：{{das.classify_name}}<span></span>成交方式：{{das.deal_type}}</div>
+							<div class="pr_bg_03_1_2_1_2">项目类型：{{das.classify_name}}<span></span>成交方式：{{backf(das.deal_type)}}</div>
 						</div>
 						<div class="pr_bg_03_1_2_2">
 							项目评价<span>{{das.level}}</span>
@@ -74,6 +74,9 @@ export default {
 		this.init();
 	}, 
 	methods: {	
+		backf(on){
+			return on==1?'买断式':'分成式';
+		},
 		init(){
 	
 			if(!this.$route.query.id){

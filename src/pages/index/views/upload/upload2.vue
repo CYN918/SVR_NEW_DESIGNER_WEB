@@ -1103,9 +1103,7 @@ export default {
 	margin-bottom: 0;
 	
 }
-.inptud{
-	height: 47px!important;
-}
+
 .page2_2_1_2 .myInput{
 	box-sizing: border-box;
     border: 1px solid #dcdfe6;

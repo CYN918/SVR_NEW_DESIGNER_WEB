@@ -110,6 +110,7 @@ export default {
 				this.$message({message: '报名成功'});
 				this.close();
 				this.$parent.setBm(1);
+				this.$parent.getData();
 			}).catch(()=>{
 				
 			});

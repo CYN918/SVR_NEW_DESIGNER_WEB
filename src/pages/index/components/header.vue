@@ -260,7 +260,9 @@ export default {
 			this.bdtj('通用模块','顶部栏点击_'+b,'--');
 			this.$router.push({path: a})			
 		},
+		
 		initHead(){	
+			
 			this.ison = this.$route.fullPath;
 			this.hidisXXNav();
 			this.getMessgNumber();
@@ -864,8 +866,9 @@ export default {
 .svgImg2{
 	display: inline-block;
 	vertical-align: top;
-	margin-right: 10px;
-	margin-top: 9px;
+    margin-right: 10px;
+    margin-top: 11.2px;
+    width: 16px;
 }
 .ts_svg_img{
 	margin-top: 11px;

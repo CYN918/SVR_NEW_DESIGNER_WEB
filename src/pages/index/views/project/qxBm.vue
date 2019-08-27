@@ -30,6 +30,7 @@ export default {
 			}).then((da)=>{
 				if(da=='error'){return}
 				this.$parent.setBm(0);
+				this.$parent.getData();
 				this.$parent.close();
 			}).catch(()=>{
 				

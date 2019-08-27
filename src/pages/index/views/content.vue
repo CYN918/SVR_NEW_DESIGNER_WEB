@@ -49,9 +49,15 @@
 					</div>
 				</div>
 				<div class="plBoxd" ref="firstAnchor">
-					<div class="seed2_1_2_1">
-						<Input class="userBoxd2xd" v-model="pl"   :oType="'max'" :max="140"   :type="'text'" :placeholder="'说点什么吧'" ref="tageds"></Input>	
-						<span :class="chekcont(pl)==true?'iscsbtn':''" @click="addCommentNe('发布评论',pl)">评论</span>
+					<div class="seed2_1_2_1_new1">
+						<div class="new_c_2">
+							<textarea class="new_c_3" :style="backHig" @onresize="tttt"   v-model="pl" placeholder="说点什么吧" ref="textadf"></textarea>
+							<div class="textAmax">{{pl?pl.length:0}}/140</div>
+						</div>
+						
+						
+							
+						<span :class="['new_c_1',chekcont(pl)==true?'iscsbtn':'']" @click="addCommentNe('发布评论',pl)">评论</span>
 						<p class="myplde" v-if="hfnum==0">
 							还没有人评论，快来抢沙发吧~
 						</p>
@@ -189,6 +195,7 @@ export default {
             link_id:'',
             position:'',
 			pl:'',
+			backHig:'height:40px',
 			bdtjdta:[['详情页','创作者信息-更多作品-作品'],['详情页','创作者信息-更多作品-创作者']],
 			data:{
 				username:"xxxx",
@@ -234,6 +241,9 @@ export default {
 		
 	}, 
 	methods: {
+		tttt(){
+			console.log(222)
+		},
 		addCommentNe(a,b,c,d){
 			this.bdtj('详情页',a,'--');
 			this.addComment(b,c,d);
@@ -621,7 +631,8 @@ export default {
 					return
 				}			
 				
-				this.$refs.tageds.clearValue();
+				this.pl = '';
+				this.$refs.textadf.style.height = '40px';
 				this.hfData.unshift({
 					feed_id:da.comment_id,
 					comment_id:da.comment_id,
@@ -685,7 +696,15 @@ export default {
 		'$route': function() {
 			this.init();
 			
-		}
+		},
+		'pl'(o,b){
+			if(o.length>140){
+				this.pl = b;
+			}
+			
+			let pod = this.$refs.textadf.style.height?this.$refs.textadf.style.height.split('p')[0]:40;
+			this.$refs.textadf.style.height = (+pod+ Math.ceil(this.$refs.textadf.scrollTop) )+'px';
+		},
 	},
 
 }
@@ -705,4 +724,5 @@ export default {
 	top: 0;
 	line-height: 42px;
 }
+
 </style>
