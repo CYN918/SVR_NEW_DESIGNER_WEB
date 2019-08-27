@@ -1,5 +1,5 @@
 <template>
-	<div class="pr_cent2_1">
+	<div @click="openCent()" class="pr_cent2_1">
 		<div class="pr_cent2_2">
 			<img class="pr_cent2_3" :src="el.banner"/>
 		</div>

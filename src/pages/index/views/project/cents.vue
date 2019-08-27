@@ -41,12 +41,15 @@
 			<div class="cens_03 oijdiv">
 				<xmDp v-if="deta.status" :obj="deta" ref="xmDp"></xmDp>
 				<div class="centShar botx_01">
-					<span class="pend">
-						<img @click="sharc" src="/imge/project/06.svg" alt="">
+					<span class="movfx_01">
+						<div @click="sharc" class="centShar_1"></div>						
 						分享项目
 					</span>
-					<span class="pend">
-						<img @mouseout="mod()" @mouseover="modx($event,2)" src="/imge/project/07.svg" alt="">
+					<span class="movfx_02">
+						<a @mouseout="mod()" @mouseover="modx($event,2)" class="centShar_2" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes"></a>
+						
+						
+						
 						项目顾问
 					</span>
 				</div>
@@ -350,13 +353,13 @@ export default {
 }
 
 .cens_x4_1>img{
-    cursor: pointer;
-    display: inline-block;
-    margin-top: 3px;
-    margin-left: 5px;
-    vertical-align: top;
-    width: 12px;
-    height: 12px;
+	cursor: pointer;
+	display: inline-block;
+	margin-top: 4px;
+	margin-left: 5px;
+	vertical-align: top;
+	width: 14px;
+	height: 14px;
 }
 
 
@@ -391,5 +394,27 @@ export default {
     border-right: 32.5px solid transparent;
     border-bottom: 9px solid #fff;
 
+}
+.centShar_1,.centShar_2{
+	display: block;
+	margin: 0 auto 5px;
+    width: 40px;
+    height: 40px;
+	margin-bottom: 5px;
+}
+.centShar_1{
+	background: url(/imge/project/06.svg) no-repeat;
+}
+.centShar_2{
+	background: url(/imge/project/07.svg) no-repeat;
+}
+.movfx_01,.movfx_02{
+	cursor: pointer;
+}
+.movfx_01:hover>.centShar_1{
+	background: url(/imge/project/fx_02.svg) no-repeat;
+}
+.movfx_02:hover>.centShar_2{
+	background: url(/imge/project/kf_02.svg) no-repeat;
 }
 </style>

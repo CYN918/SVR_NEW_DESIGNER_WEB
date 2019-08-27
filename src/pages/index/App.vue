@@ -45,7 +45,7 @@ img{
 	-moz-osx-font-smoothing: grayscale;
 }
 #app{
-	font-family: 'PingFangSC-Medium','Avenir', Helvetica, Arial, sans-serif;
+	font-family: 'PingFang SC Regular','Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #2c3e50;

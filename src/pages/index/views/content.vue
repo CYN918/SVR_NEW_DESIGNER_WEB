@@ -140,6 +140,7 @@
 							<box_a :tjData="bdtjdta" :el="el"></box_a>
 						</div>
 						</div>
+						
 					</div>
 					<div class="seed2_1_2xx" v-else>
 						你正在浏览TA首次发布的作品<br/>作为老前辈, 送个赞鼓励下吧~

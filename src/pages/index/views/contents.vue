@@ -80,31 +80,10 @@
 				<div class="seed2_1_2">
 					<div class="seed2_1_2_1" style="color: #333;">TA的更多作品</div>
 					<div class="seed2_1_2_1x1">
-					<div @click="seeWorks(el.work_id)" class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
-						<div class="i_listd1x2"><img :src="el.face_pic" alt="" class="i_listd1"></div>
-						<div class="i_listd2">
-							<div class="i_listd2_1">
-								<span>{{el.work_name}}</span>
-								<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zs_icon_tj.png" alt="">
-							</div>
-							<div class="i_listd2_2">
-								<span>{{el.classify_1+'-'+el.classify_2}}</span>
-								<span>{{backtime(el.create_time)}}</span>
-							</div>
-							
-							<div class="i_listd2_3">
-								<span><img @click="goUser(index)" :src="el.user_info.avatar" alt=""></span>
-								
-								<div class="i_listd2_3x1" @click="openxq(index)">
-									<span class="pend"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/icon/zs_icon_gk.png">{{el.view_num}}</span>
-									<span class="pend"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/icon/zs_icon_dz.png">{{el.like_num}}</span>
-									<span class="pend"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/icon/zs_icon_xx.png">{{el.comment_num}}</span>
-								</div>
-							</div>
+						<div  class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
+							<box_a  :el="el"></box_a>
 							<div class="zdc"></div>
 						</div>
-						
-					</div>
 					
 					</div>
 					
@@ -119,7 +98,9 @@
 </template>
 
 <script>
+import box_a from '../components/box_a';
 export default {
+	components:{box_a},
 	data(){
 		return{
 			isfix:'',

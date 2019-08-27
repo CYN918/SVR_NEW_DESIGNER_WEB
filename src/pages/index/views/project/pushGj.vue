@@ -32,7 +32,7 @@
 				
 				<div class="pushGj_03">
 					<div class="pushGj_03_1">备注说明</div>
-					<textarea placeholder="请输入备注说明…" class="pushGj_03_2">{{eell}}</textarea>
+					<textarea placeholder="请输入备注说明…" v-model="eell" class="pushGj_03_2"></textarea>
 				</div>
 			</div>
 			<div class="bmXm_01Btn">

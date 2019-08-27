@@ -15,7 +15,7 @@
 					<div class="is_seldf">项目已延期交稿</div>
 					<span>{{obj.delay_time.d}}</span>天<span>{{obj.delay_time.h}}</span>时
 				</div>
-				<div v-if="obj.status==5"  class="cenDjs_3">{{da.n}}<div v-if="obj.deal_price" class="cenDjs_zzf">{{'￥'+obj.deal_price}}</div> </div>
+				<div   class="cenDjs_3">{{da.n}}<div v-if="obj.status==5" class="cenDjs_zzf">{{'￥'+obj.deal_price}}</div> </div>
 				
 			</div>
 			
