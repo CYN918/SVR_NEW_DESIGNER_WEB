@@ -81,6 +81,7 @@ export default {
 			}).then((da)=>{
 				if(da=='error'){return}
 				this.$message({message:'项目评价完成，感谢你的评价'});
+				this.$parent.getData();
 				this.close();
 			});
 		},

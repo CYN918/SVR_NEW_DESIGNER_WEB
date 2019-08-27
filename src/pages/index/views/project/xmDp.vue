@@ -75,7 +75,7 @@ export default {
 				this.xmType[0].btns = [{n:'取消报名',tcFn:'showTc',tcFncs:'qxBm'}];	
 			}
 			this.da = this.xmType[this.xmTypeOn];	
-			if(obj.is_evaluated==1){
+			if(this.obj.is_evaluated==1){
 				this.xmType[4].btns[0].n = '已评价';
 				this.xmType[4].btns[0].tcFn = 'ypj';
 			}
