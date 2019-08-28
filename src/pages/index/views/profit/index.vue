@@ -4,28 +4,42 @@
 		<div class="profitBox_2">
 			<div class="pbx_1">
 				<div>
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/pro/0.png">
+					<img class="pbx_n_04" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/pro/0.png">
+					<div class="pbx_n_02">账号余额<span @click="checkd(1)" class="iconfont pend pbx_1_4" v-html="min1"></span></div>
 					<div class="pbx_1_1">
-						<span class="pbx_1_1x">{{num1}}</span>
-						<span @click="showtx()" class="btndf btndfys pend pbx_1_1_1">提现</span>
+						<span class="pbx_1_1x"><span class="pbx_n_03">￥ </span>{{num1}}</span>
+						<span @click="showtx()" class="btndf  pend pbx_1_1_1">提现</span>
 					</div>
-					<div class="pbx_1_2 pbx_1_3">账号余额<span @click="checkd(1)" class="iconfont pend pbx_1_4" v-html="min1"></span></div>
+					
 					<div class="pbx_1_2 pbx_1x_2x">每月10日-25日汇款上月10号至当月10号的提现申请</div>
 				</div>
-				<div>
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/pro/1.png">
-					<div class="pbx_1_1">
-						<span>{{num2}}</span>						
+				<div class="pbx_n_01">
+					<div>
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/pro/1.png">
+						<div class="pbx_n_02">累计收益 <span @click="checkd(2)" class="iconfont pend pbx_1_4" v-html="min2"></span></div>
+						<div class="pbx_1_1">
+							<span><span class="pbx_n_03">￥ </span>{{num2}}</span>						
+						</div>
+						
 					</div>
-					<div class="pbx_1_2">累计收益 <span @click="checkd(2)" class="iconfont pend pbx_1_4" v-html="min2"></span></div>
-				</div>
-				<div>
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/pro/2.png">
-					<div class="pbx_1_1">
-						<span>{{basDa.total_hirework}}</span>					
+					<div>
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/pro/2.png">
+						<div class="pbx_n_02">累计成交订单</div>
+						<div class="pbx_1_1">
+							<span>{{basDa.total_hirework}}</span>					
+						</div>
+						
 					</div>
-					<div class="pbx_1_2">累计供稿作品</div>
+					<div>
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/pro/2.png">
+						<div class="pbx_n_02">收益加成</div>
+						<div class="pbx_1_1">
+							<span>{{basDa.total_hirework}}</span>					
+						</div>
+						
+					</div>
 				</div>
+				
 			</div>
 		</div>
 		<router-view ref="chartView"/>
@@ -79,8 +93,8 @@ export default {
 				if(da=='error'){return}
 		
 				this.basDa = da;
-				this.num1 = '￥ '+da.account_balance;
-				this.num2 = '￥ '+da.total_income;				
+				this.num1 = da.account_balance;
+				this.num2 = da.total_income;				
 				
 
 			})
@@ -100,7 +114,7 @@ export default {
 		txcg(num){
 			this.basDa.account_balance = ((this.basDa.account_balance*100)-(num*100))/100;
 			if(this.num1!='******'){
-				this.num1 = '￥ '+this.basDa.account_balance;
+				this.num1 = this.basDa.account_balance;
 			}			
 			this.close();
 			if(this.$refs.chartView.addGetData){
@@ -110,7 +124,7 @@ export default {
 		checkd(on){
 			if(on==1){
 				if(this.num1=='******'){
-					this.num1 = '￥ '+this.basDa.account_balance;
+					this.num1 = this.basDa.account_balance;
 					this.min1 = '&#xe6a2;';
 					return
 				}
@@ -120,7 +134,7 @@ export default {
 			}
 			if(on==2){
 				if(this.num2=='******'){
-					this.num2 = '￥ '+this.basDa.total_income;
+					this.num2 = this.basDa.total_income;
 					this.min2 = '&#xe6a2;';
 					return
 				}
@@ -166,8 +180,10 @@ export default {
 
 <style>
 .pbx_1x_2x{
-	font-size: 14px;
-    color: #adadad;
+	font-size:12px;
+	font-weight:400;
+	color:rgba(187,187,187,1);
+	line-height:18px;
 }
 .profitBox{
 	background: red;
@@ -184,26 +200,22 @@ export default {
 	vertical-align: top;
 	box-sizing: border-box;
 	padding: 30px 0 28px;
-	width: 340px;
-	height:268px;
+	height:257px;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
 	border-radius:5px;
 }
 
 .pbx_1>div:nth-child(1){
-	width: 580px;
+	width: 449px;
 }
 .pbx_1>div:nth-child(2){
-	margin: 0 20px;	
+	margin: 0 0 0 20px;	
+	width: 831px;
 }
-.pbx_1>div>img{
-	display: block;
-	width: 68px;
-	margin: 0 auto;
-}
+
 .pbx_1_1{
-	
+	font-family:PingFang SC Semibold;
 	font-size:24px;
 	font-weight:600;
 	color:rgba(30,30,30,1);
@@ -220,7 +232,7 @@ export default {
 	width: 100px;
 	height: 40px;
 	box-sizing: border-box;
-	border: 1px solid #000;
+	border: 1px solid #999;
 }
 .btndfys{
 	border-color: #FF5121;
@@ -249,8 +261,37 @@ export default {
 	white-space:nowrap;
     text-align: right;
 }
-
-
-
-
+.pbx_n_01>div{
+	display: inline-block;
+	vertical-align: top;
+	width: 275px;
+	height: 175px;
+	border-right: 1px solid rgba(244,246,249,1);
+}
+.pbx_n_01>div:last-child{
+	border: none;
+}
+.pbx_n_01>div>img,.pbx_n_04{
+	display: block;
+	margin: 0 auto 24px;
+	width: 68px;
+}
+.pbx_n_02{
+	font-size:14px;
+	font-weight:400;
+	color:rgba(153,153,153,1);
+	line-height:20px;
+	margin-bottom: 24px;
+}
+.pbx_n_03{
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 9px;
+    margin-right: 5px;
+	font-size:16px;
+	font-family:PingFang SC Regular;
+	font-weight:400;
+	color:rgba(187,187,187,1);
+	line-height:22px;
+}
 </style>

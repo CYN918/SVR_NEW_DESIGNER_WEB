@@ -104,7 +104,10 @@ export default {
 			}
 		},
 		pushBm(){
-		
+			if(this.postData.work_ids.length==0){
+				this.$message({message:'请先选择作品'})
+				return 
+			}
 			this.api.pr_signup(this.postData).then((da)=>{
 				if(da=='error'){return}
 				this.$message({message: '报名成功'});

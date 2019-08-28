@@ -3,8 +3,9 @@
 		<template v-slot:todo="{ todo }">
 			<div class="qxBm_btns_1">是否确认取消报名？</div>	
 			<div class="qxBm_btns">
+				
+				<div @click="pr_cancelSignup" class="btns  pend">确定</div>
 				<div @click="close" class="btns btns_js pend">取消</div>
-				<div @click="pr_cancelSignup" class="btns btns_js pend">确定</div>
 			</div>
 		</template>			
 	</tanC>

@@ -28,7 +28,7 @@
 							
 						</div>
 						<div v-if="deta.status==1 || deta.status==2">
-							<div class="icon_ff_1"><img src="/imge/project/05.svg" alt=""><span>{{deta.sign_up_num}}</span>人已报名</div>
+							<div class="icon_ff_1"><img class="icon_ff_1_x1" src="/imge/project/05.svg" alt=""><span>{{deta.sign_up_num}}</span>人已报名</div>
 						</div>
 					</div>
 				</div>
@@ -46,10 +46,7 @@
 						分享项目
 					</span>
 					<span class="movfx_02">
-						<a @mouseout="mod()" @mouseover="modx($event,2)" class="centShar_2" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes"></a>
-						
-						
-						
+						<a  class="centShar_2" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes"></a>
 						项目顾问
 					</span>
 				</div>
@@ -340,7 +337,8 @@ export default {
 }
 .icon_ff_1>img{
 	display: inline-block;
-	vertical-align: text-bottom;
+	vertical-align: top;
+	margin-top: 3px;
 	margin-right: 10px;
     width: 18px;
     height: 18px;
@@ -441,5 +439,8 @@ export default {
 }
 .movfx_02:hover>.centShar_2{
 	background: url(/imge/project/kf_02.svg) no-repeat;
+}
+.icon_ff_1>.icon_ff_1_x1{
+	margin-top: 1px;
 }
 </style>

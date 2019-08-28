@@ -65,10 +65,9 @@ export default {
 }
 .pr_tc_03{
 	position: absolute;
-	top: 15px;
-	right: 10px;
-	width: 24px;
-	height: 24px;
+    top: 19px;
+    right: 24px;
+    width: 16px;
 }
 
 </style>

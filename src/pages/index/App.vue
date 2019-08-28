@@ -59,7 +59,7 @@ img{
 	position: relative;
 	box-sizing: border-box;
 	min-height: 102%;
-	padding: 60px 0;
+	padding: 60px 0 150px;
 }
 .pend{
 	cursor: pointer;	
@@ -2199,14 +2199,15 @@ content: "";
 }
 .el-pagination__sizes .el-input .el-input__inner:hover{
   
-    border-color: #FF5121;
+    border-color: #DCDFE6;
 }
 .el-input__inner:hover{
-	border-color: #FF5121;
+	border-color: #DCDFE6;
 }
-.el-pagination.is-background .el-pager li:not(.disabled):hover{
+.el-pagination.is-background .el-pager li:not(.active):hover{
 	color: #FF5121;
 }
+
 .svgImgx2{
     display: inline-block;
     vertical-align: sub;
