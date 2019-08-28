@@ -12,11 +12,11 @@
 			</div>
 			<div class="pr_cent_2_5">
 				<div class="pr_cent_2_6">
-					<img class="cicon" src="/imge/project/02.svg" alt="">{{el.expected_profit}}
+					<img class="cicon cicon_n1" src="/imge/project/03.svg" alt="">{{el.expected_profit}}
 				</div>
 				<div class="pr_cent_2_7">
 					<span class="pr_cent_2_7zy">
-						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/03.svg" alt="">报名人数</div>
+						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/10.svg" alt="">报名人数</div>
 						<div class="pr_cent_2_9">
 							<span class="pr_hs">{{el.sign_up_num}}</span>
 						</div><i></i></span>
@@ -196,10 +196,14 @@ export default {
 }
 .cicon{
 	display: inline-block;
-	vertical-align: text-bottom;
-	margin-right: 10px;
-	width: 18px;
-	height: 18px;
+    vertical-align: top;
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+}
+.cicon_n1{
+	margin-top: 0px;
 }
 .pr_cent_2_6{
 	font-size:14px;

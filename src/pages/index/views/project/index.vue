@@ -16,7 +16,7 @@
 				:class="['pr_02_2 pend',type==index?'pr_02_2On':'']"
 				@click="qhNav(index)"
 				>{{el.classify_name+'（'+el.project_num+'）'}}</span>
-				<span class="pr_02_3 pend">项目承接指南</span>
+				<span @click="goOn('/help',{on:1})" class="pr_02_3 pend">项目承接指南</span>
 			</div>
 			<list :page="setPage" :config="data" class="iopdlf_01" ref="sfafa">
 				<template v-slot:todo="{ todo }">
@@ -58,6 +58,9 @@ export default {
 		this.getCl();
 	}, 
 	methods: {
+		goOn(on,cs){
+			this.$router.push({path:on,query:cs})	
+		},
 		getCl(){
 			this.api.pr_classify().then((da)=>{
 				if(da=='error'){

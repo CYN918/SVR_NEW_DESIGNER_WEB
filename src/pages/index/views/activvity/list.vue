@@ -1,6 +1,6 @@
 <template>	
 	<div class="activvit">
-		<list :config="data">
+		<list :page="setPage" :config="data">
 			<template v-slot:todo="{ todo }">
 				<div class="ac_list_Box_0" @click="go(todo.id,todo.status==-1?'已结束':'进行中')">
 					<div class="ac_list_Box_2x" :style="backBn(todo.cover_img?todo.cover_img:todo.banner)"></div>					
@@ -33,6 +33,7 @@ export default {
 				},
 				bdtj:[['活动','活动列表-翻页'],['活动','活动列表-更改单页显示数']]
 			},	
+			setPage:{page:1,limit:10,size:[10,20,40,60]},
 		}		
 	},
 	created(){
@@ -64,6 +65,9 @@ export default {
 </script>
 
 <style>
+.activvit{
+	background: #f4f6f9;
+}
 .activvit .listBox{
 	margin-top: 20px;
 }
@@ -71,7 +75,7 @@ export default {
 	margin-right: 0;
 }
 .ac_list_Box_0{
-	background: #F6F6F6;
+	background: #fff;
 	border-radius: 5px;
 	margin: 0 20px 20px 0;
 	width: 640px;

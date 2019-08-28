@@ -24,7 +24,7 @@
 	</tanC>
 </template>
 <script>
-import tanC from './tanC';
+import tanC from '../../components/tanC';
 import tipd from './cenTip';
 export default {
 	components:{tanC,tipd},

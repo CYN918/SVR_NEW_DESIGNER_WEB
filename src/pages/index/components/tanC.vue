@@ -35,6 +35,7 @@ export default {
 <style>
 .pr_tc_01{
 	position: fixed;
+	z-index: 10000;
 	top: 0;
 	left: 0;
 	width: 100%;

@@ -4,7 +4,7 @@
 		<div class="profitBox_2">
 			<div class="pbx_1">
 				<div>
-					<img class="pbx_n_04" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/pro/0.png">
+					<img class="pbx_n_04" src="/imge/profit/qj.svg">
 					<div class="pbx_n_02">账号余额<span @click="checkd(1)" class="iconfont pend pbx_1_4" v-html="min1"></span></div>
 					<div class="pbx_1_1">
 						<span class="pbx_1_1x"><span class="pbx_n_03">￥ </span>{{num1}}</span>
@@ -15,7 +15,7 @@
 				</div>
 				<div class="pbx_n_01">
 					<div>
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/pro/1.png">
+						<img src="/imge/profit/qb.svg">
 						<div class="pbx_n_02">累计收益 <span @click="checkd(2)" class="iconfont pend pbx_1_4" v-html="min2"></span></div>
 						<div class="pbx_1_1">
 							<span><span class="pbx_n_03">￥ </span>{{num2}}</span>						
@@ -23,7 +23,7 @@
 						
 					</div>
 					<div>
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/pro/2.png">
+						<img src="/imge/profit/bi.svg">
 						<div class="pbx_n_02">累计成交订单</div>
 						<div class="pbx_1_1">
 							<span>{{basDa.total_hirework}}</span>					
@@ -31,8 +31,8 @@
 						
 					</div>
 					<div>
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/pro/2.png">
-						<div class="pbx_n_02">收益加成</div>
+						<img src="/imge/profit/qxt.svg">
+						<div class="pbx_n_02">收益加成<img class="pbx_n_06" src="/imge/project/09.svg" alt=""></div>
 						<div class="pbx_1_1">
 							<span>{{basDa.total_hirework}}</span>					
 						</div>
@@ -293,5 +293,12 @@ export default {
 	font-weight:400;
 	color:rgba(187,187,187,1);
 	line-height:22px;
+}
+.pbx_n_06{
+	display: inline-block;
+	cursor: pointer;
+	vertical-align: top;
+	width: 16px;
+	margin: 1px 0 0 5px;
 }
 </style>

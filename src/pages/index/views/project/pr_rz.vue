@@ -23,7 +23,7 @@
 	</tanC>
 </template>
 <script>
-import tanC from './tanC';
+import tanC from '../../components/tanC';
 export default {
 	components:{tanC},
 	props:{

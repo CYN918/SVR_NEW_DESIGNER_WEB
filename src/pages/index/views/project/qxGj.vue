@@ -3,14 +3,15 @@
 		<template v-slot:todo="{ todo }">
 			<div class="qxBm_btns_1">项目运营可能正在浏览你的稿件，<br/>确定要撤回？</div>	
 			<div class="qxBm_btns">
+				<div @click="pr_revokeDelivery" class="btns  pend">确定</div>
 				<div @click="close" class="btns btns_js pend">取消</div>
-				<div @click="pr_revokeDelivery" class="btns btns_js pend">确定</div>
+				
 			</div>
 		</template>			
 	</tanC>
 </template>
 <script>
-import tanC from './tanC';
+import tanC from '../../components/tanC';
 export default {
 	components:{tanC},
 	props:{
@@ -47,6 +48,10 @@ export default {
 
 <style>
 .qxBm_btns_1{
+	font-size:14px;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+	line-height:20px;
 	margin: 30px 84px;
 }
 .qxBm_btns{

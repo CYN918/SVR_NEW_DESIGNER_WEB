@@ -1,6 +1,6 @@
 <template>
 	<div class="opfi">
-		<tophead :con="navData"></tophead>
+		<tophead class="xm_u_01" :con="navData"></tophead>
 		<div class="csBox opfi2">
 			<list :config="data" class="iopdlf_01" ref="listDom">
 				<template v-slot:todo="{ todo }">
@@ -76,7 +76,7 @@ export default {
 
 <style>
 .opfi{
-	background: #eeee;
+	background: #f4f6f9;
 }
 .opfi2{
 	padding-top: 40px;
@@ -88,5 +88,15 @@ export default {
 }
 .iopdlf_01>li:nth-child(2n+2){
 	margin-right: 0;
+}
+.opfi .xm_u_01{
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.xm_u_01 .myWorks_3{
+	font-size: 16px;
+}
+.xm_u_01 .myWorks_4>a{
+	font-size: 14px;
 }
 </style>

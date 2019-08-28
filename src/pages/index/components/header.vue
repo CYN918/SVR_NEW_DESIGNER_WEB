@@ -78,7 +78,7 @@
 						<a @click="goZP('/myDynamic','我的关注')"><li><img class="svgImg2 ts_svg_img" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></a>
 						<a @click="goZP('/profit','我的收益')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></a>
 						<a @click="goZP('/setUser','账号设置')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></a>
-						<a @click="showHb(true)"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
+						<a @click="showHb()"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
 					</ul>
 				</div>
 			</span>	
@@ -86,24 +86,26 @@
 				<a class="pend" @click="goZP('/login','登录')">登录</a><span>|</span><a class="pend" @click="goZP('/register','注册')">注册</a></span>				
 		</div>
 		
-		<div v-show="isshowd" class="loginoutBox">
+		<!-- <div v-show="isshowd" class="loginoutBox">
 			<div class="loginoutBox1">
 				<img @click="showHb(false)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_gb.svg" class="loginoutBox2 pend">
 				<div class="loginoutBox3">确定退出登录?</div>
 				<div class="loginoutBox4"><span @click="showHb(false)">取消</span><span @click="logout()">确定</span></div>
 			</div>
-		</div>
-		
+		</div> -->
+		<out v-if="isshowd"></out>
 	</header>
 </template>
 
 <script>
+import out from './out';
 export default {
+	components:{out},
 	name: 'home',	 
 	data(){	
 		return{
 			userMssge:'',
-			isshowd:false,
+			isshowd:'',
 			
 			searchType:false,
 			searcCont:'',
@@ -134,6 +136,9 @@ export default {
 		
 	}, 
 	methods:{
+		close(){
+			this.isshowd= '';
+		},
 		backnAM(str){
 			if(!str){
 				return '';
@@ -291,31 +296,11 @@ export default {
 			this.$router.push({path: '/works',query:{id:window.userInfo.open_id}})	
 		},
 		
-		logout(){
-			if(!window.userInfo){
-				return
-			}
-			let p = {
-				access_token:window.userInfo.access_token
-			};
-			this.api.logout(p).then((da)=>{
-				if(da=='error'){
-					return
-				}
-				this.showHb(false);
-				localStorage.setItem('pass','');			
-				localStorage.setItem('userT','');
-				window.userInfo='';
-				window.passIn = '';
-			
-				this.$router.push({path: '/login'})	
-			});
-		},
 		showHb(is){
-			if(is==true){
+			if(is==1){
 				this.bdtj('通用模块','顶部栏点击_退出','--');
 			}
-			this.isshowd = is;
+			this.isshowd = 1;
 		},
 		
 		getMessgNumber(){

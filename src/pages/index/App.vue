@@ -203,7 +203,7 @@ img{
 
 .pagesddd{
 	position: absolute;
-	bottom: 120px;
+	bottom: 210px;
 	left: 0;
 	box-sizing: border-box;
 	width: 100%;
@@ -1386,7 +1386,7 @@ content: "";
 .setUserBoxs_nav>div{
 	position: relative;
 	line-height: 59px;
-	font-size: 16px;
+	font-size: 14px;
 	color: #1E1E1E;
 	border-bottom: 1px solid #E6E6E6;
 	text-indent: 30px;
@@ -1411,7 +1411,7 @@ content: "";
 .setUserBoxs_cent{
 	display: inline-block;
 	width: 910px;
-	margin-bottom: 60px;
+	margin-bottom: 40px;
 }
 .setUserBoxs_cent>div{
 	background: #FFFFFF;
@@ -1426,6 +1426,9 @@ content: "";
 	border: none;
     box-shadow: none;
     min-height: 420px;
+}
+.padxx_01{
+	margin-bottom: 60px
 }
 .suc_title{
 	font-size: 15px;

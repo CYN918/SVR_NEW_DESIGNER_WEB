@@ -15,7 +15,7 @@
 					</div>
 				</div>
 				
-				<div class="setUserBoxs_cent">
+				<div class="setUserBoxs_cent setUserBoxs_centx">
 					<div class="suc_1 hlepdd">
 						{{list[navdOn]}}
 					</div>
@@ -35,6 +35,7 @@ export default {
 	components:{headNav},
 	data(){
 		return {
+			topTyped:'',
 			navData:{
 				title:'文档服务中心',
 				arr:[
@@ -118,5 +119,9 @@ export default {
 }
 .hlepdd{
 	min-height: 730px;
+}
+.setUserBoxs_centx>div{
+	-webkit-box-shadow:none;
+	box-shadow:none;
 }
 </style>

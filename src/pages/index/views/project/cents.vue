@@ -338,7 +338,7 @@ export default {
 .icon_ff_1>img{
 	display: inline-block;
 	vertical-align: top;
-	margin-top: 3px;
+	margin-top: 2px;
 	margin-right: 10px;
     width: 18px;
     height: 18px;
@@ -361,7 +361,7 @@ export default {
 .cens_x4_1{
 	width: 178px;
 	text-align: left;
-	margin-left: 32px;
+	margin-left: 27px;
 	font-size:14px;
 	font-weight:400;
 	color:rgba(187,187,187,1);

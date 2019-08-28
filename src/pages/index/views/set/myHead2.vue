@@ -57,7 +57,7 @@ export default {
 	text-align: left;
 }
 .setHeadBox_2{
-	font-size: 24px;
+	font-size: 16px;
 	color: #1E1E1E;
     display: inline-block;
     width: 361px;
@@ -68,7 +68,7 @@ export default {
 .setHeadBox_3>a{
 	position: relative;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 14px;
 	color: #1E1E1E;
 	margin-right: 64px;
 }

@@ -26,7 +26,7 @@
 	</tanC>
 </template>
 <script>
-import tanC from './tanC';
+import tanC from '../../components/tanC';
 import textAert from './textAert';
 export default {
 	components:{tanC,textAert},

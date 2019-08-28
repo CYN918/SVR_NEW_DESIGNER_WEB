@@ -31,7 +31,7 @@
 	</tanC>
 </template>
 <script>
-import tanC from './tanC';
+import tanC from '../../components/tanC';
 import VueQr from 'vue-qr'
 export default {
 	components:{tanC,VueQr},

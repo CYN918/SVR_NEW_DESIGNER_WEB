@@ -52,7 +52,7 @@ export default {
 				{t:{n:'招标期',cl:'c_zmq'},n:'后截止报名',cl:'cenDjs_x_1',btn_tip:'报名等待中标通知，中标前不用制作',Zj:'pr_rz',btns:[{n:'报名项目',tcFn:'showTc1',tcFncs:'pr_rz',cl:'cenDjs_4ys'}]},
 				{t:{n:'选标期',cl:'c_zmq'},n:'报名成功，等待平台选标...',cl:'cenDjs_x_2',btn_tip:'报名等待中标通知，中标前不用制作',Zj:'qxBm',btns:[{n:'取消报名',tcFn:'showTc',tcFncs:'qxBm'}]},
 				{t:{n:'制作期',cl:'c_zmq2'},sle:'1',n:'前截止交稿',cl:'cenDjs_x_1',btn_tip:'请在规定时间交付稿件，加油哦！',yue:'1',btns:[{n:'交付稿件',tcFn:'showTc',tcFncs:'pushGj',cl:'cenDjs_4ys'}]},
-				{t:{n:'待验收',cl:'c_zmq3'},sle:'1',n:'项目稿件已提交',cl:'cenDjs_x_2',btn_tip:'稿件已提交，请耐心等待验收审核。',btns:[{n:'稿件撤回',tcFn:'showTc',tcFncs:'qxGj',cl:'cenDjs_4ys'}]},				
+				{t:{n:'待验收',cl:'c_zmq3'},sle:'1',n:'项目稿件已提交',cl:'cenDjs_x_2',btn_tip:'稿件已提交，请耐心等待验收审核。',btns:[{n:'稿件撤回',tcFn:'showTc',tcFncs:'qxGj'}]},				
 				{t:{n:'已验收',cl:'c_zmq4',icon:'md'},n:'最终成交价格',cl:'cenDjs_x_2',btn_tip:'项目验收完成，感谢与你本次的合作',Zj:'qxGj',btns:[
 						
 						{n:'项目评价',tcFn:'showTc',tcFncs:'question'},

@@ -71,7 +71,7 @@ export default {
 	font-size: 14px;
 	color: #666;
 	line-height: 60px;
-	z-index: 100000;
+
 	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
     box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
 }

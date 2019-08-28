@@ -21,22 +21,24 @@
 							<div class="comment_2_5" v-html="el.content"></div>
 						</div>						
 					</div>
-					<el-pagination class="pagesdddxf" v-if="total>40"
-					background
-					@size-change="handleSizeChange"
-					@current-change="handleCurrentChange"
-					:current-page="page"
-					:page-sizes="[10, 20, 40, 60]"
-					:page-size="limit"
-					layout="prev,pager, next,sizes, jumper"
-					:total="total">   
-					</el-pagination>
+					
 				</div>
 				
 			</div>
 			
 		</div>
-		
+		<span>
+			<el-pagination class="padxx_01" v-if="total>40"
+			background
+			@size-change="handleSizeChange"
+			@current-change="handleCurrentChange"
+			:current-page="page"
+			:page-sizes="[10, 20, 40, 60]"
+			:page-size="limit"
+			layout="prev,pager, next,sizes, jumper"
+			:total="total">   
+			</el-pagination>
+		</span>
 	</div>
 </template>
 
