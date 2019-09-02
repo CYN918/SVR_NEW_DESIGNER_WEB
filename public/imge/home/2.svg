@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="90px" height="91px" viewBox="0 0 90 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Home_icon_photography</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#DB2F94" offset="0%"></stop>
+            <stop stop-color="#0051DE" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#0051DE" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#0051DE" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#0051DE" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#0051DE" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+        <g id="01-首页" transform="translate(-917.000000, -998.000000)">
+            <g id="Group-8" transform="translate(432.000000, 840.000000)">
+                <g id="Group-28" transform="translate(39.000000, 118.000000)">
+                    <g id="Group-25" transform="translate(406.000000, 0.000000)">
+                        <g id="Group-20">
+                            <g id="Home_icon_photography" transform="translate(40.000000, 40.000000)">
+                                <path d="M70,32.8409477 L33.40643,71 L70,71 L70,32.8409477 Z M3,45.5475008 L43.6662324,4 L3,4 L3,45.5475008 Z" id="Shape" stroke="url(#linearGradient-1)" stroke-width="6"></path>
+                                <polygon id="Rectangle-Copy-4" fill="url(#linearGradient-1)" transform="translate(36.500000, 37.500000) rotate(-90.000000) translate(-36.500000, -37.500000) " points="17 18 56 18 56 57 17 57"></polygon>
+                                <ellipse id="Oval-Copy-2" fill="url(#linearGradient-2)" transform="translate(69.090909, 70.112360) rotate(-105.000000) translate(-69.090909, -70.112360) " cx="69.0909091" cy="70.1123596" rx="20.49552" ry="20.5102265"></ellipse>
+                                <polygon id="Triangle" fill="url(#linearGradient-3)" points="68.5 0 78 19 59 19"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

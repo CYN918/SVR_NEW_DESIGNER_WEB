@@ -72,20 +72,22 @@ export default {
 <style>
 .banner{
 	position: relative;
-	background: #f1f1f1;
-	padding-bottom: 37.5%;
-	width: 100%;
+	margin: 20px auto;
+	width: 1300px;
+	height: 328px;
+	-webkit-box-shadow: 0 0 8px 0 rgba(0,0,0,.2);
+	box-shadow: 0 0 8px 0 rgba(0,0,0,.2);
+    border-radius: 5px;
+	overflow: hidden;
 }
 .banner_jt{
 	position: absolute;
-	top: 50%;
-	width: 48px;
-	height: 48px;
+	top: 144px;
+	width: 36px;
+	height: 36px;
 	opacity: 0.2;
 	background: #000000;
-	border-radius: 50%;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
+	border-radius: 5.62px;
 }
 .banner_jt:after{
     content: "";
@@ -102,33 +104,32 @@ export default {
     transform: translate(-35%,-50%) rotate(-45deg);
 }
 .banner_jt1{	
-    left: 16%;
+    left: 44px;
 }
 .banner_jt2{	
-    right: 16%;
+    right: 44px;
     -webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
 .banner_nav1{
 	position: absolute;
-	bottom: 24px;
+	bottom: 15px;
 	width: 100%;
 	text-align: center;
 }
 .banner_nav1>span{
+	width: 8px;
+	height: 8px;
 	display: inline-block;
-	width: 16px;
-	height: 4px;	
 	background: #D8D8D8;
-	border-radius: 4px;
-	margin-right: 8px;
+	border-radius: 2px;
+	margin-right: 5px;
 }
 .banner_nav1>span:last-child{
 	margin-right: 0;
 }
 .banner_nav1>span.action{
-	width: 24px;
-	background: #fff;
+	background: #FF5121;
 }
 .banner_nav1>span:hover{
 	cursor: pointer;
@@ -136,7 +137,9 @@ export default {
 
 .banner1{
 	position: relative;
+	overflow: hidden;
 	width: 100%;
+	height: 100%;
 }
 .banner1>img{
 	cursor: pointer;
@@ -144,8 +147,10 @@ export default {
 	display: block;
 	width: 100%;
 	position: absolute;
-	top: 0;
-	left: 0;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
 	display: none;
 }
 .banner1>img.action{

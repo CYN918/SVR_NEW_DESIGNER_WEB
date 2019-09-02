@@ -2,6 +2,12 @@
 	<div @click="openCent()" class="pr_cent2_1">
 		<div class="pr_cent2_2">
 			<img class="pr_cent2_3" :src="el.banner"/>
+			<div class="pr_cent2_rs" v-if="el.status==1 || el.status==2">{{el.sign_up_num}}人已报名</div>
+			<div class="pr_cent2_r2" v-html="backBtm()">
+				
+				
+				
+			</div>
 		</div>
 		<div class="pr_cent2_4">
 			<div class="pr_cent2_5">
@@ -11,11 +17,11 @@
 			</div>
 			<div class="pr_cent2_9">
 				<div class="pr_cent2_10">
-					<div>预计收益：￥500.00~￥800.00</div>
+					<div>预计收益：{{el.expected_profit}}</div>
 				</div>
 			</div>
 		</div>
-		
+		<img v-if="el.status==5" class="pr_cent2_js" :src="'/imge/project/'+(el.deal_type==1?'md':'fc')+'.svg'" alt="">
 		<div class="sjxd" v-if="el.extra_reward">
 			额外奖金¥{{el.extra_reward}}
 		</div>
@@ -70,13 +76,61 @@ export default {
 		return{
 			shareData:{},
 			djtime:'',
+			tips:[
+				'',
+				'截稿时间：2019/07/07  17:00前',
+				'',
+				'',
+				'',				
+			],
+			
 		}
 	},
 	mounted: function(){
+		this.init();
 		this.backtims();
 	}, 
 	
 	methods: {	
+		init(){
+			
+		},
+		bckdtimed(t){
+			console.log(new Date(t.replace(/-/g,'/')))
+			let times =new Date(t.replace(/-/g,'/')),
+			Y = times.getFullYear(),
+			M = times.getMonth(),
+			D = times.getDate(),
+			h = times.getHours(),
+			m = times.getMinutes();
+			return [(Y+'/'+M+'/'+D),(h+':'+m)];
+		},
+		backBtm(){
+			
+			if(this.el.status==1){
+				return '<div class="pr_cent2_r2_1 backdse"><span><span>'+this.el.left_time.d+'</span>天<span>'+this.el.left_time.h+'</span>时<span>'+this.el.left_time.m+'</span>分<span>'+this.el.left_time.s+'</span>秒</span>后截止报名</div>';
+			}
+			if(this.el.status==2){
+				return '<div class="backdse pr_cent2_r2_2">报名已截止，等待平台选标</div>';
+			}
+			if(this.el.status==3){
+				if(this.el.is_de){
+					return '<div class="backdse pr_cent2_r2_2">你已延期01天14小时，请尽快完成</div>';
+				}
+				
+				let otim = this.bckdtimed(this.el.deadline);
+				
+				return '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
+			}
+			
+			if(this.el.status==4){
+				return '<div class="backdse pr_cent2_r2_2">稿件已提交，请等待验收审核</div>';
+			}
+			if(this.el.status==5){
+				return '<div class="backdse pr_cent2_r2_2">项目已验收，感谢与你的本次合作</div>';
+			}
+			
+		},
 		openCent(){
 			if(this.el.id){
 				window.open('/#/prcent?id='+this.el.id)
@@ -178,5 +232,60 @@ export default {
 	height: 22px;
 	background:rgba(244,246,249,1);
 	border-radius:5px;
+}
+.pr_cent2_rs{
+	position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 1px 8px;
+	background:rgba(0,0,0,.5);
+	border-radius:3px;
+	font-size:12px;
+	color:rgba(255,255,255,1);
+	line-height:20px;
+}
+.pr_cent2_r2{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height:32px;
+	
+	
+}
+.pr_cent2_r2>div{
+	border-radius:0px 0px 5px 5px;
+	text-align: center;	
+	line-height:32px;
+	height: 100%;
+	width: 100%;
+}
+
+.backdse{
+	background:rgba(0,0,0,.7);
+}
+.pr_cent2_r2_1{		
+	font-size:12px;
+	color:rgba(255,255,255,.7);		
+}
+.pr_cent2_r2_1>span{
+	margin-right: 4px;
+}
+.pr_cent2_r2_1>span>span{
+	font-family: PingFang SC Medium;
+	font-size: 16px;
+	margin:0 1px;
+	color:rgba(255,255,255,1);
+}
+.pr_cent2_r2_2{
+	font-size:14px;
+	color:rgba(255,255,255,1);
+}
+.pr_cent2_js{
+	position: absolute;
+    bottom: 80px;
+    right: 5px;
+    width: 98px;
+	
 }
 </style>

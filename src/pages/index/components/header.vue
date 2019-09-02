@@ -85,14 +85,6 @@
 			<span class="header_4" v-else>
 				<a class="pend" @click="goZP('/login','登录')">登录</a><span>|</span><a class="pend" @click="goZP('/register','注册')">注册</a></span>				
 		</div>
-		
-		<!-- <div v-show="isshowd" class="loginoutBox">
-			<div class="loginoutBox1">
-				<img @click="showHb(false)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_gb.svg" class="loginoutBox2 pend">
-				<div class="loginoutBox3">确定退出登录?</div>
-				<div class="loginoutBox4"><span @click="showHb(false)">取消</span><span @click="logout()">确定</span></div>
-			</div>
-		</div> -->
 		<out v-if="isshowd"></out>
 	</header>
 </template>
@@ -126,7 +118,7 @@ export default {
 			topNData:[
 				{path:'/index',n:'首页'},
 				{path:'/project',n:'项目'},
-				// {path:'/pictures',n:'作品'},
+				{path:'/Work_i',n:'作品'},
 				{path:'/activvity',n:'活动'},
 			]
 		}		

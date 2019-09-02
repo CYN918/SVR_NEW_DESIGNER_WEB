@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-
 import Index from './views/index.vue'
 import special_first from './views/special/first.vue'
 import Home from './views/home.vue'
@@ -14,8 +13,6 @@ import recommend from './views/user/recommend.vue'
 import follow from './views/user/follow.vue'
 import followFans from './views/user/fans.vue'
 import info from './views/user/info.vue'
-
-
 
 import myWorksCom from './views/user/myWorksCom.vue'
 import myProjectCom from './views/user/myProjectCom.vue'
@@ -72,7 +69,7 @@ import pr_index from './views/project/index.vue'
 import pr_cents from './views/project/cents.vue'
 import pr_presentation from './views/project/presentation.vue'
 
-
+import Work_i from './views/works/index.vue'
 Vue.use(Router)
 const router = new Router({
 
@@ -85,6 +82,7 @@ let wb = [
 		name: 'index',
 		component: Index,
 		children:[
+			{path: '/Work_i',name: 'Work_i',component: Work_i},	
 			{path: '/special_first',name: 'special_first',component: special_first},						
 			{path: '/index',name: 'home',component: Home},
 			{path: '/tip',name: 'tip',component: Tip},		
@@ -165,9 +163,7 @@ let wb = [
 			{path: '/searchUser',name: 'searchUser',component:searchUser},
 			{path: '/searchWorks',name: 'searchWorks',component:searchWorks},
 			{path: '/searchProject',name: 'searchProject',component:searchProject},			
-						
-						
-						
+								
 			{path: '/about',name: 'about',component:tx_index},
 			{path: '/userProtocol',name: 'userProtocol',component:tx_index},
 			{path: '/authorization',name: 'authorization',component:tx_index},
@@ -175,15 +171,8 @@ let wb = [
 			
 			{path: '/project',name: 'project',component:pr_index},
 			{path: '/prcent',name: 'prcent',component:pr_cents},
-			{path: '/presentation',name: 'pr_presentation',component:pr_presentation},
-			
-			
+			{path: '/presentation',name: 'pr_presentation',component:pr_presentation},						
 		],	
-		
-		
-		
-		
-		
 	},
 	/*login_*/	
 	{

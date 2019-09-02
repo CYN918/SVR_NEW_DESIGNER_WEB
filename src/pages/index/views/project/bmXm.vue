@@ -2,12 +2,12 @@
 	<tanC :title="'报名项目'">
 		<template v-slot:todo="{ todo }">
 			<div class="bmXm_00">
-				<div class="bmXm_01">
+				<!-- <div class="bmXm_01">
 					请选择你期望的项目成交方式：
 					<div class="bmXm_01_1">
 						<label @click="chekdeal_type(el.k)" v-for="(el,index) in deal_types" :key="index"><span :class="el.k==postData.deal_type?'chekdOn':''"></span>{{el.n}}</label>
 					</div>
-				</div>
+				</div> -->
 				<div class="bmXm_02">请选择至少 <span>1个符合</span> 项目需求的 <span>原创作品</span> 作为案例</div>
 				<div class="bmXm_03_box" @scroll="test">
 					<ul class="bmXm_03">

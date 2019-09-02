@@ -8,13 +8,13 @@
 					<div class="pr_bg_03_1_2">
 						<div class="pr_bg_03_1_2_1">
 							<div class="pr_bg_03_1_2_1_1">项目名称：{{das.name}}</div>
-							<div class="pr_bg_03_1_2_1_2">项目类型：{{das.classify_name}}<span></span>成交方式：{{backf(das.deal_type)}}</div>
+							<div class="pr_bg_03_1_2_1_2">项目类型：{{das.classify_name}}<!-- <span></span> --><!-- 成交方式：{{backf(das.deal_type)}} --></div>
 						</div>
 						<div class="pr_bg_03_1_2_2">
 							项目评价<span>{{das.level}}</span>
 						</div>
 						<div class="pr_bg_03_1_2_3">
-							擅长领域：<span v-for="(el,index) in das.fields" :key="index">{{el}}</span>
+							领域范围：<span v-for="(el,index) in das.fields" :key="index">{{el}}</span>
 						</div>
 					</div>
 				</div>

@@ -10,7 +10,7 @@
 		<div v-show="chekin" class="upBoxd">
 			<div class="upBoxd1">
 				<div class="upBoxd1_1">
-					<Input class="userBoxdC" v-model="form.work_name" :valued="csz"  :oType="'max'" :max="50"   :type="'text'" :placeholder="'请输入作品标题…'"></Input>	
+					<Input class="userBoxdC" v-model="form.work_name" :valued="csz"  :oType="'max'" :max="50"   :type="'text'" :placeholder="'请输入作品标题…'"></Input>
 				</div>
 				<div class="upBoxd1_2">
 					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
@@ -64,7 +64,7 @@
 					<div class="page2_2_1_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
 					<div class="page2_2_1_2">
 						<div>
-							<Input class="userBoxd2" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>
+							<Input class="userBoxd2" v-model="tags" :keyup="keydown" :oType="'max'" :max="10" :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>
 							<span @click="keydown" :class="['tagBtn',isTageok?'istageok':'']">添加标签</span>还可添加{{5-form.labels.length}}个标签
 						</div>
 						<div class="page2_2_1_2x">
@@ -146,8 +146,7 @@ export default {
 			fjtext:'选择附件',
 			chekusername:()=>{},
 			form:{
-				work_name:'',
-				
+				work_name:'',				
 				attachment_visible:1,
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
@@ -157,10 +156,10 @@ export default {
 			uD:{},
 			upConfig:'',
 			myConfig: {
-			  autoHeightEnabled: false,
-			  initialFrameHeight: 500,
-			  initialFrameWidth: '100%',
-			  UEDITOR_HOME_URL: '/UEditor/'
+				autoHeightEnabled: false,
+				initialFrameHeight: 500,
+				initialFrameWidth: '100%',
+				UEDITOR_HOME_URL: '/UEditor/'
 			},			
 			isshowd:false,
 			upList:[
@@ -213,7 +212,7 @@ export default {
 		}  
 	},
 	watch: {	
-		'form.work_name'(val,oldval) {				
+		'form.work_name'() {				
 			this.checkPage1();			
 		},
 		'form.content'() {
@@ -351,7 +350,7 @@ export default {
 			this[on] = true;
 		},
 		closeTd(on){
-			window.event? window.event.cancelBubble = true : e.stopPropagation();
+			window.event? window.event.cancelBubble = true : window.event.stopPropagation();
 			this[on] = false;
 		},
 		setAutoSave(){
@@ -382,15 +381,14 @@ export default {
 			
 			this.saveData(dat,'自动保存成功');
 		},
-		init(O){
+		init(){
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
 			if(!window.userInfo){
 				Message({message: '请先登录'});
-				return
-					setTimeout(()=>{				
-						this.$router.push({path:'/login'})
-					},2000);
+				setTimeout(()=>{				
+					this.$router.push({path:'/login'})
+				},2000);
 				return
 			}	
 			
@@ -446,13 +444,13 @@ export default {
 		},
 		ready (editorInstance) {
 			this.uD = editorInstance;
-			editorInstance.addListener('focus',(editor)=>{				
+			editorInstance.addListener('focus',()=>{				
 					if(this.ifBjType==0){
 						this.form.content = '';
 						this.ifBjType=1;				
 					}
 			});
-			editorInstance.addListener('blur',(editor)=>{
+			editorInstance.addListener('blur',()=>{
 				if(this.ifBjType==1 && this.form.content==''){			
 					this.form.content = '<p style="color:#999">从这里开始编辑作品内容...</p>';
 					this.ifBjType=0;
@@ -484,7 +482,7 @@ export default {
 		
 			let str = '';
 			if(this.upConfig.type[0]=='image/gif'){
-				list.map((el,index,va)=>{
+				list.map((el,index)=>{
 					str+='<p style="max-width:100%;height:auto;"><img zk_workid="'+ids[index]+'" style="max-width:100%;height:auto" src="'+el+'"/></p>';
 				});								
 				this.uD.execCommand('insertHtml', str);	
@@ -494,7 +492,7 @@ export default {
 			}
 			
 			if(this.upConfig.type[0]=='video/mp4'){
-				list.map((el,index,va)=>{
+				list.map((el,index)=>{
 					str+='<p style="display:none">1</p><p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
 				});
 				this.uD.execCommand( 'insertparagraph' );
@@ -504,7 +502,7 @@ export default {
 				return
 			}
 			if(this.upConfig.type[0]=='audio/ogg'){
-				list.map((el,index,va)=>{					
+				list.map((el,index)=>{					
 					str+='<p style="display:none">1</p><p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio zk_workid="'+ids[index]+'" style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
 				});
 				this.uD.execCommand( 'insertparagraph' )
@@ -541,7 +539,7 @@ export default {
 						this.form.attachment_id = da.attachment_id;	
 						this.upfjData.bf = 100;
 						this.upfjData.file_name = this.form.attachment.file_name;
-					};
+					}
 					this.ifBjType=1;
 				}
 			})
@@ -760,7 +758,7 @@ export default {
 			xhr.open("POST", window.basrul+"/File/File/insert");
 			xhr.send(formData);
 		},
-		qxclosd(obj){
+		qxclosd(){
 			this.isUpd='';
 			this.fjtext = '选择附件';
 			this.form.attachment_id='';

@@ -1,7 +1,6 @@
 <template>
 	<div :class="['cenDjs',da.cl]">
 		<div class="cenDjs_1"></div>
-		
 		<div class="yu_o9">
 			<div class="yu_o9_1bx">
 				<div v-if="djsshow.h" class="cenDjs_2">
@@ -79,11 +78,11 @@ export default {
 				this.xmType[4].btns[0].n = '已评价';
 				this.xmType[4].btns[0].tcFn = 'ypj';
 			}
-			if(this.deal_type==2){
-				this.xmType[4].n = '项目分成价值';
-				this.xmType[4].btns.unshift({n:'分成收益',tcFn:'gofn',tcFncs:'/profit'});		
-				this.xmType[4].t.icon = 'fc';		
-			}
+			// if(this.deal_type==2){
+			// 	this.xmType[4].n = '项目分成价值';
+			// 	this.xmType[4].btns.unshift({n:'分成收益',tcFn:'gofn',tcFncs:'/profit'});		
+			// 	this.xmType[4].t.icon = 'fc';		
+			// }
 			
 			
 			

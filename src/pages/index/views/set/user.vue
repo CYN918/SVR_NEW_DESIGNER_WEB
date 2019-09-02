@@ -73,32 +73,18 @@
 								  :label="item.label"
 								  :value="item.value">
 								</el-option>
-							</el-select>
-						
+							</el-select>						
 						</div>
-						
-						
 					</div>
-					<!-- <div class="suc_1 suc_4">
-						<div class="suc_title">个人链接</div>
-						<div class="suc_1_3">
-							<span>主页链接</span>
-							<el-input class="suc_3xInput" v-model="form.home_page" placeholder="请输入内容"></el-input>
-							<span>shiquaner.zookingsoft.com</span>
-						</div>
-					</div> -->
-					
 					<div class="suc_btndf" @click="Userupdate">保存资料</div>
 				</div>
-			</div>
-			
+			</div>			
 		</div>
-		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
-		
+		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>		
 		<div v-if="tAncType>0" class="tc_sucd">
 			<div v-if="tAncType==1" class="tc_sucd_1">
 				<img class="tc_sucd_1X" @click="closeTc1('修改昵称弹窗-关闭')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-				<Input class="tc_sucd_1_1" v-model="tancData.userName" :isHz="'is'"  :oType="'max'" :max="18"  :chekFn="chekusername" :type="'text'" :placeholder="'请输入新的用户名；一个中文等于两个字母'"></Input>		
+				<Input class="tc_sucd_1_1" v-model="tancData.userName" :isHz="'is'" :oType="'max'" :max="18" :chekFn="chekusername" :type="'text'" :placeholder="'请输入新的用户名；一个中文等于两个字母'"></Input>		
 				<div class="tc_sucd_1_2">
 					<span @click="closeTc1('修改昵称弹窗-取消')">取消</span>
 					<span @click="qdTc1('修改昵称弹窗-确定')">确定</span>
@@ -199,10 +185,8 @@ export default {
 				{n:"艺术工作者"},
 				{n:"教育工作者"},
 			],
-			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg',
-				
-			chekusername:function(val){
-				
+			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg',				
+			chekusername:function(){
 				return true
 			},
 			chekPhpne:function(val){
