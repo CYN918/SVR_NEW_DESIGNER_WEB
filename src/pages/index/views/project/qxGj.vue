@@ -18,24 +18,31 @@ export default {
 		data:Object
 	},
 	data(){
-		return{}
+		return{
+			qxType:'',
+		}
 	},
 	methods: {	
 		gorz(){
 			this.is='';
 		},
 		pr_revokeDelivery(){
-		
+			if(this.qxType){
+				this.$message({message:"正在撤回请稍后"});
+				return
+			}
+			this.qxType=1;
 			this.api.pr_revokeDelivery({
 				project_id:this.$parent.deta.id,
 			}).then((da)=>{
+				this.qxType='';
 				if(da=='error'){return}
 				this.$parent.setStaus('3');
 				this.$message({message:"撤回稿件成功"});
 				this.$parent.getData();
 				this.$parent.close();
 			}).catch(()=>{
-				
+				this.qxType='';
 			});
 		},
 		close(){
@@ -55,6 +62,7 @@ export default {
 	margin: 30px 84px;
 }
 .qxBm_btns{
+	text-align: center;
 	border-top: 1px solid rgba(244,246,249,1);
 	height: 79px;
 	line-height: 79px;

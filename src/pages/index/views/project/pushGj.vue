@@ -1,7 +1,7 @@
 <template>
 	<tanC :title="'交付稿件'">
-		<template v-slot:todo="{ todo }">
-			<div class="pushGj_01">
+		<template v-slot:todo="{ todo }">			
+			<div v-if="type==1" class="pushGj_01">
 				<div class="pushGj_02">
 					<el-upload
 					  class="upload-demo"
@@ -35,7 +35,22 @@
 					<textarea placeholder="请输入备注说明…" v-model="eell" class="pushGj_03_2"></textarea>
 				</div>
 			</div>
+			<div v-else class="pushGj_0x1">
+				<div>
+					<div class="pushGj_03_1">请将稿件上传至网盘后，提供稿件的网盘地址</div>
+					<input v-model="online_disk_url" type="text">
+				</div>
+				<div>
+					<div class="pushGj_03_1">请提供网盘提取密码</div>
+					<input v-model="access_code" type="text">
+				</div>
+				<div>
+					<div class="pushGj_03_1">备注说明</div>
+					<textarea placeholder="请输入备注说明…" v-model="eell" class="pushGj_03_2"></textarea>
+				</div>
+			</div>
 			<div class="bmXm_01Btn">
+				<span class="bmXm_01Btn_1 pend" @click="qhType()">{{type==1?'稿件太大？用网盘传吧':'本地直接上传'}}</span>
 				<div @click="pushfiled"  class="btns btns_js pend">提交</div>
 			</div>
 		</template>			
@@ -50,11 +65,15 @@ export default {
 	},
 	data(){
 		return{
+
 			eell:'',
 			customize:'',
 			fileList3:[],
-		
+			type:1,
 			filelist:[],
+			online_disk_url:'',
+			access_code:'',
+			
 		}
 	},
 	mounted: function(){
@@ -64,7 +83,15 @@ export default {
 		init(){
 			this.customize = window.basrul+'/File/File/delete';
 		},
-
+		qhType(){
+			this.eell = '';
+			this.fileList3 = [];
+			
+			this.filelist = [];
+			this.online_disk_url = '';
+			this.access_code = '';
+			this.type = this.type==1?2:1;
+		},
 		close(){			
 			this.$parent.close();
 		},
@@ -74,23 +101,49 @@ export default {
 			this.filelist.splice(on,1);
 		},
 		pushfiled(){
-			if(!this.fileList3[0]){
-				this.$message({message: '请先上传文件'});
-				return
+			let pr = {};
+			if(this.type==1){
+			
+				if(!this.fileList3[0]){
+					this.$message({message: '请先上传文件'});
+					return
+				}
+				if(!this.fileList3[0].url){
+					this.$message({message: '正在上传文件请耐心等候'});
+					return
+				}
+				pr = {
+					project_id:this.$parent.deta.id,
+					type:this.type,
+					file_name:this.fileList3[0].file_name,
+					file_url:this.fileList3[0].url,
+					file_size:this.fileList3[0].size,
+					remark:this.eell,
+				};
 			}
-			if(!this.fileList3[0].url){
-				this.$message({message: '正在上传文件请耐心等候'});
-				return
+			
+			if(this.type==2){
+				if(!this.online_disk_url){
+					this.$message({message: '请先填写网盘地址'});
+					return
+				}
+				if(!this.access_code){
+					this.$message({message: '请提供网盘提取密码'});
+					return
+				}
+				pr = {
+					project_id:this.$parent.deta.id,
+					type:this.type,
+					online_disk_url:this.online_disk_url,
+					access_code:this.access_code
+				};
 			}
-			this.api.pr_delivery({
-				project_id:this.$parent.deta.id,
-				file_name:this.fileList3[0].file_name,
-				file_url:this.fileList3[0].url,
-				file_size:this.fileList3[0].size,
-				remark:this.eell,
-			}).then((da)=>{
+			this.api.pr_delivery(pr).then((da)=>{
 				if(da=='error'){return}
-				this.$parent.setStaus('4');
+				if(this.$parent.setStaus){
+					this.$parent.setStaus('4');
+				}
+				
 				this.$message({message:"交稿成功请耐心等待验收"});
 				this.$parent.getData();
 				this.close();
@@ -236,6 +289,7 @@ export default {
 	line-height:20px;
 }
 .bmXm_01Btn{
+	position: relative;
 	text-align: center;
 	border-top: 1px solid rgba(244,246,249,1);
 	height: 79px;
@@ -293,5 +347,28 @@ export default {
 .el-upload-list{
 	/* display: block !important; */
 	text-align: left;
+}
+.bmXm_01Btn_1{
+	position: absolute;
+	color: #FF5121;
+	left: 20px;
+	top: 0;
+	height: 79px;
+    line-height: 79px;
+}
+.pushGj_0x1{
+	padding: 30px 100px;
+	width: 500px;
+}
+.pushGj_0x1 input{
+	display: block;
+	padding: 0 20px;
+	line-height: 38px;
+	border: 1px solid rgba(187,187,187,1);
+	box-sizing: border-box;
+	border-radius: 5px;
+	width: 100%;
+	margin-bottom: 20px;
+	font-size: 14px;
 }
 </style>
