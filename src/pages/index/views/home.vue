@@ -140,6 +140,7 @@ export default {
 	width:166px;
 	height:166px;	
 }
+
 .home_0x4_1>img{
 	position: absolute;
 	top: 50%;
@@ -148,8 +149,23 @@ export default {
 	transform: translate(-50%,-50%);
 	
 }
-.home_0x4_1>img:nth-child(4){
+.home_0x4>a:nth-child(1)>div>img{
+	width: 101px;
+}
+.home_0x4>a:nth-child(2)>div>img{
+	width: 97px;
+}
+.home_0x4>a:nth-child(3)>div>img{
+	width: 119px;
+}
+.home_0x4>a:nth-child(4)>div>img{
 	width: 106px;
+}
+.home_0x4>a:nth-child(5)>div>img{
+	width: 123px;
+}
+.home_0x4>a:nth-child(6)>div>img{
+	width: 83px;
 }
 .home_0x4_2{
 	margin-bottom: 4px;
