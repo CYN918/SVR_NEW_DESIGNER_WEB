@@ -1,43 +1,59 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="114px" height="83px" viewBox="0 0 114 83" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
-    <title>Home_icon_script</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#DB2F94" offset="0%"></stop>
-            <stop stop-color="#0051DE" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
-            <stop stop-color="#DB2F94" offset="0%"></stop>
-            <stop stop-color="#0051DE" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
-            <stop stop-color="#0051DE" stop-opacity="0" offset="0%"></stop>
-            <stop stop-color="#0051DE" offset="100%"></stop>
-        </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
-            <stop stop-color="#0051DE" stop-opacity="0" offset="0%"></stop>
-            <stop stop-color="#0051DE" offset="100%"></stop>
-        </linearGradient>
-    </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
-        <g id="01-首页" transform="translate(-909.000000, -1279.000000)">
-            <g id="Group-8" transform="translate(432.000000, 840.000000)">
-                <g id="Group-28" transform="translate(39.000000, 118.000000)">
-                    <g id="Group-14" transform="translate(406.000000, 276.000000)">
-                        <g id="Group-23">
-                            <g id="Home_icon_script" transform="translate(32.000000, 45.000000)">
-                                <path d="M38,74.7573593 L38,7.24264069 L4.24264069,41 L38,74.7573593 Z" id="Path" stroke="url(#linearGradient-1)" stroke-width="6"></path>
-                                <polygon id="Rectangle-Copy-4" fill="url(#linearGradient-2)" transform="translate(51.655172, 42.926829) rotate(-45.000000) translate(-51.655172, -42.926829) " points="32.4137931 23.68545 70.9722456 23.6097561 70.8965517 62.1682086 32.3380992 62.2439024"></polygon>
-                                <path d="M66,7.24264069 L66,74.7573593 L99.7573593,41 L66,7.24264069 Z" id="Shape" stroke="url(#linearGradient-1)" stroke-width="6"></path>
-                                <circle id="Oval" fill="url(#linearGradient-3)" transform="translate(12.103448, 8.585366) rotate(-45.000000) translate(-12.103448, -8.585366) " cx="12.1034483" cy="8.58536585" r="5.35535117"></circle>
-                                <ellipse id="Oval-Copy-2" fill="url(#linearGradient-4)" transform="translate(93.344828, 62.243902) rotate(-105.000000) translate(-93.344828, -62.243902) " cx="93.3448276" cy="62.2439024" rx="20.3849017" ry="20.3157071"></ellipse>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </g>
-        </g>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 118 80" style="enable-background:new 0 0 118 80;" xml:space="preserve">
+<style type="text/css">
+	.st0{opacity:0.5;fill:url(#Rectangle-Copy-4_1_);}
+	.st1{opacity:0.5;fill:url(#Shape_1_);}
+	.st2{opacity:0.5;fill:url(#Shape-Copy_1_);}
+	.st3{opacity:0.5;fill:url(#Oval_1_);}
+	.st4{opacity:0.5;fill:url(#Oval-Copy-2_1_);}
+</style>
+<title>Home_icon_script</title>
+<desc>Created with Sketch.</desc>
+<g id="Page-1">
+	<g id="_x30_1-首页" transform="translate(-905.000000, -1282.000000)">
+		<g id="Group-8" transform="translate(432.000000, 840.000000)">
+			<g id="Group-28" transform="translate(39.000000, 118.000000)">
+				<g id="Group-14" transform="translate(406.000000, 276.000000)">
+					<g id="Group-23">
+						<g id="Home_icon_script" transform="translate(28.000000, 46.000000)">
+							
+								<linearGradient id="Rectangle-Copy-4_1_" gradientUnits="userSpaceOnUse" x1="-439.8477" y1="526.546" x2="-439.8477" y2="525.546" gradientTransform="matrix(27.3185 -27.3185 -27.3185 -27.3185 26442.0527 2395.1191)">
+								<stop  offset="0" style="stop-color:#DB2F94"/>
+								<stop  offset="1" style="stop-color:#0051DE"/>
+							</linearGradient>
+							<polygon id="Rectangle-Copy-4" class="st0" points="28.1,40.3 55.3,13 82.5,40.3 55.3,67.6 							"/>
+							
+								<linearGradient id="Shape_1_" gradientUnits="userSpaceOnUse" x1="-428.5" y1="536.7123" x2="-428.5" y2="535.7123" gradientTransform="matrix(40 0 0 -73 17232 39184)">
+								<stop  offset="0" style="stop-color:#DB2F94"/>
+								<stop  offset="1" style="stop-color:#0051DE"/>
+							</linearGradient>
+							<polygon id="Shape" class="st1" points="104.8,40.5 72,73.4 75.6,77 112,40.5 75.6,4 72,7.6 							"/>
+							
+								<linearGradient id="Shape-Copy_1_" gradientUnits="userSpaceOnUse" x1="-450.5" y1="536.7123" x2="-450.5" y2="535.7123" gradientTransform="matrix(-40 0 0 -73 -18000 39184)">
+								<stop  offset="0" style="stop-color:#DB2F94"/>
+								<stop  offset="1" style="stop-color:#0051DE"/>
+							</linearGradient>
+							<polygon id="Shape-Copy" class="st2" points="7.2,40.5 40,73.4 36.4,77 0,40.5 36.4,4 40,7.6 							"/>
+							
+								<linearGradient id="Oval_1_" gradientUnits="userSpaceOnUse" x1="-440.7544" y1="483.6492" x2="-440.7544" y2="482.6492" gradientTransform="matrix(7.5736 -7.5736 -7.5736 -7.5736 7013.3882 328.6672)">
+								<stop  offset="0" style="stop-color:#0051DE;stop-opacity:0"/>
+								<stop  offset="1" style="stop-color:#0051DE"/>
+							</linearGradient>
+							<circle id="Oval" class="st3" cx="16.1" cy="7.6" r="5.4"/>
+							
+								<linearGradient id="Oval-Copy-2_1_" gradientUnits="userSpaceOnUse" x1="-453.168" y1="535.4637" x2="-453.168" y2="534.4637" gradientTransform="matrix(-10.552 -39.3806 -39.2469 10.5162 16311.2002 -23410.5605)">
+								<stop  offset="0" style="stop-color:#0051DE;stop-opacity:0"/>
+								<stop  offset="1" style="stop-color:#0051DE"/>
+							</linearGradient>
+							<path id="Oval-Copy-2" class="st4" d="M77.7,66.5c-2.9-10.9,3.5-22,14.3-24.9c10.8-2.9,22,3.6,24.9,14.4s-3.5,22-14.3,24.9
+								C91.8,83.8,80.6,77.4,77.7,66.5z"/>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
 </svg>

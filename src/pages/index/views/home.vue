@@ -146,6 +146,10 @@ export default {
 	left: 50%;
 	-webkit-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
+	
+}
+.home_0x4_1>img:nth-child(4){
+	width: 106px;
 }
 .home_0x4_2{
 	margin-bottom: 4px;

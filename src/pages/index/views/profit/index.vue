@@ -34,7 +34,7 @@
 						<img src="/imge/profit/qxt.svg">
 						<div class="pbx_n_02">收益加成<img class="pbx_n_06" src="/imge/project/09.svg" alt=""></div>
 						<div class="pbx_1_1">
-							<span>{{basDa.total_hirework}}</span>					
+							<span>{{basDa.gain_share_rate}}</span>					
 						</div>
 						
 					</div>
