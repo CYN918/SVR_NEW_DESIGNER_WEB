@@ -1,70 +1,47 @@
 <template>
-	<div @click="openCent()" class="pr_cent2_1">
-		<div class="pr_cent2_2">
-			<img class="pr_cent2_3" :src="el.banner"/>
+	<div class="pr_cent2_1">
+		<div @click="openCent()" class="pr_cent2_2">
+			<img  class="pr_cent2_3" :src="el.banner"/>
 			<div class="pr_cent2_rs" v-if="el.status==1 || el.status==2">{{el.sign_up_num}}人已报名</div>
-			<div class="pr_cent2_r2" v-html="backBtm()">
+			<div class="pr_cent2_r2" v-html="tips">
 				
 				
 				
 			</div>
 		</div>
 		<div class="pr_cent2_4">
-			<div class="pr_cent2_5">
+			<div @click="openCent()" class="pr_cent2_5">
 				<div class="pr_cent2_6">{{el.name}}</div>
 				<div class="pr_cent2_7">项目类型：{{el.classify_name}}</div>
 				<div class="pr_cent2_8">领域范围：<span v-for="(ed,index) in el.fields">{{ed}}</span></div>	
 			</div>
 			<div class="pr_cent2_9">
-				<div class="pr_cent2_10">
-					<div>预计收益：{{el.expected_profit}}</div>
-				</div>
+				<div class="pr_cent2_10" v-html="tip"></div>				
+				<div class="pr_cent2_11">
+					<div v-for="(els,index) in btns" @click="ckd(els.fn)" :class="['btns pend',els.cls]">{{els.n}}</div>
+				</div>				
 			</div>
 		</div>
-		<img v-if="el.status==5" class="pr_cent2_js" :src="'/imge/project/'+(el.deal_type==1?'md':'fc')+'.svg'" alt="">
+		
 		<div class="sjxd" v-if="el.extra_reward">
 			额外奖金¥{{el.extra_reward}}
 		</div>
+		<component v-bind:is="tcZj"  :datad="tcData"></component>
 	</div>
-	<!-- <div @click="openCent()" class="pr_cent_1">
-		<img class="pr_cent_1_1" :src="el.banner" alt="">
-		<div class="sjxd" v-if="el.extra_reward">
-			额外奖金¥{{el.extra_reward}}
-		</div>
-		<div class="pr_cent_2">
-			<div class="pr_cent_2_1">
-				<div class="pr_cent_2_2">{{el.name}}</div>
-				<div class="pr_cent_2_3">项目类型：{{el.classify_name}}</div>
-				<div class="pr_cent_2_4">领域范围：<span v-for="(ed,index) in el.fields">{{ed}}</span></div>				
-			</div>
-			<div class="pr_cent_2_5">
-				<div class="pr_cent_2_6">
-					<img class="cicon" src="/imge/project/02.svg" alt="">{{el.expected_profit}}
-				</div>
-				<div class="pr_cent_2_7">
-					<span class="pr_cent_2_7zy">
-						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/03.svg" alt="">报名人数</div>
-						<div class="pr_cent_2_9">
-							<span class="pr_hs">{{el.sign_up_num}}</span>
-						</div><i></i></span>
-					<span>
-						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/01.svg" alt="">报名时间</div>						
-						<div class="pr_cent_2_9" v-html="djtime">
-							<span v-for="(el2,keys) in el.left_time" :key="keys">
-								<span class="pr_hs">'+(el2>9>el2:'0'+el2)+'</span>keys
-							</span>
-						</div>
-					</span>
-				</div>
-			</div>
-		</div>
-	</div> -->
+	
 </template>
 
 <script>
 
+
+import pushGj from './pushGj';
+import qxGj from './qxGj';
+
+import question from './question';
+import presentation from './presentation';
+
 export default {
-	
+	components:{pushGj,qxGj,question,presentation},
 	props:{
 		el:{
 			type:Object,
@@ -74,16 +51,12 @@ export default {
 	},
 	data(){
 		return{
-			shareData:{},
+			tcZj:'',
+			tcData:{},
 			djtime:'',
-			tips:[
-				'',
-				'截稿时间：2019/07/07  17:00前',
-				'',
-				'',
-				'',				
-			],
-			
+			tips:'',
+			tip:'',
+			btns:'',
 		}
 	},
 	mounted: function(){
@@ -92,7 +65,66 @@ export default {
 	}, 
 	
 	methods: {	
+		ckd(a){
+			if(a=='ypj'){this.$message({message:'你已经评价过了'});}
+			if(a=='presentation'){
+				this.$router.push({path:'/presentation',query:{id:this.el.id}})	
+				return
+			}
+			this.tcZj = a;
+			this.tcData = this.el.id;
+		},
+		close(){
+			this.tcZj = '';
+		},
 		init(){
+			this.tip = '预计收益：<span>'+this.el.expected_profit+'</span>';
+			if(this.el.status==1){
+				this.tips = '<div class="pr_cent2_r2_1 backdse"><span><span>'+this.el.left_time.d+'</span>天<span>'+this.el.left_time.h+'</span>时<span>'+this.el.left_time.m+'</span>分<span>'+this.el.left_time.s+'</span>秒</span>后截止报名</div>';
+				return
+			}
+			if(this.el.status==2){
+				this.tips = '<div class="backdse pr_cent2_r2_2">报名已截止，等待平台选标</div>';
+				return
+			}
+			if(this.el.status==3){
+				this.btns = [
+					{n:'提交稿件',fn:'pushGj',cls:'btns_js'}
+				];
+				if(this.el.is_de){
+					
+					this.tips = '<div class="backdse pr_cent2_r2_2">你已延期01天14小时，请尽快完成</div>';
+					return
+				}
+				let otim = this.bckdtimed(this.el.deadline);
+				
+				this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
+				return
+			}
+			
+			if(this.el.status==4){
+				this.btns = [
+					{n:'稿件撤回',fn:'qxGj'}
+				];
+				this.tips = '<div class="backdse pr_cent2_r2_2">稿件已提交，请等待验收审核</div>';
+				return
+			}
+			if(this.el.status==5){
+				let bd = [
+					{n:'验收报告',fn:'presentation'},
+					{n:'项目评价',fn:'question'},
+				];
+				
+				if(this.el.is_evaluated==1){
+					bd[1].n = '已评价';
+					bd[1].fn = 'ypj';
+				}
+				this.btns = bd;
+				this.tip = '成交价格：<span class="csyaswz_01">'+this.el.expected_profit+'</span>';
+				this.tips = '<div class="backdse pr_cent2_r2_2">项目已验收，感谢与你的本次合作</div>';
+			}
+		},
+		backBsth(){
 			
 		},
 		bckdtimed(t){
@@ -105,30 +137,8 @@ export default {
 			m = times.getMinutes();
 			return [(Y+'/'+M+'/'+D),(h+':'+m)];
 		},
-		backBtm(){
+		backBtm(){ 
 			
-			if(this.el.status==1){
-				return '<div class="pr_cent2_r2_1 backdse"><span><span>'+this.el.left_time.d+'</span>天<span>'+this.el.left_time.h+'</span>时<span>'+this.el.left_time.m+'</span>分<span>'+this.el.left_time.s+'</span>秒</span>后截止报名</div>';
-			}
-			if(this.el.status==2){
-				return '<div class="backdse pr_cent2_r2_2">报名已截止，等待平台选标</div>';
-			}
-			if(this.el.status==3){
-				if(this.el.is_de){
-					return '<div class="backdse pr_cent2_r2_2">你已延期01天14小时，请尽快完成</div>';
-				}
-				
-				let otim = this.bckdtimed(this.el.deadline);
-				
-				return '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
-			}
-			
-			if(this.el.status==4){
-				return '<div class="backdse pr_cent2_r2_2">稿件已提交，请等待验收审核</div>';
-			}
-			if(this.el.status==5){
-				return '<div class="backdse pr_cent2_r2_2">项目已验收，感谢与你的本次合作</div>';
-			}
 			
 		},
 		openCent(){
@@ -183,6 +193,7 @@ export default {
 	border-radius:5px;
 }
 .pr_cent2_2{
+	cursor: pointer;
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
@@ -204,6 +215,7 @@ export default {
 	width:290px;
 }
 .pr_cent2_5{
+	cursor: pointer;
 	width:290px;
 	border-bottom: 1px solid rgba(216,216,216,.3);
 
@@ -287,5 +299,24 @@ export default {
     right: 5px;
     width: 98px;
 	
+}
+.pr_cent2_10{
+	margin: 14px 0 20px;
+	height:18px;
+	font-size:12px;
+	color:rgba(187,187,187,1);
+	line-height:22px;
+}
+.pr_cent2_10>span{
+	font-size:14px;
+	color:rgba(51,51,51,1);
+}
+.pr_cent2_10>span.csyaswz_01{
+	font-size:16px;
+	color: #FF5121;
+}
+.pr_cent2_11>div{
+	margin: 0;
+	margin-right: 10px;
 }
 </style>

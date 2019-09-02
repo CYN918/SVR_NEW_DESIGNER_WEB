@@ -236,6 +236,7 @@ export default {
 	line-height:20px;
 }
 .bmXm_01Btn{
+	text-align: center;
 	border-top: 1px solid rgba(244,246,249,1);
 	height: 79px;
 	line-height: 79px;

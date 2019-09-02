@@ -47,7 +47,7 @@
 			<div class="home_0x7">
 				<div class="home_0x7_1">优秀作品推荐，为你持续输出灵感</div>
 				<div class="home_0x7_2">
-					<a href="/#/project">更多</a>
+					<a href="/#/Work_i">更多</a>
 				</div>
 			</div>
 			<div class="home_0x8">

@@ -14,7 +14,7 @@
 					<div class="is_seldf">项目已延期交稿</div>
 					<span>{{obj.delay_time.d}}</span>天<span>{{obj.delay_time.h}}</span>时
 				</div>
-				<div   class="cenDjs_3">{{da.n}}<div v-if="obj.status==5" class="cenDjs_zzf">{{'￥'+obj.deal_price}}</div> </div>
+				<div v-else class="cenDjs_3">{{da.n}}<div v-if="obj.status==5" class="cenDjs_zzf">{{'￥'+obj.deal_price}}</div> </div>
 				
 			</div>
 			
@@ -23,18 +23,21 @@
 			</div>
 			<div class="cenDjs_5">{{da.btn_tip}}</div>
 		</div>
-		<img v-if="da.t && da.t.icon" class="tg_iocn_1" :src="'/imge/project/'+da.t.icon+'.svg'" alt="">
+		
 		<div v-if="da.t" :class="['sjxdpo',da.t.cl]">
 			{{da.t.n}}
 		</div>
-		
-		
+
 		<div v-if="obj.status==3 || obj.status==4" class="worksBox_2 tg_iocn_2">
 			<div class="worksBox_2_1">
 				<div @click="showTc(el.cs)" v-for="(el,index) in options">{{el.n}}</div>
+				<div v-if="obj.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
+					<div class="worksBox_2_4">
+						<div v-for="(el,index) in obj.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
+					</div>
+				</div>
 			</div>
-		</div>
-		
+		</div>		
 	</div>
 </template>
 
@@ -68,6 +71,7 @@ export default {
 		this.init();
 	}, 
 	methods: {
+
 		init(){
 			this.xmTypeOn = this.obj.status-1;
 			if(this.obj.is_sign_up==1){
@@ -78,24 +82,12 @@ export default {
 				this.xmType[4].btns[0].n = '已评价';
 				this.xmType[4].btns[0].tcFn = 'ypj';
 			}
-			// if(this.deal_type==2){
-			// 	this.xmType[4].n = '项目分成价值';
-			// 	this.xmType[4].btns.unshift({n:'分成收益',tcFn:'gofn',tcFncs:'/profit'});		
-			// 	this.xmType[4].t.icon = 'fc';		
-			// }
-			
-			
-			
 			
 			if(this.obj.left_time &&  this.obj.status==1){
 				this.da.djs = this.obj.left_time;
 				this.djsfn(this.da.djs);
 			}
-		
-			
-			if(window.userInfo){
-				this.check();
-			}			
+				
 		},
 		setBm(on){
 			if(on==1){
@@ -185,12 +177,9 @@ export default {
 		btime(t){
 			return t>9?t:'0'+t
 		},
-		check(){
-			
-		},
-		
-		
-		
+		dowun(u){
+			window.open(u);
+		}
 		
 		
 		
@@ -446,5 +435,48 @@ export default {
 	font-family:PingFangSC;
 	font-weight:400;
 	color:rgba(187,187,187,1);
+}
+
+
+.js_0013{    
+	position: absolute;
+	display: inline-block;
+    bottom: 20px;
+    width: 5px;
+    height: 5px;
+    border: 1px solid #666;
+    border-bottom: 0;
+    border-right: 0;
+    margin-left: 5px;
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+    -webkit-transform-origin: 70% 20%;
+    transform-origin: 70% 20%;}
+
+.worksBox_2_4{
+	display: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+	background: #FFFFFF;
+    -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    border-radius: 5px;
+	box-sizing: border-box;
+	left: 100%;
+    min-width: 100%;
+	min-height: 100%;
+    padding: 10px 0;
+}
+.worksBox_2_3:hover>.worksBox_2_4{
+	display: block;
+}
+.worksBox_2_4>div{
+	line-height: 30px;
+    font-size: 14px;
+    color: #333333;
+}
+.worksBox_2_4>div:hover{
+	background: #E6E6E6;
 }
 </style>
