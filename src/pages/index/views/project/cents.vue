@@ -132,7 +132,7 @@ export default {
 			}
 		},
 		dowloadmb(obj){
-			window.downloadFiles(obj.template_url,obj.template_file_name);
+			window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
 		backZq(a,b){
 			let str = '';
