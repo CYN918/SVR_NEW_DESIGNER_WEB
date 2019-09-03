@@ -42,7 +42,7 @@ export default {
 		return{
 			config:{
 				value: '',
-				logo:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg'
+				logo:''
 			},
 			fxUrl1:'',
 			fxUrl2:'',

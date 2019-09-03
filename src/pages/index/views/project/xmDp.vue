@@ -4,7 +4,7 @@
 		<div class="yu_o9">
 			<div class="yu_o9_1bx">
 				<div v-if="djsshow.h" class="cenDjs_2">
-					<span>{{djsshow.d}}<span class="cenDjs_2_dy_01">天</span></span><span>{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
+					<span v-if="djsshow.d>0">{{djsshow.d}}<span class="cenDjs_2_dy_01">天</span></span><span>{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
 				</div>
 				<div v-if="obj.delivery_deadline_format && obj.status==3 && obj.is_delay!=1" class="cenDjs_2">
 					<span>{{obj.delivery_deadline_format.m}}</span>月<span>{{obj.delivery_deadline_format.d}}</span>号<span>{{obj.delivery_deadline_format.H}}</span>点
@@ -51,7 +51,7 @@ export default {
 			da:{},			
 			djsshow:{},
 			xmType:[
-				{t:{n:'招标期',cl:'c_zmq'},n:'后截止报名',cl:'cenDjs_x_1',btn_tip:'报名等待中标通知，中标前不用制作',Zj:'pr_rz',btns:[{n:'报名项目',tcFn:'showTc1',tcFncs:'pr_rz',cl:'cenDjs_4ys'}]},
+				{t:{n:'招募期',cl:'c_zmq'},n:'后截止报名',cl:'cenDjs_x_1',btn_tip:'报名等待中标通知，中标前不用制作',Zj:'pr_rz',btns:[{n:'报名项目',tcFn:'showTc1',tcFncs:'pr_rz',cl:'cenDjs_4ys'}]},
 				{t:{n:'选标期',cl:'c_zmq'},n:'报名成功，等待平台选标...',cl:'cenDjs_x_2',btn_tip:'报名等待中标通知，中标前不用制作',Zj:'qxBm',btns:[{n:'取消报名',tcFn:'showTc',tcFncs:'qxBm'}]},
 				{t:{n:'制作期',cl:'c_zmq2'},sle:'1',n:'前截止交稿',cl:'cenDjs_x_1',btn_tip:'请在规定时间交付稿件，加油哦！',yue:'1',btns:[{n:'交付稿件',tcFn:'showTc',tcFncs:'pushGj',cl:'cenDjs_4ys'}]},
 				{t:{n:'待验收',cl:'c_zmq3'},sle:'1',n:'项目稿件已提交',cl:'cenDjs_x_2',btn_tip:'稿件已提交，请耐心等待验收审核。',btns:[{n:'稿件撤回',tcFn:'showTc',tcFncs:'qxGj'}]},				

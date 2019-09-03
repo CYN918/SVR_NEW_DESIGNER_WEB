@@ -5,7 +5,7 @@
 			<div class="home_0x2">平台项目外包</div>
 			<div class="home_0x3">帮助设计师、摄影师将创作内容发挥最大价值</div>
 			<div class="home_0x4">
-				<a :href="el.u" v-for="(el,index) in Ds_01" :key="index">
+				<a  v-for="(el,index) in Ds_01" :key="index">
 					<div class="home_0x4_1">
 						<img :src="el.i"/>
 					</div>
@@ -13,6 +13,7 @@
 					<span class="home_0x4_3">{{el.t}}</span>
 				</a>
 			</div>
+			<a class="btns btns_js home_0x5_bt pend" href="/#/setPersonal">立即查看项目</a>
 		</div>	
 		
 		<div class="home_0x5">
@@ -53,7 +54,7 @@
 			<div class="home_0x8">
 				<box_a v-for="(el,index) in List" :el="el" :key="index"></box_a>
 			</div>
-			<a class="btns btns_js home_0x5_bt pend" href="/#/setPersonal">立即入驻，承接项目</a>
+			<a class="btns btns_js home_0x5_bt pend" href="/#/upload">上传我的原创作品</a>
 		</div>
 		
 	</div>
@@ -125,10 +126,7 @@ export default {
 	margin:  0 240px 40px 0;
 	width: 166px;
 }
-.home_0x4>a:hover{
-	-webkit-opacity: .7;
-	opacity: .7;
-}
+
 .home_0x4>a:nth-child(3n+3){
 	margin-right: 0;
 }

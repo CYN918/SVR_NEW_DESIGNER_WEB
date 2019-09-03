@@ -2,10 +2,11 @@
 	<div>
 		<div class="activBan" :style="setImg(da.banner)"></div>
 		<div class="ac_1" v-if="da">
-			<div class="ac_1_1">{{da.activity_name.slice(0,9)}}</div>
+			<div class="ac_1_1">{{da.activity_name?da.activity_name.slice(0,9):''}}</div>
 			<div class="ac_1_2">
-				{{da.category_name.slice(0,9)+'  |  '+da.start_time.slice(0,9)+' 至 '+da.end_time.slice(0,9)}}
-				<span class="ac_1_3">{{da.left_day?'进行中':'已结束'}}</span>
+				{{backtid()}}
+				
+				<span class="ac_1_3">{{da.status==1?'进行中':'已结束'}}</span>
 			</div>
 		</div>
 		<div class="mydcond" v-html="da.info"></div>
@@ -25,6 +26,10 @@ export default {
 		this.a_getInfo()
 	}, 
 	methods:{
+		backtid(){
+			if(!this.da.start_time){return}
+			return this.da.category_name+'  |  '+this.da.start_time.slice(0,10)+' 至 '+this.da.end_time.slice(0,10);
+		},
 		setImg(ur){
 			return 'background-image: url('+ur+');';
 		},

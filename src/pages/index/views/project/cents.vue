@@ -277,8 +277,7 @@ export default {
 	margin-right: 20px;
 	width:310px;
 	height:232px;
-	box-shadow:0px 5px 15px 0px rgba(0,0,0,0.1);
-	border-radius:5px 5px 5px 5px;
+
 }
 .cens_02_1_tip{
 	position: absolute;
