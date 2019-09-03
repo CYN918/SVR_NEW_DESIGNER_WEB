@@ -23,7 +23,7 @@
 							<span>用户名</span><div class="xgnamed">{{form.username}}<span @click="openTc1(1)">修改</span></div> 
 						</div>
 						<div>
-							<span>手机号</span><div class="xgnamed">{{form.mobile}}<span @click="openTc1(2)">修改</span></div> 
+							<span>手机号</span><div class="xgnamed">{{phoneDm(form.mobile)}}<span @click="openTc1(2)">修改</span></div> 
 						</div>
 						<div>
 							<span>邮箱</span><div v-if="form.email" class="xgnamed">{{form.email}}<span @click="openTc1(3)">修改</span></div><div @click="openTc1(3)" class="bindEamil" v-else>绑定邮箱</div> 
@@ -243,6 +243,11 @@ export default {
 		
 	}, 
 	methods: {
+		phoneDm(p){
+			if(!p){return}
+			return p.substring(0,3)+'****'+p.substring(8,11);
+			
+		},
 		Verifycodeget(){
 			this.$set(this.tancData,'pic_verifyimg',window.basrul+'/Passport/Verifycode/get?client_id='+window.userInfo.open_id+'&t='+(new Date()).valueOf())
 		},

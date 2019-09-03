@@ -44,9 +44,12 @@
 				<div v-if="isXXNav" @click="hidisXXNav" class="messgeH3Boxf1"></div>
 				<div v-if="isXXNav" class="messgeH3">
 					<div class="messgeH3_1">
-						<span @click="getNotice('notify')" :class="[messgNum.unread_notify_num>0?'onckf':'']"><img :src="backnav('notify',1)" alt=""></span>
-						<span @click="getNotice('comment')" :class="[messgNum.unread_comment_num>0?'onckf':'']"><img :src="backnav('comment',2)" alt=""></span>
-						<span @click="getNotice('chat')" :class="[messgNum.unread_chat_num>0?'onckf':'']"><img :src="backnav('chat',3)" alt=""></span></div>
+						<span @click="getNotice('notify')" :class="[messgNum.unread_notify_num>0?'onckf':'']">
+						<img :class="navType=='notify'?'onds_01':''" :src="backnav('notify',1)"/></span>
+						<span @click="getNotice('comment')" :class="[messgNum.unread_comment_num>0?'onckf':'']">
+						<img :class="navType=='comment'?'onds_01':''" :src="backnav('comment',2)"/></span>
+						<span @click="getNotice('chat')" :class="[messgNum.unread_chat_num>0?'onckf':'']">
+						<img :class="navType=='chat'?'onds_01':''" :src="backnav('chat',3)"/></span></div>
 					<div class="messgeH3_2">
 						<div class="messgeH3_2_x1">
 							<ul class="xxBox_1">
@@ -232,11 +235,14 @@ export default {
 			
 		},
 		backnav(on,on2){
-			let str = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/xx_'+on2;
+			// https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img
+			let str = '/imge/xx_'+on2;
 			if(this.navType!=on){
-				str+=on2;
+				str+=on2+'.svg';
+			}else{
+				str+='.png';
 			}
-			return str+'.png';
+			return str;
 		},
 		showisXXNav(){
 			this.bdtj('通用模块','顶部栏点击_消息','--');
@@ -757,6 +763,10 @@ export default {
 }
 .messgeH3_1>span>img{
 	display: block;
+	margin: 6px auto;
+	width: 19px;
+}
+.messgeH3_1>span>img.onds_01{
 	margin: 0 auto;
 	width: 28px;
 }
