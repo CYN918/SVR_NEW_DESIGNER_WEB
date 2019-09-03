@@ -21,7 +21,7 @@
 							<div class="userSZ_2"><span @click="openTc1(1,'手机号','修改')">修改</span></div>
 						</div>
 						<div>
-							<span>邮箱</span><div class="userSZ_1">可以使用邮箱  {{form.email}}</div>
+							<span>邮箱</span><div v-if="form.email" class="userSZ_1">可以使用邮箱  {{form.email}}</div><div class="userSZ_1_n1" v-else>未绑定</div>
 							<div class="userSZ_2"><span v-if="!form.email" @click="openTc1(2,'邮箱','绑定')">立即绑定</span><span v-else @click="openTc1(2,'邮箱','修改')">修改</span></div>
 						</div>
 						<div class="suc_1_3">
@@ -80,7 +80,7 @@
 			
 			<div v-if="tAncType==2" class="tc_sucd_1">
 				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入email"></el-input>
+				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱/el-input>
 				<div class="emailyzm">
 					<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
 					<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>

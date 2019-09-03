@@ -1716,6 +1716,12 @@ content: "";
 	color: #333333;
 	line-height: 40px;
 }
+.userSZ_1_n1{
+	display: inline-block;
+	font-size: 14px;
+	color: #dddd;
+	line-height: 40px;
+}
 .userSZ_2{
 	float: right;
 	text-align: right;

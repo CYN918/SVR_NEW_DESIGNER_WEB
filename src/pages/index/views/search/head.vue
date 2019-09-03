@@ -163,24 +163,24 @@ export default {
 
 .sea_n_2{
 	position: relative;
-	
+	overflow: hidden;
+    border-bottom: 1px solid #DCDFE6;
 	display: block;
 	margin: 20px auto 0;
 	width: 712px;
 	height: 60px;
 }
-.zysdf_1{
-	
-	
-}
-.zysdf_1 input{
-	border: none;
+
+.sea_n_2 input{
 	border-radius: 0;
-	border-bottom:1px solid #eeeeee;
+	border: none;
+}
+.sea_n_2 .el-input__prefix{
+	top:-1px;
 }
 .zysdf_2{
     position: absolute;
-    bottom: 1px;
+    bottom: -1px;
     right: 0;
     width: 160px;
 }

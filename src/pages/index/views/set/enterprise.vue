@@ -99,6 +99,10 @@
 					<div class="suc_1 suc_3">
 						<div class="suc_title">身份验证<div class="xhds"></div></div>
 						<div class="suc_1_9">
+							<span>联系人姓名</span>
+							<el-input class="suc_1_9_1" v-model="postData.contact" placeholder="请输入联系人姓名"></el-input>
+						</div>
+						<div class="suc_1_9">
 							<span>手机号</span><div class="suc_1_9_c">{{form.mobile}}</div><span @click="openTc1(2)" class="suc_1_9_c1">更换号码</span>
 						</div>
 						<div class="suc_1_9">
@@ -308,7 +312,9 @@ export default {
 			if(!this.postData.bank_name){
 				return
 			}
-			
+			if(!this.postData.contact){
+				return
+			}
 			if(!this.postData.verify_code){
 				return
 			}			

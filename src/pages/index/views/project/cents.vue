@@ -31,6 +31,7 @@
 							<div class="icon_ff_1"><img class="icon_ff_1_x1" src="/imge/project/05.svg" alt=""><span>{{deta.sign_up_num}}</span>人已报名</div>
 						</div>
 					</div>
+					<div v-if="deta.template_file_url" @click="dowloadmb(deta)" class="btns pend xzMb_n1">下载模板</div>
 				</div>
 				
 				<div v-for="(el,index) in deta.desc" :key="index" class="cens_02_2 oijdiv">
@@ -53,6 +54,7 @@
 				<liucen></liucen>
 			</div>
 		</div>
+		
 		<tipd  :tipCent="csff" :style="sfas" ref="csdf"></tipd>
 		<component v-bind:is="tcZj"  :datad="tcData"></component>
 		
@@ -129,8 +131,9 @@ export default {
 				this.topTyped='';
 			}
 		},
-		
-		
+		dowloadmb(obj){
+			window.downloadFiles(obj.template_url,obj.template_file_name);
+		},
 		backZq(a,b){
 			let str = '';
 			if(a){
@@ -441,5 +444,10 @@ export default {
 }
 .icon_ff_1>.icon_ff_1_x1{
 	margin-top: 1px;
+}
+.xzMb_n1{
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
 }
 </style>

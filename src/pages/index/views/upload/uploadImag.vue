@@ -266,11 +266,11 @@ export default {
 		},
 		clPic(fld,on){
 			if(this.configData.type.indexOf(fld.type)==-1){
-				Message({message: '第'+on+1+'个文件格式不正确'});
+				Message({message: '该文件格式不支持'});
 				return
 			}
 			if(fld.size>this.configData.max){
-				Message({message: '第'+on+1+'个文件过大'});
+				Message({message: '文件过大'});
 				return
 			}
 			let fileSize = this.backSize(fld.size);

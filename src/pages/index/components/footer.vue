@@ -8,10 +8,10 @@
 				<span class="pend" @click="goPu('/help','帮助中心')">帮助中心</span>
 				<span class="pend" @click="showFdb">意见反馈</span>
 				<span>©2019 掌酷</span>
-				<span @click="banh">粤ICP备15039011号</span>
+				
 			</div>
 			<div class="footerBox_2">
-				<span>© 2015-2019 深圳掌酷软件有限公司</span><a target="_blank" href="http://beian.miit.gov.cn">粤ICP备15039011号</a><a target="_blank" href="http://www.beian.gov.cn"><img class="footer_ga" src="/imge/svg/footer_ga.svg">粤公网安备 44030502004296号</a>
+				<span>© 2015-2019 深圳掌酷软件有限公司</span><a target="_blank" @click="banh" href="http://beian.miit.gov.cn">粤ICP备15039011号</a><a target="_blank" href="http://www.beian.gov.cn"><img class="footer_ga" src="/imge/svg/footer_ga.svg">粤公网安备 44030502004296号</a>
 			</div>
 			<feedback v-if="fd"></feedback>
 			

@@ -23,7 +23,7 @@
 					月入2万的设计师们在与我们长期合作，你也可以一起加入。
 				</div><img class="home_0x5_2" src="/imge/home/7.png"/>
 			</div><div>
-				<img class="home_0x5_2" src="/imge/home/8.png"/>
+				<img class="home_0x5_2" src="/imge/home/9.png"/>
 				<div class="home_0x5_1">
 					<div>收益成长累计，越赚越多</div>
 					累计收益越多，每次完成项目的收益加成额度越大
@@ -32,7 +32,7 @@
 				<div class="home_0x5_1">
 					<div>交稿作品分发渠道覆盖近7亿用户曝光</div>
 					龙头合作品牌覆盖73%安卓移动终端，而你只需提供灵感创意。
-				</div><img class="home_0x5_2" src="/imge/home/9.png"/>
+				</div><img class="home_0x5_2" src="/imge/home/8.png"/>
 			</div><div>
 				<img class="home_0x5_2" src="/imge/home/10.png"/>
 				<div class="home_0x5_1">

@@ -26,7 +26,10 @@
 							<span>手机号</span><div class="xgnamed">{{phoneDm(form.mobile)}}<span @click="openTc1(2)">修改</span></div> 
 						</div>
 						<div>
-							<span>邮箱</span><div v-if="form.email" class="xgnamed">{{emailDm(form.email)}}<span @click="openTc1(3)">修改</span></div><div @click="openTc1(3)" class="bindEamil" v-else>绑定邮箱</div> 
+							<span>邮箱</span>
+							<div v-if="form.email" class="xgnamed">{{emailDm(form.email)}}<span @click="openTc1(3)">修改</span></div>
+							<div v-else @click="openTc1(3)" class="bindEamil">绑定邮箱</div> 
+							
 						</div>
 						<div>
 							<span>性别</span><rideo class="setUserRiode" :valued="form.sex"  :Data="sexData" v-model="form.sex"></rideo>	
@@ -104,7 +107,7 @@
 			
 			<div v-if="tAncType==3" class="tc_sucd_1">
 				<img class="tc_sucd_1X" @click="closeTc1('绑定邮箱弹窗-关闭')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入email"></el-input>
+				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>
 				<div class="emailyzm">
 					<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
 					<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>

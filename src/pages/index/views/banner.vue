@@ -6,8 +6,8 @@
 		<div class="banner_nav1">
 			<span v-for="(el,index) in list" @click="checkBan(index)" :class="[on==index?'action':'']"></span>
 		</div>
-		<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
-		<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
+		<div v-if="list.length>1" class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
+		<div v-if="list.length>1" class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
 	</div>
 </template>
 <script>

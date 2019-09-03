@@ -180,7 +180,7 @@
 			
 			<div v-if="tAncType==3" class="tc_sucd_1">
 				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入email"></el-input>
+				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>
 				<div class="emailyzm">
 					<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
 					<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>

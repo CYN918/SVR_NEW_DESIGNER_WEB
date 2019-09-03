@@ -222,14 +222,12 @@ export default {
 		},
 		downMoble(url){
 			this.bdtjCom('下载模版')
-			if(url.template_file_type==1){
-				window.open(url.template_url);
+			if(url.template_file_type==1){			
+				window.downloadFiles(url.template_url,url.template_file_name);
 				return
 			}
 			this.wpdz = url.online_disk_info;
 			this.ishowWp = 1;
-			
-			
 		},
 		getPersonalWorkList(){
 			this.isnoData='';
