@@ -53,6 +53,8 @@ export default {
 <style lang="scss">
 .activBan{
 	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 	width: 100%;
 	height: px2rem(211);
 }

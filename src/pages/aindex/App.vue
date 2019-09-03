@@ -22,6 +22,10 @@ a:visited{text-decoration:none;}
 a:hover{text-decoration:none;}
 a:active{text-decoration:none;}
 li{list-style-type: none}
+img{
+	outline-width: 0;
+    vertical-align: top;
+}
 .bgd{position: absolute;top: 0;left: 0;z-index: -1;width: 100%}
 .fgx{
 	background:rgba(248,249,251,1);

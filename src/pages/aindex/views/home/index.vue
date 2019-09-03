@@ -67,7 +67,9 @@ export default {
     width: 100%;
     height: 9.4rem;
     border-radius: .4rem;
-    background-size: cover;
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     background-repeat: no-repeat;
 	margin-bottom: .6rem;
 }
