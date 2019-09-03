@@ -26,7 +26,7 @@
 							<span>手机号</span><div class="xgnamed">{{phoneDm(form.mobile)}}<span @click="openTc1(2)">修改</span></div> 
 						</div>
 						<div>
-							<span>邮箱</span><div v-if="form.email" class="xgnamed">{{form.email}}<span @click="openTc1(3)">修改</span></div><div @click="openTc1(3)" class="bindEamil" v-else>绑定邮箱</div> 
+							<span>邮箱</span><div v-if="form.email" class="xgnamed">{{emailDm(form.email)}}<span @click="openTc1(3)">修改</span></div><div @click="openTc1(3)" class="bindEamil" v-else>绑定邮箱</div> 
 						</div>
 						<div>
 							<span>性别</span><rideo class="setUserRiode" :valued="form.sex"  :Data="sexData" v-model="form.sex"></rideo>	
@@ -245,8 +245,15 @@ export default {
 	methods: {
 		phoneDm(p){
 			if(!p){return}
-			return p.substring(0,3)+'****'+p.substring(8,11);
-			
+			return p.substring(0,3)+'****'+p.substring(8,11);			
+		},
+		emailDm(p){
+			if(!p){return}
+			let str = p.split('@');
+			if(str.length==1){
+				return str[0];
+			}
+			return str[0].substring(0,1)+'****'+str[0].substr(-1,1)+'@'+str[1];			
 		},
 		Verifycodeget(){
 			this.$set(this.tancData,'pic_verifyimg',window.basrul+'/Passport/Verifycode/get?client_id='+window.userInfo.open_id+'&t='+(new Date()).valueOf())
