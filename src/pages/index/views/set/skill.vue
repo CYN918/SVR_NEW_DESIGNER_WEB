@@ -66,6 +66,9 @@
 							<span>擅长风格</span>
 							<div>
 								<span v-for="(el,index) in pz_style" :key="index" @click="chekstyle(el)" :class="form.style.indexOf(el)==-1?'':'oncheck'">{{el}}</span>
+								<div class="addM_n_1 addM_n_2">
+									<input @keyup.enter="keydown1" v-model="add_pz_style" placeholder="请输入最多2个文字回车结束" type="text" ref="keydown1"/>
+								</div>
 							</div>
 						</div>
 						
@@ -74,6 +77,9 @@
 							<span>擅长领域</span>
 							<div>
 								<span v-for="(el,index) in pz_field" :key="index" @click="chekfield(el)" :class="form.field.indexOf(el)==-1?'':'oncheck'">{{el}}</span>
+								<div class="addM_n_1">
+									<input @keyup.enter="keydown2" v-model="add_pz_field" placeholder="请输入最多4个文字回车结束" type="text" ref="keydown2"/>
+								</div>
 							</div>
 						</div>
 						
@@ -131,7 +137,8 @@ export default {
 				'项目投入意向',
 				'创作能力',				
 			],	
-
+			add_pz_field:'',
+			add_pz_style:'',
 			pz_style:['极简','扁平','拟物','活泼','商业','磨砂','人物','风景'],
 			pz_field:['日化用品','医疗','快消','互联网','家具建材','教育','传媒','服装','机构组织','旅游','母婴','3C数码','金融','汽车'],
 			pz_situation:['我是工作室/公司负责人','我是自由职业者','我有全职职业','我是在校生'],
@@ -147,12 +154,6 @@ export default {
 			},
 
 			detlData:{},
-
-
-
-			
-		
-			
 			topTyped:false,
 			navdOn:0,
 			postData:{},
@@ -166,11 +167,48 @@ export default {
 		
 	}, 
 	methods: {
-		cs1(){
-			console.log(111);
+		keydown1(){
+
+			if(!this.add_pz_style){
+				return
+			}
+			if(this.add_pz_style.length>2){
+				Message({message: '最多2个文字'});
+				return
+			}
+			if(this.pz_style.indexOf(this.add_pz_style)!=-1){
+				Message({message: '该风格已存在'});
+				return
+			}
+			if(this.form.style.length===5){
+				Message({message: '最多填写5个风格'});
+				return
+			}
+			this.form.style.push(this.add_pz_style)
+			this.pz_style.push(this.add_pz_style);
+			this.add_pz_style = '';
+	
 		},
-		cs2(){
-			console.log(222);
+		keydown2(){
+			if(!this.add_pz_field){
+				return
+			}
+			if(this.add_pz_field.length>4){
+				Message({message: '最多4个文字'});
+				return
+			}
+			if(this.pz_field.indexOf(this.add_pz_field)!=-1){
+				Message({message: '该领域已存在'});
+				return
+			}
+			if(this.form.field.length===5){
+				Message({message: '最多填写5个领域'});
+				return
+			}
+			this.form.field.push(this.add_pz_field);
+			this.pz_field.push(this.add_pz_field);
+			this.add_pz_field = '';
+		
 		},
 		init(){
 			this.getUserDetail();
@@ -233,23 +271,37 @@ export default {
 			}
 			return n;
 		},
+		clpezN(a,b){
+			for(let i=0,n=a.length;i<n;i++){
+				if(b.indexOf(a[i])==-1){
+					b.push(a[i]);
+				}				
+			}
+		},
 		getUserDetail(){
 			if(!window.userInfo){
 				this.$router.push({path:'/login'})
 				return
 			}
+			let st = this.listCz(window.userInfo.style),fd=this.listCz(window.userInfo.field);
+			this.clpezN(st,this.pz_style);
+			this.clpezN(fd,this.pz_field);			
 			this.form = {
 				situation:window.userInfo.situation,
 				work_experience:window.userInfo.work_experience,
 				preference_classify:this.listCz(window.userInfo.preference_classify),
-				style:this.listCz(window.userInfo.style),
-				field:this.listCz(window.userInfo.field),
+				style:st,
+				field:fd,
 				design_experience:window.userInfo.design_experience,					
 			}
 		},
 		chekstyle(on){
 			let ond = this.form.style.indexOf(on);
 			if(ond==-1){
+				if(this.form.style.length==5){
+					this.$message({message:'最多可选5个'});
+					return
+				}
 				this.form.style.push(on);
 				return
 			}
@@ -258,6 +310,10 @@ export default {
 		chekfield(on){
 			let ond = this.form.field.indexOf(on);
 			if(ond==-1){
+				if(this.form.field.length==5){
+					this.$message({message:'最多可选5个'});
+					return
+				}
 				this.form.field.push(on);
 				return
 			}
@@ -332,7 +388,7 @@ export default {
 }
 .skill_02>div{
 	display: inline-block;
-	max-width: 450px;
+	max-width: 460px;
 }
 .skill_02>div>span{
 	display: inline-block;
@@ -400,4 +456,39 @@ export default {
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected{
 	color: #FF5121;
 }
+.addM_n_1{
+	display: inline-block;
+	position: relative;
+	width:223px;
+}
+.addM_n_1:after,.addM_n_1:before{
+	content: "";
+	position: absolute;
+	background: #bbb;
+
+	top: 50%;
+	transform: translateY(-50%);
+}
+.addM_n_1:after{
+	left: 17px;
+	width: 3px;
+	height: 14px;
+}
+.addM_n_1:before{
+	left: 11PX;
+	height: 2px;
+	width: 14px;
+}
+.addM_n_1>input{
+	outline: none;
+	display: inline-block;
+	box-sizing: border-box;
+	padding: 0 15px 0 34px;
+	width: 100%;
+	height:32px;
+	background:rgba(255,255,255,1);
+	border-radius:16px;
+	border:1px solid rgba(187,187,187,1);
+}
+
 </style>
