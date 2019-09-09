@@ -2,10 +2,9 @@
 	<div>
 		<div class="activBan" :style="setImg(da.banner)"></div>
 		<div class="ac_1" v-if="da">
-			<div class="ac_1_1">{{da.activity_name?da.activity_name.slice(0,9):''}}</div>
+			<div class="ac_1_1">{{da.activity_name?da.activity_name}}</div>
 			<div class="ac_1_2">
-				{{backtid()}}
-				
+				{{backtid()}}				
 				<span class="ac_1_3">{{da.status==1?'进行中':'已结束'}}</span>
 			</div>
 		</div>
@@ -61,7 +60,7 @@ export default {
 .ac_1{
 	border-bottom: 2px solid #e6e6e6;
 	width: 100%;
-	height: px2rem(82);
+	min-height: px2rem(82);
 }
 .ac_1>div{
 	padding: 0 px2rem(12);

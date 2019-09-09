@@ -73,6 +73,7 @@ export default {
 .banner{
 	position: relative;
 	background: #f1f1f1;
+	overflow: hidden;
 	padding-bottom: 37.5%;
 	width: 100%;
 }
