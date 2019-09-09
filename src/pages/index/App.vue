@@ -2299,4 +2299,14 @@ content: "";
 	color: #fff;
 	border-color: #333333;
 }
+
+
+.bj_cent_1{
+	position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+	background: #f4f6f9;
+    min-height: 102%;
+    padding: 60px 0 150px;
+}
 </style>

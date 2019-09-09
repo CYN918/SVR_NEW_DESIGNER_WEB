@@ -64,7 +64,11 @@ export default {
 		this.init();
 		this.backtims();
 	}, 
-	
+	watch: {		
+		'el': function() {
+			this.init();
+		},
+	},
 	methods: {	
 		ckd(a){
 			if(a=='ypj'){this.$message({message:'你已经评价过了'});}
@@ -87,6 +91,7 @@ export default {
 			this.$parent.getData();
 		},
 		init(){
+			console.log(this.el);
 			this.deta = this.el;
 			this.clsfn();
 		},
@@ -137,22 +142,17 @@ export default {
 				this.tips = '<div class="backdse pr_cent2_r2_2">项目已验收，感谢与你的本次合作</div>';
 			}
 		},
-		backBsth(){
-			
-		},
 		bckdtimed(t){
-			console.log(new Date(t.replace(/-/g,'/')))
 			let times =new Date(t.replace(/-/g,'/')),
 			Y = times.getFullYear(),
-			M = times.getMonth(),
+			M = times.getMonth()+1,
 			D = times.getDate(),
 			h = times.getHours(),
 			m = times.getMinutes();
-			return [(Y+'/'+M+'/'+D),(h+':'+m)];
+			return [(Y+'/'+this.bNus(M)+'/'+D),(this.bNus(h)+':'+this.bNus(m))];
 		},
-		backBtm(){ 
-			
-			
+		bNus(n){ 
+			return n<10?'0'+n:n;		
 		},
 		openCent(){
 			if(this.deta.id){

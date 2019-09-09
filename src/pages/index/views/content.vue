@@ -1,5 +1,5 @@
 <template>
-	<div class="seed">
+	<div class="bj_cent_1">
 		<div class="seed1box" ref="topNav">
 			<div class="seed1">
 			<div class="seed11">

@@ -29,7 +29,7 @@
 						</div>
 						<div>
 							<span>每周承接项目时间</span>
-							<el-select v-model="form.work_experience" placeholder="请选择">
+							<el-select v-model="form.work_experience"  placeholder="请选择">
 								<el-option
 								  v-for="item in pz_work_experience"
 								  :key="item"
@@ -38,14 +38,19 @@
 								</el-option>
 							</el-select>
 						</div>
-						<div>
+						<div class="cl_n_x1">
 							<span>项目类型偏好</span>
-							<el-select v-model="form.preference_classify" placeholder="请选择">
+							
+							
+							<el-select v-model="form.preference_classify" multiple placeholder="请选择">
 								<el-option
 								  v-for="item in pz_preference_classify"
 								  :key="item.id"
 								  :label="item.classify_name"
 								  :value="item.id">
+								  <span class="uog"></span>
+								  <span>{{ item.classify_name }}</span>
+								  
 								</el-option>
 							</el-select>
 						</div>
@@ -137,7 +142,8 @@ export default {
 
 			form:{
 				style:[],
-				field:[]
+				field:[],
+				preference_classify:[],
 			},
 
 			detlData:{},
@@ -160,8 +166,12 @@ export default {
 		
 	}, 
 	methods: {
-		
-		
+		cs1(){
+			console.log(111);
+		},
+		cs2(){
+			console.log(222);
+		},
 		init(){
 			this.getUserDetail();
 			this.getCl();
@@ -202,13 +212,9 @@ export default {
 			
                 document.documentElement.scrollTop = Number(top);
             }
-            if (document.body) {// all other Explorers
-			
-                document.body.scrollTop = Number(top);
-				
+            if (document.body) {			
+                document.body.scrollTop = Number(top);				
 			}	
-			
-		
 		},
 		
 		getCl(){
@@ -216,8 +222,16 @@ export default {
 				if(da=='error'){
 					return
 				}
+				da.shift();
 				this.pz_preference_classify = da;
 			})
+		},
+		listCz(n){
+			if(!n){return []}
+			if(!Array.isArray(n)){
+				return n.split(',');
+			}
+			return n;
 		},
 		getUserDetail(){
 			if(!window.userInfo){
@@ -227,12 +241,11 @@ export default {
 			this.form = {
 				situation:window.userInfo.situation,
 				work_experience:window.userInfo.work_experience,
-				preference_classify:window.userInfo.preference_classify,
-				style:window.userInfo.style?window.userInfo.style:[],
-				field:window.userInfo.field?window.userInfo.field:[],
+				preference_classify:this.listCz(window.userInfo.preference_classify),
+				style:this.listCz(window.userInfo.style),
+				field:this.listCz(window.userInfo.field),
 				design_experience:window.userInfo.design_experience,					
 			}
-
 		},
 		chekstyle(on){
 			let ond = this.form.style.indexOf(on);
@@ -344,5 +357,47 @@ export default {
 	background: #FF5121;
 	border-color: #FF5121;
 	color: #fff;
+}
+.cl_n_x1 .el-select .el-tag{
+	background: none;
+	margin: 0;
+	padding-right: 0 !important;
+}
+.cl_n_x1 .el-select .el-tag__close.el-icon-close{
+	display: none;
+}
+.uog{
+	position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+    width: 14px;
+    height: 14px;
+    background: rgba(255,255,255,1);
+    border-radius: 2px;
+    border: 1px solid rgba(217,217,217,1);
+}
+.selected .uog{
+	background: #FF5121;
+    border-color: #FF5121;
+}
+.uog:after{
+	content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 4px;
+    border: 1px solid #fff;
+    border-top: 0;
+    border-right: 0;
+    -webkit-transform: rotate(-58deg) translate(-21%,76%);
+    transform: rotate(-58deg) translate(-21%,76%);
+}
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected::after{
+	display: none;
+}
+.el-select-dropdown.is-multiple .el-select-dropdown__item.selected{
+	color: #FF5121;
 }
 </style>

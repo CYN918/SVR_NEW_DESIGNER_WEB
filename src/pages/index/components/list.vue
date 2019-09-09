@@ -65,29 +65,32 @@ export default {
 		this.getData();		
 	}, 
 	methods: {
+		paramCl(){
+			let pr = {
+				page:this.page.page,
+				limit:this.page.limit
+			};	
+			pr =  Object.assign(pr,this.config.pr);
+			return pr;
+		},
+		
+		
 		sxfn(){
 			this.page.page=1;
 			this.page.limit=this.page.size[0];
 			this.getData();			
 		},
 		
-		getData(da){	
-			console.log(this.page);
-			let params = {
-				page:this.page.page,
-				limit:this.page.limit
-			};		
-			params =  Object.assign(params,this.config.pr)	
+		getData(){	
+			let params = this.paramCl();	
+			this.isNodeat='';
 			this.loading = Loading.service({target:this.$refs.adLoDom, fullscreen: true });
 			this.api[this.config.ajax.url](params).then((da)=>{
 				this.loading.close();
-				if(da=='error'){
+				if(da=='error'){					
 					if(this.List.length==0){
 						this.isNodeat=1;
-					}else{
-						this.isNodeat='';
 					}	
-					// this.List = [1,2,3,4,5,6,7,8,9,10];
 					return
 				}				
 				this.List = da.data;
@@ -97,22 +100,17 @@ export default {
 				}
 				if(this.List.length==0){
 					this.isNodeat=1;
-				}else{
-					this.isNodeat='';
-				}				
+				}			
 				if(this.goTop){
 					document.documentElement.scrollTop =1;
 					document.body.scrollTop =1;
 					this.goTop='';
 				}
 			}).catch(()=>{
+				this.loading.close();
 				if(this.List.length==0){
 					this.isNodeat=1;
-				}else{
-					this.isNodeat='';
-				}	
-				
-				this.loading.close();
+				}							
 			})
 		},
 		handleSizeChange(val) {
