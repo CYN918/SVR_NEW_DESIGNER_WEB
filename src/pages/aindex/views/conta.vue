@@ -2,7 +2,7 @@
 	<div>
 		<div class="activBan" :style="setImg(da.banner)"></div>
 		<div class="ac_1" v-if="da">
-			<div class="ac_1_1">{{da.activity_name?da.activity_name}}</div>
+			<div class="ac_1_1">{{da.activity_name}}</div>
 			<div class="ac_1_2">
 				{{backtid()}}				
 				<span class="ac_1_3">{{da.status==1?'进行中':'已结束'}}</span>
