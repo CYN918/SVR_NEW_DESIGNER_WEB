@@ -45,9 +45,9 @@
 							<el-select v-model="form.preference_classify" multiple placeholder="请选择">
 								<el-option
 								  v-for="item in pz_preference_classify"
-								  :key="item.id"
+								  :key="item.classify_name"
 								  :label="item.classify_name"
-								  :value="item.id">
+								  :value="item.classify_name">
 								  <span class="uog"></span>
 								  <span>{{ item.classify_name }}</span>
 								  
@@ -260,8 +260,15 @@ export default {
 				if(da=='error'){
 					return
 				}
-				da.shift();
+
 				this.pz_preference_classify = da;
+				let arr = [];
+				for(let i=0,n=da.length;i<n;i++){
+					if(this.form.preference_classify.indexOf(da[i].classify_name)!=-1){
+						arr.push(da[i].classify_name);
+					}
+				}
+				this.form.preference_classify = arr;
 			})
 		},
 		listCz(n){

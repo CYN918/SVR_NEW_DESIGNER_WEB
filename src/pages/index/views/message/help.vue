@@ -63,9 +63,9 @@ export default {
 		
 	}, 
 	methods: {
-		 goAnchor(selector) {
-			var anchor = this.$el.querySelector(selector)
-			let ghh = anchor.offsetTop - anchor.clientHeight*6;
+		 goAnchor(a) {
+			let anchor = this.$el.querySelector(a);
+			let ghh = anchor.offsetTop - anchor.clientHeight*7;
 			document.body.scrollTop = ghh;
 			document.documentElement.scrollTop = ghh;
 		},
@@ -79,6 +79,7 @@ export default {
 					document.documentElement.scrollTop =1;
 					document.body.scrollTop =1;
 				}
+				console.log(t);
 				if(this.topTyped==false){
 					if(t>100){
 						this.topTyped=true;
@@ -88,17 +89,30 @@ export default {
 				if(t<=100){
 					this.topTyped=false;
 				}
-
+				if(t<411){
+					this.navdOn = 0;
+				}
+				if(t>=411){
+					this.navdOn = 1;
+				}
+				if(t>=791){
+					this.navdOn = 2;
+				}
+				if(t>=1313){
+					this.navdOn = 3;
+				}
 
 			}
-			if(this.$route.query.id){
-				this.goAnchor('#problem_'+this.$route.query.id);
+			if(this.$route.query.on){
+				console.log(this.$route.query.on.substring(0,1));
+
+				this.navdOn = this.$route.query.on.substring(0,1)-1;
+				this.goAnchor('#problem_'+this.$route.query.on);
 			}
 		},
 		setNavd(on){
 			this.navdOn = on;
 			this.goAnchor(this.navDta[on].h);
-			
 		},		
 	},
 
