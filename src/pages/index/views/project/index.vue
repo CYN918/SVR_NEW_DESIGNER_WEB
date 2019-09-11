@@ -62,6 +62,8 @@ export default {
 			this.$router.push({path:on,query:cs})	
 		},
 		getCl(){
+            document.documentElement.scrollTop =1;
+					document.body.scrollTop =1;
 			this.api.pr_classify().then((da)=>{
 				if(da=='error'){
 					return
