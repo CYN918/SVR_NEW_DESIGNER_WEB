@@ -2,21 +2,10 @@
 	<div class="proNav2">
 		<div class="proNav2_1">
 			<a :class="['pend',ison=='/profit'?'router-link-active':'']" @click="goZP('/profit','录用记录')">录用记录</a>
-			<a :class="['pend',ison=='/fcsy'?'router-link-active':'']" @click="goZP('/fcsy','分成收益')">分成收益</a>
 			<a :class="['pend',ison=='/qtsy'?'router-link-active':'']" @click="goZP('/qtsy','其他收益')">其他收益</a>
 			<a :class="['last pend',ison=='/money'?'router-link-active':'']" @click="goZP('/money','提现记录')">提现记录</a>
 			<div class="pr_seBox">
-				<div v-if="config.list1">
-					录用形式：
-					<el-select @change="sxFn1" v-model="v1" placeholder="请选择">
-						<el-option 
-						v-for="item in config.list1"
-						:key="item.value"
-						:label="item.label"
-						:value="item.value">
-						</el-option>
-					</el-select>
-				</div>
+				
 				<div>
 					录用时间：
 					<el-select @change="sxFn2" v-model="v2" placeholder="请选择">

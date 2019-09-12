@@ -13,7 +13,7 @@
 					<span class="home_0x4_3">{{el.t}}</span>
 				</a>
 			</div>
-			<a class="btns btns_js home_0x5_bt pend" href="/#/setPersonal">立即查看项目</a>
+			<a class="btns btns_js home_0x5_bt pend" href="/#/project">立即查看项目</a>
 		</div>	
 		
 		<div class="home_0x5">
@@ -41,7 +41,7 @@
 				</div>
 			</div>
 			
-			<a class="btns btns_js home_0x5_bt pend" href="/#/setPersonal">立即入驻，承接项目</a>
+			<a class="btns btns_js home_0x5_bt pend" href="/#/project">立即入驻，承接项目</a>
 		</div>
 		
 		<div class="home_0x6">

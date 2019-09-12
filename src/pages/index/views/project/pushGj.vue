@@ -84,16 +84,24 @@ export default {
 			this.customize = window.basrul+'/File/File/delete';
 		},
 		qhType(){
+			this.type = this.type==1?2:1;
+			this.clodfileAll();
 			this.eell = '';
-			this.fileList3 = [];
-			
+			this.fileList3 = [];			
 			this.filelist = [];
 			this.online_disk_url = '';
 			this.access_code = '';
-			this.type = this.type==1?2:1;
+			
+			
+			
 		},
 		close(){			
 			this.$parent.close();
+		},
+		clodfileAll(){
+			for(let i=0,n=this.fileList3.length;i<n;i++){
+				this.fileList3[i].xhr.abort();
+			}
 		},
 		clodfile(el,on){
 			el.xhr.abort();
@@ -203,13 +211,11 @@ export default {
 				}
 				
 			};
-			let uploadFailed = ()=>{
-				
-				this.$message({message: '文件上传失败请稍后重试'});
-				
+			let uploadFailed = ()=>{				
+				this.$message({message: '文件上传失败请稍后重试'});				
 			};
 			let uploadCanceled = ()=>{
-				
+				if(this.type!=1){return}
 				this.$message({message: '取消成功'});
 				
 			};

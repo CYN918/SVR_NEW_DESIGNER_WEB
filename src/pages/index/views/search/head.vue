@@ -9,6 +9,10 @@
 						v-model="secont">
 						<i @click="keydown" slot="prefix" class="el-input__icon el-icon-search"></i>
 					</el-input>
+
+					
+					
+					
 					<el-cascader class="zysdf_2"
 						:options="clasd"
 						v-model="setcti"
@@ -45,12 +49,12 @@ export default {
 	data(){
 		return{
 			secont:'',
-
+			self2:'',
 			setcti: [],
 		}
 	},
 	methods: {
-		 
+
 		goto(on){
 			this.bdtj('搜索页','tab_'+on);
 			this.$router.push({path:on,query:{cont:this.secont}})	
@@ -73,7 +77,8 @@ export default {
 			this.$router.push({path:ud,query:{cont:this.secont}});
 		},
 		handleChange(value) {
-			// this.$parent.sreond(this.setcti);
+
+			this.$parent.sreond(this.setcti);
 		}
 	},	
 	props:{
@@ -84,12 +89,16 @@ export default {
 		clasd:{
 			Array,
 			default:[]
+		},
+		pz:{
+			Object,
+			default:()=>{return{}}
 		}
 		
 	},
 	watch: {	
 		'setcti': function() {
-			this.sreond();
+			// this.sreond();
 		},
 		
 	},

@@ -40,9 +40,10 @@ import set_enterprise from './views/set/enterprise.vue'
 import messgeCl from './views/messgeCl/index.vue'
 
 import pt_index from './views/profit/index.vue'
-import pt_works from './views/profit/works.vue'
+// import pt_works from './views/profit/works.vue'
+import pt_projects from './views/profit/projects.vue'
 import pt_money from './views/profit/money.vue'
-import pt_fcsy from './views/profit/fcsy.vue'
+// import pt_fcsy from './views/profit/fcsy.vue'
 import pt_noRz from './views/profit/noRz.vue'
 import pt_qtsy from './views/profit/qtsy.vue'
 
@@ -150,9 +151,10 @@ let wb = [
 				name: 'profit',
 				component:pt_index,
 				children:[
-					{path: '/profit',name: 'profit',component:pt_works},
+					// {path: '/profit',name: 'profit',component:pt_works},
+					{path: '/profit',name: 'profit',component:pt_projects},				
 					{path: '/money',name: 'money',component:pt_money},
-					{path: '/fcsy',name: 'fcsy',component:pt_fcsy},		
+					// {path: '/fcsy',name: 'fcsy',component:pt_fcsy},		
 					{path: '/qtsy',name: 'qtsy',component:pt_qtsy},												
 				]				
 			},

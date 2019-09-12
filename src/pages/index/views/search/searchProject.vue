@@ -1,8 +1,8 @@
 <template>
 	<div class="csBox csBoxxxxx">
-		<tophead :clasd="clasd"  :onNav="0" ref="mytopcs"></tophead>
+		<tophead :clasd="clasd" :pz="pzcon" :onNav="0" ref="mytopcs"></tophead>
 		
-		<list :config="data" ref="sfafa">
+		<list class="seccPr" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
 				<cent :djs="djson" :el="todo"></cent>
 			</template>			
@@ -20,6 +20,9 @@ export default {
 	name: 'home',
 	data(){
 		return {
+			pzcon:{
+				va:1
+			},
 			data:{
 				ajax:{
 					url:'Searchsearch',
@@ -52,47 +55,46 @@ export default {
 			this.data.pr.query =this.$route.query.cont || '';	
 			this.$refs.sfafa.getData();
 		},
-		getClassify(){			
-			this.api.getClassify().then((da)=>{
+		getClassify(){
+			this.api.pr_classify().then((da)=>{
 				if(da=='error'){
 					return
 				}
-				let p = JSON.stringify(da);
-				p = p.replace(/classify_name/g,"label");
-				
-				p = p.replace(/id/g,"value");
-				p = p.replace(/sub_data/g,"children");
-				
-				p = JSON.parse(p);
-				
-				for(let i=0,n=p.length;i<n;i++){
-					for(let i2=0,n2=p[i].children.length;i2<n2;i2++){
-						p[i].children[i2].children = '';
-					}
+				let arr = [];
+				for(let i=0,n=da.length;i<n;i++){
+					arr.push({
+						label:da[i].classify_name,
+						value:da[i].id,
+					})
 				}
-				
-				
-				p.unshift({label: "全部",value: ""})
-				
-				this.clasd = p;
-		
-			})
+				this.clasd = arr;
+			})			
 		},
 		sreond(n){
-			this.data.pr.classify_1 = n[0];
-			this.data.pr.classify_2 = n[1];
+			this.data.pr = {
+				type:'project',
+			};
+			if(n[0]){
+				this.data.pr.classify_id = n[0];
+			}			
 			this.getData();
 		},
 	},
-	watch: {	
-		'$route': function() {
-			this.getData();
-			
-		},
-		
-	},
+
 }
 </script>
 
 <style>
+.seccPr{
+	padding-top: 20px;
+}
+.csBox{
+	background: #f4f6f9;
+}
+.seccPr li{
+	margin: 0 20px 40px 0;
+}
+.seccPr li:nth-child(2n+2){
+	margin-right: 0;
+}
 </style>
