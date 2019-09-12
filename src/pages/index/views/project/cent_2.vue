@@ -114,7 +114,7 @@ export default {
 					this.tips = '<div class="backdse pr_cent2_r2_2">你已延期01天14小时，请尽快完成</div>';
 					return
 				}
-				let otim = this.bckdtimed(this.deta.deadline);
+				let otim = this.bckdtimed(this.deta.delivery_deadline);
 				
 				this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
 				return

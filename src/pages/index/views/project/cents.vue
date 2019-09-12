@@ -331,17 +331,18 @@ export default {
 	line-height:18px;
 }
 .icon_ff_1{
-	height: 28px;
+	height: 18px;
 	font-size:14px;
 	font-weight:400;
 	color:rgba(187,187,187,1);
-	line-height:28px;
+	line-height:18px;
+	margin: 5px auto;
 }
 .icon_ff_1>img{
 	display: inline-block;
-	vertical-align: top;
-	margin-top: 2px;
+	vertical-align: middle;
 	margin-right: 10px;
+	margin-top: -3px;
     width: 18px;
     height: 18px;
 }
@@ -443,7 +444,7 @@ export default {
 	background: url(/imge/project/kf_02.svg) no-repeat;
 }
 .icon_ff_1>.icon_ff_1_x1{
-	margin-top: 1px;
+	margin-top: -5px;
 }
 .xzMb_n1{
     position: absolute;

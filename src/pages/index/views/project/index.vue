@@ -3,9 +3,9 @@
 		<div class="pr_01">
 			<div>
 				<div class="pr_01_1">
-					找到值得心仪的接单项目让<span class="pr_01_2">创意完美实现</span>。
+					发挥所长，轻松赚钱，从这里开始<br/>狮圈儿，让<span class="pr_01_2">创意更有价值</span>，让生活更加自由
 				</div>
-				<div class="pr_01_3">每日，平台都会发布不同的项目需求，专业平台团队把控，只发布优质稳定的项目。</div>
+				<div class="pr_01_3">项目每周更新发布，专业平台团队把控，只提供优质稳定的项目需求。</div>
 			</div>
 		</div>
 		<div class="pr_02">
@@ -16,7 +16,7 @@
 				:class="['pr_02_2 pend',type==index?'pr_02_2On':'']"
 				@click="qhNav(index)"
 				>{{el.classify_name+'（'+el.project_num+'）'}}</span>
-				<span @click="goOn('/help',{on:1})" class="pr_02_3 pend">项目承接指南</span>
+				<span @click="goOn('/help',{on:'4_1'})" class="pr_02_3 pend">项目承接指南</span>
 			</div>
 			<list :page="setPage" :config="data" class="iopdlf_01" ref="sfafa">
 				<template v-slot:todo="{ todo }">
@@ -62,6 +62,8 @@ export default {
 			this.$router.push({path:on,query:cs})	
 		},
 		getCl(){
+            document.documentElement.scrollTop =1;
+					document.body.scrollTop =1;
 			this.api.pr_classify().then((da)=>{
 				if(da=='error'){
 					return
@@ -104,7 +106,7 @@ export default {
 	font-weight:400;
 	color:rgba(40,40,40,1);
 	line-height:50px;
-	width: 400px;
+	font-family:PingFang SC Regular;
 }
 .pr_01_2{
 	display: inline-block;
