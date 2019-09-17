@@ -712,7 +712,6 @@ img{
 	min-width: 1300px;
 	height: 128px;
 	background: #FFFFFF;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);	
 	margin-bottom: 20px;
 	
 }
@@ -843,11 +842,17 @@ img{
 }
 .seed2>.seed2_2,.seed2>.seed2_1>div{
 	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
 	border-radius: 5px;
 
 }
-
+.qxBm_btns_1{
+	margin: 30px 84px;
+}
+.qxBm_btns{
+	border-top: 1px solid rgba(244,246,249,1);
+	height: 79px;
+	line-height: 79px;
+}
 .seed2_1>div:first-child{
 	
 	padding: 40px;

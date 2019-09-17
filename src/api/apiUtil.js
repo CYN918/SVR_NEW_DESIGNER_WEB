@@ -66,7 +66,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 			return data
 		}else{			
 			if(result=='104'){	
-				// return 'islogin';
+				window.frompath2 = location.href;
 				localStorage.setItem('userT','');
 				window.userInfo='';				
 				window.location.href = '#/login';		

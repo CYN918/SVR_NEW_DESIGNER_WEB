@@ -116,6 +116,10 @@ export default {
 					this.$router.push({path: window.frompath})	
 					return
 				}
+				if(window.frompath2){
+					window.location.href = window.frompath2;
+					return;
+				}
 				let pr = {
 					access_token:window.userInfo.access_token
 				};

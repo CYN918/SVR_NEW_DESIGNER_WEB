@@ -88,12 +88,11 @@
 			<span class="header_4" v-else>
 				<a class="pend" @click="goZP('/login','登录')">登录</a><span>|</span><a class="pend" @click="goZP('/register','注册')">注册</a></span>				
 		</div>
-		<out v-if="isshowd"></out>
+		<out ref="out"></out>
 	</header>
 </template>
-
 <script>
-import out from './out';
+import out from '../components/out';
 export default {
 	components:{out},
 	name: 'home',	 
@@ -298,7 +297,7 @@ export default {
 			if(is==1){
 				this.bdtj('通用模块','顶部栏点击_退出','--');
 			}
-			this.isshowd = 1;
+			this.$refs.out.show();
 		},
 		
 		getMessgNumber(){
@@ -365,14 +364,7 @@ export default {
 				}
 				
 			})
-			
-			// this.api.getHotWords().then((da)=>{
-			// 	if(da=='error'){
-			// 		return
-			// 	}
-			// 	
-			// 	
-			// });
+
 		},
 		Searchsug(n){
 			let pr = {
@@ -424,8 +416,6 @@ export default {
 	width: 100%;
     height: 60px;
     background: #fff;
-	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
-	box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
 }
 .header_1{
 	position: absolute;
@@ -861,6 +851,7 @@ export default {
 	width: 17px;
 }
 .svgImg2_2{
+	margin-top: 12px;
 	width: 18px;
 }
 .ts_svg_img{

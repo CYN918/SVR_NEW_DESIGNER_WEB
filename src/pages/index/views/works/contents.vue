@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import box_a from '../components/box_a';
+import box_a from '../../components/box_a';
 export default {
 	components:{box_a},
 	data(){

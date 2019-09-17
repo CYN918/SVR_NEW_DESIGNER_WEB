@@ -59,11 +59,11 @@ import Input from '../../components/input'
 import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
-import Footer from '../../components/footer';
+
 import inptPhone from '../../components/input/input_phone';
 export default {
 	name: 'login',
-	components:{upoloadcaver,Input,Citys,Select,rideo,Footer,inptPhone},
+	components:{upoloadcaver,Input,Citys,Select,rideo,inptPhone},
 	data(){		
 		return{	
 			

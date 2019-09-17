@@ -32,7 +32,7 @@
 					</div>
 					<div>
 						<img src="/imge/profit/qxt.svg">
-						<div class="pbx_n_02">收益加成<img class="pbx_n_06" src="/imge/project/09.svg" alt=""></div>
+						<div class="pbx_n_02">收益加成<img  @mouseout="mod()" @mouseover="modx($event,1)" class="pbx_n_06" src="/imge/project/09.svg" alt=""></div>
 						<div class="pbx_1_1">
 							<span>{{basDa.gain_share_rate}}</span>					
 						</div>
@@ -86,6 +86,13 @@ export default {
 			this.getData();
 			this.getUserDetail();
 		},
+		mod(e){
+			this.sfas = 'display:none';
+		},
+		modx(e,on){
+			this.csff = this.tips[on];
+			this.setPos(e.clientX,e.clientY);
+		},	
 		getData(){
 			let pr = {};
 			this.api.Income_info(pr).then((da)=>{

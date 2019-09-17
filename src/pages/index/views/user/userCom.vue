@@ -293,6 +293,7 @@ export default {
 				// this.userBg = da.user_center_banner_pic;
 				document.title=this.userMessage.username+'-狮圈儿（Zoocreators）';
 				this.shareData = {
+					titlec:'创作者分享',
 					url:location.origin+'/aindex.html#/user?id='+this.$route.query.id,
 					title:this.userMessage.username+"的主页-狮圈儿创作者平台",
 					pics:this.userMessage.avatar,

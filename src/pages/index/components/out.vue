@@ -1,5 +1,5 @@
 <template>
-	<tanC :title="'退出确认'">
+	<TcBox :config="outc" ref="tcBox">
 		<template v-slot:todo="{ todo }">
 			<div class="qxBm_btns_1">确定退出登录?</div>	
 			<div class="qxBm_btns">
@@ -7,12 +7,21 @@
 				<div @click="logout" class="btns btns_js pend">确定</div>				
 			</div>
 		</template>			
-	</tanC>
+	</TcBox>
+</div>
 </template>
 <script>
-import tanC from './tanC';
+import TcBox from './TcBox';
 export default {
-	components:{tanC},
+	components:{TcBox},
+	data(){
+		return{
+			outc:{
+				title:'退出确认',
+				scroll:1,
+			}
+		}
+	},
 	methods: {			
 		logout(){
 			if(!window.userInfo){return}			
@@ -20,7 +29,7 @@ export default {
 				if(da=='error'){
 					return
 				}
-				this.$parent.showHb(false);
+				this.close();
 				localStorage.setItem('pass','');			
 				localStorage.setItem('userT','');
 				window.userInfo='';
@@ -28,8 +37,12 @@ export default {
 				this.$router.push({path: '/login'})	
 			});
 		},
+		show(){
+
+			this.$refs.tcBox.show();
+		},
 		close(){
-			this.$parent.close();
+			this.$refs.tcBox.close();
 		},
 	}
 }		
@@ -37,12 +50,5 @@ export default {
 </script>
 
 <style>
-.qxBm_btns_1{
-	margin: 30px 84px;
-}
-.qxBm_btns{
-	border-top: 1px solid rgba(244,246,249,1);
-	height: 79px;
-	line-height: 79px;
-}
+
 </style>

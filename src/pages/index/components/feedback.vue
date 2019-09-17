@@ -1,5 +1,5 @@
 <template>
-	<tanC :title="'意见反馈'">
+	<TcBox :config="tanCo" ref="tcBox">
 		<template v-slot:todo="{ todo }">
 			<div class="upfdb_content_1">
 				<div class="upfdb_name ">
@@ -55,15 +55,19 @@
 				<div @click="addFdb" class="btns btns_js  pend">确定</div>
 			</div>
 		</template>			
-	</tanC>
+	</TcBox>
 </template>
 <script>
-import tanC from './tanC';
+import TcBox from './TcBox';
 export default {
-	components:{tanC},
+	components:{TcBox},
 	name: "feedback",
 	data(){
 	    return {
+	    	tanCo:{
+	    		titile:'意见反馈',
+	    		scroll:1,
+	    	},
 	        link:'',
 	        detail:'',
 	        classify:0,
@@ -79,18 +83,23 @@ export default {
 	    }
 	},
 	mounted(){
-	    this.getType();
+	   
 	},
 	methods:{
+		show(){
+			this.getType();
+			this.$refs.tcBox.show();
+		},
 		close(a){
 			if(a){
 				this.bdtj('意见反馈弹窗',a,'--');
 			}
-			this.$parent.heid();
+			this.$refs.tcBox.close();
 		},
+
 	    getType(){
-	        let params =window.userInfo.access_token;
-	        this.api.Feedback_getClassify({access_token:params}).then((res)=>{
+	   
+	        this.api.Feedback_getClassify({}).then((res)=>{
 	            this.typeList = res;
 	        })
 	    },
@@ -99,30 +108,26 @@ export default {
 			this.bdtj('意见反馈弹窗','提交意见','--');
 	        if(!this.detail){
 				this.bdtj('意见反馈弹窗','提交意见失败','--');
-	            Message('请输入问题描述');
+				this.$message({message:'请输入问题描述'})
+	 
 	            return
 	        }
-	        if(!this.imgList){
+	        if(this.imgList.length==0){
 				this.bdtj('意见反馈弹窗','提交意见失败','--');
-	            Message('请上传截图');
-	            return
-	        }
-	        if(!this.link_type){
-				this.bdtj('意见反馈弹窗','提交意见失败','--');
-	            Message('联系方式不能为空');
+				this.$message({message:'请上传截图'})
 	            return
 	        }
 	        if(!this.link){
 				this.bdtj('意见反馈弹窗','提交意见失败','--');
-	            Message('联系方式不能为空');
+				this.$message({message:'联系方式不能为空'})
 	            return
 	        }
-	        let params={access_token:window.userInfo.access_token,classify_id:this.typeList[this.classify].id,classify_name:this.typeList[this.classify].classify_name,detail:this.detail,pic:JSON.stringify(this.imgList),link_type:this.link_type,link:this.link}
+	        let params={classify_id:this.typeList[this.classify].id,classify_name:this.typeList[this.classify].classify_name,detail:this.detail,pic:JSON.stringify(this.imgList),link_type:this.link_type,link:this.link}
 	        this.api.Feedback_add(params).then((res)=>{
 				if(!res){this.bdtj('意见反馈弹窗','提交意见失败','--');return}
 				this.bdtj('意见反馈弹窗','提交意见成功','--');
-				Message('提交成功');
-				this.qx();
+				this.$message({message:'提交成功'})
+				this.close();
 	        })
 	    },
 	    del(index){
@@ -186,24 +191,22 @@ export default {
 	                this.imgList.unshift(da.url);
 	                if(this.imgList.length>3){
 	                    this.imgList = this.imgList.slice(0,3);
-	                    Message('最多上传3张')
+	                    this.$message({message:'最多上传3张'})
 	                }
-	            
-	                Message({message: '文件上传成功'});
+	            	this.$message({message:'文件上传成功'})
 	            }
 	        };
 	        let uploadFailed = ()=>{
 	            // delete p;
 	            p.type="none";
 	            this.$refs.upnfile.value ='';
-	            Message({message: '文件上传失败请稍后重试'});
+	            this.$message({message:'文件上传失败请稍后重试'})
 	
 	        };
 	        let uploadCanceled = ()=>{
 	            p.type="none";
 	            this.$refs.upnfile.value ='';
-	            Message({message: '取消成功'});
-	
+	            this.$message({message:'取消成功'})	
 	        };
 	        xhr.upload.addEventListener("progress",uploadProgress, false);
 	        xhr.addEventListener("load",uploadComplete, false);
@@ -298,9 +301,7 @@ export default {
     padding: 0 114px;
 	line-height: 0;
 	width: 567px;
-    height: 578px;
-    overflow: hidden;
-    overflow-y: auto;
+
 }
 .upfdb_content_1 span{
     font-family: PingFangSC-Regular;

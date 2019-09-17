@@ -11,10 +11,10 @@
 	</div>
 </template>
 <script>
-import Footer from '../../components/footer';
+
 export default {
 	name: 'login',
-	components:{Footer},
+
 	data(){
 		return{}
 	},

@@ -195,6 +195,7 @@ export default {
 				document.title=this.infoData.activity_name+'-狮圈儿（Zoocreators）';
 			
 				this.shareData = {
+					titlec:'活动分享',
 					url:location.origin+'/aindex.html#/conta?id='+this.$route.query.id,
 					title:da.activity_name+'-狮圈儿创作者平台',
 					pics:da.banner,

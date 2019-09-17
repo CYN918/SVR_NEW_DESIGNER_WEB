@@ -130,7 +130,7 @@
 				
 							<div @click="goUserzy" v-if="page.open_id==contDat.user_info.open_id"><span>进入主页</span></div>
 							<div v-else>
-								<span @click="showHb2" v-if="contDat.user_info.follow_flag>0">已关注</span>
+								<span @click="showUnfoolow" v-if="contDat.user_info.follow_flag>0">已关注</span>
 								<span class="jsBtn" @click="Follow_add()" v-else>关注</span>
 								<span class="lastsedd_1 pend" @click="gosx(contDat.user_info)">私信</span>
 							</div>
@@ -156,7 +156,8 @@
 				</div>
 			</div>
 		</div>
-		
+
+		<unfollow @sussFn="unfollowSu" ref="unfollow"></unfollow>
 		<div v-show="isshowd" class="loginoutBox">
 			<div class="loginoutBox1">
 				<img @click="hindHb()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
@@ -166,28 +167,29 @@
 				<div class="loginoutBox4"><span @click="hindHb()">取消</span><span @click="delComment()">确定</span></div>
 			</div>
 		</div>
-		<div v-show="isshowd2" class="loginoutBox">
-			<div class="loginoutBox1">
-				<img @click="hindHb2()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
-				<div class="loginoutBox3">是否取消关注?</div>
-				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
-			</div>
-		</div>
+
 		<fxd :shareData="shareData" ref="fxd"></fxd>
-		
+		<TcBox :config="outc"  @qFn="delComment" ref="tcBox"></TcBox>
 	</div>
 </template>
 
 <script>
-import Input from '../components/input'
+import Input from '../../components/input'
 import {Message} from 'element-ui'
-import RPT from '../components/report'
-import fxd from '../components/share';
-import box_a from '../components/box_a';
+import RPT from '../../components/report'
+import fxd from '../../components/share';
+import box_a from '../../components/box_a';
+import unfollow from '../../components/unfollow';
+import TcBox from '../../components/TcBoxQr';
 export default {
-	components:{Input,RPT,fxd,box_a},
+	components:{Input,RPT,fxd,box_a,TcBox,unfollow},
 	data(){
 		return{
+			outc:{
+				title:'删除评论确认',
+				scroll:1,
+				cent:'确定删除该条评论?',
+			},
 			isfix:'',
 			shareData:{},
 		    isRep:false,
@@ -241,6 +243,16 @@ export default {
 		
 	}, 
 	methods: {
+		showTc(){
+			this.$refs.tcBox.show();
+		},
+		showUnfoolow(){
+			this.bdtj('作品详情','他人视角-取消关注','--');
+			this.$refs.unfollow.setFollowId(this.contDat.user_info.open_id);
+		},
+		unfollowSu(){
+			this.contDat.user_info.follow_flag=0;
+		},
 		tttt(){
 			console.log(222)
 		},
@@ -424,7 +436,7 @@ export default {
 					this.hfData.splice(this.deletOn[0],1);
 				}	
 				Message({message: '删除评论成功'});			
-				this.hindHb();
+				this.$refs.tcBox.close();
 			}).catch(()=>{
 				this.deletType = 0;		
 			});
@@ -436,14 +448,14 @@ export default {
 			return (((new Date()).valueOf()- (new Date(t)).valueOf(t))>=(5*60*1000)) || window.userInfo.open_id!=id;	
 		},
 		showHb(a,fid,cid,on,on2){
-			this.bdtj('详情页',a,'--');
-			this.isshowd = true;	
+			this.bdtj('详情页',a,'--');	
 			this.deletData = {
-				access_token:window.userInfo.access_token,
 				work_id:this.work_id,
 				comment_id:cid,
 				feed_id:fid,				
 			};
+			this.$refs.tcBox.show();
+			
 			this.deletOn = [on];
 			if(!on2 && on2!=0){
 				return
@@ -456,10 +468,7 @@ export default {
 		hindHb2(){
 			this.isshowd2 = false;
 		},
-		showHb2(){
-			this.bdtj('作品详情','他人视角-取消关注','--');
-			this.isshowd2 = true;
-		},
+
 		addmpl(){
 			this.bdtj('作品详情','查看更多评论','--');
 			if(this.ishavepl==1){
@@ -520,6 +529,7 @@ export default {
 				this.contDat = da;
 				
 				this.shareData = {
+					titlec:'作品分享',
 					url:location.origin+'/aindex.html#/cont?id='+this.$route.query.id,
 					title:this.contDat.work_name+'-狮圈儿创作者平台',
 					pics:this.contDat.face_pic,

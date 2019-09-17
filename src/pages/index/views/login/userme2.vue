@@ -13,7 +13,7 @@
 			<bindUser v-if="navOn==1"></bindUser>	
 			
 		</div>
-		<Footer></Footer>
+
 	</div>	
 </template>
 <script>

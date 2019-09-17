@@ -35,7 +35,7 @@
 			</div>
 			
 		</div>
-		<Footer></Footer>
+
 	</div>	
 </template>
 <script>
@@ -44,10 +44,9 @@ import Input from '../../components/input'
 import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
-import Footer from '../../components/footer';
 export default {
 	name: 'login',
-	components:{upoloadcaver,Input,Citys,Select,rideo,Footer},
+	components:{upoloadcaver,Input,Citys,Select,rideo},
 	data(){		
 		return{	
 			isPhto:false,

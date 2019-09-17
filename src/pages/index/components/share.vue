@@ -1,139 +1,148 @@
 <template>
-	<div v-if="shareType" class="fixCoBox">
-		<div class="fixCoBox1 sharebox">
-			
-			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" @click="showShare(false)" class="fixCoBox2">
-			<div class="sharebox1">
-				<vue-qr class="sharebox1_1" :logoSrc="config.logo" :text="config.value" :logoScale="100" :size="200" :margin="0"></vue-qr>
-				分享到微信
-			</div>
-			<div class="sharebox2">
+	<TcBox :config="config" ref="tcBox">
+		<template v-slot:todo="{ todo }">
+			<div class="xm_shar_01">
+				<div class="xm_shar_01_1">
+					<vue-qr class="xm_shar_01_2" :logoSrc="config.logo" :text="config.value" :logoScale="96" :size="200" :margin="0"></vue-qr>
+					分享到微信
+				</div>
+				<div class="xm_shar_01_3">
+					
+					<a @click="tzld(fxUrl1,'新浪')">
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zc_icon_wb.png" alt="">
+						新浪
+					</a>
+					<a @click="tzld(fxUrl2,'QQ')">
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zc_icon_qq.png" alt="">
+						QQ
+					</a>
+					<a @click="tzld(fxUrl3,'QQ空间')">
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/Group 5.png" alt="">
+						QQ空间
+					</a>
+				</div>
 				
-				<a @click="tzld(fxUrl1,'新浪')">
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zc_icon_wb.png" alt="">
-					新浪
-				</a>
-				<a @click="tzld(fxUrl2,'QQ')">
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zc_icon_qq.png" alt="">
-					QQ
-				</a>
-				<a @click="tzld(fxUrl3,'QQ空间')">
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/Group 5.png" alt="">
-					QQ空间
-				</a>
+				<div class="xm_shar_01_4">
+					<input v-model="onUrl" type="text" ref="copd"/>
+					<span @click="copy" class="btns xm_shar_01_4b pend">复制</span>
+				</div>
 			</div>
-		</div>
-	</div>
+		</template>			
+	</TcBox>
 </template>
 <script>
+import TcBox from './TcBox';
 import VueQr from 'vue-qr'
-
 export default {
-	components:{VueQr},
+	components:{TcBox,VueQr},
 	props:{
-		shareData:{
-			Object
-		}
+		shareData:Object
 	},
 	data(){
-		return {
+		return{
+			config:{
+				title: '作品分享',
+				scroll:1,
+				value: '',
+				logo:''
+			},
 			fxUrl1:'',
 			fxUrl2:'',
 			fxUrl3:'',
-			shareType:false,
-			config:{
-				value: '',
-				logo:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg'
-			},
+			onUrl:'',
 		}
 	},
-	mounted: function () {}, 
+	mounted: function(){
+
+	},
 	methods: {	
+		copy(){
+			this.$refs.copd.select();
+			document.execCommand("copy");
+			this.$message({message:'复制成功'});
+		},
+		
+
 		showShare(type){
 			if(this.shareData.bdtj){
 				this.bdtj(this.shareData.bdtj[0],this.shareData.bdtj[1]+'关闭','--')
 			}
-			this.shareType = type?type:false;
+			this.$refs.tcBox.show();
 		},
 		tzld(ur,a){
 			if(this.shareData.bdtj){
 				this.bdtj(this.shareData.bdtj[0],this.shareData.bdtj[1]+a,'--')
-			}
-			
+			}			
 			window.open(ur);
 		},
 		setUrl(da){
 			if(da=='error'){return}
 			let ulrd = encodeURIComponent(da.url);
 			this.config.value = da.url;
+			this.config.title=da.titlec;
+			this.onUrl = window.location.href;
 			this.fxUrl1 = 'http://service.weibo.com/share/share.php?appKey=3473072390&title='+da.title+'&url='+ulrd+'&pic='+da.pics+'#_loginLayer_'+(new Date()).valueOf();
 			this.fxUrl2 ='https://connect.qq.com/widget/shareqq/index.html?url='+ulrd+'&title='+da.title+'&pics='+da.pics+'&desc=&summary='+da.summary+'&site=wo';			
 			this.fxUrl3 = 'https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+ulrd+'&title='+da.title+'&pics='+da.pics+'&summary='+da.summary+'&desc=&site=xx';
 		},
-	},
-}
-	
+		
+		
+		
+	}
+}		
 	
 </script>
 
 <style>
-.fixCoBox{
-	position: fixed;
-	top: 0;
-	left: 0;
-	background: rgba(0,0,0,.2);
-	width: 100%;
-	height: 100%;
-	z-index: 10000;
+.xm_shar_01{
+	width: 560px;
+	padding: 30px 0;
 }
-.fixCoBox1{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%,-50%);
-	transform: translate(-50%,-50%);
-	background: #FFFFFF;
-	padding: 27px;
-	box-sizing: border-box;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
+.xm_shar_01_1{
+	display: block;
+    margin: 0 auto 7px;
+    width: 96px;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+	line-height:20px;
 }
-.fixCoBox2 {
-    position: absolute;
-    top: -45px;
-    right: -45px;
-    width: 44px;
-    height: 44px;
-    cursor: pointer;
+.xm_shar_01_2{
+	display: block;
+    margin: 0 auto 7px;
+    width: 96px;
+    height: 96px;
 }
-.sharebox{
-	width: 420px;
-	height: 279px;
+.xm_shar_01_3{
+	margin-bottom: 30px;
 }
-.sharebox1{
-	margin-bottom: 31px;
-}
-.sharebox1_1{
-	display: block !important;
-	margin: 0 auto 7px;
-	width: 100px;
-	height: 100px;
-	background: red;
-	text-align: center;
-	font-size: 14px;
-	color: #666666;
-}
-.sharebox2>a{
+.xm_shar_01_3>a{
+	cursor: pointer;
 	display: inline-block;
 	font-size: 14px;
 	color: #666666;
 	text-align: center;
 	width: 120px;
 }
-.sharebox2>a>img{
+.xm_shar_01_3>a>img{
 	display: block;
 	margin:0 auto 8px;
 	width: 40px;
 	height: 40px;
+}
+.xm_shar_01_4>input{
+	display: inline-block;
+	border: 1px solid #BBBBBB;
+	padding: 0 10px;
+	width:217px;
+	height:38px;
+	border-radius:5px;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+	line-height:38px;
+}
+.xm_shar_01_4b{
+	width: 100px;
 }
 </style>

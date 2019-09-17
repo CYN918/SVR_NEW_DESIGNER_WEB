@@ -1,5 +1,4 @@
 <template>
-
 		<footer class="footerBox">
 			<div class="footerBox_1">
 				<span class="pend" @click="goPu('/about','关于我们')">关于我们</span>
@@ -13,15 +12,14 @@
 			<div class="footerBox_2">
 				<span>© 2015-2019 深圳掌酷软件有限公司</span><a target="_blank" @click="banh" href="http://beian.miit.gov.cn">粤ICP备15039011号</a><a target="_blank" href="http://www.beian.gov.cn"><img class="footer_ga" src="/imge/svg/footer_ga.svg">粤公网安备 44030502004296号</a>
 			</div>
-			<feedback v-if="fd"></feedback>
+			<feedback ref="feedback"></feedback>
 			
 			
 			
 		</footer>
 </template>
 <script>
-import {Message} from 'element-ui'
-import feedback from './feedback.vue'
+import feedback from '../components/feedback.vue'
 export default {
         components:{feedback},
 	    data(){
@@ -42,13 +40,12 @@ export default {
 	        showFdb(){
 				this.bdtj('通用模块','底部栏点击_意见反馈','--');
 				if(!window.userInfo || !window.userInfo.access_token){
-					Message('请先登录');
+					this.$message({
+						messagess:'请先登录'
+					})
 					return
 				}
-	            this.fd = true;
-			},
-			heid(){
-	            this.fd = false
+				this.$refs.feedback.show();
 			},
 			help(){
 
@@ -71,9 +68,6 @@ export default {
 	font-size: 14px;
 	color: #666;
 	line-height: 60px;
-
-	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
-    box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
 }
 .footerBox_1{
 	line-height: 74px;

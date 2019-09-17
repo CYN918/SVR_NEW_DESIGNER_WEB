@@ -60,7 +60,7 @@
 	</div>
 </template>
 <script>
-import baner from './banner';
+import baner from '../components/banner';
 import list from '../components/list';
 import box_a from '../components/box_a';
 export default {
