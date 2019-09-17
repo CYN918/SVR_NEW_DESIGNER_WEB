@@ -109,6 +109,9 @@
 							<span>验证码</span>
 							<Input class="suc_1_9yzm" v-model="postData.verify_code"  @ajaxYzm="ajaxYzmZd" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 						</div>
+						<div class="suc_1_9">
+							<span>邮箱</span><div class="suc_1_9_c"></div><span @click="openTc1(3)" class="suc_1_9_c1">立即认证</span>
+						</div>
 					</div>
 					<p class="rz_qr">
 						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span @click="goPU('#/authorization')" class="pend">《狮圈儿供稿人协议》</span>
@@ -126,6 +129,19 @@
 				<div class="tc_sucd_1_2">
 					<span @click="closeTc1">取消</span>
 					<span @click="qdTc2">确定</span>
+				</div>
+			</div>
+			
+			<div v-if="tAncType==3" class="tc_sucd_1">
+				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
+				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>
+				<div class="emailyzm">
+					<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
+					<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>
+				</div>
+				<div class="tc_sucd_1_2">
+					<span @click="closeTc1">取消</span>
+					<span @click="qdTc3">确定</span>
 				</div>
 			</div>
 		</div>
@@ -439,9 +455,10 @@ export default {
 				if(da=='error'){
 					return
 				}
+				Message({message: '已发送认证邮件请注意查收'});
 				this.tancData.email = '';	
 				this.tancData.pic_verify = '';
-				this.tAncType=4;
+				this.tAncType=0;
 
 				
 			});

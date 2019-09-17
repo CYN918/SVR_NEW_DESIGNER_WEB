@@ -528,6 +528,7 @@ export default {
 					is_draft:1
 				},
 				su:(da)=>{
+					console.log(da);
 					this.form = da;		
 					this.csz = da.work_name;				
 					try{this.form.labels = JSON.parse(this.form.labels);}catch(e){}

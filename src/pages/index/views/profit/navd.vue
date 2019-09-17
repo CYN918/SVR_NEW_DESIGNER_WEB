@@ -1,6 +1,6 @@
 <template>
-	<div class="proNav2">
-		<div class="proNav2_1">
+	<div>
+		<div class="proNav2_1x">
 			<a :class="['pend',ison=='/profit'?'router-link-active':'']" @click="goZP('/profit','录用记录')">录用记录</a>
 			<a :class="['pend',ison=='/qtsy'?'router-link-active':'']" @click="goZP('/qtsy','其他收益')">其他收益</a>
 			<a :class="['last pend',ison=='/money'?'router-link-active':'']" @click="goZP('/money','提现记录')">提现记录</a>
@@ -72,7 +72,7 @@ export default {
 	padding-top: 7px;
 	border-bottom: 2px solid #E6E6E6;
 }
-.proNav2_1{
+.proNav2_1x{
 	position: relative;
 	text-align: left;
 	margin: 0 auto;
@@ -80,18 +80,18 @@ export default {
 	height: 48px;
 	width: 1300px;
 }
-.proNav2_1>a{
+.proNav2_1x>a{
 	display: inline-block;
 	margin: 0 20px;
 	font-size:16px;
 	font-weight:400;
 	color:rgba(30,30,30,1);
 }
-.proNav2_1>a.router-link-active{
+.proNav2_1x>a.router-link-active{
 	font-weight:500;
 	color:rgba(255,81,33,1);
 }
-.proNav2_1>a.router-link-active:after{
+.proNav2_1x>a.router-link-active:after{
 	content: "";
 	display: block;
 	margin: 0 auto;
@@ -99,6 +99,9 @@ export default {
 	width: 100%;
 	height: 2px;
 	
+}
+.proNav2_1x .el-select input{
+	background: none;
 }
 .pr_seBox{
 	position: absolute;

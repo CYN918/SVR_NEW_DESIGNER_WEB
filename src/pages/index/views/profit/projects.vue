@@ -15,13 +15,13 @@ export default {
 		return {
 			config:{
 				title:[
-					{n:'作品标题',temp:{cFn:'goWork',poprs:'work_name',cls:'pend'}},
-					{n:'作品分类',clfn:(da)=>{ return da.classify_1_name+'-'+da.classify_2_name+'-'+da.classify_3_name}},
-					{n:'发布时间',poprs:'created_at'},
-					{n:'所属活动名',temp:{cFn:'goAc',poprs:'activity_name',cls:'pend'}},
-					{n:'录用时间',poprs:'hire_time'},
-					{n:'录用方式',clfn:(da)=>{ return da.hire_type==1?'买断':'分成'}},
-					{n:'收益',poprs:'income'},
+					{n:'项目名称',temp:{cFn:'goWork',poprs:'name',cls:'pend'}},
+					{n:'验收价格',poprs:'acceptance_price'},
+					{n:'额外奖金',poprs:'extra_reward'},
+					{n:'延时交稿扣减',temp:{cFn:'goAc',poprs:'activity_name',cls:'pend'}},
+					{n:'收益加成',clfn:(da)=>{ return da.gain_share_price+'('+da.gain_share_rate+')'}},
+					{n:'成交价格',clfn:(da)=>{ return da.deal_price}},
+					{n:'验收时间',poprs:'delivery_deadline'},
 				],
 					
 				ajax:{

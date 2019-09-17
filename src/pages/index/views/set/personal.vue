@@ -137,15 +137,15 @@
 						<div class="suc_title">身份验证<div class="xhds"></div></div>
 						<div class="suc_1_9">
 							<span>手机号</span><div class="suc_1_9_c">{{form.mobile}}</div><span @click="openTc1(2)" class="suc_1_9_c1">更换号码</span>
-			
-							
 						</div>
 						<div class="suc_1_9">
 							<span>验证码</span>
 							<Input class="suc_1_9yzm" v-model="postData.verify_code"  @ajaxYzm="ajaxYzmZd" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 						</div>
 						
-						
+						<div class="suc_1_9">
+							<span>邮箱</span><div class="suc_1_9_c"></div><span @click="openTc1(3)" class="suc_1_9_c1">立即认证</span>
+						</div>
 					</div>
 					<p class="rz_qr">
 						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span @click="goPu('#/authorization')" class="pend">《狮圈儿供稿人协议》</span>
@@ -568,24 +568,25 @@ export default {
 				if(da=='error'){
 					return
 				}
+				Message({message: '已发送认证邮件请注意查收'});
 				this.tancData.email = '';	
 				this.tancData.pic_verify = '';
-				this.tAncType=4;
+				this.tAncType=0;
 
 				
 			});
 		},
 		qdTc2(){
 			if(!this.tancData.oldMoble){
-				alert(1);
+			
 				return
 			}
 			if(!this.tancData.newMoble){
-				alert(1);
+			
 				return
 			}
 			if(!this.tancData.verify_code){
-				alert(2);
+				
 				return
 			}
 			let pr = {

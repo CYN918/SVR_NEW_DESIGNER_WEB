@@ -60,6 +60,7 @@ img{
 	box-sizing: border-box;
 	min-height: 102%;
 	padding: 60px 0 150px;
+	background: #F4F6F9;
 }
 .pend{
 	cursor: pointer;	

@@ -110,8 +110,7 @@ export default {
 					{n:'提交稿件',fn:'pushGj',cls:'btns_js'}
 				];
 				if(this.deta.is_de){
-					
-					this.tips = '<div class="backdse pr_cent2_r2_2">你已延期01天14小时，请尽快完成</div>';
+					this.tips = '<div class="backdse pr_cent2_r2_2">你已延期'+this.deta.delay_time.d+'天'+this.deta.delay_time.h+'小时，请尽快完成</div>';
 					return
 				}
 				let otim = this.bckdtimed(this.deta.delivery_deadline);

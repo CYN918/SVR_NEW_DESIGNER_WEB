@@ -137,14 +137,16 @@ export default {
 }
 .tabld th{
 	padding-left: 20px;
-	background: #e0e0e0;
+	background: #fff;
 	border: none;
+	border-bottom: 1px solid #f6f8fa;
 
 }
 .tabld td{
 	padding-left: 20px;
 	border: none;
-	border-bottom: 1px solid #E6E6E6;
+	background: #fff;
+	border-bottom: 1px solid #f6f8fa;
 }
 .noDatawan{
 	color: #ff5121;

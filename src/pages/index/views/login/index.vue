@@ -7,7 +7,7 @@
 			</div>
 		</div>
 		</div>
-		<Footer class="loginfooter"></Footer>
+		
 	</div>
 </template>
 <script>

@@ -202,7 +202,14 @@ export default {
 			let uploadComplete = (data)=>{
 				p.bf  = 100;
 				if(data.currentTarget.response){
-					let da = JSON.parse(data.currentTarget.response).data;
+			
+					let opd = JSON.parse(data.currentTarget.response);
+					
+					if(opd.result!=0){
+						this.$message({message: opd.data});
+						return
+					}
+					let da = opd.data;
 					p.file_name = da.file_name;
 					p.size = da.file_size;	
 					p.fid=da.fid;
