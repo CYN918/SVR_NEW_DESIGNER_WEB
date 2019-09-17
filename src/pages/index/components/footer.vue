@@ -7,7 +7,7 @@
 				<span class="pend" @click="goPu('/authorization','授权协议')">授权协议</span>
 				<span class="pend" @click="goPu('/help','帮助中心')">帮助中心</span>
 				<span class="pend" @click="showFdb">意见反馈</span>
-				<span>©2019 掌酷</span>
+			
 				
 			</div>
 			<div class="footerBox_2">

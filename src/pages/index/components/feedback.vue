@@ -50,8 +50,9 @@
 				</div>
 			</div>	
 			<div class="qxBm_btns">				
-				<div @click="addFdb" class="btns  pend">确定</div>
-				<div @click="close('取消')" class="btns btns_js pend">取消</div>
+				
+				<div @click="close('取消')" class="btns  pend">取消</div>
+				<div @click="addFdb" class="btns btns_js  pend">确定</div>
 			</div>
 		</template>			
 	</tanC>

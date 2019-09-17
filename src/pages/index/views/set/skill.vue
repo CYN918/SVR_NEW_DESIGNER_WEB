@@ -260,7 +260,7 @@ export default {
 				if(da=='error'){
 					return
 				}
-
+				da.splice(0,1);
 				this.pz_preference_classify = da;
 				let arr = [];
 				for(let i=0,n=da.length;i<n;i++){

@@ -38,11 +38,11 @@
 			<div v-else class="pushGj_0x1">
 				<div>
 					<div class="pushGj_03_1">请将稿件上传至网盘后，提供稿件的网盘地址</div>
-					<input v-model="online_disk_url" type="text">
+					<input placeholder="如：https://pan.baidu.com/s/xxxx_xxxx_xx" v-model="online_disk_url" type="text">
 				</div>
 				<div>
 					<div class="pushGj_03_1">请提供网盘提取密码</div>
-					<input v-model="access_code" type="text">
+					<input placeholder="如：xxx：无提取码则不填" v-model="access_code" type="text">
 				</div>
 				<div>
 					<div class="pushGj_03_1">备注说明</div>
@@ -135,10 +135,7 @@ export default {
 					this.$message({message: '请先填写网盘地址'});
 					return
 				}
-				if(!this.access_code){
-					this.$message({message: '请提供网盘提取密码'});
-					return
-				}
+	
 				pr = {
 					project_id:this.$parent.deta.id,
 					type:this.type,
@@ -152,7 +149,7 @@ export default {
 					this.$parent.setStaus('4');
 				}
 				
-				this.$message({message:"交稿成功请耐心等待验收"});
+				this.$message({message:"交稿成功，请耐心等待验收"});
 				this.$parent.getData();
 				this.close();
 			}).catch(()=>{
@@ -298,7 +295,7 @@ export default {
 	border:1px solid rgba(187,187,187,1);
 	font-size:14px;
 	font-weight:400;
-	
+	resize: none;
 	line-height:20px;
 }
 .bmXm_01Btn{

@@ -1,5 +1,5 @@
 <template>
-	<tanC :title="'交稿文件'">
+	<tanC :title="'交稿记录'">
 		<template v-slot:todo="{ todo }">
 			<div class="jglogbox">
 				<div class="jgbix jgtitle">

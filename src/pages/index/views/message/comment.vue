@@ -142,7 +142,7 @@ export default {
 				|| this.pl2 == undefined 
 				|| this.pl2 == null 
 				|| (this.pl2.length>0 && this.pl2.trim().length == 0)){
-		        Message({message: '评论为空'});
+		        Message({message: '回复为空'});
 			  	return
 		    }
 		    this.plType=1;
@@ -161,7 +161,7 @@ export default {
 				if(da=='error'){
 					return
 				}
-				Message({message: '评论成功'});
+				Message({message: '回复成功'});
 				this.showHF(on);
 				this.$refs.tageds2.value = '';
 				this.pl2 = '';  
