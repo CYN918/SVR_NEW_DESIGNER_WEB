@@ -116,7 +116,7 @@ export default {
 					this.$router.push({path: window.frompath})	
 					return
 				}
-				if(window.frompath2){
+				if(window.frompath2 && window.frompath2!=window.location.href){
 					window.location.href = window.frompath2;
 					return;
 				}

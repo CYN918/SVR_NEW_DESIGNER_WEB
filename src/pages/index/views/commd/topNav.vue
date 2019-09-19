@@ -27,7 +27,6 @@ export default {
 	height:80px;
 	line-height: 80px;
 	background:rgba(255,255,255,1);
-	box-shadow:0px 2px 4px 0px rgba(0,0,0,0.1);
 }
 .XtopNavCent{
 	margin: 0 auto;
@@ -36,7 +35,7 @@ export default {
 	height: 100%;	
 }
 .XtopNavTile{
-	font-size:24px;
+	font-size:16px;
 	font-weight:500;
 	color:rgba(30,30,30,1);
 	line-height:33px;

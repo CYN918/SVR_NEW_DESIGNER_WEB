@@ -16,6 +16,7 @@ export default {
 	}, 
 	methods: {
 		init(){
+			return
 			if(!this.$route.query.ret){
 				this.$router.push({path: '/index'})
 				return
@@ -26,9 +27,12 @@ export default {
 				this.$router.push({path: '/index'})
 				
 				setTimeout(()=>{
-					Message({message: data.res.message});
+					this.message({message: data.res.message});
 				},500);
 				return
+			}
+			if(data.operate=='bind'){
+				this.$router.push({path: '/setSecurity'})
 			}
 			if(data.operate=='login'){
 				let pr = {
@@ -46,9 +50,7 @@ export default {
 				}).catch();
 				return
 			}
-			if(data.operate=='bind'){
-				this.$router.push({path: '/setSecurity'})
-			}
+			
 			
 		},
 	},

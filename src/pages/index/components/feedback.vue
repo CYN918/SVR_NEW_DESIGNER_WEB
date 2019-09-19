@@ -65,7 +65,7 @@ export default {
 	data(){
 	    return {
 	    	tanCo:{
-	    		titile:'意见反馈',
+	    		title:'意见反馈',
 	    		scroll:1,
 	    	},
 	        link:'',

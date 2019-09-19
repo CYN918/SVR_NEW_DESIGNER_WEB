@@ -64,81 +64,85 @@
 			
 		</div>
 		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
+		<TcBox :config="outc" ref="tcBox">
+			<template v-slot:todo="{ todo }">				
+				<div v-if="tAncType==1" class="tc_sucd_1">
+					
+					<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
+					<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
+					<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(tancData.newMoble,tancData.mobile_zone)" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 		
-		<div v-if="tAncType>0" class="tc_sucd">
-			
-			<div v-if="tAncType==1" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-				<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
-				<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
-				<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(tancData.newMoble,tancData.mobile_zone)" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
-				<div class="tc_sucd_1_2">
-					<span @click="closeTc1">取消</span>
-					<span @click="qdTc2">确定</span>
-				</div>
-			</div>
-			
-			<div v-if="tAncType==2" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>
-				<div class="emailyzm">
-					<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
-					<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>
-				</div>
-				<div class="tc_sucd_1_2">
-					<span @click="closeTc1">取消</span>
-					<span @click="qdTc3">确定</span>
-				</div>
-			</div>
-			<div v-if="tAncType==3" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-				<img class="tAncType4_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/email01.png" alt="">
-				<div class="tAncType4_2">
-					激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/>
-					请及时登录邮箱，点击邮件中的链接激活帐户。
-				</div>
-			</div>
-			
-			
-			<div v-if="tAncType==4" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-				<div class="tc_spasswodr_1">
-					<span @click="checkPwor(0)" :class="isyazfs==0?'checkd':''">旧密码验证</span>
-					<span @click="checkPwor(1)" :class="isyazfs==1?'checkd':''">短信验证</span>
-				</div>
-				<div class="tc_spasswodr_1_1" v-if="isyazfs==0">
-					<Input v-model="tancData.old_password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'旧密码'"></Input>
-					<Input v-model="tancData.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'新密码，6-16位'"></Input>			
-					<Input v-model="tancData.password_repass"  :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认新密码，6-16位'"  ></Input>
 					<div class="tc_sucd_1_2">
-						<span @click="closeTc1">取消</span>
-						<span @click="qdTc4">确定</span>
+						<div @click="closeTc1" class="btns pend">取消</div>
+						<div @click="qdTc2" class="btns btns_js pend">确定</div>
 					</div>
 				</div>
-				<div class="tc_spasswodr_1_1" v-if="isyazfs==1">
+				
+				<div v-if="tAncType==2" class="tc_sucd_1">
+				
+					<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>
+					<div class="emailyzm">
+						<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
+						<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>
+					</div>
 					<div class="tc_sucd_1_2">
-						<Input v-model="tancData.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
-						<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(tancData.mobile,tancData.mobile_zone)" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+						<div @click="closeTc1" class="btns pend">取消</div>
+						<div @click="qdTc3" class="btns btns_js pend">确定</div>
+					</div>
+
+				</div>
+				<div v-if="tAncType==3" class="tc_sucd_1">
+					<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
+					<img class="tAncType4_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/email01.png" alt="">
+					<div class="tAncType4_2">
+						激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/>
+						请及时登录邮箱，点击邮件中的链接激活帐户。
+					</div>
+				</div>
+				
+				
+				<div v-if="tAncType==4" class="tc_sucd_1">
+					
+					<div class="tc_spasswodr_1">
+						<span @click="checkPwor(0)" :class="isyazfs==0?'checkd':''">旧密码验证</span>
+						<span @click="checkPwor(1)" :class="isyazfs==1?'checkd':''">短信验证</span>
+					</div>
+					<div class="tc_spasswodr_1_1" v-if="isyazfs==0">
+						<Input v-model="tancData.old_password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'旧密码'"></Input>
 						<Input v-model="tancData.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'新密码，6-16位'"></Input>			
 						<Input v-model="tancData.password_repass"  :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认新密码，6-16位'"  ></Input>
-						<span @click="closeTc1">取消</span>
-						<span @click="qdTc5">确定</span>
+						<div class="tc_sucd_1_2">
+							<div @click="closeTc1" class="btns pend">取消</div>
+							<div @click="qdTc4" class="btns btns_js pend">确定</div>
+						</div>
+					</div>
+					<div class="tc_spasswodr_1_1" v-if="isyazfs==1">
+						<div class="tc_sucd_1_2">
+							<Input v-model="tancData.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
+							<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(tancData.mobile,tancData.mobile_zone)" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+							<Input v-model="tancData.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'新密码，6-16位'"></Input>			
+							<Input v-model="tancData.password_repass"  :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认新密码，6-16位'"  ></Input>
+							<div class="tc_sucd_1_2">
+								<div @click="closeTc1" class="btns pend">取消</div>
+								<div @click="qdTc5" class="btns btns_js pend">确定</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				<div v-if="tAncType==5" class="tc_sucd_1">
+					<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
+				
+					<div class="bindwxd_3">
+						是否确认解绑？
+					</div>
+					<div class="tc_sucd_1_2">
+						<div @click="closeTc1" class="btns pend">取消</div>
+						<div @click="qdTc6" class="btns btns_js pend">确定</div>
 					</div>
 				</div>
-			</div>
-			<div v-if="tAncType==5" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-			
-				<div class="bindwxd_3">
-					是否确认解绑？
-				</div>
-				<div class="tc_sucd_1_2">
-					<span @click="closeTc1">取消</span>
-					<span @click="qdTc6">确定</span>
-				</div>
-			</div>
-			
-		</div>
+			</template>			
+		</TcBox>
 	</div>
 </template>
 
@@ -151,11 +155,16 @@ import Input from '../../components/input'
 import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
+import TcBox from '../../components/TcBox';
 export default {
 	name: 'works',
-	components:{upoloadcaver,Input,Citys,Select,rideo,tophead},
+	components:{upoloadcaver,Input,Citys,Select,rideo,tophead,TcBox},
 	data(){
 		return {
+			outc:{
+				title:'',
+				scroll:1,
+			},
 			navDatad:{
 				title:'账号设置',
 				list:[
@@ -291,6 +300,12 @@ export default {
 		
 	}, 
 	methods: {
+		show(){
+			this.$refs.tcBox.show();
+		},
+		close2(){
+			this.$refs.tcBox.close();
+		},
 		gosetPersonal(a){
 			this.bdtj('帐号设置','帐号安全-'+a,'--');
 			if(this.form.contributor_type==2){
@@ -354,6 +369,7 @@ export default {
 				this.tancData.old_password = '';	
 				this.tancData.password = '';
 				this.tancData.password_repass = '';
+				this.close2();
 				this.tAncType=0;
 				Message({message: '密码修改成功'});
 			})
@@ -395,6 +411,7 @@ export default {
 				this.tancData.verify_code = '';
 				this.tancData.password_repass = '';
 				this.isyazfs=0;
+				this.close2();
 				this.tAncType=0;
 				Message({message: '密码修改成功'});
 			})
@@ -512,7 +529,8 @@ export default {
 				this.tancData.newMoble = '';
 				this.tancData.oldMoble = '';
 				this.tancData.old_mobile_zone = '86';
-				this.tancData.verify_code = '';			
+				this.tancData.verify_code = '';	
+				this.close2();
 				this.tAncType=0;
 				Message({message: '修改成功'});
 				
@@ -545,6 +563,7 @@ export default {
 			if(this.tAncType==5){
 				this.jbnData = '';
 			}
+			this.close2();
 			this.tAncType=0;
 		},
 		openTc1(on,t,t2){
@@ -560,6 +579,7 @@ export default {
 			if(t2){
 				this.bdtj('帐号设置','帐号安全-'+t+'-'+t2,'--');
 			}
+			this.show();
 			this.tAncType=on;
 		},
 		

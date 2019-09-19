@@ -188,13 +188,24 @@ img{
 	margin-right: 0;
 }
 .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
-    margin: 0 5px;
-    background-color: initial;
-    color: #606266;
-    min-width: 30px;
-    border-radius: 2px;
-	border:1px solid #eee;
+	width:40px;
+	height:40px;
+	text-align: center;
+	line-height: 40px;
+	color:rgba(153,153,153,1);
+	background:rgba(255,255,255,1);
+	border-radius:5px;
+	border:1px solid rgba(187,187,187,1);
 	
+}
+.el-pagination .el-select .el-input .el-input__inner{
+	height: 40px;
+}
+.el-pagination__editor.el-input .el-input__inner{
+	height: 40px;
+}
+.el-pagination__jump{
+	color: #999999;
 }
 .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color: #FF5121;
@@ -273,7 +284,7 @@ img{
 .lgoin_s2{
 	position: relative;
 	width:0;
-	margin:  0 29px;
+	margin:  0 0 0 29px;
 }
 .lgoin_s2:after {
     content: "";
@@ -489,7 +500,7 @@ img{
 .lgoin_s3x2{
 	position: relative;
     display: inline-block;
-    min-width: 70px;
+    width: 110px;
 	line-height: 40px;
     vertical-align: middle;
     color: #FF5121;
@@ -1577,6 +1588,10 @@ content: "";
 	transform: translateX(-50%);
 	width: 1300px;
 }
+@media screen and (max-width: 1300px){
+	.navDwzc{left:0;
+	transform: translateX(0);}
+}
 .setUserBoxs_cent>.suc_btndf{
 	background: #FF5121;
 	border-radius: 5px;
@@ -1608,18 +1623,9 @@ content: "";
 	background: rgba(0,0,0,.5);
 }
 .tc_sucd_1{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%,-50%);
-	transform: translate(-50%,-50%);
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	padding: 40px;
+	padding: 30px 40px 8px;
 }
 .tc_sucd_1_1{
-	width: 340px;
 	margin-bottom: 40px;
 }
 .tc_sucd_1_2>span{
@@ -1651,23 +1657,22 @@ content: "";
 	width: 26px;
 	height: 26px;
 }
-.tc_sucd_2_1{
-	width: 340px;
-}
+
 .bindEamil{
 	display: inline-block;
 	font-size: 14px;
 	color: #FF5121;
 	cursor: pointer;
 }
-.elmentIputNoborder{
-	width: 340px;
-}
+
 .elmentIputNoborder input{
 	border: none;
     border-bottom: 1px solid #E6E6E6;
     padding: 0;
     border-radius: 0;
+}
+.tc_sucd_1 .emailyzm .el-input{
+	width: 278px;
 }
 .emailyzm{
 	border-bottom: 1px solid #E6E6E6;
@@ -1757,17 +1762,18 @@ content: "";
 .tc_spasswodr_1>span{
 	cursor: pointer;
     display: inline-block;
-    width: 170px;
+    width: 50%;
     line-height: 40px;
     border-bottom: 1px solid #E6E6E6;
+}
+.tc_sucd_1_2{
+	margin-bottom: 30px;
 }
 .tc_spasswodr_1>.checkd{
 	border-color: #FF5121;
 	color: #FF5121;
 }
-.tc_spasswodr_1_1{
-	width: 340px;
-}
+
 .suc_1>.suc_1_4>span{
 
 	width: 62px;

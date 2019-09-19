@@ -2,13 +2,13 @@
 	<div class="topGd_01">
 		<div class="topGd_02">
 			<div class="topGd_03">
-				<div class="topGd_03_1">项目标题项目标题项目标题项目标题</div>
-				<div class="topGd_03_2">项目类型：图标设计</div>
-				<div class="topGd_03_2 topGd_03_3">领域范围：<span>平面</span><span>a</span><span>1</span></div>
+				<div class="topGd_03_1">{{obj.name}}</div>
+				<div class="topGd_03_2">项目类型：{{obj.classify_name}}</div>
+				<div class="topGd_03_2 topGd_03_3">领域范围：<span v-for="(el,index) in obj.fields" :key="index">{{el}}</span></div>
 			</div>
 			<div class="topGd_04">
-				<div class="topGd_04_1">
-					<span>27<span>天</span></span><span>18:00:00</span>后截止报名
+				<div v-if="djsshow.d" class="topGd_04_1">
+					<span >{{djsshow.d}}<span>天</span></span><span>{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>后截止报名
 				</div>
 				<div @click="bm('pr_rz')" class="topGd_04_2 btns btns_js pend">
 					报名项目
@@ -21,12 +21,23 @@
 <script>
 export default {
 	props:{
-		obj:Object,		
+		obj:Object,	
 	},
 	data(){
-		return{}
+		return{
+			djsshow:{}
+		}
+	},
+	mounted: function(){
+		this.init();
 	},
 	methods: {
+		init(){
+			this.djsshow = this.$parent.djstimd;
+		},
+		setTim(t){
+			this.djsshow = t;
+		},
 		bm(o){
 			this.api.pr_check({}).then((da)=>{
 				if(da=='error'){return}

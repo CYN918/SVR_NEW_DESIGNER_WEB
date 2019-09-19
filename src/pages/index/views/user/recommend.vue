@@ -1,5 +1,5 @@
 <template>
-	<div class="csBox">
+	<div class="csBox csBoxNx1">
 		<div class="worksBox">
 			<div class="worksBox_1">
 				共推荐{{total}}个作品 

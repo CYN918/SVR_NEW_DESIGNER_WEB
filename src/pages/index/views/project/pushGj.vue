@@ -163,6 +163,7 @@ export default {
 			const isLt2M = _file.size / 1024 / 1024/1024 < 1;
 			if (!isLt2M) {
 				this.$message.error("请上传1G以下的文件");
+				this.filelist.pop();
 				return false;
 			}
 		
@@ -215,11 +216,15 @@ export default {
 				}
 				
 			};
-			let uploadFailed = ()=>{				
+			let uploadFailed = ()=>{
+				this.fileList3.pop();
+				this.filelist.pop();
 				this.$message({message: '文件上传失败请稍后重试'});				
 			};
 			let uploadCanceled = ()=>{
 				if(this.type!=1){return}
+				this.fileList3.pop();
+				this.filelist.pop();
 				this.$message({message: '取消成功'});
 				
 			};

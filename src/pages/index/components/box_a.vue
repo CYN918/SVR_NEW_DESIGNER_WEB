@@ -83,7 +83,7 @@ export default {
     display: inline-block;
     width: 309.8px;
     height: 312.9px;
-    background: #F6F6F6;
+    background: #fff;
     border-radius: 5.08px;
     margin-right: 20.2px;
     margin-bottom: 21.0px;

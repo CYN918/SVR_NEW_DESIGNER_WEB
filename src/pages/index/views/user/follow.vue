@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="csBoxNx1">
 		<div class="worksBox">
 			<div class="worksBox_1">
 				共关注{{ total+'位创作者'}}

@@ -1,5 +1,5 @@
 <template>
-	<div class="pr_boxd">
+	<div :class="['pr_boxd',total>40?'toptool':'']">
 		<table v-if="List.length>0" class="tabld" border="1">
 			<tr >
 				<th v-for="(el,index) in cg.title" :key="index">{{el.n}}</th>
@@ -98,6 +98,7 @@ export default {
 				}				
 				this.List = da.data;
 				this.total = da.total;
+				this.total=41;
 				if(this.$parent.settotal){
 					this.$parent.settotal(da.total);
 				}
@@ -124,9 +125,16 @@ export default {
 
 <style>
 .pr_boxd{
+	position: relative;
 	width: 1300px;
-	min-height: 316px;
-	margin: 20px auto 140px;
+	margin: 20px auto 60px;
+}
+
+.pr_boxd .pagesddd{
+	bottom: 0;
+}
+.toptool{
+	padding-bottom:80px;
 }
 .tabld{
 	width: 100%;

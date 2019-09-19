@@ -34,7 +34,44 @@
 						<img src="/imge/profit/qxt.svg">
 						<div class="pbx_n_02">收益加成<img  @mouseout="mod()" @mouseover="modx($event,1)" class="pbx_n_06" src="/imge/project/09.svg" alt=""></div>
 						<div class="pbx_1_1">
-							<span>{{basDa.gain_share_rate}}</span>					
+							<span>{{basDa.gain_share_rate}}</span>	
+							<div v-if="sfas" class="sytc">
+								<div class="sytc_1">
+									<div class="sytc_1_1">
+										<div>当前累计收益：<span>￥ {{num2}}</span></div>
+										<div>当前收益加成：<span class="sytc_1_1x">+ {{basDa.gain_share_rate}}</span></div>
+									</div>
+									<div class="sytc_1_2">
+										收益成长任务
+									</div>
+									<div class="sytc_1_3">
+										达成收益条件，之后每单项目均会获得额外百分比收益加成
+									</div>
+									<div class="sytc_1_4">
+										项目加成收益=验收价格*收益加成比
+									</div>
+								</div>
+								<div class="sytc_2">
+									<div class="sytc_2_1">
+										<span>达成条件</span><span>收益加成</span>
+									</div>
+									<div :class="num2>=3000?'sydpjcOn':''">
+										<span>累计收益达到 ￥ 3,000.00</span><span>+ 5%</span>
+									</div>
+									<div :class="num2>=20000?'sydpjcOn':''">
+										<span>累计收益达到 ￥ 20,000.00</span><span>+ 15%</span>
+									</div>
+									<div :class="num2>=50000?'sydpjcOn':''">
+										<span>累计收益达到 ￥ 50,000.00</span><span>+ 20%</span>
+									</div>
+									<div :class="num2>=120000?'sydpjcOn':''">
+										<span>累计收益达到 ￥ 120,000.00</span><span>+ 25%</span>
+									</div>
+									<div :class="num2>=300000?'sydpjcOn':''">
+										<span>累计收益达到 ￥ 300,000.00 及以上</span><span>+ 30%</span>
+									</div>
+								</div>
+							</div>							
 						</div>
 						
 					</div>
@@ -52,8 +89,9 @@ import {Message} from 'element-ui'
 import TopNav from '../commd/topNav.vue';
 import tjLisst from './tjLisst'
 import txBox from './txBox'
+import tipd from '../project/cenTip';
 export default {
-	components:{TopNav,tjLisst,txBox},
+	components:{TopNav,tjLisst,txBox,tipd},
 	name: 'profit',	
 	data(){
 		return {
@@ -65,6 +103,8 @@ export default {
 			min1:'&#xe6a2;',
 			min2:'&#xe6a2;',	
 			txData:{},
+			sfas:'',
+			csff:'',
 		}
 	},
 	beforeCreate:function(){
@@ -87,12 +127,12 @@ export default {
 			this.getUserDetail();
 		},
 		mod(e){
-			this.sfas = 'display:none';
+			this.sfas = '';
 		},
 		modx(e,on){
-			this.csff = this.tips[on];
-			this.setPos(e.clientX,e.clientY);
-		},	
+			this.sfas = 1;
+		},
+	
 		getData(){
 			let pr = {};
 			this.api.Income_info(pr).then((da)=>{
@@ -198,7 +238,7 @@ export default {
 }
 .profitBox_2{
 	margin: 0 auto;
-	padding: 20px 0;
+	padding: 40px 0;
 	width: 1300px;	
 }
 
@@ -222,6 +262,7 @@ export default {
 }
 
 .pbx_1_1{
+	position: relative;
 	font-family:PingFang SC Semibold;
 	font-size:24px;
 	font-weight:600;
@@ -307,5 +348,105 @@ export default {
 	vertical-align: top;
 	width: 16px;
 	margin: 1px 0 0 5px;
+}
+.sytc{
+	z-index: 10;
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	box-sizing: border-box;
+	text-align: left;
+    -webkit-transform: translate(-35%,-3%);
+    transform: translate(-35%,-3%); 
+	width:424px;
+	height:491px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+}
+.sytc:after{
+    content: "";
+    position: absolute;
+    left: 74%;
+    top: -3px;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    -webkit-transform: rotate(45deg) translateX(-50%);
+    transform: rotate(45deg) translateX(-50%);
+    border: 1px solid rgba(152, 144, 144, 0.1);
+    border-right: 0;
+    border-bottom: 0;
+}
+.sytc>div{
+	padding:30px;
+}
+.sytc_1{
+	border-bottom: 1px solid rgba(244,246,249,1);
+}
+.sytc_1_1{
+	margin-bottom: 23px;
+}
+.sytc_1_1>div{
+	vertical-align: top;
+	display: inline-block;
+	font-size:14px;
+	color:rgba(102,102,102,1);
+	line-height:20px;
+	
+}
+.sytc_1_1>div:nth-child(1){
+	margin-right: 72px;
+}
+.sytc_1_1>div>span{
+	margin-top: 10px;
+	display: block;
+	line-height:34px;
+}
+.sytc_1_1x{
+	font-size:24px;
+	font-weight:600;
+	color:rgba(255,81,33,1);	
+}
+.sytc_1_2{
+	margin-bottom: 16px;
+	font-size:16px;
+	color:rgba(40,40,40,1);
+	line-height:22px;
+}
+.sytc_1_3{
+	font-size:14px;
+	color:rgba(187,187,187,1);
+	line-height:20px;
+	margin-bottom: 8px;
+}
+.sytc_1_4{
+	font-size:14px;
+	color:rgba(102,102,102,1);
+	line-height:20px;
+}
+.sytc_2>div{
+	margin-bottom: 10px;
+	font-size:14px;
+	color: rgba(102, 102, 102, 0.31);
+	
+	line-height:20px;
+	height: 20px;
+}
+.sytc_2>div>span:nth-child(1){
+	float: left;
+}
+.sytc_2>div>span:nth-child(2){
+	float: right;
+}
+.sytc_2>div.sytc_2_1{
+	color: #333;
+	margin-bottom: 14px;
+}
+.sytc_2>div.sydpjcOn{
+	color: #FF5121;
+}
+.sytc_2>div.sydpjcOn~div{
+	color:rgba(51,51,51,1);
 }
 </style>

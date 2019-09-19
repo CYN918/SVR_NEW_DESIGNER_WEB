@@ -156,43 +156,26 @@
 			
 		</div>
 		
-		
-		<div v-if="tAncType>0" class="tc_sucd">
-			<div v-if="tAncType==1" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-				<Input class="tc_sucd_1_1" v-model="tancData.userName"  :oType="'max'" :max="15"  :chekFn="chekusername" :type="'text'" :placeholder="'请输入新的用户名'"></Input>		
-				<div class="tc_sucd_1_2">
-					<span @click="closeTc1">取消</span>
-					<span @click="qdTc1">确定</span>
+		<TcBox :config="outc" ref="tcBox">
+			<template v-slot:todo="{ todo }">				
+				<div v-if="tAncType==2" class="tc_sucd_1">					
+					<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
+					<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
+					<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入新手机的 6 位短信验证码'"  ref="verify"></Input>
+				</div>				
+				<div v-if="tAncType==3" class="tc_sucd_1">				
+					<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>
+					<div class="emailyzm">
+						<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
+						<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>
+					</div>
 				</div>
-			</div>
-			
-			<div v-if="tAncType==2" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-				<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
-				<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
-				<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
-				<div class="tc_sucd_1_2">
-					<span @click="closeTc1">取消</span>
-					<span @click="qdTc2">确定</span>
+				<div class="qxBm_btns">
+					<div @click="closeTc1" class="btns pend">取消</div>
+					<div @click="qrFn()" class="btns btns_js pend">确定</div>				
 				</div>
-			</div>
-			
-			<div v-if="tAncType==3" class="tc_sucd_1">
-				<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
-				<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>
-				<div class="emailyzm">
-					<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
-					<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>
-				</div>
-				<div class="tc_sucd_1_2">
-					<span @click="closeTc1">取消</span>
-					<span @click="qdTc3">确定</span>
-				</div>
-			</div>
-	
-			
-		</div>
+			</template>			
+		</TcBox>
 	</div>
 </template>
 
@@ -203,11 +186,17 @@ import Input from '../../components/input'
 import Citys from '../../components/citys'
 import uploadFile from '../../components/uploadFile'
 import jdt from '../../components/jdt'
+import TcBox from '../../components/TcBox';
 export default {
 	name: 'works',
-	components:{Input,Citys,uploadFile,jdt},
+	components:{Input,Citys,uploadFile,jdt,TcBox},
 	data(){
 		return {
+			outc:{
+				title:'',
+				scroll:1,
+			},
+			qrFnName:'',
 			isJdt1:'',
 			isJdt2:'',
 			isJdt3:'',
@@ -323,6 +312,12 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		show(){
+			this.$refs.tcBox.show();
+		},
+		close2(){
+			this.$refs.tcBox.close();
+		},
 		scsk(a){
 			this.bdtj('个人认证页面',a,'--');
 		},
@@ -417,14 +412,6 @@ export default {
 			
 			
 			this.isPostky = true;
-			
-			
-			
-			
-			
-			
-			
-			
 		},
 		postCheck(){
 			if(!(/^1[34578]\d{9}$/.test(this.postData.reserve_phone))){
@@ -572,6 +559,7 @@ export default {
 				this.tancData.email = '';	
 				this.tancData.pic_verify = '';
 				this.tAncType=0;
+				this.closeTc1();
 
 				
 			});
@@ -611,41 +599,35 @@ export default {
 				this.tancData.old_mobile_zone = '86';
 				this.tancData.verify_code = '';			
 				this.tAncType=0;
+				this.closeTc1();
 				Message({message: '修改成功'});
 				
 				
 			});
 		},
-		qdTc1(){
-			
-			let postData = {
-				access_token:window.userInfo.access_token,
-				username:this.tancData.userName,				
-			};
-			this.api.Userupdate(postData).then((da)=>{
-				if(da=='error'){
-					return
-				}
-				this.form.username = this.tancData.userName;
-				this.tancData.userName = '';
-				this.tAncType=0;
-				Message({message: '修改成功'});
-			});
+		qrFn(){
+			this[this.qrFnName]();
 		},
+
 		closeTc1(){		
 			if(this.tAncType==1){			
 				this.tancData.userName = '';				
 			}	
-			
+			this.close2();
 			this.tAncType=0;
 		},
-		openTc1(on){
+		openTc1(on){		
 			if(on==3){
+				this.outc.title='邮箱认证';
+				this.qrFnName = 'qdTc2';
 				this.Verifycodeget();
 			}
 			if(on==2){
+				this.outc.title='更换手机号';
+				this.qrFnName = 'qdTc3';
 				this.bdtj('个人认证页面','更换手机号','--');
-			}
+			}			
+			this.show();
 			this.tAncType=on;
 		},
 		

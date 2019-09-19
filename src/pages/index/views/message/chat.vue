@@ -157,6 +157,8 @@ export default {
 			if(!window.userInfo){
 				this.$router.push({path:'/login'});
 			}
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.addEvent2(this.$refs.listDom);
 			this.addEvent1(this.$refs.messgDom);
 

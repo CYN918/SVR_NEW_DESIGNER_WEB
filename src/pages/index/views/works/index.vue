@@ -92,7 +92,7 @@ export default {
 	margin: 27px auto 27px;
 	width: 1300px;
 	margin-bottom: 20px;
-	text-align: left;
+	text-align: center;
 }
 	
 .homghhd>a{

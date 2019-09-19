@@ -4,7 +4,7 @@
 			<div class="pr_bg_02">验收报告</div>
 			<div class="pr_bg_03">
 				<div class="pr_bg_03_1">
-					<img class="pr_bg_03_1_1" src="" alt="">
+					<img class="pr_bg_03_1_1" :src="das.banner" alt="">
 					<div class="pr_bg_03_1_2">
 						<div class="pr_bg_03_1_2_1">
 							<div class="pr_bg_03_1_2_1_1">项目名称：{{das.name}}</div>
@@ -96,7 +96,7 @@ export default {
 			this.sfas = 'top:'+y+'px;left:'+x+'px';
 		},
 		back(){
-			this.$router.push({path:'/prcent',query:{id:2}})	
+			this.$router.push({path:'/projectAll'})	
 		},
 		goTo(on){
 			this.$router.push({path: on})	

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="csBoxNx1">
 		<div class="info_boxd">
 			<div class="info_box">
 				<div>

@@ -120,11 +120,10 @@ export default {
 			this.api.pr_check({}).then((da)=>{
 				if(da=='error'){return}
 				if(da.is_complete==true && da.is_contributor==true && da.work_num==3){
-					this.$parent.showTc('bmXm',{project_id:this.$parent.deta.id});
+					this.$parent.showTc('bmXm',{project_id:this.$parent.deta.id});	
 					return
-				}			
-				this.$parent.showTc('bmXm',{project_id:this.$parent.deta.id});	
-				// this.$parent.showTc(o,da);				
+				}
+				this.$parent.showTc(o,da);				
 			}).catch(()=>{
 				
 			})
@@ -140,6 +139,7 @@ export default {
 				this.xmTypeOn++;
 				this.djsshow = '';
 				this.da = this.xmType[this.xmTypeOn];	
+				this.$parent.timeF(this.djsshow);
 				return
 			}	
 			setTimeout(()=>{
@@ -152,17 +152,20 @@ export default {
 			this.djsshow = p;
 			if(da.s>0){
 				da.s--;
+				this.$parent.timeF(this.djsshow);
 				return
 			}
 			if(da.m>0){
 				da.m--;
 				da.s = 59;
+				this.$parent.timeF(this.djsshow);
 				return
 			}
 			if(da.h>0){
 				da.h--;
 				da.m= 59;
 				da.s = 59;
+				this.$parent.timeF(this.djsshow);
 				return
 			}
 			if(da.d>0){
@@ -170,8 +173,11 @@ export default {
 				da.h = 23;
 				da.m= 59;
 				da.s = 59;
+				this.$parent.timeF(this.djsshow);
 				return
 			}
+			
+			
 			
 		},
 		btime(t){

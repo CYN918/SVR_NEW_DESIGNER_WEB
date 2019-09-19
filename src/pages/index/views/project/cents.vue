@@ -59,7 +59,7 @@
 		<component v-bind:is="tcZj"  :datad="tcData"></component>
 		
 		
-		<topGd v-if="topTyped==1 && deta.status==1"></topGd>
+		<topGd v-if="topTyped==1 && deta.status==1" :obj="pzTop" ref="topGd"></topGd>
 	</div>
 	
 </template>
@@ -101,6 +101,8 @@ export default {
 			djsTime:{},
 			savGd:'',
 			topTyped:'',
+			pzTop:{},
+			djstimd:{},
 		}
 	},
 	mounted: function(){
@@ -176,6 +178,13 @@ export default {
 			this.deta.status= on;
 			this.$refs.xmDp.setStuts(on);
 		},
+		timeF(time){
+			this.djstimd = time;
+			if(this.$refs.topGd){
+				this.$refs.topGd.setTim(time);
+			}
+			
+		},
 		getData(){
 			
 			let pr = {
@@ -187,7 +196,11 @@ export default {
 				if(da.status==1 && da.is_sign_up==0){
 					document.addEventListener('scroll',this.autoS,false);	
 				}
-				
+				this.pzTop = {
+					name:da.name,
+					classify_name:da.classify_name,
+					fields:da.fields,					
+				};
 				this.deta = da;
 			}).catch(()=>{
 				

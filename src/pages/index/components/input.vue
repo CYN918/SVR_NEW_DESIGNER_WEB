@@ -202,7 +202,7 @@ export default {
 			this.timer = '获取验证码';			
 		},
 		runTimer(num){
-			this.timer = num +'秒后重新获取';
+			this.timer = num +'秒后重试';
 			if(num==0){
 				this.timer = '获取验证码';
 				return

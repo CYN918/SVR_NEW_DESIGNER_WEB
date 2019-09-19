@@ -22,11 +22,14 @@ export default {
 	},
 	methods: {	
 		init(){
-			// document.body.style='overflow-y: hidden;';
+			window.addEventListener('mousewheel', this.nosc, { passive: false })
 		},
 		close(){
-			// document.body.style='';
+			window.removeEventListener('mousewheel',this.nosc)
 			this.$parent.close();
+		},
+		nosc(e){
+			event.preventDefault();
 		},
 	}
 }	
@@ -35,7 +38,7 @@ export default {
 <style>
 .pr_tc_01{
 	position: fixed;
-	z-index: 10000;
+	z-index: 10001;
 	top: 0;
 	left: 0;
 	width: 100%;

@@ -326,5 +326,9 @@ export default {
 		url:'/api/user/saveSkill',method:'post',baseURL:0,
 	},
 	
+	pr_recommend:{
+		url:'/api/project/recommend',method:'post',baseURL:0,
+	},
+	
 	
 }

@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<div class="new_usecm_1">
 		<div v-show="isUpbg" class="u_top1">
 			<div class="upBg">
 				<vueCropper
@@ -74,13 +75,13 @@
 			
 		</div>
 		
-		<div class="userNavBox">
+		<div class="userNavBoxXz">
 			<a :class="['pend',ison=='/works'?'router-link-active':'']" @click="goZP('/works','tag_作品')">作品</a>
 			<a :class="['pend',ison=='/recommend'?'router-link-active':'']" @click="goZP('/recommend','tag_推荐')">推荐</a>
 			<a :class="['pend',ison=='/follow' || gofn?'router-link-active':'']" @click="goZP('/follow','tag_关注')">关注</a>
 			<a :class="['pend',ison=='/info'?'router-link-active':'']" @click="goZP('/info','tag_资料')">资料</a>
 		</div>
-		
+		</div>
 		<div v-show="isshowd2" class="loginoutBox">
 			<div class="loginoutBox1">
 				<img @click="hindHb2()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
@@ -318,7 +319,7 @@ export default {
 		},
 		showSetBg(a){
 			this.bdtjCom(a);
-			this.option.img = '';
+			this.option.img = this.userMessage.user_center_banner_pic?this.userMessage.user_center_banner_pic:this.userBg;
 			this.isUpbg=true;
 		},
 		hindSetBg(){
@@ -447,6 +448,9 @@ export default {
 </script>
 
 <style>
+.new_usecm_1{
+	background: #fff;
+}
 .u_top1{
 	height: 384px;
 	border-bottom: 1px solid #E6E6E6;
@@ -724,12 +728,12 @@ export default {
 	border-color: #FF5121;
 	color: #fff;
 }
-.userNavBox{
+.userNavBoxXz{
 	margin-top: 36px;
-	border-bottom: 1px solid #E6E6E6;
+	border:none;
 	height: 37px;
 }
-.userNavBox>a{
+.userNavBoxXz>a{
 	display: inline-block;
 	height: 100%;
 	margin-right: 72px;
@@ -737,18 +741,18 @@ export default {
 	color: #1E1E1E;
 
 }
-.userNavBox>a:hover{
+.userNavBoxXz>a:hover{
 	color: #FF5121;
 }
-.userNavBox>a:last-child{
+.userNavBoxXz>a:last-child{
 	margin-right: 0;
 }
-.userNavBox>.router-link-active{
+.userNavBoxXz>.router-link-active{
 	position: relative;
 	color: #FF5121;
 	font-weight: bold;
 }
-.userNavBox>.router-link-active:after{
+.userNavBoxXz>.router-link-active:after{
 	content: "";
 	position: absolute;
 	bottom: 0;
@@ -767,5 +771,8 @@ export default {
 .noData_x_01{
 	text-align: center;
     margin: 60px auto;
+}
+.csBoxNx1{
+	min-height: 500px;
 }
 </style>
