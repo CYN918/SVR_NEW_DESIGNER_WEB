@@ -14,7 +14,7 @@
 				</div>
 				
 				<div class="setUserBoxs_cent">
-					<div class="suc_1 skill_01">
+					<div class="suc_1 suc_1x skill_01">
 						<div class="suc_title">项目投入意向<i class="xhds"></i></div>
 						<div>
 							<span>工作现状</span>
@@ -424,9 +424,19 @@ export default {
 	color: #fff;
 }
 .cl_n_x1 .el-select .el-tag{
+	position: relative;
 	background: none;
 	margin: 0;
 	padding-right: 0 !important;
+	padding: 0;
+	font-size: 14px;
+	color:#606266;
+}
+.cl_n_x1 .el-select__tags{
+	    padding: 0 16px;
+}
+.cl_n_x1 .el-select .el-tag:after{
+	content: "/";
 }
 .cl_n_x1 .el-select .el-tag__close.el-icon-close{
 	display: none;

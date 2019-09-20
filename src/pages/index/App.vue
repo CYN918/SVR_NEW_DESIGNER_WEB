@@ -1469,6 +1469,9 @@ content: "";
 	text-align-last: justify;
 }
 .suc_1>div{
+	margin-bottom: 25px;
+}
+.suc_1x>div{
 	line-height: 40px;
 	margin-bottom: 25px;
 }
