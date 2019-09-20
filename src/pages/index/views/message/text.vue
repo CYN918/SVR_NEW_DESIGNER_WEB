@@ -35,7 +35,7 @@ export default {
 		init(){
 			this.isaj = '';
 			this.getXsm();
-			this.getMrData();
+//			this.getMrData();
 			this.getPzData();
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
@@ -74,9 +74,11 @@ export default {
 		},
 		getPzData(){			
 			this.api.documentget({type:this.$route.name}).then((da)=>{
-				if(da=="error" || !da.document){return}
+				if(da=="error" || !da.document){this.getMrData();return}
 				this.isaj = 1;
 				this.comt = da.document;
+			}).catch(()=>{
+				this.getMrData();
 			})
 		}
 	},
