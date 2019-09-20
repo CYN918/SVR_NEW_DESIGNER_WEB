@@ -31,6 +31,9 @@ export default {
 }
 </script>
 <style>
+#app > div > div.logindboxd{
+	background: none;
+}
 .logindboxd{
 	min-height: 100% !important;
 }
