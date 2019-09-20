@@ -51,7 +51,7 @@
 				<div class="plBoxd" ref="firstAnchor">
 					<div class="seed2_1_2_1_new1">
 						<div class="new_c_2">
-							<textarea class="new_c_3" :style="backHig" @onresize="tttt"   v-model="pl" placeholder="说点什么吧" ref="textadf"></textarea>
+							<textarea :class="['new_c_3',new_c_3focus]" :style="backHig" @focus="sqfs" @blur="sqjd" v-model="pl" placeholder="说点什么吧" ref="textadf"></textarea>
 							<div class="textAmax">{{pl?pl.length:0}}/140</div>
 						</div>
 						
@@ -185,6 +185,7 @@ export default {
 	components:{Input,RPT,fxd,box_a,TcBox,unfollow},
 	data(){
 		return{
+			new_c_3focus:'',
 			outc:{
 				title:'删除评论确认',
 				scroll:1,
@@ -243,6 +244,15 @@ export default {
 		
 	}, 
 	methods: {
+		sqfs(){
+			this.new_c_3focus = 'new_c_3focus';
+		},
+		sqjd(){
+			if(this.zkMyFun.checkWz(this.pl)!=false){
+				return
+			}
+			this.new_c_3focus = '';
+		},
 		showTc(){
 			this.$refs.tcBox.show();
 		},
@@ -253,9 +263,7 @@ export default {
 		unfollowSu(){
 			this.contDat.user_info.follow_flag=0;
 		},
-		tttt(){
-			console.log(222)
-		},
+
 		addCommentNe(a,b,c,d){
 			this.bdtj('详情页',a,'--');
 			this.addComment(b,c,d);
@@ -314,7 +322,7 @@ export default {
 			this.$router.push({path: '/works',query:{id:id}})	
 		},
 		showReport(id,lid,ad){
-			console.log(this);
+
 			this.bdtj('详情页','举报'+ad,'--');
 			this.$refs.report.showReport(id,lid,ad);
 		},

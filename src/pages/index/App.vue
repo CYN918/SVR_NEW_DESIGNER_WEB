@@ -52,7 +52,7 @@ img{
 	-moz-osx-font-smoothing: grayscale;
 }
 #app{
-	font-family: 'PingFang SC Regular','Avenir', Helvetica, Arial, sans-serif;
+	font-family: 'PingFang SC Regular','Helvetica', 'Arial', 'sans-serif',"microsoft yahei";
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #2c3e50;
@@ -1114,6 +1114,7 @@ img{
 	right: 20px;
 	color: #bbb;
 	line-height: 40px;
+	
 }
 .new_c_3{
 	outline:none;resize:none;
@@ -1134,8 +1135,8 @@ img{
 	box-sizing: border-box;
 	
 }
-.new_c_3:focus{
-	border: 1px solid #000;
+.new_c_3focus{
+	border: 1px solid #979797;;
 	background: none;
 }
 .new_c_2 input::-webkit-input-placeholder{color:#666;}
@@ -1783,7 +1784,7 @@ content: "";
 
 .suc_1>.suc_1_4>span{
 
-	width: 62px;
+	width: 73px;
 	margin-right: 54px;
 }
 .suc_1>.suc_1_4>span>img{

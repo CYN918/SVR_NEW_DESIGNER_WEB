@@ -119,7 +119,7 @@ export default {
 		showTc1(o){
 			this.api.pr_check({}).then((da)=>{
 				if(da=='error'){return}
-				if(da.is_complete!=true || da.is_contributor!=true && da.work_num<3){
+				if(da.is_complete!=true || da.is_contributor!=true || da.work_num<3){
 					this.$parent.showTc(o,da);	
 					return
 				}

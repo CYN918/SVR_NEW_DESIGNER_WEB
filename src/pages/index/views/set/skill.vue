@@ -80,6 +80,7 @@
 								<span v-for="(el,index) in pz_field" :key="index" @click="chekfield(el)" :class="form.field.indexOf(el)==-1?'':'oncheck'">{{el}}</span>
 								<div class="addM_n_1">
 									<input @keyup.enter="keydown2" v-model="add_pz_field" placeholder="请输入最多4个文字回车结束" type="text" ref="keydown2"/>
+									<img src="/imge/svg/new/icon_add.svg"/>
 								</div>
 							</div>
 						</div>
@@ -466,35 +467,20 @@ export default {
 }
 .addM_n_1{
 	display: inline-block;
-	position: relative;
-	/*width:223px;*/
-	width: 78px;
+	position: relative;	
 }
-.addM_n_1:after,.addM_n_1:before{
-	content: "";
-	position: absolute;
-	background: #bbb;
-
-	top: 50%;
-	transform: translateY(-50%);
-}
-.addM_n_1:after{
-	left: 17px;
-	width: 3px;
-	height: 14px;
-}
-.addM_n_1:before{
-	left: 11PX;
-	height: 2px;
-	width: 14px;
+.addM_n_1>img{
+    position: absolute;
+    left: 12px;
+    top: 9px;
+    width: 14px;
 }
 .addM_n_1>input{
-	outline: none;
-	
+	outline: none;	
 	display: inline-block;
 	box-sizing: border-box;
 	padding: 0 15px 0 34px;
-	width: 100%;
+	width: 78px;
 	height:32px;
 	background:rgba(255,255,255,1);
 	border-radius:16px;

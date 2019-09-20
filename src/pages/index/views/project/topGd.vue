@@ -2,15 +2,13 @@
 	<div class="topGd_01">
 		<div class="topGd_02">
 			<div class="topGd_03">
-				<div class="topGd_03_1">{{obj.name}}</div>
-				<div class="topGd_03_2">项目类型：{{obj.classify_name}}</div>
-				<div class="topGd_03_2 topGd_03_3">领域范围：<span v-for="(el,index) in obj.fields" :key="index">{{el}}</span></div>
+				<div class="topGd_03_1">{{obj.name}}</div>				
 			</div>
 			<div class="topGd_04">
 				<div v-if="djsshow.d" class="topGd_04_1">
-					<span >{{djsshow.d}}<span>天</span></span><span>{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>后截止报名
+					<span >{{djsshow.d}}<span>天</span></span><span>{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
 				</div>
-				<div @click="bm('pr_rz')" class="topGd_04_2 btns btns_js pend">
+				<div @click="bm('pr_rz')" class="topGd_04_2 topGd_04_2x btns btns_js pend">
 					报名项目
 				</div>
 			</div>
@@ -65,7 +63,7 @@ export default {
 	box-shadow:0px 2px 6px 0px rgba(0,0,0,0.1);
 	padding:20px 0;
 	width: 100%;
-	height:100px;
+	height:40px;
 }
 .topGd_02{
 	margin: 0 auto;
@@ -84,33 +82,17 @@ export default {
 }
 .topGd_03_1{
 	font-size:24px;
-	font-weight:400;
 	color:rgba(30,30,30,1);
-	line-height:33px;
+	line-height:40px;
 }
-.topGd_03_2{
-	font-size:14px;
-	font-weight:400;
-	color:rgba(187,187,187,1);
-	line-height:20px;
-}
-.topGd_03_3>span{
-	display: inline-block;
-	vertical-align: top;
-	padding: 0 10px;
-	background:rgba(244,246,249,1);
-	border-radius:5px;
-	font-size:12px;
-	font-weight:400;
-	color:rgba(187,187,187,1);
-	height: 22px;
-	line-height:22px;
-	margin-right: 5px;
-}
+
+
 .topGd_04{
 	float: right;
-	width: 352px;
 	text-align: center;
+}
+.topGd_04>div{
+	display: inline-block;
 }
 .topGd_04_1{
 	font-size:14px;
@@ -139,5 +121,8 @@ export default {
 	font-weight:400;
 	font-family: PingFang SC Regular;
 	color:rgba(187,187,187,1);
+}
+.topGd_04_2x{
+	margin-left: 24px;
 }
 </style>

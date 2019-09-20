@@ -404,7 +404,7 @@ export default {
 <style>
 .mylists{
 	margin: 0 20px 20px 0;
-    background: #F6F6F6;
+    background: #fff;
     border-radius: 5px;
     box-sizing: border-box;
     border: 1px solid #f6f6f6;

@@ -1,6 +1,11 @@
 <template>
 	<tanC :title="'交付稿件'">
-		<template v-slot:todo="{ todo }">			
+		<template v-slot:todo="{ todo }">	
+			
+			<div class="pushGjNa">
+				<span @click="qhType(1)" :class="type==1?'pushOx':''">本地上传</span>
+				<span @click="qhType(2)" :class="type==2?'pushOx':''">网盘链接</span>
+			</div>
 			<div v-if="type==1" class="pushGj_01">
 				<div class="pushGj_02">
 					<el-upload
@@ -50,7 +55,7 @@
 				</div>
 			</div>
 			<div class="bmXm_01Btn">
-				<span class="bmXm_01Btn_1 pend" @click="qhType()">{{type==1?'稿件太大？用网盘传吧':'本地直接上传'}}</span>
+				
 				<div @click="pushfiled"  class="btns btns_js pend">提交</div>
 			</div>
 		</template>			
@@ -83,8 +88,9 @@ export default {
 		init(){
 			this.customize = window.basrul+'/File/File/delete';
 		},
-		qhType(){
-			this.type = this.type==1?2:1;
+		qhType(on){
+			if(on==this.type){return}
+			this.type =on;
 			this.clodfileAll();
 			this.eell = '';
 			this.fileList3 = [];			
@@ -303,6 +309,9 @@ export default {
 	resize: none;
 	line-height:20px;
 }
+.pushGj_02 .el-upload-dragger{
+	border-color: #FF5121;
+}
 .bmXm_01Btn{
 	position: relative;
 	text-align: center;
@@ -385,5 +394,35 @@ export default {
 	width: 100%;
 	margin-bottom: 20px;
 	font-size: 14px;
+}
+.pushGjNa{
+	text-align: center;
+    font-size: 14px;
+    font-family: PingFangSC;
+    font-weight: 400;
+    color: rgba(30,30,30,1);
+    line-height: 20px;
+    margin-top: 42px;
+}
+.pushGjNa>span{
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	margin: 0 24px;
+}
+.pushGjNa>span:hover{
+	opacity: .7;
+}
+.pushOx{
+	color: #FF5121;
+}
+.pushOx:after{
+	content: "";
+	position: absolute;
+	bottom: -9px;
+	left: 10%;
+	background: #FF5121;
+	width: 80%;
+	height: 1px;
 }
 </style>
