@@ -25,6 +25,13 @@ input::-webkit-input-placeholder{color:#c0c4cc;}
 input::-moz-placeholder{color:#c0c4cc;}
 input:-moz-placeholder{color:#c0c4cc;}
 input:-ms-input-placeholder{color:#c0c4cc;}
+textarea::-webkit-input-placeholder{color:#c0c4cc;}
+textarea::-moz-placeholder{color:#c0c4cc;}
+textarea:-moz-placeholder{color:#c0c4cc;}
+textarea:-ms-input-placeholder{color:#c0c4cc;}
+
+
+
 img{
 	outline-width: 0px;
 	vertical-align: top;

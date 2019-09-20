@@ -14,7 +14,7 @@
 					  :show-file-list='true'
 					  accept='.zip,.tar'
 					  action="customize"
-					 
+					  
 					  >
 					  <i class="el-icon-upload"><img src="/imge/project/pus.svg"></i>
 					  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -42,7 +42,7 @@
 				</div>
 				<div>
 					<div class="pushGj_03_1">请提供网盘提取密码</div>
-					<input placeholder="如：xxx：无提取码则不填" v-model="access_code" type="text">
+					<input placeholder="如：xxx；无提取码则不填" v-model="access_code" type="text">
 				</div>
 				<div>
 					<div class="pushGj_03_1">备注说明</div>

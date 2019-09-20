@@ -1,6 +1,6 @@
 <template>
-	<div class="cen_tiop_01">
-		{{tipCent}}
+	<div class="cen_tiop_01" v-html="tipCent">
+	
 	</div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
 
 <style>
 .cen_tiop_01{
+	z-index: 10;
 	position: fixed;
 	max-width:232px;
 	transform: translate(-50%,15px);

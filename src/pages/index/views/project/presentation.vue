@@ -54,7 +54,7 @@
 				</div>
 			</div>
 		</div>
-		<tipd :tipCent="csff" :style="sfas" ref="csdf"></tipd>
+		<tipd class="newd" :tipCent="csff" :style="sfas" ref="csdf"></tipd>
 	</div>
 		
 </template>
@@ -66,7 +66,7 @@ export default {
 		return{
 			sfas:'',
 			csff:'ccccccc',
-			tips:['aaaaaaaaaaaaa','bbbbbbbbbbbbbb'],
+			tips:['延期交稿将最多按照<span style="color:red;">项目验收价格*10%*延期天数</span>扣除收益，实际扣除金额请以验收报告显示为准','bbbbbbbbbbbbbb'],
 			das:{}
 		}
 	},
@@ -78,7 +78,7 @@ export default {
 			return on==1?'买断式':'分成式';
 		},
 		init(){
-	
+			
 			if(!this.$route.query.id){
 				this.$router.push({path:'/index'})	
 			}
@@ -86,7 +86,7 @@ export default {
 			this.pr_gtreport();
 		},
 		mod(e){
-			this.sfas = 'display:none';
+//			this.sfas = 'display:none';
 		},
 		modx(e,on){
 			this.csff = this.tips[on];
@@ -109,6 +109,43 @@ export default {
 				if(da=='error'){return}
 				this.das = da;
 				console.log(da);
+				this.tips[1] = `<div class="sytc_1">
+									<div class="sytc_1_1">
+										<div>当前累计收益：<span>￥ ${da.gain_share_rate}</span></div>
+										<div>当前收益加成：<span class="sytc_1_1x">+ ${basDa.gain_share_rate}</span></div>
+									</div>
+									<div class="sytc_1_2">
+										收益成长任务
+									</div>
+									<div class="sytc_1_3">
+										达成收益条件，之后每单项目均会获得额外百分比收益加成
+									</div>
+									<div class="sytc_1_4">
+										项目加成收益=验收价格*收益加成比
+									</div>
+								</div>
+								<div class="sytc_2">
+									<div class="sytc_2_1">
+										<span>达成条件</span><span>收益加成</span>
+									</div>
+									<div :class="num2>=3000?'sydpjcOn':''">
+										<span>累计收益达到 ￥ 3,000.00</span><span>+ 5%</span>
+									</div>
+									<div :class="num2>=20000?'sydpjcOn':''">
+										<span>累计收益达到 ￥ 20,000.00</span><span>+ 15%</span>
+									</div>
+									<div :class="num2>=50000?'sydpjcOn':''">
+										<span>累计收益达到 ￥ 50,000.00</span><span>+ 20%</span>
+									</div>
+									<div :class="num2>=120000?'sydpjcOn':''">
+										<span>累计收益达到 ￥ 120,000.00</span><span>+ 25%</span>
+									</div>
+									<div :class="num2>=300000?'sydpjcOn':''">
+										<span>累计收益达到 ￥ 300,000.00 及以上</span><span>+ 30%</span>
+									</div>
+								</div>
+								<div>注:本次收益加成计算,以完成本次项目之前的等级加成为准</div>
+								`;
 			}).catch(()=>{
 				
 			});
@@ -122,6 +159,10 @@ export default {
 </script>
 
 <style>
+.newd{
+	max-width: 280px;
+    width: 276px;
+}
 .pr_bg_00{
 	background:rgba(244,246,249,1);
 }

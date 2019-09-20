@@ -15,7 +15,7 @@
 				
 				<div class="setUserBoxs_cent">
 					<div class="suc_1 skill_01">
-						<div class="suc_title">项目投入意向<span>*</span></div>
+						<div class="suc_title">项目投入意向<i class="xhds"></i></div>
 						<div>
 							<span>工作现状</span>
 							<el-select v-model="form.situation" placeholder="请选择">
@@ -61,13 +61,14 @@
 						
 					</div>
 					<div class="suc_1 skill_01">
-						<div class="suc_title">创作能力</div>
+						<div class="suc_title">创作能力<i class="xhds"></i></div>
 						<div class="skill_02">
 							<span>擅长风格</span>
 							<div>
 								<span v-for="(el,index) in pz_style" :key="index" @click="chekstyle(el)" :class="form.style.indexOf(el)==-1?'':'oncheck'">{{el}}</span>
 								<div class="addM_n_1 addM_n_2">
 									<input @keyup.enter="keydown1" v-model="add_pz_style" placeholder="请输入最多2个文字回车结束" type="text" ref="keydown1"/>
+									<img src="/imge/svg/new/icon_add.svg"/>
 								</div>
 							</div>
 						</div>
@@ -466,7 +467,8 @@ export default {
 .addM_n_1{
 	display: inline-block;
 	position: relative;
-	width:223px;
+	/*width:223px;*/
+	width: 78px;
 }
 .addM_n_1:after,.addM_n_1:before{
 	content: "";
@@ -488,6 +490,7 @@ export default {
 }
 .addM_n_1>input{
 	outline: none;
+	
 	display: inline-block;
 	box-sizing: border-box;
 	padding: 0 15px 0 34px;
@@ -497,5 +500,7 @@ export default {
 	border-radius:16px;
 	border:1px solid rgba(187,187,187,1);
 }
-
+.addM_n_1>input:focus{
+	width:223px;
+}
 </style>

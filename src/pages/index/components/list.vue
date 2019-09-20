@@ -3,7 +3,7 @@
 		<li v-for="(el,index) in List" :key="index">
 			<slot name="todo" v-bind:todo="el"></slot>			
 		</li>
-		<el-pagination class="pagesddd" v-if="total>40"
+		<el-pagination class="pagesddd" v-if="total>page.limit"
 		background
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"
