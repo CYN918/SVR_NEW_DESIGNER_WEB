@@ -32,13 +32,13 @@
 					<div class="suc_1 suc_2">
 						<div class="suc_title">第三方账号绑定</div>
 						<div class="suc_1_4">
-							<span><img src="/imge/svg/new/wx.svg" alt="">微信</span><div class="bindwxd_1" v-if="form.weixin_name">{{form.weixin_name}}</div><div class="bindwxd_2"><span @click="openTc1(5,'weixin','del')" v-if="form.weixin_name">解绑</span><span v-else @click="bindXg('weixin','add')">立即绑定</span></div>							
+							<span><img src="/imge/svg/new/wx.svg" alt="">微信</span><div class="bindwxd_1">{{form.weixin_name?form.weixin_name:'未绑定'}}</div><div class="bindwxd_2"><span class="btns pend" @click="openTc1(5,'weixin','del')" v-if="form.weixin_name">解绑</span><span v-else class="btns pend btns_js" @click="bindXg('weixin','add')">立即绑定</span></div>							
 						</div>
 						<div class="suc_1_4">
-							<span><img src="/imge/svg/new/qq.svg" alt="">QQ</span><div class="bindwxd_1" v-if="form.qq_name">{{form.qq_name}}</div><div class="bindwxd_2"><span @click="openTc1(5,'qq','del')" v-if="form.qq_name">解绑</span><span v-else @click="bindXg('qq','add')">立即绑定</span></div>							
+							<span><img src="/imge/svg/new/qq.svg" alt="">QQ</span><div class="bindwxd_1">{{form.qq_name?form.qq_name:'未绑定'}}</div><div class="bindwxd_2"><span class="btns pend" @click="openTc1(5,'qq','del')" v-if="form.qq_name">解绑</span><span v-else class="btns pend btns_js" @click="bindXg('qq','add')">立即绑定</span></div>							
 						</div>
 						<div class="suc_1_4">
-							<span><img src="/imge/svg/new/wb.svg" alt="">微博</span><div class="bindwxd_1" v-if="form.weibo_name">{{form.weibo_name}}</div><div class="bindwxd_2"><span @click="openTc1(5,'weibo','del')" v-if="form.weibo_name">解绑</span><span v-else @click="bindXg('weibo','add')">立即绑定</span></div>							
+							<span><img src="/imge/svg/new/wb.svg" alt="">微博</span><div class="bindwxd_1" >{{form.weibo_name?form.weibo_name:'未绑定'}}</div><div class="bindwxd_2"><span class="btns pend" @click="openTc1(5,'weibo','del')" v-if="form.weibo_name">解绑</span><span class="btns pend btns_js" v-else @click="bindXg('weibo','add')">立即绑定</span></div>							
 						</div>
 					</div>
 					<div class="suc_1 suc_3">

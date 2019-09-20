@@ -175,11 +175,18 @@ export default {
 	overflow: hidden;
     border-bottom: 1px solid #DCDFE6;
 	display: block;
-	margin: 20px auto 0;
+	margin: 0 auto 0;
 	width: 712px;
 	height: 60px;
 }
-
+.sea_n_2 .el-input--suffix .el-input__inner{
+	text-align: right;
+    padding-right: 32px;
+}
+.sea_n_2 .el-cascader__label{
+	text-align: right;
+    padding-right: 32px;
+}
 .sea_n_2 input{
 	border-radius: 0;
 	border: none;

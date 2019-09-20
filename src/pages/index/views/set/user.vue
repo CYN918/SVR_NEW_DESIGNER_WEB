@@ -257,7 +257,7 @@ export default {
 		},
 		phoneDm(p){
 			if(!p){return}
-			return p.substring(0,3)+'****'+p.substring(8,11);			
+			return p.substring(0,3)+'****'+p.substring(7,11);			
 		},
 		emailDm(p){
 			if(!p){return}

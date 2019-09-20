@@ -37,10 +37,14 @@ export default {
 			}).then((da)=>{
 				this.qxType='';
 				if(da=='error'){return}
-				this.$parent.setStaus('3');
+				if(this.$parent.setStaus){
+					this.$parent.setStaus('4');
+				}
 				this.$message({message:"撤回稿件成功"});
-				this.$parent.getData();
-				this.$parent.close();
+				if(this.$parent.getData){
+					this.$parent.getData();
+				}
+				this.close();
 			}).catch(()=>{
 				this.qxType='';
 			});

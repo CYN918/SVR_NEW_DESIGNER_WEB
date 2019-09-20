@@ -54,7 +54,7 @@
 				</div>
 			</div>
 		</div>
-		<tipd class="newd" :tipCent="csff" :style="sfas" ref="csdf"></tipd>
+		<tipd :class="tipOn==1?'newd2':'newd'" :tipCent="csff" :style="sfas" ref="csdf"></tipd>
 	</div>
 		
 </template>
@@ -67,7 +67,10 @@ export default {
 			sfas:'',
 			csff:'ccccccc',
 			tips:['延期交稿将最多按照<span style="color:red;">项目验收价格*10%*延期天数</span>扣除收益，实际扣除金额请以验收报告显示为准','bbbbbbbbbbbbbb'],
-			das:{}
+			das:{},
+			num2:0,
+			syNum:'0%',
+			tipOn:0,
 		}
 	},
 	mounted: function(){
@@ -84,12 +87,47 @@ export default {
 			}
 			
 			this.pr_gtreport();
+			this.getIOFN();
 		},
 		mod(e){
-//			this.sfas = 'display:none';
+			this.sfas = 'display:none';
+		},
+		
+		getIOFN(){
+			let pr = {};
+			this.api.Income_info(pr).then((da)=>{
+				
+				if(da=='error'){return}
+		
+				this.syNum = da.gain_share_rate;
+				this.num2 = da.total_income;				
+				let pList = [
+				{a:3000,b:'3,000.00',c:'5%'},
+				{a:20000,b:'20,000.00',c:'15%'},
+				{a:50000,b:'50,000.00',c:'20%'},
+				{a:120000,b:'120,000.00',c:'25%'},
+				{a:300000,b:'300,000.00',c:'30%'},
+					
+				];
+				let str = '<div class="sytc_1"><div class="sytc_1_1"><div>当前累计收益：<span>￥ ';
+				str+=this.num2+'</span></div><div>当前收益加成：<span class="sytc_1_1x">+ '+this.syNum;
+				str+='</span></div></div><div class="sytc_1_2">收益成长任务</div><div class="sytc_1_3">';
+				str+='达成收益条件，之后每单项目均会获得额外百分比收益加成</div><div class="sytc_1_4">项目加成收益=验收价格*收益加成比';
+				str+='</div></div><div class="sytc_2"><div class="sytc_2_1"><span>达成条件</span><span>收益加成</span></div>';
+				
+				for(let i=0,n=pList.length;i<n;i++){
+					str+='<div class="'+(this.num2>=pList[i].a?'sydpjcOn':'')+'"><span>累计收益达到 ￥ '+pList[i].b+'</span><span>+ '+pList[i].c+'</span></div>';
+					
+				}
+				str+='</div><div>注:本次收益加成计算,以完成本次项目之前的等级加成为准</div>'
+				this.tips[1] = str;
+	
+			})
+
 		},
 		modx(e,on){
 			this.csff = this.tips[on];
+			this.tipOn = on;
 			this.setPos(e.clientX,e.clientY);
 		},	
 		setPos(x,y){
@@ -108,44 +146,7 @@ export default {
 			}).then((da)=>{
 				if(da=='error'){return}
 				this.das = da;
-				console.log(da);
-				this.tips[1] = `<div class="sytc_1">
-									<div class="sytc_1_1">
-										<div>当前累计收益：<span>￥ ${da.gain_share_rate}</span></div>
-										<div>当前收益加成：<span class="sytc_1_1x">+ ${basDa.gain_share_rate}</span></div>
-									</div>
-									<div class="sytc_1_2">
-										收益成长任务
-									</div>
-									<div class="sytc_1_3">
-										达成收益条件，之后每单项目均会获得额外百分比收益加成
-									</div>
-									<div class="sytc_1_4">
-										项目加成收益=验收价格*收益加成比
-									</div>
-								</div>
-								<div class="sytc_2">
-									<div class="sytc_2_1">
-										<span>达成条件</span><span>收益加成</span>
-									</div>
-									<div :class="num2>=3000?'sydpjcOn':''">
-										<span>累计收益达到 ￥ 3,000.00</span><span>+ 5%</span>
-									</div>
-									<div :class="num2>=20000?'sydpjcOn':''">
-										<span>累计收益达到 ￥ 20,000.00</span><span>+ 15%</span>
-									</div>
-									<div :class="num2>=50000?'sydpjcOn':''">
-										<span>累计收益达到 ￥ 50,000.00</span><span>+ 20%</span>
-									</div>
-									<div :class="num2>=120000?'sydpjcOn':''">
-										<span>累计收益达到 ￥ 120,000.00</span><span>+ 25%</span>
-									</div>
-									<div :class="num2>=300000?'sydpjcOn':''">
-										<span>累计收益达到 ￥ 300,000.00 及以上</span><span>+ 30%</span>
-									</div>
-								</div>
-								<div>注:本次收益加成计算,以完成本次项目之前的等级加成为准</div>
-								`;
+				
 			}).catch(()=>{
 				
 			});
@@ -355,5 +356,20 @@ export default {
 }
 .pr_bg_04_4{
 	text-align: center;
+}
+.cen_tiop_01.newd2 {
+    transform: translate(-105%,-30%);
+    width: 370px;
+    max-width: 370px;
+}
+.cen_tiop_01.newd2:after{
+	top: 162px;
+    right: -8px;
+    left: auto;
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+}
+.cen_tiop_01.newd2>div{
+	padding: 30px 0;
 }
 </style>

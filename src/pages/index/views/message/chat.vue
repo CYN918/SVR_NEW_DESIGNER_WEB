@@ -1,6 +1,6 @@
 <template>
 	<div>		
-		<div class="setUserBox messgdo">
+		<div class=" ">
 			<div class="setUserBoxs">
 				<div class="setUserBoxs_nav">
 					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" :class="['tjsj_1',el.l>9?'tjsj_1':'']">{{backTj(el.l)}}</span></div>
@@ -527,6 +527,7 @@ export default {
 	border-radius: 5px;
 	width: 970px;
 	height: 700px;
+	margin-bottom: 60px;
 }
 
 .sxBodx2{

@@ -265,10 +265,10 @@ export default {
 			obj.xhr.abort();
 		},
 		clPic(fld,on){
-			if(this.configData.type.indexOf(fld.type)==-1){
-				Message({message: '该文件格式不支持'});
-				return
-			}
+//			if(this.configData.type.indexOf(fld.type)==-1){
+//				Message({message: '该文件格式不支持'});
+//				return
+//			}
 			if(fld.size>this.configData.max){
 				Message({message: '文件过大'});
 				return
@@ -302,10 +302,21 @@ export default {
 			        percent = percent>98?98:percent;
 					p.bf  = Math.floor(percent);
 				}
+				
+				
 			};
 			let uploadComplete = (data)=>{
 				if(data.currentTarget.response){
-					let da = JSON.parse(data.currentTarget.response).data;
+					let daaa = JSON.parse(data.currentTarget.response);
+				
+					if(daaa.result!=0){
+						p.type="none";
+						this.$message({message:daaa.data});
+						return
+					}
+					let da = daaa.data;
+					
+					
 					p.type="img";
 					p.url = da.url;
 					p.file_name = da.file_name;

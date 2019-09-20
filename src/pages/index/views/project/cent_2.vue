@@ -91,11 +91,11 @@ export default {
 			this.$parent.getData();
 		},
 		init(){
-			console.log(this.el);
 			this.deta = this.el;
 			this.clsfn();
 		},
 		clsfn(){
+		
 			this.tip = '预计收益：<span>'+this.deta.expected_profit+'</span>';
 			if(this.deta.status==1){
 				this.tips = '<div class="pr_cent2_r2_1 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
@@ -113,8 +113,9 @@ export default {
 					this.tips = '<div class="backdse pr_cent2_r2_2">你已延期'+this.deta.delay_time.d+'天'+this.deta.delay_time.h+'小时，请尽快完成</div>';
 					return
 				}
-				let otim = this.bckdtimed(this.deta.delivery_deadline);
 				
+				let otim = this.bckdtimed(this.deta.delivery_deadline);
+			
 				this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
 				return
 			}
@@ -140,8 +141,10 @@ export default {
 				this.tip = '成交价格：<span class="csyaswz_01">'+this.deta.expected_profit+'</span>';
 				this.tips = '<div class="backdse pr_cent2_r2_2">项目已验收，感谢与你的本次合作</div>';
 			}
+				
 		},
 		bckdtimed(t){
+		
 			let times =new Date(t.replace(/-/g,'/')),
 			Y = times.getFullYear(),
 			M = times.getMonth()+1,

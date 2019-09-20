@@ -36,7 +36,7 @@ export default {
 			this.isaj = '';
 			this.getXsm();
 			this.getMrData();
-			// this.getPzData();
+			this.getPzData();
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
 			window.onscroll = ()=>{				

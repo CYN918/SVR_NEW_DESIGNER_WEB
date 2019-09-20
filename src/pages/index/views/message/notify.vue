@@ -1,6 +1,6 @@
 <template>
 	<div>		
-		<div class="setUserBox messgdo">
+		<div>
 			<div class="setUserBoxs">
 				<div class="setUserBoxs_nav">
 					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" :class="['tjsj_1',el.l>9?'tjsj_1':'']">{{backTj(el.l)}}</span></div>
@@ -12,7 +12,7 @@
 					</div>
 				</div>
 				
-				<div class="setUserBoxs_cent">
+				<div class="setUserBoxs_cent2">
 					<div class="poerrsas" v-if="listData.length==0"><noData></noData></div>
 					<div v-for="(el,index) in listData" :key="index">
 						<img class="comment_1" @click="goUserIn(index)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/GFMRTX.svg" alt="">
@@ -21,24 +21,24 @@
 							<div class="comment_2_5" v-html="el.content"></div>
 						</div>						
 					</div>
-					
+					<p class="nn_x1">
+						<el-pagination  v-if="total>40"
+						background
+						@size-change="handleSizeChange"
+						@current-change="handleCurrentChange"
+						:current-page="page"
+						:page-sizes="[10, 20, 40, 60]"
+						:page-size="limit"
+						layout="prev,pager, next,sizes, jumper"
+						:total="total">   
+						</el-pagination>
+					</p>
 				</div>
-				
+			
 			</div>
 			
 		</div>
-		<span>
-			<el-pagination class="padxx_01" v-if="total>40"
-			background
-			@size-change="handleSizeChange"
-			@current-change="handleCurrentChange"
-			:current-page="page"
-			:page-sizes="[10, 20, 40, 60]"
-			:page-size="limit"
-			layout="prev,pager, next,sizes, jumper"
-			:total="total">   
-			</el-pagination>
-		</span>
+		
 	</div>
 </template>
 
@@ -203,4 +203,16 @@ export default {
 .comment_2xss>.comment_2_5{
 	max-height: none;
 }
+.setUserBoxs_cent2{
+	display: inline-block;
+    margin-bottom: 60px;
+}
+.setUserBoxs_cent2 > div{
+	background: #FFFFFF;
+    border-radius: 5px;
+    width: 910px;
+    padding: 27px 30px;
+    margin-bottom: 20px;
+}
+.nn_x1{text-align: center;padding-top: 30px;}
 </style>

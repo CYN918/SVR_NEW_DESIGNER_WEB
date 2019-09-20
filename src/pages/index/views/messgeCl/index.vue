@@ -16,22 +16,25 @@ export default {
 	}, 
 	methods: {
 		init(){
-			return
 			if(!this.$route.query.ret){
 				this.$router.push({path: '/index'})
 				return
 			}
 			let data = JSON.parse(this.$route.query.ret);
-	
 			if(data.res.result!=0){
-				this.$router.push({path: '/index'})
-				
+				if(data.operate=='bind'){
+					this.$router.push({path: '/setSecurity'})
+				}else{
+					this.$router.push({path: '/index'})
+				}
+
 				setTimeout(()=>{
-					this.message({message: data.res.message});
+					this.$message({message: data.res.message});
 				},500);
 				return
 			}
 			if(data.operate=='bind'){
+
 				this.$router.push({path: '/setSecurity'})
 			}
 			if(data.operate=='login'){
@@ -45,7 +48,7 @@ export default {
 					localStorage.setItem('userT',JSON.stringify(da));
 					this.$router.push({path: '/index'})					
 					setTimeout(()=>{
-						Message({message: '登录成功'});
+						this.$message({message: '登录成功'});
 					},500);
 				}).catch();
 				return
