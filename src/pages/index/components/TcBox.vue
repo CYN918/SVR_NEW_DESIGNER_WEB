@@ -21,16 +21,14 @@ export default {
 	methods: {	
 		show(){
 			if(this.config.scroll){
-				window.addEventListener('mousewheel', this.nosc, { passive: false })
+				window.addEventListener('mousewheel',window.dwzFn, { passive: false })
 			} 
 			this.is = 1;
 		},
-		nosc(e){
-			event.preventDefault();
-		},
+
 		close(){			
 			if(this.config.scroll){
-				window.removeEventListener('mousewheel',this.nosc)
+				window.removeEventListener('mousewheel',window.dwzFn)
 			}
 			if(this.config.closeFn){
 				this.$parent[closeFn]();			

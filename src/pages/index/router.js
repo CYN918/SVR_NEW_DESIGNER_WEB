@@ -197,7 +197,9 @@ let token = localStorage.getItem('userT');
 if(token){
 	try{window.userInfo = JSON.parse(token);}catch(e){}
 }
-
+window.dwzFn = function(){
+	event.preventDefault();
+};
 
 function setTitle(t){
 	let str = '';
@@ -273,6 +275,7 @@ function setTitle(t){
 
 
 router.beforeEach((to, from, next) => {
+	window.removeEventListener('mousewheel',window.dwzFn);
 	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
 		window.location.href = location.origin+"/aindex.html#/";
 		return

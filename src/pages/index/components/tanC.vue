@@ -22,15 +22,13 @@ export default {
 	},
 	methods: {	
 		init(){
-			window.addEventListener('mousewheel', this.nosc, { passive: false })
+			window.addEventListener('mousewheel', window.dwzFn, { passive: false })
 		},
 		close(){
-			window.removeEventListener('mousewheel',this.nosc)
+			window.removeEventListener('mousewheel',window.dwzFn)
 			this.$parent.close();
 		},
-		nosc(e){
-			event.preventDefault();
-		},
+
 	}
 }	
 </script>
