@@ -485,7 +485,7 @@ img{
 .lgoin_s6>img{
 	display: inline-block;
 	width: 36px;
-	margin-top: 21.5px;
+	margin-top: 15.5px;
 	margin-right: 81px;
 }
 .lgoin_s6>img:hover{

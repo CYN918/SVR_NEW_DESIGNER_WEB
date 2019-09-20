@@ -11,9 +11,9 @@
 		<div class="lgoin_s6x"></div>
 		<div class="lgoin_s6">
 			
-			<img @click="thirdLogin('qq')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/login/zc_icon_qq.svg" alt="">
-			<img @click="thirdLogin('weixin')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/login/zc_icon_wx.svg" alt="">
-			<img @click="thirdLogin('weibo')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/login/zc_icon_wb.svg" alt="">
+			<img @click="thirdLogin('qq')" src="/imge/svg/new/qq.svg" alt="">
+			<img @click="thirdLogin('weixin')" src="/imge/svg/new/wx.svg" alt="">
+			<img @click="thirdLogin('weibo')" src="/imge/svg/new/wb.svg" alt="">
 		</div>
 	</div>
 </template>

@@ -1,6 +1,8 @@
 <template>
 	<div class="list1_box">
-		<div @click="openxq()" class="list1_box_1" :style="backBn(el.face_pic)"></div>		
+		<div class="list1_box_1x">
+			<div @click="openxq()" class="list1_box_1" :style="backBn(el.face_pic)"></div>	
+		</div>	
 		<div class="list1_box_3">
 			<div @click="openxq()" class="list1_box_3_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img class="svgImgx2" v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg"/></div>
 			<div @click="openxq()" class="list1_box_3_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
@@ -99,7 +101,20 @@ export default {
     overflow: hidden;
 	background-size: cover;
 	background-position: 50%,50%;
+	-webkit-transition: transform .1s linear;
+
+
+    transition: transform .1s linear,
 	
+}
+.list1_box_1x{
+	width: 100%;
+    height: 231.9px;
+    overflow: hidden;
+}
+.list1_box_1x:hover .list1_box_1{
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
 }
 .list1_box_2{
 	display: block;
