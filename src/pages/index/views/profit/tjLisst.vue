@@ -11,7 +11,13 @@
 				</div>
 				<div class="tjEvent_3_2">
 					<div class="tjE_3_2_1">{{el.name}}</div>
-					<div class="tjE_3_2_2">{{el.classify_name}}<span class="tjE_3_2_2_1">|</span>{{el.status}}天制作周期</div>
+					<div class="tjE_3_2_2">
+						{{el.classify_name}}
+						<span class="tjE_3_2_2_1">|</span>
+						<span v-if="el.production_cycle_d>0">{{el.production_cycle_d}}天</span>
+						<span v-if="el.production_cycle_h>0">{{el.production_cycle_h}}小时</span>
+						制作周期
+					</div>
 					<div class="tjE_3_2_3">{{el.sign_up_num}} <span class="tjE_3_2_3_1">人已报名</span><span class="tjE_3_2_3_2">{{el.expected_profit}}</span></div>
 				</div>
 			</li>
@@ -23,7 +29,7 @@ export default {
 	name: 'profit',	
 	data(){
 		return {
-			list:[1,2,3,4]
+			list:[]
 		}
 	},
 	mounted: function () {			
@@ -50,7 +56,7 @@ export default {
 		},
 		goEvent(id){
 			this.bdtj('我的收益','推荐活动','--');
-			this.$router.push({path:'/detailed',query:{id:id}});
+			this.$router.push({path:'/prcent',query:{id:id}});
 		},
 	},
 }

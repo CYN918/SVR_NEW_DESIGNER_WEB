@@ -850,6 +850,7 @@ export default {
     width: 16px;
 }
 .svgImg2_1{
+	margin-top: 12px;
 	width: 17px;
 }
 .svgImg2_2{

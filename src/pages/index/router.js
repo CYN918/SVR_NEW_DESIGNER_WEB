@@ -262,7 +262,7 @@ function setTitle(t){
 		case '/help':
 			  str = '文档服务中心-狮圈儿（Zoocreators）';		
 			
-		// default:str = '狮圈儿-创作者平台（Zoocreators）-让创意更有价值，让生活更加自在';
+		default:str = '狮圈儿-创作者平台（Zoocreators）-让创意更有价值，让生活更加自在';
 			break;
 	}
 	if(str){

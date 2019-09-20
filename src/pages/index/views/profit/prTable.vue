@@ -98,7 +98,7 @@ export default {
 				}				
 				this.List = da.data;
 				this.total = da.total;
-				this.total=41;
+			
 				if(this.$parent.settotal){
 					this.$parent.settotal(da.total);
 				}

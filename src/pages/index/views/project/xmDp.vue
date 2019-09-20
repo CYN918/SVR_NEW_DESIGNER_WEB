@@ -119,11 +119,12 @@ export default {
 		showTc1(o){
 			this.api.pr_check({}).then((da)=>{
 				if(da=='error'){return}
-				if(da.is_complete==true && da.is_contributor==true && da.work_num==3){
-					this.$parent.showTc('bmXm',{project_id:this.$parent.deta.id});	
+				if(da.is_complete!=true || da.is_contributor!=true && da.work_num<3){
+					this.$parent.showTc(o,da);	
 					return
 				}
-				this.$parent.showTc(o,da);				
+				this.$parent.showTc('bmXm',{project_id:this.$parent.deta.id});	
+							
 			}).catch(()=>{
 				
 			})
