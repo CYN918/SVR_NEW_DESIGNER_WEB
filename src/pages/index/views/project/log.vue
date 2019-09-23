@@ -16,7 +16,7 @@
 					<div>{{el.created_at | logtime}}</div>
 					<div>{{el.check_status | typsuu}}</div>
 					<div>{{el.updated_at | logtime}}</div>
-					<div @mouseout="mod()" @mouseover="modx($event,0)">{{el.remark}}</div>
+					<div @mouseout="mod()" @mouseover="modx($event,0)">{{el.check_reason}}</div>
 				</div>
 			</div>
 			<tipd :tipCent="csff" :style="sfas" ref="csdf"></tipd>

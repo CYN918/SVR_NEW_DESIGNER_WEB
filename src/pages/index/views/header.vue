@@ -239,7 +239,7 @@ export default {
 			if(this.navType!=on){
 				str+=on2+'.svg';
 			}else{
-				str+='.png';
+				str+='.svg';
 			}
 			return str;
 		},
@@ -757,10 +757,6 @@ export default {
 	display: block;
 	margin: 6px auto;
 	width: 19px;
-}
-.messgeH3_1>span>img.onds_01{
-	margin: 0 auto;
-	width: 28px;
 }
 .messgeH3_2{
 	width: 100%;
