@@ -138,7 +138,7 @@ export default {
 					bd[1].fn = 'ypj';
 				}
 				this.btns = bd;
-				this.tip = '成交价格：<span class="csyaswz_01">'+this.deta.expected_profit+'</span>';
+				this.tip = '成交价格：<span class="csyaswz_01">'+this.deta.deal_price+'</span>';
 				this.tips = '<div class="backdse pr_cent2_r2_2">项目已验收，感谢与你的本次合作</div>';
 			}
 				

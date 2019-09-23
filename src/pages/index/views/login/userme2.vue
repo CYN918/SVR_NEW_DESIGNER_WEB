@@ -1,12 +1,14 @@
 <template>
 	<div>
 		<div class="yhtop">
-			<div class="yhtop1">用户资料完善</div>
+			<div class="yhtop1 ">用户资料完善</div>
 			<div class="yhtop2">
-				基本信息设置 
-				<div class="yhtop2Box">
-					<span @click="chekNav(0)" :class="['pend',navOn==0?'router-link-active':'']">完善资料</span>
-					<span @click="chekNav(1)" :class="['pend',navOn==1?'router-link-active':'']">绑定已有帐号</span>
+				<div>
+					基本信息设置 
+					<div class="yhtop2Box">
+						<span @click="chekNav(0)" :class="['pend',navOn==0?'router-link-active':'']">完善资料</span>
+						<span @click="chekNav(1)" :class="['pend',navOn==1?'router-link-active':'']">绑定已有帐号</span>
+					</div>
 				</div>
 			</div>
 			<bindData v-if="navOn==0"></bindData>
@@ -45,25 +47,7 @@ export default {
 .yhtop{
 	min-width: 1300px;
 }
-.yhtop1{
-	width: 100%;
-	height: 60px;
-	font-size: 16px;
-	color: #FFFFFF;
-	text-align: center;
-	line-height: 60px;
-	background: #323232;
-}
-.yhtop2{
-	position: relative;
-	height: 80px;
-	background: #EFEFEF;
-	line-height: 80px;
-	font-size: 28px;
-	color: #333333;
-	text-align: left;
-	text-indent: 310px;
-}
+
 .newUserme{
 	box-sizing: border-box;
 	height: 742px;
@@ -73,7 +57,7 @@ export default {
 	box-sizing: border-box;
 	width: 860px;
 	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+
 	border-radius: 5px;
 }
 
@@ -129,19 +113,9 @@ export default {
     bottom: 65px;
     left: 0;
 	width: 100%;
-}
-.yhtop6f>div{
-	display: inline-block;
-	margin: 0 15px;
-	width: 200px;
-	height: 40px;
-	font-size: 16px;
-	color: #FFFFFF;
 	text-align: center;
-	background: #999999;
-	line-height: 40px;
-	border-radius: 5px;
 }
+
 
 .yhtop5:hover{
 	cursor: pointer;
@@ -184,7 +158,6 @@ export default {
 }
 .newUserme2{
 	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
 	border-radius: 5px;
 	margin: 20px auto -20px;
 	box-sizing: border-box;
@@ -199,9 +172,11 @@ export default {
 	line-height: 40px;
 }
 .yhtop2Box{
-    display: inline-block;
-    text-indent: 0;
-    margin-left: 35px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    left: 0;
+    top: 0;
 }
 .yhtop2Box>span {
     position: relative;

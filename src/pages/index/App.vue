@@ -30,7 +30,9 @@ textarea::-moz-placeholder{color:#c0c4cc;}
 textarea:-moz-placeholder{color:#c0c4cc;}
 textarea:-ms-input-placeholder{color:#c0c4cc;}
 
-
+input{
+	outline: none;
+}
 
 img{
 	outline-width: 0px;
@@ -2325,5 +2327,71 @@ content: "";
 .btomShow{
 	-webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
 	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+}
+
+
+.yhtop1{
+	position: absolute;
+    top: 0;
+    left: 0;
+	width: 100%;
+	height: 60px;
+	font-size: 16px;
+	color: #000;
+	text-align: center;
+	line-height: 60px;
+	background: #fff;
+	z-index: 1;
+	-webkit-box-shadow: 0 2px 6px 0 rgba(0,0,0,.1);
+	box-shadow: 0 2px 6px 0 rgba(0,0,0,.1);
+}
+.yhtop2{
+	position: relative;
+	padding-top: 60px;
+	height: 80px;
+	background: #fff;
+	line-height: 80px;
+	
+}
+.yhtop2>div{
+	position: relative;
+	font-size: 16px;
+	color: #333333;
+	text-align: left;
+	width: 860px;
+	margin: 0 auto;
+}
+
+
+
+/*btns*/
+.btn_n{
+	display: inline-block;
+	font-size:14px;
+	line-height:38px;
+	cursor: pointer;
+	text-align: center;
+	width:98px;
+	height:38px;	
+	border-radius:5px;
+	border:1px solid #BBB;
+
+}
+.btn_n:hover{
+	opacity: .7;
+}
+.btn_n1{	
+	color:#666;
+}
+.btn_n2{
+	
+	border-color: #DFDFDF;
+	color:#BBB;
+	background:#DFDFDF;
+}
+.btn_n3{
+	border-color: #FF5121;	
+	color:#fff;
+	background:#FF5121;
 }
 </style>

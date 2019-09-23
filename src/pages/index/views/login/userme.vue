@@ -2,8 +2,8 @@
 	<div>
 		<div class="yhtop">
 			<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
-			<div class="yhtop1">用户资料完善</div>
-			<div class="yhtop2">基本信息设置</div>
+			<div class="yhtop1 ">用户资料完善</div>
+			<div class="yhtop2"><div>基本信息设置</div></div>
 			<div class="newUsermeBOX">
 				<div class="newUserme">
 					<div class="nav_tx">
@@ -27,8 +27,8 @@
 						<Citys v-model="form.citye"></Citys>						
 					</div>
 					<div class="yhtop6f">
-						<div class="yhtop5 btnType" @click="goOut">退出</div>
-						<div :class="['yhtop5',btnType]" @click="addSelfInfo">进入首页</div>
+						<div class="btn_n btn_n1" @click="goOut">退出</div>
+						<div :class="['btn_n btn_n2',btnType]" @click="addSelfInfo">进入首页</div>
 					</div>
 					
 				</div>
@@ -178,7 +178,7 @@ export default {
 			if(!this.form.sex){
 				return
 			}
-			this.btnType = 'btnType';
+			this.btnType = 'btn_n3';
 		},
 		
 	},
@@ -201,24 +201,7 @@ export default {
 .yhtop{
 	min-width: 1300px;
 }
-.yhtop1{
-	width: 100%;
-	height: 60px;
-	font-size: 16px;
-	color: #FFFFFF;
-	text-align: center;
-	line-height: 60px;
-	background: #323232;
-}
-.yhtop2{
-	height: 80px;
-	background: #EFEFEF;
-	line-height: 80px;
-	font-size: 28px;
-	color: #333333;
-	text-align: left;
-	text-indent: 310px;
-}
+
 .newUserme{
 	height: 742px;
     position: relative;
@@ -283,23 +266,15 @@ export default {
     bottom: 65px;
     left: 0;
 	width: 100%;
+	text-align: center;
 }
 .yhtop6f>div{
 	display: inline-block;
 	margin: 0 15px;
 	width: 200px;
-	height: 40px;
-	font-size: 16px;
-	color: #FFFFFF;
-	text-align: center;
-	background: #999999;
-	line-height: 40px;
-	border-radius: 5px;
+	
 }
-.yhtop5:hover{
-	cursor: pointer;
-	opacity: .7;
-}
+
 .cjBox{
 	position: absolute;
 	top: 0;
@@ -329,9 +304,7 @@ export default {
 .userBoxd2.inptud {
     width: 296px;
 }
-.btnType{
-	background: #FF5121;
-}
+
 .onusert{
 	line-height: 40px;
 }

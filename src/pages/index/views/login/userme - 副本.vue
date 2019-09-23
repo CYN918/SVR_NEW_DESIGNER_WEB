@@ -1,28 +1,9 @@
 <template>
 	<div>
+		<div class="yhtop">
 			<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
-
-
-			<div class="newUsermeBOX">
-				<div class="newUserme2">
-					<div class="userBoxd">
-						<span>手机号</span>
-						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.mobiles" :inputType="'phones'"  :placeholder="'请输入手机号'"></inptPhone>
-					</div>
-					<div class="userBoxd">
-						<span>验证码</span>
-						<inptPhone class="newUserme_x1" :iscf="1" @checkBack="checkphoneBack" v-model="form.verifys" :inputType="'verifys'"  :placeholder="'输入 6 位短信验证码'"></inptPhone>
-					</div>
-					<div class="userBoxd">
-						<span>登录密码</span>
-						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.password" :inputType="'password'" :type="'password'" :placeholder="'6 - 16位密码，区分大小写'"></inptPhone>						
-					</div>
-					<div class="userBoxd">
-						<span>确认密码</span>
-						<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.password_repass" :inputType="'password_repass'" :type="'password'"  :placeholder="'确认密码'"></inptPhone>	
-					</div>
-				</div>
-			</div>
+			<div class="yhtop1 ">用户资料完善</div>
+			<div class="yhtop2"><div>基本信息设置</div></div>
 			<div class="newUsermeBOX">
 				<div class="newUserme">
 					<div class="nav_tx">
@@ -46,13 +27,16 @@
 						<Citys v-model="form.citye"></Citys>						
 					</div>
 					<div class="yhtop6f">
-						
-						<div class="btn_n btn_n1" @click="goOut">退出</div>
-						<div :class="['btn_n btn_n2',btnType]" @click="addSelfInfo">进入首页</div>
+						<div class="yhtop5 btnType" @click="goOut">退出</div>
+						<div :class="['yhtop5',btnType]" @click="addSelfInfo">进入首页</div>
 					</div>
+					
 				</div>
 			</div>
-	</div>		
+			
+		</div>
+
+	</div>	
 </template>
 <script>
 import upoloadcaver from './upoloadcaver';
@@ -60,16 +44,13 @@ import Input from '../../components/input'
 import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
-
-import inptPhone from '../../components/input/input_phone';
 export default {
 	name: 'login',
-	components:{upoloadcaver,Input,Citys,Select,rideo,inptPhone},
+	components:{upoloadcaver,Input,Citys,Select,rideo},
 	data(){		
 		return{	
-			
 			isPhto:false,
-			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg',
+			caver:'https://zk-new-designer.oss-cn-beijing.aliyuncs.com/MRTX.svg',
 			form:{
 				citye:[],
 				sex:'',
@@ -103,16 +84,24 @@ export default {
 				{n:"教育工作者"},
 			],
 			btnType:'',
-			phones:false,
-			verifys:false,
-			password:false,
-			password_repass:false,
-			navOn:0,
-		
+			
 		}
 	},
-	mounted: function () {}, 
+	mounted: function () {	
+	
+	}, 
 	methods: {
+		init(){
+			let pr = {
+				access_token:window.userInfo.access_token
+			};
+			this.api.getSelfInfo(pr).then((da)=>{
+				if(da=='error'){return}		
+				let userData = window.userInfo.access_token;
+				window.userInfo = da;	
+				window.userInfo.access_token = userData;
+			}).catch();
+		},
 		goOut(){
 			let p = {
 				access_token:window.userInfo.access_token
@@ -128,15 +117,6 @@ export default {
 				this.$router.push({path: '/login'})	
 			});
 		},
-		
-		checkphoneBack(type,on){
-			this[on] = type;			
-		},
-
-		setYzm(val){
-			this.form.mobile_zone = val;
-		},
-		
 		showisPhto(){
 			this.$refs.upoloadcaver.setImgd(this.caver);
 			this.isPhto=true;
@@ -148,7 +128,7 @@ export default {
 			this.isPhto=false;
 		},
 		addSelfInfo(){
-			this.bdtj('第3方注册完善页面','进入首页','--');
+			this.bdtj('手机号注册完善页面','进入首页','--');
 			if(!this.btnType){
 				return
 			}
@@ -156,14 +136,14 @@ export default {
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 			}
+			
+			//
+			let are = this.caver;
+			if(are=='/imge/svg/MRTX.svg'){
+				are = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/MRTX.svg';
+			}
 			let pr = {
 				access_token:window.userInfo.access_token,
-				type:'third_login',
-				mobile:this.form.mobiles.mobile,
-				mobile_zone:this.form.mobiles.mobile_zone,
-				verify_code:this.form.verifys,
-				password:this.MD5(this.form.password),
-				password_repass:this.MD5(this.form.password_repass),
 				avatar:this.caver,
 				username:this.form.username,
 				sex:this.form.sex,
@@ -173,13 +153,10 @@ export default {
 				city:this.form.citye[2],
 			}
 			this.api.addSelfInfo(pr).then((da)=>{
-				
 				if(da=='error'){
-					this.bdtj('第3方注册完善页面','进入首页失败','--');
 					return
 				}
-				window.userInfo.mobile = pr.mobile;
-				window.userInfo.mobile_zone = pr.mobile_zone;
+				this.init();
 				window.userInfo.avatar = pr.avatar;
 				window.userInfo.username = pr.username;
 				window.userInfo.sex = pr.sex;
@@ -189,29 +166,11 @@ export default {
 				window.userInfo.city = pr.citye;
 				window.userInfo.is_detail =1;
 				localStorage.setItem('userT',JSON.stringify(window.userInfo));
-				this.bdtj('第3方注册完善页面','进入首页成功','--');
 				this.$router.push({path:'/index'})
 			});
 		},
 		pdys1(){
-		
-			this.btnType = '';	 
-			if(!this.form.mobiles){
-				return
-			}
-			if(!this.form.verifys){
-				return
-			}	
-		
-			if(!this.form.password){
-				return
-			}	
-			if(!this.form.password_repass){
-				return
-			}	
-			if(this.form.password_repass!=this.form.password){
-				return
-			}
+			this.btnType = '';	    	
 			let pd = this.chekusername(this.form.username);
 			if(pd!=true && pd.type!=true){
 				return
@@ -219,30 +178,17 @@ export default {
 			if(!this.form.sex){
 				return
 			}
-			this.btnType = 'btn_n3';
+			this.btnType = 'btnType';
 		},
 		
 	},
 	watch: {
-	    'form.username'() {
+	    'form.username'(val) {
 	    	this.pdys1();
 	    },
-	    'form.sex'() {
+	    'form.sex'(val) {
 	    	this.pdys1();
 	    },
-	    'form.mobiles'(){
-			this.pdys1();
-		},
-		'form.verifys'(){
-			this.pdys1();
-		},
-		'form.password'(){
-			this.pdys1();
-		},
-		'form.password_repass'(){
-			this.pdys1();
-		},
-
 	}
 }
 </script>
@@ -257,7 +203,6 @@ export default {
 }
 
 .newUserme{
-	box-sizing: border-box;
 	height: 742px;
     position: relative;
 	margin: 40px auto 40px;
@@ -265,7 +210,7 @@ export default {
 	box-sizing: border-box;
 	width: 860px;
 	background: #FFFFFF;
-
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
 	border-radius: 5px;
 }
 
@@ -323,7 +268,7 @@ export default {
 	width: 100%;
 }
 .yhtop6f>div{
-	/*display: inline-block;
+	display: inline-block;
 	margin: 0 15px;
 	width: 200px;
 	height: 40px;
@@ -332,9 +277,8 @@ export default {
 	text-align: center;
 	background: #999999;
 	line-height: 40px;
-	border-radius: 5px;*/
+	border-radius: 5px;
 }
-
 .yhtop5:hover{
 	cursor: pointer;
 	opacity: .7;
@@ -368,49 +312,10 @@ export default {
 .userBoxd2.inptud {
     width: 296px;
 }
-
-.newUserme_x1{
-	width: 350px;
-}
-.newUserme2{
-	background: #FFFFFF;
-	border-radius: 5px;
-	margin: 20px auto -20px;
-	box-sizing: border-box;
-	padding: 44px 110px;
-	width: 860px;
-	height: 245px;
-}
-.newUserme2 .userBoxd{
-	margin-bottom: 0;
+.btnType{
+	background: #FF5121;
 }
 .onusert{
 	line-height: 40px;
-}
-.yhtop2Box{
-    display: inline-block;
-    text-indent: 0;
-    margin-left: 35px;
-}
-.yhtop2Box>span {
-    position: relative;
-    display: inline-block;
-    font-size: 16px;
-    color: #1E1E1E;
-	text-indent: 0;
-    margin-right: 64px;
-}
-
-.yhtop2Box>span.router-link-active {
-    color: #FF5121;
-}
-.yhtop2Box>span.router-link-active:after {
-    content: "";
-    position: absolute;
-    bottom: 5px;
-    left: 5%;
-    width: 90%;
-    height: 2px;
-    background: #FF5121;
 }
 </style>
