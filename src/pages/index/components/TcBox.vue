@@ -21,14 +21,16 @@ export default {
 	methods: {	
 		show(){
 			if(this.config.scroll){
-				window.addEventListener('mousewheel',window.dwzFn, { passive: false })
+				document.body.style = "overflow: hidden;";
+//				window.addEventListener('mousewheel',window.dwzFn, { passive: false })
 			} 
 			this.is = 1;
 		},
 
 		close(){			
 			if(this.config.scroll){
-				window.removeEventListener('mousewheel',window.dwzFn)
+				document.body.style = "";
+//				window.removeEventListener('mousewheel',window.dwzFn)
 			}
 			if(this.config.closeFn){
 				this.$parent[closeFn]();			

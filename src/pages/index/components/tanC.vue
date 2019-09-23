@@ -22,10 +22,12 @@ export default {
 	},
 	methods: {	
 		init(){
-			window.addEventListener('mousewheel', window.dwzFn, { passive: false })
+			document.body.style = "overflow: hidden;";
+//			window.addEventListener('mousewheel', window.dwzFn, { passive: false })
 		},
 		close(){
-			window.removeEventListener('mousewheel',window.dwzFn)
+			document.body.style = "";
+//			window.removeEventListener('mousewheel',window.dwzFn)
 			this.$parent.close();
 		},
 

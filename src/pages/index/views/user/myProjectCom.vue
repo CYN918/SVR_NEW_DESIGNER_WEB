@@ -79,7 +79,7 @@ export default {
 	background: #f4f6f9;
 }
 .opfi2{
-	padding-top: 40px;
+	padding-top: 20px;
 }
 .iopdlf_01>li{
 	display: inline-block;

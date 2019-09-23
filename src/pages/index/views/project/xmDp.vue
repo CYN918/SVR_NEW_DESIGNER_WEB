@@ -28,9 +28,10 @@
 			{{da.t.n}}
 		</div>
 
-		<div v-if="obj.status==3 || obj.status==4" class="worksBox_2 tg_iocn_2">
+		<div v-if="obj.status>=3 " class="worksBox_2 tg_iocn_2">
 			<div class="worksBox_2_1">
-				<div @click="showTc(el.cs)" v-for="(el,index) in options">{{el.n}}</div>
+				<div v-if="obj.status==3" @click="showTc('Stop')">终止项目</div>
+				<div @click="showTc('Log')">交稿记录</div>
 				<div v-if="obj.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
 					<div class="worksBox_2_4">
 						<div v-for="(el,index) in obj.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
@@ -77,6 +78,7 @@ export default {
 			if(this.obj.is_sign_up==1){
 				this.xmType[0].btns = [{n:'取消报名',tcFn:'showTc',tcFncs:'qxBm'}];	
 			}
+
 			this.da = this.xmType[this.xmTypeOn];	
 			if(this.obj.is_evaluated==1){
 				this.xmType[4].btns[0].n = '已评价';

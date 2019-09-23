@@ -49,7 +49,7 @@
 					
 				</div>
 				<div class="pr_bg_04_4">
-					<div @click="back()" class="btns btns_js pend">返回</div>
+					<div @click="back()" class="btns pend">返回</div>
 					<div @click="goTo('/project')" class="btns btns_js pend">继续承接项目</div>
 				</div>
 			</div>
@@ -168,7 +168,7 @@ export default {
 	background:rgba(244,246,249,1);
 }
 .pr_bg_01{
-	margin: 40px auto;
+	margin: 20px auto 40px;
 	padding: 30px 40px;
 	width:1220px;
 	height:709px;
@@ -203,8 +203,6 @@ export default {
 	width:214px;
 	height:160px;
 	margin-right: 20px;
-	box-shadow:0px 5px 15px 0px rgba(0,0,0,0.1);
-	border-radius:5px 5px 5px 5px;
 }
 .pr_bg_03_1_2{
 	display: inline-block;
@@ -214,7 +212,7 @@ export default {
 .pr_bg_03_1_2_1{	
 	border-bottom: 1px solid rgba(244,246,249,1);
 	border-radius:5px;
-	margin-bottom: 17px;
+	margin-bottom: 10px;
 }
 
 .pr_bg_03_1_2_1_1{
@@ -246,7 +244,7 @@ export default {
 	font-weight:400;
 	color:rgba(102,102,102,1);
 	line-height:32px;
-	margin-bottom: 17px;
+	margin-bottom: 10px;
 	height: 32px;
 }
 .pr_bg_03_1_2_2>span{
@@ -303,7 +301,7 @@ export default {
 	font-weight:400;
 	color:rgba(51,51,51,1);
 	line-height:33px;
-	margin: 30px auto 20px;
+	margin: 50px auto 20px;
 }
 .pr_bg_04_2{
 	font-size:12px;
@@ -314,7 +312,7 @@ export default {
 	margin-bottom: 40px;
 }
 .pr_bg_04_3{
-	margin-bottom: 30px;
+	margin-bottom: 60px;
 }
 .pr_bg_04_3>div{
 	position: relative;

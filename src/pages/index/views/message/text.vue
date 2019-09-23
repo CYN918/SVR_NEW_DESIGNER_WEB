@@ -93,9 +93,12 @@ export default {
 <style>
 .content{
 	max-width: 1300px;
-	margin: 80px auto;
+	margin: 20px auto 40px;
     text-align: left;
     min-height: 666px;
+   	padding: 40px;
+    background: #fff;
+    box-sizing: border-box;
 }
 .content p{
 	margin: 20px auto;

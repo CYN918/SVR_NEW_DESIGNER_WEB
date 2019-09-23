@@ -275,7 +275,8 @@ function setTitle(t){
 
 
 router.beforeEach((to, from, next) => {
-	window.removeEventListener('mousewheel',window.dwzFn);
+//	window.removeEventListener('mousewheel',window.dwzFn);
+	document.body.style = "";
 	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
 		window.location.href = location.origin+"/aindex.html#/";
 		return

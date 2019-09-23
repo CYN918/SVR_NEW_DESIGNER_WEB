@@ -40,8 +40,6 @@
 						</div>
 						<div class="cl_n_x1">
 							<span>项目类型偏好</span>
-							
-							
 							<el-select v-model="form.preference_classify" multiple placeholder="请选择">
 								<el-option
 								  v-for="item in pz_preference_classify"
@@ -54,11 +52,6 @@
 								</el-option>
 							</el-select>
 						</div>
-						
-						
-						
-						
-						
 					</div>
 					<div class="suc_1 skill_01">
 						<div class="suc_title">创作能力<i class="xhds"></i></div>
@@ -67,7 +60,7 @@
 							<div>
 								<span v-for="(el,index) in pz_style" :key="index" @click="chekstyle(el)" :class="form.style.indexOf(el)==-1?'':'oncheck'">{{el}}</span>
 								<div class="addM_n_1 addM_n_2">
-									<input @keyup.enter="keydown1" v-model="add_pz_style" placeholder="请输入最多2个文字回车结束" type="text" ref="keydown1"/>
+									<input @keyup.enter="keydown1" @focus="infous1" @blur="ninfous1" v-model="add_pz_style" :placeholder="plac1" type="text" ref="keydown1"/>
 									<img src="/imge/svg/new/icon_add.svg"/>
 								</div>
 							</div>
@@ -79,7 +72,7 @@
 							<div>
 								<span v-for="(el,index) in pz_field" :key="index" @click="chekfield(el)" :class="form.field.indexOf(el)==-1?'':'oncheck'">{{el}}</span>
 								<div class="addM_n_1">
-									<input @keyup.enter="keydown2" v-model="add_pz_field" placeholder="请输入最多4个文字回车结束" type="text" ref="keydown2"/>
+									<input @keyup.enter="keydown2" @focus="infous2" @blur="ninfous2" v-model="add_pz_field" :placeholder="plac2" type="text" ref="keydown2"/>
 									<img src="/imge/svg/new/icon_add.svg"/>
 								</div>
 							</div>
@@ -96,15 +89,11 @@
 								</el-option>
 							</el-select>
 						</div>
-					</div>
-					
-					
+					</div>										
 					<div class="suc_btndf" @click="Userupdate">保存资料</div>
 				</div>
-			</div>
-			
-		</div>
-		
+			</div>			
+		</div>		
 	</div>
 </template>
 
@@ -131,6 +120,8 @@ export default {
 				],
 			
 			},
+			plac1:'极简',
+			plac2:'快销',
 			tancData:{
 				mobile_zone:'86',
 				old_mobile_zone:'86'
@@ -169,6 +160,18 @@ export default {
 		
 	}, 
 	methods: {
+		infous1(){
+			this.plac1 = '请输入最多4个文字回车结束';
+		},
+		ninfous1(){
+			this.plac1 = '极简';
+		},
+		infous2(){
+			this.plac2 = '请输入最多4个文字回车结束';
+		},
+		ninfous2(){
+			this.plac2 = '快销';
+		},
 		keydown1(){
 
 			if(!this.add_pz_style){

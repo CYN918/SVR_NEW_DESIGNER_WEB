@@ -523,7 +523,6 @@ export default {
 .sxBodx1{
 	display: inline-block;
 	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
 	border-radius: 5px;
 	width: 970px;
 	height: 700px;
