@@ -79,7 +79,6 @@ export default {
 	font-weight:400;
 	color:rgba(255,81,33,1);
 	line-height:20px;
-	margin-right: 30px;
 	
 }
 .tjEvent_1{
