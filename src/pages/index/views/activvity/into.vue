@@ -1,5 +1,5 @@
 <template>
-	<div class="csBox">
+	<div>
 		<list :config="data" :nodTip="nodTip">
 			<template v-slot:todo="{ todo }">
 				<box_a :tjData="bdtjdata" :el="todo"></box_a>

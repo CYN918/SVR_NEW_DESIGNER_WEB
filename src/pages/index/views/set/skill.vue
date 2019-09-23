@@ -267,9 +267,10 @@ export default {
 				}
 				da.splice(0,1);
 				this.pz_preference_classify = da;
+				let ar = this.listCz(window.userInfo.preference_classify);
 				let arr = [];
 				for(let i=0,n=da.length;i<n;i++){
-					if(this.form.preference_classify.indexOf(da[i].classify_name)!=-1){
+					if(ar.indexOf(da[i].classify_name)!=-1){
 						arr.push(da[i].classify_name);
 					}
 				}
@@ -301,7 +302,7 @@ export default {
 			this.form = {
 				situation:window.userInfo.situation,
 				work_experience:window.userInfo.work_experience,
-				preference_classify:this.listCz(window.userInfo.preference_classify),
+				preference_classify:[],
 				style:st,
 				field:fd,
 				design_experience:window.userInfo.design_experience,					
