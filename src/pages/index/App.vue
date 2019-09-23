@@ -2322,4 +2322,8 @@ content: "";
     min-height: 102%;
     padding: 60px 0 150px;
 }
+.btomShow{
+	-webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+}
 </style>

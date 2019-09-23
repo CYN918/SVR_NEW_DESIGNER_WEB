@@ -1,6 +1,6 @@
 <template>
 	<div @click="openCent()" class="pr_cent_1">
-		<img class="pr_cent_1_1" :src="el.banner" alt="">
+		<img class="pr_cent_1_1" :src="el.banner+'?x-oss-process=image/resize,w_310'" alt="">
 		<div class="sjxd" v-if="el.extra_reward">
 			额外奖金¥{{el.extra_reward}}
 		</div>

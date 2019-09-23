@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<headNav :config="navData" ref="xtop"></headNav>
-		<headNav v-if="topTyped==true" class="dbxfyS" :config="navData" ref="xtop"></headNav>
+		<headNav v-if="topTyped==true" class="dbxfyS btomShow" :config="navData" ref="xtop"></headNav>
 		<div class="content">
 			<div v-html="comt"></div>
 		</div>

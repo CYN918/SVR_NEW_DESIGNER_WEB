@@ -67,7 +67,7 @@ export default {
 			window.open('#/cont?id='+this.el.work_id)
 		},
 		backBn(ur){
-			return 'background-image: url('+ur+');'
+			return 'background-image: url('+ur+'?x-oss-process=image/resize,w_307);'
 		}
 	}
 }
@@ -99,6 +99,7 @@ export default {
     height: 231.9px;
     border-radius: 5px 5px 0 0;
     overflow: hidden;
+    background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 50%,50%;
 	-webkit-transition: transform .1s linear;
