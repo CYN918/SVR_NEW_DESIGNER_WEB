@@ -1,7 +1,7 @@
 <template>
 	<div class="usertc_6">
 		<div class="usertc_0">
-			<img @click="goR('/works')" class="usertc_1 pend" :src="tcData.user_info.avatar" alt="">
+			<img @click="goR('/works')" class="usertc_1 pend" :src="tcData.user_info.avatar+'?x-oss-process=image/resize,w_128'" alt="">
 			<div @click="goR('/works')" class="usertc_2 pend">{{tcData.user_info.username}}</div>
 			<div class="usertc_3">{{tcData.user_info.city+' | '+tcData.user_info.vocation}}</div>
 			<div class="usertc_4">

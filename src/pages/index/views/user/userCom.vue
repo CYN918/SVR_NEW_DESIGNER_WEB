@@ -53,7 +53,7 @@
 			
 		</div>
 		<div class="u_top3">
-			<img class="u_top3_1" :src="userMessage.avatar"></img>
+			<img class="u_top3_1" :src="userMessage.avatar+'?x-oss-process=image/resize,w_128'"></img>
 			<div class="u_top3_2">
 				<div class="u_top3_2_1">{{backnAM(userMessage.username)}}</div>
 				<div class="u_top3_2_2">{{userMessage.province+'-'+userMessage.city}}</div>
@@ -457,7 +457,8 @@ export default {
 	margin-bottom: 39px;
 }
 .upBg{
-	margin: 20px auto 17px;
+	background: #fff;
+	padding: 20px 0 17px;
 	width: 1300px;
 	height: 230px;
 }

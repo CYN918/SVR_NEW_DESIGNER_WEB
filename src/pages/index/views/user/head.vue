@@ -390,7 +390,8 @@ export default {
 	margin-bottom: 39px;
 }
 .upBg{
-	margin: 20px auto 17px;
+	background: #fff;
+	padding: 20px 0 17px;
 	width: 1300px;
 	height: 230px;
 }

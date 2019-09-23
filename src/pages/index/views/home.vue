@@ -148,22 +148,25 @@ export default {
 	
 }
 .home_0x4>a:nth-child(1)>div>img{
-	width: 101px;
+	width: 152px;
 }
 .home_0x4>a:nth-child(2)>div>img{
-	width: 97px;
+	width: 137px;
 }
 .home_0x4>a:nth-child(3)>div>img{
-	width: 119px;
+	width: 123px;
+    top: 60%;
+    left: 58%;
 }
 .home_0x4>a:nth-child(4)>div>img{
-	width: 106px;
+	width: 147px;
+    left: 54%;
 }
 .home_0x4>a:nth-child(5)>div>img{
-	width: 123px;
+	width: 130px;
 }
 .home_0x4>a:nth-child(6)>div>img{
-	width: 83px;
+	width: 160px;
 }
 .home_0x4_2{
 	margin-bottom: 4px;

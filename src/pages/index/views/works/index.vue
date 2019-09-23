@@ -35,10 +35,13 @@ export default {
 		}
 	},
 	mounted: function(){
-
+		this.init()
 	}, 
 	methods: {
-		
+		init(){
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
+		},
 		qhNav(on){
 			if(on==this.type){return}
 			this.type=on;

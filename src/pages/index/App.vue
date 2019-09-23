@@ -293,7 +293,7 @@ img{
 .lgoin_s2{
 	position: relative;
 	width:0;
-	margin:  0 0 0 29px;
+	margin:  0 0 0 19px;
 }
 .lgoin_s2:after {
     content: "";

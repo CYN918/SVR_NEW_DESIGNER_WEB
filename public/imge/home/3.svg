@@ -1,58 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 22.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 119 99" style="enable-background:new 0 0 119 99;" xml:space="preserve">
-<style type="text/css">
-	.st0{opacity:0.5;fill:none;stroke:url(#Shape_1_);stroke-width:6;}
-	.st1{opacity:0.5;fill:none;stroke:url(#Path_1_);stroke-width:6;}
-	.st2{opacity:0.5;fill:url(#Oval_1_);}
-	.st3{opacity:0.5;fill:url(#Rectangle-Copy-4_1_);}
-	.st4{opacity:0.5;fill:url(#Oval-Copy-2_1_);}
-</style>
-<title>Home_icon_visual</title>
-<desc>Created with Sketch.</desc>
-<g id="Page-1">
-	<g id="_x30_1-首页" transform="translate(-1306.000000, -993.000000)">
-		<g id="Group-8" transform="translate(432.000000, 840.000000)">
-			<g id="Group-28" transform="translate(39.000000, 118.000000)">
-				<g id="Group-26" transform="translate(812.000000, 0.000000)">
-					<g id="Group-18">
-						<g id="Home_icon_visual" transform="translate(28.000000, 35.000000)">
-							
-								<linearGradient id="Shape_1_" gradientUnits="userSpaceOnUse" x1="-437.9008" y1="543.5714" x2="-437.9008" y2="542.5714" gradientTransform="matrix(54 0 0 -70 23590 38074)">
-								<stop  offset="0" style="stop-color:#DB2F94"/>
-								<stop  offset="1" style="stop-color:#0051DE"/>
-							</linearGradient>
-							<polyline id="Shape" class="st0" points="54,75.2 35.2,94 0,59 35.2,24 52.2,41 							"/>
-							
-								<linearGradient id="Path_1_" gradientUnits="userSpaceOnUse" x1="-435.8726" y1="541.1765" x2="-435.8726" y2="540.1765" gradientTransform="matrix(51 0 0 -51 22315 27620)">
-								<stop  offset="0" style="stop-color:#DB2F94"/>
-								<stop  offset="1" style="stop-color:#0051DE"/>
-							</linearGradient>
-							<polyline id="Path" class="st1" points="86.3,20 111,20 111,71 60,71 60,43.7 60,43.7 							"/>
-							
-								<linearGradient id="Oval_1_" gradientUnits="userSpaceOnUse" x1="-445.4112" y1="468.9065" x2="-445.4112" y2="467.9065" gradientTransform="matrix(5.4875 -5.4875 -5.4875 -5.4875 5081.0859 212.3225)">
-								<stop  offset="0" style="stop-color:#0051DE;stop-opacity:0"/>
-								<stop  offset="1" style="stop-color:#0051DE"/>
-							</linearGradient>
-							<circle id="Oval" class="st2" cx="66.5" cy="86.1" r="3.9"/>
-							
-								<linearGradient id="Rectangle-Copy-4_1_" gradientUnits="userSpaceOnUse" x1="-444.7531" y1="527.4754" x2="-444.7531" y2="526.4754" gradientTransform="matrix(19.7562 -19.7562 -19.7562 -19.7562 19261.0723 1644.5778)">
-								<stop  offset="0" style="stop-color:#DB2F94"/>
-								<stop  offset="1" style="stop-color:#0051DE"/>
-							</linearGradient>
-							<polygon id="Rectangle-Copy-4" class="st3" points="43.7,20.2 63.4,0.4 83.2,20.2 63.4,39.9 							"/>
-							
-								<linearGradient id="Oval-Copy-2_1_" gradientUnits="userSpaceOnUse" x1="-463.1022" y1="539.538" x2="-463.1022" y2="538.538" gradientTransform="matrix(-7.6321 -28.4835 -28.4865 7.6329 11854.7949 -17243.8965)">
-								<stop  offset="0" style="stop-color:#0051DE;stop-opacity:0"/>
-								<stop  offset="1" style="stop-color:#0051DE"/>
-							</linearGradient>
-							<ellipse id="Oval-Copy-2" class="st4" cx="33.9" cy="61.3" rx="14.7" ry="14.7"/>
-						</g>
-					</g>
-				</g>
-			</g>
-		</g>
-	</g>
-</g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="123px" height="136px" viewBox="0 0 123 136" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>Home_icon_visual</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="83" cy="83" r="83"></circle>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#FFAE73" offset="0%"></stop>
+            <stop stop-color="#FFD1B1" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#FFE0CB" offset="0%"></stop>
+            <stop stop-color="#FFE2CC" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01-首页" transform="translate(-1318.000000, -988.000000)">
+            <g id="Group-10" transform="translate(471.000000, 958.000000)">
+                <g id="Home_icon_visual" transform="translate(812.000000, 0.000000)">
+                    <g id="Rectangle">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Mask"></g>
+                        <g id="Group-33" mask="url(#mask-2)">
+                            <g transform="translate(35.000000, 30.000000)">
+                                <rect id="Rectangle" fill="url(#linearGradient-3)" fill-rule="nonzero" x="0" y="0" width="98" height="136" rx="10"></rect>
+                                <rect id="Rectangle" fill="#FFFFFF" fill-rule="evenodd" x="7.7" y="18.7" width="35" height="9" rx="4.5"></rect>
+                                <rect id="Rectangle-Copy-84" fill="#FFFFFF" fill-rule="evenodd" opacity="0.5" x="7.7" y="34.42" width="68" height="4.68" rx="2.34"></rect>
+                                <rect id="Rectangle-Copy-86" fill="#FFFFFF" fill-rule="evenodd" opacity="0.5" x="7.7" y="43.78" width="68" height="4.68" rx="2.34"></rect>
+                            </g>
+                        </g>
+                    </g>
+                    <g id="Group-19" transform="translate(63.000000, 97.000000)">
+                        <rect id="Rectangle-Copy-9" fill="#FFAF75" fill-rule="nonzero" opacity="0.5" x="0" y="3" width="92" height="58" rx="5"></rect>
+                        <rect id="Rectangle" fill="url(#linearGradient-4)" fill-rule="nonzero" x="3" y="0" width="92" height="58" rx="5.85"></rect>
+                        <path d="M3,52.1590909 L16.9531441,37.0960628 C18.8297044,35.070234 21.9932159,34.949228 24.0190447,36.8257884 C24.0613205,36.8649492 24.1029161,36.9048379 24.1438129,36.9454367 L34.0712226,46.800504 C36.0309715,48.745972 39.1967752,48.734395 41.1422432,46.7746461 C41.2531776,46.6628973 41.3587712,46.5459706 41.458671,46.4242568 L62.5728595,20.6996056 C64.3248128,18.5650984 67.4754115,18.2549772 69.6099186,20.0069305 C69.8604519,20.2125623 70.0903971,20.4420673 70.2965085,20.6922061 L95,50.6725938 L95,50.6725938 L95,54 C95,56.7614237 92.7614237,59 90,59 L8,59 C5.23857625,59 3,56.7614237 3,54 L3,52.1590909 L3,52.1590909 Z" id="Path-2" fill="#FFFFFF"></path>
+                        <circle id="Oval" fill="#FFFFFF" cx="19.5" cy="13.5" r="7.5"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
 </svg>

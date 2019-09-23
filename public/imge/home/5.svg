@@ -1,59 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 22.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 118 80" style="enable-background:new 0 0 118 80;" xml:space="preserve">
-<style type="text/css">
-	.st0{opacity:0.5;fill:url(#Rectangle-Copy-4_1_);}
-	.st1{opacity:0.5;fill:url(#Shape_1_);}
-	.st2{opacity:0.5;fill:url(#Shape-Copy_1_);}
-	.st3{opacity:0.5;fill:url(#Oval_1_);}
-	.st4{opacity:0.5;fill:url(#Oval-Copy-2_1_);}
-</style>
-<title>Home_icon_script</title>
-<desc>Created with Sketch.</desc>
-<g id="Page-1">
-	<g id="_x30_1-首页" transform="translate(-905.000000, -1282.000000)">
-		<g id="Group-8" transform="translate(432.000000, 840.000000)">
-			<g id="Group-28" transform="translate(39.000000, 118.000000)">
-				<g id="Group-14" transform="translate(406.000000, 276.000000)">
-					<g id="Group-23">
-						<g id="Home_icon_script" transform="translate(28.000000, 46.000000)">
-							
-								<linearGradient id="Rectangle-Copy-4_1_" gradientUnits="userSpaceOnUse" x1="-439.8477" y1="526.546" x2="-439.8477" y2="525.546" gradientTransform="matrix(27.3185 -27.3185 -27.3185 -27.3185 26442.0527 2395.1191)">
-								<stop  offset="0" style="stop-color:#DB2F94"/>
-								<stop  offset="1" style="stop-color:#0051DE"/>
-							</linearGradient>
-							<polygon id="Rectangle-Copy-4" class="st0" points="28.1,40.3 55.3,13 82.5,40.3 55.3,67.6 							"/>
-							
-								<linearGradient id="Shape_1_" gradientUnits="userSpaceOnUse" x1="-428.5" y1="536.7123" x2="-428.5" y2="535.7123" gradientTransform="matrix(40 0 0 -73 17232 39184)">
-								<stop  offset="0" style="stop-color:#DB2F94"/>
-								<stop  offset="1" style="stop-color:#0051DE"/>
-							</linearGradient>
-							<polygon id="Shape" class="st1" points="104.8,40.5 72,73.4 75.6,77 112,40.5 75.6,4 72,7.6 							"/>
-							
-								<linearGradient id="Shape-Copy_1_" gradientUnits="userSpaceOnUse" x1="-450.5" y1="536.7123" x2="-450.5" y2="535.7123" gradientTransform="matrix(-40 0 0 -73 -18000 39184)">
-								<stop  offset="0" style="stop-color:#DB2F94"/>
-								<stop  offset="1" style="stop-color:#0051DE"/>
-							</linearGradient>
-							<polygon id="Shape-Copy" class="st2" points="7.2,40.5 40,73.4 36.4,77 0,40.5 36.4,4 40,7.6 							"/>
-							
-								<linearGradient id="Oval_1_" gradientUnits="userSpaceOnUse" x1="-440.7544" y1="483.6492" x2="-440.7544" y2="482.6492" gradientTransform="matrix(7.5736 -7.5736 -7.5736 -7.5736 7013.3882 328.6672)">
-								<stop  offset="0" style="stop-color:#0051DE;stop-opacity:0"/>
-								<stop  offset="1" style="stop-color:#0051DE"/>
-							</linearGradient>
-							<circle id="Oval" class="st3" cx="16.1" cy="7.6" r="5.4"/>
-							
-								<linearGradient id="Oval-Copy-2_1_" gradientUnits="userSpaceOnUse" x1="-453.168" y1="535.4637" x2="-453.168" y2="534.4637" gradientTransform="matrix(-10.552 -39.3806 -39.2469 10.5162 16311.2002 -23410.5605)">
-								<stop  offset="0" style="stop-color:#0051DE;stop-opacity:0"/>
-								<stop  offset="1" style="stop-color:#0051DE"/>
-							</linearGradient>
-							<path id="Oval-Copy-2" class="st4" d="M77.7,66.5c-2.9-10.9,3.5-22,14.3-24.9c10.8-2.9,22,3.6,24.9,14.4s-3.5,22-14.3,24.9
-								C91.8,83.8,80.6,77.4,77.7,66.5z"/>
-						</g>
-					</g>
-				</g>
-			</g>
-		</g>
-	</g>
-</g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="130px" height="114px" viewBox="0 0 130 114" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>Home_icon_script</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#AFCBFF" offset="0%"></stop>
+            <stop stop-color="#6BAEFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#AFCBFF" offset="0%"></stop>
+            <stop stop-color="#6BAEFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#AFCBFF" offset="0%"></stop>
+            <stop stop-color="#6BAEFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01-首页" transform="translate(-894.000000, -1260.000000)">
+            <g id="Group-10" transform="translate(471.000000, 958.000000)">
+                <g id="Home_icon_script" transform="translate(423.000000, 302.000000)">
+                    <rect id="Rectangle-Copy-92" fill="url(#linearGradient-1)" fill-rule="nonzero" opacity="0.200000003" x="0" y="12" width="130" height="90" rx="3.645"></rect>
+                    <rect id="Rectangle" fill="url(#linearGradient-2)" fill-rule="nonzero" opacity="0.5" x="10" y="6" width="110" height="102" rx="4.05"></rect>
+                    <g id="Group-37" transform="translate(20.000000, 0.000000)">
+                        <rect id="Rectangle-Copy-91" fill="url(#linearGradient-3)" fill-rule="nonzero" x="7.10542736e-15" y="0" width="90" height="114" rx="4.5"></rect>
+                        <g id="Group-50" transform="translate(36.200000, 74.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+                            <polyline id="Path" transform="translate(10.371870, 14.187692) rotate(-45.000000) translate(-10.371870, -14.187692) " points="3.27802395 21.2815385 3.28172452 7.09754673 3.28172452 7.09754673 17.4657163 7.09384615"></polyline>
+                            <polyline id="Path-Copy-2" transform="translate(28.810805, 14.187692) scale(-1, 1) rotate(-45.000000) translate(-28.810805, -14.187692) " points="21.7169584 21.2815385 21.720659 7.09754673 21.720659 7.09754673 35.9046507 7.09384615"></polyline>
+                            <path d="M23.8,1 L15.8,27" id="Line-13"></path>
+                        </g>
+                        <rect id="Rectangle" fill="#FFFFFF" x="9.7" y="14" width="54" height="4" rx="2"></rect>
+                        <rect id="Rectangle-Copy-89" fill="#FFFFFF" x="9.7" y="24" width="42.3" height="4" rx="2"></rect>
+                        <rect id="Rectangle-Copy-93" fill="#FFFFFF" opacity="0.600000024" x="9.7" y="44" width="42.3" height="4" rx="2"></rect>
+                        <rect id="Rectangle-Copy-90" fill="#FFFFFF" opacity="0.600000024" x="9.7" y="34" width="32.4" height="4" rx="2"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
 </svg>

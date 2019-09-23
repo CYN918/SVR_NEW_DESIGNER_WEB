@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="98px" height="97px" viewBox="0 0 98 97" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="154px" height="136px" viewBox="0 0 154 136" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
     <title>Home_icon_ui</title>
     <desc>Created with Sketch.</desc>
     <defs>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#DB2F94" offset="0%"></stop>
-            <stop stop-color="#0051DE" offset="100%"></stop>
+        <circle id="path-1" cx="83" cy="83" r="83"></circle>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#53AFEF" offset="0%"></stop>
+            <stop stop-color="#A6E3FF" offset="100%"></stop>
         </linearGradient>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
-            <stop stop-color="#0051DE" stop-opacity="0" offset="0%"></stop>
-            <stop stop-color="#0051DE" offset="100%"></stop>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#98DAFC" offset="0%"></stop>
+            <stop stop-color="#93D7FB" offset="100%"></stop>
         </linearGradient>
     </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
-        <g id="01-首页" transform="translate(-504.000000, -993.000000)">
-            <g id="Group-8" transform="translate(432.000000, 840.000000)">
-                <g id="Group-28" transform="translate(39.000000, 118.000000)">
-                    <g id="Group-15">
-                        <g id="Group-21">
-                            <g id="Home_icon_ui" transform="translate(33.000000, 35.000000)">
-                                <rect id="Rectangle" stroke="url(#linearGradient-1)" stroke-width="6" transform="translate(49.000000, 48.585786) rotate(-45.000000) translate(-49.000000, -48.585786) " x="18" y="17.5857864" width="62" height="62"></rect>
-                                <circle id="Oval" fill="url(#linearGradient-2)" transform="translate(25.000000, 89.000000) rotate(-45.000000) translate(-25.000000, -89.000000) " cx="25" cy="89" r="5"></circle>
-                                <rect id="Rectangle-Copy-4" fill="url(#linearGradient-1)" transform="translate(49.000000, 48.585786) rotate(-45.000000) translate(-49.000000, -48.585786) " x="31" y="30.5857864" width="36" height="36"></rect>
-                                <circle id="Oval-Copy-2" fill="url(#linearGradient-2)" transform="translate(77.000000, 26.000000) rotate(-105.000000) translate(-77.000000, -26.000000) " cx="77" cy="26" r="19"></circle>
-                            </g>
-                        </g>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01-首页" transform="translate(-480.000000, -988.000000)">
+            <g id="Group-10" transform="translate(471.000000, 958.000000)">
+                <g id="Home_icon_ui">
+                    <rect id="Rectangle-Copy-75" fill="#57B2EF" fill-rule="nonzero" opacity="0.300000012" x="142" y="77.6" width="21" height="21" rx="4.55"></rect>
+                    <rect id="Rectangle-Copy-76" fill="#57B2EF" fill-rule="nonzero" opacity="0.100000001" x="20" y="42" width="12" height="12" rx="2"></rect>
+                    <g id="Rectangle">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="Mask"></g>
+                        <rect fill="url(#linearGradient-3)" fill-rule="nonzero" mask="url(#mask-2)" x="35" y="30" width="96.46" height="136" rx="10"></rect>
                     </g>
+                    <g id="Group-17" transform="translate(9.000000, 74.000000)">
+                        <rect id="Rectangle" fill="#64B9F2" opacity="0.300000012" x="2.6" y="0.2" width="92.3" height="66" rx="6.5"></rect>
+                        <rect id="Rectangle-Copy-11" fill="#96D8FB" x="0" y="2.2" width="92.3" height="66" rx="6.5"></rect>
+                        <rect id="Rectangle" fill="#CEEEFE" x="6.5" y="11" width="31.2" height="6.5" rx="3.25"></rect>
+                        <rect id="Rectangle-Copy-10" fill="#CEEEFE" x="6.5" y="21.4" width="53.3" height="3.9" rx="1.95"></rect>
+                        <rect id="Rectangle-Copy-71" fill="#CEEEFE" fill-rule="nonzero" x="6.5" y="38.2" width="16.9" height="16.9" rx="4.55"></rect>
+                        <rect id="Rectangle-Copy-72" fill="#CEEEFE" fill-rule="nonzero" x="27.3" y="38.2" width="16.9" height="16.9" rx="4.55"></rect>
+                        <rect id="Rectangle-Copy-73" fill="#CEEEFE" fill-rule="nonzero" x="48.1" y="38.2" width="16.9" height="16.9" rx="4.55"></rect>
+                        <rect id="Rectangle-Copy-74" fill="#CEEEFE" fill-rule="nonzero" x="68.9" y="38.2" width="16.9" height="16.9" rx="4.55"></rect>
+                    </g>
+                    <rect id="Rectangle-Copy-78" fill="url(#linearGradient-4)" fill-rule="nonzero" x="41" y="49" width="84.5" height="13" rx="6.5"></rect>
+                    <rect id="Rectangle-Copy-77" fill="#67BCF3" fill-rule="nonzero" x="118" y="130" width="32" height="32" rx="5"></rect>
                 </g>
             </g>
         </g>

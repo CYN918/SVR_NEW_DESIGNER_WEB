@@ -1,7 +1,7 @@
 <template>
 	<div class="help_boxd">
 		<headNav :config="navData" ref="xtop"></headNav>
-		<headNav v-if="topTyped==true" class="dbxfyS" :config="navData" ref="xtop"></headNav>
+		<headNav v-if="topTyped==true" class="dbxfyS btomShow" :config="navData" ref="xtop"></headNav>
 		
 		<div class="setUserBox">
 			<div class="setUserBoxs">

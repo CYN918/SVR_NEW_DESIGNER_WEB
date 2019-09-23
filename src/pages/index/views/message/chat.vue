@@ -525,7 +525,7 @@ export default {
 	background: #FFFFFF;
 	border-radius: 5px;
 	width: 970px;
-	height: 700px;
+	height: 640px;
 	margin-bottom: 60px;
 }
 
