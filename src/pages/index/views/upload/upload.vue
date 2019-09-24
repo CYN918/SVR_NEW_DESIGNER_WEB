@@ -18,9 +18,8 @@
 			</div>
 			<div class="upBoxd2">
 				
-				<div @click="showUp(0,'上传图片')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
-				<div @click="showUp(1,'上传视频')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
-				<div @click="showUp(2,'上传音频')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/sc_icon_scyp.svg" alt="" />上传音频</div>
+				<div @click="showUp(0,'上传图片')"><img class="svgImg1" src="/imge/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
+				<div @click="showUp(1,'上传视频')"><img class="svgImg1" src="/imge/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
 			</div>
 			<UplodImg v-if="isshowd" :configData="upConfig"></UplodImg>
 			
@@ -889,7 +888,7 @@ export default {
 .upBoxd2{
 	margin-left: 20px;
 	width: 200px;
-	height: 210px;
+	padding-bottom: 30px;
 	vertical-align: top;
 	background: #FFFFFF;
 	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);

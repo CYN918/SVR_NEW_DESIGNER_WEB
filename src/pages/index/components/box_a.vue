@@ -103,19 +103,20 @@ export default {
 	background-size: cover;
 	background-position: 50%,50%;
 	-webkit-transition: transform .1s linear;
-
-
-    transition: transform .1s linear,
-	
+    transition: transform .1s linear,;
+    -webkit-transform-origin: center;	
+    transform-origin: center;
 }
 .list1_box_1x{
 	width: 100%;
     height: 231.9px;
+    -webkit-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
     overflow: hidden;
 }
 .list1_box_1x:hover .list1_box_1{
-    -webkit-transform: scale(1.02);
-    transform: scale(1.02);
+    -webkit-transform: scale(1.03);
+    transform: scale(1.03);
 }
 .list1_box_2{
 	display: block;
