@@ -12,7 +12,7 @@
 					</div>
 				</div>				
 				<div class="setUserBoxs_cent">
-					<div class="suc_1">
+					<div class="scBox suc_1">
 						<div class="suc_title">主体信息<div class="xhds"></div></div>
 						<div class="suc_1_9">
 							<span>企业/机构名称</span><el-input class="suc_1_9_1" v-model="postData.company_name" placeholder="企业/机构名称"></el-input>
@@ -83,7 +83,7 @@
 						</div>
 						
 					</div>
-					<div class="suc_1 suc_2">
+					<div class="scBox suc_1 suc_2">
 						<div class="suc_title">银行卡信息<div class="xhds"></div></div>
 						<div class="suc_1_9">
 							<span>企业银行账户</span><el-input @blur="getBINKname" class="suc_1_9_1" v-model="postData.bank_card_no" placeholder="请输入企业银行账户"></el-input>
@@ -96,18 +96,18 @@
 							<el-input class="suc_1_9_1" v-model="postData.branch_bank" placeholder="请输入所属开户支行"></el-input>
 						</div>
 					</div>
-					<div class="suc_1 suc_3">
+					<div class="scBox suc_1 suc_3">
 						<div class="suc_title">身份验证<div class="xhds"></div></div>
 						<div class="suc_1_9">
 							<span>联系人姓名</span>
 							<el-input class="suc_1_9_1" v-model="postData.contact" placeholder="请输入联系人姓名"></el-input>
 						</div>
 						<div class="suc_1_9">
-							<span>手机号</span><div class="suc_1_9_c">{{form.mobile}}</div><span @click="openTc1(2)" class="suc_1_9_c1">更换号码</span>
+							<span>手机号</span><div class="suc_1_9_c">{{form.mobile}}</div><span @click="openTc1(2)" class="suc_1_9_c1n">更换号码</span>
 						</div>
 						<div class="suc_1_9">
 							<span>验证码</span>
-							<Input class="suc_1_9yzm" v-model="postData.verify_code"  @ajaxYzm="ajaxYzmZd" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+							<Input class="suc_1_9yzm" v-model="postData.verify_code"  @ajaxYzm="ajaxYzmZd" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位手机短信验证码'"  ref="verify"></Input>
 						</div>
 						<div class="suc_1_9">
 							<span>邮箱</span><div class="suc_1_9_c"></div><span @click="openTc1(3)" class="suc_1_9_c1">立即认证</span>
@@ -679,5 +679,14 @@ export default {
 	left: 50%;
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
+}
+.suc_1>.suc_1_9>span.suc_1_9_c1n{
+	color: #666;
+	cursor: pointer;
+	margin-left: 33px;
+}
+.suc_1>.suc_1_9>span.suc_1_9_c1n:hover{
+	color: #FF5121;
+	
 }
 </style>

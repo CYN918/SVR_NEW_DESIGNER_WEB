@@ -2,7 +2,7 @@
 	<tanC :title="'项目评价'">
 		<template v-slot:todo="{ todo }">
 			<div class="question_00">
-				<div class="question_01">项目名称项目名称项目名称项目名称</div>
+				<div class="question_01">{{datad.name}}</div>
 				<ul class="question_02">
 					<li v-for="(el,index) in List" :key="index">
 						<div class="ques_01">{{el.sort+'、'+el.question}}</div>
@@ -76,7 +76,7 @@ export default {
 			if(ond==1){return}
 			
 			this.api.pr_evaluate({
-				project_id:this.$parent.deta.id,
+				project_id:this.datad.id,
 				result:JSON.stringify(this.postData)
 			}).then((da)=>{
 				if(da=='error'){return}

@@ -21,8 +21,6 @@
 			<list :page="setPage" :config="data" class="iopdlf_01" ref="sfafa">
 				<template v-slot:todo="{ todo }">
 					<cent :djs="djson" :el="todo"></cent>
-					
-					<!-- <box_a :tjData="bdtjdata" :el="todo"></box_a> -->
 				</template>			
 			</list>
 		</div>
@@ -92,7 +90,7 @@ export default {
 	background:rgba(244,246,249,1);
 }
 .pr_01{
-	padding: 20px 0;
+	padding: 40px 0;
     text-align: left;
 	background: #fff;
 }

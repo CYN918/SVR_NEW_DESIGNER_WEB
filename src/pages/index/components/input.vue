@@ -122,6 +122,11 @@ export default {
 				return
 			}
 	    	this.$emit('input', this.input); 
+	    	
+	    	if(this.oType!='password'){
+	    		return;
+	    	}
+	    	
 	    	let p = this.chekFn(this.input);
 	    	if(p){	    		
 	    		this.setErr(p.cls,p.text);
@@ -180,15 +185,19 @@ export default {
 		},
    		focus(){
  
-   			let p = this.chekFn(this.input);
+// 			let p = this.chekFn(this.input);
+//	    	if(p){	    		
+//	    		this.setErr(p.cls,p.text);
+//	    		return
+//	    	}
+	    	this.setErr('onIn','');
+   		},
+   	 	blur(){
+   	 		let p = this.chekFn(this.input);
 	    	if(p){	    		
 	    		this.setErr(p.cls,p.text);
 	    		return
 	    	}
-	    	this.setErr('onIn','');
-   		},
-   	 	blur(){
-   	 			
 			this.setErr('outIn','');	
    	 	},
    	 	ajaxYzm(){

@@ -29,7 +29,10 @@ textarea::-webkit-input-placeholder{color:#c0c4cc;}
 textarea::-moz-placeholder{color:#c0c4cc;}
 textarea:-moz-placeholder{color:#c0c4cc;}
 textarea:-ms-input-placeholder{color:#c0c4cc;}
-
+input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    border: 1px solid #CCC!important;
+}
 input{
 	outline: none;
 }
@@ -906,9 +909,6 @@ img{
 }
 .seed2_1_2{
 	padding: 40px;
-	max-height: 481px;
-    overflow: hidden;
-	overflow-y: auto;
 }
 .seed2_1_2::-webkit-scrollbar {
     width: 2px;     
@@ -1437,9 +1437,8 @@ content: "";
 .setUserBoxs_cent{
 	display: inline-block;
 	width: 910px;
-	margin-bottom: 40px;
 }
-.setUserBoxs_cent>div{
+.setUserBoxs_cent>div.scBox{
 	background: #FFFFFF;
 	border-radius: 5px;
 	width: 910px;
@@ -1775,6 +1774,7 @@ content: "";
 .tc_spasswodr_1>span{
 	cursor: pointer;
     display: inline-block;
+    text-align: center;
     width: 50%;
     line-height: 40px;
     border-bottom: 1px solid #E6E6E6;

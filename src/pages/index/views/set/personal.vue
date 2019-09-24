@@ -13,7 +13,7 @@
 				</div>
 				
 				<div class="setUserBoxs_cent">
-					<div class="suc_1">
+					<div class="scBox suc_1">
 						<div class="suc_title">主体信息<div class="xhds"></div></div>
 						<div class="suc_1_9">
 							<span>身份证姓名</span><el-input  class="suc_1_9_1" v-model="postData.name" placeholder="请输入姓名"></el-input>
@@ -111,7 +111,7 @@
 	
 						
 					</div>
-					<div class="suc_1 suc_2">
+					<div class="scBox suc_1 suc_2">
 						<div class="suc_title">银行卡信息<div class="xhds"></div></div>
 						<div class="suc_1_9">
 							<span>收款账户名</span><el-input class="suc_1_9_1" v-model="postData.account_name" placeholder="收款账户名需与身份证验证信息一致"></el-input>
@@ -133,14 +133,14 @@
 						
 						
 					</div>
-					<div class="suc_1 suc_3">
+					<div class="scBox suc_1 suc_3">
 						<div class="suc_title">身份验证<div class="xhds"></div></div>
 						<div class="suc_1_9">
-							<span>手机号</span><div class="suc_1_9_c">{{form.mobile}}</div><span @click="openTc1(2)" class="suc_1_9_c1">更换号码</span>
+							<span>手机号</span><div class="suc_1_9_c">{{form.mobile}}</div><span @click="openTc1(2)" class="suc_1_9_c1n">更换号码</span>
 						</div>
 						<div class="suc_1_9">
 							<span>验证码</span>
-							<Input class="suc_1_9yzm" v-model="postData.verify_code"  @ajaxYzm="ajaxYzmZd" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+							<Input class="suc_1_9yzm" v-model="postData.verify_code"  @ajaxYzm="ajaxYzmZd" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入6位手机短信验证码'"  ref="verify"></Input>
 						</div>
 						
 						<div class="suc_1_9">
@@ -846,5 +846,13 @@ export default {
 </script>
 
 <style>
-
+.suc_1>.suc_1_9>span.suc_1_9_c1n{
+	color: #666;
+	cursor: pointer;
+	margin-left: 33px;
+}
+.suc_1>.suc_1_9>span.suc_1_9_c1n:hover{
+	color: #FF5121;
+	
+}
 </style>

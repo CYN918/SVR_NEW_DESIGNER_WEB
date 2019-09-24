@@ -77,7 +77,7 @@ export default {
 				return
 			}
 			this.tcZj = a;
-			this.tcData = this.deta.id;
+			this.tcData = this.deta;
 		},
 		close(){
 			this.tcZj = '';

@@ -30,9 +30,11 @@ import myDynamic from './views/user/myDynamic.vue'
 import myCreators from './views/user/myCreators.vue'
 import myFans from './views/user/myFans.vue'
 
-import set_user from './views/set/user.vue'
-import setSkill from './views/set/skill.vue'
-import set_security from './views/set/security.vue'
+
+
+import setIndex from './views/set/setIndex.vue'
+
+
 import set_rzCom from './views/set/rzCom.vue'
 import set_personal from './views/set/personal.vue'
 import set_enterprise from './views/set/enterprise.vue'
@@ -130,9 +132,9 @@ let wb = [
 			{path: '/myCreators',name: 'myCreators',component:myCreators},
 			{path: '/myFans',name: 'myFans',component:myFans},
 			
-			{path: '/setUser',name: 'setUser',component:set_user},
-			{path: '/setSkill',name: 'setSkill',component:setSkill},
-			{path: '/setSecurity',name: 'setSecurity',component:set_security},
+			{path: '/setUser',name: 'setUser',component:setIndex},
+			{path: '/setSkill',name: 'setSkill',component:setIndex},
+			{path: '/setSecurity',name: 'setSecurity',component:setIndex},
 			{
 				path: '/setRz',
 				name: 'setRz',

@@ -222,6 +222,16 @@ Vue.prototype.checkLogin = ()=>{
 		return false;
 	}
 };
+
+Vue.prototype.setScll = function(top) {
+	if(document.documentElement && document.documentElement.scrollTop){
+		document.documentElement.scrollTop = Number(top);
+	}
+	if(document.body){
+		document.body.scrollTop = Number(top);
+	}
+},
+
 Vue.prototype.bdtj = (a,b,c)=>{
 	_hmt.push(['_trackEvent',a,b,c]);
 };

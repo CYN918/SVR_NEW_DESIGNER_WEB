@@ -168,7 +168,13 @@ export default {
 		},
 		showTc(a,b){
 			this.tcZj = a;
-			this.tcData = b;
+
+			if(b){
+				this.tcData = b;
+				return
+			}
+			this.tcData = this.deta;
+			
 		},
 		setBm(on){
 			this.deta.is_sign_up=on;
@@ -199,7 +205,8 @@ export default {
 				this.pzTop = {
 					name:da.name,
 					classify_name:da.classify_name,
-					fields:da.fields,					
+					fields:da.fields,		
+					id:da.id,
 				};
 				this.deta = da;
 			}).catch(()=>{

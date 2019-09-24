@@ -1,5 +1,10 @@
 <template>
 	<div class="bj_cent_1">
+		<div class="ylzp_0">
+			<div class="ylzp_1">
+				当前页面为预览状态，仅供视觉参考
+			</div>
+		</div>
 		<div class="seed1box" ref="topNav">
 			<div class="seed1">
 			<div class="seed11">
@@ -47,17 +52,20 @@
 					<div class="seed2_1_1_2">标签<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span><span class="iconfont">&#xe73c;</span><div v-if="contDat.attachment">下载附件（{{contDat.attachment.file_size_format}}）</div></div>
 				</div>
 				<div class="seed2_1_2 possdddg">
-					<div class="seed2_1_2_1"><div>说点什么吧<span>0/140</span></div><span>评论</span></div>
+					<div class="plyl_01">暂无评论</div>
+					<div class="seed2_1_2_1 seed2_1_2_1n2"><div>说点什么吧<span>0/140</span></div><span class="plyl_02">评论</span></div>
 					<div class="myplde">
 						还没有人评论，快来抢沙发吧~
 					</div>
 					<div class="zdc"></div>
 				</div>
 				
+			
+				
 				
 			</div>
 			<div class="seed2_2p">
-			<div :class="['seed2_2','.seed2_2xxxx',isfix]">
+			<div :class="['seed2_2','.seed2_2xxxx']">
 				<div class="seed2_1_1" v-if="contDat.user_info">
 					<div class="seed2_1_1_1">
 						<img class="contavatar" :src="contDat.user_info.avatar" alt="">
@@ -191,5 +199,44 @@ export default {
 	right: 0;
 	top: 0;
 	line-height: 42px;
+}
+
+
+.ylzp_0{
+	background: #fff;
+}
+.ylzp_1{
+	font-size:16px;
+	color:#FF5121;
+	line-height:60px;
+	background: rgba(255,81,33,.1);
+	height: 60px;
+	width: 100%;
+	text-align: center;
+}
+
+.plyl_01{
+	text-align: left;
+	font-size:14px;
+	color:rgba(102,102,102,1);
+	line-height:20px;
+	margin-bottom: 17px;
+}
+.plyl_02{
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 20px;
+	width:100px;
+	height:40px;
+	text-align: center;
+	background:rgba(153,153,153,1);
+	border-radius:5px;
+	font-size:14px;
+	color:rgba(255,255,255,1);
+	line-height:40px;
+}
+.seed2_1_2_1n2 > div{
+	width: 750px;
+	margin-bottom: 77px;
 }
 </style>

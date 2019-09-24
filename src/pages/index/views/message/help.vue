@@ -16,7 +16,7 @@
 				</div>
 				
 				<div class="setUserBoxs_cent setUserBoxs_centx">
-					<div class="suc_1 hlepdd" v-html="list[0]">
+					<div class="scBox suc_1 hlepdd" v-html="list[0]">
 						
 					</div>
 					
@@ -126,10 +126,7 @@ export default {
 .hlepdd{
 	min-height: 730px;
 }
-.setUserBoxs_centx>div{
-	-webkit-box-shadow:none;
-	box-shadow:none;
-}
+
 
 .navDwzc4{
 	top: 100px;

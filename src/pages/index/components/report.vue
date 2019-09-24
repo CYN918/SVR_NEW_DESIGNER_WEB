@@ -15,7 +15,7 @@
                    	v-model="detail">
                 </el-input>
             </div>
-            <div class="qxBm_btns">
+            <div class="btm2o">
 				<div @click="hidReport('取消')" class="btns pend">取消</div>
 				<div @click="AddReport" class="btns btns_js pend">提交意见</div>				
 			</div>
@@ -129,14 +129,15 @@ export default {
     display: block!important;
     margin-right: 0!important;
     text-align: left;
-    margin:0  0 13px 85px;
+    margin:0  0 13px 100px;
 }
-
+.btm2o{
+	margin-bottom: 20px;
+}
 .upRpt_txt{
     width: 450px;
     height: 161px;
-    margin-left: 85px;
-    margin-top: 31px;
+    margin: 30px 100px 40px !important;
 }
 .upRpt_btn{
     margin-top: 60px;
@@ -163,7 +164,7 @@ export default {
     color: #FFFFFF;
 }
 .rep_x1{
-	padding-top: 30px;
+	padding-top: 40px;
 }
 .upRpt_txt{
 	margin: 31px 85px;

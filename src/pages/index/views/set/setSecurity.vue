@@ -1,20 +1,7 @@
 <template>
-	<div>
-		<tophead :navData="navDatad"></tophead>
-		<div class="setUserBox">
-			<div class="setUserBoxs">
-				<div class="setUserBoxs_nav">
-					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index,el.bdtj)" :class="[index==navdOn?'action':'']">{{el.n}}</div>
-					
-				</div>
-				<div class="navDwzc">
-					<div :class="['setUserBoxs_nav',topTyped?'fixdon':'']">
-						<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index,el.bdtj)" :class="[index==navdOn?'action':'']">{{el.n}}</div>
-					</div>
-				</div>
-				
+
 				<div class="setUserBoxs_cent">
-					<div class="suc_1">
+					<div class="scBox suc_1">
 						<div class="suc_title">账号设置</div>
 						<div>
 							<span>手机号</span><div class="userSZ_1">{{form.mobile}}</div>
@@ -29,7 +16,7 @@
 							<div class="userSZ_2"><span @click="openTc1(4)">修改</span></div>
 						</div>						
 					</div>
-					<div class="suc_1 suc_2">
+					<div class="scBox suc_1 suc_2">
 						<div class="suc_title">第三方账号绑定</div>
 						<div class="suc_1_4">
 							<span><img src="/imge/svg/new/wx.svg" alt="">微信</span><div class="bindwxd_1 bindwxd_1n">{{form.weixin_name?form.weixin_name:'未绑定'}}</div><div class="bindwxd_2"><span class="btns pend" @click="openTc1(5,'weixin','del')" v-if="form.weixin_name">解绑</span><span v-else class="btns pend btns_js" @click="bindXg('weixin','add')">立即绑定</span></div>							
@@ -41,7 +28,7 @@
 							<span><img src="/imge/svg/new/wb.svg" alt="">微博</span><div class="bindwxd_1 bindwxd_1n" >{{form.weibo_name?form.weibo_name:'未绑定'}}</div><div class="bindwxd_2"><span class="btns pend" @click="openTc1(5,'weibo','del')" v-if="form.weibo_name">解绑</span><span class="btns pend btns_js" v-else @click="bindXg('weibo','add')">立即绑定</span></div>							
 						</div>
 					</div>
-					<div class="suc_1 suc_3">
+					<div class="scBox suc_1 suc_3">
 						<div class="suc_title">平台投稿人-认证信息</div>
 						<div class="suc_1_3">
 							<span>认证状态</span><div class="rzzt_1">
@@ -59,11 +46,7 @@
 					
 					
 					<div class="suc_btndf" @click="Userupdate">保存资料</div>
-				</div>
-			</div>
-			
-		</div>
-		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
+
 		<TcBox :config="outc" ref="tcBox">
 			<template v-slot:todo="{ todo }">				
 				<div v-if="tAncType==1" class="tc_sucd_1">
@@ -142,47 +125,36 @@
 					</div>
 				</div>
 			</template>			
-		</TcBox>
+		</TcBox>			
+					
+					
+					
+					
 	</div>
+
+
 </template>
 
 <script>
 
 import {Message} from 'element-ui'
-import tophead from './myHead2';
-import upoloadcaver from './upoloadcaver';
 import Input from '../../components/input'
-import Citys from '../../components/citys'
-import Select from '../../components/select'
-import rideo from '../../components/rideo'
 import TcBox from '../../components/TcBox';
 export default {
 	name: 'works',
-	components:{upoloadcaver,Input,Citys,Select,rideo,tophead,TcBox},
+	components:{Input,TcBox},
 	data(){
 		return {
 			outc:{
 				title:'',
 				scroll:1,
 			},
-			navDatad:{
-				title:'账号设置',
-				list:[
-					{n:'基本信息',u:'/setUser',bdtj:['帐号设置','tag_帐号安全_点击基本信息']},
-					{n:'能力资料',u:'/setSkill',bdtj:['能力资料','tag_基本信息_点击能力资料']},
-					{n:'账号安全',u:'/setSecurity',bdtj:['帐号设置','tag_帐号安全_点击帐号安全']},
-				],
-			},
 			isyazfs:0,
 			tancData:{
 				mobile_zone:'86',
 				old_mobile_zone:'86'
 			},
-			navDta:[
-				{n:'账号设置',bdtj:'账号设置'},
-				{n:'第三方账号绑定',bdtj:'第三方账号绑定'},
-				{n:'平台投稿人-认证信息',bdtj:'平台投稿人-认证信息'},		
-			],
+
 			form:{},
 			sexData:[{n:'男',v:1},{n:'女',v:2}],	
 			isPhto:false,
@@ -581,7 +553,7 @@ export default {
 			
 			
 			if(on==4){
-				this.outc.title="修改密码";
+				this.outc.title="修改登陆密码";
 			}
 			if(t2){
 				this.bdtj('帐号设置','帐号安全-'+t+'-'+t2,'--');
@@ -598,46 +570,9 @@ export default {
 		
 		init(){
 			this.getUserDetail();
-			document.documentElement.scrollTop =1;
-			document.body.scrollTop =1;
-			window.onscroll = ()=>{
-				let t = document.documentElement.scrollTop||document.body.scrollTop;
-				if(t==0){
-					document.documentElement.scrollTop =1;
-					document.body.scrollTop =1;
-				}
-				if(this.topTyped==false){
-					if(t>188){
-						this.topTyped=true;
-					}
-					
-				}
-			231/3 
-				if(t<=188){
-					this.topTyped=false;
-				}
-				
-
-				if(t>=154){
-					this.navdOn =2;
-					return
-				}
-				if(t>=77){
-					this.navdOn =1;
-					return
-				}
-				
-				this.navdOn =0;
-				
-
-;			}
-		},
-		setNavd(on,tj){
-			this.bdtj('帐号设置','帐号安全-'+tj,'--');
-			this.navdOn = on;
-			this.setScll(77*on)
 			
 		},
+
 		Userupdate(){
 			
 			this.bdtj('帐号设置','帐号安全-保存资料','--');
@@ -665,20 +600,7 @@ export default {
 			});
 			
 		},
-		setScll(top){
-			
-			if (document.documentElement && document.documentElement.scrollTop) { // Explorer 6 Strict
-			
-                document.documentElement.scrollTop = Number(top);
-            }
-            if (document.body) {// all other Explorers
-			
-                document.body.scrollTop = Number(top);
-				
-			}	
-			
-		
-		},
+
 		getUserDetail(){
 			if(!window.userInfo){
 				this.$router.push({path:'/login'})
