@@ -5,6 +5,7 @@
 			<div class="upBg">
 				<vueCropper
 				ref="cropper"
+				:info="false"
 				:img="option.img"
 				:outputSize="option.size"
 				:fixed="true"
@@ -16,7 +17,9 @@
 				:autoCropHeight="option.autoCropHeight"
 				:autoCrop="true"
 				:fixedBox="true"
-				:centerBox="false"
+				:canMoveBox="false"
+				:centerBox="true"
+				
 				:enlarge="2"							
 				>
 				</vueCropper>

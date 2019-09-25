@@ -16,18 +16,25 @@
 					<div>{{el.created_at | logtime}}</div>
 					<div>{{el.check_status | typsuu}}</div>
 					<div>{{el.updated_at | logtime}}</div>
-					<div @mouseout="mod()" @mouseover="modx($event,0)">{{el.check_reason}}</div>
+					<div v-if="el.check_status==-1" class="log_tipbox">	
+						驳回理由
+						<div class="log_tip">
+							{{el.check_reason}}
+						</div>
+						
+					</div>
+					<div v-else></div>
 				</div>
 			</div>
-			<tipd :tipCent="csff" :style="sfas" ref="csdf"></tipd>
+
 		</template>			
 	</tanC>
 </template>
 <script>
 import tanC from '../../components/tanC';
-import tipd from './cenTip';
+
 export default {
-	components:{tanC,tipd},
+	components:{tanC},
 	data(){
 		return{
 			List:[],
@@ -99,22 +106,14 @@ export default {
 		close(){
 			this.$parent.close();
 		},
-		mod(e){
-			this.sfas = 'display:none';
-		},
-		modx(e,on){
-			this.csff = this.list[on].remark;
-			this.setPos(e.clientX,e.clientY);
-		},
-		setPos(x,y){
-			this.sfas = 'top:'+y+'px;left:'+x+'px';
-		},
+
 	}
 }		
 	
 </script>
 
 <style>
+
 .jglogbox{
 	padding: 20px 60px;
 	overflow: hidden;
@@ -122,6 +121,8 @@ export default {
 	width: 944px;
 	height: 553px;
 }
+
+
 .jgtitle{
 
 	background:rgba(242,242,242,.5);
@@ -162,5 +163,30 @@ export default {
 	line-height: 53px;
 	border-bottom:1px solid rgba(244,246,249,1);
 }
+.log_tipbox{
+	position: relative;
+	color: #FF5121;
+}
+.log_tipbox:hover>.log_tip{
+	display: inline-block;
+}
+.log_tip{
+	display: none;
+	
+	position: absolute;
+	top: 0;
+	right: 217px;
 
+	word-wrap:break-word;
+	width:356px;
+    background: rgba(255,255,255,1);
+    -webkit-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
+    padding: 12px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(51,51,51,1);
+    line-height: 20px;
+    text-align: right;
+}
 </style>
