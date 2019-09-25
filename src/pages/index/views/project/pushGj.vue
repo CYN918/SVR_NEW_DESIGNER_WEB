@@ -23,7 +23,7 @@
 					  >
 					  <i class="el-icon-upload"><img src="/imge/project/pus.svg"></i>
 					  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-					  <div class="el-upload__tip" slot="tip">文件大小为1GB以内</div>
+					  <div class="el-upload__tip" slot="tip">文件大小为1GB内，建议压缩后上传</div>
 					</el-upload>
 					
 					<div class="lid">

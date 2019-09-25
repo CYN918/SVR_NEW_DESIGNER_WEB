@@ -15,6 +15,8 @@
 				:autoCropWidth="option.autoCropWidth"
 				:autoCropHeight="option.autoCropHeight"
 				:autoCrop="true"
+				:fixedBox="true"
+				:centerBox="false"
 				:enlarge="2"							
 				>
 				</vueCropper>
@@ -115,8 +117,8 @@ export default {
 				outputSize:1,
 				outputType:'png',
 				autoCrop:true,
-				autoCropWidth:827,
-				autoCropHeight:147,
+				autoCropWidth:1300,
+				autoCropHeight:267,
 				fixedBox:true,
 			},
 			isUpbg:false,
@@ -460,6 +462,7 @@ export default {
 	background: #fff;
 	padding: 20px 0 17px;
 	width: 1300px;
+	margin: 0 auto;
 	height: 230px;
 }
 .u_top2{
