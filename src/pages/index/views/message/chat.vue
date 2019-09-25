@@ -647,7 +647,7 @@ export default {
 	overflow: hidden;
     overflow-y: auto;
     width: 100%;
-    height: 540px;
+    height: 478px;
 }
 .sxBodx3_2x_1{
 	display: block;

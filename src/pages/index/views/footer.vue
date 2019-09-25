@@ -99,7 +99,7 @@ export default {
 	display: inline-block;
 	vertical-align: top;
     width: 20px;
-    margin-top: 24px;
+    margin-top: 26px;
     margin-right: 5px;
 }
 </style>

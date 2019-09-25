@@ -4,9 +4,16 @@
 			<div class="upfdb_content_1">
 				<div class="upfdb_name ">
 				    <span>问题类型</span>
-				    <select v-model="classify">
+				    
+				    <el-select class="suc_3xInputx" v-model="classify" placeholder="请选择">
+						<el-option v-for="(item,index) in typeList" :key="index" :label="item.classify_name" :value="item.classify_name">
+						</el-option>
+					</el-select>
+		
+				    
+				    <!--<select v-model="classify">
 				        <option v-for="(item,index) in typeList" :value="index">{{item.classify_name}}</option>
-				    </select>
+				    </select>-->
 				</div>
 				<div class="upfdb_name">
 				    <span>问题描述</span>
@@ -41,10 +48,18 @@
 				<div class="upfdb_name">
 				    <span>联系方式</span>
 				    <div class="upfdb_name_x1">
-				        <select v-model="link_type">
+				    	
+				    	
+				    	<el-select class="suc_3xInputx" v-model="link_type" placeholder="请选择">
+							<el-option v-for="(e,i) in lxfs" :key="i" :label="e" :value="e">
+							</el-option>
+						</el-select>
+				    
+				  
+				        <!--<select v-model="link_type">
 				            <option value="手机" selected>手机号码</option>
 				            <option value="QQ">QQ号码</option>
-				        </select>
+				        </select>-->
 				        <input type="text" placeholder="请输入联系方式" v-model="link">
 				    </div>
 				</div>
@@ -64,13 +79,17 @@ export default {
 	name: "feedback",
 	data(){
 	    return {
+	    	lxfs:[
+	    		'手机',
+	    		'QQ'
+	    	],
 	    	tanCo:{
 	    		title:'意见反馈',
 	    		scroll:1,
 	    	},
 	        link:'',
 	        detail:'',
-	        classify:0,
+	        classify:'',
 	        aaa:0,
 	        imgList:[],
 	        box:false,
@@ -101,6 +120,7 @@ export default {
 	   
 	        this.api.Feedback_getClassify({}).then((res)=>{
 	            this.typeList = res;
+	            console.log( this.typeList);
 	        })
 	    },
 
@@ -122,7 +142,14 @@ export default {
 				this.$message({message:'联系方式不能为空'})
 	            return
 	        }
-	        let params={classify_id:this.typeList[this.classify].id,classify_name:this.typeList[this.classify].classify_name,detail:this.detail,pic:JSON.stringify(this.imgList),link_type:this.link_type,link:this.link}
+	        let params={
+	        	classify_id:this.typeList[this.classify].id,
+	        	classify_name:this.typeList[this.classify].classify_name,
+	        	detail:this.detail,
+	        	pic:JSON.stringify(this.imgList),
+	        	link_type:this.link_type,
+	        	link:this.link
+	        };
 	        this.api.Feedback_add(params).then((res)=>{
 				if(!res){this.bdtj('意见反馈弹窗','提交意见失败','--');return}
 				this.bdtj('意见反馈弹窗','提交意见成功','--');

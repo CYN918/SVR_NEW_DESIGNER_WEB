@@ -121,6 +121,7 @@ export default {
 			this.goTop=1;
 			this.page.limit = val;
 			this.page.page=1;
+			this.total=0;
 			this.getData();
 			
 		},
@@ -129,6 +130,7 @@ export default {
 				this.bdtj(this.config.bdtj[0][0],this.config.bdtj[0][1],'--');
 			}
 			this.goTop=1;
+			this.total=0;
 			this.page.page = val;
 			this.getData();
 		}
