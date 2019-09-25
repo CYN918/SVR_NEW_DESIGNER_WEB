@@ -6,7 +6,7 @@
 				<template v-slot:todo="{ todo }">
 					<div class="mylists">
 						<div @click="openxq(todo)" class="myListBox_1">
-							<img class="myListBox_1_1" :src="todo.face_pic">
+							<img class="myListBox_1_1" :src="todo.face_pic+'?x-oss-process=image/resize,w_307'">
 							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
 						</div>
 						<div @click="openxq(todo)" class="myListBox_2">

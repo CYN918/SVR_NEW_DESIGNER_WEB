@@ -1,7 +1,7 @@
 <template>
 	<div class="pr_cent2_1">
 		<div @click="openCent()" class="pr_cent2_2">
-			<img  class="pr_cent2_3" :src="deta.banner"/>
+			<img  class="pr_cent2_3" :src="deta.banner+'?x-oss-process=image/resize,w_310'"/>
 			<div class="pr_cent2_rs" v-if="deta.status==1 || deta.status==2">{{deta.sign_up_num}}人已报名</div>
 			<div class="pr_cent2_r2" v-html="tips">
 				
