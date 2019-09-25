@@ -49,6 +49,8 @@ import pt_money from './views/profit/money.vue'
 import pt_noRz from './views/profit/noRz.vue'
 import pt_qtsy from './views/profit/qtsy.vue'
 
+
+import messegas from './views/message/messga.vue'
 import notify from './views/message/notify.vue'
 import comment from './views/message/comment.vue'
 import chat from './views/message/chat.vue'
@@ -161,9 +163,9 @@ let wb = [
 				]				
 			},
 			{path: '/noIs',name: 'noIs',component:pt_noRz},
-			{path: '/notify',name: 'notify',component:notify},
-			{path: '/comment',name: 'comment',component:comment},
-			{path: '/chat',name: 'chat',component:chat},
+			{path: '/notify',name: 'notify',component:messegas},
+			{path: '/comment',name: 'comment',component:messegas},
+			{path: '/chat',name: 'chat',component:messegas},
 			{path: '/searchUser',name: 'searchUser',component:searchUser},
 			{path: '/searchWorks',name: 'searchWorks',component:searchWorks},
 			{path: '/searchProject',name: 'searchProject',component:searchProject},			

@@ -1,23 +1,11 @@
 <template>
-	<div>
+	<div class="ms_r">	
 		
-		<div class="setUserBox messgdo">
-			<div class="setUserBoxs">
-				<div class="setUserBoxs_nav">
-					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" :class="['tjsj_1',el.l>9?'tjsj_1':'']">{{backTj(el.l)}}</span></div>
-					
-				</div>
-				<div class="navDwzc">
-					<div :class="['setUserBoxs_nav',topTyped?'fixdon':'']">
-						<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" :class="['tjsj_1',el.l>9?'tjsj_1':'']">{{backTj(el.l)}}</span></div>
-					</div>
-				</div>
-				
-				<div class="setUserBoxs_cent">
-					<div class="poerrsas" v-if="listData.length==0"><noData ></noData></div>
-					
-					<div v-for="(el,index) in listData" :key="index">
-						<img class="comment_1" :src="el.comment.avatar" alt="">
+		<div class="ms_r_1">
+			
+			<div class="ms_r_c_1" v-if="listData.length>0">
+				<div v-for="(el,index) in listData" :key="index">
+					<img class="comment_1" :src="el.comment.avatar" alt="">
 						<div class="comment_2">
 							<div class="comment_2_1">{{el.comment.username}}<span class="comment_2_2">{{backtime(el.comment.create_time)}}</span></div>
 							<div class="comment_2_3" v-if="el.op_cname=='回复'">{{el.op_cname}} 你在原创作品 <span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span> 的评论</div>
@@ -47,12 +35,33 @@
 						</div>
 						<img @click="goWork(el.work.work_id)" class="comment_3" :src="el.work.face_pic" alt="">
 					</div>
+			</div>
+			<div v-else class="ms_r_2">
+				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
+				你的数据去火星了
+			</div>
+			<el-pagination class="cmmm_1" v-if="total>10"
+			background
+			@size-change="handleSizeChange"
+			@current-change="handleCurrentChange"
+			:current-page="page"
+			:page-sizes="[10, 20, 40, 60]"
+			:page-size="limit"
+			layout="prev,pager, next,sizes, jumper"
+			:total="total">   
+			</el-pagination>
+		</div>
+	<!--<div>
+		<div class="setUserBoxs_cent">
+					<div class="poerrsas" v-if="listData.length==0"><noData ></noData></div>
+					
+					
 					
 					
 				</div>
-			</div>
-			
-		</div>
+		
+		
+		
 		<el-pagination class="padxx_01" v-if="total>1"
 		background
 		@size-change="handleSizeChange"
@@ -62,7 +71,7 @@
 		:page-size="limit"
 		layout="prev,pager, next,sizes, jumper"
 		:total="total">   
-		</el-pagination>
+		</el-pagination>-->
 	</div>
 </template>
 
@@ -242,24 +251,7 @@ export default {
 			this.getMessgList();
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
-			window.onscroll = ()=>{
-				let t = document.documentElement.scrollTop||document.body.scrollTop;
-				if(t==0){
-					document.documentElement.scrollTop =1;
-					document.body.scrollTop =1;
-				}
-				if(this.topTyped==false){
-					if(t>188){
-						this.topTyped=true;
-					}
-					
-				}
-				if(t<=188){
-					this.topTyped=false;
-				}
-	
-				
-			}
+			
 		},
 		pushCk(){
 	
@@ -332,5 +324,20 @@ export default {
 <style>
 .iscsbtn{
 	background: #FF5121 !important;
+}
+.ms_r_c_1>div{
+	background: rgba(255,255,255,1);
+    box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    padding: 30px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+.ms_r_c_1 .comment_2{
+	margin-right: 109px;
+}
+.cmmm_1{
+	padding:40px 0 0;
+    margin: 0;
 }
 </style>

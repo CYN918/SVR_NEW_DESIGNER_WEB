@@ -1,28 +1,17 @@
 <template>
-	<div>		
-		<div>
-			<div class="setUserBoxs">
-				<div class="setUserBoxs_nav">
-					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" :class="['tjsj_1',el.l>9?'tjsj_1':'']">{{backTj(el.l)}}</span></div>
-					
-				</div>
-				<div class="navDwzc">
-					<div :class="['setUserBoxs_nav',topTyped?'fixdon':'']">
-						<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" :class="['tjsj_1',el.l>9?'tjsj_1':'']">{{backTj(el.l)}}</span></div>
-					</div>
-				</div>
-				
-				<div class="setUserBoxs_cent2">
-					<div class="poerrsas" v-if="listData.length==0"><noData></noData></div>
-					<div v-for="(el,index) in listData" :key="index">
+	<div class="ms_r">
+		<div class="ms_r_1">
+			
+			<div class="ms_r_3" v-if="listData.length>0">
+				<div v-for="(el,index) in listData" :key="index">
 						<img class="comment_1" @click="goUserIn(index)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/GFMRTX.svg" alt="">
 						<div class="comment_2 comment_2xss">
 							<div class="comment_2_1" @click="goUserIn(index)">{{(el.op==3 || el.op==4)?el.user_info.username:el.title}}<span class="comment_2_2">{{backtime(el.create_time)}}</span></div>
 							<div class="comment_2_5" v-html="el.content"></div>
 						</div>						
-					</div>
-					<p class="nn_x1">
-						<el-pagination  v-if="total>40"
+				</div>
+				<p class="nn_x1">
+					<el-pagination  v-if="total>10"
 						background
 						@size-change="handleSizeChange"
 						@current-change="handleCurrentChange"
@@ -31,14 +20,16 @@
 						:page-size="limit"
 						layout="prev,pager, next,sizes, jumper"
 						:total="total">   
-						</el-pagination>
-					</p>
-				</div>
-			
+					</el-pagination>
+				</p>				
+			</div>
+			<div v-else class="ms_r_2">
+				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
+				你的数据去火星了
 			</div>
 			
 		</div>
-		
+
 	</div>
 </template>
 
@@ -196,6 +187,9 @@ export default {
 </script>
 
 <style>
+	
+	
+	
 .comment_2xss{
 	margin-right: 0;
     width: 830px;
@@ -207,12 +201,12 @@ export default {
 	display: inline-block;
     margin-bottom: 60px;
 }
-.setUserBoxs_cent2 > div{
+.ms_r_3 > div{
 	background: #FFFFFF;
     border-radius: 5px;
     width: 910px;
     padding: 27px 30px;
     margin-bottom: 20px;
 }
-.nn_x1{text-align: center;padding-top: 30px;}
+.nn_x1{text-align: center;padding-top: 40px;}
 </style>

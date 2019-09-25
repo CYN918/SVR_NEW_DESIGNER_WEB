@@ -38,7 +38,7 @@ export default {
 				this.qxType='';
 				if(da=='error'){return}
 				if(this.$parent.setStaus){
-					this.$parent.setStaus('4');
+					this.$parent.setStaus('3');
 				}
 				this.$message({message:"撤回稿件成功"});
 				if(this.$parent.getData){

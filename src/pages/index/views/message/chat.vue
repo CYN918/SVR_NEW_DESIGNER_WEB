@@ -1,18 +1,8 @@
 <template>
-	<div>		
-		<div class=" ">
-			<div class="setUserBoxs">
-				<div class="setUserBoxs_nav">
-					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" :class="['tjsj_1',el.l>9?'tjsj_1':'']">{{backTj(el.l)}}</span></div>
-					
-				</div>
-				<div class="navDwzc">
-					<div :class="['setUserBoxs_nav',topTyped?'fixdon':'']">
-						<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" :class="['tjsj_1',el.l>9?'tjsj_1':'']">{{backTj(el.l)}}</span></div>
-					</div>
-				</div>
-				
-				<div class="sxBodx1">
+	<div class="ms_r">	
+		
+		<div class="ms_r_1">
+			<div class="sxBodx1">
 					<div class="sxBodx2">
 						<div class="sxBodx2_1">
 							<span @click="checkNav(0)" :class="['sxBodx2_1_n1',sxType==0?'sxBodx2_1_n1x':'']">最近联系</span>
@@ -84,9 +74,11 @@
 						</div>
 					</div>					
 				</div>
-			</div>
+			
+		
 			
 		</div>
+
 		<RPT ref="report"></RPT>
 	</div>
 </template>
@@ -526,7 +518,7 @@ export default {
 	border-radius: 5px;
 	width: 970px;
 	height: 640px;
-	margin-bottom: 60px;
+
 }
 
 .sxBodx2{
@@ -601,7 +593,7 @@ export default {
 	overflow: hidden;
 	overflow-y: auto;
 	width:100%;
-	height:640px;
+	height:577px;
 	
 }
 .sxBodx2_2x>div>li{

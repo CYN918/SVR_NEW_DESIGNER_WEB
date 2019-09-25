@@ -273,15 +273,15 @@ export default {
 			this.checkPost();
 		},
 		'postData.front_photo'() {
-			console.log(111)
+
 			this.checkPost();
 		},
 		'postData.back_photo'() {
-			console.log(333)
+
 			this.checkPost();
 		},
 		'postData.hand_hold_photo'() {
-			console.log(222)
+
 			this.checkPost();
 		},
 		'postData.account_name'() {
@@ -364,7 +364,7 @@ export default {
 			
 		},
 		checkPost(){
-			console.log(2222223)
+
 			this.isPostky = false;
 			if(!this.ischecked){
 				return
@@ -660,11 +660,11 @@ export default {
 				}
 				
 
-				if(t>=1048){
+				if(t>=1500){
 					this.navdOn =2;
 					return
 				}
-				if(t>=800){
+				if(t>=1240){
 					this.navdOn =1;
 					return
 				}
@@ -733,7 +733,7 @@ export default {
 
 		setNavd(on){
 			this.navdOn = on;
-			this.setScll(800*on)
+			this.setScll(1240*on)
 			
 		},
 		Userupdate(){

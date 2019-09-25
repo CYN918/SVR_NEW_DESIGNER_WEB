@@ -555,11 +555,11 @@ export default {
 				}
 				
 
-				if(t>=690){
+				if(t>=1240){
 					this.navdOn =2;
 					return
 				}
-				if(t>=490){
+				if(t>=900){
 					this.navdOn =1;
 					return
 				}
@@ -571,7 +571,7 @@ export default {
 		},
 		setNavd(on){
 			this.navdOn = on;
-			this.setScll(490*on)
+			this.setScll(1040*on)
 			
 		},
 		Userupdate(){
