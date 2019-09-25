@@ -4,7 +4,7 @@
 		<div class="csBox opfi2">
 			<list :config="data" class="iopdlf_01" ref="listDom">
 				<template v-slot:todo="{ todo }">
-					<cent :el="todo"></cent>
+					<cent :elm="todo"></cent>
 				</template>			
 			</list>
 			

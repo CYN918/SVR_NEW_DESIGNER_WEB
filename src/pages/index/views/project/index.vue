@@ -1,8 +1,10 @@
 <template>
-	<div class="pr_box">		
+	<div class="pr_box">
+		
 		<div class="pr_01">
 			<div>
 				<div class="pr_01_1">
+					<myselect></myselect>
 					发挥所长，轻松赚钱，从这里开始<br/>狮圈儿，让<span class="pr_01_2">创意更有价值</span>，让生活更加自由
 				</div>
 				<div class="pr_01_3">项目每周更新发布，专业平台团队把控，只提供优质稳定的项目需求。</div>
@@ -28,9 +30,10 @@
 </template>
 <script>
 import list from '../../components/list';
+import myselect from '../../components/myselet';
 import cent from './cent_1';
 export default {
-	components:{list,cent},
+	components:{list,cent,myselect},
 	name: 'home',
 	data(){
 		return {
