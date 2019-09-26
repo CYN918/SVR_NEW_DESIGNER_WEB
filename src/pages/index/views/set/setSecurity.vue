@@ -62,8 +62,9 @@
 				</div>
 				
 				<div v-if="tAncType==2" class="tc_sucd_1">
-				
-					<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>
+					<Input v-model="tancData.email" :type="'text'" :oType="'text'" :chekFn="chekemail" :placeholder="'请输入邮箱'"></Input>
+		
+					<!--<el-input class="elmentIputNoborder" v-model="" placeholder="请输入邮箱"></el-input>-->
 					<div class="emailyzm">
 						<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
 						<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>
@@ -253,6 +254,17 @@ export default {
 					return {type:false,text:'请填写6位验证码',cls:'errd5'}
 				}
 				return true
+			},
+			chekemail:function(val){
+				let reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
+				if(!val){
+					return {type:false,text:'请填写正确的邮箱地址',cls:'errd5'}; 
+				}
+				if(!reg.test(val)){
+					return {type:false,text:'请填写正确的邮箱地址',cls:'errd5'}; 
+				}
+				return true
+
 			},
 			vocationOn:0,
 			inDad:[
@@ -459,6 +471,7 @@ export default {
 			};
 			this.api.Bindbind(pr).then((da)=>{
 				if(da=='error'){
+					this.Verifycodeget();
 					return
 				}
 				this.tancData.email = '';	
@@ -558,7 +571,9 @@ export default {
 			if(t2){
 				this.bdtj('帐号设置','帐号安全-'+t+'-'+t2,'--');
 			}
-			
+			if(on==5){
+				this.outc.title="解除绑定确认";
+			}
 			
 			if(on==1){
 				this.outc.title="修改手机号";

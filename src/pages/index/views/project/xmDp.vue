@@ -93,6 +93,9 @@ export default {
 				this.da.djs = this.obj.left_time;
 				this.djsfn(this.da.djs);
 			}
+			if(this.obj.is_rejected==1){
+				this.xmType[2].btns[0].n="重新提交";
+			}
 				
 		},
 		setBm(on){

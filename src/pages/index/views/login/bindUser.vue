@@ -10,7 +10,7 @@
 				<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.password" :inputType="'password'" :type="'password'" :placeholder="'请输入您的登录密码'"></inptPhone>						
 			</div>
 			<div class="yhtop6f">
-				<div class="btn_n btn_n1" @click="goOut">退出</div>
+				<div class="btn_n btn_n1 nbt_lef" @click="goOut">退出</div>
 				<div :class="['btn_n btn_n2',btnType]" @click="addSelfInfo">进入首页</div>
 			</div>
 		</div>

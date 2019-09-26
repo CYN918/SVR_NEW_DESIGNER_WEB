@@ -1637,6 +1637,7 @@ content: "";
 	padding: 30px 40px 8px;
 }
 .tc_sucd_1_1{
+
 	margin-bottom: 40px;
 }
 .tc_sucd_1_2>span{
@@ -1780,6 +1781,7 @@ content: "";
     border-bottom: 1px solid #E6E6E6;
 }
 .tc_sucd_1_2{
+	text-align: center;
 	margin-bottom: 30px;
 }
 .tc_spasswodr_1>.checkd{
@@ -1807,6 +1809,7 @@ content: "";
 .bindwxd_3{
 	display: block;
 	margin-bottom: 30px;
+	text-align: center;
 }
 
 .rzzt_1{
@@ -2382,6 +2385,12 @@ content: "";
 }
 .btn_n1{	
 	color:#666;
+}
+.nbt_lef{
+	margin-right: 30px;
+}
+.btn_n2:hover{
+	opacity: 1;
 }
 .btn_n2{
 	

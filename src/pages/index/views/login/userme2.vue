@@ -46,6 +46,7 @@ export default {
 }
 .yhtop{
 	min-width: 1300px;
+	font-size: 14px;
 }
 
 .newUserme{
@@ -163,7 +164,7 @@ export default {
 	box-sizing: border-box;
 	padding: 44px 110px;
 	width: 860px;
-	height: 245px;
+	height: 425px;
 }
 .newUserme2 .userBoxd{
 	margin-bottom: 0;

@@ -47,7 +47,7 @@
 					</div>
 					<div class="yhtop6f">
 						
-						<div class="btn_n btn_n1" @click="goOut">退出</div>
+						<div class="btn_n btn_n1 nbt_lef" @click="goOut">退出</div>
 						<div :class="['btn_n btn_n2',btnType]" @click="addSelfInfo">进入首页</div>
 					</div>
 				</div>

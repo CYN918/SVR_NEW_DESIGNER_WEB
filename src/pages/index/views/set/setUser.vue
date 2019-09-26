@@ -81,7 +81,8 @@
 				</div>
 
 				<div v-if="tAncType==3" class="tc_sucd_1">
-					<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>
+				<!--	<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>-->
+					<Input v-model="tancData.email" :type="'text'" :oType="'text'" :chekFn="chekemail" :placeholder="'请输入邮箱'"></Input>
 					<div class="emailyzm">
 						<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
 						<div class="emailyzm2"><img @click="Verifycodeget" :src="tancData.pic_verifyimg" alt=""></div>
@@ -93,7 +94,7 @@
 						激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/> 请及时登录邮箱，点击邮件中的链接激活帐户。
 					</div>
 				</div>
-				<div v-if="tAncType!=4" class="qxBm_btns">
+				<div v-if="tAncType!=4" class="tc_sucd_1_2">
 					<div @click="closeTc1" class="btns pend">取消</div>
 					<div @click="qrFn()" class="btns btns_js pend">确定</div>
 				</div>
@@ -234,6 +235,17 @@
 				caver: 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg',
 				chekusername: function() {
 					return true
+				},
+				chekemail:function(val){
+					let reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
+					if(!val){
+						return {type:false,text:'请填写正确的邮箱地址',cls:'errd5'}; 
+					}
+					if(!reg.test(val)){
+						return {type:false,text:'请填写正确的邮箱地址',cls:'errd5'}; 
+					}
+					return true
+	
 				},
 				chekPhpne: function(val) {
 					if(this.form.mobile_zone != '86') {
@@ -402,6 +414,7 @@
 				};
 				this.api.Bindbind(pr).then((da) => {
 					if(da == 'error') {
+						this.Verifycodeget();
 						return
 					}
 					this.tancData.email = '';
