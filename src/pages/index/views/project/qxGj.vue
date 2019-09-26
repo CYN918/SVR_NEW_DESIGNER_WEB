@@ -15,7 +15,7 @@ import tanC from '../../components/tanC';
 export default {
 	components:{tanC},
 	props:{
-		data:Object
+		datad:Object
 	},
 	data(){
 		return{
@@ -33,7 +33,7 @@ export default {
 			}
 			this.qxType=1;
 			this.api.pr_revokeDelivery({
-				project_id:this.$parent.deta.id,
+				project_id:this.datad.id,
 			}).then((da)=>{
 				this.qxType='';
 				if(da=='error'){return}

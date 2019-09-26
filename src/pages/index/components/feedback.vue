@@ -2,20 +2,13 @@
 	<TcBox :config="tanCo" ref="tcBox">
 		<template v-slot:todo="{ todo }">
 			<div class="upfdb_content_1">
-				<div class="upfdb_name ">
+				<div class="upfdb_namex ">
 				    <span>问题类型</span>
-				    
-				    <el-select class="suc_3xInputx" v-model="classify" placeholder="请选择">
-						<el-option v-for="(item,index) in typeList" :key="index" :label="item.classify_name" :value="item.classify_name">
-						</el-option>
-					</el-select>
-		
-				    
-				    <!--<select v-model="classify">
-				        <option v-for="(item,index) in typeList" :value="index">{{item.classify_name}}</option>
-				    </select>-->
+				    <div class="upfdb_name_x1">
+				    	<myselect :List="typeList" :v="'classify_name'" :k="'id'"  v-model="classify"></myselect>
+				    </div>				    
 				</div>
-				<div class="upfdb_name">
+				<div class="upfdb_namex">
 				    <span>问题描述</span>
 				    <div class="upfdb_txt">
 				        <el-input
@@ -29,7 +22,7 @@
 				    </div>
 				</div>
 				<div class="upfdb_name " >
-				    <span>相关图片</span>
+				    <span class="upfdb_namexcc">相关图片</span>
 				    <div class="upfdb_name_x1">
 				        <div class="upImg pend">
 				            <span>上传图片</span>
@@ -45,26 +38,15 @@
 				        </div>
 				    </div>
 				</div>
-				<div class="upfdb_name">
+				<div class="upfdb_namex">
 				    <span>联系方式</span>
-				    <div class="upfdb_name_x1">
-				    	
-				    	
-				    	<el-select class="suc_3xInputx" v-model="link_type" placeholder="请选择">
-							<el-option v-for="(e,i) in lxfs" :key="i" :label="e" :value="e">
-							</el-option>
-						</el-select>
-				    
-				  
-				        <!--<select v-model="link_type">
-				            <option value="手机" selected>手机号码</option>
-				            <option value="QQ">QQ号码</option>
-				        </select>-->
-				        <input type="text" placeholder="请输入联系方式" v-model="link">
+				    <div class="upfdb_name_x1 upfdb_name_x12">
+				    	<myselect  :List="lxfs" :v="'v'" :k="'v'" v-model="link_type"></myselect>
 				    </div>
+				    <input class="upfdb_namex1d" type="text" placeholder="请输入联系方式" v-model="link">
 				</div>
 			</div>	
-			<div >				
+			<div class="btmsddf_01">				
 				
 				<div @click="close('取消')" class="btns  pend">取消</div>
 				<div @click="addFdb" class="btns btns_js  pend">确定</div>
@@ -74,14 +56,15 @@
 </template>
 <script>
 import TcBox from './TcBox';
+import myselect from './myselet';
 export default {
-	components:{TcBox},
+	components:{TcBox,myselect},
 	name: "feedback",
 	data(){
 	    return {
 	    	lxfs:[
-	    		'手机',
-	    		'QQ'
+	    		{v:'手机'},
+	    		{v:'QQ'}
 	    	],
 	    	tanCo:{
 	    		title:'意见反馈',
@@ -125,6 +108,7 @@ export default {
 	    },
 
 	    addFdb(){
+	    	console.log(this.classify);
 			this.bdtj('意见反馈弹窗','提交意见','--');
 	        if(!this.detail){
 				this.bdtj('意见反馈弹窗','提交意见失败','--');
@@ -421,12 +405,6 @@ export default {
     height: 100%;    
     opacity: 0;
 }
-.ts{
-    display: block;
-    font-family: PingFangSC-Regular;
-    font-size: 14px;
-    color: #999999;
-}
 .upRpt_btn{
     margin-bottom: 10px;
     text-align: center;
@@ -462,5 +440,41 @@ export default {
 .upfdb_name_x1{
 	display: inline-block;
 	vertical-align: top;
+	width: 120px;
+}
+.upfdb_name_x12{
+	width: 62px;
+}
+.uname1{
+	display: inline-block;
+}
+.upfdb_namex{
+	margin: 30px auto;
+	line-height: 40px;
+}
+.upfdb_content_1 .upfdb_namex span{
+	line-height: 40px;
+}
+.upfdb_namex1d{
+	display: inline-block;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    line-height: 37px;
+    box-sizing: border-box;
+    vertical-align: top;
+    padding-left: 10px;
+}
+.upfdb_content_1 span.upfdb_namexcc{
+	line-height: 40px;
+}
+.upfdb_content_1 span.ts{
+	display: block;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #999999;
+    width: 500px;
+}
+.btmsddf_01{
+	padding-bottom: 30px;
 }
 </style>

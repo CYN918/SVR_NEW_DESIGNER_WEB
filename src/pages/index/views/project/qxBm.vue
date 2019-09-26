@@ -15,7 +15,7 @@ import tanC from '../../components/tanC';
 export default {
 	components:{tanC},
 	props:{
-		data:Object
+		datad:Object
 	},
 	data(){
 		return{}
@@ -27,7 +27,7 @@ export default {
 		pr_cancelSignup(){
 		
 			this.api.pr_cancelSignup({
-				project_id:this.$parent.deta.id,
+				project_id:this.datad.id,
 			}).then((da)=>{
 				if(da=='error'){return}
 				this.$parent.setBm(0);

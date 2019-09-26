@@ -5,32 +5,29 @@
 		<input v-model="mode1" placeholder="请选择" @focus="cs" @blur="bfn" autocomplete="off" readonly="readonly" type="text" />
 		<i></i>
 		<div v-if="isfuse" class="msc_2">
-			<div @click="xzz()" class="onca">11111</div>
-			
-			
+			<div @click="xzz(e[v],k?e[k]:i)" v-for="(e,i) in List" :key="k?e[k]:i" :class="e[v]==mode1?'onca':''">{{e[v]}}</div>			
 		</div>
 	</div>
-	
-	
-	<!--<div class="worksBox_2 tg_iocn_2">
-			<div class="worksBox_2_1">
-				<div v-if="obj.status==3" @click="showTc('Stop')">终止项目</div>
-				<div @click="showTc('Log')">交稿记录</div>
-				<div v-if="obj.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
-					<div class="worksBox_2_4">
-						<div v-for="(el,index) in obj.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
-					</div>
-				</div>
-			</div>
-	</div>		-->
+
 </template>
 
 <script>
 export default {
+	props: {
+		List:Array,
+		v:String,
+		k:String
+	},
 	data(){
 		return{
 			mode1:'',
-			isfuse:'isfuse',
+			mode2:'',
+			isfuse:'',
+		}
+	},
+	watch: {
+		'mode2'(){
+			this.$emit('input', this.mode2); 
 		}
 	},
 	methods: {
@@ -43,10 +40,9 @@ export default {
 			},200);
 			
 		},
-		xzz(){
-			console.log(1111111111);
-			this.mode1=1111;
-			console.log(this.mode1);
+		xzz(a,b){	
+			this.mode1 = a;
+			this.mode2 = b;
 		}
 	}
 	
@@ -61,11 +57,11 @@ export default {
 .msc_1{
 	position: relative;
 	box-sizing: border-box;
-	width: 120px;
+	width: 100%;
 	height: 40px;
 	font-size: 14px;
 	line-height: 40px;
-	border-bottom: 1px solid #bbb;
+	border-bottom: 1px solid #ddd;
 }	
 .msc_1>input{
 	position: absolute;
@@ -111,7 +107,7 @@ export default {
 .msc_1>i{
 	position: absolute;
 	right: 0;
-	top: 0;
+	top: 1px;
 	width: 10px;
 	height: 100%;
 }
@@ -125,7 +121,7 @@ export default {
     right: 17%;
     width: 5px;
     height: 5px;
-    border: 1px solid #bbb;
+    border: 1px solid #ddd;
     border-bottom: 0;
     border-right: 0;
 	transition: transform .4s;

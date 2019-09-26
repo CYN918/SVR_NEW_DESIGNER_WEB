@@ -74,6 +74,7 @@ export default {
 			}
 			this.tcZj = a;
 			this.tcData = this.detaf;
+			console.log(this.tcData);
 		},
 		close(){
 			this.tcZj = '';

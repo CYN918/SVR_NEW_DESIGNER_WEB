@@ -66,7 +66,7 @@ import tanC from '../../components/tanC';
 export default {
 	components:{tanC},
 	props:{
-		data:Object
+		datad:Object
 	},
 	data(){
 		return{
@@ -127,7 +127,7 @@ export default {
 					return
 				}
 				pr = {
-					project_id:this.$parent.deta.id,
+					project_id:this.datad.id,
 					type:this.type,
 					file_name:this.fileList3[0].file_name,
 					file_url:this.fileList3[0].url,
@@ -143,11 +143,10 @@ export default {
 				}
 	
 				pr = {
-					project_id:this.$parent.deta.id,
+					project_id:this.datad.id,
 					type:this.type,
 					remark:this.eell,
 					online_disk_url:this.online_disk_url,
-					access_code:this.access_code
 				};
 			}
 			this.api.pr_delivery(pr).then((da)=>{

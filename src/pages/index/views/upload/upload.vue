@@ -208,6 +208,7 @@ export default {
 			dmtData:'',
 			zk_wrokids:[],
 			saveTyped:'',
+			isYl:'',
 		}  
 	},
 	watch: {	
@@ -358,7 +359,7 @@ export default {
 				this.checkAutoSave();
 			},30000);
 		},
-		checkAutoSave(){
+		checkAutoSave(a){
 			if(!this.form.work_name){
 				return
 			}
@@ -366,14 +367,21 @@ export default {
 				return
 			}	
 			let dat = this.setSaveData(0);
-			let da = JSON.stringify(dat);
+			let da = JSON.stringify(dat);	
+			
 			/*内容相同不保存*/			
 			if(this.autoSave.saveData==da){
+		
+				if(this.isYl){
+					this.isYl='';
+					window.open('#/conts?id='+this.form.work_id);
+				}
+				
 				return
 			}
 			/*内容不同开始保存*/
 			this.autoSave.saveData = da;
-			if(this.$route.fullPath!='/upload'){
+			if(this.$route.name!='upload'){
 				/*已离开不再保存*/
 				return 
 			}
@@ -516,7 +524,7 @@ export default {
 			this.checkLo({
 				api:'getWorkId',
 				pr:{},
-				su:(da)=>{this.form.work_id = da.work_id;console.log(this.form.work_id)}
+				su:(da)=>{this.form.work_id = da.work_id;}
 			})
 		},
 		getData(id){			
@@ -527,7 +535,7 @@ export default {
 					is_draft:1
 				},
 				su:(da)=>{
-					console.log(da);
+		
 					this.form = da;		
 					this.csz = da.work_name;				
 					try{this.form.labels = JSON.parse(this.form.labels);}catch(e){}
@@ -551,12 +559,9 @@ export default {
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
 			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}
-		
+			this.isYl =1;
 			this.checkAutoSave();
-			setTimeout(()=>{
-				window.open('#/conts?id='+this.form.work_id)
-			
-			},1000)			
+				
 		},
 		savZp(){
 			if(this.saveTyped==1){
@@ -635,6 +640,11 @@ export default {
 					fn();
 				}
 				
+				if(this.isYl){
+					this.isYl='';
+					window.open('#/conts?id='+this.form.work_id);
+				}
+
 			}).catch(()=>{
 				this.saveTyped='';
 				if(fn2){
