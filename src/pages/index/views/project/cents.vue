@@ -197,7 +197,7 @@ export default {
 				id : this.$route.query.id
 			};
 			this.api.pr_detail(pr).then((da)=>{
-				if(da=='error'){return}			
+				if(da=='error'){this.$router.push({path: '/404'});return}			
 				document.removeEventListener('scroll',this.autoS);	
 				if(da.status==1 && da.is_sign_up==0){
 					document.addEventListener('scroll',this.autoS,false);	

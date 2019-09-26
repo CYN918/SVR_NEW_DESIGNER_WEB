@@ -2141,7 +2141,7 @@ content: "";
 
 .comment_2_1{
 	font-size: 14px;
-	color: #1E1E1E;
+	color: #bbb;
 	margin-bottom: 5px;
 }
 .comment_2_2{
@@ -2161,7 +2161,7 @@ content: "";
 }
 .comment_2_5{
 	font-size: 14px;
-	color: #1E1E1E;
+	color: #666;
 	line-height: 24px;
 	min-height: 33px;
     max-height: 53px;

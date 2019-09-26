@@ -131,6 +131,9 @@ export default {
 			return window.getTimes(time)
 		},
 		init(){		
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
+			console.log(2222222222222);
 			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(this.topTyped==0){

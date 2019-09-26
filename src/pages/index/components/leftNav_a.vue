@@ -106,10 +106,8 @@ export default {
 	z-index: 10000;
 	position: fixed;
     top: 13%;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
     width: 1300px;
+    height: 0px;
 }
 
 </style>

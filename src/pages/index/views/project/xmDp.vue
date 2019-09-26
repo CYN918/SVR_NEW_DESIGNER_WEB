@@ -144,7 +144,7 @@ export default {
 			this.$parent.showTc(o,data);
 		},
 		djsfn(da){			
-			if(da.h==0 && da.m==0 && da.s==0){
+			if(da.d==0 && da.h==0 && da.m==0 && da.s==0){
 				this.djsshow.s = '00';
 				this.xmTypeOn++;
 				this.djsshow = '';

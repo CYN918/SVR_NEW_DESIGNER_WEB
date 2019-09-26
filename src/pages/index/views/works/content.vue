@@ -272,15 +272,6 @@ export default {
 			this.bdtj('详情页',a,'--')
 			this.addLike(b,c,d);
 		},
-		
-		keydown(){
-			
-		
-		},
-		keydown2(){
-
-		
-		},
 		goOpen(ud){
 			window.open(ud);
 		},
@@ -487,16 +478,19 @@ export default {
 			this.getCommentList();
 		},
 		backtime(time){
+			
 			return window.getTimes(time)
 		},
 
 		init(){	
-			
+
 			this.hfData = [];			
 			this.work_id = this.$route.query.id;
 			this.getCommentList();
 			window.onscroll = ()=>{
+				
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
+			
 				if(this.topTyped==0){
 					if(t>188){
 						this.topTyped=true;
@@ -529,13 +523,13 @@ export default {
 					setTimeout(()=>{
 						window.close();
 					},1000);
-					
-				
+					this.$router.push({path: '/error'});
+					error
 					return
 				}
 				da.labels = JSON.parse(da.labels)
 				this.contDat = da;
-				
+			
 				this.shareData = {
 					titlec:'作品分享',
 					url:location.origin+'/aindex.html#/cont?id='+this.$route.query.id,
@@ -562,9 +556,7 @@ export default {
 			}
 			return data;
 		},
-		backType(){
-		
-		},
+
 		getCommentList(a,b){
 			let pr = {
 				work_id:this.work_id,
@@ -582,6 +574,7 @@ export default {
 				}
 				this.hfData = this.hfData.concat(da.data);
 				this.hfnum = da.total;
+		
             });
 		},
 		addComment(pl,on,on2){

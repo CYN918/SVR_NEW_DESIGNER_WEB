@@ -48,7 +48,8 @@ export default {
 					}
 				}
 			
-		}
+		},
+		isDjs:String
 		
 	},
 	data(){
@@ -59,12 +60,15 @@ export default {
 			loading: '',
 			sxCs:{},
 			goTop:'',
+			djsOn:0,
 		}
 	},
 	mounted: function () {	
+
 		this.getData();		
 	}, 
 	methods: {
+
 		paramCl(){
 			let pr = {
 				page:this.page.page,
@@ -95,6 +99,10 @@ export default {
 				}				
 				this.List = da.data;
 				this.total = da.total;
+				
+				if(this.isDjs){
+					this.$parent.stardjs();
+				}
 				if(this.$parent.settotal){
 					this.$parent.settotal(da.total);
 				}
@@ -133,7 +141,8 @@ export default {
 			this.total=0;
 			this.page.page = val;
 			this.getData();
-		}
+		},
+
 	}
 }
 </script>

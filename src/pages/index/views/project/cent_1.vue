@@ -43,6 +43,7 @@ export default {
 			type:Object,
 			default:{}
 		},	
+		djs:Number
 	
 	},
 	data(){
@@ -54,7 +55,12 @@ export default {
 	mounted: function(){
 		this.backtims();
 	}, 
-	
+	watch: {
+		'djs'(){
+		
+			this.backtims();
+		}
+	},
 	methods: {	
 		openCent(){
 			if(this.el.id){
@@ -63,12 +69,12 @@ export default {
 			
 		},
 		backtims(){
-			
 			let a = this.el.left_time;
 			if(!a || a.length==0){return}
 			let str = '';
 			if(a.s>0){
-				a.s--;				
+				a.s--;	
+				
 			}else
 			
 			if(a.m>0){
@@ -88,7 +94,7 @@ export default {
 				a.d--;
 				
 			}else{
-				this.$parent.getData();
+				this.$parent.$parent.djsjs();
 				return
 			}
 			this.djtime = '<span><span class="pr_hs">'+a.d+'</span>天<span class="pr_hs">'+(a.h>9?a.h:'0'+a.h)+'</span>时<span class="pr_hs">'+(a.m>9?a.m:'0'+a.m)+'</span>分<span class="pr_hs">'+(a.s>9?a.s:'0'+a.s)+'</span>秒</span>';	

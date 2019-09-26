@@ -30,7 +30,7 @@ import myDynamic from './views/user/myDynamic.vue'
 import myCreators from './views/user/myCreators.vue'
 import myFans from './views/user/myFans.vue'
 
-
+import Errors from './views/commd/error.vue'
 
 import setIndex from './views/set/setIndex.vue'
 
@@ -81,12 +81,16 @@ const router = new Router({
   routes:[] 
 })
 let wb = [
+	{path: '/error',name: 'erro1',component: Errors},	
+	{path: '/404',name: 'erro2',component: Errors},	
 	{
 		path: '/',
 		redirect: '/index',
 		name: 'index',
 		component: Index,
 		children:[
+		
+		
 			{path: '/Work_i',name: 'Work_i',component: Work_i},	
 			{path: '/special_first',name: 'special_first',component: special_first},						
 			{path: '/index',name: 'home',component: Home},

@@ -12,8 +12,8 @@
 				<div class="upBoxd1_1">
 					<Input class="userBoxdC" v-model="form.work_name" :valued="csz"  :oType="'max'" :max="50"   :type="'text'" :placeholder="'请输入作品标题…'"></Input>
 				</div>
-				<div class="upBoxd1_2">
-					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
+				<div class="upBoxd1_2" ref="asdsss">
+					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content" ></vue-ueditor-wrap>
 				</div>
 			</div>
 			<div class="upBoxd2">
@@ -126,6 +126,7 @@ import UplodImg from './uploadImag'
 import Input from '../../components/input'
 import upoloadcaver from './uploadFm';
 import {Message} from 'element-ui'
+import { Loading } from 'element-ui';
 export default {
 	name: 'index',
 	components:{VueUeditorWrap,UplodImg,Input,upoloadcaver},
@@ -209,6 +210,7 @@ export default {
 			zk_wrokids:[],
 			saveTyped:'',
 			isYl:'',
+			loading:'',
 		}  
 	},
 	watch: {	
@@ -389,6 +391,7 @@ export default {
 			this.saveData(dat,'自动保存成功');
 		},
 		init(){
+			this.loading = Loading.service({target:this.$refs.asdsss, fullscreen: true });
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
 			if(!window.userInfo){
@@ -450,6 +453,7 @@ export default {
 			
 		},
 		ready (editorInstance) {
+			this.loading.close();
 			this.uD = editorInstance;
 			editorInstance.addListener('focus',()=>{				
 					if(this.ifBjType==0){

@@ -241,8 +241,8 @@ export default {
 			return time.getFullYear()+'-'+ym+'-'+dm;
 		},
 		goWork(id){
+			window.open('/#/cont?id='+id);
 		
-			this.$router.push({path:'/cont',query:{id:id}});
 		},
 		init(){
 			this.pushCk();

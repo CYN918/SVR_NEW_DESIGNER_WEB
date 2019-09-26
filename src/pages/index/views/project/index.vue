@@ -20,9 +20,9 @@
 				>{{el.classify_name+'（'+el.project_num+'）'}}</span>
 				<span @click="goOn('/help',{on:'4_1'})" class="pr_02_3 pend">项目承接指南</span>
 			</div>
-			<list :page="setPage" :config="data" class="iopdlf_01" ref="sfafa">
+			<list :isDjs="'1'" :page="setPage" :config="data" class="iopdlf_01" ref="sfafa">
 				<template v-slot:todo="{ todo }">
-					<cent :djs="djson" :el="todo"></cent>
+					<cent :djs="djson"  :el="todo"></cent>
 				</template>			
 			</list>
 		</div>
@@ -53,10 +53,12 @@ export default {
 			cont:50,
 			djson:0,
 			prLn:[],
+			djsOb:'',
 		}
 	},
 	mounted: function(){
 		this.getCl();
+		
 	}, 
 	methods: {
 		goOn(on,cs){
@@ -71,6 +73,17 @@ export default {
 				}
 				this.prLn = da;
 			})
+		},
+		
+		stardjs(){
+			clearInterval(this.djsOb);
+			this.djsOb = setInterval(()=>{
+				this.djson = this.djson==1?0:1;
+			},1000);
+		},
+		djsjs(){
+			clearInterval(this.djsOb);
+			this.$refs.sfafa.getData();
 		},
 		qhNav(on){
 			if(on==this.type){return}

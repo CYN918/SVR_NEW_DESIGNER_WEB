@@ -201,6 +201,7 @@ export default {
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{	
 				if(da=='error'){
+					this.$router.push({path: '/404'});
 					return
 				}
 				this.infoData = da;
