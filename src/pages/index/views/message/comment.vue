@@ -1,8 +1,6 @@
 <template>
 	<div class="ms_r">	
-		
 		<div class="ms_r_1">
-			
 			<div class="ms_r_c_1" v-if="listData.length>0">
 				<div v-for="(el,index) in listData" :key="index">
 					<img class="comment_1" :src="el.comment.avatar" alt="">
@@ -51,27 +49,6 @@
 			:total="total">   
 			</el-pagination>
 		</div>
-	<!--<div>
-		<div class="setUserBoxs_cent">
-					<div class="poerrsas" v-if="listData.length==0"><noData ></noData></div>
-					
-					
-					
-					
-				</div>
-		
-		
-		
-		<el-pagination class="padxx_01" v-if="total>1"
-		background
-		@size-change="handleSizeChange"
-		@current-change="handleCurrentChange"
-		:current-page="page"
-		:page-sizes="[10, 20, 40, 60]"
-		:page-size="limit"
-		layout="prev,pager, next,sizes, jumper"
-		:total="total">   
-		</el-pagination>-->
 	</div>
 </template>
 

@@ -147,6 +147,7 @@ export default {
 					type:this.type,
 					remark:this.eell,
 					online_disk_url:this.online_disk_url,
+					access_code:this.access_code,
 				};
 			}
 			this.api.pr_delivery(pr).then((da)=>{

@@ -3,19 +3,16 @@
 		<div class="detail_topBox">
 			<div class="detail_topBox_1" :style="backBn(infoData.banner)"></div>
 			<div class="detail_topBoxx_1po">
-
 			<div class="detail_topBoxx_1">
 			<div class="detail_topBox_2x">
 				<div class="detail_topBox_2x_1">{{infoData.activity_name}}</div>
 				<div class="detail_topBox_2x_2">{{infoData.category_name}}&nbsp&nbsp&nbsp&nbsp<span>{{backtimed(infoData.start_time) }} 至 {{backtimed(infoData.end_time)}}</span></div>
 			</div>
 			<div class="detail_topBox_2">
-
 				<div v-if="infoData.status==1">
 					<span v-if="infoData.is_provide_template==1" @click="downMoble(infoData)" class="detail_topBox_2_1">下载模板</span>
 					<span v-if="infoData.setting_type!=1"  @click="showZp" class="detail_topBox_2_2 iconfont">&#xe61e;上传作品</span>
 				</div>			
-
 				<span v-if="infoData.status==-1" class="detail_topBox_2_3">已结束</span>
 			</div>
 			</div>
@@ -24,11 +21,17 @@
 		<div class="detail_nav">
 			<a  @click="godefle('/detailed')" :class="['pend',ond==1?'router-link-exact-active':'']">活动详情</a>
 			<a v-if="infoData.setting_type>2"  @click="godefle('/detailed/into')" :class="['pend',ond==2?'router-link-exact-active':'']">入围作品</a>
-			<a v-if="infoData.setting_type>3" @click="godefle('/detailed/admission')" :class="['pend',ond==3?'router-link-exact-active':'']">录用作品</a>
-				
+			<a v-if="infoData.setting_type>3" @click="godefle('/detailed/admission')" :class="['pend',ond==3?'router-link-exact-active':'']">录用作品</a>				
 			<span @click="fxclick" class="detail_nav_1 iconfont pend">&#xe64c; 分享</span>
 		</div>
-		<router-view/>
+		
+		<div class="Acomd">
+			<component v-bind:is="tcZj"></component>	
+			
+		</div>
+		
+	
+		
 		<div v-if="ishowzp" class="pushDeletBox">
 			<div class="pushDeletBox1">
 				<img class="pushDeletBox2" @click="closeZp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
@@ -82,11 +85,18 @@
 <script>
 import {Message} from 'element-ui'
 import fxd from '../../components/share';
+import detailed_detailed from './detailed';
+import detailed_into from './into';
+import detailed_admission from './admission';
+
 export default {
-	components:{fxd},
+	components:{fxd,detailed_detailed,detailed_into,detailed_admission},
 	name: 'home',	 
 	data(){	
 		return{
+			tcZj:'',
+			
+			
 			shareData:{},
 		    show:false,
 			ishowWp:'',
@@ -116,7 +126,9 @@ export default {
 	methods:{	
 		init(){
 			document.documentElement.scrollTop =0;
-			document.body.scrollTop =0;
+			document.body.scrollTop =0;			
+			
+			this.setOnd();		
 		},
 		backBn(ur){
 			return 'background-image: url('+ur+');'
@@ -167,7 +179,7 @@ export default {
 			this.work_id.splice(on,1);
 		},
 		setOnd(){
-			
+			this.tcZj = this.$route.name;
 			let a = this.$route.path;
 			if(a==='/detailed'){
 				this.ond = 1;
@@ -604,5 +616,10 @@ export default {
 }
 .detail_topBox_2_1:hover{
 	background: #4E4E4E;
+}
+
+
+.Acomd{
+	min-height: 500px;
 }
 </style>
