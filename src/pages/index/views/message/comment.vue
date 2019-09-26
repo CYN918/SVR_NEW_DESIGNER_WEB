@@ -6,8 +6,15 @@
 					<img class="comment_1" :src="el.comment.avatar" alt="">
 						<div class="comment_2">
 							<div class="comment_2_1">{{el.comment.username}}<span class="comment_2_2">{{backtime(el.comment.create_time)}}</span></div>
-							<div class="comment_2_3" v-if="el.op_cname=='回复'">{{el.op_cname}} 你在原创作品 <span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span> 的评论</div>
-							<div class="comment_2_3" v-if="el.op_cname=='评论'">{{el.op_cname}}  你的作品 <span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span></div>
+							<div class="comment_2_3" v-if="el.op_cname=='回复'">
+								{{el.op_cname}} 你在原创作品 
+								<span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span> 
+								的评论
+							</div>
+							<div class="comment_2_3" v-if="el.op_cname=='评论'">
+								{{el.op_cname}}  你的作品 
+								<span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span>
+							</div>
 							<div class="comment_2_5">{{backcont(el.comment.content)}}</div>
 							<div>
 								<span class="iconfont pend hfdZ_23">
@@ -18,11 +25,12 @@
 									<span v-if="el.op_cname=='回复'" :class="[el.isshowsub?'ishowfud':'','hfdZ_4 comment_2_7_1']" @click="showFhd(index)">对话记录</span>
 								</span>
 							</div>
-							<div class="hfBox xxbox_c" v-if="el.isshowfh">
-								<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
+							<div class="hfBox xxbox_c" v-if="el.isshowfh" >
+								
+								<Input :mblur="xsfn" class="userBoxd2" v-model="plon[index]" :oType="'max'" :max="140" :type="'text'" :ref="'myOn'+index"  :placeholder="hfnc"></Input>	
 								<span :class="chekcont()==true?'iscsbtn':''" @click="addfu2(index,el.work.work_id,el.comment.comment_id,el.comment.username,el.comment.feed_id)">回复</span>
-							</div>
 							
+							</div>
 							<div v-if="el.op_cname=='回复' && el.isshowsub" class="comment_2_9">
 								<img class="comment_1" :src="el.to_comment.avatar" alt="">
 								<div class="comment_2">
@@ -61,7 +69,7 @@ export default {
 	name: 'chat',
 	data(){
 		return {
-			hfnc:'',
+			hfnc:'请输入',
 			messgNum:{},
 			navDta:[
 				{n:'通知',l:''},
@@ -78,6 +86,8 @@ export default {
 			addLink:0,
 			plType:0,
 			pl2:'',
+			plon:[],
+			plOnd:''
 		}
 	},
 	mounted: function () {			
@@ -85,6 +95,11 @@ export default {
 		
 	}, 
 	methods: {
+		xsfn(){
+			setTimeout(()=>{
+				this.$set(this.listData[this.plOnd],'isshowfh',false);
+			},50)
+		},
 		backTj(n){
 			return  n>999?999:n;
 		},
@@ -107,8 +122,17 @@ export default {
 			this.$set(this.listData[on],'isshowsub',this.listData[on].isshowsub?false:true);
 		},
 		showHF(on){
+		
 			
+			this.plOnd = on;
 			this.$set(this.listData[on],'isshowfh',this.listData[on].isshowfh?false:true);
+			setTimeout(()=>{				
+				this.$refs['myOn'+on][0].monfocus();
+				if(!this.plon[on]){
+					return
+				}
+				this.$refs['myOn'+on][0].setData(this.plon[on]);
+			},50);
 		},
 		addfu2(on,work_id,comId,name,fid){
 			if(!work_id){
@@ -147,13 +171,11 @@ export default {
 				if(da=='error'){
 					return
 				}
-				Message({message: '回复成功'});
-				this.showHF(on);
-				this.$refs.tageds2.value = '';
-				this.pl2 = '';  
+				Message({message: '回复成功'});							
+				this.$refs['myOn'+on].value = '';
+				this.plon[on] = '';
 			}).catch((err)=>{
-				this.plType=0;
-						
+				this.plType=0;						
 			});	
 		},
 		addLike(type,id,obj){
@@ -304,7 +326,6 @@ export default {
 }
 .ms_r_c_1>div{
 	background: rgba(255,255,255,1);
-    box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
     border-radius: 5px;
     padding: 30px;
     box-sizing: border-box;

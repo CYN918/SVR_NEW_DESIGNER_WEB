@@ -95,6 +95,7 @@ export default {
 			type:Function,
 			default:()=>{}
 		},
+		mblur:Function,
 		isHz:String,
 	},		
 	computed: {
@@ -153,6 +154,9 @@ export default {
 	    },
    	},
    	methods: {
+   		monfocus(){
+   			this.$refs.input.focus();
+   		},
 		backHz(str){
 			let n =0;
 			for (var i=0; i<str.length; i++) {  
@@ -193,6 +197,11 @@ export default {
 	    	this.setErr('onIn','');
    		},
    	 	blur(){
+   	 		if(this.mblur){
+   	 			this.mblur();
+   	 			return
+   	 		}
+   	 		
    	 		let p = this.chekFn(this.input);
 	    	if(p){	    		
 	    		this.setErr(p.cls,p.text);
