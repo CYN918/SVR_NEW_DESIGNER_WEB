@@ -88,8 +88,8 @@ export default {
 	data(){
 		return {
 
-			plac1:'极简',
-			plac2:'快销',
+			plac1:'标签',
+			plac2:'标签',
 			tancData:{
 				mobile_zone:'86',
 				old_mobile_zone:'86'
@@ -420,8 +420,9 @@ export default {
 	display: inline-block;
 	box-sizing: border-box;
 	padding: 0 15px 0 34px;
-	width: 78px;
+	width: 79px;
 	height:32px;
+	font-size:14px;
 	background:rgba(255,255,255,1);
 	border-radius:16px;
 	border:1px solid rgba(187,187,187,1);

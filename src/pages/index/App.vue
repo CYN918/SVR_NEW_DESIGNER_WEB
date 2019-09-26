@@ -1790,7 +1790,7 @@ content: "";
 .suc_1>.suc_1_4>span{
 
 	width: 73px;
-	margin-right: 54px;
+	margin-right: 43px;
 }
 .suc_1>.suc_1_4>span>img{
 	display: inline-block;

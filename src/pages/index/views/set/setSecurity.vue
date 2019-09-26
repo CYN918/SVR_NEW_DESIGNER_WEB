@@ -34,10 +34,10 @@
 							<span>认证状态</span><div class="rzzt_1">
 							{{form.is_contributor==1?'已认证':form.contributor_format_status==1?'认证中':'未认证'}}
 							</div>
-							<div v-if="form.contributor_format_status==0" class="rzzt_2" @click="gosetPersonal('认证')">
+							<div v-if="form.contributor_format_status==0" class="btns pend btns_js" @click="gosetPersonal('认证')">
 								立即认证
 							</div>
-							<div v-else-if="form.contributor_format_status!=1" class="rzzt_2" @click="gosetPersonal('修改')">
+							<div v-else-if="form.contributor_format_status!=1" class="btns pend " @click="gosetPersonal('修改')">
 								修改
 							</div>
 						
