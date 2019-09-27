@@ -1,15 +1,20 @@
 <template>
 	<div class="Messgebox">
-		
+		<component v-bind:is="tcZj" :setData="setData"></component>
 	</div>
 </template>
 
 <script>
 import {Message} from 'element-ui'
+import email_dom from '../commd/email';
 export default {
+	components:{email_dom},
 	name: 'messge',	
 	data(){
-		return {}
+		return {
+			tcZj:'',
+			setData:{},
+		}
 	},
 	mounted: function () {			
 		this.init();
@@ -21,6 +26,21 @@ export default {
 				return
 			}
 			let data = JSON.parse(this.$route.query.ret);
+			
+			
+			if(data.operate=='bind' && data.type == 'email'){
+				
+				if(data.res.result==0){
+					this.setData.type = 0;
+					this.tcZj = 'email_dom';
+				}else{					
+					this.$message({message: data.res.message});
+					this.$router.push({path: '/setSecurity'});					
+				}				
+				
+				return;
+			}
+			
 			if(data.res.result!=0){
 				if(data.operate=='bind'){
 					this.$router.push({path: '/setSecurity'})

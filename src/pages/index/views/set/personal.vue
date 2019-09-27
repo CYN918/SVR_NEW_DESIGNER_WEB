@@ -135,16 +135,22 @@
 					</div>
 					<div class="scBox suc_1 suc_3">
 						<div class="suc_title">身份验证<div class="xhds"></div></div>
-						<div class="suc_1_9">
-							<span>手机号</span><div class="suc_1_9_c">{{form.mobile}}</div><span @click="openTc1(2)" class="suc_1_9_c1n">更换号码</span>
+						<div class="newSC">
+							<span>手机号</span>
+							<div class="newSC_2">{{mJs.phone_encryption(form.mobile)}}</div>
+							<span @click="openTc1(2)" class="btns pend newSC_2_1">更换号码</span>
 						</div>
-						<div class="suc_1_9">
+						<div class="newSC">
 							<span>验证码</span>
 							<Input class="suc_1_9yzm" v-model="postData.verify_code"  @ajaxYzm="ajaxYzmZd" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入6位手机短信验证码'"  ref="verify"></Input>
+						
 						</div>
 						
-						<div class="suc_1_9">
-							<span>邮箱</span><div class="suc_1_9_c"></div><span @click="openTc1(3)" class="suc_1_9_c1">立即认证</span>
+							
+						<div class="newSC">
+							<span>邮箱</span>
+							<div class="newSC_2">{{mJs.email_encryption(emailD)}}</div>
+							<div @click="openTc1(3)" :class="['btns pend',emailD?'':'btns_js']">{{emailD?'修改邮箱':'立即认证'}}</div>
 						</div>
 					</div>
 					<p class="rz_qr">
@@ -205,7 +211,7 @@ export default {
 				max:20*1024*1024,
 				userType:'user_info',
 			},
-			
+			emailD:'',
 			postData:{},
 			zhData:[],
 			navDatad:{},
@@ -639,6 +645,7 @@ export default {
 			}
 			this.form.mobile = window.userInfo.mobile;
 			this.form.mobile_zone = window.userInfo.mobile_zone;
+			this.emailD = window.userInfo.email;
 			if(1==2){
 				this.getUserDetail();
 			}		
@@ -846,13 +853,16 @@ export default {
 </script>
 
 <style>
-.suc_1>.suc_1_9>span.suc_1_9_c1n{
+.suc_1>.newSC>span.suc_1_9_c1n{
 	color: #666;
 	cursor: pointer;
 	margin-left: 33px;
+	width: 56px;
 }
-.suc_1>.suc_1_9>span.suc_1_9_c1n:hover{
+.suc_1>.newSC>span.suc_1_9_c1n:hover{
 	color: #FF5121;
 	
+	
 }
+
 </style>

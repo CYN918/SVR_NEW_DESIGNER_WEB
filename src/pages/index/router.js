@@ -75,6 +75,9 @@ import pr_cents from './views/project/cents.vue'
 import pr_presentation from './views/project/presentation.vue'
 
 import Work_i from './views/works/index.vue'
+import email from './views/commd/email.vue'
+
+
 Vue.use(Router)
 const router = new Router({
 
@@ -83,13 +86,14 @@ const router = new Router({
 let wb = [
 	{path: '/error',name: 'erro1',component: Errors},	
 	{path: '/404',name: 'erro2',component: Errors},	
+	
 	{
 		path: '/',
 		redirect: '/index',
 		name: 'index',
 		component: Index,
 		children:[
-		
+				{path: '/email',name: 'email',component: email},	
 		
 			{path: '/Work_i',name: 'Work_i',component: Work_i},	
 			{path: '/special_first',name: 'special_first',component: special_first},						

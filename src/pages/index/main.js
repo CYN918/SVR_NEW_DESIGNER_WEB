@@ -4,10 +4,12 @@ import api from '../../api/index'
 import App from './App.vue'
 import router from './router'
 
-
+import mJs from '../../assets/comm.js'
 
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
+Vue.prototype.mJs = mJs
+Vue.prototype.api.mcommjs = window.mycomJs;
 
 Vue.prototype.MD5 = function(string){ 
     function RotateLeft(lValue, iShiftBits) {

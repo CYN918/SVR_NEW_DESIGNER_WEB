@@ -1,6 +1,6 @@
 <template>
 	<div class="setUserBoxs_cent">
-		<div class="scBox suc_1">
+		<div class="scBox suc_1 userFont">
 			<div class="suc_title">个人资料</div>
 			<div class="suc_1_1">
 				<span>头像</span>
@@ -628,5 +628,8 @@
 	}
 .suc_1 > .suc_1_3 > span.lIN4{
 	line-height: 41px;
+}
+.userFont{
+	font-size: 14px;
 }
 </style>

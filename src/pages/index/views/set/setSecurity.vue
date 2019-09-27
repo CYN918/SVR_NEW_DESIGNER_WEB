@@ -4,11 +4,11 @@
 					<div class="scBox suc_1">
 						<div class="suc_title">账号设置</div>
 						<div>
-							<span>手机号</span><div class="userSZ_1">{{form.mobile}}</div>
+							<span>手机号</span><div class="userSZ_1">{{mJs.phone_encryption(form.mobile)}}</div>
 							<div class="userSZ_2"><span @click="openTc1(1,'手机号','修改')">修改</span></div>
 						</div>
 						<div>
-							<span>邮箱</span><div v-if="form.email" class="userSZ_1">可以使用邮箱  {{form.email}}</div><div class="userSZ_1_n1" v-else >未绑定</div>
+							<span>邮箱</span><div v-if="form.email" class="userSZ_1">可以使用邮箱  {{mJs.email_encryption(form.email)}}</div><div class="userSZ_1_n1" v-else >未绑定</div>
 							<div class="userSZ_2"><span v-if="!form.email" @click="openTc1(2,'邮箱','绑定')">立即绑定</span><span v-else @click="openTc1(2,'邮箱','修改')">修改</span></div>
 						</div>
 						<div class="suc_1_3">
@@ -284,6 +284,7 @@ export default {
 		
 	}, 
 	methods: {
+
 		show(){
 			this.$refs.tcBox.show();
 		},

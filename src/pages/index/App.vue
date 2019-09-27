@@ -2404,4 +2404,33 @@ content: "";
 	background:#FF5121;
 }
 
+
+.newSC_2{
+	display: inline-block;
+    font-size: 14px;
+    color: #666666;
+    width: 167px;
+}
+.newSC{
+	height: 40px;
+	line-height: 40px;
+}
+.newSC .inptud{
+	height: 40px !important;
+}
+
+.suc_1 .inptud{
+	height: 40px !important;
+}
+.suc_1>.newSC>span{
+	display: inline-block;
+	margin: 0;
+	width: 116px;
+	text-align: left;
+	text-align-last: auto;
+}
+.suc_1>.newSC>span.newSC_2_1{
+	text-align: center;
+	margin:0 10px;
+}
 </style>

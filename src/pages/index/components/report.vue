@@ -133,6 +133,7 @@ export default {
 }
 .btm2o{
 	margin-bottom: 20px;
+	text-align: center;
 }
 .upRpt_txt{
     width: 450px;

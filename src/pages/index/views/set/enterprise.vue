@@ -102,16 +102,23 @@
 							<span>联系人姓名</span>
 							<el-input class="suc_1_9_1" v-model="postData.contact" placeholder="请输入联系人姓名"></el-input>
 						</div>
-						<div class="suc_1_9">
-							<span>手机号</span><div class="suc_1_9_c">{{form.mobile}}</div><span @click="openTc1(2)" class="suc_1_9_c1n">更换号码</span>
+						<div class="newSC">
+							<span>手机号</span>
+							<div class="newSC_2">{{mJs.phone_encryption(form.mobile)}}</div>
+							<span @click="openTc1(2)" class="btns pend newSC_2_1">更换号码</span>
 						</div>
-						<div class="suc_1_9">
+	
+						<div class="newSC">
 							<span>验证码</span>
 							<Input class="suc_1_9yzm" v-model="postData.verify_code"  @ajaxYzm="ajaxYzmZd" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位手机短信验证码'"  ref="verify"></Input>
 						</div>
-						<div class="suc_1_9">
-							<span>邮箱</span><div class="suc_1_9_c"></div><span @click="openTc1(3)" class="suc_1_9_c1">立即认证</span>
+						
+						<div class="newSC">
+							<span>邮箱</span>
+							<div class="newSC_2">{{mJs.email_encryption(emailD)}}</div>
+							<div @click="openTc1(3)" :class="['btns pend',emailD?'':'btns_js']">{{emailD?'修改邮箱':'立即认证'}}</div>
 						</div>
+
 					</div>
 					<p class="rz_qr">
 						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span @click="goPU('#/authorization')" class="pend">《狮圈儿供稿人协议》</span>
@@ -183,7 +190,8 @@ export default {
 				'主体信息',
 				'银行卡信息',
 				'身份验证',			
-			],			
+			],	
+			emailD:'',
 			form:{mobile_zone:'86'},
 			navdOn:0,
 			topTyped:false,
@@ -536,6 +544,7 @@ export default {
 			}
 			this.form.mobile = window.userInfo.mobile;
 			this.form.mobile_zone = window.userInfo.mobile_zone;
+			this.emailD = window.userInfo.email;
 			this.getUserDetail();
 			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
@@ -689,4 +698,7 @@ export default {
 	color: #FF5121;
 	
 }
+
+
+
 </style>
