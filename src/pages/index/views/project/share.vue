@@ -3,7 +3,7 @@
 		<template v-slot:todo="{ todo }">
 			<div class="xm_shar_01">
 				<div class="xm_shar_01_1">
-					<vue-qr class="xm_shar_01_2" :logoSrc="config.logo" :text="config.value" :logoScale="96" :size="200" :margin="0"></vue-qr>
+					<div class="xm_shar_01_2" id="qrcode"></div>
 					分享到微信
 				</div>
 				<div class="xm_shar_01_3">
@@ -32,9 +32,9 @@
 </template>
 <script>
 import tanC from '../../components/tanC';
-import VueQr from 'vue-qr'
+import QRCode from 'qrcodejs2'
 export default {
-	components:{tanC,VueQr},
+	components:{tanC,QRCode},
 	props:{
 		datad:Object
 	},
@@ -54,6 +54,15 @@ export default {
 		this.initShaer();
 	},
 	methods: {	
+		qrcode(u) {
+		    let qrcode = new QRCode('qrcode', {
+		        width: 96,  
+		        height: 96,
+		        text: u, // 二维码地址
+		        colorDark : "#000",
+		        colorLight : "#fff",
+		    })
+	    },
 		initShaer(){
 			this.onUrl = window.location.href;
 			let ulrd = encodeURIComponent(window.location.href);
@@ -64,6 +73,7 @@ export default {
 				desc:'惊现大神快来膜拜',
 				summary:this.datad.name+'-狮圈儿创作者平台',
 			}
+			this.qrcode(ulrd);
 			this.config.value = ulrd;
 			this.fxUrl1 = 'http://service.weibo.com/share/share.php?appKey=3473072390&title='+da.title+'&url='+ulrd+'&pic='+da.pics+'#_loginLayer_'+(new Date()).valueOf();
 			this.fxUrl2 ='https://connect.qq.com/widget/shareqq/index.html?url='+ulrd+'&title='+da.title+'&pics='+da.pics+'&desc=&summary='+da.summary+'&site=wo';			

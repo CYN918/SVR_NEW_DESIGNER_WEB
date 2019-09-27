@@ -20,7 +20,7 @@
 				</div>
 				<div class="pr_bg_03_2">
 					<div class="pr_bg_03_2_1">最终成交价格</div>
-					<div class="pr_bg_03_2_2">¥ {{das.deal_price}}</div>
+					<div class="pr_bg_03_2_2">¥ {{mJs.money_deiv(das.deal_price)}}</div>
 					<div class="pr_bg_03_2_3">感谢您本次的项目合作，如有疑问可前往 <router-link to="/help">帮助中心</router-link> 了解更多</div>
 				</div>
 			</div>
@@ -31,17 +31,17 @@
 				<div class="pr_bg_04_3">
 					<div>
 						<div class="pr_bg_04_3_1">验收价格</div>
-						<div class="pr_bg_04_3_2">+ ¥ {{das.acceptance_price}}</div>
+						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.acceptance_price)}}</div>
 					</div><div>
 						<div class="pr_bg_04_3_1">额外奖金</div>
-						<div class="pr_bg_04_3_2">+ ¥ {{das.extra_reward}}</div>
+						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.extra_reward)}}</div>
 					</div><div>
 						<div class="pr_bg_04_3_1">{{das.delay_day}}天 延期交稿</div>
-						<div class="pr_bg_04_3_2 pr_bg_04_3_3">- ¥ {{das.deduction_price}}</div>
+						<div class="pr_bg_04_3_2 pr_bg_04_3_3">- ¥ {{mJs.money_deiv(das.deduction_price)}}</div>
 						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,0)" src="/imge/project/09.svg">
 					</div><div>
 						<div class="pr_bg_04_3_1">{{das.gain_share_rate}} 收益加成</div>
-						<div class="pr_bg_04_3_2">+ ¥ {{das.gain_share_price}}</div>
+						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.gain_share_price)}}</div>
 						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,1)" src="/imge/project/09.svg">
 					</div>
 					

@@ -17,6 +17,7 @@
 			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
 			<div class="noDatawan">{{nodTip}}</div>
 		</div>
+		<div v-if="islod" class="jloadBox" ref="jloadBox"></div>
 	</ul>
 	
 </template>
@@ -61,6 +62,7 @@ export default {
 			sxCs:{},
 			goTop:'',
 			djsOn:0,
+			islod:'',
 		}
 	},
 	mounted: function () {	
@@ -88,9 +90,11 @@ export default {
 		getData(){	
 			let params = this.paramCl();	
 			this.isNodeat='';
-			this.loading = Loading.service({target:this.$refs.adLoDom, fullscreen: true });
+			this.islod =1;
+			this.loading = Loading.service({target:'.jloadBox', fullscreen: true,background:'rgba(0,0,0,0)' });
 			this.api[this.config.ajax.url](params).then((da)=>{
 				this.loading.close();
+				this.islod ='';
 				if(da=='error'){					
 					if(this.List.length==0){
 						this.isNodeat=1;
@@ -116,6 +120,7 @@ export default {
 				}
 			}).catch(()=>{
 				this.loading.close();
+				this.islod ='';
 				if(this.List.length==0){
 					this.isNodeat=1;
 				}							
@@ -171,5 +176,13 @@ export default {
 .noDatawan{
 	color: #ff5121;
     margin-top: 18px;
+}
+.jloadBox{
+	z-index: 100001;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 </style>

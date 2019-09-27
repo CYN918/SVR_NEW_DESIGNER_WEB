@@ -1,7 +1,7 @@
 <template>
 	<tanC :title="'交付稿件'">
 		<template v-slot:todo="{ todo }">	
-			
+			<div class="pushGj_01_n1">
 			<div class="pushGjNa">
 				<span @click="qhType(1)" :class="type==1?'pushOx':''">本地上传</span>
 				<span @click="qhType(2)" :class="type==2?'pushOx':''">网盘链接</span>
@@ -53,6 +53,7 @@
 					<div class="pushGj_03_1">备注说明</div>
 					<textarea placeholder="请输入备注说明…" v-model="eell" class="pushGj_03_2"></textarea>
 				</div>
+			</div>
 			</div>
 			<div class="bmXm_01Btn">
 				
@@ -250,11 +251,14 @@ export default {
 </script>
 
 <style>
+.pushGj_01_n1{
+	max-height:504px;
+	overflow: hidden;
+	overflow-y: auto;
+}
 .pushGj_01{
 	padding: 30px 100px;
 	height: 424px;
-	overflow: hidden;
-	overflow-y: auto;
 }
 .pushGj_02{
 	margin-bottom: 25px;
@@ -267,6 +271,7 @@ export default {
 	height:160px;
 	background:rgba(244,246,249,0.5);
 	border-radius:4px;
+	
 }
 .pushGj_02 .el-upload-dragger .el-upload__text{
 	font-size:16px;
@@ -311,7 +316,7 @@ export default {
 	line-height:20px;
 }
 .pushGj_02 .el-upload-dragger{
-	border-color: #FF5121;
+	border-color: #FF5121 !important;
 }
 .bmXm_01Btn{
 	position: relative;

@@ -78,8 +78,16 @@ export default {
 			})
 		},
 		sreond(n){
-			this.data.pr.classify_1 = n[0];
-			this.data.pr.classify_2 = n[1];
+			if(n[0]){
+				this.data.pr.classify_1 = n[0];
+				this.data.pr.classify_2 = n[1];
+			}else{
+				this.data.pr = {
+					type:'work',
+					query:this.$route.query.cont || ''
+				}
+			}
+			
 			this.getData();
 		},
 	},

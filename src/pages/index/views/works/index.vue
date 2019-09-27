@@ -1,9 +1,13 @@
 <template>
 	<div class="csBox">		
-		<div class="homghhd">			
-			<a @click="qhNav('rec')" :class="['pend',type?'router-link-active':'']">首页推荐</a>
-			<a @click="qhNav('')" :class="['pend',type?'':'router-link-active']">最新发布</a>	
-		</div>		
+		<div class="in_d1">
+			<div :class="isTop?'in_d2':''">
+				<div class="homghhd">			
+					<a @click="qhNav('rec')" :class="['pend',type?'router-link-active':'']">首页推荐</a>
+					<a @click="qhNav('')" :class="['pend',type?'':'router-link-active']">最新发布</a>	
+				</div>	
+			</div>
+		</div>	
 		<list :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
 				<box_a :tjData="bdtjdata" :el="todo"></box_a>
@@ -32,10 +36,12 @@ export default {
 			},	
 			bdtjdata:[['首页','作品'],['首页','创作者']],
 			type:'rec',
+			isTop:'',
 		}
 	},
 	mounted: function(){
 		this.init()
+		this.cs();
 	}, 
 	methods: {
 		init(){
@@ -51,9 +57,31 @@ export default {
 			else{
 				this.data.pr={};
 			}		
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.$refs.sfafa.sxfn();
 			
-		}
+		},
+		setTop(e){		
+			let t = document.documentElement.scrollTop||document.body.scrollTop;
+			if(t==0){
+				document.documentElement.scrollTop =1;
+				document.body.scrollTop =1;
+				return
+			}
+			if(t>55 && !this.isTop){
+				this.isTop='isTop';
+				return
+			}
+			if(t<=55 && this.isTop=='isTop'){				
+				this.isTop='';
+				return
+			}
+		},
+		cs(){	
+			document.removeEventListener('scroll',this.setTop);	
+			document.addEventListener("scroll",this.setTop);
+		},		
 	}
 }
 </script>
@@ -62,6 +90,9 @@ export default {
 .proNav2{
 	padding-top: 7px;
 	border-bottom: 2px solid #E6E6E6;
+}
+.in_d1{
+	height: 48px;	
 }
 .proNav2_1{
 	position: relative;
@@ -110,15 +141,13 @@ export default {
 .homghhd>a.router-link-active{
 	color: #FF5121;
 }
-.homghhd>a.router-link-active:after{
-	content: "";
-	position: absolute;
-	width: 90%;
-	height: 2px;
-	background: #FF5121;
-	bottom: -7px;
-	left: 50%;
-	transform: translateX(-50%);
-}
 
+.in_d2{
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #fff;
+	width: 100%;
+}
 </style>

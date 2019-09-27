@@ -3,7 +3,7 @@
 		<template v-slot:todo="{ todo }">
 			<div class="xm_shar_01">
 				<div class="xm_shar_01_1">
-					<vue-qr class="xm_shar_01_2" :logoSrc="config.logo" :text="config.value" :logoScale="96" :size="200" :margin="0"></vue-qr>
+					<div class="xm_shar_01_2" id="qrcode"></div>
 					分享到微信
 				</div>
 				<div class="xm_shar_01_3">
@@ -32,9 +32,9 @@
 </template>
 <script>
 import TcBox from './TcBox';
-import VueQr from 'vue-qr'
+import QRCode from 'qrcodejs2'
 export default {
-	components:{TcBox,VueQr},
+	components:{TcBox,QRCode},
 	props:{
 		shareData:Object
 	},
@@ -53,9 +53,18 @@ export default {
 		}
 	},
 	mounted: function(){
-
+	
 	},
 	methods: {	
+		qrcode(u) {
+		    let qrcode = new QRCode('qrcode', {
+		        width: 96,  
+		        height: 96,
+		        text: u, // 二维码地址
+		        colorDark : "#000",
+		        colorLight : "#fff",
+		    })
+	    },
 		copy(){
 			this.$refs.copd.select();
 			document.execCommand("copy");
@@ -68,6 +77,10 @@ export default {
 				this.bdtj(this.shareData.bdtj[0],this.shareData.bdtj[1]+'关闭','--')
 			}
 			this.$refs.tcBox.show();
+			setTimeout(()=>{
+				this.qrcode(this.shareData.url);
+			},50);
+			
 		},
 		tzld(ur,a){
 			if(this.shareData.bdtj){

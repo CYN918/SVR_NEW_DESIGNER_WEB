@@ -272,14 +272,15 @@ export default {
 }
 .btndf{
 	display: inline-block;
+	vertical-align: top;
 	border-radius:5px;
-	line-height: 40px;
+	line-height: 38px;
 	font-size:14px;
 	font-weight: 400;
 	text-align: center;
 	width: 100px;
-	height: 40px;
-	box-sizing: border-box;
+	height: 38px;
+
 	border: 1px solid #999;
 }
 .btndfys{
@@ -306,6 +307,7 @@ export default {
 }
 .pbx_1_1x{
 	display: inline-block;
+	vertical-align: top;
 	white-space:nowrap;
     text-align: right;
 }
