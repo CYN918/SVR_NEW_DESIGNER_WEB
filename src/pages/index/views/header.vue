@@ -39,7 +39,7 @@
 			</span>
 
 			<span class="iconfont  messgeH1">
-				<span class="pend" @click="showisXXNav">&#xe65b;<div @click="showisXXNav" v-if="messgNum && messgNum.unread_total_num>0" :class="['messgeH2',messgNum.unread_total_num>9?'messgeH2x':'']">{{backXXnUM(messgNum.unread_total_num)}}</div></span>
+				<span class="pend" @click="showisXXNav"><img class="head_top2" src="/imge/svg/head/top2.svg"/><div @click="showisXXNav" v-if="messgNum && messgNum.unread_total_num>0" :class="['messgeH2',messgNum.unread_total_num>9?'messgeH2x':'']">{{backXXnUM(messgNum.unread_total_num)}}</div></span>
 				
 				<div v-if="isXXNav" @click="hidisXXNav" class="messgeH3Boxf1"></div>
 				<div v-if="isXXNav" class="messgeH3">
@@ -858,5 +858,9 @@ export default {
 }
 .messgeH2x{
 	padding:0 5px;
+}
+.head_top2{
+	width: 16px;
+    margin-top: 18px;
 }
 </style>

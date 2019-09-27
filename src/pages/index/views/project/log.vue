@@ -19,7 +19,8 @@
 					<div v-if="el.check_status==-1" class="log_tipbox">	
 						驳回理由
 						<div class="log_tip">
-							{{el.check_reason}}
+							{{el.check_reason}}<br/>
+							{{el.check_comment}}
 						</div>
 						
 					</div>
