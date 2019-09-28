@@ -15,4 +15,7 @@ export default {
 		let str = ''+val;
 		return  str.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	},
+	checkWz:function(da){
+		return (da == ""|| da.trim().length == 0);
+	},
 }

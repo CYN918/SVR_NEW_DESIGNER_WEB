@@ -98,7 +98,7 @@ export default {
 		xsfn(){
 			setTimeout(()=>{
 				this.$set(this.listData[this.plOnd],'isshowfh',false);
-			},50)
+			},200)
 		},
 		backTj(n){
 			return  n>999?999:n;
@@ -135,6 +135,7 @@ export default {
 			},50);
 		},
 		addfu2(on,work_id,comId,name,fid){
+		
 			if(!work_id){
 				return
 			}
@@ -148,15 +149,12 @@ export default {
 				Message({message: '正在回复中'});
 				return
 			}
-			if(this.pl2 == "" 
-				|| this.pl2 == undefined 
-				|| this.pl2 == null 
-				|| (this.pl2.length>0 && this.pl2.trim().length == 0)){
-		        Message({message: '回复为空'});
-			  	return
-		    }
+			if(this.mJs.checkWz(this.plon[on])){
+				this.$message({message:'请先填写回复内容'});
+				return
+			}				
 		    this.plType=1;
-			let cond = ['@'+name,this.pl2];
+			let cond = ['@'+name,this.plon[on]];
 			let pr = {
 				work_id:work_id,
 				content	:JSON.stringify(cond),
