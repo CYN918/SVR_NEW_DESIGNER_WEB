@@ -41,7 +41,7 @@ export default {
 .ques_03 .maxd_ss{
 	position: absolute;
     bottom: 13px;
-    left: 431px;
+    left: 444px;
 	font-size:14px;
 	font-weight:400;
 	color:rgba(187,187,187,1);

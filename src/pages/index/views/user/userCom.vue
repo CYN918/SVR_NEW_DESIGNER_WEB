@@ -18,8 +18,7 @@
 				:autoCrop="true"
 				:fixedBox="true"
 				:canMoveBox="false"
-				:centerBox="true"
-				
+				:centerBox="true"				
 				:enlarge="2"							
 				>
 				</vueCropper>
@@ -27,9 +26,9 @@
 			<div class="upBg2">
 				<span class="upBg2_1">建议尺寸 1920*260px</span>
 				<div class="upBg2_2">
-					<img @click="changeScale(1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_01.png" alt="">
-					<img @click="changeScale(-1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_02.png" alt="">
-					<img @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_03.png" alt="">
+					<img @click="changeScale(1)" :src="imU+'cj_01.png'" alt="">
+					<img @click="changeScale(-1)" :src="imU+'cj_02.png'" alt="">
+					<img @click="rotateLeft" :src="imU+'cj_03.png'" alt="">
 				</div>
 			</div>
 			<div class="upBg3">
@@ -94,6 +93,7 @@
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
 		</div>
+		<unfollow @sussFn="unfollowSu" ref="unfollow"></unfollow>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
 		<RPT ref="report"></RPT>
 		<router-view/>
@@ -105,12 +105,18 @@
 import {Message} from 'element-ui'
 import RPT from '../../components/report'
 import fxd from '../../components/share';
+import unfollow from '../../components/unfollow';
 export default {
-	components:{fxd,RPT},
+	components:{fxd,RPT,unfollow},
 	name: 'index',
 	data(){
 		return{
 			gofn:'',
+			outc:{
+				title:'删除评论确认',
+				scroll:1,
+				cent:'确定删除该条评论?',
+			},
 			shareData:{},
 			userBg:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/grzx_bg.svg',
 			previewStyle2:{},
@@ -207,40 +213,19 @@ export default {
 			}
 			this.$router.push({path:d,query:{id:id}});
 		},
-		gzclick(){
-			if(this.userMessage.follow_flag==1 || this.userMessage.follow_flag==2){
-				this.showHb2();
+		gzclick(){			
+			if(this.follow_flag==0){
+				this.Follow_add();
 				return
 			}
-			this.Follow_add();
+			this.$refs.unfollow.setFollowId(this.userMessage.open_id);			
 		},
-		Follow_del(){
-			
-			if(this.follwTyle==1){
-				return
-			}
-			this.follwTyle=1;
-			let pr = {
-				access_token:window.userInfo.access_token,
-				follow_id:this.userMessage.open_id
-			};
-			this.api.Follow_del(pr).then((da)=>{
-				if(da=='error'){
-					this.follwTyle=0;
-					return
-				}
-				this.follwTyle=0;
-				this.hindHb2();
-				this.userMessage.follow_flag=0;
-				this.$router.push({path: this.$route.fullPath+'&p=1'})
-				Message({message: '取消关注成功'});
-			}).catch(()=>{
-				this.follwTyle = 0;		
-			});
+		unfollowSu(){
+			this.userMessage.follow_flag=0;
 		},
+
 		Follow_add(){
-			if(!window.userInfo){
-				this.$router.push({path: '/login'})
+			if(!this.isLogin()){
 				return
 			}
 			if(this.follwTyle==1){

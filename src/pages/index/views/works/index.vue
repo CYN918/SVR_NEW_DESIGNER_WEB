@@ -69,11 +69,11 @@ export default {
 				document.body.scrollTop =1;
 				return
 			}
-			if(t>55 && !this.isTop){
+			if(t>=60 && !this.isTop){
 				this.isTop='isTop';
 				return
 			}
-			if(t<=55 && this.isTop=='isTop'){				
+			if(t<60 && this.isTop=='isTop'){				
 				this.isTop='';
 				return
 			}
@@ -92,7 +92,7 @@ export default {
 	border-bottom: 2px solid #E6E6E6;
 }
 .in_d1{
-	height: 48px;	
+	height: 75px;	
 }
 .proNav2_1{
 	position: relative;
@@ -123,9 +123,9 @@ export default {
 	
 }
 .homghhd{
-	margin: 27px auto 27px;
+	margin: 0 auto ;
 	width: 1300px;
-	margin-bottom: 20px;
+	padding: 27px 0 ;
 	text-align: center;
 }
 	
@@ -147,7 +147,17 @@ export default {
 	position: fixed;
 	top: 0;
 	left: 0;
-	background: #fff;
+
 	width: 100%;
+	-webkit-animation: bjs .3s linear forwards;
+	animation: bjs .3s linear forwards;
+}
+@keyframes bjs{
+	from{background: rgba(255,255,255,0);}
+	to{background: rgba(255,255,255,1)}
+}
+@-webkit-keyframes bjs{
+	from{background: rgba(255,255,255,0);}
+	to{background: rgba(255,255,255,1)}
 }
 </style>

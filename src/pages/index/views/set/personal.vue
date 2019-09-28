@@ -860,9 +860,7 @@ export default {
 	width: 56px;
 }
 .suc_1>.newSC>span.suc_1_9_c1n:hover{
-	color: #FF5121;
-	
-	
+	color: #FF5121;		
 }
 
 </style>

@@ -9,7 +9,18 @@ import mJs from '../../assets/comm.js'
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
 Vue.prototype.mJs = mJs
+Vue.prototype.imU = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/'
 Vue.prototype.api.mcommjs = window.mycomJs;
+
+Vue.prototype.isLogin=function(){
+	if(!window.userInfo){
+		this.$router.push({path: '/login'})
+		return false;
+	}
+	return true;
+}
+
+
 
 Vue.prototype.MD5 = function(string){ 
     function RotateLeft(lValue, iShiftBits) {

@@ -174,24 +174,6 @@ export default {
     -webkit-transform: rotate(-58deg) translate(-21%,76%);
     transform: rotate(-58deg) translate(-21%,76%);
 }
-.ques_03{
-	position: relative;
-}
-.ques_03>textarea{
-	box-sizing: border-box;
-	padding: 15px 20px;
-	width:500px;
-	height:150px;
-	border-radius:5px;
-	border:1px solid rgba(187,187,187,1);
-}
-.ques_03 .maxd_ss{
-	position: absolute;
-    bottom: 13px;
-    left: 431px;
-	font-size:14px;
-	font-weight:400;
-	color:rgba(187,187,187,1);
-	line-height:20px;
-}
+
+
 </style>

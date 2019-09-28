@@ -2,7 +2,6 @@
 	<div>
 			<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
 
-
 			<div class="newUsermeBOX">
 				<div class="newUserme2 newUserme2x_1">
 					<div class="userBoxd">
@@ -11,7 +10,7 @@
 					</div>
 					<div class="userBoxd">
 						<span>验证码</span>
-						<inptPhone class="newUserme_x1" :iscf="1" @checkBack="checkphoneBack" v-model="form.verifys" :inputType="'verifys'"  :placeholder="'输入 6 位短信验证码'"></inptPhone>
+						<inptPhone class="newUserme_x1" :iscf="'1'" @checkBack="checkphoneBack" v-model="form.verifys" :inputType="'verifys'"  :placeholder="'输入 6 位短信验证码'"></inptPhone>
 					</div>
 					<div class="userBoxd">
 						<span>登录密码</span>

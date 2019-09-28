@@ -42,14 +42,14 @@ export default {
 	},	
 	methods: {
 		init(){			  	
-			this.config.pr.time = new Date().getTime()-(30*1000*60*60*24);
+			this.config.pr.time = new Date().getTime()-(30*60*60*24);
 		},
 		goWork(d){
 			this.$router.push({path: '/cont',query:{id:d.work_id}});
 		},
 		setTim(o){
 			this.timed = o;
-			this.config.pr.time = new Date().getTime()-(this.timed*1000*60*60*24);
+			this.config.pr.time = new Date().getTime()-(this.timed*60*60*24);
 			this.$refs.tabds.sxfn();
 		}
 	}
