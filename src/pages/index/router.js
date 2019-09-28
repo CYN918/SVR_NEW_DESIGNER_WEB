@@ -201,7 +201,7 @@ let wb = [
 	},	
 	{path: '/userme',name: 'userme',component:lg_userme},
 	{path: '/userme2',name: 'userme2',component:lg_userme2},
-	{path:'*',redirect: '/index',}
+	{path:'*',redirect: '/404',}
 ];
 router.addRoutes(wb);
 //自动登录
