@@ -19,13 +19,14 @@
 					<div v-if="el.check_status==-1" class="log_tipbox">	
 						驳回理由
 						<div class="log_tip">
-							{{el.check_reason}}<br/>
+							<span class="log_tip1">{{el.check_reason}}</span>
 							{{el.check_comment}}
 						</div>
 						
 					</div>
 					<div v-else></div>
 				</div>
+	
 			</div>
 
 		</template>			
@@ -154,7 +155,7 @@ export default {
 	width: 104px;
 }
 .jgbix>div:nth-child(6){
-	width: 198px;
+	max-width: 198px;
 }
 .jgcent{
 
@@ -165,6 +166,7 @@ export default {
 	border-bottom:1px solid rgba(244,246,249,1);
 }
 .log_tipbox{
+	cursor: pointer;
 	position: relative;
 	color: #FF5121;
 }
@@ -173,21 +175,42 @@ export default {
 }
 .log_tip{
 	display: none;
-	
+	z-index: 1;
 	position: absolute;
-	top: 0;
-	right: 217px;
-
-	word-wrap:break-word;
-	width:356px;
-    background: rgba(255,255,255,1);
+	top: 50px;
+    width: 232px;
+    right: -85px;  
+    background: #fff;
     -webkit-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
-    box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
-    padding: 12px 12px;
+   	box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
+   	box-sizing: border-box;
+	word-wrap:break-word;
+    padding: 20px 16px;
     font-size: 14px;
     font-weight: 400;
-    color: rgba(51,51,51,1);
+    color: #666;
     line-height: 20px;
-    text-align: right;
+    text-align: left;
+}
+.log_tip1{
+	display: block;
+	margin-bottom: 10px;
+}
+.log_tip:after{
+	content: "";
+    position: absolute;
+    left: 50%;
+    top: -3px;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    -webkit-transform: rotate(45deg) translateX(-50%);
+    transform: rotate(45deg) translateX(-50%);
+    border: 1px solid rgba(152, 144, 144, 0.1);
+    border-right: 0;
+    border-bottom: 0;
+}
+.nogd{
+	height: 200px;
 }
 </style>
