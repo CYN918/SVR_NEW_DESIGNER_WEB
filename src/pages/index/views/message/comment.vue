@@ -87,7 +87,8 @@ export default {
 			plType:0,
 			pl2:'',
 			plon:[],
-			plOnd:''
+			plOnd:'',
+			isftype:'',
 		}
 	},
 	mounted: function () {			
@@ -96,7 +97,9 @@ export default {
 	}, 
 	methods: {
 		xsfn(){
+			
 			setTimeout(()=>{
+				if(this.isftype){return;}
 				this.$set(this.listData[this.plOnd],'isshowfh',false);
 			},200)
 		},
@@ -122,8 +125,6 @@ export default {
 			this.$set(this.listData[on],'isshowsub',this.listData[on].isshowsub?false:true);
 		},
 		showHF(on){
-		
-			
 			this.plOnd = on;
 			this.$set(this.listData[on],'isshowfh',this.listData[on].isshowfh?false:true);
 			setTimeout(()=>{				
@@ -135,7 +136,7 @@ export default {
 			},50);
 		},
 		addfu2(on,work_id,comId,name,fid){
-		
+			this.isftype = 1;
 			if(!work_id){
 				return
 			}
@@ -147,12 +148,16 @@ export default {
 			}
 			if(this.plType==1){
 				Message({message: '正在回复中'});
+				this.$refs['myOn'+on][0].monfocus();
+			
 				return
 			}
 			if(this.mJs.checkWz(this.plon[on])){
 				this.$message({message:'请先填写回复内容'});
+				this.$refs['myOn'+on][0].monfocus();
 				return
-			}				
+			}
+			
 		    this.plType=1;
 			let cond = ['@'+name,this.plon[on]];
 			let pr = {
@@ -165,14 +170,25 @@ export default {
 			}
 			pr.access_token = window.userInfo.access_token;
 			this.api.addComment(pr).then((da)=>{
+				
+				this.isftype= '';
 				this.plType=0;
 				if(da=='error'){
+					this.$refs['myOn'+on][0].monfocus();
 					return
 				}
+				
+				this.$set(this.listData[on],'isshowfh',false);
+
+				
+				
 				Message({message: '回复成功'});							
 				this.$refs['myOn'+on].value = '';
 				this.plon[on] = '';
 			}).catch((err)=>{
+				this.isftype= '';
+				this.$refs['myOn'+on][0].monfocus();
+				
 				this.plType=0;						
 			});	
 		},

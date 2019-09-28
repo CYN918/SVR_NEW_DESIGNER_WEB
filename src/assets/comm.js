@@ -16,6 +16,12 @@ export default {
 		return  str.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	},
 	checkWz:function(da){
-		return (da == ""|| da.trim().length == 0);
+		if(!da && da!=0){
+			return true;
+		}
+		if(da.trim().length==0){
+			return true;
+		}
+		return false;
 	},
 }
