@@ -860,7 +860,7 @@ export default {
 	padding:0 5px;
 }
 .head_top2{
-	width: 16px;
-    margin-top: 18px;
+	width: 15.2px;
+    margin-top: 19.1px;
 }
 </style>

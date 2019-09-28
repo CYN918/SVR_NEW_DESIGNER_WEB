@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="yhtop">
+		<div class="yhtop setBin_1">
 			<div class="yhtop1 ">用户资料完善</div>
 			<div class="yhtop2">
 				<div>
@@ -15,15 +15,16 @@
 			<bindUser v-if="navOn==1"></bindUser>	
 			
 		</div>
-
+		<Footer></Footer>
 	</div>	
 </template>
 <script>
 import bindData from './bindData';
 import bindUser from './bindUser';
+import Footer from '../footer';
 export default {
 	name: 'login',
-	components:{bindData,bindUser},
+	components:{bindData,bindUser,Footer},
 	data(){		
 		return{	
 			navOn:0,		
@@ -42,13 +43,14 @@ export default {
 <style>
 #app>div>div.yhtop{
 	padding: 0;
-	padding-bottom: 70px;
 }
 .yhtop{
 	min-width: 1300px;
 	font-size: 14px;
 }
-
+#app>div>div.setBin_1{
+	padding-bottom: 210px;
+}
 .newUserme{
 	box-sizing: border-box;
 	height: 742px;
@@ -164,6 +166,9 @@ export default {
 	box-sizing: border-box;
 	padding: 44px 110px;
 	width: 860px;
+
+}
+.newUsermeHx2{
 	height: 425px;
 }
 .newUserme2 .userBoxd{
@@ -199,5 +204,8 @@ export default {
     width: 90%;
     height: 2px;
     background: #FF5121;
+}
+.newUserme2x_1 .userBoxd{
+	height: 60px;
 }
 </style>

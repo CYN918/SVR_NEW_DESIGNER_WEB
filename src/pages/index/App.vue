@@ -2435,4 +2435,7 @@ content: "";
 	text-align: center;
 	margin:0 10px;
 }
+.setBin_1{
+	padding-bottom: 100px;
+}
 </style>
