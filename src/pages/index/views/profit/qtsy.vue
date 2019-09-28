@@ -49,7 +49,7 @@ export default {
 	},	
 	methods: {
 		init(){			  	
-			this.config.pr.time = new Date().getTime()-(30*60*60*24);
+			this.config.pr.time = parseInt(new Date().getTime()/1000)-(30*60*60*24);
 		},
 
 		goWork(d){
@@ -67,7 +67,7 @@ export default {
 		},
 		setTim(o){
 			this.timed = o;
-			this.config.pr.time =  new Date().getTime()-(this.timed*60*60*24);
+			this.config.pr.time =  parseInt(new Date().getTime()/1000)-(this.timed*60*60*24);
 			this.$refs.tabds.sxfn();
 		}
 	}
