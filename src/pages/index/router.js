@@ -54,9 +54,7 @@ import searchUser from './views/search/searchUser.vue'
 import searchWorks from './views/search/searchWorks.vue'
 import searchProject from './views/search/searchProject.vue'
 
-
 import tx_index from './views/message/text.vue'
-import tx_help from './views/message/help.vue'
 
 import lg_index from './views/login/index.vue'
 import lg_login from './views/login/login.vue'
@@ -186,7 +184,7 @@ let wb = [
 			{path: '/about',name: 'about',component:tx_index},
 			{path: '/userProtocol',name: 'userProtocol',component:tx_index},
 			{path: '/authorization',name: 'authorization',component:tx_index},
-			{path: '/help',name: 'help',component:tx_help},
+			{path: '/help',name: 'help',component:tx_index},
 			
 			{path: '/project',name: 'project',component:pr_index},
 			{path: '/prcent',name: 'prcent',component:pr_cents},
