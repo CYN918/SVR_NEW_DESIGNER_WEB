@@ -7,12 +7,7 @@ import Home from './views/home.vue'
 import Tip from './views/activvityPage/tip.vue'
 import upload from './views/upload/upload.vue'
 
-import userCom from './views/user/userCom.vue'
-import works from './views/user/works.vue'
-import recommend from './views/user/recommend.vue'
-import follow from './views/user/follow.vue'
-import followFans from './views/user/fans.vue'
-import info from './views/user/info.vue'
+
 
 import myWorksCom from './views/user/myWorksCom.vue'
 import myProjectCom from './views/user/myProjectCom.vue'
@@ -78,6 +73,9 @@ import Work_i from './views/works/index.vue'
 import email from './views/commd/email.vue'
 
 
+import personalCenter from './views/personalCenter/index.vue'
+
+
 Vue.use(Router)
 const router = new Router({
 
@@ -93,25 +91,32 @@ let wb = [
 		name: 'index',
 		component: Index,
 		children:[
-				{path: '/email',name: 'email',component: email},	
+			{path: '/email',name: 'email',component: email},	
 		
 			{path: '/Work_i',name: 'Work_i',component: Work_i},	
 			{path: '/special_first',name: 'special_first',component: special_first},						
 			{path: '/index',name: 'home',component: Home},
 			{path: '/tip',name: 'tip',component: Tip},		
 			{path: '/upload',name: 'upload',component: upload},
-			{
-				path: '/userd',
-				name: 'userd',
-				component:userCom,
-				children:[
-					{path: '/works',name: 'works',component: works},
-					{path: '/recommend',name: 'recommend',component:recommend},
-					{path: '/follow',name: 'follow',component:follow},
-					{path: '/followFans',name: 'followFans',component:followFans},
-					{path: '/info',name: 'info',component:info},
-				],
-			},		
+			
+			{path: '/works',name: 'pe_works',component: personalCenter},
+			{path: '/recommend',name: 'pe_recommend',component: personalCenter},
+			{path: '/follow',name: 'pe_follow',component: personalCenter},
+			{path: '/followFans',name: 'pe_fans',component: personalCenter},
+			{path: '/info',name: 'pe_info',component: personalCenter},
+//			
+//			{
+//				path: '/userd',
+//				name: 'userd',
+//				component:userCom,
+//				children:[
+//					{path: '/works',name: 'works',component: works},
+//					{path: '/recommend',name: 'recommend',component:recommend},
+//					{path: '/follow',name: 'follow',component:follow},
+//					{path: '/followFans',name: 'followFans',component:followFans},
+//					{path: '/info',name: 'info',component:info},
+//				],
+//			},		
 			{path: '/myAll',name: 'myAll',component:myWorksCom},
 			{path: '/myExamine',name: 'myExamine',component:myWorksCom},
 			{path: '/myNotPass',name: 'myNotPass',component:myWorksCom},

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="csBoxNx1">
 		<div class="worksBox csBox">
 			<div class="worksBox_1">
 				共{{ total+'位粉丝'}}
@@ -23,9 +23,7 @@
 						</div>
 						<div class="follwfs_5" v-if="!isMe(todo.open_id)">
 							<span @click="gosx(todo,'私信')">私信</span>
-							<span @click="showFpllwodel(todo,'已关注')" v-if="todo.follow_flag==2">互相关注</span>
-							<span @click="showFpllwodel(todo,'已关注')" v-else-if="todo.follow_flag==1">已关注</span>
-							<span @click="Follow_add(todo,'关注')" v-else>关注</span>						
+							<span @click="FollowClick(todo)">{{todo.follow_flag | followType}}</span>										
 						</div>
 						<div class="follwfs_5" v-else>
 							<span @click="goHome">进入主页</span>							
@@ -35,24 +33,18 @@
 			</list>	
 		</div>
 		
-		<div v-show="isshowd2" class="loginoutBox">
-			<div class="loginoutBox1">
-				<img @click="hindHb2()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
-				<div class="loginoutBox3">是否取消关注?</div>
-				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
-			</div>
-		</div>
+
 	</div>
 </template>
 
 <script>
-import tophead from './head';
+
 import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 import list from '../../components/list';
 export default {
 	name: 'works',
-	components:{tophead,list},
+	components:{list},
 	data(){
 		return {
 			data:{
@@ -62,22 +54,13 @@ export default {
 				pr:{}
 
 			},	
-			isshowd2:false,
-			banners:[],
-			List:[],
-			banOn:0,
-			page:1,
-			limit:40,
 			total:0,
-			loading: '',
 			sxOn:0,
 			sxtj:1,
 			sxData:[
 				[{name:'我关注的人',key:1},{name:'我的粉丝',key:1}],
 				[{name:'TA关注的人',key:1},{name:'TA的粉丝',key:1}]
 			],		
-			follwTyle:0,
-			openOns:'',
 			tjZt:'他人视角-',
 		}
 	},
@@ -91,7 +74,16 @@ export default {
 	created(){
 		this.init();
 	},	
-	methods: {
+	methods: {	
+		FollowClick(on){
+			if(on.follow_flag==0){
+				this.bdtjCom('关注');
+				this.$parent.Follow_add(on.open_id);
+				return
+			}			
+			this.bdtjCom('已关注');
+			this.$parent.Follow_un(on.open_id);
+		},
 		bdtjCom(a){
 			this.bdtj('个人主页',this.tjZt+'tag_粉丝-'+a,'--');
 		},
@@ -135,70 +127,6 @@ export default {
 			
 			return id==window.userInfo.open_id;
 		},
-		showFpllwodel(on,a){
-			this.bdtjCom(a);
-			this.isshowd2 = true;
-			this.openOns = on;
-		},
-		Follow_del(){
-			if(!this.openOns){
-				return
-			}
-			
-			if(this.follwTyle==1){
-				return
-			}
-			this.follwTyle=1;
-			let pr = {
-				access_token:window.userInfo.access_token,
-				follow_id:this.openOns.open_id
-			};
-			this.api.Follow_del(pr).then((da)=>{
-				if(da=='error'){
-					this.follwTyle=0;
-					return
-				}
-				this.follwTyle=0;
-				this.hindHb2();
-				Message({message: '取消关注成功'});
-				this.openOns.follow_flag = 0;
-				
-			}).catch(()=>{
-				this.follwTyle = 0;		
-			});
-		},
-		Follow_add(on,a){
-			this.bdtjCom(a);
-			if(!window.userInfo){
-				this.$router.push({path: '/login'})
-				return
-			}
-			if(this.follwTyle==1){
-				return
-			}
-			this.follwTyle=1;
-			let pr = {
-				access_token:window.userInfo.access_token,
-				follow_id:on.open_id
-			};
-			this.api.Follow_add(pr).then((da)=>{
-				if(da=='error'){
-					this.follwTyle=0;
-					return
-				}
-				on.follow_flag = da.follow_flag;
-				this.follwTyle=0;
-				Message({message: '关注成功'});
-			}).catch(()=>{
-				this.follwTyle = 0;		
-			});
-			
-		
-		},
-		hindHb2(){
-			this.isshowd2 = false;
-			this.openIdd = '';
-		},
 		sxFn(on){
 			if(on==1){
 				return
@@ -209,55 +137,11 @@ export default {
 			this.bdtjCom(a);
 			this.$router.push({path: '/works',query:{id:on}})	
 		},
-		backtime(time){
-		
-			return	window.getTimes(time);
-		},	
-	
-		openxq(on){
-			
-			window.open('#/cont?id='+on)
+
+		getData(){
+			this.$refs.listDom.getData();
 		},
 		
-		followList(){
-			let pr = {
-				
-				user_open_id:this.$route.query.id,
-				page:this.page,
-				limit:this.limit
-			};
-			if(!window.userInfo){
-				this.sxOn = 1;
-			}
-			if(window.userInfo){
-				pr.access_token = window.userInfo.access_token;
-				if(this.$route.query.id!=window.userInfo.open_id){
-					this.sxOn = 1;					
-				}
-			}
-	
-			this.api.fansList(pr).then((da)=>{
-				if(da=='error'){
-					return
-				}
-				this.List = da.data;
-				console.log(this.List)
-				this.total = da.total;
-				document.documentElement.scrollTop =0;
-				document.body.scrollTop =0;
-				
-			})
-		},
-		
-		
-		handleSizeChange(val) {
-			this.limit = val;
-			this.followList();
-		},
-		handleCurrentChange(val) {
-			this.page = val;
-			this.followList();
-		}
 	}
 }
 </script>

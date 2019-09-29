@@ -861,6 +861,6 @@ export default {
 }
 .head_top2{
 	width: 15.2px;
-    margin-top: 19.1px;
+    margin-top: 19.7px;
 }
 </style>

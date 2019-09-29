@@ -59,10 +59,12 @@ export default {
 			this.$router.push({path:'/chat',query:pr});
 		},
 		goR(d){	
-		
+			
 			if(this.tjData){
 				this.bdtj(this.tjData[1][0],this.tjData[1][1],'--');
 			}
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.$router.push({path:d,query:{id:this.tcData.user_info.open_id}});
 		},
 		isme(){

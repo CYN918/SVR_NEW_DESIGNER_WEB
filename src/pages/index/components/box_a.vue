@@ -38,12 +38,15 @@ export default {
 		}
 	},
 	methods: {	
+		
 		goUser(on){
 			if(this.tjData && this.tjData[1]){
 				this.tongj(this.tjData[1]);
 			}
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
+			this.$router.push({path: '/works',query:{id:this.el.user_info.open_id}})
 			
-			this.$router.push({path: '/works',query:{id:this.el.user_info.open_id}})	
 		},
 		tongj(a){
 			if(!a){return}
@@ -67,12 +70,13 @@ export default {
 			window.open('#/cont?id='+this.el.work_id)
 		},
 		backBn(ur){
-			let str = '/imge/svg/default_image.svg';
-			if(ur && ur!=null){
-				str = ur;
-			}			
-			return 'background-image: url('+str+'?x-oss-process=image/resize,w_307);'
-		}
+			let str = ur+'?x-oss-process=image/resize,w_307);';
+			if(!ur || ur==null){
+				str = '/imge/svg/default_image.svg);background-size:50%;';
+			}	
+			return 'background-image: url('+str;
+		},
+
 	}
 }
 </script>
@@ -144,6 +148,7 @@ export default {
   text-align: left;
   color: #1E1E1E;
   margin-bottom: 3px;
+  height: 20px;
 }
 .list1_box_3_1>img{
   float: right;

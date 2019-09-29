@@ -70,6 +70,12 @@ export default {
 			this.bdtj = [['个人主页',pd+'作品'],['个人主页',pd+'创作者']];
 			this.data.pr.user_open_id = this.$route.query.id;
 		},
+		getData(){
+			this.$refs.listDom.sxfn((da)=>{
+				da.sort = this.sort;
+				da.user_open_id = this.$route.query.id;
+			});
+		},
 		sxFn(on){
 			if(this.sxtj==on){
 				return

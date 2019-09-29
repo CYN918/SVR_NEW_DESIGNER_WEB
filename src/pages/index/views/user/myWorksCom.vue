@@ -6,7 +6,7 @@
 				<template v-slot:todo="{ todo }">
 					<div class="mylists">
 						<div @click="openxq(todo)" class="myListBox_1">
-							<img class="myListBox_1_1" :src="((todo.face_pic && todo.face_pic!=null)?todo.face_pic:'/imge/svg/default_image.svg')+'?x-oss-process=image/resize,w_307'">
+							<img class="myListBox_1_1" :style="backfmW(todo.face_pic)" :src="backFm(todo.face_pic)">
 							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
 						</div>
 						<div @click="openxq(todo)" class="myListBox_2">
@@ -188,6 +188,18 @@ export default {
 	methods: {
 		init(){
 			this.data.pr.status =  this.isTypeList[this.$route.name];
+		},
+		backFm(val){
+			if(!val || val==null){
+				return '/imge/svg/default_image.svg';
+			}			
+			return val+'?x-oss-process=image/resize,w_307';
+		},
+		backfmW(val){
+			if(!val || val==null){
+				return 'width:50%';
+			}			
+			return 'width:100%';
 		},
 		upDataSet(){	
 			if(this.upType==1){

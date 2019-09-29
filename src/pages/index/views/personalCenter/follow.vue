@@ -24,9 +24,11 @@
 							</div>
 							<div>{{todo.personal_sign?todo.personal_sign:'这个人很懒，什么都没说~'}}</div>
 							<div class="btns_foll" v-if="!isMe(todo.open_id)">
-								<span @click="showFpllwodel(todo,'已关注')" v-if="todo.follow_flag==2">互相关注</span>
-								<span @click="showFpllwodel(todo,'已关注')" v-else-if="todo.follow_flag==1">已关注</span>
-								<span @click="Follow_add(todo,'关注')" v-else>关注</span>
+								<span @click="FollowClick(todo)">
+									{{todo.follow_flag | followType}}
+								</span>
+								
+								
 								<span @click="gosx(todo,'私信')">私信</span>
 							</div>
 						</div>
@@ -41,25 +43,18 @@
 				</template>			
 			</list>	
 		</div>
-		
-		<div v-show="isshowd2" class="loginoutBox">
-			<div class="loginoutBox1">
-				<img @click="hindHb2()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
-				<div class="loginoutBox3">是否取消关注?</div>
-				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
-			</div>
-		</div>
+
 	</div>
 </template>
 
 <script>
-import tophead from './head';
+
 import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 import list from '../../components/list';
 export default {
 	name: 'works',
-	components:{tophead,list},
+	components:{list},
 	data(){
 		return {
 			data:{
@@ -98,15 +93,16 @@ export default {
 	watch: {	
 		'$route': function() {
 			this.init();
-			this.$refs.listDom.getData();
+			this.getData();
 		},
 	},
-	created(){
-	
+	created(){	
 		this.init();
-	},	
-	
+	},		
 	methods: {
+		getData(){
+			this.$refs.listDom.getData();
+		},
 		init(){			
 			if(!this.$route.query.id){
 				this.$router.push({path:'/index'})	
@@ -146,89 +142,22 @@ export default {
 			
 			return id==window.userInfo.open_id;
 		},
-		showFpllwodel(on,a){
-			this.bdtjCom(a);
-			this.isshowd2 = true;
-			this.openOns = on;
-		},
-		Follow_del(){
-	
-			if(!this.openOns){
+		FollowClick(on){
+			if(on.follow_flag==0){
+				this.bdtjCom('关注');
+				this.$parent.Follow_add(on.open_id);
 				return
 			}
 			
-			if(this.follwTyle==1){
-				return
-			}
-			this.follwTyle=1;
-			let pr = {
-				
-				follow_id:this.openOns.open_id
-			};
-			if(window.userInfo){
-				pr.access_token = window.userInfo.access_token;
-			}
-			this.api.Follow_del(pr).then((da)=>{
-				if(da=='error'){
-					this.follwTyle=0;
-					return
-				}
-				this.follwTyle=0;
-				this.hindHb2();
-				Message({message: '取消关注成功'});
-				if(this.total>0){
-					this.total--;
-				}
-		
-				this.$refs.listDom.getData();
-			
-				this.openOns.follow_flag = 0;
-				
-			}).catch(()=>{
-				this.follwTyle = 0;		
-			});
+			this.bdtjCom('已关注');
+			this.$parent.Follow_un(on.open_id);
 		},
-		Follow_add(on,a){
-			this.bdtjCom(a);
-			if(!window.userInfo){
-				this.$router.push({path: '/login'})
-				return
-			}
-			if(this.follwTyle==1){
-				return
-			}
-			this.follwTyle=1;
-			let pr = {			
-				follow_id:on.open_id
-			};
-			if(window.userInfo){
-				pr.access_token = window.userInfo.access_token;
-			}
-			this.api.Follow_add(pr).then((da)=>{
-				if(da=='error'){
-					this.follwTyle=0;
-					return
-				}
-				on.follow_flag = da.follow_flag;
-				this.follwTyle=0;
-				Message({message: '关注成功'});
-				this.total++;
-				
-			}).catch(()=>{
-				this.follwTyle = 0;		
-			});
-			
-		
-		},
-		hindHb2(){
-			this.isshowd2 = false;
-			this.openIdd = '';
-		},
+
 		sxFn(on){
 			if(on==0){
 				return
 			}
-			this.$router.push({path: '/followFans',query:{id:this.$route.query.id}})							
+			this.$router.push({path:'/followFans',query:{id:this.$route.query.id}})							
 		},
 		goUser(on,a){
 			this.bdtjCom(a);
@@ -240,33 +169,7 @@ export default {
 		openxq(on){			
 			window.open('#/cont?id='+on)
 		},		
-		followList(){			
-			let pr = {			
-				user_open_id:this.$route.query.id,
-				page:this.page,
-				limit:this.limit
-			};
-			if(window.userInfo){
-				pr.access_token = window.userInfo.access_token;
-			}
-			this.api.followList(pr).then((da)=>{
-				if(da=='error'){return}
-				this.List = da.data;
-				this.total = da.total;
-				document.documentElement.scrollTop =0;
-				document.body.scrollTop =0;
-			})
-		},
 		
-		
-		handleSizeChange(val) {
-			this.limit = val;
-			this.followList();
-		},
-		handleCurrentChange(val) {
-			this.page = val;
-			this.followList();
-		}
 	}
 }
 </script>

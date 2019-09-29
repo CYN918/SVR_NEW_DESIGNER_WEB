@@ -19,8 +19,9 @@ export default {
 	},
 	methods: {			
 		Follow_del(){
-			if(!window.userInfo){return}			
+			if(!this.isLogin()){return}		
 			if(this.follwTyle==1){
+				this.$message({message:'正在处理中请稍后'});
 				return
 			}
 			this.follwTyle=1;
@@ -32,12 +33,31 @@ export default {
 				if(da=='error'){					
 					return
 				}
-				this.$emit('sussFn');
-				this.close();
+				this.$emit('suUnFn');
 				this.$message({message:'取消关注成功'});
+				this.close();				
 			}).catch(()=>{
 				this.follwTyle = 0;		
 			});
+		},
+		Follow_add(id){
+			if(!this.isLogin()){return}
+
+			if(this.follwTyle==1){this.$message({message:'正在处理中请稍后'}) ;return}
+			this.follwTyle=1;
+			let pr = {
+				follow_id:id
+			};
+			this.api.Follow_add(pr).then((da)=>{
+				this.follwTyle=0;
+				if(da=='error'){
+					return
+				}
+				this.$emit('suAdFn',da);
+				this.$message({message:'关注成功'});
+			}).catch(()=>{
+				this.follwTyle = 0;		
+			});					
 		},
 		setFollowId(a){
 			if(!a){

@@ -12,6 +12,16 @@ Vue.prototype.mJs = mJs
 Vue.prototype.imU = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/'
 Vue.prototype.api.mcommjs = window.mycomJs;
 
+
+//定义全局过滤器
+Vue.filter('followType', (val)=>{
+	if(val == 1){return '已关注'}
+	if(val == 2){return '互相关注'}
+	return '关注';
+})
+
+
+
 Vue.prototype.isLogin=function(){
 	if(!window.userInfo){
 		this.$router.push({path: '/login'})
@@ -304,6 +314,13 @@ Vue.prototype.checkLo = function(o){
 		}
 	});
 }
+
+Vue.prototype.miss = function(o){
+	Message({message:o});
+};
+
+
+
 new Vue({
   router,
   render: h => h(App)
