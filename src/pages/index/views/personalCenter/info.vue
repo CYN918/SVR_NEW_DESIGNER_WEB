@@ -97,7 +97,7 @@ export default {
 	box-sizing: border-box;
 	
 	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+
 	border-radius: 5px;
 	margin: 20px auto 0;
 	width: 860px;

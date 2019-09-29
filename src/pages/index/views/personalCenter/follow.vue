@@ -242,7 +242,7 @@ export default {
 	box-sizing: border-box;
 	padding-top: 30px;
 	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+
 	border-radius: 5px;
 	width: 1300px;
 	height: 215px;
