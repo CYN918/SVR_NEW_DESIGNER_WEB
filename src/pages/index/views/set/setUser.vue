@@ -81,7 +81,6 @@
 				</div>
 
 				<div v-if="tAncType==3" class="tc_sucd_1">
-				<!--	<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>-->
 					<Input v-model="tancData.email" :type="'text'" :oType="'text'" :chekFn="chekemail" :placeholder="'请输入邮箱'"></Input>
 					<div class="emailyzm">
 						<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>

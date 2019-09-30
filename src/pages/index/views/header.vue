@@ -13,7 +13,10 @@
 		
 		<div class="header_3">
 			<span :class="['searcBox',searchType?'issearch':'']">
-				<span @click="showsearch()" class="pdxf iconfont pend">&#xe609;</span>
+				<span @click="showsearch()" class="pdxf iconfont pend">
+					<img class="head_top1" src="/imge/svg/head/top1.svg"/>
+				</span>
+				
 				<el-input v-if="searchType" class="searcBox4"  @keyup.enter.native="keydown($event)" @blur="hind" ref="serll" v-model="searcCont" placeholder="请输入搜索内容"></el-input>
 				<div v-if="searchType" class="searcBox5">
 					<div v-if="!searcCont||searcCont.split(' ').join('').length == 0">
@@ -39,7 +42,9 @@
 			</span>
 
 			<span class="iconfont  messgeH1">
-				<span class="pend" @click="showisXXNav"><img class="head_top2" src="/imge/svg/head/top2.svg"/><div @click="showisXXNav" v-if="messgNum && messgNum.unread_total_num>0" :class="['messgeH2',messgNum.unread_total_num>9?'messgeH2x':'']">{{backXXnUM(messgNum.unread_total_num)}}</div></span>
+				<span class="pend" @click="showisXXNav">
+					<img class="head_top2" src="/imge/svg/head/top2.svg"/>
+				<div @click="showisXXNav" v-if="messgNum && messgNum.unread_total_num>0" :class="['messgeH2',messgNum.unread_total_num>9?'messgeH2x':'']">{{backXXnUM(messgNum.unread_total_num)}}</div></span>
 				
 				<div v-if="isXXNav" @click="hidisXXNav" class="messgeH3Boxf1"></div>
 				<div v-if="isXXNav" class="messgeH3">
@@ -70,7 +75,9 @@
 				
 			</span>
 
-			<span class="iconfont pend" @click="goUpload">&#xe61e;</span>
+			<span class="iconfont pend" @click="goUpload">
+				<img class="head_top3" src="/imge/svg/head/top3.svg"/>
+			</span>
 			<span class="header_4" v-if="userMssge">
 				<div @click="goUser('头像')"><img :src="userMssge.avatar+'?x-oss-process=image/resize,w_128'" alt=""></div>
 				<div  class="userBpx">
@@ -859,8 +866,16 @@ export default {
 .messgeH2x{
 	padding:0 5px;
 }
+.head_top1{
+	width: 20px;
+  	margin-top: 20px;
+}
 .head_top2{
-	width: 15.2px;
-    margin-top: 19.7px;
+	width: 16px;
+    margin-top: 20px;
+}
+.head_top3{
+	width: 24px;
+    margin-top: 20px;
 }
 </style>
