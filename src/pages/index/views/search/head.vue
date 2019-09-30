@@ -9,35 +9,16 @@
 						v-model="secont">
 						<i @click="keydown" slot="prefix" class="el-input__icon el-icon-search"></i>
 					</el-input>
-
-					
-					
-					
 					<el-cascader class="zysdf_2"
 						:options="clasd"
 						v-model="setcti"
 						@change="handleChange">
 					</el-cascader>
-					
-					
-					<!-- <el-select class="zysdf_2" v-model="setcti" placeholder="请选择">
-						<el-option 
-						  v-for="item in clasd"
-						  :key="(item.value||item.value==0)?item.value:item.label"
-						  :label="item.label"
-						  :value="(item.value||item.value==0)?item.value:item.label">
-						</el-option>
-					</el-select> -->
-				</div>
-				
+				</div>				
 			</div>
 			<div class="sea_n_1">
-				<span @click="goto('searchProject')" :class="['sea_2','pend',onNav==0?'sea_on':'']">项目</span>
-				<span @click="goto('searchWorks')" :class="['sea_2','pend',onNav==1?'sea_on':'']">作品</span>
-				<span @click="goto('searchUser')" :class="['pend',onNav==2?'sea_on':'']">创作者</span>
+				<span v-for="(el,index) in navData" :class="['sea_2 pend',onNav==index?'sea_on':'']" :key="index" @click="goto(el.a)">{{el.b}}</span>
 			</div>
-			
-			
 		</div>
 	</div>
 </template>
@@ -51,6 +32,11 @@ export default {
 			secont:'',
 			self2:'',
 			setcti: [],
+			navData:[
+				{a:'searchProject',b:'项目'},
+				{a:'searchWorks',b:'作品'},
+				{a:'searchUser',b:'创作者'},
+			],
 		}
 	},
 	methods: {
@@ -108,12 +94,9 @@ export default {
 
 <style>
 .searchHaed{
-	
 	background: #FFFFFF;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
 	margin-bottom: 20px;
 	width: 100%;
-
 }
 .sea_1{
 	position: relative;

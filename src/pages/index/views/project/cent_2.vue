@@ -157,7 +157,7 @@ export default {
 			D = times.getDate(),
 			h = times.getHours(),
 			m = times.getMinutes();
-			return [(Y+'/'+this.bNus(M)+'/'+D),(this.bNus(h)+':'+this.bNus(m))];
+			return [(Y+'/'+this.bNus(M)+'/'+this.bNus(D)),(this.bNus(h)+':'+this.bNus(m))];
 		},
 		bNus(n){ 
 			return n<10?'0'+n:n;		

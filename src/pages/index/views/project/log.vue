@@ -3,16 +3,27 @@
 		<template v-slot:todo="{ todo }">
 			<div class="jglogbox">
 				<div class="jgbix jgtitle">
-					<div>交稿文件</div>
-					<div>文件大小</div>
+					<div>交稿文件/网盘链接</div>
+					<div>文件大小/提取密码</div>
 					<div>交稿时间</div>
 					<div>验收结果</div>
 					<div>验收反馈时间</div>
 					<div>驳回理由</div>
 				</div>
 				<div v-for="(el,index) in List" :key="index" class="jgbix jgcent">
-					<div>{{el.file_name | nameLent}}</div>
-					<div>{{el.file_size}}</div>
+					<div class="log_tipbox log_tipbox2">
+						<div class="log_hid">{{(el.type==2?el.online_disk_url:el.file_name)}}</div>
+						<div v-if="(el.type==2&&el.online_disk_url.length>12) || el.file_name.length>12" class="log_tip">
+							{{el.type==2?el.online_disk_url:el.file_name}}
+						</div>
+					</div>
+					<div class="log_tipbox log_tipbox2">
+						<div class="log_hid">{{el.type==2?el.access_code:el.file_size}}</div>
+						
+						<div v-if="(el.type==2&&el.access_code.length>12) || el.file_size.length>12" class="log_tip">
+							{{ el.type==2?el.access_code:el.file_size}}
+						</div>
+					</div>
 					<div>{{el.created_at | logtime}}</div>
 					<div>{{el.check_status | typsuu}}</div>
 					<div>{{el.updated_at | logtime}}</div>
@@ -21,14 +32,11 @@
 						<div class="log_tip">
 							<span class="log_tip1">{{el.check_reason}}</span>
 							{{el.check_comment}}
-						</div>
-						
+						</div>						
 					</div>
 					<div v-else></div>
-				</div>
-	
+				</div>	
 			</div>
-
 		</template>			
 	</tanC>
 </template>
@@ -45,16 +53,6 @@ export default {
 		}
 	},
 	filters: {
-		nameLent:(v)=>{
-			if (!v) return '';
-			let on = v.split('.');
-			let onlen = on[0].length-12;
-			if(onlen>0){
-				on[0] = on[0].substring(0,12)+'...';
-			}
-			
-			return on[0]+'.'+on[1];
-		},
 		logtime:(now)=>{
 			let t = new Date(now);
 			var year=t.getFullYear(); 
@@ -88,18 +86,13 @@ export default {
 	},
 	methods: {	
 		init(){
-			this.pr_deliveryList();
+			this.pr_deliveryList();		
 		},
-		pr_deliveryList(){
-			
+		pr_deliveryList(){			
 			this.api.pr_deliveryList({
 				project_id:this.$parent.deta.id,
 			}).then((da)=>{
 				if(da=='error'){return}
-				// -2 已撤销  -1 已驳回 0 待审核 1 已验收
-				// let pd = {file_name:'项目文件名称最长显示字符.zip',file_size:'100M',remark:'列表根据驳回文字自适应高度',check_status:0,check_time:'2012/22/22',:'2019/02/19',}
-				// // da = [];
-				// 
 				this.List = da;
 			}).catch(()=>{
 				
@@ -135,15 +128,24 @@ export default {
 }
 .jgbix>div{
 	display: inline-block;
+	vertical-align: top;
 	margin-right: 20px;
 	text-align: left;
+
+}
+.log_hid{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .jgbix>div:nth-child(1){
 	padding-left:20px;
 	width: 194px;
+	height: 58px;
+
 }
 .jgbix>div:nth-child(2){
-	width: 81px;
+	width: 116px;
 }
 .jgbix>div:nth-child(3){
 	width: 105px; 
@@ -169,6 +171,16 @@ export default {
 	cursor: pointer;
 	position: relative;
 	color: #FF5121;
+}
+.log_tipbox2{
+	color: #666;
+}
+.log_tipbox2 .log_tip{
+	width: auto;
+	left: 0;
+}
+.log_tipbox2 .log_tip:after{
+	left: 30px;
 }
 .log_tipbox:hover>.log_tip{
 	display: inline-block;

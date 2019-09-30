@@ -78,6 +78,9 @@ export default {
 		stardjs(){
 			clearInterval(this.djsOb);
 			this.djsOb = setInterval(()=>{
+				if(this.$route.name!='project'){
+					clearInterval(this.djsOb);
+				}
 				this.djson = this.djson==1?0:1;
 			},1000);
 		},

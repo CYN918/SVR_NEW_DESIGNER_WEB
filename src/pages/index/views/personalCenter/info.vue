@@ -94,10 +94,8 @@ export default {
 	padding-bottom: 60px;
 }
 .info_box{
-	box-sizing: border-box;
-	
+	box-sizing: border-box;	
 	background: #FFFFFF;
-
 	border-radius: 5px;
 	margin: 20px auto 0;
 	width: 860px;

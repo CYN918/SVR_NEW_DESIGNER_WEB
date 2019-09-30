@@ -269,7 +269,7 @@ export default {
 <style>
 .emptyData{
 	width: 1300px;
-	margin: 120px auto;
+	margin: 20px auto 60px;
 	text-align: center;
 }
 .emptyData>img{

@@ -2,7 +2,7 @@
 	<div class="csBox csBoxxxxx">
 		<tophead :clasd="clasd" :pz="pzcon" :onNav="0" ref="mytopcs"></tophead>
 		
-		<list class="seccPr" :config="data" ref="sfafa">
+		<list class="seccPr" :isDjs="'1'" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
 				<cent :djs="djson" :el="todo"></cent>
 			</template>			
@@ -37,6 +37,7 @@ export default {
 			querys:'',
 			clasd:[],
 			djson:0,
+			djsOb:'',
 			
 		}
 	},
@@ -48,6 +49,19 @@ export default {
 		this.getClassify();
 	}, 
 	methods: {
+		stardjs(){
+			clearInterval(this.djsOb);
+			this.djsOb = setInterval(()=>{
+				if(this.$route.name!='searchProject'){
+					clearInterval(this.djsOb);
+				}
+				this.djson = this.djson==1?0:1;
+			},1000);
+		},
+		djsjs(){
+			clearInterval(this.djsOb);
+			this.$refs.sfafa.getData();
+		},
 		init(){
 			this.data.pr.query =this.$route.query.cont || '';				
 		},
