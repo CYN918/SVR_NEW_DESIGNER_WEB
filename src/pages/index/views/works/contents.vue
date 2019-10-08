@@ -153,6 +153,10 @@ export default {
 			let pr = {
 				work_id:this.$route.query.id,
 			}
+
+			if(this.$route.query.tmp_token){
+				pr.tmp_token = this.$route.query.tmp_token;
+			}
 			if(window.userInfo){
 				pr.access_token = window.userInfo.access_token;
 			}
@@ -162,10 +166,6 @@ export default {
 				this.contDat = da;
 				
 			});
-		},
-		
-		backType(){
-		
 		},
 	}
 

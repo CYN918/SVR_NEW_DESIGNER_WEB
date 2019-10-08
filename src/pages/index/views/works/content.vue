@@ -508,7 +508,9 @@ export default {
 			let pr = {
 				work_id:this.work_id,
 			}
-			
+			if(this.$route.query.tmp_token){
+				pr.tmp_token = this.$route.query.tmp_token;
+			}
 			if(window.userInfo){
 				this.page.access_token = window.userInfo.access_token;
 				this.page.open_id = window.userInfo.open_id;
