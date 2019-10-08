@@ -23,7 +23,7 @@
 					</el-pagination>
 				</p>				
 			</div>
-			<div v-else class="ms_r_2">
+			<div v-if="nodata" class="ms_r_2">
 				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
 				你的数据去火星了
 			</div>
@@ -37,6 +37,7 @@
 import Input from '../../components/input';
 import noData from '../../components/nodata'
 import {Message} from 'element-ui'
+import { Loading } from 'element-ui';
 export default {
 	components:{Input,noData},
 	name: 'chat',
@@ -49,6 +50,7 @@ export default {
 				{n:'评论/留言',l:''},
 				{n:'私信',l:''},	
 			],
+			nodata:'',
 			topTyped:false,
 			navdOn:0,
 			limit:10,
@@ -59,6 +61,7 @@ export default {
 			addLink:0,
 			plType:0,
 			pl2:'',
+			loading:'',
 		}
 	},
 	mounted: function () {			
@@ -153,6 +156,7 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.getCounter(pr).then((da)=>{
+				
 				if(da=='error'){
 					return
 				}
@@ -172,14 +176,28 @@ export default {
 				page:this.page,
 				limit:this.limit
 			};
+			this.loading = Loading.service({target:'.jloadBox', fullscreen: true,background:'rgba(0,0,0,0)' });
 			this.api.getMessgList(pr).then((da)=>{
-				if(da=='error'){return}
+				this.loading.close();
+				if(da=='error'){this.setNoData(this.listData);return}
+				this.setNoData(da.data);
 				this.listData = da.data;
 
 				this.total = da.total;
+				
+			}).catch(()=>{
+				this.loading.close();
+				this.setNoData(this.listData);
 			});
 		},
-
+		setNoData(data){
+	
+			if(data.length==0){
+				this.nodata = 1;
+				return
+			}
+			this.nodata = '';
+		},
 
 
 	}
