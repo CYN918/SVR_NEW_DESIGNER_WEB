@@ -41,14 +41,12 @@
 					<span v-if="topcType=='set'" class="myListBox_6_4_2">确定</span>
 				</div>
 			</div>
-		</div>			
-		<div v-show="issetDatasXX" class="setDatasXX">
-			<div class="setDatasXX_1">
+		</div>	
 				
-				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" alt="">
-				<div class="ydbbdf">
-				<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
-				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
+				
+		<TcBox :config="config" ref="tcBox">
+			<template v-slot:todo="{ todo }">
+				<div class="necsgg">
 				<div class="setDatasXX_4">
 					
 					<div class="setDatasXX_4_2">
@@ -101,9 +99,26 @@
 						</label>
 					</div>
 				</div>
+				
+				</div>
+				
+				
 				<div class="setDatasXX_7">
 					<span @click="hindissetDatasXX">取消</span><span @click="upDataSet">确定</span>
 				</div>
+				
+			</template>			
+		</TcBox>		
+				
+				
+		<div v-show="issetDatasXX" class="setDatasXX">
+			<div class="setDatasXX_1">
+				
+				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" alt="">
+				<div class="ydbbdf">
+				<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
+				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
+				
 			</div></div>
 		</div>
 		
@@ -114,12 +129,16 @@ import tophead from './myHead';
 import {Message} from 'element-ui'
 import Input from '../../components/input'
 import list from '../../components/list';
+import TcBox from '../../components/TcBox';
 export default {
 	props:['isType'],
-	components:{tophead,Input,list},
+	components:{tophead,Input,list,TcBox},
 	name: 'myAll',
 	data(){
 		return {
+			config:{
+				title:'作品修改设置：音乐测试',
+			},
 			navData:{
 				title:'我的创作',
 				list:[
@@ -186,6 +205,12 @@ export default {
 		},
 	},
 	methods: {
+		show(){
+			this.$refs.tcBox.show();
+		},
+		close(){
+			this.$refs.tcBox.close();
+		},
 		init(){
 			this.data.pr.status =  this.isTypeList[this.$route.name];
 		},
@@ -202,6 +227,7 @@ export default {
 			return 'width:100%';
 		},
 		upDataSet(){	
+			
 			if(this.upType==1){
 				Message({message: '正在提交请稍后'});
 				return
@@ -256,25 +282,25 @@ export default {
 				if(da=='error'){
 					return
 				}
-				this.issetDatasXX = true;
-				this.setDataOn = da;
-		
+				this.config.title = '作品修改设置：'+da.work_name;
+				this.setDataOn = da;		
 				this.form = da;
+				this.show();
 				try{
-					this.form.labels = JSON.parse(this.form.labels);
-					
+					this.form.labels = JSON.parse(this.form.labels);					
 				}catch(e){}
 				
-				this.selectedOptions = [+this.form.classify_1,+this.form.classify_2,+this.form.classify_3];
+				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
 				if(this.page2.classify.length>0){
 					return;
 				}
+				
 				this.getClassify();				
 			})
 			
 		},
 		hindissetDatasXX(){
-			this.issetDatasXX = false;
+			this.close();
 			this.setDataOn = '';
 			this.form = {labels:[]};
 			this.selectedOptions = [];
@@ -835,14 +861,17 @@ export default {
 	border-color: #FF5121 !important;
 }
 .setDatasXX_7{
-	position: absolute;
-	bottom: 0;
-	left: 0;
 	width: 100%;
 	background: #FFFFFF;
 	box-shadow: 2px 0 0 4px rgba(0,0,0,0.05);
 	border-radius: 0 0 5px 5px;
 	line-height: 100px;
+}
+.necsgg{
+	padding: 40px 0;
+	height: 464px;
+	overflow: hidden;
+	overflow-y: auto;	    
 }
 .setDatasXX_7>span{
 	display: inline-block;

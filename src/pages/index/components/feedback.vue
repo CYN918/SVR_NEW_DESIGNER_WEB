@@ -103,7 +103,6 @@ export default {
 	   
 	        this.api.Feedback_getClassify({}).then((res)=>{
 	            this.typeList = res;
-	            console.log( this.typeList);
 	        })
 	    },
 

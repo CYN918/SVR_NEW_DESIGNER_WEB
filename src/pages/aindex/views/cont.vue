@@ -326,6 +326,7 @@ export default {
 .pl_02 .pl2_02{
     padding: 0 .5rem;
     margin-bottom: .5rem;
+	word-break: break-word;
 }
 .pl_02 .pl2_03{
 	padding: 0 .5rem;
