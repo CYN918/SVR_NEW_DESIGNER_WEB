@@ -1,7 +1,7 @@
 <template>
 	<div>	
 		<tophead :clasd="clasd"  :onNav="2" ref="mytopcs"></tophead>
-		<div class="worksBox worksBox4">
+		<div class=" worksBox4 searUr">
 		
 			<ul v-if="List.length>0" class="i_listd2" >
 				<li v-for="(el,index) in List" :key="index">
@@ -229,7 +229,7 @@ export default {
 				pr.access_token=window.userInfo.access_token;
 			}
 			this.$refs.mytopcs.setCont(query);
-			this.loading = Loading.service({ fullscreen: true });
+			this.loading = Loading.service({  fullscreen: true,background:'rgba(0,0,0,0)' });
 			this.api.Searchsearch(pr).then((da)=>{
 				this.loading.close();
 				if(da=='error'){
@@ -555,5 +555,12 @@ export default {
 }
 .worksBox4 .i_listd2{
 	min-height: 522px;
+}
+.searUr{
+	padding-top: 20px;
+	margin-bottom: 40px;
+}
+.searUr .emptyData{
+	margin: 0 auto;
 }
 </style>

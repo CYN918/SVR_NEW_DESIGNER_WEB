@@ -2,7 +2,7 @@
 	<div class="csBox csBoxxxxx">
 		<tophead :clasd="clasd"  :onNav="1" ref="mytopcs"></tophead>
 		
-		<list :config="data" ref="sfafa">
+		<list class="seccWr" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
 				<box_a :bdtj="bdtjdata" :el="todo"></box_a>
 			</template>			
@@ -102,4 +102,11 @@ export default {
 </script>
 
 <style>
+.seccWr{
+	padding-top: 20px;
+	margin-bottom: 40px;
+}
+.seccWr .emptyData{
+	margin: 0 auto;
+}
 </style>

@@ -80,19 +80,15 @@
 		</div>
 		
 		<div class="userNavBoxXz">
-			<a :class="['pend',ison=='/works'?'router-link-active':'']" @click="goZP('/works','tag_作品')">作品</a>
-			<a :class="['pend',ison=='/recommend'?'router-link-active':'']" @click="goZP('/recommend','tag_推荐')">推荐</a>
-			<a :class="['pend',ison=='/follow' || gofn?'router-link-active':'']" @click="goZP('/follow','tag_关注')">关注</a>
-			<a :class="['pend',ison=='/info'?'router-link-active':'']" @click="goZP('/info','tag_资料')">资料</a>
+			<div class="userNavBoxXz_1">
+				<a :class="['pend',ison=='/works'?'router-link-active':'']" @click="goZP('/works','tag_作品')">作品</a>
+				<a :class="['pend',ison=='/recommend'?'router-link-active':'']" @click="goZP('/recommend','tag_推荐')">推荐</a>
+				<a :class="['pend',ison=='/follow' || gofn?'router-link-active':'']" @click="goZP('/follow','tag_关注')">关注</a>
+				<a :class="['pend',ison=='/info'?'router-link-active':'']" @click="goZP('/info','tag_资料')">资料</a>
+			</div>			
 		</div>
 		</div>
-		<div v-show="isshowd2" class="loginoutBox">
-			<div class="loginoutBox1">
-				<img @click="hindHb2()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
-				<div class="loginoutBox3">是否取消关注?</div>
-				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
-			</div>
-		</div>
+
 		<unfollow @suUnFn="followUnSu" @suAdFn="followAdSu" ref="unfollow"></unfollow>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
 		<RPT ref="report"></RPT>
@@ -133,7 +129,7 @@ export default {
 			isUpbg:false,
 			opType:0,
 			userMessage:'',
-			isshowd2:false,
+
 			follwTyle:0,
 			qurId:'',
 			userTped:'',
@@ -233,13 +229,7 @@ export default {
 		followAdSu(da){
 			this.$router.push({path: this.$route.fullPath})	
 		},
-		
-		hindHb2(){
-			this.isshowd2=false;
-		},
-		showHb2(){
-			this.isshowd2=true;
-		},
+
 		init(){
 			
 			this.ison = this.$route.path;
@@ -706,7 +696,12 @@ export default {
 	border:none;
 	height: 37px;
 }
-.userNavBoxXz>a{
+.userNavBoxXz_1{
+	width: 100%;
+	height: 37px;
+	background: #fff;
+}
+.userNavBoxXz_1>a{
 	display: inline-block;
 	height: 100%;
 	margin-right: 72px;
@@ -714,18 +709,18 @@ export default {
 	color: #1E1E1E;
 
 }
-.userNavBoxXz>a:hover{
+.userNavBoxXz_1>a:hover{
 	color: #FF5121;
 }
-.userNavBoxXz>a:last-child{
+.userNavBoxXz_1>a:last-child{
 	margin-right: 0;
 }
-.userNavBoxXz>.router-link-active{
+.userNavBoxXz_1>.router-link-active{
 	position: relative;
 	color: #FF5121;
 	font-weight: bold;
 }
-.userNavBoxXz>.router-link-active:after{
+.userNavBoxXz_1>.router-link-active:after{
 	content: "";
 	position: absolute;
 	bottom: 0;

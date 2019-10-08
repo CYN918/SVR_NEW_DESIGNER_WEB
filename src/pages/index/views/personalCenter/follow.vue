@@ -3,9 +3,9 @@
 		<div class="worksBox">
 			<div class="worksBox_1">
 				共关注{{ total+'位创作者'}}
-				<div class="worksBox_2">
+				<div class="worksBox_2__x_1">
 					{{sxData[sxOn][sxtj].name}}
-					<div class="worksBox_2_1">
+					<div class="worksBox_2__x_1_1x_c">
 						<div @click="sxFn(index)" :class="sxtj==index?'oncdf':''" v-for="(el,index) in sxData[sxOn]">{{el.name}}</div>
 					</div>
 				</div>
@@ -185,7 +185,7 @@ export default {
 	text-align: left;
 	
 }
-.worksBox_2{
+.worksBox_2__x_1{
 	cursor: pointer;
 	position: absolute;
 	right: 0;
@@ -195,7 +195,7 @@ export default {
 	text-align: center;
 	width: 95px;
 }
-.worksBox_2:after{
+.worksBox_2__x_1:after{
 	content: "";
     display: inline-block;
     width: 5px;
@@ -207,10 +207,10 @@ export default {
     transform: rotate(-135deg);
     transform-origin: 70% 20%;
 }
-.worksBox_2:hover>.worksBox_2_1{
+.worksBox_2__x_1:hover>.worksBox_2__x_1_1x_c{
 	display: block;
 }
-.worksBox_2_1{
+.worksBox_2__x_1_1x_c{
 	display: none;
 	position: absolute;
 	top: 19px;
@@ -223,15 +223,15 @@ export default {
 	padding: 10px 0;
 	
 }
-.worksBox_2_1>div{
+.worksBox_2__x_1_1x_c>div{
 	line-height: 30px;
 	font-size: 14px;
 	color: #333333;
 }
-.worksBox_2_1>.oncdf{
+.worksBox_2__x_1_1x_c>.oncdf{
 	color: #FF5121;
 }
-.worksBox_2_1>div:hover{
+.worksBox_2__x_1_1x_c>div:hover{
 	background: #E6E6E6;
 }
 

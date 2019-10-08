@@ -28,8 +28,8 @@
 			{{da.t.n}}
 		</div>
 
-		<div v-if="obj.status>=3 " class="worksBox_2 tg_iocn_2">
-			<div class="worksBox_2_1">
+		<div v-if="obj.status>=3 " class="worksBox_2 tg_iocn_2 tg_iocn_2x">
+			<div class="worksBox_2_1x">
 				<div v-if="obj.status==3" @click="showTc('Stop')">终止项目</div>
 				<div @click="showTc('Log')">交稿记录</div>
 				<div v-if="obj.contract_file && obj.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
@@ -379,6 +379,9 @@ export default {
 	width: 95px;
 }
 .worksBox_2:after{
+	position: absolute;
+	top: 22px;
+	right: 21px;
 	content: "";
     display: inline-block;
     width: 5px;
@@ -388,15 +391,15 @@ export default {
     border-right: 0;
 	margin-left: 8px;
     transform: rotate(-135deg);
-    transform-origin: 70% 20%;
+
 }
-.worksBox_2:hover>.worksBox_2_1{
+.worksBox_2:hover>.worksBox_2_1x{
 	display: block;
 }
-.worksBox_2_1{
+.worksBox_2_1x{
 	display: none;
 	position: absolute;
-	top: 19px;
+	top: 32px;
 	right: 0;
 	z-index: 99;
 	background: #FFFFFF;
@@ -406,15 +409,15 @@ export default {
 	padding: 10px 0;
 	
 }
-.worksBox_2_1>div{
+.worksBox_2_1x>div{
 	line-height: 30px;
 	font-size: 14px;
 	color: #333333;
 }
-.worksBox_2_1>.oncdf{
+.worksBox_2_1x>.oncdf{
 	color: #FF5121;
 }
-.worksBox_2_1>div:hover{
+.worksBox_2_1x>div:hover{
 	background: #E6E6E6;
 }
 .tg_iocn_2{
@@ -499,5 +502,9 @@ export default {
 }
 .worksBox_2_4>div:hover{
 	background: #E6E6E6;
+}
+.tg_iocn_2x{
+	height: 40px;
+	width: 40px;
 }
 </style>

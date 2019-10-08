@@ -111,4 +111,10 @@ export default {
 .seccPr li:nth-child(2n+2){
 	margin-right: 0;
 }
+.seccPr .emptyData{
+	margin: 0 auto;
+}
+.seccPr{
+	margin-bottom: 40px;
+}
 </style>
