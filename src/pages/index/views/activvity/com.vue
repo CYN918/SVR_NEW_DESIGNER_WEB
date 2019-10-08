@@ -30,12 +30,8 @@
 			
 		</div>
 		
-	
-		
-		<div v-if="ishowzp" class="pushDeletBox">
-			<div class="pushDeletBox1">
-				<img class="pushDeletBox2" @click="closeZp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
-				<div class="pushDeletBox3">选择参与活动的作品</div>
+		<TcBox :config="config" ref="tcBox">
+			<template v-slot:todo="{ todo }">
 				<div class="pushDeletBox4">
 					<ul class="zp_box" @scroll="test">
 						
@@ -59,14 +55,26 @@
 							</div>
 						</li>
 						<div ref="botmm"></div>
+						<div v-if="isnoData">
+							<img  class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
+							<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
+						</div>
 						
-						<img v-if="isnoData" class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
 					</ul>
 				</div>
 				<div class="pushDeletBox5">
 					<span @click="gopushzp" class="pend">发布新作品</span>
 					<span @click="pushOk" class="pend">确定上传</span>
 				</div>
+				
+			</template>			
+		</TcBox>	
+		
+		<div v-if="ishowzp" class="pushDeletBox">
+			<div class="pushDeletBox1">
+				<img class="pushDeletBox2" @click="closeZp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
+				<div class="pushDeletBox3">选择参与活动的作品</div>
+				
 			</div>
 		</div>
 		
@@ -88,14 +96,16 @@ import fxd from '../../components/share';
 import detailed_detailed from './detailed';
 import detailed_into from './into';
 import detailed_admission from './admission';
-
+import TcBox from '../../components/TcBox';
 export default {
-	components:{fxd,detailed_detailed,detailed_into,detailed_admission},
+	components:{fxd,detailed_detailed,detailed_into,detailed_admission,TcBox},
 	name: 'home',	 
 	data(){	
 		return{
 			tcZj:'',
-			
+			config:{
+				title:'选择参与活动的作品',
+			},
 			
 			shareData:{},
 		    show:false,
@@ -123,7 +133,13 @@ export default {
 		this.setOnd();
 		this.a_getInfo();
 	}, 
-	methods:{	
+	methods:{
+		showtc(){
+			this.$refs.tcBox.show();
+		},
+		closetc(){
+			this.$refs.tcBox.close();
+		},
 		init(){
 			document.documentElement.scrollTop =0;
 			document.body.scrollTop =0;			
@@ -166,7 +182,7 @@ export default {
 				this.$router.push({path:'/login'});
 			}
 			this.getPersonalWorkList();
-			this.ishowzp = true;
+			this.showtc();
 			
 		},
 		
@@ -256,6 +272,7 @@ export default {
 				if(da=='error'){
 					return
 				}
+			
 				if(da.data.length==0){
 					this.noGd=1;
 				}
@@ -490,8 +507,10 @@ export default {
 	
 .pushDeletBox4{
 	padding: 20px 30px;
-	width: 100%;
-	height: 408px;
+	width: 1030px;
+    height: 500px;
+    overflow: hidden;
+    overflow-y: auto;
 	box-sizing: border-box;
 	overflow: hidden;
 	overflow-y: auto;

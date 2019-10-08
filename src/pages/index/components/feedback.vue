@@ -107,7 +107,7 @@ export default {
 	    },
 
 	    addFdb(){
-	    	console.log(this.classify);
+
 			this.bdtj('意见反馈弹窗','提交意见','--');
 	        if(!this.detail){
 				this.bdtj('意见反馈弹窗','提交意见失败','--');

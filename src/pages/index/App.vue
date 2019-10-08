@@ -2441,4 +2441,9 @@ content: "";
 .el-cascader-menus,.el-select-dropdown{
 	z-index:100003 !important;
 }
+.noDatawan{
+	color: #ff5121;
+    margin-top: 18px;
+	text-align: center;
+}
 </style>

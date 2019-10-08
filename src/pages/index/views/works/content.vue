@@ -74,8 +74,8 @@
 								<div>
 									<span class="hfdZ_3" @click="showFhks(el,'评论点击-回复')">回复
 									</span><span v-if="el.sub_comment && el.sub_comment.length>0" :class="['pend',el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:el.sub_comment.length+'条回复'}}</span><span class="iconfont pend hfdZ_1"><span @click="addLikeNe('点赞评论','comment',el.comment_id,el)" :class="['iconfont',el.liked?'likeis':'']">&#xe672;</span>{{el.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el.open_id,el.comment_id,'comment')">&#xe664;</span>
-									<div  class="hfBox" v-if="el.isshowfh">
-										<Input :keyup.enter="keydown2" class="userBoxd2xd" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
+									<div  class="hfBox hfBoxd" v-if="el.isshowfh">
+										<Input :mblur="xsfn" class="userBoxd2xd" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 										<span  :class="chekcont(pl2)==true?'iscsbtn':''" @click="addCommentNe('评论下发布回复',pl2,index)">回复</span>
 										<div class="plyh"></div>
 									</div>
@@ -94,8 +94,8 @@
 										</span><span class="iconfont pend hfdZ_1"><span @click="addLikeNe('点赞回复','comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;
 										</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el2.open_id,el2.comment_id,'comment')">&#xe664;
 										</span>
-										<div class="hfBox" v-if="el2.isshowfh==1">
-											<Input :keyup.enter="keydown2" class="userBoxd2xd" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
+										<div class="hfBox hfBoxd" v-if="el2.isshowfh==1">
+											<Input :mblur="xsfn" class="userBoxd2xd" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 											<span :class="chekcont(pl2)==true?'iscsbtn':''" @click="addCommentNe('评论下发布回复',pl2,index,index2)">回复</span>
 											<div class="plyh"></div>
 										</div>
@@ -237,6 +237,7 @@ export default {
 			work_id:'',
 			onhfObj:'',
 			userTk:'他人视角-',
+			isftype:'',
 		}
 	},
 	mounted: function () {
@@ -244,6 +245,13 @@ export default {
 		
 	}, 
 	methods: {
+		xsfn(){
+			
+			setTimeout(()=>{
+				if(this.plType==1){return;}
+				this.$set(this.onhfObj,'isshowfh','');
+			},200)
+		},
 		sqfs(){
 			this.new_c_3focus = 'new_c_3focus';
 		},
@@ -663,6 +671,7 @@ export default {
 				
 			}).catch(()=>{
 				this.plType=0;
+				
 			});
 			
 		},
@@ -701,7 +710,8 @@ export default {
 				return
 			}
 			this.onhfObj = on;
-			this.$set(on,'isshowfh','');				
+			this.$set(on,'isshowfh','');
+							
 		},
 		
 	},
@@ -737,5 +747,10 @@ export default {
 	top: 0;
 	line-height: 42px;
 }
-
+.hfBoxd{
+	width: 86%;
+}
+.hfBoxd input{
+	height: 36px;
+}
 </style>

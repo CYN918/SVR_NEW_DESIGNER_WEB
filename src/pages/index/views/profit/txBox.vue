@@ -122,8 +122,12 @@
 				
 				<div v-if="typedon==3" class="pr_xx_1">
 					<div class="phodegg">
-						<div class="hm">{{backPhone()}}<span class="uphodefbt pend" @click="editPhone()">修改手机号</span></div>
-						
+						<div class="hm_n1">
+							<span class="hm_n1_1">手机 +86</span>
+							<span class="hm_n1_2"></span>
+							<span class="hm_n1_3">{{backPhone2()}}</span>
+							<span class="uphodefbt pend" @click="editPhone()">修改手机号</span>
+						</div>
 						<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 						
 					</div>
@@ -157,7 +161,7 @@ export default {
 		return{
 			form:{},
 			upfjData:{},
-			typedon:0,
+			typedon:3,
 			ldList:['信息确认','提现金额','发票寄送','身份验证'],
 			ldList2:['信息确认','提现金额','身份验证'],
 			chekPhpne:function(val){
@@ -421,7 +425,9 @@ export default {
 				
 			});
 		},
-		
+		backPhone2(){
+			return window.userInfo.mobile.substring(0,3)+'*******'+window.userInfo.mobile.substring(7);
+		},
 		backPhone(){
 			return window.userInfo.mobile_zone+'+'+window.userInfo.mobile.substring(0,3)+'*******'+window.userInfo.mobile.substring(7);
 		
@@ -831,5 +837,43 @@ export default {
 }
 .conddf2{
 	border-top: 0;
+}
+.hm_n1{
+	border-bottom: 1px solid #ddd;
+	height: 39px;
+	line-height: 39px;
+	margin-bottom: 20px;
+}
+.hm_n1_1{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	
+}
+.hm_n1_1:after{
+	    content: "";
+	    display: inline-block;
+	    width: 5px;
+	    height: 5px;
+	    border: 1px solid #666;
+	    border-bottom: 0;
+	    border-right: 0;
+	    margin-left: 8px;
+	    -webkit-transform: rotate(-135deg);
+	    transform: rotate(-135deg);
+	    -webkit-transform-origin: 20% 20%;
+	    transform-origin: 20% 20%;
+}
+.hm_n1_2{
+	vertical-align: top;
+	display: inline-block;
+	background: #EEEEEE;
+	width:1px;
+	height:19px;
+	margin: 10px 19px;
+}
+.hm_n1_3{
+	font-size: 14px;
+	color: #999;
 }
 </style>

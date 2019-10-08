@@ -38,7 +38,9 @@
 							<div class="searcBox5_2" @click="gouser(el.open_id)" v-for="(el,index) in data2"><img class="searcBox5_2imf" :src="el.avatar" alt="">{{el.username}}</div>
 						</div>
 					</div>
+					
 				</div>
+				<img v-if="searchType" class="searcBox6 pend" src="/imge/project/cj_00.svg">
 			</span>
 
 			<span class="iconfont  messgeH1">
@@ -220,6 +222,7 @@ export default {
 			this.$router.push({path:'/searchProject',query:{cont:na}});
 		},
 		hind(){
+			
 			setTimeout(()=>{
 				this.searchType=false;
 				this.searcCont='';
@@ -403,7 +406,6 @@ export default {
 			this.data2 = [];
 			if(!this.searcCont||this.searcCont.split(" ").join("").length == 0){
 				this.getHotWords();
-				return
 			}
 			
 			this.Searchsug(this.searcCont);
@@ -691,8 +693,15 @@ export default {
     color: #333333;
     line-height: 40px;
     text-align: left;
-    text-indent: 24px;
+	padding-left: 24px;
+    box-sizing: border-box;
 	cursor: pointer;
+    width: 220px;
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;	
 }
 .searcBox5_2:hover{
 	background: #F2F2F2;
@@ -877,5 +886,15 @@ export default {
 .head_top3{
 	width: 24px;
     margin-top: 20px;
+}
+.searcBox6{
+	opacity: 0;
+	position: absolute;
+	top: 24px;
+	right: -218px;
+	width: 10px;
+	
+	-webkit-animation: xs .5s .3s forwards;
+	animation: xs .5s .3s forwards;
 }
 </style>

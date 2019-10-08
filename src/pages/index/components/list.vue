@@ -173,10 +173,7 @@ export default {
 	display: block;
 	margin: 0 auto;
 }
-.noDatawan{
-	color: #ff5121;
-    margin-top: 18px;
-}
+
 .jloadBox{
 	z-index: 100001;
 	position: fixed;
