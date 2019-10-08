@@ -10,10 +10,12 @@
 		<p class="lgoin_s5"><span>没有账号？<a class="pend" @click="gotj('/register')">注册</a></span><span><router-link class="pend" to="/index">返回首页</router-link></span></p>
 		<div class="lgoin_s6x"></div>
 		<div class="lgoin_s6">
-			
-			<img @click="thirdLogin('qq')" src="/imge/svg/new/qq.svg" alt="">
-			<img @click="thirdLogin('weixin')" src="/imge/svg/new/wx.svg" alt="">
-			<img @click="thirdLogin('weibo')" src="/imge/svg/new/wb.svg" alt="">
+			<span @click="thirdLogin('qq')" class="dsf_qq"></span>
+			<span @click="thirdLogin('weixin')" class="dsf_wx"></span>
+			<span @click="thirdLogin('weibo')" class="dsf_wb"></span>
+<!-- 			<img  src="/imge/svg/new/qq.svg" alt="">
+			<img  src="/imge/svg/new/wx.svg" alt="">
+			<img  src="/imge/svg/new/wb.svg" alt=""> -->
 		</div>
 	</div>
 </template>

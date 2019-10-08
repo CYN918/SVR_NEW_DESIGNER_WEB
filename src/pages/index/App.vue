@@ -489,6 +489,38 @@ img{
 	line-height: 65px;
 	background: #EEE;
 }
+#edui40_colorlump{
+	width: 52%;
+	right: 0;
+	left: auto;
+}
+.dsf_qq,.dsf_wb,.dsf_wx{
+	display: inline-block;
+	vertical-align: top;
+	width: 36px;
+	height:36px;
+	margin-top: 15.5px;
+	margin-right: 81px;
+	
+}
+.dsf_qq{
+	background:url(/imge/svg/login/qq.svg);
+}
+.dsf_qq:hover{
+	background:url(/imge/svg/new/qq.svg);
+}
+.dsf_wb{
+	background:url(/imge/svg/login/wb.svg);
+}
+.dsf_wb:hover{
+	background:url(/imge/svg/new/wb.svg);
+}
+.dsf_wx{
+	background:url(/imge/svg/login/wx.svg);
+}
+.dsf_wx:hover{
+	background:url(/imge/svg/new/wx.svg);
+}
 .lgoin_s6>img{
 	display: inline-block;
 	width: 36px;
