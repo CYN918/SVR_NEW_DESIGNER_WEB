@@ -1,10 +1,10 @@
 <template>
-	<div class="list1_box">
+	<div class="list1_box TitTip">
 		<div class="list1_box_1x">
 			<div @click="openxq()" class="list1_box_1" :style="backBn(el.face_pic)"></div>	
 		</div>	
 		<div class="list1_box_3">
-			<div @click="openxq()" class="list1_box_3_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img class="svgImgx2" v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg"/></div>
+			<div @click="openxq()" class="list1_box_3_1"><span>{{el.work_name}}</span> <img class="svgImgx2" v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg"/></div>
 			<div @click="openxq()" class="list1_box_3_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
 			<div class="list1_box_3_3">
 				<span><img @click="goUser()" :src="el.user_info.avatar+'?x-oss-process=image/resize,w_128'" alt=""></span>
@@ -17,6 +17,8 @@
 			</div>
 		</div>
 		<userTc :tcData="el" :tjData="tjData"></userTc>
+		
+		<div class="Ttip">{{el.work_name}}</div>
 	</div>
 </template>
 
@@ -144,11 +146,23 @@ export default {
 	padding: 5px 10px;
 }
 .list1_box_3_1{
-  font-size: 14px;
-  text-align: left;
-  color: #1E1E1E;
-  margin-bottom: 3px;
-  height: 20px;
+	display: inline-block;
+	width: 100%;
+	
+	height: 20px;	    
+	font-size: 14px;
+	text-align: left;
+	color: #1E1E1E;
+	margin-bottom: 3px;
+}
+.list1_box_3_1>span{
+	display: inline-block;
+	vertical-align: top;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 256px;
 }
 .list1_box_3_1>img{
   float: right;
@@ -182,9 +196,11 @@ export default {
 }
 
 .list1_box_3_3 > span.list1_box_3_6{
-	width: auto;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 87px;
     margin-left: 5px;
-    overflow: auto;
     border-radius: 0;
 }
 .list1_box_3_3 > span > img {
@@ -217,4 +233,20 @@ export default {
 .tof1d{
 	margin-top: -.1rem;
 }
+.Ttip{
+	visibility: hidden;
+	opacity: 0;
+    position: absolute;
+    top: 22px;
+    right: -10px;
+    padding: 1px 8px;
+    background: rgba(0,0,0,.5);
+    color: #fff;
+    border-radius: 3px;
+    font-size: 12px;
+    color: rgba(255,255,255,1);
+    line-height: 20px;
+	
+}
+
 </style>

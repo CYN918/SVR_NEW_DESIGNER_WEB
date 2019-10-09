@@ -66,6 +66,29 @@ img{
 	-webkit-text-stroke-width: 0.2px;
 	-moz-osx-font-smoothing: grayscale;
 }
+.TitTip:hover .Ttip{
+	-webkit-animation: showD 1.2s linear forwards;
+	animation: showD 1.2s linear forwards;
+}
+@-webkit-keyframes showD{
+	0{visibility: hidden;opacity: 0;}
+	90%{
+		visibility: visible;opacity: 0;
+	}
+	100%{
+		visibility: visible;opacity: 1;
+	}
+
+}
+@keyframes showD{
+	0{visibility: hidden;opacity: 0;}
+	90%{
+		visibility: visible;opacity: 0;
+	}
+	100%{
+		visibility: visible;opacity: 1;
+	}
+}
 #app{
 	font-family: 'PingFang SC Regular','Helvetica', 'Arial', 'sans-serif',"microsoft yahei";
 	-webkit-font-smoothing: antialiased;
