@@ -246,10 +246,14 @@ export default {
 	}, 
 	methods: {
 		xsfn(){
-			
+			if(this.pl2){
+				return
+			}
 			setTimeout(()=>{
 				if(this.plType==1){return;}
+				
 				this.$set(this.onhfObj,'isshowfh','');
+				this.pl2='';
 			},200)
 		},
 		sqfs(){
@@ -692,6 +696,16 @@ export default {
 			this.$set(this.hfData[on],'isshowsubWZ',this.hfData[on].sub_comment.length+'条回复');						
 		},
 		showFhks(on,a){	
+			setTimeout(()=>{
+				this.pl2='';
+				if(this.$refs.tageds1){
+					this.$refs.tageds1[0].monfocus();
+				}
+				if(this.$refs.tageds2){
+					this.$refs.tageds2[0].monfocus();
+				}
+				
+			},100)
 			this.bdtj('详情页',a,'--');
 			if(this.checkLogin()==false){
 				return;
@@ -710,7 +724,9 @@ export default {
 				return
 			}
 			this.onhfObj = on;
+			
 			this.$set(on,'isshowfh','');
+			
 							
 		},
 		
