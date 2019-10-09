@@ -777,11 +777,11 @@ img{
 	margin-left: 0;
 }
 .el-pagination__jump>div{
-	margin: 0 24px;
+	margin: 0 16px;
 }
 .el-pagination .el-select .el-input{
 	width: 100px;
-    margin: 0 24px 0 5px;
+    margin: 0 16px 0 0;
 }
 .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li{
 	margin: 0 16px 0 0;
@@ -2299,6 +2299,10 @@ content: "";
 	box-sizing: border-box;
 
 }
+.el-pagination__sizes{
+	width: 100px;
+	margin-right: 16px;
+}
 .el-pagination__sizes .el-input .el-input__inner:hover{
   
     border-color: #DCDFE6;
@@ -2554,5 +2558,8 @@ content: "";
 }
 .rz_chk_check .rz_chk_2{
 	color: #FF5121;
+}
+.worksBox_1n_1{
+	color:#666;
 }
 </style>

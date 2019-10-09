@@ -1,7 +1,7 @@
 <template>
 	<div class="csBox csBoxNx1">
 		<div class="worksBox">
-			<div class="worksBox_1">
+			<div class="worksBox_1 worksBox_1n_1">
 				共推荐{{total}}个作品 
 				<div class="worksBox_2__x_1">
 					{{sxData[sxtj].name}}
@@ -114,7 +114,7 @@ export default {
 	right: 0;
 	top: 0;
 	font-size: 14px;
-	color: #666666;
+	color: #444;
 	text-align: center;
 	width: 95px;
 }

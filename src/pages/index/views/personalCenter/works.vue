@@ -1,7 +1,7 @@
 <template>
 	<div class="csBox csBoxNx1">
 		<div class="worksBox">
-			<div class="worksBox_1">
+			<div class="worksBox_1 worksBox_1n_1">
 				共发布{{total}}个作品 
 				<div class="worksBox_2__x_1">
 					{{sxData[sxtj].name}}

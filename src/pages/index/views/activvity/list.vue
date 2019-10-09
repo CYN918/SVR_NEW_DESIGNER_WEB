@@ -90,6 +90,10 @@ export default {
 	font-size: 16px;
 	color: #1E1E1E;
 	margin-bottom: 14px;
+	width: 540px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .ac_list_Box_5{
 	font-size: 14px;

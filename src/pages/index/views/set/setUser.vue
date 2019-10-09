@@ -95,7 +95,9 @@
 				</div>
 				<div v-if="tAncType!=4" class="tc_sucd_1_2">
 					<div @click="closeTc1" class="btns pend">取消</div>
-					<div @click="qrFn()" class="btns btns_js pend">确定</div>
+					<div @click="qrFn()" :class="['btns btns_js pend',]">确定
+					
+					</div>
 				</div>
 			</template>
 		</TcBox>
@@ -236,7 +238,8 @@
 					return true
 				},
 				chekemail:function(val){
-					let reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"); //正则表达式
+					
+					let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/; //正则表达式
 					if(!val){
 						return {type:false,text:'请填写正确的邮箱地址',cls:'errd5'}; 
 					}
@@ -324,6 +327,7 @@
 				navdOn: 0,
 				postData: {},
 				tAncType: 0,
+				upType:'',
 
 			}
 		},
@@ -411,7 +415,13 @@
 					pic_verify: this.tancData.pic_verify,
 
 				};
+				if(this.upType){
+					this.$message({message:'正在提交请稍后'})
+					return 
+				}
+				this.upType=1;
 				this.api.Bindbind(pr).then((da) => {
+					this.upType='';
 					if(da == 'error') {
 						this.Verifycodeget();
 						return
@@ -420,6 +430,8 @@
 					this.tancData.pic_verify = '';
 					this.tAncType = 4;
 
+				}).catch(()=>{
+					this.upType='';
 				});
 			},
 			qdTc2() {
@@ -434,7 +446,13 @@
 					verify_code: this.tancData.verify_code,
 
 				};
+				if(this.upType){
+					this.$message({message:'正在提交请稍后'})
+					return 
+				}
+				this.upType=1;
 				this.api.Bindbind(pr).then((da) => {
+					this.upType='';
 					if(da == 'error') {
 						this.bdtj('帐号设置', '基本信息-修改手机号弹窗-修改失败', '--');
 						return
@@ -456,15 +474,22 @@
 						message: '修改成功'
 					});
 
+				}).catch(()=>{
+					this.upType='';
 				});
 			},
 			qdTc1() {
 
 				let postData = {
-					access_token: window.userInfo.access_token,
 					username: this.tancData.userName,
 				};
+				if(this.upType){
+					this.$message({message:'正在提交请稍后'})
+					return 
+				}
+				this.upType=1;
 				this.api.Userupdate(postData).then((da) => {
+					this.upType='';
 					if(da == 'error') {
 						return
 					}
@@ -477,6 +502,8 @@
 					Message({
 						message: '修改成功'
 					});
+				}).catch(()=>{
+					this.upType='';
 				});
 			},
 			closeTc1() {

@@ -174,6 +174,8 @@ export default {
 	line-height:22px;
 	overflow: hidden;
 	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 183px;
 }
 .pr_cent_2_3{
 	font-size:12px;

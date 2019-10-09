@@ -392,6 +392,7 @@ export default {
 	color: #FFFFFF;
 }
 .detail_nav{
+	line-height: 40px;
 	text-align: left;
 	width: 1300px;
 	margin: 0 auto 33px;

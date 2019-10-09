@@ -9,22 +9,22 @@
 				<div class="xm_shar_01_3">
 					
 					<a @click="tzld(fxUrl1,'新浪')">
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zc_icon_wb.png" alt="">
+						<img src="/imge/svg/new/wb.svg" alt="">
 						新浪
 					</a>
 					<a @click="tzld(fxUrl2,'QQ')">
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zc_icon_qq.png" alt="">
+						<img src="/imge/svg/new/qq.svg" alt="">
 						QQ
 					</a>
 					<a @click="tzld(fxUrl3,'QQ空间')">
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/Group 5.png" alt="">
+						<img src="/imge/svg/new/kj.svg" alt="">
 						QQ空间
 					</a>
 				</div>
 				
 				<div class="xm_shar_01_4">
 					<input v-model="onUrl" type="text" ref="copd"/>
-					<span @click="copy" class="btns xm_shar_01_4b pend">复制</span>
+					<span @click="copy" class="btns xm_shar_01_4b pend">{{fnxf}}</span>
 				</div>
 			</div>
 		</template>			
@@ -50,6 +50,7 @@ export default {
 			fxUrl2:'',
 			fxUrl3:'',
 			onUrl:'',
+			fnxf:'复制'
 		}
 	},
 	mounted: function(){
@@ -69,6 +70,7 @@ export default {
 			this.$refs.copd.select();
 			document.execCommand("copy");
 			this.$message({message:'复制成功'});
+			this.fnxf = '复制成功';
 		},
 		
 
@@ -154,6 +156,9 @@ export default {
 	font-weight:400;
 	color:rgba(102,102,102,1);
 	line-height:38px;
+}
+.xm_shar_01_4>input:focus{
+	border-color: #282828;
 }
 .xm_shar_01_4b{
 	width: 100px;

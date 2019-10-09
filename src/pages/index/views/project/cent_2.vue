@@ -246,6 +246,10 @@ export default {
 	color:rgba(40,40,40,1);
 	line-height:22px;
 	margin-bottom: 10px;
+	width: 220px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .pr_cent2_7,.pr_cent2_8{
 	font-size:12px;

@@ -1,7 +1,7 @@
 <template>
 	<div class="csBoxNx1">
 		<div class="worksBox csBox">
-			<div class="worksBox_1">
+			<div class="worksBox_1 worksBox_1n_1">
 				共{{ total+'位粉丝'}}
 				<div class="worksBox_2__x_1">
 					{{sxData[sxOn][sxtj].name}}
@@ -163,7 +163,7 @@ export default {
 	right: 0;
 	top: 0;
 	font-size: 14px;
-	color: #666666;
+	color: #444;
 	text-align: center;
 	width: 95px;
 }
