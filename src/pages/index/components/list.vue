@@ -100,7 +100,8 @@ export default {
 						this.isNodeat=1;
 					}	
 					return
-				}				
+				}
+
 				this.List = da.data;
 				this.total = da.total;
 				

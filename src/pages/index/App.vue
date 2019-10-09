@@ -51,6 +51,14 @@ img{
 	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.ttf') format('truetype'),
 	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.svg#iconfont') format('svg');
 }
+@keyframes bjs{
+	from{background: rgba(255,255,255,0);}
+	to{background: rgba(255,255,255,1)}
+}
+@-webkit-keyframes bjs{
+	from{background: rgba(255,255,255,0);}
+	to{background: rgba(255,255,255,1)}
+}
 .iconfont{
 	font-family:"iconfont" !important;
 	font-size:16px;font-style:normal;

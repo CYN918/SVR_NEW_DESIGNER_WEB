@@ -136,12 +136,5 @@ export default {
 	-webkit-animation: bjs .3s linear forwards;
 	animation: bjs .3s linear forwards;
 }
-@keyframes bjs{
-	from{background: rgba(255,255,255,0);}
-	to{background: rgba(255,255,255,1)}
-}
-@-webkit-keyframes bjs{
-	from{background: rgba(255,255,255,0);}
-	to{background: rgba(255,255,255,1)}
-}
+
 </style>

@@ -16,16 +16,23 @@
 					</el-cascader>
 				</div>				
 			</div>
-			<div class="sea_n_1">
-				<span v-for="(el,index) in navData" :class="['sea_2 pend',onNav==index?'sea_on':'']" :key="index" @click="goto(el.a)">{{el.b}}</span>
+			<div class="sea_n_1box">
+				<pTop :cn="topCn">
+					<template v-slot:todo="{ todo }">
+						<div class="sea_n_1">
+							<span v-for="(el,index) in navData" :class="['sea_2 pend',onNav==index?'sea_on':'']" :key="index" @click="goto(el.a)">{{el.b}}</span>
+						</div>
+					</template>		
+				</pTop>		
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import pTop from '../../components/postionTop';
 export default {
-
+	components:{pTop},
 	name: 'home',
 	data(){
 		return{
@@ -37,11 +44,15 @@ export default {
 				{a:'searchWorks',b:'作品'},
 				{a:'searchUser',b:'创作者'},
 			],
+			topCn:{
+				min:128,
+			},
 		}
 	},
 	methods: {
 
 		goto(on){
+			this.mJs.scTop(1)
 			this.bdtj('搜索页','tab_'+on);
 			this.$router.push({path:on,query:{cont:this.secont}})	
 		},
@@ -106,6 +117,18 @@ export default {
 	font-size: 16px;
 	color: #1E1E1E;
 	line-height: 80px;
+}
+.sea_n_1box{
+	width: 100%;
+	height: 80px;
+	line-height: 80px;
+}
+.sea_n_1{
+	width: 1300px;
+	margin: 0 auto;
+}
+.sea_n_1box>div{
+	background: #fff;
 }
 .sea_n_1>span{
 	position: relative;
@@ -188,5 +211,13 @@ export default {
 }
 .sea_n_1{
 	text-align: center;
+}
+.sea_n_1box .p_isTop{
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+
 }
 </style>

@@ -10,16 +10,22 @@
 				<div class="pr_01_3">项目每周更新发布，专业平台团队把控，只提供优质稳定的项目需求。</div>
 			</div>
 		</div>
+		<div class="pr_02_1Box">
+			<pTop class="" :cn="topCn">
+				<template v-slot:todo="{ todo }">
+					<div class="pr_02_1">
+						<span 
+						v-for="(el,index) in prLn" 
+						:key="index"
+						:class="['pr_02_2 pend',type==index?'pr_02_2On':'']"
+						@click="qhNav(index,todo)"
+						>{{el.classify_name+'（'+el.project_num+'）'}}</span>
+						<span @click="goOn('/help',{on:'4_1'})" class="pr_02_3 pend">项目承接指南</span>
+					</div>
+				</template>		
+			</pTop>
+		</div>
 		<div class="pr_02">
-			<div class="pr_02_1">
-				<span 
-				v-for="(el,index) in prLn" 
-				:key="index"
-				:class="['pr_02_2 pend',type==index?'pr_02_2On':'']"
-				@click="qhNav(index)"
-				>{{el.classify_name+'（'+el.project_num+'）'}}</span>
-				<span @click="goOn('/help',{on:'4_1'})" class="pr_02_3 pend">项目承接指南</span>
-			</div>
 			<list :isDjs="'1'" :page="setPage" :config="data" class="iopdlf_01" ref="sfafa">
 				<template v-slot:todo="{ todo }">
 					<cent :djs="djson"  :el="todo"></cent>
@@ -30,10 +36,10 @@
 </template>
 <script>
 import list from '../../components/list';
-
+import pTop from '../../components/postionTop';
 import cent from './cent_1';
 export default {
-	components:{list,cent},
+	components:{list,cent,pTop},
 	name: 'home',
 	data(){
 		return {
@@ -47,6 +53,9 @@ export default {
 				bdtj:[['首页','翻页'],['首页','更改单页显示数']]
 				
 			},	
+			topCn:{
+				min:284,
+			},
 			setPage:{page:1,limit:10,size:[10,20,40,60]},
 			bdtjdata:[['首页','作品'],['首页','创作者']],
 			type:0,
@@ -65,12 +74,11 @@ export default {
 			this.$router.push({path:on,query:cs})	
 		},
 		getCl(){
-            document.documentElement.scrollTop =1;
-					document.body.scrollTop =1;
+			this.mJs.scTop(1)
 			this.api.pr_classify().then((da)=>{
 				if(da=='error'){
 					return
-				}
+				}				
 				this.prLn = da;
 			})
 		},
@@ -88,8 +96,11 @@ export default {
 			clearInterval(this.djsOb);
 			this.$refs.sfafa.getData();
 		},
-		qhNav(on){
+		qhNav(on,c){
 			if(on==this.type){return}
+			if(c){
+				this.mJs.scTop(284);
+			}
 			this.type=on;
 			if(this.prLn[on].id){
 				this.data.pr.classify_id = this.prLn[on].id;
@@ -137,15 +148,20 @@ export default {
 	line-height:20px;
 }
 .pr_02{
-	padding: 20px 0 50px;
+	padding: 0 0 50px;
 	margin: 0 auto;
 	width: 1300px;
 }
+.pr_02_1Box{
+	width: 100%;
+	line-height: 80px;
+    height: 80px;
+    margin-bottom: 30px;
+}
 .pr_02_1{
 	text-align: left;
-	height: 40px;
-	line-height: 40px;
-	margin-bottom: 50px;
+	margin: 0 auto;
+	width: 1300px;
 }
 .pr_02_2{
 	
@@ -161,6 +177,7 @@ export default {
 	float: right;
 	background:rgba(255,81,33,1);
 	border-radius:5px;
+	margin-top: 20px;
 	width:140px;
 	height:40px;
 	text-align: center;
@@ -176,5 +193,14 @@ export default {
 }
 .iopdlf_01>li:nth-child(2n+2){
 	margin-right: 0;
+}
+.pr_02_1Box .p_isTop{
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;	
+	width: 100%;
+	-webkit-animation: bjs .3s linear forwards;
+	animation: bjs .3s linear forwards;
 }
 </style>

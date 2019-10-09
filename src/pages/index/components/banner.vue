@@ -6,8 +6,11 @@
 		<div class="banner_nav1">
 			<span v-for="(el,index) in list" @click="checkBan(index)" :class="[on==index?'action':'']"></span>
 		</div>
-		<div v-if="list.length>1" class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
-		<div v-if="list.length>1" class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
+		<div v-if="list.length>1" class="bannerBtn">
+			<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
+			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
+		</div>
+		
 	</div>
 </template>
 <script>
@@ -77,16 +80,23 @@ export default {
 	padding-bottom: 37.5%;
 	width: 100%;
 }
-.banner_jt{
+.bannerBtn{
 	position: absolute;
 	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	width: 100%;
+	height: 0;
+}
+.banner_jt{
+	position: absolute;
+	top: 0;
 	width: 48px;
 	height: 48px;
 	opacity: 0.2;
 	background: #000000;
 	border-radius: 50%;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
 }
 .banner_jt:after{
     content: "";
@@ -103,10 +113,10 @@ export default {
     transform: translate(-35%,-50%) rotate(-45deg);
 }
 .banner_jt1{	
-    left: 16%;
+    left:115px;
 }
 .banner_jt2{	
-    right: 16%;
+    right: 115px;
     -webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
