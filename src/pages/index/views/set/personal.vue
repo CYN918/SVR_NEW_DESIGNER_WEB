@@ -37,7 +37,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/sfz_zm.png" alt="">
+										<img class="suc_1_9_7" src="/imge/svg/new/sfz_zm.svg" alt="">
 									</div>
 								</div>
 							</div>
@@ -67,7 +67,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/sfz_bm.png" alt="">
+										<img class="suc_1_9_7" src="/imge/svg/new/sfz_bm.svg" alt="">
 									</div>
 								</div>
 							</div>
@@ -95,7 +95,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/sfz_sc.png" alt="">
+										<img class="suc_1_9_7" src="/imge/svg/new/sfz_sc.svg" alt="">
 									</div>
 								</div>
 							</div>
@@ -154,7 +154,13 @@
 						</div>
 					</div>
 					<p class="rz_qr">
-						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span @click="goPu('#/authorization')" class="pend">《狮圈儿供稿人协议》</span>
+						<label :class="['rz_chk pend',ischecked==true?'rz_chk_check':'']">
+							<span class="rz_chk_1">
+								<input class="rz_chk_1_1" v-model="ischecked" type="checkbox"/>
+							</span>
+							<span class="rz_chk_2">我已阅读并同意</span>
+						</label>
+						<span @click="goPu('#/authorization')" class="pend">《狮圈儿供稿人协议》</span>
 					</p>
 					<div :class="['suc_btndf2',isPostky?'ispos':'']" @click="Userupdate">申请认证平台供稿人</div>
 				</div>
@@ -853,6 +859,9 @@ export default {
 </script>
 
 <style>
+.suc_1>.newSC>span{
+	vertical-align: top;
+}
 .suc_1>.newSC>span.suc_1_9_c1n{
 	color: #666;
 	cursor: pointer;
@@ -862,5 +871,6 @@ export default {
 .suc_1>.newSC>span.suc_1_9_c1n:hover{
 	color: #FF5121;		
 }
+
 
 </style>

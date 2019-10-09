@@ -121,7 +121,13 @@
 
 					</div>
 					<p class="rz_qr">
-						<el-checkbox v-model="ischecked">我已阅读并同意</el-checkbox><span @click="goPU('#/authorization')" class="pend">《狮圈儿供稿人协议》</span>
+						<label :class="['rz_chk pend',ischecked==true?'rz_chk_check':'']">
+							<span class="rz_chk_1">
+								<input class="rz_chk_1_1" v-model="ischecked" type="checkbox"/>
+							</span>
+							<span class="rz_chk_2">我已阅读并同意</span>
+						</label>
+						<span @click="goPU('#/authorization')" class="pend">《狮圈儿供稿人协议》</span>
 					</p>
 					<div :class="['suc_btndf2',isPostky?'ispos':'']" @click="Userupdate">申请认证平台供稿人</div>
 				</div>
@@ -688,6 +694,9 @@ export default {
 	left: 50%;
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
+}
+.suc_1>.newSC>span{
+	vertical-align: top;
 }
 .suc_1>.suc_1_9>span.suc_1_9_c1n{
 	color: #666;

@@ -32,18 +32,22 @@
 				        <span class="ts">最多上传3张,格式jpeg、jpg、png,大小不超过2M</span>
 				        <div class="block" >
 				            <div class="picURl" v-for="(item,index) in imgList">
-				                <i class="right" @click="del(index)">X</i>
+								
 				                <img :src="item"/>
+								<div @click="del(index)" class="closeX_1">
+									<img src="/imge/svg/new/close1.svg">
+								</div>
 				            </div>
 				        </div>
 				    </div>
 				</div>
-				<div class="upfdb_namex">
+				<div class="upfdb_namex upfdb_namex2">
 				    <span>联系方式</span>
-				    <div class="upfdb_name_x1 upfdb_name_x12">
-				    	<myselect  :List="lxfs" :v="'v'" :k="'v'" v-model="link_type"></myselect>
-				    </div>
+				    
 				    <input class="upfdb_namex1d" type="text" placeholder="请输入联系方式" v-model="link">
+					<div class="upfdb_name_x1 upfdb_name_x12">
+						<myselect  :List="lxfs" :v="'v'" :k="'v'" v-model="link_type"></myselect>
+					</div>
 				</div>
 			</div>	
 			<div class="btmsddf_01">				
@@ -141,6 +145,7 @@ export default {
 	        })
 	    },
 	    del(index){
+			this.$refs.upload.value='';
 	        this.imgList.splice(index,1)
 	    },
 	    fileUp(flie){
@@ -308,10 +313,13 @@ export default {
 }
 .upfdb_content_1{
     text-align: left;
-    padding: 0 114px;
+    padding: 0 114px 100px;
 	line-height: 0;
 	width: 567px;
-
+	height: 425px;
+	overflow: hidden;
+	overflow-y: auto;
+	margin-bottom: 20px;
 }
 .upfdb_content_1 span{
     font-family: PingFangSC-Regular;
@@ -353,6 +361,7 @@ export default {
 	margin-top: 18px;
 }
 .picURl{
+	cursor: pointer;
 	position: relative;
     border: 1px solid #ddd;
     width: 133px;
@@ -451,8 +460,13 @@ export default {
 	margin: 30px auto;
 	line-height: 40px;
 }
+
+
 .upfdb_content_1 .upfdb_namex span{
 	line-height: 40px;
+}
+.upfdb_content_1 .upfdb_namex2 span{
+	line-height:37px;
 }
 .upfdb_namex1d{
 	display: inline-block;
@@ -475,5 +489,24 @@ export default {
 }
 .btmsddf_01{
 	padding-bottom: 30px;
+}
+.picURl:hover .closeX_1{
+	opacity: 1;
+}
+.closeX_1{
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,.5);
+	width: 100%;
+	height: 100%;
+}
+.closeX_1>img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
 }
 </style>
