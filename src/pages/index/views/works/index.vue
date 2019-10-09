@@ -1,12 +1,14 @@
 <template>
 	<div class="csBox">		
 		<div class="in_d1">
-			<div :class="isTop?'in_d2':''">
-				<div class="homghhd">			
-					<a @click="qhNav('rec')" :class="['pend',type?'router-link-active':'']">首页推荐</a>
-					<a @click="qhNav('')" :class="['pend',type?'':'router-link-active']">最新发布</a>	
-				</div>	
-			</div>
+			<pTop class="in_d3" :cn="topCn">
+				<template v-slot:todo="{ todo }">
+					<div class="homghhd">
+						<a @click="qhNav('rec')" :class="['pend',type?'router-link-active':'']">首页推荐</a>
+						<a @click="qhNav('')" :class="['pend',type?'':'router-link-active']">最新发布</a>	
+					</div>	
+				</template>		
+			</pTop>
 		</div>	
 		<list :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
@@ -19,8 +21,9 @@
 
 import list from '../../components/list';
 import box_a from '../../components/box_a';
+import pTop from '../../components/postionTop';
 export default {
-	components:{list,box_a},
+	components:{list,box_a,pTop},
 	name: 'home',
 	data(){
 		return {
@@ -31,9 +34,11 @@ export default {
 				pr:{
 					type:'rec',
 				},
-				bdtj:[['首页','翻页'],['首页','更改单页显示数']]
-				
+				bdtj:[['首页','翻页'],['首页','更改单页显示数']]				
 			},	
+			topCn:{
+				min:60,
+			},
 			bdtjdata:[['首页','作品'],['首页','创作者']],
 			type:'rec',
 			isTop:'',
@@ -41,52 +46,22 @@ export default {
 		}
 	},
 	mounted: function(){
-		this.init()
-		this.cs();
+		this.init()		
 	}, 
-	beforeDestroy:function(){
-		this.adFn.remove();
-	},
 	methods: {
 		init(){
-			document.documentElement.scrollTop =1;
-			document.body.scrollTop =1;
+			this.mJs.scTop(1);
 		},
 		qhNav(on){
 			if(on==this.type){return}
 			this.type=on;
+			this.data.pr={};
 			if(on){
 				this.data.pr.type = on;	
 			}
-			else{
-				this.data.pr={};
-			}		
-			document.documentElement.scrollTop =1;
-			document.body.scrollTop =1;
-			this.$refs.sfafa.sxfn();
-			
+			this.mJs.scTop(1);	
+			this.$refs.sfafa.sxfn();			
 		},
-		setTop(e){		
-			let t = document.documentElement.scrollTop||document.body.scrollTop;
-			if(t==0){
-				document.documentElement.scrollTop =1;
-				document.body.scrollTop =1;
-				return
-			}
-			if(t>=60 && !this.isTop){
-				this.isTop='isTop';
-				return
-			}
-			if(t<60 && this.isTop=='isTop'){				
-				this.isTop='';
-				return
-			}
-		},
-		cs(){	
-			this.adFn = this.mJs.Jl_fn(this.setTop);
-			this.adFn.add();
-		},	
-		
 	}
 }
 </script>
@@ -98,6 +73,10 @@ export default {
 }
 .in_d1{
 	height: 75px;	
+}
+.in_d3{
+	width: 100%;
+	height: 75px;
 }
 .proNav2_1{
 	position: relative;
@@ -147,7 +126,7 @@ export default {
 	color: #FF5121;
 }
 
-.in_d2{
+.in_d1 .p_isTop{
 	z-index: 9999;
 	position: fixed;
 	top: 0;

@@ -42,7 +42,9 @@ export default {
 		document.documentElement.scrollTop =on;
 		document.body.scrollTop =on;
 	},
-	
+	getTop:function(){
+		return document.documentElement.scrollTop||document.body.scrollTop;
+	},
 	Jl_fn:function(fn){
 		return {
 			adfn:'',

@@ -34,10 +34,16 @@
 			</div>
 			
 		</div>
+		<div class="userNavBoxXz">
+			<pTop class="userNavBoxXz2" :cn="topCn">
+				<template v-slot:todo="{ todo }">
+					<a v-for="(el,key) in centBtns" :key="key" :class="['pend',ison==el.a?'router-link-active':'']" @click="goZP(el.a,el.b,todo)">{{el.b}}</a>					
+				</template>		
+			</pTop>			
+		</div>	
 		
-			<div class="userNavBoxXz">
-				<a v-for="(el,key) in centBtns" :key="key" :class="['pend',ison==el.a?'router-link-active':'']" @click="goZP(el.a,el.b)">{{el.b}}</a>
-			</div>
+		
+		
 		</div>
 
 		<unfollow @suUnFn="followUnSu" @suAdFn="followAdSu" ref="unfollow"></unfollow>
@@ -59,11 +65,15 @@ import pe_info from './info';
 import RPT from '../../components/report'
 import fxd from '../../components/share';
 import unfollow from '../../components/unfollow';
+import pTop from '../../components/postionTop';
 export default {
-	components:{Topbk,pe_works,pe_recommend,pe_follow,pe_fans,pe_info,fxd,RPT,unfollow},
+	components:{Topbk,pe_works,pe_recommend,pe_follow,pe_fans,pe_info,fxd,RPT,unfollow,pTop},
 	name: 'index',
 	data(){
 		return{
+			topCn:{
+				min:400,
+			},
 			topBtns:[],
 			centBtns:[
 				{a:'/works',b:'作品'},
@@ -103,7 +113,10 @@ export default {
 			this[n]();
 		},
 			
-		goZP(a,b){
+		goZP(a,b,c){
+			if(c){
+				this.mJs.scTop(400);
+			}
 			this.bdtjCom('tag_'+b);
 			this.$router.push({path: a,query:{id:this.qurId}})			
 		},
@@ -498,14 +511,11 @@ export default {
 	font-size: 24px;
 	color: #1E1E1E;
 }
-.u_top3_4{
-	
+.u_top3_4{	
 	position: absolute;
 	right: 41px;
 	top: 50%;
-	transform: translateY(-50%);
-	
-	
+	transform: translateY(-50%);		
 }
 .u_top3_4_1{
 	display: block;
@@ -532,8 +542,7 @@ export default {
 	font-size: 16px;
 	color: #333333;
 	text-align: center;
-	margin-right: 30px;
-	
+	margin-right: 30px;	
 }
 .u_top3_4_2>span:last-child{
 	margin-right: 0;
@@ -544,11 +553,25 @@ export default {
 	color: #fff;
 }
 .userNavBoxXz{
-	margin-top: 36px;
-	border:none;
-	height: 37px;
+    border: none;
+    height: 75px;
+    line-height: 80px;
 }
-.userNavBoxXz>a{
+.userNavBoxXz2{
+	width: 100%;
+	min-width: 1300px;
+	height: 75px;
+	background: #fff;
+}
+.userNavBoxXz .p_isTop{
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.userNavBoxXz2>a{
 	display: inline-block;
 	height: 100%;
 	margin-right: 72px;
@@ -556,18 +579,18 @@ export default {
 	color: #1E1E1E;
 
 }
-.userNavBoxXz>a:hover{
+.userNavBoxXz2>a:hover{
 	color: #FF5121;
 }
-.userNavBoxXz>a:last-child{
+.userNavBoxXz2>a:last-child{
 	margin-right: 0;
 }
-.userNavBoxXz>.router-link-active{
+.userNavBoxXz2>.router-link-active{
 	position: relative;
 	color: #FF5121;
 	font-weight: bold;
 }
-.userNavBoxXz>.router-link-active:after{
+.userNavBoxXz2>.router-link-active:after{
 	content: "";
 	position: absolute;
 	bottom: 0;

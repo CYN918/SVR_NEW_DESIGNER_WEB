@@ -315,6 +315,8 @@ Vue.prototype.checkLo = function(o){
 	});
 }
 
+
+
 // Vue.prototype.miss = function(o){
 // 	Message({message:o});
 // };
