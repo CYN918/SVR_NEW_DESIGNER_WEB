@@ -37,12 +37,16 @@ export default {
 			bdtjdata:[['首页','作品'],['首页','创作者']],
 			type:'rec',
 			isTop:'',
+			adFn:'',
 		}
 	},
 	mounted: function(){
 		this.init()
 		this.cs();
 	}, 
+	beforeDestroy:function(){
+		this.adFn.remove();
+	},
 	methods: {
 		init(){
 			document.documentElement.scrollTop =1;
@@ -79,9 +83,10 @@ export default {
 			}
 		},
 		cs(){	
-			document.removeEventListener('scroll',this.setTop);	
-			document.addEventListener("scroll",this.setTop);
-		},		
+			this.adFn = this.mJs.Jl_fn(this.setTop);
+			this.adFn.add();
+		},	
+		
 	}
 }
 </script>

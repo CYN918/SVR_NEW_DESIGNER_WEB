@@ -94,7 +94,7 @@
 										</span><span class="iconfont pend hfdZ_1"><span @click="addLikeNe('点赞回复','comment',el2.comment_id,el2)" :class="['iconfont',el2.liked?'likeis':'']">&#xe672;
 										</span>{{el2.like_num}}</span><span class="iconfont pend hfdZ_2" @click="showReport(el2.open_id,el2.comment_id,'comment')">&#xe664;
 										</span>
-										<div class="hfBox hfBoxd" v-if="el2.isshowfh==1">
+										<div class="hfBox hfBoxd hfBoxd2" v-if="el2.isshowfh==1">
 											<Input :mblur="xsfn" class="userBoxd2xd" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
 											<span :class="chekcont(pl2)==true?'iscsbtn':''" @click="addCommentNe('评论下发布回复',pl2,index,index2)">回复</span>
 											<div class="plyh"></div>
@@ -752,5 +752,9 @@ export default {
 }
 .hfBoxd input{
 	height: 36px;
+}
+.hfBoxd2{
+	width: 92%;
+	margin-left: 8%;
 }
 </style>

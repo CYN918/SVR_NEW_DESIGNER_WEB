@@ -315,10 +315,23 @@ Vue.prototype.checkLo = function(o){
 	});
 }
 
-Vue.prototype.miss = function(o){
-	Message({message:o});
-};
+// Vue.prototype.miss = function(o){
+// 	Message({message:o});
+// };
 
+// Vue.prototype.scrollFns = [];
+// document.addEventListener("scroll",()=>{
+	
+// 	for(let i=0,n=Vue.prototype.scrollFns.length;i<n;i++){
+// 		console.log(Vue.prototype.scrollFns[i])
+// 		if(Vue.prototype.scrollFns[i]){
+// 			Vue.prototype.scrollFns[i]();
+// 		}else{
+// 			Vue.prototype.scrollFns.splice(i,1);
+// 		}
+// 	}
+	
+// });
 
 
 new Vue({
