@@ -8,8 +8,7 @@
 				<td v-for="(el2,index2) in cg.title" :key="index2">
 					{{xData(el2,el)}}
 					<span v-if="el2.html" v-html="el[el2.html]"></span>
-					<span @click="clickFn(el2.temp.cFn,el)" :class="el2.temp.cls" v-if="el2.temp">
-						
+					<span v-if="el2.temp" @click="clickFn(el2.temp.cFn,el)" :class="el2.temp.cls" >
 						<span v-if="el2.temp.clfn" v-html="el2.temp.clfn(el)"></span>
 						<span v-else>
 							{{el2.temp.poprs?el[el2.temp.poprs]:el2.temp.value?el2.temp.value:''}}

@@ -20,14 +20,14 @@ export default {
 	mounted: function(){
 		this.init();
 	},
+	beforeDestroy:function(){
+		document.body.style = "";
+	},
 	methods: {	
 		init(){
 			document.body.style = "overflow: hidden;";
-//			window.addEventListener('mousewheel', window.dwzFn, { passive: false })
 		},
 		close(){
-			document.body.style = "";
-//			window.removeEventListener('mousewheel',window.dwzFn)
 			this.$parent.close();
 		},
 

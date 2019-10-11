@@ -18,14 +18,15 @@ export default {
 		config:Object,
 	},
 	methods: {
-		qdFn(){			
-	        this.$emit('qFn');
+		qdFn(){	
+			this.$parent[this.config['qFn']]();	 
 		},
 		show(){
 
 			this.$refs.tcBox.show();
 		},
 		close(){
+			this.$parent[this.config['closeFnd']]();
 			this.$refs.tcBox.close();
 		},
 	}

@@ -18,23 +18,38 @@ export default {
 			is:'',
 		}
 	},
-	methods: {	
-		show(){
-			
-				document.body.style = "overflow: hidden;";
 
+	methods: {	
+		show(){			
 			this.is = 1;
 		},
 
-		close(){			
-			
-				document.body.style = "";
-
-			if(this.config.closeFn){
-				this.$parent[closeFn]();			
+		close(){
+			this.is = '';
+			if(!this.config.closeFn){
+				return	
 			}
-			this.is = '';			
+			if(this.$parent[this.config.closeFn]){
+			
+				this.$parent[this.config.closeFn]();
+				return
+			}
+			if(this.$parent.$parent[this.config.closeFn]){
+				
+				this.$parent.$parent[this.config.closeFn]();
+				return
+			}
+						
 		},
+	},
+	watch:{
+		'is'(){
+			if(this.is==''){
+				document.body.style = "";
+			}else{
+				document.body.style = "overflow: hidden;";
+			}
+		}
 	}
 }	
 </script>

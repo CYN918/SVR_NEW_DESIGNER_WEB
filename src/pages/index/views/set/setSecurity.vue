@@ -92,7 +92,7 @@
 						<span @click="checkPwor(1)" :class="isyazfs==1?'checkd':''">短信验证</span>
 					</div>
 					<div class="tc_spasswodr_1_1" v-if="isyazfs==0">
-						<Input v-model="tancData.old_password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'旧密码'"></Input>
+						<Input v-model="tancData.old_password"  :oType="'password'" :chekFn="chekPssword1" :type="'password'" :placeholder="'旧密码'"></Input>
 						<Input v-model="tancData.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'新密码，6-16位'"></Input>			
 						<Input v-model="tancData.password_repass"  :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认新密码，6-16位'"  ></Input>
 						<div class="tc_sucd_1_2">
@@ -187,10 +187,23 @@ export default {
 					return {type:false,text:'请确认密码',cls:'errd'}
 				}
 	
-				if(this.$parent.tancData.password != val){
+				if(this.$parent.$parent.tancData.password != val){
 					return {type:false,text:'两次密码不一致',cls:'errd'}
 				}
 				return true
+			},
+			chekPssword1(val){
+				if(!val){
+					return {type:false,text:'请输入密码',cls:'errd'}
+				}
+				let len = val.length;
+				if(len<6){
+					return {type:false,text:'请输入正确的密码',cls:'errd'}
+				}
+				if(len>16){
+					return {type:false,text:'请输入正确的密码',cls:'errd'}
+				}
+				return false;
 			},
 			chekPssword(val){	
 				if(!val){

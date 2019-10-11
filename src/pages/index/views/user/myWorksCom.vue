@@ -29,23 +29,14 @@
 				</template>			
 			</list>
 		</div>
-		<div v-show="istopc" class="myListBox_6">
-			<div class="myListBox_6_1">
-				<img @click="hindTopc" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" alt="">
-				<div v-if="topcType=='set'" class="myListBox_6_3">修改作品设置提交，平台审核通过后即可修改成功</div>
-				<div v-if="topcType=='set'" class="myListBox_6_3">确定修改作品设置？</div>
-				<div v-if="topcType=='delet'" class="myListBox_6_3">确定删除该作品？</div>
-				<div class="myListBox_6_4">
-					<span @click="hindTopc">取消</span>
-					<span v-if="topcType=='delet'" @click="delWork()" class="myListBox_6_4_2">确定</span>
-					<span v-if="topcType=='set'" class="myListBox_6_4_2">确定</span>
-				</div>
-			</div>
-		</div>	
-				
+		
+		<TcBoxQr :config="config2" ref="tcBox2">
+
+		</TcBoxQr>			
 				
 		<TcBox :config="config" ref="tcBox">
 			<template v-slot:todo="{ todo }">
+			
 				<div class="necsgg">
 				<div class="setDatasXX_4">
 					
@@ -130,14 +121,22 @@ import {Message} from 'element-ui'
 import Input from '../../components/input'
 import list from '../../components/list';
 import TcBox from '../../components/TcBox';
+import TcBoxQr from '../../components/TcBoxQr';
 export default {
 	props:['isType'],
-	components:{tophead,Input,list,TcBox},
+	components:{tophead,Input,list,TcBox,TcBoxQr},
 	name: 'myAll',
 	data(){
 		return {
 			config:{
 				title:'作品修改设置：音乐测试',
+			},
+			config2:{
+				title:'删除确认',
+				cent:'确定删除该作品？',
+				closeFnd:'closeqd',
+				qFn:'delWork',
+				closeFn:'closeqd'
 			},
 			navData:{
 				title:'我的创作',
@@ -382,15 +381,17 @@ export default {
 		},
 		showTopc(type,on){
 			this.bdtj('我的创作',this.backType(on.status)+'-删除','--');
+			this.$refs.tcBox2.show();
 			this.deletWorkon = on.work_id;
 			this.topcType = type;
 			this.istopc = true;
 		},
-		hindTopc(){
+		closeqd(){
 			this.topcType = '';
 			this.deletWorkon = '';
 			this.istopc = false;
 		},
+
 		delWork(){
 			if(this.delWorkType==1){
 				Message({message: '正在删除请稍候'});
@@ -409,9 +410,10 @@ export default {
 				}
 				
 				this.$refs.listDom.getData();
-				this.hindTopc();
-				Message({message: '删除成功'});				
-				this.delWorkType = 0;
+				
+				Message({message: '删除成功'});
+	
+				this.$refs.tcBox2.close();
 			}).catch(()=>{
 				this.delWorkType = 0;		
 			});
