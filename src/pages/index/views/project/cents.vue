@@ -393,6 +393,7 @@ export default {
 	font-weight:400;
 	color:rgba(187,187,187,1);
 	line-height:20px;
+	color: #ff5121;
 }
 .cens_x4_1>span{
 	color:rgba(255,81,33,1);

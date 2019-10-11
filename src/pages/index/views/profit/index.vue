@@ -7,7 +7,7 @@
 					<img class="pbx_n_04" src="/imge/profit/qj.svg">
 					<div class="pbx_n_02">账号余额<span @click="checkd(1)" class="iconfont pend pbx_1_4" v-html="min1"></span></div>
 					<div class="pbx_1_1">
-						<span class="pbx_1_1x"><span class="pbx_n_03">￥ </span>{{num1}}</span>
+						<span class="pbx_1_1x"><span class="pbx_n_03">￥ </span>{{mJs.money_deiv(num1)}}</span>
 						<span @click="showtx()" class="btndf  pend pbx_1_1_1">提现</span>
 					</div>
 					
@@ -16,9 +16,9 @@
 				<div class="pbx_n_01">
 					<div>
 						<img src="/imge/profit/qb.svg">
-						<div class="pbx_n_02">累计收益 <span @click="checkd(2)" class="iconfont pend pbx_1_4" v-html="min2"></span></div>
+						<div class="pbx_n_02">累计收益 <span @click="checkd(2)" class="iconfont pend pbx_1_4" v-html="mJs.money_deiv(min2)"></span></div>
 						<div class="pbx_1_1">
-							<span><span class="pbx_n_03">￥ </span>{{num2}}</span>						
+							<span><span class="pbx_n_03">￥ </span>{{mJs.money_deiv(num2)}}</span>						
 						</div>
 						
 					</div>
@@ -38,7 +38,7 @@
 							<div v-if="sfas" class="sytc">
 								<div class="sytc_1">
 									<div class="sytc_1_1">
-										<div>当前累计收益：<span>￥ {{num2}}</span></div>
+										<div>当前累计收益：<span>￥ {{mJs.money_deiv(num2)}}</span></div>
 										<div>当前收益加成：<span class="sytc_1_1x">+ {{basDa.gain_share_rate}}</span></div>
 									</div>
 									<div class="sytc_1_2">
@@ -365,6 +365,7 @@ export default {
 	height:491px;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+	border-radius: 5px;
 }
 .sytc:after{
     content: "";

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<navd :config="sxConfig"></navd>
-		<prTable :cg="config" ref="tabds"></prTable>
+		<prTable class="xmdd_01" :cg="config" ref="tabds"></prTable>
 	</div>
 </template>
 
@@ -15,13 +15,21 @@ export default {
 		return {
 			config:{
 				title:[
-					{n:'项目名称',temp:{cFn:'goWork',poprs:'name',cls:'pend'}},
-					{n:'验收价格',poprs:'acceptance_price'},
-					{n:'额外奖金',poprs:'extra_reward'},
-					{n:'延时交稿扣减',temp:{cFn:'goAc',poprs:'activity_name',cls:'pend'}},
-					{n:'收益加成',clfn:(da)=>{ return da.gain_share_price+'('+da.gain_share_rate+')'}},
-					{n:'成交价格',clfn:(da)=>{ return da.deal_price}},
-					{n:'验收时间',poprs:'delivery_deadline'},
+					{n:'项目名称',temp:{cFn:'goWork',poprs:'name',cls:'pend',clfn:(d)=>{
+						return '<img class="ficPic" src="'+d.banner+'?x-oss-process=image/resize,w_72"/><span class="ficSp1">'+d.name+'<span class="ficSp">'+d.classify_name+'</span></span>';
+					}}},
+					{n:'验收价格',clfn:(da)=>{ return '￥'+this.mJs.money_deiv(da.acceptance_price)}},
+					{n:'额外奖金',clfn:(da)=>{ return '￥'+this.mJs.money_deiv(da.extra_reward)}},
+					{n:'延时交稿扣减',clfn:(da)=>{ return '-￥'+this.mJs.money_deiv(da.extra_reward)}},
+					{n:'收益加成',clfn:(da)=>{ return '￥'+this.mJs.money_deiv(da.gain_share_price)+'('+da.gain_share_rate+'%)'}},
+					{n:'成交价格',temp:{cls:'pend',clfn:(d)=>{
+						return '<span class="font_cf">￥'+this.mJs.money_deiv(d.deal_price)+'</span>';
+					}}},
+			
+					{n:'验收时间',clfn:(da)=>{ return this.mJs.backTime(da.delivery_deadline,'/')}},
+					
+					
+					
 				],
 					
 				ajax:{
@@ -83,5 +91,29 @@ export default {
 </script>
 
 <style>
-
+.xmdd_01{
+	color: #666;
+}
+.ficPic{
+	display: inline-block;
+	vertical-align: top;
+	width: 72px;
+	height: 52px;
+	border-radius: 5px;
+	margin: 16px 10px 16px 0;
+	vertical-align: middle;
+}
+.ficSp1{
+	display: inline-block;
+	vertical-align: top;
+}
+.ficSp{
+	display: block;
+	font-size: 14px;
+	color: rgba(187,187,187,1);
+	line-height: 5px;
+}
+.font_cf{
+	color: #FF5121;
+}
 </style>

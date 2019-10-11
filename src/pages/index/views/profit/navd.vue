@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="proNav2_1x">
-			<a :class="['pend',ison=='/profit'?'router-link-active':'']" @click="goZP('/profit','录用记录')">录用记录</a>
+			<a :class="['pend',ison=='/profit'?'router-link-active':'']" @click="goZP('/profit','项目订单')">项目订单</a>
 			<a :class="['pend',ison=='/qtsy'?'router-link-active':'']" @click="goZP('/qtsy','其他收益')">其他收益</a>
 			<a :class="['last pend',ison=='/money'?'router-link-active':'']" @click="goZP('/money','提现记录')">提现记录</a>
 			<div class="pr_seBox">

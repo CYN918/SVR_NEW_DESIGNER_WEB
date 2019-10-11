@@ -6,7 +6,11 @@
 			</div>
 			<div class="topGd_04">
 				<div v-if="djsshow.d" class="topGd_04_1">
-					<span >{{djsshow.d}}<span>天</span></span><span>{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
+					<span v-if="djsshow.d>0">
+						{{djsshow.d}}<span>天</span>
+					</span><span>
+						{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}
+					</span>
 				</div>
 				<div @click="bm('pr_rz')" class="topGd_04_2 topGd_04_2x btns btns_js pend">
 					报名项目

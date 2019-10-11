@@ -161,7 +161,7 @@ export default {
 		return{
 			form:{},
 			upfjData:{},
-			typedon:3,
+			typedon:0,
 			ldList:['信息确认','提现金额','发票寄送','身份验证'],
 			ldList2:['信息确认','提现金额','身份验证'],
 			chekPhpne:function(val){

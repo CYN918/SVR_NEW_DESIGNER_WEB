@@ -125,6 +125,7 @@ export default {
 
 <style>
 .pr_boxd{
+	min-height: 315px;
 	position: relative;
 	width: 1300px;
 	margin: 20px auto 60px;

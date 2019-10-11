@@ -75,7 +75,25 @@ export default {
 			
 		}
 		
-	}
+	},
+	nt:function(n){
+		return n>9?n:'0'+n;
+	},
+	backTime:function(ont,fg) {
+		let t = new Date(ont);
+		let Y=t.getFullYear(),
+		M=t.getMonth()+1,
+		D=t.getDate(),
+		h=t.getHours(), 
+		m=t.getMinutes(), 
+		s=t.getSeconds(),
+		f = '-';
+		if(fg){
+			f=fg;
+		}
+		
+		return Y+f+this.nt(M)+f+this.nt(D)+' '+h+':'+m+':'+s; 
+	},
 	
 	
 
