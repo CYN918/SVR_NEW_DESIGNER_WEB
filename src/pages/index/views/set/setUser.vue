@@ -77,7 +77,7 @@
 				<div v-if="tAncType==2" class="tc_sucd_1">
 					<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"></Input>
 					<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"></Input>
-					<Input v-model="tancData.verify_code" @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'" ref="verify"></Input>
+					<Input v-model="tancData.verify_code" @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入新手机号码的6位短信验证码'" ref="verify"></Input>
 				</div>
 
 				<div v-if="tAncType==3" class="tc_sucd_1">

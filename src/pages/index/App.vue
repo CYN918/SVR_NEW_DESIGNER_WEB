@@ -681,13 +681,14 @@ img{
 	display: inline-block;
 	width: 250px;
 	vertical-align: top;
+	
 }
 .phoshc4_1{
 	width: 150px;
 	height: 150px;
 	border-radius: 50%;
 	overflow: hidden;
-	background: rgba(0, 0, 0, 0.5);
+	border:1px solid #bbb;
 	margin: 0 auto;
 }
 .phoshc4_1>img{
@@ -698,6 +699,7 @@ img{
 	font-size: 14px;
 	color: #333333;
 	opacity: .7;
+	text-align:center;
 	margin: 16px auto 150px;
 }
 .phoshc4_3{

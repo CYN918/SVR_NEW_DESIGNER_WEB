@@ -13,6 +13,9 @@
 				:autoCropHeight="option.autoCropHeight"
 				:autoCrop="true"
 				outputType="'jpeg,png'"
+				:canMoveBox="false"
+				:centerBox="true"
+				:fixedBox="true"
 				:enlarge="2"
 				@realTime="realTime"				
 				>

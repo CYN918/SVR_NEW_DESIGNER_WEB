@@ -236,6 +236,10 @@ export default {
 	display: inline-block;
 	margin-right: 20px;
 	width: 928px;
+	text-align: initial;
+}
+.cens_02 li {
+    list-style: unset;
 }
 .cens_02>div{
 	margin-bottom: 20px;
