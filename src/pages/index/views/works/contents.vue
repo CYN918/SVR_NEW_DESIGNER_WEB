@@ -85,9 +85,9 @@
 						<span class="jrzybtn_x1">进入主页</span>
 					</div>
 				</div>
-				<div class="seed2_1_2">
+				<div v-if="contDat.more_work && contDat.more_work.length>0" class="seed2_1_2">
 					<div class="seed2_1_2_1" style="color: #333;">TA的更多作品</div>
-					<div class="seed2_1_2_1x1">
+					<div class="seed2_1_2_1x1" >
 						<div  class="seed2_1_2_2" v-for="(el,index) in contDat.more_work" :key="index">
 							<box_a  :el="el"></box_a>
 							<div class="zdc"></div>
@@ -95,8 +95,12 @@
 					
 					</div>
 					
-					</div>
 				</div>
+				<div class="seed2_1_2xx" v-else>
+					你正在浏览TA首次发布的作品<br/>作为老前辈, 送个赞鼓励下吧~
+					<span class="btns pend seed1_2_5xx" @click="addLikeNe('创作者信息-更多作品-推荐','work',contDat.work_id,contDat)"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
+				</div>
+			</div>
 			</div>
 			
 		</div>
@@ -133,7 +137,6 @@ export default {
 		init(){		
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
-			console.log(2222222222222);
 			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(this.topTyped==0){

@@ -930,8 +930,8 @@ img{
 	margin: 0 auto 60px;
 	
 }
-.seed2_2xxxx{
-	min-height: 800px;
+.onIn>.myInput{
+	border-color:#ddd;
 }
 .seed2_1_1_1x{
 	text-align: left;

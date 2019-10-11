@@ -1428,4 +1428,10 @@ export default {
 .istageok{
 	background: #FF5121;
 }
+#edui1>div:first-child{
+	height: 0 !important;
+}
+#edui1>div#edui1_toolbarbox{
+	height: 116px !important;
+}
 </style>

@@ -69,6 +69,9 @@ export default {
 
 		this.getData();		
 	}, 
+	beforeDestroy:function(){
+		this.loading.close();
+	},
 	methods: {
 
 		paramCl(){
