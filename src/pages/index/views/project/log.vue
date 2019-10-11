@@ -110,6 +110,7 @@ export default {
 <style>
 
 .jglogbox{
+	text-align: left;
 	padding: 20px 60px;
 	overflow: hidden;
 	overflow-y: auto;
