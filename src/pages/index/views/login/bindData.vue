@@ -1,6 +1,6 @@
 <template>
 	<div>
-			<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
+		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
 
 			<div class="newUsermeBOX">
 				<div class="newUserme2 newUserme2x_1">
@@ -38,11 +38,11 @@
 					</div>
 					<div class="userBoxd">
 						<span>职业</span>
-						<Select :Data="zy" v-model="form.vocation"></Select>	
+						<Select :prd='"选择职业"' :Data="zy" v-model="form.vocation"></Select>	
 					</div>
 					<div class="userBoxd">
 						<span>所在地</span>
-						<Citys v-model="form.citye"></Citys>						
+						<Citys :prd='"选择所在地"' v-model="form.citye"></Citys>						
 					</div>
 					<div class="yhtop6f">
 						
@@ -68,7 +68,7 @@ export default {
 		return{	
 			
 			isPhto:false,
-			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg',
+			caver:'/imge/svg/MRTX.svg',
 			form:{
 				citye:[],
 				sex:'',
@@ -239,6 +239,12 @@ export default {
 			this.pdys1();
 		},
 		'form.password_repass'(){
+			this.pdys1();
+		},
+		'form.vocation'(){
+			this.pdys1();
+		},
+		'form.citye'(){
 			this.pdys1();
 		},
 

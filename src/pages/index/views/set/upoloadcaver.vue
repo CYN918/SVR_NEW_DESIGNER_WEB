@@ -2,6 +2,8 @@
 	<div class="phoshc">
 		<div class="phoshc1" @click="close"></div>
 		<div class="phoshc2">
+			<img @click="close" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" class="newTanc_2">
+			
 			<div class="phoshc3">
 				<vueCropper
 				ref="cropper"

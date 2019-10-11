@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="yhtop">
+		<div class="yhtop newbtnd_4">
 			<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
 			<div class="yhtop1 ">用户资料完善</div>
 			<div class="yhtop2"><div>基本信息设置</div></div>
@@ -20,11 +20,11 @@
 					</div>
 					<div class="userBoxd">
 						<span>职业</span>
-						<Select :Data="zy" v-model="form.vocation"></Select>	
+						<Select :prd='"选择职业"' :Data="zy" v-model="form.vocation" ref="setCl"></Select>	
 					</div>
 					<div class="userBoxd">
 						<span>所在地</span>
-						<Citys v-model="form.citye"></Citys>						
+						<Citys :prd='"选择所在地"' v-model="form.citye" ref="setCt"></Citys>						
 					</div>
 					<div class="yhtop6f">
 						<div class="btn_n btn_n1" @click="goOut">退出</div>
@@ -35,7 +35,7 @@
 			</div>
 			
 		</div>
-
+		<Footer></Footer>
 	</div>	
 </template>
 <script>
@@ -44,13 +44,14 @@ import Input from '../../components/input'
 import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
+import Footer from '../footer';
 export default {
 	name: 'login',
-	components:{upoloadcaver,Input,Citys,Select,rideo},
+	components:{upoloadcaver,Input,Citys,Select,rideo,Footer},
 	data(){		
 		return{	
 			isPhto:false,
-			caver:'https://zk-new-designer.oss-cn-beijing.aliyuncs.com/MRTX.svg',
+			caver:'/imge/svg/MRTX.svg',
 			form:{
 				citye:[],
 				sex:'',
@@ -92,10 +93,7 @@ export default {
 	}, 
 	methods: {
 		init(){
-			let pr = {
-				access_token:window.userInfo.access_token
-			};
-			this.api.getSelfInfo(pr).then((da)=>{
+			this.api.getSelfInfo({}).then((da)=>{
 				if(da=='error'){return}		
 				let userData = window.userInfo.access_token;
 				window.userInfo = da;	
@@ -103,10 +101,7 @@ export default {
 			}).catch();
 		},
 		goOut(){
-			let p = {
-				access_token:window.userInfo.access_token
-			};
-			this.api.logout(p).then((da)=>{
+			this.api.logout({}).then((da)=>{
 				if(da=='error'){
 					return
 				}			
@@ -143,7 +138,6 @@ export default {
 				are = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/MRTX.svg';
 			}
 			let pr = {
-				access_token:window.userInfo.access_token,
 				avatar:this.caver,
 				username:this.form.username,
 				sex:this.form.sex,
@@ -178,17 +172,29 @@ export default {
 			if(!this.form.sex){
 				return
 			}
+			if(!this.form.vocation){
+				return
+			}
+			if(!this.form.citye){
+				return
+			}
 			this.btnType = 'btn_n3';
 		},
 		
 	},
 	watch: {
-	    'form.username'(val) {
+	    'form.username'() {
 	    	this.pdys1();
 	    },
-	    'form.sex'(val) {
+	    'form.sex'() {
 	    	this.pdys1();
 	    },
+		'form.vocation'(){
+			this.pdys1();
+		},
+		'form.citye'(){
+			this.pdys1();
+		},
 	}
 }
 </script>
@@ -198,6 +204,10 @@ export default {
 	padding: 0;
 	padding-bottom: 70px;
 }
+#app>div>div.newbtnd_4{
+	padding-bottom: 150px !important;
+}
+
 .yhtop{
 	min-width: 1300px;
 }

@@ -1,6 +1,6 @@
 <template>
-	<div class="newUsermeBOX">
-		<div class="newUserme2 newUsermeHx2 newUserme2x_1">
+	<div class="newUsermeBOX newUsxf2">
+		<div class="newUserme2 newUsermeHx2 newUserme2x_1 newUsxf1">
 			<div class="userBoxd">
 				<span>手机号</span>
 				<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.mobiles" :inputType="'phones'"  :placeholder="'请输入手机号'"></inptPhone>
@@ -9,12 +9,12 @@
 				<span>登录密码</span>
 				<inptPhone class="newUserme_x1" @checkBack="checkphoneBack" v-model="form.password" :inputType="'password'" :type="'password'" :placeholder="'请输入您的登录密码'"></inptPhone>						
 			</div>
-			
-		</div>
-		<div class="setBin_n2">
+			<div class="setBin_n2">
 				<div class="btn_n btn_n1 nbt_lef" @click="goOut">退出</div>
 				<div :class="['btn_n btn_n2',btnType]" @click="addSelfInfo">进入首页</div>
+			</div>
 		</div>
+		
 	</div>
 </template>
 <script>
@@ -107,8 +107,17 @@ export default {
 </script>
 
 <style>
+.newUsxf2{
+	padding-bottom: 60px;
+}
+.newUsxf1{
+	position: relative;
+}
 .setBin_n2{
-	padding-top: 60px;
+	position: absolute;
+	bottom: 60px;
+	left: 0;
+	width: 100%;
 	text-align: center;
 }
 </style>

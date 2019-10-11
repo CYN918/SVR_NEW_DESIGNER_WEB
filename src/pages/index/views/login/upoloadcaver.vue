@@ -1,7 +1,10 @@
 <template>
 	<div class="phoshc">
-		<div class="phoshc1" @click="close('关闭')"></div>
+		<div class="phoshc1" @click="close"></div>
+		
 		<div class="phoshc2">
+			<img @click="close" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" class="newTanc_2">
+			
 			<div class="phoshc3">
 				<vueCropper
 				ref="cropper"
@@ -12,6 +15,10 @@
 				:autoCropWidth="option.autoCropWidth"
 				:autoCropHeight="option.autoCropHeight"
 				:autoCrop="true"
+				outputType="'jpeg,png'"
+				:canMoveBox="false"
+				:centerBox="true"
+				:fixedBox="true"
 				:enlarge="2"
 				@realTime="realTime"				
 				>
@@ -32,7 +39,7 @@
 				</div>
 			</div>
 			<div class="phoshc5">
-				<div class="phoshc5_1">
+				<div class="phoshc5_1" @click="bdscff('重新上传')">
 					重新上传
 					<input type="file" id="uploads" accept="image/png, image/jpeg, image/jpg" @change="uploadImg">															
 				</div>
@@ -63,22 +70,25 @@ export default {
 				autoCropWidth:'150px',
 				autoCropHeight:'150px',
 				fixedBox:true,
-				uptype:'',
 			},
 		}
 	},	
 	mounted: function () {	
 	}, 
 	methods: {
+		bdscff(a){
+			this.bdtj('帐号设置','基本信息-头像弹窗'+a,'--');
+		},
 		close(a){
-			this.bdtj('注册页','头像'+a,'--');
+			if(a){
+				this.bdscff(a);
+			}
 			this.$parent.close(''); 		
 		},
 		setImgd(img){
 			this.option.img = img;
 		},
 		realTime(data) {
-			
 			this.previews = data;			
 			this.previewStyle2 = {
 				width: this.previews.w + "px",
@@ -89,11 +99,7 @@ export default {
 			};
 		},
 		startCrop(){
-			this.bdtj('注册页','头像确定','--');
-			if(this.uptype==1){
-				Message({message: '上传中请稍后'});
-				return
-			}
+			this.bdscff('确定');
 			this.$refs.cropper.getCropData(data => {
 				function dataURLtoFile(dataurl) {
 					  var arr = dataurl.split(',');
@@ -119,18 +125,17 @@ export default {
 				];
 				let formData = new FormData();
 				formData.append('app_id',1001);
-				formData.append('sign',this.MD5(encodeURIComponent(arr.sort())));
-				formData.append('user',window.userInfo.open_id);
-				formData.append('file',dataURLtoFile(data));
-				formData.append('relation_type','user_info');
-				formData.append('related_id',window.userInfo.open_id);
-				formData.append('classify_1','avatar');
-				formData.append('timestamp',times);
+				formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+				formData.append('user',window.userInfo.open_id)
+				formData.append('file',dataURLtoFile(data))
+				formData.append('relation_type','user_info')
+				formData.append('related_id',window.userInfo.open_id)
+				formData.append('classify_1','avatar')
+				formData.append('timestamp',times)
 				formData.append('need_check',1);
-				this.uptype=1;
+		
 				this.$ajax.post(window.basrul+'/File/File/insert', formData)
 				.then((response)=>{
-					this.uptype=0;
 					if(response.data.result==0){
 						this.caver = response.data.data.url;
 						this.$parent.close(this.caver);	
@@ -139,8 +144,7 @@ export default {
 					}
 				})
 				.catch(function (error) {
-					Message({message:'网络故障'});
-					this.uptype=0;
+					Message({message: '网络故障'});
 					
 				});
 			})
@@ -152,7 +156,6 @@ export default {
 			this.$refs.cropper.rotateLeft()
 		},
 		uploadImg(e){
-			this.bdtj('注册页','头像重新上传','--');
 			let file = e.target.files[0];
 			if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)||e.target.files.length==0) {
 				Message({message: '图片格式不正确'});

@@ -1,6 +1,6 @@
 <template>
 	<div  :class="['citysbos',opType]">
-		<input class="citysbos1" v-model="msgF" type="text" placeholder="请选择">
+		<input class="citysbos1" v-model="msgF" type="text" :placeholder="prd">
 		<div @click="check" class="citysbos2">
 		</div>
 		<div class="citysbos3">
@@ -41,15 +41,19 @@ export default {
 	},
 	props:{
 		valued:Array,
+		prd:{
+			type:String,
+			default:'请选择'
+		}	
 	},
 	mounted: function () {	
 		this.input =this.valued;
-		this.setData();
+		// this.setData();
 	
 	}, 
 	computed : {
 		"msgF"(){
-			if(!this.input[1]){
+			if(!this.input){
 				return
 			}
 			return this.input[1].substring(0,2)+" "+this.input[2].substring(0,2);
@@ -106,7 +110,7 @@ export default {
  	border: none;
 	width: 100%;
 	height: 100%;
-	text-indent: 15px;
+
 	font-size: 14px;
 color: #666666;
 }

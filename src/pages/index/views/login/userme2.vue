@@ -49,7 +49,7 @@ export default {
 	font-size: 14px;
 }
 #app>div>div.setBin_1{
-	padding-bottom: 210px;
+	padding-bottom: 150px;
 }
 .newUserme{
 	box-sizing: border-box;

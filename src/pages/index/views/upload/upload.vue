@@ -213,6 +213,12 @@ export default {
 			loading:'',
 		}  
 	},
+	beforeDestroy:function(){
+		if(this.loading){
+			this.loading.close();
+		}
+		
+	},
 	watch: {	
 		'form.work_name'() {				
 			this.checkPage1();			
@@ -391,6 +397,10 @@ export default {
 			this.saveData(dat,'自动保存成功');
 		},
 		init(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+				return
+			}	
 			this.loading = Loading.service({target:this.$refs.asdsss, fullscreen: true });
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
