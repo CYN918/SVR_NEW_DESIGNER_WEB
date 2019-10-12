@@ -113,7 +113,7 @@
 				<div :class="['seed2_2','seed2_2xxxx']">
 					<div class="seed2_1_1" v-if="contDat.user_info">
 						<div class="seed2_1_1_1">
-							<img @click="goUser(contDat.user_info.open_id,'创作者信息-头像')" class="contavatar pend" :src="contDat.user_info.avatar" alt="">
+							<img @click="goUser(contDat.user_info.open_id,'创作者信息-头像')" class="contavatar pend" :src="contDat.user_info.avatar+'?x-oss-process=image/resize,w_100'" alt="">
 							<div>
 								<div class="pend" @click="goUser(contDat.user_info.open_id,'创作者信息-昵称')">{{contDat.user_info.username}}</div>
 								<div> {{contDat.user_info.vocation}} | {{contDat.user_info.province}} {{contDat.user_info.city}}</div>

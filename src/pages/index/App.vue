@@ -34,7 +34,7 @@ input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
     border: 1px solid #CCC!important;
 }
 textarea:focus{
-	border-color:#DCDFE6;
+	border-color:#979797;
 }
 .el-textarea__inner:focus{
 	border-color:#DCDFE6;
@@ -1162,7 +1162,7 @@ img{
 	display: inline-block;
     vertical-align: top;
     
-    background: #666666;
+    background: #DFDFDF;
     border-radius: 5px;
     width: 160px;
     height: 40px;
@@ -1202,13 +1202,12 @@ img{
 	text-align: left;
 	overflow: hidden;
 	border-radius: 5px;
-	background: #e6e6e6;
+	background: #F4F6F9;
 	min-height: 20px;
 	padding: 10px 114px 10px 20px;
     border-radius: 5px;
-    background: #e6e6e6;
     line-height: 20px;
-	border: 1px solid #e6e6e6;
+	border: 1px solid #F4F6F9;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	

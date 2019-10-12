@@ -233,7 +233,7 @@
 						n: "教育工作者"
 					},
 				],
-				caver: 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg',
+				caver: 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/MRTX.png',
 				chekusername: function() {
 					return true
 				},
