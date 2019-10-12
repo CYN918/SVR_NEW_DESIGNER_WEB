@@ -2570,4 +2570,8 @@ content: "";
 	background: #fff;
 	padding: 40px 0;
 }
+.emptyData{
+	background: #fff;
+	padding: 40px 0;
+}
 </style>

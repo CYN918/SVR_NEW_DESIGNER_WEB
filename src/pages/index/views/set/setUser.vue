@@ -633,6 +633,7 @@
 				})
 			},
 			showisPhto() {
+				this.caver = this.form.avatar;
 				this.$refs.upoloadcaver.setImgd(this.caver);
 				this.isPhto = true;
 			},

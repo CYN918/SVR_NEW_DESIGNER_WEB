@@ -120,6 +120,15 @@ export default {
 	mounted: function () {			
 		this.init();		
 	}, 
+	watch:{
+		'istx'(){
+			if(this.istx==''){
+				document.body.style = "";
+			}else{
+				document.body.style = "overflow: hidden;";
+			}
+		}
+	},
 	methods: {		
 		init(){			
 			this.txData.type = window.userInfo.contributor_type;

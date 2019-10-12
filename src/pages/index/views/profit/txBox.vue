@@ -876,4 +876,7 @@ export default {
 	font-size: 14px;
 	color: #999;
 }
+.botnbox>span.btn_n3{
+	border-color: #FF5121;
+}
 </style>
