@@ -12,6 +12,7 @@ export default {
 				title:'取消关注确认',
 				scroll:1,
 				cent:'是否取消关注?',
+				qFn:'Follow_del',
 			},
 			follwTyle:'',
 			follwId:''
@@ -35,6 +36,7 @@ export default {
 				}
 				this.$emit('suUnFn');
 				this.$message({message:'取消关注成功'});
+				
 				this.close();				
 			}).catch(()=>{
 				this.follwTyle = 0;		

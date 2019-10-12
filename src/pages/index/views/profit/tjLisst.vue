@@ -1,7 +1,7 @@
 <template>
 	<div v-if="list.length>0" class="tjEvent">
 		<div class="tjEvent_1">
-			推荐项目<a class="tjEvent_2 pend" @click="go('/projectAll')">查看更多</a>
+			推荐项目<a class="tjEvent_2 pend" @click="go('/project')">查看更多</a>
 		</div>
 		<ul class="tjEvent_3">
 			<li @click="goEvent(el.id)" class="pend" v-for="(el,index) in list" :key="index">

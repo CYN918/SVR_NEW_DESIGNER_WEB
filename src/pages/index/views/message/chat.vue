@@ -14,7 +14,7 @@
 									<li v-if="index==0 || (index>0 && zdOpen_id!=el.user_info.open_id)">
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div @click="cheond(index)">
-										<div class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
+										<div class="sxBodx2_2x_1Nx_1"><span class="sxBodx2_2x_1N_1">{{el.user_info.username}}</span><span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
 										<div class="sxBodx2_2x_3">{{el.last_message?el.last_message:el.user_info.vocation +' | '+el.user_info.city}}</div>
 									</div>
 									</li>
@@ -618,12 +618,17 @@ export default {
 	width: 207px;
 	min-height: 57px;
 }
-.sxBodx2_2x_1{
+.sxBodx2_2x_1Nx_1{
 	font-size: 14px;
 	line-height: 20px;
 	color: #1E1E1E;
 	margin-bottom: 5px;
-	width: 136px;
+
+}
+.sxBodx2_2x_1N_1{
+	display: inline-block;
+    vertical-align: top;
+	width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

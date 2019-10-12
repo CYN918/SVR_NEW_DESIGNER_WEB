@@ -20,14 +20,20 @@ export default {
 	},
 	methods: {
 		qdFn(){	
-			this.$parent[this.config['qFn']]();	 
+			if(this.config['qFn']){
+				this.$parent[this.config['qFn']]();	 
+				return
+			}
+		
 		},
 		show(){
 
 			this.$refs.tcBox.show();
 		},
 		close(){
-			this.$parent[this.config['closeFnd']]();
+			if(this.config['closeFnd']){
+				this.$parent[this.config['closeFnd']]();
+			}			
 			this.$refs.tcBox.close();
 		},
 	}
