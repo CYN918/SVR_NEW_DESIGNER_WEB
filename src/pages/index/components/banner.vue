@@ -113,10 +113,10 @@ export default {
     transform: translate(-35%,-50%) rotate(-45deg);
 }
 .banner_jt1{	
-    left:115px;
+    left:100px;
 }
 .banner_jt2{	
-    right: 115px;
+    right: 100px;
     -webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
 }

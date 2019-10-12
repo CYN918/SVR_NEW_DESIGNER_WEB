@@ -4,7 +4,7 @@
 					<div class="scBox suc_1">
 						<div class="suc_title">账号设置</div>
 						<div>
-							<span>手机号</span><div class="userSZ_1">{{mJs.phone_encryption(form.mobile)}}</div>
+							<span class="dqys_2">手机号</span><div class="userSZ_1">{{mJs.phone_encryption(form.mobile)}}</div>
 							<div class="userSZ_2"><span @click="openTc1(1,'手机号','修改')">修改</span></div>
 						</div>
 						<div>
@@ -30,7 +30,7 @@
 					</div>
 					<div class="scBox suc_1 suc_3">
 						<div class="suc_title">平台投稿人-认证信息</div>
-						<div class="suc_1_3">
+						<div class="suc_1_3 dqys_2">
 							<span>认证状态</span><div class="rzzt_1">
 							{{form.is_contributor==1?'已认证':form.contributor_format_status==1?'认证中':'未认证'}}
 							</div>
@@ -674,5 +674,8 @@ export default {
 <style>
 .bindwxd_1n{
 	font-size: 14px;
+}
+.suc_1>div>span.dqys_2{
+	line-height: 40px;
 }
 </style>

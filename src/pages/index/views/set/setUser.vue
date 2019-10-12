@@ -9,17 +9,17 @@
 				</div>
 			</div>
 			<div>
-				<span>用户名</span>
+				<span class="dqys_1">用户名</span>
 				<div class="xgnamed">{{form.username}}<span @click="openTc1(1)">修改</span></div>
 			</div>
 			<div>
-				<span>手机号</span>
-				<div class="xgnamed">{{phoneDm(form.mobile)}}<span @click="openTc1(2)">修改</span></div>
+				<span class="dqys_1">手机号</span>
+				<div class="xgnamed dqys_1">{{phoneDm(form.mobile)}}<span @click="openTc1(2)">修改</span></div>
 			</div>
 			<div>
-				<span>邮箱</span>
-				<div v-if="form.email" class="xgnamed">{{emailDm(form.email)}}<span @click="openTc1(3)">修改</span></div>
-				<div v-else @click="openTc1(3)" class="bindEamil">绑定邮箱</div>
+				<span class="dqys_1">邮箱</span>
+				<div v-if="form.email" class="xgnamed dqys_1">{{emailDm(form.email)}}<span @click="openTc1(3)">修改</span></div>
+				<div v-else @click="openTc1(3)" class="bindEamil dqys_1">绑定邮箱</div>
 
 			</div>
 			<div>
@@ -31,11 +31,11 @@
 				<Select class="setUserSeLET" :valued="vocationOn" :Data="zy" v-model="form.vocation"></Select>
 			</div>
 			<div>
-				<span class="lIN4">所在地</span>
+				<span class="dqys_1">所在地</span>
 				<Citys :valued="form.citye" class="setUserSeLET" v-model="form.citye"></Citys>
 			</div>
 			<div class="suc_1_3">
-				<span class="lIN4">个性签名</span>
+				<span class="dqys_1">个性签名</span>
 				<Input :valued="form.personal_sign" class="userBoxd2_1" v-model="form.personal_sign" :oType="'max'" :max="30" :chekFn="chekusername" :type="'text'" :placeholder="'请输入签名'"></Input>
 			</div>
 		</div>
@@ -644,6 +644,16 @@
 
 				this.isPhto = false;
 			},
+		},
+		watch:{
+			'isPhto'(){
+			
+				if(this.isPhto==false){
+					document.body.style = "";
+				}else{
+					document.body.style = "overflow: hidden;";
+				}
+			}
 		}
 	}
 </script>
@@ -657,5 +667,8 @@
 }
 .userFont{
 	font-size: 14px;
+}
+.suc_1 > div > span.dqys_1{
+	line-height: 20px;
 }
 </style>

@@ -539,27 +539,27 @@ img{
 	vertical-align: top;
 	width: 36px;
 	height:36px;
-	margin-top: 15.5px;
-	margin-right: 81px;
+	margin: 15px 30px;
+	background-size:100% ;
 	
 }
 .dsf_qq{
-	background:url(/imge/svg/login/qq.svg);
+	background:url(/imge/svg/login/qq.svg) no-repeat 0/100%;
 }
 .dsf_qq:hover{
-	background:url(/imge/svg/new/qq.svg);
+	background:url(/imge/svg/new/qq.svg) no-repeat 0/100%;
 }
 .dsf_wb{
-	background:url(/imge/svg/login/wb.svg);
+	background:url(/imge/svg/login/wb.svg) no-repeat 0/100%;
 }
 .dsf_wb:hover{
-	background:url(/imge/svg/new/wb.svg);
+	background:url(/imge/svg/new/wb.svg) no-repeat 0/100%;
 }
 .dsf_wx{
-	background:url(/imge/svg/login/wx.svg);
+	background:url(/imge/svg/login/wx.svg) no-repeat 0/100%;
 }
 .dsf_wx:hover{
-	background:url(/imge/svg/new/wx.svg);
+	background:url(/imge/svg/new/wx.svg) no-repeat 0/100%;
 }
 .lgoin_s6>img{
 	display: inline-block;
@@ -650,7 +650,7 @@ img{
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index:22;
+	z-index:10001;
 }
 .phoshc1{
 	width: 100%;
@@ -1596,6 +1596,7 @@ content: "";
 }
 .xgnamed{
 	min-width: 150px;
+	line-height: 20px;
 	display: inline-block;
 	vertical-align: middle;
 }

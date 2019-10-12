@@ -457,7 +457,7 @@ export default {
 	right: 0;
 	top: 0;	
 	color: #666;
-	margin-right: 60px;
+	margin-right: 100px;
 }
 .header_3>span{
 	display: inline-block;
@@ -483,7 +483,7 @@ export default {
 	width: 32px;
 	height: 32px;
 	overflow: hidden;
-	margin-right: 12px;
+	margin-right: 0;
 	overflow: hidden;
 }
 .header_4>div>img{

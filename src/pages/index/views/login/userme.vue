@@ -195,7 +195,15 @@ export default {
 		'form.citye'(){
 			this.pdys1();
 		},
-	}
+		'isPhto'(){
+			if(this.isPhto==false){
+				document.body.style = "";
+			}else{
+				document.body.style = "overflow: hidden;";
+			}
+		}
+	},
+
 }
 </script>
 

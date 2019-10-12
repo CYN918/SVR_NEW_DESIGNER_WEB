@@ -73,7 +73,9 @@ export default {
 		}
 	},	
 	mounted: function () {	
+		
 	}, 
+
 	methods: {
 		bdscff(a){
 			this.bdtj('帐号设置','基本信息-头像弹窗'+a,'--');
