@@ -51,7 +51,7 @@ export default {
 	data(){		
 		return{	
 			isPhto:false,
-			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/MRTX.png',
+			caver:'http://res.shiquaner.zookingsoft.com/a7c29ebcdd1819d76396588dc72d2770.png',
 			form:{
 				citye:[],
 				sex:'',
@@ -135,7 +135,7 @@ export default {
 			//
 			let are = this.caver;
 			if(are=='/imge/svg/MRTX.svg'){
-				are = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg';
+				are = 'http://res.shiquaner.zookingsoft.com/a7c29ebcdd1819d76396588dc72d2770.png';
 			}
 			let pr = {
 				avatar:this.caver,

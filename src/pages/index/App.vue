@@ -1711,6 +1711,7 @@ content: "";
 }
 .tc_sucd_1{
 	padding: 30px 40px 8px;
+	font-size: 14px;
 }
 .tc_sucd_1_1{
 
@@ -2563,5 +2564,10 @@ content: "";
 }
 .worksBox_1n_1{
 	color:#666;
+}
+
+.seccPr .emptyData,.searUr .emptyData,.seccWr .emptyData{
+	background: #fff;
+	padding: 40px 0;
 }
 </style>

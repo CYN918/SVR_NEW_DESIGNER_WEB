@@ -341,6 +341,7 @@ export default {
 }
 .upfdb_txt{
 	display: inline-block;vertical-align: top;
+	margin-left: 116px;
     width: 450px;
 }
 
@@ -353,14 +354,14 @@ export default {
 }
 .block{
     display: block;
- 
-    width: 133px;
-    max-height: 100px;
+	width: 550px;
 }
 .block>div{
 	margin-top: 18px;
 }
 .picURl{
+	display: inline-block;
+	vertical-align: top;
 	cursor: pointer;
 	position: relative;
     border: 1px solid #ddd;

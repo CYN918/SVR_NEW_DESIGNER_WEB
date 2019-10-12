@@ -106,7 +106,6 @@ export default {
 <style>
 .searchHaed{
 	background: #FFFFFF;
-	margin-bottom: 20px;
 	width: 100%;
 }
 .sea_1{
