@@ -135,8 +135,8 @@
 				<div class="pr_xx_btns botnbox">
 					<span v-if="typedon>0" @click="next_x(-1)">上一步</span>
 					<span v-if="typedon==0" @click="goUpsuer()">修改银行信息</span>
-					<span v-if="backisnext()" @click="next_x(1)" class="ysHei">下一步</span>
-					<span v-if="backPusbtn()" @click="pushData" class="ysHei">完成</span>
+					<span v-if="backisnext()" @click="next_x(1)" class="btn_n3">下一步</span>
+					<span v-if="backPusbtn()" @click="pushData" class="btn_n3">完成</span>
 				</div>
 			</div>
 	

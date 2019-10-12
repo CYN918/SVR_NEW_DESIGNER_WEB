@@ -52,10 +52,12 @@ export default {
 		},
 		go(a){
 			this.bdtj('我的收益','推荐活动更多','--');
+			this.mJs.scTop(1);
 			this.$router.push({path:a});
 		},
 		goEvent(id){
 			this.bdtj('我的收益','推荐活动','--');
+			this.mJs.scTop(1);
 			this.$router.push({path:'/prcent',query:{id:id}});
 		},
 	},

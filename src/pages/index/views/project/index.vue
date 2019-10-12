@@ -74,7 +74,7 @@ export default {
 			this.$router.push({path:on,query:cs})	
 		},
 		getCl(){
-			this.mJs.scTop(1)
+			this.mJs.scTop(1);		
 			this.api.pr_classifyInfo().then((da)=>{
 				if(da=='error'){
 					return

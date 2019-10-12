@@ -87,7 +87,10 @@ export default {
 				let oid = this.$route.query.on;
 				if(oid){
 					this.navdOn = oid.substring(0,1)-1;
-					this.goAnchor('#problem_'+oid);
+					setTimeout(()=>{
+						this.goAnchor('#problem_'+oid);
+					},50);
+					
 					return
 				}	
 				this.navdOn = 0;

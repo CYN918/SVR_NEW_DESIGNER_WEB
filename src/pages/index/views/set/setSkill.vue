@@ -141,8 +141,8 @@ export default {
 			if(!this.add_pz_style){
 				return
 			}
-			if(this.add_pz_style.length>2){
-				Message({message: '最多2个文字'});
+			if(this.add_pz_style.length>4){
+				Message({message: '最多4个文字'});
 				return
 			}
 			if(this.pz_style.indexOf(this.add_pz_style)!=-1){
