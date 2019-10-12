@@ -75,7 +75,7 @@ export default {
 		},
 		getCl(){
 			this.mJs.scTop(1)
-			this.api.pr_classify().then((da)=>{
+			this.api.pr_classifyInfo().then((da)=>{
 				if(da=='error'){
 					return
 				}				

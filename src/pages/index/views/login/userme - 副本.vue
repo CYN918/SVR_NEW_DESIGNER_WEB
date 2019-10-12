@@ -50,7 +50,7 @@ export default {
 	data(){		
 		return{	
 			isPhto:false,
-			caver:'https://zk-new-designer.oss-cn-beijing.aliyuncs.com/MRTX.svg',
+			caver:'/imge/svg/MRTX.svg',
 			form:{
 				citye:[],
 				sex:'',
@@ -140,7 +140,7 @@ export default {
 			//
 			let are = this.caver;
 			if(are=='/imge/svg/MRTX.svg'){
-				are = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/MRTX.svg';
+				are = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg';
 			}
 			let pr = {
 				access_token:window.userInfo.access_token,

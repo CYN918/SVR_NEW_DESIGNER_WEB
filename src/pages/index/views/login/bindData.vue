@@ -68,7 +68,7 @@ export default {
 		return{	
 			
 			isPhto:false,
-			caver:'/imge/svg/MRTX.svg',
+			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg',
 			form:{
 				citye:[],
 				sex:'',

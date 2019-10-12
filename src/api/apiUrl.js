@@ -330,5 +330,9 @@ export default {
 		url:'/api/project/recommend',method:'post',baseURL:0,
 	},
 	
+	pr_classifyInfo:{
+		url:'/api/project/classifyInfo',method:'post',baseURL:0,
+	},
+	
 	
 }

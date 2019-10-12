@@ -135,7 +135,7 @@ export default {
 			//
 			let are = this.caver;
 			if(are=='/imge/svg/MRTX.svg'){
-				are = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/MRTX.svg';
+				are = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/MRTX.svg';
 			}
 			let pr = {
 				avatar:this.caver,
