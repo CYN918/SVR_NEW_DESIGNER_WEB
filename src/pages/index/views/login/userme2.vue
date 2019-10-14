@@ -2,14 +2,21 @@
 	<div>
 		<div class="yhtop setBin_1">
 			<div class="yhtop1 ">用户资料完善</div>
-			<div class="yhtop2">
-				<div>
-					基本信息设置 
-					<div class="yhtop2Box">
-						<span @click="chekNav(0)" :class="['pend',navOn==0?'router-link-active':'']">完善资料</span>
-						<span @click="chekNav(1)" :class="['pend',navOn==1?'router-link-active':'']">绑定已有帐号</span>
-					</div>
-				</div>
+			<div class="yhtop2 userme2top">
+				<pTop class="" :cn="topCn">
+					<template v-slot:todo="{ todo }">
+						<div>
+							基本信息设置 
+							<div class="yhtop2Box">
+								<span @click="chekNav(0)" :class="['pend',navOn==0?'router-link-active':'']">完善资料</span>
+								<span @click="chekNav(1)" :class="['pend',navOn==1?'router-link-active':'']">绑定已有帐号</span>
+							</div>
+						</div>
+					</template>		
+				</pTop>
+				
+				
+				
 			</div>
 			<bindData v-if="navOn==0"></bindData>
 			<bindUser v-if="navOn==1"></bindUser>	
@@ -22,12 +29,16 @@
 import bindData from './bindData';
 import bindUser from './bindUser';
 import Footer from '../footer';
+import pTop from '../../components/postionTop';
 export default {
 	name: 'login',
-	components:{bindData,bindUser,Footer},
+	components:{bindData,bindUser,Footer,pTop},
 	data(){		
 		return{	
-			navOn:0,		
+			navOn:0,
+			topCn:{
+				min:66,
+			},			
 		}
 	},
 	mounted: function () {}, 
@@ -138,6 +149,10 @@ export default {
 	display: flex;
 	margin-bottom: 27px;
 }
+
+.userBoxd .phone_1{
+	font-size: 14px;
+}	
 .userBoxd>span{
 	display: inline-block;
 	vertical-align: middle;
@@ -207,5 +222,20 @@ export default {
 }
 .newUserme2x_1 .userBoxd{
 	height: 60px;
+}
+.userme2top .p_isTop{
+	z-index: 1000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-width: 1300px;
+	background: #fff;
+}
+.userme2top .p_isTop>div{
+	
+	text-align: left;
+	width: 860px;
+	margin: 0 auto;
 }
 </style>

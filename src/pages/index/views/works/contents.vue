@@ -164,7 +164,7 @@ export default {
 				pr.access_token = window.userInfo.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error'){this.$router.push({path: '/error'});return}
 				da.labels = JSON.parse(da.labels)
 				this.contDat = da;
 				

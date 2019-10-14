@@ -287,8 +287,6 @@ function setTitle(t){
 	}
 	
 }
-
-
 router.beforeEach((to, from, next) => {
 //	window.removeEventListener('mousewheel',window.dwzFn);
 	document.body.style = "";
