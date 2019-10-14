@@ -186,7 +186,7 @@ export default {
 		return{
 			new_c_3focus:'',
 			outc:{
-				title:'删除评论确认',
+				title:'删除评论',
 				scroll:1,
 				cent:'确定删除该条评论?',
 			},

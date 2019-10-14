@@ -93,7 +93,11 @@ export default {
 					
 					return
 				}	
-				this.navdOn = 0;
+				
+				setTimeout(()=>{
+					this.setNavd(0);
+				},25)
+				
 				return
 			}			
 			this.isJD = 1;

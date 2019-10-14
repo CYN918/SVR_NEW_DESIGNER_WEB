@@ -64,7 +64,7 @@
 				</div>
 				<div class="pushDeletBox5">
 					<span @click="gopushzp" class="pend">发布新作品</span>
-					<span @click="pushOk" class="pend">确定上传</span>
+					<span @click="pushOk" class="pend btn_n3">上传</span>
 				</div>
 				
 			</template>			
@@ -501,8 +501,8 @@ export default {
 }
 .pushDeletBox5>span:nth-child(2){
 	margin-left: 20px;
-	background: #333333;
-	border-color: #333333;
+	background: #FF5121;
+	border-color: #FF5121;
 	color: #fff;
 }
 	

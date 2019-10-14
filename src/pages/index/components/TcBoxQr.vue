@@ -24,6 +24,7 @@ export default {
 				this.$parent[this.config['qFn']]();	 
 				return
 			}
+			this.$emit('qFn')
 		
 		},
 		show(){

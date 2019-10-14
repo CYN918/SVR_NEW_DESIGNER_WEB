@@ -550,16 +550,16 @@ img{
 	background:url(/imge/svg/new/qq.svg) no-repeat 0/100%;
 }
 .dsf_wb{
-	background:url(/imge/svg/login/wb.svg) no-repeat 0/100%;
+	background:url(/imge/svg/login/wb.svg) no-repeat 0 0/100%;
 }
 .dsf_wb:hover{
-	background:url(/imge/svg/new/wb.svg) no-repeat 0/100%;
+	background:url(/imge/svg/new/wb.svg) no-repeat 0 0/100%;
 }
 .dsf_wx{
-	background:url(/imge/svg/login/wx.svg) no-repeat 0/100%;
+	background:url(/imge/svg/login/wx.svg) no-repeat 0 0/100%;
 }
 .dsf_wx:hover{
-	background:url(/imge/svg/new/wx.svg) no-repeat 0/100%;
+	background:url(/imge/svg/new/wx.svg) no-repeat 0 0/100%;
 }
 .lgoin_s6>img{
 	display: inline-block;
