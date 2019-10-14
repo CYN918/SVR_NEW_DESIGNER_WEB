@@ -18,11 +18,20 @@
 			</div>
 			</div>
 		</div>
-		<div class="detail_nav">
-			<a  @click="godefle('/detailed')" :class="['pend',ond==1?'router-link-exact-active':'']">活动详情</a>
-			<a v-if="infoData.setting_type>2"  @click="godefle('/detailed/into')" :class="['pend',ond==2?'router-link-exact-active':'']">入围作品</a>
-			<a v-if="infoData.setting_type>3" @click="godefle('/detailed/admission')" :class="['pend',ond==3?'router-link-exact-active':'']">录用作品</a>				
-			<span @click="fxclick" class="detail_nav_1 iconfont pend">&#xe64c; 分享</span>
+		<div class="detail_navN_1">
+			<pTop class="" :cn="topCn">
+				<template v-slot:todo="{ todo }">
+					<div class="detail_nav">
+					<a  @click="godefle('/detailed')" :class="['pend',ond==1?'router-link-exact-active':'']">活动详情</a>
+					<a v-if="infoData.setting_type>2"  @click="godefle('/detailed/into')" :class="['pend',ond==2?'router-link-exact-active':'']">入围作品</a>
+					<a v-if="infoData.setting_type>3" @click="godefle('/detailed/admission')" :class="['pend',ond==3?'router-link-exact-active':'']">录用作品</a>				
+					<span @click="fxclick" class="detail_nav_1 iconfont pend">&#xe64c; 分享</span>
+					</div>
+				</template>		
+			</pTop>
+			
+			
+			
 		</div>
 		
 		<div class="Acomd">
@@ -97,8 +106,9 @@ import detailed_detailed from './detailed';
 import detailed_into from './into';
 import detailed_admission from './admission';
 import TcBox from '../../components/TcBox';
+import pTop from '../../components/postionTop';
 export default {
-	components:{fxd,detailed_detailed,detailed_into,detailed_admission,TcBox},
+	components:{fxd,detailed_detailed,detailed_into,detailed_admission,TcBox,pTop},
 	name: 'home',	 
 	data(){	
 		return{
@@ -106,7 +116,9 @@ export default {
 			config:{
 				title:'选择参与活动的作品',
 			},
-			
+			topCn:{
+				min:680,
+			},	
 			shareData:{},
 		    show:false,
 			ishowWp:'',
@@ -353,7 +365,6 @@ export default {
 .detail_topBox{
 	min-width: 1300px;	
 	position: relative;	
-	margin-bottom: 30px;
 	
 }
 
@@ -385,7 +396,7 @@ export default {
 	margin-right: 15px;
 }
 .detail_topBox_2_2{
-	background: #FF5121;
+	background: #33B3FF;
 }
 .detail_topBox_2_3{
 	font-size: 24px;
@@ -394,8 +405,21 @@ export default {
 .detail_nav{
 	line-height: 40px;
 	text-align: left;
+	padding: 30px 0;
 	width: 1300px;
-	margin: 0 auto 33px;
+	margin: 0 auto;
+}
+.detail_navN_1{
+	height: 100px;
+}
+.detail_navN_1 .p_isTop{
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;	
+	width: 100%;
+	-webkit-animation: bjs .3s linear forwards;
+	animation: bjs .3s linear forwards;
 }
 .detail_nav>a{
 	display: inline-block;
@@ -406,6 +430,9 @@ export default {
 	height: 37px;
 	position: relative;
 }
+.detail_nav>a.router-link-exact-active{
+	color: #33B3FF;
+}
 .detail_nav>a.router-link-exact-active:after{
 	content: "";
 	position: absolute;
@@ -414,7 +441,7 @@ export default {
 	transform: translateX(-50%);
 	width: 80%;
 	height: 2px;
-	background: #FF5121;
+	background: #33B3FF;
 } 
 .detail_nav_1{
 	float: right;
@@ -501,8 +528,8 @@ export default {
 }
 .pushDeletBox5>span:nth-child(2){
 	margin-left: 20px;
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 	color: #fff;
 }
 	
@@ -548,7 +575,7 @@ export default {
 	margin-right: 0;
 }
 .zp_box>li.chekonzp{
-	border-color: #FF5121;
+	border-color: #33B3FF;
 }
 .zp_box_1{
 	display: block;

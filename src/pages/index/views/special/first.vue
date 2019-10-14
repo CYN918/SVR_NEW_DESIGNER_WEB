@@ -93,7 +93,7 @@ export default {
 	line-height:20px;
 }
 .special_first_2>div>div>span{
-	color: #FF5121;
+	color: #33B3FF;
 }
 
 .special_first_t{
@@ -112,7 +112,7 @@ export default {
 	line-height:22px;
 }
 .special_first_c>span{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .special_first_btn_1{
     position: absolute;

@@ -158,8 +158,8 @@ export default {
 	margin-right: 20px;
 }
 .ques_02 span.chekdOn{
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 }
 .ques_02 span.chekdOn:after{
     content: "";

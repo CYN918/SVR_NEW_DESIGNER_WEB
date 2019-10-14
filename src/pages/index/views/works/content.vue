@@ -752,7 +752,7 @@ export default {
 <style>
 .iconfont{cursor: pointer}
 .iscsbtn{
-	background: #FF5121 !important;
+	background: #33B3FF !important;
 }
 .seed1_2_5xx{
 	margin: 40px auto;

@@ -98,7 +98,7 @@ export default {
 }
 
 .msc_2>div.onca{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .msc_2>div:hover{
 	background:rgba(242,242,242,1);

@@ -367,7 +367,7 @@ export default {
 	top: 0;
 	display: inline-block;
 	font-size: 14px;
-	color: #FF5121;
+	color: #33B3FF;
 	text-align: right;
 	padding-left: 20px;
 }

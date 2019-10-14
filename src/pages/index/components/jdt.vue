@@ -94,15 +94,15 @@ export default {
 	transform: rotate(225deg);
 }
 .rightcircle{
-    border-top:3px solid #FF5121;
-    border-right:3px solid #FF5121;
+    border-top:3px solid #33B3FF;
+    border-right:3px solid #33B3FF;
     right:0;
 	-webkit-transition: -webkit-transform .1s linear;
 	transition: transform .1s linear;
 }
 .leftcircle{
-    border-bottom:3px solid #FF5121;
-    border-left:3px solid #FF5121;
+    border-bottom:3px solid #33B3FF;
+    border-left:3px solid #33B3FF;
     left:0;
 	-webkit-transition: -webkit-transform .1s linear;
 	transition: transform .1s linear;

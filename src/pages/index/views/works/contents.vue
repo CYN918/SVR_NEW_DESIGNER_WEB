@@ -213,7 +213,7 @@ export default {
 }
 .ylzp_1{
 	font-size:16px;
-	color:#FF5121;
+	color:#33B3FF;
 	line-height:60px;
 	background: rgba(255,81,33,.1);
 	height: 60px;

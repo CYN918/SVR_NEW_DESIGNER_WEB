@@ -114,7 +114,7 @@ export default {
 	transform: rotate(45deg);
 	width: 8px;
 	height: 8px;
-	background: #FF5121;
+	background: #33B3FF;
 	margin: 0 10px;
 }
 .hotCent2>div{

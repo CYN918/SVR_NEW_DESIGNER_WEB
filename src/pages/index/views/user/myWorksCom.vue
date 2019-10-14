@@ -628,7 +628,7 @@ export default {
 	
 }
 .myListBox_4>span:hover{
-	color: #FF5121;
+	color: #33B3FF;
 }
 
 .myListBox_6{
@@ -859,8 +859,8 @@ export default {
 	height: 8px;
 }
 .chekdOn>div{
-	background: #FF5121;
-	border-color: #FF5121 !important;
+	background: #33B3FF;
+	border-color: #33B3FF !important;
 }
 .setDatasXX_7{
 	width: 100%;
@@ -925,7 +925,7 @@ export default {
 	margin-right: 10px;
 }
 .istageok{
-	background: #FF5121;
+	background: #33B3FF;
 }
 .setDatasXX_4_3qz{
 	height: 40px !important;

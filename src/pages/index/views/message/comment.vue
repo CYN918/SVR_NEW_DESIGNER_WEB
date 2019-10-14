@@ -352,7 +352,7 @@ export default {
 
 <style>
 .iscsbtn{
-	background: #FF5121 !important;
+	background: #33B3FF !important;
 }
 .ms_r_c_1>div{
 	background: rgba(255,255,255,1);

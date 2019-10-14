@@ -155,7 +155,7 @@ export default {
 	width: 140px;
 	height: 40px;
 	line-height: 40px;
-	background: #FF5121;
+	background: #33B3FF;
 	border-radius: 5px;
 }
 .forddf_btnd:hover{

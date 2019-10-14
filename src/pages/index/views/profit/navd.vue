@@ -95,7 +95,7 @@ export default {
 	content: "";
 	display: block;
 	margin: 0 auto;
-	background: #FF5121;
+	background: #33B3FF;
 	width: 100%;
 	height: 2px;
 	

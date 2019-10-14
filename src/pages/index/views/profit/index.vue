@@ -293,8 +293,8 @@ export default {
 	border: 1px solid #999;
 }
 .btndfys{
-	border-color: #FF5121;
-	background: #FF5121;
+	border-color: #33B3FF;
+	background: #33B3FF;
 	color: #fff;
 }
 .pbx_1_1_1{
@@ -456,7 +456,7 @@ export default {
 	margin-bottom: 14px;
 }
 .sytc_2>div.sydpjcOn{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .sytc_2>div.sydpjcOn~div{
 	color:rgba(51,51,51,1);

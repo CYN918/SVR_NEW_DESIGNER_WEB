@@ -77,7 +77,7 @@ export default {
 	margin-right: 0;
 }
 .setHeadBox_3>a.router-link-active{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .setHeadBox_3>a.router-link-active:after{
 	content: "";
@@ -87,10 +87,10 @@ export default {
 	
 	width: 90%;
 	height: 2px;
-	background: #FF5121;
+	background: #33B3FF;
 }
 .setHeadBox_3>a:hover{
-	color: #FF5121;
+	color: #33B3FF;
 	opacity: .7;
 }
 </style>

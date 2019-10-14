@@ -157,7 +157,7 @@ export default {
 	border-bottom: 1px solid #f6f8fa;
 }
 .noDatawan{
-	color: #ff5121;
+	color: #33B3FF;
     margin-top: 18px;
 }
 </style>

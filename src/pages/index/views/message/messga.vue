@@ -83,7 +83,7 @@ export default {
     font-size:14px;
 	color:rgba(153,153,153,1);
 	line-height:24px;
-	color: #FF5121;  
+	color: #33B3FF;  
 }
 .ms_r_2>img{
 	display: block;

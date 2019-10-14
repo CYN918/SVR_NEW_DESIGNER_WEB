@@ -205,7 +205,7 @@ color: #666666;
 	opacity: 0;
 }
 .citysbos3_1>.onchek>span:after{
-	border: 2px solid #FF5121;
+	border: 2px solid #33B3FF;
 }
 .citysbos3_2{
 	display: flex;

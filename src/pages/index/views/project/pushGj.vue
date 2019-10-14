@@ -280,7 +280,7 @@ export default {
 	line-height:22px;
 }
 .pushGj_02 .el-upload-dragger .el-upload__text em{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .pushGj_02 .el-upload-dragger .el-icon-upload{
 	margin: 39px auto 12px;
@@ -316,7 +316,7 @@ export default {
 	line-height:20px;
 }
 .pushGj_02 .el-upload-dragger{
-	border-color: #FF5121 !important;
+	border-color: #33B3FF !important;
 }
 .bmXm_01Btn{
 	position: relative;
@@ -367,7 +367,7 @@ export default {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background:#FF5121;
+	background:#33B3FF;
 	border-radius:32px;
 	-webkit-transform: translateX(-100%);
     transform: translateX(-100%);
@@ -380,7 +380,7 @@ export default {
 }
 .bmXm_01Btn_1{
 	position: absolute;
-	color: #FF5121;
+	color: #33B3FF;
 	left: 20px;
 	top: 0;
 	height: 79px;
@@ -420,14 +420,14 @@ export default {
 	opacity: .7;
 }
 .pushOx{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .pushOx:after{
 	content: "";
 	position: absolute;
 	bottom: -9px;
 	left: 10%;
-	background: #FF5121;
+	background: #33B3FF;
 	width: 80%;
 	height: 1px;
 }

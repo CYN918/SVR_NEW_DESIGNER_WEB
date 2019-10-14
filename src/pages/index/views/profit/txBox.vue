@@ -692,7 +692,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #FF5121;
+    background: #33B3FF;
 }
 .up_fp .botnbox{
 	text-align: left;
@@ -751,7 +751,7 @@ export default {
 	position: absolute;
     right: 0;
     top: 0;
-    color: #FF5121;
+    color: #33B3FF;
     font-size: 14px;
 }
 .hm{
@@ -877,6 +877,6 @@ export default {
 	color: #999;
 }
 .botnbox>span.btn_n3{
-	border-color: #FF5121;
+	border-color: #33B3FF;
 }
 </style>

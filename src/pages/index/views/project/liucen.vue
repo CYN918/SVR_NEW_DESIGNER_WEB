@@ -89,6 +89,6 @@ export default {
 	margin-bottom: 5px;
 }
 .centLcen_2_2>a:hover{
-	color:#ff5121;
+	color:#33B3FF;
 }
 </style>

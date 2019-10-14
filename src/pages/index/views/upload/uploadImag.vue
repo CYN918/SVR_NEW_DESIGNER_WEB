@@ -471,7 +471,7 @@ export default {
 	position: relative;
 	width: 120px;
 	height: 40px;
-	background: #FF5121;
+	background: #33B3FF;
 	border-radius: 5px;
 	font-size: 14px;
 	color: #FFFFFF;
@@ -606,7 +606,7 @@ export default {
 .qxclos{
 	cursor: pointer;
     font-size: 14px;
-    color: #FF5121;
+    color: #33B3FF;
     position: absolute;
     bottom: 15px;
     text-align: center;
@@ -659,15 +659,15 @@ export default {
 	transform: rotate(225deg);
 }
 .rightcircle{
-    border-top:3px solid #FF5121;
-    border-right:3px solid #FF5121;
+    border-top:3px solid #33B3FF;
+    border-right:3px solid #33B3FF;
     right:0;
 	-webkit-transition: -webkit-transform .1s linear;
 	transition: transform .1s linear;
 }
 .leftcircle{
-    border-bottom:3px solid #FF5121;
-    border-left:3px solid #FF5121;
+    border-bottom:3px solid #33B3FF;
+    border-left:3px solid #33B3FF;
     left:0;
 	-webkit-transition: -webkit-transform .1s linear;
 	transition: transform .1s linear;
@@ -701,8 +701,8 @@ export default {
 	border-radius: 2px;
 }
 .zzched2{
-	border-color: #FF5121;
-	background: #FF5121;
+	border-color: #33B3FF;
+	background: #33B3FF;
 }
 .imgxzd{
 	position: relative;

@@ -137,7 +137,7 @@ export default {
 	margin-right: 64px;
 }
 .sea_on{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .sea_on:after{
 	position: absolute;
@@ -146,7 +146,7 @@ export default {
 	left: 50%;
 	-webkit-transform: translate(-50%,10%);
 	transform: translate(-50%,10%);
-	background: #FF5121;
+	background: #33B3FF;
 	width: 80%;
 	height: 2px;
 }

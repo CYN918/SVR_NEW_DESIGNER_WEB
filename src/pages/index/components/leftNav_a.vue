@@ -91,14 +91,14 @@ export default {
     cursor: pointer;
 }
 .leftNav_a2>div.action {
-    color: #FF5121;
+    color: #33B3FF;
 }
 .leftNav_a2>div.action:after {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
-    background: #FF5121;
+    background: #33B3FF;
     width: 3px;
     height: 100%;
 }

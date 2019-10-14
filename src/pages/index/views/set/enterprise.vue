@@ -704,7 +704,7 @@ export default {
 	margin-left: 33px;
 }
 .suc_1>.suc_1_9>span.suc_1_9_c1n:hover{
-	color: #FF5121;
+	color: #33B3FF;
 	
 }
 

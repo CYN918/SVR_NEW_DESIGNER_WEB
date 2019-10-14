@@ -43,7 +43,7 @@ export default {
 .footer_3{
     width: 14.3rem;
     height: 1.8rem;
-    background: #ff5121;
+    background: #33B3FF;
     margin: 0 auto;
 	border-radius: .2rem;
     font-size: .776rem;

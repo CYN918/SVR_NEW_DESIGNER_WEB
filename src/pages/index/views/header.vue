@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/nav_logo.svg" @click="jump">
+		<img class="header_1 pend" src="/imge/new/header/logo.svg" @click="jump">
 		
 		<div class="header_2">
 			<a 
@@ -430,10 +430,9 @@ export default {
 }
 .header_1{
 	position: absolute;
-	top: 11px;
+	top: 16px;
 	left: 100px;   
-    width: 104px;
-    height: 34px;
+    width: 134px;
 }
 .header_2{
 	text-align: left;
@@ -448,7 +447,7 @@ export default {
 	line-height: 60px;
 }
 .header_2>a.router-link-active{
-    color: #FF5121;
+    color: #33B3FF;
 }
 
 

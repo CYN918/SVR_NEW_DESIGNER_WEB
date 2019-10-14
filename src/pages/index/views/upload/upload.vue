@@ -116,7 +116,15 @@
 			<div class="UpBtn1_1" v-if="!chekin" @click="setChekin(true,'上一步')">上一步</div><div @click="userSave" class="UpBtn1_1">保存</div><div v-if="chekin" :class="['UpBtn1_2',ck2]" @click="setChekin(false,'下一步')">下一步</div>
 			<div class="UpBtn1_1" @click="seeCg" v-if="!chekin">预览</div><div @click="savZp" :class="['UpBtn1_2',ck3]" v-if="!chekin">提交发布</div>
 		</div>
-		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver" :InputValue="form.work_name" :type="selectedOptions"></upoloadcaver>
+		
+				<!-- <upoloadcaver @close="close" ref="upoloadcaver" :InputValue="form.work_name" :type="selectedOptions"></upoloadcaver> -->
+		
+			
+		<TcBox :config="outc" ref="tcBox">
+			<template v-slot:todo="{ todo }">
+				<component v-bind:is="tcZj"  :datad="tcData"></component>
+			</template>
+		</TcBox>
 	</div>
 </template>
 
@@ -124,18 +132,24 @@
 import VueUeditorWrap from 'vue-ueditor-wrap'
 import UplodImg from './uploadImag'
 import Input from '../../components/input'
-import upoloadcaver from './uploadFm';
+import uploadFm from './uploadFm';
 import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
+import TcBox from '../../components/TcBox'
 export default {
 	name: 'index',
-	components:{VueUeditorWrap,UplodImg,Input,upoloadcaver},
+	components:{VueUeditorWrap,UplodImg,Input,uploadFm,TcBox},
 	data(){
 		return{
+			outc: {
+				title: '上传封面',
+			},
+			tcZj:'',
+			tcData:{},
 			isUpd:'',
 			ifBjType:0,
 			bqList:[{label:'禁止匿名转载；禁止商业使用；禁止个人使用。'},{label:'禁止匿名转载；禁止商业使用。'},{label:'不限制用途。'}],
-			isPhto:false,
+			isPhto:true,
 			chekin:true,
 			isshowT1:false,
 			isshowT2:false,
@@ -273,7 +287,12 @@ export default {
 		this.getUserDetail();
 	}, 
 	methods: {
-		
+		showTc() {
+			this.$refs.tcBox.show();
+		},
+		closeTc() {
+			this.$refs.tcBox.close();
+		},
 		getUserDetail(){
 			if(!window.userInfo){
 				this.$router.push({path:'/login'})
@@ -343,12 +362,22 @@ export default {
 			this.closeTd('isshowT2');
 		},
 		showupFm(){
-			this.bdtj('上传作品-其他信息设置','上传封面','--');
-			this.isPhto = true;
-			this.$refs.upoloadcaver.setImgd(this.form.face_pic,this.form.work_id);
+			this.tcData = {
+				avatar:window.userInfo.avatar,
+				work_name:this.form.work_name,
+				face_pic:this.form.face_pic,
+				work_id:this.form.work_id
+			};
+			
+			this.tcZj = 'uploadFm';
+			this.showTc();
+			// this.bdtj('上传作品-其他信息设置','上传封面','--');
+			// this.isPhto = true;
+			// this.showupFm();
+			// this.$refs.upoloadcaver.setImgd(this.form.face_pic,this.form.work_id);
 		},
 		close(img,fmid){
-			this.isPhto = false;
+			this.closeTc();
 			if(img){
 				this.form.face_pic = img;
 			}	
@@ -867,7 +896,7 @@ export default {
 	font-weight: 200;
 }
 .onchekd:after{
-	background: #FF5121;
+	background: #33B3FF;
 }
 .upBoxd>div{
 	display: inline-block;
@@ -988,8 +1017,8 @@ export default {
 	margin-right: 0;
 }
 .UpBtn1_2.onck2 {
-    background: #FF5121;
-    border-color: #FF5121;
+    background: #33B3FF;
+    border-color: #33B3FF;
 }
 .page2_1{
 	box-sizing: border-box;
@@ -1077,7 +1106,7 @@ export default {
 	font-size: 21px;
 	text-align: center;
 	line-height: 22.9px;
-	background: #FF5121;
+	background: #33B3FF;
 	color:  #E6E6E6;
 	margin: 84px auto 11px;
 }
@@ -1152,7 +1181,7 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: #FF5121;
+	background: #33B3FF;
 	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
 }
@@ -1392,8 +1421,8 @@ export default {
 	color: #333333;
 }
 .page2_1_7_r .chekdOn>div{
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 }
 .el-select{width: 100%}
 .upBoxd1_2 iframe{
@@ -1401,10 +1430,10 @@ export default {
 	box-sizing: border-box;
 }
 .el-cascader .el-input.is-focus .el-input__inner{
-	border-color: #FF5121 !important;
+	border-color: #33B3FF !important;
 }
 .el-input.is-active .el-input__inner, .el-input__inner:focus{
-	border-color: #FF5121 !important;
+	border-color: #33B3FF !important;
 }
 .edui-default .edui-editor-toolbarbox{
 	position: relative !important; 
@@ -1436,7 +1465,7 @@ export default {
 	margin-right: 10px;
 }
 .istageok{
-	background: #FF5121;
+	background: #33B3FF;
 }
 #edui1>div:first-child{
 	height: 0 !important;

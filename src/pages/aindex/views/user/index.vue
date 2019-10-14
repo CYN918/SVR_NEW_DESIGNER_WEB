@@ -137,7 +137,7 @@ export default {
 	margin:px2rem(5) auto 0;
 	width: 100%;
 	height: px2rem(1);
-	background:#FF5121;
+	background:#33B3FF;
 	
 }
 </style>

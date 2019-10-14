@@ -546,8 +546,8 @@ export default {
 	cursor: pointer;
 }
 .follwfs_5>span:last-child{
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 	color: #fff;
 }
 .wsjzt{

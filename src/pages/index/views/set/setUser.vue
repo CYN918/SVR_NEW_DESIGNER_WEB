@@ -634,6 +634,7 @@
 			},
 			showisPhto() {
 				this.caver = this.form.avatar;
+				console.log(this.caver);
 				this.$refs.upoloadcaver.setImgd(this.caver);
 				this.isPhto = true;
 			},

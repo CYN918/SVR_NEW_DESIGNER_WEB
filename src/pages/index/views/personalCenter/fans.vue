@@ -201,7 +201,7 @@ export default {
 	color: #333333;
 }
 .worksBox_2__x_1_1x_c>.oncdf{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .worksBox_2__x_1_1x_c>div:hover{
 	background: #E6E6E6;
@@ -272,8 +272,8 @@ export default {
 	cursor: pointer;
 }
 .follwfs_5>span:last-child{
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 	color: #fff;
 }
 </style>

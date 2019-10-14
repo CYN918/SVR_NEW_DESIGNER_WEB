@@ -565,7 +565,7 @@ export default {
 	line-height: 60px;
 }
 .sxBodx2_1_n1x{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .sxBodx2_1_n1x:after{
 	position: absolute;
@@ -576,7 +576,7 @@ export default {
 	transform: translate(-50%,50%);
 	width: 48px;
 	height: 2px;
-	background: #FF5121;
+	background: #33B3FF;
 }
 .sxBodx3_1_1{
 	line-height: 60px;
@@ -685,7 +685,7 @@ export default {
 }
 .sxBodx3_2x_5{
 	text-align: left;
-	background: #FF5121;
+	background: #33B3FF;
 	color: #fff;
 }
 .sxBodx3_2x_2{
@@ -728,7 +728,7 @@ export default {
 .sxBodx3_2x_5:after{
     top: 19px;
     right: -5px;
-    background: #ff5121;
+    background: #33B3FF;
 }
 .sxBodx2_3xx{
 	height: 100px;
@@ -783,7 +783,7 @@ export default {
 	background: rgba(244, 244, 244, 0.46);
 }
 .iscsbtn{
-	background: #FF5121 !important;
+	background: #33B3FF !important;
 }
 .zdxs{
     position: absolute;

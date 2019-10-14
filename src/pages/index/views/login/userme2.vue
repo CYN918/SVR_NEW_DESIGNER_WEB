@@ -169,7 +169,7 @@ export default {
     width: 296px;
 }
 .btnType{
-	background: #FF5121;
+	background: #33B3FF;
 }
 .newUserme_x1{
 	width: 350px;
@@ -209,7 +209,7 @@ export default {
 }
 
 .yhtop2Box>span.router-link-active {
-    color: #FF5121;
+    color: #33B3FF;
 }
 .yhtop2Box>span.router-link-active:after {
     content: "";
@@ -218,7 +218,7 @@ export default {
     left: 5%;
     width: 90%;
     height: 2px;
-    background: #FF5121;
+    background: #33B3FF;
 }
 .newUserme2x_1 .userBoxd{
 	height: 60px;

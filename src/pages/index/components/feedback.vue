@@ -435,7 +435,7 @@ export default {
     margin-right: 25px;
 }
 .tj{
-    background: #FF5121;
+    background: #33B3FF;
     color: #FFFFFF;
 }
 .input_img[data-v-91b125d6]{

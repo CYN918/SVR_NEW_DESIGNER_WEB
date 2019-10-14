@@ -186,8 +186,8 @@ export default {
 	margin-right: 20px;
 }
 .bmXm_01_1 span.chekdOn{
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 }
 .bmXm_01_1 span.chekdOn:after{
     content: "";

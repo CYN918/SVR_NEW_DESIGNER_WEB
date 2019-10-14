@@ -94,7 +94,35 @@ export default {
 		
 		return Y+f+this.nt(M)+f+this.nt(D)+' '+h+':'+m+':'+s; 
 	},
-	
+	getTimes:function(ont) {
+		let times = (new Date(ont)).getTime(),
+		nowt = new Date().getTime(),
+		pt = nowt-times,
+		s = 1000,
+		m = s*60,
+		h = m*60,
+		d = h*24,
+		ms = 30*d;
+			if(pt<=0){
+				return '刚刚';
+			}
+			if(pt>ms*12){
+				 return formatDate(new Date(times));		
+			}
+			if(pt>ms){
+				return parseInt(pt/ms) + "个月前";
+			}
+			if(pt>d){
+				return parseInt(pt/d) + "天前";
+			}
+			if(pt>h){
+				return parseInt(pt/h) + "小时前";
+			}
+			if(pt>m){
+				return parseInt(pt/m) + "分前";
+			}
+			return '刚刚';				
+	},
 	
 
 	

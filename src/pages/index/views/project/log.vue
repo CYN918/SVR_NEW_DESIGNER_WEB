@@ -171,7 +171,7 @@ export default {
 .log_tipbox{
 	cursor: pointer;
 	position: relative;
-	color: #FF5121;
+	color: #33B3FF;
 }
 .log_tipbox2{
 	color: #666;

@@ -81,7 +81,7 @@ export default {
 }
 .pro_cd4{
 	margin: 0 auto 60px;
-	background: #FF5121;
+	background: #33B3FF;
 	border-radius: 5px;
 	font-size: 16px;
 	color: #FFFFFF;

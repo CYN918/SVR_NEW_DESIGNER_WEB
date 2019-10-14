@@ -338,7 +338,7 @@ export default {
 }
 .pr_cent2_10>span.csyaswz_01{
 	font-size:16px;
-	color: #FF5121;
+	color: #33B3FF;
 }
 .pr_cent2_11>div{
 	margin: 0;

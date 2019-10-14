@@ -220,8 +220,8 @@ export default {
 	margin: 0 15px;
 }
 .usertc_5>span.csys{
-	border-color: #FF5121;
-	background: #FF5121;
+	border-color: #33B3FF;
+	background: #33B3FF;
 	color: #fff;
 }
 .usertc_6{

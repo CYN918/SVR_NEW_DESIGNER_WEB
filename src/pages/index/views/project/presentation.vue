@@ -293,7 +293,7 @@ export default {
 	line-height:20px;
 }
 .pr_bg_03_2_3>a{
-	color: #FF5121;
+	color: #33B3FF;
 	font-weight: bold;
 }
 .pr_bg_04_1{

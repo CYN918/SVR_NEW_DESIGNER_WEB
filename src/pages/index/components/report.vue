@@ -161,7 +161,7 @@ export default {
     margin-right: 25px;
 }
 .tj{
-    background: #FF5121;
+    background: #33B3FF;
     color: #FFFFFF;
 }
 .rep_x1{

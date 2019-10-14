@@ -329,7 +329,7 @@ export default {
     height: 0;
     border-left: 30px solid transparent;
     border-right: 30px solid transparent;
-    border-bottom: 9px solid #ff5121;
+    border-bottom: 9px solid #33B3FF;
 }
 .c_zmq:before{
 	border-bottom: 9px solid rgba(145,213,255,1);
@@ -415,7 +415,7 @@ export default {
 	color: #333333;
 }
 .worksBox_2_1x>.oncdf{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .worksBox_2_1x>div:hover{
 	background: #E6E6E6;

@@ -101,7 +101,7 @@ export default {
 	content: "";
 	display: block;
 	margin: 0 auto;
-	background: #FF5121;
+	background: #33B3FF;
 	width: 100%;
 	height: 2px;
 	
@@ -123,7 +123,7 @@ export default {
 	margin-right: 40px;
 }
 .homghhd>a.router-link-active{
-	color: #FF5121;
+	color: #33B3FF;
 }
 
 .in_d1 .p_isTop{

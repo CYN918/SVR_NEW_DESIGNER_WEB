@@ -11,7 +11,7 @@
 						</div>
 					</div>
 				</div>
-				
+				</div>
 				
 				<div class="upFm_l_3">
 					<div class="upFm_l_3_1">图片要求</div>
@@ -96,8 +96,8 @@ export default {
 				outputSize:4,
 				outputType:'png',
 				autoCrop:true,
-				autoCropWidth:310,
-				autoCropHeight:373,
+				autoCropWidth:577,
+				autoCropHeight:433,
 				fixedBox:true,
 				
 			},
@@ -128,7 +128,7 @@ export default {
 		init(){
 			this.moData = {	
 					work_name:this.datad.work_name,
-					face_pic:'',
+					face_pic:this.datad.face_pic?this.datad.face_pic:'',
 					is_recommend:1,
 					classify_1_name:'原创',
 					classify_2_name:'',
@@ -159,7 +159,7 @@ export default {
 		realTime(data) {
 			this.previews = data;	
 			this.previewStyle2 = {
-				width: "100%",
+				width: this.previews.w + "px",
 				height: this.previews.h + "px",
 				overflow: "hidden",
 				margin: "0",
@@ -368,13 +368,10 @@ export default {
 	opacity: 0;
 }
 .ylt_pidf{
-	background: #fff;
-    position: absolute;
-    top: 40px;
-    left: 0;
-    width: 310px;
-    height: 232px;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:310px;
+	height:232px;
 }
 </style>

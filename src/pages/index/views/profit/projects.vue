@@ -114,6 +114,6 @@ export default {
 	line-height: 5px;
 }
 .font_cf{
-	color: #FF5121;
+	color: #33B3FF;
 }
 </style>

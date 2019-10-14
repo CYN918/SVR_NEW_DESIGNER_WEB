@@ -557,8 +557,8 @@ export default {
 }
 .upBg3>span.upBg3_1{
 	margin: 0 20px;
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 	color: #fff;
 }
 .upBg3>span.upBg3_2{
@@ -657,7 +657,7 @@ export default {
 }
 .u_top3_4_1{
 	display: block;
-	background: #FF5121;
+	background: #33B3FF;
 	border-radius: 5px;
 	width: 120px;
 	height: 41px;
@@ -687,8 +687,8 @@ export default {
 	margin-right: 0;
 }
 .u_top3_4_2>.qgz{
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 	color: #fff;
 }
 .userNavBoxXz{
@@ -710,14 +710,14 @@ export default {
 
 }
 .userNavBoxXz_1>a:hover{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .userNavBoxXz_1>a:last-child{
 	margin-right: 0;
 }
 .userNavBoxXz_1>.router-link-active{
 	position: relative;
-	color: #FF5121;
+	color: #33B3FF;
 	font-weight: bold;
 }
 .userNavBoxXz_1>.router-link-active:after{
@@ -728,7 +728,7 @@ export default {
 	transform: translateX(-50%);
 	width: 94%;
 	height: 1px;
-	background: #FF5121;
+	background: #33B3FF;
 }
 .wusj2{
 	display: block;

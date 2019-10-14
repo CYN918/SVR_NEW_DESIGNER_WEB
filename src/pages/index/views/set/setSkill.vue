@@ -349,8 +349,8 @@ export default {
 	opacity: .7;
 }
 .skill_02>div>.oncheck{
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 	color: #fff;
 }
 .cl_n_x1 .el-select .el-tag{
@@ -383,8 +383,8 @@ export default {
     border: 1px solid rgba(217,217,217,1);
 }
 .selected .uog{
-	background: #FF5121;
-    border-color: #FF5121;
+	background: #33B3FF;
+    border-color: #33B3FF;
 }
 .uog:after{
 	content: "";
@@ -403,7 +403,7 @@ export default {
 	display: none;
 }
 .el-select-dropdown.is-multiple .el-select-dropdown__item.selected{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .addM_n_1{
 	display: inline-block;
