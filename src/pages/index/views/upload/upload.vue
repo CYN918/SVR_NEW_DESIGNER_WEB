@@ -366,8 +366,22 @@ export default {
 				avatar:window.userInfo.avatar,
 				work_name:this.form.work_name,
 				face_pic:this.form.face_pic,
-				work_id:this.form.work_id
+				work_id:this.form.work_id,
+				cl1:'原创',
+				cl2:'作品类型',
+				cl3:'',
 			};
+			let p1 = this.setCls(this.page2.classify,'value',this.form.classify_1);
+
+			this.tcData.cl1 = p1.a;
+			let p2Ob = this.page2.classify[p1.b].children;
+		
+			let p2 = this.setCls(p2Ob,'value',this.form.classify_2);
+			this.tcData.cl2 = p2.a
+			let p3 = this.setCls(p2Ob[p2.b].children,'value',this.form.classify_3);
+			this.tcData.cl3 = p3.a
+			
+			
 			
 			this.tcZj = 'uploadFm';
 			this.showTc();
@@ -375,6 +389,15 @@ export default {
 			// this.isPhto = true;
 			// this.showupFm();
 			// this.$refs.upoloadcaver.setImgd(this.form.face_pic,this.form.work_id);
+		},
+		setCls(ob,key,val){
+			for(let i=0,n=ob.length;i<n;i++){
+				if(ob[i][key]==val){
+					return {a:ob[i].label,b:i};
+					break;
+				}
+			}
+			
 		},
 		close(img,fmid){
 			this.closeTc();
@@ -831,11 +854,7 @@ export default {
 				},1000);
 				return
 			}
-			let pr ={
-				access_token:window.userInfo.access_token,
-			};
-			
-			this.api.getClassify(pr).then((da)=>{
+			this.api.getClassify({}).then((da)=>{
 				if(da=='error'){
 					return
 				}

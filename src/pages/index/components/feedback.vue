@@ -313,10 +313,10 @@ export default {
 }
 .upfdb_content_1{
     text-align: left;
-    padding: 0 114px 100px;
+    padding: 0 114px 80px;
 	line-height: 0;
 	width: 567px;
-	height: 425px;
+	height: 380px;
 	overflow: hidden;
 	overflow-y: auto;
 	margin-bottom: 20px;
@@ -340,9 +340,9 @@ export default {
     padding-top:15px;
 }
 .upfdb_txt{
-	display: inline-block;vertical-align: top;
-	margin-left: 116px;
-    width: 450px;
+	display: inline-block;
+	vertical-align: top;
+    width: 430px;
 }
 
 .el-upload__tip{
@@ -509,5 +509,8 @@ export default {
 	left: 50%;
 	-webkit-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
+}
+.upfdb_namex input{
+	font-size: 14px;
 }
 </style>

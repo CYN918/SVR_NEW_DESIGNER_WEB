@@ -3,7 +3,7 @@
 		<div class="yhtop setBin_1">
 			<div class="yhtop1 ">用户资料完善</div>
 			<div class="yhtop2 userme2top">
-				<pTop class="" :cn="topCn">
+				<pTop :cn="topCn">
 					<template v-slot:todo="{ todo }">
 						<div>
 							基本信息设置 
@@ -231,6 +231,8 @@ export default {
 	width: 100%;
 	min-width: 1300px;
 	background: #fff;
+	-webkit-box-shadow:0px 2px 6px 0px rgba(0,0,0,0.1);
+	box-shadow:0px 2px 6px 0px rgba(0,0,0,0.1);
 }
 .userme2top .p_isTop>div{
 	

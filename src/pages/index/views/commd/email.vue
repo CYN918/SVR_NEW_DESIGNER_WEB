@@ -35,7 +35,8 @@ export default {
 		return{
 			pconf:[
 				{u:'yxjh_icon_yzcg',t:'验证成功',t2:'秒后跳转至',t3:'进入首页'},
-				{u:'yxjh_icon_yzgq',t:'激活链接已过期',t2:'验证邮箱：756373155@qq.com',t3:'重新发送'}
+				{u:'yxjh_icon_yzgq',t:'激活链接已过期',t2:'请重新绑定',t3:'去绑定'},
+				{u:'yxjh_icon_yzcg'}
 			],
 			da:{},
 			djs:3,
@@ -46,7 +47,7 @@ export default {
 	}, 
 	methods: {
 		init(){
-			console.log(this.setData.type);
+		
 			this.da = this.pconf[this.setData.type];
 			if(this.setData.type==0){
 				this.djsFn();
@@ -60,19 +61,22 @@ export default {
 				this.go('/index');
 				return
 			}
-			
+			if(this.setData.type==1){
+				this.go('/setSecurity');
+				return
+			}
 			
 		},
 		djsFn(){
 			
-			setTimeout(()=>{
-				this.djs--;
-				if(this.djs>0){
-					this.djsFn();
-					return
-				}
-				this.go('/setSecurity');
-			},1000);
+			// setTimeout(()=>{
+			// 	this.djs--;
+			// 	if(this.djs>0){
+			// 		this.djsFn();
+			// 		return
+			// 	}
+			// 	this.go('/setSecurity');
+			// },1000);
 		}
 	},
 }	

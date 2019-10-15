@@ -21,6 +21,8 @@ export default {
 	}, 
 	methods: {
 		init(){
+			
+			
 			if(!this.$route.query.ret){
 				this.$router.push({path: '/index'})
 				return
@@ -35,7 +37,8 @@ export default {
 					this.tcZj = 'email_dom';
 				}else{					
 					this.$message({message: data.res.message});
-					this.$router.push({path: '/setSecurity'});					
+					this.setData.type = 1;
+					this.tcZj = 'email_dom';				
 				}				
 				
 				return;

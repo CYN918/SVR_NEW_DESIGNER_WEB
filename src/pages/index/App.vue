@@ -546,9 +546,12 @@ img{
 	vertical-align: top;
 	width: 36px;
 	height:36px;
-	margin: 15px 30px;
+	margin: 15px 0 0;
 	background-size:100% ;
 	
+}
+.dsf_wx{
+	margin: 15px 86px 0;
 }
 .dsf_qq{
 	background:url(/imge/svg/login/qq.svg) no-repeat 0/100%;
