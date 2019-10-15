@@ -138,7 +138,7 @@ export default {
 }
 .pr_01_2{
 	display: inline-block;
-	background: #F06431;
+	background: #33b3ff;
 	color: #fff;	
 }
 .pr_01_3{
@@ -170,12 +170,12 @@ export default {
 	margin-right: 40px;
 }
 .pr_02_2On{
-	color:rgba(255,81,33,1);
+	color:#33B3FF;
 }
 .pr_02_3{
 	display: inline-block;
 	float: right;
-	background:rgba(255,81,33,1);
+	background:#33B3FF;
 	border-radius:5px;
 	margin-top: 20px;
 	width:140px;

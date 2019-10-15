@@ -16,12 +16,12 @@
 				<div class="upFm_l_3">
 					<div class="upFm_l_3_1">图片要求</div>
 					<div class="upFm_l_3_2">建议尺寸为800×600px</div>
-					<div class="upFm_l_3_3">上传图片支持JPG、PNG、GIF，大小不超过10M</div>
+					<div class="upFm_l_3_3">上传图片支持JPG、PNG，大小不超过10M</div>
 				</div>
 				
 			</div>
 			<div class="upFm_r">
-				<div class="upFm_r_0"></div>
+				<div class="upFm_r_0">{{tips}}</div>
 				<div class="upFm_r_1">
 					<div v-if="!previews.url" class="upFm_r_1_1">
 						<div @click="fild" class="myjsg_01 pend">
@@ -84,6 +84,7 @@ export default {
 		datad:Object,
 		InputValue:'',
         type:'',
+		
 	},
 	name: 'login',
 	data(){		
@@ -101,6 +102,7 @@ export default {
 				fixedBox:true,
 				
 			},
+			tips:'',
 			opType:0,
 			isImff:'',
 			Zp:'',
@@ -157,7 +159,7 @@ export default {
 			
 		},
 		realTime(data) {
-			this.previews = data;	
+			this.previews = data;				
 			this.previewStyle2 = {
 				width: "100%",
 				height: this.previews.h + "px",
@@ -238,8 +240,13 @@ export default {
 		uploadImg(e){
 			this.bdtj('封面上传弹窗','重新上传','--');
 			let file = e.target.files[0];
-			if (!/\.(jpg|jpeg|png|JPG|PNG|GIF)$/.test(e.target.value)||e.target.files.length==0) {
+			if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)||e.target.files.length==0) {
+				this.$message({message:'格式不正确'});
 				return
+			}
+			this.tips = '';
+			if(file.size<5000){
+				this.tips = '你上传的图片太小了，清晰的封面才会让狮友更青睐哦！';
 			}
 			let reader = new FileReader()
 			reader.onload =(e)=> {
@@ -276,6 +283,8 @@ export default {
 }
 .upFm_r_0{
 	height: 40px;
+	font-size: 14px;
+    color: rgba(255,146,0,1);
 	line-height:40px;
 }
 .upFm_l_1{

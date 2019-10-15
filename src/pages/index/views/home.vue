@@ -245,11 +245,7 @@ export default {
 .home_0x8{
 	height: 336px;
 }
-.home_0x8>div{
-	background:rgba(255,255,255,1);
-	box-shadow:0px 2px 10px 0px rgba(0,0,0,0.06);
-	border-radius:5px;
-}
+
 .home_0x8>div:last-child{
 	margin-right: 0;
 }

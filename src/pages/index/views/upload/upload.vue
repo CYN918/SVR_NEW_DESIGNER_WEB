@@ -1238,8 +1238,8 @@ export default {
 	cursor: context-menu;
 }
 .page2_1_7_r>label>div>div.chekdOn{
-	border-color: rgb(255, 81, 33);
-	background: rgb(255, 81, 33);
+	border-color: #33B3FF;
+	background: #33B3FF;
 }
 .page2_1_7_r>label{
 	cursor: pointer;

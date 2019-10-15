@@ -15,11 +15,11 @@
 						</div>
 						<div>
 							<div class="cens_x4">
-								<div class="icon_ff_1"><img src="/imge/project/04.svg" alt="">预计收益</div>
-								<div class="cens_x4_1">{{deta.expected_profit}}<img @mouseout="mod()" @mouseover="modx($event,1)" src="/imge/project/09.svg" ></div>
+								<div class="icon_ff_1"><img src="/imge/project/04.svg"/>预计收益</div>
+								<div class="cens_x4_1 f_a">{{deta.expected_profit}}<img @mouseout="mod()" @mouseover="modx($event,1)" src="/imge/project/09.svg" ></div>
 							</div>
 							<div class="cens_x5">
-								<div class="icon_ff_1"><img src="/imge/project/08.svg" alt="">制作周期</div>
+								<div class="icon_ff_1"><img src="/imge/project/08.svg"/>制作周期</div>
 								<div  class="cens_x4_1 cens_x4_1_x1" v-html="backZq(deta.production_cycle_d,deta.production_cycle_h)">
 									
 								</div>
@@ -28,7 +28,7 @@
 							
 						</div>
 						<div v-if="deta.status==1 || deta.status==2">
-							<div class="icon_ff_1"><img class="icon_ff_1_x1" src="/imge/project/05.svg" alt=""><span>{{deta.sign_up_num}}</span>人已报名</div>
+							<div class="icon_ff_1"><img class="icon_ff_1_x1" src="/imge/project/05.svg"><span class="f_a">{{deta.sign_up_num}}</span>人已报名</div>
 						</div>
 					</div>
 					<div v-if="deta.template_file_url" @click="dowloadmb(deta)" class="btns pend xzMb_n1">下载模板</div>
@@ -139,10 +139,10 @@ export default {
 		backZq(a,b){
 			let str = '';
 			if(a){
-				str+='<span>'+a+'</span>天';
+				str+='<span class="f_a">'+a+'</span>天';
 			}
 			if(b){
-				str+='<span>'+b+'</span>小时';
+				str+='<span class="f_a">'+b+'</span>小时';
 			}
 			return str;
 		},
@@ -372,7 +372,7 @@ export default {
 }
 .icon_ff_1>span{
 	font-size:14px;
-	color:rgba(255,81,33,1);
+
 }
 .cens_x4{
 	display: inline-block;
@@ -390,13 +390,12 @@ export default {
 	text-align: left;
 	margin-left: 27px;
 	font-size:14px;
-	font-weight:400;
-	color:rgba(187,187,187,1);
+
 	line-height:20px;
-	color: #33B3FF;
+
 }
 .cens_x4_1>span{
-	color:rgba(255,81,33,1);
+
 	margin:0 4px;
 }
 .cens_x4_1_x1{
@@ -420,12 +419,12 @@ export default {
 	right: 21px;
 	width:65px;
 	height:58px;
-	background:rgba(255,81,33,.1);
+	background:rgba(51, 179, 255, 0.1);
 	border-radius:0px 0px 2px 4px;
 	font-size:12px;
 	text-align: center;
 	font-weight:400;
-	color:rgba(255,81,33,1);
+	color:#33B3FF;
 	line-height:17px;
 	box-sizing: border-box;
 	padding: 5px;

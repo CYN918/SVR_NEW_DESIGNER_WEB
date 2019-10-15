@@ -113,7 +113,7 @@ export default {
 	font-size:28px;
 	font-family:PingFang SC Semibold;
 	font-weight:600;
-	color:rgba(255,81,33,1);
+	color:#33B3FF;
 	margin-right: 16px;
 }
 .topGd_04_1>span>span{

@@ -4,7 +4,7 @@
 		<div class="yu_o9">
 			<div class="yu_o9_1bx">
 				<div v-if="djsshow.h" class="cenDjs_2">
-					<span v-if="djsshow.d>0">{{djsshow.d}}<span class="cenDjs_2_dy_01">天</span></span><span>{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
+					<span class="f_a" v-if="djsshow.d>0">{{djsshow.d}}<span class="cenDjs_2_dy_01">天</span></span><span class="f_a">{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
 				</div>
 				<div v-if="obj.delivery_deadline_format && obj.status==3 && obj.is_delay!=1" class="cenDjs_2">
 					<span>{{obj.delivery_deadline_format.m}}</span>月<span>{{obj.delivery_deadline_format.d}}</span>号<span>{{obj.delivery_deadline_format.H}}</span>点
@@ -233,7 +233,7 @@ export default {
 	font-size:28px;
 	font-family:PingFangSC;
 	font-weight:600;
-	color:rgba(255,81,33,1);		
+	
 	line-height:40px;
 }
 .cenDjs_3{
@@ -266,9 +266,9 @@ export default {
 }
 
 .cenDjs_4>div.cenDjs_4ys{
-	border-color: rgba(255,81,33,1);
+	border-color: #33B3FF;
 	color:rgba(255,255,255,1);
-	background:rgba(255,81,33,1);
+	background:#33B3FF;
 }
 .cenDjs_5{
 	margin-bottom: 40px;
@@ -284,11 +284,11 @@ export default {
     left: 14px;
     width: 58px;
     height: 53px;
-    background: rgba(255,81,33,.1);
+    background: rgba(51,179,255,1);
     font-size: 12px;
     text-align: center;
     font-weight: 400;
-    color: rgba(255,81,33,1);
+    color: #33B3FF;
     line-height: 34px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -364,7 +364,7 @@ export default {
 	margin-top: 5px;
 	font-size:28px;
 	font-weight:600;
-	color:rgba(255,81,33,1);
+	color:#33B3FF;
 	line-height:34px;
 }
 
@@ -446,7 +446,7 @@ export default {
 	font-size:28px;
 	font-family:PingFangSC-Semibold;
 	font-weight:600;
-	color:rgba(255,81,33,1);
+	color:#33B3FF;
 	line-height:40px;
 	
 	

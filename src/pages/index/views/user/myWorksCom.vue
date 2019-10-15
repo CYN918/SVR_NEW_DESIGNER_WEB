@@ -6,12 +6,12 @@
 				<template v-slot:todo="{ todo }">
 					<div class="mylists">
 						<div @click="openxq(todo)" class="myListBox_1">
-							<img class="myListBox_1_1" :style="backfmW(todo.face_pic)" :src="backFm(todo.face_pic)">
+							<img class="myListBox_1_1" :src="backFm(todo.face_pic)">
 							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
 						</div>
 						<div @click="openxq(todo)" class="myListBox_2">
 							<span class="myListBox_2_1" :title="todo.work_name">{{todo.work_name}}</span>
-							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/zs_icon_tj.png">
+							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="/imge/new/works/icon_r.svg">
 						</div>
 						
 						<div @click="openxq(todo)" class="myListBox_3">
@@ -21,8 +21,7 @@
 						<div class="myListBox_4">
 						
 							<span class="myListBox_4_1" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</span>
-							<span @click="updata(todo)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>
-						
+							<span @click="updata(todo)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>					
 							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span>
 						</div>			
 					</div>
@@ -213,17 +212,12 @@ export default {
 		init(){
 			this.data.pr.status =  this.isTypeList[this.$route.name];
 		},
-		backFm(val){
-			if(!val || val==null){
-				return '/imge/svg/default_image.svg';
-			}			
-			return val+'?x-oss-process=image/resize,w_307';
-		},
-		backfmW(val){
-			if(!val || val==null){
-				return 'width:50%';
-			}			
-			return 'width:100%';
+		backFm(ur){
+			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
+				return '/imge/new/com/no_img.svg';
+			}
+			return ur+'?x-oss-process=image/resize,w_307';
+			
 		},
 		upDataSet(){	
 			

@@ -443,8 +443,8 @@ img{
 
 .login_x1{
     display: block;
-    margin: 0 auto 16px;
-    width: 178px;
+    margin: 0 auto 20px;
+    width: 191px;
 }
 .login_x2{
 	font-size: 20px;
@@ -596,7 +596,7 @@ img{
     width: 110px;
 	line-height: 40px;
     vertical-align: middle;
-    color: #33B3FF;
+    color: #ff9200;
     font-size: 14px;
     text-align: right;
     border: none;
@@ -623,7 +623,7 @@ img{
 }
 .lgoin_s2zy>a{
 	float: right;
-	color: #33B3FF;
+	color: rgba(255, 146, 0, 1);
 }
 .lgoin_s2zy>a:hover{
 	cursor: pointer;
@@ -2580,5 +2580,10 @@ content: "";
 .emptyData{
 	background: #fff;
 	padding: 40px 0;
+}
+
+
+.f_a{
+	color: #FF9200;
 }
 </style>

@@ -79,7 +79,7 @@ export default {
 	font-size:14px;
 	font-family:PingFangSC-Regular;
 	font-weight:400;
-	color:rgba(255,81,33,1);
+	color:#33B3FF;
 	line-height:20px;
 	
 }
@@ -163,7 +163,7 @@ export default {
 	display: block;
 	float: right;
 	font-size:14px;
-	color:rgba(255,81,33,1);
+	color:#33B3FF;
 	line-height:20px;
 }
 </style>

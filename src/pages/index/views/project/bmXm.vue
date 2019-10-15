@@ -245,7 +245,7 @@ export default {
 	height: 100%;
 	box-sizing: border-box;
 	border-radius:5px;
-	border:2px solid rgba(255,81,33,1);	
+	border:2px solid #33B3FF;	
 }
 .bmXm_03>li:nth-child(4n+4){
 	margin-right: 0;

@@ -68,7 +68,7 @@ export default {
 	line-height: 40px;
 	width:140px;
 	height:40px;
-	background:rgba(255,81,33,1);
+	background:#33B3FF;
 	border-radius:20px;
 }
 </style>

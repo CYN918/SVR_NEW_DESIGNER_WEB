@@ -102,12 +102,11 @@ export default {
 			
 			window.open('#/cont?id='+this.el.work_id)
 		},
-		backBn(ur){
-			let str = ur+'?x-oss-process=image/resize,w_307);';
-			if(!ur || ur==null){
-				str = '/imge/svg/default_image.svg);background-size:50%;';
-			}	
-			return 'background-image: url('+str;
+		backBn(ur){			
+			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
+				return '/imge/new/com/no_img.svg);background-size:50%;';
+			}
+			return 'background-image: url('+ur+'?x-oss-process=image/resize,w_307);';
 		},
 
 	}
@@ -116,6 +115,9 @@ export default {
 
 <style>
 .wk_a{
+	text-align: left;
+	display: inline-block;
+	vertical-align: top;
 	width:310px;
 	height:373px;
 	background:rgba(255,255,255,1);

@@ -396,7 +396,7 @@ export default {
 	margin-right: 15px;
 }
 .detail_topBox_2_2{
-	background: #33B3FF;
+	background: rgba(51, 179, 255, 0.5);
 }
 .detail_topBox_2_3{
 	font-size: 24px;
@@ -657,10 +657,10 @@ export default {
 	color: #FFFFFF;
 }
 .detail_topBox_2_2:hover{
-	background: #FF6940;
+	background: rgba(51, 179, 255, 1);
 }
 .detail_topBox_2_2:active{
-	background: #FF3700;
+	background: rgba(51, 179, 255, 1);
 }
 .detail_topBox_2_1:hover{
 	background: #4E4E4E;

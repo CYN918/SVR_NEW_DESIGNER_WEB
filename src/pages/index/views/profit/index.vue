@@ -418,7 +418,7 @@ export default {
 .sytc_1_1x{
 	font-size:24px;
 	font-weight:600;
-	color:rgba(255,81,33,1);	
+	color:#33B3FF;	
 }
 .sytc_1_2{
 	margin-bottom: 16px;

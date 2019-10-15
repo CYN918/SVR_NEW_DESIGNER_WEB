@@ -89,7 +89,7 @@ export default {
 }
 .proNav2_1x>a.router-link-active{
 	font-weight:500;
-	color:rgba(255,81,33,1);
+	color:#33B3FF;
 }
 .proNav2_1x>a.router-link-active:after{
 	content: "";

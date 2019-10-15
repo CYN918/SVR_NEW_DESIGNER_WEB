@@ -253,7 +253,7 @@ export default {
 	margin-left: 19px;
 	font-size:24px;
 	font-weight:600;
-	color:rgba(255,81,33,1);
+	color:#33B3FF;
 
 }
 .pr_bg_03_1_2_3>span{
@@ -282,7 +282,7 @@ export default {
 .pr_bg_03_2_2{
 	font-size:48px;
 	font-weight:600;
-	color:rgba(255,81,33,1);
+	color:#33B3FF;
 	line-height:34px;
 	margin-bottom: 57px;
 }
@@ -338,7 +338,7 @@ export default {
 .pr_bg_04_3_2{
 	font-size:24px;
 	font-weight:600;
-	color:rgba(255,81,33,1);
+	color:#33B3FF;
 	line-height:34px;
 }
 .pr_bg_04_3_3{
