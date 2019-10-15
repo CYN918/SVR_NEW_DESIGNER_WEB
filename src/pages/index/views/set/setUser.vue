@@ -95,7 +95,9 @@
 				</div>
 				<div v-if="tAncType!=4" class="tc_sucd_1_2">
 					<div @click="closeTc1" class="btns pend">取消</div>
-					<div @click="qrFn()" :class="['btns btns_js pend',]">确定
+					<div @click="qrFn()" class="btn-lod btns btns_js pend">
+						<i v-if="upType" class="loading_a m_c"></i>
+						<span v-else>确定</span>
 					
 					</div>
 				</div>
@@ -672,5 +674,10 @@
 }
 .suc_1 > div > span.dqys_1{
 	line-height: 20px;
+}
+.btn-lod .loading_a{
+	width: 15px;
+	height: 15px;
+	margin-top: 10px;
 }
 </style>
