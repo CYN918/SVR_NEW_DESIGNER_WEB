@@ -202,6 +202,11 @@ export default {
    	 			return
    	 		}
    	 		
+			if(!this.input){
+				this.setErr('outIn','');	
+				return 
+			}
+			
    	 		let p = this.chekFn(this.input);
 	    	if(p){	    		
 	    		this.setErr(p.cls,p.text);

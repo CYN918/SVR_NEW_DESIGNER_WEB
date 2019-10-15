@@ -33,6 +33,20 @@ input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
     border: 1px solid #CCC!important;
 }
+
+input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
+	-webkit-text-fill-color: #606266 !important;
+	-webkit-box-shadow: 0 0 0px 1000px transparent  inset !important;
+    background-color:transparent;
+    background-image: none;
+     transition: background-color 50000s ease-in-out 0s;
+}
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
+	border: none !important;
+}
+input {
+	background-color:transparent;
+}
 textarea:focus{
 	border-color:#979797;
 }
