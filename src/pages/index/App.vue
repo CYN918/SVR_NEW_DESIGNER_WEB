@@ -2589,4 +2589,26 @@ content: "";
 .f_a{
 	color: #FF9200;
 }
+.m_c{
+	margin: 0 auto;
+}
+.loading_a{
+	display: block;
+	width: 25px;
+    height: 25px;
+    -webkit-animation: circle infinite .75s linear;
+    animation: circle infinite .75s linear;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-radius: 100%;
+}
+
+@-webkit-keyframes circle{
+	0%{-webkit-transform:rotate(0);}
+	100%{-webkit-transform:rotate(360deg);}
+}
+@keyframes circle{
+	0%{transform:rotate(0);}
+	100%{transform:rotate(360deg);}
+}
 </style>

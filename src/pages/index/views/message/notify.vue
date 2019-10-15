@@ -11,16 +11,10 @@
 						</div>						
 				</div>
 				<p class="nn_x1">
-					<el-pagination  v-if="total>10"
-						background
-						@size-change="handleSizeChange"
-						@current-change="handleCurrentChange"
-						:current-page="page"
-						:page-sizes="[10, 20, 40, 60]"
-						:page-size="limit"
-						layout="prev,pager, next,sizes, jumper"
-						:total="total">   
-					</el-pagination>
+					<i v-if="getType" class="loading_a m_c"></i>
+					<span v-if="!getType && listData.length<this.total" @click="addL" class="btns pend">查看更多信息</span>
+					
+					
 				</p>				
 			</div>
 			<div v-if="nodata" class="ms_r_2">
@@ -62,6 +56,7 @@ export default {
 			plType:0,
 			pl2:'',
 			loading:'',
+			getType:'',
 		}
 	},
 	mounted: function () {			
@@ -75,18 +70,11 @@ export default {
 		goUserIn(on){
 			this.$router.push({path: '/works',query:{id:this.listData[on].user_info.open_id}})	
 		},
-		handleSizeChange(val) {
-			document.documentElement.scrollTop =1;
-			document.body.scrollTop =1;
-			this.limit = val;
-			this.getMessgList();
+		addL(){
+			this.page++;
+			this.getMessgList('add');
 		},
-		handleCurrentChange(val) {
-			document.documentElement.scrollTop =1;
-			document.body.scrollTop =1;
-			this.page = val;
-			this.getMessgList();
-		},
+		
 		
 		backtime(t){		
 			let time = new Date(t*1000);
@@ -169,23 +157,36 @@ export default {
 		},
 		
 		getMessgList(type){
-
-			let pr = {
-				access_token:window.userInfo.access_token,
+			if(this.getType==1){
+				return
+			}
+			this.getType = 1;
+			this.loading = Loading.service({target:'.jloadBox', fullscreen: true,background:'rgba(0,0,0,0)' });
+			this.api.getMessgList({
 				type:'notify',
 				page:this.page,
 				limit:this.limit
-			};
-			this.loading = Loading.service({target:'.jloadBox', fullscreen: true,background:'rgba(0,0,0,0)' });
-			this.api.getMessgList(pr).then((da)=>{
+			}).then((da)=>{
+				this.getType = '';
 				this.loading.close();
 				if(da=='error'){this.setNoData(this.listData);return}
+				
 				this.setNoData(da.data);
-				this.listData = da.data;
-
 				this.total = da.total;
 				
+				
+			
+				if(type=='add'){
+					this.listData = this.listData.concat(da.data);
+					return
+				}
+			
+				this.listData = da.data;
+
+				
+				
 			}).catch(()=>{
+				this.getType = '';
 				this.loading.close();
 				this.setNoData(this.listData);
 			});
