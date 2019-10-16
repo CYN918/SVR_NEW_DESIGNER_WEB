@@ -219,73 +219,73 @@ window.dwzFn = function(){
 function setTitle(t){
 	let str = '';
 	switch (t){
-		case '/index':str = '狮圈儿-创作者平台（Zoocreators）-让创意更有价值，让生活更加自在';
+		case '/index':
+			str = '狮圈儿-创作者平台（Zoocreators）-让创意更有价值，让生活更加自在';
 			break;
 		case '/login':
 		case '/register':
-			  str = '注册登录-狮圈儿（Zoocreators）';
+			str = '注册登录-狮圈儿（Zoocreators）';
 			break;
 		case '/userme':
 		case '/userme2':
-			  str = '完善资料-狮圈儿（Zoocreators）';
+			str = '完善资料-狮圈儿（Zoocreators）';
 			break;
 		case '/searchWorks':
 		case '/searchUser':
-			  str = '搜索-狮圈儿（Zoocreators）';
+			str = '搜索-狮圈儿（Zoocreators）';
 			break;
 		case '/notify':
 		case '/comment':
 		case '/chat':	
-			  str = '消息--狮圈儿（Zoocreators）';
+			str = '消息--狮圈儿（Zoocreators）';
 			break;
 		case '/upload':	
-			  str = '上传作品页-狮圈儿（Zoocreators）';
+			str = '上传作品页-狮圈儿（Zoocreators）';
 			break;	
 		case '/conts':	
-			  str = '作品预览--狮圈儿（Zoocreators）';
+			str = '作品预览--狮圈儿（Zoocreators）';
 			break;	
 		case '/activvity':	
-			  str = '活动-狮圈儿（Zoocreators）';
+			str = '活动-狮圈儿（Zoocreators）';
 			break;	
 		case '/myAll':	
 		case '/myExamine':
 		case '/myPass':
 		case '/myNotPass':
 		case '/myDraft':		
-			  str = '我的创作-狮圈儿（Zoocreators）';
+			str = '我的创作-狮圈儿（Zoocreators）';
 			break;	
 		case '/myDynamic':	
 		case '/myCreators':
 		case '/myFans':
-			  str = '我的关注-狮圈儿（Zoocreators）';
+			str = '我的关注-狮圈儿（Zoocreators）';
 			break;	
 		case '/profit':	
 		case '/fcsy':	
 		case '/money':	
 		case '/noIs':	
-			  str = '我的收益-狮圈儿（Zoocreators）';
+			str = '我的收益-狮圈儿（Zoocreators）';
 			break;	
 		case '/setUser':
 		case '/setSecurity':
-			  str = '账号设置-狮圈儿（Zoocreators）';
-			  break;
+			str = '账号设置-狮圈儿（Zoocreators）';
+			break;
 		case '/setPersonal':
 		case '/setEnterprise':
-			  str = '平台供稿人认证-狮圈儿（Zoocreators）';
-			  break;
+			str = '平台供稿人认证-狮圈儿（Zoocreators）';
+			break;
 		case '/about':
 		case '/userProtocol':
 		case '/authorization':
 		case '/help':
-			  str = '文档服务中心-狮圈儿（Zoocreators）';		
-			
+			str = '文档服务中心-狮圈儿（Zoocreators）';	
+			break;
 		default:str = '狮圈儿-创作者平台（Zoocreators）-让创意更有价值，让生活更加自在';
 			break;
 	}
 	if(str){
 		document.title=str;
-	}
-	
+	}	
 }
 router.beforeEach((to, from, next) => {
 //	window.removeEventListener('mousewheel',window.dwzFn);

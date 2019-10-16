@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="yhtop newbtnd_4">
-			<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
+			
 			<div class="yhtop1 ">用户资料完善</div>
 			<div class="yhtop2"><div>基本信息设置</div></div>
 			<div class="newUsermeBOX">
@@ -33,21 +33,23 @@
 					
 				</div>
 			</div>
-			
+			<myCaver ref="myCaver"></myCaver>
 		</div>
 		<Footer></Footer>
+		
 	</div>	
 </template>
 <script>
-import upoloadcaver from './upoloadcaver';
+
 import Input from '../../components/input'
 import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
 import Footer from '../footer';
+import myCaver from '../../components/cavar';
 export default {
 	name: 'login',
-	components:{upoloadcaver,Input,Citys,Select,rideo,Footer},
+	components:{Input,Citys,Select,rideo,Footer,myCaver},
 	data(){		
 		return{	
 			isPhto:false,
@@ -113,14 +115,10 @@ export default {
 			});
 		},
 		showisPhto(){
-			this.$refs.upoloadcaver.setImgd(this.caver);
-			this.isPhto=true;
+			this.$refs.myCaver.show(this.caver);
 		},
-		close(img){
-			if(img){
-				this.caver = img;
-			}
-			this.isPhto=false;
+		closeCavar(i){
+			this.caver = i;
 		},
 		addSelfInfo(){
 			this.bdtj('手机号注册完善页面','进入首页','--');

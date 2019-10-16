@@ -10,15 +10,12 @@
 							<img :src="previews.url" :style="previews.img">
 						</div>
 					</div>
-				</div>
-				
-				
+				</div>				
 				<div class="upFm_l_3">
 					<div class="upFm_l_3_1">图片要求</div>
 					<div class="upFm_l_3_2">建议尺寸为800×600px</div>
 					<div class="upFm_l_3_3">上传图片支持JPG、PNG，大小不超过10M</div>
-				</div>
-				
+				</div>				
 			</div>
 			<div class="upFm_r">
 				<div class="upFm_r_0">{{tips}}</div>
@@ -27,8 +24,7 @@
 						<div @click="fild" class="myjsg_01 pend">
 							<img src="/imge/new/works/icon_add.svg"/>
 							添加封面
-						</div>
-						
+						</div>						
 						<div class="upFm_r_1_1_2">
 							封面上传建议<br/>
 							1、封面图片高清，尺寸不小于800*600；<br/>
@@ -65,8 +61,6 @@
 					<img class="pend" @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_sz.svg" alt="">				
 				</div>			
 			</div>
-			
-			
 		</div>
 		<div class="qxBm_btns">
 			<span class="btns pend" @click="closeds('取消')">取消</span><span class="btns btns_js pend" @click="startCrop">确定</span>
@@ -82,9 +76,6 @@ export default {
 	components:{workDom},
     props:{
 		datad:Object,
-		InputValue:'',
-        type:'',
-		
 	},
 	name: 'login',
 	data(){		
@@ -176,23 +167,7 @@ export default {
 			}
 			
 			this.$refs.cropper.getCropData(data => {
-				
-				function dataURLtoFile(dataurl,id) {
-					  var arr = dataurl.split(',');
-					  var mime = arr[0].match(/:(.*?);/)[1];
-					  var bstr = atob(arr[1]);
-					  var n = bstr.length; 
-					  var u8arr = new Uint8Array(n);
-					  while(n--){
-						  u8arr[n] = bstr.charCodeAt(n);
-					  }
-					  //转换成file对象
-					  return new File([u8arr], 'fm_'+id+'.png', {type:mime});
-					  //转换成成blob对象
-					  //return new Blob([u8arr],{type:mime});
-				}
-				let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-		
+
 				let times = (Date.parse(new Date())/1000);
 				let arr = [
 					1001,
@@ -204,14 +179,13 @@ export default {
 				formData.append('app_id',1001);
 				formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
 				formData.append('user',window.userInfo.open_id)
-				formData.append('file',dataURLtoFile(data,this.Zp))
+				formData.append('file',this.mJs.dataURLtoFile(data,this.Zp))
 				formData.append('relation_type','user_info')
 				formData.append('related_id',window.userInfo.open_id)
 				formData.append('classify_1','avatar')
 				formData.append('timestamp',times)
 				formData.append('is_callback',1)
-				
-				
+
 				this.opType=1;
 				Message({message: '封面正在上传，请稍后'});
 				this.$ajax.post(window.basrul+'/File/File/insert', formData)

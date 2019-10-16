@@ -68,7 +68,7 @@
 		</div>
 		<div class="suc_btndf" @click="Userupdate">保存资料</div>
 
-		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
+		
 		<TcBox :config="outc" ref="tcBox">
 			<template v-slot:todo="{ todo }">
 				<div v-if="tAncType==1" class="tc_sucd_1">
@@ -103,29 +103,31 @@
 				</div>
 			</template>
 		</TcBox>
-
+		<myCaver ref="myCaver"></myCaver>
 	</div>
-
+	
 </template>
 
 <script>
 	import { Message } from 'element-ui'
 
-	import upoloadcaver from './upoloadcaver';
+	
 	import Input from '../../components/input'
 	import Citys from '../../components/citys'
 	import Select from '../../components/select'
 	import rideo from '../../components/rideo'
 	import TcBox from '../../components/TcBox';
+	
+	import myCaver from '../../components/cavar';
 	export default {
 		name: 'works',
 		components: {
-			upoloadcaver,
 			Input,
 			Citys,
 			Select,
 			rideo,
-			TcBox
+			TcBox,
+			myCaver
 		},
 		data() {
 			return {
@@ -235,7 +237,7 @@
 						n: "教育工作者"
 					},
 				],
-				caver: 'http://res.shiquaner.zookingsoft.com/a7c29ebcdd1819d76396588dc72d2770.png',
+				
 				chekusername: function() {
 					return true
 				},
@@ -338,6 +340,9 @@
 
 		},
 		methods: {
+			closeCavar(i){
+				this.form.avatar = i;
+			},
 			show() {
 				this.$refs.tcBox.show();
 			},
@@ -635,37 +640,16 @@
 				})
 			},
 			showisPhto() {
-				this.caver = this.form.avatar;
-				console.log(this.caver);
-				this.$refs.upoloadcaver.setImgd(this.caver);
-				this.isPhto = true;
-			},
-			close(img) {
-				if(img) {
-					this.form.avatar = img;
-
-				}
-
-				this.isPhto = false;
+				this.$refs.myCaver.show(this.form.avatar);
 			},
 		},
-		watch:{
-			'isPhto'(){
-			
-				if(this.isPhto==false){
-					document.body.style = "";
-				}else{
-					document.body.style = "overflow: hidden;";
-				}
-			}
-		}
 	}
 </script>
 
 <style>
-	.suc_1 > div > span.lIN4{
-		line-height: 41px;
-	}
+.suc_1 > div > span.lIN4{
+	line-height: 41px;
+}
 .suc_1 > .suc_1_3 > span.lIN4{
 	line-height: 41px;
 }
@@ -675,9 +659,5 @@
 .suc_1 > div > span.dqys_1{
 	line-height: 20px;
 }
-.btn-lod .loading_a{
-	width: 15px;
-	height: 15px;
-	margin-top: 10px;
-}
+
 </style>

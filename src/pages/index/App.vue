@@ -80,7 +80,14 @@ img{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-
+.hidIn{
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
 @keyframes bjs{
 	from{background: rgba(255,255,255,0);}
 	to{background: rgba(255,255,255,1)}
@@ -2625,5 +2632,10 @@ content: "";
 @keyframes circle{
 	0%{transform:rotate(0);}
 	100%{transform:rotate(360deg);}
+}
+.btn-lod .loading_a{
+	width: 15px;
+	height: 15px;
+	margin-top: 10px;
 }
 </style>

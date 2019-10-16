@@ -36,7 +36,7 @@ export default {
 			pconf:[
 				{u:'yxjh_icon_yzcg',t:'验证成功',t2:'秒后跳转至',t3:'进入首页'},
 				{u:'yxjh_icon_yzgq',t:'激活链接已过期',t2:'请重新绑定',t3:'去绑定'},
-				{u:'yxjh_icon_yzcg'}
+	
 			],
 			da:{},
 			djs:3,

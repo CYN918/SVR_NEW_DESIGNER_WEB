@@ -1,8 +1,6 @@
 <template>
 	<div>
-		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
-
-			<div class="newUsermeBOX">
+		<div class="newUsermeBOX">
 				<div class="newUserme2 newUserme2x_1">
 					<div class="userBoxd">
 						<span>手机号</span>
@@ -51,19 +49,20 @@
 					</div>
 				</div>
 			</div>
+		<myCaver ref="myCaver"></myCaver>
 	</div>		
 </template>
 <script>
-import upoloadcaver from './upoloadcaver';
+
 import Input from '../../components/input'
 import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
-
+import myCaver from '../../components/cavar';
 import inptPhone from '../../components/input/input_phone';
 export default {
 	name: 'login',
-	components:{upoloadcaver,Input,Citys,Select,rideo,inptPhone},
+	components:{Input,Citys,Select,rideo,inptPhone,myCaver},
 	data(){		
 		return{	
 			
@@ -137,14 +136,10 @@ export default {
 		},
 		
 		showisPhto(){
-			this.$refs.upoloadcaver.setImgd(this.caver);
-			this.isPhto=true;
+			this.$refs.myCaver.show(this.caver);
 		},
-		close(img){
-			if(img){
-				this.caver = img;
-			}
-			this.isPhto=false;
+		closeCavar(i){
+			this.caver = i;
 		},
 		addSelfInfo(){
 			this.bdtj('第3方注册完善页面','进入首页','--');
@@ -247,13 +242,6 @@ export default {
 		'form.citye'(){
 			this.pdys1();
 		},
-		'isPhto'(){
-			if(this.isPhto==false){
-				document.body.style = "";
-			}else{
-				document.body.style = "overflow: hidden;";
-			}
-		}
 
 	}
 }

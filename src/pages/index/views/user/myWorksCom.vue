@@ -34,15 +34,22 @@
 		</TcBoxQr>			
 				
 		<TcBox :config="config" ref="tcBox">
-			<template v-slot:todo="{ todo }">
-			
+			<template v-slot:todo="{ todo }">			
 				<div class="necsgg">
-				<div class="setDatasXX_4">
-					
+				<div class="setDatasXX_4">					
 					<div class="setDatasXX_4_2">
 						<div class="setDatasXX_4_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
 						<div>
-							<Input class="setDatasXX_4_3 setDatasXX_4_3qz" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>
+							<mInput 
+							class="setDatasXX_4_3 setDatasXX_4_3qz" 
+							v-model="tags" 
+							:keyup="keydown"  
+							:oType="'max'" 
+							:max="10"   
+							:type="'text'" 
+							:placeholder="'输入标签，回车添加标签'" 
+							ref="tageds">
+							</mInput>
 							<span @click="keydown" :class="['tagBtn',isTageok?'istageok':'']">添加标签</span>还可添加{{5-form.labels.length}}个标签
 						</div>
 						<div class="setDatasXX_4_4">
@@ -117,13 +124,13 @@
 <script>
 import tophead from './myHead';
 import {Message} from 'element-ui'
-import Input from '../../components/input'
+import mInput from '../../components/input'
 import list from '../../components/list';
 import TcBox from '../../components/TcBox';
 import TcBoxQr from '../../components/TcBoxQr';
 export default {
 	props:['isType'],
-	components:{tophead,Input,list,TcBox,TcBoxQr},
+	components:{tophead,mInput,list,TcBox,TcBoxQr},
 	name: 'myAll',
 	data(){
 		return {
@@ -260,11 +267,11 @@ export default {
 				this.hindissetDatasXX();	
 				this.$refs.listDom.getData();
 				Message({message:'修改成功'});							
-			}).catch((d)=>{
+			}).catch(()=>{
 				this.upType='';
 			});		
 		},
-		showissetDatasXX(id,on){
+		showissetDatasXX(id){
 			let pr = {
 				access_token:window.userInfo.access_token,
 				work_id:id,
@@ -281,7 +288,7 @@ export default {
 				this.show();
 				try{
 					this.form.labels = JSON.parse(this.form.labels);					
-				}catch(e){}
+				}catch(e){console.log(1)}
 				
 				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
 				if(this.page2.classify.length>0){

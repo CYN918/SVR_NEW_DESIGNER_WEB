@@ -14,9 +14,6 @@
 						</div>
 					</template>		
 				</pTop>
-				
-				
-				
 			</div>
 			<bindData v-if="navOn==0"></bindData>
 			<bindUser v-if="navOn==1"></bindUser>	

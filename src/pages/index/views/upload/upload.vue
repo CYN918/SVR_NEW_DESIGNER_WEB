@@ -391,12 +391,14 @@ export default {
 			// this.$refs.upoloadcaver.setImgd(this.form.face_pic,this.form.work_id);
 		},
 		setCls(ob,key,val){
+			let str;
 			for(let i=0,n=ob.length;i<n;i++){
 				if(ob[i][key]==val){
-					return {a:ob[i].label,b:i};
+					str =  {a:ob[i].label,b:i};
 					break;
 				}
 			}
+			return str;
 			
 		},
 		close(img,fmid){
@@ -419,7 +421,7 @@ export default {
 				this.checkAutoSave();
 			},30000);
 		},
-		checkAutoSave(a){
+		checkAutoSave(){
 			if(!this.form.work_name){
 				return
 			}
@@ -604,7 +606,7 @@ export default {
 		
 					this.form = da;		
 					this.csz = da.work_name;				
-					try{this.form.labels = JSON.parse(this.form.labels);}catch(e){}
+					try{this.form.labels = JSON.parse(this.form.labels);}catch(e){console.log(1)}
 					this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
 					if(this.form.attachment){
 						this.upfjData.fid=this.form.attachment_id;
