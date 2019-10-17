@@ -69,7 +69,7 @@ import pr_presentation from './views/project/presentation.vue'
 
 import Work_i from './views/works/index.vue'
 import email from './views/commd/email.vue'
-
+import img_list from './components/img_list.vue'
 
 import personalCenter from './views/personalCenter/index.vue'
 
@@ -89,6 +89,8 @@ let wb = [
 		name: 'index',
 		component: Index,
 		children:[
+			
+			{path: '/img_list',name: 'img_list',component: img_list},
 			{path: '/email',name: 'email',component: email},	
 		
 			{path: '/Work_i',name: 'Work_i',component: Work_i},	

@@ -983,6 +983,9 @@ img{
 	height: 79px;
 	line-height: 79px;
 }
+.qxBm_btns2>.btns{
+	margin-top: 18px;
+}
 .seed2_1>div:first-child{
 	
 	padding: 40px;

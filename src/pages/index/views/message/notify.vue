@@ -7,7 +7,7 @@
 						<img class="comment_1" @click="goUserIn(index)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/GFMRTX.svg" alt="">
 						<div class="comment_2 comment_2xss">
 							<div class="comment_2_1" @click="goUserIn(index)">{{(el.op==3 || el.op==4)?el.user_info.username:el.title}}<span class="comment_2_2">{{backtime(el.create_time)}}</span></div>
-							<div class="comment_2_5" v-html="el.content"></div>
+							<div class="comment_2_5" v-html="backCom(el.content)"></div>
 						</div>						
 				</div>
 				<p class="nn_x1">
@@ -64,6 +64,12 @@ export default {
 		
 	}, 
 	methods: {
+		backCom(str){
+			str = str.replace(/color:#ff5121/, "color:#33B3FF");	
+					
+			return	str.replace(/color:red/, "color:#33B3FF");		
+		},
+		
 		backTj(n){
 			return  n>999?999:n;
 		},
