@@ -313,13 +313,13 @@ export default {
 }
 .upfdb_content_1{
     text-align: left;
-    padding: 0 114px 80px;
+    padding: 0 114px 0;
 	line-height: 0;
 	width: 567px;
 	height: 380px;
 	overflow: hidden;
 	overflow-y: auto;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 .upfdb_content_1 span{
     font-family: PingFangSC-Regular;

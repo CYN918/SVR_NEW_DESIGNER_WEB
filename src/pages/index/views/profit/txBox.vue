@@ -70,10 +70,18 @@
 				</div>
 			</div>
 				
+			
+			
 			<div v-if="typedon==2 && user.type==1" class="pr_xx_1">
 				<div class="phodegg">
-					<div class="hm">{{backPhone()}}<span class="uphodefbt pend" @click="editPhone()">修改手机号</span></div>
+					<div class="hm_n1">
+						<span class="hm_n1_1">手机 +86</span>
+						<span class="hm_n1_2"></span>
+						<span class="hm_n1_3">{{backPhone2()}}</span>
+						<span class="uphodefbt pend" @click="editPhone()">修改手机号</span>
+					</div>
 					<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+					
 				</div>
 			</div>
 				
@@ -120,18 +128,7 @@
 				</div>
 				
 				
-				<div v-if="typedon==3" class="pr_xx_1">
-					<div class="phodegg">
-						<div class="hm_n1">
-							<span class="hm_n1_1">手机 +86</span>
-							<span class="hm_n1_2"></span>
-							<span class="hm_n1_3">{{backPhone2()}}</span>
-							<span class="uphodefbt pend" @click="editPhone()">修改手机号</span>
-						</div>
-						<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
-						
-					</div>
-				</div>
+				
 				<div class="pr_xx_btns botnbox">
 					<span v-if="typedon>0" @click="next_x(-1)">上一步</span>
 					<span v-if="typedon==0" @click="goUpsuer()">修改银行信息</span>
@@ -141,7 +138,7 @@
 			</div>
 	
 					
-				<img @click="close" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" class="newTanc_2">
+				<img @click="close" src="/imge/project/cj_00.svg" class="newTanc_2">
 			</div>		
 		</div>
 
@@ -474,15 +471,16 @@ export default {
     -webkit-box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+	overflow: hidden;
 }
 
 .newTanc_2{
-	position: absolute;
-	right: -36px;
-	top: -36px;
-	cursor: pointer;
-	width: 36px;
-	height: 36px;
+    position: absolute;
+    right: 24px;
+    top: 29.5px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
 }
 .newTanc_2:hover{
 	opacity: .7;

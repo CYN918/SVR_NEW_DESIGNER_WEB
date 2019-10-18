@@ -59,13 +59,14 @@ export default {
 	},
 	methods: {	
 		setZb(e){
-			this.tipY = e.screenY;
-			this.tipX = e.screenX;
+		
+			this.tipY = e.offsetY;
+			this.tipX = e.offsetX;
 		},
 		tipStar(e){
 			clearTimeout(this.showtIPOb);
 			this.showtIPOb = setTimeout(()=>{
-				this.showtIP = 'display: block;top: '+(this.tipY-100)+'px;left: '+this.tipX+'px;';
+				this.showtIP = 'display: block;top: '+(this.tipY-20)+'px;left: '+this.tipX+'px;';
 			},1000);
 		},
 		tipClser(e){
@@ -115,6 +116,7 @@ export default {
 
 <style>
 .wk_a{
+	position: relative;
 	text-align: left;
 	display: inline-block;
 	vertical-align: top;
@@ -236,8 +238,9 @@ export default {
 }
 
 .Ttip{
+	z-index: 1000;
 	display: none;
-    position: fixed;
+    position: absolute;
     padding: 1px 8px;
     background: rgba(0,0,0,.5);
     color: #fff;

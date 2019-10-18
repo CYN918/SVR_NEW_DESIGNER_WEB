@@ -79,8 +79,8 @@ export default {
 	display: block;
 }	
 .msc_2{
-	position: absolute;
-	top: 50px;
+	position: fixed;
+	top:405px;
 	padding: 10px 0;
 	width:300px;
 	background:rgba(255,255,255,1);
