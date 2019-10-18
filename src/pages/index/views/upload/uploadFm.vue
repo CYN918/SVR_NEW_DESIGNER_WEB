@@ -351,7 +351,7 @@ export default {
 	opacity: 0;
 }
 .ylt_pidf{
-	background: #fff;
+	background:#f4f6f9;
     position: absolute;
     top: 40px;
     left: 0;

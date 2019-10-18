@@ -12,7 +12,7 @@
 					</div>
 					<div class="userBoxd">
 						<span>用户名</span>
-						<Input class="userBoxd2" v-model="form.username"  :oType="'max'" :max="15"  :chekFn="chekusername" :type="'text'" :placeholder="'15字符内'"></Input>		
+						<Input class="userBoxd2" v-model="form.username" :max="18" :chekFn="chekusername" :type="'text'" :placeholder="'2-9个汉字，4-18个字符'"></Input>		
 					</div>
 					<div class="userBoxd">
 						<span>性别</span>
@@ -53,7 +53,7 @@ export default {
 	data(){		
 		return{	
 			isPhto:false,
-			caver:'http://res.shiquaner.zookingsoft.com/a7c29ebcdd1819d76396588dc72d2770.png',
+			caver:'/imge/svg/login/tx.svg',
 			form:{
 				citye:[],
 				sex:'',

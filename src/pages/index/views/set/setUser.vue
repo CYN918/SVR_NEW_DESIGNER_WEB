@@ -473,6 +473,7 @@
 				if(this.tAncType == 1) {
 					this.tancData.userName = '';
 				}
+				this.tancData = {};
 				this.close2();
 				this.tAncType = 0;
 			},

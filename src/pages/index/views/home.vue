@@ -21,9 +21,9 @@
 				<div class="home_0x5_1">
 					<div>专业平台把控项目质量，没有头疼的甲方</div>
 					月入2万的设计师们在与我们长期合作，你也可以一起加入。
-				</div><img class="home_0x5_2" src="/imge/home/7.png"/>
+				</div><img class="home_0x5_2" src="/imge/home/7.svg"/>
 			</div><div>
-				<img class="home_0x5_2" src="/imge/home/9.png"/>
+				<img class="home_0x5_2" src="/imge/home/9.svg"/>
 				<div class="home_0x5_1">
 					<div>收益成长累计，越赚越多</div>
 					累计收益越多，每次完成项目的收益加成额度越大
@@ -32,9 +32,9 @@
 				<div class="home_0x5_1">
 					<div>交稿作品分发渠道覆盖近7亿用户曝光</div>
 					龙头合作品牌覆盖73%安卓移动终端，而你只需提供灵感创意。
-				</div><img class="home_0x5_2" src="/imge/home/8.png"/>
+				</div><img class="home_0x5_2" src="/imge/home/8.svg"/>
 			</div><div>
-				<img class="home_0x5_2" src="/imge/home/10.png"/>
+				<img class="home_0x5_2" src="/imge/home/10.svg"/>
 				<div class="home_0x5_1">
 					<div>项目众多，长期供给，每周更新</div>
 					一经中标，最终交稿作品100%验收，每一次的创作都有价值
@@ -182,6 +182,7 @@ export default {
 	line-height:22px;
 }
 .home_0x5{
+	min-width: 1360px;
 	padding: 60px 0;
 	background: #fff;
 }

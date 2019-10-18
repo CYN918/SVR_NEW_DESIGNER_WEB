@@ -14,13 +14,15 @@
 						</div>
 						<div class="igL_l_box">
 							<div class="igL_l_1_2">
-								<div v-for="(el,index) in zb_a" :key="index" @click="cs(index)" class="igL_up_L" :ref="'mb'+index">
-									<div class="igL_up_L_1">
-										<img src=""/>
-									</div>
-									<div class="igL_up_L_2">
-										<span class="igL_up_L_2_1 hft">{{id_a[index]}}标题显示16个字符…</span>
-										<span class="igL_up_L_2_2">100.00KB</span>
+								<div class="igL_up_Box" v-for="(el,index) in list" :key="index">
+									<div v-if="!el.isAc"  @click="cs(index)" class="igL_up_L">
+										<div class="igL_up_L_1 mxImgbg">
+											<div :style="Imgbj(el.url,el.cover_img)"></div>
+										</div>
+										<div class="igL_up_L_2">
+											<span class="igL_up_L_2_1 hft">{{el.file_name}}</span>
+											<span class="igL_up_L_2_2">{{el.file_size_format}}</span>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -30,17 +32,19 @@
 					
 				</div>
 				<div class="igL_r">
-					<div @click="cs2(index)" v-for="(el,index) in id_b" :key="index"></div>
+					<div class="igL_r_1 mxImgbg" @click="cs2(index)" v-for="(el,index) in list2" :key="index">
+						<div :style="Imgbj(list[el].url,list[el].cover_img)"></div>
+					</div>
 				</div>
 			</div>
 			<div class="qxBm_btns qxBm_btns2">
 				<div class="btns pend">取消</div>	
 				<div class="btn-lod btns pend" @click="cs">
-					<i v-if="upType" class="loading_a m_c"></i>
+					<i v-if="getType" class="loading_a m_c"></i>
 					<span v-else>删除</span>
 				</div>		
 				<div class="btn-lod btns btns_js pend">
-					<i v-if="upType" class="loading_a m_c"></i>
+					<i v-if="getType" class="loading_a m_c"></i>
 					<span v-else>插入</span>
 				</div>										
 			</div>
@@ -61,15 +65,10 @@ export default {
 			con:{
 				title:'上传图片',
 			},
-			upType:'',
-			List_a:[{},{},{},{},{},{},{},{},{},{}],
-			List_b:[],
-			List_id:[],
-			
-			zb_a:[],
-			zb_b:[],
-			id_a:[],
-			id_b:[],
+			getType:'',
+			list:[],
+			list2:[],
+			page:1,
 		}
 	},
 	mounted: function() {
@@ -78,96 +77,84 @@ export default {
 	},
 	methods: {
 		init(){
-			let arrB=[];
-			for(let i=0,n=this.List_a.length;i<n;i++){
-				this.zb_a.push(i);
-				
-			}
+			this.getList();
 		
 		},
-		clickPos(on){
-			let arr = [];
-			let ond = 0;
-			for(let i=0,n=this.zb_a.length;i<n;i++){
-				let pn;
-				if(i<=on){
-					pn = this.zb_a[i];
-				}
-				if(i>on){
-					if(this.zb_a[i]==-1){
-						pn = this.zb_a[i];	
-						ond++;
-					}else{
-						pn = (this.zb_a[i-1-ond]);
-						ond=0;
-					}					
-				}				
-				arr.push(pn);
+		Imgbj(a,b){
+			let p = "background-image: url(";
+			switch ('image'){
+				case 'image': p+=a;
+					break;
+				case 'video': p+=b;
+					break;
+				case 'audio': p+='/imge/m.jpg';
+					break;	
 			}
-			arr[on] = -1;
-			this.zb_a = arr;
+			return p+");";
 		},
-		setPos(on,index){
-			if(on==-1){
+		getList(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+				return
+			}
+			if(this.getType){
+				return
+			}
+			
+			this.getType=1;
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				'6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',
+				window.userInfo.open_id,
+				times
+			];
+			let params = {
+				app_id:1001,
+				sign:this.MD5(encodeURIComponent(arr.sort())),
+				user:window.userInfo.open_id,
+				timestamp:times,
+				file_type:'image',
+				relation_type:'work',
+				limit:40,
+				page:this.page,
+			};
+			console.log(params);
+			this.api.getFList(params).then((da)=>{
+				this.getType='';
+				if(da=='error'){
+					return
+				}
+		
+				if(da.data.length==0 || !da){
+					this.noGd=1;
+				}
+				if(da.data.length==0 && this.list.length==0){
+					this.isnoData=1;
+				}else{
+					this.isnoData='';
+				}
+				this.total = da.total;
+				if(this.list.length>0){
+					this.list = this.list.concat(da.data);
+					return
+				}
+				this.list =da.data;
 				
-				return 'height:124px;transform: translate(760px,'+(52+(this.id_b.indexOf(index)*86))+'px) scale(0.46);position: fixed;';
-			}
-			let x,y;
-			let xd = on%3;
-			switch (xd){
-				case 0:x = 0;
-					break;
-				case 1:x = 240;
-					break;
-				case 2:x = 480;
-					break;
-			}			
-			let yd = parseInt(on/3);			
-			y= yd*176;		
-			let p = 'transform: translate('+x+'px,'+y+'px) scale(1);';
-			return p;
+			}).catch(()=>{
+				this.getType='';
+			});
 		},
-		clickPos2(on){
-			let arr = [];
-			let ond = -1;
-			for(let i=0,n=this.zb_a.length;i<n;i++){
-				let pn;
-			
-				if(i<on){
-					pn = this.zb_a[i];
-					if(this.zb_a[i]!=-1){
-						ond=this.zb_a[i];
-					}
-				}
-				if(i==on){
-					pn = ond+1;
-					ond++;
-				}
-				if(i>on){
-					if(this.zb_a[i]==-1){
-						pn = this.zb_a[i];							
-					}else{
-						pn = (this.zb_a[i]+1);
-					}					
-				}				
-				arr.push(pn);
+		
+		
+		cs(on){			
+			this.$set(this.list[on],'isAc',1);
+			if(this.list2.indexOf(on)==-1){
+				this.list2.push(on);
 			}
-			
-			this.zb_a = arr;
-
-			this.$refs['mb'+on][0].className="igL_up_L cs";
-			setTimeout(()=>{
-				this.$refs['mb'+on][0].className="igL_up_L";
-			},300)
-		},
-		cs(on){
-			this.id_b.push(this.zb_a.splice(on,1));
-			
-			
-			
 		},
 		cs2(on){
-			this.zb_a.push(this.id_b.splice(on,1));
+			this.list[this.list2.splice(on,1)].isAc='';
 		},
 		qdFn(){	
 			if(this.config['qFn']){
@@ -245,7 +232,11 @@ export default {
 	border:1px solid rgba(187,187,187,1);
 }
 .igL_r{
+	
+    overflow: hidden;
+    overflow-y: auto;
 	width: 180px;
+	height: 500px;
 }
 .igL_up_L{
 	overflow: hidden;
@@ -263,21 +254,21 @@ export default {
 	text-align: left;
 	margin-right: -40px;
 }
-.igL_l_1_2>.igL_up_L:nth-child(3n+3){
-	/* margin-right: -17px; */
-}
 .igL_up_L_1{
+	position: relative;
 	overflow: hidden;
 	width:220px;
 	height:124px;
 	border-radius:5px 5px 0px 0px;
-	background: #1890FF;
+
 	margin-bottom: 6px;
 }
-.igL_up_L_1>img{
-	display: block;
-	width: 100%;
+.igL_up_L_1>div{
+	width:220px;
+	height:124px;
 }
+
+
 .igL_up_L_2{
 	position: relative;
 	padding: 0 10px;
@@ -306,12 +297,24 @@ export default {
 .igL_r{
 	padding: 30px 0;
 }
+.igL_up_Box{
+	display: inline-block;
+	vertical-align: top;
+}
 .igL_r>div{
 	margin: 0 auto 30px;
 	width:100px;
 	height:56px;
 	box-shadow:0px 2px 6px 0px rgba(0,0,0,0.1);
 	border-radius:5px;
+}
+.igL_r_1>div{
+	width:100px;
+	height:56px;
+	
+}
+.igL_r_1{
+	
 }
 .myis{
 	overflow: hidden;

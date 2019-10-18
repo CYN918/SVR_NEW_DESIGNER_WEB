@@ -75,7 +75,6 @@ img{
 	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.svg#iconfont') format('svg');
 }
 .hft{
-	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -87,6 +86,13 @@ img{
     width: 0;
     height: 0;
     opacity: 0;
+}
+.mxImgbg>div{
+
+	background-origin:content;
+	background-position:50% 50%;
+	background-size:cover; 
+	background-repeat:no-repeat; 
 }
 @keyframes bjs{
 	from{background: rgba(255,255,255,0);}
@@ -494,17 +500,20 @@ img{
 	margin-top: 17px;
 	margin-bottom: 22px;
 	width: 100%;
-	background: #999 !important;
-	border-color:#999  !important;
+	color:rgba(187,187,187,1);
+	background: #dfdfdf !important;
+	border-color:#dfdfdf  !important;
 	
 }
 .lgoin_s4:hover{
-	background: #999;
-	border-color:#999 ;
+	color:rgba(187,187,187,1);
+	background: #dfdfdf;
+	border-color:#dfdfdf ;
 }
 .lgoin_s4:active{
-	background: #999;
-	border-color:#999 ;
+	color:rgba(187,187,187,1);
+	background: #dfdfdf;
+	border-color:#dfdfdf;
 }
 .login_x3{
 	margin-bottom: 38px;
@@ -658,6 +667,7 @@ img{
 }
 .btnType{
 	background: #33B3FF !important;
+	color: #fff !important;
 	border-color: #33B3FF !important;
 }
 .wjmm{
@@ -982,6 +992,9 @@ img{
 	border-top: 1px solid rgba(244,246,249,1);
 	height: 79px;
 	line-height: 79px;
+}
+.qxBm_btns>div{
+	vertical-align: top;
 }
 .qxBm_btns2>.btns{
 	margin-top: 18px;

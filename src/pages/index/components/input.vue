@@ -111,7 +111,7 @@ export default {
 		},
 	    'input'(val,oldeval) {
 			if(this.input){
-				this.numd = this.input.length;
+				this.numd = this.input.gblen();
 				if(this.isHz){
 					this.numd = this.backHz(this.input);
 				}				

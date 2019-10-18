@@ -372,14 +372,16 @@ export default {
 				cl3:'',
 			};
 			let p1 = this.setCls(this.page2.classify,'value',this.form.classify_1);
-
-			this.tcData.cl1 = p1.a;
-			let p2Ob = this.page2.classify[p1.b].children;
-		
-			let p2 = this.setCls(p2Ob,'value',this.form.classify_2);
-			this.tcData.cl2 = p2.a
-			let p3 = this.setCls(p2Ob[p2.b].children,'value',this.form.classify_3);
-			this.tcData.cl3 = p3.a
+			if(p1){
+				this.tcData.cl1 = p1.a;
+				let p2Ob = this.page2.classify[p1.b].children;						
+				let p2 = this.setCls(p2Ob,'value',this.form.classify_2);						
+				this.tcData.cl2 = p2.a
+				let p3 = this.setCls(p2Ob[p2.b].children,'value',this.form.classify_3);
+				this.tcData.cl3 = p3.a
+			}
+			
+			
 			
 			
 			
