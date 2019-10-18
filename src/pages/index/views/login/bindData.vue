@@ -67,7 +67,7 @@ export default {
 		return{	
 			
 			isPhto:false,
-			caver:'http://res.shiquaner.zookingsoft.com/a7c29ebcdd1819d76396588dc72d2770.png',
+			caver:'/imge/svg/login/tx.svg',
 			form:{
 				citye:[],
 				sex:'',
