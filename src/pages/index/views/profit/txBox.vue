@@ -126,7 +126,18 @@
 						<div><span>寄送物流单号</span><span><input class="txje" placeholder="请输入物流单号" v-model="form.express_id" type="text"></span></div>					
 					</div>					
 				</div>
-				
+				<div v-if="typedon==3 class="pr_xx_1">
+					<div class="phodegg">
+						<div class="hm_n1">
+							<span class="hm_n1_1">手机 +86</span>
+							<span class="hm_n1_2"></span>
+							<span class="hm_n1_3">{{backPhone2()}}</span>
+							<span class="uphodefbt pend" @click="editPhone()">修改手机号</span>
+						</div>
+						<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+						
+					</div>
+				</div>
 				
 				
 				<div class="pr_xx_btns botnbox">
