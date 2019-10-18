@@ -2361,7 +2361,6 @@ content: "";
 
 .btns{
 	display: inline-block;
-	vertical-align: top;
     border: 1px solid #979797;
     border-radius: 5px;
     width: 118px;
