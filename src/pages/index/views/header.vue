@@ -308,6 +308,7 @@ export default {
 				this.bdtj('通用模块','顶部栏点击_退出','--');
 			}
 			this.$refs.out.show();
+			
 		},
 		
 		getMessgNumber(){

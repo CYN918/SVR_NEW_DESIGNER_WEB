@@ -55,21 +55,11 @@
 									<div class="sytc_2_1">
 										<span>达成条件</span><span>收益加成</span>
 									</div>
-									<div :class="num2>=3000?'sydpjcOn':''">
-										<span>累计收益达到 ￥ 3,000.00</span><span>+ 5%</span>
+									<div v-for="(el,index) in basDa.profit_config" :key="index" :class="backCl(index)">
+										<span>累计收益达到 ￥ {{el.total_income}}</span><span>+ {{el.gain_share_rate}}%</span>
 									</div>
-									<div :class="num2>=20000?'sydpjcOn':''">
-										<span>累计收益达到 ￥ 20,000.00</span><span>+ 15%</span>
-									</div>
-									<div :class="num2>=50000?'sydpjcOn':''">
-										<span>累计收益达到 ￥ 50,000.00</span><span>+ 20%</span>
-									</div>
-									<div :class="num2>=120000?'sydpjcOn':''">
-										<span>累计收益达到 ￥ 120,000.00</span><span>+ 25%</span>
-									</div>
-									<div :class="num2>=300000?'sydpjcOn':''">
-										<span>累计收益达到 ￥ 300,000.00 及以上</span><span>+ 30%</span>
-									</div>
+									
+									
 								</div>
 							</div>							
 						</div>
@@ -129,7 +119,25 @@ export default {
 			}
 		}
 	},
-	methods: {		
+	methods: {	
+		backCl(on){
+			
+			let ond = +this.basDa.profit_config[on].total_income;
+			
+			let str = '';
+			
+			if(+this.basDa.total_income>=ond){
+				str = 'sydpjcOn';
+			}					
+			let ond2 = this.basDa.profit_config[on+1];
+			if(!ond2){
+				return str;
+			}
+			if(+this.basDa.total_income>=+ond2.total_income){
+				str =  '';
+			}
+			return str;
+		},
 		init(){			
 			this.txData.type = window.userInfo.contributor_type;
 			this.getData();
@@ -371,7 +379,7 @@ export default {
     -webkit-transform: translate(-35%,-3%);
     transform: translate(-35%,-3%); 
 	width:424px;
-	height:491px;
+
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
 	border-radius: 5px;
