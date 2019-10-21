@@ -296,12 +296,12 @@ router.beforeEach((to, from, next) => {
 		window.location.href = location.origin+"/aindex.html#/";
 		return
 	}
-	var ishttps = 'https:' == document.location.protocol ? true : false;
+	// var ishttps = 'https:' == document.location.protocol ? true : false;
 
-	if (!ishttps) {
-		if(window.location.host=='shiquaner.zookingsoft.com')
-		window.location.href = 'https://'+window.location.host+window.location.pathname;
-	}
+	// if (!ishttps) {
+	// 	if(window.location.host=='shiquaner.zookingsoft.com')
+	// 	window.location.href = 'https://'+window.location.host+window.location.pathname;
+	// }
 
 	setTitle(to.path)
 	
