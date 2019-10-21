@@ -34,21 +34,24 @@
 						<img src="/imge/profit/qxt.svg">
 						<div class="pbx_n_02">收益加成<img  @mouseout="mod()" @mouseover="modx($event,1)" class="pbx_n_06" src="/imge/project/09.svg" alt=""></div>
 						<div class="pbx_1_1">
+							
+							
+							
 							<span>{{basDa.gain_share_rate}}</span>	
 							<div v-if="sfas" class="sytc">
 								<div class="sytc_1">
-									<div class="sytc_1_1">
-										<div>当前累计收益：<span>￥ {{mJs.money_deiv(num2)}}</span></div>
-										<div>当前收益加成：<span class="sytc_1_1x">+ {{basDa.gain_share_rate}}</span></div>
-									</div>
-									<div class="sytc_1_2">
-										收益成长任务
-									</div>
-									<div class="sytc_1_3">
-										达成收益条件，之后每单项目均会获得额外百分比收益加成
-									</div>
-									<div class="sytc_1_4">
-										项目加成收益=验收价格*收益加成比
+									<div class="sytc_1_n1">年收益加成</div>
+									<div class="sytc_1_n2">若达成年累计收益条件，则该年后续每单项目均会获得额外百分比收益加成，年末累计收益清零重新计算。</div>
+									<div class="sytc_1_n3">项目加成收益=验收价格*收益加成比</div>
+									<div class="sytc_1_n4">
+										<span class="sytc_1_n5">
+											你的2019累计收益：
+											<span class="sytc_1_n6">￥ 130,000.00</span>
+										</span>
+										<span class="sytc_1_n7">
+											当前收益加成：
+											<span class="sytc_1_n8">+ 10%</span>
+										</span>
 									</div>
 								</div>
 								<div class="sytc_2">
@@ -144,7 +147,7 @@ export default {
 			this.getUserDetail();
 		},
 		mod(e){
-			this.sfas = '';
+			// this.sfas = '';
 		},
 		modx(e,on){
 			this.sfas = 1;
@@ -468,5 +471,50 @@ export default {
 }
 .sytc_2>div.sydpjcOn~div{
 	color:rgba(51,51,51,1);
+}
+.sytc_1_n1{
+	font-size:16px;
+	color:rgba(40,40,40,1);
+	line-height:22px;
+	margin-bottom: 10px;
+}
+.sytc_1_n2{
+	font-size:14px;
+	color:rgba(102,102,102,1);
+	line-height:20px;
+	margin-bottom: 20px;
+}
+.sytc_1_n3{
+	font-size:12px;
+	color:rgba(187,187,187,1);
+	line-height:18px;
+	margin-bottom: 10px;
+}
+.sytc_1_n4>span{
+	display: inline-block;
+	vertical-align: top;
+	font-size:14px;
+	color:rgba(102,102,102,1);
+	line-height:20px;
+	width: 133px;
+}
+.sytc_1_n4>span>span{
+	display: block;
+	line-height:34px;
+}
+.sytc_1_n5{
+	margin-right: 81px;
+	
+}
+.sytc_1_n6{
+	font-size:14px;
+	color:rgba(102,102,102,1);
+	line-height:20px;
+}
+.sytc_1_n8{
+	font-size:24px;
+	font-weight:600;
+	color:rgba(51,179,255,1);
+
 }
 </style>
