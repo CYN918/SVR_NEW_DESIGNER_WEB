@@ -207,7 +207,7 @@ export default {
 	vertical-align: top;
 	margin-top: 2.5px;
 	margin-left: 30px;
-	width: 15px;
+	width: 18px;
 }
 .cavar_l_2_1{
 	position: absolute;

@@ -210,11 +210,14 @@ export default {
 </script>
 
 <style>
-	.dysxboxd{
-		position: relative;
-		width: 1300px;
-		margin: 0 auto;
-	}
+.dysxboxd{
+	position: relative;
+	width: 1300px;
+	margin: 0 auto;
+}
+.dysxbox .el-select-dropdown{
+		border: none;
+}
 	.dysxbox{
 		position: absolute;
 		top: -60px;
@@ -433,7 +436,7 @@ export default {
 	text-align: center;
 	padding-top: 50px;
 	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+
 	border-radius: 5px;
 	width: 310px;
 	height: 300px;

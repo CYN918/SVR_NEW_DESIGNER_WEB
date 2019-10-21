@@ -1429,14 +1429,14 @@ content: "";
 }
 .hfBox span{
 	display: inline-block;
-	background: #666666;
+	background: rgba(223,223,223,1);
 	border-radius: 5px;
 	width: 102px;
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
 	font-size: 14px;
-	color: #fff;
+	color: rgba(187,187,187,1);
 	margin-left: 14px;
 }
 .pl_02_1xxc{

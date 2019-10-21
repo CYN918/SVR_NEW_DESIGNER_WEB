@@ -56,7 +56,11 @@ export default {
 			if(!this.input){
 				return
 			}
-			return this.input[1].substring(0,2)+" "+this.input[2].substring(0,2);
+			let sd = this.input[1]+" "+this.input[2];
+			if(sd.length>7){
+				sd = sd.substring(0,7)+'...';
+			}
+			return sd;
 		}
 	},
 	watch: {

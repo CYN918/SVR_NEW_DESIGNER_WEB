@@ -675,7 +675,7 @@ export default {
 	position: relative;
 	display: inline-block;
 	font-size: 14px;
-	padding:15px 30px;
+	padding:15px 20px;
 	background: #F4F4F4;
 	border-radius: 5px;
 	max-width: 344px;
@@ -745,6 +745,7 @@ export default {
     margin: 30px 37px 0;
 }
 .sxBodx3_1_3{
+	color: #bbb;
 	position: absolute;
     right: 33px;
     top: 0;
@@ -784,6 +785,7 @@ export default {
 }
 .iscsbtn{
 	background: #33B3FF !important;
+	color: #fff !important;
 }
 .zdxs{
     position: absolute;

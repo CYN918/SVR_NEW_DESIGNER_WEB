@@ -435,8 +435,7 @@ export default {
     box-sizing: border-box;
     padding-top: 30px;
     background: #fff;
-    -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,.1);
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,.1);
+
     border-radius: 5px;
     width: 1300px;
     height: 215px;

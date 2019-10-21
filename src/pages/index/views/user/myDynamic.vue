@@ -71,6 +71,9 @@ export default {
 	
 	padding-top: 20px;
 }
+.dysxbox .el-select-dropdown{
+	border: none;
+}
 .dysxboxd{
 	position: relative;
 	width: 1300px;

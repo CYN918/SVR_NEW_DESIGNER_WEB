@@ -51,7 +51,7 @@ export default {
 	min-width: 1300px;
 	height: 80px;
 	background: #FFFFFF;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+
 }
 .myWorks_2{
 	position: relative;

@@ -569,6 +569,10 @@ export default {
 	top: 0;
 	left: 0;
 	width: 100%;
+	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+	box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+
+
 }
 
 .userNavBoxXz2>a{
@@ -597,7 +601,7 @@ export default {
 	left: 50%;
 	transform: translateX(-50%);
 	width: 94%;
-	height: 1px;
+	height: 3px;
 	background: #33B3FF;
 }
 .wusj2{
