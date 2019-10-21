@@ -6,7 +6,8 @@
 				<template v-slot:todo="{ todo }">
 					<div class="mylists">
 						<div @click="openxq(todo)" class="myListBox_1">
-							<img class="myListBox_1_1" :src="backFm(todo.face_pic)">
+							<div class="mywus_n1" :style="backFm(todo.face_pic)"></div>
+							
 							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
 						</div>
 						<div @click="openxq(todo)" class="myListBox_2">
@@ -189,7 +190,8 @@ export default {
 				myNotPass:'-2',
 				myPass:'2',
 				myDraft:'-1'
-			}
+			},
+			
 		}
 	},
 	created(){
@@ -221,9 +223,9 @@ export default {
 		},
 		backFm(ur){
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
-				return '/imge/new/com/no_img.svg';
+				return 'background-image: url(/imge/new/com/no_img.svg);background-size:50%;';
 			}
-			return ur+'?x-oss-process=image/resize,w_307';
+			return 'background-image: url('+ur+'?x-oss-process=image/resize,w_307);';
 			
 		},
 		upDataSet(){	
@@ -749,9 +751,7 @@ export default {
 	margin-left: 29px;
 }
 .setDatasXX_4_2{
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
+	background: #fff;
 	width: 960px;
 	
 	box-sizing: border-box;
@@ -786,9 +786,7 @@ export default {
     margin-left: 12px;
 }
 .setDatasXX_5,.setDatasXX_6{
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
+	background: #fff;
 	width: 960px;
 	
 	box-sizing: border-box;
@@ -871,6 +869,7 @@ export default {
 	line-height: 100px;
 }
 .necsgg{
+	background: #f4f6f9;
 	padding: 40px 0;
 	height: 464px;
 	overflow: hidden;
@@ -890,7 +889,7 @@ export default {
 	cursor: pointer;
 }
 .setDatasXX_7>span:last-child{
-	background: #333333;
+	background: #33B3FF;
 	color: #fff;
 }
 .setDatasXX_5_2_3 .el-select{
@@ -930,5 +929,17 @@ export default {
 }
 .setDatasXX_4_3qz{
 	height: 40px !important;
+}
+.mywus_n1{
+	cursor: pointer;
+	width: 308px;
+    height: 231.6px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 50%,50%;
+	-webkit-transition: transform .1s linear;
+	transition: transform .1s linear,;
+	-webkit-transform-origin: center;	
+	transform-origin: center;
 }
 </style>

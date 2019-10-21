@@ -52,8 +52,8 @@ export default {
 	position: absolute;
 	top: 0;
 	left: 0;
-	font-family: PingFangSC-Medium;
-	font-size: 24px;
+	
+	font-size: 16px;
 	color: #1E1E1E;
 }
 .myWorks_4{

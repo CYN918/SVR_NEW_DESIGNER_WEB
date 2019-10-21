@@ -323,6 +323,7 @@ export default {
 .pbx_1_4{
 	vertical-align: middle;
 	display: inline-block;
+	margin-right: -10px;
     width: 35px;
 }
 .pbx_1_1x{

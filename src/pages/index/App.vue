@@ -995,6 +995,7 @@ img{
 }
 .qxBm_btns>div{
 	vertical-align: top;
+	margin-top: 20px;
 }
 .qxBm_btns2>.btns{
 	margin-top: 18px;
