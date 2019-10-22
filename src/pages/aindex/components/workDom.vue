@@ -3,7 +3,7 @@
 		<div @click="goPth('cont',el.work_id)" class="worksBox_fm" :style="setImg(el.face_pic)"></div>
 		<div class="worksBox_n">
 			<span @click="goWork(el.work_id)">{{backName(el.work_name)}}</span>
-			<img class="tjImg" v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg"/>
+			<img class="tjImg" v-if="el.is_recommend==1" src="/imge/new/works/icon_r.svg"/>
 		</div>
 		<div class="worksBox_cl">
 			<span class="worksBox_cl_l">{{el.classify_1_name+'-'+el.classify_2_name}}</span>
