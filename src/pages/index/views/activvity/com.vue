@@ -396,7 +396,12 @@ export default {
 	margin-right: 15px;
 }
 .detail_topBox_2_2{
-	background: rgba(51, 179, 255, 0.5);
+	cursor: pointer;
+	background: rgba(51, 179, 255,1);
+}
+
+.detail_topBox_2_2:hover{
+	background:rgba(112, 201, 255, 1);
 }
 .detail_topBox_2_3{
 	font-size: 24px;
@@ -656,11 +661,9 @@ export default {
 	font-size: 14px;
 	color: #FFFFFF;
 }
-.detail_topBox_2_2:hover{
-	background: rgba(51, 179, 255, 1);
-}
+
 .detail_topBox_2_2:active{
-	background: rgba(51, 179, 255, 1);
+	background: rgba(112, 201, 255, 1);
 }
 .detail_topBox_2_1:hover{
 	background: #4E4E4E;

@@ -7,7 +7,6 @@
 					<div class="mylists">
 						<div @click="openxq(todo)" class="myListBox_1">
 							<div class="mywus_n1" :style="backFm(todo.face_pic)"></div>
-							
 							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
 						</div>
 						<div @click="openxq(todo)" class="myListBox_2">
@@ -30,9 +29,7 @@
 			</list>
 		</div>
 		
-		<TcBoxQr :config="config2" ref="tcBox2">
-
-		</TcBoxQr>			
+		<TcBoxQr :config="config2" ref="tcBox2"></TcBoxQr>			
 				
 		<TcBox :config="config" ref="tcBox">
 			<template v-slot:todo="{ todo }">			

@@ -1,6 +1,6 @@
 <template>
 	
-	<div :class="['msc_1',isfuse]">
+	<div :class="['msc_1',isfuse]" ref="zbwz">
 
 		<input v-model="mode1" placeholder="请选择" @focus="cs" @blur="bfn" autocomplete="off" readonly="readonly" type="text" />
 		<i></i>
@@ -33,6 +33,7 @@ export default {
 	methods: {
 		cs(){
 			this.isfuse='isfuse';
+			console.log(this.$refs.zbwz);
 		},
 		bfn(){
 			setTimeout(()=>{
@@ -79,8 +80,9 @@ export default {
 	display: block;
 }	
 .msc_2{
-	position: fixed;
-	top:405px;
+	z-index: 9999;
+	position: absolute;
+	top:40px;
 	padding: 10px 0;
 	width:300px;
 	background:rgba(255,255,255,1);

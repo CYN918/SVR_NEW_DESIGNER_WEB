@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		
-		<div class="sjxd" v-if="deta.extra_reward">
+		<div class="sjxd" v-if="deta.extra_reward && deta.extra_reward!='0.00'">
 			额外奖金¥{{deta.extra_reward}}
 		</div>
 		<component v-bind:is="tcZj"  :datad="tcData"></component>

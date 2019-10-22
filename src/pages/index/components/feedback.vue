@@ -46,7 +46,7 @@
 				    
 				    <input class="upfdb_namex1d" type="text" placeholder="请输入联系方式" v-model="link">
 					<div class="upfdb_name_x1 upfdb_name_x12">
-						<myselect  :List="lxfs" :v="'v'" :k="'v'" v-model="link_type"></myselect>
+						<myselect class="nxf_oox"  :List="lxfs" :v="'v'" :k="'v'" v-model="link_type"></myselect>
 					</div>
 				</div>
 			</div>	
@@ -489,7 +489,8 @@ export default {
     width: 500px;
 }
 .btmsddf_01{
-	padding-bottom: 30px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(244,246,249,1);
 }
 .picURl:hover .closeX_1{
 	opacity: 1;
@@ -512,5 +513,9 @@ export default {
 }
 .upfdb_namex input{
 	font-size: 14px;
+}
+.nxf_oox .msc_2{
+	top: auto;
+	bottom: 40px;
 }
 </style>

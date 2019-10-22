@@ -211,7 +211,7 @@ export default {
 .yhtop2Box>span.router-link-active:after {
     content: "";
     position: absolute;
-    bottom: 5px;
+    bottom: 0;
     left: 5%;
     width: 90%;
     height: 2px;
