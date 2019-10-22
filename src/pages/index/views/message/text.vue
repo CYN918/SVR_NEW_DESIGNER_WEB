@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<headNav :config="navData" ref="xtop"></headNav>
-		<headNav v-if="topTyped" class="dbxfyS btomShow" :config="navData" ref="xtop"></headNav>
+		<headNav :config="navData" class="cenct_n2" ref="xtop"></headNav>
+		<headNav v-if="topTyped" class="cenct_n2 dbxfyS btomShow" :config="navData" ref="xtop"></headNav>
 		<div v-if="isJD" class="content">
 			<div v-html="comt"></div>
 		</div>
@@ -92,8 +92,15 @@ export default {
 					return
 				}	
 				
+				
 				setTimeout(()=>{
-					this.setNavd(0);
+					let t = document.documentElement.scrollTop||document.body.scrollTop;
+					if(t>=60){
+						this.mJs.scTop(80);
+					}else{
+						this.mJs.scTop(1);
+					}
+					
 				},25)
 				
 				return
@@ -183,8 +190,9 @@ export default {
 				if(da=="error" || !da.document){this.getMrData();return}
 				this.isaj = 1;
 				this.comt = da.document;
-				if(this.topTyped==1){
-					this.mJs.scTop(80);
+				let t = document.documentElement.scrollTop||document.body.scrollTop;
+				if(t>=60){
+					this.mJs.scTop(60);
 				}else{
 					this.mJs.scTop(1);
 				}
@@ -235,5 +243,12 @@ export default {
 }
 .tm_opd{
 	opacity: 0;
+}
+.cenct_n2 .setHeadBox_3{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
 }
 </style>

@@ -69,14 +69,14 @@ export default {
 		},
 		djsFn(){
 			
-			// setTimeout(()=>{
-			// 	this.djs--;
-			// 	if(this.djs>0){
-			// 		this.djsFn();
-			// 		return
-			// 	}
-			// 	this.go('/setSecurity');
-			// },1000);
+			setTimeout(()=>{
+				this.djs--;
+				if(this.djs>0){
+					this.djsFn();
+					return
+				}
+				this.go('/index');
+			},1000);
 		}
 	},
 }	
@@ -97,7 +97,7 @@ export default {
 }
 .em_bg{
 	display: block;
-	width: 860px;
+	height: 440px;
 }
 .em_02{
 	position: absolute;

@@ -1765,6 +1765,9 @@ content: "";
 
 	margin-bottom: 40px;
 }
+.tc_sucd_1_2>.btns{
+	vertical-align: top;
+}
 .tc_sucd_1_2>span{
 	cursor: pointer;
 	display: inline-block;
@@ -2175,10 +2178,10 @@ content: "";
 	margin-left: 157px;
 }
 .setUserBoxs_cent >div.suc_btndf2{
-	background: #999999;
+	background: #DFDFDF;
     border-radius: 5px;
     font-size: 16px;
-    color: #FFFFFF;
+    color: #BBBBBB;
     text-align: center;
     width: 340px;
     height: 40px;
@@ -2382,6 +2385,7 @@ content: "";
     line-height: 38px;
     font-size: 14px;
     color: #666666;
+	background: #fff;
     text-align: center;
     margin: 0 10px;
 }

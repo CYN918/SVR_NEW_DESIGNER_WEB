@@ -413,6 +413,6 @@ export default {
 	border:1px solid rgba(187,187,187,1);
 }
 .addM_n_1>input:focus{
-	width:223px;
+	width:228px;
 }
 </style>

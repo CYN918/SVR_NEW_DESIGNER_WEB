@@ -230,7 +230,7 @@ export default {
 	background: #FFFFFF;
     border-radius: 5px;
     width: 910px;
-    padding: 30px 30px;
+    padding: 20px 30px;
     margin-bottom: 20px;
 }
 .nn_x1{text-align: center;padding-top: 40px;}

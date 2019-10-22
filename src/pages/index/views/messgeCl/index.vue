@@ -21,8 +21,7 @@ export default {
 	}, 
 	methods: {
 		init(){
-			
-			
+
 			if(!this.$route.query.ret){
 				this.$router.push({path: '/index'})
 				return
