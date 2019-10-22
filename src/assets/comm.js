@@ -76,7 +76,7 @@ export default {
 				    }      
 				}
 			},
-			add:function(){
+			add:function(){	
 				this.adfn = this.throttle(fn, 50);
 				window.addEventListener('scroll', this.adfn);
 			},

@@ -22,7 +22,9 @@ export default {
 	},
 	methods: {	
 		init(){
+			
 			this.adFn = this.mJs.Jl_fn(this.setTop);
+			
 			this.adFn.add();
 		},		
 		setTop(e){				

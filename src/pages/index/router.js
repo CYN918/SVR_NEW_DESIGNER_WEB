@@ -19,7 +19,7 @@ import av_into from './views/activvity/into.vue'
 import av_admission from './views/activvity/admission.vue'
 
 import content from './views/works/content.vue'
-import contents from './views/works/contents.vue'
+
 
 import myDynamic from './views/user/myDynamic.vue'
 import myCreators from './views/user/myCreators.vue'
@@ -141,7 +141,7 @@ let wb = [
 			},
 			
 			{path: '/cont',name: 'cont',component:content,},
-			{path: '/conts',name: 'conts',component:contents,},
+			{path: '/conts',name: 'conts',component:content,},
 			
 			{path: '/myDynamic',name: 'myDynamic',component:myDynamic},
 			{path: '/myCreators',name: 'myCreators',component:myCreators},

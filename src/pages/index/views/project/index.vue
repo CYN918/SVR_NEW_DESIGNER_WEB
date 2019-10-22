@@ -1,15 +1,7 @@
 <template>
 	<div class="pr_box">
 		
-		<div class="pr_01">
-			<div>
-				<div class="pr_01_1">
-					
-					发挥所长，轻松赚钱，从这里开始<br/>狮圈儿，让<span class="pr_01_2">创意更有价值</span>，让生活更加自由
-				</div>
-				<div class="pr_01_3">项目每周更新发布，专业平台团队把控，只提供优质稳定的项目需求。</div>
-			</div>
-		</div>
+		
 		<div class="pr_02_1Box">
 			<pTop class="" :cn="topCn">
 				<template v-slot:todo="{ todo }">
