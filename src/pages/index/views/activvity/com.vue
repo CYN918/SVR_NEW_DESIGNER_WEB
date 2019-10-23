@@ -425,6 +425,9 @@ export default {
 	width: 100%;
 	-webkit-animation: bjs .3s linear forwards;
 	animation: bjs .3s linear forwards;
+	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+	box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+
 }
 .detail_nav>a{
 	display: inline-block;

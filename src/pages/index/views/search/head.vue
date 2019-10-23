@@ -217,6 +217,7 @@ export default {
 	top: 0;
 	left: 0;
 	width: 100%;
-
+	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+	box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
 }
 </style>

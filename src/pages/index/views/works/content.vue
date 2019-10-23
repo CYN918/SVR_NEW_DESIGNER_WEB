@@ -841,7 +841,8 @@ export default {
 	min-width: 1300px;
 	height:80px;
 	background:rgba(255,255,255,1);
-	box-shadow:0px 2px 6px 0px rgba(0,0,0,0.05)
+	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+	box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
 }
 .p_isTop .isno{
 	display: none;
