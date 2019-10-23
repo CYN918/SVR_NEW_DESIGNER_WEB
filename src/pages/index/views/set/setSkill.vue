@@ -7,7 +7,7 @@
 							<el-select v-model="form.situation" placeholder="请选择">
 								<el-option
 								  v-for="item in pz_situation"
-								  :key="item"
+								  
 								  :label="item"
 								  :value="item">
 								</el-option>
@@ -18,18 +18,18 @@
 							<el-select v-model="form.work_experience"  placeholder="请选择">
 								<el-option
 								  v-for="item in pz_work_experience"
-								  :key="item"
+								  
 								  :label="item"
 								  :value="item">
 								</el-option>
 							</el-select>
 						</div>
-						<div class="cl_n_x1">
-							<span>项目类型偏好</span>
+						<div class="cl_n_x1 cl_n_x1p">
+							<span class="cl_n_x1ph">项目类型偏好</span>
 							<el-select v-model="form.preference_classify" multiple placeholder="请选择">
 								<el-option
 								  v-for="item in pz_preference_classify"
-								  :key="item.classify_name"
+								  
 								  :label="item.classify_name"
 								  :value="item.classify_name">
 								  <span class="uog"></span>
@@ -69,7 +69,7 @@
 							<el-select v-model="form.design_experience" placeholder="请选择">
 								<el-option
 								  v-for="item in pz_design_experience"
-								  :key="item"
+								  
 								  :label="item"
 								  :value="item">
 								</el-option>
@@ -414,5 +414,11 @@ export default {
 }
 .addM_n_1>input:focus{
 	width:228px;
+}
+.suc_1>div>.cl_n_x1ph{
+	vertical-align: top;
+}
+.cl_n_x1p .el-input__suffix{
+	height: 40px !important;
 }
 </style>

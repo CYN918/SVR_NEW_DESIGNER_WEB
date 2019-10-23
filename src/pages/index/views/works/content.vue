@@ -863,8 +863,8 @@ export default {
 	width: 17px;
 }
 .is_icon2{
-	margin: 7px 6px 0 0;
-	width: 19px;
+	margin: 9px 6px 0 0;
+	width: 15.2px;
 }
 .p_isTop .isshow{
 	display: inline-block;

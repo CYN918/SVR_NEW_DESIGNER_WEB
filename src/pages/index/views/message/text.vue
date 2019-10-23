@@ -67,6 +67,12 @@ export default {
 	methods: {
 		goAnchor(a) {
 			let anchor = this.$el.querySelector(a);
+			if(!anchor){
+				setTimeout(()=>{
+					this.goAnchor(a);
+				},100)
+				return
+			}
 			let ghh = anchor.offsetTop - anchor.clientHeight*4;
 			this.mJs.scTop(ghh);
 		},
@@ -87,7 +93,7 @@ export default {
 					this.navdOn = oid.substring(0,1)-1;
 					setTimeout(()=>{
 						this.goAnchor('#problem_'+oid);
-					},50);
+					},100);
 					
 					return
 				}	
@@ -96,7 +102,7 @@ export default {
 				setTimeout(()=>{
 					let t = document.documentElement.scrollTop||document.body.scrollTop;
 					if(t>=60){
-						this.mJs.scTop(80);
+						this.mJs.scTop(60);
 					}else{
 						this.mJs.scTop(1);
 					}
@@ -179,7 +185,7 @@ export default {
 					this.comt = da.data;
 				}
 				if(this.topTyped==1){
-					this.mJs.scTop(80);
+					this.mJs.scTop(60);
 				}else{
 					this.mJs.scTop(1);
 				}
