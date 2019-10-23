@@ -46,9 +46,9 @@ export default {
 		return{
 			shareData:{},
 			icons:[
-				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/see/zs_icon_gk.svg',n:'view_num'},
-				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/see/zs_icon_dz.svg',n:'like_num'},
-				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/see/zs_icon_xx.svg',n:'comment_num'},
+				{i:'/imge/svg/see/zs_icon_gk.svg',n:'view_num'},
+				{i:'/imge/svg/see/zs_icon_dz.svg',n:'like_num'},
+				{i:'/imge/svg/see/zs_icon_xx.svg',n:'comment_num'},
 				
 			],
 			showtIP:'',
@@ -202,11 +202,18 @@ export default {
 }
 .wk_a_2_3>span>img{
 	display: inline-block;
-	vertical-align: middle;
+	vertical-align: top;
 	margin-right: 5px;
+	margin-top: 3px;
 }
 .wk_a_2_3>span:nth-child(1)>img{
-    vertical-align: initial;
+  
+}
+.wk_a_2_3>span:nth-child(2)>img{
+     margin-top: 2px;
+}
+.wk_a_2_3>span:nth-child(3)>img{
+    
 }
 .wk_a_3{
 	padding: 10px 15px;

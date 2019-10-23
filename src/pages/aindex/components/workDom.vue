@@ -13,8 +13,8 @@
 			<img class="worksUser_1" :src="el.user_info.avatar" alt="">
 			<span class="worksUser_2">{{backName(el.user_info.username)}}</span>
 			<div class="worksUser_3">
-				<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/see/zs_icon_xx.svg" alt="">{{el.comment_num}}</span>
-				<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/see/zs_icon_dz.svg" alt="">{{el.like_num}}</span>	
+				<span><img src="/imge/svg/see/zs_icon_xx.svg" alt="">{{el.comment_num}}</span>
+				<span><img src="/imge/svg/see/zs_icon_dz.svg" alt="">{{el.like_num}}</span>	
 			</div>			
 			
 		</div>

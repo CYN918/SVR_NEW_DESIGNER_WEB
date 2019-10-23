@@ -13,9 +13,9 @@
 				<div class="centbox_x_2">{{contDat.work_name}}</div>
 				<div class="centbox_x_3">{{backtime(contDat.create_time)}}
 					<span class="centbox_x_3_1">
-						<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/see/zs_icon_gk.svg">{{contDat.view_num}}</span>
-						<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/see/zs_icon_dz.svg">{{contDat.like_num}}</span>
-						<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/see/zs_icon_xx.svg">{{contDat.comment_num}}</span>
+						<span><img src="/imge/svg/see/zs_icon_gk.svg">{{contDat.view_num}}</span>
+						<span><img src="/imge/svg/see/zs_icon_dz.svg">{{contDat.like_num}}</span>
+						<span><img src="/imge/svg/see/zs_icon_xx.svg">{{contDat.comment_num}}</span>
 					</span>
 				</div>
 			</div>
