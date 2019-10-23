@@ -156,7 +156,7 @@ export default {
 				height: this.previews.h + "px",
 				overflow: "hidden",
 				margin: "0",
-				zoom: 300 / this.previews.w
+				zoom: 310 / this.previews.w
 			};
 		},
 		startCrop(){
@@ -351,7 +351,7 @@ export default {
 	opacity: 0;
 }
 .ylt_pidf{
-	background:#f4f6f9;
+	
     position: absolute;
     top: 40px;
     left: 0;

@@ -115,7 +115,7 @@ export default {
 }
 .xm_shar_01_1{
 	display: block;
-    margin: 0 auto 7px;
+    margin: 0 auto 30px;
     width: 96px;
 	font-size:14px;
 	font-weight:400;
