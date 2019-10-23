@@ -114,6 +114,7 @@ export default {
 			}
 			this.upType = 1;
 			this.bdscff('确定');
+			let _this = this;
 			this.$refs.cropper.getCropData(data => {
 				let times = (Date.parse(new Date())/1000);
 				let arr = [
@@ -132,20 +133,21 @@ export default {
 				formData.append('classify_1','avatar')
 				formData.append('timestamp',times)
 				formData.append('need_check',1);		
-				this.$ajax.post(window.basrul+'/File/File/insert', formData)
+				_this.$ajax.post(window.basrul+'/File/File/insert', formData)
 				.then((response)=>{
-					this.upType = '';
+			
+					_this.upType = '';
 					if(response.data.result==0){
-						this.$parent.closeCavar(response.data.data.url);	
-						this.close();
+						_this.$parent.closeCavar(response.data.data.url);	
+						_this.close();
 						
 					}else{
-						this.$message({message: response.data.data});
+						_this.$message({message: response.data.data});
 					}
 				})
 				.catch(function (error) {
-					this.upType = '';
-					this.$message({message: '网络故障'});
+					_this.upType = '';
+					_this.$message({message: '网络故障'});
 					
 				});
 			})

@@ -31,7 +31,7 @@
 				        
 				        <span class="ts">最多上传3张,格式jpeg、jpg、png,大小不超过2M</span>
 				        <div class="block" >
-				            <div class="picURl" v-for="(item,index) in imgList">
+				            <div class="picURl closeX_1Hv" v-for="(item,index) in imgList">
 								
 				                <img :src="item"/>
 								<div @click="del(index)" class="closeX_1">
@@ -492,25 +492,7 @@ export default {
     padding: 10px 0;
     border-top: 1px solid rgba(244,246,249,1);
 }
-.picURl:hover .closeX_1{
-	opacity: 1;
-}
-.closeX_1{
-	opacity: 0;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background: rgba(0,0,0,.5);
-	width: 100%;
-	height: 100%;
-}
-.closeX_1>img{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%,-50%);
-	transform: translate(-50%,-50%);
-}
+
 .upfdb_namex input{
 	font-size: 14px;
 }

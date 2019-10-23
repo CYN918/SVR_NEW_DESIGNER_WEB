@@ -281,6 +281,7 @@ export default {
 			this.getHotWords();
 			this.userMssge = '';
 			if(window.userInfo){
+				
 				this.userMssge = window.userInfo;	
 				if(!window.userInfo.contributor_format_status && this.topNData[this.topNData.length-1].n!='供稿人'){
 					this.topNData.push({path:'/tip',n:'供稿人'});
@@ -396,7 +397,6 @@ export default {
 	},
 	watch: {	
 		'$route': function() {
-			
 			this.initHead();
 		},
 		'searcCont':function(el,old){			
@@ -410,7 +410,8 @@ export default {
 			}
 			
 			this.Searchsug(this.searcCont);
-		}
+		},
+		
 	},
 	
 	

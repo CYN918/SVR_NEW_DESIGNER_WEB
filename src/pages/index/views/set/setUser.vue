@@ -286,16 +286,47 @@
 				postData: {},
 				tAncType: 0,
 				upType:'',
+				txtype:''
 
 			}
 		},
 		mounted: function() {
+	
 			this.init();
 
 		},
 		methods: {
 			closeCavar(i){
 				this.form.avatar = i;
+				this.oneXg('avatar',this.form.avatar);
+				
+			},
+			oneXg(n,a){
+				if(this.txtype){
+					this.$message({message:'正在提交请稍后'})
+					return 
+				}
+				this.txtype=1;
+				let od = {};
+				od[n] = a;
+			
+				this.api.Userupdate(od).then((da) => {
+					this.txtype='';
+					if(da == 'error') {
+						return
+					}
+
+					window.userInfo[n] = a;
+
+					localStorage.setItem('userT', JSON.stringify(window.userInfo));
+					Message({
+						message: '修改成功'
+					});
+					
+					this.$parent.$parent.$refs.topZj.initHead();
+				}).catch(()=>{
+					this.txtype='';
+				});
 			},
 			show() {
 				this.$refs.tcBox.show();
@@ -440,7 +471,6 @@
 				});
 			},
 			qdTc1() {
-
 				let postData = {
 					username: this.tancData.userName,
 				};

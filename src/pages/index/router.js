@@ -69,7 +69,7 @@ import pr_presentation from './views/project/presentation.vue'
 
 import Work_i from './views/works/index.vue'
 import email from './views/commd/email.vue'
-import img_list from './components/img_list.vue'
+import img_list from './components/img_list2.vue'
 
 import personalCenter from './views/personalCenter/index.vue'
 

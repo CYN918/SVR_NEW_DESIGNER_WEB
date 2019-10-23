@@ -2580,4 +2580,32 @@ content: "";
 	height: 15px;
 	margin-top: 10px;
 }
+.closeX_1Hv:hover .closeX_1{
+	opacity: 1;
+}
+.closeX_1{
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,.5);
+	width: 100%;
+	height: 100%;
+}
+.closeX_1>img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
+.el-select-dropdown{
+	border: none !important;
+}
+.popper__arrow{
+	    border-color: transparent;
+}
+.popper__arrow:after{
+	    border-color: transparent;
+}
 </style>

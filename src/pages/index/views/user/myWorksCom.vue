@@ -750,7 +750,7 @@ export default {
 .setDatasXX_4_2{
 	background: #fff;
 	width: 960px;
-	
+	border-radius: 5px;
 	box-sizing: border-box;
 	padding: 30px;
 	margin: 0 auto 20px;
@@ -771,12 +771,14 @@ export default {
 }
 .setDatasXX_4_4>span{
 	display: inline-block;
-	background: #E6E6E6;
-	border-radius: 5px;
-	padding: 5px 3px 5px 10px;
-	font-size: 14px;
-	color: #999999;
-	margin: 12px 10px 0 0;
+    background: #E6E6E6;
+    border-radius: 5px;
+    padding: 0 3px 0 10px;
+    font-size: 14px;
+    color: #999999;
+    margin: 12px 10px 0 0;
+    height: 28px;
+    line-height: 28px;
 }
 .setDatasXX_4_4>span>span{
 	font-size: 13px;
@@ -785,7 +787,7 @@ export default {
 .setDatasXX_5,.setDatasXX_6{
 	background: #fff;
 	width: 960px;
-	
+	border-radius: 5px;
 	box-sizing: border-box;
 	padding: 30px;
 	margin: 0 auto 20px;
@@ -887,6 +889,7 @@ export default {
 }
 .setDatasXX_7>span:last-child{
 	background: #33B3FF;
+	border-color: #33B3FF;
 	color: #fff;
 }
 .setDatasXX_5_2_3 .el-select{
@@ -913,15 +916,16 @@ export default {
 	text-align: center;
 	width:100px;
 	height:40px;
-	background:rgba(153,153,153,1);
+	background:rgba(223, 223, 223, 1);
 	border-radius:5px;
 	font-size:14px;
 	font-weight:400;
-	color:rgba(255,255,255,1);
+	color:rgba(187, 187, 187, 1);
 	line-height:40px;
 	margin-right: 10px;
 }
 .istageok{
+	color: #fff;
 	background: #33B3FF;
 }
 .setDatasXX_4_3qz{

@@ -102,7 +102,11 @@ export default {
 				this.$parent.$parent.djsjs();
 				return
 			}
-			this.djtime = '<span><span class="pr_hs f_a">'+a.d+'</span>天<span class="pr_hs f_a">'+(a.h>9?a.h:'0'+a.h)+'</span>时<span class="pr_hs f_a">'+(a.m>9?a.m:'0'+a.m)+'</span>分<span class="pr_hs f_a">'+(a.s>9?a.s:'0'+a.s)+'</span>秒</span>';	
+			let strtime = '';
+			if(a.d>0){
+				strtime+='<span><span class="pr_hs f_a">'+a.d+'</span>天';
+			}
+			this.djtime = strtime+'<span class="pr_hs f_a">'+(a.h>9?a.h:'0'+a.h)+'</span>时<span class="pr_hs f_a">'+(a.m>9?a.m:'0'+a.m)+'</span>分<span class="pr_hs f_a">'+(a.s>9?a.s:'0'+a.s)+'</span>秒</span>';	
 		
 		}
 	}

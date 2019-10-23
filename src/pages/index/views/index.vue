@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<Header></Header>
+		<Header ref="topZj"></Header>
 		<router-view/>
 		<Footer></Footer>
 	</div>
