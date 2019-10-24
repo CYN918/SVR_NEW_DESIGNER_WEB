@@ -72,6 +72,11 @@ export default {
 			list2:[],
 			page:1,
 			isnoData:'',
+			postData:{
+				deal_type:1,
+				work_ids:[],
+			},
+			noGd:'',
 		}
 	},
 	mounted: function() {
@@ -81,7 +86,6 @@ export default {
 	methods: {
 		init(){
 			this.getList();
-		
 		},
 		Imgbj(a,b){
 			let p = "background-image: url(";
@@ -94,6 +98,72 @@ export default {
 					break;	
 			}
 			return p+");";
+		},
+		test(){
+			if(this.noGd){
+				return
+			}
+			let data = this.$refs.botmm.getBoundingClientRect();
+			if(data.top<800 && !this.getType && !this.noGd){
+				if(this.total<40){
+					this.noGd=1;
+					return
+				}
+				
+				this.page++;
+				this.getList();
+			}
+		},
+		pushBm(){
+			let pn = this.list2.length;
+			if(pn==0){
+				this.$message({message:'请先选择作品'})
+				return 
+			}
+			this.postData.work_ids = [];
+			for(let i=0;i<pn;i++){
+				this.postData.work_ids.push(this.list[this.list2[i]].work_id);
+			}
+			this.api.pr_signup(this.postData).then((da)=>{
+				if(da=='error'){return}
+				this.$message({message: '报名成功'});
+				this.close();
+				this.$parent.setBm(1);
+				this.$parent.getData();
+			}).catch(()=>{
+				
+			});
+		},
+		getSelfWorkList(){
+			if(this.getType==1){return}
+			if(!window.userInfo){return}
+			let pr = {
+				status:2,
+				page:this.page2,
+				limit:40,
+				classify_1:1,
+			};
+			this.getType=1;
+			
+			this.api.getSelfWorkList(pr).then((da)=>{
+				
+				if(da=='error'){
+					if(this.List.length==0){
+						this.isnoData=1;
+					}
+					return
+				}
+				if(this.List.length>0 && this.page2!=1){
+					this.List = this.List.concat(da.data);
+					return
+				}
+		
+				this.total = da.total;
+				this.List = da.data;
+				if(this.List.length==0){
+					this.isnoData=1;
+				}
+			})
 		},
 		getList(){
 			this.isnoData='';
