@@ -67,8 +67,8 @@
 							<noData v-if="listData.length==0"></noData>
 						</div>
 						<div v-if="listData.length>0" class="sxBodx2_3 sxBodx2_3xx">
-							<div class="hfBox xxbox_c">
-								<Input :keyup="keydown" class="userBoxd2" v-model="postMessg" :oType="'max'" :max="200" :type="'text'"  ref="tageds1"></Input>	
+							<div :class="['hfBox xxbox_c chathfbox',isdno?'':'isnodes']">
+								<Input :mfocus="incfu" :mblur="mblur" :keyup="keydown" class="userBoxd2" v-model="postMessg" :oType="'max'" :max="200" :type="'text'"  ref="tageds1"></Input>	
 								<span :class="chekcont()==true?'iscsbtn':''" @click="addChatMessage()">发送</span>
 							</div>
 						</div>
@@ -135,6 +135,7 @@ export default {
 			zdOpen_id:'',
 			isNomSSG:0,
 			isNouSSG:0,
+			isdno:'',
 		}
 	},
 	mounted: function () {			
@@ -142,6 +143,19 @@ export default {
 		
 	}, 
 	methods: {
+		incfu(){
+			this.isdno = 1;
+		},
+		mblur(){
+			;
+			if(!this.zkMyFun.checkWz(this.postMessg)){
+				this.isdno = '';
+			
+				return
+			}
+			this.isdno = 1;
+			
+		},
 		backTj(n){
 			return  n>999?999:n;
 		},
@@ -793,5 +807,21 @@ export default {
     right: 0;
     width: 150px;
     height: 150px;
+}
+.chathfbox .inptud{
+	height: 40px !important;
+}
+.chathfbox .myInput{
+	box-sizing: border-box;
+	line-height: 40px;
+	border: 1px solid #979797;
+	height: 40px;
+	padding:0 10px;
+	overflow: hidden;
+}
+
+.isnodes .myInput{
+	background: rgba(244,246,249,1);
+	border: 1px solid rgba(187,187,187,1);
 }
 </style>

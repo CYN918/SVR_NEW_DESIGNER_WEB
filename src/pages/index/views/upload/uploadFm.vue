@@ -4,6 +4,9 @@
 			<div class="upFm_l">
 				<div class="upFm_l_1">封面预览</div>
 				<workDom class="upFm_l_2" v-if="moData.work_name" :el="moData"></workDom>
+				<div class="fm_dmoBg">
+					<img src="/imge/new/works/log.svg"/>
+				</div>
 				<div class="ylt_pidf">
 					<div :style="previewStyle2">
 						<div :style="previews.div" class="preview">
@@ -350,10 +353,27 @@ export default {
 	height: 0;
 	opacity: 0;
 }
+.fm_dmoBg{
+	position: absolute;
+	top: 30px;
+	left: 0;
+	width: 310px;
+	height: 232px;
+	border-radius: 5px 5px 0 0;
+	overflow: hidden;
+	background:rgba(244,246,249,1);
+}
+.fm_dmoBg>img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
 .ylt_pidf{
 	
     position: absolute;
-    top: 40px;
+    top: 30px;
     left: 0;
     width: 310px;
     height: 232px;

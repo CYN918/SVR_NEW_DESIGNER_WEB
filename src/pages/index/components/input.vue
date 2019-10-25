@@ -96,6 +96,7 @@ export default {
 			default:()=>{}
 		},
 		mblur:Function,
+		mfocus:Function,
 		isHz:String,
 	},		
 	computed: {
@@ -188,13 +189,17 @@ export default {
 			this[data] = this[data]=='password'?'text':'password';
 		},
    		focus(){
- 
+			
 // 			let p = this.chekFn(this.input);
 //	    	if(p){	    		
 //	    		this.setErr(p.cls,p.text);
 //	    		return
 //	    	}
 	    	this.setErr('onIn','');
+			if(this.mfocus){
+				this.mfocus();
+				return
+			}
    		},
    	 	blur(){
    	 		if(this.mblur){
