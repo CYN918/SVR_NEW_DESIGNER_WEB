@@ -211,7 +211,7 @@ export default {
 	width: 600px;
 }
 .home_0x5_bt{
-	margin-top:65px;
+	margin-top:60px;
 	width:224px;
 	height:56px;
 	border-radius:7px;
@@ -222,7 +222,7 @@ export default {
 	margin: 0 auto;
 	padding: 60px 0;
 	width: 1300px;
-	height: 535px;
+
 }
 .home_0x7{
 	text-align: left;
@@ -244,7 +244,7 @@ export default {
 	line-height:22px;
 }
 .home_0x8{
-	height: 336px;
+	height: 393px;
 }
 
 .home_0x8>div:last-child{

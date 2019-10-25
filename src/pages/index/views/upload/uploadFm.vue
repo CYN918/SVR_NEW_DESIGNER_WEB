@@ -256,15 +256,15 @@ export default {
 	width: 310px;
 }
 .upFm_r_0{
-	height: 40px;
+	height: 30px;
 	font-size: 14px;
     color: rgba(255,146,0,1);
-	line-height:40px;
+	line-height:30px;
 }
 .upFm_l_1{
 	font-size:14px;
 	color:rgba(30,30,30,1);
-	line-height:40px;	
+	line-height:30px;	
 }
 .upFm_l_2{
 	margin-bottom: 30px;

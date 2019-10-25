@@ -149,6 +149,7 @@ export default {
 			outc:{
 				title:'',
 				scroll:1,
+				closeFn:'closeCler'
 			},
 			isyazfs:0,
 			tancData:{
@@ -536,26 +537,16 @@ export default {
 				
 			});
 		},
+		closeCler(){
+			this.tancData = {};
+		},
 		closeTc1(){		
-			if(this.tAncType==1){			
-				this.tancData.mobile_zone = '86';
-				this.tancData.newMoble = '';
-				this.tancData.oldMoble = '';
-				this.tancData.old_mobile_zone = '86';
-				this.tancData.verify_code = ''			
-			}	
-			if(this.tAncType==3 || this.tAncType==2){
-				this.tancData.email = '';	
-				this.tancData.pic_verify = '';
-			}
+			
+			this.closeCler();
+			
 			
 			if(this.tAncType==4){
-				this.tancData.mobile_zone = '';	
-				this.tancData.mobile = '';
-				this.tancData.password = '';
-				this.tancData.verify_code = '';
-				this.tancData.password_repass = '';
-				this.tancData.old_password = '';	
+	
 				this.isyazfs=0;
 			}
 			

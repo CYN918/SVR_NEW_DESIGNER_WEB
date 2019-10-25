@@ -221,6 +221,8 @@ export default {
 }
 .comment_2xss>.comment_2_5{
 	max-height: none;
+	margin-bottom: 0;
+	min-height: 0;
 }
 .setUserBoxs_cent2{
 	display: inline-block;

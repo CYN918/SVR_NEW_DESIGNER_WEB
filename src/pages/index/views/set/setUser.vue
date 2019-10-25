@@ -134,6 +134,7 @@
 				outc: {
 					title: '',
 					scroll: 1,
+					closeFn:'closeCler'
 				},
 				qrFnName: '',
 				tjList: [
@@ -497,13 +498,12 @@
 					this.upType='';
 				});
 			},
-			closeTc1() {
-				this.bdtj('帐号设置', '基本信息-' + this.tjList[this.tAncType - 1].b, '--');
-
-				if(this.tAncType == 1) {
-					this.tancData.userName = '';
-				}
+			closeCler(){
 				this.tancData = {};
+			},
+			closeTc1() {			
+				this.bdtj('帐号设置', '基本信息-' + this.tjList[this.tAncType - 1].b, '--');
+				this.closeCler();
 				this.close2();
 				this.tAncType = 0;
 			},

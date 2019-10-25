@@ -19,7 +19,7 @@
 								</span>
 							</div>
 							<div class="wk_c_1_1_l_3 isno">
-								<span>2天前</span>
+								<span>{{backtime(contDat.create_time)}}</span>
 								<span><img src="/imge/svg/see/zs_icon_gk.svg"/>{{contDat.view_num}}</span>
 								<span><img src="/imge/svg/see/zs_icon_xx.svg"/>{{contDat.comment_num}}</span>
 								<span><img class="wk_c_1_1_l_3_1" src="/imge/svg/see/zs_icon_dz.svg"/>{{contDat.like_num}}</span>
@@ -28,8 +28,8 @@
 						<div class="wk_c_1_1_r">
 							<div @click="fxclick" class="btns pend">
 								<img class="is_icon1 isshow" src="/imge/new/works/share.svg"/>分享
-							</div><div @click="addLikeNe('顶部栏-推荐','work',contDat.work_id,contDat)" class="btns btns_js pend">
-								<img class="is_icon2 isshow" src="/imge/new/works/dz.svg"/>推荐
+							</div><div @click="addLikeNe('顶部栏-推荐','work',contDat.work_id,contDat)" :class="['btns pend',contDat.liked?'':'btns_js']">
+								<img class="is_icon2 isshow" src="/imge/new/works/dz.svg"/>{{(contDat.liked?'已推荐':'推荐')}}
 							</div>
 						</div>
 					</div>
@@ -56,7 +56,7 @@
 						<div class="wk_Pl_21">
 							<textarea :class="['new_c_3',new_c_3focus]" :style="backHig" @focus="sqfs" @blur="sqjd" v-model="pl" placeholder="说点什么吧" ref="textadf"></textarea>
 							<div class="textAmax">{{pl?pl.length:0}}/140</div>
-							<div class="zdCen"></div>
+							<div v-if="isYl" class="zdCen"></div>
 						</div>
 						
 						<span :class="['new_c_1',chekcont(pl)==true?'iscsbtn':'']" @click="addCommentNe('发布评论',pl)">评论</span>
@@ -165,7 +165,7 @@
 								<box_a :tjData="bdtjdta" :el="el"></box_a>
 							</div>
 							</div>
-							<div class="zdCen"></div>
+							<div v-if="isYl" class="zdCen"></div>
 						</div>
 						<div class="seed2_1_2xx" v-else>
 							你正在浏览TA首次发布的作品<br/>作为老前辈, 送个赞鼓励下吧~
@@ -579,11 +579,9 @@ export default {
 				if(da=='error'){return}
 				if(da.length==0){
 					Message({message: '该作品已删除'});	
-					setTimeout(()=>{
-						window.close();
-					},1000);
+					
 					this.$router.push({path: '/error'});
-					error
+					
 					return
 				}
 				da.labels = JSON.parse(da.labels);
@@ -863,7 +861,7 @@ export default {
 	width: 17px;
 }
 .is_icon2{
-	margin: 9px 6px 0 0;
+	margin: 10px 6px 0 0;
 	width: 15.2px;
 }
 .p_isTop .isshow{
