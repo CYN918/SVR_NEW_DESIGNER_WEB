@@ -587,6 +587,7 @@ export default {
 	display: inline-block;
 	text-align: left;
 	margin: 0 auto 27px;
+	width: 310px;
 	
 }
 .pr_xx_1>div.pr_xx_1_c{

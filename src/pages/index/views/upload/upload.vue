@@ -1311,8 +1311,15 @@ export default {
     border: 1px solid #dcdfe6;
     border-radius: 5px;
     
-    height: 44px;
+    height: 40px;
     padding: 1px 10px;
+}
+.page2_2_1_2 .inptud{
+	height: 40px !important;
+}
+.page2_2_1_2 .myInput input{
+	height: 38px;
+	line-height: 38px;
 }
 .page2_2_1_2x>span{
 	box-sizing: border-box;

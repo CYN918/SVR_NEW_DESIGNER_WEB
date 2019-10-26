@@ -2,13 +2,17 @@
 	<div>
 		<div class="yhtop newbtnd_4">
 			
-			<div class="yhtop1 ">用户资料完善</div>
+			<div class="yhtop1 "><img class="header_1 pend" src="/imge/new/header/logo.svg">用户资料完善</div>
 			<div class="yhtop2"><div>基本信息设置</div></div>
 			<div class="newUsermeBOX">
 				<div class="newUserme">
 					<div class="nav_tx">
 						<span>头像</span>
-						<img @click="showisPhto(true)" :src="caver" alt="">				
+						<div class="ssetTx" @click="showisPhto(true)">
+							<img :src="caver" />	
+							<div>修改头像</div>
+						</div>
+									
 					</div>
 					<div class="userBoxd">
 						<span>用户名</span>
@@ -200,6 +204,7 @@ export default {
 </script>
 
 <style>
+
 #app>div>div.yhtop{
 	padding: 0;
 	padding-bottom: 70px;

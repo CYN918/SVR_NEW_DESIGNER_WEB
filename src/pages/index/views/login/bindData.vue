@@ -24,7 +24,10 @@
 				<div class="newUserme">
 					<div class="nav_tx">
 						<span>头像</span>
-						<img @click="showisPhto(true)" :src="caver" alt="">				
+						<div class="ssetTx" @click="showisPhto(true)">
+							<img :src="caver" />	
+							<div>修改头像</div>
+						</div>		
 					</div>
 					<div class="userBoxd">
 						<span>用户名</span>

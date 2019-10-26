@@ -14,13 +14,13 @@
 						狮圈儿与头部安卓渠道华为/OPPO/ VIVO /维持长期良好合作关系
 					</div>
 				</div><div>
-					<img src="/imge/new/hd/3.svg" alt="">
+					<img src="/imge/new/hd/4.svg" alt="">
 					<div class="hotCent2t">自选收益类型</div>
 					<div class="hotCent2c">
 						买断式or分成式 设计师自选作品收益模式 自主性强
 					</div>
 				</div><div>
-					<img src="/imge/new/hd/4.svg" alt="">
+					<img src="/imge/new/hd/3.svg" alt="">
 					<div class="hotCent2t">作品用途清晰</div>
 					<div class="hotCent2c">
 						作品使用路径&账户收益个人中心公开展示
