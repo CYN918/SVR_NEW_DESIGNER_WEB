@@ -31,7 +31,10 @@
 							<div class="icon_ff_1"><img class="icon_ff_1_x1" src="/imge/project/05.svg"><span class="f_a">{{deta.sign_up_num}}</span>人已报名</div>
 						</div>
 					</div>
-					<div v-if="deta.template_file_url" @click="dowloadmb(deta)" class="btns pend xzMb_n1">下载模板</div>
+			
+					<div v-if="deta.template_file_url" @click="dowloadmb(deta)" class="pend pr_down_mb">
+						<img src="/imge/new/project/icon_download.svg"/>下载附件 ({{deta.template_file_size}})
+					</div>
 				</div>
 				
 				<div v-for="(el,index) in deta.desc" :key="index" class="cens_02_2 oijdiv">
@@ -470,9 +473,20 @@ export default {
 .icon_ff_1>.icon_ff_1_x1{
 	margin-top: -5px;
 }
-.xzMb_n1{
-    position: absolute;
-    right: 10px;
-    bottom: 20px;
+.pr_down_mb{
+	position: absolute;
+	bottom: 28px;
+	left: 612px;
+	height:20px;
+	font-size:14px;	
+	color:rgba(51,179,255,1);
+	line-height:20px;
+}
+.pr_down_mb>img{
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 3px;
+	margin-right: 9px;
+	width: 20px;
 }
 </style>

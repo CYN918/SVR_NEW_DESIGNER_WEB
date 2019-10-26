@@ -6,8 +6,27 @@
 				<span @click="qhType(1)" :class="type==1?'pushOx':''">本地上传</span>
 				<span @click="qhType(2)" :class="type==2?'pushOx':''">网盘链接</span>
 			</div>
+			
 			<div v-if="type==1" class="pushGj_01">
+				
+				<div class="pushGj_03 ">
+					<div class="pushGj_03_1">内容预览图<span class="pushGj_iop">1M以内，JPG/PNG/GIF</span></div>
+					<div class="pugjFm_01 closeX_1Hv">
+						<div class="cd_d pend" v-if="!preview_pic && !isJdt1">
+							<div>+</div>
+						</div>
+						
+						<div class="cd_d_2" v-else>
+							<img :src="preview_pic"/>
+							<p class="closeX_1"><img src="/imge/svg/new/close1.svg"></p>
+						</div>
+						<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
+						<jdt v-if="isJdt1" ref="jdt1"></jdt>
+						
+					</div>
+				</div>
 				<div class="pushGj_02">
+					<div class="pushGj_03_1">稿件上传<span class="pushGj_iop">文件大小为1GB内，建议压缩后上传</span></div>
 					<el-upload
 					  class="upload-demo"
 					  drag
@@ -23,7 +42,7 @@
 					  >
 					  <i class="el-icon-upload"><img src="/imge/project/pus.svg"></i>
 					  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-					  <div class="el-upload__tip" slot="tip">文件大小为1GB内，建议压缩后上传</div>
+				
 					</el-upload>
 					
 					<div class="lid">
@@ -41,6 +60,22 @@
 				</div>
 			</div>
 			<div v-else class="pushGj_0x1">
+				<div class="pushGj_03 ">
+					<div class="pushGj_03_1">内容预览图<span class="pushGj_iop">1M以内，JPG/PNG/GIF</span></div>
+					<div class="pugjFm_01 closeX_1Hv">
+						<div class="cd_d pend" v-if="!preview_pic && !isJdt1">
+							<div>+</div>
+						</div>
+						
+						<div class="cd_d_2" v-else>
+							<img :src="preview_pic"/>
+							<p class="closeX_1"><img src="/imge/svg/new/close1.svg"></p>
+						</div>
+						<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
+						<jdt v-if="isJdt1" ref="jdt1"></jdt>
+						
+					</div>
+				</div>
 				<div>
 					<div class="pushGj_03_1">请将稿件上传至网盘后，提供稿件的网盘地址</div>
 					<input placeholder="如：https://pan.baidu.com/s/xxxx_xxxx_xx" v-model="online_disk_url" type="text">
@@ -64,8 +99,10 @@
 </template>
 <script>
 import tanC from '../../components/tanC';
+import uploadFile from '../../components/uploadFile'
+import jdt from '../../components/jdt'
 export default {
-	components:{tanC},
+	components:{tanC,uploadFile,jdt},
 	props:{
 		datad:Object
 	},
@@ -79,13 +116,31 @@ export default {
 			filelist:[],
 			online_disk_url:'',
 			access_code:'',
-			
+			preview_pic:'',
+			fileConfig:{
+				type:['image/jpeg','image/png','image/gif'],
+				max:1*1024*1024,
+				userType:'user_info',
+			},
+			isJdt1:'',
 		}
 	},
 	mounted: function(){
 		this.init();
 	},
-	methods: {	
+	methods: {
+		setJdt1(on){
+			
+			this.isJdt1=1;
+			if(this.$refs.jdt1){
+				this.$refs.jdt1.bfb = on;
+			}		
+		},
+		uploadSC1(da){
+			this.isJdt1='';
+			this.preview_pic = da.url;
+			
+		},
 		init(){
 			this.customize = window.basrul+'/File/File/delete';
 		},
@@ -98,7 +153,8 @@ export default {
 			this.filelist = [];
 			this.online_disk_url = '';
 			this.access_code = '';
-			
+			this.preview_pic = '';
+			this.isJdt1 = '';
 			
 			
 		},
@@ -117,8 +173,12 @@ export default {
 		},
 		pushfiled(){
 			let pr = {};
+			if(!this.preview_pic){
+				this.$message({message: '请先上传预览图'});
+				return
+			}
 			if(this.type==1){
-			
+				
 				if(!this.fileList3[0]){
 					this.$message({message: '请先上传文件'});
 					return
@@ -130,6 +190,7 @@ export default {
 				pr = {
 					project_id:this.datad.id,
 					type:this.type,
+					preview_pic:this.preview_pic,
 					file_name:this.fileList3[0].file_name,
 					file_url:this.fileList3[0].url,
 					file_size:this.fileList3[0].size,
@@ -147,6 +208,7 @@ export default {
 					project_id:this.datad.id,
 					type:this.type,
 					remark:this.eell,
+					preview_pic:this.preview_pic,
 					online_disk_url:this.online_disk_url,
 					access_code:this.access_code,
 				};
@@ -430,5 +492,58 @@ export default {
 	background: #33B3FF;
 	width: 80%;
 	height: 1px;
+}
+.pushGj_iop{
+	margin-left: 10px;
+	font-size:12px;
+	color:rgba(187,187,187,1);
+	line-height:20px;
+}	
+.pugjFm_01{
+	position: relative;
+	width:134px;
+	height:100px;	
+	border-radius:5px;
+	overflow: hidden;
+	margin-bottom: 41px;
+}
+.pugjFm_01>div.cd_d{
+
+	width: 100%;
+	height: 100%;
+	background:rgba(244,246,249,1);
+}
+.pugjFm_01>div.cd_d_2>img{
+	min-width: 100%;
+    min-height: 100%;
+    max-width: 200%;
+    max-height: 200%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+.closeX_1{
+	
+}	
+.pugjFm_01>div.cd_d>div{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 21px;
+    text-align: center;
+    line-height: 24px;
+    background: #33B3FF;
+    color: #E6E6E6;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.cd_d_2{
+	width: 100%;
+	height: 100%;
 }
 </style>

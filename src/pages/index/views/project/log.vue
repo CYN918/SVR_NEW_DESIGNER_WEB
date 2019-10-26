@@ -8,7 +8,8 @@
 					<div>交稿时间</div>
 					<div>验收结果</div>
 					<div>验收反馈时间</div>
-					<div>驳回理由</div>
+					<div>预览</div>
+					<div>驳回理由</div>					
 				</div>
 				<div v-for="(el,index) in List" :key="index" class="jgbix jgcent">
 					<div class="log_tipbox log_tipbox2">
@@ -27,15 +28,35 @@
 					<div>{{el.created_at | logtime}}</div>
 					<div>{{el.check_status | typsuu}}</div>
 					<div>{{el.updated_at | logtime}}</div>
-					<div v-if="el.check_status==-1" class="log_tipbox">	
-						驳回理由
-						<div class="log_tip">
-							<span class="log_tip1">{{el.check_reason}}</span>
-							{{el.check_comment}}
-						</div>						
+					<div>
+						<div @click="showPic(el.preview_pic)" class="log_tipbox" v-if="el.preview_pic">预览</div>
+						
 					</div>
-					<div v-else></div>
+		
+					<div>
+						<div class="log_tipbox" v-if="el.check_status==-1">
+							驳回理由
+							<div class="log_tip">
+								<span class="log_tip1">{{el.check_reason}}</span>
+								{{el.check_comment}}
+							</div>		
+						</div>
+						
+										
+					</div>
+
+					
+					
 				</div>	
+			</div>
+			
+			
+			<div class="ylt" v-if="ylt">
+				<div>
+					<img class="ippic" :src="ylt"/>
+					<img @click="closepick()" src="/imge/project/cj_00.svg"class="ylt_03 pend">
+				</div>
+				
 			</div>
 		</template>			
 	</tanC>
@@ -50,6 +71,7 @@ export default {
 			List:[],
 			csff:'',
 			sfas:'display:none',
+			ylt:''
 		}
 	},
 	filters: {
@@ -84,7 +106,13 @@ export default {
 	mounted: function(){
 		this.init();
 	},
-	methods: {	
+	methods: {
+		closepick(){
+			this.ylt = '';
+		},
+		showPic(i){
+			this.ylt = i;
+		},
 		init(){
 			this.pr_deliveryList();		
 		},
@@ -158,6 +186,7 @@ export default {
 	width: 104px;
 }
 .jgbix>div:nth-child(6){
+	min-width: 28px;
 	max-width: 198px;
 }
 .jgcent{
@@ -225,5 +254,33 @@ export default {
 }
 .nogd{
 	height: 200px;
+}
+.ylt{position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100004;
+	background: rgba(0, 0, 0, 0.4);
+	width: 100%;
+	height: 100%;
+}
+.ylt>div{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background: #fff;
+	padding: 30px;
+	border-radius: 5px;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
+.ylt>div>img.ippic{
+	display: block;
+	max-width: 1300px;
+	max-height: 600px;
+}
+.ylt_03{
+	position: absolute;
+    top: 10px;
+    right: 10px;
 }
 </style>
