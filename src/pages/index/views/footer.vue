@@ -41,7 +41,7 @@ export default {
 				this.bdtj('通用模块','底部栏点击_意见反馈','--');
 				if(!window.userInfo || !window.userInfo.access_token){
 					this.$message({
-						messagess:'请先登录'
+						message:'请先登录'
 					})
 					return
 				}
