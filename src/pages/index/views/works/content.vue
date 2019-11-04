@@ -175,7 +175,7 @@
 				</div>
 			</div>
 		<RPT ref="report"></RPT>
-		<unfollow @sussFn="unfollowSu" ref="unfollow"></unfollow>
+		<unfollow @sussFn="unfollowSu" @suUnFn="showUnfoolow" ref="unfollow"></unfollow>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
 		<TcBox :config="outc"  @qFn="delComment" ref="tcBox"></TcBox>
 	</div>
@@ -296,6 +296,7 @@ export default {
 			if(this.isYl){return}
 			this.$refs.tcBox.show();
 		},
+		
 		showUnfoolow(){
 			if(this.isYl){return}
 			this.bdtj('作品详情','他人视角-取消关注','--');

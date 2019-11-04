@@ -40,7 +40,7 @@
 					<div class="cavar_r_2">预览效果</div>
 				</div>
 			</div>
-			<div class="qxBm_btns qxBm_btns2">
+			<div class="qxBm_btns qxBm_btnsx">
 				<div @click="close" class="btns pend">取消</div>		
 				<div @click="startCrop" class="btn-lod btns btns_js pend">
 					<i v-if="upType" class="loading_a m_c"></i>
@@ -239,4 +239,8 @@ export default {
 	color:rgba(187,187,187,1);
 	line-height:20px;
 }
+.qxBm_btnsx>.btns{
+	margin-top: 20px;
+}
+
 </style>

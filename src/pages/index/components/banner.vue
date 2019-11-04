@@ -29,6 +29,9 @@ export default {
 	methods: {
 		opend(url,on){
 			this.bdtj('首页','banner'+(on+1),'--');
+			if(!url){
+				return
+			}
 			window.open(url);
 		},
 		getBanner(){

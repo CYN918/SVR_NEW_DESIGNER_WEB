@@ -587,7 +587,7 @@ export default {
 	display: inline-block;
 	text-align: left;
 	margin: 0 auto 27px;
-	width: 310px;
+	width: 345px;
 	
 }
 .pr_xx_1>div.pr_xx_1_c{
@@ -598,8 +598,7 @@ export default {
 	vertical-align: top;
 }
 .pr_xx_1>div.pr_xx_1_c>span:nth-child(1){
-	margin-right: 44px;
-	width:91px;
+	width:100px;
 	height:20px;
 	font-size:14px;
 	font-weight:400;
@@ -611,7 +610,7 @@ export default {
 	font-weight:400;
 	color:rgba(51,51,51,1);
 	line-height:20px;
-	width: 248px;
+	
 }
 .pr_xx_btns{
 	position: absolute;

@@ -64,7 +64,7 @@
 											</div>
 										</div>
 									</div>
-									<div v-if="el.sub_comment.length>0" @click="zkpl(index)" :class="['pl_01','pl2_03','workxx',el.isshowfh?'onwor':'']">展开更多评论</div>
+									<div v-if="el.sub_comment.length>0" @click="zkpl(index)" :class="['pl_01','pl2_03','workxx',el.isshowfh?'onwor':'']">{{el.isshowfh?'收起':'展开更多评论'}}</div>
 								</div>
 								
 							</div>

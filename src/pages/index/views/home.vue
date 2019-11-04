@@ -211,7 +211,7 @@ export default {
 	width: 600px;
 }
 .home_0x5_bt{
-	margin-top:54px;
+	margin-top:40px;
 	width:224px;
 	height:56px;
 	border-radius:7px;
