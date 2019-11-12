@@ -334,5 +334,13 @@ export default {
 		url:'/api/project/classifyInfo',method:'post',baseURL:0,
 	},
 	
+	subject:{
+		url:'/api/work/subject',method:'post',baseURL:0,
+	},
+	
+	work_worklist:{
+		url:'/api/work/worklist',method:'post',baseURL:0,
+	},
+	
 	
 }

@@ -106,7 +106,7 @@ export default {
 				this.ajaxType=0;
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));	
-				if(this.islogin===true){
+				if(data.password){
 					window.passIn = data;
 					localStorage.setItem('pass',JSON.stringify(data));
 				}

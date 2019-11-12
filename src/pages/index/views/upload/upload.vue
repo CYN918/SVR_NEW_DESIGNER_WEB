@@ -20,6 +20,7 @@
 				
 				<div @click="showUp(0,'上传图片')"><img class="svgImg1" src="/imge/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
 				<div @click="showUp(1,'上传视频')"><img class="svgImg1" src="/imge/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
+				
 			</div>
 			<UplodImg v-if="isshowd" :configData="upConfig"></UplodImg>
 			
