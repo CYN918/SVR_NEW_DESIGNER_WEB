@@ -104,7 +104,6 @@ export default {
 					}	
 					return
 				}
-
 				this.List = da.data;
 				this.total = da.total;
 				
