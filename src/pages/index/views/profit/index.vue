@@ -126,7 +126,7 @@ export default {
 		backCl(on){
 			
 			let ond = +this.basDa.profit_config[on].total_income;
-			
+
 			let str = '';
 			
 			if(+this.basDa.total_income>=ond){
@@ -139,6 +139,7 @@ export default {
 			if(+this.basDa.total_income>=+ond2.total_income){
 				str =  '';
 			}
+
 			return str;
 		},
 		init(){			
@@ -147,7 +148,7 @@ export default {
 			this.getUserDetail();
 		},
 		mod(e){
-			// this.sfas = '';
+			this.sfas = '';
 		},
 		modx(e,on){
 			this.sfas = 1;
