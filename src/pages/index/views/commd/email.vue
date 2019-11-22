@@ -1,7 +1,7 @@
 <template>
 		<div>
 			<div class="em_01">
-				<img class="em_bg" src="/imge/svg/email_bg.svg"/>
+				<img class="em_bg" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/email_bg.svg"/>
 				<div class="em_02">
 					<div class="em_03">邮箱激活</div>
 					<div class="em_04">

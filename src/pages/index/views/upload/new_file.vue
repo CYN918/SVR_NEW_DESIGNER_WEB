@@ -25,7 +25,7 @@
 				<div class="upFm_r_1">
 					<div v-if="!previews.url" class="upFm_r_1_1">
 						<div @click="fild" class="myjsg_01 pend">
-							<img src="/imge/new/works/icon_add.svg"/>
+							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/icon_add.svg"/>
 							添加封面
 						</div>
 						

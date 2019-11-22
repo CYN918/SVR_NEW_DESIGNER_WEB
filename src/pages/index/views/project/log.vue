@@ -54,7 +54,7 @@
 			<div class="ylt" v-if="ylt">
 				<div>
 					<img class="ippic" :src="ylt"/>
-					<img @click="closepick()" src="/imge/project/cj_00.svg"class="ylt_03 pend">
+					<img @click="closepick()" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/cj_00.svg"class="ylt_03 pend">
 				</div>
 				
 			</div>

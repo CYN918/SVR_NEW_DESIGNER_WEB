@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="yhtop setBin_1">
-			<div class="yhtop1 "><img class="header_1 pend" src="/imge/new/header/logo.svg">用户资料完善</div>
+			<div class="yhtop1 "><img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/header/logo.svg">用户资料完善</div>
 			<div class="yhtop2 userme2top">
 				<pTop :cn="topCn">
 					<template v-slot:todo="{ todo }">

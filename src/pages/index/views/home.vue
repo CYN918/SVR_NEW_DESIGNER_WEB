@@ -21,9 +21,9 @@
 				<div class="home_0x5_1">
 					<div>分成式收益，一次交稿，永久收钱</div>
 					坐享每日分成收益结算，还是一次买断落袋为安，你说了算
-				</div><img class="home_0x5_2" src="/imge/home/7.svg"/>
+				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/7.svg"/>
 			</div><div>
-				<img class="home_0x5_2" src="/imge/home/9.svg"/>
+				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/9.svg"/>
 				<div class="home_0x5_1">
 					<div>收益成长累计，越赚越多</div>
 					累计收益越多，每次完成项目的收益加成额度越大
@@ -32,9 +32,9 @@
 				<div class="home_0x5_1">
 					<div>交稿作品分发渠道覆盖近7亿用户曝光</div>
 					龙头合作品牌覆盖73%安卓移动终端，而你只需提供灵感创意。
-				</div><img class="home_0x5_2" src="/imge/home/8.svg"/>
+				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/8.svg"/>
 			</div><div>
-				<img class="home_0x5_2" src="/imge/home/10.svg"/>
+				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/10.svg"/>
 				<div class="home_0x5_1">
 					<div>项目众多，长期供给，每周更新</div>
 					一经中标，最终交稿作品100%验收，每一次的创作都有价值

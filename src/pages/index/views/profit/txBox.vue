@@ -149,7 +149,7 @@
 			</div>
 	
 					
-				<img @click="close" src="/imge/project/cj_00.svg" class="newTanc_2">
+				<img @click="close" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/cj_00.svg" class="newTanc_2">
 			</div>		
 		</div>
 

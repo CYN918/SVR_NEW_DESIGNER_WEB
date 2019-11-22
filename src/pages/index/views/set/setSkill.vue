@@ -47,7 +47,7 @@
 								<span v-for="(el,index) in pz_style" :key="index" @click="chekstyle(el)" :class="form.style.indexOf(el)==-1?'':'oncheck'">{{el}}</span>
 								<div class="addM_n_1 addM_n_2">
 									<input @keyup.enter="keydown1" @focus="infous1" @blur="ninfous1" v-model="add_pz_style" :placeholder="plac1" type="text" ref="keydown1"/>
-									<img src="/imge/svg/new/icon_add.svg"/>
+									<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/icon_add.svg"/>
 								</div>
 							</div>
 						</div>
@@ -59,7 +59,7 @@
 								<span v-for="(el,index) in pz_field" :key="index" @click="chekfield(el)" :class="form.field.indexOf(el)==-1?'':'oncheck'">{{el}}</span>
 								<div class="addM_n_1">
 									<input @keyup.enter="keydown2" @focus="infous2" @blur="ninfous2" v-model="add_pz_field" :placeholder="plac2" type="text" ref="keydown2"/>
-									<img src="/imge/svg/new/icon_add.svg"/>
+									<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/icon_add.svg"/>
 								</div>
 							</div>
 						</div>
