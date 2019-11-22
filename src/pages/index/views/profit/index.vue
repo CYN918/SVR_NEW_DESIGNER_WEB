@@ -45,12 +45,12 @@
 									<div class="sytc_1_n3">项目加成收益=验收价格*收益加成比</div>
 									<div class="sytc_1_n4">
 										<span class="sytc_1_n5">
-											你的2019累计收益：
-											<span class="sytc_1_n6">￥ 130,000.00</span>
+											你的{{new Date().getFullYear()}}累计收益：
+											<span class="sytc_1_n6">￥ {{basDa.year_total_income?basDa.year_total_income:0}}</span>
 										</span>
 										<span class="sytc_1_n7">
 											当前收益加成：
-											<span class="sytc_1_n8">+ 10%</span>
+											<span class="sytc_1_n8">+ {{basDa.gain_share_rate}}</span>
 										</span>
 									</div>
 								</div>
