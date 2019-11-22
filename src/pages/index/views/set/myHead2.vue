@@ -3,8 +3,7 @@
 		<div class="setHeadBox_1">
 			<span class="setHeadBox_2">{{navData.title}}</span>
 			<div class="setHeadBox_3">
-				<router-link v-for="(el,index) in navData.list"  :to="el.u">{{el.n}}</router-link>
-							
+				<a v-for="(el,index) in navData.list" :class="['pend',ison==el.u?'router-link-active':'']" @click="goZP(el.u,el.bdtj)">{{el.n}}</a>								
 			</div>
 		</div>
 	</div>
@@ -16,9 +15,28 @@ export default {
 	props:['navData'],
 	data(){
 		return{
-			
+			ison:'',
 		}
 	},
+	mounted: function () {	
+		this.init();	
+	}, 
+	
+	methods: {	
+		init(){
+			this.ison = this.$route.fullPath;
+		},	
+		goZP(a,b){
+			this.bdtj(b[0],b[1],'--');
+			this.$router.push({path: a})			
+		},
+	
+	},
+	watch: {	
+		'$route': function() {
+			this.init();
+		},
+	}
 
 }	
 </script>
@@ -28,7 +46,7 @@ export default {
 	min-width: 1300px;
 	height: 80px;
 	background: #FFFFFF;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
+
 }
 
 .setHeadBox_1{
@@ -39,7 +57,7 @@ export default {
 	text-align: left;
 }
 .setHeadBox_2{
-	font-size: 24px;
+	font-size: 16px;
 	color: #1E1E1E;
     display: inline-block;
     width: 361px;
@@ -50,7 +68,7 @@ export default {
 .setHeadBox_3>a{
 	position: relative;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 14px;
 	color: #1E1E1E;
 	margin-right: 64px;
 }
@@ -58,7 +76,7 @@ export default {
 	margin-right: 0;
 }
 .setHeadBox_3>a.router-link-active{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .setHeadBox_3>a.router-link-active:after{
 	content: "";
@@ -68,10 +86,10 @@ export default {
 	
 	width: 90%;
 	height: 2px;
-	background: #FF5121;
+	background: #33B3FF;
 }
 .setHeadBox_3>a:hover{
-	color: #FF5121;
+	color: #33B3FF;
 	opacity: .7;
 }
 </style>

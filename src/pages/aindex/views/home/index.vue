@@ -44,7 +44,7 @@ export default {
     margin: 0 1.3rem;
 }
 .homeNav>a.router-link-active{
-	color: #ff5121;
+	color: #33B3FF;
 }
 .homeNav>a.router-link-active:after{
     content: "";
@@ -53,7 +53,7 @@ export default {
     width: 70%;
     left: 50%;
     height: .12rem;
-    background: #ff5121;
+    background: #33B3FF;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
 }
@@ -67,7 +67,9 @@ export default {
     width: 100%;
     height: 9.4rem;
     border-radius: .4rem;
-    background-size: cover;
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     background-repeat: no-repeat;
 	margin-bottom: .6rem;
 }

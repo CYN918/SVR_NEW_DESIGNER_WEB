@@ -1,111 +1,110 @@
 <template>
-	<div class="upFm">
-		<div class="upFm_bg" ></div>
+	<div>
 		<div class="upFm_box">
-			<img @click="close" src="/imge/svg/upload/yh_zlws_tx_gb.svg" class="uploadBoxd2_1">
-			<div class="upFm_yl">
-				<div class="upFm_yl_1">
-					<div class="upFm_yl_1_1" >
-						
-						<div class="upFm_yl_1_1x2">
-						<div :style="previewStyle2">
+			<div class="upFm_l">
+				<div class="upFm_l_1">封面预览</div>
+				<workDom class="upFm_l_2" v-if="moData.work_name" :el="moData"></workDom>
+				<div class="fm_dmoBg">
+					<img src="/imge/new/works/log.svg"/>
+				</div>
+				<div class="ylt_pidf">
+					<div :style="previewStyle2">
 						<div :style="previews.div" class="preview">
 							<img :src="previews.url" :style="previews.img">
 						</div>
-						</div>
-						</div>
-						
-					</div>				
-					<div class="upFm_yl_1_2">
-						<div class="upFm_yl_1_2_1">
-							<span>{{InputValue}}</span>
-							<img src="/imge/zs_icon_tj.png" alt="">
-						</div>
-						<div class="upFm_yl_1_2_2">
-							<span>原创-平面</span>
-							<span>{{(new Date()).Format("yyyy-MM-dd ")}}</span>
-						</div>
-						<div class="upFm_yl_1_2_3">
-							<span><img src="https://img.zcool.cn/community/01e9b65c986887a801214168d67106.jpg@260w_195h_1c_1e_1o_100sh.jpg" alt=""></span>
-							<div>
-								<span class="iconfont pend">&#xe6a2; 9</span>
-								<span class="iconfont pend">&#xe672; 0</span>
-								<span class="iconfont pend">&#xe616; 0</span>
-							</div>
+					</div>
+				</div>				
+				<div class="upFm_l_3">
+					<div class="upFm_l_3_1">图片要求</div>
+					<div class="upFm_l_3_2">建议尺寸为800×600px</div>
+					<div class="upFm_l_3_3">上传图片支持JPG、PNG，大小不超过10M</div>
+				</div>				
+			</div>
+			<div class="upFm_r">
+				<div class="upFm_r_0">{{tips}}</div>
+				<div class="upFm_r_1">
+					<div v-if="!previews.url" class="upFm_r_1_1">
+						<div @click="fild" class="myjsg_01 pend">
+							<img src="/imge/new/works/icon_add.svg"/>
+							添加封面
+						</div>						
+						<div class="upFm_r_1_1_2">
+							封面上传建议<br/>
+							1、封面图片高清，尺寸不小于800*600；<br/>
+							2、裁剪时避免文字出现一半的情况；<br/>
+							3、图片主体元素突出。<br/>
+							<span>这样的封面才会让狮友更青睐哦！</span>							
 						</div>
 					</div>
+					<div class="upFm_r_1_2">
+						<vueCropper
+						ref="cropper"
+						:img="option.img"
+						:outputSize="option.size"
+						:fixed="true"
+						:full="true"
+						:fixedNumber = [1,.75]
+						:outputType="option.outputType"
+						:autoCropWidth="option.autoCropWidth"
+						:autoCropHeight="option.autoCropHeight"
+						:autoCrop="true"
+						:enlarge="1"
+						:canMoveBox="false"
+						:centerBox="true"
+						:fixedBox="true"									
+						@realTime="realTime"				
+						>
+						</vueCropper>
+					</div>
 				</div>
-				
-			</div>
-
-			<div class="upFm_yr">
-				<vueCropper
-				ref="cropper"
-				:img="option.img"
-				:outputSize="option.size"
-				:fixed="true"
-				:full="false"
-				:fixedNumber = [1,.683]
-				:outputType="option.outputType"
-				:autoCropWidth="option.autoCropWidth"
-				:autoCropHeight="option.autoCropHeight"
-				:autoCrop="true"
-				@realTime="realTime"				
-				>
-				</vueCropper>
-				<div v-if="!isImff" class="upFm_yl_1_1x">+</div>
-				<input v-if="!isImff" class="fileinpd" type="file" id="uploads" accept="image/png, image/jpeg, image/jpg" @change="uploadImg">	
-			</div>
-			
-			<div class="upFm_yb">
-				<div class="upFm_yb_1">
-					效果预览
-					<div>上传图片支持JPG、PNG、GIF，大小<10M<br/>建议尺寸为800×600 px</div>
-				</div>
-				<div class="upFm_yb_2">重新上传<input class="fileinpd" type="file" accept="image/png, image/jpeg, image/jpg" @change="uploadImg"></div>
-				<div class="upFm_yb_3">
-					
-					<img class="pend" @click="changeScale(1)" src="/imge/svg/upload/yh_zlws_tx_fd.svg" alt="">
-					<img class="pend" @click="changeScale(-1)" src="/imge/svg/upload/yh_zlws_tx_sx.svg" alt="">
-					<img class="pend" @click="rotateLeft" src="/imge/svg/upload/yh_zlws_tx_sz.svg" alt="">
-				</div>
-			</div>
-			
-			
-			<div class="upFm_ybt">
-				<div @click="close">取消</div>
-				<div @click="startCrop">确定</div>
+				<div class="upFm_r_2">
+					<span @click="fild" class="pend">重新上传</span>
+					<img class="pend" @click="changeScale(1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_fd.svg" alt="">
+					<img class="pend" @click="changeScale(-1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_sx.svg" alt="">
+					<img class="pend" @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_sz.svg" alt="">				
+				</div>			
 			</div>
 		</div>
+		<div class="qxBm_btns">
+			<span class="btns pend" @click="closeds('取消')">取消</span><span class="btns btns_js pend" @click="startCrop">确定</span>
+		</div>
+		<input ref="opin" class="nFId" type="file" accept="image/png, image/jpeg, image/jpg" @change="uploadImg">
 	</div>
 </template>
 
 <script>
 import {Message} from 'element-ui';
+import workDom from '../../components/box_a'
 export default {
+	components:{workDom},
     props:{
-		InputValue:'',
-        type:'',
+		datad:Object,
 	},
 	name: 'login',
 	data(){		
 		return{
+			moData:{},
 			previewStyle2:{},
 			previews:{ },
 			option:{
 				img:'',
-				outputSize:1,
+				outputSize:4,
 				outputType:'png',
 				autoCrop:true,
-				autoCropWidth:300,
+				autoCropWidth:310,
+				autoCropHeight:373,
 				fixedBox:true,
+				
 			},
+			tips:'',
 			opType:0,
 			isImff:'',
+			Zp:'',
+			usertx:'',
 		}
 	},	
 	mounted: function () {
-
+		this.init();
 	}, 
 	watch: {
 		'option.img'() {			
@@ -119,51 +118,59 @@ export default {
 	
 	
 	methods: {
-		
-		close(){
+		fild(){
+			this.$refs.opin.click();
+		},
+		init(){
+			this.moData = {	
+					work_name:this.datad.work_name,
+					face_pic:'',
+					is_recommend:1,
+					classify_1_name:this.datad.cl1,
+					classify_2_name:this.datad.cl2,
+					classify_3_name:this.datad.cl3,
+					create_time:(new Date()).Format("yyyy-MM-dd "),
+					view_num:0,
+					like_num:0,
+					comment_num:0,
+					user_info:{
+						avatar:window.userInfo.avatar,
+						username:window.userInfo.username,
+					}				
+			};
+			this.option.img = this.datad.face_pic;
+			this.Zp = this.datad.work_id;
+		},
+		closeds(a){
+			if(a){
+				this.bdtj('封面上传弹窗',a,'--');
+			}
 			this.$parent.close(''); 		
 		},
-		setImgd(img){
-// 			console.log(img);
-// 			console.log('过来了');
-// 			// this.option.img = img;
-// 			this.previews.url = img;
-// 			// console.log(this.option.img)
+		setImgd(img,id){
+			this.option.img = img;
+			this.Zp = id;
+			
 		},
 		realTime(data) {
-			this.previews = data;	
+			this.previews = data;				
 			this.previewStyle2 = {
-				width: this.previews.w + "px",
+				width: "100%",
 				height: this.previews.h + "px",
 				overflow: "hidden",
 				margin: "0",
-				zoom: 300 / this.previews.w
+				zoom: 310 / this.previews.w
 			};
 		},
 		startCrop(){
+			this.bdtj('封面上传弹窗','确定','--');
 			if(this.opType==1){
 				Message({message: '封面正在上传，请稍后'});
 				return
 			}
 			
 			this.$refs.cropper.getCropData(data => {
-				
-				function dataURLtoFile(dataurl) {
-					  var arr = dataurl.split(',');
-					  var mime = arr[0].match(/:(.*?);/)[1];
-					  var bstr = atob(arr[1]);
-					  var n = bstr.length; 
-					  var u8arr = new Uint8Array(n);
-					  while(n--){
-						  u8arr[n] = bstr.charCodeAt(n);
-					  }
-					  //转换成file对象
-					  return new File([u8arr], 'xxxxxxxxxf.png', {type:mime});
-					  //转换成成blob对象
-					  //return new Blob([u8arr],{type:mime});
-				}
-				let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-		
+
 				let times = (Date.parse(new Date())/1000);
 				let arr = [
 					1001,
@@ -175,22 +182,22 @@ export default {
 				formData.append('app_id',1001);
 				formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
 				formData.append('user',window.userInfo.open_id)
-				formData.append('file',dataURLtoFile(data))
+				formData.append('file',this.mJs.dataURLtoFile(data,this.Zp))
 				formData.append('relation_type','user_info')
 				formData.append('related_id',window.userInfo.open_id)
 				formData.append('classify_1','avatar')
 				formData.append('timestamp',times)
 				formData.append('is_callback',1)
-				
-				
+
 				this.opType=1;
-				this.$ajax.post('http://139.129.221.123/File/File/insert', formData)
+				Message({message: '封面正在上传，请稍后'});
+				this.$ajax.post(window.basrul+'/File/File/insert', formData)
 				.then((da)=>{	
 					this.opType=0;
 					let ds = da.data;
 					if(ds.result==0){
 						this.caver = ds.data.url;
-						this.$parent.close(this.caver,ds.data.fid);	
+						this.$parent.$parent.close(this.caver,ds.data.fid);	
 					}else{
 						// msg(response.msg);
 					}
@@ -208,9 +215,15 @@ export default {
 			this.$refs.cropper.rotateLeft()
 		},
 		uploadImg(e){
+			this.bdtj('封面上传弹窗','重新上传','--');
 			let file = e.target.files[0];
-			if (!/\.(jpg|jpeg|png|JPG|PNG|GIF)$/.test(e.target.value)||e.target.files.length==0) {
+			if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)||e.target.files.length==0) {
+				this.$message({message:'格式不正确'});
 				return
+			}
+			this.tips = '';
+			if(file.size<5000){
+				this.tips = '你上传的图片太小了，清晰的封面才会让狮友更青睐哦！';
 			}
 			let reader = new FileReader()
 			reader.onload =(e)=> {
@@ -229,227 +242,142 @@ export default {
 </script>
 
 <style>
-.upFm{
-	position: fixed;
-	top:0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index:9;
-}
-.upFm_bg{
-	width: 100%;
-	height: 100%;
-	background: rgba(0,0,0,.1);
-}
+
 .upFm_box{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%,-50%);
-	transform: translate(-50%,-50%);
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
-	border-radius: 10px;
-	box-sizing: border-box;
-	padding: 50px;
-	width: 818px;
-	height: 527px;
+	padding: 30px 100px;
+	width: 917px;
+	text-align: left;
 }
-.upFm_box>div{
+
+.upFm_l,.upFm_r{
 	display: inline-block;
-}
-.upFm_box>div.upFm_yl{
-	width: 297.9px;
 	vertical-align: top;
-	margin-right: 20.1px;
 }
-.upFm_box>div.upFm_yr{
+.upFm_l{
 	position: relative;
-	width: 400px;
-	height: 300px;
-	background: rgba(0,0,0,.4);
+	margin-right: 30px;
+	width: 310px;
+}
+.upFm_r_0{
+	height: 30px;
+	font-size: 14px;
+    color: rgba(255,146,0,1);
+	line-height:30px;
+}
+.upFm_l_1{
+	font-size:14px;
+	color:rgba(30,30,30,1);
+	line-height:30px;	
+}
+.upFm_l_2{
+	margin-bottom: 30px;
+}
+.upFm_l_3{
+	font-size:14px;
+	line-height:20px;
+}
+.upFm_l_3_1{	
+	color:rgba(30,30,30,1);	
 	margin-bottom: 10px;
 }
-.upFm_yl_1{
-	background: #F6F6F6;
-	border-radius: 5.08px;
-	width: 297.9px;
-	height: 297.9px;
+.upFm_l_3_2{
+	color:rgba(102,102,102,1);
 }
-.upFm_yl_1_1{
+.upFm_l_3_3{
+	color:rgba(187,187,187,1);
+}
+.upFm_r{
+	width: 577px;
+}
+.upFm_r_1{
 	position: relative;
-	width: 297.9px;
-	height: 207.3px;
+	margin-bottom: 14px;
+	width:577px;
+	height:433px;
+}
+.upFm_r_1_1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:577px;
+	height:433px;
+	background:#F4F6F9;
+	z-index: 10;
+}
+.upFm_r_1_2{
+	width:577px;
+	height:433px;
+}
+.upFm_r_2{
+	text-align: right;
+	font-size:14px;
+	color:rgba(51,51,51,1);
+	line-height:20px;
+}
+.upFm_r_2>img{
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 2px;
+	margin-left: 28px;
+}
+.myjsg_01>img{
+	display: block;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin: 0 auto 10px;
+}
+.myjsg_01{
+	text-align: center;
+	font-size:14px;
+	color:rgba(30,30,30,1);
+	line-height:20px;
+	margin: 122px auto 30px;
+}
+.upFm_r_1_1_2{
+	margin: 0 auto;
+	width:260px;
+	font-size:14px;
+	color:rgba(153,153,153,1);
+	line-height:20px;
+}
+.upFm_r_1_1_2>span{
+	margin-top: 20px;
+    display: inline-block;
+}
+.nFId{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 0;
+	height: 0;
+	opacity: 0;
+}
+.fm_dmoBg{
+	position: absolute;
+	top: 30px;
+	left: 0;
+	width: 310px;
+	height: 232px;
+	border-radius: 5px 5px 0 0;
 	overflow: hidden;
+	background:rgba(244,246,249,1);
 }
-.upFm_yl_1_1:hover>.upFm_yl_1_1x{
-	z-index: 9;
-	background: red;
-}
-
-.upFm_yl_1_1x{
+.fm_dmoBg>img{
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	-webkit-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
-	width: 22.9px;
-    height: 22.9px;
-    border-radius: 50%;
-    font-size: 21px;
-    text-align: center;
-    line-height: 22.9px;
-    background: #FF5121;
-    color: #E6E6E6;
-
 }
-.upFm_yl_1_1 img {
-	display: inline-block;
-	width: 100%;
-}
-.upFm_yl_1_2{
-	padding:0 9.6px 9.6px 9.6px;
-
-	text-align: left;
-}
-.upFm_yl_1_2_1{
-	font-size: 16.25px;
-	color: #1E1E1E;
-	margin-bottom: 3px;
-}
-.upFm_yl_1_2_1>img{
-	float: right;
-	width: 14px;
-	height: 14px;
-	margin-top: 3px;
-}
-
-.upFm_yl_1_2_2{
-	line-height: 30px;
-	font-size: 12.19px;
-	color: #878787;
-	text-align: left;
-	margin-bottom: 5px;
-}
-.upFm_yl_1_2_3{
-	font-size: 12.19px;
-	color: #999999;
-	text-align: left;
-}
-.upFm_yl_1_2_3>div{
-	display: inline-block;
-}
-.upFm_yl_1_2_2>span:last-child{
-	float: right;
-}
-.upFm_yl_1_2_3>span{
-	display: inline-block;
-	width: 16px;
-	height: 16px;
-	border-radius: 50%;
-	overflow: hidden;
-}
-.upFm_yl_1_2_3>span>img{
-	display: block;
-	width: 100%;
-	height: 100%;
-}
-.upFm_yl_1_2_3>div{
-	float: right;
-}
-.upFm_yl_1_2_3>div>span{
-	margin-right: 30px;
-	font-size: 12.19px;
-	color: #999999;
-}
-.upFm_yl_1_2_3>div>span:last-child{
-	margin-right: 0;
-}
-.upFm_yb{
-	display: block !important;
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-}
-.upFm_yb>div{
-	display: inline-block;
-}
-.upFm_yb_1{
-	width: 297.1px;
-	margin-right: 20.1px;
-}
-.upFm_yb_1>div{
-	margin-top: 11px;
-	font-size: 12px;
-	color: #999999;
-}
-.upFm_yb_2{
-	position: relative;
-	vertical-align: top;
+.ylt_pidf{
 	
-}
-.upFm_yb_2>input{
-	cursor: pointer;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	opacity: 0;
-}
-.upFm_yb_3{
-	vertical-align: top;
-	float: right;
-}
-.upFm_yb_3>img{
-	margin-right: 33px;
-}
-.upFm_yb_3>img:hover{
-	opacity: .7;
-}
-.upFm_yb_3>img:last-child{
-	margin-right: 0;
-	
-}
-.upFm_ybt{
-	display: block !important;
-	text-align: right;
-}
-.upFm_ybt>div{
-	cursor: pointer;
-	display: inline-block;
-	width: 100px;
-	height: 40px;
-	text-align: center;
-	line-height: 40px;
-	font-size: 14px;
-	color: #333333;
-	border: 1px solid #979797;
-	border-radius: 25.5px;
-}
-.upFm_ybt>div:hover{
-	opacity: .7;
-}
-.upFm_ybt>div:last-child{
-	border-color:  #353232;
-	background: #353232;
-	color: #fff;
-	margin-left: 38px;
-}
-.fileinpd{
-	position: absolute;
-    top: 0;
+    position: absolute;
+    top: 30px;
     left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
+    width: 310px;
+    height: 232px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
 }
-.upFm_yl_1_1x2{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}	
 </style>

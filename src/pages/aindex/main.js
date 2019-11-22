@@ -196,15 +196,17 @@ Vue.prototype.MD5 = function(string){
     return temp.toLowerCase();
 }
 window.getTimes =function(ont) {
-	
-		let times = (new Date(ont)).getTime(),
+	// alert(1);
+
+		
+		let times =new Date(ont.replace(/-/g,'/')).getTime(),
 		nowt = new Date().getTime(),
 		pt = nowt-times,
 		s = 1000,
 		m = s*60,
 		h = m*60,
 		d = h*24,
-		ms = 30*d;
+		ms = 30*d;			
 		if(pt<=0){
 			return '刚刚';
 		}

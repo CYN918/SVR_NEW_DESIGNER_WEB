@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<img class="login_x1" src="/imge/llog.png" alt="" @click="jump">
-		<p class="login_x2">云创设计，最赚钱的设计师平台</p>
+		<img class="login_x1" src="/imge/new/header/logo.svg" @click="jump">
+		<p class="login_x2">让创意更有价值，让生活更加自在</p>
 		<el-form ref="myform" :model="form">	
 			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
 			<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
@@ -10,7 +10,7 @@
 			<el-form-item>
 				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">注册</el-button>				
 			</el-form-item>
-			<p class="lgoin_s5">已有账号？<router-link class="pend" to="/login">登录</router-link></p>
+			<p class="lgoin_s5">已有账号？<a class="pend" @click="god('/login')">登录</a></p>
 		</el-form>
 	</div>
 </template>
@@ -92,6 +92,7 @@ export default {
 	}, 
 	methods: {
 		init(){
+			
 			document.addEventListener('keydown',(e)=>{
 				if(e.keyCode==13){				
 				if(this.$route.fullPath=='/register'){
@@ -100,24 +101,35 @@ export default {
 				}					
 			});
 		},
+		god(d){
+			this.bdtj('注册页','已有账号','--')
+			this.$router.push({
+			    path:d
+			})
+		},
         jump(){
             this.$router.push({
                 path:'/index'
             })
         },
 		ajaxYzm(){
+			this.bdtj('注册页','获取验证码','--');
 			let pd = this.chekPhpne(this.form.mobile);
 			if(pd!=true && pd.type!=true){
 				Message({message: '请先填写手机号码'});
 				return
 			}
-			this.$refs.verify.runTimer(60);			
+				
 			let params = {
 				mobile:this.form.mobile,
-				mobile_zone:this.form.mobile_zone
+				mobile_zone:this.form.mobile_zone,
+				type:'register',
 			};
-			this.api.sendVerifyCode(params).then(()=>{	
-				
+			this.api.sendVerifyCode(params).then((da)=>{	
+				if(da=='error'){
+					return	
+				}
+				this.$refs.verify.runTimer(60);		
 			}).catch(()=>{
 				
 			});
@@ -129,6 +141,7 @@ export default {
 			this[data] = this[data]=='password'?'text':'password';
 		},
 		submitForm(formName){
+			this.bdtj('注册页','注册按钮','点击');
 			if(!this.btnType){
 				return
 			}
@@ -150,11 +163,12 @@ export default {
 			this.ajaxType=1;
 			this.api.register(params).then((da)=>{
 				
-				if(!da){
+				if(da=='error'){
+					this.bdtj('注册页','注册失败','--');
 					this.ajaxType=0;
 					return
 				}
-				
+				this.bdtj('注册页','注册成功','--');
 				Message({message: '注册成功'});
 				let pr = {			
 					mobile_zone:params.mobile_zone,
@@ -164,7 +178,7 @@ export default {
 				};
 				this.api.login(pr).then((da)=>{	
 					
-					if(!da){
+					if(da=='error'){
 						return
 					}
 					this.ajaxType=0;
@@ -176,6 +190,7 @@ export default {
 					this.ajaxType=0;
 				});	
 			}).catch(()=>{	
+				this.bdtj('注册页','注册失败','--');
 				Message({message: '注册失败'});
 				this.ajaxType=0;
 			});	

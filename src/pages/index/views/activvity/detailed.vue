@@ -24,8 +24,9 @@ export default {
 				return
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{			
+				if(da=='error'){return}
 				this.dataD = da;
-                console.log(da)
+              
 			});
 		},
 		
@@ -41,6 +42,10 @@ export default {
 <style>
 .contf{
 	width: 1300px;
-	margin: 0 auto;
+	margin: 0 auto 60px;
+	text-align: left;
+}
+.contf img{
+	max-width: 100%;
 }
 </style>

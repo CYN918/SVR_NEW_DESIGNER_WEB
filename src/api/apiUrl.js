@@ -39,9 +39,7 @@ export default {
 	addSelfInfo:{
 		url:'/Api/User/addSelfInfo',method:'post',baseURL:0,
 	},
-	File:{
-		url:'/File/File/insert',method:'post',baseURL:0,Type:'multipart/form-data',
-	},
+
 	
 	
 	getBanner:{
@@ -60,8 +58,9 @@ export default {
 		url:'/File/File/delete',method:'post',baseURL:0,Type:'multipart/form-data',
 	},
 	
-	insertFile:{
-		url:'/File/File/insert',method:'post',baseURL:0,Type:'multipart/form-data',
+	/*文件上传*/
+	pushFile:{
+		url:'/File/File/insert',method:'post',baseURL:0,
 	},
 	
 	
@@ -235,5 +234,105 @@ export default {
 	contributorInfo:{
 		url:'/api/user/contributorInfo',method:'post',baseURL:0,
 	},
+	
+	
+	
+	/*收益*/
+	Income_info:{
+		url:'/Api/Income/info',method:'post',baseURL:0,
+	},
+	Income_hireworkList:{
+		url:'/Api/Income/hireworkList',method:'post',baseURL:0,
+	},
+	Income_flowList:{
+		url:'/Api/Income/flowList',method:'post',baseURL:0,
+	},
+	
+	Income_applyList:{
+		url:'/Api/Income/applyList',method:'post',baseURL:0,
+	},
+	
+	Income_applyCash:{
+		url:'/Api/Income/applyCash',method:'post',baseURL:0,
+	},
+	Income_applyCancel:{
+		url:'/Api/Income/applyCancel',method:'post',baseURL:0,
+	},
+	recommendActivity:{
+		url:'/api/activity/recommendActivity',method:'post',baseURL:0,
+	},
+	documentget:{
+		url:'/Api/document/get',method:'post',baseURL:0,
+	},
+	
+	bindExist:{
+		url:'/Api/bind/bindExist',method:'post',baseURL:0,
+	},
+	
+	pr_list:{
+		url:'/api/project/list',method:'post',baseURL:0,
+	},
+	pr_classify:{
+		url:'/api/project/classify',method:'post',baseURL:0,
+	},
+	pr_detail:{
+		url:'/api/project/detail',method:'post',baseURL:0,
+	},
+	pr_check:{
+		url:'/api/project/qualification',method:'post',baseURL:0,
+	},
+
+	pr_cancelSignup:{
+		url:'/api/project/cancelSignup',method:'post',baseURL:0,
+	},
+	
+	pr_signup:{
+		url:'/api/project/signup',method:'post',baseURL:0,
+	},
+	
+	pr_delivery:{
+		url:'/api/project/delivery',method:'post',baseURL:0,
+	},
+	
+	pr_revokeDelivery:{
+		url:'/api/project/revokeDelivery',method:'post',baseURL:0,
+	},
+	
+	pr_deliveryList:{
+		url:'/api/project/deliveryList',method:'post',baseURL:0,
+	},
+	
+	pr_terminate:{
+		url:'/api/project/terminate',method:'post',baseURL:0,
+	},
+	
+	pr_question:{
+		url:'/api/project/question',method:'post',baseURL:0,
+	},
+	
+	pr_evaluate:{
+		url:'/api/project/evaluate',method:'post',baseURL:0,
+	},
+	
+	pr_gtreport:{
+		url:'/api/project/report',method:'post',baseURL:0,
+	},
+	
+	pr_personalList:{
+		url:'/api/project/personalList',method:'post',baseURL:0,
+	},
+	
+	saveSkill:{
+		url:'/api/user/saveSkill',method:'post',baseURL:0,
+	},
+	
+	pr_recommend:{
+		url:'/api/project/recommend',method:'post',baseURL:0,
+	},
+	
+	pr_classifyInfo:{
+		url:'/api/project/classifyInfo',method:'post',baseURL:0,
+	},
+	
 	
 }

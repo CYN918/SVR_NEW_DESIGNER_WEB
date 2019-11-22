@@ -1,57 +1,63 @@
 <template>
 	<div>
-		<div class="yhtop">
-			<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver"></upoloadcaver>
-			<div class="yhtop1">用户资料完善</div>
-			<div class="yhtop2">基本信息设置</div>
+		<div class="yhtop newbtnd_4">
+			
+			<div class="yhtop1 "><img class="header_1 pend" src="/imge/new/header/logo.svg">用户资料完善</div>
+			<div class="yhtop2"><div>基本信息设置</div></div>
 			<div class="newUsermeBOX">
 				<div class="newUserme">
 					<div class="nav_tx">
 						<span>头像</span>
-						<img @click="showisPhto(true)" :src="caver" alt="">				
+						<div class="ssetTx" @click="showisPhto(true)">
+							<img :src="caver" />	
+							<div>修改头像</div>
+						</div>
+									
 					</div>
 					<div class="userBoxd">
 						<span>用户名</span>
-						<Input class="userBoxd2" v-model="form.username"  :oType="'max'" :max="15"  :chekFn="chekusername" :type="'text'" :placeholder="'15字符内'"></Input>		
+						<Input class="userBoxd2" v-model="form.username" :max="18" :chekFn="chekusername" :type="'text'" :placeholder="'2-9个汉字，4-18个字符'"></Input>		
 					</div>
 					<div class="userBoxd">
 						<span>性别</span>
-						<rideo :Data="sexData" v-model="form.sex"></rideo>			
+						<rideo class="onusert" :Data="sexData" v-model="form.sex"></rideo>			
 					</div>
 					<div class="userBoxd">
 						<span>职业</span>
-						<Select :Data="zy" v-model="form.vocation"></Select>	
+						<Select :prd='"选择职业"' :Data="zy" v-model="form.vocation" ref="setCl"></Select>	
 					</div>
 					<div class="userBoxd">
 						<span>所在地</span>
-						<Citys v-model="form.citye"></Citys>						
+						<Citys :prd='"选择所在地"' v-model="form.citye" ref="setCt"></Citys>						
 					</div>
 					<div class="yhtop6f">
-						<div class="yhtop5 btnType" @click="goOut">退出</div>
-						<div :class="['yhtop5',btnType]" @click="addSelfInfo">进入首页</div>
+						<div class="btn_n btn_n1" @click="goOut">退出</div>
+						<div :class="['btn_n btn_n2',btnType]" @click="addSelfInfo">进入首页</div>
 					</div>
 					
 				</div>
 			</div>
-			
+			<myCaver ref="myCaver"></myCaver>
 		</div>
 		<Footer></Footer>
+		
 	</div>	
 </template>
 <script>
-import upoloadcaver from './upoloadcaver';
+
 import Input from '../../components/input'
 import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
-import Footer from '../../components/footer';
+import Footer from '../footer';
+import myCaver from '../../components/cavar';
 export default {
 	name: 'login',
-	components:{upoloadcaver,Input,Citys,Select,rideo,Footer},
+	components:{Input,Citys,Select,rideo,Footer,myCaver},
 	data(){		
 		return{	
 			isPhto:false,
-			caver:'/imge/nav_tx.png',
+			caver:'/imge/svg/login/tx.svg',
 			form:{
 				citye:[],
 				sex:'',
@@ -65,23 +71,17 @@ export default {
 			zy:[
 				{n:"平面设计师"},
 				{n:"插画师"},
-				{n:"三维设计师"},
 				{n:"网页设计师"},
 				{n:"UI设计师"},
 				{n:"动画师"},
 				{n:"产品设计师"},
-				{n:"室内设计师"},
 				{n:"摄影师"},
 				{n:"学生"},
 				{n:"设计爱好者"},
 				{n:"UX设计师"},
 				{n:"新媒体设计师"},
-				{n:"概念设计师"},
 				{n:"特效合成师"},
-				{n:"建筑师"},
 				{n:"服装设计师"},
-				{n:"手工艺人"},
-				{n:"艺术工作者"},
 				{n:"教育工作者"},
 			],
 			btnType:'',
@@ -89,15 +89,20 @@ export default {
 		}
 	},
 	mounted: function () {	
-		console.log(window.userInfo)
+	
 	}, 
 	methods: {
+		init(){
+			this.api.getSelfInfo({}).then((da)=>{
+				if(da=='error'){return}		
+				let userData = window.userInfo.access_token;
+				window.userInfo = da;	
+				window.userInfo.access_token = userData;
+			}).catch();
+		},
 		goOut(){
-			let p = {
-				access_token:window.userInfo.access_token
-			};
-			this.api.logout(p).then((da)=>{
-				if(!da){
+			this.api.logout({}).then((da)=>{
+				if(da=='error'){
 					return
 				}			
 				localStorage.setItem('pass','');			
@@ -108,16 +113,13 @@ export default {
 			});
 		},
 		showisPhto(){
-			this.$refs.upoloadcaver.setImgd(this.caver);
-			this.isPhto=true;
+			this.$refs.myCaver.show(this.caver);
 		},
-		close(img){
-			if(img){
-				this.caver = img;
-			}
-			this.isPhto=false;
+		closeCavar(i){
+			this.caver = i;
 		},
 		addSelfInfo(){
+			this.bdtj('手机号注册完善页面','进入首页','--');
 			if(!this.btnType){
 				return
 			}
@@ -125,8 +127,13 @@ export default {
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 			}
+			
+			//
+			let are = this.caver;
+			if(are=='/imge/svg/MRTX.svg'){
+				are = 'http://res.shiquaner.zookingsoft.com/a7c29ebcdd1819d76396588dc72d2770.png';
+			}
 			let pr = {
-				access_token:window.userInfo.access_token,
 				avatar:this.caver,
 				username:this.form.username,
 				sex:this.form.sex,
@@ -136,9 +143,10 @@ export default {
 				city:this.form.citye[2],
 			}
 			this.api.addSelfInfo(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
+				this.init();
 				window.userInfo.avatar = pr.avatar;
 				window.userInfo.username = pr.username;
 				window.userInfo.sex = pr.sex;
@@ -160,47 +168,55 @@ export default {
 			if(!this.form.sex){
 				return
 			}
-			this.btnType = 'btnType';
+			if(!this.form.vocation){
+				return
+			}
+			if(!this.form.citye){
+				return
+			}
+			this.btnType = 'btn_n3';
 		},
 		
 	},
 	watch: {
-	    'form.username'(val) {
+	    'form.username'() {
 	    	this.pdys1();
 	    },
-	    'form.sex'(val) {
+	    'form.sex'() {
 	    	this.pdys1();
 	    },
-	}
+		'form.vocation'(){
+			this.pdys1();
+		},
+		'form.citye'(){
+			this.pdys1();
+		},
+		'isPhto'(){
+			if(this.isPhto==false){
+				document.body.style = "";
+			}else{
+				document.body.style = "overflow: hidden;";
+			}
+		}
+	},
+
 }
 </script>
 
 <style>
+
 #app>div>div.yhtop{
 	padding: 0;
 	padding-bottom: 70px;
 }
+#app>div>div.newbtnd_4{
+	padding-bottom: 150px !important;
+}
+
 .yhtop{
 	min-width: 1300px;
 }
-.yhtop1{
-	width: 100%;
-	height: 60px;
-	font-size: 16px;
-	color: #FFFFFF;
-	text-align: center;
-	line-height: 60px;
-	background: #323232;
-}
-.yhtop2{
-	height: 80px;
-	background: #EFEFEF;
-	line-height: 80px;
-	font-size: 28px;
-	color: #333333;
-	text-align: left;
-	text-indent: 310px;
-}
+
 .newUserme{
 	height: 742px;
     position: relative;
@@ -209,7 +225,6 @@ export default {
 	box-sizing: border-box;
 	width: 860px;
 	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
 	border-radius: 5px;
 }
 
@@ -265,23 +280,15 @@ export default {
     bottom: 65px;
     left: 0;
 	width: 100%;
+	text-align: center;
 }
 .yhtop6f>div{
 	display: inline-block;
 	margin: 0 15px;
 	width: 200px;
-	height: 40px;
-	font-size: 16px;
-	color: #FFFFFF;
-	text-align: center;
-	background: #999999;
-	line-height: 40px;
-	border-radius: 5px;
+	
 }
-.yhtop5:hover{
-	cursor: pointer;
-	opacity: .7;
-}
+
 .cjBox{
 	position: absolute;
 	top: 0;
@@ -311,7 +318,8 @@ export default {
 .userBoxd2.inptud {
     width: 296px;
 }
-.btnType{
-	background: #FF5121;
+
+.onusert{
+	line-height: 40px;
 }
 </style>

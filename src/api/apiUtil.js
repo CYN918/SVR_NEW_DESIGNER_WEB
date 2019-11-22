@@ -1,6 +1,11 @@
 import axios from 'axios'
-import qs from 'qs'
+
 import {Message} from 'element-ui'
+let basrurl = 'http://139.129.221.123';
+if(window.location.host=='shiquaner.zookingsoft.com'){
+	basrurl = 'https://shiquaner-api.zookingsoft.com';
+}
+window.basrul = basrurl;
 const generateApiMap = (map) => {
 	let facade = {}
 	for(let el in map){
@@ -8,10 +13,6 @@ const generateApiMap = (map) => {
 	}
 	return facade
 };
-// PASSPORT_HOST = 139.129.221.123;
-// API_HOST = 139.129.221.123;
-// UPLOAD_HOST = 139.129.221.123 ;
-const baseURLs = ['http://139.129.221.123',];
 const toMethod = (options) => {
 	options.method = options.method || 'post'
 	return (params = {}, attachedParams, config = {}) => {	
@@ -23,7 +24,7 @@ const createApiInstance = (config = {},on,Type) => {
 	let ds = on?on:0;
 	const _config = {
 		withCredentials: true, // 跨域
-		baseURL: baseURLs[ds],		
+		baseURL: basrurl,		
 		headers:{
 			'Authorization':'Bearer '+localStorage.getItem('token'),
 			'Content-Type':Type?Type:'application/x-www-form-urlencoded'
@@ -32,10 +33,24 @@ const createApiInstance = (config = {},on,Type) => {
 	config = Object.assign(_config, config);
 	return axios.create(config)
 }
+function backFormData(d){
+	let f = new FormData();
+	for(let el in d){
+		f.append(el,d[el]);				
+	}	
+	return f;
+}
 const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => {
 	
-	if (method === 'post') {
-		params = qs.stringify(params);
+	if(method === 'post') {
+		let token = localStorage.getItem('userT');
+		if(token){
+			try{				
+				window.userInfo = JSON.parse(token);
+				params.access_token = window.userInfo.access_token;
+			}catch(e){}
+		}
+		params = backFormData(params);
 	}
 	if(!url){return}		
 	let instance = createApiInstance(config,on,Type)
@@ -51,32 +66,14 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 			return data
 		}else{			
 			if(result=='104'){	
+				window.frompath2 = location.href;
 				localStorage.setItem('userT','');
-				let	pass = localStorage.getItem('pass');
 				window.userInfo='';				
-				if(pass){
-					axios({
-						method: 'post',
-						url: '/user/12345',
-						data:JSON.stringify(pass)
-					}).then((da)=>{				
-						localStorage.setItem('userT',JSON.stringify(da));				
-						if(da.is_detail==0){
-							window.location.href = '#/userme';	
-							return
-						}
-						window.location.href = '#/';																	
-					}).catch(()=>{	
-						window.passIn='';
-						localStorage.setItem('pass','');
-						window.location.href = '#/login';			
-					});						
-				}				
 				window.location.href = '#/login';		
-				return
+				return 'error';
 			}
 			Message({dangerouslyUseHTMLString:true,message: data});
-			return
+			return 'error';
 		}
 	},error => {	  
 		Message({message: '服务器故障',type: 'warning'});

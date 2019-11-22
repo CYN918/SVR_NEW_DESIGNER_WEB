@@ -2,7 +2,7 @@
 	<div class="uploadBoxd">
 		<div class="uploadBoxd1" ></div>
 		<div class="uploadBoxd2">
-			<img class="uploadBoxd2_1" @click="closed" src="/imge/cj_00.png"/>
+			<img class="uploadBoxd2_1" @click="closedxf('关闭')" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 			<div class="uploadBoxd2_2">
 				<div class="uploadBoxd2_2_1">
 					<div>{{configData.title}}</div>
@@ -14,7 +14,7 @@
 				</div>
 				<div class="uploadBoxd2_2_2">{{configData.btn}}<input @change="fileUp" class="uploadBoxd2_2_2_1" ref="upnfile" :accept="typexz"  multiple="multiple" type="file" /></div>				
 			</div>
-			<ul class="uploadBoxd2_3" ref="imgd">
+			<ul class="uploadBoxd2_3" ref="imgd" @scroll="test">
 				<li v-for="(el,index) in list" :key="index" v-if="el.type!='none'">
 					<div v-if="el.type=='up'">
 						<div class="loadingsd">
@@ -31,16 +31,19 @@
 						</div>
 						<div><span>{{el.file_name.split('.')[0]}}</span><span>{{el.s}}</span></div>
 					</div>
-					<div v-else class="zzched" @click="onxz(el)">
+					<div v-else class="zzched" @click="onxz(el,index)">
 						<div class="imgxzd" :style="Imgbj(el.url,el.cover_img)"></div>
 						<div class="imgxzd2"><span>{{el.file_name}}</span><span>{{el.file_size_format}}</span></div>
 						<div :class="['zzched_1',checkin.indexOf(el.fid)!=-1?'zzched2':'']"></div>
 					</div>					
-				</li>				
+				</li>	
+				<div ref="botmm"></div>
+				<img v-if="isnoData" class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
+				
 			</ul>
 			<div class="uploadBoxd2_4">
 				<div class="uploadBoxd2_4_1">已选{{this.checkin.length}}项，最多可选50项</div>
-				<div @click="closed">取消</div>
+				<div @click="closedxf('取消')">取消</div>
 				<div @click="deleteFile">删除</div>
 				<div class="uploadBoxd2_4_2" @click="InImg">插入</div>
 			</div>
@@ -68,12 +71,30 @@ export default {
 			checIurl:[],
 			deldetType:0,
 			typexz:'',
+			deletOn:[],
+			isnoData:'',
+			getType:'',
+			noGd:'',
+			page:1,
+			total:0,
       	};
     },
 	mounted: function () {	
 		this.getList();
 	}, 	
     methods: {
+		test(){
+			let data = this.$refs.botmm.getBoundingClientRect();
+			if(data.top<800 && !this.getType && !this.noGd){
+				if(this.total<40){
+					this.noGd=1;
+					return
+				}
+				this.page++;
+				
+				this.getList();
+			}
+		},
 		Imgbj(a,b){
 			
 			let p = "background-image: url(";
@@ -89,6 +110,11 @@ export default {
 			
 		},
 		InImg(){
+			this.bdtj(this.configData.title,'插入','--');
+			if(this.checIurl.length==0){
+				Message({message: '请先选择素材'});
+				return
+			}
 			this.$parent.inImg(this.checIurl,this.checkin);
 			this.closed(1);
 		},
@@ -112,21 +138,27 @@ export default {
 			formData.append('fid',this.checkin)
 			formData.append('timestamp',times)
 			this.deldetType=1;
-			this.$ajax.post('http://139.129.221.123/File/File/delete', formData)
-			.then((response)=>{
+			this.$ajax.post(window.basrul+'/File/File/delete', formData)
+			.then((da)=>{
 				this.deldetType=0;
-				if(response.data.result==0){
+				if(da.data.result==0){
 					Message({message: '删除成功'});
-                    this.closed();
-					for(let i=0,n=this.deletObj.length;i<n;i++){
-						this.deletObj[i].type='none';						
+					let pn = 0;
+					for(let i=0,n=this.deletOn.length;i<n;i++){
+						this.list.splice(this.deletOn[i]-pn,1);
+						pn++;				
 					}
+					this.deletOn = [];
+					this.checkin = [];
+					this.checIurl = [];
+					this.deletObj = [];
+					
 				}else{
 					Message({message: '删除失败'});	
 				}
 				
 			})
-			.catch(function (error) {	
+			.catch(()=>{	
 				this.deldetType=0;
 				Message({message: '删除失败'});	
 			});
@@ -135,17 +167,23 @@ export default {
 		
 			this.$parent.closed(on);
 		},
-		onxz(obj){
+		closedxf(a){
+			this.bdtj(this.configData.title,a,'--');
+			this.$parent.closed();
+		},		
+		onxz(obj,on){
 			let lend = this.checkin.indexOf(obj.fid);
 			if(lend==-1){
 				this.checkin.push(obj.fid);
 				this.checIurl.push(obj.url);
-				this.deletObj.push(obj)
+				this.deletObj.push(obj);
+				this.deletOn.push(on);
 				return
 			}
 			this.deletObj.splice(lend,1);
 			this.checIurl.splice(lend,1);
 			this.checkin.splice(lend,1);
+			this.deletOn.splice(lend,1);
 		},
 		getList(){
 			if(this.configData){
@@ -171,13 +209,35 @@ export default {
 				user:window.userInfo.open_id,
 				timestamp:times,
 				file_type:this.configData.getType,
-			}
+				relation_type:'work',
+				limit:40,
+				page:this.page,
+			};
+			this.getType=1;
 			this.api.getFList(params).then((da)=>{
-				if(!da){
+				this.getType='';
+				if(da=='error'){
+					return
+				}
+
+				if(da.data.length==0 || !da){
+					this.noGd=1;
+				}
+				if(da.data.length==0 && this.list.length==0){
+					this.isnoData=1;
+				}else{
+					this.isnoData='';
+				}
+				this.total = da.total;
+				if(this.list.length>0){
+					this.list = this.list.concat(da.data);
 					return
 				}
 				this.list =da.data;
-			})
+				
+			}).catch(()=>{
+				this.getType='';
+			});
 		},
 		backRigh(on){
 			if(on<=50){
@@ -201,15 +261,16 @@ export default {
 			this.loadList[on].show='';
 		},
 		qxclosd(obj){
+			this.bdtj(this.configData.title,'取消上传','--');
 			obj.xhr.abort();
 		},
 		clPic(fld,on){
-			if(this.configData.type.indexOf(fld.type)==-1){
-				Message({message: '第'+on+1+'个文件格式不正确'});
-				return
-			}
+//			if(this.configData.type.indexOf(fld.type)==-1){
+//				Message({message: '该文件格式不支持'});
+//				return
+//			}
 			if(fld.size>this.configData.max){
-				Message({message: '第'+on+1+'个文件过大'});
+				Message({message: '文件过大'});
 				return
 			}
 			let fileSize = this.backSize(fld.size);
@@ -241,10 +302,21 @@ export default {
 			        percent = percent>98?98:percent;
 					p.bf  = Math.floor(percent);
 				}
+				
+				
 			};
 			let uploadComplete = (data)=>{
 				if(data.currentTarget.response){
-					let da = JSON.parse(data.currentTarget.response).data;
+					let daaa = JSON.parse(data.currentTarget.response);
+				
+					if(daaa.result!=0){
+						p.type="none";
+						this.$message({message:daaa.data});
+						return
+					}
+					let da = daaa.data;
+					
+					
 					p.type="img";
 					p.url = da.url;
 					p.file_name = da.file_name;
@@ -275,7 +347,7 @@ export default {
 			xhr.addEventListener("load",uploadComplete, false);
 			xhr.addEventListener("error",uploadFailed, false);
 			xhr.addEventListener("abort",uploadCanceled, false);
-			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.open("POST", window.basrul+"/File/File/insert");
 			xhr.send(formData);
 		},
 		backSize(fld){
@@ -288,6 +360,7 @@ export default {
 			return fileSize;
 		},	
       	fileUp(flie){
+			this.bdtj(this.configData.title,this.configData.btn,'--');
 			for(let i=0,n=flie.target.files.length;i<n;i++){
 				this.clPic(flie.target.files[i],i);
 			}
@@ -304,7 +377,7 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 999;
+	z-index: 9999;
 }
 .uploadBoxd1{
 	background: rgba(0,0,0,.3);
@@ -324,10 +397,10 @@ export default {
 }
 .uploadBoxd2_1{
 	position: absolute;
-	top: -45px;
-	right: -45px;
-	width: 44px;
-	height: 44px;
+	top: -36px;
+	right: -36px;
+	width: 36px;
+	height: 36px;
 	cursor: pointer;
 	
 }
@@ -398,7 +471,7 @@ export default {
 	position: relative;
 	width: 120px;
 	height: 40px;
-	background: #FF5121;
+	background: #33B3FF;
 	border-radius: 5px;
 	font-size: 14px;
 	color: #FFFFFF;
@@ -437,7 +510,7 @@ export default {
 .uploadBoxd2_3::-webkit-scrollbar-thumb {
     border-radius: 4px;
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-    background: #535353;
+    background: #e6e6e6;
 }
 .uploadBoxd2_3::-webkit-scrollbar-track {
     background: none;
@@ -533,7 +606,7 @@ export default {
 .qxclos{
 	cursor: pointer;
     font-size: 14px;
-    color: #FF5121;
+    color: #33B3FF;
     position: absolute;
     bottom: 15px;
     text-align: center;
@@ -586,15 +659,15 @@ export default {
 	transform: rotate(225deg);
 }
 .rightcircle{
-    border-top:3px solid #FF5121;
-    border-right:3px solid #FF5121;
+    border-top:3px solid #33B3FF;
+    border-right:3px solid #33B3FF;
     right:0;
 	-webkit-transition: -webkit-transform .1s linear;
 	transition: transform .1s linear;
 }
 .leftcircle{
-    border-bottom:3px solid #FF5121;
-    border-left:3px solid #FF5121;
+    border-bottom:3px solid #33B3FF;
+    border-left:3px solid #33B3FF;
     left:0;
 	-webkit-transition: -webkit-transform .1s linear;
 	transition: transform .1s linear;
@@ -615,7 +688,7 @@ export default {
 	top: 0;
 	left: 0;
 	width: 100%;
-	height:168px;
+	height:173px;
 	
 }
 .zzched_1{
@@ -628,8 +701,8 @@ export default {
 	border-radius: 2px;
 }
 .zzched2{
-	border-color: #FF5121;
-	background: #FF5121;
+	border-color: #33B3FF;
+	background: #33B3FF;
 }
 .imgxzd{
 	position: relative;
@@ -645,5 +718,10 @@ export default {
 	width: 100%;
 	box-sizing: border-box;
 	padding: 5px;
+}
+
+.upImnoData{
+	display: block;
+	margin: 110px auto 0;   
 }
 </style>

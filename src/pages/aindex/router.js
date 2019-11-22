@@ -28,6 +28,35 @@ let wb = [
 					}
 				]
 			},
+			{
+				path: '/cont',
+				name: 'cont',
+				component: () => import('./views/cont.vue'),
+			},
+			{
+				path: '/conta',
+				name: 'conta',
+				component: () => import('./views/conta.vue'),
+			},
+			{
+				path: '/user',
+				name: 'user',
+				component: () => import('./views/user/index.vue'),
+				children:[
+					{
+						path: '/user',
+						name: 'user',
+						component: () => import('./views/user/works.vue'),
+					},
+					{
+						path: '/info',
+						name: 'info',
+						component: () => import('./views/user/info.vue'),
+					},
+					
+				]
+				
+			}
 		],	
 	},
 ];
@@ -42,6 +71,10 @@ if(passd){
 	try{window.passIn = JSON.parse(passd);}catch(e){}
 }
 router.beforeEach((to, from, next) => {
+	if(!/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+		window.location.href = location.origin+"/#/";
+		return
+	}
 	window.scrollTo(0,0);	
 	next();	
 })

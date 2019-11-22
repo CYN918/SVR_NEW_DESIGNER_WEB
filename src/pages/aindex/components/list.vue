@@ -2,17 +2,12 @@
 	<ul class="boxd">
 		<li v-for="(el,index) in List" :key="index">
 			<slot name="todo" v-bind:todo="el"></slot>			
-		</li>
-		
+		</li>		
 		<span v-if="total>List.length" @click="addMo" class="btns">查看更多</span>
 	</ul>
 </template>
-
 <script>
-
-
 export default {
-	
 	props:{
 		config:{
 			type:Object,
@@ -44,11 +39,12 @@ export default {
 			};
 			if(window.userInfo){
 				params.access_token = window.userInfo.access_token;
-			}			
-
+			}	
+			if(this.config.prms){
+				params[this.config.prms.n] = this.config.prms.v();
+			}
 			this.api[this.config.ajaxUrl](params).then((da)=>{
-
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.total = da.total;
@@ -56,13 +52,11 @@ export default {
 					this.List = this.List.concat(da.data);
 					return
 				}
-				this.List = da.data;
-								
+				this.List = da.data;								
 			}).catch(()=>{
 
 			})
 		},
-
 	}
 }
 </script>

@@ -1,68 +1,55 @@
 <template>
 	<div>
-		<tophead></tophead>
-		<div class="myAllbox">
-			<ul v-if="List.length>0" class="myListBox" >
-				<li v-for="(el,index) in List" :key="index">
-					<div @click="openxq(index)" class="myListBox_1">
-						<img class="myListBox_1_1" :src="el.face_pic">
-						<div v-if="el.status!=2" :class="['myListBox_1_2',el.status==-2?'wtg':'balck']">{{el.status==0?'待审核':el.status==-2?'未通过':'草稿'}}</div>
+		<tophead :con="navData"></tophead>
+		<div class="csBox opodd">
+			<list :config="data" ref="listDom">
+				<template v-slot:todo="{ todo }">
+					<div class="mylists">
+						<div @click="openxq(todo)" class="myListBox_1">
+							<div class="mywus_n1" :style="backFm(todo.face_pic)"></div>
+							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
+						</div>
+						<div @click="openxq(todo)" class="myListBox_2">
+							<span class="myListBox_2_1" :title="todo.work_name">{{todo.work_name}}</span>
+							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="/imge/new/works/icon_r.svg">
+						</div>
+						
+						<div @click="openxq(todo)" class="myListBox_3">
+							<span class="myListBox_3_1">{{todo.classify_1_name+'-'+todo.classify_2_name}}</span>
+							<span class="myListBox_3_2">{{backtime(todo.create_time)}}</span>
+						</div>
+						<div class="myListBox_4">
+						
+							<span class="myListBox_4_1" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</span>
+							<span @click="updata(todo)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>					
+							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span>
+						</div>			
 					</div>
-					<div @click="openxq(index)" class="myListBox_2">
-						<span class="myListBox_2_1" :title="el.work_name">{{el.work_name}}</span>
-						<img v-if="el.is_recommend==1" class="myListBox_2_2" src="/imge/zs_icon_tj.png">
-					</div>
-					
-					<div @click="openxq(index)" class="myListBox_3">
-						<span class="myListBox_3_1">{{el.classify_1_name+'-'+el.classify_2_name}}</span>
-						<span class="myListBox_3_2">{{backtime(el.create_time)}}</span>
-					</div>
-					<div class="myListBox_4">
-					
-						<span class="myListBox_4_1" @click="showissetDatasXX(index)" v-if="el.status==2">修改设置</span>
-						<span @click="updata(el.work_id)" class="myListBox_4_1" v-else-if="el.status!=0">编辑</span>
-					
-						<span class="myListBox_4_2" @click="showTopc('delet',index)">删除</span>
-					</div>
-					
-				</li>
-			</ul>
-			<div class="myWorkNoData"><img v-if="List.length==0" class="wusj2" src="/imge/wsj2.png" alt=""></div>
-			<el-pagination v-if="total>40" class="pagesddd"
-			background
-			@size-change="handleSizeChange"
-			@current-change="handleCurrentChange"
-			:current-page="page"
-			:page-sizes="[40, 80, 120, 160]"
-			:page-size="limit"
-			layout="prev,pager, next,sizes, jumper"
-			:total="total">   
-			</el-pagination>
+				</template>			
+			</list>
 		</div>
-		<div v-show="istopc" class="myListBox_6">
-			<div class="myListBox_6_1">
-				<img @click="hindTopc" class="myListBox_6_2" src="/imge/cj_00.png" alt="">
-				<div v-if="topcType=='set'" class="myListBox_6_3">修改作品设置提交，平台审核通过后即可修改成功</div>
-				<div v-if="topcType=='set'" class="myListBox_6_3">确定修改作品设置？</div>
-				<div v-if="topcType=='delet'" class="myListBox_6_3">确定删除该作品？</div>
-				<div class="myListBox_6_4">
-					<span @click="hindTopc">取消</span>
-					<span v-if="topcType=='delet'" @click="delWork()" class="myListBox_6_4_2">确定</span>
-					<span v-if="topcType=='set'" class="myListBox_6_4_2">确定</span>
-				</div>
-
-			</div>
-		</div>	
 		
-		<div v-show="issetDatasXX" class="setDatasXX">
-			<div class="setDatasXX_1">
-				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="/imge/cj_00.png" alt="">
-				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
-				<div class="setDatasXX_4">
-					
+		<TcBoxQr :config="config2" ref="tcBox2"></TcBoxQr>			
+				
+		<TcBox :config="config" ref="tcBox">
+			<template v-slot:todo="{ todo }">			
+				<div class="necsgg">
+				<div class="setDatasXX_4">					
 					<div class="setDatasXX_4_2">
 						<div class="setDatasXX_4_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
-						<div><Input class="setDatasXX_4_3" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>还可添加{{5-form.labels.length}}个标签</div>
+						<div>
+							<mInput 
+							class="setDatasXX_4_3 setDatasXX_4_3qz" 
+							v-model="tags" 
+							:keyup="keydown"  
+							:oType="'max'" 
+							:max="10"   
+							:type="'text'" 
+							:placeholder="'输入标签，回车添加标签'" 
+							ref="tageds">
+							</mInput>
+							<span @click="keydown" :class="['tagBtn',isTageok?'istageok':'']">添加标签</span>还可添加{{5-form.labels.length}}个标签
+						</div>
 						<div class="setDatasXX_4_4">
 							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
 						</div>
@@ -107,26 +94,65 @@
 						</label>
 					</div>
 				</div>
+				
+				</div>
+				
+				
 				<div class="setDatasXX_7">
 					<span @click="hindissetDatasXX">取消</span><span @click="upDataSet">确定</span>
 				</div>
-			</div>
+				
+			</template>			
+		</TcBox>		
+				
+				
+		<div v-show="issetDatasXX" class="setDatasXX">
+			<div class="setDatasXX_1">
+				
+				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" alt="">
+				<div class="ydbbdf">
+				<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
+				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
+				
+			</div></div>
 		</div>
 		
 	</div>
 </template>
-
 <script>
 import tophead from './myHead';
 import {Message} from 'element-ui'
-import Input from '../../components/input'
-import { Loading } from 'element-ui';
+import mInput from '../../components/input'
+import list from '../../components/list';
+import TcBox from '../../components/TcBox';
+import TcBoxQr from '../../components/TcBoxQr';
 export default {
 	props:['isType'],
-	components:{tophead,Input},
+	components:{tophead,mInput,list,TcBox,TcBoxQr},
 	name: 'myAll',
 	data(){
 		return {
+			config:{
+				title:'作品修改设置：音乐测试',
+			},
+			config2:{
+				title:'删除确认',
+				cent:'确定删除该作品？',
+				closeFnd:'closeqd',
+				qFn:'delWork',
+				closeFn:'closeqd'
+			},
+			navData:{
+				title:'我的创作',
+				list:[
+					{a:'/myAll',b:'全部'},
+					{a:'/myExamine',b:'待审核'},
+					{a:'/myPass',b:'已通过'},
+					{a:'/myNotPass',b:'未通过'},					
+					{a:'/myDraft',b:'草稿'}
+				],
+				bdtj:'我的创作'				
+			},
 			form:{labels:[]},
 			selectedOptions:[],
 			page2:{
@@ -135,33 +161,76 @@ export default {
 				classify_2:0,
 				classify_3:0,
 			},
+			isTageok:'',
 			tags:'',
 			bqList:[{label:'禁止匿名转载；禁止商业使用；禁止个人使用。'},{label:'禁止匿名转载；禁止商业使用。'},{label:'不限制用途。'}],
 			issetDatasXX:false,
 			istopc:false,
 			topcType:'',
 			worksType:'',
-			banners:[],
-			List:[],
-			banOn:0,
-			page:1,
-			limit:40,
-			total:0,
-			loading: '',
+
 			deletWorkid:'',
 			setDataOn:'',
 			setDataData:{},
 			
+			data:{
+				ajax:{
+					url:'getSelfWorkList',
+				},
+				pr:{},
+
+			},
+			upType:'',			
+			isTypeList:{
+				myAll:'all',
+				myExamine:'0',
+				myNotPass:'-2',
+				myPass:'2',
+				myDraft:'-1'
+			},
+			
 		}
 	},
-	mounted: function () {	
-		
-		this.getHList();
-		
-	}, 
+	created(){
+		this.init();
+	},	
+	watch: {
+		'tags'(){
+			
+			if(this.tags){
+				this.isTageok =1;
+			}else{
+				this.isTageok = '';
+			}
+		},
+		'$route': function() {
+			this.init();
+			this.$refs.listDom.getData();
+		},
+	},
 	methods: {
-		upDataSet(){
-		
+		show(){
+			this.$refs.tcBox.show();
+		},
+		close(){
+			this.$refs.tcBox.close();
+		},
+		init(){
+			this.data.pr.status =  this.isTypeList[this.$route.name];
+		},
+		backFm(ur){
+			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
+				return 'background-image: url(/imge/new/com/no_img.svg);background-size:70%;';
+			}
+			return 'background-image: url('+ur+'?x-oss-process=image/resize,w_307);';
+			
+		},
+		upDataSet(){	
+			
+			if(this.upType==1){
+				Message({message: '正在提交请稍后'});
+				return
+			}
 			if(!window.userInfo){
 				Message({message: '登录过期请先登录'});
 				setTimeout(()=>{
@@ -169,32 +238,68 @@ export default {
 				},1000);
 				return
 			}	
-			let pr = this.form;
-			pr.is_publish = 1;
-			pr.step = 1;
-			pr.access_token = window.userInfo.access_token;		
-			pr.labels = JSON.stringify(pr.labels);
+
+			let pr = {
+				is_publish:1,
+				work_id:this.form.work_id,
+				work_name:this.form.work_name,
+				content:this.form.content,
+				face_pic:this.form.face_pic,
+				classify_1:this.selectedOptions[0],
+				classify_2:this.selectedOptions[1],
+				classify_3:this.selectedOptions[2],
+				copyright:this.form.copyright,
+				labels:JSON.stringify(this.form.labels),
+				step:2,
+				attachment_id:this.form.attachment_id,
+				attachment_visible:this.form.attachment_visible,
+				is_platform_work:this.form.is_platform_work,
+				link_ids:this.form.link_ids
+			};
+
+			this.upType=1;
 			this.api.saveWorks(pr).then((da)=>{
-				if(!da){
+				this.upType='';
+				if(da=='error'){
 					return
 				}
 				this.hindissetDatasXX();	
-				Message({message:'修改成功正在审核'});							
+				this.$refs.listDom.getData();
+				Message({message:'修改成功'});							
+			}).catch(()=>{
+				this.upType='';
 			});		
 		},
-		showissetDatasXX(on){
-			this.issetDatasXX = true;
-			this.setDataOn = on;
-			this.form = this.List[on];
-			this.form.labels = JSON.parse(this.form.labels);
-			this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
-			if(this.page2.classify.length>0){
-				return;
-			}
-			this.getClassify();
+		showissetDatasXX(id){
+			let pr = {
+				access_token:window.userInfo.access_token,
+				work_id:id,
+				is_draft:0
+			};
+			this.bdtj('我的创作','已通过-修改设置','--');
+			this.api.getWorkDetail(pr).then((da)=>{
+				if(da=='error'){
+					return
+				}
+				this.config.title = '作品修改设置：'+da.work_name;
+				this.setDataOn = da;		
+				this.form = da;
+				this.show();
+				try{
+					this.form.labels = JSON.parse(this.form.labels);					
+				}catch(e){console.log(1)}
+				
+				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
+				if(this.page2.classify.length>0){
+					return;
+				}
+				
+				this.getClassify();				
+			})
+			
 		},
 		hindissetDatasXX(){
-			this.issetDatasXX = false;
+			this.close();
 			this.setDataOn = '';
 			this.form = {labels:[]};
 			this.selectedOptions = [];
@@ -204,8 +309,14 @@ export default {
 			this.form.labels.splice(on,1);
 		},
 		keydown(){
+			if(!this.isTageok){
+				return
+			}
 			if(!this.tags){
 				return
+			}
+			if(!this.form.labels){
+				this.form.labels = [];
 			}
 			if(this.form.labels.indexOf(this.tags)!=-1){
 				Message({message: '该标签已添加'});
@@ -215,6 +326,7 @@ export default {
 				Message({message: '最多填写5个标签'});
 				return
 			}
+			
 			this.form.labels.push(this.tags);
 			this.tags = '';
 			this.$refs.tageds.clearValue();
@@ -233,7 +345,7 @@ export default {
 			};
 			
 			this.api.getClassify(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				let p = JSON.stringify(da);
@@ -241,25 +353,45 @@ export default {
 				p = p.replace(/id/g,"value");
 				p = p.replace(/sub_data/g,"children");
 				this.page2.classify = JSON.parse(p);
-		        console.log(p)
 			})
 		},
-		updata(id){
+		backType(t){
+			let a = '';
+			if(t==-1){
+				a = '草稿';
+			}
+			if(t==-2){
+				a = '未通过';
+			}
+			if(t==0){
+				a = '待审核';
+			}
+			if(t==2){
+				a = '已通过';
+			}
+			return a;
+		},
+		updata(o){
+			let id = o.work_id;
 			if(!id){
 				return
 			}
+			this.bdtj('我的创作',this.backType(o.status)+'-编辑','--');
 			this.$router.push({path: '/upload',query:{id:id}});	
 		},
 		showTopc(type,on){
-			this.deletWorkon = on;
+			this.bdtj('我的创作',this.backType(on.status)+'-删除','--');
+			this.$refs.tcBox2.show();
+			this.deletWorkon = on.work_id;
 			this.topcType = type;
 			this.istopc = true;
 		},
-		hindTopc(){
+		closeqd(){
 			this.topcType = '';
 			this.deletWorkon = '';
 			this.istopc = false;
 		},
+
 		delWork(){
 			if(this.delWorkType==1){
 				Message({message: '正在删除请稍候'});
@@ -268,23 +400,26 @@ export default {
 			this.delWorkType=1;
 			let pr = {
 				access_token:window.userInfo.access_token,
-				work_id:this.List[this.deletWorkon].work_id
+				work_id:this.deletWorkon
 			};
 			this.api.delWork(pr).then((da)=>{
-				if(!da){
-					this.delWorkType = 0;
+				this.delWorkType = 0;
+				
+				if(da=='error'){					
 					return
 				}
-				this.List.splice(this.deletWorkon,1)
+				
+				this.$refs.listDom.getData();
+				
 				Message({message: '删除成功'});
-				this.hindTopc();
-				this.delWorkType = 0;
+	
+				this.$refs.tcBox2.close();
 			}).catch(()=>{
 				this.delWorkType = 0;		
 			});
 		},
 		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
+			this.$router.push({path: '/works',query:{id:on.user_info.open_id}})	
 		},
 		backtime(time){
 		
@@ -295,65 +430,28 @@ export default {
 			window.open(ur);
 		},
 		openxq(on){
-			if(this.$route.fullPath=="/myPass"){
-				window.open('#/cont?id='+this.List[on].work_id);
+			this.bdtj('我的创作','点击作品','--');
+			if(on.status==2){
+				window.open('#/cont?id='+on.work_id);
 				return
 			}
-			window.open('#/conts?id='+this.List[on].work_id)
+			window.open('#/conts?id='+on.work_id)
 		},
-	
-		checkBan(on){
-			this.banOn = on;
-		},
-		checkBan1(){
-			if(this.banOn>0){
-				this.banOn--;
-				return
-			}
-			this.banOn = this.banners.length-1;
-		},
-		checkBan2(){
-			if(this.banOn<this.banners.length-1){
-				this.banOn++;
-				return
-			}
-			this.banOn = 0;
-		},
-		getHList(){
-			console.log(this.$parent.isType)
-			
-			let params = {
-				access_token:window.userInfo.access_token,
-				status:this.$parent.isType,
-				page:this.page,
-				limit:this.limit
-			};
-			this.loading = Loading.service({ fullscreen: true });
-			this.api.getSelfWorkList(params).then((da)=>{
-				this.loading.close();
-				if(!da){
-					return;
-				}
-				this.List = da.data;
-				this.total = da.total;
-				document.documentElement.scrollTop =0;
-				document.body.scrollTop =0;
-				this.loading.close();
-			})
-		},
-		handleSizeChange(val) {
-			this.limit = val;
-			this.getHList();
-		},
-		handleCurrentChange(val) {
-			this.page = val;
-			this.getHList();
-		}
 	}
 }
 </script>
 
 <style>
+.mylists{
+	margin: 0 20px 20px 0;
+    background: #fff;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1px solid #f6f6f6;
+}
+.opodd{
+	padding-top: 20px;
+}
 .worksBox{
 	margin: 17px auto 0;
 }
@@ -436,7 +534,7 @@ export default {
 }
 .myListBox_1{
 	position: relative;
-	width: 309.8px;
+	width: 308px;
 	height: 231.6px;
 	overflow: hidden;
 }
@@ -526,10 +624,11 @@ export default {
 	line-height: 20px;
 	font-size: 14.22px;
 	color: #333333;
+	margin-bottom: 9px;
 	
 }
 .myListBox_4>span:hover{
-	color: #FF5121;
+	color: #33B3FF;
 }
 
 .myListBox_6{
@@ -621,7 +720,7 @@ export default {
 	border-radius: 5px;
 	
 	width: 1020px;
-	height: 709px;
+	height: 620px;
 }
 .setDatasXX_3{
 	
@@ -649,11 +748,9 @@ export default {
 	margin-left: 29px;
 }
 .setDatasXX_4_2{
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
+	background: #fff;
 	width: 960px;
-	
+	border-radius: 5px;
 	box-sizing: border-box;
 	padding: 30px;
 	margin: 0 auto 20px;
@@ -674,23 +771,23 @@ export default {
 }
 .setDatasXX_4_4>span{
 	display: inline-block;
-	background: #E6E6E6;
-	border-radius: 5px;
-	padding: 5px 3px 5px 10px;
-	font-size: 14px;
-	color: #999999;
-	margin: 12px 10px 0 0;
+    background: #E6E6E6;
+    border-radius: 5px;
+    padding: 0 3px 0 10px;
+    font-size: 14px;
+    color: #999999;
+    margin: 12px 10px 0 0;
+    height: 28px;
+    line-height: 28px;
 }
 .setDatasXX_4_4>span>span{
 	font-size: 13px;
     margin-left: 12px;
 }
 .setDatasXX_5,.setDatasXX_6{
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
+	background: #fff;
 	width: 960px;
-	
+	border-radius: 5px;
 	box-sizing: border-box;
 	padding: 30px;
 	margin: 0 auto 20px;
@@ -760,18 +857,22 @@ export default {
 	height: 8px;
 }
 .chekdOn>div{
-	background: #FF5121;
-	border-color: #FF5121 !important;
+	background: #33B3FF;
+	border-color: #33B3FF !important;
 }
 .setDatasXX_7{
-	position: absolute;
-	bottom: 0;
-	left: 0;
 	width: 100%;
 	background: #FFFFFF;
 	box-shadow: 2px 0 0 4px rgba(0,0,0,0.05);
 	border-radius: 0 0 5px 5px;
 	line-height: 100px;
+}
+.necsgg{
+	background: #f4f6f9;
+	padding: 40px 0;
+	height: 464px;
+	overflow: hidden;
+	overflow-y: auto;	    
 }
 .setDatasXX_7>span{
 	display: inline-block;
@@ -787,7 +888,8 @@ export default {
 	cursor: pointer;
 }
 .setDatasXX_7>span:last-child{
-	background: #333333;
+	background: #33B3FF;
+	border-color: #33B3FF;
 	color: #fff;
 }
 .setDatasXX_5_2_3 .el-select{
@@ -795,5 +897,50 @@ export default {
 }
 .setDatasXX_5_2_3 .el-select input{
 	padding: 0 10px;
+}
+.ydbbdf{
+	overflow-y: auto;
+    height: 83%;
+}
+.dywd{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	box-sizing: border-box;
+}
+.tagBtn{
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	width:100px;
+	height:40px;
+	background:rgba(223, 223, 223, 1);
+	border-radius:5px;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(187, 187, 187, 1);
+	line-height:40px;
+	margin-right: 10px;
+}
+.istageok{
+	color: #fff;
+	background: #33B3FF;
+}
+.setDatasXX_4_3qz{
+	height: 40px !important;
+}
+.mywus_n1{
+	cursor: pointer;
+	width: 308px;
+    height: 231.6px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 50%,50%;
+	-webkit-transition: transform .1s linear;
+	transition: transform .1s linear,;
+	-webkit-transform-origin: center;	
+	transform-origin: center;
 }
 </style>

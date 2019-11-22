@@ -9,7 +9,7 @@
 				:value="item.value">
 				</el-option>	
 			</el-select>
-			<div v-if="oType=='phone'" class="lgoin_s2"></div>
+			<div v-if="oType=='phone'" class="lgoin_s2 lgoin_s2xx"></div>
 			<input @keyup.enter="keyup"  @focus="focus" @blur="blur" v-model="input" :placeholder="placeholder" :type="midf2" ref="input"/><div v-if="oType=='yzm'" class="lgoin_s2"></div><span v-if="oType=='yzm'" class="lgoin_s3x2" @click="ajaxYzm">{{timer}}</span>
 			<div v-if="oType=='password'" class="iconfont pend mad" @click="chemima('midf2')">
 				<span  v-if="midf2=='password'">&#xe61f;</span>
@@ -23,7 +23,6 @@
 		<div :class="['tip',tpd]">{{eeText}}<span></span></div>
 	</div>
 </template>
-
 <script>
 export default {
 	name: 'myInput',
@@ -37,6 +36,7 @@ export default {
 			tpd:'',
 			numd:0,
 			eeText:'',
+			setimed:'',
 			form:{
 				mobile_zone:'86',
 			},			
@@ -94,7 +94,10 @@ export default {
 		keyup:{
 			type:Function,
 			default:()=>{}
-		}
+		},
+		mblur:Function,
+		mfocus:Function,
+		isHz:String,
 	},		
 	computed: {
 	},
@@ -108,12 +111,24 @@ export default {
 			this.input = this.valued;			
 		},
 	    'input'(val,oldeval) {
-			this.numd = this.input.length;
-			if(this.max>0 && this.numd>this.max){
-				this.input = val.substring(0,this.max);
+			if(this.input){
+				this.numd = this.input.gblen();
+				if(this.isHz){
+					this.numd = this.backHz(this.input);
+				}				
+			}else{
+				this.numd = 0;
+			}
+			if(this.max>0 && this.numd>this.max){				
+				this.input = oldeval;				
 				return
 			}
 	    	this.$emit('input', this.input); 
+	    	
+	    	if(this.oType!='password'){
+	    		return;
+	    	}
+	    	
 	    	let p = this.chekFn(this.input);
 	    	if(p){	    		
 	    		this.setErr(p.cls,p.text);
@@ -140,6 +155,19 @@ export default {
 	    },
    	},
    	methods: {
+   		monfocus(){
+   			this.$refs.input.focus();
+   		},
+		backHz(str){
+			let n =0;
+			for (var i=0; i<str.length; i++) {  
+				if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {  
+					n++;  
+				} 				
+				n ++; 				
+			} 
+			return n;			
+		},
 		initData(){
 			this.form.mobile_zone = 86;
 			this.input = '';
@@ -149,9 +177,9 @@ export default {
 			this.input = da;
 		},
 		clearValue(){
-			console.log(this.input);
+			this.numd = 0;
 			this.input="";
-			console.log(this.input);
+			
 		},
    		setErr(cls,text){
 			this.passqd=cls;
@@ -161,16 +189,34 @@ export default {
 			this[data] = this[data]=='password'?'text':'password';
 		},
    		focus(){
- 
-   			let p = this.chekFn(this.input);
+			
+// 			let p = this.chekFn(this.input);
+//	    	if(p){	    		
+//	    		this.setErr(p.cls,p.text);
+//	    		return
+//	    	}
+	    	this.setErr('onIn','');
+			if(this.mfocus){
+				this.mfocus();
+				return
+			}
+   		},
+   	 	blur(){
+   	 		if(this.mblur){
+   	 			this.mblur();
+   	 			return
+   	 		}
+   	 		
+			if(!this.input){
+				this.setErr('outIn','');	
+				return 
+			}
+			
+   	 		let p = this.chekFn(this.input);
 	    	if(p){	    		
 	    		this.setErr(p.cls,p.text);
 	    		return
 	    	}
-	    	this.setErr('onIn','');
-   		},
-   	 	blur(){
-   	 			
 			this.setErr('outIn','');	
    	 	},
    	 	ajaxYzm(){
@@ -179,13 +225,17 @@ export default {
 			}
 			this.$emit('ajaxYzm');	
 		},
+		initYZM(){
+			clearTimeout(this.setimed);		
+			this.timer = '获取验证码';			
+		},
 		runTimer(num){
-			this.timer = num +'秒后重新获取';
+			this.timer = num +'秒后重试';
 			if(num==0){
 				this.timer = '获取验证码';
 				return
 			}
-			setTimeout(()=>{
+			this.setimed = setTimeout(()=>{
 				num--;
 				this.runTimer(num);
 			},1000)
@@ -200,5 +250,7 @@ export default {
 </script>
 
 <style>
-
+.lgoin_s2xx{
+	margin-right: 19px;
+}
 </style>

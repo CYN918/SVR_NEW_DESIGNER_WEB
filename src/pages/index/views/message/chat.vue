@@ -1,18 +1,8 @@
 <template>
-	<div>		
-		<div class="setUserBox messgdo">
-			<div class="setUserBoxs">
-				<div class="setUserBoxs_nav">
-					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" class="tjsj_1">{{el.l}}</span></div>
-					
-				</div>
-				<div class="navDwzc">
-					<div :class="['setUserBoxs_nav',topTyped?'fixdon':'']">
-						<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" class="tjsj_1">{{el.l}}</span></div>
-					</div>
-				</div>
-				
-				<div class="sxBodx1">
+	<div class="ms_r">	
+		
+		<div class="ms_r_1">
+			<div class="sxBodx1">
 					<div class="sxBodx2">
 						<div class="sxBodx2_1">
 							<span @click="checkNav(0)" :class="['sxBodx2_1_n1',sxType==0?'sxBodx2_1_n1x':'']">最近联系</span>
@@ -24,7 +14,7 @@
 									<li v-if="index==0 || (index>0 && zdOpen_id!=el.user_info.open_id)">
 									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
 									<div @click="cheond(index)">
-										<div class="sxBodx2_2x_1">{{el.user_info.username}}<span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
+										<div class="sxBodx2_2x_1Nx_1"><span class="sxBodx2_2x_1N_1">{{el.user_info.username}}</span><span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
 										<div class="sxBodx2_2x_3">{{el.last_message?el.last_message:el.user_info.vocation +' | '+el.user_info.city}}</div>
 									</div>
 									</li>
@@ -77,16 +67,18 @@
 							<noData v-if="listData.length==0"></noData>
 						</div>
 						<div v-if="listData.length>0" class="sxBodx2_3 sxBodx2_3xx">
-							<div class="hfBox xxbox_c">
-								<Input :keyup="keydown" class="userBoxd2" v-model="postMessg" :oType="'max'" :max="200" :type="'text'"  ref="tageds1"></Input>	
+							<div :class="['hfBox xxbox_c chathfbox',isdno?'':'isnodes']">
+								<Input :mfocus="incfu" :mblur="mblur" :keyup="keydown" class="userBoxd2" v-model="postMessg" :oType="'max'" :max="200" :type="'text'"  ref="tageds1"></Input>	
 								<span :class="chekcont()==true?'iscsbtn':''" @click="addChatMessage()">发送</span>
 							</div>
 						</div>
 					</div>					
 				</div>
-			</div>
+			
+		
 			
 		</div>
+
 		<RPT ref="report"></RPT>
 	</div>
 </template>
@@ -109,7 +101,7 @@ export default {
 			messgNum:{},
 			navDta:[
 				{n:'通知',l:''},
-				{n:'评论/留言',l:''},
+				{n:'评论/回复',l:''},
 				{n:'私信',l:''},	
 			],
 			topTyped:false,
@@ -143,6 +135,7 @@ export default {
 			zdOpen_id:'',
 			isNomSSG:0,
 			isNouSSG:0,
+			isdno:'',
 		}
 	},
 	mounted: function () {			
@@ -150,10 +143,28 @@ export default {
 		
 	}, 
 	methods: {
+		incfu(){
+			this.isdno = 1;
+		},
+		mblur(){
+			;
+			if(!this.zkMyFun.checkWz(this.postMessg)){
+				this.isdno = '';
+			
+				return
+			}
+			this.isdno = 1;
+			
+		},
+		backTj(n){
+			return  n>999?999:n;
+		},
 		init(){
 			if(!window.userInfo){
 				this.$router.push({path:'/login'});
 			}
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.addEvent2(this.$refs.listDom);
 			this.addEvent1(this.$refs.messgDom);
 
@@ -173,7 +184,7 @@ export default {
 			this.getAjxType1=1;
 			this.api.getMessgList(pr).then((da)=>{
 				this.getAjxType1=0;
-				if(!da){return}
+				if(da=='error'){return}
 				if(this.listData.length>0){
 					if(da.data.length==0){
 						this.isNouSSG =1;
@@ -184,7 +195,11 @@ export default {
 				}				
 				if(this.$route.query && this.$route.query.open_id){				
 					this.zdOpen_id = this.$route.query.open_id;
-					da.data.unshift({user_info:this.$route.query});
+					if(this.$route.query.open_id=='system_admin' && window.xsmData){
+						da.data.unshift({user_info:window.xsmData});
+					}else{
+						da.data.unshift({user_info:this.$route.query});
+					}
 				}		
 				this.listData = da.data;
 				this.getMessageList();
@@ -205,7 +220,7 @@ export default {
 			if(this.messGlist[0]){
 				pr.time = this.messGlist[0].create_time;
 			}
-			if(this.listData[this.messgOn].chat_id){
+			if(this.listData[this.messgOn] && this.listData[this.messgOn].chat_id){
 				pr.chat_id = this.listData[this.messgOn].chat_id;
 			}
 			if(this.listData[this.messgOn].user_info.open_id){
@@ -214,7 +229,7 @@ export default {
 			this.getAjxType1=0;
 			this.api.getMessageList(pr).then((da)=>{
 				this.getAjxType2=0;
-				if(!da){return}
+				if(da=='error'){return}
 				this.pushCk();				
 				let lend = da.length;
 				if(lend==0){
@@ -299,29 +314,28 @@ export default {
 				Message({message: '正在删除请稍后'});
 				return
 			}
-			
-			let pr = {
-				access_token:window.userInfo.access_token,
-				
-			};	
-		
-			if(!this.listData[this.messgOn].chat_id){
+			if(!this.listData[this.messgOn].chat_id){				
 				this.listData.splice(this.messgOn,1);
-				Message({message: '删除成功'});
-//				this.$router.push({path:'/chat'});
-	
 				this.messGlist = [];
-		
-			}			
-			this.deletType==1;			
+				this.$router.push({path: '/chat'})
+				Message({message: '删除成功'});
+				return
+			}	
+			this.deletType==1;		
+			let pr = {};
 			pr.chat_id=this.listData[this.messgOn].chat_id;
 			this.api.delChat(pr).then((da)=>{
 				this.deletType=0;
-				if(!da){return}
+				if(da=='error'){return}
 				this.messGlist = [];
 				Message({message: '删除成功'});
-				this.messgOn=0;				
-				this.getMessgList();
+				if(this.$route.query.open_id ==pr.chat_id){
+					this.$router.push({path: '/chat'})
+					return
+				}				
+				this.messgOn=0;		
+				this.listData.splice(this.messgOn,1);
+				this.getUserList();
 			}).catch(()=>{
 				this.deletType=0;
 			});
@@ -384,7 +398,7 @@ export default {
 			this.getAjxType3 = 1;
 			this.api.addChatMessage(pr).then((da)=>{
 				this.getAjxType3 = 0;
-				if(!da){return}
+				if(da=='error'){return}
 				this.$refs.tageds1.setData('');
 				let pdata = {
 					content:mesd,
@@ -483,7 +497,7 @@ export default {
 				op.to_open_id = this.listData[this.messgOn].user_info.open_id;
 			}			
 			this.api.Messageread(op).then((da)=>{
-				if(!da){return}
+				if(da=='error'){return}
 				this.getMessgNumber();
 			})
 		},
@@ -495,7 +509,7 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.getCounter(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.messgNum = da;
@@ -515,10 +529,10 @@ export default {
 .sxBodx1{
 	display: inline-block;
 	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
 	border-radius: 5px;
 	width: 970px;
-	height: 700px;
+	height: 640px;
+
 }
 
 .sxBodx2{
@@ -565,7 +579,7 @@ export default {
 	line-height: 60px;
 }
 .sxBodx2_1_n1x{
-	color: #FF5121;
+	color: #33B3FF;
 }
 .sxBodx2_1_n1x:after{
 	position: absolute;
@@ -576,7 +590,7 @@ export default {
 	transform: translate(-50%,50%);
 	width: 48px;
 	height: 2px;
-	background: #FF5121;
+	background: #33B3FF;
 }
 .sxBodx3_1_1{
 	line-height: 60px;
@@ -593,7 +607,7 @@ export default {
 	overflow: hidden;
 	overflow-y: auto;
 	width:100%;
-	height:640px;
+	height:577px;
 	
 }
 .sxBodx2_2x>div>li{
@@ -618,12 +632,17 @@ export default {
 	width: 207px;
 	min-height: 57px;
 }
-.sxBodx2_2x_1{
+.sxBodx2_2x_1Nx_1{
 	font-size: 14px;
 	line-height: 20px;
 	color: #1E1E1E;
 	margin-bottom: 5px;
-	width: 136px;
+
+}
+.sxBodx2_2x_1N_1{
+	display: inline-block;
+    vertical-align: top;
+	width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -647,7 +666,7 @@ export default {
 	overflow: hidden;
     overflow-y: auto;
     width: 100%;
-    height: 540px;
+    height: 478px;
 }
 .sxBodx3_2x_1{
 	display: block;
@@ -670,7 +689,7 @@ export default {
 	position: relative;
 	display: inline-block;
 	font-size: 14px;
-	padding:15px 30px;
+	padding:15px 20px;
 	background: #F4F4F4;
 	border-radius: 5px;
 	max-width: 344px;
@@ -680,7 +699,7 @@ export default {
 }
 .sxBodx3_2x_5{
 	text-align: left;
-	background: #FF5121;
+	background: #33B3FF;
 	color: #fff;
 }
 .sxBodx3_2x_2{
@@ -723,7 +742,7 @@ export default {
 .sxBodx3_2x_5:after{
     top: 19px;
     right: -5px;
-    background: #ff5121;
+    background: #33B3FF;
 }
 .sxBodx2_3xx{
 	height: 100px;
@@ -740,6 +759,7 @@ export default {
     margin: 30px 37px 0;
 }
 .sxBodx3_1_3{
+	color: #bbb;
 	position: absolute;
     right: 33px;
     top: 0;
@@ -778,7 +798,8 @@ export default {
 	background: rgba(244, 244, 244, 0.46);
 }
 .iscsbtn{
-	background: #FF5121 !important;
+	background: #33B3FF !important;
+	color: #fff !important;
 }
 .zdxs{
     position: absolute;
@@ -786,5 +807,21 @@ export default {
     right: 0;
     width: 150px;
     height: 150px;
+}
+.chathfbox .inptud{
+	height: 40px !important;
+}
+.chathfbox .myInput{
+	box-sizing: border-box;
+	line-height: 40px;
+	border: 1px solid #979797;
+	height: 40px;
+	padding:0 10px;
+	overflow: hidden;
+}
+
+.isnodes .myInput{
+	background: rgba(244,246,249,1);
+	border: 1px solid rgba(187,187,187,1);
 }
 </style>

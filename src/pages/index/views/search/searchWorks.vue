@@ -1,123 +1,99 @@
 <template>
-	<div>
+	<div class="csBox csBoxxxxx">
 		<tophead :clasd="clasd"  :onNav="1" ref="mytopcs"></tophead>
-		<ul v-if="List.length>0" class="i_listd homeMinheifh homeMinheifh2">
-			<li v-for="(el,index) in List" :key="index">
-				<box_a :el="el"></box_a>
-			</li>
-		</ul>
-		<div class="pagesddd wsjzt" v-if="List.length==0"><img  class="wusj2" src="/imge/wsj2.png" alt=""></div>
-		<el-pagination class="pagesddd" v-if="total>40"
-		background
-		@size-change="handleSizeChange"
-		@current-change="handleCurrentChange"
-		:current-page="page"
-		:page-sizes="[40, 80, 120, 160]"
-		:page-size="limit"
-		layout="prev,pager, next,sizes, jumper"
-		:total="total">   
-		</el-pagination>
+		
+		<list class="seccWr" :config="data" ref="sfafa">
+			<template v-slot:todo="{ todo }">
+				<box_a :bdtj="bdtjdata" :el="todo"></box_a>
+			</template>			
+		</list>
 	</div>
 </template>
 
 <script>
-import { Loading } from 'element-ui';	
+
+import list from '../../components/list';
 import tophead from './head';
 import box_a from '../../components/box_a';
 export default {
-	components:{tophead,box_a},
+	components:{tophead,list,box_a},
 	name: 'home',
 	data(){
 		return {
-			List:[],
-			page:1,
-			limit:40,
-			total:0,
-			loading: '',
+			data:{
+				ajax:{
+					url:'Searchsearch',
+				},
+				pr:{
+					type:'work',
+				},
+				
+				
+			},	
+			bdtjdata:[['搜索页','作品'],['搜索页','创作者']],
 			querys:'',
 			clasd:[],
-			classd:'',
 			
 		}
 	},
-	mounted: function () {	
-		this.getHList();
+	created(){
+		this.init();
+	},	
+	mounted: function(){
+		this.$refs.mytopcs.setCont(this.data.pr.query);
 		this.getClassify();
 	}, 
 	methods: {
-		sreond(type){
-			if(type==this.classd){return}
-			this.classd = type;
-			this.page = 1;
-			this.getHList();
+		init(){
+			this.data.pr.query =this.$route.query.cont || '';				
 		},
-		goUser(on){
-			this.$router.push({path: '/works',query:{id:this.List[on].user_info.open_id}})	
+		getData(){
+			this.data.pr.query =this.$route.query.cont || '';	
+			this.$refs.sfafa.getData();
 		},
-		backtime(time){
-		
-			return	window.getTimes(time);
-		},	
-
-		openxq(on){
-			window.open('#/cont?id='+this.List[on].work_id)
-		},
-
-		getHList(){
-			let query = this.$route.query.cont || '';
-			let pr = {
-				query:query,
-				type:'work',
-				page:this.page,
-				limit:this.limit
-			};
-			if(this.classd){
-				pr.classify_1 = this.classd;
-			}
-			this.$refs.mytopcs.setCont(query);
-			this.loading = Loading.service({ fullscreen: true });
-			this.api.Searchsearch(pr).then((da)=>{
-				this.loading.close();
-				if(!da){
-					return
-				}
-				this.List = da.data;
-				this.total = da.total;
-			}).catch(()=>{
-				this.loading.close();
-			})
-		},
-		handleSizeChange(val) {
-			this.limit = val;
-			this.getHList();
-		},
-		handleCurrentChange(val) {
-			this.page = val;
-			this.getHList();
-		},
-		getClassify(){
-			
-			let pr ={
-				access_token:window.userInfo.access_token,
-			};
-			
-			this.api.getClassify(pr).then((da)=>{
-				if(!da){
+		getClassify(){			
+			this.api.getClassify().then((da)=>{
+				if(da=='error'){
 					return
 				}
 				let p = JSON.stringify(da);
 				p = p.replace(/classify_name/g,"label");
+				
 				p = p.replace(/id/g,"value");
 				p = p.replace(/sub_data/g,"children");
+				
 				p = JSON.parse(p);
+				
+				for(let i=0,n=p.length;i<n;i++){
+					for(let i2=0,n2=p[i].children.length;i2<n2;i2++){
+						p[i].children[i2].children = '';
+					}
+				}
+				
+				
+				p.unshift({label: "全部",value: ""})
+				
 				this.clasd = p;
-
+		
 			})
+		},
+		sreond(n){
+			if(n[0]){
+				this.data.pr.classify_1 = n[0];
+				this.data.pr.classify_2 = n[1];
+			}else{
+				this.data.pr = {
+					type:'work',
+					query:this.$route.query.cont || ''
+				}
+			}
+			
+			this.getData();
 		},
 	},
 	watch: {	
 		'$route': function() {
-			this.getHList();
+			this.getData();
 			
 		},
 		
@@ -126,7 +102,11 @@ export default {
 </script>
 
 <style>
-.homeMinheifh2{
-	min-height: 494px;
+.seccWr{
+	padding-top: 20px;
+	margin-bottom: 40px;
+}
+.seccWr .emptyData{
+	margin: 0 auto;
 }
 </style>

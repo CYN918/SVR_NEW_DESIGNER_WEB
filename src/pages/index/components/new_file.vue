@@ -1,7 +1,7 @@
 <template>
 	<div class="fixCoBox">
 		<div class="fixCoBox1 sharebox">
-			<img src="/imge/cj_00.png" class="fixCoBox2">
+			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" class="fixCoBox2">
 			<div class="sharebox1"></div>
 			<div class="sharebox2">
 				<a :href="fxUrl1">新浪</a>
@@ -41,8 +41,8 @@ export default {
 			this.shareType = type?type:false;
 		},
 		setUrl(da){
-			console.log(da)
-			if(!da){
+			
+			if(da=='error'){
 				return
 			}
 			this.fxUrl1 = 'http://service.weibo.com/share/share.php?url='+da.url+'&title='+da.title+'&ralateUid=1733083617&appkey=163310332&pic='+da.pic+'#_loginLayer_1557135339222';

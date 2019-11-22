@@ -1,13 +1,13 @@
 <template>
 	<div>	
 		<tophead :clasd="clasd"  :onNav="2" ref="mytopcs"></tophead>
-		<div class="worksBox worksBox4">
+		<div class=" worksBox4 searUr">
 		
 			<ul v-if="List.length>0" class="i_listd2" >
 				<li v-for="(el,index) in List" :key="index">
-					<img @click="goFans('/works',el.open_id)" :src="el.avatar">
+					<img @click="goFans('/works',el.open_id,'点头像')" :src="el.avatar">
 					<div class="i_listd2_1">
-						<div @click="goFans('/works',el.open_id)">{{el.username}}</div>
+						<div @click="goFans('/works',el.open_id,'点名字')">{{el.username}}</div>
 						<div>{{el.province}} | {{el.city}}</div>
 						<div class="i_listd2_d">
 							<span @click="goFans('/followFans',el.open_id)">粉丝<span>{{el.fans_num}}</span></span>
@@ -15,7 +15,7 @@
 							<span @click="goFans('/works',el.open_id)">创作<span>{{el.work_num}}</span></span>
 						</div>
 						<div>{{el.personal_sign?el.personal_sign:'这个人很懒，什么都没说~'}}</div>
-						<div class="btns_foll">
+						<div class="btns_foll"  v-if="!isMe(el.open_id)">
 							<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
 							<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
 							<span class="jsBtn" @click="Follow_add(index)" v-else>关注</span>
@@ -25,14 +25,17 @@
 					<div class="lunbox">
 						
 						<ul v-if="el.works.length>0">
-							<li v-if="index2<3" v-for="(el2,index2) in el.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
+							<li  v-for="(el2,index2) in el.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
 						</ul>
 						
 					</div>
 				</li>
 				
 			</ul>			
-			<div class="pagesddd wsjzt" v-if="List.length==0"><img  class="wusj2" src="/imge/wsj2.png" alt=""></div>
+			<div v-if="isNodeat" class="emptyData">
+				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
+				<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
+			</div>
 			<el-pagination v-if="total>40" class="pagesddd"
 			background
 			@size-change="handleSizeChange"
@@ -46,7 +49,7 @@
 		</div>		
 		<div v-show="isshowd2" class="loginoutBox">
 			<div class="loginoutBox1">
-				<img @click="hindHb2()" class="loginoutBox2" src="/imge/cj_00.png">
+				<img @click="hindHb2()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
 				<div class="loginoutBox3" v-if="List[openOns]">确定取消关注【{{List[openOns].username}}】？</div>
 				<div class="loginoutBox4"><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>
@@ -66,7 +69,7 @@ export default {
 	data(){
 		return {
 			isshowd2:false,
-			banners:[],
+			isNodeat:'',
 			List:[],
 			banOn:0,
 			page:1,
@@ -74,26 +77,26 @@ export default {
 			total:0,
 			loading: '',
 			clasd:[
-				{label:"平面设计师"},
-				{label:"插画师"},
-				{label:"三维设计师"},
-				{label:"网页设计师"},
-				{label:"UI设计师"},
-				{label:"动画师"},
-				{label:"产品设计师"},
-				{label:"室内设计师"},
-				{label:"摄影师"},
-				{label:"学生"},
-				{label:"设计爱好者"},
-				{label:"UX设计师"},
-				{label:"新媒体设计师"},
-				{label:"概念设计师"},
-				{label:"特效合成师"},
-				{label:"建筑师"},
-				{label:"服装设计师"},
-				{label:"手工艺人"},
-				{label:"艺术工作者"},
-				{label:"教育工作者"},
+				{label:"平面设计师",value:"平面设计师"},
+				{label:"插画师",value:"插画师"},
+				{label:"三维设计师",value:"三维设计师"},
+				{label:"网页设计师",value:"网页设计师"},
+				{label:"UI设计师",value:"UI设计师"},
+				{label:"动画师",value:"动画师"},
+				{label:"产品设计师",value:"产品设计师"},
+				{label:"室内设计师",value:"室内设计师"},
+				{label:"摄影师",value:"摄影师"},
+				{label:"学生",value:"学生"},
+				{label:"设计爱好者",value:"设计爱好者"},
+				{label:"UX设计师",value:"UX设计师"},
+				{label:"新媒体设计师",value:"新媒体设计师"},
+				{label:"概念设计师",value:"概念设计师"},
+				{label:"特效合成师",value:"特效合成师"},
+				{label:"建筑师",value:"建筑师"},
+				{label:"服装设计师",value:"服装设计师"},
+				{label:"手工艺人",value:"手工艺人"},
+				{label:"艺术工作者",value:"艺术工作者"},
+				{label:"教育工作者",value:"教育工作者"},
 			],
 			onType:'followList',
 			follwTyle:0,
@@ -106,19 +109,39 @@ export default {
 		
 	}, 
 	methods: {
-		goFans(d,id){
+		goFans(d,id,a){
+			if(a){
+				this.bdtj('搜索页',a,'--');
+			}
+			
 			this.$router.push({path:d,query:{id:id}});
 		},
+		isMe(id){
+			if(!window.userInfo){
+				return false
+			}
+			
+			return id==window.userInfo.open_id;
+		},
 		gosx(on){
-			this.$router.push({path:'/chat',query:{openid:this.List[on].open_id,avatar:this.List[on].avatar,username:this.List[on].username}});
+			this.bdtj('搜索页','点私信','--');
+			let pr = {
+				open_id:this.List[on].open_id,
+				avatar:this.List[on].avatar,
+				username:this.List[on].username,
+				city:this.List[on].city,
+				vocation:this.List[on].vocation,
+			};
+			this.$router.push({path:'/chat',query:pr});
 		},
 		sreond(type){
-			if(type==this.classd){return}
-			this.classd = type;
+			if(type[0]==this.classd){return}
+			this.classd = type[0];
 			this.page = 1;
 			this.followList();
 		},
 		showFpllwodel(on){
+			this.bdtj('搜索页','点取消关注','--');
 			this.isshowd2 = true;
 			this.openOns = on;
 		},
@@ -136,7 +159,7 @@ export default {
 				follow_id:this.List[this.openOns].open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -151,6 +174,7 @@ export default {
 			});
 		},
 		Follow_add(on){
+			this.bdtj('搜索页','点关注','--');
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 				return
@@ -164,7 +188,7 @@ export default {
 				follow_id:this.List[on].open_id
 			};
 			this.api.Follow_add(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.follwTyle=0;
 					return
 				}
@@ -205,14 +229,20 @@ export default {
 				pr.access_token=window.userInfo.access_token;
 			}
 			this.$refs.mytopcs.setCont(query);
-			this.loading = Loading.service({ fullscreen: true });
+			this.loading = Loading.service({  fullscreen: true,background:'rgba(0,0,0,0)' });
 			this.api.Searchsearch(pr).then((da)=>{
 				this.loading.close();
-				if(!da){
+				if(da=='error'){
 					return
 				}
+				
 				this.List = da.data;
 				this.total = da.total;
+				if(this.List.length==0){
+					this.isNodeat=1;
+				}else{
+					this.isNodeat='';
+				}				
 			}).catch(()=>{
 				this.loading.close();
 			})
@@ -237,6 +267,15 @@ export default {
 </script>
 
 <style>
+.emptyData{
+	width: 1300px;
+	margin: 20px auto 60px;
+	text-align: center;
+}
+.emptyData>img{
+	display: block;
+	margin: 0 auto;
+}
 .worksBox{
 	margin: 17px auto 0;
 }
@@ -302,7 +341,7 @@ export default {
 	box-sizing: border-box;
 	padding-top: 30px;
 	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+
 	border-radius: 5px;
 	width: 1300px;
 	height: 215px;
@@ -507,8 +546,8 @@ export default {
 	cursor: pointer;
 }
 .follwfs_5>span:last-child{
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 	color: #fff;
 }
 .wsjzt{
@@ -516,5 +555,12 @@ export default {
 }
 .worksBox4 .i_listd2{
 	min-height: 522px;
+}
+.searUr{
+	padding-top: 20px;
+	margin-bottom: 40px;
+}
+.searUr .emptyData{
+	margin: 0 auto;
 }
 </style>

@@ -55,18 +55,24 @@ export default {
 			return '';
 		},
 		ajaxYzm(){
+			this.bdtj('登录页','发送验证码','--');
 			if(!this.chekPhpne(this.form.mobile)){
 				Message({message: '请先填写手机号码'});
 				return
 			}
-			this.$refs.verify.runTimer(60);
+			
 			
 			let params = {
 				mobile:this.form.mobile,
-				mobile_zone:this.form.mobile_zone
+				mobile_zone:this.form.mobile_zone,
+				type:'login',
 			};
-			this.api.sendVerifyCode(params).then(()=>{	
+			this.api.sendVerifyCode(params).then((da)=>{
 				
+				if(da=='error'){
+					return	
+				}
+				this.$refs.verify.runTimer(60);
 			}).catch(()=>{
 				
 			});

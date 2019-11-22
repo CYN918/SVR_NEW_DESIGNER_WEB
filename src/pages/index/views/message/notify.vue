@@ -1,41 +1,29 @@
 <template>
-	<div>		
-		<div class="setUserBox messgdo">
-			<div class="setUserBoxs">
-				<div class="setUserBoxs_nav">
-					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" class="tjsj_1">{{el.l}}</span></div>
-					
-				</div>
-				<div class="navDwzc">
-					<div :class="['setUserBoxs_nav',topTyped?'fixdon':'']">
-						<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" class="tjsj_1">{{el.l}}</span></div>
-					</div>
-				</div>
-				
-				<div class="setUserBoxs_cent">
-					<div class="poerrsas" v-if="listData.length==0"><noData></noData></div>
-					<div v-for="(el,index) in listData" :key="index">
-						<img class="comment_1" @click="goUserIn(index)" :src="el.user_info.avatar" alt="">
-						<div class="comment_2">
+	<div class="ms_r">
+		<div class="ms_r_1">
+			
+			<div class="ms_r_3" v-if="listData.length>0">
+				<div v-for="(el,index) in listData" :key="index">
+						<img class="comment_1" @click="goUserIn(index)" src="/imge/svg/GFMRTX.svg" alt="">
+						<div class="comment_2 comment_2xss">
 							<div class="comment_2_1" @click="goUserIn(index)">{{(el.op==3 || el.op==4)?el.user_info.username:el.title}}<span class="comment_2_2">{{backtime(el.create_time)}}</span></div>
-							<div class="comment_2_5" v-html="el.content"></div>
+							<div class="comment_2_5" v-html="backCom(el.content)"></div>
 						</div>						
-					</div>
-					
 				</div>
+				<p class="nn_x1">
+					<i v-if="getType" class="loading_a m_c"></i>
+					<span v-if="!getType && listData.length<this.total" @click="addL" class="btns pend">查看更多信息</span>
+					
+					
+				</p>				
+			</div>
+			<div v-if="nodata" class="ms_r_2">
+				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
+				你的数据去火星了
 			</div>
 			
 		</div>
-		<el-pagination class="pagesdddxf" v-if="total>40"
-		background
-		@size-change="handleSizeChange"
-		@current-change="handleCurrentChange"
-		:current-page="page"
-		:page-sizes="[10, 20, 40, 60]"
-		:page-size="limit"
-		layout="prev,pager, next,sizes, jumper"
-		:total="total">   
-		</el-pagination>
+
 	</div>
 </template>
 
@@ -43,6 +31,7 @@
 import Input from '../../components/input';
 import noData from '../../components/nodata'
 import {Message} from 'element-ui'
+import { Loading } from 'element-ui';
 export default {
 	components:{Input,noData},
 	name: 'chat',
@@ -55,6 +44,7 @@ export default {
 				{n:'评论/留言',l:''},
 				{n:'私信',l:''},	
 			],
+			nodata:'',
 			topTyped:false,
 			navdOn:0,
 			limit:10,
@@ -65,6 +55,8 @@ export default {
 			addLink:0,
 			plType:0,
 			pl2:'',
+			loading:'',
+			getType:'',
 		}
 	},
 	mounted: function () {			
@@ -72,17 +64,23 @@ export default {
 		
 	}, 
 	methods: {
+		backCom(str){
+			str = str.replace(/color:#ff5121/, "color:#33B3FF");	
+					
+			return	str.replace(/color:red/, "color:#33B3FF");		
+		},
+		
+		backTj(n){
+			return  n>999?999:n;
+		},
 		goUserIn(on){
 			this.$router.push({path: '/works',query:{id:this.listData[on].user_info.open_id}})	
 		},
-		handleSizeChange(val) {
-			this.limit = val;
-			this.getMessgList();
+		addL(){
+			this.page++;
+			this.getMessgList('add');
 		},
-		handleCurrentChange(val) {
-			this.page = val;
-			this.getMessgList();
-		},
+		
 		
 		backtime(t){		
 			let time = new Date(t*1000);
@@ -132,7 +130,7 @@ export default {
 				type:'notify',
 			};
 			this.api.Messageread(op).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 			})
@@ -152,7 +150,8 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.getCounter(pr).then((da)=>{
-				if(!da){
+				
+				if(da=='error'){
 					return
 				}
 				this.messgNum = da;
@@ -164,21 +163,48 @@ export default {
 		},
 		
 		getMessgList(type){
-
-			let pr = {
-				access_token:window.userInfo.access_token,
+			if(this.getType==1){
+				return
+			}
+			this.getType = 1;
+			this.loading = Loading.service({target:'.jloadBox', fullscreen: true,background:'rgba(0,0,0,0)' });
+			this.api.getMessgList({
 				type:'notify',
 				page:this.page,
 				limit:this.limit
-			};
-			this.api.getMessgList(pr).then((da)=>{
-				if(!da){return}
+			}).then((da)=>{
+				this.getType = '';
+				this.loading.close();
+				if(da=='error'){this.setNoData(this.listData);return}
+				
+				this.setNoData(da.data);
+				this.total = da.total;
+				
+				
+			
+				if(type=='add'){
+					this.listData = this.listData.concat(da.data);
+					return
+				}
+			
 				this.listData = da.data;
 
-				this.total = da.total;
+				
+				
+			}).catch(()=>{
+				this.getType = '';
+				this.loading.close();
+				this.setNoData(this.listData);
 			});
 		},
-
+		setNoData(data){
+	
+			if(data.length==0){
+				this.nodata = 1;
+				return
+			}
+			this.nodata = '';
+		},
 
 
 	}
@@ -186,5 +212,28 @@ export default {
 </script>
 
 <style>
-
+	
+	
+	
+.comment_2xss{
+	margin-right: 0;
+    width: 830px;
+}
+.comment_2xss>.comment_2_5{
+	max-height: none;
+	margin-bottom: 0;
+	min-height: 0;
+}
+.setUserBoxs_cent2{
+	display: inline-block;
+    margin-bottom: 60px;
+}
+.ms_r_3 > div{
+	background: #FFFFFF;
+    border-radius: 5px;
+    width: 910px;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+}
+.nn_x1{text-align: center;padding-top: 40px;}
 </style>

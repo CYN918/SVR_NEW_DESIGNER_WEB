@@ -1,25 +1,25 @@
 <template>
 	<div class="usertc_6">
 		<div class="usertc_0">
-			<img @click="goFans('/works')" class="usertc_1" :src="tcData.user_info.avatar" alt="">
-			<div @click="goFans('/works')" class="usertc_2">{{tcData.user_info.username}}</div>
+			<img @click="goR('/works')" class="usertc_1 pend" :src="tcData.user_info.avatar+'?x-oss-process=image/resize,w_128'" alt="">
+			<div @click="goR('/works')" class="usertc_2 pend">{{tcData.user_info.username}}</div>
 			<div class="usertc_3">{{tcData.user_info.city+' | '+tcData.user_info.vocation}}</div>
 			<div class="usertc_4">
-				<span @click="goFans('/followFans')">
+				<span class="pend" @click="goR('/followFans')">
 					粉丝<div>{{tcData.user_info.fans_num}}</div>				
 				</span>
 				<span>
-					人气<div>{{tcData.user_info.follow_num}}</div>				
+					人气<div>{{tcData.user_info.popular_num}}</div>				
 				</span>
-				<span @click="goFans('/works')">
+				<span class="pend" @click="goR('/works')">
 					创作<div>{{tcData.user_info.work_num}}</div>				
 				</span>
 			</div>
 			<div v-if="isme()==false" class="usertc_5">
-				<span class="csys" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><chatBtn :daTSA="chatData"></chatBtn>
+				<span class="csys pend" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><span @click="goChat" class="btns pend">私信</span>
 			</div>
 			<div v-else class="usertc_5">
-				<span class="csys" @click="goFans('/works')">进入主页</span>
+				<span class="csys pend" @click="goR('/works')">进入主页</span>
 			</div>
 		</div>
 	
@@ -27,10 +27,9 @@
 </template>
 
 <script>
-import chatBtn from './chatBtn';
+
 import {Message} from 'element-ui'
 export default {
-	components:{chatBtn},
 	name: 'myInput',
 	data(){
 		return{
@@ -39,35 +38,33 @@ export default {
 	},
 	props: {
 		tcData:Object,
-		default:{
-			img:'/imge/nav_tx.png',
-			name:'未知的',
-			ad:'未知',
-			zy:'',
-			fs:0,
-			rq:0,
-			cz:0,
-			follwTyle:0,
-		}
+		tjData:Array,
 	},
 	
 	mounted: function () {	
 		
-		this.chatData = {
-			open_id:this.tcData.user_info.open_id,
-			avatar:this.tcData.user_info.avatar,
-			username:this.tcData.user_info.username,
-			city:this.tcData.user_info.city,
-			vocation:this.tcData.user_info.vocation,
-		};
+		
 	}, 
 	
 	methods: {
-
-		gosx(){
-			this.$router.push({path:'/chat',query:{openid:this.tcData.user_info.open_id,avatar:this.tcData.user_info.avatar,username:this.tcData.user_info.username}});
+		
+		goChat(){
+			let pr = {
+				open_id:this.tcData.user_info.open_id,
+				avatar:this.tcData.user_info.avatar,
+				username:this.tcData.user_info.username,
+				city:this.tcData.user_info.city,
+				vocation:this.tcData.user_info.vocation,
+			};
+			this.$router.push({path:'/chat',query:pr});
 		},
-		goFans(d){
+		goR(d){	
+			
+			if(this.tjData){
+				this.bdtj(this.tjData[1][0],this.tjData[1][1],'--');
+			}
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.$router.push({path:d,query:{id:this.tcData.user_info.open_id}});
 		},
 		isme(){
@@ -104,8 +101,9 @@ export default {
 				follow_id:this.tcData.user_info.open_id
 			};
 			this.api.Follow_add(pr).then((da)=>{
+				
 				this.follwTyle=0;
-				if(!da){return}
+				if(da=='error'){return}
 				this.$set(this.tcData.user_info,'follow_flag',1);
 			
 				Message({message: '关注成功'});
@@ -127,7 +125,7 @@ export default {
 			};
 			this.api.Follow_del(pr).then((da)=>{
 				this.follwTyle=0;
-				if(!da){return}
+				if(da=='error'){return}
 				Message({message: '取消关注成功'});
 				this.$set(this.tcData.user_info,'follow_flag',0);
 				
@@ -222,8 +220,8 @@ export default {
 	margin: 0 15px;
 }
 .usertc_5>span.csys{
-	border-color: #FF5121;
-	background: #FF5121;
+	border-color: #33B3FF;
+	background: #33B3FF;
 	color: #fff;
 }
 .usertc_6{

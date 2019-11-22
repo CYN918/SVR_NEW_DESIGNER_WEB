@@ -1,11 +1,37 @@
 import Vue from 'vue'
 import axios from 'axios'
 import api from '../../api/index'
-
 import App from './App.vue'
 import router from './router'
+
+import mJs from '../../assets/comm.js'
+
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
+Vue.prototype.mJs = mJs
+Vue.prototype.imU = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/'
+Vue.prototype.api.mcommjs = window.mycomJs;
+
+
+//定义全局过滤器
+Vue.filter('followType', (val)=>{
+	if(val == 1){return '已关注'}
+	if(val == 2){return '互相关注'}
+	return '关注';
+})
+
+
+
+Vue.prototype.isLogin=function(){
+	if(!window.userInfo){
+		this.$router.push({path: '/login'})
+		return false;
+	}
+	return true;
+}
+
+
+
 Vue.prototype.MD5 = function(string){ 
     function RotateLeft(lValue, iShiftBits) {
         return (lValue<<iShiftBits) | (lValue>>>(32-iShiftBits));
@@ -219,6 +245,23 @@ Vue.prototype.checkLogin = ()=>{
 		return false;
 	}
 };
+
+Vue.prototype.setScll = function(top) {
+	if(document.documentElement && document.documentElement.scrollTop){
+		document.documentElement.scrollTop = Number(top);
+	}
+	if(document.body){
+		document.body.scrollTop = Number(top);
+	}
+},
+
+Vue.prototype.bdtj = (a,b,c)=>{
+	_hmt.push(['_trackEvent',a,b,c]);
+};
+Vue.prototype.go = (a,b,c)=>{
+	router.push({path:a,b})
+	_hmt.push(['_trackEvent',a,b,c]);
+};
 import VueCropper from 'vue-cropper' 
 import { Button, Select,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination } from 'element-ui'
 Vue.use(VueCropper)
@@ -235,7 +278,63 @@ Vue.component(Form.name, Form)
 Vue.component(FormItem.name, FormItem)
 Vue.component(Message.name, Message)
 Vue.component(Checkbox.name, Checkbox)
+Vue.prototype.$message = Message;
 Vue.config.productionTip = false
+Vue.prototype.checkLo = function(o){
+	api[o.api](o.pr).then((da)=>{
+		if(da=='error'){if(o.er2){o.er2()} return}
+		if(da=='islogin'){			
+			let passIN = localStorage.getItem('pass');
+			if(passIN){
+				Message({message: '登陆过期~~自动登陆中请稍后'});
+				this.checkLo({
+					api:'login',
+					pr:JSON.parse(passIN),
+					su:(da)=>{						
+						window.userInfo = da;
+						Message({message: '登陆成功'});
+						localStorage.setItem('userT',JSON.stringify(da));	
+						this.checkLo(o);
+					},
+					err2:()=>{
+						router.push({path: '/login'})
+					}
+				});
+				return;
+			}
+			router.push({path: '/login'})
+			return;
+		}
+		if(o.su){
+			o.su(da);
+		}
+	}).catch((err)=>{
+		if(o.er1){
+			o.er1();
+		}
+	});
+}
+
+
+
+// Vue.prototype.miss = function(o){
+// 	Message({message:o});
+// };
+
+// Vue.prototype.scrollFns = [];
+// document.addEventListener("scroll",()=>{
+	
+// 	for(let i=0,n=Vue.prototype.scrollFns.length;i<n;i++){
+// 		console.log(Vue.prototype.scrollFns[i])
+// 		if(Vue.prototype.scrollFns[i]){
+// 			Vue.prototype.scrollFns[i]();
+// 		}else{
+// 			Vue.prototype.scrollFns.splice(i,1);
+// 		}
+// 	}
+	
+// });
+
 
 new Vue({
   router,

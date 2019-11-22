@@ -1,27 +1,20 @@
 <template>
-	<div>
-		
-		<div class="setUserBox messgdo">
-			<div class="setUserBoxs">
-				<div class="setUserBoxs_nav">
-					<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" class="tjsj_1">{{el.l}}</span></div>
-					
-				</div>
-				<div class="navDwzc">
-					<div :class="['setUserBoxs_nav',topTyped?'fixdon':'']">
-						<div  v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']"><span class="tjsj_2">{{el.n}}</span><span v-if="el.l" class="tjsj_1">{{el.l}}</span></div>
-					</div>
-				</div>
-				
-				<div class="setUserBoxs_cent">
-					<div class="poerrsas" v-if="listData.length==0"><noData ></noData></div>
-					
-					<div v-for="(el,index) in listData" :key="index">
-						<img class="comment_1" :src="el.comment.avatar" alt="">
+	<div class="ms_r">	
+		<div class="ms_r_1">
+			<div class="ms_r_c_1" v-if="listData.length>0">
+				<div v-for="(el,index) in listData" :key="index">
+					<img class="comment_1" :src="el.comment.avatar" alt="">
 						<div class="comment_2">
 							<div class="comment_2_1">{{el.comment.username}}<span class="comment_2_2">{{backtime(el.comment.create_time)}}</span></div>
-							<div class="comment_2_3" v-if="el.op_cname=='回复'">{{el.op_cname}} 你在原创作品 <span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span> 的评论</div>
-							<div class="comment_2_3" v-if="el.op_cname=='评论'">{{el.op_cname}}  你的作品 <span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span></div>
+							<div class="comment_2_3" v-if="el.op_cname=='回复'">
+								{{el.op_cname}} 你在原创作品 
+								<span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span> 
+								的评论
+							</div>
+							<div class="comment_2_3" v-if="el.op_cname=='评论'">
+								{{el.op_cname}}  你的作品 
+								<span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span>
+							</div>
 							<div class="comment_2_5">{{backcont(el.comment.content)}}</div>
 							<div>
 								<span class="iconfont pend hfdZ_23">
@@ -32,37 +25,38 @@
 									<span v-if="el.op_cname=='回复'" :class="[el.isshowsub?'ishowfud':'','hfdZ_4 comment_2_7_1']" @click="showFhd(index)">对话记录</span>
 								</span>
 							</div>
-							<div class="hfBox xxbox_c" v-if="el.isshowfh">
-								<Input class="userBoxd2" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
-								<span @click="addfu2(index,el.work.work_id,el.comment.comment_id,el.comment.username,el.comment.feed_id)">回复</span>
-							</div>
+							<div class="hfBox xxbox_c" v-if="el.isshowfh" >
+								
+								<Input :mblur="xsfn" class="userBoxd2" v-model="plon[index]" :oType="'max'" :max="140" :type="'text'" :ref="'myOn'+index"  :placeholder="hfnc"></Input>	
+								<span :class="chekcont()==true?'iscsbtn':''" @click="addfu2(index,el.work.work_id,el.comment.comment_id,el.comment.username,el.comment.feed_id)">回复</span>
 							
+							</div>
 							<div v-if="el.op_cname=='回复' && el.isshowsub" class="comment_2_9">
-								<img class="comment_1" :src="el.comment.avatar" alt="">
+								<img class="comment_1" :src="el.to_comment.avatar" alt="">
 								<div class="comment_2">
-									<div class="comment_2_1">{{el.comment.username}}<span class="comment_2_2">{{backtime(el.comment.create_time)}}</span></div>
-									<div class="comment_2_5">{{backcont(el.comment.content)}}</div>
+									<div class="comment_2_1">{{el.to_comment.username}}<span class="comment_2_2">{{backtime(el.to_comment.create_time)}}</span></div>
+									<div class="comment_2_5">{{backcont(el.to_comment.content)}}</div>
 								</div>							
 							</div>
 						</div>
 						<img @click="goWork(el.work.work_id)" class="comment_3" :src="el.work.face_pic" alt="">
 					</div>
-					
-					
-				</div>
 			</div>
-			
+			<div v-if="nodata" class="ms_r_2">
+				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
+				你的数据去火星了
+			</div>
+			<el-pagination class="cmmm_1" v-if="total>10"
+			background
+			@size-change="handleSizeChange"
+			@current-change="handleCurrentChange"
+			:current-page="page"
+			:page-sizes="[10, 20, 40, 60]"
+			:page-size="limit"
+			layout="prev,pager, next,sizes, jumper"
+			:total="total">   
+			</el-pagination>
 		</div>
-		<el-pagination class="pagesdddxf" v-if="total>40"
-		background
-		@size-change="handleSizeChange"
-		@current-change="handleCurrentChange"
-		:current-page="page"
-		:page-sizes="[10, 20, 40, 60]"
-		:page-size="limit"
-		layout="prev,pager, next,sizes, jumper"
-		:total="total">   
-		</el-pagination>
 	</div>
 </template>
 
@@ -70,16 +64,17 @@
 import Input from '../../components/input';
 import noData from '../../components/nodata'
 import {Message} from 'element-ui'
+import { Loading } from 'element-ui';
 export default {
 	components:{Input,noData},
 	name: 'chat',
 	data(){
 		return {
-			hfnc:'',
+			hfnc:'请输入',
 			messgNum:{},
 			navDta:[
 				{n:'通知',l:''},
-				{n:'评论/留言',l:''},
+				{n:'评论/回复',l:''},
 				{n:'私信',l:''},	
 			],
 			topTyped:false,
@@ -92,6 +87,11 @@ export default {
 			addLink:0,
 			plType:0,
 			pl2:'',
+			plon:[],
+			plOnd:'',
+			isftype:'',
+			nodata:'',
+			loading:'',
 		}
 	},
 	mounted: function () {			
@@ -99,11 +99,28 @@ export default {
 		
 	}, 
 	methods: {
+		xsfn(){
+			
+			setTimeout(()=>{
+				if(this.isftype){return;}
+				this.$set(this.listData[this.plOnd],'isshowfh',false);
+			},200)
+		},
+		backTj(n){
+			return  n>999?999:n;
+		},
+		chekcont(){
+			return this.zkMyFun.checkWz(this.pl2);
+		},
 		handleSizeChange(val) {
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.limit = val;
 			this.getMessgList();
 		},
 		handleCurrentChange(val) {
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			this.page = val;
 			this.getMessgList();
 		},
@@ -111,10 +128,18 @@ export default {
 			this.$set(this.listData[on],'isshowsub',this.listData[on].isshowsub?false:true);
 		},
 		showHF(on){
-			
+			this.plOnd = on;
 			this.$set(this.listData[on],'isshowfh',this.listData[on].isshowfh?false:true);
+			setTimeout(()=>{				
+				this.$refs['myOn'+on][0].monfocus();
+				if(!this.plon[on]){
+					return
+				}
+				this.$refs['myOn'+on][0].setData(this.plon[on]);
+			},50);
 		},
 		addfu2(on,work_id,comId,name,fid){
+			this.isftype = 1;
 			if(!work_id){
 				return
 			}
@@ -126,17 +151,18 @@ export default {
 			}
 			if(this.plType==1){
 				Message({message: '正在回复中'});
+				this.$refs['myOn'+on][0].monfocus();
+			
 				return
 			}
-			if(this.pl2 == "" 
-				|| this.pl2 == undefined 
-				|| this.pl2 == null 
-				|| (this.pl2.length>0 && this.pl2.trim().length == 0)){
-		        Message({message: '评论为空'});
-			  	return
-		    }
+			if(this.mJs.checkWz(this.plon[on])){
+				this.$message({message:'请先填写回复内容'});
+				this.$refs['myOn'+on][0].monfocus();
+				return
+			}
+			
 		    this.plType=1;
-			let cond = ['@'+name,this.pl2];
+			let cond = ['@'+name,this.plon[on]];
 			let pr = {
 				work_id:work_id,
 				content	:JSON.stringify(cond),
@@ -147,17 +173,26 @@ export default {
 			}
 			pr.access_token = window.userInfo.access_token;
 			this.api.addComment(pr).then((da)=>{
+				
+				this.isftype= '';
 				this.plType=0;
-				if(!da){
+				if(da=='error'){
+					this.$refs['myOn'+on][0].monfocus();
 					return
 				}
-				Message({message: '评论成功'});
-				this.showHF(on);
-				this.$refs.tageds2.value = '';
-				this.pl2 = '';  
+				
+				this.$set(this.listData[on],'isshowfh',false);
+
+				
+				
+				Message({message: '回复成功'});							
+				this.$refs['myOn'+on].value = '';
+				this.plon[on] = '';
 			}).catch((err)=>{
-				this.plType=0;
-						
+				this.isftype= '';
+				this.$refs['myOn'+on][0].monfocus();
+				
+				this.plType=0;						
 			});	
 		},
 		addLike(type,id,obj){
@@ -191,7 +226,7 @@ export default {
 			
 			
 			this.api[apiname](pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.addLink=0;
 					return
 				}
@@ -223,8 +258,8 @@ export default {
 			return time.getFullYear()+'-'+ym+'-'+dm;
 		},
 		goWork(id){
-			console.log(id);
-			this.$router.push({path:'/cont',query:{id:id}});
+			window.open('/#/cont?id='+id);
+		
 		},
 		init(){
 			this.pushCk();
@@ -232,24 +267,7 @@ export default {
 			this.getMessgList();
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
-			window.onscroll = ()=>{
-				let t = document.documentElement.scrollTop||document.body.scrollTop;
-				if(t==0){
-					document.documentElement.scrollTop =1;
-					document.body.scrollTop =1;
-				}
-				if(this.topTyped==false){
-					if(t>188){
-						this.topTyped=true;
-					}
-					
-				}
-				if(t<=188){
-					this.topTyped=false;
-				}
-	
-				
-			}
+			
 		},
 		pushCk(){
 	
@@ -258,7 +276,7 @@ export default {
 				type:'comment',
 			};
 			this.api.Messageread(op).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 			})
@@ -287,7 +305,7 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.getCounter(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.messgNum = da;
@@ -306,13 +324,26 @@ export default {
 				page:this.page,
 				limit:this.limit
 			};
+			this.loading = Loading.service({target:'.jloadBox', fullscreen: true,background:'rgba(0,0,0,0)' });
 			this.api.getMessgList(pr).then((da)=>{
-				if(!da){return}
+				this.loading.close();
+				if(da=='error'){this.setNoData(this.listData);return}
+				this.setNoData(da.data);
 				this.listData = da.data;
 				this.total = da.total;
+			}).catch(()=>{
+				this.loading.close();
+				this.setNoData(this.listData);
 			});
 		},
-
+		setNoData(data){
+			
+			if(data.length==0){
+				this.nodata = 1;
+				return
+			}
+			this.nodata = '';
+		},
 
 
 	}
@@ -320,5 +351,21 @@ export default {
 </script>
 
 <style>
-
+.iscsbtn{
+	background: #33B3FF !important;
+}
+.ms_r_c_1>div{
+	background: rgba(255,255,255,1);
+    border-radius: 5px;
+    padding: 30px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+.ms_r_c_1 .comment_2{
+	margin-right: 109px;
+}
+.cmmm_1{
+	padding:40px 0 0;
+    margin: 0;
+}
 </style>

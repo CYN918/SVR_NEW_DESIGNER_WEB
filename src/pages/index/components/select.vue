@@ -1,12 +1,11 @@
 <template>
 	<div :class="['citysbos',opType]">
-		<input class="citysbos1" v-model="input" type="text" placeholder="请选择">
+		<input class="citysbos1" v-model="input" type="text" :placeholder="prd">
 		<div @click="check" class="citysbos2">
 		</div>
 		<div class="citysbosx3">
 			<div>
-				<span @click="check1(index)" v-for="(el,index) in Data" :key="index">{{el.n}}</span>
-				
+				<span @click="check1(index)" v-for="(el,index) in Data" :key="index">{{el.n}}</span>				
 			</div>
 		</div>
 		<div @click="check" class="fiddf"></div>
@@ -19,7 +18,10 @@ export default {
 		valued:{
 			default:0,
 		},
-		Data:Array
+		Data:Array,
+		prd:{
+			default:'请选择'
+		}
 	},
 	data(){
 		return{
@@ -31,26 +33,33 @@ export default {
 	mounted: function () {	
 		
 		this.gjOn = this.valued;
-		this.setData();	
+		// this.setData();	
 	}, 
 	watch: {
 		'valued'(){
+			
+			if(this.gjOn==this.valued){
+				return
+			}
 			this.gjOn = this.valued;
 			this.input = this.Data[this.gjOn].n;
 			
 		},
 	    'input'(val) {
+
 			this.input = val;
 	    	this.$emit('input', this.input); 	    		      		      	
 	    },
 	},
 	methods: {
+
 		setData(){
+
 			this.input = this.Data[this.gjOn].n;
 		},
 		check(){
 			this.opType = this.opType==''?'opType':'';
-			this.setData();
+			// this.setData();
 		},
 		check1(on){	
 			this.gjOn =on;

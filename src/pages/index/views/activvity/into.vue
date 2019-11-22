@@ -1,107 +1,48 @@
 <template>
 	<div>
-		<ul class="i_listd" >
-			<img class="wsj" v-if="List.length<1" src="/imge/wsj.png" alt="">
-			<li v-for="(el,index) in List" :key="index" @click="openxq(index)">
-				<img class="i_listd1" :src="el.face_pic" alt="">
-				<div class="i_listd2">
-					<div class="i_listd2_1"><span :title="el.work_name">{{el.work_name.slice(0,10)}}</span> <img v-if="el.is_recommend==1" src="/imge/zs_icon_tj.png" alt=""></div>
-					<div class="i_listd2_2"><span>{{el.classify_1_name+'-'+el.classify_2_name}}</span><span>{{backtime(el.create_time)}}</span></div>
-					<div class="i_listd2_3">
-						<span><img :src="el.face_pic" alt=""></span>
-						
-						<div>
-							<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
-							<span class="iconfont pend">&#xe672; {{el.like_num}}</span>
-							<span class="iconfont pend">&#xe616; {{el.comment_num}}</span>
-						</div>
-					</div>
-				</div>
-			</li>
-		</ul>
-		<el-pagination v-if="total>40" class="pagesddd"
-		background
-		@size-change="handleSizeChange"
-		@current-change="handleCurrentChange"
-		:current-page="page"
-		:page-sizes="[40, 80, 120, 160]"
-		:page-size="limit"
-		layout="prev,pager, next,sizes, jumper"
-		:total="total">   
-		</el-pagination>
+		<list :config="data" :nodTip="nodTip">
+			<template v-slot:todo="{ todo }">
+				<box_a :tjData="bdtjdata" :el="todo"></box_a>
+			</template>			
+		</list>
 	</div>
 </template>
 
 <script>
+import list from '../../components/list';
+import box_a from '../../components/box_a';
 export default {
-	name: 'home',	 
+	components:{list,box_a},
+	name: 'into',	 
 	data(){	
 		return{
-			List:[],
-			page:1,
-			limit:40,
-			total:0,
-			loading: '',
-		}
-		
-	},
-	mounted: function () {	
-		this.a_getWork()
+			data:{
+				ajax:{
+					url:'a_getWork',					
+				},
+				pr:{
+					type:1,
+				},
+				
+				bdtj:[['活动','Tag-入围作品-翻页'],['活动','Tag-入围作品-更改单页显示数']]
+			},	
+			nodTip:'还没有入围作品，敬请期待',
+			bdtjdata:[['活动','Tag-入围作品-作品'],['活动','Tag-入围作品-创作者']],
+		}		
 	}, 
-	methods:{
-		getHList(){
-			let params = {
-				page:this.page,
-				limit:this.limit
-			}
-			this.api.getHList(params).then((da)=>{
-				if(!da){					
-					return
-				}
-				this.List = da.data;
-				this.total = da.total;
-				document.documentElement.scrollTop =0;
-				document.body.scrollTop =0;
-			})
-		},
-		a_getWork(){
+	created(){
+		this.init();
+	},
+	methods: {
+		init(){
 			if(!this.$route.query.id){
 				this.$router.push({path:'/activvity'})	
-				return
-			}
-			let pr = {
-				type:1,
-				activity_id:this.$route.query.id
-			};
-			this.api.a_getWork(pr).then((da)=>{			
-				if(!da){					
-					return
-				}
-				this.List = da.data;
-				this.total = da.total;
-			});
-		},
-		openxq(on){
-			window.open('#/cont?id='+this.List[on].work_id)
-		},
-		backtime(time){
-		
-			return	window.getTimes(time);
-		},
-		handleSizeChange(val) {
-			this.limit = val;
-			this.getHList();
-		},
-		handleCurrentChange(val) {
-			this.page = val;
-			this.getHList();
+				return false
+			}	
+			this.data.pr.activity_id = this.$route.query.id;
 		}
-	},
-	
-	
-	
+	}
 }
 </script>
-
 <style>
 </style>

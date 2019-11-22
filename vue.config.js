@@ -1,12 +1,13 @@
 //模拟数据
 const express = require('express')
 const app = express()
+const CompressionPlugin = require('compression-webpack-plugin');
 //var appData = require('./src/data/goodlist.json')
 //var seller = appData
 var apiRoutes = express.Router();
 app.use('/api',apiRoutes)
 
-module.exports = {
+module.exports = {		
 	pages: {
         index: {            
             entry: 'src/pages/index/main.js',
@@ -22,19 +23,30 @@ module.exports = {
         },
     },
     // 基本路径
-    publicPath: './',
+    // publicPath: 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/',
+	publicPath: './',
     // 输出文件目录
     outputDir: 'dist',
 //  assetsDir: 'static',
     // eslint-loader 是否在保存的时候检查
     lintOnSave: true, 
-    // use the full build with in-browser compiler?
-    // https://vuejs.org/v2/guide/installation.html#Runtime-Compiler-vs-Runtime-only
-    runtimeCompiler: true,
+
+    runtimeCompiler: false,
     // webpack配置
     // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-    chainWebpack: () => {},
-    configureWebpack: () => {},
+    chainWebpack: config => {
+        // config
+        //     .plugin('webpack-bundle-analyzer')
+        //     .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+   	},
+ 	configureWebpack: {
+        externals: {           
+			// 'vue': 'Vue',
+			// 'vue-router': 'VueRouter',
+   //          'axios':'axios',
+			// 'element-ui': 'ELEMENT'
+        }
+   	},
     filenameHashing:false,
 // vue-loader 配置项
 // https://vue-loader.vuejs.org/en/options.html
@@ -51,7 +63,12 @@ productionSourceMap: false,
         loaderOptions: {
 			less: {
 				javascriptEnabled: true,
-			}
+			},
+			 sass: {
+				// @/ 是 src/ 的别名
+				// 所以这里假设你有 `src/variables.scss` 这个文件
+				data: `@import "~@/assets/js/variables.scss";`
+			  }
 		},
     // 启用 CSS modules for all css / pre-processor files.
     modules: false

@@ -37,6 +37,7 @@ export default {
 			tpd:'',
 			eeText:'',
 			midf2:this.type,
+			setimed:'',
 			maxerr:'',
 			numd:0,
 			timer:'获取验证码',
@@ -82,7 +83,8 @@ export default {
 		max:{
 			type:Number,
 			default:0,
-		},	
+		},
+		iscf:String,
 		chekFn:{
 			type:Function,
 			default:(obj)=>{
@@ -125,8 +127,6 @@ export default {
 		},
 		'input'(){
 			this.chekFn(this);
-			
-			
 		},
 	    'mobile_zone'(val){
 			if(!this.input){
@@ -148,7 +148,8 @@ export default {
 			this.$emit('checkBack',type,this.inputType);
 		},
 		
-		chekPhpne(){		
+		chekPhpne(){
+		
 			if(this.mobile_zone!='86'){
 				if(!(typeof this.input === 'number' && this.input%1 === 0)){
 					this.checkBack(false);
@@ -162,10 +163,12 @@ export default {
 				return ; 
 			}
 			this.setErro('');
-			this.$parent.mobiles = {
+			
+			this.$parent.form.mobiles = {
 				mobile:this.input,
 				mobile_zone:this.mobile_zone,
 			};	
+
 			this.checkBack(true); 
 		},
 		chekverify(val){
@@ -241,7 +244,6 @@ export default {
 		
 		
 		ajaxVerifys(){	
-			console.log(this.$parent.mobiles);
 			if(this.$parent.phoneType==false){
 				Message({message: '请填写正确的手机号码'});
 				return
@@ -250,15 +252,28 @@ export default {
 				Message({message: '请填写正确的手机号码'});
 				return
 			}
-			this.runTimer(60);			
+			
+					
 			let params = {
 				mobile:this.$parent.mobiles.mobile,
 				mobile_zone:this.$parent.mobiles.mobile_zone
 			};
-			this.api.sendVerifyCode(params).then(()=>{	
+			if(this.iscf==1){
+				params.type = 'register';
+			}
+			if(this.iscf==2){
+				params.type = 'login';
+			}
+			
+		
+			
+			this.api.sendVerifyCode(params).then((da)=>{	
+				if(da=='error'){
+					return
+				}
 				
 			}).catch(()=>{
-				
+				this.runTimer(60);	
 			});
 		},
 		chemima(data){
@@ -288,7 +303,7 @@ export default {
 				this.timer = '获取验证码';
 				return
 			}
-			setTimeout(()=>{
+			this.setimed= setTimeout(()=>{
 				num--;
 				this.runTimer(num);
 			},1000)
@@ -352,7 +367,7 @@ export default {
 	top: 0;
 	display: inline-block;
 	font-size: 14px;
-	color: #FF5121;
+	color: #33B3FF;
 	text-align: right;
 	padding-left: 20px;
 }

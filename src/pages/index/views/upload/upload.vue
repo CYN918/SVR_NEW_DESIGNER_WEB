@@ -4,22 +4,22 @@
 			<div class="topNavComBox1">
 				<div class="topNavComBox2">上传作品</div>
 				<a :class="['pend',chekin?'onchekd':'']" @click="setChekin(true)">编辑作品内容</a>
-				<a :class="['pend',!chekin?'onchekd':'']" @click="setChekin(false)">其他信息设置</a>
+				<a :class="['pend',!chekin?'onchekd':'']" @click="setChekin(false,'其他信息设置')">其他信息设置</a>
 			</div>
 		</div>
 		<div v-show="chekin" class="upBoxd">
 			<div class="upBoxd1">
 				<div class="upBoxd1_1">
-					<Input class="userBoxdC" v-model="form.work_name" :valued="csz"  :oType="'max'" :max="50"   :type="'text'" :placeholder="'请输入作品标题…'"></Input>	
+					<Input class="userBoxdC" v-model="form.work_name" :valued="csz"  :oType="'max'" :max="50"   :type="'text'" :placeholder="'请输入作品标题…'"></Input>
 				</div>
-				<div class="upBoxd1_2">
-					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content"></vue-ueditor-wrap>
+				<div class="upBoxd1_2" ref="asdsss">
+					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content" ></vue-ueditor-wrap>
 				</div>
 			</div>
 			<div class="upBoxd2">
-				<div @click="showUp(0)"><img class="svgImg1" src="/imge/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
-				<div @click="showUp(1)"><img class="svgImg1" src="/imge/svg/sc_icon_scyp.svg" alt="" />上传视频</div>
-				<div @click="showUp(2)"><img class="svgImg1" src="/imge/svg/sc_icon_scsp.svg" alt="" />上传音频</div>
+				
+				<div @click="showUp(0,'上传图片')"><img class="svgImg1" src="/imge/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
+				<div @click="showUp(1,'上传视频')"><img class="svgImg1" src="/imge/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
 			</div>
 			<UplodImg v-if="isshowd" :configData="upConfig"></UplodImg>
 			
@@ -28,14 +28,13 @@
 			<div class="page2_1">
 				<div class="page2_1_1">封面图<span class="btRed"></span></div>
 				<div class="page2_1_2">
-						<img v-if="form.face_pic" :src="form.face_pic" alt="">
-					<div @click="showupFm"><div>+</div>上传封面</div>
-					
+					<img v-if="form.face_pic" :src="form.face_pic" alt="">
+					<div @click="showupFm"><div>+</div>上传封面</div>					
 				</div>
-				<div class="page2_1_3">上传附件<span>ZIP，20M以内</span></div>
-				<div class="page2_1_4">
+				<div class="page2_1_3">上传附件<span>ZIP，1G以内</span></div>
+				<div :class="['page2_1_4',isUpd?'isUpd':'']">
 					<div class="page2Tbnd1">{{fjtext}}</div>
-					<input @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
+					<input v-if="!isUpd" @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
 				</div>
 				<div v-if="upfjData.type" class="page2_1_5">{{upfjData.type}}<span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span>{{upfjData.bf+'%'}}</div>
 				<div class="page2_1_6" v-if="upfjData.type">
@@ -63,7 +62,10 @@
 				<div class="page2_2_1">
 					<div class="page2_2_1_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
 					<div class="page2_2_1_2">
-						<div><Input class="userBoxd2" v-model="tags" :keyup="keydown"  :oType="'max'" :max="10"   :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>还可添加{{5-form.labels.length}}个标签</div>
+						<div>
+							<Input class="userBoxd2" v-model="tags" :keyup="keydown" :oType="'max'" :max="10" :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>
+							<span @click="keydown" :class="['tagBtn',isTageok?'istageok':'']">添加标签</span>还可添加{{5-form.labels.length}}个标签
+						</div>
 						<div class="page2_2_1_2x">
 							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
 						</div>
@@ -95,7 +97,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="page2_2_3">
+				<div v-if="checkisptggr()" class="page2_2_3">
 					<div class="page2_2_3_1">是否设为平台投稿作品<span class="btRed"></span><span>设置后，若该作品符合平台需求，则平台客服会联系创作者进行商业洽谈</span></div>
 					<div class="page2_1_7_r">
 						<label>
@@ -111,10 +113,18 @@
 			</div>
 		</div>
 		<div class="UpBtn1">
-			<div class="UpBtn1_1" v-if="!chekin" @click="setChekin(true)">上一步</div><div @click="userSave" class="UpBtn1_1">保存</div><div v-if="chekin" :class="['UpBtn1_2',ck2]" @click="setChekin(false)">下一步</div>
+			<div class="UpBtn1_1" v-if="!chekin" @click="setChekin(true,'上一步')">上一步</div><div @click="userSave" class="UpBtn1_1">保存</div><div v-if="chekin" :class="['UpBtn1_2',ck2]" @click="setChekin(false,'下一步')">下一步</div>
 			<div class="UpBtn1_1" @click="seeCg" v-if="!chekin">预览</div><div @click="savZp" :class="['UpBtn1_2',ck3]" v-if="!chekin">提交发布</div>
 		</div>
-		<upoloadcaver v-show="isPhto" @close="close" ref="upoloadcaver" :InputValue="form.work_name" :type="selectedOptions"></upoloadcaver>
+		
+				<!-- <upoloadcaver @close="close" ref="upoloadcaver" :InputValue="form.work_name" :type="selectedOptions"></upoloadcaver> -->
+		
+			
+		<TcBox :config="outc" ref="tcBox">
+			<template v-slot:todo="{ todo }">
+				<component v-bind:is="tcZj"  :datad="tcData"></component>
+			</template>
+		</TcBox>
 	</div>
 </template>
 
@@ -122,40 +132,48 @@
 import VueUeditorWrap from 'vue-ueditor-wrap'
 import UplodImg from './uploadImag'
 import Input from '../../components/input'
-import upoloadcaver from './uploadFm';
+import uploadFm from './uploadFm';
 import {Message} from 'element-ui'
+import { Loading } from 'element-ui';
+import TcBox from '../../components/TcBox'
 export default {
 	name: 'index',
-	components:{VueUeditorWrap,UplodImg,Input,upoloadcaver},
+	components:{VueUeditorWrap,UplodImg,Input,uploadFm,TcBox},
 	data(){
 		return{
+			outc: {
+				title: '上传封面',
+			},
+			tcZj:'',
+			tcData:{},
+			isUpd:'',
 			ifBjType:0,
 			bqList:[{label:'禁止匿名转载；禁止商业使用；禁止个人使用。'},{label:'禁止匿名转载；禁止商业使用。'},{label:'不限制用途。'}],
-			isPhto:false,
+			isPhto:true,
 			chekin:true,
 			isshowT1:false,
 			isshowT2:false,
+			isTageok:'',
 			ck2:'',
 			ck3:'',
 			csz:'',
 			fjtext:'选择附件',
 			chekusername:()=>{},
 			form:{
-				work_name:'',
-				
+				work_name:'',				
 				attachment_visible:1,
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
 				is_platform_work:0,
-				content:'<p style="color:#999">从这里开始编辑作品类容...</p>'
+				content:'<p style="color:#999">从这里开始编辑作品内容...</p>'
 			},
 			uD:{},
 			upConfig:'',
 			myConfig: {
-			  autoHeightEnabled: false,
-			  initialFrameHeight: 324,
-			  initialFrameWidth: '100%',
-			  UEDITOR_HOME_URL: '/UEditor/'
+				autoHeightEnabled: false,
+				initialFrameHeight: 500,
+				initialFrameWidth: '100%',
+				UEDITOR_HOME_URL: '/UEditor/'
 			},			
 			isshowd:false,
 			upList:[
@@ -204,14 +222,22 @@ export default {
 			selectedOptions:[],
 			dmtData:'',
 			zk_wrokids:[],
+			saveTyped:'',
+			isYl:'',
+			loading:'',
 		}  
 	},
+	beforeDestroy:function(){
+		if(this.loading){
+			this.loading.close();
+		}
+		
+	},
 	watch: {	
-		'form.work_name'(val,oldval) {				
+		'form.work_name'() {				
 			this.checkPage1();			
 		},
 		'form.content'() {
-			console.log(this.form.content)
 			this.checkPage1();
 		},
 		'form.face_pic'() {
@@ -244,16 +270,55 @@ export default {
 		'form.is_platform_work'() {
 			this.setAutoSave();
 		},
+		'tags'(){
+			
+			if(this.tags){
+				this.isTageok =1;
+			}else{
+				this.isTageok = '';
+			}
+		}
 	},
 	created:function(){
 		this.init();
 		this.getClassify();
 	},
 	mounted: function () {	
-
+		this.getUserDetail();
 	}, 
 	methods: {
+		showTc() {
+			this.$refs.tcBox.show();
+		},
+		closeTc() {
+			this.$refs.tcBox.close();
+		},
+		getUserDetail(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+				return
+			}	
+			let pr={};
+			this.api.getSelfInfo(pr).then((da)=>{
+				if(da=='error'){return}
+			
+				let userData = window.userInfo.access_token;
+				window.userInfo = da;
+				window.userInfo.access_token = userData;
+			});
+		},
+		
 		/*page2*/
+		checkisptggr(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'});
+				return '';
+			}
+			if(window.userInfo.contributor_format_status==2){
+				return 1;
+			}
+			return '';
+		},
 		seletClassify(name,on){
 			this.page2[name] = on;
 		},
@@ -265,6 +330,9 @@ export default {
 			return '选择作品类型';
 		},
 		keydown(){
+			if(!this.isTageok){
+				return
+			}
 			if(!this.tags){
 				return
 			}
@@ -294,21 +362,62 @@ export default {
 			this.closeTd('isshowT2');
 		},
 		showupFm(){
-			this.isPhto = true;
-			this.$refs.upoloadcaver.setImgd(this.form.face_pic);
+			this.tcData = {
+				avatar:window.userInfo.avatar,
+				work_name:this.form.work_name,
+				face_pic:this.form.face_pic,
+				work_id:this.form.work_id,
+				cl1:'原创',
+				cl2:'作品类型',
+				cl3:'',
+			};
+			let p1 = this.setCls(this.page2.classify,'value',this.form.classify_1);
+			if(p1){
+				this.tcData.cl1 = p1.a;
+				let p2Ob = this.page2.classify[p1.b].children;						
+				let p2 = this.setCls(p2Ob,'value',this.form.classify_2);						
+				this.tcData.cl2 = p2.a
+				let p3 = this.setCls(p2Ob[p2.b].children,'value',this.form.classify_3);
+				this.tcData.cl3 = p3.a
+			}
+			
+			
+			
+			
+			
+			this.tcZj = 'uploadFm';
+			this.showTc();
+			// this.bdtj('上传作品-其他信息设置','上传封面','--');
+			// this.isPhto = true;
+			// this.showupFm();
+			// this.$refs.upoloadcaver.setImgd(this.form.face_pic,this.form.work_id);
+		},
+		setCls(ob,key,val){
+			let str;
+			for(let i=0,n=ob.length;i<n;i++){
+				if(ob[i][key]==val){
+					str =  {a:ob[i].label,b:i};
+					break;
+				}
+			}
+			return str;
+			
 		},
 		close(img,fmid){
-			this.isPhto = false;
+			
+			this.closeTc();
 			if(img){
-				this.form.face_pic = img;
+				this.$set(this.form,'face_pic',img)
+
 			}	
+			console.log(this.form.face_pic);
 			this.zk_wrokids[0] = fmid;	
 		},
 		showTd(on){
 			this[on] = true;
 		},
 		closeTd(on){
-			window.event? window.event.cancelBubble = true : e.stopPropagation();
+			window.event? window.event.cancelBubble = true : window.event.stopPropagation();
 			this[on] = false;
 		},
 		setAutoSave(){
@@ -325,27 +434,40 @@ export default {
 				return
 			}	
 			let dat = this.setSaveData(0);
-			let da = JSON.stringify(dat);
+			let da = JSON.stringify(dat);	
+			
 			/*内容相同不保存*/			
 			if(this.autoSave.saveData==da){
+		
+				if(this.isYl){
+					this.isYl='';
+					window.open('#/conts?id='+this.form.work_id);
+				}
+				
 				return
 			}
 			/*内容不同开始保存*/
 			this.autoSave.saveData = da;
-			if(this.$route.fullPath!='/upload'){
+			if(this.$route.name!='upload'){
 				/*已离开不再保存*/
 				return 
 			}
 			
 			this.saveData(dat,'自动保存成功');
 		},
-		init(O){
+		init(){
+			if(!window.userInfo){
+				this.$router.push({path:'/login'})
+				return
+			}	
+			this.loading = Loading.service({target:this.$refs.asdsss, fullscreen: true });
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			if(!window.userInfo){
 				Message({message: '请先登录'});
-				return
-					setTimeout(()=>{				
-						this.$router.push({path:'/login'})
-					},2000);
+				setTimeout(()=>{				
+					this.$router.push({path:'/login'})
+				},2000);
 				return
 			}	
 			
@@ -358,18 +480,37 @@ export default {
 		saved(){
 			this.saveData(0,'保存成功');			
 		},
-		setChekin(type){
+		setChekin(type,b){
+			let p = '上传作品-编辑作品类容';
+			if(this.chekin==false){
+				p = '上传作品-其他信息设置';
+			}
+			if(b){
+				this.bdtj(p,b,'--');
+			}
+			
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){
+			
+				if(b){
+					this.bdtj(p,b+'失败','--');
+				}
 				Message({message: '请先填写标题'});
 				return
 			}
 			if(!this.form.content || this.ifBjType==0){
+				if(b){
+					this.bdtj(p,b+'失败','--');
+				}
 				Message({message: '请先填写内容'});
 				return
 			}
 			
-			
+			if(b && b!='其他信息设置'){
+				this.bdtj(p,b+'成功','--');
+			}
 			this.chekin = type;
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 			let regex = /<img.*?src="(.*?)"/;
 			
 			let src = regex.exec(this.form.content);
@@ -377,25 +518,21 @@ export default {
 				return
 			}
 			src = src[1];			
-			// if(!this.form.face_pic){
-			// 	this.form.face_pic = src;
-			// }
+			
 			
 		},
 		ready (editorInstance) {
+			this.loading.close();
 			this.uD = editorInstance;
-		
-			editorInstance.addListener('focus',(editor)=>{	
-			
+			editorInstance.addListener('focus',()=>{				
 					if(this.ifBjType==0){
 						this.form.content = '';
 						this.ifBjType=1;				
 					}
 			});
-			editorInstance.addListener('blur',(editor)=>{
-				console.log(this.form.content);
+			editorInstance.addListener('blur',()=>{
 				if(this.ifBjType==1 && this.form.content==''){			
-					this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
+					this.form.content = '<p style="color:#999">从这里开始编辑作品内容...</p>';
 					this.ifBjType=0;
 				}	
 			});
@@ -407,11 +544,12 @@ export default {
 				return
 			}
 			if(this.ifBjType==1 && this.form.content==''){			
-				this.form.content = '<p style="color:#999">从这里开始编辑作品类容...</p>';
+				this.form.content = '<p style="color:#999">从这里开始编辑作品内容...</p>';
 				this.ifBjType=0;
 			}
 		},
-		showUp(on){
+		showUp(on,a){
+			this.bdtj('上传作品-编辑作品类容',a,'--');
 			this.upConfig = this.upList[on];
 			this.isshowd = true;
 			if(this.ifBjType == 0){
@@ -424,7 +562,7 @@ export default {
 		
 			let str = '';
 			if(this.upConfig.type[0]=='image/gif'){
-				list.map((el,index,va)=>{
+				list.map((el,index)=>{
 					str+='<p style="max-width:100%;height:auto;"><img zk_workid="'+ids[index]+'" style="max-width:100%;height:auto" src="'+el+'"/></p>';
 				});								
 				this.uD.execCommand('insertHtml', str);	
@@ -434,7 +572,7 @@ export default {
 			}
 			
 			if(this.upConfig.type[0]=='video/mp4'){
-				list.map((el,index,va)=>{
+				list.map((el,index)=>{
 					str+='<p style="display:none">1</p><p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
 				});
 				this.uD.execCommand( 'insertparagraph' );
@@ -444,7 +582,7 @@ export default {
 				return
 			}
 			if(this.upConfig.type[0]=='audio/ogg'){
-				list.map((el,index,va)=>{					
+				list.map((el,index)=>{					
 					str+='<p style="display:none">1</p><p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio zk_workid="'+ids[index]+'" style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
 				});
 				this.uD.execCommand( 'insertparagraph' )
@@ -456,61 +594,58 @@ export default {
 			
 		},
 		getWorkId(){
-					
-			let params = {
-				access_token:window.userInfo.access_token
-			};
-			this.api.getWorkId(params).then((da)=>{
-				if(!da){
-					return
-				}
-				this.form.work_id = da.work_id;
-			});
-		},
-		getData(id){
-			let pr = {
-				access_token:window.userInfo.access_token,
-				work_id:id,
-				is_draft:1
-			};
-			this.api.getWorkDetail(pr).then((da)=>{
-				if(!da){
-					return
-				}
-				this.form = da
-				this.csz = da.work_name;
-				this.form.labels = JSON.parse(this.form.labels);
-
-				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
-				if(this.form.attachment){
-					this.upfjData.fid=this.form.attachment_id;
-					this.upfjData.type='上传成功';
-					this.$refs.upnfile2.value ='';		
-					this.form.attachment_id = da.attachment_id;	
-					this.upfjData.bf = 100;
-					this.upfjData.file_name = this.form.attachment.file_name;
-				};
-				this.ifBjType=1;
+			this.checkLo({
+				api:'getWorkId',
+				pr:{},
+				su:(da)=>{this.form.work_id = da.work_id;}
 			})
-
+		},
+		getData(id){			
+			this.checkLo({
+				api:'getWorkDetail',
+				pr:{				
+					work_id:id,
+					is_draft:1
+				},
+				su:(da)=>{
+		
+					this.form = da;		
+					this.csz = da.work_name;				
+					try{this.form.labels = JSON.parse(this.form.labels);}catch(e){console.log(1)}
+					this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
+					if(this.form.attachment){
+						this.upfjData.fid=this.form.attachment_id;
+						this.upfjData.type='上传成功';
+						this.$refs.upnfile2.value ='';		
+						this.form.attachment_id = da.attachment_id;	
+						this.upfjData.bf = 100;
+						this.upfjData.file_name = this.form.attachment.file_name;
+					}
+					this.ifBjType=1;
+				}
+			})
 		},
 		seeCg(){
+			this.bdtj('上传作品-其他信息设置','预览','--');
+			
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
 			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}
-		
+			this.isYl =1;
 			this.checkAutoSave();
-			setTimeout(()=>{
-				window.open('#/conts?id='+this.form.work_id)
-			
-			},1000)			
+				
 		},
 		savZp(){
+			if(this.saveTyped==1){
+				Message({message: '正在记录请稍后再试'});
+				return
+			}
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
-			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}	
+			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}
+			clearTimeout(this.autoSave.obj);
 			let str = this.form.content;
 			var matchReg = /zk_workid=".*?(?=")/gi;
 			let arr = str.match(matchReg);
@@ -522,11 +657,26 @@ export default {
 			}	
 			let dp = this.setSaveData(1,1);
 			dp.link_ids = this.zk_wrokids.join(',');
-			this.saveData(dp,'上传成功',()=>{setTimeout(()=>{this.$router.push({path:'/'})},1000)});
+			this.saveData(
+				dp,
+				'上传成功',
+				()=>{this.bdtj('上传作品-其他信息设置','提交发布成功','--');setTimeout(()=>{this.$router.push({path:'/myAll'})},1000)},
+				()=>{this.bdtj('上传作品-其他信息设置','提交发布失败','--');},
+			);
 		},
 		userSave(){
+			let p = '上传作品-编辑作品类容';
+			if(this.chekin==false){
+				p = '上传作品-其他信息设置';
+			}
+			this.bdtj(p,'保存','--');
+			if(this.saveTyped==1){
+				Message({message: '正在记录请稍后再试'});
+				return
+			}
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
             if(!this.form.content){Message({message: '请先填内容'});return}
+			clearTimeout(this.autoSave.obj);
 			this.saveData(this.setSaveData(0,0),'草稿保存成功');
 				
 		},
@@ -545,24 +695,40 @@ export default {
 			pr.access_token = window.userInfo.access_token;		
 			return pr;
 		},
-		saveData(data,messg,fn){	
+		saveData(data,messg,fn,fn2){	
 			let pr = JSON.stringify(data);
 			pr = JSON.parse(pr);
-			
+			this.saveTyped=1
 			pr.labels = JSON.stringify(pr.labels);
-			this.api.saveWorks(pr).then(()=>{
+			this.api.saveWorks(pr).then((da)=>{
+				if(da=='error'){
+					if(fn2){
+						fn2();
+					}
+					return
+				}
+				this.saveTyped='';
 				Message({message:messg});
 				if(fn){
 					fn();
 				}
 				
-			});
+				if(this.isYl){
+					this.isYl='';
+					window.open('#/conts?id='+this.form.work_id);
+				}
+
+			}).catch(()=>{
+				this.saveTyped='';
+				if(fn2){
+					fn2();
+				}
+			});	
 		},
 		checkPage1(){
 			this.ck2 = "";
 			if(!this.form.work_name){return false}
 			if(!this.form.content){return false}
-			console.log(222222)
 			if(this.ifBjType==0){
 				return false;
 			}
@@ -581,29 +747,25 @@ export default {
 			this.ck3 = "onck2";
 			return true
 		},
-		fileUpfj(flie){
-			
-			if(this.upfjData && this.upfjData.type){
+		fileUpfj(flie){		
+			this.bdtj('上传作品-其他信息设置','上传附件','--');
+			if(this.fjtext== '上传中'){
+				return
+			}
+			if(this.upfjData.type && this.upfjData.type!='上传成功'){
 				Message({message: '正在上传中请稍后'});
 				return
 			}		
-			
-			
-			let fld = flie.target.files[0];
-			
+			let fld = flie.target.files[0];			
             if(['application/x-zip-compressed','application/zip'].indexOf(fld.type)==-1){
-
                 Message({message: '格式不正确'});
 				return
 			}
-			if(fld.size>20*1024*1024){
+			if(fld.size>1024*1024*1024){
 				Message({message: '文件过大'});
 				return
 			}
-		           
-				
-			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
-		
+			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';		
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
 				1001,
@@ -619,6 +781,7 @@ export default {
 			formData.append('file',fld)
 			formData.append('relation_type','work')
 			formData.append('timestamp',times)
+			formData.append('is_callback',1)
 			let xhr = new XMLHttpRequest();
 			this.upfjData = {
 				file_name:fld.name,
@@ -626,39 +789,48 @@ export default {
 				xhr:xhr,
 				type:'上传中'
 			};
-			console.log(this.upfjData)
+			this.isUpd=1;
+			this.fjtext= '上传中';
 			let uploadProgress = (evt)=>{		
 				if(evt.lengthComputable) {
 					let percent = Math.round(evt.loaded * 100 / evt.total);
-					this.upfjData.bf  = Math.floor(percent); 
+					let op = Math.floor(percent);
+					if(op==100){
+						return
+					}
+					this.upfjData.bf  = op; 
 				}
 			};
 			let uploadComplete = (data)=>{
-				
+				this.upfjData.bf  = 100;
+				this.isUpd='';
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;
+					
 					this.upfjData.fid=da.fid;					
 					this.zk_wrokids[1] = da.fid;
 					this.fjtext= '重新上传';
 					this.upfjData.type='上传成功';
-					this.$refs.upnfile2.value ='';		
+					
+						
 					this.form.attachment_id = da.fid;	
 					Message({message: '文件上传成功'});
+
 				}
 				
 			};
 			let uploadFailed = ()=>{
 				// delete p;
-				p.type="none";
 				this.$refs.upnfile2.value ='';
-				this.this.upfjData = {};
+				this.isUpd='';
+				this.upfjData = {};
 				Message({message: '文件上传失败请稍后重试'});
 				
 			};
 			let uploadCanceled = ()=>{
-				p.type="none";
 				this.$refs.upnfile2.value ='';
-				this.this.upfjData = {};
+				this.isUpd='';
+				this.upfjData = {};
 				Message({message: '取消成功'});
 				
 			};
@@ -666,17 +838,18 @@ export default {
 			xhr.addEventListener("load",uploadComplete, false);
 			xhr.addEventListener("error",uploadFailed, false);
 			xhr.addEventListener("abort",uploadCanceled, false);
-			xhr.open("POST", "http://139.129.221.123/File/File/insert");
+			xhr.open("POST", window.basrul+"/File/File/insert");
 			xhr.send(formData);
 		},
-		qxclosd(obj){
+		qxclosd(){
+			this.isUpd='';
 			this.fjtext = '选择附件';
-			if(obj.xhr){
-				obj.xhr.abort();
-				
-				return
-			}		
 			this.form.attachment_id='';
+			if(this.upfjData.xhr){
+				this.upfjData.xhr.abort();				
+			
+			}		
+			
 			this.upfjData = {};
 		},
 		getClassify(){
@@ -688,12 +861,8 @@ export default {
 				},1000);
 				return
 			}
-			let pr ={
-				access_token:window.userInfo.access_token,
-			};
-			
-			this.api.getClassify(pr).then((da)=>{
-				if(!da){
+			this.api.getClassify({}).then((da)=>{
+				if(da=='error'){
 					return
 				}
 				let p = JSON.stringify(da);
@@ -753,7 +922,7 @@ export default {
 	font-weight: 200;
 }
 .onchekd:after{
-	background: #FF5121;
+	background: #33B3FF;
 }
 .upBoxd>div{
 	display: inline-block;
@@ -798,7 +967,7 @@ export default {
 .upBoxd2{
 	margin-left: 20px;
 	width: 200px;
-	height: 210px;
+	padding-bottom: 30px;
 	vertical-align: top;
 	background: #FFFFFF;
 	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
@@ -809,8 +978,10 @@ export default {
 	color: #1E1E1E;
 }
 .upBoxd2>div{
+	display: inline-block;
 	text-align: center;
 	margin-top: 30px;
+	line-height: 30px;
 	cursor: pointer;
 }
 .upBoxd2>div:hover{
@@ -872,8 +1043,8 @@ export default {
 	margin-right: 0;
 }
 .UpBtn1_2.onck2 {
-    background: #FF5121;
-    border-color: #FF5121;
+    background: #33B3FF;
+    border-color: #33B3FF;
 }
 .page2_1{
 	box-sizing: border-box;
@@ -961,7 +1132,7 @@ export default {
 	font-size: 21px;
 	text-align: center;
 	line-height: 22.9px;
-	background: #FF5121;
+	background: #33B3FF;
 	color:  #E6E6E6;
 	margin: 84px auto 11px;
 }
@@ -1014,7 +1185,7 @@ export default {
 .page2_1_5{
 	text-align: left;
 	font-size: 14px;
-	color: #333333;
+	color: #999;
 	margin-bottom: 7px;
 }
 .page2_1_5>span{
@@ -1025,6 +1196,7 @@ export default {
     margin: 0 8px 0 20px;
     width: 127px;
     height: 4px;
+	vertical-align: middle;
 	overflow: hidden;
 }
 .page2_1_5>span>span{
@@ -1035,7 +1207,7 @@ export default {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: #FF5121;
+	background: #33B3FF;
 	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
 }
@@ -1086,10 +1258,14 @@ export default {
 	height: 8px;
 }
 
-
+.isUpd>.page2Tbnd1{
+	color: #999;
+    border-color: #999;
+	cursor: context-menu;
+}
 .page2_1_7_r>label>div>div.chekdOn{
-	border-color: rgb(255, 81, 33);
-	background: rgb(255, 81, 33);
+	border-color: #33B3FF;
+	background: #33B3FF;
 }
 .page2_1_7_r>label{
 	cursor: pointer;
@@ -1135,8 +1311,15 @@ export default {
     border: 1px solid #dcdfe6;
     border-radius: 5px;
     
-    height: 44px;
+    height: 40px;
     padding: 1px 10px;
+}
+.page2_2_1_2 .inptud{
+	height: 40px !important;
+}
+.page2_2_1_2 .myInput input{
+	height: 38px;
+	line-height: 38px;
 }
 .page2_2_1_2x>span{
 	box-sizing: border-box;
@@ -1271,8 +1454,8 @@ export default {
 	color: #333333;
 }
 .page2_1_7_r .chekdOn>div{
-	background: #FF5121;
-	border-color: #FF5121;
+	background: #33B3FF;
+	border-color: #33B3FF;
 }
 .el-select{width: 100%}
 .upBoxd1_2 iframe{
@@ -1280,14 +1463,15 @@ export default {
 	box-sizing: border-box;
 }
 .el-cascader .el-input.is-focus .el-input__inner{
-	border-color: #FF5121 !important;
+	border-color: #33B3FF !important;
 }
 .el-input.is-active .el-input__inner, .el-input__inner:focus{
-	border-color: #FF5121 !important;
+	border-color: #33B3FF !important;
 }
 .edui-default .edui-editor-toolbarbox{
 	position: relative !important; 
 	background: #fff;
+	z-index: 9999;
 }
 .page2_2_2_2_2 .el-input.is-active .el-input__inner, .el-input__inner:focus{
 	border-color: #C0C4CC !important;
@@ -1295,7 +1479,31 @@ export default {
 .svgImg1{
 	display: inline-block;
 	width: 28px;
-    vertical-align: middle;
+	vertical-align: text-bottom;
     margin-right: 12px;
+}
+.tagBtn{
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	width:100px;
+	height:40px;
+	background:rgba(153,153,153,1);
+	border-radius:5px;
+	font-size:14px;
+	font-weight:400;
+	color:rgba(255,255,255,1);
+	line-height:40px;
+	margin-right: 10px;
+}
+.istageok{
+	background: #33B3FF;
+}
+#edui1>div:first-child{
+	height: 0 !important;
+}
+#edui1>div#edui1_toolbarbox{
+	height: 116px !important;
 }
 </style>

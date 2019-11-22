@@ -1,77 +1,61 @@
-<template>
-	<div>
-		<div class="ac_list_Box">
-			<ul class="ac_list_Box_0">
-				<li @click="goDetailed(el.id)" v-for="(el,index) in dataList" :key="index">
-					<img class="ac_list_Box_1" :src="'http://zk-web-object.oss-cn-qingdao.aliyuncs.com/d5c2000e818cbbd47bddc7a638e3665e.png'" alt="">
+<template>	
+	<div class="activvit">
+		<list :page="setPage" :config="data">
+			<template v-slot:todo="{ todo }">
+				<div class="ac_list_Box_0" @click="go(todo.id,todo.status==-1?'已结束':'进行中')">
+					<div class="ac_list_Box_2x" :style="backBn(todo.cover_img?todo.cover_img:todo.banner)"></div>					
 					<div class="ac_list_Box_2">
-						<div class="ac_list_Box_4">{{el.activity_name}}</div>
-						<div class="ac_list_Box_5"><span>{{el.category_name}}</span>投稿时间：{{el.start_time.split(" ")[0]}} 至 {{el.end_time.split(" ")[0]}}</div>
+						<div class="ac_list_Box_4">{{todo.activity_name}}</div>
+						<div class="ac_list_Box_5"><span>{{todo.category_name}}</span>投稿时间：{{todo.start_time.split(" ")[0]}} 至 {{todo.end_time.split(" ")[0]}}</div>
 						<div class="ac_list_Box_3">
-							<span v-if="el.left_day" class="ac_list_Box_6">{{el.left_day}}天</span><span v-if="el.left_day" class="ac_list_Box_7">距离截止</span>
-							<span v-if="!el.left_day" class="ac_list_Box_8">已结束</span>
+							<span v-if="todo.status==1" class="ac_list_Box_6">{{todo.left_day==0?'今':todo.left_day}}天</span><span v-if="todo.status==1" class="ac_list_Box_7">距离截止</span>
+							<span v-else-if="todo.status==-1" class="ac_list_Box_8">已结束</span>
 						</div>
-					</div>				
-				</li>
-				
-			</ul>
-			
-		</div>
-		<el-pagination v-if="pL.total>40" class="pagesddd"
-		background
-		@size-change="handleSizeChange"
-		@current-change="handleCurrentChange"
-		:current-page="pL.page"
-		:page-sizes="[20, 40, 80, 120]"
-		:page-size="pL.limit"
-		layout="prev,pager, next,sizes, jumper"
-		:total="pL.total">   
-		</el-pagination>
+					</div>
+				</div>
+			</template>			
+		</list>
+		
 	</div>
 </template>
 
 <script>
+import list from '../../components/list';
 export default {
-	name: 'home',	 
+	components:{list},
+	name: 'activvity_list',	 
 	data(){	
 		return{
-			dataList:[],
-			pL:{
-				page:1,
-				limit:20,
-				total:0,
-			}
-		}
-		
+			data:{
+				ajax:{
+					url:'a_getList',
+
+				},
+				bdtj:[['活动','活动列表-翻页'],['活动','活动列表-更改单页显示数']]
+			},	
+			setPage:{page:1,limit:10,size:[10,20,40,60]},
+		}		
 	},
-	mounted: function () {	
-		this.a_getList()
-	}, 
-	methods:{
-		a_getList(){
-				
-			this.api.a_getList(this.pL).then((da)=>{
-				if(!da){					
-					return
-				}
-				
-				this.dataList =da.data;
-				this.pL.total = da.total;
-				document.documentElement.scrollTop =0;
-				document.body.scrollTop =0;
-			});
+	created(){
+		this.init();
+	},
+	
+	methods:{	
+		bdtjCom(a){
+			this.bdtj('活动','活动列表-'+a,'--');
 		},
-		handleSizeChange(val) {
-			this.pL.limit = val;
-			this.a_getList();
+		init(){
+		
+			document.documentElement.scrollTop =1;
+			document.body.scrollTop =1;
 		},
-		handleCurrentChange(val) {
-			this.pL.page = val;
-			this.a_getList();
-		},
-		goDetailed(id){
+		go(id,a){
+			this.bdtjCom(a);
+			window.open('/#/detailed?id='+id)
 			
-			this.$router.push({path:'/detailed',query:{id:id}});	
+		},
+		backBn(ur){
+			return 'background-image: url('+ur+'?x-oss-process=image/resize,w_640);'
 		}
 	},
 	
@@ -81,43 +65,24 @@ export default {
 </script>
 
 <style>
-.ac_list_Box{
-	position: relative;
-	min-width: 1300px;
-	box-sizing: border-box;
-	overflow-x: hidden;
-	padding: 20px 0 80px;
-	
+.activvit{
+	background: #f4f6f9;
+}
+.activvit .listBox{
+	margin-top: 20px;
+}
+.activvit .listBox>li:nth-child(2n+2)>div{
+	margin-right: 0;
 }
 .ac_list_Box_0{
-	width: 1300px;
-	margin: 20px auto 60px;
-	text-align: left;
-}
-.ac_list_Box_0>li{
 	cursor: pointer;
-	position: relative;
-	display: inline-block;
-	background: #F6F6F6;
-	border-radius: 0 0 5px 5px;
+	background: #fff;
+	border-radius: 5px;
 	margin: 0 20px 20px 0;
 	width: 640px;
 	height: 460px;
-	vertical-align: top;
 }
-.ac_list_Box_0>li:hover{
-	opacity: .7;
-}
-.ac_list_Box_0>li:nth-child(2n+2){
-	margin-right: 0;
-}
-.ac_list_Box_1{
 
-	border-radius: 5px 5px 0 0;
-	display: block;
-	width: 100%;
-	height: 360px;
-}
 .ac_list_Box_2{
 	position: relative;
 	padding: 22px 20px 23px;
@@ -126,6 +91,10 @@ export default {
 	font-size: 16px;
 	color: #1E1E1E;
 	margin-bottom: 14px;
+	width: 540px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .ac_list_Box_5{
 	font-size: 14px;
@@ -161,5 +130,25 @@ export default {
 	color: #999999;
 	margin-bottom: 12px;
 }
-
+.ac_list_Box_2x{
+	position: relative;
+	border-radius: 5px 5px 0 0;
+	overflow: hidden;
+	display: block;
+	width: 100%;
+	height: 360px;
+	background-size: cover;
+    background-position: 50%,50%;
+	
+}
+.ac_list_Box_1{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+	display: block;
+	min-width: 100%;
+	min-height:100%;
+}
 </style>

@@ -1,44 +1,54 @@
 <template>
 	<div>
 		<div class="detail_topBox">
-			<img class="detail_topBox_1" :src="infoData.banner" alt="">
-
+			<div class="detail_topBox_1" :style="backBn(infoData.banner)"></div>
 			<div class="detail_topBoxx_1po">
-
 			<div class="detail_topBoxx_1">
 			<div class="detail_topBox_2x">
 				<div class="detail_topBox_2x_1">{{infoData.activity_name}}</div>
 				<div class="detail_topBox_2x_2">{{infoData.category_name}}&nbsp&nbsp&nbsp&nbsp<span>{{backtimed(infoData.start_time) }} 至 {{backtimed(infoData.end_time)}}</span></div>
 			</div>
 			<div class="detail_topBox_2">
-
-				<div v-if="new Date(infoData.end_time) > new Date()"><span v-if="infoData.template_url" @click="downMoble(infoData.template_url)" class="detail_topBox_2_1 pend">下载模板</span><span v-if="infoData.setting_type!=1"  @click="showZp" class="detail_topBox_2_2 iconfont pend">&#xe61e;上传作品</span></div>			
-
-				<span v-else class="detail_topBox_2_3">已结束</span>
+				<div v-if="infoData.status==1">
+					<span v-if="infoData.is_provide_template==1" @click="downMoble(infoData)" class="detail_topBox_2_1">下载模板</span>
+					<span v-if="infoData.setting_type!=1"  @click="showZp" class="detail_topBox_2_2 iconfont">&#xe61e;上传作品</span>
+				</div>			
+				<span v-if="infoData.status==-1" class="detail_topBox_2_3">已结束</span>
 			</div>
 			</div>
 			</div>
 		</div>
-		<div class="detail_nav">
-			<a  @click="godefle('/detailed')" :class="['pend',ond==1?'router-link-exact-active':'']">活动详情</a>
-			<a v-if="infoData.setting_type>2"  @click="godefle('/detailed/into')" :class="['pend',ond==2?'router-link-exact-active':'']">入围作品</a>
-			<a v-if="infoData.setting_type>3" @click="godefle('/detailed/admission')" :class="['pend',ond==3?'router-link-exact-active':'']">录用作品</a>
-				
-			<span @click="fxclick" class="detail_nav_1 iconfont pend">&#xe64c; 分享</span>
+		<div class="detail_navN_1">
+			<pTop class="" :cn="topCn">
+				<template v-slot:todo="{ todo }">
+					<div class="detail_nav">
+					<a  @click="godefle('/detailed')" :class="['pend',ond==1?'router-link-exact-active':'']">活动详情</a>
+					<a v-if="infoData.setting_type>2"  @click="godefle('/detailed/into')" :class="['pend',ond==2?'router-link-exact-active':'']">入围作品</a>
+					<a v-if="infoData.setting_type>3" @click="godefle('/detailed/admission')" :class="['pend',ond==3?'router-link-exact-active':'']">录用作品</a>				
+					<span @click="fxclick" class="detail_nav_1 iconfont pend">&#xe64c; 分享</span>
+					</div>
+				</template>		
+			</pTop>
+			
+			
+			
 		</div>
-		<router-view/>
-		<div v-if="ishowzp" class="pushDeletBox">
-			<div class="pushDeletBox1">
-				<img class="pushDeletBox2" @click="closeZp" src="/imge/cj_00.png">
-				<div class="pushDeletBox3">选择参与活动的作品</div>
+		
+		<div class="Acomd">
+			<component v-bind:is="tcZj"></component>	
+			
+		</div>
+		
+		<TcBox :config="config" ref="tcBox">
+			<template v-slot:todo="{ todo }">
 				<div class="pushDeletBox4">
-					<ul class="zp_box">
+					<ul class="zp_box" @scroll="test">
 						
 						<li @click="checkZp(el.work_id)" :class="(work_id.indexOf(el.work_id)!=-1 || el.is_attend==1)?'chekonzp':''" v-for="(el,index) in zpList" :key="index">
 							<img class="zp_box_1" :src="el.face_pic">
 							<div class="zp_box_2">
 								{{el.work_name.slice(0,10)}}
-								<img v-if="el.is_recommend==1" :src="el.face_pic" alt="">
+								<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg" alt="">
 							</div>
 							<div class="zp_box_3">
 								{{el.classify_1_name+'-'+el.classify_2_name}}
@@ -53,12 +63,35 @@
 								</div>
 							</div>
 						</li>
+						<div ref="botmm"></div>
+						<div v-if="isnoData">
+							<img  class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
+							<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
+						</div>
+						
 					</ul>
 				</div>
 				<div class="pushDeletBox5">
 					<span @click="gopushzp" class="pend">发布新作品</span>
-					<span @click="pushOk" class="pend">确定上传</span>
+					<span @click="pushOk" class="pend btn_n3">上传</span>
 				</div>
+				
+			</template>			
+		</TcBox>	
+		
+		<div v-if="ishowzp" class="pushDeletBox">
+			<div class="pushDeletBox1">
+				<img class="pushDeletBox2" @click="closeZp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
+				<div class="pushDeletBox3">选择参与活动的作品</div>
+				
+			</div>
+		</div>
+		
+		<div v-if="ishowWp" class="pushDeletBox">
+			<div class="pushDeletBox1_x2">
+				<img class="pushDeletBox2" @click="closeWp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
+				<div class="pushDeletBox1_x2_1" v-html="wpdz"></div>
+				<div class="botnbox"><span @click="closeWp" class="pend">关闭</span></div>
 			</div>
 		</div>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
@@ -69,13 +102,26 @@
 <script>
 import {Message} from 'element-ui'
 import fxd from '../../components/share';
+import detailed_detailed from './detailed';
+import detailed_into from './into';
+import detailed_admission from './admission';
+import TcBox from '../../components/TcBox';
+import pTop from '../../components/postionTop';
 export default {
-	components:{fxd},
+	components:{fxd,detailed_detailed,detailed_into,detailed_admission,TcBox,pTop},
 	name: 'home',	 
 	data(){	
 		return{
+			tcZj:'',
+			config:{
+				title:'选择参与活动的作品',
+			},
+			topCn:{
+				min:680,
+			},	
 			shareData:{},
 		    show:false,
+			ishowWp:'',
 			ond:1,
 			zpList:[],
 			page:1,
@@ -83,17 +129,52 @@ export default {
 			work_id:[],
 			bindType:0,
 			ishowzp:false,
-			infoData:{}
+			infoData:{},
+			isnoData:'',
+			wpdz:'',
+			
+			getType:'',
+			noGd:'',
+			page2:1,
+			total2:0,
 		}
 		
 	},
 	mounted: function () {	
+		this.init();
 		this.setOnd();
 		this.a_getInfo();
-		this.getPersonalWorkList();
 	}, 
 	methods:{
+		showtc(){
+			this.$refs.tcBox.show();
+		},
+		closetc(){
+			this.$refs.tcBox.close();
+		},
+		init(){
+			document.documentElement.scrollTop =0;
+			document.body.scrollTop =0;			
+			
+			this.setOnd();		
+		},
+		backBn(ur){
+			return 'background-image: url('+ur+');'
+		},
+		test(){
+			let data = this.$refs.botmm.getBoundingClientRect();
+			if(data.top<800 && !this.getType && !this.noGd){
+				if(this.total2<40){
+					this.noGd=1;
+					return
+				}
+				
+				this.page2++;
+				this.getPersonalWorkList();
+			}
+		},
 		fxclick(){
+			this.bdtjCom('分享')
 			this.$refs.fxd.showShare(true);
 		},
 		backtimed(timed){
@@ -103,14 +184,20 @@ export default {
 			return timed.substring(0,10)
 		},
 		closeZp(){
+			this.bdtjCom('关闭参与活动');
 			this.ishowzp=false;
+			this.zpList = [];
 		},
 		showZp(){
+			this.bdtjCom('上传作品');
 			if(!window.userInfo){
 				this.$router.push({path:'/login'});
 			}
-			this.ishowzp = true;
+			this.getPersonalWorkList();
+			this.showtc();
+			
 		},
+		
 		checkZp(id){
 			let on = this.work_id.indexOf(id);
 			if(on==-1){
@@ -120,6 +207,7 @@ export default {
 			this.work_id.splice(on,1);
 		},
 		setOnd(){
+			this.tcZj = this.$route.name;
 			let a = this.$route.path;
 			if(a==='/detailed'){
 				this.ond = 1;
@@ -140,16 +228,21 @@ export default {
 				return
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{	
-				if(!da){
+				if(da=='error'){
+					this.$router.push({path: '/404'});
 					return
 				}
 				this.infoData = da;
+				document.title=this.infoData.activity_name+'-狮圈儿（Zoocreators）';
+			
 				this.shareData = {
-					url:window.location.href,
+					titlec:'活动分享',
+					url:location.origin+'/aindex.html#/conta?id='+this.$route.query.id,
 					title:da.activity_name+'-狮圈儿创作者平台',
 					pics:da.banner,
 					desc:'惊现大神快来膜拜',
 					summary:da.activity_name+'-狮圈儿创作者平台',
+					bdtj:['活动','分享弹窗-']
 				};
 				this.$refs.fxd.setUrl(this.shareData);
 				if(this.infoData.status==0){
@@ -162,25 +255,52 @@ export default {
 		godefle(on){
 			this.$router.push({path:on,query:{id:this.$route.query.id}});	
 		},
+		closeWp(){
+			this.wpdz = '';
+			this.ishowWp = '';
+		},
+		bdtjCom(a){
+			this.bdtj('活动',a,'--');
+		},
 		downMoble(url){
-			window.open(url);
+			this.bdtjCom('下载模版')
+			if(url.template_file_type==1){			
+				window.downloadFiles(url.template_url,url.template_file_name);
+				return
+			}
+			this.wpdz = url.online_disk_info;
+			this.ishowWp = 1;
 		},
 		getPersonalWorkList(){
+			this.isnoData='';
+			if(!window.userInfo){return}
 			let pr = {
 				activity_id:this.$route.query.id,
-				access_token:window.userInfo.access_token,
-				page:this.page,
-				limit:this.limit,
+				page:this.page2,
+				limit:40,
 			};
 			this.api.getPersonalWorkList(pr).then((da)=>{
-				if(!da){
+				
+				if(da=='error'){
 					return
 				}
+			
+				if(da.data.length==0){
+					this.noGd=1;
+				}
+				if(this.zpList.length>0 && this.page2!=1){
+					this.zpList = this.zpList.concat(da.data);
+					return
+				}
+				
 				this.zpList = da.data;
-				console.log(this.zpList);
+				if(this.zpList.length==0){
+					this.isnoData=1;
+				}
 			})
 		},
 		gopushzp(){
+			this.bdtjCom('发布新作品')
 			this.$router.push({path:'/upload'});
 		},
 		getHList(){
@@ -189,17 +309,18 @@ export default {
 				limit:this.limit
 			}
 			this.api.getHList(params).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					return
 				}
 				this.zpList = da.data;
-				console.log(this.zpList);
+			
 			})
 		},
 		backtime(time){		
 			return	window.getTimes(time);
 		},
 		pushOk(){
+			this.bdtjCom('确定上传');
 			if(this.bindType==1){
 				Message({message: '正在上传中'});
 				return
@@ -214,7 +335,7 @@ export default {
 				work_id:this.work_id.join(','),
 			};
 			this.api.a_AttendActivity(pr).then((da)=>{
-				if(!da){
+				if(da=='error'){
 					this.bindType=0;	
 					return
 				}
@@ -237,16 +358,22 @@ export default {
 </script>
 
 <style>
-.detail_topBox{
-	min-width: 1300px;
-	
-	position: relative;
-	
-	margin-bottom: 30px;
-}
-.detail_topBox_1{
+.upImnoData{
 	display: block;
-	width: 100%;
+	margin: 110px auto 0;   
+}
+.detail_topBox{
+	min-width: 1300px;	
+	position: relative;	
+	
+}
+
+.detail_topBox_1{
+	
+	background-size: cover;
+    background-position: 50%,50%;
+    width: 100%;
+	height: 620px;
 }
 .detail_topBox_2{
 	position: absolute;
@@ -269,16 +396,38 @@ export default {
 	margin-right: 15px;
 }
 .detail_topBox_2_2{
-	background: #FF5121;
+	cursor: pointer;
+	background: rgba(51, 179, 255,1);
+}
+
+.detail_topBox_2_2:hover{
+	background:rgba(112, 201, 255, 1);
 }
 .detail_topBox_2_3{
 	font-size: 24px;
 	color: #FFFFFF;
 }
 .detail_nav{
+	line-height: 40px;
 	text-align: left;
+	padding: 30px 0;
 	width: 1300px;
-	margin: 0 auto 33px;
+	margin: 0 auto;
+}
+.detail_navN_1{
+	height: 100px;
+}
+.detail_navN_1 .p_isTop{
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;	
+	width: 100%;
+	-webkit-animation: bjs .3s linear forwards;
+	animation: bjs .3s linear forwards;
+	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+	box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+
 }
 .detail_nav>a{
 	display: inline-block;
@@ -289,6 +438,9 @@ export default {
 	height: 37px;
 	position: relative;
 }
+.detail_nav>a.router-link-exact-active{
+	color: #33B3FF;
+}
 .detail_nav>a.router-link-exact-active:after{
 	content: "";
 	position: absolute;
@@ -297,7 +449,7 @@ export default {
 	transform: translateX(-50%);
 	width: 80%;
 	height: 2px;
-	background: #FF5121;
+	background: #33B3FF;
 } 
 .detail_nav_1{
 	float: right;
@@ -329,6 +481,23 @@ export default {
 	border-radius: 5px;
 	width: 1030px;
 	height: 572px;
+}
+.pushDeletBox1_x2{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	background: #FFFFFF;
+	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+	border-radius: 5px;
+	padding: 30px;
+    text-align: left;
+    line-height: 30px;
+    width: 450px;
+}
+.pushDeletBox1_x2_1{
+	margin-bottom: 35px;
 }
 .pushDeletBox2{   
 	position: absolute;
@@ -367,15 +536,17 @@ export default {
 }
 .pushDeletBox5>span:nth-child(2){
 	margin-left: 20px;
-	background: #333333;
-	border-color: #333333;
+	background: #33B3FF;
+	border-color: #33B3FF;
 	color: #fff;
 }
 	
 .pushDeletBox4{
 	padding: 20px 30px;
-	width: 100%;
-	height: 408px;
+	width: 1030px;
+    height: 500px;
+    overflow: hidden;
+    overflow-y: auto;
 	box-sizing: border-box;
 	overflow: hidden;
 	overflow-y: auto;
@@ -412,7 +583,7 @@ export default {
 	margin-right: 0;
 }
 .zp_box>li.chekonzp{
-	border-color: #FF5121;
+	border-color: #33B3FF;
 }
 .zp_box_1{
 	display: block;
@@ -493,13 +664,16 @@ export default {
 	font-size: 14px;
 	color: #FFFFFF;
 }
-.detail_topBox_2_2:hover{
-	background: #FF6940;
-}
+
 .detail_topBox_2_2:active{
-	background: #FF3700;
+	background: rgba(112, 201, 255, 1);
 }
 .detail_topBox_2_1:hover{
 	background: #4E4E4E;
+}
+
+
+.Acomd{
+	min-height: 500px;
 }
 </style>

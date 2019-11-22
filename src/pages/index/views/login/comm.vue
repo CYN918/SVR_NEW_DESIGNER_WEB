@@ -66,9 +66,9 @@ export default {
 	},
 	mounted: function () {	
 		
-		console.log(this.setDatax)
 	}, 
 	methods: {
+
 		setData(){
 			return this.form;
 		},
@@ -82,7 +82,7 @@ export default {
 			this.type=on;			
 		},
 		onSubmit(){
-			console.log(1);
+		
 		},
 		setTimer(){
 			if(this.timer!='获取验证码'){
