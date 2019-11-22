@@ -19,8 +19,8 @@
 		<div class="home_0x5">
 			<div>
 				<div class="home_0x5_1">
-					<div>专业平台把控项目质量，没有头疼的甲方</div>
-					月入2万的设计师们在与我们长期合作，你也可以一起加入。
+					<div>分成式收益，一次交稿，永久收钱</div>
+					坐享每日分成收益结算，还是一次买断落袋为安，你说了算
 				</div><img class="home_0x5_2" src="/imge/home/7.svg"/>
 			</div><div>
 				<img class="home_0x5_2" src="/imge/home/9.svg"/>
@@ -200,7 +200,7 @@ export default {
 	display: inline-block;
 	vertical-align: top;
 	text-align: left;
-	margin: 0 88px 0 90px;
+	margin: 0 63px 0 85px;
 	font-size:14px;
 	color:rgba(102,102,102,1);
 	line-height:20px;
@@ -208,7 +208,7 @@ export default {
 .home_0x5_2{
 	display: inline-block;
 	vertical-align: top;
-	width: 600px;
+	width: 532px;
 }
 .home_0x5_bt{
 	margin-top:40px;

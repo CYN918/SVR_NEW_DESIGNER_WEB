@@ -80,7 +80,7 @@ export default {
 	position: relative;
 	background: #f1f1f1;
 	overflow: hidden;
-	padding-bottom: 37.5%;
+	padding-bottom: 31.25%;
 	width: 100%;
 }
 .bannerBtn{

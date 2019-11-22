@@ -2318,7 +2318,11 @@ content: "";
 }
 
 .el-message{
-    background: #FFEDE8;
+	background: rgba(255,255,255,1);
+    box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.1);
+    border-radius: 2px;
+    padding: 0 15px;
+	
     border-radius: 5px;
     color: #33B3FF;
     text-align: center;
@@ -2326,11 +2330,10 @@ content: "";
 	width: auto !important;
     min-width: auto;
 	min-height: auto;
-    padding: 0;
     border: none;
     height: auto;
     min-height: auto;
-    padding: 19px 42px;
+
 	
 	
 	
@@ -2340,7 +2343,7 @@ content: "";
 	display: none;
 }
 .el-message--info .el-message__content{
-	color: #33B3FF;
+	color: #666;
     width: 100%;
     font-size: 16px;
     padding: 10px 0;
