@@ -47,7 +47,12 @@ export default {
 	}, 
 	methods: {
 		init(){
-		
+			this.api.getSelfInfo(pr).then((da)=>{
+				if(da=='error'){return}
+				da.access_token = data.res.data.access_token;
+				window.userInfo = da;
+				localStorage.setItem('userT',JSON.stringify(da));				
+			})
 			this.da = this.pconf[this.setData.type];
 			if(this.setData.type==0){
 				this.djsFn();
