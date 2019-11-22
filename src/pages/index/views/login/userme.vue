@@ -2,7 +2,7 @@
 	<div>
 		<div class="yhtop newbtnd_4">
 			
-			<div class="yhtop1 "><img class="header_1 pend" src="/imge/new/header/logo.svg">用户资料完善</div>
+			<div class="yhtop1 "><img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/header/logo.svg">用户资料完善</div>
 			<div class="yhtop2"><div>基本信息设置</div></div>
 			<div class="newUsermeBOX">
 				<div class="newUserme">

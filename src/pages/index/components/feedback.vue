@@ -35,7 +35,7 @@
 								
 				                <img :src="item"/>
 								<div @click="del(index)" class="closeX_1">
-									<img src="/imge/svg/new/close1.svg">
+									<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/close1.svg">
 								</div>
 				            </div>
 				        </div>

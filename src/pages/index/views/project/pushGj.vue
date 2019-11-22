@@ -18,7 +18,7 @@
 						
 						<div class="cd_d_2" v-else>
 							<img :src="preview_pic"/>
-							<p class="closeX_1"><img src="/imge/svg/new/close1.svg"></p>
+							<p class="closeX_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/close1.svg"></p>
 						</div>
 						<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
 						<jdt v-if="isJdt1" ref="jdt1"></jdt>
@@ -40,14 +40,14 @@
 					  action="customize"
 					  
 					  >
-					  <i class="el-icon-upload"><img src="/imge/project/pus.svg"></i>
+					  <i class="el-icon-upload"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/pus.svg"></i>
 					  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 				
 					</el-upload>
 					
 					<div class="lid">
 						<li v-for="(el,key) in fileList3" :key="key">
-							<div class="lid_1"><img src="/imge/project/pus1.svg">{{el.file_name}}<img src="/imge/project/cj_00.svg" @click="clodfile(el,key)" class="closeX pend"/></div>
+							<div class="lid_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/pus1.svg">{{el.file_name}}<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/cj_00.svg" @click="clodfile(el,key)" class="closeX pend"/></div>
 							<div class="lid_2"><span :style="{transform:'translateX('+-(100-el.bf)+'%)'}"></span></div>
 						</li>
 						
@@ -69,7 +69,7 @@
 						
 						<div class="cd_d_2" v-else>
 							<img :src="preview_pic"/>
-							<p class="closeX_1"><img src="/imge/svg/new/close1.svg"></p>
+							<p class="closeX_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/close1.svg"></p>
 						</div>
 						<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
 						<jdt v-if="isJdt1" ref="jdt1"></jdt>

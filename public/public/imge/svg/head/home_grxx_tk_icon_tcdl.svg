@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>Top bar_photo_pulldown_icon_outsign_defualt_28px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="02_我的项目_头像_下拉列表" transform="translate(-1672.000000, -338.000000)" stroke="#000000">
+            <g id="HOME_TX_TK" transform="translate(1652.000000, 60.000000)">
+                <g id="pull-down_list/style-copy-4" transform="translate(0.000000, 266.000000)">
+                    <g id="pull-down_list/style/nor">
+                        <g id="icon_style/28px">
+                            <g transform="translate(14.000000, 6.000000)">
+                                <g id="icon_style/28px/icon">
+                                    <g transform="translate(7.000000, 7.000000)">
+                                        <g id="Top-bar_photo_pulldown_icon_outsign_defualt_28px">
+                                            <g id="退出登录">
+                                                <path d="M0.4114756,3.85517123 L0.4114756,2.04379759 C0.4114756,1.04286327 1.25911575,0.232423956 2.30301589,0.232423956 L11.7641011,0.232423956 C12.8096932,0.232423956 13.6556414,1.04453428 13.6556414,2.04379759 L13.6556414,12.0113656 C13.6556414,13.0122999 12.8096932,13.8227392 11.7641011,13.8227392 L11.7641011,13.8227392 L2.30301589,13.8227392 C1.25742385,13.8227392 0.4114756,13.0106289 0.4114756,12.0113656 L0.4114756,10.199992" id="Shape" fill-rule="nonzero"></path>
+                                                <polyline id="Path" transform="translate(6.693679, 6.958809) rotate(-315.000000) translate(-6.693679, -6.958809) " points="4.43540695 4.70053659 8.95195125 4.70053659 8.95195125 9.21708089"></polyline>
+                                                <path d="M0.0358288601,7.02841711 L9.57948086,7.02841711" id="Line-7"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

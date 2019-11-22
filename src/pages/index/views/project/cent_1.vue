@@ -12,16 +12,16 @@
 			</div>
 			<div class="pr_cent_2_5">
 				<div class="pr_cent_2_6 f_a">
-					<img class="cicon cicon_n1 " src="/imge/project/03.svg" alt="">{{el.expected_profit}}
+					<img class="cicon cicon_n1 " src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/03.svg" alt="">{{el.expected_profit}}
 				</div>
 				<div class="pr_cent_2_7">
 					<span class="pr_cent_2_7zy">
-						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/10.svg" alt="">报名人数</div>
+						<div class="pr_cent_2_8"><img class="cicon" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/10.svg" alt="">报名人数</div>
 						<div class="pr_cent_2_9">
 							<span class="pr_hs f_a">{{el.sign_up_num}}</span>
 						</div><i></i></span>
 					<span>
-						<div class="pr_cent_2_8"><img class="cicon" src="/imge/project/01.svg" alt="">报名时间</div>						
+						<div class="pr_cent_2_8"><img class="cicon" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/01.svg" alt="">报名时间</div>						
 						<div class="pr_cent_2_9" v-html="djtime">
 
 						</div>

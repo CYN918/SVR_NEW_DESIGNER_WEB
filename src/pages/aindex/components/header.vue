@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<img @click="goIndex" class="log" src="/imge/new/header/logo.svg" alt="">		
+		<img @click="goIndex" class="log" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/header/logo.svg" alt="">		
 		<span @click="shar" class="fxbtn">分享</span>
 	</header>
 </template>
