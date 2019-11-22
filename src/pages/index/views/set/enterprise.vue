@@ -518,7 +518,12 @@ export default {
 			});
 		},
 		qrFn(){
-			this[this.qrFnName]();
+			if(this.tAncType==3){
+				this.qdTc3();
+			}	
+			if(this.tAncType==2){
+				this.qdTc2();
+			}
 		},
 		closeTc1(){		
 			if(this.tAncType==1){			
@@ -610,6 +615,7 @@ export default {
 				mobile_zone:window.userInfo.mobile_zone,
 				mobile:window.userInfo.mobile,
 				check_type:this.check_type,
+				email:this.emailD
 			};
 			this.api.identifyAuth(pr).then((da)=>{
 				if(da=='error'){
