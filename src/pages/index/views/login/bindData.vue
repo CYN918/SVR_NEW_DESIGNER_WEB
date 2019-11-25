@@ -70,7 +70,7 @@ export default {
 		return{	
 			
 			isPhto:false,
-			caver:'/imge/svg/login/tx.svg',
+			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/comm/User_tx_defualt.svg',
 			form:{
 				citye:[],
 				sex:'',

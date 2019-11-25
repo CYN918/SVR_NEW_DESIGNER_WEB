@@ -39,8 +39,7 @@
 			</div>
 			<myCaver ref="myCaver"></myCaver>
 		</div>
-		<Footer></Footer>
-		
+	
 	</div>	
 </template>
 <script>
@@ -49,15 +48,15 @@ import Input from '../../components/input'
 import Citys from '../../components/citys'
 import Select from '../../components/select'
 import rideo from '../../components/rideo'
-import Footer from '../footer';
+
 import myCaver from '../../components/cavar';
 export default {
 	name: 'login',
-	components:{Input,Citys,Select,rideo,Footer,myCaver},
+	components:{Input,Citys,Select,rideo,myCaver},
 	data(){		
 		return{	
 			isPhto:false,
-			caver:'/imge/svg/login/tx.svg',
+			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/comm/User_tx_defualt.svg',
 			form:{
 				citye:[],
 				sex:'',
@@ -129,10 +128,7 @@ export default {
 			}
 			
 			//
-			let are = this.caver;
-			if(are=='/imge/svg/MRTX.svg'){
-				are = 'http://res.shiquaner.zookingsoft.com/a7c29ebcdd1819d76396588dc72d2770.png';
-			}
+			
 			let pr = {
 				avatar:this.caver,
 				username:this.form.username,
