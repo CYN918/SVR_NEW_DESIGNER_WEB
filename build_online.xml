@@ -10,11 +10,7 @@
         <property name="distfile"    value="dist/${tarfile}" />
         <property name="tests.dir" value="test" />
         <fileset id="build.tar.gz" dir=".">
-            <include name="*.html"/>
-            <include name="*.ico"/>
-            <include name="*.md"/>
-			<include name="*.js"/>
-            <include name="*.css"/>
+            <include name="*"/>
         </fileset>
  
         <target name="check" description="Check variables" >
