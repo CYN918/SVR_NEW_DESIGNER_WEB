@@ -5,7 +5,7 @@
 				<div>
 					<h1>个人资料</h1>
 					<div>
-						<span>头像</span><img class="info_box-ac" :src="userInfo.avatar" alt="">
+						<span>头像</span><img class="info_box-ac" :src="mJs.Cavars(userInfo.avatar)" alt="">
 					</div>
 					<div>
 						<span>用户名</span><span>{{userInfo.username}}</span>

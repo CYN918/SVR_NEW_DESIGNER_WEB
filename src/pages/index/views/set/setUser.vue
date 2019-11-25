@@ -4,7 +4,7 @@
 			<div class="suc_title">个人资料</div>
 			<div class="suc_1_1">
 				<span>头像</span>
-				<div class="suc_1_1_1"><img :src="form.avatar" alt="">
+				<div class="suc_1_1_1"><img :src="mJs.Cavars(form.avatar)" alt="">
 					<div @click="showisPhto">修改头像</div>
 				</div>
 			</div>

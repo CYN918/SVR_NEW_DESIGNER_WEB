@@ -3,7 +3,7 @@
 		<div class="ms_r_1">
 			<div class="ms_r_c_1" v-if="listData.length>0">
 				<div v-for="(el,index) in listData" :key="index">
-					<img class="comment_1" :src="el.comment.avatar" alt="">
+					<img class="comment_1" :src="mJs.Cavars(el.comment.avatar)" alt="">
 						<div class="comment_2">
 							<div class="comment_2_1">{{el.comment.username}}<span class="comment_2_2">{{backtime(el.comment.create_time)}}</span></div>
 							<div class="comment_2_3" v-if="el.op_cname=='回复'">
@@ -32,7 +32,7 @@
 							
 							</div>
 							<div v-if="el.op_cname=='回复' && el.isshowsub" class="comment_2_9">
-								<img class="comment_1" :src="el.to_comment.avatar" alt="">
+								<img class="comment_1" :src="mJs.Cavars(el.to_comment.avatar)" alt="">
 								<div class="comment_2">
 									<div class="comment_2_1">{{el.to_comment.username}}<span class="comment_2_2">{{backtime(el.to_comment.create_time)}}</span></div>
 									<div class="comment_2_5">{{backcont(el.to_comment.content)}}</div>

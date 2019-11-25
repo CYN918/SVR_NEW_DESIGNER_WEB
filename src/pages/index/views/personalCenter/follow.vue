@@ -13,7 +13,7 @@
 			<list :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
 					<div class="box_2d">
-						<img @click="goUser(todo.open_id,'头像')" :src="todo.avatar">
+						<img @click="goUser(todo.open_id,'头像')" :src="mJs.Cavars(todo.avatar)">
 						<div class="i_listd2_1">
 							<div @click="goUser(todo.open_id,'昵称')">{{todo.username}}</div>
 							<div>{{todo.province}} | {{todo.city}}</div>

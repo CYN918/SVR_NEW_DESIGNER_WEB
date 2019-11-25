@@ -5,7 +5,7 @@
 		
 			<ul v-if="List.length>0" class="i_listd2" >
 				<li v-for="(el,index) in List" :key="index">
-					<img @click="goFans('/works',el.open_id,'点头像')" :src="el.avatar">
+					<img @click="goFans('/works',el.open_id,'点头像')" :src="mJs.Cavars(el.avatar)">
 					<div class="i_listd2_1">
 						<div @click="goFans('/works',el.open_id,'点名字')">{{el.username}}</div>
 						<div>{{el.province}} | {{el.city}}</div>
