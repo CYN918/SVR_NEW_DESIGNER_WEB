@@ -3,7 +3,7 @@
 		<div class="centbox">
 			<img class="cent_banner" :src="contDat.face_pic" alt="">
 			<div v-if="contDat.user_info" class="userBox">
-				<img class="userBox_1" :src="contDat.user_info.avatar">
+				<img class="userBox_1" :src="mJs.Cavars(contDat.user_info.avatar)">
 				<div class="userBox_2">
 					<div class="userBox_3">{{contDat.user_info.username}}</div>
 					<div class="userBox_4">{{contDat.user_info.province+' | '+contDat.user_info.vocation}}</div>

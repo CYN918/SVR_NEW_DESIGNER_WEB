@@ -18,7 +18,7 @@
 		</div>
 		<div class="wk_a_3">
 			<div class="wk_a_3_1">
-				<img @click="goUser()" :src="el.user_info.avatar+'?x-oss-process=image/resize,w_128'" alt="">
+				<img @click="goUser()" :src="mJs.Cavars(el.user_info.avatar)"/>
 				<span @click="goUser()" class="hft">{{el.user_info.username}}</span>
 				<div class="wk_a_3_2">{{mJs.getTimes(el.create_time)}}</div>
 				<userTc v-if="el.work_id" :tcData="el" :tjData="tjData"></userTc>
