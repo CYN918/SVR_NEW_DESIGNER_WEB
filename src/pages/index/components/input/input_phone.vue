@@ -245,6 +245,7 @@ export default {
 		
 		
 		ajaxVerifys(){	
+			
 			if(this.ajaxVerifysType){
 				return
 			}
@@ -253,11 +254,12 @@ export default {
 				return
 			}
 			
-					
+		
 			let params = {
-				mobile:this.$parent.mobiles.mobile,
-				mobile_zone:this.$parent.mobiles.mobile_zone
+				mobile:this.$parent.form.mobiles.mobile,
+				mobile_zone:this.$parent.form.mobiles.mobile_zone
 			};
+		
 			if(this.iscf==1){
 				params.type = 'register';
 			}
