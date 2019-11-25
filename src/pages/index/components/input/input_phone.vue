@@ -84,6 +84,7 @@ export default {
 			type:Number,
 			default:0,
 		},
+		ajaxVerifysType:'',
 		iscf:String,
 		chekFn:{
 			type:Function,
@@ -244,7 +245,9 @@ export default {
 		
 		
 		ajaxVerifys(){	
-			
+			if(this.ajaxVerifysType){
+				return
+			}
 			if(!this.$parent.form.mobiles){
 				Message({message: '请填写正确的手机号码'});
 				return
@@ -252,8 +255,8 @@ export default {
 			
 					
 			let params = {
-				mobile:this.$parent.form.mobiles.mobile,
-				mobile_zone:this.$parent.form.mobiles.mobile_zone
+				mobile:this.$parent.mobiles.mobile,
+				mobile_zone:this.$parent.mobiles.mobile_zone
 			};
 			if(this.iscf==1){
 				params.type = 'register';
@@ -261,17 +264,15 @@ export default {
 			if(this.iscf==2){
 				params.type = 'login';
 			}
-			
-		
-			
+			this.ajaxVerifysType = 1;
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
+					this.ajaxVerifysType = '';
 					return
-					
 				}
-				this.runTimer(60);
-			}).catch(()=>{
 				this.runTimer(60);	
+			}).catch(()=>{
+				this.ajaxVerifysType = '';	
 			});
 		},
 		chemima(data){
@@ -298,6 +299,7 @@ export default {
 		runTimer(num){
 			this.timer = num +'秒后重新获取';
 			if(num==0){
+				this.ajaxVerifysType = '';
 				this.timer = '获取验证码';
 				return
 			}
