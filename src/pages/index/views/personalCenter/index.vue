@@ -13,7 +13,7 @@
 			</div>			
 		</div>
 		<div class="u_top3">
-			<img class="u_top3_1" :src="userMessage.avatar+'?x-oss-process=image/resize,w_128'"></img>
+			<img class="u_top3_1" :src="mJs.Cavars(userMessage.avatar)"/>
 			<div class="u_top3_2">
 				<div class="u_top3_2_1">{{backnAM(userMessage.username)}}</div>
 				<div class="u_top3_2_2">{{userMessage.province+'-'+userMessage.city}}</div>

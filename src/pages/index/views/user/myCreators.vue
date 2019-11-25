@@ -5,7 +5,7 @@
 		<list :config="data" ref="listDom">
 			<template v-slot:todo="{ todo }">
 			<div class="wdczz">
-					<img @click="goUser(todo,'点头像')" :src="todo.avatar">
+					<img @click="goUser(todo,'点头像')" :src="mJs.Cavars(todo.avatar)">
 					<div class="i_listd2_1">
 						<div @click="goUser(todo,'点昵称')">{{todo.username}}</div>
 						<div>{{todo.province}} | {{todo.city}}</div>

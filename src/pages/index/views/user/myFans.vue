@@ -17,7 +17,7 @@
 			<list class="follwfsffbox" :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
 				<div class="follwfsff">
-					<img @click="goUser(todo,'点头像')" class="follwfs_1" :src="todo.avatar">
+					<img @click="goUser(todo,'点头像')" class="follwfs_1" :src="mJs.Cavars(todo.avatar)">
 					<div @click="goUser(todo,'点昵称')" class="follwfs_2">{{todo.username}}</div>
 					<div class="follwfs_3">{{todo.province}} | {{todo.city}}</div>
 					<div class="follwfs_4">

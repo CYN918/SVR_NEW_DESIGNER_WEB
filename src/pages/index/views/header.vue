@@ -35,7 +35,7 @@
 						</div>
 						<div v-if="data2.length>0">
 							<div class="searcBox5_1">创作者</div>
-							<div class="searcBox5_2" @click="gouser(el.open_id)" v-for="(el,index) in data2"><img class="searcBox5_2imf" :src="el.avatar" alt="">{{el.username}}</div>
+							<div class="searcBox5_2" @click="gouser(el.open_id)" v-for="(el,index) in data2"><img class="searcBox5_2imf" :src="mJs.Cavars(el.avatar)" alt="">{{el.username}}</div>
 						</div>
 					</div>
 					
