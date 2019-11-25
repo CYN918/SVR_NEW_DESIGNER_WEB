@@ -244,19 +244,16 @@ export default {
 		
 		
 		ajaxVerifys(){	
-			if(this.$parent.phoneType==false){
-				Message({message: '请填写正确的手机号码'});
-				return
-			}
-			if(!this.$parent.mobiles){
+			
+			if(!this.$parent.form.mobiles){
 				Message({message: '请填写正确的手机号码'});
 				return
 			}
 			
 					
 			let params = {
-				mobile:this.$parent.mobiles.mobile,
-				mobile_zone:this.$parent.mobiles.mobile_zone
+				mobile:this.$parent.form.mobiles.mobile,
+				mobile_zone:this.$parent.form.mobiles.mobile_zone
 			};
 			if(this.iscf==1){
 				params.type = 'register';
@@ -270,8 +267,9 @@ export default {
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
 					return
+					
 				}
-				
+				this.runTimer(60);
 			}).catch(()=>{
 				this.runTimer(60);	
 			});

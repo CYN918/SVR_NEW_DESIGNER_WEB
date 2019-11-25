@@ -304,7 +304,11 @@ router.beforeEach((to, from, next) => {
 	// }
 
 	setTitle(to.path)
-	
+	if(to.fullPath!='/userme2'){
+		next('/userme2');
+		return
+	}
+	next();
 	/*是否填写信息*/
 	if(window.userInfo && window.userInfo.is_detail==0){		
 		if(!window.userInfo.mobile || window.userInfo.mobile=='null'){

@@ -27,8 +27,8 @@ module.exports = {
 	publicPath: './',
     // 输出文件目录
     outputDir: 'dist',
-//  assetsDir: 'static',
-    // eslint-loader 是否在保存的时候检查
+	//assetsDir: 'static',
+    //eslint-loader 是否在保存的时候检查
     lintOnSave: true, 
 
     runtimeCompiler: false,
