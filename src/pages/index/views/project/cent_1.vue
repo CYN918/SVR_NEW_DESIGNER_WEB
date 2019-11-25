@@ -63,7 +63,7 @@ export default {
 		backBan(o){
 
 			if(!o || o==null || o==undefined || o=='null' || o=='undefined'){
-				return '/imge/new/com/no_img.svg';
+				return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/com/no_img.svg';
 			}
 			return o+'?x-oss-process=image/resize,w_310';
 		},

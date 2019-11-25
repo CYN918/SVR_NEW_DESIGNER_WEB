@@ -220,7 +220,7 @@ export default {
 		},
 		backFm(ur){
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
-				return 'background-image: url(/imge/new/com/no_img.svg);background-size:70%;';
+				return 'background-image: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/com/no_img.svg);background-size:70%;';
 			}
 			return 'background-image: url('+ur+'?x-oss-process=image/resize,w_307);';
 			

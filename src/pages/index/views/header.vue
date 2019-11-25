@@ -245,7 +245,7 @@ export default {
 		},
 		backnav(on,on2){
 			// https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img
-			let str = '/imge/xx_'+on2;
+			let str = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/xx_'+on2;
 			if(this.navType!=on){
 				str+=on2+'.svg';
 			}else{

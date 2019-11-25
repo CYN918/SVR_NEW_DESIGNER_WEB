@@ -64,7 +64,7 @@ export default {
 			previewStyle2:{},
 			previews:{},
 			option:{
-				img:'/imge/svg/login/tx.svg',
+				img:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/login/tx.svg',
 				outputSize:1,
 				outputType:'png',
 				autoCrop:true,

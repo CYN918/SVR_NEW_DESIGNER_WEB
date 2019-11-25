@@ -263,9 +263,9 @@ export default {
 		isLick(a){
 			
 			if(a){
-				return '/imge/svg/see/dz_red.svg'
+				return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/dz_red.svg'
 			}
-			return '/imge/new/works/dz.svg';
+			return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/dz.svg';
 		},
 		
 		

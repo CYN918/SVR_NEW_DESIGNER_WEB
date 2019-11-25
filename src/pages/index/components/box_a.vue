@@ -46,9 +46,9 @@ export default {
 		return{
 			shareData:{},
 			icons:[
-				{i:'/imge/svg/see/zs_icon_gk.svg',n:'view_num'},
-				{i:'/imge/svg/see/zs_icon_dz.svg',n:'like_num'},
-				{i:'/imge/svg/see/zs_icon_xx.svg',n:'comment_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_gk.svg',n:'view_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_dz.svg',n:'like_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_xx.svg',n:'comment_num'},
 				
 			],
 			showtIP:'',
@@ -105,7 +105,7 @@ export default {
 		},
 		backBn(ur){			
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
-				return 'background-image: url(/imge/new/com/no_img.svg);background-size:70%;';
+				return 'background-image: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/com/no_img.svg);background-size:70%;';
 			}
 			return 'background-image: url('+ur+'?x-oss-process=image/resize,w_307);';
 		},

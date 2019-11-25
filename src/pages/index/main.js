@@ -12,6 +12,7 @@ Vue.prototype.mJs = mJs
 Vue.prototype.imU = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/'
 Vue.prototype.api.mcommjs = window.mycomJs;
 
+Vue.prototype.Static = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB';
 
 //定义全局过滤器
 Vue.filter('followType', (val)=>{
