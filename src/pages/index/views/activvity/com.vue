@@ -55,7 +55,7 @@
 								<span>{{backtime(el.create_time)}}</span>
 							</div>
 							<div class="zp_box_4">
-								<img :src="el.user_info.avatar" alt="">
+								<img :src="mJs.Cavars(el.user_info.avatar)" alt="">
 								<div>
 									<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
 									<span class="iconfont pend">&#xe672; {{el.like_num}}</span>

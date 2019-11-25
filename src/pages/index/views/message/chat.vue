@@ -12,7 +12,7 @@
 							<ul class="sxBodx2_2x">
 								<div  v-for="(el,index) in listData" :class="index==messgOn?'oncheckx_1':''">
 									<li v-if="index==0 || (index>0 && zdOpen_id!=el.user_info.open_id)">
-									<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
+									<img @click="goUser(el.user_info.open_id)" :src="mJs.Cavars(el.user_info.avatar)" alt="">
 									<div @click="cheond(index)">
 										<div class="sxBodx2_2x_1Nx_1"><span class="sxBodx2_2x_1N_1">{{el.user_info.username}}</span><span class="sxBodx2_2x_2">{{backtime(el.last_post_time)}}</span></div>
 										<div class="sxBodx2_2x_3">{{el.last_message?el.last_message:el.user_info.vocation +' | '+el.user_info.city}}</div>
@@ -48,7 +48,7 @@
 									<li>
 										<div v-if="checkisme(el.open_id)==false" class="jyb_x2">
 										<div class="sxBodx3_2xbox sxBodx3_2x_2">
-											<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
+											<img @click="goUser(el.user_info.open_id)" :src="mJs.Cavars(el.user_info.avatar)" alt="">
 											<div class="sxBodx3_2x_3b sxBodx3_2x_3">{{el.content}}</div>
 										</div>
 										</div>
@@ -57,7 +57,7 @@
 										<div class="sxBodx3_2xbox sxBodx3_2x_4">
 											
 											<div class="sxBodx3_2x_3b sxBodx3_2x_5">{{el.content}}</div>
-											<img @click="goUser(el.user_info.open_id)" :src="el.user_info.avatar" alt="">
+											<img @click="goUser(el.user_info.open_id)" :src="mJs.Cavars(el.user_info.avatar)" alt="">
 										</div>
 										</div>
 									</li>

@@ -134,7 +134,14 @@ export default {
 			}
 			return '刚刚';				
 	},
-	
+	Cavars:function(a){
+		if(!a){return}
+		let arr = a.split('.');
+		if(arr[arr.length-1]=='svg'){
+			return a;
+		}
+		return a+'?x-oss-process=image/resize,w_128';
+	},
 
 	
 }

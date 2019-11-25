@@ -61,7 +61,7 @@ export default {
 			}
 			if(data.operate=='login'){
 
-				this.api.getSelfInfo(pr).then((da)=>{
+				this.api.getSelfInfo({}).then((da)=>{
 					if(da=='error'){return}
 					da.access_token = data.res.data.access_token;
 					window.userInfo = da;
