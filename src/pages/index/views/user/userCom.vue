@@ -41,7 +41,7 @@
 			</div>
 		</div>
 		<div class="u_top2">
-			<img  class="u_top2_1" :src="userMessage.user_center_banner_pic?userMessage.user_center_banner_pic:userBg" alt="">
+			<img  class="u_top2_1" :src="Cavars(userMessage.user_center_banner_pic)"/>
 			<div class="dwek">
 				<div   class="u_top2_2">				
 					<div v-if="userTped" class="u_top2_2_1">
@@ -57,7 +57,7 @@
 			
 		</div>
 		<div class="u_top3">
-			<img class="u_top3_1" :src="userMessage.avatar+'?x-oss-process=image/resize,w_128'"></img>
+			<img class="u_top3_1" :src="mJs.Cavars(userMessage.avatar)"></img>
 			<div class="u_top3_2">
 				<div class="u_top3_2_1">{{backnAM(userMessage.username)}}</div>
 				<div class="u_top3_2_2">{{userMessage.province+'-'+userMessage.city}}</div>
