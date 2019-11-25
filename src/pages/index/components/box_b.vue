@@ -1,6 +1,6 @@
 <template>
 	<div class="box_22_x">
-		<img class="pend" @click="goFans('/works',el.open_id)" :src="el.avatar">
+		<img class="pend" @click="goFans('/works',el.open_id)" :src="mJs.Cavars(el.avatar)">
 		<div class="i_listd2_1">
 			<div class="pend" @click="goFans('/works',el.open_id)">{{el.username}}</div>
 			<div>{{el.province}} | {{el.city}}</div>

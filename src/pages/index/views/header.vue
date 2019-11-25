@@ -81,7 +81,7 @@
 				<img class="head_top3" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/head/top3.svg"/>
 			</span>
 			<span class="header_4" v-if="userMssge">
-				<div @click="goUser('头像')"><img :src="userMssge.avatar+'?x-oss-process=image/resize,w_128'" alt=""></div>
+				<div @click="goUser('头像')"><img :src="mJs.Cavars(userMssge.avatar)"/></div>
 				<div  class="userBpx">
 					<a @click="goUser('昵称')">{{backnAM(userMssge.username)}}</a>
 					<ul> 

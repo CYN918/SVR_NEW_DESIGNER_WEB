@@ -41,7 +41,7 @@
 			</div>
 		</div>
 		<div class="u_top2">
-			<img  class="u_top2_1" :src="userMessage.user_center_banner_pic?userMessage.user_center_banner_pic:userBg" alt="">
+			<img  class="u_top2_1" :src="mJs.Cavars(userMessage.user_center_banner_pic)"/>
 			<div class="dwek">
 				<div   class="u_top2_2">				
 					<div v-if="userTped" class="u_top2_2_1">
