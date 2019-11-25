@@ -668,7 +668,7 @@ export default {
 	box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);
 	border-radius: 5px;
     width: 240px;
-    z-index: 99;
+    z-index: 1001;
 
     -webkit-animation: xs .5s .3s forwards;
     animation: xs .5s .3s forwards;
@@ -845,7 +845,8 @@ export default {
 	display: inline-block;
     width: 20px;
     height: 20px;
-    vertical-align: bottom;
+    vertical-align: top;
+	margin-top: 10px;
     margin-right: 4px;
     border-radius: 50%;
 }
