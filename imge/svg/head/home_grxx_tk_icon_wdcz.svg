@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="16px" viewBox="0 0 17 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>Top bar_photo_pulldown_icon_design_defualt_28px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-356.000000, -223.000000)" id="Top-bar_photo_pulldown_icon_design_defualt_28px" stroke="#000000" stroke-width="0.9">
+            <g transform="translate(355.000000, 222.000000)">
+                <g id="作品" transform="translate(0.000000, 0.045942)">
+                    <path d="M5.64823795,8.50378401 L2.78279334,5.6383394 C2.43111748,5.28666354 2.43111748,4.71648432 2.78279334,4.36480846 L5.32985522,1.81774658 C5.68153107,1.46607072 6.2517103,1.46607072 6.60338616,1.81774658 L9.46883077,4.68319119" id="Path" fill-rule="nonzero"></path>
+                    <path d="M13.6319751,8.88686807 L16.5405747,11.7954676 C16.8975469,12.1524399 16.8975469,12.7312063 16.5405747,13.0881786 L13.9551528,15.6736004 C13.5981805,16.0305727 13.0194142,16.0305727 12.6624419,15.6736004 L9.75384232,12.7650008" id="Path" fill-rule="nonzero"></path>
+                    <path d="M6.85874127,0.458245546 C6.55498466,0.458245546 6.30874127,0.704488934 6.30874127,1.00824555 L6.30874127,14.4994381 C6.30874127,14.5953627 6.33382926,14.6896193 6.38151489,14.7728516 L8.35943786,18.2251933 C8.40721741,18.3085896 8.47601708,18.3780091 8.55898143,18.4265347 C8.82118134,18.5798947 9.1580592,18.4916625 9.31141919,18.2294626 L11.3334962,14.7723128 C11.3827711,14.6880675 11.4087413,14.5922276 11.4087413,14.49463 L11.4087413,1.00824555 C11.4087413,0.704488934 11.1624979,0.458245546 10.8587413,0.458245546 L6.85874127,0.458245546 Z" id="Rectangle-Copy-5" transform="translate(8.858741, 9.480093) rotate(-315.000000) translate(-8.858741, -9.480093) "></path>
+                    <path d="M11.5,3.45405845 L14.8248505,6.77890898" id="Line-2-Copy" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M3.5,11.4540585 L6.82485053,14.778909" id="Line-2-Copy-2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

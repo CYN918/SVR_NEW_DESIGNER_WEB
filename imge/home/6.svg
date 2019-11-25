@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="158px" height="133px" viewBox="0 0 158 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>Home_icon_illustration</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#C8B6FB" offset="0%"></stop>
+            <stop stop-color="#814FDA" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#7D4AD8" offset="0%"></stop>
+            <stop stop-color="#CCBDFD" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="7.55621258%" y1="38.9273356%" x2="92.6255568%" y2="61.0726644%" id="linearGradient-3">
+            <stop stop-color="#8353DB" offset="0%"></stop>
+            <stop stop-color="#C4B2F9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="7.55621258%" y1="18%" x2="92.6255568%" y2="82%" id="linearGradient-4">
+            <stop stop-color="#8353DB" offset="0%"></stop>
+            <stop stop-color="#C4B2F9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="7.55621258%" y1="38.9273356%" x2="92.6255568%" y2="61.0726644%" id="linearGradient-5">
+            <stop stop-color="#8353DB" offset="0%"></stop>
+            <stop stop-color="#C4B2F9" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="7.55621258%" y1="15.2777778%" x2="92.6255568%" y2="84.7222222%" id="linearGradient-6">
+            <stop stop-color="#E89DFE" offset="0%"></stop>
+            <stop stop-color="#C88BEF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-7">
+            <stop stop-color="#7634CD" offset="0%"></stop>
+            <stop stop-color="#7634CD" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01-首页" transform="translate(-1286.000000, -1253.000000)">
+            <g id="Group-10" transform="translate(471.000000, 958.000000)">
+                <g id="Home_icon_illustration" transform="translate(815.000000, 291.000000)">
+                    <g id="Group-34" transform="translate(9.000000, 45.000000)">
+                        <path d="M66.4954968,30.9881089 C36.758478,30.090857 -5.33986838,49.0737119 16.0543767,74.4182689 C37.4486218,99.7628258 116.084599,92.4932611 133.586163,78.2210113 C151.087727,63.9487616 128.90786,59.4229048 112.881883,49.7198791 C96.8559065,40.0168534 96.2325156,31.8853608 66.4954968,30.9881089 Z" id="Path-2-Copy" fill="url(#linearGradient-1)" opacity="0.200000003"></path>
+                        <path d="M59.537208,0.050594798 C29.0679513,-1.31423908 -16.127698,25.0623938 5.79335434,63.6146776 C27.7144067,102.166961 110.347381,93.6077277 128.2799,71.8978267 C146.212419,50.1879256 123.4864,43.3035238 107.065803,28.5439917 C90.6452059,13.7844596 90.0064648,1.41542867 59.537208,0.050594798 Z" id="Path-2-Copy-2" fill="url(#linearGradient-2)" fill-rule="nonzero"></path>
+                        <ellipse id="Oval" fill="#FFFFFF" opacity="0.300000012" cx="48.9421237" cy="20.1099469" rx="7.11124875" ry="4.60139625"></ellipse>
+                        <ellipse id="Oval-Copy-4" fill="#FFFFFF" opacity="0.5" cx="27.1900688" cy="40.1887669" rx="7.11124875" ry="4.60139625"></ellipse>
+                        <ellipse id="Oval-Copy-5" fill="#FFFFFF" opacity="0.699999988" cx="36.3928612" cy="62.7774394" rx="7.11124875" ry="4.60139625"></ellipse>
+                        <ellipse id="Oval-Copy-6" fill="#FFFFFF" cx="69.0209438" cy="70.3069969" rx="7.11124875" ry="4.60139625"></ellipse>
+                        <ellipse id="Oval-Copy-7" fill="#FFFFFF" cx="107.08704" cy="60.2675869" rx="14.2224975" ry="9.62110125"></ellipse>
+                    </g>
+                    <ellipse id="Oval" fill="#8353DB" opacity="0.449999988" cx="81.245" cy="86.53" rx="16.245" ry="6.84"></ellipse>
+                    <path d="M13.8448573,56 C21.4911609,56 18.4781177,48.0744527 28.9468204,49.9431573 C39.415523,51.811862 32.3637908,39.7765589 19.2507938,40.0031617 C6.13779669,40.2297645 0,44.7892635 0,48.7779123 C0,52.7665612 6.19855377,56 13.8448573,56 Z" id="Oval-Copy-3" fill="url(#linearGradient-3)" opacity="0.449999988"></path>
+                    <path d="M71.5200632,35 C79.9534863,35 76.6302769,20.1395988 88.1766401,23.64342 C99.7230034,27.1472412 91.9453575,4.5810479 77.4824931,5.0059282 C63.0196287,5.43080851 56.25,13.979869 56.25,21.4585856 C56.25,28.9373023 63.0866402,35 71.5200632,35 Z" id="Oval-Copy-11" fill="url(#linearGradient-4)" opacity="0.100000001" transform="translate(75.000000, 20.000000) rotate(166.000000) translate(-75.000000, -20.000000) "></path>
+                    <path d="M147.922429,78 C151.74558,78 150.239059,74.0372264 155.47341,74.9715787 C160.707762,75.905931 157.181895,69.8882794 150.625397,70.0015809 C144.068898,70.1148823 141,72.3946317 141,74.3889562 C141,76.3832806 144.099277,78 147.922429,78 Z" id="Oval-Copy-10" fill="url(#linearGradient-5)" opacity="0.449999988" transform="translate(149.500000, 74.000000) scale(-1, -1) translate(-149.500000, -74.000000) "></path>
+                    <g id="Group-35" transform="translate(73.695000, 8.000000)">
+                        <path d="M0.44,79.0437914 C16.7693316,82.1869413 26.7693316,77.5812136 30.44,65.2266081 C27.0960761,61.6355374 23.8725216,58.226668 20.7693365,55 C14.7597213,55.9439737 11.043221,58.9616669 9.61983557,64.0530798 C8.19645014,69.1444927 5.13650495,74.1413966 0.44,79.0437914 Z" id="Path-8" fill="url(#linearGradient-6)"></path>
+                        <path d="M20.44,54.8455286 L75.079759,3.28306766 C77.0266783,1.44579839 80.073944,1.46350448 81.9993817,3.323274 C83.9052402,5.16413212 83.9733353,8.19636708 82.152037,10.1209262 L30.217459,65 L30.217459,65 L20.44,54.8455286 Z" id="Path-9" fill="url(#linearGradient-7)" fill-rule="nonzero"></path>
+                        <polygon id="Path-3" fill="#7F4CD9" points="20.44 54.6577389 29.9787163 65 33.44 61.2094165 24.1080387 51"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

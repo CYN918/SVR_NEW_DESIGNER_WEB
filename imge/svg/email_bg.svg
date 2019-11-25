@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="876px" height="511px" viewBox="0 0 876 511" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>email_bg</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="15" y="0" width="830" height="425"></rect>
+        <filter x="-1.6%" y="-2.6%" width="103.1%" height="106.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M852.565573,147.642595 L432.900174,381.571499 C431.388276,382.414258 429.548044,382.41511 428.035366,381.573751 L7.43038151,147.631327 C5.01712808,146.289064 1.97268077,147.157274 0.63041813,149.570527 C0.216980556,150.313846 3.44854999e-15,151.150348 0,152.000909 L0,490.498514 C-3.15461039e-14,493.259938 2.23857625,495.498514 5,495.498514 L855,495.498514 C857.761424,495.498514 860,493.259938 860,490.498514 L860,152.009925 C860,149.248501 857.761424,147.009925 855,147.009925 C854.14787,147.009925 853.309879,147.227706 852.565573,147.642595 Z" id="path-3"></path>
+        <filter x="-1.5%" y="-3.2%" width="103.0%" height="107.5%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="shiquaner" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="06_ZHSZ_JBXX_YXJH_FSTS" transform="translate(-522.000000, -286.000000)">
+            <g id="Group-5" transform="translate(530.000000, 292.000000)">
+                <g id="email_bg">
+                    <g id="Rectangle">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                    <path d="M0,143 L860,143" id="Line-14" stroke="#979797" opacity="0.05" stroke-linecap="square"></path>
+                    <path d="M15.9367946,80 L845,80" id="Line-15" stroke="#979797" opacity="0.200000003" stroke-linecap="square" stroke-dasharray="2,5"></path>
+                    <g id="Path-3">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

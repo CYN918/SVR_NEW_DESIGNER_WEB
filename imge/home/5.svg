@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="130px" height="114px" viewBox="0 0 130 114" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>Home_icon_script</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#AFCBFF" offset="0%"></stop>
+            <stop stop-color="#6BAEFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#AFCBFF" offset="0%"></stop>
+            <stop stop-color="#6BAEFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#AFCBFF" offset="0%"></stop>
+            <stop stop-color="#6BAEFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01-首页" transform="translate(-894.000000, -1260.000000)">
+            <g id="Group-10" transform="translate(471.000000, 958.000000)">
+                <g id="Home_icon_script" transform="translate(423.000000, 302.000000)">
+                    <rect id="Rectangle-Copy-92" fill="url(#linearGradient-1)" fill-rule="nonzero" opacity="0.200000003" x="0" y="12" width="130" height="90" rx="3.645"></rect>
+                    <rect id="Rectangle" fill="url(#linearGradient-2)" fill-rule="nonzero" opacity="0.5" x="10" y="6" width="110" height="102" rx="4.05"></rect>
+                    <g id="Group-37" transform="translate(20.000000, 0.000000)">
+                        <rect id="Rectangle-Copy-91" fill="url(#linearGradient-3)" fill-rule="nonzero" x="7.10542736e-15" y="0" width="90" height="114" rx="4.5"></rect>
+                        <g id="Group-50" transform="translate(36.200000, 74.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+                            <polyline id="Path" transform="translate(10.371870, 14.187692) rotate(-45.000000) translate(-10.371870, -14.187692) " points="3.27802395 21.2815385 3.28172452 7.09754673 3.28172452 7.09754673 17.4657163 7.09384615"></polyline>
+                            <polyline id="Path-Copy-2" transform="translate(28.810805, 14.187692) scale(-1, 1) rotate(-45.000000) translate(-28.810805, -14.187692) " points="21.7169584 21.2815385 21.720659 7.09754673 21.720659 7.09754673 35.9046507 7.09384615"></polyline>
+                            <path d="M23.8,1 L15.8,27" id="Line-13"></path>
+                        </g>
+                        <rect id="Rectangle" fill="#FFFFFF" x="9.7" y="14" width="54" height="4" rx="2"></rect>
+                        <rect id="Rectangle-Copy-89" fill="#FFFFFF" x="9.7" y="24" width="42.3" height="4" rx="2"></rect>
+                        <rect id="Rectangle-Copy-93" fill="#FFFFFF" opacity="0.600000024" x="9.7" y="44" width="42.3" height="4" rx="2"></rect>
+                        <rect id="Rectangle-Copy-90" fill="#FFFFFF" opacity="0.600000024" x="9.7" y="34" width="32.4" height="4" rx="2"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

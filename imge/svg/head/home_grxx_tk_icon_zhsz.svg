@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="16px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>Top bar_photo_pulldown_icon_setting_defualt_28px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02_我的项目_头像_下拉列表" transform="translate(-1671.000000, -297.000000)" fill-rule="nonzero" stroke="#000000">
+            <g id="HOME_TX_TK" transform="translate(1652.000000, 60.000000)">
+                <g id="pull-down_list/style-copy-3" transform="translate(0.000000, 225.000000)">
+                    <g id="pull-down_list/style/nor">
+                        <g id="icon_style/28px">
+                            <g transform="translate(14.000000, 6.000000)">
+                                <g id="icon_style/28px/icon">
+                                    <g transform="translate(5.000000, 7.000000)">
+                                        <g id="Top-bar_photo_pulldown_icon_setting_defualt_28px">
+                                            <g id="设置" transform="translate(8.833333, 7.000000) rotate(-270.000000) translate(-8.833333, -7.000000) translate(1.833333, -1.500000)">
+                                                <path d="M14,5.12570912 L14,11.2076242 C14,11.8530941 13.657161,12.4499894 13.0996178,12.775223 L7.9144326,15.7999143 C7.3493673,16.1295357 6.6506327,16.1295357 6.0855674,15.7999143 L0.900382213,12.775223 C0.342838968,12.4499894 -8.0913116e-16,11.8530941 0,11.2076242 L0,5.12570912 C1.09577736e-15,4.48023926 0.342838968,3.88334394 0.900382213,3.55811038 L6.0855674,0.533419018 C6.6506327,0.203797593 7.3493673,0.203797593 7.9144326,0.533419018 L13.0996178,3.55811038 C13.657161,3.88334394 14,4.48023926 14,5.12570912 Z" id="Path"></path>
+                                                <path d="M7,10.5 C8.28876252,10.5 9.33333333,9.45519772 9.33333333,8.16666667 C9.33333333,6.87813562 8.28875389,5.83333333 7,5.83333333 C5.71123748,5.83333333 4.66666667,6.87813562 4.66666667,8.16666667 C4.66666667,9.45519772 5.71124611,10.5 7,10.5 Z" id="Path"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
