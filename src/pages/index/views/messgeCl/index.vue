@@ -60,8 +60,10 @@ export default {
 				this.$router.push({path: '/setSecurity'})
 			}
 			if(data.operate=='login'){
-
-				this.api.getSelfInfo({}).then((da)=>{
+				let pr = {
+					access_token:data.res.data.access_token
+				};
+				this.api.getSelfInfo(pr).then((da)=>{
 					if(da=='error'){return}
 					da.access_token = data.res.data.access_token;
 					window.userInfo = da;

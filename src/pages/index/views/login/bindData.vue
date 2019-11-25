@@ -147,6 +147,8 @@ export default {
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 			}
+			
+			
 			let pr = {
 				access_token:window.userInfo.access_token,
 				type:'third_login',
