@@ -466,7 +466,20 @@ export default {
 	margin-right: 31px;
 }
 
-
+@media screen and (max-width: 1440px) {
+    .header_1 {
+        left: 60px; 
+    }
+	.header_2{
+		margin-left: 274px;
+	}
+	.header_2>a{
+		margin: 0 30px;
+	}
+	.header_3{
+		margin-right: 60px;
+	}
+}
 .header_4{
     margin-right: 0 !important;
 	cursor: pointer;
