@@ -468,16 +468,16 @@ export default {
 
 @media screen and (max-width: 1440px) {
     .header_1 {
-        left: 60px; 
+        left: 60px !important;; 
     }
 	.header_2{
-		margin-left: 274px;
+		margin-left: 274px !important;;
 	}
 	.header_2>a{
-		margin: 0 30px;
+		margin: 0 30px !important;;
 	}
 	.header_3{
-		margin-right: 60px;
+		margin-right: 60px !important;
 	}
 }
 .header_4{
