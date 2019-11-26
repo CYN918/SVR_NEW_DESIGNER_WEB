@@ -24,9 +24,9 @@
 					</div>
 					<div class="cavar_l_2">
 						<div @click="clickIn" class="cavar_l_2_1 pend">重新上传</div>
-						<img class="pend" @click="changeScale(1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_01.png"/>
-						<img class="pend" @click="changeScale(-1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_02.png"/>
-						<img class="pend" @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_03.png"/>				
+						<img class="pend" @click="changeScale(1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_01.png"/>
+						<img class="pend" @click="changeScale(-1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_02.png"/>
+						<img class="pend" @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_03.png"/>				
 					</div>
 				</div>
 				<div class="cavar_r">
@@ -64,7 +64,7 @@ export default {
 			previewStyle2:{},
 			previews:{},
 			option:{
-				img:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/login/tx.svg',
+				img:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/login/tx.svg',
 				outputSize:1,
 				outputType:'png',
 				autoCrop:true,

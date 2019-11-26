@@ -21,9 +21,9 @@
 				<div class="home_0x5_1">
 					<div>专业平台把控项目质量，没有头疼的甲方</div>
 					月入2万的设计师们在与我们长期合作，你也可以一起加入。
-				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/7.svg"/>
+				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/7.svg"/>
 			</div><div>
-				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/9.svg"/>
+				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/9.svg"/>
 				<div class="home_0x5_1">
 					<div>收益成长累计，越赚越多</div>
 					累计收益越多，每次完成项目的收益加成额度越大
@@ -32,9 +32,9 @@
 				<div class="home_0x5_1">
 					<div>交稿作品分发渠道覆盖近7亿用户曝光</div>
 					龙头合作品牌覆盖73%安卓移动终端，而你只需提供灵感创意。
-				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/8.svg"/>
+				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/8.svg"/>
 			</div><div>
-				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/10.svg"/>
+				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/10.svg"/>
 				<div class="home_0x5_1">
 					<div>项目众多，长期供给，每周更新</div>
 					一经中标，最终交稿作品100%验收，每一次的创作都有价值
@@ -69,12 +69,12 @@ export default {
 	data(){
 		return {
 			Ds_01:[
-				{n:'UI图标',t:'UI Icon',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/1.svg'},
-				{n:'摄影',t:'Photography',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/2.svg'},
-				{n:'视觉设计',t:'Visual Design',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/3.svg'},
-				{n:'动效制作',t:'Animation production',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/4.svg'},
-				{n:'脚本制作',t:'Script production',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/5.svg'},
-				{n:'插画',t:'Illustration',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/home/6.svg'}
+				{n:'UI图标',t:'UI Icon',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/1.svg'},
+				{n:'摄影',t:'Photography',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/2.svg'},
+				{n:'视觉设计',t:'Visual Design',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/3.svg'},
+				{n:'动效制作',t:'Animation production',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/4.svg'},
+				{n:'脚本制作',t:'Script production',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/5.svg'},
+				{n:'插画',t:'Illustration',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/6.svg'}
 			],
 			List:[],
 		}

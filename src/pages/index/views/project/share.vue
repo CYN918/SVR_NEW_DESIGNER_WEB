@@ -9,15 +9,15 @@
 				<div class="xm_shar_01_3">
 					
 					<a @click="tzld(fxUrl1,'新浪')">
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/wb.svg" alt="">
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/wb.svg" alt="">
 						新浪
 					</a>
 					<a @click="tzld(fxUrl2,'QQ')">
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/qq.svg" alt="">
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/qq.svg" alt="">
 						QQ
 					</a>
 					<a @click="tzld(fxUrl3,'QQ空间')">
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/kj.svg" alt="">
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/kj.svg" alt="">
 						QQ空间
 					</a>
 				</div>

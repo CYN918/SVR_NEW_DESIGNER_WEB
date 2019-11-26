@@ -1,11 +1,11 @@
 <template>
 		<div>
 			<div class="em_01">
-				<img class="em_bg" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/email_bg.svg"/>
+				<img class="em_bg" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/email_bg.svg"/>
 				<div class="em_02">
 					<div class="em_03">邮箱激活</div>
 					<div class="em_04">
-						<img class="em_05" :src="'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/'+da.u+'.svg'"/>
+						<img class="em_05" :src="'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/'+da.u+'.svg'"/>
 						<div class="em_06" v-if="setData.type!=2">
 							<div class="em_07">{{da.t}}</div>
 							<div class="em_08">

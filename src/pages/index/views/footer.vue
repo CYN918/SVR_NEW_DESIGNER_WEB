@@ -10,7 +10,7 @@
 				
 			</div>
 			<div class="footerBox_2">
-				<span>© 2015-2019 深圳掌酷软件有限公司</span><a target="_blank" @click="banh" href="http://beian.miit.gov.cn">粤ICP备15039011号</a><a target="_blank" href="http://www.beian.gov.cn"><img class="footer_ga" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/footer_ga.png">粤公网安备 44030502004296号</a>
+				<span>© 2015-2019 深圳掌酷软件有限公司</span><a target="_blank" @click="banh" href="http://beian.miit.gov.cn">粤ICP备15039011号</a><a target="_blank" href="http://www.beian.gov.cn"><img class="footer_ga" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/footer_ga.png">粤公网安备 44030502004296号</a>
 			</div>
 			<feedback ref="feedback"></feedback>
 			

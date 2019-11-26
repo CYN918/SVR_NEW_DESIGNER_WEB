@@ -43,7 +43,7 @@
 					</div>
 			</div>
 			<div v-if="nodata" class="ms_r_2">
-				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
+				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/empty_nodata.svg" alt="">
 				你的数据去火星了
 			</div>
 			<el-pagination class="cmmm_1" v-if="total>10"

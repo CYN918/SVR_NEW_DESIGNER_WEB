@@ -114,7 +114,7 @@ export default {
 				cent:'确定删除该条评论?',
 			},
 			shareData:{},
-			userBg:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/grzx_bg.svg',
+			userBg:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/grzx_bg.svg',
 			previewStyle2:{},
 			previews:{},
 			option:{

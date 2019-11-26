@@ -72,11 +72,11 @@ img{
 }
 @font-face {
 	font-family: 'iconfont';
-	src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.eot');
-	src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.eot?#iefix') format('embedded-opentype'),
-	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.woff') format('woff'),
-	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.ttf') format('truetype'),
-	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.svg#iconfont') format('svg');
+	src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/font/iconfont.eot');
+	src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/font/iconfont.eot?#iefix') format('embedded-opentype'),
+	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/font/iconfont.woff') format('woff'),
+	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/font/iconfont.ttf') format('truetype'),
+	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/font/iconfont.svg#iconfont') format('svg');
 }
 .hft{
 	overflow: hidden;
@@ -588,22 +588,22 @@ img{
 	margin: 15px 86px 0;
 }
 .dsf_qq{
-	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/login/qq.svg) no-repeat 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/login/qq.svg) no-repeat 0/100%;
 }
 .dsf_qq:hover{
-	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/qq.svg) no-repeat 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/qq.svg) no-repeat 0/100%;
 }
 .dsf_wb{
-	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/login/wb.svg) no-repeat 0 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/login/wb.svg) no-repeat 0 0/100%;
 }
 .dsf_wb:hover{
-	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/wb.svg) no-repeat 0 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/wb.svg) no-repeat 0 0/100%;
 }
 .dsf_wx{
-	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/login/wx.svg) no-repeat 0 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/login/wx.svg) no-repeat 0 0/100%;
 }
 .dsf_wx:hover{
-	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/wx.svg) no-repeat 0 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/wx.svg) no-repeat 0 0/100%;
 }
 .lgoin_s6>img{
 	display: inline-block;

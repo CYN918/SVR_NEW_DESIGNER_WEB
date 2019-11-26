@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/header/logo.svg" @click="jump">
+		<img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg" @click="jump">
 		
 		<div class="header_2">
 			<a 
@@ -14,7 +14,7 @@
 		<div class="header_3">
 			<span :class="['searcBox',searchType?'issearch':'']">
 				<span @click="showsearch()" class="pdxf iconfont pend">
-					<img class="head_top1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/head/top1.svg"/>
+					<img class="head_top1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/head/top1.svg"/>
 				</span>
 				
 				<el-input v-if="searchType" class="searcBox4"  @keyup.enter.native="keydown($event)" @blur="hind" ref="serll" v-model="searcCont" placeholder="请输入搜索内容"></el-input>
@@ -40,12 +40,12 @@
 					</div>
 					
 				</div>
-				<img v-if="searchType" class="searcBox6 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/cj_00.svg">
+				<img v-if="searchType" class="searcBox6 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg">
 			</span>
 
 			<span class="iconfont  messgeH1">
 				<span class="pend" @click="showisXXNav">
-					<img class="head_top2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/head/top2.svg"/>
+					<img class="head_top2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/head/top2.svg"/>
 				<div @click="showisXXNav" v-if="messgNum && messgNum.unread_total_num>0" :class="['messgeH2',messgNum.unread_total_num>9?'messgeH2x':'']">{{backXXnUM(messgNum.unread_total_num)}}</div></span>
 				
 				<div v-if="isXXNav" @click="hidisXXNav" class="messgeH3Boxf1"></div>
@@ -65,7 +65,7 @@
 								</li>							
 							</ul>
 							
-							<div v-if="mData.length==0" class="messgeH3_2_1"><img  src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/wxx.png" alt="">暂无新的消息</div>
+							<div v-if="mData.length==0" class="messgeH3_2_1"><img  src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/wxx.png" alt="">暂无新的消息</div>
 						</div>
 						
 						
@@ -78,19 +78,19 @@
 			</span>
 
 			<span class="iconfont pend" @click="goUpload">
-				<img class="head_top3" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/head/top3.svg"/>
+				<img class="head_top3" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/head/top3.svg"/>
 			</span>
 			<span class="header_4" v-if="userMssge">
 				<div @click="goUser('头像')"><img :src="mJs.Cavars(userMssge.avatar)"/></div>
 				<div  class="userBpx">
 					<a @click="goUser('昵称')">{{backnAM(userMssge.username)}}</a>
 					<ul> 
-						<a @click="goZP('/projectAll','我的项目')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdxm.svg" alt="" />我的项目</li></a>						
-						<a @click="goZP('/myAll','我的创作')"><li><img class="svgImg2 svgImg2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></a>
-						<a @click="goZP('/myDynamic','我的关注')"><li><img class="svgImg2 svgImg2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></a>
-						<a @click="goZP('/profit','我的收益')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></a>
-						<a @click="goZP('/setUser','账号设置')"><li><img class="svgImg2 svgImg2_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></a>
-						<a @click="showHb()"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
+						<a @click="goZP('/projectAll','我的项目')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_wdxm.svg" alt="" />我的项目</li></a>						
+						<a @click="goZP('/myAll','我的创作')"><li><img class="svgImg2 svgImg2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></a>
+						<a @click="goZP('/myDynamic','我的关注')"><li><img class="svgImg2 svgImg2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></a>
+						<a @click="goZP('/profit','我的收益')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></a>
+						<a @click="goZP('/setUser','账号设置')"><li><img class="svgImg2 svgImg2_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></a>
+						<a @click="showHb()"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
 					</ul>
 				</div>
 			</span>	
@@ -222,7 +222,7 @@ export default {
 			this.$router.push({path:'/searchProject',query:{cont:na}});
 		},
 		hind(){
-			
+
 			setTimeout(()=>{
 				this.searchType=false;
 				this.searcCont='';
@@ -244,8 +244,8 @@ export default {
 			
 		},
 		backnav(on,on2){
-			// https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img
-			let str = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/xx_'+on2;
+			// https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img
+			let str = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/xx_'+on2;
 			if(this.navType!=on){
 				str+=on2+'.svg';
 			}else{
@@ -668,7 +668,7 @@ export default {
 	box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);
 	border-radius: 5px;
     width: 240px;
-    z-index: 99;
+    z-index: 1001;
 
     -webkit-animation: xs .5s .3s forwards;
     animation: xs .5s .3s forwards;
@@ -845,7 +845,8 @@ export default {
 	display: inline-block;
     width: 20px;
     height: 20px;
-    vertical-align: bottom;
+    vertical-align: top;
+	margin-top: 10px;
     margin-right: 4px;
     border-radius: 50%;
 }

@@ -4,7 +4,7 @@
 			
 			<div class="ms_r_3" v-if="listData.length>0">
 				<div v-for="(el,index) in listData" :key="index">
-						<img class="comment_1" @click="goUserIn(index)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/GFMRTX.svg" alt="">
+						<img class="comment_1" @click="goUserIn(index)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/GFMRTX.svg" alt="">
 						<div class="comment_2 comment_2xss">
 							<div class="comment_2_1" @click="goUserIn(index)">{{(el.op==3 || el.op==4)?el.user_info.username:el.title}}<span class="comment_2_2">{{backtime(el.create_time)}}</span></div>
 							<div class="comment_2_5" v-html="backCom(el.content)"></div>
@@ -18,7 +18,7 @@
 				</p>				
 			</div>
 			<div v-if="nodata" class="ms_r_2">
-				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
+				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/empty_nodata.svg" alt="">
 				你的数据去火星了
 			</div>
 			

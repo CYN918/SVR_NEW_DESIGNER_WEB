@@ -1,6 +1,6 @@
 <template>
 	<div class="special_first">
-		<img class="special_first_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/special/first/banner.png" alt="">
+		<img class="special_first_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/special/first/banner.png" alt="">
 		<div class="special_first_btn_1" @click="go1()"></div>
 		<div class="special_first_btn_2" @click="go2()"></div>
 		<div class="special_first_btn_3" @click="go3(1)"></div>

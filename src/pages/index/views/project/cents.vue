@@ -15,11 +15,11 @@
 						</div>
 						<div>
 							<div class="cens_x4">
-								<div class="icon_ff_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/04.svg"/>预计收益</div>
-								<div class="cens_x4_1 f_a">{{deta.expected_profit}}<img @mouseout="mod()" @mouseover="modx($event,1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/09.svg" ></div>
+								<div class="icon_ff_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/04.svg"/>预计收益</div>
+								<div class="cens_x4_1 f_a">{{deta.expected_profit}}<img @mouseout="mod()" @mouseover="modx($event,1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg" ></div>
 							</div>
 							<div class="cens_x5">
-								<div class="icon_ff_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/08.svg"/>制作周期</div>
+								<div class="icon_ff_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/08.svg"/>制作周期</div>
 								<div  class="cens_x4_1 cens_x4_1_x1" v-html="backZq(deta.production_cycle_d,deta.production_cycle_h)">
 									
 								</div>
@@ -28,12 +28,12 @@
 							
 						</div>
 						<div v-if="deta.status==1 || deta.status==2">
-							<div class="icon_ff_1"><img class="icon_ff_1_x1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/05.svg"><span class="f_a">{{deta.sign_up_num}}</span>人已报名</div>
+							<div class="icon_ff_1"><img class="icon_ff_1_x1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/05.svg"><span class="f_a">{{deta.sign_up_num}}</span>人已报名</div>
 						</div>
 					</div>
 			
 					<div v-if="deta.template_file_url" @click="dowloadmb(deta)" class="pend pr_down_mb">
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/project/icon_download.svg"/>下载附件 ({{deta.template_file_size}})
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/project/icon_download.svg"/>下载附件 ({{deta.template_file_size}})
 					</div>
 				</div>
 				
@@ -456,19 +456,19 @@ export default {
 	margin-bottom: 5px;
 }
 .centShar_1{
-	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/06.svg) no-repeat;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/06.svg) no-repeat;
 }
 .centShar_2{
-	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/07.svg) no-repeat;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/07.svg) no-repeat;
 }
 .movfx_01,.movfx_02{
 	cursor: pointer;
 }
 .movfx_01:hover>.centShar_1{
-	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/fx_02.svg) no-repeat;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/fx_02.svg) no-repeat;
 }
 .movfx_02:hover>.centShar_2{
-	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/kf_02.svg) no-repeat;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/kf_02.svg) no-repeat;
 }
 .icon_ff_1>.icon_ff_1_x1{
 	margin-top: -5px;

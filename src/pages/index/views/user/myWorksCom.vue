@@ -11,7 +11,7 @@
 						</div>
 						<div @click="openxq(todo)" class="myListBox_2">
 							<span class="myListBox_2_1" :title="todo.work_name">{{todo.work_name}}</span>
-							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/icon_r.svg">
+							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg">
 						</div>
 						
 						<div @click="openxq(todo)" class="myListBox_3">
@@ -109,7 +109,7 @@
 		<div v-show="issetDatasXX" class="setDatasXX">
 			<div class="setDatasXX_1">
 				
-				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" alt="">
+				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_00.png" alt="">
 				<div class="ydbbdf">
 				<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
 				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
@@ -220,7 +220,7 @@ export default {
 		},
 		backFm(ur){
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
-				return 'background-image: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/com/no_img.svg);background-size:70%;';
+				return 'background-image: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/com/no_img.svg);background-size:70%;';
 			}
 			return 'background-image: url('+ur+'?x-oss-process=image/resize,w_307);';
 			

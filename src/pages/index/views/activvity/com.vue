@@ -48,7 +48,7 @@
 							<img class="zp_box_1" :src="el.face_pic">
 							<div class="zp_box_2">
 								{{el.work_name.slice(0,10)}}
-								<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg" alt="">
+								<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/zs_icon_tj.svg" alt="">
 							</div>
 							<div class="zp_box_3">
 								{{el.classify_1_name+'-'+el.classify_2_name}}
@@ -65,7 +65,7 @@
 						</li>
 						<div ref="botmm"></div>
 						<div v-if="isnoData">
-							<img  class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
+							<img  class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/k/empty_nodata@3x.png"/>
 							<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
 						</div>
 						
@@ -81,7 +81,7 @@
 		
 		<div v-if="ishowzp" class="pushDeletBox">
 			<div class="pushDeletBox1">
-				<img class="pushDeletBox2" @click="closeZp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
+				<img class="pushDeletBox2" @click="closeZp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_00.png">
 				<div class="pushDeletBox3">选择参与活动的作品</div>
 				
 			</div>
@@ -89,7 +89,7 @@
 		
 		<div v-if="ishowWp" class="pushDeletBox">
 			<div class="pushDeletBox1_x2">
-				<img class="pushDeletBox2" @click="closeWp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
+				<img class="pushDeletBox2" @click="closeWp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_00.png">
 				<div class="pushDeletBox1_x2_1" v-html="wpdz"></div>
 				<div class="botnbox"><span @click="closeWp" class="pend">关闭</span></div>
 			</div>

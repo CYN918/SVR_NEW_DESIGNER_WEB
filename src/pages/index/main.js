@@ -9,7 +9,7 @@ import mJs from '../../assets/comm.js'
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
 Vue.prototype.mJs = mJs
-Vue.prototype.imU = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/'
+Vue.prototype.imU = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/'
 Vue.prototype.api.mcommjs = window.mycomJs;
 
 Vue.prototype.Static = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB';

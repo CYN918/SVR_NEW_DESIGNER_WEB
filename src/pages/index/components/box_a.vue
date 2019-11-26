@@ -6,7 +6,7 @@
 		<div class="wk_a_2">
 			<div class="wk_a_2_1">
 				<span class="hft">{{el.work_name}}</span>
-				<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/icon_r.svg" />
+				<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg" />
 			</div>
 			<div class="wk_a_2_2">
 				<span>{{el.classify_1_name}}</span>{{el.classify_2_name+'-'+el.classify_3_name}}
@@ -46,9 +46,9 @@ export default {
 		return{
 			shareData:{},
 			icons:[
-				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_gk.svg',n:'view_num'},
-				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_dz.svg',n:'like_num'},
-				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_xx.svg',n:'comment_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_gk.svg',n:'view_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_dz.svg',n:'like_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_xx.svg',n:'comment_num'},
 				
 			],
 			showtIP:'',
@@ -105,7 +105,7 @@ export default {
 		},
 		backBn(ur){			
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
-				return 'background-image: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/com/no_img.svg);background-size:70%;';
+				return 'background-image: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/com/no_img.svg);background-size:70%;';
 			}
 			return 'background-image: url('+ur+'?x-oss-process=image/resize,w_307);';
 		},

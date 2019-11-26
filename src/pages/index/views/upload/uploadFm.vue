@@ -5,7 +5,7 @@
 				<div class="upFm_l_1">封面预览</div>
 				<workDom class="upFm_l_2" v-if="moData.work_name" :el="moData"></workDom>
 				<div class="fm_dmoBg">
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/log.svg"/>
+					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/log.svg"/>
 				</div>
 				<div class="ylt_pidf">
 					<div :style="previewStyle2">
@@ -25,7 +25,7 @@
 				<div class="upFm_r_1">
 					<div v-if="!previews.url" class="upFm_r_1_1">
 						<div @click="fild" class="myjsg_01 pend">
-							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/icon_add.svg"/>
+							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_add.svg"/>
 							添加封面
 						</div>						
 						<div class="upFm_r_1_1_2">
@@ -59,9 +59,9 @@
 				</div>
 				<div class="upFm_r_2">
 					<span @click="fild" class="pend">重新上传</span>
-					<img class="pend" @click="changeScale(1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_fd.svg" alt="">
-					<img class="pend" @click="changeScale(-1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_sx.svg" alt="">
-					<img class="pend" @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_sz.svg" alt="">				
+					<img class="pend" @click="changeScale(1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/upload/yh_zlws_tx_fd.svg" alt="">
+					<img class="pend" @click="changeScale(-1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/upload/yh_zlws_tx_sx.svg" alt="">
+					<img class="pend" @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/upload/yh_zlws_tx_sz.svg" alt="">				
 				</div>			
 			</div>
 		</div>

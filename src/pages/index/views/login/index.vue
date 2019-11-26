@@ -44,7 +44,7 @@ export default {
 	min-height: 100% !important;
 }
 .loginBox{
-	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/lo1.jpg) no-repeat 0 0/cover;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/lo1.jpg) no-repeat 0 0/cover;
 }
 .loginfooter{
 	background: linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
