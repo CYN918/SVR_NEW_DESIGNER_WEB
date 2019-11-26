@@ -91,8 +91,8 @@ export default {
 				outputSize:4,
 				outputType:'png',
 				autoCrop:true,
-				autoCropWidth:310,
-				autoCropHeight:373,
+				autoCropWidth:577,
+				autoCropHeight:433,
 				fixedBox:true,
 				
 			},
