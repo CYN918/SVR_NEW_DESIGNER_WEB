@@ -436,6 +436,7 @@ export default {
 	left: 100px;   
     width: 134px;
 }
+
 .header_2{
 	text-align: left;
 	margin-left: 310px;
@@ -465,7 +466,20 @@ export default {
 	line-height: 60px;
 	margin-right: 31px;
 }
-
+@media screen and (max-width: 1440px) {
+    .header_1 {
+        left: 60px !important;; 
+    }
+	.header_2{
+		margin-left: 274px !important;;
+	}
+	.header_2>a{
+		margin: 0 30px !important;;
+	}
+	.header_3{
+		margin-right: 60px !important;
+	}
+}
 
 .header_4{
     margin-right: 0 !important;

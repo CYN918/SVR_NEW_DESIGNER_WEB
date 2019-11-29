@@ -52,7 +52,8 @@ export default {
 					this.List = this.List.concat(da.data);
 					return
 				}
-				this.List = da.data;								
+				this.List = da.data;	
+				console.log(this.List);
 			}).catch(()=>{
 
 			})
