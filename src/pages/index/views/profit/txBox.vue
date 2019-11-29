@@ -99,7 +99,7 @@
 						<div><span>开户银行</span><span>中国银行深圳科技园支行</span></div>
 						<div><span>企业银行账号</span><span>749763916542</span></div>
 						<div><span>税号</span><span>9144030031 1975518G</span></div>
-						<div><span>联系地址</span><span>广东省深圳市南山区高新园中区科技路11号 伟杰大厦2楼212</span></div>
+						<div><span>联系地址</span><span>广东省深圳市南山区高新南区科苑南路3176号彩讯科创中心9楼</span></div>
 					</div>
 					<div class="txTbox_t">寄送信息</div>
 					<div class="txTbox_c zyfb">
