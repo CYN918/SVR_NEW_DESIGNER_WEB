@@ -17,8 +17,9 @@
 						<span>职业</span><span>{{userInfo.vocation}}</span>
 					</div>
 					<div v-if="userInfo.education_school">
-						<span class="forddf">学校</span><span>{{userInfo.education_school}}</span>
+						<span>学校</span><span>{{userInfo.education_school}}</span>
 					</div>
+
 					<div>
 						<span>所在地</span><span>{{userInfo.province+' '+userInfo.city}}</span>
 					</div>
