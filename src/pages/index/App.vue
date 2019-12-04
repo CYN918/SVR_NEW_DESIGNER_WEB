@@ -454,9 +454,10 @@ img{
 
 .login_1{
 	position: fixed;
+	right: 12%;
 	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
 	width: 480px;
 }
 .login_2{
@@ -500,21 +501,15 @@ img{
 	margin-top: 17px;
 	margin-bottom: 22px;
 	width: 100%;
-	color:rgba(187,187,187,1);
-	background: #dfdfdf !important;
-	border-color:#dfdfdf  !important;
+	color:#fff;
+	background: #33B3FF !important;
+	border-color:#33B3FF  !important;
 	
 }
 .lgoin_s4:hover{
-	color:rgba(187,187,187,1);
-	background: #dfdfdf;
-	border-color:#dfdfdf ;
+	opacity: .7;
 }
-.lgoin_s4:active{
-	color:rgba(187,187,187,1);
-	background: #dfdfdf;
-	border-color:#dfdfdf;
-}
+
 .login_x3{
 	margin-bottom: 38px;
 }
@@ -564,7 +559,7 @@ img{
     left: 0;
     bottom: 0;
 	line-height: 65px;
-	background: #EEE;
+	
 }
 #edui40_colorlump{
 	width: 52%;
