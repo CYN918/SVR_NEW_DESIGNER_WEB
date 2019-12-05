@@ -538,7 +538,10 @@ export default {
 			});
 		},
 		closeCler(){
-			this.tancData = {};
+			this.tancData = {
+				mobile_zone:'86',
+				old_mobile_zone:'86'
+			};
 		},
 		closeTc1(){		
 			

@@ -499,7 +499,10 @@
 				});
 			},
 			closeCler(){
-				this.tancData = {};
+				this.tancData = {
+					mobile_zone: '86',
+					old_mobile_zone: '86'
+				};
 			},
 			closeTc1() {			
 				this.bdtj('帐号设置', '基本信息-' + this.tjList[this.tAncType - 1].b, '--');
