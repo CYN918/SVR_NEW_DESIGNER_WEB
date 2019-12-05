@@ -465,7 +465,7 @@ img{
 	box-sizing: border-box;
 	padding: 37px 56px;
     border-radius: 8px;
-    background: #fff;
+
 }
 
 
