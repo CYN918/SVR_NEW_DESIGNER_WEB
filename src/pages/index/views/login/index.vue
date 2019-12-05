@@ -5,8 +5,9 @@
 		<img class="lg_bg lg_bg_03" src="/imge/sign_up_bg_left.svg"/>
 		
 		<div class="lg-wz">
-			<div class="lg-wz1">© 2015-2019 深圳掌酷软件有限公司</div>
 			<div class="lg-wz2">
+				<span>© 2015-2019 深圳掌酷软件有限公司</span>
+				<i class="lg-fg"></i>
 				<span>沪ICP备15021426号</span>
 				<i class="lg-fg"></i>
 				<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/footer_ga.png" class="lg-fg_ga">粤公网安备 44030502004296号</span>
@@ -110,7 +111,7 @@ export default {
 .lg_bg_03{
 	left:0;
 	top:0;
-	width: 54%;
+	width: 56%;
 }
 #app > div > div.lg-wz{
 	position: fixed;
