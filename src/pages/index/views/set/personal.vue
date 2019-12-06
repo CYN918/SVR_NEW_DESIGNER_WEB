@@ -513,7 +513,7 @@ export default {
 			let params = {
 				mobile:this.form.mobile,
 				mobile_zone:this.form.mobile_zone,
-	
+				type:'login',	
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
@@ -542,7 +542,7 @@ export default {
 			let params = {
 				mobile:this.tancData.newMoble,
 				mobile_zone:this.tancData.mobile_zone,
-				type:'register'
+				type:'login',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){

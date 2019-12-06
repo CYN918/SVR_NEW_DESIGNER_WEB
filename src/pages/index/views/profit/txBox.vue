@@ -422,6 +422,7 @@ export default {
 			let params = {
 				mobile:window.userInfo.mobile,
 				mobile_zone:window.userInfo.mobile_zone
+				type:'login',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
