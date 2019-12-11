@@ -236,7 +236,7 @@ export default {
 				{fn:'fxclick',n:'分享'}		
 			];			
 			if(this.isMe()==true){
-				this.unType=1;
+				unType=1;
 				btn = [
 					{fn:'showTopBk',n:'设置背景图'},
 					{fn:'fxclick',n:'分享'}				
@@ -251,6 +251,7 @@ export default {
 			if(!window.userInfo){
 				return false;
 			}
+			
 			return this.$route.query.id ==  window.userInfo.open_id;
 		},
 		showTopBk(){

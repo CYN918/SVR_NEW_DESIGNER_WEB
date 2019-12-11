@@ -10,7 +10,7 @@
 				</el-option>	
 			</el-select>
 			<div v-if="inputType=='phones'"  class="phone_2"></div>
-			<input class="phone_1" @keyup.enter="keyup"  @focus="focus" @blur="blur" :type="midf2" v-model="input" :placeholder="placeholder"  ref="input"/>
+			<input autocomplete="off" class="phone_1" @keyup.enter="keyup"  @focus="focus" @blur="blur" :type="midf2" v-model="input" :placeholder="placeholder"  ref="input"/>
 			
 			<span v-if="inputType=='verifys'" class="phone_3" @click="ajaxVerifys">{{timer}}</span>
 			<div v-if="inputType=='password' || inputType=='password_repass'" class="iconfont pend mad" @click="chemima('midf2')">
