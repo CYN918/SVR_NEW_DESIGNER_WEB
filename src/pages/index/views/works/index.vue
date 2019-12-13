@@ -101,8 +101,13 @@ export default {
 					arr1 = arr1.concat(sbd(da[i].sub_data));
 				}
 				function sbd(d){
-					let arr = [];
+					let arr = [],arr2=[];
 					for(let i=0,n=d.length;i<n;i++){
+						if(arr2.indexOf(d[i].classify_name)!=-1){
+							continue
+							return
+						}
+						arr2.push(d[i].classify_name);
 						arr.push({label:d[i].classify_name,value:d[i].classify_name});
 					}
 					return arr;
