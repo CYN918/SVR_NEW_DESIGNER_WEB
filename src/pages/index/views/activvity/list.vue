@@ -55,7 +55,7 @@ export default {
 			
 		},
 		backBn(ur){
-			return 'background-image: url('+ur+'?x-oss-process=image/resize,w_640);'
+			return 'background-image: url('+ur+');'
 		}
 	},
 	

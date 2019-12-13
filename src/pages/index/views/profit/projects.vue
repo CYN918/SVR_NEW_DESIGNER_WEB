@@ -16,7 +16,7 @@ export default {
 			config:{
 				title:[
 					{n:'项目名称',temp:{cFn:'goWork',poprs:'name',cls:'pend',clfn:(d)=>{
-						return '<img class="ficPic" src="'+d.banner+'?x-oss-process=image/resize,w_72"/><span class="ficSp1">'+d.name+'<span class="ficSp">'+d.classify_name+'</span></span>';
+						return '<img class="ficPic" src="'+d.banner+'"/><span class="ficSp1">'+d.name+'<span class="ficSp">'+d.classify_name+'</span></span>';
 					}}},
 					{n:'验收价格',clfn:(da)=>{ return '￥'+this.mJs.money_deiv(da.acceptance_price)}},
 					{n:'额外奖金',clfn:(da)=>{ return '￥'+this.mJs.money_deiv(da.extra_reward)}},
