@@ -5,6 +5,11 @@ let basrurl = 'http://139.129.221.123';
 if(window.location.host=='shiquaner.zookingsoft.com'){
 	basrurl = 'https://shiquaner-api.zookingsoft.com';
 }
+
+
+if(window.location.host=='shiquaner.zookingsoft.com:8080'){
+	basrurl = 'https://shiquaner-api.zookingsoft.com:8080';
+}
 window.basrul = basrurl;
 const generateApiMap = (map) => {
 	let facade = {}
