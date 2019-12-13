@@ -7,8 +7,8 @@ if(window.location.host=='shiquaner.zookingsoft.com'){
 }
 
 
-if(window.location.host=='shiquaner.zookingsoft.com:8080'){
-	basrurl = 'https://shiquaner-api.zookingsoft.com:8080';
+if(window.location.host=='120.27.22.130:8080'){
+	basrurl = '120.27.22.130:8081';
 }
 window.basrul = basrurl;
 const generateApiMap = (map) => {
