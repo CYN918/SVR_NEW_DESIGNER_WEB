@@ -9,6 +9,7 @@ if(window.location.host=='shiquaner.zookingsoft.com'){
 
 if(window.location.host=='120.27.22.130:8080'){
 	basrurl = 'http://120.27.22.130:8081';
+	window.login_froms = 'new_designer_pre';
 }
 window.basrul = basrurl;
 const generateApiMap = (map) => {

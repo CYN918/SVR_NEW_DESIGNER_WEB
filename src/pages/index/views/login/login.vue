@@ -92,7 +92,10 @@ export default {
 			this.ajaxType=1;
 			this.loginPost(params);				
 		},
-		loginPost(data,ispass){
+		loginPost(data,ispass){			
+			if(window.login_froms){
+				data.from = window.login_froms;
+			}			
 			this.api.login(data).then((da)=>{	
 				if(da=='error'){
 					this.bdtj('登录页','登录失败','--');
@@ -125,6 +128,8 @@ export default {
 				let pr = {
 					access_token:window.userInfo.access_token
 				};
+				
+				
 				this.api.getSelfInfo(pr).then((da)=>{
 					if(da=='error'){return}		
 					

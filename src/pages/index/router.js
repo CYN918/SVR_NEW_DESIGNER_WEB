@@ -7,8 +7,6 @@ import Home from './views/home.vue'
 import Tip from './views/activvityPage/tip.vue'
 import upload from './views/upload/upload.vue'
 
-
-
 import myWorksCom from './views/user/myWorksCom.vue'
 import myProjectCom from './views/user/myProjectCom.vue'
 
@@ -19,7 +17,6 @@ import av_into from './views/activvity/into.vue'
 import av_admission from './views/activvity/admission.vue'
 
 import content from './views/works/content.vue'
-
 
 import myDynamic from './views/user/myDynamic.vue'
 import myCreators from './views/user/myCreators.vue'
