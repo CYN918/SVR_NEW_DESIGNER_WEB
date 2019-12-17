@@ -96,12 +96,12 @@ export default {
 				if(da=='error'){
 					return
 				}
-				let arr1 = [{label:'全部分类',value:''}];
+				let arr1 = [{label:'全部分类',value:''}],arr2=[];
 				for(let i=0,n=da.length;i<n;i++){
 					arr1 = arr1.concat(sbd(da[i].sub_data));
 				}
 				function sbd(d){
-					let arr = [],arr2=[];
+					let arr = [];
 					for(let i=0,n=d.length;i<n;i++){
 						if(arr2.indexOf(d[i].classify_name)!=-1){
 							continue
@@ -112,14 +112,7 @@ export default {
 					}
 					return arr;
 				}
-				
-				this.options = arr1;
-				// let p = JSON.stringify(da);
-				// p = p.replace(/classify_name/g,"label");
-				// p = p.replace(/id/g,"value");
-				// p = p.replace(/sub_data/g,"children");
-				// this.page2.classify = JSON.parse(p);
-			         
+				this.options = arr1;   
 			})
 		}
 	}

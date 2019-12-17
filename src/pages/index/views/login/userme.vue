@@ -2,7 +2,7 @@
 	<div>
 		<div class="yhtop newbtnd_4">
 			
-			<div class="yhtop1 "><img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/header/logo.svg">用户资料完善</div>
+			<div class="yhtop1 "><img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg">用户资料完善</div>
 			<div class="yhtop2"><div>基本信息设置</div></div>
 			<div class="newUsermeBOX">
 				<div class="newUserme">
@@ -55,7 +55,7 @@ export default {
 	data(){		
 		return{	
 			isPhto:false,
-			caver:'/imge/svg/login/tx.svg',
+			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/login/tx.svg',
 			form:{
 				citye:[],
 				sex:'',
@@ -127,10 +127,7 @@ export default {
 			}
 			
 			//
-			let are = this.caver;
-			if(are=='/imge/svg/MRTX.svg'){
-				are = 'http://res.shiquaner.zookingsoft.com/a7c29ebcdd1819d76396588dc72d2770.png';
-			}
+		
 			let pr = {
 				avatar:this.caver,
 				username:this.form.username,

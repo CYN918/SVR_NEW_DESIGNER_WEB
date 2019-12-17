@@ -20,16 +20,16 @@
 							</div>
 							<div class="wk_c_1_1_l_3 isno">
 								<span>{{backtime(contDat.create_time)}}</span>
-								<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_gk.svg"/>{{contDat.view_num}}</span>
-								<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_xx.svg"/>{{contDat.comment_num}}</span>
-								<span><img class="wk_c_1_1_l_3_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_dz.svg"/>{{contDat.like_num}}</span>
+								<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_gk.svg"/>{{contDat.view_num}}</span>
+								<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_xx.svg"/>{{contDat.comment_num}}</span>
+								<span><img class="wk_c_1_1_l_3_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_dz.svg"/>{{contDat.like_num}}</span>
 							</div>
 						</div>
 						<div class="wk_c_1_1_r">
 							<div @click="fxclick" class="btns pend">
-								<img class="is_icon1 isshow" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/share.svg"/>分享
+								<img class="is_icon1 isshow" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/share.svg"/>分享
 							</div><div @click="addLikeNe('顶部栏-推荐','work',contDat.work_id,contDat)" :class="['btns pend',contDat.liked?'':'btns_js']">
-								<img class="is_icon2 isshow" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/dz.svg"/>{{(contDat.liked?'已推荐':'推荐')}}
+								<img class="is_icon2 isshow" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/dz.svg"/>{{(contDat.liked?'已推荐':'推荐')}}
 							</div>
 						</div>
 					</div>
@@ -263,9 +263,9 @@ export default {
 		isLick(a){
 			
 			if(a){
-				return '/imge/svg/see/dz_red.svg'
+				return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/dz_red.svg'
 			}
-			return '/imge/new/works/dz.svg';
+			return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/dz.svg';
 		},
 		
 		

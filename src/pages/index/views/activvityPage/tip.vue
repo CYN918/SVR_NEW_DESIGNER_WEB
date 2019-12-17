@@ -1,26 +1,26 @@
 <template>
 	<div>
 		<div class="hot_topbox">
-			<img  @click="godd" class="hotBaner" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/hd/banner.svg">
+			<img  @click="godd" class="hotBaner" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd/banner.svg">
 			
 		</div>
 		<div class="hotCent">
-			<div class="hotCent1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/hd/5.svg"/><b>加入狮圈儿的理由</b><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/hd/1.svg"/></div>
+			<div class="hotCent1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd/5.svg"/><b>加入狮圈儿的理由</b><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd/1.svg"/></div>
 			<div class="hotCent2">
 				<div>
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/hd/2.svg" alt="">
+					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd/2.svg" alt="">
 					<div class="hotCent2t">需求稳定</div>
 					<div class="hotCent2c">
 						狮圈儿与头部安卓渠道华为/OPPO/ VIVO /维持长期良好合作关系
 					</div>
 				</div><div>
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/hd/4.svg" alt="">
+					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd/4.svg" alt="">
 					<div class="hotCent2t">自选收益类型</div>
 					<div class="hotCent2c">
 						买断式or分成式 设计师自选作品收益模式 自主性强
 					</div>
 				</div><div>
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/hd/3.svg" alt="">
+					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd/3.svg" alt="">
 					<div class="hotCent2t">作品用途清晰</div>
 					<div class="hotCent2c">
 						作品使用路径&账户收益个人中心公开展示

@@ -1,8 +1,8 @@
 <template>
 	<div class="loginBox">	
-		<img class="lg_bg lg_bg_01" src="/imge/sign_up_bg_right_top.svg"/>
-		<img class="lg_bg lg_bg_02" src="/imge/sign_up_bg_right_down.svg"/>
-		<img class="lg_bg lg_bg_03" src="/imge/sign_up_bg_left.svg"/>
+		<img class="lg_bg lg_bg_01" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/sign_up_bg_right_top.svg"/>
+		<img class="lg_bg lg_bg_02" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/sign_up_bg_right_down.svg"/>
+		<img class="lg_bg lg_bg_03" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/sign_up_bg_left.svg"/>
 		
 		<div class="lg-wz">
 			<div class="lg-wz2">

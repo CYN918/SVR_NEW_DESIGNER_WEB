@@ -37,7 +37,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/sfz_zm.svg" alt="">
+										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/sfz_zm.svg" alt="">
 									</div>
 								</div>
 							</div>
@@ -67,7 +67,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/sfz_bm.svg" alt="">
+										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/sfz_bm.svg" alt="">
 									</div>
 								</div>
 							</div>
@@ -95,7 +95,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/new/sfz_sc.svg" alt="">
+										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/sfz_sc.svg" alt="">
 									</div>
 								</div>
 							</div>

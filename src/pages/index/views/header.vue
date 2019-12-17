@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/header/logo.svg" @click="jump">
+		<img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg" @click="jump">
 		
 		<div class="header_2">
 			<a 
@@ -14,7 +14,7 @@
 		<div class="header_3">
 			<span :class="['searcBox',searchType?'issearch':'']">
 				<span @click="showsearch()" class="pdxf iconfont pend">
-					<img class="head_top1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/head/top1.svg"/>
+					<img class="head_top1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/head/top1.svg"/>
 				</span>
 				
 				<el-input v-if="searchType" class="searcBox4"  @keyup.enter.native="keydown($event)" @blur="hind" ref="serll" v-model="searcCont" placeholder="请输入搜索内容"></el-input>
@@ -40,12 +40,12 @@
 					</div>
 					
 				</div>
-				<img v-if="searchType" class="searcBox6 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/cj_00.svg">
+				<img v-if="searchType" class="searcBox6 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg">
 			</span>
 
 			<span class="iconfont  messgeH1">
 				<span class="pend" @click="showisXXNav">
-					<img class="head_top2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/head/top2.svg"/>
+					<img class="head_top2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/head/top2.svg"/>
 				<div @click="showisXXNav" v-if="messgNum && messgNum.unread_total_num>0" :class="['messgeH2',messgNum.unread_total_num>9?'messgeH2x':'']">{{backXXnUM(messgNum.unread_total_num)}}</div></span>
 				
 				<div v-if="isXXNav" @click="hidisXXNav" class="messgeH3Boxf1"></div>
@@ -78,7 +78,7 @@
 			</span>
 
 			<span class="iconfont pend" @click="goUpload">
-				<img class="head_top3" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/head/top3.svg"/>
+				<img class="head_top3" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/head/top3.svg"/>
 			</span>
 			<span class="header_4" v-if="userMssge">
 				<div @click="goUser('头像')"><img :src="mJs.Cavars(userMssge.avatar)"/></div>
@@ -245,7 +245,7 @@ export default {
 		},
 		backnav(on,on2){
 			// https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img
-			let str = '/imge/xx_'+on2;
+			let str = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/xx_'+on2;
 			if(this.navType!=on){
 				str+=on2+'.svg';
 			}else{

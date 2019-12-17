@@ -4,7 +4,7 @@
 		<div class="profitBox_2">
 			<div class="pbx_1">
 				<div>
-					<img class="pbx_n_04" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/profit/qj.svg">
+					<img class="pbx_n_04" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/profit/qj.svg">
 					<div class="pbx_n_02">账号余额<span @click="checkd(1)" class="iconfont pend pbx_1_4" v-html="min1"></span></div>
 					<div class="pbx_1_1">
 						<span class="pbx_1_1x"><span class="pbx_n_03">￥ </span>{{mJs.money_deiv(num1)}}</span>
@@ -15,7 +15,7 @@
 				</div>
 				<div class="pbx_n_01">
 					<div>
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/profit/qb.svg">
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/profit/qb.svg">
 						<div class="pbx_n_02">累计收益 <span @click="checkd(2)" class="iconfont pend pbx_1_4" v-html="mJs.money_deiv(min2)"></span></div>
 						<div class="pbx_1_1">
 							<span><span class="pbx_n_03">￥ </span>{{mJs.money_deiv(num2)}}</span>						
@@ -23,7 +23,7 @@
 						
 					</div>
 					<div>
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/profit/bi.svg">
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/profit/bi.svg">
 						<div class="pbx_n_02">累计成交订单</div>
 						<div class="pbx_1_1">
 							<span>{{basDa.total_hirework}}</span>					
@@ -31,8 +31,8 @@
 						
 					</div>
 					<div>
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/profit/qxt.svg">
-						<div class="pbx_n_02">收益加成<img  @mouseout="mod()" @mouseover="modx($event,1)" class="pbx_n_06" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/project/09.svg" alt=""></div>
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/profit/qxt.svg">
+						<div class="pbx_n_02">收益加成<img  @mouseout="mod()" @mouseover="modx($event,1)" class="pbx_n_06" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg" alt=""></div>
 						<div class="pbx_1_1">
 							
 							
