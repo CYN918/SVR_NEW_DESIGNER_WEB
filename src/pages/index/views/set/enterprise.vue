@@ -115,9 +115,9 @@
 						
 						<div class="newSC">
 							<span>邮箱</span>
-							<div class="newSC_2">{{mJs.email_encryption(emailD)}}</div>
+							<div class="newSC_2">{{emailD?mJs.email_encryption(emailD):'你还未认证邮箱'}}</div>
 							<div @click="openTc1(3)" :class="['btns pend',emailD?'':'btns_js']">{{emailD?'修改邮箱':'立即认证'}}</div>
-							<div @click="gxZl" class="btns pend">已认证更新资料</div>
+							<div v-if="nogxzl" @click="gxZl" class="btns pend">已认证更新资料</div>
 						</div>
 
 					</div>
@@ -177,6 +177,7 @@ export default {
 				title:'',
 				scroll:1,
 			},
+			nogxzl:'',
 			qrFnName:'',
 			isJdt1:'',
 			isJdt2:'',
@@ -492,6 +493,7 @@ export default {
 				if(da=='error'){
 					return
 				}
+				this.nogxzl = 1;
 				Message({message: '已发送认证邮件请注意查收'});
 				this.tancData.email = '';	
 				this.tancData.pic_verify = '';
