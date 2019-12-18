@@ -1,7 +1,6 @@
 <template>
 	<div>
-		<div class="yhtop newbtnd_4">
-			
+		<div class="yhtop newbtnd_4">			
 			<div class="yhtop1 "><img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg">用户资料完善</div>
 			<div class="yhtop2"><div>基本信息设置</div></div>
 			<div class="newUsermeBOX">
@@ -11,8 +10,7 @@
 						<div class="ssetTx" @click="showisPhto(true)">
 							<img :src="caver" />	
 							<div>修改头像</div>
-						</div>
-									
+						</div>									
 					</div>
 					<div class="userBoxd">
 						<span>用户名</span>
@@ -33,8 +31,7 @@
 					<div class="yhtop6f">
 						<div class="btn_n btn_n1" @click="goOut">退出</div>
 						<div :class="['btn_n btn_n2',btnType]" @click="addSelfInfo">进入首页</div>
-					</div>
-					
+					</div>					
 				</div>
 			</div>
 			<myCaver ref="myCaver"></myCaver>
