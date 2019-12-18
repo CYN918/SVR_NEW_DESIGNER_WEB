@@ -49,7 +49,7 @@ export default {
 		init(){
 			this.api.getSelfInfo({}).then((da)=>{
 				if(da=='error'){return}
-				da.access_token = data.res.data.access_token;
+				da.access_token = window.userInfo.access_token;
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));				
 			})
