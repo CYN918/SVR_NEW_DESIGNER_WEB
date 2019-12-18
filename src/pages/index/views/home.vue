@@ -134,7 +134,6 @@ export default {
 					return arr;
 				}
 				this.fls = arr2;  
-				console.log(this.fls);
 			})
 		}
 	}
