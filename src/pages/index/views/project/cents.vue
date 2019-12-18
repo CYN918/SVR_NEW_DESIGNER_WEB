@@ -456,19 +456,19 @@ export default {
 	margin-bottom: 5px;
 }
 .centShar_1{
-	background: url(/imge/project/06.svg) no-repeat;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/06.svg) no-repeat;
 }
 .centShar_2{
-	background: url(/imge/project/07.svg) no-repeat;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/07.svg) no-repeat;
 }
 .movfx_01,.movfx_02{
 	cursor: pointer;
 }
 .movfx_01:hover>.centShar_1{
-	background: url(/imge/project/fx_02.svg) no-repeat;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/fx_02.svg) no-repeat;
 }
 .movfx_02:hover>.centShar_2{
-	background: url(/imge/project/kf_02.svg) no-repeat;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/kf_02.svg) no-repeat;
 }
 .icon_ff_1>.icon_ff_1_x1{
 	margin-top: -5px;

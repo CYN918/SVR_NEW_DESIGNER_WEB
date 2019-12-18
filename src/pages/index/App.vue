@@ -579,22 +579,22 @@ img{
 	margin: 15px 86px 0;
 }
 .dsf_qq{
-	background:url(/imge/svg/login/qq.svg) no-repeat 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/login/qq.svg) no-repeat 0/100%;
 }
 .dsf_qq:hover{
-	background:url(/imge/svg/new/qq.svg) no-repeat 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/qq.svg) no-repeat 0/100%;
 }
 .dsf_wb{
-	background:url(/imge/svg/login/wb.svg) no-repeat 0 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/login/wb.svg) no-repeat 0 0/100%;
 }
 .dsf_wb:hover{
-	background:url(/imge/svg/new/wb.svg) no-repeat 0 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/wb.svg) no-repeat 0 0/100%;
 }
 .dsf_wx{
-	background:url(/imge/svg/login/wx.svg) no-repeat 0 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/login/wx.svg) no-repeat 0 0/100%;
 }
 .dsf_wx:hover{
-	background:url(/imge/svg/new/wx.svg) no-repeat 0 0/100%;
+	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/wx.svg) no-repeat 0 0/100%;
 }
 .lgoin_s6>img{
 	display: inline-block;
