@@ -117,6 +117,7 @@
 							<span>邮箱</span>
 							<div class="newSC_2">{{mJs.email_encryption(emailD)}}</div>
 							<div @click="openTc1(3)" :class="['btns pend',emailD?'':'btns_js']">{{emailD?'修改邮箱':'立即认证'}}</div>
+							<div @click="gxZl" class="btns pend">已认证更新资料</div>
 						</div>
 
 					</div>
@@ -284,6 +285,18 @@ export default {
 		this.init();
 	}, 
 	methods: {
+		gxZl(){
+			this.api.getSelfInfo({}).then((da)=>{
+				if(da=='error'){return}
+				da.access_token = window.userInfo.access_token;
+				window.userInfo = da;
+				localStorage.setItem('userT',JSON.stringify(da));
+				this.form.mobile = window.userInfo.mobile;
+				this.form.mobile_zone = window.userInfo.mobile_zone;
+				this.emailD = window.userInfo.email;
+				this.$message({message:'更新完成'})
+			})
+		},
 		show(){
 			this.$refs.tcBox.show();
 		},
