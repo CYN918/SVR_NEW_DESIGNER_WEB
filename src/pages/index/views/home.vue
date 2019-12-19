@@ -48,7 +48,7 @@
 			<div class="home_0x7">
 				<div class="home_0x7_1">优秀作品推荐，为你持续输出灵感</div>
 				<div class="home_0x7_2 hovs">
-					<span :class="cOn==fls[el]?'check':''" @click="sec(fls[el])" v-for="el in [0,1,2,3]">{{fls[el]}}</span>
+					<span :class="cOn==fls[el]?'check':''" @click="sec(fls[el])" v-for="el in [0,1,2,3,4]">{{fls[el]}}</span>
 					<i class="fgx_01"></i>
 					<span @click="goFn('/Work_i')">更多</span>
 				</div>
@@ -317,6 +317,6 @@ export default {
 	width:1px;
 	height:16px;
 	background:rgba(187,187,187,1);
-	margin: 2px 40px 0 20px;
+	margin: 2px 20px 0 ;
 }
 </style>

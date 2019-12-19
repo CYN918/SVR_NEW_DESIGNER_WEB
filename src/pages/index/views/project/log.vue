@@ -86,20 +86,16 @@ export default {
 			 
 		},
 		typsuu:(v)=>{
-			let str = '待审核';
-			
-			switch (v){
-				case '-2':str = '已撤销';
-					break;
-				case '-1':str = '已驳回';
-					break;
-				case '1':str = '已验收';
-					break;
-				default:
-					break;
+			if(v==-2){
+				return '已撤销'
 			}
-			
-			return str;
+			if(v==-1){
+				return '已驳回'
+			}
+			if(v==1){
+				return '已验收'
+			}
+			return '待审核';
 		}
 	 
 	},
