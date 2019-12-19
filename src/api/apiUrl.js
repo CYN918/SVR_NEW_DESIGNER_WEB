@@ -120,6 +120,9 @@ export default {
 	getPersonalWorkList:{
 		url:'/Api/Activity/personalWorkList',method:'post',baseURL:0,
 	},
+	getPersonalInfo:{
+		url:'/Api/Activity/info',method:'post',baseURL:0,
+	},
 	
 	Follow_add:{
 		url:'/Api/Follow/add',method:'post',baseURL:0,
@@ -332,6 +335,14 @@ export default {
 	
 	pr_classifyInfo:{
 		url:'/api/project/classifyInfo',method:'post',baseURL:0,
+	},
+	
+	subject:{
+		url:'/api/work/subject',method:'post',baseURL:0,
+	},
+	
+	work_worklist:{
+		url:'/api/work/worklist',method:'post',baseURL:0,
 	},
 	
 	

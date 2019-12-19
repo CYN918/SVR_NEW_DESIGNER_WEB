@@ -70,7 +70,7 @@ export default {
 		return{	
 			
 			isPhto:false,
-			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/comm/User_tx_defualt.svg',
+			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/login/tx.svg',
 			form:{
 				citye:[],
 				sex:'',
@@ -147,6 +147,8 @@ export default {
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 			}
+			
+			
 			let pr = {
 				access_token:window.userInfo.access_token,
 				type:'third_login',

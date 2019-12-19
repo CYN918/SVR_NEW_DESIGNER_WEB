@@ -10,7 +10,7 @@
 				</el-option>	
 			</el-select>
 			<div v-if="oType=='phone'" class="lgoin_s2 lgoin_s2xx"></div>
-			<input @keyup.enter="keyup"  @focus="focus" @blur="blur" v-model="input" :placeholder="placeholder" :type="midf2" ref="input"/><div v-if="oType=='yzm'" class="lgoin_s2"></div><span v-if="oType=='yzm'" class="lgoin_s3x2" @click="ajaxYzm">{{timer}}</span>
+			<input autocomplete="off" @keyup.enter="keyup"  @focus="focus" @blur="blur" v-model="input" :placeholder="placeholder" :type="midf2" ref="input"/><div v-if="oType=='yzm'" class="lgoin_s2"></div><span v-if="oType=='yzm'" class="lgoin_s3x2" @click="ajaxYzm">{{timer}}</span>
 			<div v-if="oType=='password'" class="iconfont pend mad" @click="chemima('midf2')">
 				<span  v-if="midf2=='password'">&#xe61f;</span>
 				<span  v-else>&#xe6a2;</span>

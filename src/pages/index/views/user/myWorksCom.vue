@@ -109,7 +109,7 @@
 		<div v-show="issetDatasXX" class="setDatasXX">
 			<div class="setDatasXX_1">
 				
-				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_00.png" alt="">
+				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" alt="">
 				<div class="ydbbdf">
 				<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
 				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
@@ -216,7 +216,6 @@ export default {
 			this.$refs.tcBox.close();
 		},
 		init(){
-			this.mJs.scTop(1);
 			this.data.pr.status =  this.isTypeList[this.$route.name];
 		},
 		backFm(ur){

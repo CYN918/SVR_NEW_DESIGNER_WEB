@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import axios from 'axios'
 import api from '../../api/index'
-
-import App from './App.vue'
-import router from './router'
 import mJs from '../../assets/comm.js'
 Vue.prototype.mJs = mJs
+import App from './App.vue'
+import router from './router'
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
 Vue.prototype.MD5 = function(string){ 

@@ -8,7 +8,7 @@
 			</div>
 		</div>
 		<div v-if="tAncType==4" class="tc_sucd_1">
-			<img class="tAncType4_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/email01.png"/>
+			<img class="tAncType4_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/email01.png"/>
 			<div class="tAncType4_2">
 				激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/> 请及时登录邮箱，点击邮件中的链接激活帐户。
 			</div>

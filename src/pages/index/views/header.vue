@@ -65,7 +65,7 @@
 								</li>							
 							</ul>
 							
-							<div v-if="mData.length==0" class="messgeH3_2_1"><img  src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/wxx.png" alt="">暂无新的消息</div>
+							<div v-if="mData.length==0" class="messgeH3_2_1"><img  src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/wxx.png" alt="">暂无新的消息</div>
 						</div>
 						
 						
@@ -85,12 +85,12 @@
 				<div  class="userBpx">
 					<a @click="goUser('昵称')">{{backnAM(userMssge.username)}}</a>
 					<ul> 
-						<a @click="goZP('/projectAll','我的项目')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_wdxm.svg" alt="" />我的项目</li></a>						
-						<a @click="goZP('/myAll','我的创作')"><li><img class="svgImg2 svgImg2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></a>
-						<a @click="goZP('/myDynamic','我的关注')"><li><img class="svgImg2 svgImg2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></a>
-						<a @click="goZP('/profit','我的收益')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></a>
-						<a @click="goZP('/setUser','账号设置')"><li><img class="svgImg2 svgImg2_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></a>
-						<a @click="showHb()"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
+						<a @click="goZP('/projectAll','我的项目')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdxm.svg" alt="" />我的项目</li></a>						
+						<a @click="goZP('/myAll','我的创作')"><li><img class="svgImg2 svgImg2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></a>
+						<a @click="goZP('/myDynamic','我的关注')"><li><img class="svgImg2 svgImg2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></a>
+						<a @click="goZP('/profit','我的收益')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></a>
+						<a @click="goZP('/setUser','账号设置')"><li><img class="svgImg2 svgImg2_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_zhsz.svg" alt="" />账号设置</li></a>
+						<a @click="showHb()"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_tcdl.svg" alt="" />退出登录</li></a>
 					</ul>
 				</div>
 			</span>	
@@ -222,7 +222,7 @@ export default {
 			this.$router.push({path:'/searchProject',query:{cont:na}});
 		},
 		hind(){
-
+			
 			setTimeout(()=>{
 				this.searchType=false;
 				this.searcCont='';
@@ -244,7 +244,7 @@ export default {
 			
 		},
 		backnav(on,on2){
-			// https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img
+			// https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img
 			let str = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/xx_'+on2;
 			if(this.navType!=on){
 				str+=on2+'.svg';
@@ -436,7 +436,6 @@ export default {
 	left: 100px;   
     width: 134px;
 }
-
 .header_2{
 	text-align: left;
 	margin-left: 310px;
@@ -466,6 +465,7 @@ export default {
 	line-height: 60px;
 	margin-right: 31px;
 }
+
 @media screen and (max-width: 1440px) {
     .header_1 {
         left: 60px !important;; 
@@ -480,7 +480,6 @@ export default {
 		margin-right: 60px !important;
 	}
 }
-
 .header_4{
     margin-right: 0 !important;
 	cursor: pointer;

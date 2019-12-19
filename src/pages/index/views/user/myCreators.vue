@@ -5,7 +5,7 @@
 		<list :config="data" ref="listDom">
 			<template v-slot:todo="{ todo }">
 			<div class="wdczz">
-					<img @click="goUser(todo,'点头像')" :src="todo.avatar">
+					<img @click="goUser(todo,'点头像')" :src="mJs.Cavars(todo.avatar)">
 					<div class="i_listd2_1">
 						<div @click="goUser(todo,'点昵称')">{{todo.username}}</div>
 						<div>{{todo.province}} | {{todo.city}}</div>
@@ -35,7 +35,7 @@
 		</div>		
 		<div v-show="isshowd2" class="loginoutBox">
 			<div class="loginoutBox1">
-				<img @click="hindHb2()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_00.png">
+				<img @click="hindHb2()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
 				<div class="loginoutBox3">确定取消关注【{{openOns.username}}】？</div>
 				<div class="loginoutBox4  "><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
 			</div>

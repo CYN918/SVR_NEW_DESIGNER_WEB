@@ -16,16 +16,13 @@
 				</pTop>
 			</div>
 			<bindData v-if="navOn==0"></bindData>
-			<bindUser v-if="navOn==1"></bindUser>	
-			
+			<bindUser v-if="navOn==1"></bindUser>				
 		</div>
-
 	</div>	
 </template>
 <script>
 import bindData from './bindData';
 import bindUser from './bindUser';
-
 import pTop from '../../components/postionTop';
 export default {
 	name: 'login',
@@ -57,7 +54,7 @@ export default {
 	font-size: 14px;
 }
 #app>div>div.setBin_1{
-	padding-bottom: 150px;
+	padding-bottom: 1px;
 }
 .newUserme{
 	box-sizing: border-box;
@@ -181,7 +178,7 @@ export default {
 
 }
 .newUsermeHx2{
-	height: 530px;
+	height: 545px;
 }
 .newUserme2 .userBoxd{
 	margin-bottom: 0;

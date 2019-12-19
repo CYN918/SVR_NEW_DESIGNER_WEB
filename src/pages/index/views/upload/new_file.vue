@@ -60,9 +60,9 @@
 				</div>
 				<div class="upFm_r_2">
 					<span @click="fild" class="pend">重新上传</span>
-					<img class="pend" @click="changeScale(1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/upload/yh_zlws_tx_fd.svg" alt="">
-					<img class="pend" @click="changeScale(-1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/upload/yh_zlws_tx_sx.svg" alt="">
-					<img class="pend" @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/upload/yh_zlws_tx_sz.svg" alt="">				
+					<img class="pend" @click="changeScale(1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_fd.svg" alt="">
+					<img class="pend" @click="changeScale(-1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_sx.svg" alt="">
+					<img class="pend" @click="rotateLeft" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/upload/yh_zlws_tx_sz.svg" alt="">				
 				</div>			
 			</div>
 			

@@ -3,18 +3,18 @@
 		<div @click="goPth('cont',el.work_id)" class="worksBox_fm" :style="setImg(el.face_pic)"></div>
 		<div class="worksBox_n">
 			<span @click="goWork(el.work_id)">{{backName(el.work_name)}}</span>
-			<img class="tjImg" v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/icon_r.svg"/>
+			<img class="tjImg" v-if="el.is_recommend==1" src="/imge/new/works/icon_r.svg"/>
 		</div>
 		<div class="worksBox_cl">
 			<span class="worksBox_cl_l">{{el.classify_1_name+'-'+el.classify_2_name}}</span>
 			<span class="worksBox_clr">{{backtime(el.create_time)}}</span>
 		</div>		
 		<div @click="goPth('user',el.user_info.open_id)" v-if="el.isUser" class="worksUser">
-			<img class="worksUser_1" :src="mJs.Cavars(el.user_info.avatar)" />
+			<img class="worksUser_1" :src="el.user_info.avatar" alt="">
 			<span class="worksUser_2">{{backName(el.user_info.username)}}</span>
 			<div class="worksUser_3">
-				<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_xx.svg" alt="">{{el.comment_num}}</span>
-				<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_dz.svg" alt="">{{el.like_num}}</span>	
+				<span><img src="/imge/svg/see/zs_icon_xx.svg" alt="">{{el.comment_num}}</span>
+				<span><img src="/imge/svg/see/zs_icon_dz.svg" alt="">{{el.like_num}}</span>	
 			</div>			
 			
 		</div>

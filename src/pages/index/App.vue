@@ -15,10 +15,6 @@ html,body{
 	min-width: 1300px;
 	height:100%;
 }
-img{
-	outline-width: 0px;
-	vertical-align: top;
-}
 a{list-style-type: none}
 :link{text-decoration:none;}
 a:visited{text-decoration:none;}
@@ -72,11 +68,11 @@ img{
 }
 @font-face {
 	font-family: 'iconfont';
-	src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/font/iconfont.eot');
-	src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/font/iconfont.eot?#iefix') format('embedded-opentype'),
-	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/font/iconfont.woff') format('woff'),
-	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/font/iconfont.ttf') format('truetype'),
-	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/font/iconfont.svg#iconfont') format('svg');
+	src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.eot');
+	src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.eot?#iefix') format('embedded-opentype'),
+	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.woff') format('woff'),
+	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.ttf') format('truetype'),
+	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.svg#iconfont') format('svg');
 }
 .hft{
 	overflow: hidden;
@@ -458,9 +454,10 @@ img{
 
 .login_1{
 	position: fixed;
+	right: 12%;
 	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
 	width: 480px;
 }
 .login_2{
@@ -468,7 +465,7 @@ img{
 	box-sizing: border-box;
 	padding: 37px 56px;
     border-radius: 8px;
-    background: #fff;
+
 }
 
 
@@ -504,21 +501,15 @@ img{
 	margin-top: 17px;
 	margin-bottom: 22px;
 	width: 100%;
-	color:rgba(187,187,187,1);
-	background: #dfdfdf !important;
-	border-color:#dfdfdf  !important;
+	color:#fff;
+	background: #33B3FF !important;
+	border-color:#33B3FF  !important;
 	
 }
 .lgoin_s4:hover{
-	color:rgba(187,187,187,1);
-	background: #dfdfdf;
-	border-color:#dfdfdf ;
+	opacity: .7;
 }
-.lgoin_s4:active{
-	color:rgba(187,187,187,1);
-	background: #dfdfdf;
-	border-color:#dfdfdf;
-}
+
 .login_x3{
 	margin-bottom: 38px;
 }
@@ -568,7 +559,7 @@ img{
     left: 0;
     bottom: 0;
 	line-height: 65px;
-	background: #EEE;
+	
 }
 #edui40_colorlump{
 	width: 52%;
@@ -2322,7 +2313,11 @@ content: "";
 }
 
 .el-message{
-    background: #FFEDE8;
+	background: rgba(255,255,255,1);
+    box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.1);
+    border-radius: 2px;
+    padding: 0 15px;
+	
     border-radius: 5px;
     color: #33B3FF;
     text-align: center;
@@ -2330,11 +2325,10 @@ content: "";
 	width: auto !important;
     min-width: auto;
 	min-height: auto;
-    padding: 0;
     border: none;
     height: auto;
     min-height: auto;
-    padding: 19px 42px;
+
 	
 	
 	
@@ -2344,7 +2338,7 @@ content: "";
 	display: none;
 }
 .el-message--info .el-message__content{
-	color: #33B3FF;
+	color: #666;
     width: 100%;
     font-size: 16px;
     padding: 10px 0;

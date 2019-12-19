@@ -32,7 +32,7 @@
 							
 							</div>
 							<div v-if="el.op_cname=='回复' && el.isshowsub" class="comment_2_9">
-								<img class="comment_1" :src="mJs.Cavars(el.to_comment.avatar)" alt="">
+								<img class="comment_1" :src="mJs.Cavars(el.to_comment.avatar)"/>
 								<div class="comment_2">
 									<div class="comment_2_1">{{el.to_comment.username}}<span class="comment_2_2">{{backtime(el.to_comment.create_time)}}</span></div>
 									<div class="comment_2_5">{{backcont(el.to_comment.content)}}</div>
@@ -43,7 +43,7 @@
 					</div>
 			</div>
 			<div v-if="nodata" class="ms_r_2">
-				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/empty_nodata.svg" alt="">
+				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
 				你的数据去火星了
 			</div>
 			<el-pagination class="cmmm_1" v-if="total>10"

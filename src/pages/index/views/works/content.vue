@@ -169,7 +169,7 @@
 						</div>
 						<div class="seed2_1_2xx" v-else>
 							你正在浏览TA首次发布的作品<br/>作为老前辈, 送个赞鼓励下吧~
-							<span class="btns pend seed1_2_5xx" @click="addLikeNe('创作者信息-更多作品-推荐','work',contDat.work_id,contDat)"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
+							<span class="btns pend seed1_2_5xx" @click="addLikeNe('创作者信息-更多作品-推荐','work',contDat.work_id,contDat)"><img class="svgImgx2" :class="contDat.liked?'likeis':''" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/cent/sc_icon_tj.svg"/>{{contDat.liked?'已推荐':'推荐'}}</span>
 						</div>
 					</div>
 				</div>

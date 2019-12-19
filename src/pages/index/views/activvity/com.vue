@@ -48,7 +48,7 @@
 							<img class="zp_box_1" :src="el.face_pic">
 							<div class="zp_box_2">
 								{{el.work_name.slice(0,10)}}
-								<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/zs_icon_tj.svg" alt="">
+								<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg" alt="">
 							</div>
 							<div class="zp_box_3">
 								{{el.classify_1_name+'-'+el.classify_2_name}}
@@ -65,7 +65,7 @@
 						</li>
 						<div ref="botmm"></div>
 						<div v-if="isnoData">
-							<img  class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/k/empty_nodata@3x.png"/>
+							<img  class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
 							<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
 						</div>
 						
@@ -77,11 +77,93 @@
 				</div>
 				
 			</template>			
-		</TcBox>	
+		</TcBox>
+
+		<TcCertification :certification="certification" ref="tcCertification">
+			<template v-slot:todoRz="{ todoRz }">
+				<el-steps :space="200" :active="active" finish-status="success" simple>
+					<el-step title="报名认证信息"></el-step>
+					<el-step title="选择参与作品"></el-step>
+				</el-steps>
+				<div v-if="active == 0">
+					<p class="textExplains">{{remeber_tips}}</p>
+					<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" style="margin-top: 30px;min-width: 700px;">
+						<div v-for="item in list">
+							<div class="Information">
+								<p>{{item.title}}</p>
+								<el-input v-model="ruleForm.studentId" :placeholder=item.tigs></el-input>	
+							</div>
+							<div class="Information InformationUpload" v-if="item.limittype != 'text'">
+								<p v-if="item.limittype == 'pic'">上传图片<i>图片格式为{{item.limittypevalue}}</i></p>
+								<p v-if="item.limittype == 'video'">上传视频</p>
+								<p v-if="item.limittype == 'file'">上传文件</p>
+								<div style="float: left;">
+									<el-upload
+										action=""
+										list-type="picture-card"
+										:on-preview="handlePictureCardPreview"
+										:on-remove="handleRemove">
+										<i class="el-icon-plus"></i>
+										<span style="position: absolute;top: 65px;left: 99px;color: #BBBBBB;" v-if="item.limittype == 'pic'">上传图片</span>
+										<span style="position: absolute;top: 65px;left: 99px;color: #BBBBBB;" v-if="item.limittype == 'video'">上传视频</span>
+										<span style="position: absolute;top: 65px;left: 99px;color: #BBBBBB;" v-if="item.limittype == 'file'">上传文件</span>
+									</el-upload>
+									<el-dialog :visible.sync="dialogVisible">
+										<img width="100%" :src="dialogImageUrl" alt="">
+									</el-dialog>
+								</div>		
+							</div>
+
+						</div>
+						
+						<el-form-item>
+							<el-button type="primary" @click="next('ruleForm')">下一步</el-button>
+						</el-form-item>
+					</el-form>	
+				</div>
+				<div v-if="active == 1">
+					<div class="pushDeletBox4">
+						<ul class="zp_box" @scroll="test">
+							
+							<li @click="checkZp(el.work_id)" :class="(work_id.indexOf(el.work_id)!=-1 || el.is_attend==1)?'chekonzp':''" v-for="(el,index) in zpList" :key="index">
+								<img class="zp_box_1" :src="el.face_pic">
+								<div class="zp_box_2">
+									{{el.work_name.slice(0,10)}}
+									<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg" alt="">
+								</div>
+								<div class="zp_box_3">
+									{{el.classify_1_name+'-'+el.classify_2_name}}
+									<span>{{backtime(el.create_time)}}</span>
+								</div>
+								<div class="zp_box_4">
+									<img :src="mJs.Cavars(el.user_info.avatar)" alt="">
+									<div>
+										<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
+										<span class="iconfont pend">&#xe672; {{el.like_num}}</span>
+										<span class="iconfont pend">&#xe616; {{el.comment_num}}</span>
+									</div>
+								</div>
+							</li>
+							<div ref="botmm"></div>
+							<div v-if="isnoData">
+								<img  class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
+								<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
+							</div>
+							
+						</ul>
+					</div>
+					<div class="pushDeletBox5">
+						<span class="pend">上一步</span>
+						<span @click="gopushzp" class="pend">发布新作品</span>
+						<span @click="pushOk" class="pend btn_n3">立即报名</span>
+					</div>
+				</div>				
+			</template>	
+		</TcCertification>	
 		
 		<div v-if="ishowzp" class="pushDeletBox">
 			<div class="pushDeletBox1">
-				<img class="pushDeletBox2" @click="closeZp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_00.png">
+				<img class="pushDeletBox2" @click="closeZp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
 				<div class="pushDeletBox3">选择参与活动的作品</div>
 				
 			</div>
@@ -89,7 +171,7 @@
 		
 		<div v-if="ishowWp" class="pushDeletBox">
 			<div class="pushDeletBox1_x2">
-				<img class="pushDeletBox2" @click="closeWp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_00.png">
+				<img class="pushDeletBox2" @click="closeWp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
 				<div class="pushDeletBox1_x2_1" v-html="wpdz"></div>
 				<div class="botnbox"><span @click="closeWp" class="pend">关闭</span></div>
 			</div>
@@ -100,21 +182,25 @@
 </template>
 
 <script>
-import {Message} from 'element-ui'
+import {Message} from 'element-ui';
 import fxd from '../../components/share';
 import detailed_detailed from './detailed';
 import detailed_into from './into';
 import detailed_admission from './admission';
 import TcBox from '../../components/TcBox';
+import TcCertification from '../../components/TcCertification';
 import pTop from '../../components/postionTop';
 export default {
-	components:{fxd,detailed_detailed,detailed_into,detailed_admission,TcBox,pTop},
+	components:{fxd,detailed_detailed,detailed_into,detailed_admission,TcBox,TcCertification,pTop},
 	name: 'home',	 
 	data(){	
 		return{
 			tcZj:'',
 			config:{
 				title:'选择参与活动的作品',
+			},
+			certification:{
+				title:'报名活动',
 			},
 			topCn:{
 				min:680,
@@ -137,6 +223,20 @@ export default {
 			noGd:'',
 			page2:1,
 			total2:0,
+			active: 0,
+			ruleForm: {
+				studentId: '',
+			},
+			rules: {
+				studentId: [
+					{ required: true, message: '请输入学号', trigger: 'blur' },
+					{ min: 10, max: 15, message: '长度在 10 到 15 个字符', trigger: 'blur' }
+				],
+			},
+			dialogImageUrl: '',
+			dialogVisible: false,
+			remeber_tips: '',
+			list: [],
 		}
 		
 	},
@@ -146,8 +246,29 @@ export default {
 		this.a_getInfo();
 	}, 
 	methods:{
+		next(formName) {
+			this.$refs[formName].validate((valid) => {
+				if (valid) {
+					if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();
+				} else {
+					console.log('error submit!!');
+					return false;
+				}
+			});
+			
+		},
+		handleRemove(file, fileList) {
+			console.log(file, fileList);
+		},
+		handlePictureCardPreview(file) {
+			this.dialogImageUrl = file.url;
+			this.dialogVisible = true;
+		},
 		showtc(){
 			this.$refs.tcBox.show();
+		},
+		showcertification(){
+			this.$refs.tcCertification.show();
 		},
 		closetc(){
 			this.$refs.tcBox.close();
@@ -189,13 +310,38 @@ export default {
 			this.zpList = [];
 		},
 		showZp(){
-			this.bdtjCom('上传作品');
-			if(!window.userInfo){
-				this.$router.push({path:'/login'});
-			}
-			this.getPersonalWorkList();
-			this.showtc();
-			
+			let pr = {
+				activity_id:this.$route.query.id,
+			};
+			this.api.getPersonalInfo(pr).then((da)=>{
+				
+				if(da=='error'){
+					return
+				}
+
+				if(da==null){
+					this.noGd=1;
+				}
+				console.log(JSON.parse(da.extra_info))
+
+				if(da.extra_info == null){
+					this.bdtjCom('上传作品');
+					if(!window.userInfo){
+						this.$router.push({path:'/login'});
+					}
+					this.getPersonalWorkList();
+					this.showtc();
+				}else{
+					this.bdtjCom('认证');
+					if(!window.userInfo){
+						this.$router.push({path:'/login'});
+					}
+					this.remeber_tips = da.remeber_tips;
+					this.list = JSON.parse(da.extra_info);
+					// this.getPersonalWorkList();
+					this.showcertification();		
+				}		
+			})			
 		},
 		
 		checkZp(id){
@@ -357,7 +503,7 @@ export default {
 }		
 </script>
 
-<style>
+<style scoped="scoped">
 .upImnoData{
 	display: block;
 	margin: 110px auto 0;   
@@ -563,6 +709,34 @@ export default {
 .pushDeletBox4::-webkit-scrollbar-track {
     background: none;
 }
+.Information{
+	width: 80%;
+	margin: 0 auto;
+}
+.Information > p{
+    float: left;
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+	margin: 10px 0px 10px 0px;
+	color: #333333;
+	font-size: 14px;
+	text-align: left;
+}
+.Information > p > i{
+	color: #BBBBBB;
+	font-size: 12px;
+	font-style: normal;
+	margin-left: 10px;
+}
+.InformationUpload{
+	height: 230px;
+	position: relative;
+}
+.InformationUpload >>> .el-upload--picture-card{
+	width: 260px;
+	height: 146px;
+}
 .zp_box{
 	overflow: hidden;
 
@@ -675,5 +849,15 @@ export default {
 
 .Acomd{
 	min-height: 500px;
+}
+.textExplains{
+	color: #666666;
+	font-size: 14px;
+	text-align: center;
+	padding-top: 30px;
+}
+.textExplains > i{
+	font-style: normal;
+	color: #33B3FF;
 }
 </style>

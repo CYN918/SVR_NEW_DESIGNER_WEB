@@ -65,7 +65,7 @@ export default {
 			if(!o || o==null || o==undefined || o=='null' || o=='undefined'){
 				return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/com/no_img.svg';
 			}
-			return o+'?x-oss-process=image/resize,w_310';
+			return o;
 		},
 		openCent(){
 			if(this.el.id){

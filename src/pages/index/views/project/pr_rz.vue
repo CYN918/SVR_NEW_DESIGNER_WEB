@@ -7,7 +7,7 @@
 					<div v-if="!datad.is_contributor">
 						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/rz_01.svg" alt="">
 						<div>完成供稿人认证</div>
-						<div @click="gorz()" class="btns btns_js pend">立即认证</div>
+						<div @click="goTo('/setPersonal')" class="btns btns_js pend">立即认证</div>
 					</div><div @click="goTo('/upload')" v-if="datad.work_num!=3">
 						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/rz_02.svg" alt="">
 						<div>上传并通过3个原创作品（{{datad.work_num}}/3）</div>

@@ -41,7 +41,7 @@
 			</div>
 		</div>
 		<div class="u_top2">
-			<img  class="u_top2_1" :src="Cavars(userMessage.user_center_banner_pic)"/>
+			<img  class="u_top2_1" :src="mJs.Cavars(userMessage.user_center_banner_pic)"/>
 			<div class="dwek">
 				<div   class="u_top2_2">				
 					<div v-if="userTped" class="u_top2_2_1">
@@ -114,7 +114,7 @@ export default {
 				cent:'确定删除该条评论?',
 			},
 			shareData:{},
-			userBg:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/grzx_bg.svg',
+			userBg:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/grzx_bg.svg',
 			previewStyle2:{},
 			previews:{},
 			option:{

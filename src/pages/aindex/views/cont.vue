@@ -3,7 +3,7 @@
 		<div class="centbox">
 			<img class="cent_banner" :src="contDat.face_pic" alt="">
 			<div v-if="contDat.user_info" class="userBox">
-				<img class="userBox_1" :src="mJs.Cavars(contDat.user_info.avatar)">
+				<img class="userBox_1" :src="contDat.user_info.avatar">
 				<div class="userBox_2">
 					<div class="userBox_3">{{contDat.user_info.username}}</div>
 					<div class="userBox_4">{{contDat.user_info.province+' | '+contDat.user_info.vocation}}</div>
@@ -13,9 +13,9 @@
 				<div class="centbox_x_2">{{contDat.work_name}}</div>
 				<div class="centbox_x_3">{{backtime(contDat.create_time)}}
 					<span class="centbox_x_3_1">
-						<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_gk.svg">{{contDat.view_num}}</span>
-						<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_dz.svg">{{contDat.like_num}}</span>
-						<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/svg/see/zs_icon_xx.svg">{{contDat.comment_num}}</span>
+						<span><img src="/imge/svg/see/zs_icon_gk.svg">{{contDat.view_num}}</span>
+						<span><img src="/imge/svg/see/zs_icon_dz.svg">{{contDat.like_num}}</span>
+						<span><img src="/imge/svg/see/zs_icon_xx.svg">{{contDat.comment_num}}</span>
 					</span>
 				</div>
 			</div>

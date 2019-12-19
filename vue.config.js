@@ -23,12 +23,12 @@ module.exports = {
         },
     },
     // 基本路径
-    publicPath: 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New',
-	// publicPath: './',
+    // publicPath: 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/',
+	publicPath: './',
     // 输出文件目录
     outputDir: 'dist',
-	//assetsDir: 'static',
-    //eslint-loader 是否在保存的时候检查
+//  assetsDir: 'static',
+    // eslint-loader 是否在保存的时候检查
     lintOnSave: true, 
 
     runtimeCompiler: false,

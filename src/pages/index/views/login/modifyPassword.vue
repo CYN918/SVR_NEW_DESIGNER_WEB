@@ -99,7 +99,8 @@ export default {
 			this.$refs.verify.runTimer(60);			
 			let params = {
 				mobile:this.form.mobile,
-				mobile_zone:this.form.mobile_zone
+				mobile_zone:this.form.mobile_zone,
+				type:'login',
 			};
 			this.api.sendVerifyCode(params).then(()=>{	
 				

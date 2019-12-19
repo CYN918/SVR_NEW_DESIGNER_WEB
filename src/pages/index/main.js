@@ -9,10 +9,9 @@ import mJs from '../../assets/comm.js'
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
 Vue.prototype.mJs = mJs
-Vue.prototype.imU = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/'
+Vue.prototype.imU = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/'
 Vue.prototype.api.mcommjs = window.mycomJs;
 
-Vue.prototype.Static = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB';
 
 //定义全局过滤器
 Vue.filter('followType', (val)=>{
@@ -264,10 +263,13 @@ Vue.prototype.go = (a,b,c)=>{
 	_hmt.push(['_trackEvent',a,b,c]);
 };
 import VueCropper from 'vue-cropper' 
-import { Button, Select,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination } from 'element-ui'
+import { Button, Select,Steps,Step,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination,Dialog } from 'element-ui'
 Vue.use(VueCropper)
 Vue.component(Input.name, Input)
 Vue.component(Button.name, Button)
+Vue.component(Steps.name, Steps)
+Vue.component(Step.name, Step)
+Vue.component(Dialog.name, Dialog)
 Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
 Vue.component(InputNumber.name, InputNumber)

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<img class="login_x1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg" @click="jump">
-		<p class="login_x2">让创意更有价值，让生活更加自在</p>
+		<p class="login_x2">让创意更有价值，让生活更加自由</p>
 		<div class="login_x3">
 			<span @click="cheackLogin('password')" :class="['pend',btnType=='password'?'cheack':'']">账户密码登录</span><span @click="cheackLogin('verify_code')" :class="['pend',btnType=='verify_code'?'cheack':'']">手机号登录</span>
 		</div>	
@@ -92,7 +92,10 @@ export default {
 			this.ajaxType=1;
 			this.loginPost(params);				
 		},
-		loginPost(data,ispass){
+		loginPost(data,ispass){			
+			if(window.login_froms){
+				data.from = window.login_froms;
+			}			
 			this.api.login(data).then((da)=>{	
 				if(da=='error'){
 					this.bdtj('登录页','登录失败','--');
@@ -106,7 +109,7 @@ export default {
 				this.ajaxType=0;
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));	
-				if(this.islogin===true){
+				if(data.password){
 					window.passIn = data;
 					localStorage.setItem('pass',JSON.stringify(data));
 				}
@@ -125,6 +128,8 @@ export default {
 				let pr = {
 					access_token:window.userInfo.access_token
 				};
+				
+				
 				this.api.getSelfInfo(pr).then((da)=>{
 					if(da=='error'){return}		
 					

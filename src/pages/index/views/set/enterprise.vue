@@ -35,7 +35,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/ggrrzsl_yyzz.svg" alt="">
+										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/ggrrzsl_yyzz.svg" alt="">
 									</div>
 								</div>
 							</div>
@@ -60,7 +60,7 @@
 											<div class="suc_1_9_8"><span></span>亮度均匀</div>
 											<div class="suc_1_9_8"><span></span>照片清晰</div>
 										</div>
-										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/ggrrzsl_khykz.svg" alt="">
+										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/ggrrzsl_khykz.svg" alt="">
 									</div>
 								</div>
 							</div>
@@ -136,14 +136,14 @@
 		<TcBox :config="outc" ref="tcBox">
 			<template v-slot:todo="{ todo }">				
 				<div v-if="tAncType==2" class="tc_sucd_1">
-					<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_00.png"/>
+					<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 					<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
 					<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
 					<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 				</div>
 				
 				<div v-if="tAncType==3" class="tc_sucd_1">
-					<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_00.png"/>
+					<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 					<el-input class="elmentIputNoborder" v-model="tancData.email" placeholder="请输入邮箱"></el-input>
 					<div class="emailyzm">
 						<el-input v-model="tancData.pic_verify" placeholder="请输入验证码"></el-input>
@@ -425,7 +425,7 @@ export default {
 			let params = {
 				mobile:this.form.mobile,
 				mobile_zone:this.form.mobile_zone,
-		
+				type:'login',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
@@ -454,7 +454,7 @@ export default {
 			let params = {
 				mobile:this.tancData.newMoble,
 				mobile_zone:this.tancData.mobile_zone,
-				type:'register'
+				type:'login',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
@@ -524,6 +524,7 @@ export default {
 			if(this.tAncType==2){
 				this.qdTc2();
 			}
+			
 		},
 		closeTc1(){		
 			if(this.tAncType==1){			

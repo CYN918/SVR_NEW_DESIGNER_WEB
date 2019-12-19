@@ -2,7 +2,7 @@
 	<div>
 		<div class="mynoerr">
 			<div class="kBg_01x">
-			<img :src="'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/'+onData.u+'.svg'" alt="">			
+			<img :src="'/imge/svg/'+onData.u+'.svg'" alt="">			
 			<div>{{onData.t}}</div>
 			<a href="/#/" class="errBT pend">返回首页</a>
 			</div>

@@ -10,7 +10,7 @@
 				</el-option>	
 			</el-select>
 			<div v-if="inputType=='phones'"  class="phone_2"></div>
-			<input class="phone_1" @keyup.enter="keyup"  @focus="focus" @blur="blur" :type="midf2" v-model="input" :placeholder="placeholder"  ref="input"/>
+			<input autocomplete="off" class="phone_1" @keyup.enter="keyup"  @focus="focus" @blur="blur" :type="midf2" v-model="input" :placeholder="placeholder"  ref="input"/>
 			
 			<span v-if="inputType=='verifys'" class="phone_3" @click="ajaxVerifys">{{timer}}</span>
 			<div v-if="inputType=='password' || inputType=='password_repass'" class="iconfont pend mad" @click="chemima('midf2')">
@@ -245,7 +245,6 @@ export default {
 		
 		
 		ajaxVerifys(){	
-			
 			if(this.ajaxVerifysType){
 				return
 			}
@@ -254,12 +253,11 @@ export default {
 				return
 			}
 			
-		
+					
 			let params = {
 				mobile:this.$parent.form.mobiles.mobile,
 				mobile_zone:this.$parent.form.mobiles.mobile_zone
 			};
-		
 			if(this.iscf==1){
 				params.type = 'register';
 			}

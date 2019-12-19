@@ -13,7 +13,7 @@
 			</div>			
 		</div>
 		<div class="u_top3">
-			<img class="u_top3_1" :src="mJs.Cavars(userMessage.avatar)">
+			<img class="u_top3_1" :src="mJs.Cavars(userMessage.avatar)"/>
 			<div class="u_top3_2">
 				<div class="u_top3_2_1">{{backnAM(userMessage.username)}}</div>
 				<div class="u_top3_2_2">{{userMessage.province+'-'+userMessage.city}}</div>
@@ -236,7 +236,7 @@ export default {
 				{fn:'fxclick',n:'分享'}		
 			];			
 			if(this.isMe()==true){
-				this.unType=1;
+				unType=1;
 				btn = [
 					{fn:'showTopBk',n:'设置背景图'},
 					{fn:'fxclick',n:'分享'}				
@@ -251,6 +251,7 @@ export default {
 			if(!window.userInfo){
 				return false;
 			}
+			
 			return this.$route.query.id ==  window.userInfo.open_id;
 		},
 		showTopBk(){

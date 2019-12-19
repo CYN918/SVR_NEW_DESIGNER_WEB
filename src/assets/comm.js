@@ -140,7 +140,7 @@ export default {
 		if(arr[arr.length-1]=='svg'){
 			return a;
 		}
-		return a+'?x-oss-process=image/resize,w_128';
+		return a;
 	},
 
 	

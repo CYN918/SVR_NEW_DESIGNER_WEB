@@ -14,7 +14,7 @@
 		:total="total">   
 		</el-pagination>
 		<div v-if="isNodeat" class="emptyData">
-			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/svg/empty_nodata.svg" alt="">
+			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
 			<div class="noDatawan">{{nodTip}}</div>
 		</div>
 		<div v-if="islod" class="jloadBox" ref="jloadBox"></div>
@@ -104,7 +104,6 @@ export default {
 					}	
 					return
 				}
-
 				this.List = da.data;
 				this.total = da.total;
 				

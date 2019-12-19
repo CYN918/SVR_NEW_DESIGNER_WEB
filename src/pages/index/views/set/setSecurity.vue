@@ -76,8 +76,8 @@
 
 				</div>
 				<div v-if="tAncType==3" class="tc_sucd_1">
-					<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_00.png"/>
-					<img class="tAncType4_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/email01.png" alt="">
+					<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
+					<img class="tAncType4_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/email01.png" alt="">
 					<div class="tAncType4_2">
 						激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/>
 						请及时登录邮箱，点击邮件中的链接激活帐户。
@@ -115,7 +115,7 @@
 					
 				</div>
 				<div v-if="tAncType==5" class="tc_sucd_1">
-					<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/cj_00.png"/>
+					<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 				
 					<div class="bindwxd_3">
 						是否确认解绑？
@@ -182,7 +182,7 @@ export default {
 				{n:"艺术工作者"},
 				{n:"教育工作者"},
 			],
-			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/img/nav_tx.png',
+			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/nav_tx.png',
 			vp_r(val){
 				if(!val){
 					return {type:false,text:'请确认密码',cls:'errd'}
@@ -456,7 +456,7 @@ export default {
 			let params = {
 				mobile:p,
 				mobile_zone:m,
-				type:'register'
+				type:'login',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
@@ -538,7 +538,10 @@ export default {
 			});
 		},
 		closeCler(){
-			this.tancData = {};
+			this.tancData = {
+				mobile_zone:'86',
+				old_mobile_zone:'86'
+			};
 		},
 		closeTc1(){		
 			
