@@ -88,30 +88,63 @@
 				<div v-if="active == 0">
 					<p class="textExplains">{{remeber_tips}}</p>
 					<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" style="margin-top: 30px;min-width: 700px;">
-						<div v-for="item in list">
-							<div class="Information">
-								<p>{{item.title}}</p>
-								<el-input v-model="ruleForm.studentId" :placeholder=item.tigs></el-input>	
+						<div v-for="(item,index) in list">
+							<div class="Information" v-if="item.limittype == 'text'">
+								<div>
+									<p>{{item.title}}</p>
+								    <el-input v-model="datas[index]" :placeholder=item.tigs></el-input>
+								</div>								
 							</div>
-							<div class="Information InformationUpload" v-if="item.limittype != 'text'">
-								<p v-if="item.limittype == 'pic'">上传图片<i>图片格式为{{item.limittypevalue}}</i></p>
-								<p v-if="item.limittype == 'video'">上传视频</p>
-								<p v-if="item.limittype == 'file'">上传文件</p>
-								<div style="float: left;">
-									<el-upload
-										action=""
-										list-type="picture-card"
-										:on-preview="handlePictureCardPreview"
-										:on-remove="handleRemove">
-										<i class="el-icon-plus"></i>
-										<span style="position: absolute;top: 65px;left: 99px;color: #BBBBBB;" v-if="item.limittype == 'pic'">上传图片</span>
-										<span style="position: absolute;top: 65px;left: 99px;color: #BBBBBB;" v-if="item.limittype == 'video'">上传视频</span>
-										<span style="position: absolute;top: 65px;left: 99px;color: #BBBBBB;" v-if="item.limittype == 'file'">上传文件</span>
-									</el-upload>
-									<el-dialog :visible.sync="dialogVisible">
-										<img width="100%" :src="dialogImageUrl" alt="">
-									</el-dialog>
-								</div>		
+							<div class="Information InformationUpload" v-else>	
+								<div style="float: left;width: 100%;" v-if="item.limittype == 'pic'">
+									<div>
+										<p>{{item.title}}</p>
+										<el-input v-model="datas[index].picTitle" :placeholder=item.tigs></el-input>
+									</div>
+									<p>上传图片<i>图片格式为{{item.limittypevalue}}</i></p>
+									<div class="page2_1_2" style="margin: 0;float: left;">
+										<div><div>+</div>上传图片</div>
+										<input @change="fileUpfj($event,index)" :class="'page'+index" ref="upnfile" type="file">					
+									</div>
+									<ul style="float: left;margin-left: 15px;">
+										<li>
+											<img width="239" height="135" v-if="datas[index]" :src="datas[index]" alt="">	
+										</li>
+									</ul>	
+								</div>
+								<div style="float: left;width: 100%;" v-if="item.limittype == 'video'">
+									<div>
+										<p>{{item.title}}</p>
+										<el-input v-model="datas[index]" :placeholder=item.tigs></el-input>
+									</div>
+									<p>上传视频</p>
+									<div class="page2_1_2" style="margin: 0;float: left;">
+										<div><div>+</div>上传视频</div>
+										<input @change="fileUpfj($event,index)" :class="'page'+index" ref="upnfile2" type="file">					
+									</div>
+									<ul style="float: left;margin-left: 15px;">
+										<li>
+											<video width="269" height="155" v-if="datas[index]" :src="datas[index]" controls="controls">您的浏览器不支持 video 标签。</video>
+										</li>
+									</ul>
+								</div>
+								<div style="float: left;width: 100%;" v-if="item.limittype == 'file'">
+									<div>
+										<p>{{item.title}}</p>
+										<el-input v-model="datas[index]" :placeholder=item.tigs></el-input>
+									</div>
+									<p>上传文件</p>
+									<div class="page2_1_2" style="margin: 0;float: left;">
+										<div><div>+</div>上传文件</div>
+										<input @change="fileUpfj($event,index)" :class="'page'+index" ref="upnfile2" type="file">					
+									</div>
+									<ul style="float: left;margin-left: 15px;">
+										<li>
+										<!-- <el-input v-if="datas[index]" v-model="datas[index]"></el-input> -->
+										{{datas[index]}}
+										</li>
+									</ul>	
+								</div>	
 							</div>
 
 						</div>
@@ -195,6 +228,7 @@ export default {
 	name: 'home',	 
 	data(){	
 		return{
+			datas:[],
 			tcZj:'',
 			config:{
 				title:'选择参与活动的作品',
@@ -204,7 +238,7 @@ export default {
 			},
 			topCn:{
 				min:680,
-			},	
+			},
 			shareData:{},
 		    show:false,
 			ishowWp:'',
@@ -225,7 +259,7 @@ export default {
 			total2:0,
 			active: 0,
 			ruleForm: {
-				studentId: '',
+				studentId: [],
 			},
 			rules: {
 				studentId: [
@@ -233,11 +267,17 @@ export default {
 					{ min: 10, max: 15, message: '长度在 10 到 15 个字符', trigger: 'blur' }
 				],
 			},
-			dialogImageUrl: '',
-			dialogVisible: false,
 			remeber_tips: '',
 			list: [],
+			opType:0,
+			
+			
+			
+			
 		}
+		
+	},
+	created(){
 		
 	},
 	mounted: function () {	
@@ -257,12 +297,49 @@ export default {
 			});
 			
 		},
-		handleRemove(file, fileList) {
-			console.log(file, fileList);
-		},
-		handlePictureCardPreview(file) {
-			this.dialogImageUrl = file.url;
-			this.dialogVisible = true;
+		fileUpfj(flie,index){	
+			this.bdtj('图片上传弹窗','确定','--');
+			if(this.opType==1){
+				Message({message: '图片正在上传，请稍后'});
+				return
+			}
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				'6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',
+				window.userInfo.open_id,
+				times
+			];
+			let fld = flie.target.files[0];
+			let formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',window.userInfo.open_id)
+			formData.append('file',fld)
+			formData.append('relation_type','user_info')
+			formData.append('related_id',window.userInfo.open_id)
+			formData.append('classify_1','avatar')
+			formData.append('timestamp',times)
+			formData.append('is_callback',1)
+
+			this.opType=1;
+			Message({message: '图片正在上传，请稍后'});
+			this.$ajax.post(window.basrul+'/File/File/insert', formData)
+			.then((da)=>{	
+				this.opType=0;
+				let ds = da.data;
+				if(ds.result==0){
+					this.datas[index] = ds.data.url;
+					this.datas.splice(index,1,ds.data.url);	
+					console.log(this.datas)		    
+				}else{
+					// msg(response.msg);
+				}
+			})
+			.catch(function () {
+				this.opType=0;
+				
+			});
 		},
 		showtc(){
 			this.$refs.tcBox.show();
@@ -713,7 +790,7 @@ export default {
 	width: 80%;
 	margin: 0 auto;
 }
-.Information > p{
+.Information > div > p,.Information > div > div > p{
     float: left;
 	width: 100%;
 	height: 20px;
@@ -723,14 +800,14 @@ export default {
 	font-size: 14px;
 	text-align: left;
 }
-.Information > p > i{
+.Information > div > p > i{
 	color: #BBBBBB;
 	font-size: 12px;
 	font-style: normal;
 	margin-left: 10px;
 }
 .InformationUpload{
-	height: 230px;
+	height: 300px;
 	position: relative;
 }
 .InformationUpload >>> .el-upload--picture-card{
