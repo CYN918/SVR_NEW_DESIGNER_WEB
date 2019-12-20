@@ -1,11 +1,6 @@
 <template>
 	<div>
-<<<<<<< HEAD
-		<div class="yhtop newbtnd_4">
-			
-=======
 		<div class="yhtop newbtnd_4">			
->>>>>>> b2947e2e399a8c262082920f23b739784b3e94f1
 			<div class="yhtop1 "><img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg">用户资料完善</div>
 			<div class="yhtop2"><div>基本信息设置</div></div>
 			<div class="newUsermeBOX">

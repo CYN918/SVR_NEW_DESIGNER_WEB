@@ -47,15 +47,10 @@ export default {
 	}, 
 	methods: {
 		init(){
-<<<<<<< HEAD
-			this.api.getSelfInfo(pr).then((da)=>{
-				if(da=='error'){return}
-				da.access_token = data.res.data.access_token;
-=======
 			this.api.getSelfInfo({}).then((da)=>{
 				if(da=='error'){return}
 				da.access_token = window.userInfo.access_token;
->>>>>>> b2947e2e399a8c262082920f23b739784b3e94f1
+
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));				
 			})
