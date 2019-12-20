@@ -87,20 +87,16 @@
 				</el-steps>
 				<div v-if="active == 0">
 					<p class="textExplains">{{remeber_tips}}</p>
-					<el-form label-width="100px" class="demo-ruleForm" style="margin-top: 30px;min-width: 700px;">
+					<div class="demo-ruleForm" style="margin-top: 30px;min-width: 800px;">
 						<div v-for="(item,index) in list">
 							<div class="Information" v-if="item.limittype == 'text'">
 								<div>
 									<p>{{item.title}}</p>
-								    <el-input v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum></el-input>
+								    <el-input v-model="datas[index]" :placeholder=item.limittypevalue :maxlength=item.limitnum></el-input>
 								</div>								
 							</div>
 							<div class="Information InformationUpload" v-else>	
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'pic'">
-									<div>
-										<p>{{item.title}}</p>
-										<el-input v-model="datas[index]" :placeholder=item.tigs></el-input>
-									</div>
 									<p>上传图片<i>图片格式为{{item.limittypevalue}}</i></p>
 									<div class="page2_1_2" style="margin: 0;float: left;">
 										<div><div>+</div>上传图片</div>
@@ -110,13 +106,10 @@
 										<li>
 											<img width="239" height="135" v-if="datas[index]" :src="datas[index]" alt="">	
 										</li>
-									</ul>	
+									</ul>
+									<p><i>限制{{item.limitnum}}kb以内</i></p>	
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'video'">
-									<div>
-										<p>{{item.title}}</p>
-										<el-input v-model="datas[index]" :placeholder=item.tigs></el-input>
-									</div>
 									<p>上传视频</p>
 									<div class="page2_1_2" style="margin: 0;float: left;">
 										<div><div>+</div>上传视频</div>
@@ -127,31 +120,29 @@
 											<video width="269" height="155" v-if="datas[index]" :src="datas[index]" controls="controls">您的浏览器不支持 video 标签。</video>
 										</li>
 									</ul>
+									<p><i>限制{{item.limitnum}}kb以内</i></p>
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'file'">
-									<div>
-										<p>{{item.title}}</p>
-										<el-input v-model="datas[index]" :placeholder=item.tigs></el-input>
-									</div>
 									<p>上传文件</p>
 									<div class="page2_1_2" style="margin: 0;float: left;">
 										<div><div>+</div>上传文件</div>
 										<input @change="fileUpfj($event,index)" :class="'page'+index" ref="upnfile2" type="file">					
 									</div>
-									<ul style="float: left;margin-left: 15px;">
+									<ul style="float: left;margin-left: 15px;width: 400px;word-wrap:break-word;text-align: left;">
 										<li>
 										{{datas[index]}}
 										</li>
-									</ul>	
+									</ul>
+									<p><i>请使用压缩包形式上传</i></p>	
 								</div>	
 							</div>
 
 						</div>
 						
-						<el-form-item>
+						<div style="margin-bottom: 20px;">
 							<el-button type="primary" @click="next">下一步</el-button>
-						</el-form-item>
-					</el-form>	
+						</div>
+					</div>	
 				</div>
 				<div v-if="active == 1">
 					<div class="pushDeletBox4">
@@ -273,7 +264,7 @@ export default {
 	}, 
 	methods:{
 		next() {	
-			if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();							
+			if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();			
 		},
 		backgo(){
 			this.active = 0;
@@ -312,7 +303,7 @@ export default {
 				if(ds.result==0){
 					this.datas[index] = ds.data.url;
 					this.datas.splice(index,1,ds.data.url);	
-					// console.log(typeof(JSON.stringify(this.datas)))		    
+						 
 				}else{
 					// msg(response.msg);
 				}
@@ -790,7 +781,7 @@ export default {
 	margin-left: 10px;
 }
 .InformationUpload{
-	height: 350px;
+	height: 280px;
 	position: relative;
 }
 .InformationUpload >>> .el-upload--picture-card{
