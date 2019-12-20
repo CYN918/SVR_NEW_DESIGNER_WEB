@@ -92,12 +92,12 @@
 							<div class="Information" v-if="item.limittype == 'text'">
 								<div>
 									<p>{{item.title}}</p>
-								    <el-input v-model="datas[index]" :placeholder=item.limittypevalue :maxlength=item.limitnum></el-input>
+								    <el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum show-word-limit></el-input>
 								</div>								
 							</div>
 							<div class="Information InformationUpload" v-else>	
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'pic'">
-									<p>上传图片<i>图片格式为{{item.limittypevalue}}</i></p>
+									<p>{{item.title}}<i>图片格式为{{item.limittypevalue}}</i></p>
 									<div class="page2_1_2" style="margin: 0;float: left;">
 										<div><div>+</div>上传图片</div>
 										<input @change="fileUpfj($event,index)" :class="'page'+index" ref="upnfile" type="file">					
@@ -110,7 +110,7 @@
 									<p><i>限制{{item.limitnum}}kb以内</i></p>	
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'video'">
-									<p>上传视频</p>
+									<p>{{item.title}}</p>
 									<div class="page2_1_2" style="margin: 0;float: left;">
 										<div><div>+</div>上传视频</div>
 										<input @change="fileUpfj($event,index)" :class="'page'+index" ref="upnfile2" type="file">					
@@ -123,7 +123,7 @@
 									<p><i>限制{{item.limitnum}}kb以内</i></p>
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'file'">
-									<p>上传文件</p>
+									<p>{{item.title}}</p>
 									<div class="page2_1_2" style="margin: 0;float: left;">
 										<div><div>+</div>上传文件</div>
 										<input @change="fileUpfj($event,index)" :class="'page'+index" ref="upnfile2" type="file">					
@@ -219,6 +219,7 @@ export default {
 	data(){	
 		return{
 			datas:[],
+			array: [],
 			tcZj:'',
 			config:{
 				title:'选择参与活动的作品',
@@ -264,7 +265,16 @@ export default {
 	}, 
 	methods:{
 		next() {	
-			if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();			
+			if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();
+			for(var i=0;i<this.datas.length;i++){
+				let obj = {
+					title: this.list[i].title,
+					url: this.datas[i],
+				}
+				this.array.push(obj);
+			}
+			// console.log(this.array);
+
 		},
 		backgo(){
 			this.active = 0;
@@ -305,7 +315,8 @@ export default {
 					this.datas.splice(index,1,ds.data.url);	
 						 
 				}else{
-					// msg(response.msg);
+					// msg(ds.data);
+					Message({message: ds.data});
 				}
 			})
 			.catch(function () {
@@ -528,7 +539,7 @@ export default {
 			let pr = {
 				activity_id:this.$route.query.id,
 				work_id:this.work_id.join(','),
-				append_infos: JSON.stringify(this.datas),
+				append_infos: JSON.stringify(this.array),
 			};
 			this.api.a_AttendActivity(pr).then((da)=>{
 				if(da=='error'){
