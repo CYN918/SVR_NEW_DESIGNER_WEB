@@ -380,7 +380,7 @@ export default {
 				if(da==null){
 					this.noGd=1;
 				}
-				console.log(JSON.parse(da.extra_info))
+				// console.log(JSON.parse(da.extra_info))
 
 				if(da.extra_info == null){
 					this.bdtjCom('上传作品');
