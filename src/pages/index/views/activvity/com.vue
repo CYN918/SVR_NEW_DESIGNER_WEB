@@ -87,12 +87,12 @@
 				</el-steps>
 				<div v-if="active == 0">
 					<p class="textExplains">{{remeber_tips}}</p>
-					<el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" style="margin-top: 30px;min-width: 700px;">
+					<el-form label-width="100px" class="demo-ruleForm" style="margin-top: 30px;min-width: 700px;">
 						<div v-for="(item,index) in list">
 							<div class="Information" v-if="item.limittype == 'text'">
 								<div>
 									<p>{{item.title}}</p>
-								    <el-input v-model="datas[index]" :placeholder=item.tigs></el-input>
+								    <el-input v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum></el-input>
 								</div>								
 							</div>
 							<div class="Information InformationUpload" v-else>	
@@ -257,15 +257,6 @@ export default {
 			page2:1,
 			total2:0,
 			active: 0,
-			ruleForm: {
-				studentId: [],
-			},
-			rules: {
-				studentId: [
-					{ required: true, message: '请输入学号', trigger: 'blur' },
-					{ min: 10, max: 15, message: '长度在 10 到 15 个字符', trigger: 'blur' }
-				],
-			},
 			remeber_tips: '',
 			list: [],
 			opType:0,												
@@ -288,9 +279,9 @@ export default {
 			this.active = 0;
 		},
 		fileUpfj(flie,index){	
-			this.bdtj('图片上传弹窗','确定','--');
+			this.bdtj('上传弹窗','确定','--');
 			if(this.opType==1){
-				Message({message: '图片正在上传，请稍后'});
+				Message({message: '正在上传，请稍后'});
 				return
 			}
 			let times = (Date.parse(new Date())/1000);
@@ -313,7 +304,7 @@ export default {
 			formData.append('is_callback',1)
 
 			this.opType=1;
-			Message({message: '图片正在上传，请稍后'});
+			Message({message: '正在上传，请稍后'});
 			this.$ajax.post(window.basrul+'/File/File/insert', formData)
 			.then((da)=>{	
 				this.opType=0;
@@ -389,7 +380,7 @@ export default {
 				if(da==null){
 					this.noGd=1;
 				}
-				// console.log(JSON.parse(da.extra_info))
+				console.log(JSON.parse(da.extra_info))
 
 				if(da.extra_info == null){
 					this.bdtjCom('上传作品');
