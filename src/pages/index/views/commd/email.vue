@@ -5,7 +5,7 @@
 				<div class="em_02">
 					<div class="em_03">邮箱激活</div>
 					<div class="em_04">
-						<img class="em_05" :src="'/imge/svg/'+da.u+'.svg'"/>
+						<img class="em_05" :src="'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/'+da.u+'.svg'"/>
 						<div class="em_06" v-if="setData.type!=2">
 							<div class="em_07">{{da.t}}</div>
 							<div class="em_08">
@@ -47,9 +47,15 @@ export default {
 	}, 
 	methods: {
 		init(){
+<<<<<<< HEAD
 			this.api.getSelfInfo(pr).then((da)=>{
 				if(da=='error'){return}
 				da.access_token = data.res.data.access_token;
+=======
+			this.api.getSelfInfo({}).then((da)=>{
+				if(da=='error'){return}
+				da.access_token = window.userInfo.access_token;
+>>>>>>> b2947e2e399a8c262082920f23b739784b3e94f1
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));				
 			})
@@ -72,8 +78,7 @@ export default {
 			}
 			
 		},
-		djsFn(){
-			
+		djsFn(){			
 			setTimeout(()=>{
 				this.djs--;
 				if(this.djs>0){

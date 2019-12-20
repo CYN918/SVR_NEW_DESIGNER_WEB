@@ -9,7 +9,12 @@
 		<div v-else class="setUserBox">
 			<div class="setUserBoxs">
 				<div :class="['setUserBoxs_nav',topTyped!=false?'tm_opd':'']">
-					<div v-for="(el,index) in navDta" :key="index" @click="setNavd(index)" :class="[index==navdOn?'action':'']">{{el.t}}</div>
+					<div 
+					v-for="(el,index) in navDta" 
+					:key="index" 
+					:name="el.h"
+					@click="setNavd(index)" 
+					:class="[index==navdOn?'action':'']">{{el.t}}</div>
 					
 				</div>
 				<div v-if="topTyped==true" class="navDwzc navDwzc4">
@@ -19,7 +24,7 @@
 				</div>
 				
 				<div class="setUserBoxs_cent setUserBoxs_centx">
-					<div class="scBox suc_1 hlepdd" v-html="list">
+					<div class="scBox suc_1 hlepdd" v-html="comt">
 						
 					</div>
 					
@@ -27,6 +32,8 @@
 			</div>
 			
 		</div>
+		
+		
 		
 	</div>
 </template>
@@ -84,34 +91,8 @@ export default {
 			this.isaj = '';
 			if(!window.xsmData){
 				this.getXsm();
-			}
+			}	
 			
-			if(this.$route.name == 'help'){
-				this.isJD = '';
-				let oid = this.$route.query.on;
-				if(oid){
-					this.navdOn = oid.substring(0,1)-1;
-					setTimeout(()=>{
-						this.goAnchor('#problem_'+oid);
-					},100);
-					
-					return
-				}	
-				
-				
-				setTimeout(()=>{
-					let t = document.documentElement.scrollTop||document.body.scrollTop;
-					if(t>=60){
-						this.mJs.scTop(60);
-					}else{
-						this.mJs.scTop(1);
-					}
-					
-				},25)
-				
-				return
-			}			
-			this.isJD = 1;
 			this.getPzData();
 			
 		},
@@ -125,20 +106,40 @@ export default {
 				
 			})
 		},
+		
+		
+		
 		init(){
-			this.getHelp();
 			this.mJs.scTop(1);		
-			window.onscroll = ()=>{				
+			
+			this.pzData();		
+		},
+		
+		reHid(i){
+			let on = this.navDta[i];
+			if(!on.top){
+				let ob = document.querySelector(on.h);
+				if(ob){
+					on.top = ob.offsetTop;				
+				}				
+			}
+			return on.top?on.top:'';			
+		},
+		addLsSc(){
+			window.onscroll = ()=>{
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(t==0){
 					this.mJs.scTop(1);
 				}
+				
 				if(this.isJD==1){
 					if(t>60 && !this.topTyped){
 						this.topTyped=1;
+						return
 					}
 					if(t<=60 && this.topTyped==1){				
 						this.topTyped='';
+						return
 					}
 					return
 				}
@@ -149,25 +150,29 @@ export default {
 				if(t<=100){
 					this.topTyped='';
 				}
-				if(t<=500){
+				
+				let on1 = this.reHid(1);
+				if(on1 && t<on1-300){
 					this.navdOn = 0;
 					return
 				}
-				if(t<1100){
+				let on2 = this.reHid(2);
+				if(on2 && t<on2-300){
 					this.navdOn = 1;
 					return
 				}
-				if(t<1900){
+				let on3 = this.reHid(3);
+				if(on3 && t<on3-300){
 					this.navdOn = 2;
 					return
 				}
 				this.navdOn = 3;
-				
-				
+
+
 				
 			}
-			this.pzData();		
 		},
+		
 		getXsm(){
 			let pr = {
 				user_open_id:'system_admin'
@@ -196,12 +201,32 @@ export default {
 				if(da=="error" || !da.document){this.getMrData();return}
 				this.isaj = 1;
 				this.comt = da.document;
+				
+				
+				if(this.$route.name == 'help'){
+					this.isJD = '';
+					let oid = this.$route.query.on;
+					if(oid){
+						this.navdOn = oid.substring(0,1)-1;
+						setTimeout(()=>{
+							this.goAnchor('#problem_'+oid);
+						},100);
+						return
+					}
+					
+				}else{
+					this.isJD = 1;
+				}
+				this.addLsSc();
+			
+				
 				let t = document.documentElement.scrollTop||document.body.scrollTop;
 				if(t>=60){
 					this.mJs.scTop(60);
 				}else{
 					this.mJs.scTop(1);
 				}
+				
 			}).catch(()=>{
 				this.getMrData();
 			})

@@ -47,8 +47,10 @@
 		<div class="home_0x6">
 			<div class="home_0x7">
 				<div class="home_0x7_1">优秀作品推荐，为你持续输出灵感</div>
-				<div class="home_0x7_2">
-					<a href="/#/Work_i">更多</a>
+				<div class="home_0x7_2 hovs">
+					<span :class="cOn==fls[el]?'check':''" @click="sec(fls[el])" v-for="el in [0,1,2,3,4]">{{fls[el]}}</span>
+					<i class="fgx_01"></i>
+					<span @click="goFn('/Work_i')">更多</span>
 				</div>
 			</div>
 			<div class="home_0x8">
@@ -77,20 +79,61 @@ export default {
 				{n:'插画',t:'Illustration',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/6.svg'}
 			],
 			List:[],
+			fls:[],
+			cOn:'全部',
 		}
 	},
 	mounted: function(){
 		this.getData()
+		this.getClass();
 	}, 
 	methods: {
-		getData(){
-			this.api.getHList({
+		sec(n){
+			if(n==this.cOn){
+				return
+			}
+			this.cOn = n;
+			if(n=='全部'){
+				n = '';
+			}
+			this.getData(n);
+		},
+		getData(cn){
+			let pr = {
 				type:'rec',
 				page:1,
 				limit:4
-			}).then((da)=>{
+			};
+			if(cn){
+				pr.classify_name = cn;				
+			}
+			this.api.getHList(pr).then((da)=>{
 				if(da=='error'){return}				
 				this.List = da.data;
+			})
+		},
+		getClass(){
+			this.api.getClassify().then((da)=>{
+				if(da=='error'){
+					return
+				}
+				let arr1 = [],arr2=['全部'];
+				for(let i=0,n=da.length;i<n;i++){
+					arr1 = arr1.concat(sbd(da[i].sub_data));
+				}
+				function sbd(d){
+					let arr = [];
+					for(let i=0,n=d.length;i<n;i++){
+						if(arr2.indexOf(d[i].classify_name)!=-1){
+							continue
+							return
+						}
+						arr2.push(d[i].classify_name);
+						
+					}
+					return arr;
+				}
+				this.fls = arr2;  
 			})
 		}
 	}
@@ -249,5 +292,31 @@ export default {
 
 .home_0x8>div:last-child{
 	margin-right: 0;
+}
+.home_0x7_2>span{
+	display: inline-block;
+	vertical-align: top;
+	margin: 0 20px;
+	font-size:14px;
+	color:rgba(51,51,51,1);
+	line-height:20px;
+}
+.hovs>span{
+	cursor: pointer;
+}
+.hovs>span:hover{
+	color: #33B3FF;
+}
+.hovs>span.check{
+	color: #33B3FF;
+}
+.fgx_01{
+	display: inline-block;
+	vertical-align: top;
+	
+	width:1px;
+	height:16px;
+	background:rgba(187,187,187,1);
+	margin: 2px 20px 0 ;
 }
 </style>
