@@ -99,7 +99,7 @@
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'pic'">
 									<div>
 										<p>{{item.title}}</p>
-										<el-input v-model="datas[index].picTitle" :placeholder=item.tigs></el-input>
+										<el-input v-model="datas[index]" :placeholder=item.tigs></el-input>
 									</div>
 									<p>上传图片<i>图片格式为{{item.limittypevalue}}</i></p>
 									<div class="page2_1_2" style="margin: 0;float: left;">
@@ -140,7 +140,6 @@
 									</div>
 									<ul style="float: left;margin-left: 15px;">
 										<li>
-										<!-- <el-input v-if="datas[index]" v-model="datas[index]"></el-input> -->
 										{{datas[index]}}
 										</li>
 									</ul>	
@@ -150,7 +149,7 @@
 						</div>
 						
 						<el-form-item>
-							<el-button type="primary" @click="next('ruleForm')">下一步</el-button>
+							<el-button type="primary" @click="next">下一步</el-button>
 						</el-form-item>
 					</el-form>	
 				</div>
@@ -186,8 +185,8 @@
 						</ul>
 					</div>
 					<div class="pushDeletBox5">
-						<span class="pend">上一步</span>
-						<span @click="gopushzp" class="pend">发布新作品</span>
+						<span @click="backgo" class="pend">上一步</span>
+						<span @click="gopushzp" class="pend" style="background: #fff;color: #333333;border: 1px solid #979797;margin-right: 20px;">发布新作品</span>
 						<span @click="pushOk" class="pend btn_n3">立即报名</span>
 					</div>
 				</div>				
@@ -269,11 +268,7 @@ export default {
 			},
 			remeber_tips: '',
 			list: [],
-			opType:0,
-			
-			
-			
-			
+			opType:0,												
 		}
 		
 	},
@@ -286,16 +281,11 @@ export default {
 		this.a_getInfo();
 	}, 
 	methods:{
-		next(formName) {
-			this.$refs[formName].validate((valid) => {
-				if (valid) {
-					if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();
-				} else {
-					console.log('error submit!!');
-					return false;
-				}
-			});
-			
+		next() {	
+			if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();							
+		},
+		backgo(){
+			this.active = 0;
 		},
 		fileUpfj(flie,index){	
 			this.bdtj('图片上传弹窗','确定','--');
@@ -331,7 +321,7 @@ export default {
 				if(ds.result==0){
 					this.datas[index] = ds.data.url;
 					this.datas.splice(index,1,ds.data.url);	
-					console.log(this.datas)		    
+					// console.log(typeof(JSON.stringify(this.datas)))		    
 				}else{
 					// msg(response.msg);
 				}
@@ -399,7 +389,7 @@ export default {
 				if(da==null){
 					this.noGd=1;
 				}
-				console.log(JSON.parse(da.extra_info))
+				// console.log(JSON.parse(da.extra_info))
 
 				if(da.extra_info == null){
 					this.bdtjCom('上传作品');
@@ -556,6 +546,7 @@ export default {
 			let pr = {
 				activity_id:this.$route.query.id,
 				work_id:this.work_id.join(','),
+				append_infos: JSON.stringify(this.datas),
 			};
 			this.api.a_AttendActivity(pr).then((da)=>{
 				if(da=='error'){
@@ -565,6 +556,7 @@ export default {
 				this.bindType=0;				
 				Message({message: '上传成功'});
 				this.closeZp();
+				this.active = 1;
 			}).catch(()=>{
 				this.bindType = 0;
 			})
@@ -807,7 +799,7 @@ export default {
 	margin-left: 10px;
 }
 .InformationUpload{
-	height: 300px;
+	height: 350px;
 	position: relative;
 }
 .InformationUpload >>> .el-upload--picture-card{
