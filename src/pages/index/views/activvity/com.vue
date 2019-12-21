@@ -213,6 +213,7 @@ import detailed_admission from './admission';
 import TcBox from '../../components/TcBox';
 import TcCertification from '../../components/TcCertification';
 import pTop from '../../components/postionTop';
+import { log } from 'util';
 export default {
 	components:{fxd,detailed_detailed,detailed_into,detailed_admission,TcBox,TcCertification,pTop},
 	name: 'home',	 
@@ -264,23 +265,24 @@ export default {
 		this.a_getInfo();
 	}, 
 	methods:{
-		next() {	
-			if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();
-			for(var i=0;i<this.datas.length;i++){
-				let obj = {
-					title: this.list[i].title,
-					url: this.datas[i],
+		next() {
+			if(this.datas.length == 0){
+				Message({message: '请填写信息'});
+				return
+			}else{		
+				if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();
+				for(var i=0;i<this.datas.length;i++){
+					let obj = {
+						title: this.list[i].title,
+						url: this.datas[i],
+					}
+					this.array.push(obj);	
 				}
-				this.array.push(obj);
 			}
-			// console.log(this.array);
-
 		},
 		checkValue(item,index){
-			// console.log(item)
 			for(var i=0;i<this.list.length;i++){
 				if(item == this.list[i]){
-					console.log(this.list[i])
 					if(this.list[i].limittypevalue == '仅限数字'){	
 						var reg = /^[0-9]*$/;
 						var re = new RegExp(reg);
@@ -300,7 +302,7 @@ export default {
 						}
 					}
 				}
-			}										
+			}											
 		},
 		backgo(){
 			this.active = 0;
