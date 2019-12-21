@@ -89,51 +89,51 @@
 					<p class="textExplains">{{remeber_tips}}</p>
 					<div class="demo-ruleForm" style="margin-top: 30px;min-width: 800px;">
 						<div v-for="(item,index) in list">
-							<div class="Information" v-if="item.limittype == 'text'">
+							<div class="Information" v-if="item.limittype == 'text'" style="height: 50px;">
 								<div>
 									<p>{{item.title}}</p>
-								    <el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum show-word-limit></el-input>
+								    <el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum show-word-limit @change="checkValue(item,index)"></el-input>
 								</div>								
 							</div>
 							<div class="Information InformationUpload" v-else>	
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'pic'">
-									<p>{{item.title}}<i>图片格式为{{item.limittypevalue}}</i></p>
-									<div class="page2_1_2" style="margin: 0;float: left;">
+									<p>{{item.title}}</p>
+									<div class="page2_1_2" style="margin: 10px 5px 5px 15px;float: left;">
 										<div><div>+</div>上传图片</div>
-										<input @change="fileUpfj($event,index)" :class="'page'+index" ref="upnfile" type="file">					
+										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile" type="file">					
 									</div>
-									<ul style="float: left;margin-left: 15px;">
+									<ul style="float: left;margin: 10px 0px 0px 15px;">
 										<li>
 											<img width="239" height="135" v-if="datas[index]" :src="datas[index]" alt="">	
 										</li>
 									</ul>
-									<p><i>限制{{item.limitnum}}kb以内</i></p>	
+									<div class="clues"><i>限制{{item.limitnum}}kb以内,图片格式为{{item.limittypevalue}}</i></div>	
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'video'">
 									<p>{{item.title}}</p>
-									<div class="page2_1_2" style="margin: 0;float: left;">
+									<div class="page2_1_2" style="margin: 10px 5px 5px 15px;float: left;">
 										<div><div>+</div>上传视频</div>
-										<input @change="fileUpfj($event,index)" :class="'page'+index" ref="upnfile2" type="file">					
+										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
 									</div>
-									<ul style="float: left;margin-left: 15px;">
+									<ul style="float: left;margin: 10px 0px 0px 15px;">
 										<li>
-											<video width="269" height="155" v-if="datas[index]" :src="datas[index]" controls="controls">您的浏览器不支持 video 标签。</video>
+											<video width="239" height="135" v-if="datas[index]" :src="datas[index]" controls="controls">您的浏览器不支持 video 标签。</video>
 										</li>
 									</ul>
-									<p><i>限制{{item.limitnum}}kb以内</i></p>
+									<div class="clues"><i>限制{{item.limitnum}}kb以内</i></div>
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'file'">
 									<p>{{item.title}}</p>
-									<div class="page2_1_2" style="margin: 0;float: left;">
+									<div class="page2_1_2" style="margin: 10px 5px 5px 15px;float: left;">
 										<div><div>+</div>上传文件</div>
-										<input @change="fileUpfj($event,index)" :class="'page'+index" ref="upnfile2" type="file">					
+										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
 									</div>
-									<ul style="float: left;margin-left: 15px;width: 400px;word-wrap:break-word;text-align: left;">
+									<ul style="float: left;margin: 10px 0px 0px 15px;width: 239px;word-wrap:break-word;text-align: left;">
 										<li>
 										{{datas[index]}}
 										</li>
 									</ul>
-									<p><i>请使用压缩包形式上传</i></p>	
+									<div class="clues"><i>请使用压缩包形式上传</i></div>	
 								</div>	
 							</div>
 
@@ -251,7 +251,7 @@ export default {
 			active: 0,
 			remeber_tips: '',
 			list: [],
-			opType:0,												
+			opType:0,									
 		}
 		
 	},
@@ -276,10 +276,36 @@ export default {
 			// console.log(this.array);
 
 		},
+		checkValue(item,index){
+			console.log(item)
+			for(var i=0;i<this.list.length;i++){
+				if(item == this.list[i]){
+					console.log(this.list[i])
+					if(this.list[i].limittypevalue == '仅限数字'){	
+						var reg = /^[0-9]*$/;
+						var re = new RegExp(reg);
+						if(re.test(this.datas[index])){
+							
+						}else{
+							Message({message: '仅限输入数字'});
+						}			
+					}
+					if(item.limittypevalue == '数字+英文+标点'){
+						var reg = /[\x00-\xff]+/g;
+						var re = new RegExp(reg);
+						if(re.test(this.datas[index])){
+							
+						}else{
+							Message({message: '仅限输入数字+英文+标点'});
+						}
+					}
+				}
+			}										
+		},
 		backgo(){
 			this.active = 0;
 		},
-		fileUpfj(flie,index){	
+		fileUpfj(flie,index,item){	
 			this.bdtj('上传弹窗','确定','--');
 			if(this.opType==1){
 				Message({message: '正在上传，请稍后'});
@@ -293,36 +319,117 @@ export default {
 				times
 			];
 			let fld = flie.target.files[0];
-			let formData = new FormData();
-			formData.append('app_id',1001);
-			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-			formData.append('user',window.userInfo.open_id)
-			formData.append('file',fld)
-			formData.append('relation_type','user_info')
-			formData.append('related_id',window.userInfo.open_id)
-			formData.append('classify_1','avatar')
-			formData.append('timestamp',times)
-			formData.append('is_callback',1)
-
-			this.opType=1;
-			Message({message: '正在上传，请稍后'});
-			this.$ajax.post(window.basrul+'/File/File/insert', formData)
-			.then((da)=>{	
-				this.opType=0;
-				let ds = da.data;
-				if(ds.result==0){
-					this.datas[index] = ds.data.url;
-					this.datas.splice(index,1,ds.data.url);	
-						 
-				}else{
-					// msg(ds.data);
-					Message({message: ds.data});
-				}
-			})
-			.catch(function () {
-				this.opType=0;
-				
-			});
+			for(var i=0;i<this.list.length;i++){		
+				if(item == this.list[i]){
+					var filename = fld.name;
+					var location = filename.lastIndexOf(".");
+					var suffix = filename.substr(location+1);
+					if(this.list[i].limittype == 'pic'){
+						if(this.list[i].limittypevalue != suffix&&this.list[i].limittypevalue.split('/').indexOf(suffix) == -1){
+							Message({message: '图片格式不对'});
+						}else if(fld.size/1000 > this.list[i].limitnum){
+							Message({message: '图片太大'});
+						}else{
+							let formData = new FormData();
+							formData.append('app_id',1001);
+							formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+							formData.append('user',window.userInfo.open_id)
+							formData.append('file',fld)
+							formData.append('relation_type','user_info')
+							formData.append('related_id',window.userInfo.open_id)
+							formData.append('classify_1','avatar')
+							formData.append('timestamp',times)
+							formData.append('is_callback',1)
+							this.opType=1;
+							Message({message: '正在上传，请稍后'});
+							this.$ajax.post(window.basrul+'/File/File/insert', formData)
+							.then((da)=>{	
+								this.opType=0;
+								let ds = da.data;
+								if(ds.result==0){
+									this.datas[index] = ds.data.url;
+									this.datas.splice(index,1,ds.data.url);						
+								}else{
+									// msg(ds.data);
+									Message({message: ds.data});
+								}
+							})
+							.catch(function () {
+								this.opType=0;		
+							});
+						}	
+					}else if(this.list[i].limittype == 'video'){
+						// if(this.list[i].limittype != suffix){
+						// 	Message({message: '视频格式不对'});
+						// }
+						if(fld.size/1000 > this.list[i].limitnum){
+							Message({message: '视频太大'});
+						}else{
+							let formData = new FormData();
+							formData.append('app_id',1001);
+							formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+							formData.append('user',window.userInfo.open_id)
+							formData.append('file',fld)
+							formData.append('relation_type','user_info')
+							formData.append('related_id',window.userInfo.open_id)
+							formData.append('classify_1','avatar')
+							formData.append('timestamp',times)
+							formData.append('is_callback',1)
+							this.opType=1;
+							Message({message: '正在上传，请稍后'});
+							this.$ajax.post(window.basrul+'/File/File/insert', formData)
+							.then((da)=>{	
+								this.opType=0;
+								let ds = da.data;
+								if(ds.result==0){
+									this.datas[index] = ds.data.url;
+									this.datas.splice(index,1,ds.data.url);						
+								}else{
+									// msg(ds.data);
+									Message({message: ds.data});
+								}
+							})
+							.catch(function () {
+								this.opType=0;
+								
+							});
+						}
+					}else if(this.list[i].limittype == 'file'){
+						if(fld.size/1000 > this.list[i].limitnum){
+							Message({message: '文件太大'});
+						}else{
+							let formData = new FormData();
+							formData.append('app_id',1001);
+							formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+							formData.append('user',window.userInfo.open_id)
+							formData.append('file',fld)
+							formData.append('relation_type','user_info')
+							formData.append('related_id',window.userInfo.open_id)
+							formData.append('classify_1','avatar')
+							formData.append('timestamp',times)
+							formData.append('is_callback',1)
+							this.opType=1;
+							Message({message: '正在上传，请稍后'});
+							this.$ajax.post(window.basrul+'/File/File/insert', formData)
+							.then((da)=>{	
+								this.opType=0;
+								let ds = da.data;
+								if(ds.result==0){
+									this.datas[index] = ds.data.url;
+									this.datas.splice(index,1,ds.data.url);						
+								}else{
+									// msg(ds.data);
+									Message({message: ds.data});
+								}
+							})
+							.catch(function () {
+								this.opType=0;
+								
+							});
+						}
+					}		
+				}				
+			}	
 		},
 		showtc(){
 			this.$refs.tcBox.show();
@@ -775,24 +882,36 @@ export default {
 	width: 80%;
 	margin: 0 auto;
 }
-.Information > div > p,.Information > div > div > p{
+.Information >>> .el-input{
+	width: 508px;
+	
+}
+.Information > div > p{
     float: left;
-	width: 100%;
-	height: 20px;
-	line-height: 20px;
-	margin: 10px 0px 10px 0px;
+	width: 100px;
+	margin: 5px 0px 5px 0px;
 	color: #333333;
 	font-size: 14px;
-	text-align: left;
+	text-align: right;
 }
-.Information > div > p > i{
+.Information > div > p > i,.clues > i{
 	color: #BBBBBB;
 	font-size: 12px;
 	font-style: normal;
 	margin-left: 10px;
 }
+.clues{
+	position: absolute;
+	top: 210px;
+    left: 105px;
+	height: 20px;
+	line-height: 20px;
+	color: #333333;
+	font-size: 14px;
+	text-align: left;
+}
 .InformationUpload{
-	height: 280px;
+	height: 230px;
 	position: relative;
 }
 .InformationUpload >>> .el-upload--picture-card{
