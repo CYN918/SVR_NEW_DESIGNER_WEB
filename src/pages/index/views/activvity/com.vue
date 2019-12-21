@@ -266,18 +266,21 @@ export default {
 	}, 
 	methods:{
 		next() {
-			if(this.datas.length == 0){
-				Message({message: '请填写信息'});
-				return
-			}else{		
-				if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();
-				for(var i=0;i<this.datas.length;i++){
-					let obj = {
-						title: this.list[i].title,
-						url: this.datas[i],
-					}
-					this.array.push(obj);	
+			for(var i=0;i<this.datas.length;i++){
+				let obj = {
+					title: this.list[i].title,
+					url: this.datas[i],
 				}
+				this.array.push(obj);	
+			}
+			if(this.datas.length == 0){
+				Message({message: '所有信息为必填项'});
+				return
+			}else if(this.datas.length < this.list.length){		
+				Message({message: '信息缺失'});
+				return
+			}else{
+				if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();
 			}
 		},
 		checkValue(item,index){
