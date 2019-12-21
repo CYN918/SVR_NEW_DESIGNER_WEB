@@ -277,7 +277,7 @@ export default {
 
 		},
 		checkValue(item,index){
-			console.log(item)
+			// console.log(item)
 			for(var i=0;i<this.list.length;i++){
 				if(item == this.list[i]){
 					console.log(this.list[i])
