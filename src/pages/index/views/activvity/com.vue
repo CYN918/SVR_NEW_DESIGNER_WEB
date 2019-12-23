@@ -81,15 +81,25 @@
 
 		<TcCertification :certification="certification" ref="tcCertification">
 			<template v-slot:todoRz="{ todoRz }">
-				<el-steps :space="200" :active="active" finish-status="success" simple>
-					<el-step title="报名认证信息"></el-step>
-					<el-step title="选择参与作品"></el-step>
-				</el-steps>
-				<div v-if="active == 0">
+				<div class="detailtitle">
+					<div class="employment" style="text-align: center;margin-top: 30px;">
+						<span>
+							<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
+							<span :class="{'fontactive':!Isnextshow}">报名认证信息</span>
+						</span>
+						<!-- <span :class="['centerline',{'centerlineactive': Isnextshow}]"></span> -->
+						<span class="centerline"></span>
+						<span>
+							<span :class="['number',{'numberactive':Isnextshow}]">2</span>
+							<span :class="{'fontactive': Isnextshow}">选择参与作品</span>
+						</span>
+					</div>
+				</div>
+				<div v-show="!Isnextshow" ref="scroll">
 					<p class="textExplains">{{remeber_tips}}</p>
-					<div class="demo-ruleForm" style="margin-top: 30px;min-width: 800px;">
+					<div class="demo-ruleForm" style="min-width: 800px;">
 						<div v-for="(item,index) in list">
-							<div class="Information" v-if="item.limittype == 'text'" style="height: 50px;">
+							<div class="Information" v-if="item.limittype == 'text'" style="height: 70px;">
 								<div>
 									<p>{{item.title}}</p>
 								    <el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum show-word-limit @change="checkValue(item,index)"></el-input>
@@ -97,54 +107,51 @@
 							</div>
 							<div class="Information InformationUpload" v-else>	
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'pic'">
-									<p>{{item.title}}</p>
-									<div class="page2_1_2" style="margin: 10px 5px 5px 15px;float: left;">
+									<p>{{item.title}}<i>限制{{item.limitnum}}kb以内,图片格式为{{item.limittypevalue}}</i></p>
+									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
 										<div><div>+</div>上传图片</div>
 										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile" type="file">					
 									</div>
-									<ul style="float: left;margin: 10px 0px 0px 15px;">
+									<ul style="float: left;margin: 5px 5px 5px 0px;">
 										<li>
 											<img width="239" height="135" v-if="datas[index]" :src="datas[index]" alt="">	
 										</li>
 									</ul>
-									<div class="clues"><i>限制{{item.limitnum}}kb以内,图片格式为{{item.limittypevalue}}</i></div>	
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'video'">
-									<p>{{item.title}}</p>
-									<div class="page2_1_2" style="margin: 10px 5px 5px 15px;float: left;">
+									<p>{{item.title}}<i>限制{{item.limitnum}}kb以内</i></p>
+									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
 										<div><div>+</div>上传视频</div>
 										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
 									</div>
-									<ul style="float: left;margin: 10px 0px 0px 15px;">
+									<ul style="float: left;margin: 5px 5px 5px 0px;">
 										<li>
 											<video width="239" height="135" v-if="datas[index]" :src="datas[index]" controls="controls">您的浏览器不支持 video 标签。</video>
 										</li>
 									</ul>
-									<div class="clues"><i>限制{{item.limitnum}}kb以内</i></div>
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'file'">
-									<p>{{item.title}}</p>
-									<div class="page2_1_2" style="margin: 10px 5px 5px 15px;float: left;">
+									<p>{{item.title}}<i>请使用压缩包形式上传,限制{{item.limitnum}}kb以内</i></p>
+									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
 										<div><div>+</div>上传文件</div>
 										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
 									</div>
-									<ul style="float: left;margin: 10px 0px 0px 15px;width: 239px;word-wrap:break-word;text-align: left;">
+									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
 										<li>
 										{{datas[index]}}
 										</li>
 									</ul>
-									<div class="clues"><i>请使用压缩包形式上传,限制{{item.limitnum}}kb以内</i></div>	
 								</div>	
 							</div>
 
 						</div>
 						
 						<div style="margin: 20px 0px 20px 0px;">
-							<el-button type="primary" @click="next">下一步</el-button>
+							<el-button type="primary" v-if="!Isnextshow" @click="next">下一步</el-button>
 						</div>
 					</div>	
 				</div>
-				<div v-if="active == 1">
+				<div v-show="Isnextshow" ref="scroll">
 					<div class="pushDeletBox4">
 						<ul class="zp_box" @scroll="test">
 							
@@ -176,9 +183,9 @@
 						</ul>
 					</div>
 					<div class="pushDeletBox5">
-						<span @click="backgo" class="pend">上一步</span>
-						<span @click="gopushzp" class="pend" style="background: #fff;color: #333333;border: 1px solid #979797;margin-right: 20px;">发布新作品</span>
-						<span @click="pushOk" class="pend btn_n3">立即报名</span>
+						<span v-if="Isnextshow" @click="backgo" class="pend">上一步</span>
+						<span v-if="Isnextshow" @click="gopushzp" class="pend" style="background: #fff;color: #333333;border: 1px solid #979797;margin-right: 20px;">发布新作品</span>
+						<span v-if="Isnextshow" @click="pushOk" class="pend btn_n3">立即报名</span>
 					</div>
 				</div>				
 			</template>	
@@ -252,7 +259,8 @@ export default {
 			active: 0,
 			remeber_tips: '',
 			list: [],
-			opType:0,									
+			opType:0,	
+			Isnextshow: false,						
 		}
 		
 	},
@@ -281,7 +289,9 @@ export default {
 				Message({message: '信息缺失'});
 				return
 			}else{
-				if (this.active++ > 2) this.active = 0;this.getPersonalWorkList();
+				this.Isnextshow = true;
+				this.$refs.scroll.scrollTop = 0;
+				this.getPersonalWorkList();
 			}
 		},
 		checkValue(item,index){
@@ -311,7 +321,7 @@ export default {
 			}											
 		},
 		backgo(){
-			this.active = 0;
+			this.Isnextshow = false;
 		},
 		fileUpfj(flie,index,item){	
 			this.bdtj('上传弹窗','确定','--');
@@ -890,20 +900,15 @@ export default {
     background: none;
 }
 .Information{
-	width: 80%;
+	width: 75%;
 	margin: 0 auto;
 }
-.Information >>> .el-input{
-	width: 508px;
-	
-}
 .Information > div > p{
-    float: left;
-	width: 100px;
+	width: 100%;
 	margin: 5px 0px 5px 0px;
 	color: #333333;
 	font-size: 14px;
-	text-align: right;
+	text-align: left;
 }
 .Information > div > p > i,.clues > i{
 	color: #BBBBBB;
@@ -922,7 +927,7 @@ export default {
 	text-align: left;
 }
 .InformationUpload{
-	height: 230px;
+	height: 235px;
 	position: relative;
 }
 .InformationUpload >>> .el-upload--picture-card{
@@ -1045,11 +1050,41 @@ export default {
 .textExplains{
 	color: #666666;
 	font-size: 14px;
-	text-align: center;
-	padding-top: 30px;
+	text-align: left;
+	padding: 30px 100px 30px 100px;
 }
 .textExplains > i{
 	font-style: normal;
 	color: #33B3FF;
+}
+.employment {
+    font-size: 16px;
+    color: #999999;
+}
+.numberactive {
+    background: #ffffff;
+    color: #33B3FF;
+    border: 1px solid #33B3FF !important;
+}
+.number {
+    display: inline-block;
+    width: 27px;
+    height: 27px;
+    line-height: 27px;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    margin-right: 10px;
+    text-align: center;
+}
+.fontactive {
+    color: #000000;
+}
+.centerline {
+    display: inline-block;
+    width: 114px;
+    height: 4px;
+    border-top: 1px solid #999999;
+    margin: 0 12px;
+    margin-top: -5px;
 }
 </style>
