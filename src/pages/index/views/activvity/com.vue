@@ -667,7 +667,7 @@ export default {
 				}
 				this.bindType=0;				
 				Message({message: '上传成功'});
-				// this.closeZp();
+				this.closeZp();
 				this.active = 0;
 			}).catch(()=>{
 				this.bindType = 0;
