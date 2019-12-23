@@ -133,13 +133,13 @@
 										{{datas[index]}}
 										</li>
 									</ul>
-									<div class="clues"><i>请使用压缩包形式上传</i></div>	
+									<div class="clues"><i>请使用压缩包形式上传,限制{{item.limitnum}}kb以内</i></div>	
 								</div>	
 							</div>
 
 						</div>
 						
-						<div style="margin-bottom: 20px;">
+						<div style="margin: 20px 0px 20px 0px;">
 							<el-button type="primary" @click="next">下一步</el-button>
 						</div>
 					</div>	
@@ -274,7 +274,7 @@ export default {
 				this.array.push(obj);	
 			}
 			if(this.datas.length == 0){
-				Message({message: '所有信息为必填项'});
+				Message({message: '信息都为必填项'});
 				return
 			}else if(this.datas.length < this.list.length){		
 				Message({message: '信息缺失'});
@@ -293,6 +293,7 @@ export default {
 							
 						}else{
 							Message({message: '仅限输入数字'});
+							return
 						}			
 					}
 					if(item.limittypevalue == '数字+英文+标点'){
@@ -302,6 +303,7 @@ export default {
 							
 						}else{
 							Message({message: '仅限输入数字+英文+标点'});
+							return
 						}
 					}
 				}
@@ -332,8 +334,10 @@ export default {
 					if(this.list[i].limittype == 'pic'){
 						if(this.list[i].limittypevalue != suffix&&this.list[i].limittypevalue.split('/').indexOf(suffix) == -1){
 							Message({message: '图片格式不对'});
+							return
 						}else if(fld.size/1000 > this.list[i].limitnum){
 							Message({message: '图片太大'});
+							return
 						}else{
 							let formData = new FormData();
 							formData.append('app_id',1001);
@@ -369,6 +373,7 @@ export default {
 						// }
 						if(fld.size/1000 > this.list[i].limitnum){
 							Message({message: '视频太大'});
+							return
 						}else{
 							let formData = new FormData();
 							formData.append('app_id',1001);
@@ -402,6 +407,7 @@ export default {
 					}else if(this.list[i].limittype == 'file'){
 						if(fld.size/1000 > this.list[i].limitnum){
 							Message({message: '文件太大'});
+							return
 						}else{
 							let formData = new FormData();
 							formData.append('app_id',1001);
@@ -660,8 +666,8 @@ export default {
 				}
 				this.bindType=0;				
 				Message({message: '上传成功'});
-				this.closeZp();
-				this.active = 1;
+				// this.closeZp();
+				this.active = 0;
 			}).catch(()=>{
 				this.bindType = 0;
 			})
