@@ -270,7 +270,7 @@ export default {
 				let obj = {
 					title: this.list[i].title,
 					url: this.datas[i],
-					limit_type: this.list[i].limit_type,
+					limit_type: this.list[i].limittype,
 				}
 				this.array.push(obj);	
 			}
@@ -668,7 +668,6 @@ export default {
 				this.bindType=0;				
 				Message({message: '上传成功'});
 				this.closeZp();
-				this.active = 0;
 			}).catch(()=>{
 				this.bindType = 0;
 			})
