@@ -270,6 +270,7 @@ export default {
 				let obj = {
 					title: this.list[i].title,
 					url: this.datas[i],
+					limit_type: this.list[i].limit_type,
 				}
 				this.array.push(obj);	
 			}
