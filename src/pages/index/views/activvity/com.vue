@@ -107,7 +107,7 @@
 							</div>
 							<div class="Information InformationUpload" v-else>	
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'pic'">
-									<p>{{item.title}}<i>限制{{item.limitnum}}kb以内,图片格式为{{item.limittypevalue}}</i></p>
+									<p>{{item.title}}<i>{{item.tigs}},限制{{item.limitnum}}kb以内,图片格式为{{item.limittypevalue}}</i></p>
 									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
 										<div><div>+</div>上传图片</div>
 										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile" type="file">					
@@ -119,7 +119,7 @@
 									</ul>
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'video'">
-									<p>{{item.title}}<i>限制{{item.limitnum}}kb以内</i></p>
+									<p>{{item.title}}<i>{{item.tigs}},限制{{item.limitnum}}kb以内</i></p>
 									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
 										<div><div>+</div>上传视频</div>
 										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
@@ -131,7 +131,7 @@
 									</ul>
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'file'">
-									<p>{{item.title}}<i>请使用压缩包形式上传,限制{{item.limitnum}}kb以内</i></p>
+									<p>{{item.title}}<i>{{item.tigs}},限制{{item.limitnum}}kb以内</i></p>
 									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
 										<div><div>+</div>上传文件</div>
 										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
