@@ -73,7 +73,7 @@
 				</div>
 				<div class="pushDeletBox5">
 					<span @click="gopushzp" class="pend">发布新作品</span>
-					<span @click="pushOk" class="pend btn_n3">上传</span>
+					<span @click="pushOk(1)" class="pend btn_n3">上传</span>
 				</div>
 				
 			</template>			
@@ -95,45 +95,47 @@
 						</span>
 					</div>
 				</div>
-				<div v-show="!Isnextshow" ref="scroll">
+				<div v-show="!Isnextshow" ref="scroll" class="box">
 					<p class="textExplains">{{remeber_tips}}</p>
-					<div class="demo-ruleForm" style="min-width: 800px;">
+					<div class="demo-ruleForm" style="width: 700px;padding-bottom: 30px;">
 						<div v-for="(item,index) in list">
 							<div class="Information" v-if="item.limittype == 'text'" style="height: 70px;">
 								<div>
 									<p>{{item.title}}</p>
-								    <el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum show-word-limit @change="checkValue(item,index)"></el-input>
+								    <el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum show-word-limit @blur="checkValue(item,index)" @focus="checkValues(item,index)"></el-input>
 								</div>								
 							</div>
 							<div class="Information InformationUpload" v-else>	
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'pic'">
-									<p>{{item.title}}<i>{{item.tigs}},限制{{item.limitnum}}kb以内,图片格式为{{item.limittypevalue}}</i></p>
+									<p>{{item.title}}<i>{{item.tigs}}</i></p>
 									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
-										<div><div>+</div>上传图片</div>
-										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile" type="file">					
+										<div v-if="datas[index]"><div>+</div>重新上传</div>
+										<div v-else><div>+</div>上传图片</div>
+										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile" type="file">
+														
 									</div>
-									<ul style="float: left;margin: 5px 5px 5px 0px;">
-										<li>
-											<img width="239" height="135" v-if="datas[index]" :src="datas[index]" alt="">	
-										</li>
+									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
+										<img v-if="datas[index]" width="239" height="135" :src="datas[index]" alt="" @change="fileUpfj($event,index,item)">	
 									</ul>
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'video'">
-									<p>{{item.title}}<i>{{item.tigs}},限制{{item.limitnum}}kb以内</i></p>
-									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
-										<div><div>+</div>上传视频</div>
-										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
+									<p>{{item.title}}<i>{{item.tigs}}</i></p>
+									<div class="page2_1_2" style="float: left;margin: 5px 5px 5px 0px;">
+										<div v-if="datas[index]" @change="fileUpfj($event,index,item)"><div>+</div>重新上传</div>
+										<div v-else><div>+</div>上传视频</div>
+										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">
+										
 									</div>
-									<ul style="float: left;margin: 5px 5px 5px 0px;">
-										<li>
-											<video width="239" height="135" v-if="datas[index]" :src="datas[index]" controls="controls">您的浏览器不支持 video 标签。</video>
-										</li>
+									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
+										<video v-if="datas[index]" width="239" height="135" :src="datas[index]" controls="controls" class="videoShow">您的浏览器不支持 video 标签。</video>	
 									</ul>
+											
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'file'">
-									<p>{{item.title}}<i>{{item.tigs}},限制{{item.limitnum}}kb以内</i></p>
+									<p>{{item.title}}<i>{{item.tigs}}</i></p>
 									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
-										<div><div>+</div>上传文件</div>
+										<div v-if="datas[index]" @change="fileUpfj($event,index,item)"><div>+</div>重新上传</div>
+										<div v-else><div>+</div>上传文件</div>
 										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
 									</div>
 									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
@@ -143,13 +145,11 @@
 									</ul>
 								</div>	
 							</div>
-
-						</div>
-						
-						<div style="margin: 20px 0px 20px 0px;">
-							<el-button type="primary" v-if="!Isnextshow" @click="next">下一步</el-button>
 						</div>
 					</div>	
+				</div>
+				<div style="padding: 20px 0px 20px 0px;border-top: 1px solid #F4F6F9;">
+					<el-button type="primary" v-if="!Isnextshow" @click="next">下一步</el-button>
 				</div>
 				<div v-show="Isnextshow" ref="scroll">
 					<div class="pushDeletBox4">
@@ -183,9 +183,9 @@
 						</ul>
 					</div>
 					<div class="pushDeletBox5">
-						<span v-if="Isnextshow" @click="backgo" class="pend">上一步</span>
-						<span v-if="Isnextshow" @click="gopushzp" class="pend" style="background: #fff;color: #333333;border: 1px solid #979797;margin-right: 20px;">发布新作品</span>
-						<span v-if="Isnextshow" @click="pushOk" class="pend btn_n3">立即报名</span>
+						<span v-if="Isnextshow" @click="backgo" class="pend" style="background: #fff;color: #666666;border: 1px solid #BBBBBB;">上一步</span>
+						<span v-if="Isnextshow" @click="gopushzp" class="pend" style="background: #fff;color: #666666;border: 1px solid #BBBBBB;margin-right: 20px;">发布新作品</span>
+						<span v-if="Isnextshow" @click="pushOk(2)" class="pend btn_n3" style="color: #FFFFFF;border: none;">立即报名</span>
 					</div>
 				</div>				
 			</template>	
@@ -294,6 +294,32 @@ export default {
 				this.getPersonalWorkList();
 			}
 		},
+		checkValues(item,index){
+			for(var i=0;i<this.list.length;i++){
+				if(item == this.list[i]){
+					if(this.list[i].limittypevalue == '仅限数字'){	
+						var reg = /^[0-9]*$/;
+						var re = new RegExp(reg);
+						if(re.test(this.datas[index])){
+							
+						}else{
+							Message({message: '仅限输入数字'});
+							return false
+						}			
+					}
+					if(item.limittypevalue == '数字+英文+标点'){
+						var reg = /[\x00-\xff]+/g;
+						var re = new RegExp(reg);
+						if(re.test(this.datas[index])){
+							
+						}else{
+							Message({message: '仅限输入数字+英文+标点'});
+							return
+						}
+					}
+				}
+			}											
+		},
 		checkValue(item,index){
 			for(var i=0;i<this.list.length;i++){
 				if(item == this.list[i]){
@@ -304,7 +330,7 @@ export default {
 							
 						}else{
 							Message({message: '仅限输入数字'});
-							return
+							return false
 						}			
 					}
 					if(item.limittypevalue == '数字+英文+标点'){
@@ -499,6 +525,7 @@ export default {
 			this.zpList = [];
 		},
 		showZp(){
+			this.getPersonalWorkList();
 			let pr = {
 				activity_id:this.$route.query.id,
 			};
@@ -511,14 +538,15 @@ export default {
 				if(da==null){
 					this.noGd=1;
 				}
-				// console.log(JSON.parse(da.extra_info))
+				console.log(JSON.parse(da.extra_info))
 
-				if(da.extra_info == null){
+				if(da.extra_info == null || da.extra_info == '[]'){
 					this.bdtjCom('上传作品');
 					if(!window.userInfo){
 						this.$router.push({path:'/login'});
 					}
 					this.getPersonalWorkList();
+					this.Isnextshow = true;
 					this.showtc();
 				}else{
 					this.bdtjCom('认证');
@@ -654,7 +682,7 @@ export default {
 		backtime(time){		
 			return	window.getTimes(time);
 		},
-		pushOk(){
+		pushOk(index){
 			this.bdtjCom('确定上传');
 			if(this.bindType==1){
 				Message({message: '正在上传中'});
@@ -675,9 +703,18 @@ export default {
 					this.bindType=0;	
 					return
 				}
-				this.bindType=0;				
-				Message({message: '上传成功'});
-				this.closeZp();
+				this.bindType=0;
+				if(index == 1){
+					Message({message: '上传成功'});
+					this.$refs.tcBox.close();
+					this.closeZp();
+				}
+				if(index == 2){
+					Message({message: '报名成功'});
+					this.$refs.tcCertification.close();
+					this.closeZp();
+				}				
+				
 			}).catch(()=>{
 				this.bindType = 0;
 			})
@@ -694,6 +731,14 @@ export default {
 </script>
 
 <style scoped="scoped">
+.pr_tc_02{
+	overflow: hidden;
+}
+.box{
+	height: 500px;
+	overflow-y: scroll;
+
+}
 .upImnoData{
 	display: block;
 	margin: 110px auto 0;   
@@ -701,7 +746,13 @@ export default {
 .detail_topBox{
 	min-width: 1300px;	
 	position: relative;	
-	
+}
+.box >>> .el-button{
+	width: 120px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	padding: 0;
 }
 
 .detail_topBox_1{
