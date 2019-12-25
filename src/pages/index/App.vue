@@ -12,9 +12,11 @@ html,body,div,img,p,ul,li{
 html,body{
 	position: relative;
 	margin: 0 auto;
+	
 	min-width: 1300px;
 	height:100%;
 }
+
 a{list-style-type: none}
 :link{text-decoration:none;}
 a:visited{text-decoration:none;}

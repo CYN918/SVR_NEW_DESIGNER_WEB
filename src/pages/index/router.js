@@ -5,6 +5,7 @@ import Index from './views/index.vue'
 import special_first from './views/special/first.vue'
 import Home from './views/home.vue'
 import Tip from './views/activvityPage/tip.vue'
+import Ac_v1 from './views/activvityPage/ac_v1.vue'
 import upload from './views/upload/upload.vue'
 
 import myWorksCom from './views/user/myWorksCom.vue'
@@ -79,6 +80,7 @@ const router = new Router({
 let wb = [
 	{path: '/error',name: 'erro1',component: Errors},	
 	{path: '/404',name: 'erro2',component: Errors},	
+	{path: '/Ac_v',name: 'Ac_v',component: Ac_v1},	
 	
 	{
 		path: '/',
@@ -93,7 +95,9 @@ let wb = [
 			{path: '/Work_i',name: 'Work_i',component: Work_i},	
 			{path: '/special_first',name: 'special_first',component: special_first},						
 			{path: '/index',name: 'home',component: Home},
-			{path: '/tip',name: 'tip',component: Tip},		
+			{path: '/tip',name: 'tip',component: Tip},	
+				
+				
 			{path: '/upload',name: 'upload',component: upload},
 			
 			{path: '/works',name: 'pe_works',component: personalCenter},
