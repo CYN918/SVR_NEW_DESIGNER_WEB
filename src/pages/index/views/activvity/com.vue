@@ -82,7 +82,7 @@
 		<TcCertification :certification="certification" ref="tcCertification">
 			<template v-slot:todoRz="{ todoRz }">
 				<div class="detailtitle">
-					<div class="employment" style="text-align: center;margin-top: 30px;">
+					<div class="employment" style="text-align: center;margin-top: 30px;margin-bottom: 30px;">
 						<span>
 							<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
 							<span :class="{'fontactive':!Isnextshow}">报名认证信息</span>
@@ -99,41 +99,38 @@
 					<p class="textExplains">{{remeber_tips}}</p>
 					<div class="demo-ruleForm" style="width: 700px;padding-bottom: 30px;">
 						<div v-for="(item,index) in list">
-							<div class="Information" v-if="item.limittype == 'text'" style="height: 70px;">
+							<div class="Information" v-if="item.limittype == 'text'" style="height: 95px;">
 								<div>
 									<p>{{item.title}}</p>
-								    <el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum show-word-limit @blur="checkValue(item,index)" @focus="checkValues(item,index)"></el-input>
+								    <el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum @blur="checkValue(item,index)" @focus="checkValues(item,index)"></el-input>
 								</div>								
 							</div>
 							<div class="Information InformationUpload" v-else>	
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'pic'">
 									<p>{{item.title}}<i>{{item.tigs}}</i></p>
-									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
+									<div class="page2_1_2">
 										<div v-if="datas[index]"><div>+</div>重新上传</div>
 										<div v-else><div>+</div>上传图片</div>
-										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile" type="file">
-														
+										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile" type="file">					
 									</div>
 									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
-										<img v-if="datas[index]" width="239" height="135" :src="datas[index]" alt="" @change="fileUpfj($event,index,item)">	
+										<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">
 									</ul>
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'video'">
 									<p>{{item.title}}<i>{{item.tigs}}</i></p>
-									<div class="page2_1_2" style="float: left;margin: 5px 5px 5px 0px;">
-										<div v-if="datas[index]" @change="fileUpfj($event,index,item)"><div>+</div>重新上传</div>
+									<div class="page2_1_2">
+										<div v-if="datas[index]"><div>+</div>重新上传</div>
 										<div v-else><div>+</div>上传视频</div>
-										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">
-										
+										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">	
 									</div>
 									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
-										<video v-if="datas[index]" width="239" height="135" :src="datas[index]" controls="controls" class="videoShow">您的浏览器不支持 video 标签。</video>	
-									</ul>
-											
+										<video playsinline v-if="datas[index]" width="239" height="135" :src="datas[index]" controls="controls" class="uploadImg">您的浏览器不支持 video 标签。</video>
+									</ul>	
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'file'">
 									<p>{{item.title}}<i>{{item.tigs}}</i></p>
-									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
+									<div class="page2_1_2">
 										<div v-if="datas[index]" @change="fileUpfj($event,index,item)"><div>+</div>重新上传</div>
 										<div v-else><div>+</div>上传文件</div>
 										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
@@ -260,7 +257,7 @@ export default {
 			remeber_tips: '',
 			list: [],
 			opType:0,	
-			Isnextshow: false,						
+			Isnextshow: false,					
 		}
 		
 	},
@@ -283,10 +280,10 @@ export default {
 				this.array.push(obj);	
 			}
 			if(this.datas.length == 0){
-				Message({message: '信息都为必填项'});
+				Message({message: '请先完善信息'});
 				return
 			}else if(this.datas.length < this.list.length){		
-				Message({message: '信息缺失'});
+				Message({message: '请先完善信息'});
 				return
 			}else{
 				this.Isnextshow = true;
@@ -304,7 +301,7 @@ export default {
 							
 						}else{
 							Message({message: '仅限输入数字'});
-							return false
+							return
 						}			
 					}
 					if(item.limittypevalue == '数字+英文+标点'){
@@ -313,9 +310,12 @@ export default {
 						if(re.test(this.datas[index])){
 							
 						}else{
-							Message({message: '仅限输入数字+英文+标点'});
+							Message({message: '仅限输入数字、英文、标点符号'});
 							return
 						}
+					}
+					if(item.limittypevalue == '不限制'){						
+						// Message({message: '不限制输入'});							
 					}
 				}
 			}											
@@ -330,7 +330,7 @@ export default {
 							
 						}else{
 							Message({message: '仅限输入数字'});
-							return false
+							return
 						}			
 					}
 					if(item.limittypevalue == '数字+英文+标点'){
@@ -342,6 +342,9 @@ export default {
 							Message({message: '仅限输入数字+英文+标点'});
 							return
 						}
+					}
+					if(item.limittypevalue == '不限制'){						
+						// Message({message: '不限制输入'});							
 					}
 				}
 			}											
@@ -370,10 +373,10 @@ export default {
 					var suffix = filename.substr(location+1);
 					if(this.list[i].limittype == 'pic'){
 						if(this.list[i].limittypevalue != suffix&&this.list[i].limittypevalue.split('/').indexOf(suffix) == -1){
-							Message({message: '图片格式不对'});
+							Message({message: '上传格式有误，请按照要求重新上传'});
 							return
 						}else if(fld.size/1000 > this.list[i].limitnum){
-							Message({message: '图片太大'});
+							Message({message: '图片过大，请按照要求重新上传'});
 							return
 						}else{
 							let formData = new FormData();
@@ -387,7 +390,7 @@ export default {
 							formData.append('timestamp',times)
 							formData.append('is_callback',1)
 							this.opType=1;
-							Message({message: '正在上传，请稍后'});
+							Message({message: '图片正在上传，请稍后'});
 							this.$ajax.post(window.basrul+'/File/File/insert', formData)
 							.then((da)=>{	
 								this.opType=0;
@@ -409,7 +412,7 @@ export default {
 						// 	Message({message: '视频格式不对'});
 						// }
 						if(fld.size/1000 > this.list[i].limitnum){
-							Message({message: '视频太大'});
+							Message({message: '视频过大，请按照要求重新上传'});
 							return
 						}else{
 							let formData = new FormData();
@@ -423,7 +426,7 @@ export default {
 							formData.append('timestamp',times)
 							formData.append('is_callback',1)
 							this.opType=1;
-							Message({message: '正在上传，请稍后'});
+							Message({message: '视频正在上传，请稍后'});
 							this.$ajax.post(window.basrul+'/File/File/insert', formData)
 							.then((da)=>{	
 								this.opType=0;
@@ -443,7 +446,7 @@ export default {
 						}
 					}else if(this.list[i].limittype == 'file'){
 						if(fld.size/1000 > this.list[i].limitnum){
-							Message({message: '文件太大'});
+							Message({message: '文件过大，请按照要求重新上传'});
 							return
 						}else{
 							let formData = new FormData();
@@ -457,7 +460,7 @@ export default {
 							formData.append('timestamp',times)
 							formData.append('is_callback',1)
 							this.opType=1;
-							Message({message: '正在上传，请稍后'});
+							Message({message: '文件正在上传，请稍后'});
 							this.$ajax.post(window.basrul+'/File/File/insert', formData)
 							.then((da)=>{	
 								this.opType=0;
@@ -538,9 +541,9 @@ export default {
 				if(da==null){
 					this.noGd=1;
 				}
-				console.log(JSON.parse(da.extra_info))
+				// console.log(JSON.parse(da.extra_info))
 
-				if(da.extra_info == null || da.extra_info == '[]'){
+				if(da.extra_info == null || da.extra_info == '[]' || da.activity_status == '1'){
 					this.bdtjCom('上传作品');
 					if(!window.userInfo){
 						this.$router.push({path:'/login'});
@@ -732,12 +735,55 @@ export default {
 
 <style scoped="scoped">
 .pr_tc_02{
-	overflow: hidden;
+	overflow-y: hidden;
 }
 .box{
-	height: 500px;
+	height: 400px;
 	overflow-y: scroll;
-
+}
+.page2_1_2{
+	position: relative;
+    background: #E6E6E6;
+    border-radius: 5px;
+    float: left;
+    margin: 5px 5px 5px 0px;
+    overflow: hidden;
+    width: 260px;
+    height: 146px;
+    cursor: pointer;
+}
+.uploadImg{
+	width: 260px;
+    height: 146px;
+}
+.page2_1_2>div {
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+.page2_1_2>div, .page2_1_2>img {
+	width: 100%;
+	height: 50px;
+    background: #e6e6e6;
+}
+.page2_1_2>div>div {
+    width: 22.9px;
+    height: 22.9px;
+    border-radius: 50%;
+    font-size: 21px;
+    text-align: center;
+    line-height: 22.9px;
+    background: #33b3ff;
+    color: #e6e6e6;
+    margin: 43px auto 11px;
+}
+.page2_1_2>input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 .upImnoData{
 	display: block;
@@ -978,7 +1024,7 @@ export default {
 	text-align: left;
 }
 .InformationUpload{
-	height: 235px;
+	height: 215px;
 	position: relative;
 }
 .InformationUpload >>> .el-upload--picture-card{
@@ -1102,7 +1148,7 @@ export default {
 	color: #666666;
 	font-size: 14px;
 	text-align: left;
-	padding: 30px 100px 30px 100px;
+	padding: 0px 100px 30px 100px;
 }
 .textExplains > i{
 	font-style: normal;
@@ -1110,7 +1156,7 @@ export default {
 }
 .employment {
     font-size: 16px;
-    color: #999999;
+    color: #BBBBBB;
 }
 .numberactive {
     background: #ffffff;
@@ -1122,7 +1168,7 @@ export default {
     width: 27px;
     height: 27px;
     line-height: 27px;
-    border: 1px solid #000000;
+    border: 1px solid #BBBBBB;
     border-radius: 50%;
     margin-right: 10px;
     text-align: center;
@@ -1134,7 +1180,7 @@ export default {
     display: inline-block;
     width: 114px;
     height: 4px;
-    border-top: 1px solid #999999;
+    border-top: 1px solid #BBBBBB;
     margin: 0 12px;
     margin-top: -5px;
 }
