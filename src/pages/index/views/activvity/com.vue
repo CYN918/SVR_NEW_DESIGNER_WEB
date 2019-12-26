@@ -106,40 +106,34 @@
 								</div>								
 							</div>
 							<div class="Information InformationUpload" v-else>	
-								<div style="float: left;width: 100%;" v-if="item.limittype == 'pic'">
+								<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'pic'">
 									<p>{{item.title}}<i>{{item.tigs}}</i></p>
 									<div class="page2_1_2">
-										<div v-if="datas[index]"><div>+</div>重新上传</div>
+										<div v-if="datas[index]" class="uploadBtn"><div>+</div>重新上传</div>
 										<div v-else><div>+</div>上传图片</div>
-										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile" type="file">					
+										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile" type="file">
+										<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">					
 									</div>
-									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
-										<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">
-									</ul>
 								</div>
-								<div style="float: left;width: 100%;" v-if="item.limittype == 'video'">
+								<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'video'">
 									<p>{{item.title}}<i>{{item.tigs}}</i></p>
 									<div class="page2_1_2">
-										<div v-if="datas[index]"><div>+</div>重新上传</div>
+										<div v-if="datas[index]" class="uploadBtn"><div>+</div>重新上传</div>
 										<div v-else><div>+</div>上传视频</div>
 										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">	
+										<video v-if="datas[index]" :src="datas[index]" controls="controls" class="uploadImg">您的浏览器不支持 video 标签。</video>
 									</div>
-									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
-										<video playsinline v-if="datas[index]" width="239" height="135" :src="datas[index]" controls="controls" class="uploadImg">您的浏览器不支持 video 标签。</video>
-									</ul>	
 								</div>
-								<div style="float: left;width: 100%;" v-if="item.limittype == 'file'">
+								<div style="float: left;width: 100%;height: 101px;" v-if="item.limittype == 'file'">
 									<p>{{item.title}}<i>{{item.tigs}}</i></p>
-									<div class="page2_1_2">
-										<div v-if="datas[index]" @change="fileUpfj($event,index,item)"><div>+</div>重新上传</div>
-										<div v-else><div>+</div>上传文件</div>
-										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
-									</div>
-									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
-										<li>
-										{{datas[index]}}
-										</li>
-									</ul>
+									<div style="width: 100%;height: 32px;">
+										<div class="uploadFile">
+											<div v-if="datas[index]">重新上传</div>
+											<div v-else>上传文件</div>
+											<input @change="fileUpfj($event,index,item)" type="file" ref="filElem">				
+										</div>
+										<div v-if="datas[index]" style="width: 400px;float: left;word-wrap:break-word;overflow: hidden;text-align: left;margin-top: 3px;">{{datas[index]}}</div>	
+									</div>			
 								</div>	
 							</div>
 						</div>
@@ -789,18 +783,32 @@ export default {
     cursor: pointer;
 }
 .uploadImg{
-	width: 260px;
-    height: 146px;
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+	z-index: 666;
+}
+.uploadImg:hover{
+	z-index: 0;
+}
+.page2_1_2>div:hover{
+	z-index: 666;
 }
 .page2_1_2>div {
     border-radius: 5px;
     font-size: 14px;
     color: #333;
+	position: relative;
+	z-index: 1;
+	background: none;
 }
-.page2_1_2>div, .page2_1_2>img {
+.uploadBtn{
 	width: 100%;
 	height: 50px;
-    background: #e6e6e6;
+	position: absolute;
+    bottom: 0;
 }
 .page2_1_2>div>div {
     width: 22.9px;
@@ -820,6 +828,35 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+	z-index: 666;
+}
+.uploadFile{
+    position: relative;
+    background: #FFFFFF;
+    border-radius: 5px;
+    float: left;
+    margin: 5px 5px 5px 0px;
+    overflow: hidden;
+    width: 100px;
+	height: 32px;
+	text-align: center;
+	line-height: 32px;
+    cursor: pointer;
+	color: #666666;
+	border: 1px solid #BBBBBB;
+	float: left;
+}
+.uploadFile>div{
+    width: 100%;
+    height: 10px;
+}
+.uploadFile > input{
+	opacity: 0;
+	width: 100px;
+	height: 32px;
+	position: absolute;
+    top: 0;
+    left: 0;
 }
 .upImnoData{
 	display: block;
@@ -1060,7 +1097,6 @@ export default {
 	text-align: left;
 }
 .InformationUpload{
-	height: 215px;
 	position: relative;
 }
 .InformationUpload >>> .el-upload--picture-card{
