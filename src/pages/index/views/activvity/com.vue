@@ -73,7 +73,7 @@
 				</div>
 				<div class="pushDeletBox5">
 					<span @click="gopushzp" class="pend">发布新作品</span>
-					<span @click="pushOk" class="pend btn_n3">上传</span>
+					<span @click="pushOk(1)" class="pend btn_n3">上传</span>
 				</div>
 				
 			</template>			
@@ -82,7 +82,7 @@
 		<TcCertification :certification="certification" ref="tcCertification">
 			<template v-slot:todoRz="{ todoRz }">
 				<div class="detailtitle">
-					<div class="employment" style="text-align: center;margin-top: 30px;">
+					<div class="employment" style="text-align: center;margin-top: 30px;margin-bottom: 30px;">
 						<span>
 							<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
 							<span :class="{'fontactive':!Isnextshow}">报名认证信息</span>
@@ -95,45 +95,44 @@
 						</span>
 					</div>
 				</div>
-				<div v-show="!Isnextshow" ref="scroll">
+				<div v-show="!Isnextshow" ref="scroll" class="box">
 					<p class="textExplains">{{remeber_tips}}</p>
-					<div class="demo-ruleForm" style="min-width: 800px;">
+					<div class="demo-ruleForm" style="width: 700px;padding-bottom: 30px;">
 						<div v-for="(item,index) in list">
-							<div class="Information" v-if="item.limittype == 'text'" style="height: 70px;">
+							<div class="Information" v-if="item.limittype == 'text'" style="height: 95px;">
 								<div>
 									<p>{{item.title}}</p>
-								    <el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum show-word-limit @change="checkValue(item,index)"></el-input>
+								    <el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum @blur="checkValue(item,index)" @focus="checkValues(item,index)"></el-input>
 								</div>								
 							</div>
 							<div class="Information InformationUpload" v-else>	
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'pic'">
-									<p>{{item.title}}<i>{{item.tigs}},限制{{item.limitnum}}kb以内,图片格式为{{item.limittypevalue}}</i></p>
-									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
-										<div><div>+</div>上传图片</div>
+									<p>{{item.title}}<i>{{item.tigs}}</i></p>
+									<div class="page2_1_2">
+										<div v-if="datas[index]"><div>+</div>重新上传</div>
+										<div v-else><div>+</div>上传图片</div>
 										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile" type="file">					
 									</div>
-									<ul style="float: left;margin: 5px 5px 5px 0px;">
-										<li>
-											<img width="239" height="135" v-if="datas[index]" :src="datas[index]" alt="">	
-										</li>
+									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
+										<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">
 									</ul>
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'video'">
-									<p>{{item.title}}<i>{{item.tigs}},限制{{item.limitnum}}kb以内</i></p>
-									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
-										<div><div>+</div>上传视频</div>
-										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
+									<p>{{item.title}}<i>{{item.tigs}}</i></p>
+									<div class="page2_1_2">
+										<div v-if="datas[index]"><div>+</div>重新上传</div>
+										<div v-else><div>+</div>上传视频</div>
+										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">	
 									</div>
-									<ul style="float: left;margin: 5px 5px 5px 0px;">
-										<li>
-											<video width="239" height="135" v-if="datas[index]" :src="datas[index]" controls="controls">您的浏览器不支持 video 标签。</video>
-										</li>
-									</ul>
+									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
+										<video playsinline v-if="datas[index]" width="239" height="135" :src="datas[index]" controls="controls" class="uploadImg">您的浏览器不支持 video 标签。</video>
+									</ul>	
 								</div>
 								<div style="float: left;width: 100%;" v-if="item.limittype == 'file'">
-									<p>{{item.title}}<i>{{item.tigs}},限制{{item.limitnum}}kb以内</i></p>
-									<div class="page2_1_2" style="margin: 5px 5px 5px 0px;float: left;">
-										<div><div>+</div>上传文件</div>
+									<p>{{item.title}}<i>{{item.tigs}}</i></p>
+									<div class="page2_1_2">
+										<div v-if="datas[index]" @change="fileUpfj($event,index,item)"><div>+</div>重新上传</div>
+										<div v-else><div>+</div>上传文件</div>
 										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">					
 									</div>
 									<ul style="float: left;margin: 5px 5px 5px 0px;width: 239px;word-wrap:break-word;text-align: left;">
@@ -143,13 +142,11 @@
 									</ul>
 								</div>	
 							</div>
-
-						</div>
-						
-						<div style="margin: 20px 0px 20px 0px;">
-							<el-button type="primary" v-if="!Isnextshow" @click="next">下一步</el-button>
 						</div>
 					</div>	
+				</div>
+				<div style="padding: 20px 0px 20px 0px;border-top: 1px solid #F4F6F9;">
+					<el-button type="primary" v-if="!Isnextshow" @click="next">下一步</el-button>
 				</div>
 				<div v-show="Isnextshow" ref="scroll">
 					<div class="pushDeletBox4">
@@ -183,9 +180,9 @@
 						</ul>
 					</div>
 					<div class="pushDeletBox5">
-						<span v-if="Isnextshow" @click="backgo" class="pend">上一步</span>
-						<span v-if="Isnextshow" @click="gopushzp" class="pend" style="background: #fff;color: #333333;border: 1px solid #979797;margin-right: 20px;">发布新作品</span>
-						<span v-if="Isnextshow" @click="pushOk" class="pend btn_n3">立即报名</span>
+						<span v-if="Isnextshow" @click="backgo" class="pend" style="background: #fff;color: #666666;border: 1px solid #BBBBBB;">上一步</span>
+						<span v-if="Isnextshow" @click="gopushzp" class="pend" style="background: #fff;color: #666666;border: 1px solid #BBBBBB;margin-right: 20px;">发布新作品</span>
+						<span v-if="Isnextshow" @click="pushOk(2)" class="pend btn_n3" style="color: #FFFFFF;border: none;">立即报名</span>
 					</div>
 				</div>				
 			</template>	
@@ -260,7 +257,7 @@ export default {
 			remeber_tips: '',
 			list: [],
 			opType:0,	
-			Isnextshow: false,						
+			Isnextshow: false,					
 		}
 		
 	},
@@ -283,16 +280,45 @@ export default {
 				this.array.push(obj);	
 			}
 			if(this.datas.length == 0){
-				Message({message: '信息都为必填项'});
+				Message({message: '请先完善信息'});
 				return
 			}else if(this.datas.length < this.list.length){		
-				Message({message: '信息缺失'});
+				Message({message: '请先完善信息'});
 				return
 			}else{
 				this.Isnextshow = true;
 				this.$refs.scroll.scrollTop = 0;
 				this.getPersonalWorkList();
 			}
+		},
+		checkValues(item,index){
+			for(var i=0;i<this.list.length;i++){
+				if(item == this.list[i]){
+					if(this.list[i].limittypevalue == '仅限数字'){	
+						var reg = /^[0-9]*$/;
+						var re = new RegExp(reg);
+						if(re.test(this.datas[index])){
+							
+						}else{
+							Message({message: '仅限输入数字'});
+							return
+						}			
+					}
+					if(item.limittypevalue == '数字+英文+标点'){
+						var reg = /[\x00-\xff]+/g;
+						var re = new RegExp(reg);
+						if(re.test(this.datas[index])){
+							
+						}else{
+							Message({message: '仅限输入数字、英文、标点符号'});
+							return
+						}
+					}
+					if(item.limittypevalue == '不限制'){						
+						// Message({message: '不限制输入'});							
+					}
+				}
+			}											
 		},
 		checkValue(item,index){
 			for(var i=0;i<this.list.length;i++){
@@ -316,6 +342,9 @@ export default {
 							Message({message: '仅限输入数字+英文+标点'});
 							return
 						}
+					}
+					if(item.limittypevalue == '不限制'){						
+						// Message({message: '不限制输入'});							
 					}
 				}
 			}											
@@ -344,10 +373,10 @@ export default {
 					var suffix = filename.substr(location+1);
 					if(this.list[i].limittype == 'pic'){
 						if(this.list[i].limittypevalue != suffix&&this.list[i].limittypevalue.split('/').indexOf(suffix) == -1){
-							Message({message: '图片格式不对'});
+							Message({message: '上传格式有误，请按照要求重新上传'});
 							return
 						}else if(fld.size/1000 > this.list[i].limitnum){
-							Message({message: '图片太大'});
+							Message({message: '图片过大，请按照要求重新上传'});
 							return
 						}else{
 							let formData = new FormData();
@@ -361,7 +390,7 @@ export default {
 							formData.append('timestamp',times)
 							formData.append('is_callback',1)
 							this.opType=1;
-							Message({message: '正在上传，请稍后'});
+							Message({message: '图片正在上传，请稍后'});
 							this.$ajax.post(window.basrul+'/File/File/insert', formData)
 							.then((da)=>{	
 								this.opType=0;
@@ -383,7 +412,7 @@ export default {
 						// 	Message({message: '视频格式不对'});
 						// }
 						if(fld.size/1000 > this.list[i].limitnum){
-							Message({message: '视频太大'});
+							Message({message: '视频过大，请按照要求重新上传'});
 							return
 						}else{
 							let formData = new FormData();
@@ -397,7 +426,7 @@ export default {
 							formData.append('timestamp',times)
 							formData.append('is_callback',1)
 							this.opType=1;
-							Message({message: '正在上传，请稍后'});
+							Message({message: '视频正在上传，请稍后'});
 							this.$ajax.post(window.basrul+'/File/File/insert', formData)
 							.then((da)=>{	
 								this.opType=0;
@@ -417,7 +446,7 @@ export default {
 						}
 					}else if(this.list[i].limittype == 'file'){
 						if(fld.size/1000 > this.list[i].limitnum){
-							Message({message: '文件太大'});
+							Message({message: '文件过大，请按照要求重新上传'});
 							return
 						}else{
 							let formData = new FormData();
@@ -431,7 +460,7 @@ export default {
 							formData.append('timestamp',times)
 							formData.append('is_callback',1)
 							this.opType=1;
-							Message({message: '正在上传，请稍后'});
+							Message({message: '文件正在上传，请稍后'});
 							this.$ajax.post(window.basrul+'/File/File/insert', formData)
 							.then((da)=>{	
 								this.opType=0;
@@ -499,6 +528,7 @@ export default {
 			this.zpList = [];
 		},
 		showZp(){
+			this.getPersonalWorkList();
 			let pr = {
 				activity_id:this.$route.query.id,
 			};
@@ -513,12 +543,13 @@ export default {
 				}
 				// console.log(JSON.parse(da.extra_info))
 
-				if(da.extra_info == null){
+				if(da.extra_info == null || da.extra_info == '[]' || da.activity_status == '1'){
 					this.bdtjCom('上传作品');
 					if(!window.userInfo){
 						this.$router.push({path:'/login'});
 					}
 					this.getPersonalWorkList();
+					this.Isnextshow = true;
 					this.showtc();
 				}else{
 					this.bdtjCom('认证');
@@ -654,7 +685,7 @@ export default {
 		backtime(time){		
 			return	window.getTimes(time);
 		},
-		pushOk(){
+		pushOk(index){
 			this.bdtjCom('确定上传');
 			if(this.bindType==1){
 				Message({message: '正在上传中'});
@@ -675,9 +706,18 @@ export default {
 					this.bindType=0;	
 					return
 				}
-				this.bindType=0;				
-				Message({message: '上传成功'});
-				this.closeZp();
+				this.bindType=0;
+				if(index == 1){
+					Message({message: '上传成功'});
+					this.$refs.tcBox.close();
+					this.closeZp();
+				}
+				if(index == 2){
+					Message({message: '报名成功'});
+					this.$refs.tcCertification.close();
+					this.closeZp();
+				}				
+				
 			}).catch(()=>{
 				this.bindType = 0;
 			})
@@ -694,6 +734,57 @@ export default {
 </script>
 
 <style scoped="scoped">
+.pr_tc_02{
+	overflow-y: hidden;
+}
+.box{
+	height: 400px;
+	overflow-y: scroll;
+}
+.page2_1_2{
+	position: relative;
+    background: #E6E6E6;
+    border-radius: 5px;
+    float: left;
+    margin: 5px 5px 5px 0px;
+    overflow: hidden;
+    width: 260px;
+    height: 146px;
+    cursor: pointer;
+}
+.uploadImg{
+	width: 260px;
+    height: 146px;
+}
+.page2_1_2>div {
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+.page2_1_2>div, .page2_1_2>img {
+	width: 100%;
+	height: 50px;
+    background: #e6e6e6;
+}
+.page2_1_2>div>div {
+    width: 22.9px;
+    height: 22.9px;
+    border-radius: 50%;
+    font-size: 21px;
+    text-align: center;
+    line-height: 22.9px;
+    background: #33b3ff;
+    color: #e6e6e6;
+    margin: 43px auto 11px;
+}
+.page2_1_2>input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 .upImnoData{
 	display: block;
 	margin: 110px auto 0;   
@@ -701,7 +792,13 @@ export default {
 .detail_topBox{
 	min-width: 1300px;	
 	position: relative;	
-	
+}
+.box >>> .el-button{
+	width: 120px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	padding: 0;
 }
 
 .detail_topBox_1{
@@ -927,7 +1024,7 @@ export default {
 	text-align: left;
 }
 .InformationUpload{
-	height: 235px;
+	height: 215px;
 	position: relative;
 }
 .InformationUpload >>> .el-upload--picture-card{
@@ -1051,7 +1148,7 @@ export default {
 	color: #666666;
 	font-size: 14px;
 	text-align: left;
-	padding: 30px 100px 30px 100px;
+	padding: 0px 100px 30px 100px;
 }
 .textExplains > i{
 	font-style: normal;
@@ -1059,7 +1156,7 @@ export default {
 }
 .employment {
     font-size: 16px;
-    color: #999999;
+    color: #BBBBBB;
 }
 .numberactive {
     background: #ffffff;
@@ -1071,7 +1168,7 @@ export default {
     width: 27px;
     height: 27px;
     line-height: 27px;
-    border: 1px solid #000000;
+    border: 1px solid #BBBBBB;
     border-radius: 50%;
     margin-right: 10px;
     text-align: center;
@@ -1083,7 +1180,7 @@ export default {
     display: inline-block;
     width: 114px;
     height: 4px;
-    border-top: 1px solid #999999;
+    border-top: 1px solid #BBBBBB;
     margin: 0 12px;
     margin-top: -5px;
 }
