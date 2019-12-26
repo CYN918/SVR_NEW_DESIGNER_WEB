@@ -6,6 +6,7 @@ import special_first from './views/special/first.vue'
 import Home from './views/home.vue'
 import Tip from './views/activvityPage/tip.vue'
 import Ac_v1 from './views/activvityPage/ac_v1.vue'
+import Ac_v2 from './views/activvityPage/ac_v2.vue'
 import upload from './views/upload/upload.vue'
 
 import myWorksCom from './views/user/myWorksCom.vue'
@@ -81,6 +82,8 @@ let wb = [
 	{path: '/error',name: 'erro1',component: Errors},	
 	{path: '/404',name: 'erro2',component: Errors},	
 	{path: '/Ac_v',name: 'Ac_v',component: Ac_v1},	
+	{path: '/Ac_v2',name: 'Ac_v2',component: Ac_v2},	
+	
 	
 	{
 		path: '/',

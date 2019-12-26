@@ -59,10 +59,10 @@ export default {
 			isJD:'1',
 			navdOn:0,
 			navDta:[
-				{t:'账号相关',h:'#problem_1_1'},
-				{t:'作品相关',h:'#problem_2_1'},
-				{t:'平台推荐相关',h:'#problem_3_1'},
-				{t:'项目制作指南',h:'#problem_4_1'},
+				{t:'账号相关',h:'[name="1-01"]'},
+				{t:'作品相关',h:'[name="2-01"]'},
+				{t:'平台推荐相关',h:'[name="3-01"]'},
+				{t:'项目制作指南',h:'[name="4-01"]'},
 			],
 			list:'',
 		}
@@ -80,7 +80,7 @@ export default {
 				},100)
 				return
 			}
-			let ghh = anchor.offsetTop - anchor.clientHeight*4;
+			let ghh = anchor.offsetTop - 80;
 			this.mJs.scTop(ghh);
 		},
 		setNavd(on){
@@ -207,9 +207,9 @@ export default {
 					this.isJD = '';
 					let oid = this.$route.query.on;
 					if(oid){
-						this.navdOn = oid.substring(0,1)-1;
+						
 						setTimeout(()=>{
-							this.goAnchor('#problem_'+oid);
+							this.goAnchor('[name="'+oid+'"]');
 						},100);
 						return
 					}

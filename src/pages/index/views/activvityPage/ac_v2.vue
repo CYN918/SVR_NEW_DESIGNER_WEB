@@ -1,65 +1,46 @@
 <template>
 	<div>
 		<div class="ac_v1-1">
-			<img class="ac_v1-2" src="/imge/ac_v1/ban.png"/>
-			<div class="ac_v1-4">
+			<img class="ac_v1-2" src="/imge/ac_v2/ban.png"/>
+			
+			<div class="ac_v2">
+				<div class="ac_v2-1">
+					<span>
+						<div>当前状态</div>
+						<div>招募期</div>
+					</span>
+					<span>
+						<div>截止报名时间</div>
+						<div>13天	12:00:00</div>
+					</span>
+					<span>
+						<div>报名人数</div>
+						<div>12413</div>
+					</span>
+					<span>
+						<div>金额</div>
+						<div>￥12413</div>
+					</span>
+				</div>
+			</div>
+			<!-- <div class="ac_v1-4">
 				<div class="ac_v1-4x">
 					<span @click="navCl(el)" :class="el.p==navOn?'checkO':''" v-for="el in arr">{{el.n}}</span>
 				</div>
-			</div>
+			</div> -->
 			
 			
 			<div class="ac_v1-5">
-				
-				<div v-if="navOn==1" class="ac_v1-5-1">
-					<img src="/imge/ac_v1/01.png">
-				</div>
-				<div v-if="navOn==2" class="ac_v1-5-2">
-					<div class="ac-01">
-						<div class="ac-02">
-							<div class="ac-01-1">
-								全部作品<span>{{total}}</span>
-								<div class="ac-01-2">
-									<span :class="!this.px?'chko':''" @click="timeO()">推荐</span>
-									<span :class="this.px?'chko':''" @click="timeO(1)">最新</span>
-								</div>
-							</div>
-							<div class="mo_01box">
-								<box_a v-for="el in workList"  :el="el"></box_a>
-							</div>
-							
-							<div v-if="total>workList.length" class="ac-01-3">
-								<el-pagination
-								background
-								@size-change="handleSizeChange"
-								@current-change="handleCurrentChange"
-								:current-page="page"
-								:page-sizes="limits"
-								:page-size="limit"
-								layout="total,prev, pager, next,sizes"
-								:total="total">
-								</el-pagination>
-							</div>
-						</div>
-						
-						
-					</div>
-					
-					<img class="ac-04" src="/imge/ac_v1/07.png">
-					
-					
-					
-				</div>
-				<div v-if="navOn==3" class="ac_v1-5-1">
-					<img src="/imge/ac_v1/03.png">
+				<div class="ac_v1-5-1">
+					<img src="/imge/ac_v2/01.png">
 				</div>
 				
 			</div>
 			
 			<div class="ac_v1-3">
-				<img src="/imge/ac_v1/fx.png"/>
-				<div class="ac_v1-3-1"></div>
-				<div @click="shaFn('fxUrl2')" class="ac_v1-3-2"></div>
+				<img src="/imge/ac_v2/fx.png"/>
+				
+				<div @click="shaFn('fxUrl2')" class="ac_v1-3-2x"></div>
 				<div @click="shaFn('fxUrl1')" class="ac_v1-3-3"></div>
 			</div>
 			<component v-bind:is="tanData.zj" v-model="tanData"></component>	
@@ -194,8 +175,6 @@ export default{
 				// {n:'全部作品',p:2},
 				// {n:'获奖公示',p:3},
 				
-				
-				console.log(this.infoData);
 				document.title=this.infoData.activity_name+'-狮圈儿（Zoocreators）';
 			
 				this.shar({
@@ -231,149 +210,23 @@ export default{
 </script>
 
 <style>
-#app > div > div.ac_v1-1{
-	padding: 0;
-}
-.ac_v1-2{
-	display: block;width: 100%;
-}
-.ac_v1-3{
-	position: fixed;
-	width: 80px;
-    top: 308px;
-    right: 16px;
-}
-.ac_v1-3>div{
-	cursor: pointer;
-}
-.ac_v1-3>img{
-	display: block;
-	width: 100%;
-}
-.ac_v1-4{
-	background: #5e25d8;
-	height: 120px;
-	width: 100%;
-}
-.ac_v1-4x{
-	margin: 0 auto;
-	width: 1300px;
-	text-align: left;
-}
-.ac_v1-4x>span{
-	cursor: pointer;
-	display: inline-block;
-	vertical-align: top;
-	color: #fff;
-	line-height: 120px;
-	font-size: 30px;
-	text-align: center;
-	width: 325px;
-}
-.ac_v1-4x>span.checkO{
-	background: #fffc00;
-	color: #5e25d8;
-}
-.ac_v1-4x>span:hover{
-	color: #5e25d8;
-	background: #fffc00;
-}
-.ac_v1-5{
-	position: relative;
-}
-.ac_v1-5-1>img{
-	display: block;
-	width: 100%;
-}
-.ac_v1-5-2{
-	background: #331087;
-	padding: 80px 0 0 0;
-	
-}
 
-.ac-01{
-	margin-bottom: 40px;
-	background: url(/imge/ac_v1/05.png) 0 0/40% no-repeat,url(/imge/ac_v1/06.png) 100% 70%/40% no-repeat;
-	
-}
-
-.ac-04{
-
-	display: block;
-	width: 100%;
-}
-.ac-02{
-	position: relative;
-	padding: 30px;
-	text-align: left;
-	box-sizing: border-box;
-	margin: 0 auto;
-	background:#F4F6F9;
-	border-radius: 4px;
-	width: 1300px;
-}
-.ac-01-1{
-	font-size: 30px;
-	line-height: 35px;
-	margin-bottom: 30px;
-}
-.ac-01-1>span{
-	display: inline-block;
-	vertical-align: top;
-	font-size: 40px;
-	margin-left: 4px;
-	line-height: 35px;
-}
-.ac-01-2{
-	position: absolute;
-	right: 30px;
-	top: 30px;
-	font-size: 16px;
-	line-height: 35px;
-}
-.ac-01-2>span{
-	cursor: pointer;
-	display: inline-block;
-    vertical-align: top;
-    font-size: 20px;
-    color: rgb(51, 51, 51);
-    line-height: 20px;
-    margin: 0px 10px;
-}
-.ac-01-2>span:hover,.ac-01-2>span.chko{
-	color: #ffb652;
-}
-.ac-01-3{
-	text-align: center;
-}
-.ac-01-3 .el-pagination span:not([class*=suffix]){
-	line-height: 40px;
-}
-
-.ac_v1-3-1{
-	position: absolute;
-}
-.ac_v1-3-2{
+.ac_v1-3-2x{
     position: absolute;
-    top: 138px;
+    top: 74px;
     left: 10px;
     width: 60px;
     height: 60px;
     border-radius: 50%;
 }
-.ac_v1-3-3{
+.ac_v2{
 	position: absolute;
-    top: 209px;
-    left: 10px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-}
-.mo_01box{
-	margin-right: -20px;
-}
-.mo_01box .wk_a{
-	width: 295px;
-}
+	top: 0;
+	left: 50%;	
+	padding-top: 7%;
+	transform: translateX(-50%);
 
+	width: 100px;
+	height: 200px;
+}
 </style>
