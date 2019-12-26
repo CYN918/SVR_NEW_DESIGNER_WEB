@@ -109,19 +109,21 @@
 								<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'pic'">
 									<p>{{item.title}}<i>{{item.tigs}}</i></p>
 									<div class="page2_1_2">
-										<div v-if="datas[index]" class="uploadBtn"><div>+</div>重新上传</div>
+										<div v-if="datas[index]" style="width: 80px;height: 32px;line-height: 32px;text-align: center;position: absolute;bottom: 8px;right: 40px;background: #33b3ff;color: #FFFFFF;">重新上传</div>
 										<div v-else><div>+</div>上传图片</div>
-										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile" type="file">
-										<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">					
-									</div>
+										<input @change="fileUpfj($event,index,item)" type="file" :id="'page'+index" ref="upnfile2">
+										<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">		
+										<div v-if="datas[index]" class="deleteBtn"><el-button size="small" @click.native="deleteUpload(index)">删除</el-button></div>			
+									</div>	
 								</div>
 								<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'video'">
 									<p>{{item.title}}<i>{{item.tigs}}</i></p>
 									<div class="page2_1_2">
-										<div v-if="datas[index]" class="uploadBtn"><div>+</div>重新上传</div>
+										<div v-if="datas[index]" class="teshu" style="width: 80px;height: 32px;line-height: 32px;text-align: center;position: absolute;bottom: 8px;right: 40px;background: #33b3ff;color: #FFFFFF;">重新上传</div>
 										<div v-else><div>+</div>上传视频</div>
-										<input @change="fileUpfj($event,index,item)" :class="'page'+index" ref="upnfile2" type="file">	
+										<input @change="fileUpfj($event,index,item)" :id="'page'+index" ref="upnfile2" type="file">	
 										<video v-if="datas[index]" :src="datas[index]" controls="controls" class="uploadImg">您的浏览器不支持 video 标签。</video>
+										<div v-if="datas[index]" class="deleteBtn"><el-button size="small" @click.native="deleteUpload(index)">删除</el-button></div>
 									</div>
 								</div>
 								<div style="float: left;width: 100%;height: 101px;" v-if="item.limittype == 'file'">
@@ -130,9 +132,9 @@
 										<div class="uploadFile">
 											<div v-if="datas[index]">重新上传</div>
 											<div v-else>上传文件</div>
-											<input @change="fileUpfj($event,index,item)" type="file" ref="filElem">				
+											<input @change="fileUpfj($event,index,item)" type="file" ref="filElem" :id="'page'+index">				
 										</div>
-										<div v-if="datas[index]" style="width: 400px;float: left;word-wrap:break-word;overflow: hidden;text-align: left;margin-top: 3px;">{{datas[index]}}</div>	
+										<div v-if="datas[index]" style="width: 400px;float: left;word-wrap:break-word;overflow: hidden;text-align: left;margin-top: 3px;position: relative;">{{datas[index]}}<el-progress :text-inside="true" :stroke-width="4" :percentage="progress" v-show="showp"></el-progress><img @click="deleteUpload(index)" class="detelImage" src="/imge/project/cj_00.svg" alt=""></div>	
 									</div>			
 								</div>	
 							</div>
@@ -252,7 +254,9 @@ export default {
 			remeber_tips: '',
 			list: [],
 			opType:0,	
-			Isnextshow: false,					
+			Isnextshow: false,	
+			showp: false,
+			progress: '',				
 		}
 		
 	},
@@ -265,6 +269,10 @@ export default {
 		this.a_getInfo();
 	}, 
 	methods:{
+		deleteUpload(index){
+			this.datas.splice(index,1);
+			document.getElementById("page"+index).value = '';
+		},
 		next() {
 			for(var i=0;i<this.datas.length;i++){
 				let obj = {
@@ -350,7 +358,7 @@ export default {
 		backgo(){
 			this.Isnextshow = false;
 		},
-		fileUpfj(flie,index,item){	
+		fileUpfj(flie,index,item){
 			this.bdtj('上传弹窗','确定','--');
 			if(this.opType==1){
 				Message({message: '正在上传，请稍后'});
@@ -366,117 +374,128 @@ export default {
 			let fld = flie.target.files[0];
 			for(var i=0;i<this.list.length;i++){		
 				if(item == this.list[i]){
-					var filename = fld.name;
-					var location = filename.lastIndexOf(".");
-					var suffix = filename.substr(location+1);
-					if(this.list[i].limittype == 'pic'){
-						if(this.list[i].limittypevalue != suffix&&this.list[i].limittypevalue.split('/').indexOf(suffix) == -1){
-							Message({message: '上传格式有误，请按照要求重新上传'});
-							return
-						}else if(fld.size/1000 > this.list[i].limitnum){
-							Message({message: '图片过大，请按照要求重新上传'});
-							return
-						}else{
-							let formData = new FormData();
-							formData.append('app_id',1001);
-							formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-							formData.append('user',window.userInfo.open_id)
-							formData.append('file',fld)
-							formData.append('relation_type','user_info')
-							formData.append('related_id',window.userInfo.open_id)
-							formData.append('classify_1','avatar')
-							formData.append('timestamp',times)
-							formData.append('is_callback',1)
-							this.opType=1;
-							Message({message: '图片正在上传，请稍后'});
-							this.$ajax.post(window.basrul+'/File/File/insert', formData)
-							.then((da)=>{	
-								this.opType=0;
-								let ds = da.data;
-								if(ds.result==0){
-									this.datas[index] = ds.data.url;
-									this.datas.splice(index,1,ds.data.url);						
-								}else{
-									// msg(ds.data);
-									Message({message: ds.data});
-								}
-							})
-							.catch(function () {
-								this.opType=0;		
-							});
-						}	
-					}else if(this.list[i].limittype == 'video'){
-						// if(this.list[i].limittype != suffix){
-						// 	Message({message: '视频格式不对'});
-						// }
-						if(fld.size/1000 > this.list[i].limitnum){
-							Message({message: '视频过大，请按照要求重新上传'});
-							return
-						}else{
-							let formData = new FormData();
-							formData.append('app_id',1001);
-							formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-							formData.append('user',window.userInfo.open_id)
-							formData.append('file',fld)
-							formData.append('relation_type','user_info')
-							formData.append('related_id',window.userInfo.open_id)
-							formData.append('classify_1','avatar')
-							formData.append('timestamp',times)
-							formData.append('is_callback',1)
-							this.opType=1;
-							Message({message: '视频正在上传，请稍后'});
-							this.$ajax.post(window.basrul+'/File/File/insert', formData)
-							.then((da)=>{	
-								this.opType=0;
-								let ds = da.data;
-								if(ds.result==0){
-									this.datas[index] = ds.data.url;
-									this.datas.splice(index,1,ds.data.url);						
-								}else{
-									// msg(ds.data);
-									Message({message: ds.data});
-								}
-							})
-							.catch(function () {
-								this.opType=0;
-								
-							});
-						}
-					}else if(this.list[i].limittype == 'file'){
-						if(fld.size/1000 > this.list[i].limitnum){
-							Message({message: '文件过大，请按照要求重新上传'});
-							return
-						}else{
-							let formData = new FormData();
-							formData.append('app_id',1001);
-							formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-							formData.append('user',window.userInfo.open_id)
-							formData.append('file',fld)
-							formData.append('relation_type','user_info')
-							formData.append('related_id',window.userInfo.open_id)
-							formData.append('classify_1','avatar')
-							formData.append('timestamp',times)
-							formData.append('is_callback',1)
-							this.opType=1;
-							Message({message: '文件正在上传，请稍后'});
-							this.$ajax.post(window.basrul+'/File/File/insert', formData)
-							.then((da)=>{	
-								this.opType=0;
-								let ds = da.data;
-								if(ds.result==0){
-									this.datas[index] = ds.data.url;
-									this.datas.splice(index,1,ds.data.url);						
-								}else{
-									// msg(ds.data);
-									Message({message: ds.data});
-								}
-							})
-							.catch(function () {
-								this.opType=0;
-								
-							});
+					if(fld != undefined){
+						var filename = fld.name;
+						var location = filename.lastIndexOf(".");
+						var suffix = filename.substr(location+1);
+						if(this.list[i].limittype == 'pic'){
+							if(this.list[i].limittypevalue != suffix&&this.list[i].limittypevalue.split('/').indexOf(suffix) == -1){
+								Message({message: '上传格式有误，请按照要求重新上传'});
+								return
+							}else if(fld.size/1000 > this.list[i].limitnum){
+								Message({message: '图片过大，请按照要求重新上传'});
+								return
+							}else{
+								let formData = new FormData();
+								formData.append('app_id',1001);
+								formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+								formData.append('user',window.userInfo.open_id)
+								formData.append('file',fld)
+								formData.append('relation_type','user_info')
+								formData.append('related_id',window.userInfo.open_id)
+								formData.append('classify_1','avatar')
+								formData.append('timestamp',times)
+								formData.append('is_callback',1)
+								this.opType=1;
+								Message({message: '图片正在上传，请稍后'});
+								this.$ajax.post(window.basrul+'/File/File/insert', formData)
+								.then((da)=>{	
+									this.opType=0;
+									let ds = da.data;
+									if(ds.result==0){
+										this.datas[index] = ds.data.url;
+										this.datas.splice(index,1,ds.data.url);						
+									}else{
+										// msg(ds.data);
+										Message({message: ds.data});
+									}
+								})
+								.catch(function () {
+									this.opType=0;		
+								});
+							}	
+						}else if(this.list[i].limittype == 'video'){
+							// if(this.list[i].limittype != suffix){
+							// 	Message({message: '视频格式不对'});
+							// }
+							if(fld.size/1000 > this.list[i].limitnum){
+								Message({message: '视频过大，请按照要求重新上传'});
+								return
+							}else{
+								let formData = new FormData();
+								formData.append('app_id',1001);
+								formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+								formData.append('user',window.userInfo.open_id)
+								formData.append('file',fld)
+								formData.append('relation_type','user_info')
+								formData.append('related_id',window.userInfo.open_id)
+								formData.append('classify_1','avatar')
+								formData.append('timestamp',times)
+								formData.append('is_callback',1)
+								this.opType=1;
+								Message({message: '视频正在上传，请稍后'});
+								this.$ajax.post(window.basrul+'/File/File/insert', formData)
+								.then((da)=>{	
+									this.opType=0;
+									let ds = da.data;
+									if(ds.result==0){
+										this.datas[index] = ds.data.url;
+										this.datas.splice(index,1,ds.data.url);						
+									}else{
+										// msg(ds.data);
+										Message({message: ds.data});
+									}
+								})
+								.catch(function () {
+									this.opType=0;
+									
+								});
+							}
+						}else if(this.list[i].limittype == 'file'){
+							if(fld.size/1000 > this.list[i].limitnum){
+								Message({message: '文件过大，请按照要求重新上传'});
+								return
+							}else{
+								let formData = new FormData();
+								formData.append('app_id',1001);
+								formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+								formData.append('user',window.userInfo.open_id)
+								formData.append('file',fld)
+								formData.append('relation_type','user_info')
+								formData.append('related_id',window.userInfo.open_id)
+								formData.append('classify_1','avatar')
+								formData.append('timestamp',times)
+								formData.append('is_callback',1)
+								this.opType=1;
+								this.showp = true;
+								Message({message: '文件正在上传，请稍后'});
+								this.$ajax.post(window.basrul+'/File/File/insert', formData,{
+									headers: {
+										'Content-Type': 'multipart/form-data',
+									},
+									onUploadProgress: progressEvent => {
+										this.progress = (progressEvent.loaded / progressEvent.total * 100 | 0);
+									}
+								})
+								.then((da)=>{	
+									this.opType=0;
+									let ds = da.data;
+									if(ds.result==0){
+										this.datas[index] = ds.data.url;
+										this.datas.splice(index,1,ds.data.url);						
+									}else{
+										// msg(ds.data);
+										Message({message: ds.data});
+									}
+								})
+								.catch(function () {
+									this.opType=0;
+									
+								});
+							}
 						}
 					}		
+							
 				}				
 			}	
 		},
@@ -735,6 +754,12 @@ export default {
 .pr_tc_02{
 	overflow-y: hidden;
 }
+.detelImage{
+	position: absolute;
+    right: 0;
+    top: 20px;
+	cursor: pointer;
+}
 .box{
 	height: 400px;
 	-webkit-box-sizing: border-box;
@@ -790,25 +815,32 @@ export default {
     height: 100%;
 	z-index: 666;
 }
-.uploadImg:hover{
-	z-index: 0;
+.page2_1_2:hover .page2_1_2>div{
+	z-index: 22;
 }
-.page2_1_2>div:hover{
-	z-index: 666;
+.page2_1_2:hover .page2_1_2>input,.page2_1_2:hover{
+	z-index: 22;
+}
+
+.page2_1_2:hover .uploadImg{
+	z-index: -666;
+}
+.page2_1_2:hover .deleteBtn{
+	z-index: 22;
 }
 .page2_1_2>div {
     border-radius: 5px;
     font-size: 14px;
     color: #333;
-	position: relative;
-	z-index: 1;
+	position: absolute;
 	background: none;
 }
-.uploadBtn{
-	width: 100%;
-	height: 50px;
-	position: absolute;
-    bottom: 0;
+.deleteBtn{
+	width: 80px;
+	height: 32px;
+	position: absolute !important;
+    bottom: 8px;
+	left: 40px;
 }
 .page2_1_2>div>div {
     width: 22.9px;
@@ -828,7 +860,6 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-	z-index: 666;
 }
 .uploadFile{
     position: relative;
@@ -867,9 +898,9 @@ export default {
 	position: relative;	
 }
 .box >>> .el-button{
-	width: 120px;
-	height: 40px;
-	line-height: 40px;
+	width: 80px;
+	height: 32px;
+	line-height: 32px;
 	text-align: center;
 	padding: 0;
 }
