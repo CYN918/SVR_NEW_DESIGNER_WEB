@@ -265,12 +265,13 @@ Vue.prototype.go = (a,b,c)=>{
 	_hmt.push(['_trackEvent',a,b,c]);
 };
 import VueCropper from 'vue-cropper' 
-import { Button, Select,Steps,Step,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination,Dialog } from 'element-ui'
+import { Button, Select,Steps,Step,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination,Dialog,Progress } from 'element-ui'
 Vue.use(VueCropper)
 Vue.component(Input.name, Input)
 Vue.component(Button.name, Button)
 Vue.component(Steps.name, Steps)
 Vue.component(Step.name, Step)
+Vue.component(Progress.name, Progress)
 Vue.component(Dialog.name, Dialog)
 Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
