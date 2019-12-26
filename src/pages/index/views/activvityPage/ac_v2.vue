@@ -2,7 +2,12 @@
 	<div>
 		<div class="ac_v1-1">
 			<img class="ac_v1-2" src="/imge/ac_v2/ban.png"/>
-			
+			<div class="sto_01">
+				<img src="/imge/ac_v2/xl.png"/>
+				<div class="sto_02">
+					<div @click="clFn(el.tcFn)" v-for="el in options">{{el.n}}</div>
+				</div>
+			</div>
 			<div class="ac_v2">
 				<div class="ac_v2-1">
 					<span>
@@ -75,8 +80,13 @@
 				<img src="/imge/ac_v2/fx.png"/>
 				
 				<div @click="shaFn('fxUrl2')" class="ac_v1-3-2x"></div>
-				<div @click="shaFn('fxUrl1')" class="ac_v1-3-3"></div>
+				<div class="ac_v1-3-3 ac_v1-3-3x">
+					<img src="/imge/ac_v2/fx1.png"/>
+				</div>
 			</div>
+			
+			    
+			
 			<component v-bind:is="tanDatazj"  :datad="tanData"></component>
 		</div>
 		
@@ -124,7 +134,7 @@ export default{
 			],
 			xmTypeOn:0,
 			endjg:'',
-			options:[{n:'终止项目',cs:'Stop'},{n:'交稿记录',cs:'Log'}],
+			options:[{n:'终止项目',tcFn:'Stop'},{n:'交稿记录',tcFn:'Log'}],
 		}
 	},
 	mounted: function(){
@@ -210,6 +220,10 @@ export default{
 			this.tanDatazj = 'Log';
 			this.tanData = this.deta;
 		},
+		Stop(){
+			this.tanDatazj = 'Stop';
+			this.tanData = this.deta;
+		},
 		shaFn(n){
 			window.open(this[n]);
 		},
@@ -268,7 +282,14 @@ export default{
 				id:this.ids
 			}).then((da)=>{
 				if(da=='error'){this.$router.push({path: '/404'});return}			
-				this.xmTypeOn = da.status-1;
+				this.shar({
+					titlec:'项目分享',
+					url:window.location.href,
+					title:da.name+'-狮圈儿创作者平台',
+					pics:da.banner,
+					desc:'惊现大神快来膜拜',
+					summary:da.name+'-狮圈儿创作者平台',				
+				});
 				this.deta = da;
 				this.xmTypeOn = da.status-1;
 				if(da.is_sign_up==1){
@@ -379,7 +400,7 @@ export default{
 	height: 142px;
 	border-radius: 8px;
 	background: #d3e0e5;
-	border: 1px solid #753d28;
+	border: 2px solid #753d28;
 
 	vertical-align: top;
 }
@@ -388,7 +409,7 @@ export default{
 	display: inline-block;
 	box-sizing: border-box;
 	background: #ffffff;
-	border-bottom: 1px solid #753d28;
+	border-bottom: 2px solid #753d28;
 	margin-left: -1px;
 	border-radius: 8px;
 	min-width: 192px;
@@ -444,5 +465,47 @@ export default{
 }
 .fng_01>img:nth-child(2){
 	top: 73px;
+}
+.sto_01{
+	position: absolute;
+	top: 85px;
+	right: 310px;
+	z-index: 9;
+
+}
+
+.sto_02{
+	display: none;
+    position: absolute;
+    top: 32px;
+    right: 0;
+    z-index: 99;
+    background: #FFFFFF;
+    -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    border-radius: 5px;
+    width: 95px;
+    padding: 10px 0;
+}
+.sto_01:hover .sto_02{
+	display: block;
+}
+.sto_02>div{
+	cursor: pointer;
+	line-height: 30px;
+    font-size: 14px;
+    color: #333333;
+}
+.sto_02>div:hover {
+    background: #E6E6E6;
+}
+.ac_v1-3-3x>img{
+	display: none;
+	position: absolute;
+	right: 53px;
+	top: -46px;
+}
+.ac_v1-3-3x:hover>img{
+	display: block;
 }
 </style>
