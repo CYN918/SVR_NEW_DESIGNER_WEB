@@ -184,7 +184,8 @@
 						<span v-if="Isnextshow" @click="gopushzp" class="pend" style="background: #fff;color: #666666;border: 1px solid #BBBBBB;margin-right: 20px;">发布新作品</span>
 						<span v-if="Isnextshow" @click="pushOk(2)" class="pend btn_n3" style="color: #FFFFFF;border: none;">立即报名</span>
 					</div>
-				</div>				
+				</div>
+								
 			</template>	
 		</TcCertification>	
 		
@@ -330,6 +331,7 @@ export default {
 							
 						}else{
 							Message({message: '仅限输入数字'});
+							this.datas.splice(index,1);
 							return
 						}			
 					}
@@ -337,9 +339,11 @@ export default {
 						var reg = /[\x00-\xff]+/g;
 						var re = new RegExp(reg);
 						if(re.test(this.datas[index])){
+
 							
 						}else{
 							Message({message: '仅限输入数字+英文+标点'});
+							this.datas.splice(index,1);
 							return
 						}
 					}
@@ -739,7 +743,39 @@ export default {
 }
 .box{
 	height: 400px;
-	overflow-y: scroll;
+	-webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.box::-webkit-scrollbar{
+  width:7px;
+  height:428px;
+  /**/
+}
+.box::-webkit-scrollbar-track{
+  background: #F2F2F2;
+  border-radius:2px;
+}
+.box::-webkit-scrollbar-thumb{
+  background: #333;
+  border-radius:10px;
+}
+.box::-webkit-scrollbar-thumb:hover{
+  background: #333;
+}
+.box::-webkit-scrollbar-corner{
+  background: #179a16;
+}
+.zp_box>li{
+	width: 223.8px !important;
+    height: 250.9px !important;
+}
+.zp_box_1{
+	height: 157.6px !important;
+}
+.zp_box>li:nth-child(3n+3) {
+    margin-right: 17px !important;
 }
 .page2_1_2{
 	position: relative;

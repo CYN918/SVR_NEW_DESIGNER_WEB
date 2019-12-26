@@ -75,8 +75,6 @@ export default {
 	background: #fff;
 	min-width: 480px;
 	max-height: 700px;
-	overflow: hidden;
-	overflow: auto;
 }
 .pr_tc_04{
 	position: relative;
