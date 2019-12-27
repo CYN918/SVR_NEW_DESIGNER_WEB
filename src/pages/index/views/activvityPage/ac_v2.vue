@@ -2,10 +2,19 @@
 	<div>
 		<div class="ac_v1-1">
 			<img class="ac_v1-2" src="/imge/ac_v2/ban.png"/>
-			<div class="sto_01">
+			<div class="sto_01" v-if="deta.status>=3">
 				<img src="/imge/ac_v2/xl.png"/>
 				<div class="sto_02">
-					<div @click="clFn(el.tcFn)" v-for="el in options">{{el.n}}</div>
+					<div v-if="deta.status==3" @click="Stop()">终止项目</div>
+					<div @click="Log()">交稿记录</div>
+					<div v-if="deta.contract_file && deta.contract_file.length>0" class="worksBox_2_3">
+						下载合同 
+						<span class="js_0013"></span>
+						<div class="worksBox_2_4">
+							<div v-for="el in deta.contract_file" @click="dowun(el.file_url)">{{el.file_name}}</div>						
+						</div>
+					</div>
+					
 				</div>
 			</div>
 			<div class="ac_v2">
@@ -21,7 +30,7 @@
 						<img src="/imge/ac_v2/bt0.png">
 						<img src="/imge/ac_v2/bt0.png">
 					</i>
-					<span>
+					<span v-if="deta.status==1 || deta.status==3">
 						<div>
 							<div class="ac_v2-1-1">{{deta.delay_time?'项目已延期交稿':xmType[xmTypeOn].n}}</div>
 							<div class="ac_v2-1-2">
@@ -34,11 +43,11 @@
 							</div>
 						</div>
 					</span>
-					<i class="fng_01">
+					<i v-if="deta.status<3" class="fng_01">
 						<img src="/imge/ac_v2/bt0.png">
 						<img src="/imge/ac_v2/bt0.png">
 					</i>
-					<span>
+					<span v-if="deta.status<3">
 						<div>
 							<div class="ac_v2-1-1">报名人数</div>
 							<div class="ac_v2-1-2">{{deta.sign_up_num}}</div>
@@ -135,6 +144,26 @@ export default{
 			xmTypeOn:0,
 			endjg:'',
 			options:[{n:'终止项目',tcFn:'Stop'},{n:'交稿记录',tcFn:'Log'}],
+			lis:[
+				{n:'截止报名时间'},
+				{n:'报名人数'},
+				{n:'金额'},
+			],
+			lis:[
+				
+				{n:'报名人数'},
+				{n:'金额'},
+			],
+			lis:[
+				
+				{n:'报名人数'},
+				{n:'金额'},
+			],
+			lis:[
+				
+				{n:'报名人数'},
+				{n:'金额'},
+			],
 		}
 	},
 	mounted: function(){
@@ -164,6 +193,9 @@ export default{
 		},
 		setBm(){
 			
+		},
+		dowun(u){
+			window.open(u);
 		},
 		ckl(){
 			if(!this.$route.query.id){
