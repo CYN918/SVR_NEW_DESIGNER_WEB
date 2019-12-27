@@ -74,7 +74,7 @@
 			</div>
 			<component v-bind:is="tanData.zj" v-model="tanData"></component>	
 		</div>
-		
+		<img class="hctip" src="/imge/ac_v1/01.png">
 	</div>
 </template>
 
@@ -428,5 +428,12 @@ export default{
 }
 .ac_v1-3-1fx1:hover .ac_v1-3-1fx{
 	display: block;
+}
+.hctip{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 0;
+	height: 0;
 }
 </style>
