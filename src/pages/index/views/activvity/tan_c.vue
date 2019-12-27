@@ -33,12 +33,13 @@
 						<p>{{item.title}}<i>{{item.tigs}}</i></p>
 						<div class="page2_1_2">
 							<div v-if="datas[index]" class="hoverBtn">
-								<div class="againUpload">重新上传</div>
+								<div class="againUpload">重新上传</div>	
 								<div class="deleteBtn"><el-button size="small" @click.native="deleteUpload(index)">删除</el-button></div>
 							</div>
 							<div v-else><div>+</div>上传图片</div>
 							<input @change="fileUpfj($event,index,item)" type="file" :id="'page'+index" ref="upnfile2">
-							<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">						
+							<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">	
+												
 						</div>	
 					</div>
 					<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'video'">
@@ -643,6 +644,9 @@ export default {
 	opacity: 1;
 
 }
+.page2_1_2:hover .deleteBtn{
+	z-index: 666666;
+}
 .page2_1_2:hover>img{
 	opacity: 1;
 }
@@ -672,6 +676,7 @@ export default {
 	position: absolute !important;
     bottom: 2px;
 	left: 40px;
+	
 }
 .againUpload{
     width: 80px !important;
