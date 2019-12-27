@@ -145,7 +145,7 @@
 					<el-button type="primary" @click="next">下一步</el-button>
 				</div>
 				<div v-show="Isnextshow" ref="scroll">
-					<div class="pushDeletBox4" style="height: 470px;">
+					<div class="pushDeletBox4">
 						<ul class="zp_box" @scroll="test">
 							
 							<li @click="checkZp(el.work_id)" :class="(work_id.indexOf(el.work_id)!=-1 || el.is_attend==1)?'chekonzp':''" v-for="(el,index) in zpList" :key="index">
