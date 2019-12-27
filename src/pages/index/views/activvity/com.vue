@@ -382,7 +382,7 @@ export default {
 							if(this.list[i].limittypevalue != suffix&&this.list[i].limittypevalue.split('/').indexOf(suffix) == -1){
 								Message({message: '上传格式有误，请按照要求重新上传'});
 								return
-							}else if(fld.size/1000 > this.list[i].limitnum){
+							}else if(fld.size/1024 > this.list[i].limitnum){
 								Message({message: '图片过大，请按照要求重新上传'});
 								return
 							}else{
@@ -418,7 +418,7 @@ export default {
 							// if(this.list[i].limittype != suffix){
 							// 	Message({message: '视频格式不对'});
 							// }
-							if(fld.size/1000 > this.list[i].limitnum){
+							if(fld.size/1024/1024 > this.list[i].limitnum){
 								Message({message: '视频过大，请按照要求重新上传'});
 								return
 							}else{
@@ -452,7 +452,7 @@ export default {
 								});
 							}
 						}else if(this.list[i].limittype == 'file'){
-							if(fld.size/1000 > this.list[i].limitnum){
+							if(fld.size/1024/1024 > this.list[i].limitnum){
 								Message({message: '文件过大，请按照要求重新上传'});
 								return
 							}else{
