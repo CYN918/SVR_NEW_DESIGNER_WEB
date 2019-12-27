@@ -79,112 +79,8 @@
 			</template>			
 		</TcBox>
 
-		<TcCertification :certification="certification" ref="tcCertification">
-			<template v-slot:todoRz="{ todoRz }">
-				<div class="detailtitle">
-					<div class="employment" style="text-align: center;margin-top: 20px;margin-bottom: 20px;">
-						<span>
-							<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
-							<span :class="{'fontactive':!Isnextshow}">报名认证信息</span>
-						</span>
-						<!-- <span :class="['centerline',{'centerlineactive': Isnextshow}]"></span> -->
-						<span class="centerline"></span>
-						<span>
-							<span :class="['number',{'numberactive':Isnextshow}]">2</span>
-							<span :class="{'fontactive': Isnextshow}">选择参与作品</span>
-						</span>
-					</div>
-				</div>
-				<div v-show="!Isnextshow" ref="scroll" class="box">
-					<p class="textExplains">{{remeber_tips}}</p>
-					<div class="demo-ruleForm" style="width: 700px;padding-bottom: 30px;">
-						<div v-for="(item,index) in list">		
-							<div class="Information InformationUpload">	
-								<div style="float: left;width: 100%;height: 95px;" v-if="item.limittype == 'text'">
-									<p>{{item.title}}</p>
-									<div>		
-										<el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum @blur="checkValue(item,index)" @focus="checkValues(item,index)"></el-input>
-									</div>								
-								</div>
-								<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'pic'">
-									<p>{{item.title}}<i>{{item.tigs}}</i></p>
-									<div class="page2_1_2">
-										<div v-if="datas[index]" style="width: 80px;height: 32px;line-height: 32px;text-align: center;position: absolute;bottom: 8px;right: 40px;background: #33b3ff;color: #FFFFFF;">重新上传</div>
-										<div v-else><div>+</div>上传图片</div>
-										<input @change="fileUpfj($event,index,item)" type="file" :id="'page'+index" ref="upnfile2">
-										<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">		
-										<div v-if="datas[index]" class="deleteBtn"><el-button size="small" @click.native="deleteUpload(index)">删除</el-button></div>			
-									</div>	
-								</div>
-								<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'video'">
-									<p>{{item.title}}<i>{{item.tigs}}</i></p>
-									<div class="page2_1_2">
-										<div v-if="datas[index]" class="teshu" style="width: 80px;height: 32px;line-height: 32px;text-align: center;position: absolute;bottom: 8px;right: 40px;background: #33b3ff;color: #FFFFFF;">重新上传</div>
-										<div v-else><div>+</div>上传视频</div>
-										<input @change="fileUpfj($event,index,item)" :id="'page'+index" ref="upnfile2" type="file">	
-										<video v-if="datas[index]" :src="datas[index]" controls="controls" class="uploadImg">您的浏览器不支持 video 标签。</video>
-										<div v-if="datas[index]" class="deleteBtn"><el-button size="small" @click.native="deleteUpload(index)">删除</el-button></div>
-									</div>
-								</div>
-								<div style="float: left;width: 100%;height: 101px;" v-if="item.limittype == 'file'">
-									<p>{{item.title}}<i>{{item.tigs}}</i></p>
-									<div style="width: 100%;height: 32px;">
-										<div class="uploadFile">
-											<div v-if="datas[index]">重新上传</div>
-											<div v-else>上传文件</div>
-											<input @change="fileUpfj($event,index,item)" type="file" ref="filElem" :id="'page'+index">				
-										</div>
-										<div v-if="datas[index]" style="width: 400px;float: left;word-wrap:break-word;overflow: hidden;text-align: left;margin-top: 3px;position: relative;">{{datas[index]}}<el-progress :text-inside="true" :stroke-width="4" :percentage="progress" v-show="showp"></el-progress><img @click="deleteUpload(index)" class="detelImage" src="/imge/project/cj_00.svg" alt=""></div>	
-									</div>			
-								</div>	
-							</div>
-						</div>
-					</div>	
-				</div>
-				<div style="padding: 20px 0px 20px 0px;border-top: 1px solid #F4F6F9;" v-if="!Isnextshow">
-					<el-button type="primary" @click="next">下一步</el-button>
-				</div>
-				<div v-show="Isnextshow" ref="scroll">
-					<div class="pushDeletBox4">
-						<ul class="zp_box" @scroll="test">
-							
-							<li @click="checkZp(el.work_id)" :class="(work_id.indexOf(el.work_id)!=-1 || el.is_attend==1)?'chekonzp':''" v-for="(el,index) in zpList" :key="index">
-								<img class="zp_box_1" :src="el.face_pic">
-								<div class="zp_box_2">
-									{{el.work_name.slice(0,10)}}
-									<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg" alt="">
-								</div>
-								<div class="zp_box_3">
-									{{el.classify_1_name+'-'+el.classify_2_name}}
-									<span>{{backtime(el.create_time)}}</span>
-								</div>
-								<div class="zp_box_4">
-									<img :src="mJs.Cavars(el.user_info.avatar)" alt="">
-									<div>
-										<span class="iconfont pend">&#xe6a2; {{el.view_num}}</span>
-										<span class="iconfont pend">&#xe672; {{el.like_num}}</span>
-										<span class="iconfont pend">&#xe616; {{el.comment_num}}</span>
-									</div>
-								</div>
-							</li>
-							<div ref="botmm"></div>
-							<div v-if="isnoData">
-								<img  class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
-								<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
-							</div>
-							
-						</ul>
-					</div>
-					<div class="pushDeletBox5">
-						<span v-if="Isnextshow" @click="backgo" class="pend" style="background: #fff;color: #666666;border: 1px solid #BBBBBB;">上一步</span>
-						<span v-if="Isnextshow" @click="gopushzp" class="pend" style="background: #fff;color: #666666;border: 1px solid #BBBBBB;margin-right: 20px;">发布新作品</span>
-						<span v-if="Isnextshow" @click="pushOk(2)" class="pend btn_n3" style="color: #FFFFFF;border: none;">立即报名</span>
-					</div>
-				</div>
-								
-			</template>	
-		</TcCertification>	
 		
+		<component v-bind:is="tanData.zj" v-model="tanData"></component>
 		<div v-if="ishowzp" class="pushDeletBox">
 			<div class="pushDeletBox1">
 				<img class="pushDeletBox2" @click="closeZp" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
@@ -212,22 +108,17 @@ import detailed_detailed from './detailed';
 import detailed_into from './into';
 import detailed_admission from './admission';
 import TcBox from '../../components/TcBox';
-import TcCertification from '../../components/TcCertification';
 import pTop from '../../components/postionTop';
+import bm_01 from '../activvity/tan_c';
 import { log } from 'util';
 export default {
-	components:{fxd,detailed_detailed,detailed_into,detailed_admission,TcBox,TcCertification,pTop},
+	components:{fxd,detailed_detailed,detailed_into,detailed_admission,TcBox,pTop,bm_01},
 	name: 'home',	 
 	data(){	
 		return{
-			datas:[],
-			array: [],
 			tcZj:'',
 			config:{
 				title:'选择参与活动的作品',
-			},
-			certification:{
-				title:'报名活动',
 			},
 			topCn:{
 				min:680,
@@ -252,11 +143,8 @@ export default {
 			total2:0,
 			active: 0,
 			remeber_tips: '',
-			list: [],
-			opType:0,	
-			Isnextshow: false,	
-			showp: false,
-			progress: '',				
+			opType:0,		
+			tanData:{},			
 		}
 		
 	},
@@ -268,242 +156,9 @@ export default {
 		this.setOnd();
 		this.a_getInfo();
 	}, 
-	methods:{
-		deleteUpload(index){
-			this.datas.splice(index,1);
-			document.getElementById("page"+index).value = '';
-		},
-		next() {
-			for(var i=0;i<this.datas.length;i++){
-				let obj = {
-					title: this.list[i].title,
-					url: this.datas[i],
-					limit_type: this.list[i].limittype,
-				}
-				this.array.push(obj);	
-			}
-			if(this.datas.length == 0){
-				Message({message: '请先完善信息'});
-				return
-			}else if(this.datas.length < this.list.length){		
-				Message({message: '请先完善信息'});
-				return
-			}else{
-				this.Isnextshow = true;
-				this.$refs.scroll.scrollTop = 0;
-				this.getPersonalWorkList();
-			}
-		},
-		checkValues(item,index){
-			for(var i=0;i<this.list.length;i++){
-				if(item == this.list[i]){
-					if(this.list[i].limittypevalue == '仅限数字'){	
-						var reg = /^[0-9]*$/;
-						var re = new RegExp(reg);
-						if(re.test(this.datas[index])){
-							
-						}else{
-							Message({message: '仅限输入数字'});
-							return
-						}			
-					}
-					if(item.limittypevalue == '数字+英文+标点'){
-						var reg = /[\x00-\xff]+/g;
-						var re = new RegExp(reg);
-						if(re.test(this.datas[index])){
-							
-						}else{
-							Message({message: '仅限输入数字、英文、标点符号'});
-							return
-						}
-					}
-					if(item.limittypevalue == '不限制'){						
-						// Message({message: '不限制输入'});							
-					}
-				}
-			}											
-		},
-		checkValue(item,index){
-			for(var i=0;i<this.list.length;i++){
-				if(item == this.list[i]){
-					if(this.list[i].limittypevalue == '仅限数字'){	
-						var reg = /^[0-9]*$/;
-						var re = new RegExp(reg);
-						if(re.test(this.datas[index])){
-							
-						}else{
-							Message({message: '仅限输入数字'});
-							this.datas.splice(index,1);
-							return
-						}			
-					}
-					if(item.limittypevalue == '数字+英文+标点'){
-						var reg = /[\x00-\xff]+/g;
-						var re = new RegExp(reg);
-						if(re.test(this.datas[index])){
-
-							
-						}else{
-							Message({message: '仅限输入数字+英文+标点'});
-							this.datas.splice(index,1);
-							return
-						}
-					}
-					if(item.limittypevalue == '不限制'){						
-						// Message({message: '不限制输入'});							
-					}
-				}
-			}											
-		},
-		backgo(){
-			this.Isnextshow = false;
-		},
-		fileUpfj(flie,index,item){
-			this.bdtj('上传弹窗','确定','--');
-			if(this.opType==1){
-				Message({message: '正在上传，请稍后'});
-				return
-			}
-			let times = (Date.parse(new Date())/1000);
-			let arr = [
-				1001,
-				'6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',
-				window.userInfo.open_id,
-				times
-			];
-			let fld = flie.target.files[0];
-			for(var i=0;i<this.list.length;i++){		
-				if(item == this.list[i]){
-					if(fld != undefined){
-						var filename = fld.name;
-						var location = filename.lastIndexOf(".");
-						var suffix = filename.substr(location+1);
-						if(this.list[i].limittype == 'pic'){
-							if(this.list[i].limittypevalue != suffix&&this.list[i].limittypevalue.split('/').indexOf(suffix) == -1){
-								Message({message: '上传格式有误，请按照要求重新上传'});
-								return
-							}else if(fld.size/1024 > this.list[i].limitnum){
-								Message({message: '图片过大，请按照要求重新上传'});
-								return
-							}else{
-								let formData = new FormData();
-								formData.append('app_id',1001);
-								formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-								formData.append('user',window.userInfo.open_id)
-								formData.append('file',fld)
-								formData.append('relation_type','user_info')
-								formData.append('related_id',window.userInfo.open_id)
-								formData.append('classify_1','avatar')
-								formData.append('timestamp',times)
-								formData.append('is_callback',1)
-								this.opType=1;
-								Message({message: '图片正在上传，请稍后'});
-								this.$ajax.post(window.basrul+'/File/File/insert', formData)
-								.then((da)=>{	
-									this.opType=0;
-									let ds = da.data;
-									if(ds.result==0){
-										this.datas[index] = ds.data.url;
-										this.datas.splice(index,1,ds.data.url);						
-									}else{
-										// msg(ds.data);
-										Message({message: ds.data});
-									}
-								})
-								.catch(function () {
-									this.opType=0;		
-								});
-							}	
-						}else if(this.list[i].limittype == 'video'){
-							// if(this.list[i].limittype != suffix){
-							// 	Message({message: '视频格式不对'});
-							// }
-							if(fld.size/1024/1024 > this.list[i].limitnum){
-								Message({message: '视频过大，请按照要求重新上传'});
-								return
-							}else{
-								let formData = new FormData();
-								formData.append('app_id',1001);
-								formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-								formData.append('user',window.userInfo.open_id)
-								formData.append('file',fld)
-								formData.append('relation_type','user_info')
-								formData.append('related_id',window.userInfo.open_id)
-								formData.append('classify_1','avatar')
-								formData.append('timestamp',times)
-								formData.append('is_callback',1)
-								this.opType=1;
-								Message({message: '视频正在上传，请稍后'});
-								this.$ajax.post(window.basrul+'/File/File/insert', formData)
-								.then((da)=>{	
-									this.opType=0;
-									let ds = da.data;
-									if(ds.result==0){
-										this.datas[index] = ds.data.url;
-										this.datas.splice(index,1,ds.data.url);						
-									}else{
-										// msg(ds.data);
-										Message({message: ds.data});
-									}
-								})
-								.catch(function () {
-									this.opType=0;
-									
-								});
-							}
-						}else if(this.list[i].limittype == 'file'){
-							if(fld.size/1024/1024 > this.list[i].limitnum){
-								Message({message: '文件过大，请按照要求重新上传'});
-								return
-							}else{
-								let formData = new FormData();
-								formData.append('app_id',1001);
-								formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-								formData.append('user',window.userInfo.open_id)
-								formData.append('file',fld)
-								formData.append('relation_type','user_info')
-								formData.append('related_id',window.userInfo.open_id)
-								formData.append('classify_1','avatar')
-								formData.append('timestamp',times)
-								formData.append('is_callback',1)
-								this.opType=1;
-								this.showp = true;
-								Message({message: '文件正在上传，请稍后'});
-								this.$ajax.post(window.basrul+'/File/File/insert', formData,{
-									headers: {
-										'Content-Type': 'multipart/form-data',
-									},
-									onUploadProgress: progressEvent => {
-										this.progress = (progressEvent.loaded / progressEvent.total * 100 | 0);
-									}
-								})
-								.then((da)=>{	
-									this.opType=0;
-									let ds = da.data;
-									if(ds.result==0){
-										this.datas[index] = ds.data.url;
-										this.datas.splice(index,1,ds.data.url);						
-									}else{
-										// msg(ds.data);
-										Message({message: ds.data});
-									}
-								})
-								.catch(function () {
-									this.opType=0;
-									
-								});
-							}
-						}
-					}		
-							
-				}				
-			}	
-		},
+	methods:{				
 		showtc(){
 			this.$refs.tcBox.show();
-		},
-		showcertification(){
-			this.$refs.tcCertification.show();
 		},
 		closetc(){
 			this.$refs.tcBox.close();
@@ -545,40 +200,9 @@ export default {
 			this.zpList = [];
 		},
 		showZp(){
-			this.getPersonalWorkList();
-			let pr = {
-				activity_id:this.$route.query.id,
-			};
-			this.api.getPersonalInfo(pr).then((da)=>{
-				
-				if(da=='error'){
-					return
-				}
-
-				if(da==null){
-					this.noGd=1;
-				}
-				// console.log(JSON.parse(da.extra_info))
-
-				if(da.extra_info == null || da.extra_info == '[]' || da.activity_status == '1'){
-					this.bdtjCom('上传作品');
-					if(!window.userInfo){
-						this.$router.push({path:'/login'});
-					}
-					this.getPersonalWorkList();
-					this.Isnextshow = true;
-					this.showtc();
-				}else{
-					this.bdtjCom('认证');
-					if(!window.userInfo){
-						this.$router.push({path:'/login'});
-					}
-					this.remeber_tips = da.remeber_tips;
-					this.list = JSON.parse(da.extra_info);
-					// this.getPersonalWorkList();
-					this.showcertification();		
-				}		
-			})			
+			this.tanData = {
+				zj:'bm_01'
+			};			
 		},
 		
 		checkZp(id){
@@ -751,116 +375,6 @@ export default {
 </script>
 
 <style scoped="scoped">
-.pr_tc_02{
-	overflow-y: hidden;
-}
-.detelImage{
-	position: absolute;
-    right: 0;
-    top: 20px;
-	cursor: pointer;
-}
-.box{
-	height: 400px;
-	-webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow: hidden;
-    overflow-y: auto;
-}
-.box::-webkit-scrollbar{
-  width:7px;
-  height:428px;
-  /**/
-}
-.box::-webkit-scrollbar-track{
-  background: #F2F2F2;
-  border-radius:2px;
-}
-.box::-webkit-scrollbar-thumb{
-  background: #333;
-  border-radius:10px;
-}
-.box::-webkit-scrollbar-thumb:hover{
-  background: #333;
-}
-.box::-webkit-scrollbar-corner{
-  background: #179a16;
-}
-.zp_box>li{
-	width: 223.8px !important;
-    height: 250.9px !important;
-}
-.zp_box_1{
-	height: 157.6px !important;
-}
-.zp_box>li:nth-child(3n+3) {
-    margin-right: 17px !important;
-}
-.page2_1_2{
-	position: relative;
-    background: #E6E6E6;
-    border-radius: 5px;
-    float: left;
-    margin: 5px 5px 5px 0px;
-    overflow: hidden;
-    width: 260px;
-    height: 146px;
-    cursor: pointer;
-}
-.uploadImg{
-	position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-	z-index: 666;
-}
-.page2_1_2:hover .page2_1_2>div{
-	z-index: 22;
-}
-.page2_1_2:hover .page2_1_2>input,.page2_1_2:hover{
-	z-index: 22;
-}
-
-.page2_1_2:hover .uploadImg{
-	z-index: -666;
-}
-.page2_1_2:hover .deleteBtn{
-	z-index: 22;
-}
-.page2_1_2>div {
-    border-radius: 5px;
-    font-size: 14px;
-    color: #333;
-	position: absolute;
-	background: none;
-}
-.deleteBtn{
-	width: 80px;
-	height: 32px;
-	position: absolute !important;
-    bottom: 8px;
-	left: 40px;
-}
-.page2_1_2>div>div {
-    width: 22.9px;
-    height: 22.9px;
-    border-radius: 50%;
-    font-size: 21px;
-    text-align: center;
-    line-height: 22.9px;
-    background: #33b3ff;
-    color: #e6e6e6;
-    margin: 43px auto 11px;
-}
-.page2_1_2>input {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
 .uploadFile{
     position: relative;
     background: #FFFFFF;
