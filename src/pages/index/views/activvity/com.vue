@@ -82,7 +82,7 @@
 		<TcCertification :certification="certification" ref="tcCertification">
 			<template v-slot:todoRz="{ todoRz }">
 				<div class="detailtitle">
-					<div class="employment" style="text-align: center;margin-top: 30px;margin-bottom: 30px;">
+					<div class="employment" style="text-align: center;margin-top: 20px;margin-bottom: 20px;">
 						<span>
 							<span :class="['number',{'numberactive':!Isnextshow}]">1</span>
 							<span :class="{'fontactive':!Isnextshow}">报名认证信息</span>
@@ -141,11 +141,11 @@
 						</div>
 					</div>	
 				</div>
-				<div style="padding: 20px 0px 20px 0px;border-top: 1px solid #F4F6F9;">
-					<el-button type="primary" v-if="!Isnextshow" @click="next">下一步</el-button>
+				<div style="padding: 20px 0px 20px 0px;border-top: 1px solid #F4F6F9;" v-if="!Isnextshow">
+					<el-button type="primary" @click="next">下一步</el-button>
 				</div>
 				<div v-show="Isnextshow" ref="scroll">
-					<div class="pushDeletBox4">
+					<div class="pushDeletBox4" style="height: 470px;">
 						<ul class="zp_box" @scroll="test">
 							
 							<li @click="checkZp(el.work_id)" :class="(work_id.indexOf(el.work_id)!=-1 || el.is_attend==1)?'chekonzp':''" v-for="(el,index) in zpList" :key="index">
