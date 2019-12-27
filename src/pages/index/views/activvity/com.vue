@@ -98,14 +98,14 @@
 				<div v-show="!Isnextshow" ref="scroll" class="box">
 					<p class="textExplains">{{remeber_tips}}</p>
 					<div class="demo-ruleForm" style="width: 700px;padding-bottom: 30px;">
-						<div v-for="(item,index) in list">
-							<div class="Information" v-if="item.limittype == 'text'" style="height: 95px;">
-								<div>
+						<div v-for="(item,index) in list">		
+							<div class="Information InformationUpload">	
+								<div style="float: left;width: 100%;height: 95px;" v-if="item.limittype == 'text'">
 									<p>{{item.title}}</p>
-								    <el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum @blur="checkValue(item,index)" @focus="checkValues(item,index)"></el-input>
-								</div>								
-							</div>
-							<div class="Information InformationUpload" v-else>	
+									<div>		
+										<el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum @blur="checkValue(item,index)" @focus="checkValues(item,index)"></el-input>
+									</div>								
+								</div>
 								<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'pic'">
 									<p>{{item.title}}<i>{{item.tigs}}</i></p>
 									<div class="page2_1_2">
