@@ -32,21 +32,25 @@
 					<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'pic'">
 						<p>{{item.title}}<i>{{item.tigs}}</i></p>
 						<div class="page2_1_2">
-							<div v-if="datas[index]" style="width: 80px;height: 32px;line-height: 32px;text-align: center;position: absolute;bottom: 8px;right: 40px;background: #33b3ff;color: #FFFFFF;">重新上传</div>
+							<div v-if="datas[index]" class="hoverBtn">
+								<div class="againUpload">重新上传</div>
+								<div class="deleteBtn"><el-button size="small" @click.native="deleteUpload(index)">删除</el-button></div>
+							</div>
 							<div v-else><div>+</div>上传图片</div>
 							<input @change="fileUpfj($event,index,item)" type="file" :id="'page'+index" ref="upnfile2">
-							<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">		
-							<div v-if="datas[index]" class="deleteBtn"><el-button size="small" @click.native="deleteUpload(index)">删除</el-button></div>			
+							<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">						
 						</div>	
 					</div>
 					<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'video'">
 						<p>{{item.title}}<i>{{item.tigs}}</i></p>
 						<div class="page2_1_2">
-							<div v-if="datas[index]" class="teshu" style="width: 80px;height: 32px;line-height: 32px;text-align: center;position: absolute;bottom: 8px;right: 40px;background: #33b3ff;color: #FFFFFF;">重新上传</div>
+							<div v-if="datas[index]" class="hoverBtn">
+								<div class="againUpload">上传视频</div>
+								<div class="deleteBtn"><el-button size="small" @click.native="deleteUpload(index)">删除</el-button></div>
+							</div>
 							<div v-else><div>+</div>上传视频</div>
 							<input @change="fileUpfj($event,index,item)" :id="'page'+index" ref="upnfile2" type="file">	
 							<video v-if="datas[index]" :src="datas[index]" controls="controls" class="uploadImg">您的浏览器不支持 video 标签。</video>
-							<div v-if="datas[index]" class="deleteBtn"><el-button size="small" @click.native="deleteUpload(index)">删除</el-button></div>
 						</div>
 					</div>
 					<div style="float: left;width: 100%;height: 101px;" v-if="item.limittype == 'file'">
@@ -635,12 +639,25 @@ export default {
 .page2_1_2:hover .page2_1_2>input,.page2_1_2:hover{
 	z-index: 22;
 }
+.page2_1_2:hover{
+	opacity: 1;
+
+}
+.page2_1_2:hover>img{
+	opacity: 1;
+}
 
 .page2_1_2:hover .uploadImg{
 	z-index: -666;
+	
 }
-.page2_1_2:hover .deleteBtn{
-	z-index: 22;
+.hoverBtn{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	bottom: 0;
+	background: rgba(0,0,0,0.5) !important;
+	border-radius: 0px !important;
 }
 .page2_1_2>div {
     border-radius: 5px;
@@ -653,8 +670,22 @@ export default {
 	width: 80px;
 	height: 32px;
 	position: absolute !important;
-    bottom: 8px;
+    bottom: 2px;
 	left: 40px;
+}
+.againUpload{
+    width: 80px !important;
+	height: 31px !important;
+	line-height: 31px !important;
+	text-align: center !important;
+	position: absolute;
+	bottom: 4px;
+	right: 40px;
+	background: #33b3ff !important;
+	color: #FFFFFF !important;
+	margin: 0 !important;
+	border-radius: 2px !important;
+	font-size: 12px !important;
 }
 .page2_1_2>div>div {
     width: 22.9px;
