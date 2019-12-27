@@ -7,25 +7,14 @@
 		<div class="hotCent">
 			<div class="hotCent1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd/5.svg"/><b>加入狮圈儿的理由</b><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd/1.svg"/></div>
 			<div class="hotCent2">
-				<div>
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd/2.svg" alt="">
-					<div class="hotCent2t">需求稳定</div>
+				<div v-for="el in arr">
+					<img :src="'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd2/icon_ggr_'+el.i+'.svg'"/>
+					<div class="hotCent2t">{{el.t}}</div>
 					<div class="hotCent2c">
-						狮圈儿与头部安卓渠道华为/OPPO/ VIVO /维持长期良好合作关系
-					</div>
-				</div><div>
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd/4.svg" alt="">
-					<div class="hotCent2t">自选收益类型</div>
-					<div class="hotCent2c">
-						买断式or分成式 设计师自选作品收益模式 自主性强
-					</div>
-				</div><div>
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd/3.svg" alt="">
-					<div class="hotCent2t">作品用途清晰</div>
-					<div class="hotCent2c">
-						作品使用路径&账户收益个人中心公开展示
+						{{el.p}}
 					</div>
 				</div>
+				<img class="hotCent3" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/hd2/ip.svg" >
 				
 			</div>
 		</div>
@@ -36,6 +25,21 @@
 
 export default {
 	name: 'tip',
+	data(){
+		return {
+			arr:[
+				{i:'xm',t:'项目足够多',p:'因与华为等企业的业务合作关系，需求量理论上是无限的。'},
+				{i:'jd',t:'项目任务简单',p:'我们将产品设计工作进行了细分，最简单的项目完成只需10分钟。'},
+				{i:'dpp',t:'项目全是大品牌',p:'项目来自于华为、OPPO、VIVO、魅族等一线移动终端企业。'},
+				{i:'wjf',t:'没有甲方修改意见',p:'狮圈儿平台是创作者的唯一项目对接方，拒绝“五彩斑斓的黑”。'},
+				{i:'mkh',t:'模板化验收标准',p:'所有项目制作前提供模板文件或案例，按规范制作就能验收过稿。'},
+				{i:'mkd',t:'入驻门槛低',p:'由于细分了设计任务，项目简单易懂，初学者也能来赚钱。'},
+				{i:'ald',t:'案例分享内容多',p:'不仅是创作者分享的案例，小编们也会定期推荐世界上的优秀案例哦~'},
+				{i:'cqxm',t:'长期项目随时可做',p:'部分需求项目长期大量征收，随时有空，随时就能报名制作赚钱。'},
+				{i:'wdsy',t:'累计收益越高，接单收益越高',p:'累计收益等级会按百分比加成之后每单的收益，最高+15%哦！'},
+			]
+		}
+	},
 	methods: {
 		godd(){
 			
@@ -114,16 +118,23 @@ export default {
 	background: #33B3FF;
 	margin: 0 10px;
 }
+.hotCent2{
+	margin-right: -20px;
+	text-align: left;
+}
 .hotCent2>div{
 	display: inline-block;
 	vertical-align: top;
-	width:280px;
-	height:260px;
+
 	background:rgba(255,255,255,1);
-	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
-	border-radius:5px;
 	text-align: center;
-	margin: 0 25px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	
+	width:244px;
+	height:260px;
+	
+	border-radius:5px;
 }
 .hotCent2>div>img{
 	display: block;
@@ -140,7 +151,8 @@ export default {
 	margin-bottom: 10px;
 }
 .hotCent2c{
-	width: 186px;
+	width: 212px;
+	text-align: left;
 	margin: 0 auto;
 	font-size:14px;
 	font-family:PingFangSC-Regular;
@@ -155,6 +167,12 @@ export default {
 	display: inline-block;
 	vertical-align: top;
 	margin-top: 5px;
+}
+.hotCent3{
+	display: inline-block;
+	vertical-align: top;
+	width: 245px;
+	height: 260px;
 }
 
 </style>
