@@ -2,6 +2,13 @@
 	<div>
 		<div class="ac_v1-1">
 			<img class="ac_v1-2" src="/imge/ac_v1/ban.png"/>
+			
+			
+			<div class="sfcjfs" v-if="infoData.status==1">
+				<span @click="showZp()" v-if="infoData.setting_type!=1"   class="sfcjfs1"></span>
+			</div>	
+			
+			
 			<div class="ac_v1-4">
 				<div class="ac_v1-4x">
 					<span @click="navCl(el)" :class="el.p==navOn?'checkO':''" v-for="el in arr">{{el.n}}</span>
@@ -58,9 +65,12 @@
 			
 			<div class="ac_v1-3">
 				<img src="/imge/ac_v1/fx.png"/>
-				<div class="ac_v1-3-1"></div>
+				<div class="ac_v1-3-1fx1">
+					<div class="ac_v1-3-1fx" id="qrcode"></div>
+				</div>
 				<div @click="shaFn('fxUrl2')" class="ac_v1-3-2"></div>
 				<div @click="shaFn('fxUrl1')" class="ac_v1-3-3"></div>
+				
 			</div>
 			<component v-bind:is="tanData.zj" v-model="tanData"></component>	
 		</div>
@@ -72,8 +82,10 @@
 import list from '../../components/list';
 import box_a from '../../components/box_a';
 import com_wp from '../activvity/com_wp';
+import bm_01 from '../activvity/tan_c';
+import QRCode from 'qrcodejs2'
 export default{
-	components:{list,box_a,com_wp},
+	components:{list,box_a,com_wp,bm_01,QRCode},
 	data(){
 		return{
 
@@ -100,6 +112,16 @@ export default{
 		this.ckl();
 	}, 
 	methods:{
+		qrcode(u) {
+		    let qrcode = new QRCode('qrcode', {
+		        width: 96,  
+		        height: 96,
+		        text: u, // 二维码地址
+		        colorDark : "#000",
+		        colorLight : "#fff",
+		    })
+		},
+		
 		navCl(el){
 			if(el.p==this.navOn){
 				return
@@ -132,6 +154,9 @@ export default{
 			this.fxUrl1 = 'http://service.weibo.com/share/share.php?appKey=3473072390&title='+da.title+'&url='+ulrd+'&pic='+da.pics+'#_loginLayer_'+(new Date()).valueOf();
 			this.fxUrl2 ='https://connect.qq.com/widget/shareqq/index.html?url='+ulrd+'&title='+da.title+'&pics='+da.pics+'&desc=&summary='+da.summary+'&site=wo';			
 			
+			setTimeout(()=>{
+				this.qrcode(da.url);
+			},50);
 		},
 		timeO(a){
 			this.px = a;
@@ -188,32 +213,26 @@ export default{
 				
 				
 				this.a_getWork();
-				//  v-if="infoData.==1" @click="downMoble(infoData)" 
 				
-				
-				// {n:'全部作品',p:2},
-				// {n:'获奖公示',p:3},
-				
-				
-				console.log(this.infoData);
 				document.title=this.infoData.activity_name+'-狮圈儿（Zoocreators）';
-			
 				this.shar({
 					titlec:'活动分享',
-					url:location.origin+'/aindex.html#/conta?id='+this.$route.query.id,
+					url:window.location.href,
 					title:da.activity_name+'-狮圈儿创作者平台',
 					pics:da.banner,
 					desc:'惊现大神快来膜拜',
 					summary:da.activity_name+'-狮圈儿创作者平台',				
 				});
-				// this.$refs.fxd.setUrl(this.shareData);
-				// if(this.infoData.status==0){
-				//     this.show=true;
-				// }else{
-		  //           this.show=false;
-				// }
+
 			});
 		},	
+		showZp(){
+			this.tanData = {
+				zj:'bm_01'
+			};
+		},
+		
+		
 		handleSizeChange(val) {
 		
 			this.page.limit = val;
@@ -375,5 +394,39 @@ export default{
 .mo_01box .wk_a{
 	width: 295px;
 }
+.sfcjfs{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 38%;
+}
+.sfcjfs1{
+	cursor: pointer;
+	display: block;
+    margin: 0 auto;
+    width: 13%;
+    padding-top: 4%;
 
+}
+.ac_v1-3-1fx1{
+	position: absolute;
+    top: 70px;
+    left: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.ac_v1-3-1fx{
+	display: none;
+	position: absolute;
+    top: -25px;
+    right: 59px;
+    padding: 10px;
+    border-radius: 5px;
+    background: #fff;
+}
+.ac_v1-3-1fx1:hover .ac_v1-3-1fx{
+	display: block;
+}
 </style>
