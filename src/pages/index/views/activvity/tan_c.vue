@@ -181,11 +181,19 @@ export default {
 			this[fn]();
 		},
 		deleteUpload(index){
-			this.datas.splice(index,1);
+			this.datas.splice(index,1,'');
 			document.getElementById("page"+index).value = '';
 		},
 		next() {
+			if(this.datas.length == 0){
+				Message({message: '请先完善信息'});
+				return
+			}
 			for(var i=0;i<this.datas.length;i++){
+				if(this.datas[i] == ''){
+					Message({message: '信息不能为空'});
+				    return
+				}
 				let obj = {
 					title: this.list[i].title,
 					url: this.datas[i],
@@ -193,14 +201,7 @@ export default {
 				}
 				this.array.push(obj);	
 			}
-			if(this.datas.length == 0){
-				Message({message: '请先完善信息'});
-				return
-			}
-			if(this.datas.length < this.list.length){		
-				Message({message: '请先完善信息'});
-				return
-			}
+			
 			
 				this.btns = [
 					{n:'上一步',fn:'backgo',cls:''},
@@ -252,7 +253,7 @@ export default {
 							
 						}else{
 							Message({message: '仅限输入数字'});
-							this.datas.splice(index,1);
+							this.datas.splice(index,1,'');
 							return
 						}			
 					}
@@ -264,7 +265,7 @@ export default {
 							
 						}else{
 							Message({message: '仅限输入数字+英文+标点'});
-							this.datas.splice(index,1);
+							this.datas.splice(index,1,'');
 							return
 						}
 					}
@@ -436,6 +437,11 @@ export default {
 	
 	
 		showZp(){
+			if(!window.userInfo){
+				Message({message: '未登陆，请先登陆!'});
+				this.$router.push({path:'/login'})
+				return
+			}
 			this.api.getPersonalInfo({
 				activity_id:this.$route.query.id
 			}).then((da)=>{
