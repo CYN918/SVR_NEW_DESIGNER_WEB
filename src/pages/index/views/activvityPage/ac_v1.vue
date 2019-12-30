@@ -2,17 +2,20 @@
 	<div>
 		<div class="ac_v1-1">
 			<img class="ac_v1-2" src="/imge/ac_v1/ban.png"/>
-			
-			
 			<div class="sfcjfs" v-if="infoData.status==1">
 				<span @click="showZp()" v-if="infoData.setting_type!=1"   class="sfcjfs1"></span>
 			</div>	
 			
 			
-			<div class="ac_v1-4">
-				<div class="ac_v1-4x">
-					<span @click="navCl(el)" :class="el.p==navOn?'checkO':''" v-for="el in arr">{{el.n}}</span>
-				</div>
+			<div class="ac_v1-4" v-if="arr.length>1">
+				<pTop class="isflo_01" :cn="topCn">
+					<template v-slot:todo="{ todo }">
+						<div class="ac_v1-4x">
+							<span @click="navCl(el)" :class="el.p==navOn?'checkO':''" v-for="el in arr">{{el.n}}</span>
+						</div>
+					</template>		
+				</pTop>
+				
 			</div>
 			
 			
@@ -79,16 +82,19 @@
 </template>
 
 <script>
+import pTop from '../../components/postionTop';
 import list from '../../components/list';
 import box_a from '../../components/box_a';
 import com_wp from '../activvity/com_wp';
 import bm_01 from '../activvity/tan_c';
 import QRCode from 'qrcodejs2'
 export default{
-	components:{list,box_a,com_wp,bm_01,QRCode},
+	components:{list,box_a,com_wp,bm_01,QRCode,pTop},
 	data(){
 		return{
-
+			topCn:{
+				min:680,
+			},
 			arr:[
 				{n:'活动详情',p:1},
 				
@@ -106,6 +112,7 @@ export default{
 			fxUrl1:'',
 			fxUrl2:'',
 			tanData:{},
+			isfl:'',
 		}
 	},
 	mounted: function(){
@@ -130,8 +137,15 @@ export default{
 				this.downMoble(this.infoData);
 				return
 			}
-
+			
 			this.navOn = el.p;
+			var top = this.mJs.getTop();
+
+			if(top<600){
+				return
+			}
+			
+			this.mJs.scTop(680);
 			
 			
 		},
@@ -143,6 +157,9 @@ export default{
 			
 			this.ids = this.$route.query.id
 			this.a_getInfo();
+			
+		},
+		scrllC(){
 			
 		},
 		shaFn(n){
@@ -190,8 +207,11 @@ export default{
 				
 				this.total = da.total;
 				this.workList = da.data;
-				if(!this.isnav){
+				if(this.total>0){
 					this.arr.push({n:'全部作品',p:2})
+				}
+				if(!this.isnav){
+					
 					this.isnav =1;
 				}
 				
@@ -421,7 +441,7 @@ export default{
 	display: none;
 	position: absolute;
     top: -25px;
-    right: 59px;
+    right:70px;
     padding: 10px;
     border-radius: 5px;
     background: #fff;
@@ -435,5 +455,14 @@ export default{
 	left: 0;
 	width: 0;
 	height: 0;
+}
+.isflo_01{
+	/* position: fixed; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 1300px;
+    z-index: 10;
+    background: #5e25d8;
 }
 </style>
