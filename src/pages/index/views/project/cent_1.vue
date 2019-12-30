@@ -68,6 +68,10 @@ export default {
 			return o;
 		},
 		openCent(){
+			if(this.el.special_url){
+				window.open(this.el.special_url);			
+				return
+			}
 			if(this.el.id){
 				window.open('/#/prcent?id='+this.el.id)
 			}
