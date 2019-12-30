@@ -51,9 +51,7 @@ export default {
 		},
 		go(el,id,a){
 			if(el.special_url){
-				this.$router.push({
-					path:'/Ac_v',query:{id:id}
-				})
+				window.open(el.special_url);			
 				return
 			}
 			
