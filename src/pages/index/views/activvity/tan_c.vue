@@ -26,7 +26,7 @@
 					<div style="float: left;width: 100%;height: 95px;" v-if="item.limittype == 'text'">
 						<p>{{item.title}}</p>
 						<div>		
-							<el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum @blur="checkValue(item,index)" @focus="checkValues(item,index)"></el-input>
+							<el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum @input="checkValue(item,index)" @focus="checkFocus(item,index)"></el-input>
 						</div>								
 					</div>
 					<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'pic'">
@@ -214,7 +214,7 @@ export default {
 				this.getPersonalWorkList();
 			
 		},
-		checkValues(item,index){
+		checkFocus(item,index){
 			for(var i=0;i<this.list.length;i++){
 				if(item == this.list[i]){
 					if(this.list[i].limittypevalue == '仅限数字'){	
