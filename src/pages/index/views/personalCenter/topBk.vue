@@ -64,6 +64,9 @@ export default {
 		this.init();		
 	}, 
 	methods:{	
+		miss(msg){
+			this.$message({message:msg});
+		},
 		init(){
 			this.option.img = this.img;
 		},		
@@ -86,6 +89,7 @@ export default {
 			this.$refs.cropper.rotateLeft()
 		},
 		uploadImg(e){
+		
 			this.bdtjCom('设置封面图-上传图片');
 			let file = e.target.files[0];
 			if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)||e.target.files.length==0) {
@@ -156,6 +160,7 @@ export default {
 							access_token:window.userInfo.access_token
 						};
 						this.api.changeUserCenterBanner(pr).then((da2)=>{
+							console.log(da2);
 							this.opType=0;
 							if(da2=='error'){return}
 							this.miss('保存成功');						

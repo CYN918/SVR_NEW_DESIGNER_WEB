@@ -264,6 +264,7 @@ color: #666666;
 	width: 44px;
     overflow: hidden;
     height: 20px;
+	line-height: 23px;
 	margin-left: 1px;
 }
 .citysbos3_2_2>span:hover{

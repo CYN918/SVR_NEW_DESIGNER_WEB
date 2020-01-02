@@ -10,7 +10,7 @@
 			<el-form-item>
 				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">完成</el-button>
 			</el-form-item>
-			<p class="lgoin_s5">手机号  <router-link class="pend" to="/login">登录</router-link></p>
+			<p class="lgoin_s5">返回  <router-link class="pend" to="/login">登录</router-link></p>
 		</el-form>
 	</div>
 </template>

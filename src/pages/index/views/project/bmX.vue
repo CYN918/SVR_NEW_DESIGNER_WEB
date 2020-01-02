@@ -16,7 +16,7 @@
 							<img class="bmXm_03_1" :src="el.face_pic">
 							<div class="bmXm_03_2">
 								{{el.work_name.slice(0,10)}}
-								<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg" alt="">
+								<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/icon_r.svg" alt="">
 							</div>
 							<div class="bmXm_03_3">
 								<span>{{el.classify_1_name}}</span>

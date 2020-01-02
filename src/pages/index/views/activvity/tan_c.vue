@@ -84,7 +84,7 @@
 					<img class="zp_box_1" :src="el.face_pic">
 					<div class="zp_box_2">
 						{{el.work_name.slice(0,10)}}
-						<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg" alt="">
+						<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/icon_r.svg" alt="">
 					</div>
 					<div class="zp_box_3">
 						{{el.classify_1_name+'-'+el.classify_2_name}}
