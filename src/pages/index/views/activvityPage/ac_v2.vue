@@ -1,9 +1,9 @@
 <template>
 	<div>
 		<div class="ac_v1-1">
-			<img class="ac_v1-2" src="/imge/ac_v2/ban.png"/>
+			<img class="ac_v1-2" :src="imgPath+'ac_v2/ban.png'"/>
 			<div class="sto_01" v-if="deta.status>=3">
-				<img src="/imge/ac_v2/xl.png"/>
+				<img :src="imgPath+'ac_v2/xl.png'"/>
 				<div class="sto_02">
 					<div v-if="deta.status==3" @click="Stop()">终止项目</div>
 					<div @click="Log()">交稿记录</div>
@@ -27,8 +27,8 @@
 						
 					</span>
 					<i class="fng_01">
-						<img src="/imge/ac_v2/bt0.png">
-						<img src="/imge/ac_v2/bt0.png">
+						<img :src="imgPath+'ac_v2/bt0.png'">
+						<img :src="imgPath+'ac_v2/bt0.png'">
 					</i>
 					<span v-if="deta.status==1 || deta.status==3">
 						<div>
@@ -44,8 +44,8 @@
 						</div>
 					</span>
 					<i v-if="deta.status<3" class="fng_01">
-						<img src="/imge/ac_v2/bt0.png">
-						<img src="/imge/ac_v2/bt0.png">
+						<img :src="imgPath+'ac_v2/bt0.png'">
+						<img :src="imgPath+'ac_v2/bt0.png'">
 					</i>
 					<span v-if="deta.status<3">
 						<div>
@@ -54,8 +54,8 @@
 						</div>
 					</span>
 					<i class="fng_01">
-						<img src="/imge/ac_v2/bt0.png">
-						<img src="/imge/ac_v2/bt0.png">
+						<img :src="imgPath+'ac_v2/bt0.png'">
+						<img :src="imgPath+'ac_v2/bt0.png'">
 					</i>
 					<span>
 						<div>
@@ -80,22 +80,16 @@
 			
 			<div class="ac_v1-5">
 				<div class="ac_v1-5-1">
-					<img src="/imge/ac_v2/01.png">
-				</div>
-				
-			</div>
-			
+					<img :src="imgPath+'ac_v2/01.png'">
+				</div>				
+			</div>			
 			<div class="ac_v1-3">
-				<img src="/imge/ac_v2/fx.png"/>
-				
+				<img :src="imgPath+'ac_v2/fx.png'"/>				
 				<div @click="shaFn('fxUrl2')" class="ac_v1-3-2x"></div>
 				<div class="ac_v1-3-3 ac_v1-3-3x">
-					<img src="/imge/ac_v2/fx1.png"/>
+					<img :src="imgPath+'ac_v2/fx1.png'"/>
 				</div>
 			</div>
-			
-			    
-			
 			<component v-bind:is="tanDatazj"  :datad="tanData"></component>
 		</div>
 		
