@@ -12,6 +12,7 @@
 					<el-cascader class="zysdf_2"
 						:options="clasd"
 						v-model="setcti"
+						placeholder="全部"
 						@change="handleChange">
 					</el-cascader>
 				</div>				
@@ -38,7 +39,7 @@ export default {
 		return{
 			secont:'',
 			self2:'',
-			setcti: [],
+			setcti: [""],
 			navData:[
 				{a:'searchProject',b:'项目'},
 				{a:'searchWorks',b:'作品'},
@@ -60,6 +61,7 @@ export default {
 			this.secont = cd;
 		},
 		sreond(){
+		
 			this.$parent.sreond(this.setcti);
 		},
 
@@ -74,7 +76,7 @@ export default {
 			this.$router.push({path:ud,query:{cont:this.secont}});
 		},
 		handleChange(value) {
-
+				console.log(this.setcti)
 			this.$parent.sreond(this.setcti);
 		}
 	},	

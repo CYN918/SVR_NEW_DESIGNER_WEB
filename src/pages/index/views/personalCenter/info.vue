@@ -27,7 +27,7 @@
 						<span>手机号</span><span>{{userInfo.mobile}}</span>
 					</div>
 					<div v-if="userInfo.email">
-						<span>邮箱</span><span>{{userInfo.email}}</span>
+						<span>邮箱</span><span>{{emailDm(userInfo.email)}}</span>
 					</div>
 					<div v-if="userInfo.weixin && (userInfo.qq_visible==1 || isMe())">
 						<span>微信</span><span>{{userInfo.weixin}}</span>
@@ -88,6 +88,16 @@ export default {
 		gouser(){
 			this.bdtj('个人主页','自己视角-资料Tag-更新资料','--');
 			this.$router.push({path: '/setUser'})
+		},
+		emailDm(p) {
+			if(!p) {
+				return
+			}
+			let str = p.split('@');
+			if(str.length == 1) {
+				return str[0];
+			}
+			return str[0].substring(0, 1) + '****' + str[0].substr(-1, 1) + '@' + str[1];
 		},
 	}
 }

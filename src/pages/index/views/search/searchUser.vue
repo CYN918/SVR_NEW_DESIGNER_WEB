@@ -77,6 +77,7 @@ export default {
 			total:0,
 			loading: '',
 			clasd:[
+				{label:"全部",value:""},
 				{label:"平面设计师",value:"平面设计师"},
 				{label:"插画师",value:"插画师"},
 				{label:"三维设计师",value:"三维设计师"},

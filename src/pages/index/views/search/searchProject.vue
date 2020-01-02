@@ -74,7 +74,7 @@ export default {
 				if(da=='error'){
 					return
 				}
-				let arr = [];
+				let arr = [{label:'全部',value:''}];
 				for(let i=0,n=da.length;i<n;i++){
 					arr.push({
 						label:da[i].classify_name,
