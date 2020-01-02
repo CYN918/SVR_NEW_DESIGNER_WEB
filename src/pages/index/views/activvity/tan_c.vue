@@ -29,41 +29,58 @@
 							<el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum @input="checkValue(item,index)" @focus="checkFocus(item,index)"></el-input>
 						</div>								
 					</div>
-					<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'pic'">
+					<div class="video_box" v-if="item.limittype == 'pic'">
 						<p>{{item.title}}<i>{{item.tigs}}</i></p>
 						<div class="page2_1_2">
 							<div v-if="datas[index]" class="hoverBtn">
-								<div class="againUpload">重新上传</div>	
-								<div class="deleteBtn"><el-button size="small" @click.native="deleteUpload(index)">删除</el-button></div>
+								<div class="againUpload" @click="handleUploadImage(index)">重新上传</div>	
+								<div class="deleteBtn"><el-button size="small" @click.native="deleteImage(index)">删除</el-button></div>
 							</div>
 							<div v-else><div>+</div>上传图片</div>
 							<input @change="fileUpfj($event,index,item)" type="file" :id="'page'+index" ref="upnfile2">
-							<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">	
-												
-						</div>	
+							<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">							
+						</div>
+						<!-- <el-progress type="circle" :percentage="progressImage" v-show="isShowimage"></el-progress>	 -->
 					</div>
-					<div style="float: left;width: 100%;height: 215px;" v-if="item.limittype == 'video'">
+					<div class="video_box" v-if="item.limittype == 'video'">
 						<p>{{item.title}}<i>{{item.tigs}}</i></p>
 						<div class="page2_1_2">
 							<div v-if="datas[index]" class="hoverBtn">
-								<div class="againUpload">上传视频</div>
-								<div class="deleteBtn"><el-button size="small" @click.native="deleteUpload(index)">删除</el-button></div>
+								<div class="againUpload" @click="handleUploadVideo(index)">重新上传</div>
+								<div class="deleteBtn"><el-button size="small" @click.native="deleteVideo(index)">删除</el-button></div>
 							</div>
 							<div v-else><div>+</div>上传视频</div>
 							<input @change="fileUpfj($event,index,item)" :id="'page'+index" ref="upnfile2" type="file">	
-							<video v-if="datas[index]" :src="datas[index]" controls="controls" class="uploadImg">您的浏览器不支持 video 标签。</video>
+							<!-- <video v-if="datas[index]" :src="datas[index]" class="uploadImg">您的浏览器不支持 video 标签。</video> -->
+							
+							<div class="video-box" v-if="datas[index]">
+								<video :id="'video'+index" style="width:100%;height:146px" :src="datas[index]">
+									Your browser does not support the video tag.
+								</video>
+								<div class="video-img" @click="videoPlay(index)"><img :id="'videoBtn'+index" src="/imge/videoPlay.png"></div>
+							</div>	
 						</div>
+						<!-- <el-progress type="circle" :percentage="progressVideo" v-show="isShowvideo"></el-progress>	 -->
 					</div>
 					<div style="float: left;width: 100%;height: 101px;" v-if="item.limittype == 'file'">
 						<p>{{item.title}}<i>{{item.tigs}}</i></p>
 						<div style="width: 100%;height: 32px;">
 							<div class="uploadFile">
-								<div v-if="datas[index]">重新上传</div>
+								<div v-if="datas[index]" @click="handleUploadFile(index)">重新上传</div>
 								<div v-else>上传文件</div>
 								<input @change="fileUpfj($event,index,item)" type="file" ref="filElem" :id="'page'+index">				
 							</div>
-							<div v-if="datas[index]" style="width: 400px;float: left;word-wrap:break-word;overflow: hidden;text-align: left;margin-top: 3px;position: relative;">{{datas[index]}}<el-progress :text-inside="true" :stroke-width="4" :percentage="progress" v-show="showp"></el-progress><img @click="deleteUpload(index)" class="detelImage" src="/imge/project/cj_00.svg" alt=""></div>	
-						</div>			
+							<div v-if="flieList[index]" class="fileShow">
+								<div class="fileIcon">
+									<img src="/imge/Project_content_toast_icon.png" alt="">
+								</div>
+								<div class="fileContent">
+									{{flieList[index]}}
+									<el-progress :text-inside="true" :stroke-width="4" :percentage="progress" v-show="showp"></el-progress>
+									<img @click="deleteFile(index)" class="detelImage" src="/imge/delete_icon.png" alt="">
+								</div>
+							</div>
+						</div>				
 					</div>	
 				</div>
 			</div>
@@ -127,6 +144,7 @@ export default {
 		return{
 			btns:[],
 			datas:[],
+			flieList: [],
 			array: [],
 			tcZj:'',
 			config:{
@@ -162,10 +180,13 @@ export default {
 			opType:0,	
 			Isnextshow: false,	
 			showp: false,
-			progress: '',	
-						
-						
+			progress: 0,								
 			isLc:'',
+			// progressImage: 0,
+			// isShowimage: false,
+			// progressVideo: 0,
+			// isShowvideo: false,
+			// tan_c: true,
 		}
 		
 	},
@@ -180,9 +201,57 @@ export default {
 		clFn(fn){
 			this[fn]();
 		},
-		deleteUpload(index){
+		//图片删除
+		deleteImage(index){
 			this.datas.splice(index,1,'');
 			document.getElementById("page"+index).value = '';
+			this.progressImage = 0;
+		},
+		//视频删除
+		deleteVideo(index){
+			this.datas.splice(index,1,'');
+			document.getElementById("page"+index).value = '';
+			this.progressVideo = 0;
+		},
+		//文件删除
+		deleteFile(index){
+			this.flieList.splice(index,1,'');
+			document.getElementById("page"+index).value = '';
+			this.progress = 0;
+		},
+		//图片重新上传
+		handleUploadImage(index){
+			document.getElementById("page"+index).click();
+			this.progressImage = 0;
+		},
+		//视频重新上传
+		handleUploadVideo(index){
+			document.getElementById("page"+index).click();
+			this.progressVideo = 0;
+		},
+		//文件重新上传
+		handleUploadFile(index){
+			document.getElementById("page"+index).click();
+			this.progress = 0;
+		},
+		//点击视频播放
+		videoPlay(index){
+			var video = document.getElementById("video"+index);
+			var videoBtn = document.getElementById("videoBtn"+index).src;
+			var filename;
+			if(videoBtn.indexOf("/") > 0){
+				filename = videoBtn.substring(videoBtn.lastIndexOf("/")+1,videoBtn.length);
+			}else{
+				filename = videoBtn;
+			}
+			if (filename == "videoPlay.png") {
+				video.play();
+				document.getElementById("videoBtn"+index).src = "imge/suspended.png";
+			}
+			else {
+				video.pause();
+				document.getElementById("videoBtn"+index).src = "imge/videoPlay.png"
+			}
 		},
 		next() {
 			if(this.datas.length == 0){
@@ -317,10 +386,17 @@ export default {
 								formData.append('related_id',window.userInfo.open_id)
 								formData.append('classify_1','avatar')
 								formData.append('timestamp',times)
-								formData.append('is_callback',1)
+								formData.append('is_callback',1)			
 								this.opType=1;
 								Message({message: '图片正在上传，请稍后'});
-								this.$ajax.post(window.basrul+'/File/File/insert', formData)
+								this.$ajax.post(window.basrul+'/File/File/insert', formData,{
+									headers: {
+										'Content-Type': 'multipart/form-data',
+									},
+									onUploadProgress: progressEvent => {
+										this.progressImage = (progressEvent.loaded / progressEvent.total * 100 | 0);
+									}
+								})
 								.then((da)=>{	
 									this.opType=0;
 									let ds = da.data;
@@ -356,7 +432,14 @@ export default {
 								formData.append('is_callback',1)
 								this.opType=1;
 								Message({message: '视频正在上传，请稍后'});
-								this.$ajax.post(window.basrul+'/File/File/insert', formData)
+								this.$ajax.post(window.basrul+'/File/File/insert', formData,{
+									headers: {
+										'Content-Type': 'multipart/form-data',
+									},
+									onUploadProgress: progressEvent => {
+										this.progressVideo = (progressEvent.loaded / progressEvent.total * 100 | 0);
+									}
+								})
 								.then((da)=>{	
 									this.opType=0;
 									let ds = da.data;
@@ -404,7 +487,9 @@ export default {
 									let ds = da.data;
 									if(ds.result==0){
 										this.datas[index] = ds.data.url;
-										this.datas.splice(index,1,ds.data.url);						
+										this.datas.splice(index,1,ds.data.url);	
+										this.flieList[index] = ds.data.file_name;
+										this.flieList.splice(index,1,ds.data.file_name);					
 									}else{
 										// msg(ds.data);
 										Message({message: ds.data});
@@ -575,15 +660,44 @@ export default {
 
 
 <style scoped="scoped">
+.fileShow{
+	width: 390px;
+	float: left;
+	word-wrap:break-word;
+	overflow: hidden;
+	text-align: left;
+	margin-top: 10px;
+	position: relative;
+	height: 32px;
+	margin-left: 20px;
+}
+.fileShow .fileIcon{
+	width: 20px;
+	height: 32px;
+	float: left;
+}
+.fileShow .fileContent{
+	width: 370px;
+	height: 32px;
+	float: left;
+	position: relative;
+}
+.fileShow .fileContent .detelImage{
+	position: absolute;
+    right: 0px;
+    top: 0px;
+	cursor: pointer;
+}
+.video-box{
+	position: relative;
+}
+.video-box video{
+	display: inline-block;
+    vertical-align: baseline;
+}
 .pr_tc_02{
 	overflow-y: hidden;
 	max-height: 730px;
-}
-.detelImage{
-	position: absolute;
-    right: 0;
-    top: 20px;
-	cursor: pointer;
 }
 .box{
 	height: 400px;
@@ -640,6 +754,16 @@ export default {
     height: 100%;
 	z-index: 666;
 }
+.video-box .video-img{
+	position: absolute;
+    width: 100%;
+	cursor:pointer;
+	background: none;
+}
+.page2_1_2:hover .video-box .video-img{
+	top: 5px;
+	bottom: 0;
+}
 .page2_1_2:hover .page2_1_2>div{
 	z-index: 22;
 }
@@ -650,7 +774,7 @@ export default {
 	opacity: 1;
 
 }
-.page2_1_2:hover .deleteBtn{
+.page2_1_2:hover .deleteBtn,.page2_1_2:hover .againUpload{
 	z-index: 666666;
 }
 .page2_1_2:hover>img{
@@ -661,13 +785,17 @@ export default {
 	z-index: -666;
 	
 }
+.page2_1_2:hover .hoverBtn{
+	z-index: 666;
+	
+}
 .hoverBtn{
 	width: 100%;
 	height: 40px;
 	line-height: 40px;
 	bottom: 0;
 	background: rgba(0,0,0,0.5) !important;
-	border-radius: 0px !important;
+	border-radius: 0px !important;	
 }
 .page2_1_2>div {
     border-radius: 5px;
@@ -708,6 +836,25 @@ export default {
     background: #33b3ff;
     color: #e6e6e6;
     margin: 43px auto 11px;
+}
+.video_box{
+	float: left;
+	width: 100%;
+	height: 215px;
+	position: relative;
+}
+.video_box >>> .el-progress{
+	position: absolute;
+    left: 100px;
+    top: 75px;
+	z-index: 666666666;
+}
+.video_box >>> .el-progress-circle{
+	height: 48px !important;
+    width: 48px !important;
+}
+.video_box >>> .el-progress__text{
+	color: #33B3FF;
 }
 .page2_1_2>input {
     opacity: 0;
