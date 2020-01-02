@@ -29,7 +29,7 @@
 						</div>
 					</div>
 					<div class="scBox suc_1 suc_3">
-						<div class="suc_title">平台投稿人-认证信息</div>
+						<div class="suc_title">平台供稿人-认证信息</div>
 						<div class="suc_1_3 dqys_2">
 							<span>认证状态</span><div class="rzzt_1">
 							{{form.is_contributor==1?'已认证':form.contributor_format_status==1?'认证中':'未认证'}}

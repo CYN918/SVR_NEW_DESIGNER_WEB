@@ -43,6 +43,10 @@ export default {
 					this.$message({
 						message:'请先登录'
 					})
+					
+					this.$router.push({
+						path:'/login'
+					})
 					return
 				}
 				this.$refs.feedback.show();

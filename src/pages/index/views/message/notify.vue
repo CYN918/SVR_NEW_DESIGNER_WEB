@@ -41,7 +41,7 @@ export default {
 			messgNum:{},
 			navDta:[
 				{n:'通知',l:''},
-				{n:'评论/留言',l:''},
+				{n:'评论/回复',l:''},
 				{n:'私信',l:''},	
 			],
 			nodata:'',

@@ -1,6 +1,6 @@
 <template>
 	<div class="csBox csBoxxxxx">
-		<tophead :clasd="clasd" :pz="pzcon" :onNav="0" ref="mytopcs"></tophead>
+		<tophead :clasd="clasd" :pz="pzcon" :onNav="2" ref="mytopcs"></tophead>
 		
 		<list class="seccPr" :isDjs="'1'" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
@@ -21,7 +21,7 @@ export default {
 	data(){
 		return {
 			pzcon:{
-				va:1
+				va:2
 			},
 			data:{
 				ajax:{

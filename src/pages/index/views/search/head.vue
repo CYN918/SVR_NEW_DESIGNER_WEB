@@ -41,9 +41,9 @@ export default {
 			self2:'',
 			setcti: [""],
 			navData:[
-				{a:'searchProject',b:'项目'},
 				{a:'searchWorks',b:'作品'},
 				{a:'searchUser',b:'创作者'},
+				{a:'searchProject',b:'项目'},	
 			],
 			topCn:{
 				min:128,
@@ -67,10 +67,10 @@ export default {
 
 		keydown(){
 			let ud = '/searchWorks';
-			if(this.onNav==2){
+			if(this.onNav==1){
 				ud = 'searchUser';
 			}
-			if(this.onNav==0){
+			if(this.onNav==2){
 				ud= 'searchProject';
 			}
 			this.$router.push({path:ud,query:{cont:this.secont}});
