@@ -1,6 +1,6 @@
 <template>
 	<div>	
-		<tophead :clasd="clasd"  :onNav="2" ref="mytopcs"></tophead>
+		<tophead :clasd="clasd"  :onNav="1" ref="mytopcs"></tophead>
 		<div class=" worksBox4 searUr">
 		
 			<ul v-if="List.length>0" class="i_listd2" >
@@ -77,6 +77,7 @@ export default {
 			total:0,
 			loading: '',
 			clasd:[
+				{label:"全部",value:""},
 				{label:"平面设计师",value:"平面设计师"},
 				{label:"插画师",value:"插画师"},
 				{label:"三维设计师",value:"三维设计师"},

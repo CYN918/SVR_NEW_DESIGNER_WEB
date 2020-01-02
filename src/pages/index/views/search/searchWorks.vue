@@ -1,6 +1,6 @@
 <template>
 	<div class="csBox csBoxxxxx">
-		<tophead :clasd="clasd"  :onNav="1" ref="mytopcs"></tophead>
+		<tophead :clasd="clasd"  :onNav="0" ref="mytopcs"></tophead>
 		
 		<list class="seccWr" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
@@ -48,6 +48,7 @@ export default {
 			this.data.pr.query =this.$route.query.cont || '';				
 		},
 		getData(){
+			
 			this.data.pr.query =this.$route.query.cont || '';	
 			this.$refs.sfafa.getData();
 		},

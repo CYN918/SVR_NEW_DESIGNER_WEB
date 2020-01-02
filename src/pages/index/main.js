@@ -14,6 +14,9 @@ Vue.prototype.api.mcommjs = window.mycomJs;
 Vue.prototype.goFn = (n)=>{
 	router.push({path: n})
 }
+
+Vue.prototype.imgPath = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/';
+
 let s = window.screen.width / 1920;
 document.body.style.zoom = s;
 //定义全局过滤器

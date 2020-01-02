@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="ac_v1-1">
-			<img class="ac_v1-2" src="/imge/ac_v1/ban.png"/>
+			<img class="ac_v1-2" :src="imgPath+'ac_v1/ban.png'"/>
 			<div class="sfcjfs" v-if="infoData.status==1">
 				<span @click="showZp()" v-if="infoData.setting_type!=1"   class="sfcjfs1"></span>
 			</div>	
@@ -22,7 +22,7 @@
 			<div class="ac_v1-5">
 				
 				<div v-if="navOn==1" class="ac_v1-5-1">
-					<img src="/imge/ac_v1/01.png">
+					<img :src="imgPath+'ac_v1/01.jpg'">
 				</div>
 				<div v-if="navOn==2" class="ac_v1-5-2">
 					<div class="ac-01">
@@ -55,19 +55,19 @@
 						
 					</div>
 					
-					<img class="ac-04" src="/imge/ac_v1/07.png">
+					<img class="ac-04" :src="imgPath+'ac_v1/07.png'">
 					
 					
 					
 				</div>
 				<div v-if="navOn==3" class="ac_v1-5-1">
-					<img src="/imge/ac_v1/03.png">
+					<img :src="imgPath+'ac_v1/03.png'">
 				</div>
 				
 			</div>
 			
 			<div class="ac_v1-3">
-				<img src="/imge/ac_v1/fx.png"/>
+				<img :src="imgPath+'ac_v1/fx.png'"/>
 				<div class="ac_v1-3-1fx1">
 					<div class="ac_v1-3-1fx" id="qrcode"></div>
 				</div>
@@ -77,7 +77,7 @@
 			</div>
 			<component v-bind:is="tanData.zj" v-model="tanData"></component>	
 		</div>
-		<img class="hctip" src="/imge/ac_v1/01.png">
+		<img class="hctip" :src="imgPath+'ac_v1/01.png'">
 	</div>
 </template>
 
@@ -113,6 +113,7 @@ export default{
 			fxUrl2:'',
 			tanData:{},
 			isfl:'',
+			isnv_02:''
 		}
 	},
 	mounted: function(){
@@ -207,11 +208,11 @@ export default{
 				
 				this.total = da.total;
 				this.workList = da.data;
-				if(this.total>0){
+				if(this.total>0 && !this.isnv_02){
+					this.isnv_02=1;
 					this.arr.push({n:'全部作品',p:2})
 				}
 				if(!this.isnav){
-					
 					this.isnav =1;
 				}
 				
@@ -332,7 +333,7 @@ export default{
 
 .ac-01{
 	margin-bottom: 40px;
-	background: url(/imge/ac_v1/05.png) 0 0/40% no-repeat,url(/imge/ac_v1/06.png) 100% 70%/40% no-repeat;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/ac_v1/05.png) 0 0/40% no-repeat,url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/ac_v1/06.png) 100% 70%/40% no-repeat;
 	
 }
 

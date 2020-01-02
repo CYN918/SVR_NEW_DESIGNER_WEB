@@ -27,7 +27,7 @@ export default {
 			tcZj:'',
 			navDta:[
 				{n:'通知'},
-				{n:'评论/留言'},
+				{n:'评论/回复'},
 				{n:'私信'},	
 			],
 			pz:{

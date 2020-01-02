@@ -66,7 +66,7 @@ export default {
 		pushd(){
 			let ond = 0;
 			for(let i=0,n=this.lisr.length;i<n;i++){
-				if(!this.postData[this.lisr[i]]){
+				if(!this.postData[this.lisr[i]] && this.List[i].type==1){
 					
 					this.$message({message:'请先回答问题'});
 					ond=1;

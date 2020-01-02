@@ -29,7 +29,7 @@ export default {
 				}
 				da.unshift({
 					id:1,
-					name:'最新推荐',
+					name:'精选推荐',
 				})
 				this.navs = da;
 			})
