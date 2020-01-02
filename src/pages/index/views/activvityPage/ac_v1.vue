@@ -113,6 +113,7 @@ export default{
 			fxUrl2:'',
 			tanData:{},
 			isfl:'',
+			isnv_02:''
 		}
 	},
 	mounted: function(){
@@ -207,11 +208,11 @@ export default{
 				
 				this.total = da.total;
 				this.workList = da.data;
-				if(this.total>0){
+				if(this.total>0 && !this.isnv_02){
+					this.isnv_02=1;
 					this.arr.push({n:'全部作品',p:2})
 				}
 				if(!this.isnav){
-					
 					this.isnav =1;
 				}
 				
