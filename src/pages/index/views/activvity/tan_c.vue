@@ -76,7 +76,7 @@
 								</div>
 								<div class="fileContent">
 									{{flieList[index]}}
-									<el-progress :text-inside="true" :stroke-width="4" :percentage="progress" v-show="showp"></el-progress>
+									<el-progress :text-inside="true" :stroke-width="2" :percentage="progress"></el-progress>
 									<img @click="deleteFile(index)" class="detelImage" src="/imge/delete_icon.png" alt="">
 								</div>
 							</div>
@@ -101,7 +101,7 @@
 					<img class="zp_box_1" :src="el.face_pic">
 					<div class="zp_box_2">
 						{{el.work_name.slice(0,10)}}
-						<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/icon_r.svg" alt="">
+						<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg" alt="">
 					</div>
 					<div class="zp_box_3">
 						{{el.classify_1_name+'-'+el.classify_2_name}}
@@ -472,14 +472,15 @@ export default {
 								formData.append('timestamp',times)
 								formData.append('is_callback',1)
 								this.opType=1;
-								this.showp = true;
+								
 								Message({message: '文件正在上传，请稍后'});
 								this.$ajax.post(window.basrul+'/File/File/insert', formData,{
 									headers: {
 										'Content-Type': 'multipart/form-data',
 									},
 									onUploadProgress: progressEvent => {
-										this.progress = (progressEvent.loaded / progressEvent.total * 100 | 0);
+										// this.progress = (progressEvent.loaded / progressEvent.total * 100 | 0);
+										this.progress = 100;				
 									}
 								})
 								.then((da)=>{	
