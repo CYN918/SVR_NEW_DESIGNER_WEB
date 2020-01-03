@@ -1,35 +1,52 @@
 <template>
-	<div @click="openCent()" class="pr_cent_1">
-		<img class="pr_cent_1_1" :src="backBan(el.banner)" alt="">
-		<div class="sjxd" v-if="el.extra_reward && el.extra_reward!='0.00'">
-			额外奖金¥{{el.extra_reward}}
-		</div>
-		<div class="pr_cent_2">
-			<div class="pr_cent_2_1">
-				<div class="pr_cent_2_2">{{el.name}}</div>
-				<div class="pr_cent_2_3">项目类型：{{el.classify_name}}</div>
-				<div class="pr_cent_2_4">领域范围：<span v-for="(ed,index) in el.fields">{{ed}}</span></div>				
+	<div class="pr_list_01">
+		<div class="pr_list_02" :style="'background-image: url('+backBan(el.banner)+')'"></div>
+		<div class="pr_list_02x">
+			<div class="pr_list_03" :style="setTil(el.name)">{{el.name}}</div>
+			<div class="pr_list_04">
+				项目类型：<span>{{el.classify_name}}</span><i></i>制作周期：<span>13天</span> 
 			</div>
-			<div class="pr_cent_2_5">
-				<div class="pr_cent_2_6 f_a">
-					<img class="cicon cicon_n1 " src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/03.svg" alt="">{{el.expected_profit}}
-				</div>
-				<div class="pr_cent_2_7">
-					<span class="pr_cent_2_7zy">
-						<div class="pr_cent_2_8"><img class="cicon" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/10.svg" alt="">报名人数</div>
-						<div class="pr_cent_2_9">
-							<span class="pr_hs f_a">{{el.sign_up_num}}</span>
-						</div><i></i></span>
-					<span>
-						<div class="pr_cent_2_8"><img class="cicon" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/01.svg" alt="">报名时间</div>						
-						<div class="pr_cent_2_9" v-html="djtime">
-
-						</div>
+			<div class="pr_list_05">
+				<span v-for="ed in el.fields">{{ed}}</span>
+			</div>
+			<div class="pr_list_06">
+				<img :src="imgPath+'project/03.svg'"/>预计收益
+			</div>
+			<div class="pr_list_07">
+				<span class="pr_list_07_1">
+					{{el.expected_profit}}
+				</span>
+				<span  class="pr_list_07_2" v-if="el.extra_reward && el.extra_reward!='0.00'">
+					<img :src="imgPath+'new/project/icon_ewjj.svg'"/> + ¥{{el.extra_reward}}
+					
+					<div class="tip_ew">
+						有额外奖金的项目，通常为交稿时间较急、或难度较大，也可能会是平台福利项目，额外奖金将在正常项目验收后计入最终成交价格内。
+					</div>
+				</span>
+			</div>			
+			<div class="pr_list_08">
+				<span>
+					<span class="pr_list_06">
+						<img :src="imgPath+'project/10.svg'"/>已报名人数
 					</span>
-				</div>
+					<div class="pr_list_08_1">{{el.sign_up_num}}<span>人</span></div>
+				</span>
+				<i></i>
+				<span >
+					<span class="pr_list_06">
+						<img  :src="imgPath+'project/01.svg'"/>报名时间
+					</span>
+					
+					<span>
+						<div class="pr_cent_2_9" v-html="djtime"></div>
+					</span>					
+				</span>
 			</div>
 		</div>
-	</div>
+		
+		
+		
+	</div>	
 </template>
 
 <script>
@@ -60,6 +77,12 @@ export default {
 		}
 	},
 	methods: {	
+		ovshow(e){
+			console.log(e)
+		},
+		oushow(e){
+			console.log(e)
+		},
 		backBan(o){
 
 			if(!o || o==null || o==undefined || o=='null' || o=='undefined'){
@@ -76,6 +99,12 @@ export default {
 				window.open('/#/prcent?id='+this.el.id)
 			}
 			
+		},
+		setTil(str){
+			if(!str){return}
+			if(str.substring(0,1)=='【'){
+				return 'text-indent:-7px';
+			}
 		},
 		backtims(){
 			let a = this.el.left_time;
@@ -118,160 +147,169 @@ export default {
 </script>
 
 <style>
-.pr_cent_1{
+.pr_list_01{
 	position: relative;
+	padding: 20px;
+	box-sizing: border-box;
 	width:640px;
 	height:232px;
 	background:rgba(255,255,255,1);
 	border-radius:5px;
-	cursor: pointer;
 }
-.pr_cent_1_1{
-	display: block;
-	position: absolute;
-	bottom: 20px;
-	left: 20px;
-	background: rgba(244,246,249,1);
-	overflow: hidden;
-	width:310px;
-	height:232px;
-	box-shadow:0px 5px 15px 0px rgba(0,0,0,0.1);
-	border-radius:5px 5px 5px 5px;
-}
-.sjxd{
-	position: absolute;
-	top: 0;
-	right: 21px;
-	width:65px;
-	height:58px;
-	background:rgba(51, 179, 255, 0.1);
-	border-radius:0px 0px 2px 4px;
-	font-size:12px;
-	text-align: center;
-	font-weight:400;
-	color:#33B3FF;
-	line-height:17px;
-	box-sizing: border-box;
-	padding: 5px;
-}
-.sjxd:after{
-	content: "";
-	position: absolute;
-	bottom: 0;
-	left: 0;
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 32.5px solid transparent;
-    border-right: 32.5px solid transparent;
-    border-bottom: 9px solid #fff;
-
-}
-.pr_cent_2{
-	margin-left: 350px;
-	padding-top: 20px;
-}
-.pr_cent_2_1{
-	
-	border-bottom: 1px solid rgba(216,216,216,.3);
-	margin-bottom: 11px;
-}
-.pr_cent_2_2{
-	margin-bottom: 10px;
-	font-size:16px;
-	font-weight:400;
-	color:rgba(40,40,40,1);
-	line-height:22px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	width: 183px;
-}
-.pr_cent_2_3{
-	font-size:12px;
-	font-weight:400;
-	color:rgba(187,187,187,1);
-	line-height:18px;
-	margin-bottom: 6px;
-}
-.pr_cent_2_4{
-	font-size:12px;
-	font-weight:400;
-	color:rgba(187,187,187,1);
-	line-height:18px;
-	margin-bottom: 20px;
-}
-.pr_cent_2_4>span{
-	display: inline-block;
-    margin: 0 3px 5px;
-    padding: 2px 10px;
-    background: rgba(244,246,249,1);
-    border-radius: 5px;
-    font-size: 12px;
-    font-weight: 400;
-    color: rgba(187,187,187,1);
-    line-height: 18px;
-}
-.cicon{
-	display: inline-block;
-    vertical-align: top;
-    margin-right: 10px;
-    width: 16px;
-    height: 16px;
-    margin-top: 3px;
-}
-.cicon_n1{
-	margin-top: 0px;
-}
-.pr_cent_2_6{
-	font-size:14px;
-	font-weight:600;
-
-	line-height:18px;
-	margin-bottom: 10px;
-}
-.pr_cent_2_7>span{
+.pr_list_01>div{
 	display: inline-block;
 	vertical-align: top;
-	width: 110px;
-	margin-right: 24px;
 }
-.pr_cent_2_7zy{
-	position: relative;
+.pr_list_02{
+	margin-right: 15px;
+	width:257px;
+	height:192px;
+	box-shadow:0px 5px 15px 0px rgba(0,0,0,0.1);
+	border-radius:5px;
+	background-size:cover;
 }
-.pr_cent_2_7zy>i{
-	position: absolute;
-	top: 5.5px;
-	right: 0;
-	width: 1px;
-	height: 15px;
-	background: rgba(151,151,151,.3);
+.pr_list_02x{
+	width: 323px;
 }
-.pr_cent_2_8{
-	height: 26px;
-	line-height: 26px;
+.pr_list_03{
+	font-size:16px;
+	color:rgba(40,40,40,1);
+	line-height:22px;
+	margin-bottom: 10px;
+}
+.pr_list_04{
 	font-size:12px;
-
 	color:rgba(187,187,187,1);
+	line-height:18px;
+	margin-bottom: 10px;
+}
+.pr_list_04>i{
+	display: inline-block;
+	vertical-align: top;
+	margin: 3px 20px;
+	width:1px;
+	height:12px;
+	background:rgba(216,216,216,.3);
 
 }
-.pr_hs{
+.pr_list_05{
+	border-bottom: 1px solid rgba(216,216,216,.3);
+	height: 34px;
+	margin-bottom: 10px;
+}
+.pr_list_05>span{
+	display: inline-block;
+	vertical-align: top;
+	padding: 0 8px;
+	line-height: 22px;
+	background:rgba(244,246,249,1);
+	border-radius:5px;
+	font-size:12px;
+	color:rgba(187,187,187,1);
+	margin-right: 5px;
+}
+.pr_list_06{
+	line-height: 18px;
+	font-size:12px;
+	color:rgba(187,187,187,1);
+	line-height:18px
+}
+.pr_list_06>img{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 6px;
+	width: 18px;
+	height: 18px;
+}
+.pr_list_07{
 	font-size:14px;
+	color:rgba(255,146,0,1);
+	line-height:22px;
+	margin-bottom: 10px;
+}
+.pr_list_07_1{
+	margin: 0 6px 0 24px;
+}
+.pr_list_07_2{
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	padding: 0 7px;
+	height:22px;
+	background:rgba(255,146,0,.1);
+	border-radius:2px;
+}
+.pr_list_07_2>img{
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 5px;
+}
+.pr_list_08>span{
+	display: inline-block;
+	vertical-align: top;
+	
+}
+.pr_list_08>span:nth-child(1){
+	width: 124px;
+}
+.pr_list_08>i{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;	
+	width:1px;
+	height:24px;
+	background:rgba(216,216,216,.3);
+	margin: 8px 41px 0 0;
+}
 
+.pr_list_08>span:nth-child(3){
+	width: 145px;
+}
+.pr_list_08_1{
+	margin-left: 24px;
+	font-size:14px;
+	color:rgba(102,102,102,1);
 	line-height:20px;
 }
-.pr_cent_2_9{
-	text-align: right;
-	text-indent: 30px;
+.pr_list_08_1>span{
 	font-size:12px;
-
 	color:rgba(187,187,187,1);
-	line-height:18px;	
-	white-space: nowrap;
-	text-align: left;
+	margin-left: 2px;
 }
-
+.pr_list_07_2:hover .tip_ew{
+	display: block;
+}
+.tip_ew{
+	display: none;
+	position: absolute;
+	z-index: 10;
+	bottom: 30px;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	padding: 14px 16px;
+	width:232px;
+	height:124px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+	border-radius: 5px;
+	font-size:14px;
+	box-sizing: border-box;
+	color:rgba(51,51,51,1);
+	line-height:20px;
+}
+.tip_ew:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    -webkit-transform: rotate(45deg) translateX(-50%);
+    transform: rotate(45deg) translateX(-50%);
+    border-right: 0;
+    border-bottom: 0;
+}
 </style>

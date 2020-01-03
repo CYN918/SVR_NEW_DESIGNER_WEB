@@ -24,6 +24,8 @@
 				</template>			
 			</list>
 		</div>
+		
+		
 	</div>
 </template>
 <script>

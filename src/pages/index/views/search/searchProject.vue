@@ -94,6 +94,13 @@ export default {
 			this.getData();
 		},
 	},
+	watch: {
+		'$route': function() {
+			this.getData();
+			
+		},
+		
+	},
 
 }
 </script>
