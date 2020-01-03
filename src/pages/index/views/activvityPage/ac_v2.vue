@@ -81,6 +81,8 @@
 			<div class="ac_v1-5">
 				<div class="ac_v1-5-1">
 					<img :src="imgPath+'ac_v2/01.png'">
+					<div class="botn_av2"><span @click="goBz(el)" v-for="el in btnsa"></span></div>
+					<div class="botn_av3"><span @click="goBz(el)" v-for="el in btnsb"></span></div>
 				</div>				
 			</div>			
 			<div class="ac_v1-3">
@@ -138,25 +140,21 @@ export default{
 			xmTypeOn:0,
 			endjg:'',
 			options:[{n:'终止项目',tcFn:'Stop'},{n:'交稿记录',tcFn:'Log'}],
-			lis:[
-				{n:'截止报名时间'},
-				{n:'报名人数'},
-				{n:'金额'},
+			btnsa:[
+				'4-02',
+				'4-07',
+				'4-05',
+				'4-04',
+				'4-08',
+				'4-09',
 			],
-			lis:[
-				
-				{n:'报名人数'},
-				{n:'金额'},
-			],
-			lis:[
-				
-				{n:'报名人数'},
-				{n:'金额'},
-			],
-			lis:[
-				
-				{n:'报名人数'},
-				{n:'金额'},
+			btnsb:[
+				'4-10',
+				'4-12',
+				'4-13',
+				'4-11',
+				'4-14',
+				'4-15',
 			],
 		}
 	},
@@ -176,6 +174,9 @@ export default{
 			this.navOn = el.p;
 			
 			
+		},
+		goBz(el){
+			this.$router.push({path:'/help',query:{on:el}})
 		},
 		clFn(fn){
 			
@@ -351,7 +352,7 @@ export default{
 				this.xmTypeOn++;
 				this.djsshow = '';
 				this.da = this.xmType[this.xmTypeOn];	
-				this.$parent.timeF(this.djsshow);
+				// this.$parent.timeF(this.djsshow);
 				return
 			}	
 			setTimeout(()=>{
@@ -364,13 +365,13 @@ export default{
 			this.djsshow = p;
 			if(da.s>0){
 				da.s--;
-				this.$parent.timeF(this.djsshow);
+				// this.$parent.timeF(this.djsshow);
 				return
 			}
 			if(da.m>0){
 				da.m--;
 				da.s = 59;
-				this.$parent.timeF(this.djsshow);
+				// this.$parent.timeF(this.djsshow);
 				return
 			}
 			if(da.h>0){
@@ -448,6 +449,7 @@ export default{
 	line-height: 30px;
 }
 .ac_v2-1-2{
+	font-family: PingFang SC medium;
 	font-size: 24px;
 	line-height: 44px;
 	color: #733b25;
@@ -477,12 +479,12 @@ export default{
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
-	width: 16px;
+	width: 25px;
 }
 .fng_01>img{
 	position: absolute;
 
-	left: -10px;
+	left: -6px;
 	display: block;
 	width: 35px;
 }
@@ -533,5 +535,38 @@ export default{
 }
 .ac_v1-3-3x:hover>img{
 	display: block;
+}
+
+.botn_av2{
+    position: absolute;
+    left: 20%;
+    bottom: 0;
+    width: 62%;
+    padding-bottom: 23%;
+}
+.botn_av2>span{
+	display: inline-block;
+    vertical-align: top;
+    width: 30%;
+    margin-right: 1%;
+    padding-bottom: 3%;
+	cursor: pointer;
+    margin-bottom: 1%;
+}
+.botn_av3{
+    position: absolute;
+    left: 20%;
+    bottom: 0;
+    width: 62%;
+    padding-bottom: 15%;
+}
+.botn_av3>span{
+	display: inline-block;
+    vertical-align: top;
+    width: 30%;
+    margin-right: 1%;
+    padding-bottom: 3%;
+    cursor: pointer;
+    margin-bottom: 1%;
 }
 </style>
