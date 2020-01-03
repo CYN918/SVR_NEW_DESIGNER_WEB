@@ -27,8 +27,13 @@ export default {
 	},
 	methods: {	
 		init(){
-			let t = this.mJs.getTop();
-			this.topOn = t+this.$refs.topBoxd.getBoundingClientRect().top;		
+				
+			window.onload = ()=>{
+				let t = this.mJs.getTop();
+				this.topOn = t+this.$refs.topBoxd.getBoundingClientRect().top;	
+				
+			}
+				
 			this.add();
 			window.onresize = ()=>{
 				let t = this.mJs.getTop();
@@ -37,9 +42,7 @@ export default {
 		},	
 		setTop(e){				
 			let t = this.mJs.getTop();
-		
-			
-			// console.log(t);
+
 			if(t>=this.topOn && !this.isTop){
 				this.isTop='p_isTop';
 				return
