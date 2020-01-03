@@ -427,6 +427,7 @@ export default{
 	height: 142px;
 	border-radius: 8px;
 	background: #d3e0e5;
+	box-sizing: border-box;
 	border: 2px solid #753d28;
 
 	vertical-align: top;
@@ -436,8 +437,8 @@ export default{
 	display: inline-block;
 	box-sizing: border-box;
 	background: #ffffff;
-	border-bottom: 2px solid #753d28;
-	margin-left: -1px;
+	border: 2px solid #753d28;
+	margin: -2px;
 	border-radius: 8px;
 	min-width: 192px;
 	height: 130px;
@@ -479,12 +480,12 @@ export default{
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
-	width: 25px;
+	width: 31px;
 }
 .fng_01>img{
 	position: absolute;
 
-	left: -6px;
+	left: -2px;
 	display: block;
 	width: 35px;
 }
