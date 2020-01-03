@@ -2,10 +2,8 @@
 	<div>
 		<div class="ac_v1-1">
 			<img class="ac_v1-2" :src="imgPath+'ac_v1/ban.png'"/>
-			<div class="sfcjfs" v-if="infoData.status==1">
-				<span @click="showZp()" v-if="infoData.setting_type!=1"   class="sfcjfs1"></span>
-			</div>	
-			
+		
+			<img v-if="infoData.status==1 && infoData.setting_type!=1" @click="showZp()" class="ac_v1-2-x" :src="imgPath+'ac_v1/banBT.png'"/>
 			
 			<div class="ac_v1-4" v-if="arr.length>1">
 				<pTop class="isflo_01" :cn="topCn">
@@ -22,9 +20,18 @@
 			<div class="ac_v1-5">
 				
 				<div v-if="navOn==1" class="ac_v1-5-1">
-					<img :src="imgPath+'ac_v1/01.jpg'">
+					<img  :src="imgPath+'ac_v1/01.png'">
+					<div class="btnsa">
+						<div @click="navCl({p:2})"></div>
+						<div @click="goun"></div>
+					</div>
+					
 				</div>
-				<div v-if="navOn==2" class="ac_v1-5-2">
+				
+				<div v-if="navOn==2" class="ac_v1-5-1">
+					<img :src="imgPath+'ac_v1/08.png'">
+				</div>
+				<div v-if="navOn==3" class="ac_v1-5-2">
 					<div class="ac-01">
 						<div class="ac-02">
 							<div class="ac-01-1">
@@ -60,7 +67,7 @@
 					
 					
 				</div>
-				<div v-if="navOn==3" class="ac_v1-5-1">
+				<div v-if="navOn==5" class="ac_v1-5-1">
 					<img :src="imgPath+'ac_v1/03.png'">
 				</div>
 				
@@ -78,11 +85,12 @@
 			<component v-bind:is="tanData.zj" v-model="tanData"></component>	
 		</div>
 		<img class="hctip" :src="imgPath+'ac_v1/01.png'">
+		<img class="hctip" :src="imgPath+'ac_v1/07.png'">
 	</div>
 </template>
 
 <script>
-import pTop from '../../components/postionTop';
+import pTop from '../../components/postionTop2';
 import list from '../../components/list';
 import box_a from '../../components/box_a';
 import com_wp from '../activvity/com_wp';
@@ -97,7 +105,7 @@ export default{
 			},
 			arr:[
 				{n:'活动详情',p:1},
-				
+				{n:'赛事详情',p:2},
 			],
 			navOn:1,
 			limits:[20,40,80],
@@ -120,6 +128,9 @@ export default{
 		this.ckl();
 	}, 
 	methods:{
+		goun(){
+			this.$router.push({path:'/upload'})		
+		},
 		qrcode(u) {
 		    let qrcode = new QRCode('qrcode', {
 		        width: 96,  
@@ -210,7 +221,7 @@ export default{
 				this.workList = da.data;
 				if(this.total>0 && !this.isnv_02){
 					this.isnv_02=1;
-					this.arr.push({n:'全部作品',p:2})
+					this.arr.push({n:'全部作品',p:3})
 				}
 				if(!this.isnav){
 					this.isnav =1;
@@ -236,9 +247,11 @@ export default{
 				this.a_getWork();
 				
 				document.title=this.infoData.activity_name+'-狮圈儿（Zoocreators）';
+				let dp = window.location.origin+'/aindex.html#/conta?id='+this.infoData.id;
+				console.log(dp);
 				this.shar({
 					titlec:'活动分享',
-					url:window.location.href,
+					url:window.location.origin+'/aindex.html#/conta?id='+this.infoData.id, 
 					title:da.activity_name+'-狮圈儿创作者平台',
 					pics:da.banner,
 					desc:'惊现大神快来膜拜',
@@ -319,6 +332,9 @@ export default{
 	background: #fffc00;
 }
 .ac_v1-5{
+	position: relative;
+}
+.ac_v1-5-1{
 	position: relative;
 }
 .ac_v1-5-1>img{
@@ -442,7 +458,7 @@ export default{
 	display: none;
 	position: absolute;
     top: -25px;
-    right:70px;
+    right:80px;
     padding: 10px;
     border-radius: 5px;
     background: #fff;
@@ -458,12 +474,35 @@ export default{
 	height: 0;
 }
 .isflo_01{
-	/* position: fixed; */
-    top: 0;
-    left: 0;
     width: 100%;
+	height: 100%;
     min-width: 1300px;
     z-index: 10;
     background: #5e25d8;
+}
+.ac_v1-2-x{
+	cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    padding-top: 39%;
+    width: 13%;
+    transform: translateX(-50%);
+}
+.btnsa{
+    position: absolute;
+    bottom: 0;
+    left: 34%;
+    width: 31%;
+    padding-bottom: 48%;
+
+}
+.btnsa>div{
+	cursor: pointer;
+	display: inline-block;
+    width: 23%;
+    margin: 0 3%;
+    padding: 10%;
+
 }
 </style>

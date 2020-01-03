@@ -1,5 +1,5 @@
 <template>
-	<div class="pr_list_01">
+	<div class="pr_list_01" @click="openCent">
 		<div class="pr_list_02" :style="'background-image: url('+backBan(el.banner)+')'"></div>
 		<div class="pr_list_02x">
 			<div class="pr_list_03" :style="setTil(el.name)">{{el.name}}</div>
@@ -148,6 +148,7 @@ export default {
 
 <style>
 .pr_list_01{
+	cursor: pointer;
 	position: relative;
 	padding: 20px;
 	box-sizing: border-box;
