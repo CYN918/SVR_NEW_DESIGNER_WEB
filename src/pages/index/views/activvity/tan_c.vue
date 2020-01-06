@@ -94,14 +94,14 @@
 	
 	
 	<div v-show="Isnextshow" ref="scroll">
-		<div class="pushDeletBox4">
+		<div class="pushDeletBox4" style="height: 476px;">
 			<ul class="zp_box" @scroll="test">
 				
 				<li @click="checkZp(el.work_id)" :class="(work_id.indexOf(el.work_id)!=-1 || el.is_attend==1)?'chekonzp':''" v-for="(el,index) in zpList" :key="index">
 					<img class="zp_box_1" :src="el.face_pic">
 					<div class="zp_box_2">
 						{{el.work_name.slice(0,10)}}
-						<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/zs_icon_tj.svg" alt="">
+						<img v-if="el.is_recommend==1" src="/imge/new/works/icon_r.svg" alt="">
 					</div>
 					<div class="zp_box_3">
 						{{el.classify_1_name+'-'+el.classify_2_name}}
@@ -1071,8 +1071,7 @@ export default {
 }
 .pushDeletBox5>span{
 	display: inline-block;
-	margin-top: 20px;
-	margin-bottom: 20px;
+	margin: 20px 10px 20px 10px;
 	width: 138px;
 	height: 38px;
 	font-size: 16px;
