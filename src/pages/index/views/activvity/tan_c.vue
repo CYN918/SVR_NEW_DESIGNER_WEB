@@ -20,7 +20,7 @@
 			</div>
 	<div v-show="!Isnextshow" ref="scroll" class="box">
 		<p class="textExplains">{{remeber_tips}}</p>
-		<div class="demo-ruleForm" style="width: 700px;padding-bottom: 30px;">
+		<div class="demo-ruleForm" style="width: 700px;">
 			<div v-for="(item,index) in list">		
 				<div class="Information InformationUpload">	
 					<div style="float: left;width: 100%;height: 95px;" v-if="item.limittype == 'text'">
@@ -1067,17 +1067,17 @@ export default {
 	background: #FFFFFF;
 	box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
 	border-radius: 5px 5px 0 0;
-	height: 100px;
+	height: 80px;
 }
 .pushDeletBox5>span{
 	display: inline-block;
-	margin-top: 30px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 	width: 138px;
 	height: 38px;
 	font-size: 16px;
 	color: #333333;
 	text-align: center;
-	margin: 30px 10px;
 	line-height: 38px;
 	border: 1px solid #979797;
 	border-radius: 5px;
@@ -1114,6 +1114,7 @@ export default {
 .Information{
 	width: 75%;
 	margin: 0 auto;
+	position: relative;
 }
 .Information > div > p{
 	width: 100%;
@@ -1137,9 +1138,6 @@ export default {
 	color: #333333;
 	font-size: 14px;
 	text-align: left;
-}
-.InformationUpload{
-	position: relative;
 }
 .InformationUpload >>> .el-upload--picture-card{
 	width: 260px;
