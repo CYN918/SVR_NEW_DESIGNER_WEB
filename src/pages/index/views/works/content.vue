@@ -1044,6 +1044,7 @@ export default {
 	
 }
 .new_c_3{
+	font-family: PingFang SC Regular,Helvetica,Arial,"sans-serif",microsoft yahei;
 	outline:none;
 	resize:none;
 	background: none;

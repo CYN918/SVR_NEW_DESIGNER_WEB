@@ -72,6 +72,7 @@ import img_list from './components/img_list2.vue'
 
 import personalCenter from './views/personalCenter/index.vue'
 
+import tools from './views/tool/test.vue'
 
 Vue.use(Router)
 const router = new Router({
@@ -84,7 +85,7 @@ let wb = [
 	{path: '/Ac_v',name: 'Ac_v',component: Ac_v1},	
 	{path: '/Ac_v2',name: 'Ac_v2',component: Ac_v2},	
 	
-	
+	{path: '/tools',name: 'tools',component: tools},
 	{
 		path: '/',
 		redirect: '/index',
