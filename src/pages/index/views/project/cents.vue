@@ -200,7 +200,7 @@ export default {
 				id : this.$route.query.id
 			};
 			this.api.pr_detail(pr).then((da)=>{
-				if(da=='error'){this.$router.push({path: '/404'});return}	,
+				if(da=='error'){this.$router.push({path: '/404'});return}
 				
 				if(da.special_url){
 					this.$router.push({path: '/Ac_v2',query:{id:da.id}});
