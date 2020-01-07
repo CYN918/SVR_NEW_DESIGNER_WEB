@@ -3,11 +3,13 @@
 		<div class="box_01x">
 			<input type="file" @change="sup">
 			<input type="file" @change="sup2">
-			<video @timeupdate="set" class="testC" @canplay="canplay"  ref="vi"></video>
+			<video @timeupdate="set" class="testC" controls=true @canplay="canplay" src="http://zk-new-designer.oss-cn-beijing.aliyuncs.com/62be2dc2728590b29e8f5b435d680d4d.mp4" ref="vi"></video>
+			<video @timeupdate="set2" class="testC2" controls=true @canplay="canplay2" src="" ref="vi2"></video>
+			
 			<div @click="bf" class="bof"></div>
 			<div class="lod_01">
 				<btnSc v-model="starT" :con="yp"></btnSc>
-	<!-- 		<btnSc v-model="starT" :con="starCom"></btnSc>
+	<!-- 			<btnSc v-model="starT" :con="starCom"></btnSc>
 				<btnSc v-model="endT"  :con="endCom"></btnSc> -->
 				
 			</div>
@@ -16,11 +18,6 @@
 				<btnSc v-model="endT2"  :con="endCom2"></btnSc>
 				
 			</div> -->
-			<div class="imgs">
-				<img v-for="el in imgs" :src="el"/>
-			</div>
-			
-			<video  @canplay="canplay2" class="ysPic" ref="yspic"></video>
 		</div>
 
 </template>
@@ -32,7 +29,6 @@ export  default{
 	components:{btnSc},
 	data(){
 		return{
-			imgs:[],
 			time:0,
 			time2:0,
 			starT:0,
@@ -59,13 +55,10 @@ export  default{
 				time:0,
 				width:100,
 				leng:0,
-			},
-			isload:'',
+			}
 		}
 	},
-	mounted: function () {
-		// this.getImg();
-	}, 
+	
 	methods:{
 		sup(e){
 			let video = e.target.files[0];		
@@ -81,17 +74,15 @@ export  default{
 			this.time = this.$refs.vi.duration;
 			this.starCom.leng = this.time;
 			this.endCom.leng = this.time;
-			this.$refs.yspic.src = this.$refs.vi.src;
 		
 		},
 		canplay2(){
 			
-			// this.$refs.yspic.play();
-			if(this.isload){
-				return
-			}
-			this.isload = 1;
-			this.getImg();
+			this.time2 = this.$refs.vi2.duration;
+			this.yp.width = (this.time/this.time2).toFixed(4)*100;
+			
+			this.starCom2.leng = this.endCom.leng;
+			this.endCom2.leng = this.endCom.leng;
 
 		},
 		setcurrentTime(t){		
@@ -102,55 +93,34 @@ export  default{
 			this.$refs.vi2.currentTime = t;
 		},	
 		set(){
-			// if(this.$refs.vi.currentTime>=this.endT){
-			// 	this.$refs.vi.pause();
-			// }
+			if(this.$refs.vi.currentTime>=this.endT){
+				this.$refs.vi.pause();
+			}
 			
 		},
 		set2(){
 			
-			// if(this.$refs.vi2.currentTime>=this.endT2){
-			// 	this.$refs.vi2.pause();
-			// }			
+			if(this.$refs.vi2.currentTime>=this.endT2){
+				this.$refs.vi2.pause();
+			}			
 		},
 		bf(){
 	
-	// 		this.setcurrentTime(this.starT);
-	// 		this.setcurrentTime2(this.starT2);
+			this.setcurrentTime(this.starT);
+			this.setcurrentTime2(this.starT2);
 			this.$refs.vi.play();
-			// this.$refs.vi2.play();
-			
+			this.$refs.vi2.play();
 		},
 			
-		getImg(){
-			console.log('重新进入了');
-			// return
-			var scale = 0.3;
-			var canvas = document.createElement("canvas");
-			canvas.width = this.$refs.vi.videoWidth * scale;
-			canvas.height = this.$refs.vi.videoHeight * scale;
-			let t=0;
-			let cr = ()=>{
-				console.log(t);
-				this.$refs.yspic.currentTime = t;
-				canvas.getContext('2d').drawImage(this.$refs.yspic, 0, 0, canvas.width, canvas.height);
-				this.imgs.push(canvas.toDataURL("image/png"));
-				if(t<this.time){
-					t+=2;
-					if(t>this.time){
-						t = this.time;
-					}
-					
-					setTimeout(()=>{
-						cr();
-					},50)
-					
-				}
-				
-			}
-			cr();	 
-		}	
-		
+		// dragE(e){
+
+		// 	let on = (this.py_cs/1000).toFixed(4);
+		// 	this.setcurrentTime(this.time*on);	
+		// },
+		// dragD(e){			
+		// 	let on = (this.py_cs/1000).toFixed(4);
+		// 	this.setcurrentTime(this.time*on);
+		// }
 	}
 }
 </script>
@@ -170,8 +140,8 @@ export  default{
 }
 .testC{
 	margin: 0 auto;
-    width: 231px;
-    height: 500px;
+	width: 375px;
+	height: 812px;
 }
 .lod_01{
 	position: relative;
@@ -192,19 +162,5 @@ export  default{
 	width: 0;
 	height: 0;
 	
-}
-
-.ysPic{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 10px;
-	height: 60px;
-}
-.imgs>img{
-	display: inline-block;
-	vertical-align: top;
-	width: 40px;
-	height: 100px;
 }
 </style>

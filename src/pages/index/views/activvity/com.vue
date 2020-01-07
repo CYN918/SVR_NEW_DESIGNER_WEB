@@ -239,6 +239,11 @@ export default {
 					this.$router.push({path: '/404'});
 					return
 				}
+				if(da.special_url){
+					this.$router.push({path: '/Ac_v',query:{id:da.id}});
+					return
+				}
+				
 				this.infoData = da;
 				document.title=this.infoData.activity_name+'-狮圈儿（Zoocreators）';
 			
