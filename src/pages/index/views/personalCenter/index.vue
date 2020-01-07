@@ -257,9 +257,16 @@ export default {
 		showTopBk(){
 			this.bdtjCom('设置背景图');		
 			this.isUpbg=true;
+			
+			this.topCn = {
+				min:820,
+			};
 		},
 		closeTopBk(){
 			this.isUpbg=false;
+			this.topCn = {
+				min:600,
+			};
 		},
 		setSuss(val){
 			this.userMessage.user_center_banner_pic = val;

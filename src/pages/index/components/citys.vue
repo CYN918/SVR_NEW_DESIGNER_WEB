@@ -230,7 +230,7 @@ color: #666666;
     background:  #D8D8D8;
 }
 .citysbos3_2_1{
-	width: 88px;
+	width: 75px;
 	padding: 10px 0;
 	overflow: hidden;
 	overflow-y: auto;

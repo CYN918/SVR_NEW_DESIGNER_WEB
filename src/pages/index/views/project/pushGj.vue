@@ -15,7 +15,6 @@
 						<div class="cd_d pend" v-if="!preview_pic && !isJdt1">
 							<div>+</div>
 						</div>
-						
 						<div class="cd_d_2" v-else>
 							<img :src="preview_pic"/>
 							<p class="closeX_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/close1.svg"></p>

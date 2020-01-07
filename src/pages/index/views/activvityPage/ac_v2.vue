@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<Header ref="topZj"></Header>
 		<div class="ac_v1-1">
 			<img class="ac_v1-2" :src="imgPath+'ac_v2/ban.png'"/>
 			<div class="sto_01" v-if="deta.status>=3">
@@ -115,9 +116,9 @@ import Log from '../project/log';
 import Stop from '../project/stop';
 import question from '../project/question';
 import presentation from '../project/presentation';
-
+import Header from '../header';
 export default{
-	components:{pr_rz,bmXm,qxBm,pushGj,qxGj,Log,Stop,question,presentation},
+	components:{pr_rz,bmXm,qxBm,pushGj,qxGj,Log,Stop,question,presentation,Header},
 	data(){
 		return{
 			tanDatazj:'',

@@ -6,7 +6,7 @@
 			<video @timeupdate="set" class="testC" @canplay="canplay"  ref="vi"></video>
 			<div @click="bf" class="bof"></div>
 			<div class="lod_01">
-				<btnSc v-model="starT" :con="yp"></btnSc>
+				<!-- <btnSc v-model="starT" :con="yp"></btnSc> -->
 	<!-- 		<btnSc v-model="starT" :con="starCom"></btnSc>
 				<btnSc v-model="endT"  :con="endCom"></btnSc> -->
 				
@@ -123,12 +123,15 @@ export  default{
 		},
 			
 		getImg(){
-			console.log('重新进入了');
-			// return
 			var scale = 0.3;
 			var canvas = document.createElement("canvas");
 			canvas.width = this.$refs.vi.videoWidth * scale;
 			canvas.height = this.$refs.vi.videoHeight * scale;
+			let jg =2 ;
+			if(this.time<30){
+				jg = this.time/15;
+			}
+			
 			let t=0;
 			this.$refs.yspic.currentTime = 0;
 			let arr = [];
@@ -136,7 +139,7 @@ export  default{
 				canvas.getContext('2d').drawImage(this.$refs.yspic, 0, 0, canvas.width, canvas.height);
 				arr.push(canvas.toDataURL("image/png"));
 				if(t<this.time){
-					t+=2;
+					t+=jg;
 					if(t>this.time){
 						t = this.time;					
 					}

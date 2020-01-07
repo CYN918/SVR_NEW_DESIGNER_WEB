@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<Header ref="topZj"></Header>
 		<div class="ac_v1-1">
 			<img class="ac_v1-2" :src="imgPath+'ac_v1/ban.png'"/>
 		
@@ -96,8 +97,9 @@ import box_a from '../../components/box_a';
 import com_wp from '../activvity/com_wp';
 import bm_01 from '../activvity/tan_c';
 import QRCode from 'qrcodejs2'
+import Header from '../header';
 export default{
-	components:{list,box_a,com_wp,bm_01,QRCode,pTop},
+	components:{list,box_a,com_wp,bm_01,QRCode,pTop,Header},
 	data(){
 		return{
 			topCn:{
@@ -129,7 +131,8 @@ export default{
 	}, 
 	methods:{
 		goun(){
-			this.$router.push({path:'/upload'})		
+
+			window.open('/#/upload');				
 		},
 		qrcode(u) {
 		    let qrcode = new QRCode('qrcode', {

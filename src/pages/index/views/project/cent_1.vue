@@ -137,9 +137,9 @@ export default {
 			}
 			let strtime = '';
 			if(a.d>0){
-				strtime+='<span><span class="pr_hs f_a">'+a.d+'</span>天';
+				strtime+='<span><span class="pr_hs f_a newFa">'+a.d+'</span>天';
 			}
-			this.djtime = strtime+'<span class="pr_hs f_a">'+(a.h>9?a.h:'0'+a.h)+'</span>时<span class="pr_hs f_a">'+(a.m>9?a.m:'0'+a.m)+'</span>分<span class="pr_hs f_a">'+(a.s>9?a.s:'0'+a.s)+'</span>秒</span>';	
+			this.djtime = strtime+'<span class="pr_hs f_a newFa">'+(a.h>9?a.h:'0'+a.h)+'</span>时<span class="pr_hs f_a newFa">'+(a.m>9?a.m:'0'+a.m)+'</span>分<span class="pr_hs f_a newFa">'+(a.s>9?a.s:'0'+a.s)+'</span>秒</span>';	
 		
 		}
 	}
@@ -312,5 +312,13 @@ export default {
     transform: rotate(45deg) translateX(-50%);
     border-right: 0;
     border-bottom: 0;
+}
+.pr_cent_2_9{
+	font-size: 12px !important;
+	color:rgba(187,187,187,1);
+}
+.newFa{
+	margin: 0 2px;
+	
 }
 </style>
