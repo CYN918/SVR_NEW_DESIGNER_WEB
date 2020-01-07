@@ -130,25 +130,28 @@ export  default{
 			canvas.width = this.$refs.vi.videoWidth * scale;
 			canvas.height = this.$refs.vi.videoHeight * scale;
 			let t=0;
+			this.$refs.yspic.currentTime = 0;
+			let arr = [];
 			let cr = ()=>{
-				console.log(t);
-				this.$refs.yspic.currentTime = t;
 				canvas.getContext('2d').drawImage(this.$refs.yspic, 0, 0, canvas.width, canvas.height);
-				this.imgs.push(canvas.toDataURL("image/png"));
+				arr.push(canvas.toDataURL("image/png"));
 				if(t<this.time){
 					t+=2;
 					if(t>this.time){
-						t = this.time;
+						t = this.time;					
 					}
-					
+					this.$refs.yspic.currentTime = t;
 					setTimeout(()=>{
 						cr();
-					},50)
-					
-				}
-				
+					},60)					
+				}else{
+					this.imgs = arr;
+				}				
 			}
-			cr();	 
+			setTimeout(()=>{
+				cr();
+			},50)		
+				 
 		}	
 		
 	}

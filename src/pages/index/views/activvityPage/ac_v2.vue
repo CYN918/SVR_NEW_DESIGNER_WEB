@@ -26,20 +26,27 @@
 						</div>
 						
 					</span>
-					<i class="fng_01">
+					<i class="fng_01" v-if="deta.status==1 || deta.status==3">
 						<img :src="imgPath+'ac_v2/bt0.png'">
 						<img :src="imgPath+'ac_v2/bt0.png'">
 					</i>
 					<span v-if="deta.status==1 || deta.status==3">
 						<div>
 							<div class="ac_v2-1-1">{{deta.delay_time?'项目已延期交稿':xmType[xmTypeOn].n}}</div>
+							
+							
 							<div class="ac_v2-1-2">
-								<span v-if="djsshow.d>0">
+								<span v-if="deta.d || deta.d==0">
 									{{djsshow.d}}天 {{djsshow.h+':'+djsshow.m+':'+djsshow.s}}
 								</span>
 								<span v-if="deta.delay_time">
 									{{deta.delay_time.d}}天 {{deta.delay_time.h}}小时
 								</span>
+								<span v-if="deta.delivery_deadline">
+									{{deta.delivery_deadline}}
+								</span>
+								
+								
 							</div>
 						</div>
 					</span>

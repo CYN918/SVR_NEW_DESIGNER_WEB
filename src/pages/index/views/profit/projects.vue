@@ -69,7 +69,7 @@ export default {
 		},
 
 		goWork(d){
-			this.$router.push({path: '/cont',query:{id:d.work_id}});
+			this.$router.push({path: '/prcent',query:{id:d.project_id}});
 		},
 		goAc(d){
 			this.$router.push({path: '/detailed',query:{id:d.activity_id}});
