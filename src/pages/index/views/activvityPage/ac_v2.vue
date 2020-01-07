@@ -260,7 +260,9 @@ export default{
 			this.tanData = this.deta;
 		},
 		shaFn(n){
-			window.open(this[n]);
+			
+			
+			window.open('http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes');
 		},
 		shar(da){
 		

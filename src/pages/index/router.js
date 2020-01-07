@@ -298,6 +298,12 @@ router.beforeEach((to, from, next) => {
 //	window.removeEventListener('mousewheel',window.dwzFn);
 	document.body.style = "";
 	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+
+		if(to.path== "/prcent"){
+			window.location.href = location.origin+"/aindex.html#/conta?id="+to.query.id;
+			return
+		}
+		
 		window.location.href = location.origin+"/aindex.html#/";
 		return
 	}

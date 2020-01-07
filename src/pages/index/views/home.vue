@@ -2,8 +2,8 @@
 	<div class="newCI">		
 		<baner></baner>
 		<div class="home_0x1">
-			<div class="home_0x2">平台项目外包</div>
-			<div class="home_0x3">帮助设计师、摄影师将创作内容发挥最大价值</div>
+			<div class="home_0x2">让设计更有价值，让生活更加自由</div>
+			<div class="home_0x3">如果你是设计师、摄影师、特效工程师、音乐工作者、短视频等创作大师或创意团队，加入狮圈儿，这里就是你施展才能的圈子！在这里，你的作品将更容易获得更多关注和收益，狮圈儿帮助你们将作品内容实现最大的价值。</div>
 			<div class="home_0x4">
 				<a  v-for="(el,index) in Ds_01" :key="index">
 					<div class="home_0x4_1">
@@ -19,25 +19,25 @@
 		<div class="home_0x5">
 			<div>
 				<div class="home_0x5_1">
-					<div>分成式收益，一次交稿，永久收钱</div>
-					坐享每日分成收益结算，还是一次买断落袋为安，你说了算
+					<div>专注创作，轻松收获成就</div>
+					全新的创作者平台，聚集创意、分发、收益和社区一站式无缝连接，你只需专注于创作，狮圈儿帮你搞定其他的一切。在这里，你将和各行业的创意大师们一起，尽情发挥奇思妙想，创造更多无限的可能。
 				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/7.svg"/>
 			</div><div>
 				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/9.svg"/>
 				<div class="home_0x5_1">
-					<div>收益成长累计，越赚越多</div>
-					累计收益越多，每次完成项目的收益加成额度越大
+					<div>让你的创作突破限制</div>
+					不要让你的照片像在其他平台上一样在角落里积灰，在狮圈儿建立个人或者工作室专页，报名设计比赛或征集活动，以获得荣誉和奖励。狮圈儿用心对待每一份作品，让每一个热爱创作的人都能实现自己的价值。
 				</div>
 			</div><div>
 				<div class="home_0x5_1">
-					<div>交稿作品分发渠道覆盖近7亿用户曝光</div>
-					龙头合作品牌覆盖73%安卓移动终端，而你只需提供灵感创意。
+					<div>作品将获全球7亿用户曝光</div>
+					狮圈儿与华为、OPPO、VIVO、魅族等众多一线移动终端企业均有密切商业合作，整个合作网络覆盖全球73%的安卓移动终端。创作者所制作产生的作品素材一经录用发行，即会以主题、壁纸、Banner等展示形式获得国内外海量用户曝光。
 				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/8.svg"/>
 			</div><div>
 				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/10.svg"/>
 				<div class="home_0x5_1">
-					<div>项目众多，长期供给，每周更新</div>
-					一经中标，最终交稿作品100%验收，每一次的创作都有价值
+					<div>我们汇聚各界人才，共同发挥创作才能</div>
+					作为一个全开放平台，狮圈儿对各类创意内容都具有极大的包容性和开放性，无论你是设计师、摄影师还是其他创作者和团队都将有属于你的一席之地。加入狮圈儿，让你的创作成就非凡，让生活变得更加自由美好。
 				</div>
 			</div>
 			
@@ -155,7 +155,10 @@ export default {
 	line-height:45px;
 }
 .home_0x3{
-	margin-bottom: 40px;
+	margin: 0 auto 40px;
+	width: 619px;
+	text-align: center;
+
 	font-size:12px;
 	color:rgba(102,102,102,1);
 	line-height:17px;
@@ -238,8 +241,10 @@ export default {
 	color:rgba(64,64,64,1);
 	line-height:45px;
 	margin-bottom: 16px;
+	
 }
 .home_0x5_1{
+	width: 437px;
 	display: inline-block;
 	vertical-align: top;
 	text-align: left;

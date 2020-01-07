@@ -42,10 +42,14 @@ export default{
 				return
 			}
 			if(this.cg.type && this.cg.type.indexOf(fld.type)==-1){
+				this.$refs.fileDom.value = '';
+				this.upType = '';
 				Message({message: '文件格式不正确'});
 				return
 			}
 			if(this.cg.max && fld.size>this.cg.max){
+				this.$refs.fileDom.value = '';
+				this.upType = '';
 				Message({message: '文件过大'});
 				return
 			}
