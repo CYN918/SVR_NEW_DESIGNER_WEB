@@ -5,7 +5,11 @@
 		</div>
 		<div class="wk_a_2">
 			<div class="wk_a_2_1">
-				<span class="hft">{{el.work_name}}</span>
+			
+				<span class="hft pp_wnz" v-if="iscre" v-html="bakci(el.work_name,iscre)">
+					
+				</span>
+				<span v-else class="hft">{{el.work_name}}</span>
 				<img v-if="el.is_recommend==1" src="/imge/new/works/icon_r.svg" />
 			</div>
 			<div class="wk_a_2_2">
@@ -40,7 +44,8 @@ export default {
 			type:Object,
 			default:{}
 		},
-		tjData:Array
+		tjData:Array,
+		iscre:String
 	},
 	data(){
 		return{
@@ -58,6 +63,16 @@ export default {
 		}
 	},
 	methods: {	
+		bakci(sr,ck){
+			
+			let on = sr.indexOf(ck);
+			if(on==-1){
+				return sr;
+			}
+			
+			var re =new RegExp(ck);
+			return sr.replace(re,"<span>"+ck+"</span>")
+		},
 		setZb(e){
 		
 			this.tipY = e.offsetY;

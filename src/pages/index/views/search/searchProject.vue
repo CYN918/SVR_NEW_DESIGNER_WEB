@@ -4,7 +4,7 @@
 		
 		<list class="seccPr" :isDjs="'1'" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
-				<cent :djs="djson" :conf="pr_con" :el="todo"></cent>
+				<cent :djs="djson" :iscre="iscre" :conf="pr_con" :el="todo"></cent>
 			</template>			
 		</list>
 	</div>
@@ -20,6 +20,7 @@ export default {
 	name: 'home',
 	data(){
 		return {
+			iscre:'',
 			pzcon:{
 				va:2
 			},
@@ -68,10 +69,12 @@ export default {
 			this.$refs.sfafa.getData();
 		},
 		init(){
-			this.data.pr.query =this.$route.query.cont || '';				
+			this.data.pr.query =this.$route.query.cont || '';
+			this.iscre = this.data.pr.query;
 		},
 		getData(){
 			this.data.pr.query =this.$route.query.cont || '';	
+			this.iscre = this.data.pr.query;
 			this.$refs.sfafa.getData();
 		},
 		getClassify(){

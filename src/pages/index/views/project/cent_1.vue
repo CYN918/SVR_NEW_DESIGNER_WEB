@@ -2,7 +2,11 @@
 	<div class="pr_list_01" @click="openCent">
 		<div class="pr_list_02" :style="'background-image: url('+backBan(el.banner)+')'"></div>
 		<div class="pr_list_02x">
-			<div class="pr_list_03" :style="setTil(el.name)">{{el.name}}</div>
+			<div class="pr_list_03 pp_wnz" 
+			 
+			:style="setTil(el.name)" 
+			v-html="bakci(el.name,iscre)"></div>
+			
 			<div class="pr_list_04">
 				项目类型：<span>{{el.classify_name}}</span><i></i>制作周期：<span>13天</span> 
 			</div>
@@ -58,8 +62,8 @@ export default {
 			type:Object,
 			default:{}
 		},	
-		djs:Number
-	
+		djs:Number,
+		iscre:String
 	},
 	data(){
 		return{
@@ -77,6 +81,22 @@ export default {
 		}
 	},
 	methods: {	
+		bakci(sr,ck){
+			if(!sr){
+				return '';
+			}
+			if(!ck){
+				return sr;
+			}
+			
+			let on = sr.indexOf(ck);
+			if(on==-1){
+				return sr;
+			}
+			
+			var re =new RegExp(ck);
+			return sr.replace(re,"<span>"+ck+"</span>")
+		},
 		ovshow(e){
 			console.log(e)
 		},

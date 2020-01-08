@@ -7,7 +7,8 @@
 				<li v-for="(el,index) in List" :key="index">
 					<img @click="goFans('/works',el.open_id,'点头像')" :src="mJs.Cavars(el.avatar)">
 					<div class="i_listd2_1">
-						<div @click="goFans('/works',el.open_id,'点名字')">{{el.username}}</div>
+						<div @click="goFans('/works',el.open_id,'点名字')" class="pp_wnz" v-html="bcksd(el.username)"></div>
+						
 						<div>{{el.province}} | {{el.city}}</div>
 						<div class="i_listd2_d">
 							<span @click="goFans('/followFans',el.open_id)">粉丝<span>{{el.fans_num}}</span></span>
@@ -110,6 +111,21 @@ export default {
 		
 	}, 
 	methods: {
+		bcksd(sr){
+			if(!sr){return ''}
+			let qe = this.$route.query.cont || '';
+			if(!qe){
+				return sr
+			}
+			let on = sr.indexOf(qe);
+			if(on==-1){
+				return sr;
+			}
+			
+			var re =new RegExp(qe);
+			return sr.replace(re,"<span>"+qe+"</span>")
+			
+		},
 		goFans(d,id,a){
 			if(a){
 				this.bdtj('搜索页',a,'--');

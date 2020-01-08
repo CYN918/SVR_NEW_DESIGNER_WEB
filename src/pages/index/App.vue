@@ -179,7 +179,9 @@ img{
 	border-radius:5px;
 }
 
-
+.pp_wnz>span{
+	color: #33B3FF;
+}
 
 
 

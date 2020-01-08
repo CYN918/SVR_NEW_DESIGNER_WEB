@@ -4,7 +4,7 @@
 		
 		<list class="seccWr" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
-				<box_a :bdtj="bdtjdata" :el="todo"></box_a>
+				<box_a :bdtj="bdtjdata" :iscre="iscre" :el="todo"></box_a>
 			</template>			
 		</list>
 	</div>
@@ -29,7 +29,8 @@ export default {
 				},
 				
 				
-			},	
+			},
+			iscre:'',
 			bdtjdata:[['搜索页','作品'],['搜索页','创作者']],
 			querys:'',
 			clasd:[],
@@ -42,14 +43,18 @@ export default {
 	mounted: function(){
 		this.$refs.mytopcs.setCont(this.data.pr.query);
 		this.getClassify();
+		
 	}, 
 	methods: {
 		init(){
-			this.data.pr.query =this.$route.query.cont || '';				
+			
+			this.data.pr.query =this.$route.query.cont || '';
+			this.iscre = this.data.pr.query;
 		},
 		getData(){
 			
-			this.data.pr.query =this.$route.query.cont || '';	
+			this.data.pr.query =this.$route.query.cont || '';
+			this.iscre = this.data.pr.query;
 			this.$refs.sfafa.getData();
 		},
 		getClassify(){			
@@ -94,6 +99,7 @@ export default {
 	},
 	watch: {	
 		'$route': function() {
+		
 			this.getData();
 			
 		},
