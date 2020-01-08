@@ -47,7 +47,7 @@
 					<div class="lid">
 						<li v-for="(el,key) in fileList3" :key="key">
 							<div class="lid_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/pus1.svg">{{el.file_name}}<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg" @click="clodfile(el,key)" class="closeX pend"/></div>
-							<div class="lid_2"><span :style="{transform:'translateX('+-(100-el.bf)+'%)'}"></span></div>
+							<div v-if="el.bf!=100" class="lid_2"><span :style="{transform:'translateX('+-(100-el.bf)+'%)'}"></span></div>
 						</li>
 						
 					</div>
