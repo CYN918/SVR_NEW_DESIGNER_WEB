@@ -256,6 +256,7 @@ export default {
     font-size: 12px;
     color: rgba(255,255,255,1);
     line-height: 20px;
+	pointer-events: none;
 	
 }
 

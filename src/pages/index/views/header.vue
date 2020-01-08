@@ -219,7 +219,7 @@ export default {
 			}
 			localStorage.setItem('scrllhot',JSON.stringify(hotc));
 			this.searcCont = '';
-			this.$router.push({path:'/searchProject',query:{cont:na}});
+			this.$router.push({path:'/searchWorks',query:{cont:na}});
 		},
 		hind(){
 			

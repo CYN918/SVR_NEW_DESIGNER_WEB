@@ -346,7 +346,7 @@ export default{
 					this.djsfn(this.da.djs);
 				}
 				if(da.is_rejected==1){
-					this.xmType[2].btns[0].n="重新提交";
+					this.xmType[2].btns[0].n="重新交稿";
 					this.xmType[2].btns[1] = {n:'交稿记录',tcFn:'Log'};
 				}
 				

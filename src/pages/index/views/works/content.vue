@@ -151,7 +151,7 @@
 					
 								<div @click="goUserzy" v-if="page.open_id==contDat.user_info.open_id"><span>进入主页</span></div>
 								<div v-else>
-									<span @click="showUnfoolow" v-if="contDat.user_info.follow_flag>0">已关注</span>
+									<span @click="showUnfoolxow" v-if="contDat.user_info.follow_flag>0">已关注</span>
 									<span class="jsBtn" @click="Follow_add()" v-else>关注</span>
 									<span class="lastsedd_1 pend" @click="gosx(contDat.user_info)">私信</span>
 								</div>
@@ -298,11 +298,14 @@ export default {
 			if(this.isYl){return}
 			this.$refs.tcBox.show();
 		},
-		
-		showUnfoolow(){
+		showUnfoolxow(){
 			if(this.isYl){return}
 			this.bdtj('作品详情','他人视角-取消关注','--');
 			this.$refs.unfollow.setFollowId(this.contDat.user_info.open_id);
+		},
+		showUnfoolow(){
+
+			this.contDat.user_info.follow_flag=0;
 		},
 		unfollowSu(){
 			if(this.isYl){return}

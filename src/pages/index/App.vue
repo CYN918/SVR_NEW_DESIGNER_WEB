@@ -982,8 +982,8 @@ img{
 }
 .qxBm_btns{
 	border-top: 1px solid rgba(244,246,249,1);
-	height: 79px;
-	line-height: 79px;
+	height: 80px;
+	line-height: 80px;
 }
 .qxBm_btns>div{
 	vertical-align: top;

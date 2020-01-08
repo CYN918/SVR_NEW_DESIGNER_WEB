@@ -99,6 +99,9 @@ export default {
 		'setcti': function() {
 			// this.sreond();
 		},
+		'$route': function() {
+			this.secont = this.$route.query.cont;
+		},
 		
 	},
 	
