@@ -4,8 +4,7 @@
 			<div class="qxBm_btns_1">{{config.cent}}</div>	
 			<div class="qxBm_btns">
 				<div @click="close" class="btns pend">取消</div>		
-				<div @click="qdFn" class="btns btns_js pend">确定</div>	
-									
+				<div @click="qdFn" class="btns btns_js pend">确定</div>										
 			</div>
 		</template>			
 	</TcBox>

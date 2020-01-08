@@ -22,8 +22,7 @@
 				<div @click="showUp(1,'上传视频')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
 				
 			</div>
-			<UplodImg v-if="isshowd" :configData="upConfig"></UplodImg>
-			
+
 		</div>
 		<div v-show="!chekin" class="upBoxd">
 			<div class="page2_1">
@@ -126,6 +125,9 @@
 				<component v-bind:is="tcZj"  :datad="tcData"></component>
 			</template>
 		</TcBox>
+		
+		
+		<component v-bind:is="tanData.zj" :configData="upConfig" v-model="tanData"></component>
 	</div>
 </template>
 
@@ -142,6 +144,7 @@ export default {
 	components:{VueUeditorWrap,UplodImg,Input,uploadFm,TcBox},
 	data(){
 		return{
+			tanData:{},
 			outc: {
 				title: '上传封面',
 			},
@@ -540,7 +543,9 @@ export default {
 
 		},
 		closed(cr){
-			this.isshowd=false;
+			
+			this.tanData = {};
+			// this.isshowd=false;
 			if(cr){
 				return
 			}
@@ -552,7 +557,12 @@ export default {
 		showUp(on,a){
 			this.bdtj('上传作品-编辑作品类容',a,'--');
 			this.upConfig = this.upList[on];
-			this.isshowd = true;
+			
+			this.tanData = {
+				zj:'UplodImg'
+			};
+			
+			// this.isshowd = true;
 			if(this.ifBjType == 0){
 				this.ifBjType = 1;
 				this.form.content = '';

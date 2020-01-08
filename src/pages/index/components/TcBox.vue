@@ -18,13 +18,18 @@ export default {
 			is:'',
 		}
 	},
-
+	beforeDestroy:function(){
+		document.body.style = "";
+	},
 	methods: {	
 		show(){			
 			this.is = 1;
+			console.log(11111111111);
+			document.body.style = "overflow: hidden;";
 		},
 
 		close(){
+			document.body.style = "";
 			this.is = '';
 			if(!this.config.closeFn){
 				return	

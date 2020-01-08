@@ -31,7 +31,7 @@
 		<div v-if="obj.status>=3 " class="worksBox_2 tg_iocn_2 tg_iocn_2x">
 			<div class="worksBox_2_1x">
 				<div v-if="obj.status==3" @click="showTc('Stop')">终止项目</div>
-				<div @click="showTc('Log')">交稿记录</div>
+				<div v-if="islog" @click="showTc('Log')">交稿记录</div>
 				<div v-if="obj.contract_file && obj.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
 					<div class="worksBox_2_4">
 						<div v-for="(el,index) in obj.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
@@ -74,6 +74,7 @@ export default {
 			xmTypeOn:0,
 			endjg:'',
 			options:[{n:'终止项目',cs:'Stop'},{n:'交稿记录',cs:'Log'}],
+			islog:'',
 		}
 	},
 	mounted: function(){
@@ -123,6 +124,17 @@ export default {
 			}
 		
 			
+		},
+		pr_deliveryList(){
+			this.api.pr_deliveryList({
+				project_id:this.obj.id,
+			}).then((da)=>{
+				if(da=='error'){return}
+				if(da.length>0){
+					this.islog = 1;
+				}
+		
+			})
 		},
 		goyans(on){
 			this.$router.push({path:on,query:{id:this.obj.id}})	

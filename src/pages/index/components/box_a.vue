@@ -1,6 +1,6 @@
 <template>
-	<div class="wk_a" @mouseover="tipStar" @mousemove="setZb" @mouseout="tipClser">
-		<div class="wk_a_1">
+	<div class="wk_a" >
+		<div class="wk_a_1" @mouseover="tipStar" @mousemove="setZb" @mouseout="tipClser">
 			<div @click="openxq()" class="wk_a_1_1" :style="backBn(el.face_pic)"></div>
 		</div>
 		<div class="wk_a_2">
@@ -64,6 +64,7 @@ export default {
 			this.tipX = e.offsetX;
 		},
 		tipStar(e){
+	
 			clearTimeout(this.showtIPOb);
 			this.showtIPOb = setTimeout(()=>{
 				this.showtIP = 'display: block;top: '+(this.tipY-20)+'px;left: '+this.tipX+'px;';

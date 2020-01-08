@@ -52,7 +52,7 @@ export default {
 	data(){		
 		return{	
 			isPhto:false,
-			caver:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/login/tx.svg',
+			caver:'http://res.shiquaner.zookingsoft.com/d57515e74e879bb4342a373cabe033df.svg',
 			form:{
 				citye:[],
 				sex:'',

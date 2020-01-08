@@ -79,10 +79,18 @@ export default {
 			total:0,
       	};
     },
+	beforeDestroy:function(){
+		document.body.style = "";
+	},
 	mounted: function () {	
-		this.getList();
+		this.init();
+		
 	}, 	
     methods: {
+		init(){
+			document.body.style = "overflow: hidden;";
+			this.getList();
+		},
 		test(){
 			let data = this.$refs.botmm.getBoundingClientRect();
 			if(data.top<800 && !this.getType && !this.noGd){

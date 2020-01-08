@@ -29,7 +29,9 @@
 							<div @click="fxclick" class="btns pend">
 								<img class="is_icon1 isshow" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/share.svg"/>分享
 							</div><div @click="addLikeNe('顶部栏-推荐','work',contDat.work_id,contDat)" :class="['btns pend',contDat.liked?'':'btns_js']">
-								<img class="is_icon2 isshow" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/dz.svg"/>{{(contDat.liked?'已推荐':'推荐')}}
+								<img class="is_icon2 isshow" 
+								
+								:src="imgPath+(contDat.liked?'new/works/dz.svg':'new/works/sc_icon_dz-white.svg')"/>{{(contDat.liked?'已推荐':'推荐')}}
 							</div>
 						</div>
 					</div>
@@ -854,7 +856,7 @@ export default {
 	top: 20px;
 }
 .is_icon1,.is_icon2{
-	display: none;
+	display: inline-block;
 	vertical-align: top;
 }
 .is_icon1{
@@ -868,11 +870,7 @@ export default {
 .p_isTop .isshow{
 	display: inline-block;
 }
-.p_isTop .btns_js{
-	border-color: #bbb;
-	background: #fff;
-	color: #666;
-}
+
 .wk_c_1_1_l_2Tip{
 	position: relative;
 	display: inline-block;   

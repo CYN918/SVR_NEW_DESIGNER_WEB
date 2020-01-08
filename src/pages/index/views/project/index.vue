@@ -142,7 +142,7 @@ export default {
 	line-height:20px;
 }
 .pr_02{
-	padding: 0 0 50px;
+	padding: 0 0 20px;
 	margin: 0 auto;
 	width: 1300px;
 }

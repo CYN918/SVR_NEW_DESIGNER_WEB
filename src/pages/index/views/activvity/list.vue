@@ -76,6 +76,7 @@ export default {
 }
 .activvit .listBox{
 	margin-top: 20px;
+	padding-bottom: 40px;
 }
 .activvit .listBox>li:nth-child(2n+2)>div{
 	margin-right: 0;

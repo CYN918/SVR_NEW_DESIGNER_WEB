@@ -1,11 +1,15 @@
 <template>
 	<div >
-		<div class="tpN_a">
-			<div :class="['tpN_a',isTop]">
+		<div class="tpN_a" ref="workTop">
+			<div :class="['tpN_a',isTop]" >
 				<div class="tpN_a2">
 					<span class="tpN_a3">{{navData.title}}</span>
 					<div class="setHeadBox_3">
-						<a v-for="(el,index) in navData.list" :class="['pend',ison==el.u?'router-link-active':'']" @click="goZP(el.u,el.bdtj)">{{el.n}}</a>								
+						<a 
+						v-for="(el,index) in navData.list" 
+						:class="['pend',$route.fullPath==el.u?'router-link-active':'']" 
+						@click="goZP(el.u,el.bdtj)"
+						>{{el.n}}</a>								
 					</div>
 				</div>
 			</div>
@@ -18,7 +22,6 @@ export default {
 	props:['navData'],
 	data(){
 		return{
-			ison:'',
 			isTop:'',
 		}
 	},
@@ -29,7 +32,8 @@ export default {
 	
 	methods: {	
 		init(){
-			this.ison = this.$route.fullPath;
+		
+			this.isTop = '';
 		},	
 		setTop(e){		
 			let t = document.documentElement.scrollTop||document.body.scrollTop;
@@ -52,7 +56,9 @@ export default {
 			document.addEventListener("scroll",this.setTop);
 		},		
 		goZP(a,b){
-			this.bdtj(b[0],b[1],'--');
+			if(b){
+				this.bdtj(b[0],b[1],'--');
+			}			
 			this.$router.push({path: a})			
 		},	
 	},

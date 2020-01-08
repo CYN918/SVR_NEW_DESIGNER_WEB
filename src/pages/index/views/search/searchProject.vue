@@ -4,7 +4,7 @@
 		
 		<list class="seccPr" :isDjs="'1'" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
-				<cent :djs="djson" :el="todo"></cent>
+				<cent :djs="djson" :conf="pr_con" :el="todo"></cent>
 			</template>			
 		</list>
 	</div>
@@ -33,6 +33,9 @@ export default {
 				
 				
 			},	
+			pr_con:{
+				t_show:'',
+			},
 			bdtjdata:[['搜索页','作品'],['搜索页','创作者']],
 			querys:'',
 			clasd:[],
@@ -46,6 +49,8 @@ export default {
 	},	
 	mounted: function(){
 		this.$refs.mytopcs.setCont(this.data.pr.query);
+		
+		
 		this.getClassify();
 	}, 
 	methods: {

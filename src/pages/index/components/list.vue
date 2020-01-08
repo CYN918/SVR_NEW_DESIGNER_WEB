@@ -1,5 +1,5 @@
 <template>
-	<ul class="listBox" ref="adLoDom">
+	<ul :class="['listBox',total<page.limit?'nopage_':'']" ref="adLoDom">
 		<li v-for="(el,index) in List" :key="index">
 			<slot name="todo" v-bind:todo="el"></slot>			
 		</li>
@@ -159,6 +159,9 @@ export default {
 	margin: 0 auto 120px;
 	text-align: left;
 	width: 1300px;  
+}
+.nopage_{
+	margin-bottom: 0;
 }
 .listBox>li{
 	display: inline-block;

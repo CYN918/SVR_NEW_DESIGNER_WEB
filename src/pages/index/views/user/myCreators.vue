@@ -33,13 +33,7 @@
 		</list>	
 			
 		</div>		
-		<div v-show="isshowd2" class="loginoutBox">
-			<div class="loginoutBox1">
-				<img @click="hindHb2()" class="loginoutBox2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png">
-				<div class="loginoutBox3">确定取消关注【{{openOns.username}}】？</div>
-				<div class="loginoutBox4  "><span @click="hindHb2()">取消</span><span @click="Follow_del()">确定</span></div>
-			</div>
-		</div>
+		<component v-bind:is="tanData.zj" @suFn="followsuFn"  v-model="tanData" ref="unfollow"></component>
 	</div>
 </template>
 
@@ -47,41 +41,21 @@
 import tophead from './myHead2';
 import {Message} from 'element-ui'
 import list from '../../components/list';
+
+import follow_new from '../../components/follow_new';
 export default {
 	name: 'works',
-	components:{tophead,list},
+	components:{tophead,list,follow_new},
 	data(){
 		return {
+			tanData:{},
 			data:{
 				ajax:{
 					url:'followList',					
 				},
 				pr:{}				
-			},
-			isshowd2:false,
-			banners:[],
+			},	
 			List:[],
-			banOn:0,
-			page:1,
-			limit:40,
-			total:0,
-			loading: '',
-			sxOn:0,
-			sxtj:0,
-			sxData:[
-				[
-				{name:'我关注的人',key:1},
-				{name:'我的粉丝',key:1},
-				],
-				[
-					{name:'TA关注的人',key:1},
-					{name:'TA的粉丝',key:1},
-				]
-			],
-		
-			onType:'followList',
-			follwTyle:0,
-			openOns:'',
 		}
 	},
 	created(){
@@ -106,42 +80,18 @@ export default {
 			this.$router.push({path:d,query:{id:id}});
 		},
 		showFpllwodel(on){
+		
 			this.bdtj('我的关注','创作者-取消关注','--');
-			this.isshowd2 = true;
-			this.openOns = on;
-		},
-		Follow_del(){
-			if(!this.openOns){
-				return
-			}
-			
-			if(this.follwTyle==1){
-				return
-			}
-			this.follwTyle=1;
-			let pr = {
-				access_token:window.userInfo.access_token,
-				follow_id:this.openOns.open_id
+			this.tanData = {
+				zj:'follow_new',
+				type:'del',	
+				id:on.open_id,
 			};
-			this.api.Follow_del(pr).then((da)=>{
-				if(da=='error'){
-					this.follwTyle=0;
-					return
-				}
-				this.follwTyle=0;
-				this.hindHb2();
-				Message({message: '取消关注成功'});
-				this.$refs.listDom.sxfn();				
-			}).catch(()=>{
-				this.follwTyle = 0;		
-			});
 		},
-		
-		hindHb2(){
-			this.isshowd2 = false;
-			this.openIdd = '';
+		followsuFn(){
+			this.$refs.listDom.sxfn();	
 		},
-		
+
 		goUser(on,a){
 			if(a){
 				this.bdtj('我的关注','创作者-'+a,'--');
