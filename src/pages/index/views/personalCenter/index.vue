@@ -89,7 +89,7 @@ export default {
 				cent:'确定删除该条评论?',
 			},
 			shareData:{},
-			userBg:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/grzx_bg.svg',
+			userBg:'http://res.shiquaner.zookingsoft.com/9e1e459e95a79b4b681b234f28ae4c3c.svg',
 			previewStyle2:{},
 			previews:{},
 			
