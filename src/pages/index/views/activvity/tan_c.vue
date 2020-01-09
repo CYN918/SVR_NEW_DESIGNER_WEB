@@ -31,12 +31,12 @@
 					</div>
 					<div class="video_box" v-if="item.limittype == 'pic'">
 						<p>{{item.title}}<i>{{item.tigs}}</i></p>
-						<div class="page2_1_2">
+						<div class="page2_1_2" @click="getimgulr(datas[index])">
 							<div v-if="datas[index]" class="hoverBtn">
 								<div :class="'uploadImage'+index" @click="handleUploadImage(index)">重新上传</div>	
 								<div class="deleteBtn" @click="deleteImage(index)">删除</div>
 							</div>
-							<div :class="'uploadImage'+index" v-else><div>+</div>上传图片</div>
+							<div :class="'uploadImage'+index" v-else @click="uploadCk(index)"><div>+</div>上传图片</div>
 							<input @change="fileUpfj($event,index,item)" type="file" :id="'page'+index" ref="upnfile2">
 							<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">							
 						</div>
@@ -49,7 +49,7 @@
 								<div :class="'uploadVideo'+index" @click="handleUploadVideo(index)">重新上传</div>
 								<div class="deleteBtn" @click="deleteVideo(index)">删除</div>
 							</div>
-							<div :class="'uploadVideo'+index" v-else><div>+</div>上传视频</div>
+							<div :class="'uploadVideo'+index" v-else @click="uploadCk(index)"><div>+</div>上传视频</div>
 							<input @change="fileUpfj($event,index,item)" :id="'page'+index" ref="upnfile2" type="file">	
 							<!-- <video v-if="datas[index]" :src="datas[index]" class="uploadImg">您的浏览器不支持 video 标签。</video> -->
 							
@@ -67,7 +67,7 @@
 						<div class="fileDiv" style="width: 100%;height: 32px;">
 							<div class="uploadFile">
 								<div v-if="flieList[index]">重新上传</div>
-								<div v-else>上传文件</div>
+								<div v-else @click="uploadCk(index)">上传文件</div>
 								<input @change="fileUpfj($event,index,item)" type="file" ref="filElem" :id="'page'+index">				
 							</div>
 							<div v-if="flieList[index]" class="fileShow">
@@ -130,10 +130,16 @@
 		<span @click="clFn(el.fn)" :class="['pend',el.cls]" v-for="el in btns">{{el.n}}</span>			
 	</div>
 		</div>
+<<<<<<< HEAD
 		
 		
 		
 		<!-- <uploadFile :cg="fileConfig"></uploadFile> -->
+=======
+		<div class="maskimg screenContent" v-show="isimgurl" v-if="imgurl"  @click="getimgulr">
+			<img :src="imgurl" alt="暂无图片" style="height: 100%;">
+		</div>
+>>>>>>> eaf67c9feded7bfb04291251737327388eb35680
 	</div>
 </template>
 
@@ -189,6 +195,8 @@ export default {
 			isLc:'',
 			progressImage: 0,
 			progressVideo: 0,
+			isimgurl: false,
+			imgurl:"",
 		}
 		
 	},
@@ -197,6 +205,13 @@ export default {
 		this.showZp()
 	}, 
 	methods:{
+		getimgulr(url){
+			this.imgurl = url;
+			this.isimgurl = !this.isimgurl
+		},
+		uploadCk(index){
+			document.getElementById("page"+index).click();
+		},
 		close(){
 			this.$emit('input',{});
 		},
@@ -208,6 +223,7 @@ export default {
 			this.datas.splice(index,1);
 			document.getElementById("page"+index).value = '';
 			this.progressImage = 0;
+			this.isimgurl = false;
 		},
 		//视频删除
 		deleteVideo(index){
@@ -789,12 +805,19 @@ export default {
 .video-img:hover{
 	opacity: 1;
 }
-.page2_1_2:hover{
-	opacity: 1;
-}
 .page2_1_2:hover .hoverBtn{
 	z-index: 222;
 	opacity: 1;
+}
+.page2_1_2>input:hover{
+	display: none;
+}
+.page2_1_2:hover{
+	opacity: 1;
+}
+.page2_1_2:hover>img{
+	opacity: 1;
+	z-index: 22;
 }
 .hoverBtn{
 	width: 100%;
@@ -881,6 +904,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+	display: none;
 }
 .uploadFile{
     position: relative;
@@ -1306,6 +1330,16 @@ export default {
     border-top: 1px solid #BBBBBB;
     margin: 0 12px;
     margin-top: -5px;
+}
+.maskimg{
+	position: fixed;
+	top:50%;
+	left:50%;
+	transform:translateX(-50%) translateY(-50%);
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+	z-index: 2005;
 }
 </style>
 
