@@ -1,11 +1,11 @@
 <template>
-	<tanC :title="'报名项目'">
+	<tanC :title="'项目分享'">
 		<template v-slot:todo="{ todo }">
 			<div class="xm_shar_01">
-				<div class="xm_shar_01_1">
+				<!-- <div class="xm_shar_01_1">
 					<div class="xm_shar_01_2" id="qrcode"></div>
 					分享到微信
-				</div>
+				</div> -->
 				<div class="xm_shar_01_3">
 					
 					<a @click="tzld(fxUrl1,'新浪')">
@@ -32,9 +32,10 @@
 </template>
 <script>
 import tanC from '../../components/tanC';
-import QRCode from 'qrcodejs2'
+// import QRCode from 'qrcodejs2'
 export default {
-	components:{tanC,QRCode},
+	// components:{tanC,QRCode},
+	components:{tanC},
 	props:{
 		datad:Object
 	},
@@ -74,7 +75,7 @@ export default {
 				desc:'惊现大神快来膜拜',
 				summary:this.datad.name+'-狮圈儿创作者平台',
 			}
-			this.qrcode(ulrd);
+			// this.qrcode(ulrd);
 			this.config.value = ulrd;
 			this.fxUrl1 = 'http://service.weibo.com/share/share.php?appKey=3473072390&title='+da.title+'&url='+ulrd+'&pic='+da.pics+'#_loginLayer_'+(new Date()).valueOf();
 			this.fxUrl2 ='https://connect.qq.com/widget/shareqq/index.html?url='+ulrd+'&title='+da.title+'&pics='+da.pics+'&desc=&summary='+da.summary+'&site=wo';			

@@ -130,13 +130,19 @@
 		<span @click="clFn(el.fn)" :class="['pend',el.cls]" v-for="el in btns">{{el.n}}</span>			
 	</div>
 		</div>
+		
+		
+		
+		<!-- <uploadFile :cg="fileConfig"></uploadFile> -->
 	</div>
 </template>
 
 <script>
 import {Message} from 'element-ui';
 import { log } from 'util';
-export default {	
+import uploadFile from '../../components/uploadFile'
+export default {
+	components:{uploadFile},
 	props:{
 		value:Object
 	},
@@ -341,6 +347,10 @@ export default {
 			
 		},
 		fileUpfj(flie,index,item){
+
+			if(flie.target.files.length==0){
+				return
+			}
 			this.bdtj('上传弹窗','确定','--');
 			if(this.opType==1){
 				Message({message: '正在上传，请稍后'});
@@ -354,6 +364,7 @@ export default {
 				times
 			];
 			let fld = flie.target.files[0];
+			
 			for(var i=0;i<this.list.length;i++){		
 				if(item == this.list[i]){
 					if(fld != undefined){
