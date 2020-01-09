@@ -64,7 +64,7 @@ export default {
 			previewStyle2:{},
 			previews:{},
 			option:{
-				img:'/imge/svg/login/tx.svg',
+				img:'http://res.shiquaner.zookingsoft.com/d57515e74e879bb4342a373cabe033df.svg',
 				outputSize:1,
 				outputType:'png',
 				autoCrop:true,

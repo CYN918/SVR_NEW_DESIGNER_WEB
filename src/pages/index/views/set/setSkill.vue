@@ -128,13 +128,13 @@ export default {
 			this.plac1 = '请输入最多4个文字回车结束';
 		},
 		ninfous1(){
-			this.plac1 = '极简';
+			this.plac1 = '标签';
 		},
 		infous2(){
 			this.plac2 = '请输入最多4个文字回车结束';
 		},
 		ninfous2(){
-			this.plac2 = '快销';
+			this.plac2 = '标签';
 		},
 		keydown1(){
 
