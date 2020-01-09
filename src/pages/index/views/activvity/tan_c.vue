@@ -23,46 +23,35 @@
 		<div class="demo-ruleForm" style="width: 700px;">
 			<div v-for="(item,index) in list">		
 				<div class="Information InformationUpload">	
-					<div style="float: left;width: 100%;height: 95px;" v-if="item.limittype == 'text'">
+					<div v-if="item.limittype == 'text'" style="float: left;width: 100%;height: 95px;" >
 						<p>{{item.title}}</p>
 						<div>		
 							<el-input type="text" v-model="datas[index]" :placeholder=item.tigs :maxlength=item.limitnum @input="checkValue(item,index)" @focus="checkFocus(item,index)"></el-input>
 						</div>								
 					</div>
-					<div class="video_box" v-if="item.limittype == 'pic'">
+				
+					<div v-if="['video','pic'].indexOf(item.limittype)!=-1" class="video_box" >
 						<p>{{item.title}}<i>{{item.tigs}}</i></p>
-						<div class="page2_1_2" @click="getimgulr(datas[index])">
-							<div v-if="datas[index]" class="hoverBtn">
-								<div :class="'uploadImage'+index" @click="handleUploadImage(index)">重新上传</div>	
-								<div class="deleteBtn" @click="deleteImage(index)">删除</div>
+						<div class="page2_box">
+							<div v-if="!item.upData" class="page2_1_2">
+								<div @click="newUp(index)">
+									<div>+</div>
+									{{inpF[item.limittype].n}}
+								</div>
 							</div>
-							<div :class="'uploadImage'+index" v-else @click="uploadCk(index)"><div>+</div>上传图片</div>
-							<input @change="fileUpfj($event,index,item)" type="file" :id="'page'+index" ref="upnfile2">
-							<img v-if="datas[index]" :src="datas[index]" alt="" class="uploadImg">							
-						</div>
-						<el-progress type="circle" :percentage="progressImage" :id="'isShowimage'+index"></el-progress>	
-					</div>
-					<div class="video_box" v-if="item.limittype == 'video'">
-						<p>{{item.title}}<i>{{item.tigs}}</i></p>
-						<div class="page2_1_2">
-							<div v-if="datas[index]" class="hoverBtn">
-								<div :class="'uploadVideo'+index" @click="handleUploadVideo(index)">重新上传</div>
-								<div class="deleteBtn" @click="deleteVideo(index)">删除</div>
-							</div>
-							<div :class="'uploadVideo'+index" v-else @click="uploadCk(index)"><div>+</div>上传视频</div>
-							<input @change="fileUpfj($event,index,item)" :id="'page'+index" ref="upnfile2" type="file">	
-							<!-- <video v-if="datas[index]" :src="datas[index]" class="uploadImg">您的浏览器不支持 video 标签。</video> -->
 							
-							<div class="video-box" v-if="datas[index]">
-								<video :id="'video'+index" style="width:100%;height:146px" :src="datas[index]">
-									Your browser does not support the video tag.
-								</video>
-								<div class="video-img" @click="videoPlay(index)"><img :id="'videoBtn'+index" src="/imge/videoPlay.png"></div>
-							</div>	
+							<div v-else  class="uploadImg uploadImg2" :style="'background-image:url('+item.upData.cover_img+')'">
+								<el-progress v-if="!item.upData.cover_img" type="circle" :percentage="item.upData.bfb"></el-progress>
+								<div v-else class="hoverBtn">
+									<div @click="newUp(index)">重新上传</div>
+									<div class="deleteBtn" @click="deletex(index)">删除</div>
+									<img @click="bfsp(item.upData.file)" class="bfbtn" src="/imge/videoPlay.png">
+								</div>
+							</div>
+							
 						</div>
-						<el-progress type="circle" :percentage="progressVideo" :id="'isShowvideo'+index"></el-progress>	
 					</div>
-					<div style="float: left;width: 100%;height: 101px;" v-if="item.limittype == 'file'">
+					<div v-if="item.limittype == 'file'" style="float: left;width: 100%;height: 101px;" >
 						<p>{{item.title}}<i>{{item.tigs}}</i></p>
 						<div class="fileDiv" style="width: 100%;height: 32px;">
 							<div class="uploadFile">
@@ -130,16 +119,18 @@
 		<span @click="clFn(el.fn)" :class="['pend',el.cls]" v-for="el in btns">{{el.n}}</span>			
 	</div>
 		</div>
-<<<<<<< HEAD
-		
-		
+
 		
 		<!-- <uploadFile :cg="fileConfig"></uploadFile> -->
-=======
+
 		<div class="maskimg screenContent" v-show="isimgurl" v-if="imgurl"  @click="getimgulr">
 			<img :src="imgurl" alt="暂无图片" style="height: 100%;">
 		</div>
->>>>>>> eaf67c9feded7bfb04291251737327388eb35680
+		
+		<input style="position: absolute;bottom: 0;left: 0;width: 0;height: 0;" @change="fileUpfj($event,onfile)" type="file" ref="filElemd">
+		
+		
+		<component v-bind:is="tanData.zj" v-model="tanData"></component>
 	</div>
 </template>
 
@@ -147,13 +138,21 @@
 import {Message} from 'element-ui';
 import { log } from 'util';
 import uploadFile from '../../components/uploadFile'
+import bfvideo from '../../components/bfVideo'
 export default {
-	components:{uploadFile},
+	components:{uploadFile,bfvideo},
 	props:{
 		value:Object
 	},
 	data(){	
 		return{
+			inpF:{
+				video:{n:'上传视频',},
+				pic:{n:'上传图片',},
+				file:{n:'上传文件',}
+			},
+			onfile:'',
+			tanData:{},
 			btns:[],
 			datas:[],
 			flieList: [],
@@ -205,6 +204,19 @@ export default {
 		this.showZp()
 	}, 
 	methods:{
+		deletex(on){
+			this.$delete(this.list[on], "upData")
+		},
+		bfsp(on){
+			this.tanData = {
+				zj:'bfvideo',
+				src:on
+			}
+		},
+		newUp(on){
+			this.onfile = on;
+			this.$refs.filElemd.click();
+		},
 		getimgulr(url){
 			this.imgurl = url;
 			this.isimgurl = !this.isimgurl
@@ -362,16 +374,48 @@ export default {
 			this.Isnextshow = false;
 			
 		},
-		fileUpfj(flie,index,item){
-
+		clerIn(){
+			this.$refs.filElemd.value = '';
+		},
+		fileUpfj(flie,index){
+			let on = index;
 			if(flie.target.files.length==0){
+				this.clerIn();
 				return
 			}
 			this.bdtj('上传弹窗','确定','--');
 			if(this.opType==1){
+				this.clerIn();
 				Message({message: '正在上传，请稍后'});
 				return
 			}
+			
+			let fld = flie.target.files[0];
+			
+			
+			var filename = fld.name;
+			var location = filename.lastIndexOf(".");
+			var suffix = filename.substr(location+1);
+			let typs = this.list[on].limittypevalue.split('/');
+		
+			
+			if(this.list[on].limittypevalue && typs.indexOf(suffix)==-1){
+				this.clerIn();
+				Message({message: '上传格式有误，请按照要求重新上传'});
+				return 
+			}
+			
+			if(fld.size/1024 > this.list[on].limitnum){
+				this.clerIn();
+				Message({message: '太大了~~！，请按照要求重新上传'});
+				return
+			}
+			
+			this.$set(this.list[on],'upData',{
+				bfb:0,
+				file:'',
+				cover_img:''
+			});
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
 				1001,
@@ -379,162 +423,53 @@ export default {
 				window.userInfo.open_id,
 				times
 			];
-			let fld = flie.target.files[0];
+			let formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',window.userInfo.open_id)
+			formData.append('file',fld)
+			formData.append('relation_type','user_info')
+			formData.append('related_id',window.userInfo.open_id)
+			formData.append('classify_1','avatar')
+			formData.append('timestamp',times)
+			// formData.append('is_callback',1)			
+			this.opType=1;
+
 			
-			for(var i=0;i<this.list.length;i++){		
-				if(item == this.list[i]){
-					if(fld != undefined){
-						var filename = fld.name;
-						var location = filename.lastIndexOf(".");
-						var suffix = filename.substr(location+1);
-						if(this.list[i].limittype == 'pic'){
-							if(this.list[i].limittypevalue != suffix&&this.list[i].limittypevalue.split('/').indexOf(suffix) == -1){
-								Message({message: '上传格式有误，请按照要求重新上传'});
-								return
-							}else if(fld.size/1024 > this.list[i].limitnum){
-								Message({message: '图片过大，请按照要求重新上传'});
-								return
-							}else{
-								let formData = new FormData();
-								formData.append('app_id',1001);
-								formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-								formData.append('user',window.userInfo.open_id)
-								formData.append('file',fld)
-								formData.append('relation_type','user_info')
-								formData.append('related_id',window.userInfo.open_id)
-								formData.append('classify_1','avatar')
-								formData.append('timestamp',times)
-								formData.append('is_callback',1)			
-								this.opType=1;
-								document.getElementById("isShowimage"+index).style.display = "block";
-								document.getElementsByClassName("uploadImage"+index)[0].style.display = "none";
-								Message({message: '图片正在上传，请稍后'});
-								this.$ajax.post(window.basrul+'/File/File/insert', formData,{
-									headers: {
-										'Content-Type': 'multipart/form-data',
-									},
-									onUploadProgress: progressEvent => {
-										this.progressImage = (progressEvent.loaded / progressEvent.total * 100 | 0);
-									}
-								})
-								.then((da)=>{	
-									this.opType=0;
-									let ds = da.data;
-									if(ds.result==0){
-										document.getElementById("isShowimage"+index).style.display = "none";
-										document.getElementsByClassName("uploadImage"+index)[0].style.display = "block";
-										this.progressImage
-										this.datas[index] = ds.data.url;
-										this.datas.splice(index,1,ds.data.url);						
-									}else{
-										// msg(ds.data);
-										Message({message: ds.data});
-									}
-								})
-								.catch(function () {
-									this.opType=0;		
-								});
-							}	
-						}else if(this.list[i].limittype == 'video'){
-							// if(this.list[i].limittype != suffix){
-							// 	Message({message: '视频格式不对'});
-							// }
-							if(fld.size/1024/1024 > this.list[i].limitnum){
-								Message({message: '视频过大，请按照要求重新上传'});
-								return
-							}else{
-								let formData = new FormData();
-								formData.append('app_id',1001);
-								formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-								formData.append('user',window.userInfo.open_id)
-								formData.append('file',fld)
-								formData.append('relation_type','user_info')
-								formData.append('related_id',window.userInfo.open_id)
-								formData.append('classify_1','avatar')
-								formData.append('timestamp',times)
-								formData.append('is_callback',1)
-								this.opType=1;
-								document.getElementById("isShowvideo"+index).style.display = "block";
-								document.getElementsByClassName("uploadVideo"+index)[0].style.display = "none";
-								Message({message: '视频正在上传，请稍后'});
-								this.$ajax.post(window.basrul+'/File/File/insert', formData,{
-									headers: {
-										'Content-Type': 'multipart/form-data',
-									},
-									onUploadProgress: progressEvent => {
-										this.progressVideo = (progressEvent.loaded / progressEvent.total * 100 | 0);
-									}
-								})
-								.then((da)=>{	
-									this.opType=0;
-									let ds = da.data;
-									if(ds.result==0){
-										document.getElementById("isShowvideo"+index).style.display = "none";
-										document.getElementsByClassName("uploadVideo"+index)[0].style.display = "block";
-										this.progressVideo = 0;
-										this.datas[index] = ds.data.url;
-										this.datas.splice(index,1,ds.data.url);						
-									}else{
-										// msg(ds.data);
-										Message({message: ds.data});
-									}
-								})
-								.catch(function () {
-									this.opType=0;
-									
-								});
-							}
-						}else if(this.list[i].limittype == 'file'){
-							if(fld.size/1024/1024 > this.list[i].limitnum){
-								Message({message: '文件过大，请按照要求重新上传'});
-								return
-							}else{
-								let formData = new FormData();
-								formData.append('app_id',1001);
-								formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
-								formData.append('user',window.userInfo.open_id)
-								formData.append('file',fld)
-								formData.append('relation_type','user_info')
-								formData.append('related_id',window.userInfo.open_id)
-								formData.append('classify_1','avatar')
-								formData.append('timestamp',times)
-								formData.append('is_callback',1)
-								this.opType=1;
-								document.getElementById("isShowfile"+index).style.display = "block";
-								Message({message: '文件正在上传，请稍后'});
-								this.$ajax.post(window.basrul+'/File/File/insert', formData,{
-									headers: {
-										'Content-Type': 'multipart/form-data',
-									},
-									onUploadProgress: progressEvent => {
-										this.progress = (progressEvent.loaded / progressEvent.total * 100 | 0);			
-									}
-								})
-								.then((da)=>{	
-									this.opType=0;
-									let ds = da.data;
-									if(ds.result==0){
-										document.getElementById("isShowfile"+index).style.display = "none";
-										this.progress = 0;
-										this.datas[index] = ds.data.url;
-										this.datas.splice(index,1,ds.data.url);	
-										this.flieList[index] = ds.data.file_name;
-										this.flieList.splice(index,1,ds.data.file_name);					
-									}else{
-										// msg(ds.data);
-										Message({message: ds.data});
-									}
-								})
-								.catch(function () {
-									this.opType=0;
-									
-								});
-							}
-						}
-					}		
-							
-				}				
-			}	
+			this.$ajax.post(window.basrul+'/File/File/insert', formData,{
+					headers: {
+						'Content-Type': 'multipart/form-data',
+					},
+					onUploadProgress: progressEvent => {
+						this.list[on].upData.bfb = (progressEvent.loaded / progressEvent.total * 100 | 0);
+						
+					}
+				})
+				.then((da)=>{	
+					this.clerIn();
+					this.opType=0;
+					let ds = da.data;
+					if(ds.result==0){
+						this.datas[index] = ds.data.url;
+						this.datas.splice(index,1,ds.data.url);	
+						this.list[on].upData.file = ds.data.url;
+						this.list[on].upData.cover_img = ds.data.cover_img?ds.data.cover_img:ds.data.url;				
+						if(this.list[index].limittype == 'file'){
+							this.flieList[index] = ds.data.file_name;
+							this.flieList.splice(index,1,ds.data.file_name);
+						}									
+					}else{
+						
+						Message({message: ds.data});
+					}
+				})
+				.catch(function () {
+					this.clerIn();
+					this.opType=0;		
+				});
+				
+			
+			
 		},
 		
 		test(){
@@ -784,11 +719,16 @@ export default {
     height: 100%;
 	z-index: 666;
 }
+.uploadImg2{
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
 .fileDiv{
 	position: relative;
 }
 .fileDiv >>> .el-progress{
-	display: none;
+	
 	width: 370px;
 	position: absolute;
     left: 145px;
@@ -805,25 +745,19 @@ export default {
 .video-img:hover{
 	opacity: 1;
 }
-.page2_1_2:hover .hoverBtn{
-	z-index: 222;
+.uploadImg:hover .hoverBtn{
+	
 	opacity: 1;
 }
-.page2_1_2>input:hover{
-	display: none;
-}
-.page2_1_2:hover{
-	opacity: 1;
-}
-.page2_1_2:hover>img{
-	opacity: 1;
-	z-index: 22;
-}
+
 .hoverBtn{
+	position: absolute;
+	bottom: 0;
+	left: 0;
 	width: 100%;
 	height: 40px;
 	line-height: 40px;
-	bottom: 0;
+
 	background: rgba(0,0,0,0.5) !important;
 	border-radius: 0px !important;	
 	opacity: 0;
@@ -837,6 +771,7 @@ export default {
 	display: block;
 }
 .deleteBtn{
+	cursor: pointer;
 	width: 80px !important;
 	height: 31px !important;
 	line-height: 31px !important;
@@ -852,6 +787,7 @@ export default {
 	-webkit-font-smoothing: antialiased;	
 }
 .hoverBtn > div:nth-child(1){
+	cursor: pointer;
 	width: 80px !important;
 	height: 31px !important;
 	line-height: 31px !important;
@@ -866,7 +802,7 @@ export default {
 	font-size: 12px !important;
 	-webkit-font-smoothing: antialiased;
 }
-.page2_1_2>div>div {
+.page2_1_2>div>div{
     width: 22.9px;
     height: 22.9px;
     border-radius: 50%;
@@ -885,10 +821,10 @@ export default {
 }
 .video_box >>> .el-progress{
 	position: absolute;
-    left: 100px;
-    top: 75px;
-	z-index: 666666666;
-	display: none;
+    left: 50%;
+    top: 50%;
+	transform: translate(-50%,-50%);
+	
 }
 .video_box >>> .el-progress-circle{
 	height: 48px !important;
@@ -1340,6 +1276,24 @@ export default {
 	height: 100%;
 	background: rgba(0,0,0,0.5);
 	z-index: 2005;
+}
+.page2_box{
+	position: relative;
+    background: #E6E6E6;
+    border-radius: 5px;
+    float: left;
+    margin: 5px 5px 5px 0px;
+    overflow: hidden;
+    width: 260px;
+    height: 146px;
+
+}
+.bfbtn{
+    position: absolute;
+    cursor: pointer;
+    top: -63px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>
 

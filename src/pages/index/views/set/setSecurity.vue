@@ -76,7 +76,6 @@
 
 				</div>
 				<div v-if="tAncType==3" class="tc_sucd_1">
-					<img class="tc_sucd_1X" @click="closeTc1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png"/>
 					<img class="tAncType4_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/email01.png" alt="">
 					<div class="tAncType4_2">
 						激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/>
