@@ -21,7 +21,7 @@ export default {
 	}, 
 	methods: {
 		init(){
-
+			console.log('执行了');
 			if(!this.$route.query.ret){
 				this.$router.push({path: '/index'})
 				return
