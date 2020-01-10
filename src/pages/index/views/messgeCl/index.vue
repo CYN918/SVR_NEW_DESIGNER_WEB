@@ -17,7 +17,7 @@ export default {
 		}
 	},
 	mounted: function () {			
-		this.init();
+		// this.init();
 	}, 
 	methods: {
 		init(){
@@ -79,6 +79,11 @@ export default {
 			
 		},
 	},
+	watch: {
+		'$route': function() {
+			this.init();
+		},
+	}
 }
 </script>
 
