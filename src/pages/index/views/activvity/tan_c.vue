@@ -45,7 +45,7 @@
 								<div v-else class="hoverBtn">
 									<div @click="newUp(index)">重新上传</div>
 									<div class="deleteBtn" @click="deletex(index)">删除</div>
-									<img @click="bfsp(item.upData.file)" class="bfbtn" src="/imge/videoPlay.png">
+									<img @click="bfsp(item.upData.file,item.limittype)" class="bfbtn" src="/imge/videoPlay.png">
 								</div>
 							</div>
 							
@@ -207,18 +207,23 @@ export default {
 		deletex(on){
 			this.$delete(this.list[on], "upData")
 		},
-		bfsp(on){
-			this.tanData = {
-				zj:'bfvideo',
-				src:on
+		bfsp(on,type){
+			if(type == 'pic'){
+				this.imgurl = on;
+			    this.isimgurl = !this.isimgurl
+			}
+			if(type == 'video'){
+				this.tanData = {
+					zj:'bfvideo',
+					src:on
+				}
 			}
 		},
 		newUp(on){
 			this.onfile = on;
 			this.$refs.filElemd.click();
 		},
-		getimgulr(url){
-			this.imgurl = url;
+		getimgulr(){
 			this.isimgurl = !this.isimgurl
 		},
 		uploadCk(index){
@@ -405,7 +410,7 @@ export default {
 				return 
 			}
 			
-			if(fld.size/1024 > this.list[on].limitnum){
+			if(fld.size/1024/1024 > this.list[on].limitnum){
 				this.clerIn();
 				Message({message: '太大了~~！，请按照要求重新上传'});
 				return
@@ -715,13 +720,13 @@ export default {
 	position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    min-width: 260px;
+    min-height: 146px;
 	z-index: 666;
 }
 .uploadImg2{
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: top;
 	background-size: cover;
 }
 .fileDiv{
@@ -1284,8 +1289,8 @@ export default {
     float: left;
     margin: 5px 5px 5px 0px;
     overflow: hidden;
-    width: 260px;
-    height: 146px;
+    min-width: 260px;
+    min-height: 146px;
 
 }
 .bfbtn{
