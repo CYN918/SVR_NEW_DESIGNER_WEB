@@ -11,8 +11,7 @@ html,body,div,img,p,ul,li{
 }
 html,body{
 	position: relative;
-	margin: 0 auto;
-	
+	margin: 0 auto;	
 	min-width: 1300px;
 	height:100%;
 }
@@ -31,32 +30,16 @@ textarea::-webkit-input-placeholder{color:#c0c4cc;}
 textarea::-moz-placeholder{color:#c0c4cc;}
 textarea:-moz-placeholder{color:#c0c4cc;}
 textarea:-ms-input-placeholder{color:#c0c4cc;}
-input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
-    border: 1px solid #CCC!important;
-}
 
-input:-webkit-autofill , textarea:-webkit-autofill, select:-webkit-autofill {
+input:-webkit-autofill,
+textarea:-webkit-autofill, 
+select:-webkit-autofill{
 	-webkit-text-fill-color: #606266 !important;
 	-webkit-box-shadow: 0 0 0px 1000px transparent  inset !important;
     background-color:transparent;
     background-image: none;
-     transition: background-color 50000s ease-in-out 0s;
-}
-input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
+	transition: background-color 50000s ease-in-out 0s;
 	border: none !important;
-}
-input {
-	background-color:transparent;
-}
-textarea:focus{
-	border-color:#979797;
-}
-.el-textarea__inner:focus{
-	border-color:#DCDFE6;
-}
-.el-checkbox__inner:focus{
-	border-color:#DCDFE6 !important;
 }
 input,textarea{
 	outline: none;
@@ -64,10 +47,25 @@ input,textarea{
 textarea{
 	resize: none;
 }
+
+input {
+	background-color:transparent;
+}
+textarea:focus{
+	border-color:#979797;
+}
 img{
 	outline-width: 0px;
 	vertical-align: top;
 }
+.el-textarea__inner:focus{
+	border-color:#DCDFE6;
+}
+.el-checkbox__inner:focus{
+	border-color:#DCDFE6 !important;
+}
+
+
 @font-face {
 	font-family: 'iconfont';
 	src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.eot');

@@ -26,7 +26,13 @@ Vue.filter('followType', (val)=>{
 	return '关注';
 })
 
-
+// function getWindowSize(){	
+// 	document.body.style.zoom = window.screen.width/1920;
+// }
+// getWindowSize();
+// window.onresize = function(){
+// 	getWindowSize();
+// }
 
 Vue.prototype.isLogin=function(){
 	if(!window.userInfo){

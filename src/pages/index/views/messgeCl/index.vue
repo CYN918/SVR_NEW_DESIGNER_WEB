@@ -27,7 +27,7 @@ export default {
 				return
 			}
 			let data = JSON.parse(this.$route.query.ret);
-			
+			console.log(data);
 			
 			if(data.operate=='bind' && data.type == 'email'){
 				
