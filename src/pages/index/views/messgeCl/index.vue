@@ -21,13 +21,13 @@ export default {
 	}, 
 	methods: {
 		init(){
-
+		
 			if(!this.$route.query.ret){
 				this.$router.push({path: '/index'})
 				return
 			}
 			let data = JSON.parse(this.$route.query.ret);
-			
+		
 			
 			if(data.operate=='bind' && data.type == 'email'){
 				
@@ -79,6 +79,7 @@ export default {
 			
 		},
 	},
+
 }
 </script>
 
