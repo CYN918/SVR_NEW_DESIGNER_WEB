@@ -17,17 +17,17 @@ export default {
 		}
 	},
 	mounted: function () {			
-		// this.init();
+		this.init();
 	}, 
 	methods: {
 		init(){
-			console.log('执行了');
+		
 			if(!this.$route.query.ret){
 				this.$router.push({path: '/index'})
 				return
 			}
 			let data = JSON.parse(this.$route.query.ret);
-			console.log(data);
+		
 			
 			if(data.operate=='bind' && data.type == 'email'){
 				
@@ -79,11 +79,7 @@ export default {
 			
 		},
 	},
-	watch: {
-		'$route': function() {
-			this.init();
-		},
-	}
+
 }
 </script>
 
