@@ -15,15 +15,15 @@
 		
 		<div class="tols_05_2">
 			
-			<div class="setv02" :style="'width:'+cLW(eT)+'%;'">
+			<!-- <div class="setv02" :style="'width:'+cLW(eT)+'%;'">
 				
-			</div>
-			<div class="setv03" :style="'width:'+cLW(sT)+'%;'">
+			</div> -->
+			<!-- <div class="setv03" :style="'width:'+cLW(sT)+'%;'">
 				
-			</div>
+			</div> -->
 			
 			
-			<div class="setv01" :style="'right:'+cLW(eT)+'%;left:'+cLW(sT)+'%;'">
+			<div class="setv01" :style="'right:'+eT+'px;left:'+sT+'px;'">
 				
 				<div class="setv01_2">
 					<span>00:00</span>
@@ -45,9 +45,9 @@
 				
 				
 				
-				<div class="timef time_1">{{ bT(sT)}}</div>
-				<div class="timef time_2">{{bT(cT)}}</div>
-				<div class="timef time_3">{{bT(eT)}}</div>
+				<div class="timef time_1">{{bfb2}}</div>
+				
+				<div class="timef time_3">{{bfb}}</div>
 				
 			</div>
 			
@@ -78,14 +78,25 @@ export default{
 			sT:0,
 			cT:0,
 			eT:0,
-			
+			sTime:0,
+			enTime:0,
+			boxO:{},
+			bfb:100,
+			bfb2:0,
 		}
 	},
 	methods:{
-		
+		init(){
+			
+			this.boxO = this.$refs.boxW.getBoundingClientRect();
+			
+			
+		},
+
 		cLW(t){
-			if(!t){return}
-			return (t/this.time).toFixed(2);
+			return
+			// if(!t){return}
+			// return (t/this.time).toFixed(2);
 		},
 		bT(t){
 			
@@ -104,40 +115,53 @@ export default{
 			return st1+':'+st2;
 		},
 		dragS(e){
-		
+			this.init();
+			
 			this.star = e.pageX;
 			this.mov = this.eT;
-		
-			this.$refs.yzbtn.onmousemove = (e)=>{
-				console.log(e.pageX)
-				// let on = this.mov-(e.pageX-this.star);
-				// this.eT = ((on/this.maxW)*this.time).toFixed(2);
+			
+			document.onmousemove = (e)=>{
+				
+				this.eT =  this.mov-(e.pageX-this.star);
+				let max = this.boxO.left+this.boxO.width;
+				
+				if(this.eT<0){
+					this.eT = 0;
+				}
+				if(this.eT>max){
+					this.eT = max;
+				}
+				this.bfb = ((max - this.eT)/max)*this.time;				
 			}
 			
-			this.$refs.yzbtn.onmouseup =  ()=>{
-			    this.$refs.yzbtn.onmousemove = this.$refs.yzbtn.onmouseup = null;
+			document.onmouseup =  ()=>{
+			    document.onmousemove = document.onmouseup = null;
 			}
 		},
 		dragS2(e){
 			this.star = e.pageX;
-			this.mov = this.lzb;
-					
-			this.$refs.zbtn.onmousemove = (e)=>{
+			this.mov = this.sT;
+			this.init();	
+			document.onmousemove = (e)=>{
 				let on = this.mov + (e.pageX-this.star);
+				let max = this.boxO.left+this.boxO.width;
+				console.log(this.boxO.width)
 				if(on<0){
-					on=0;
+					on = 0;
 				}
-				if(on>this.maxW-1){
-					on=this.maxW-1;
+				if(on>this.boxO.width){
+					
+					on = this.boxO.width;
 				}
+				this.sT = on;
 			
-				this.lzb = on;
+				this.bfb2 = (on/this.boxO.width)*this.time;
 			}
 			 
-			this.$refs.zbtn.onmouseup =  ()=>{
-				this.$refs.zbtn.onmousemove = this.$refs.zbtn.onmouseup = null;
+			document.onmouseup =  ()=>{
+				document.onmousemove = document.onmouseup = null;
 			}
-				
+			
 			// this.wid1 = x;
 			// this.wid2= this.wid2-x;
 			// if(x>1000){x = 1000;}
@@ -157,18 +181,25 @@ export default{
 			// this.$emit('input',on);	
 		},
 		setUrl(on){
+			this.init();
 			this.$refs.yspic2.src = on;	
+			
+			
+			
 		},
 		canplay(){			
 			this.time = this.$refs.yspic2.duration;
+			
+			this.bfb = this.time;
 			if(this.isload){
 				return
 			}
 			this.isload = 1;
+		
 			this.getImg();		
 		},
 		getImg(strT){
-			var scale = 0.3;
+			return
 			var canvas = document.createElement("canvas");
 			canvas.width = 64;
 			canvas.height = 114;
@@ -194,26 +225,27 @@ export default{
 					},100)					
 				}else{
 					this.imgs = arr;
-					this.isload = '';
+				
 					setTimeout(()=>{
 						this.setT();
 					},50)
 				}				
 			}
+			
 			setTimeout(()=>{
 				cr();
 			},200)		
 				 
 		},
 		setT(){
-			this.sT = 0;			
-			if(this.time>30){
-				this.eT = 30;
-			}
-			if(this.time<30){
-				this.eT = this.time;
-			}						
-			this.cT = Math.ceil(this.eT/2);		
+			// this.sT = 0;			
+			// if(this.time>30){
+			// 	this.eT = 30;
+			// }
+			// if(this.time<30){
+			// 	this.eT = this.time;
+			// }						
+			// this.cT = Math.ceil(this.eT/2);		
 		},
 	}
 }
@@ -229,9 +261,12 @@ export default{
 	border-radius: 5px;
 }
 .tols_05_0{
-	max-width: 100%;
+	width: 100%;
+	height: 114px;
+	background: #006699;
 	overflow: hidden;
-	display: inline-block;
+	/* display: inline-block;
+	 */
 }
 .tols_05_1{
 	position: relative;

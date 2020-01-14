@@ -25,7 +25,10 @@
 			
 			
 			<div class="tols_02">
-				<video v-if="form.video.url" ref="yspic1"></video>
+				<!-- <div class="videos2" :style="videos" v-if="!form.video.url">
+					
+				</div> -->
+				<video class="videos" v-if="form.video.url" :src="form.video.url" ref="yspic1"></video>
 				<div v-else class="tols_02_1" @click="upfile">
 					<img class="tols_02_2" :src="imgPath+'new/tools/icon_add_small.svg'"/>
 					<div class="tols_02_3">上传视频</div>
@@ -176,30 +179,49 @@ export  default{
 				leng:0,
 			},
 			isload:'',
+			videos:'',
 		}
 	},
 	mounted: function () {
 		// this.getImg();
+		this.init();
 	}, 
 	methods:{
+		init(){
+			this.videos = "background-image: url(/imge/new/tools/01.jpg);";
+			console.log(this.videos);
+		},
 		upfile(){
 			this.$refs.upfile.click();
 		},
 		sup(e){
 			let video = e.target.files[0];		
-			let vi = URL.createObjectURL(video);
-			
-		
-			this.$refs.vid.setUrl(vi);
-			
-			// this.form.video = 1;
-			// setTimeout(()=>{
-				
-			// 	this.$refs.yspic1.src = vi;	
-			// },1000)
+			let vi = URL.createObjectURL(video);					
+			this.$refs.vid.setUrl(vi);			
+			this.form.video.url = vi;		
 		},
 		bf(){
-			this.$refs.yspic1.play();
+			// let fn = 1.667;
+			
+			// let setFn = ()=>{
+			// 	fn = fn+fn;
+			// 	if(fn>100){
+			// 		fn=100;
+			// 	}
+			// 	console.log("background-image: url(/imge/new/tools/01.jpg); background-position-x:"+fn+"%;");
+			// 	this.videos = "background-image: url(/imge/new/tools/01.jpg); background-position-x:"+fn+"%;";
+			// 	if(fn>=100){
+			// 		return
+			// 	}
+				
+			// 	setTimeout(()=>{
+			// 		setFn();
+			// 	},1000)
+			// }
+			
+			// setFn();
+			this.$refs.yspic1.currentTime = (203*41.66)/1000;
+			// this.$refs.yspic1.play();
 		},
 		backbf(){
 			this.setcurrentTime(this.form.star);
@@ -250,14 +272,14 @@ export  default{
 			// 	this.$refs.vi2.pause();
 			// }			
 		},
-		bf(){
+	// 	bf(){
 	
-	// 		this.setcurrentTime(this.starT);
-	// 		this.setcurrentTime2(this.starT2);
-			this.$refs.vi.play();
-			// this.$refs.vi2.play();
+	// // 		this.setcurrentTime(this.starT);
+	// // 		this.setcurrentTime2(this.starT2);
+	// 		this.$refs.vi.play();
+	// 		// this.$refs.vi2.play();
 			
-		},
+	// 	},
 			
 		
 		
@@ -373,10 +395,19 @@ export  default{
 	border-radius:5px;
 
 }
-.tols_02>video{
+.tols_02>.videos{
 	display: block;
 	width: 100%;
 	height: 100%;
+	
+}
+.tols_02>.videos2{
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-position:0 0;
+	background-size:auto 100%;
+	background-repeat: no-repeat;
 }
 .tols_02_1{
 	cursor: pointer;
