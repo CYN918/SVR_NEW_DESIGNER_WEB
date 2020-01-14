@@ -74,6 +74,16 @@ img{
 	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.ttf') format('truetype'),
 	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.svg#iconfont') format('svg');
 }
+/*布局样式*/
+.b_con_01{
+	padding: 40px 0 60px;
+	width: 1300px;
+	margin: 0 auto;
+}
+
+
+
+
 .hft{
 	overflow: hidden;
 	text-overflow: ellipsis;

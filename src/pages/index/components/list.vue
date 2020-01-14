@@ -15,7 +15,7 @@
 		</el-pagination>
 		<div v-if="isNodeat" class="emptyData">
 			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
-			<div class="noDatawan">{{nodTip}}</div>
+			<div v-if="!config.noData" class="noDatawan">{{nodTip}}</div>
 		</div>
 		<div v-if="islod" class="jloadBox" ref="jloadBox"></div>
 	</ul>
@@ -31,8 +31,7 @@ export default {
 			default:{
 				pr:{},
 			},
-			
-			
+			noData:String,
 		},
 		nodTip:{
 			type:String,
@@ -72,6 +71,14 @@ export default {
 	beforeDestroy:function(){
 		this.loading.close();
 	},
+	watch:{
+		'isNodeat'(){
+			if(this.$parent.kfn){
+				this.$parent.kfn(this.isNodeat);
+			}
+			
+		}
+	},
 	methods: {
 
 		paramCl(){
@@ -104,6 +111,8 @@ export default {
 					}	
 					return
 				}
+				
+				
 				this.List = da.data;
 				this.total = da.total;
 				

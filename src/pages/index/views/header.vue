@@ -1,6 +1,6 @@
 <template>
 	<header class="header">
-		<img class="header_1 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg" @click="jump">
+		<img class="header_1 pend" :src="imgPath+'new/header/logo.svg'" @click="jump">
 		
 		<div class="header_2">
 			<a 
@@ -8,13 +8,16 @@
 			:key="index" 
 			:class="['pend',ison==el.path?'router-link-active':'']"
 			@click="goZP(el.path,el.n)"
-			>{{el.n}}</a>
+			>{{el.n}}
+			
+			<img v-if="el.t=='NEW'" class="hed_new" :src="imgPath+'new/tools/02.svg'" />
+			</a>
 		</div>
 		
 		<div class="header_3">
 			<span :class="['searcBox',searchType?'issearch':'']">
 				<span @click="showsearch()" class="pdxf iconfont pend">
-					<img class="head_top1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/head/top1.svg"/>
+					<img class="head_top1" :src="imgPath+'svg/head/top1.svg'"/>
 				</span>
 				
 				<el-input v-if="searchType" class="searcBox4"  @keyup.enter.native="keydown($event)" @blur="hind" ref="serll" v-model="searcCont" placeholder="请输入搜索内容"></el-input>
@@ -40,12 +43,12 @@
 					</div>
 					
 				</div>
-				<img v-if="searchType" class="searcBox6 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg">
+				<img v-if="searchType" class="searcBox6 pend" :src="imgPath+'project/cj_00.svg'">
 			</span>
 
 			<span class="iconfont  messgeH1">
 				<span class="pend" @click="showisXXNav">
-					<img class="head_top2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/head/top2.svg"/>
+					<img class="head_top2" :src="imgPath+'svg/head/top2.svg'"/>
 				<div @click="showisXXNav" v-if="messgNum && messgNum.unread_total_num>0" :class="['messgeH2',messgNum.unread_total_num>9?'messgeH2x':'']">{{backXXnUM(messgNum.unread_total_num)}}</div></span>
 				
 				<div v-if="isXXNav" @click="hidisXXNav" class="messgeH3Boxf1"></div>
@@ -131,6 +134,9 @@ export default {
 				{path:'/project',n:'项目'},
 				{path:'/Work_i',n:'作品'},
 				{path:'/activvity',n:'活动'},
+				// {path:'/tolt',n:'去赚钱',t:'NEW'},
+				
+				
 			]
 		}		
 	},
@@ -274,21 +280,24 @@ export default {
 		},
 		
 		initHead(){	
+		
+			this.ison = '/'+this.$route.fullPath.split('/')[1];
 			
-			this.ison = this.$route.fullPath;
 			this.hidisXXNav();
 			this.getMessgNumber();
 			this.getHotWords();
 			this.userMssge = '';
+			
+			
+			let last = this.topNData[this.topNData.length-1].n;
 			if(window.userInfo){
-				
 				this.userMssge = window.userInfo;	
-				if(!window.userInfo.contributor_format_status && this.topNData[this.topNData.length-1].n!='供稿人'){
+				if(!window.userInfo.contributor_format_status && last!='供稿人'){
 					this.topNData.push({path:'/tip',n:'供稿人'});
 				}
 				return
 			}
-			if(this.topNData[this.topNData.length-1].n!='供稿人'){
+			if(last!='供稿人'){
 				this.topNData.push({path:'/tip',n:'供稿人'});
 			}
 			
@@ -451,7 +460,12 @@ export default {
 .header_2>a.router-link-active{
     color: #33B3FF;
 }
-
+.hed_new{
+	position: absolute;
+    bottom: 38px;
+    right: -14px;
+    width: 20px;
+}
 
 .header_3{
 	position: absolute;

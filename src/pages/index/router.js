@@ -72,6 +72,10 @@ import img_list from './components/img_list2.vue'
 
 import personalCenter from './views/personalCenter/index.vue'
 
+import tolt from './views/tool/home.vue'
+import toltIndex from './views/tool/index.vue'
+
+import toluser from './views/tool/user.vue'
 import tools from './views/tool/test.vue'
 
 Vue.use(Router)
@@ -86,12 +90,21 @@ let wb = [
 	{path: '/Ac_v2',name: 'Ac_v2',component: Ac_v2},	
 	
 	{path: '/tools',name: 'tools',component: tools},
+	
+	
+	
 	{
 		path: '/',
 		redirect: '/index',
 		name: 'index',
 		component: Index,
 		children:[
+			
+			{path: '/tolt',name:'tolt',component: toltIndex,children:[
+				{path: '/tolt',name:'tolt',component: tolt},
+				{path: 'toluser',name:'tolt',component: toluser},
+			]},
+			// 
 			
 			{path: '/img_list',name: 'img_list',component: img_list},
 			{path: '/email',name: 'email',component: email},	
