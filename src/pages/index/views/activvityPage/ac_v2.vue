@@ -7,7 +7,7 @@
 				<img :src="imgPath+'ac_v2/xl.png'"/>
 				<div class="sto_02">
 					<div v-if="deta.status==3" @click="Stop()">终止项目</div>
-					<div @click="Log()">交稿记录</div>
+					<div v-if="islog" @click="Log()">交稿记录</div>
 					<div v-if="deta.contract_file && deta.contract_file.length>0" class="worksBox_2_3">
 						下载合同 
 						<span class="js_0013"></span>
@@ -164,12 +164,24 @@ export default{
 				'4-14',
 				'4-15',
 			],
+			islog:'',
 		}
 	},
 	mounted: function(){
 		this.ckl();
 	}, 
 	methods:{
+		pr_deliveryList(){
+			this.api.pr_deliveryList({
+				project_id:this.obj.id,
+			}).then((da)=>{
+				if(da=='error'){return}
+				if(da.length>0){
+					this.islog = 1;
+				}
+		
+			})
+		},
 		navCl(el){
 			if(el.p==this.navOn){
 				return
@@ -205,7 +217,7 @@ export default{
 				this.$router.push({path:'/activvity'})	
 				return
 			}
-			
+			this.pr_deliveryList();
 			this.ids = this.$route.query.id
 			this.getData();
 			

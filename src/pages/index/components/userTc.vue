@@ -147,8 +147,9 @@ export default {
     -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
     box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
     border-radius: 5px 5px 5px 1px 1px 1px 5px;
+	padding: 20px 0;
     width: 310px;
-    height: 275px;
+
 }
 .usertc_0:after{
     content: "";
@@ -166,7 +167,7 @@ export default {
 }
 .usertc_1{
 	display: block;
-	margin: 12px auto 7px;
+	margin: 0 auto 7px;
 	border-radius: 50%;
 	width: 88px;
 	height: 88px;
