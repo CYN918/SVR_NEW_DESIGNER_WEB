@@ -23,11 +23,13 @@
 			</div> -->
 			
 			
-			<div class="setv01" :style="'right:'+eT+'px;left:'+sT+'px;'">
+			<div class="setv01" :style="'right:'+eT+'px;left:'+sT+'px;'" ref="quy">
 				
-				<div class="setv01_2">
-					<span>00:00</span>
+				<div class="setv01_2" :style="leftt">
+					<span>{{bfz}}</span>
 				</div>
+				
+				
 				<div 
 				@mousedown="dragS2"
 				class="setv01btn setv01_0" ref="zbtn">
@@ -83,16 +85,54 @@ export default{
 			boxO:{},
 			bfb:100,
 			bfb2:0,
+			con:{
+				zs:24,
+				maxzs:0
+			},
+			leftt:0,
+			bfz:0,
 		}
 	},
 	methods:{
-		init(){
-			
+		init(){			
 			this.boxO = this.$refs.boxW.getBoundingClientRect();
+		},
+		pao(t){
+			this.leftt = '';
+			this.bfz = this.bfb2;
 			
+		
+			let tims = ((this.bfb-this.bfb2)*24)/1000;
+			let wdtth = this.$refs.quy.getBoundingClientRect().width-2;
+			
+			let L = this.bfb-this.bfb2;
+			let mit = L/tims;
+			let fn = ()=>{
+				if(this.bfz>=this.bfb){
+					return
+				}
+				setTimeout(()=>{
+					this.bfz++;
+				},mit)
+			};
+			fn();
+			// let dod = ()=>{
+			// 	this.bfz++;
+			// 	if(this.bfz<this.bfb){
+			// 		window.requestAnimationFrame(dod);
+			// 	}
+			// };
+			// dod();
+			
+			setTimeout(()=>{
+				
+				
+				
+				this.leftt = 'transition:transform '+tims+'s linear;transform: translateX('+wdtth+'px);'
+				
+			},25)
 			
 		},
-
 		cLW(t){
 			return
 			// if(!t){return}
@@ -123,7 +163,7 @@ export default{
 			document.onmousemove = (e)=>{
 				
 				this.eT =  this.mov-(e.pageX-this.star);
-				let max = this.boxO.left+this.boxO.width;
+				let max = this.boxO.width;
 				
 				if(this.eT<0){
 					this.eT = 0;
@@ -131,7 +171,9 @@ export default{
 				if(this.eT>max){
 					this.eT = max;
 				}
-				this.bfb = ((max - this.eT)/max)*this.time;				
+				this.bfb = Math.ceil(((max - this.eT)/max)*this.con.maxzs);	
+				// this.$parent.setcurrentTime((this.bfb*24)/1000);
+				this.$parent.setEnd((this.bfb*24)/1000);
 			}
 			
 			document.onmouseup =  ()=>{
@@ -155,7 +197,8 @@ export default{
 				}
 				this.sT = on;
 			
-				this.bfb2 = (on/this.boxO.width)*this.time;
+				this.bfb2 = Math.ceil((on/this.boxO.width)*this.con.maxzs);
+				this.$parent.setStar((this.bfb2*24)/1000);
 			}
 			 
 			document.onmouseup =  ()=>{
@@ -189,7 +232,7 @@ export default{
 		},
 		canplay(){			
 			this.time = this.$refs.yspic2.duration;
-			
+			this.con.maxzs =  Math.ceil(this.time*24);
 			this.bfb = this.time;
 			if(this.isload){
 				return
@@ -259,6 +302,7 @@ export default{
 	overflow: hidden;
 	
 	border-radius: 5px;
+	background: url(http://zk-new-designer.oss-cn-beijing.aliyuncs.com/91db75cfbb98611da65ea7908f2aa09d) 0 0/auto 100% no-repeat;
 }
 .tols_05_0{
 	width: 100%;
@@ -299,7 +343,7 @@ export default{
 	position: absolute;
 	top: 0;
 	left: 0;
-
+	
 	height: 110px;
 	border-radius: 5px;
 	border: 2px solid rgba(51,179,255,1);
@@ -333,13 +377,21 @@ export default{
 .setv01btn>i:nth-child(1){
 	margin-top: 10px;
 }
+
 .setv01_0{
 	left: -10px;
 }
 .setv01_1{
 	right: -10px;
 }
-.setv01_2{
+
+.setv01>div.setv01_2{
+	position: absolute;
+	width: 1px;
+	height: 100%;
+	background: rgba(51,179,255,1);
+	top: 0;
+	left: 0;
 	
 }
 .setv03{

@@ -28,7 +28,12 @@
 				<!-- <div class="videos2" :style="videos" v-if="!form.video.url">
 					
 				</div> -->
-				<video class="videos" v-if="form.video.url" :src="form.video.url" ref="yspic1"></video>
+				<video 
+				class="videos" 
+				v-if="form.video.url" 
+				:src="form.video.url" 
+				@timeupdate="timeupdate"
+				ref="yspic1"></video>
 				<div v-else class="tols_02_1" @click="upfile">
 					<img class="tols_02_2" :src="imgPath+'new/tools/icon_add_small.svg'"/>
 					<div class="tols_02_3">上传视频</div>
@@ -47,6 +52,9 @@
 			
 			<div class="tols_04x">
 				<div class="tols_04">
+					
+					
+					
 					<div class="tols_04_1 tobtn">
 						<span 
 						@click="tabq(el.v)" 
@@ -189,7 +197,7 @@ export  default{
 	methods:{
 		init(){
 			this.videos = "background-image: url(/imge/new/tools/01.jpg);";
-			console.log(this.videos);
+		
 		},
 		upfile(){
 			this.$refs.upfile.click();
@@ -200,33 +208,30 @@ export  default{
 			this.$refs.vid.setUrl(vi);			
 			this.form.video.url = vi;		
 		},
+		timeupdate(){
+			let t = this.$refs.yspic1.currentTime;
+			
+			if(t>=this.endT){
+				this.$refs.yspic1.pause();
+			};
+			
+		},
 		bf(){
-			// let fn = 1.667;
 			
-			// let setFn = ()=>{
-			// 	fn = fn+fn;
-			// 	if(fn>100){
-			// 		fn=100;
-			// 	}
-			// 	console.log("background-image: url(/imge/new/tools/01.jpg); background-position-x:"+fn+"%;");
-			// 	this.videos = "background-image: url(/imge/new/tools/01.jpg); background-position-x:"+fn+"%;";
-			// 	if(fn>=100){
-			// 		return
-			// 	}
-				
-			// 	setTimeout(()=>{
-			// 		setFn();
-			// 	},1000)
-			// }
-			
-			// setFn();
-			this.$refs.yspic1.currentTime = (203*41.66)/1000;
-			// this.$refs.yspic1.play();
+			this.$refs.yspic1.currentTime = this.starT;
+			this.$refs.yspic1.play();
+			this.$refs.vid.pao();
 		},
 		backbf(){
 			this.setcurrentTime(this.form.star);
 			this.bf();			
 		},
+		setEnd(t){
+			this.endT = t;
+		},
+		setStar(t){
+			this.starT = t;
+		},		
 		setcurrentTime(t){
 			this.$refs.yspic1.currentTime = t;
 		},
