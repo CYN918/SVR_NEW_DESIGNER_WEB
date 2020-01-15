@@ -2,9 +2,9 @@
 	<div>
 		<Header ref="topZj"></Header>
 		<div class="ac_v1-1">
-			<img class="ac_v1-2" :src="imgPath+'ac_v2/ban.png'"/>
+			<img class="ac_v1-2" :src="imgPath+'ac_v3/ban.jpg'"/>
 			<div class="sto_01" v-if="deta.status>=3">
-				<img :src="imgPath+'ac_v2/xl.png'"/>
+				<img :src="imgPath+'ac_v2x/xl.png'"/>
 				<div class="sto_02">
 					<div v-if="deta.status==3" @click="Stop()">终止项目</div>
 					<div v-if="islog" @click="Log()">交稿记录</div>
@@ -18,25 +18,22 @@
 					
 				</div>
 			</div>
-			<div class="ac_v2">
-				<div class="ac_v2-1">
+			<div class="ac_v2x">
+				<div class="ac_v2x-1x">
 					<span>
 						<div>
-							<div class="ac_v2-1-1">当前状态</div>
-							<div class="ac_v2-1-2">{{xmType[xmTypeOn].t}}</div>
+							<div class="ac_v2x-1-1x">当前状态</div>
+							<div class="ac_v2x-1-2x">{{xmType[xmTypeOn].t}}</div>
 						</div>
 						
 					</span>
-					<i class="fng_01" v-if="deta.status==1 || deta.status==3">
-						<img :src="imgPath+'ac_v2/bt0.png'">
-						<img :src="imgPath+'ac_v2/bt0.png'">
-					</i>
+				
 					<span v-if="deta.status==1 || deta.status==3">
 						<div>
-							<div class="ac_v2-1-1">{{deta.delay_time?'项目已延期交稿':xmType[xmTypeOn].n}}</div>
+							<div class="ac_v2x-1-1x">{{deta.delay_time?'项目已延期交稿':xmType[xmTypeOn].n}}</div>
 							
 							
-							<div class="ac_v2-1-2">
+							<div class="ac_v2x-1-2x">
 								<span v-if="djsshow.d || djsshow.d==0">
 									{{djsshow.d}}天 {{djsshow.h+':'+djsshow.m+':'+djsshow.s}}
 								</span>
@@ -51,55 +48,59 @@
 							</div>
 						</div>
 					</span>
-					<i v-if="deta.status<3" class="fng_01">
-						<img :src="imgPath+'ac_v2/bt0.png'">
-						<img :src="imgPath+'ac_v2/bt0.png'">
-					</i>
+					
 					<span v-if="deta.status<3">
 						<div>
-							<div class="ac_v2-1-1">报名人数</div>
-							<div class="ac_v2-1-2">{{deta.sign_up_num}}</div>
+							<div class="ac_v2x-1-1x">报名人数</div>
+							<div class="ac_v2x-1-2x">{{deta.sign_up_num}}</div>
 						</div>
 					</span>
-					<i class="fng_01">
-						<img :src="imgPath+'ac_v2/bt0.png'">
-						<img :src="imgPath+'ac_v2/bt0.png'">
-					</i>
+				
 					<span>
 						<div>
-							<div class="ac_v2-1-1">金额</div>
-							<div class="ac_v2-1-2">{{deta.expected_profit}}</div>
+							<div class="ac_v2x-1-1x">金额</div>
+							<div class="ac_v2x-1-2x">{{deta.expected_profit}}</div>
 						</div>
 					</span>
 				</div>
 				
 				
-				<div class="av_vbt">
+				<div class="av_vbtx">
 					<span class="op" @click="clFn(el.tcFn)" v-for="el in xmType[xmTypeOn].btns">{{el.n}}</span>
 					<span class="op1" v-if="deta.template_file_url" @click="dowloadmb(deta)">下载资料</span>
 				</div>
+				
+				
+				
+				
 			</div>
-			<!-- <div class="ac_v1-4">
-				<div class="ac_v1-4x">
-					<span @click="navCl(el)" :class="el.p==navOn?'checkO':''" v-for="el in arr">{{el.n}}</span>
-				</div>
-			</div> -->
-			
+		
 			
 			<div class="ac_v1-5">
 				<div class="ac_v1-5-1">
-					<img :src="imgPath+'ac_v2/01.png'">
+					<img :src="imgPath+'ac_v3/01.jpg'">
 					<div class="botn_av2"><span @click="goBz(el)" v-for="el in btnsa"></span></div>
-					<div class="botn_av3"><span @click="goBz(el)" v-for="el in btnsb"></span></div>
+					<div class="botn_av3"><span @click="goBz(el)" v-for="el in btnsb"></span></div>		
 				</div>				
-			</div>			
-			<div class="ac_v1-3">
-				<img :src="imgPath+'ac_v2/fx.png'"/>				
-				<div @click="shaFn('fxUrl2')" class="ac_v1-3-2x"></div>
-				<div class="ac_v1-3-3 ac_v1-3-3x">
-					<img :src="imgPath+'ac_v2/fx1.png'"/>
+			</div>	
+					
+			
+								
+			<div class="fx_box_1">
+				<div class="fx_box_2">
+					<img :src="imgPath+'ac_v3/fx.png'"/>
+					<div class="fx_box_3">	
+						<div @click="shaFn('fxUrl2')" class="fx_box_ fx_box_4"></div>
+						<div class="fx_box_ fx_box_5">
+							<img :src="imgPath+'ac_v3/fx1.png'"/>
+						</div>
+						<div @click="gfx('fxUrl1')" class="fx_box_ fx_box_6">
+							
+						</div>
+					</div>
 				</div>
-			</div>
+			</div>			
+			
 			<component v-bind:is="tanDatazj"  :datad="tanData"></component>
 		</div>
 		
@@ -165,6 +166,8 @@ export default{
 				'4-15',
 			],
 			islog:'',
+			fxUrl1:'',
+			fxUrl2:'',
 		}
 	},
 	mounted: function(){
@@ -219,9 +222,7 @@ export default{
 			}
 			this.ids = this.$route.query.id;
 			this.pr_deliveryList();
-			
-			this.getData();
-			
+			this.getData();			
 		},
 		dowloadmb(obj){
 			window.downloadFiles(obj.template_file_url,obj.template_file_name);
@@ -276,6 +277,9 @@ export default{
 			
 			
 			window.open('http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes');
+		},
+		gfx(n){
+			window.open(this[n]);
 		},
 		shar(da){
 		
@@ -340,6 +344,9 @@ export default{
 					desc:'惊现大神快来膜拜',
 					summary:da.name+'-狮圈儿创作者平台',				
 				});
+				
+				
+				
 				this.deta = da;
 				this.xmTypeOn = da.status-1;
 				if(da.is_sign_up==1){
@@ -433,71 +440,71 @@ export default{
     height: 60px;
     border-radius: 50%;
 }
-.ac_v2{
+.ac_v2x{
 	position: absolute;
 	top: 0;
 	left: 50%;	
-	padding-top: 20%;
+	padding-top: 24%;
 	transform: translateX(-50%);
 	white-space: nowrap;
 }
-.ac_v2-1{
-	margin-bottom: 130px;
+.ac_v2x-1x{
+	padding-bottom: 3%;
 }
-.ac_v2-1>span{
+.ac_v2x-1x>span{
 	display: inline-block;
-	min-width: 192px;
-	height: 142px;
-	border-radius: 8px;
-	background: #d3e0e5;
-	box-sizing: border-box;
-	border: 2px solid #753d28;
-
 	vertical-align: top;
-}
-.ac_v2-1>span>div{
-	padding: 0 20px;
-	display: inline-block;
-	box-sizing: border-box;
-	background: #ffffff;
-	border: 2px solid #753d28;
-	margin: -2px;
+	margin: 0 5px;
 	border-radius: 8px;
-	min-width: 192px;
+
+	border: 4px solid #e5a92c;
+	padding: 6px;
+	background: #da0024;
+
+	color: #d81b1e;
+}
+.ac_v2x-1x>span>div{
+	border: 2px solid #fdd38a;
+	background: #f5e4a1;
+	
+	border-radius: 8px;
+	min-width: 184px;
 	height: 130px;
 }
-.ac_v2-1-1{
-	color: #733b25;
+.ac_v2x-1-1x{
+
 	margin: 24px 0 10px;
 	font-size: 16px;
 	line-height: 30px;
 }
-.ac_v2-1-2{
+.ac_v2x-1-2x{
 	font-family: PingFang SC medium;
 	font-size: 24px;
 	line-height: 44px;
-	color: #733b25;
+
 }
-.av_vbt>span{
+.av_vbtx>span{
 	cursor: pointer;
 	display: inline-block;
-	color: #733b25;
+	
 	margin: 0 12px;
-	line-height: 100px;
-	font-size: 28px;
+	line-height: 85px;
+	font-size: 24px;
 	font-weight: bold;
 	text-align: center;
-	width: 282px;
-	height: 108px;
+	width: 212px;
+	height: 93px;
 }
-.av_vbt>span:hover{
+.av_vbtx>span:hover{
 	opacity: .97;
 }
-.av_vbt>span.op{
-	background: url(/imge/ac_v2/bt2.png) 0 0/100% no-repeat;
+.av_vbtx>span.op{
+	color: #da0024;
+	background: url(/imge/ac_v3/03.png) 0 0/100% no-repeat;
 }
-.av_vbt>span.op1{
-	background: url(/imge/ac_v2/bt1.png) 0 0/100% no-repeat;
+.av_vbtx>span.op1{
+	color: #f5e4a1;
+	background: url(/imge/ac_v3/02.png) 0 0/100% no-repeat;
 }
 .fng_01{
 	position: relative;
@@ -551,6 +558,13 @@ export default{
 .sto_02>div:hover {
     background: #E6E6E6;
 }
+.ac_v1-3x{
+	position: fixed;
+    width: 104px;
+    top: 0;
+    right: 24px;
+    padding-top: 21%;
+}
 .ac_v1-3-3x>img{
 	display: none;
 	position: absolute;
@@ -592,5 +606,62 @@ export default{
     padding-bottom: 3%;
     cursor: pointer;
     margin-bottom: 1%;
+}
+.fx_box_1{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-width: 1300px;
+}
+.fx_box_2{
+	position: absolute;
+    width: 5.7%;
+    top: 0;
+    right: 1.2%;
+    padding-top: 21%;
+}
+.fx_box_2>img{
+	display: block;
+	width: 100%;
+}
+.fx_box_3{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 456%;
+	
+}
+.fx_box_{
+	cursor: pointer;
+	position: absolute;
+	bottom: 0;
+	left: 9%;
+	width: 83%;
+	padding-bottom: 70%;
+
+}
+.fx_box_4{	
+    -webkit-transform: translateY(93%);
+    transform: translateY(93%);
+}
+.fx_box_5{
+	-webkit-transform: translateY(308%);
+	transform: translateY(308%);
+}
+.fx_box_6{
+	-webkit-transform: translateY(423%);
+	transform: translateY(423%);
+}
+.fx_box_5>img{
+    display: none;
+    position: absolute;
+    right: 111%;
+    top: -0%;
+    transform: translateY(-50%);
+}
+.fx_box_5:hover>img{
+	display: block;
 }
 </style>
