@@ -452,6 +452,7 @@ export default{
 	padding-bottom: 3%;
 }
 .ac_v2x-1x>span{
+	position: relative;
 	display: inline-block;
 	vertical-align: top;
 	margin: 0 5px;
@@ -463,10 +464,31 @@ export default{
 
 	color: #d81b1e;
 }
+.ac_v2x-1x>span:after{
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 5px;
+	background: url(/imge/ac_v3/04.png) 0 0/100% no-repeat;
+	width: 60px;
+	height: 135px;
+	
+}
+.ac_v2x-1x>span:before{
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 5px;
+	width: 60px;
+	height: 135px;
+	background: url(/imge/ac_v3/04.png) 0 0/100% no-repeat;
+
+}
 .ac_v2x-1x>span>div{
 	border: 2px solid #fdd38a;
 	background: #f5e4a1;
-	
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
 	border-radius: 8px;
 	min-width: 184px;
 	height: 130px;
