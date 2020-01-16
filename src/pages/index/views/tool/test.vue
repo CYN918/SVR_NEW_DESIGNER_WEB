@@ -218,9 +218,29 @@ export  default{
 		},
 		bf(){
 			
+			
 			this.$refs.yspic1.currentTime = this.starT;
 			this.$refs.yspic1.play();
-			this.$refs.vid.pao();
+			this.$refs.vid.pao(this.endT-this.starT);
+			// let st = (this.starT*1000)/24;
+			
+			
+			// let fn = ()=>{
+			// 	let tim = (st*24)/1000;
+			// 	console.log(st);
+			// 	this.$refs.yspic1.currentTime = tim;
+			// 	if(tim<this.endT){
+			// 		st++;
+			// 		window.requestAnimationFrame(fn);
+					
+			// 	}
+			// }
+			
+			//  fn()
+			
+			
+			
+			
 		},
 		backbf(){
 			this.setcurrentTime(this.form.star);

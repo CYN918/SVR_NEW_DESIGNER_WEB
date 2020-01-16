@@ -26,7 +26,7 @@
 			<div class="setv01" :style="'right:'+eT+'px;left:'+sT+'px;'" ref="quy">
 				
 				<div class="setv01_2" :style="leftt">
-					<span>{{bfz}}</span>
+					<span>{{clTime(bfz)}}</span>
 				</div>
 				
 				
@@ -47,13 +47,13 @@
 				
 				
 				
-				<div class="timef time_1">{{bfb2}}</div>
+				<div class="timef time_1">{{clTime(bfb2)}}</div>
 				
-				<div class="timef time_3">{{bfb}}</div>
+				<div class="timef time_3">{{clTime(bfb)}}</div>
 				
 			</div>
 			
-			<video @canplay="canplay" class="rdVideo" ref="yspic2"></video>
+			<video @canplay="canplay" class=" rdVideocz" ref="yspic2"></video>
 		</div> 
 	</div>
 </template>
@@ -91,47 +91,73 @@ export default{
 			},
 			leftt:0,
 			bfz:0,
+			
+			zsNum:24,
 		}
 	},
 	methods:{
+		clTime(num){
+			let str = [0,0,0];
+		
+			let on = num%this.zsNum;
+			if(on<10){
+				on = '0'+on;
+			}
+			
+			if(num<=this.zsNum){
+				return '00:00:'+on;
+			}
+			
+			let pn = (num-on)/this.zsNum;
+			let ms = pn%60;
+			if(ms<10){
+				ms = '0'+ms;
+			}
+			if(pn<60){
+				
+				return '00:'+ms+':'+on;
+			}
+			
+			let fz = (pn-ms)/60;
+			if(fz<10){
+				fz = '0'+fz;
+			}	
+			
+			return fz+':'+ms+':'+on;
+			
+			
+			
+		},
 		init(){			
 			this.boxO = this.$refs.boxW.getBoundingClientRect();
 		},
 		pao(t){
-			this.leftt = '';
 			this.bfz = this.bfb2;
-			
-		
-			let tims = ((this.bfb-this.bfb2)*24)/1000;
-			let wdtth = this.$refs.quy.getBoundingClientRect().width-2;
-			
+			this.leftt = '';
+			let tim = t*1000;
 			let L = this.bfb-this.bfb2;
-			let mit = L/tims;
+			
+			let ot = tim/L;
+			
 			let fn = ()=>{
 				if(this.bfz>=this.bfb){
+					this.bfz = this.bfb;
 					return
 				}
+				this.bfz++;
+		
+				
 				setTimeout(()=>{
-					this.bfz++;
-				},mit)
-			};
+					fn();
+				},ot)
+			}
 			fn();
-			// let dod = ()=>{
-			// 	this.bfz++;
-			// 	if(this.bfz<this.bfb){
-			// 		window.requestAnimationFrame(dod);
-			// 	}
-			// };
-			// dod();
-			
-			setTimeout(()=>{
-				
-				
-				
-				this.leftt = 'transition:transform '+tims+'s linear;transform: translateX('+wdtth+'px);'
-				
+			let wdtth = this.$refs.quy.getBoundingClientRect().width-2;
+			setTimeout(()=>{		
+				this.leftt = 'transition:transform '+t+'s linear;transform: translateX('+wdtth+'px);'
 			},25)
-			
+				
+		
 		},
 		cLW(t){
 			return
@@ -156,7 +182,7 @@ export default{
 		},
 		dragS(e){
 			this.init();
-			
+			this.leftt = '';
 			this.star = e.pageX;
 			this.mov = this.eT;
 			
@@ -173,7 +199,7 @@ export default{
 				}
 				this.bfb = Math.ceil(((max - this.eT)/max)*this.con.maxzs);	
 				// this.$parent.setcurrentTime((this.bfb*24)/1000);
-				this.$parent.setEnd((this.bfb*24)/1000);
+				this.$parent.setEnd((this.bfb*this.zsNum)/1000);
 			}
 			
 			document.onmouseup =  ()=>{
@@ -181,6 +207,7 @@ export default{
 			}
 		},
 		dragS2(e){
+			this.leftt = '';
 			this.star = e.pageX;
 			this.mov = this.sT;
 			this.init();	
@@ -198,7 +225,7 @@ export default{
 				this.sT = on;
 			
 				this.bfb2 = Math.ceil((on/this.boxO.width)*this.con.maxzs);
-				this.$parent.setStar((this.bfb2*24)/1000);
+				this.$parent.setStar((this.bfb2*this.zsNum)/1000);
 			}
 			 
 			document.onmouseup =  ()=>{
@@ -232,7 +259,7 @@ export default{
 		},
 		canplay(){			
 			this.time = this.$refs.yspic2.duration;
-			this.con.maxzs =  Math.ceil(this.time*24);
+			this.con.maxzs =  Math.ceil(this.time*this.zsNum);
 			this.bfb = this.time;
 			if(this.isload){
 				return
@@ -242,13 +269,14 @@ export default{
 			this.getImg();		
 		},
 		getImg(strT){
-			return
+		
 			var canvas = document.createElement("canvas");
 			canvas.width = 64;
 			canvas.height = 114;
 			let jg =2 ;
 			if(this.time<30){
-				jg = this.time/15;
+				
+				jg = +(this.time/15).toFixed(3);
 			}
 			
 			let t=strT?strT:0;
@@ -258,21 +286,20 @@ export default{
 				canvas.getContext('2d').drawImage(this.$refs.yspic2, 0, 0, canvas.width, canvas.height);
 				arr.push(canvas.toDataURL("image/png"));
 				if(t<this.time){
-					t+=jg;
+				
+					t = (+t+jg).toFixed(3);
 					if(t>this.time){
 						t = this.time;					
 					}
+					console.log(t);
 					this.$refs.yspic2.currentTime = t;
 					setTimeout(()=>{
 						cr();
-					},100)					
-				}else{
-					this.imgs = arr;
-				
-					setTimeout(()=>{
-						this.setT();
-					},50)
-				}				
+					},100)	
+									
+					return
+				}
+				this.imgs = arr;			
 			}
 			
 			setTimeout(()=>{
@@ -415,5 +442,17 @@ export default{
 }
 .time_3{
 	right: 0;
+}
+.rdVideocz{
+	    position: fixed;
+	    top: 0;
+	    /* bottom: 0; */
+	    left: 0;
+	    width: 0;
+	    /* height: 0; */
+	    /* border: none; */
+	    /* background: none; */
+	    width: 300px;
+	    height: 300px;
 }
 </style>
