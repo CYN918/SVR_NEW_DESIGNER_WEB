@@ -26,7 +26,7 @@ const toMethod = (options) => {
 	}
 }
 // 创建axios实例
-const createApiInstance = (config = {},on,Type) => {
+const createApiInstance = (config = {},on,Type,isType={}) => {
 	let ds = on?on:0;
 	const _config = {
 		withCredentials: true, // 跨域
@@ -36,6 +36,12 @@ const createApiInstance = (config = {},on,Type) => {
 			'Content-Type':Type?Type:'application/x-www-form-urlencoded'
 		},
 	}	
+	if(isType.cancelToken){
+		_config.cancelToken = new axios.CancelToken(function executor(c) {
+	        window.source = c;
+	    })
+	}
+	
 	config = Object.assign(_config, config);
 	return axios.create(config)
 }
@@ -59,7 +65,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 		params = backFormData(params);
 	}
 	if(!url){return}		
-	let instance = createApiInstance(config,on,Type)
+	let instance = createApiInstance(config,on,Type,isType)
 	instance.interceptors.response.use(response => {
 		let {result, msg, data} = response.data;		
 		if(result==0){

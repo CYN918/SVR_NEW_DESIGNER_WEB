@@ -1,13 +1,16 @@
 <template>
-	<div class="tols_05_0b">
+	<div class="tols_05_0b" ref="boxW">
 		<div class="tols_05_0bx">
-			<div class="tols_05_0" ref="boxW">
-				<div class="tols_05_1">
+			<div class="tols_05_0" >
+				<div class="tols_05_1" >
 					<span v-for="el in imgs">
 						<img :src="el"/>
-					</span>
-					
+					</span>					
 				</div>
+				
+				
+				
+				
 			</div>
 		</div>
 		
@@ -15,12 +18,12 @@
 		
 		<div class="tols_05_2">
 			
-			<!-- <div class="setv02" :style="'width:'+cLW(eT)+'%;'">
+			<div class="setv02" :style="'width:'+eT+'px;'">
 				
-			</div> -->
-			<!-- <div class="setv03" :style="'width:'+cLW(sT)+'%;'">
+			</div>
+			<div class="setv03" :style="'width:'+sT+'px;'">
 				
-			</div> -->
+			</div>
 			
 			
 			<div class="setv01" :style="'right:'+eT+'px;left:'+sT+'px;'" ref="quy">
@@ -53,7 +56,7 @@
 				
 			</div>
 			
-			<video @canplay="canplay" class=" rdVideocz" ref="yspic2"></video>
+			<video v-once @canplay="canplay" class=" rdVideo" ref="yspic2"></video>
 		</div> 
 	</div>
 </template>
@@ -139,6 +142,10 @@ export default{
 			
 			let ot = tim/L;
 			
+			
+			
+			
+			
 			let fn = ()=>{
 				if(this.bfz>=this.bfb){
 					this.bfz = this.bfb;
@@ -159,11 +166,7 @@ export default{
 				
 		
 		},
-		cLW(t){
-			return
-			// if(!t){return}
-			// return (t/this.time).toFixed(2);
-		},
+		
 		bT(t){
 			
 			let st1 = '',st2='';
@@ -185,20 +188,18 @@ export default{
 			this.leftt = '';
 			this.star = e.pageX;
 			this.mov = this.eT;
-			
+			let max = this.boxO.width;
+			let min = ((this.con.maxzs-this.bfb2-this.zsNum)/this.con.maxzs)*max;
+			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
-				
 				this.eT =  this.mov-(e.pageX-this.star);
-				let max = this.boxO.width;
-				
 				if(this.eT<0){
 					this.eT = 0;
 				}
-				if(this.eT>max){
-					this.eT = max;
+				if(this.eT>min){
+					this.eT = min;
 				}
 				this.bfb = Math.ceil(((max - this.eT)/max)*this.con.maxzs);	
-				// this.$parent.setcurrentTime((this.bfb*24)/1000);
 				this.$parent.setEnd((this.bfb*this.zsNum)/1000);
 			}
 			
@@ -210,62 +211,42 @@ export default{
 			this.leftt = '';
 			this.star = e.pageX;
 			this.mov = this.sT;
+			let max = this.boxO.width;
+			let min = ((this.bfb - this.zsNum)/this.con.maxzs)*max;
 			this.init();	
+			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
 				let on = this.mov + (e.pageX-this.star);
-				let max = this.boxO.left+this.boxO.width;
-				console.log(this.boxO.width)
 				if(on<0){
 					on = 0;
 				}
-				if(on>this.boxO.width){
-					
-					on = this.boxO.width;
+				if(on>min){
+					on = min;
 				}
 				this.sT = on;
-			
-				this.bfb2 = Math.ceil((on/this.boxO.width)*this.con.maxzs);
+				this.bfb2 = Math.ceil((on/max)*this.con.maxzs);
 				this.$parent.setStar((this.bfb2*this.zsNum)/1000);
 			}
 			 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
 			}
-			
-			// this.wid1 = x;
-			// this.wid2= this.wid2-x;
-			// if(x>1000){x = 1000;}
-			// if(x<0){x = 0;}
-			// this.py_cs = x;		
-			// let on = (this.py_cs/1000).toFixed(4)*this.con.leng;
-			// this.$emit('input',on);	
+
 		},
-		dragD(e){
-			// let x = e.x;
-			
-			
-			// if(x>1000){x = 1000;}
-			// if(x<0){x = 0;}
-			// this.py_cs = x;
-			// let on = (this.py_cs/1000).toFixed(4)*this.con.leng;
-			// this.$emit('input',on);	
-		},
+
 		setUrl(on){
 			this.init();
 			this.$refs.yspic2.src = on;	
-			
-			
-			
 		},
-		canplay(){			
-			this.time = this.$refs.yspic2.duration;
-			this.con.maxzs =  Math.ceil(this.time*this.zsNum);
-			this.bfb = this.time;
+		canplay(){	
 			if(this.isload){
 				return
 			}
 			this.isload = 1;
-		
+			this.time = this.$refs.yspic2.duration;
+			this.con.maxzs =  Math.ceil(this.time*this.zsNum);
+			this.bfb = this.con.maxzs;
+			
 			this.getImg();		
 		},
 		getImg(strT){
@@ -273,50 +254,48 @@ export default{
 			var canvas = document.createElement("canvas");
 			canvas.width = 64;
 			canvas.height = 114;
-			let jg =2 ;
-			if(this.time<30){
-				
-				jg = +(this.time/15).toFixed(3);
-			}
+			let jg =0;
+			jg = +(this.time/20).toFixed(3);
 			
+			let on = new Array(20).fill('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg');
+			
+			this.imgs = on;
 			let t=strT?strT:0;
 			this.$refs.yspic2.currentTime = 0;
 			let arr = [];
 			let cr = ()=>{
 				canvas.getContext('2d').drawImage(this.$refs.yspic2, 0, 0, canvas.width, canvas.height);
 				arr.push(canvas.toDataURL("image/png"));
+				let po = arr.length-1;
+				
+				this.imgs.splice(po,1,arr[po]);
 				if(t<this.time){
 				
 					t = (+t+jg).toFixed(3);
+					
+					if(arr.length==19){
+						t = this.time;
+					}
 					if(t>this.time){
 						t = this.time;					
 					}
-					console.log(t);
+			
 					this.$refs.yspic2.currentTime = t;
+				
 					setTimeout(()=>{
 						cr();
-					},100)	
-									
+					},1300)
 					return
 				}
-				this.imgs = arr;			
+					
 			}
-			
+		
 			setTimeout(()=>{
 				cr();
 			},200)		
 				 
 		},
-		setT(){
-			// this.sT = 0;			
-			// if(this.time>30){
-			// 	this.eT = 30;
-			// }
-			// if(this.time<30){
-			// 	this.eT = this.time;
-			// }						
-			// this.cT = Math.ceil(this.eT/2);		
-		},
+
 	}
 }
 </script>
@@ -327,12 +306,14 @@ export default{
 }
 .tols_05_0bx{
 	overflow: hidden;
-	
+	text-align: left;
+	height: 114px;
 	border-radius: 5px;
-	background: url(http://zk-new-designer.oss-cn-beijing.aliyuncs.com/91db75cfbb98611da65ea7908f2aa09d) 0 0/auto 100% no-repeat;
+
 }
 .tols_05_0{
-	width: 100%;
+	position: relative;
+	display: inline-block;
 	height: 114px;
 	background: #006699;
 	overflow: hidden;
@@ -349,8 +330,7 @@ export default{
 .tols_05_1>span{
 	display: inline-block;
 	vertical-align: top;
-	background: #008200;
-	width: 64px;
+	width: 65px;
 	height: 114px;
 	
 }
@@ -418,9 +398,36 @@ export default{
 	height: 100%;
 	background: rgba(51,179,255,1);
 	top: 0;
-	left: 0;
-	
+	left: 0;	
 }
+.setv01_2>span{
+	position: absolute;
+    top: -33px;
+    left: -35px;
+    width: 65px;
+    height: 27px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.05);
+    font-size: 12px;
+    line-height: 27px;
+}
+.setv01_2>span:after{
+	content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    -webkit-transform: rotate(45deg) translateX(-50%);
+    transform: rotate(45deg) translateX(-50%);
+    border-right: 0;
+    border-bottom: 0;
+}
+
+
+
 .setv03{
 	position: absolute;
 	left: 0;

@@ -23,28 +23,109 @@
 				
 			</div>
 			
-			<component v-bind:is="tanData.zj" v-model="tanData" ref="tcZjs"></component>	
-								
-		</div>				
+			
+			<div class="tols_02">
+				<!-- <div class="videos2" :style="videos" v-if="!form.video.url">
+					
+				</div> -->
+				<video 
+				class="videos" 
+				v-if="form.video.url" 
+				:src="form.video.url" 
+				@timeupdate="timeupdate"
+				ref="yspic1"></video>
+				<div v-else class="tols_02_1" @click="upfile">
+					<img class="tols_02_2" :src="imgPath+'new/tools/icon_add_small.svg'"/>
+					<div class="tols_02_3">上传视频</div>
+					<div class="tols_02_4">
+						来电秀视频需裁剪至30秒内，限上传mp4格式，最小不低于720（宽）
+					</div>
+					
+					
+				</div>
+			</div>
+			
+			<div class="tols_03">
+				<img @click="bf" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
+				<img @click="backbf" class="tols_03_2 pend" :src="imgPath+'new/tools/sc_icon_sctp.svg'"/>
+			</div>
+			
+			<div class="tols_04x">
+				<div class="tols_04">
+					
+					
+					
+					<div class="tols_04_1 tobtn">
+						<span 
+						@click="tabq(el.v)" 
+						v-for="el in tab" 
+						:class="['pend',type==el.v?'chekd':'']">{{el.n}}</span>
+					</div>
+					<div class="tols_04_2 tobtn">
+						<span 
+						@click="sdbq(el)"
+						v-for="el in sd_01"
+						:class="['pend',form[type].sd==el?'chekd':'']"
+						>
+					
+							{{el}}x
+						</span>
+					</div>
+				</div>
+				
+				
+				<div class="tols_05">
+					
+					
+					<videoSet ref="vid"></videoSet>
+					
+				</div>
+				
+			</div>
+			
+			
+		</div>
 		
+		
+		<input class="fileipd" @change="sup" type="file" ref="upfile"/>
 	</div>
+	
+	
+	
+		<!-- <div class="box_01x">
+			<input type="file" @change="sup">
+			<input type="file" @change="sup2">
+			<video @timeupdate="set" class="testC" @canplay="canplay"  ref="vi"></video>
+			<div @click="bf" class="bof"></div>
+			<div class="lod_01"> -->
+				<!-- <btnSc v-model="starT" :con="yp"></btnSc> -->
+	<!-- 		<btnSc v-model="starT" :con="starCom"></btnSc>
+				<btnSc v-model="endT"  :con="endCom"></btnSc></div> -->
+				
+			
+			<!-- <div class="lod_01">
+				<btnSc v-model="starT2" :con="starCom2"></btnSc>
+				<btnSc v-model="endT2"  :con="endCom2"></btnSc>
+				
+			</div> -->
+		<!-- 	<div class="imgs">
+				<img v-for="el in imgs" :src="el"/>
+			</div>
+			
+			<video  @canplay="canplay2" class="ysPic" ref="yspic"></video>
+		</div> -->
+
 </template>
 
 <script>
 import btnSc from './togBtn';
 import textD from './textD';
 import videoSet from './videoSet';
-import setMp3 from './setMp3';
 export  default{
 
-	components:{btnSc,textD,videoSet,setMp3},
+	components:{btnSc,textD,videoSet},
 	data(){
 		return{
-			tanData:{
-				zj:'setMp3',
-				video:'http://zk-new-designer.oss-cn-beijing.aliyuncs.com/f4d7ff91e88c8699f9061c7c3434f9d9.mp4',
-				
-			},
 			form:{
 				title:'来电秀模板',
 				
@@ -295,7 +376,7 @@ export  default{
 
 .tols_02{
 	position: relative;
-	margin: 60px auto 0;
+	margin: 159px auto 0;
 	width:375px;
 	height:667px;
 	background:rgba(255,255,255,1);
