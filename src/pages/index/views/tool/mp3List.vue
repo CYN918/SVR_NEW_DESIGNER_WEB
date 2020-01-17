@@ -16,11 +16,13 @@
 					:v="'n'"
 					></spck>
 					<div class="mp3_03_2">
-						<img :src="imgPath+'tools/ss.png'"/>
-						<input v-model="name" placeholder="搜索音乐" type="text">
+						<img @click="ss()" :src="imgPath+'tools/ss.png'"/>
+						<input @keyup.enter="ss()" v-model="name" placeholder="搜索音乐" type="text">
 					</div>
 				</div>				
 				<spck 
+				
+				v-if="type=='sh_List'"
 				v-model="clas"
 				class="mp3_03_3"
 				:List="cls"
@@ -41,13 +43,13 @@
 					<span>{{index+1}}</span><span>
 					<span class="mp3_04_01_t hft">{{el.name}}</span>
 					<span class="mp3_04_01opd mp3_04_01_bfs">
-						<img @click="bf(el)" class="mp3_04_01_bf pend" :src="imgPath+'tools/bf.svg'"/>
+						<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="imgPath+'tools/bf.svg'"/>
 						<img class="mp3_04_01_sc pend" :src="imgPath+'tools/sc.svg'"/>
 					</span>
 					</span><span>
 					{{el.author}}</span><span>
 					{{backT(el.duration)}}</span><span>
-					<span @click="ckAdio(el)" class="mp3_04_01_btn mp3_04_01opd pend">选用</span>
+					<span @click="checks(el)" class="mp3_04_01_btn mp3_04_01opd pend">选用</span>
 					</span>
 				</div>
 			</div>
@@ -73,12 +75,12 @@
 						</div>
 					</span>
 					<span class="mp3_05_2_3">
-						<img :src="imgPath+'tools/shangyishou.svg'">
-						<img :src="imgPath+'tools/bofang.svg'">
-						<img :src="imgPath+'tools/xiayishou.svg'">
+						<img @click="sys()" :src="imgPath+'tools/shangyishou.svg'">
+						<img @click="bf()" :src="imgPath+'tools/bofang.svg'">
+						<img @click="xys()" :src="imgPath+'tools/xiayishou.svg'">
 						<img :src="imgPath+'tools/xcx.svg'">
 					</span>
-					<span class="pend mp3_05_2_4">选用</span>
+					<span @click="checks()" class="pend mp3_05_2_4">选用</span>
 				</div>
 			</div>
 			<audio @timeupdate="timeupdate" ref="aido"></audio>
@@ -99,10 +101,10 @@ export default{
 	data(){
 		return{
 			navs:[
-				{n:'发现音乐',v:'1'},
-				{n:'我收藏的',v:'2'},
+				{n:'发现音乐',v:'sh_List'},
+				{n:'我收藏的',v:'sh_CollectList'},
 			],
-			type:'1',
+			type:'sh_List',
 			name:'',
 			cls:[
 				{n:'1',k:'1'},
@@ -149,10 +151,73 @@ export default{
 			})
 			
 		},
-		bf(el){
+		sh_audioUrld(id){
+			this.api.sh_audioUrl({
+				m_id:id
+			}).then((da)=>{
+				if(da=='error'){return}
+				this.$parent.setAdio(da.file_url);	
+				this.close();
+			})
+		},
+		checks(el){
+
+			if(el){
+				this.sh_audioUrld(el.m_id);
+				return
+			}
+			this.$parent.setAdio(this.$refs.aido.src);
+			this.close();
+		},
+		sys(){
+			if(this.datas.length==0){
+				return
+			}
+
+			if(this.bfData.on<1){
+				return
+			}
+			let ond = this.bfData.on-1;
+			let pd = this.datas[ond]
+			this.bfData = {
+				on:ond,
+				logo:pd.logo,
+				name:pd.name,
+				author:pd.author,
+				bft:'00:00',
+				duration:pd.duration,
+			};
+			this.$refs.aido.pause()
+			this.sh_audioUrl(pd.m_id);
+			
+		},
+		xys(){
+			let len = this.datas.length;
+			if(len==0){
+				return
+			}
+			if(this.bfData.on>len-2){
+				return
+			}
+			let ond = this.bfData.on+1;
+			let pd = this.datas[ond]
+			this.bfData = {
+				on:ond,
+				logo:pd.logo,
+				name:pd.name,
+				author:pd.author,
+				bft:'00:00',
+				duration:pd.duration,
+			};
+			this.$refs.aido.pause()
+			this.sh_audioUrl(pd.m_id);
+		},
+		bf(el,on){
+			
 			if(el){
 			
 				this.bfData = {
+					on:on,
 					logo:el.logo,
 					name:el.name,
 					author:el.author,
@@ -163,7 +228,9 @@ export default{
 				this.sh_audioUrl(el.m_id);
 				return
 			}
-			
+			if(!this.$refs.aido.src){
+				return
+			}
 			this.$refs.aido.play();
 		},
 		sh_audioUrl(id){
@@ -201,6 +268,9 @@ export default{
 			return fz+':'+ond;
 			
 		},
+		ss(){
+			this.getList();
+		},
 		getList(){
 			let pr = {
 				page:1,
@@ -212,15 +282,28 @@ export default{
 			if(this.clas){
 				pr.com_classify_name = this.clas;
 			}
+			if(window.source){
+				window.isStop=1;
+				setTimeout(()=>{
+					window.isStop = '';
+				},50)
+				window.source();
+			}
 			
-			this.api.sh_List(pr).then((da)=>{
+			
+			
+			this.api[this.type](pr).then((da)=>{
 				if(da=='error'){
 					return
 					
 					
 				}
+				try{
+					this.datas = da.data;
+				}catch(e){
+					
+				}
 				
-				this.datas = da.data;
 				
 			})
 		},

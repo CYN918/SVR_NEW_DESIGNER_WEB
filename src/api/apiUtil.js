@@ -87,9 +87,14 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 			Message({dangerouslyUseHTMLString:true,message: data});
 			return 'error';
 		}
-	},error => {	  
+	},error => {	 
+		if(window.isStop){
+			return
+		}
 		Message({message: '服务器故障',type: 'warning'});
 		return Promise.reject(error).catch(() => {
+			
+			
 		})
 	});
 	return instance[method](url, params, config)

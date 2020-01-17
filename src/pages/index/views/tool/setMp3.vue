@@ -2,12 +2,13 @@
 	<div>
 		<div class="tols_02">
 			<video 
+			muted="false"
 			class="videos" 		
 			:src="value.video" 
 			ref="yspic1"></video>
 		</div>
-		<div class="too_ad_01" v-if="!adio.src">
-			<div class="pend too_ad_01_1">选择音频</div>
+		<div class="too_ad_01" v-if="!adio.url">
+			<div @click="seletAdio" class="pend too_ad_01_1">选择音频</div>
 			<div class="too_ad_01_2">视频原声暂不支持使用，仅限选择音频库内的音乐，作为来电秀BGM</div>
 		</div>
 		
@@ -15,7 +16,8 @@
 			<img @click="bf" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
 			<img @click="backbf" class="tols_03_2 pend" :src="imgPath+'new/tools/sc_icon_sctp.svg'"/>
 		</div>
-		<component v-bind:is="tanData.zj" v-model="tanData" ref="tcZjs"></component>		
+		<component v-bind:is="tanData.zj" v-model="tanData" ref="tcZjs"></component>
+		<audio class="ycYo" :src="adio.url" ref="aido"></audio>
 	</div>
 	
 </template>
@@ -32,13 +34,33 @@ export default{
 	data(){
 		return{
 			adio:{
-				
+				url:'',
 			},
-			tanData:{
-				zj:'mp3List',
-				
-			}
+			tanData:{}
 		}
+	},
+	methods:{
+		setAdio(u){
+			console.log(u);
+			this.adio.url = u;
+		},
+		seletAdio(){
+			this.tanData = {zj:'mp3List'};
+		},
+		bf(){
+			
+			if(!this.$refs.yspic1.paused){
+				
+				this.$refs.yspic1.pause()
+				this.$refs.aido.pause()
+				return
+			}
+			this.$refs.yspic1.play();
+			this.$refs.aido.play();
+		},
+		backbf(){
+			
+		},
 	}
 	
 }	

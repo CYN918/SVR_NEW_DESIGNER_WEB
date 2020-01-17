@@ -359,5 +359,9 @@ export default {
 		isType:{cancelToken:1},
 	},
 	
+	sh_CollectList:{
+		url:'/api/mobileshow/audioCollectList',method:'post',baseURL:0,
+		isType:{cancelToken:1},
+	},
 	
 }
