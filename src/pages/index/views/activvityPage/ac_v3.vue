@@ -472,6 +472,8 @@ export default{
 	background: url(/imge/ac_v3/04.png) 0 0/100% no-repeat;
 	width: 60px;
 	height: 135px;
+	-webkit-transform: rotate(180deg);
+	transform: rotate(180deg);
 	
 }
 .ac_v2x-1x>span:before{
@@ -482,13 +484,13 @@ export default{
 	width: 60px;
 	height: 135px;
 	background: url(/imge/ac_v3/04.png) 0 0/100% no-repeat;
+	
 
 }
 .ac_v2x-1x>span>div{
 	border: 2px solid #fdd38a;
 	background: #f5e4a1;
-	-webkit-transform: rotate(180deg);
-	transform: rotate(180deg);
+
 	border-radius: 8px;
 	min-width: 184px;
 	height: 130px;
