@@ -16,6 +16,22 @@
 			<img @click="bf" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
 			<img @click="backbf" class="tols_03_2 pend" :src="imgPath+'new/tools/sc_icon_sctp.svg'"/>
 		</div>
+		<div class="tols_04x">
+			<div class="tols_04">
+				
+				<spck
+				v-model="type"
+				class="tols_04_1 tobtn"
+				:List="tab"
+				></spck>
+
+			</div>
+			<div class="tols_05">
+				<a_vcom></a_vcom>				
+			</div>
+			
+		</div>
+		
 		<component v-bind:is="tanData.zj" v-model="tanData" ref="tcZjs"></component>
 		<audio class="ycYo" :src="adio.url" ref="aido"></audio>
 	</div>
@@ -24,9 +40,13 @@
 
 <script>
 import mp3List from './mp3List'
+import a_vcom from './a_vcom'
+import spck from './fospan'
 export default{
 	components:{
-		mp3List
+		mp3List,
+		a_vcom,
+		spck
 	},
 	props:{
 		value:Object,
@@ -36,7 +56,12 @@ export default{
 			adio:{
 				url:'',
 			},
-			tanData:{}
+			tanData:{},
+			type:'audio',
+			tab:[
+				{v:'视频',k:'video'},
+				{v:'音频',k:'audio'}
+			],
 		}
 	},
 	methods:{
