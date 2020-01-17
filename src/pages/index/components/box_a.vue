@@ -22,8 +22,13 @@
 		</div>
 		<div class="wk_a_3">
 			<div class="wk_a_3_1">
-				<img @click="goUser()" :src="mJs.Cavars(el.user_info.avatar)"/>
-				<span @click="goUser()" class="hft">{{el.user_info.username}}</span>
+				<img
+				class="pend"
+				 @click="goUser()" 
+				 :src="mJs.Cavars(el.user_info.avatar)"/>
+				<span 
+				@click="goUser()" 
+				class="pend hft">{{el.user_info.username}}</span>
 				<div class="wk_a_3_2">{{mJs.getTimes(el.create_time)}}</div>
 				<userTc v-if="el.work_id" :tcData="el" :tjData="tjData"></userTc>
 			</div>		

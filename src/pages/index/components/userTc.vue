@@ -22,7 +22,7 @@
 				<span class="csys pend" @click="goR('/works')">进入主页</span>
 			</div>
 		</div>
-	
+		<div @click="goR('/works')" class="usertc_6x"></div>
 	</div>
 </template>
 
@@ -234,5 +234,13 @@ export default {
 }
 .usertc_6:hover>.usertc_0{
 	display: block;
+}
+.usertc_6x{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
 }
 </style>

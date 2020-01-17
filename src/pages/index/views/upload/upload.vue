@@ -187,7 +187,8 @@ export default {
 					btn:'上传图片素材',
 					max:10*1024*1024,
 					type:['image/gif','image/jpeg','image/png'],
-					getType:'image'
+					getType:'image',
+					typexz:'image/gif,image/jpeg,image/png'
 				},
 				{
 					title:'我的视频素材',
@@ -196,7 +197,8 @@ export default {
 					btn:'上传视频素材',
 					max:1.5*1024*1024*1024,
 					type:['video/mp4','video/ogg','video/webm'],
-					getType:'video'
+					getType:'video',
+					typexz:'video/mp4,video/ogg,video/webm'
 				},
 				{
 					title:'我的音频素材',
@@ -204,7 +206,8 @@ export default {
 					btn:'上传音频素材',
 					max:50*1024*1024,
 					type:['audio/ogg','audio/mp3','audio/wav','audio/mpeg'],
-					getType:'audio'
+					getType:'audio',
+					typexz:'audio/ogg,audio/mp3,audio/wav,audio/mpeg'
 				}
 				
 			],

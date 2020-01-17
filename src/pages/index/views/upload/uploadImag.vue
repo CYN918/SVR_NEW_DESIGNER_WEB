@@ -89,6 +89,7 @@ export default {
     methods: {
 		init(){
 			document.body.style = "overflow: hidden;";
+			this.typexz  = this.configData.typexz?this.configData.typexz:'';
 			this.getList();
 		},
 		test(){
