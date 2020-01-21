@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@lottiefiles/lottie-player": "^0.3.0-rc2",
     "axios": "^0.19.0",
     "cropperjs": "^1.5.1",
     "element-ui": "^2.6.1",
@@ -19,6 +20,7 @@
     "qrcodejs2": "0.0.2",
     "vue": "^2.6.6",
     "vue-cropper": "^0.4.9",
+    "vue-lottie": "^0.2.1",
     "vue-qart": "^2.2.0",
     "vue-qr": "^2.1.0",
     "vue-router": "^3.0.1",

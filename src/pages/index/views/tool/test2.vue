@@ -5,29 +5,37 @@
 				<span class="tols_01_1 pend" >
 					<img :src="imgPath+'new/tools/icon_back.svg'" />返回
 				</span>
+				
 				<div class="tols_01_2">
+				
 					<span class="tols_01_3">
 						<span>{{title}}</span>
 						<input v-model="title" type="text">
 					</span>
+					
 					<img :src="imgPath+'new/tools/icon_bj.svg'" >
 				</div>
+				
+				
 				<div class="tols_01_4">
-					<span @click="sh_save" class="pend btn_n">保存</span>
-					<span @click="next" class="btn_n btn_n3">下一步</span>
+					<span class="pend btn_n">保存</span><span class="btn_n btn_n3">下一步</span>
 				</div>
 				
 			</div>
+			
+			
 			<div class="tols_02">
+				<!-- <div class="videos2" :style="videos" v-if="!form.video.url">
+					
+				</div> -->
 				<video 
-				muted
 				class="videos" 
 				v-if="video.url" 
 				:src="video.url" 
 				@timeupdate="timeupdate"
 				ref="yspic1"></video>
-				<el-progress v-else-if="onload" type="circle" :percentage="bfb"></el-progress>
 				
+				<el-progress v-else-if="onload" type="circle" :percentage="bfb"></el-progress>
 				<div v-else class="tols_02_1" @click="upfile">
 					<img class="tols_02_2" :src="imgPath+'new/tools/icon_add_small.svg'"/>
 					<div class="tols_02_3">上传视频</div>
@@ -35,7 +43,6 @@
 						来电秀视频需裁剪至30秒内，限上传mp4格式，最小不低于720（宽）
 					</div>
 				</div>
-				
 			
 			</div>
 			
@@ -43,8 +50,35 @@
 				<img @click="bf" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
 				<img @click="backbf" class="tols_03_2 pend" :src="imgPath+'new/tools/sc_icon_sctp.svg'"/>
 			</div>
-			<component v-bind:is="video.zj" v-model="video" ref="vid"></component>
-		</div>				
+			
+			<div class="tols_04x">
+				<div class="tols_04">
+					<div class="tols_04_1 tobtn">
+						<span class="chekd">视频</span>
+					</div>
+					<div class="tols_04_2 tobtn">
+						<span 
+						@click="sdbq(el)"
+						v-for="el in sd_01"
+						:class="['pend',video.sd==el?'chekd':'']"
+						>{{el}}x</span>
+					</div>
+				</div>
+				
+				
+				<div class="tols_05">
+					
+					
+					<videoSet v-model="video" ref="vid"></videoSet>
+					
+				</div>
+				
+			</div>
+			
+			
+		</div>
+		
+		
 		<input class="fileipd" @change="sup" type="file" ref="upfile"/>
 		
 		<video @canplay="yzfn" class="ycYo" :src="yaz" ref="yaz"></video>
@@ -58,21 +92,21 @@
 <script>
 import btnSc from './togBtn';
 import textD from './textD';
-import set_Video from './set_Video';
-import setMp3 from './setMp3';
-
-
+import videoSet from './videoSet';
 export  default{
 
-	components:{btnSc,textD,set_Video,setMp3},
+	components:{btnSc,textD,videoSet},
 	data(){
 		return{
-
-			Id:'20200017',
 			title:'来电秀模板',
-			
+			sd_01:[
+				'2.25',
+				'0.5',
+				'1.0',
+				'1.25',
+				'1.5'
+			],
 			video:{
-				zj:'set_Video',
 				starT:0,
 				endT:0,
 				url:'',
@@ -80,13 +114,6 @@ export  default{
 				fps:0,
 				sd:'1.0',
 				cover_img:'',
-				fps_pic:'',
-				file_size_format:0,
-				audioUrl:'',
-				audioStar:0,
-				audioMax:0,
-			
-				
 			},
 			videoObj:'',
 			onload:'',
@@ -98,32 +125,6 @@ export  default{
 		this.init();
 	}, 
 	methods:{
-		next(){
-			this.video.zj = 'setMp3';
-		
-		},
-		sh_save(){
-			this.api.sh_save({
-				id:this.Id,
-				title:this.title,
-				img:this.video.cover_img,
-				user_video_url:this.video.url,
-				user_video_size_format:'xx',
-				fps:this.video.fps,
-				fps_pic:this.video.fps_pic,
-				video_start:this.video.starT,
-				video_duration:this.video.endT-this.video.starT,			
-				
-
-			}).then((da)=>{
-				if(da=='error'){return}
-				
-				this.$message({
-					message:'保存成功',
-				})
-				this.Id = da;
-			})
-		},
 		init(){
 				
 		},
@@ -176,8 +177,6 @@ export  default{
 				t = time;
 			}
 			this.video.endT = t;
-			this.videoW = wid;
-			this.videoH = this.$refs.yaz.videoHeight;
 			this.pushVideo();					
 		},
 		
@@ -194,64 +193,52 @@ export  default{
 			formData.append('timestamp',times)
 			formData.append('fps_pic',1)
 			
-			this.onload =1;
+			
 			this.$ajax.post(window.basrul+'/File/File/insert',formData,{
 				headers: {'Content-Type': 'multipart/form-data'},
 				onUploadProgress: progressEvent => {
 					this.bfb = (progressEvent.loaded / progressEvent.total * 100 | 0);
 				}
 			}).then((da)=>{	
-				this.onload ='';
 				let ds = da.data;
 				if(ds.result==0){
 					this.video.url = ds.data.url;
 					this.video.fps = ds.data.fps;
-					this.video.cover_img = ds.data.cover_img;
-					this.video.fps_pic = ds.data.fps_pic;
-					this.video.file_size_format = ds.data.file_size_format;
+					this.video.cover_img = ds.data.fps_pic;
+					
+					
 					return
 				}
-			}).catch(()=>{
-				this.onload ='';
 			})
 		},
 		timeupdate(){
 			let t = this.$refs.yspic1.currentTime;
 			
-			if(t>=this.video.endT){
+			if(t>=this.endT){
 				this.$refs.yspic1.pause();
 			};			
 		},
 		bf(){
-			let t = this.$refs.yspic1.currentTime;
-			if(t<this.video.starT || t>=this.video.endT){
-				this.$refs.yspic1.currentTime = this.video.starT;
-			}
+			this.$refs.yspic1.currentTime = this.starT;
 			this.$refs.yspic1.play();
-			if(this.$refs.vid.pao){
-				this.$refs.vid.pao();
-			}
-			
-			if(this.$refs.vid.bf){
-				this.$refs.vid.bf();
-			}
-			
+			this.$refs.vid.pao(this.endT-this.starT);
 		},
 		backbf(){
-			this.setcurrentTime(this.video.starT);
-			this.bf();	
-			if(this.$refs.vid.backbf){
-				this.$refs.vid.backbf();
-			}		
+			this.setcurrentTime(this.form.star);
+			this.bf();			
 		},
-		pause(){
-			this.$refs.yspic1.pause();
-			// this.$refs.vid.stop();
+		setEnd(t){
+			this.endT = t;
 		},
+		setStar(t){
+			this.starT = t;
+		},		
 		setcurrentTime(t){
 			this.$refs.yspic1.currentTime = t;
 		},
-		
+		sdbq(on){
+			this.video.sd = on;
+		},
 	}
 }
 </script>
@@ -357,7 +344,7 @@ export  default{
 
 .tols_02{
 	position: relative;
-	margin: 60px auto 0;
+	margin: 159px auto 0;
 	width:375px;
 	height:667px;
 	background:rgba(255,255,255,1);

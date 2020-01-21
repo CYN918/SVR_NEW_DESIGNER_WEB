@@ -151,22 +151,22 @@ export default{
 			})
 			
 		},
-		sh_audioUrld(id){
+		sh_audioUrld(id,t){
 			this.api.sh_audioUrl({
 				m_id:id
 			}).then((da)=>{
 				if(da=='error'){return}
-				this.$parent.setAdio(da.file_url);	
+				this.$parent.setAdio(da.file_url,t);	
 				this.close();
 			})
 		},
 		checks(el){
 
 			if(el){
-				this.sh_audioUrld(el.m_id);
+				this.sh_audioUrld(el.m_id,el.duration);
 				return
 			}
-			this.$parent.setAdio(this.$refs.aido.src);
+			this.$parent.setAdio(this.$refs.aido.src,el.duration);
 			this.close();
 		},
 		sys(){

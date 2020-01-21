@@ -364,4 +364,11 @@ export default {
 		isType:{cancelToken:1},
 	},
 	
+	sh_save:{
+		url:'/api/mobileshow/save',method:'post',baseURL:0,
+		isType:{cancelToken:1},
+	},
+	
+	
+	
 }

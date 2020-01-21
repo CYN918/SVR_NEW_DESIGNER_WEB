@@ -1,39 +1,36 @@
 <template>
 	<div>
-		<div class="tols_02">
-			<video 
-			muted="false"
-			class="videos" 		
-			:src="value.video" 
-			ref="yspic1"></video>
-		</div>
-		<div class="too_ad_01" v-if="!adio.url">
+		<div class="too_ad_01" v-if="!value.audioUrl">
 			<div @click="seletAdio" class="pend too_ad_01_1">选择音频</div>
 			<div class="too_ad_01_2">视频原声暂不支持使用，仅限选择音频库内的音乐，作为来电秀BGM</div>
 		</div>
-		
-		<div v-else class="tols_03">
-			<img @click="bf" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
-			<img @click="backbf" class="tols_03_2 pend" :src="imgPath+'new/tools/sc_icon_sctp.svg'"/>
-		</div>
 		<div class="tols_04x">
 			<div class="tols_04">
-				
 				<spck
 				v-model="type"
 				class="tols_04_1 tobtn"
 				:List="tab"
 				></spck>
-
 			</div>
-			<div class="tols_05">
-				<a_vcom></a_vcom>				
+			<div class="tols_05">	
+				<a_vcom 
+				v-if="value.audioUrl"
+				v-model="value"
+				ref="setjs"
+				></a_vcom>				
 			</div>
 			
 		</div>
 		
-		<component v-bind:is="tanData.zj" v-model="tanData" ref="tcZjs"></component>
-		<audio class="ycYo" :src="adio.url" ref="aido"></audio>
+		<component 
+		v-bind:is="tanData.zj" 
+		v-model="tanData" 
+		ref="tcZjs"></component>
+		<audio 
+		@timeupdate="timeupdate1" 
+		class="ycYo" 
+		:src="value.audioUrl" 
+		ref="aido"></audio>
 	</div>
 	
 </template>
@@ -42,8 +39,10 @@
 import mp3List from './mp3List'
 import a_vcom from './a_vcom'
 import spck from './fospan'
+
 export default{
 	components:{
+		
 		mp3List,
 		a_vcom,
 		spck
@@ -53,39 +52,62 @@ export default{
 	},
 	data(){
 		return{
-			adio:{
+			audio:{
 				url:'',
 			},
+			setData:{},
 			tanData:{},
-			type:'audio',
+			type:'setMp3',
 			tab:[
-				{v:'视频',k:'video'},
-				{v:'音频',k:'audio'}
+				{v:'视频',k:'set_Video'},
+				{v:'音频',k:'setMp3'}
 			],
+			starT:0,
+			bfT:{
+				star:0,				
+			}
 		}
 	},
+	watch:{
+		'starT'(){		
+			this.$refs.aido.pause()
+		},
+		'type'(){
+			this.value.zj = this.type;
+		},
+	},
 	methods:{
-		setAdio(u){
-			console.log(u);
-			this.adio.url = u;
+		setEnd(t){
+			this.value.audioStar = t;	
+		},
+		setAdio(u,t){
+			this.value.audioUrl = u;
+			this.value.audioMax = t;
 		},
 		seletAdio(){
 			this.tanData = {zj:'mp3List'};
 		},
 		bf(){
-			
-			if(!this.$refs.yspic1.paused){
-				
-				this.$refs.yspic1.pause()
-				this.$refs.aido.pause()
-				return
+			let t = this.$refs.aido.currentTime;
+			if(t>=(this.value.audioStar+(this.value.endT-this.value.starT))|| t<this.value.audioStar){
+				this.$refs.aido.currentTime = this.value.audioStar;
 			}
-			this.$refs.yspic1.play();
+			
 			this.$refs.aido.play();
 		},
 		backbf(){
-			
+			this.$refs.aido.currentTime = this.value.audioStar;
+			this.$refs.aido.play();
 		},
+		timeupdate1(){
+			let t = this.$refs.aido.currentTime;
+		
+			if(t>=(this.value.audioStar+(this.value.endT-this.value.starT))){
+				this.$refs.aido.pause();
+			};			
+		},
+		
+		
 	}
 	
 }	
