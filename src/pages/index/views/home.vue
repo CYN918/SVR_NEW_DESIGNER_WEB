@@ -3,7 +3,7 @@
 		<baner></baner>
 		<div class="home_0x1">
 			<div class="home_0x2">让设计更有价值，让生活更加自由</div>
-			<div class="home_0x3">如果你是设计师、摄影师、特效工程师、音乐工作者、短视频等创作大师或创意团队，加入狮圈儿，这里就是你施展才能的圈子！在这里，你的作品将更容易获得更多关注和收益，狮圈儿帮助你们将作品内容实现最大的价值。</div>
+			<div class="home_0x3">如果你是设计师、摄影师、特效工程师、音乐工作者、短视频等创作者或创意团队，加入狮圈儿，这里就是你施展才华的圈子，让作品获取最大的价值！</div>
 			<div class="home_0x4">
 				<a  v-for="(el,index) in Ds_01" :key="index">
 					<div class="home_0x4_1">
@@ -19,25 +19,25 @@
 		<div class="home_0x5">
 			<div>
 				<div class="home_0x5_1">
-					<div>专注创作，轻松收获成就</div>
-					全新的创作者平台，聚集创意、分发、收益和社区一站式无缝连接，你只需专注于创作，狮圈儿帮你搞定其他的一切。在这里，你将和各行业的创意大师们一起，尽情发挥奇思妙想，创造更多无限的可能。
+					<div>自由创作，轻松赚取收益</div>
+					以更轻松的方式专注创作，其他交给我们。从投稿设计项目、征集活动，到作品录用和获取收益，全程透明化无忧呈现。
 				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/7.svg"/>
 			</div><div>
 				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/9.svg"/>
 				<div class="home_0x5_1">
 					<div>让你的创作突破限制</div>
-					不要让你的照片像在其他平台上一样在角落里积灰，在狮圈儿建立个人或者工作室专页，报名设计比赛或征集活动，以获得荣誉和奖励。狮圈儿用心对待每一份作品，让每一个热爱创作的人都能实现自己的价值。
+					不要让你的作品像在其他平台上一样在角落里积灰，狮圈儿将创意、分发、收益和社区一站式无缝连接，助你达成更高的成就。
 				</div>
 			</div><div>
 				<div class="home_0x5_1">
-					<div>作品将获全球7亿用户曝光</div>
-					狮圈儿与华为、OPPO、VIVO、魅族等众多一线移动终端企业均有密切商业合作，整个合作网络覆盖全球73%的安卓移动终端。创作者所制作产生的作品素材一经录用发行，即会以主题、壁纸、Banner等展示形式获得国内外海量用户曝光。
+					<div>让全球7亿人看到你的作品</div>
+					稿件一经录用发行即可被7亿人看到，获得不限于华为、OPPO、VIVO、魅族等遍布全球73%安卓移动终端用户的海量曝光。
 				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/8.svg"/>
 			</div><div>
 				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/10.svg"/>
 				<div class="home_0x5_1">
-					<div>我们汇聚各界人才，共同发挥创作才能</div>
-					作为一个全开放平台，狮圈儿对各类创意内容都具有极大的包容性和开放性，无论你是设计师、摄影师还是其他创作者和团队都将有属于你的一席之地。加入狮圈儿，让你的创作成就非凡，让生活变得更加自由美好。
+					<div>包容性最强的创作者平台</div>
+					狮圈儿具有极大的包容性和爆发性，持续不断的内容需求和收益加成，让每一个热爱创作的人都能实现自己的价值。
 				</div>
 			</div>
 			
@@ -149,19 +149,24 @@ export default {
 	text-align: center;
 }
 .home_0x2{
-	margin-bottom: 16px;
+	margin-bottom: 15px;
 	font-size:32px;
+	font-family:PingFangSC-Regular,PingFang SC;
 	color:rgba(64,64,64,1);
 	line-height:45px;
+	
 }
 .home_0x3{
 	margin: 0 auto 40px;
-	width: 619px;
+	width: 592px;
 	text-align: center;
 
-	font-size:12px;
+	font-size:16px;
+	font-family:PingFangSC-Regular,PingFang SC;
+
 	color:rgba(102,102,102,1);
-	line-height:17px;
+	line-height:24px;
+	
 }
 .home_0x4{
 	margin: 0 auto;
@@ -236,11 +241,13 @@ export default {
 	margin:0 auto 30px;
 }
 .home_0x5_1>div{
-	padding-top: 125px;
+	padding-top: 112px;
+	margin-bottom: 14px;
+	
+	
 	font-size:32px;
-	color:rgba(64,64,64,1);
-	line-height:45px;
-	margin-bottom: 16px;
+	color:rgba(40,40,40,1);
+	line-height:40px;
 	
 }
 .home_0x5_1{
@@ -249,9 +256,9 @@ export default {
 	vertical-align: top;
 	text-align: left;
 	margin: 0 63px 0 85px;
-	font-size:14px;
-	color:rgba(102,102,102,1);
-	line-height:20px;
+	color:rgba(102,102,102,1);	
+	font-size:16px;
+	line-height:24px;		
 }
 .home_0x5_2{
 	display: inline-block;
