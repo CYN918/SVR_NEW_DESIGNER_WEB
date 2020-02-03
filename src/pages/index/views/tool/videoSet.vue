@@ -1,57 +1,47 @@
 <template>
-	<div class="tols_05_0b">
+	<div class="tols_05_0b" ref="boxW">
 		<div class="tols_05_0bx">
-			<div class="tols_05_0" ref="boxW">
-				<div class="tols_05_1">
-					<span v-for="el in imgs">
-						<img :src="el"/>
-					</span>
+			<div class="tols_05_0" >
+				<div class="tols_05_1" >
 					
+					
+					<img :src="value.fps_pic"/>	
 				</div>
 			</div>
 		</div>
-		
-		
-		
 		<div class="tols_05_2">
 			
-			<div class="setv02" :style="'width:'+cLW(eT)+'%;'">
+			<div 
+			class="setv02" 
+			:style="'width:'+(100-back_l(value.endT))+'%;'"></div>
+			<div
+			class="setv03" 
+			:style="'width:'+back_l(value.starT)+'%;'"></div>
+			<div 
+			class="setv01" 
+			:style="'right:'+(100-back_l(value.endT))+'%;left:'+back_l(value.starT)+'%;'" 
+			ref="quy">
 				
-			</div>
-			<div class="setv03" :style="'width:'+cLW(sT)+'%;'">
-				
-			</div>
-			
-			
-			<div class="setv01" :style="'right:'+cLW(eT)+'%;left:'+cLW(sT)+'%;'">
-				
-				<div class="setv01_2">
-					<span>00:00</span>
-				</div>
 				<div 
-				@mousedown="dragS2"
+				@mousedown="dragS"
 				class="setv01btn setv01_0" ref="zbtn">
 					<i></i>
 					<i></i>
 					<i></i>
 				</div>
 				<div 
-				@mousedown="dragS"
+				@mousedown="dragE"
 				class="setv01btn setv01_1" ref="yzbtn">
 					<i></i>
 					<i></i>
 					<i></i>
 				</div>
-				
-				
-				
-				<div class="timef time_1">{{ bT(sT)}}</div>
-				<div class="timef time_2">{{bT(cT)}}</div>
-				<div class="timef time_3">{{bT(eT)}}</div>
-				
+				<div class="timef time_1">{{clTime(this.value.starT)}}</div>				
+				<div class="timef time_3">{{clTime(this.value.endT)}}</div>				
+			</div>	
+			<div class="setv01_2" :style="leftt">
+				<span>{{clTime2(bfT)}}</span>
 			</div>
-			
-			<video @canplay="canplay" class="rdVideo" ref="yspic2"></video>
 		</div> 
 	</div>
 </template>
@@ -59,162 +49,205 @@
 <script>
 export default{
 	props:{
-		value:Object,
-		
+		value:Object,		
 	},
 	data(){
 		return{
 			imgs:[],
 			isload:'',
-			time:0,
-			lzb:0,
-			rzb:0,
-			wid1:0,
-			maxW:0,
-			
+			boxO:{},
+			leftt:0,
 			star:0,
 			mov:0,
-			
-			sT:0,
-			cT:0,
-			eT:0,
-			
+			bfT:0,
 		}
 	},
-	methods:{
-		
-		cLW(t){
-			if(!t){return}
-			return (t/this.time).toFixed(2);
+	methods:{		
+		init(){			
+			this.boxO = this.$refs.boxW.getBoundingClientRect();
 		},
-		bT(t){
-			
-			let st1 = '',st2='';
-			st2 = t%60;
-			
-			
-			if(st2<10){
-				st2 = '0'+st2;
+		back_l(nm){
+			return (nm/this.value.max)*100;
+		},
+		clTime2(dz){
+			let tm = Math.ceil(dz/this.value.fps);
+			let zs = dz%this.value.fps;
+			if(zs<10){
+				zs = '0'+zs;
 			}
-			st1 = parseInt(t/60);
-			if(st1<10){
-				st1 = '0'+st1;
+			let mt = tm;
+			let fn = '00';
+			let ms = mt%60;
+			if(mt>60){
+				fn = mt-ms;
+				if(fn<10){
+					fn = '0'+fn;
+				}
+			}
+			if(ms<10){
+				ms = '0'+ms;
 			}
 			
-			return st1+':'+st2;
+			return fn+':'+ms+':'+zs;
+		},
+		pao(){			
+			let zxJg = 1000/this.value.fps;
+			let star_z = parseInt(this.value.starT*this.value.fps);
+			let lenz = Math.ceil(this.value.endT*this.value.fps);	
+			let endT = this.value.endT-this.value.starT;
+			let maxzs = Math.ceil(this.value.max*this.value.fps);		
+			let mt = (endT*1000)/(lenz-star_z);
+			var fnsd = ()=>{
+				if(star_z+1>=lenz){
+					star_z = lenz;
+					this.bfT = star_z;
+					this.leftt = 'left:'+((star_z/maxzs)*100)+'%;';
+					return
+				}
+
+				star_z++;
+				this.bfT = star_z;
+				this.leftt = 'left:'+((star_z/maxzs)*100)+'%;';
+				setTimeout(fnsd,zxJg)
+			};
+			fnsd();
+			return
+			let fnd = ()=>{
+				
+				if(on>=maxL){
+					on = maxL;
+					this.leftt = 'left:'+on+'%;';
+					return
+				}
+				on = on+gk;
+				this.leftt = 'left:'+on+'%;';
+				this.bfT = (on/1300)*this.value.max;
+				setTimeout(()=>{
+					fnd();
+				},1000/60)
+				
+			}
+			fnd();
+			
+			return
+			let setx = ()=>{
+				if(on>=maxL){
+					on = maxL;
+					this.leftt = 'transform: translateX('+on+'px);';
+					
+					return
+				}
+				
+				on = on+gk;
+				this.leftt = 'transform: translateX('+on+'px);';
+				window.requestAnimationFrame(setx)
+			};
+			
+			window.requestAnimationFrame(setx)
+			return
+			let fn = ()=>{
+				if(starz>=endz){
+					starz = endz;
+					this.bfz = this.value.endT;
+					
+					this.leftt = 'transform: translateX('+((this.value.endT/this.value.max)*1300)+'px);'
+					return
+				}
+				starz++;
+				this.bfT = starz/this.value.fps;
+			
+				let od = (this.bfT/this.value.max)*1300;
+				this.leftt = 'transform: translateX('+od+'px);'
+				setTimeout(()=>{
+					fn();
+				},50)
+			}
+			fn();
+			
+									
 		},
 		dragS(e){
-		
+			this.init();
+	
 			this.star = e.pageX;
-			this.mov = this.eT;
-		
-			this.$refs.yzbtn.onmousemove = (e)=>{
-				console.log(e.pageX)
-				// let on = this.mov-(e.pageX-this.star);
-				// this.eT = ((on/this.maxW)*this.time).toFixed(2);
+			this.mov = +this.value.starT;
+			let max = 30;
+			let min = 1;			
+			document.onmousemove = document.onmouseup = null;
+			document.onmousemove = (e)=>{
+				let wdt = (+this.mov + ((e.pageX-this.star)/1300)*this.value.max).toFixed(3);
+				if(wdt<0){
+					wdt=0;
+				}
+				if(wdt>this.value.max){
+					wdt = this.value.max;
+				}
+				let vt = this.value.endT-wdt;
+				if(vt<1){
+					wdt = this.value.endT-1;
+				}
+				if(vt>30){
+					wdt = this.value.endT-30;
+				}
+				this.value.starT = wdt;
+			
 			}
 			
-			this.$refs.yzbtn.onmouseup =  ()=>{
-			    this.$refs.yzbtn.onmousemove = this.$refs.yzbtn.onmouseup = null;
+			document.onmouseup =  ()=>{
+			    document.onmousemove = document.onmouseup = null;
 			}
 		},
-		dragS2(e){
+		dragE(e){
+			this.init();
+		
 			this.star = e.pageX;
-			this.mov = this.lzb;
-					
-			this.$refs.zbtn.onmousemove = (e)=>{
-				let on = this.mov + (e.pageX-this.star);
-				if(on<0){
-					on=0;
-				}
-				if(on>this.maxW-1){
-					on=this.maxW-1;
-				}
+			this.mov = +this.value.endT;
+			document.onmousemove = document.onmouseup = null;
+			document.onmousemove = (e)=>{
+				let on = (+this.mov + ((e.pageX-this.star)/1300)*this.value.max).toFixed(3);
 			
-				this.lzb = on;
+			
+				if(on>this.value.max){
+					on = this.value.max;
+				}
+				let vt = on-this.value.starT;
+				if(vt<1){
+					on = this.value.starT+1;
+				}
+				if(vt>30){
+					on = this.value.starT+30;
+				}
+				this.value.endT = on;
+				
 			}
 			 
-			this.$refs.zbtn.onmouseup =  ()=>{
-				this.$refs.zbtn.onmousemove = this.$refs.zbtn.onmouseup = null;
+			document.onmouseup =  ()=>{
+				document.onmousemove = document.onmouseup = null;
 			}
-				
-			// this.wid1 = x;
-			// this.wid2= this.wid2-x;
-			// if(x>1000){x = 1000;}
-			// if(x<0){x = 0;}
-			// this.py_cs = x;		
-			// let on = (this.py_cs/1000).toFixed(4)*this.con.leng;
-			// this.$emit('input',on);	
+
 		},
-		dragD(e){
-			// let x = e.x;
-			
-			
-			// if(x>1000){x = 1000;}
-			// if(x<0){x = 0;}
-			// this.py_cs = x;
-			// let on = (this.py_cs/1000).toFixed(4)*this.con.leng;
-			// this.$emit('input',on);	
-		},
-		setUrl(on){
-			this.$refs.yspic2.src = on;	
-		},
-		canplay(){			
-			this.time = this.$refs.yspic2.duration;
-			if(this.isload){
-				return
+		clTime(t){
+			let num = Math.ceil(t*this.value.fps);		
+			let zs = num%this.value.fps;
+			if(zs<10){
+				zs = '0'+zs;
 			}
-			this.isload = 1;
-			this.getImg();		
-		},
-		getImg(strT){
-			var scale = 0.3;
-			var canvas = document.createElement("canvas");
-			canvas.width = 64;
-			canvas.height = 114;
-			let jg =2 ;
-			if(this.time<30){
-				jg = this.time/15;
+			let mt = Math.ceil(t);
+			let fn = '00';
+			let ms = mt%60;
+			if(mt>60){
+				fn = mt-ms;
+				if(fn<10){
+					fn = '0'+fn;
+				}
+			}
+			if(ms<10){
+				ms = '0'+ms;
 			}
 			
-			let t=strT?strT:0;
-			this.$refs.yspic2.currentTime = 0;
-			let arr = [];
-			let cr = ()=>{
-				canvas.getContext('2d').drawImage(this.$refs.yspic2, 0, 0, canvas.width, canvas.height);
-				arr.push(canvas.toDataURL("image/png"));
-				if(t<this.time){
-					t+=jg;
-					if(t>this.time){
-						t = this.time;					
-					}
-					this.$refs.yspic2.currentTime = t;
-					setTimeout(()=>{
-						cr();
-					},100)					
-				}else{
-					this.imgs = arr;
-					this.isload = '';
-					setTimeout(()=>{
-						this.setT();
-					},50)
-				}				
-			}
-			setTimeout(()=>{
-				cr();
-			},200)		
-				 
+			return fn+':'+ms+':'+zs;
 		},
-		setT(){
-			this.sT = 0;			
-			if(this.time>30){
-				this.eT = 30;
-			}
-			if(this.time<30){
-				this.eT = this.time;
-			}						
-			this.cT = Math.ceil(this.eT/2);		
-		},
+
 	}
 }
 </script>
@@ -225,13 +258,19 @@ export default{
 }
 .tols_05_0bx{
 	overflow: hidden;
-	
+	text-align: left;
+	height: 114px;
 	border-radius: 5px;
+
 }
 .tols_05_0{
-	max-width: 100%;
-	overflow: hidden;
+	position: relative;
 	display: inline-block;
+	height: 114px;
+	background: #006699;
+	overflow: hidden;
+	/* display: inline-block;
+	 */
 }
 .tols_05_1{
 	position: relative;
@@ -240,18 +279,9 @@ export default{
 	overflow: hidden;
 	white-space: nowrap;
 }
-.tols_05_1>span{
-	display: inline-block;
-	vertical-align: top;
-	background: #008200;
-	width: 64px;
-	height: 114px;
-	
-}
-.tols_05_1>span>img{
+.tols_05_1>img{
 	display: block;
-	vertical-align: top;
-	width: 100%;
+	height: 100%;
 }
 .tols_05_2{
 	position: absolute;
@@ -264,7 +294,7 @@ export default{
 	position: absolute;
 	top: 0;
 	left: 0;
-
+	
 	height: 110px;
 	border-radius: 5px;
 	border: 2px solid rgba(51,179,255,1);
@@ -298,15 +328,50 @@ export default{
 .setv01btn>i:nth-child(1){
 	margin-top: 10px;
 }
+
 .setv01_0{
 	left: -10px;
 }
 .setv01_1{
 	right: -10px;
 }
+
 .setv01_2{
-	
+	position: absolute;
+	width: 1px;
+	height: 100%;
+	background: rgba(51,179,255,1);
+	top: 0;
+	left: 0;	
 }
+.setv01_2>span{
+	position: absolute;
+    top: -33px;
+    left: -35px;
+    width: 65px;
+    height: 27px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.05);
+    font-size: 12px;
+    line-height: 27px;
+}
+.setv01_2>span:after{
+	content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    -webkit-transform: rotate(45deg) translateX(-50%);
+    transform: rotate(45deg) translateX(-50%);
+    border-right: 0;
+    border-bottom: 0;
+}
+
+
+
 .setv03{
 	position: absolute;
 	left: 0;
@@ -328,5 +393,17 @@ export default{
 }
 .time_3{
 	right: 0;
+}
+.rdVideocz{
+	    position: fixed;
+	    top: 0;
+	    /* bottom: 0; */
+	    left: 0;
+	    width: 0;
+	    /* height: 0; */
+	    /* border: none; */
+	    /* background: none; */
+	    width: 300px;
+	    height: 300px;
 }
 </style>

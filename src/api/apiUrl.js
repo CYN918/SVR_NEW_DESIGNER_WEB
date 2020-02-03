@@ -346,6 +346,29 @@ export default {
 	},
 	
 	
-
+	/*show*/
+	sh_class:{
+		url:'/api/mobileshow/audioClassify',method:'post',baseURL:0,
+	},
+	sh_List:{
+		url:'/api/mobileshow/audioList',method:'post',baseURL:0,
+		isType:{cancelToken:1},
+	},
+	sh_audioUrl:{
+		url:'/api/mobileshow/audioUrl',method:'post',baseURL:0,
+		isType:{cancelToken:1},
+	},
+	
+	sh_CollectList:{
+		url:'/api/mobileshow/audioCollectList',method:'post',baseURL:0,
+		isType:{cancelToken:1},
+	},
+	
+	sh_save:{
+		url:'/api/mobileshow/save',method:'post',baseURL:0,
+		isType:{cancelToken:1},
+	},
+	
+	
 	
 }

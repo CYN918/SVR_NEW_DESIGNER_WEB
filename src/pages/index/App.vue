@@ -58,6 +58,16 @@ img{
 	outline-width: 0px;
 	vertical-align: top;
 }
+
+/*com*/
+.ycYo{
+	position: fixed;
+	bottom: -10px;
+	left: -10px;
+	width: 0;
+	height: 0;
+}
+
 .el-textarea__inner:focus{
 	border-color:#DCDFE6;
 }
