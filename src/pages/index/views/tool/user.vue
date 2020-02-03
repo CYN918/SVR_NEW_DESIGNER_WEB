@@ -57,7 +57,7 @@ export default{
 		return{
 			isRz:'',
 			btn_a:[
-				{t:'来电秀工程为空，快去开启你的设计之路吧！',n:'开始制作',p:''},
+				{t:'来电秀工程为空，快去开启你的设计之路吧！',n:'开始制作',p:'/tools'},
 				{t:'认证供稿人后，即可开始制作',n:'立即认证',p:''},
 				
 			],
@@ -87,9 +87,12 @@ export default{
 				this.btn_on = 1;
 				return
 			}
-			this.showK = '';
+			// this.showK = '';
 			
 			
+		},
+		go(to){
+			this.$router.push({path:to});	
 		},
 		kfn(on){
 			this.isnodata = on;
