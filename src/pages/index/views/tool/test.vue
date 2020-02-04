@@ -42,7 +42,7 @@
 				<img @click="bf" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
 				<img @click="backbf" class="tols_03_2 pend" :src="imgPath+'new/tools/sc_icon_sctp.svg'"/>
 			</div>
-			<component v-bind:is="topNav[onType].t" v-model="form" ref="vid"></component>
+			<component v-if="form.video_url"  v-bind:is="topNav[onType].t" v-model="form" ref="vid"></component>
 		</div>				
 		<input class="fileipd" @change="sup" type="file" ref="upfile"/>
 		
@@ -74,7 +74,7 @@ export  default{
 			onType:0,
 			form:{
 
-				id:'20200020',
+				id:'',
 				zj:'setVideo',
 				video_starT:0,
 				video_endT:0,
@@ -92,12 +92,13 @@ export  default{
 				audio_max:0,				
 			},
 			
-			Id:'20200020',
+			Id:'',
 
 			videoObj:'',
 			onload:'',
 			bfb:0,
-			yaz:''
+			yaz:'',
+			ajaxType:'',
 		}
 	},
 	mounted: function () {
@@ -106,11 +107,25 @@ export  default{
 	methods:{
 		Previous(){
 			if(this.onType>0){
+				if(this.onType==2 && this.ajaxType){
+					this.$message({
+						message:'正在制作请稍后'
+					})
+					
+					return
+				}
 				this.onType--;
 				return
 			}
 		},
 		next(){
+			if(this.onType==2 && this.ajaxType){
+				this.$message({
+					message:'正在制作请稍后'
+				})
+				
+				return
+			}
 			let len = this.topNav.length;		
 			if(this.onType<len){
 				if(this[this.topNav[this.onType].ckFn]()){
@@ -198,7 +213,7 @@ export  default{
 			return pr;
 		},
 		sh_save(){
-		
+			
 			if(this[this.topNav[this.onType].ckFn]()){
 				return
 			}
@@ -207,14 +222,31 @@ export  default{
 			if(this.form.id){
 				pr.id = this.form.id;
 			}
-		
+			this.ajaxType =1;
+			if(this.onType==2){
+				this.$refs.vid.starHc();
+			}
+			
 			this.api.sh_save(pr).then((da)=>{
+				if(this.onType==2){
+					this.$refs.vid.stopHc();
+				}
+				
+				this.ajaxType = '';
 				if(da=='error'){return}
 				
 				this.$message({
 					message:'保存成功',
 				})
 				this.form.id = da.id;
+				if(this.onType==2){
+					this.$router.push({path:'/tolt/toluser'});	
+				}
+			}).catch(()=>{
+				if(this.onType==2){
+					this.$refs.vid.stopHc();
+				}
+				this.ajaxType = '';
 			})
 		},
 		init(){

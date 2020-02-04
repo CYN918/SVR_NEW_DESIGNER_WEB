@@ -13,9 +13,9 @@
 			<div class="ldx_sav_1_4">这首歌的名称很长-歌手名称</div>
 			<div class="ldx_sav_1_5">00:30</div>
 			
-			<div class="ldx_sav_1_6">
+			<div v-if="hc" class="ldx_sav_1_6">
 				<div class="ldx_sav_1_6_1">
-					<el-progress type="circle" :percentage="bfb"></el-progress>
+					<i class="loading_a m_c"></i>
 					<div class="ldx_sav_1_6_2">来电秀合成中</div>
 				</div>
 			</div>
@@ -81,6 +81,7 @@ export  default{
 			fls:[],
 			tags:['极简','扁平','风景'],
 			isload:'',
+			hc:'',
 		}
 	},
 	mounted: function () {
@@ -99,6 +100,12 @@ export  default{
 				this.fls = da;
 			})
 		},
+		starHc(){
+			this.hc=1;
+		},
+		stopHc(){
+			this.hc='';
+		}
 
 	}
 }
