@@ -376,7 +376,10 @@ export default {
 		url:'/api/mobileshow/classify',method:'post',baseURL:0,
 		isType:{cancelToken:1},
 	},
-	
+	sh_submit:{
+		url:'/api/mobileshow/submit',method:'post',baseURL:0,
+		isType:{cancelToken:1},
+	},
 	
 	
 }

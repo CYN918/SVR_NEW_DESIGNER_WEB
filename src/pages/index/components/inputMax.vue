@@ -27,12 +27,21 @@ export default{
 			
 		},
 
+
 	},
 	data(){
 		return{
 			input:''
 		}
 	},
+	mounted: function () {
+		this.init();
+	},
+	methods:{
+		init(){
+			this.input = this.value;
+		}
+	}
 }	
 </script>
 

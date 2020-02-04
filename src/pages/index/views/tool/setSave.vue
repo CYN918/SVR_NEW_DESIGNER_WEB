@@ -54,7 +54,7 @@
 					<div>3、若未验收通过，请了解驳回原因后，在工具重新制作提交。</div>
 					
 					<p class="ldx_sav_tip_1">
-						<span :class="isload?'checko':''">立即交稿</span>
+						<span @click="tijF" :class="['pend',istj?'checko':'']">立即交稿</span>
 					</p>
 					
 				</div>
@@ -82,14 +82,38 @@ export  default{
 			tags:['极简','扁平','风景'],
 			isload:'',
 			hc:'',
+			istj:'',
+			ajaxType:'',
 		}
 	},
 	mounted: function () {
 		
 		this.init();
-	}, 
+	},
+	watch:{
+		'value.title'(){
+			this.check()
+		},
+		'value.tag'(){
+			this.check()
+		},
+		'value.fls'(){
+			this.check()
+		},
+	},
 	methods:{
 		init(){
+		
+			if(this.value.tag){
+				for(let i=0,n=this.value.tag.length;i<n;i++){
+					let pod = this.value.tag[i];
+					if(this.tags.indexOf(pod)==-1){
+						this.tags.push(pod);
+					}
+				}
+			}
+			
+			this.check();
 			this.sh_classify();
 		},
 		sh_classify(){
@@ -103,8 +127,68 @@ export  default{
 		starHc(){
 			this.hc=1;
 		},
-		stopHc(){
+		stopHc(a){
 			this.hc='';
+			if(a){
+				this.isload=1;
+			}			
+		},
+		tijF(){
+			if(this.ajaxType){
+				this.$message({
+					message:'正在处理请稍后',
+				})
+				return
+			}
+
+			let pr = this.$parent.saveC(1);
+			this.starHc();
+			this.ajaxType = 1;
+			this.api.sh_save(pr).then((da)=>{
+				
+				this.stopHc(1);
+				if(da=='error'){
+					return
+				}
+				this.sh_submit();
+			}).catch(()=>{
+				this.stopHc();
+				this.ajaxType = '';
+			})
+			
+			
+		},
+		check(){
+			if(!this.value.title){
+				return 
+			}
+			if(!this.value.fls){
+				return 
+			}
+			if(!(this.value.tag && this.value.tag.length>0)){
+				return 
+			}
+			this.istj = 1;
+		},
+		sh_submit(){
+			
+			this.api.sh_submit({
+				id:this.value.id
+			}).then((da)=>{
+				this.ajaxType = '';
+				if(da=='error'){
+					return
+				}
+				this.$message({
+					message:'交稿成功',
+				})
+				setTimeout(()=>{
+					this.$router.push({path:'/tolt/toluser'});	
+				},1000)
+				
+			}).catch(()=>{
+				this.ajaxType = '';
+			})
 		}
 
 	}

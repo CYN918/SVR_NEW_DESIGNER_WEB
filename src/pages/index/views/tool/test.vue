@@ -73,8 +73,6 @@ export  default{
 			],
 			onType:0,
 			form:{
-
-				id:'',
 				zj:'setVideo',
 				video_starT:0,
 				video_endT:0,
@@ -157,24 +155,7 @@ export  default{
 			return false
 		},
 		checkC(){
-			if(!this.form.title){
-				this.$message({
-					message:'请填写来电秀名称'
-				})
-				return true
-			}
-			if(!this.form.fls){
-				this.$message({
-					message:'请选择分类'
-				})
-				return true
-			}
-			if(!(this.form.tag && this.form.tag.length>0)){
-				this.$message({
-					message:'请选择标签'
-				})
-				return true
-			}
+			
 			return false
 		},
 		saveA(){
@@ -184,8 +165,8 @@ export  default{
 				user_video_size_format:this.form.video_file_size_format,
 				fps:this.form.video_fps,
 				fps_pic:this.form.video_fps_pic,
-				video_start:this.form.video_starT,
-				video_duration:this.form.video_endT-this.form.video_starT,	
+				video_start:this.form.video_starT.toFixed(2),
+				video_duration:(this.form.video_endT-this.form.video_starT).toFixed(2),	
 			}
 		},
 		saveB(){
@@ -194,24 +175,28 @@ export  default{
 				audio_m_id:this.form.audio_m_id,
 				audio_name:this.form.audio_name,
 				audio_author:this.form.audio_author,
-				audio_start:this.form.audio_starT,
-				audio_duration:this.form.video_endT-this.form.video_starT,
+				audio_start:this.form.audio_starT.toFixed(2),
+				audio_duration:(this.form.video_endT-this.form.video_starT).toFixed(2),
 			};
 			Object.assign(pr,pb);
 			return pr;
 		},
-		saveC(){
+		saveC(hc){
 			let pr = this.saveB(),
 			pb = {
 				title:this.form.title,
 				classify_id:this.form.fls.classify_id,
 				classify_name:this.form.fls.classify_name,
-				compose:1,
+			
 				tag:this.form.tag.join(),				
 			};
 			Object.assign(pr,pb);
+			if(hc){
+				pr.compose = 1;
+			}
 			return pr;
 		},
+
 		sh_save(){
 			
 			if(this[this.topNav[this.onType].ckFn]()){
@@ -228,20 +213,23 @@ export  default{
 			}
 			
 			this.api.sh_save(pr).then((da)=>{
-				if(this.onType==2){
-					this.$refs.vid.stopHc();
-				}
+				
 				
 				this.ajaxType = '';
-				if(da=='error'){return}
-				
+				if(da=='error'){
+					if(this.onType==2){
+						this.$refs.vid.stopHc();
+					}
+					return
+				}
+				if(this.onType==2){
+					this.$refs.vid.stopHc(1);
+				}
 				this.$message({
 					message:'保存成功',
 				})
 				this.form.id = da.id;
-				if(this.onType==2){
-					this.$router.push({path:'/tolt/toluser'});	
-				}
+
 			}).catch(()=>{
 				if(this.onType==2){
 					this.$refs.vid.stopHc();
@@ -250,6 +238,39 @@ export  default{
 			})
 		},
 		init(){
+			
+			if(this.$route.query.id){
+				let op = JSON.parse(localStorage.getItem('ldxData'));
+				
+				this.form = {
+					id:op.id,
+					title:op.title,
+					zj:'setVideo',
+					video_starT:+op.video_start,
+					video_endT:(+op.video_start+op.video_duration),
+					video_len:0,
+					video_url:op.user_video_url,
+					video_max:'',
+					video_fps:op.fps,
+					video_sd:'1.0',
+					video_cover_img:op.img,
+					video_fps_pic:op.fps_pic,
+					video_file_size_format:op.user_video_size_format,
+					audio_url:'',
+					audio_starT:+op.audio_start,
+					audio_endT:(+op.audio_start+op.audio_duration),
+					audio_max:0,	
+					audio_m_id:op.audio_m_id,
+					audio_name:op.audio_name,
+					audio_author:op.audio_author,
+					tag:op.tag.split(','),
+					fls:{
+						classify_id:op.classify_id,
+						classify_name:op.classify_name,
+					},	
+				}
+			}	
+			// 
 				
 		},
 		upfile(){
@@ -278,7 +299,7 @@ export  default{
 			this.yaz = '';
 		},
 		yzfn(){
-			console.log(this.$refs.yaz);
+	
 			let time = this.$refs.yaz.duration,
 			wid = this.$refs.yaz.videoWidth;
 			if(time>600){
@@ -288,13 +309,13 @@ export  default{
 				this.clerI();
 				return
 			}			
-			if(wid<720){
-				this.$message({
-					message:'视频尺寸太小了请上传至少宽度720'
-				})
-				this.clerI();
-				return
-			}
+			// if(wid<720){
+			// 	this.$message({
+			// 		message:'视频尺寸太小了请上传至少宽度720'
+			// 	})
+			// 	this.clerI();
+			// 	return
+			// }
 			this.form.video_max = time;
 			let t = 30;
 			if(time<30){

@@ -24,6 +24,7 @@
 export default {
 	props:{
 		cfg:Array,
+		value:Array
 	},
 	data(){
 		return{
@@ -57,7 +58,9 @@ export default {
 			this.plac2 = '标签';
 		},				
 		init(){
+			console.log()
 			this.tags = this.cfg;
+			this.checkArr = this.value;
 		},
 		keyups(){
 			let on = this.tags.indexOf(this.newTaga);

@@ -20,14 +20,15 @@
 					<list :config="conf" ref="sfafa">
 						
 						<template v-slot:todo="{ todo }">
-							<div v-if="todo.id==1" @click="go(btn_a[btn_on].p)" class="tolu_06_x1 pend" >
+						
+							<div v-if="todo.on==0" @click="go(btn_a[btn_on].p)" class="tolu_06_x1 pend" >
 								<img :src="imgPath+'new/tools/icon_add_small.svg'">
 								<div>新建项目</div>
 								
 							</div>
 							
 							
-							<cent :el="todo"></cent>
+							<cent :el="todo.data"></cent>
 						</template>			
 					</list>
 					<div v-if="isnodata">
@@ -52,7 +53,7 @@
 </template>
 
 <script>
-import list from '../../components/list';
+import list from '../../components/list2';
 import cent from './cent';
 export default{
 	components:{list,cent},
