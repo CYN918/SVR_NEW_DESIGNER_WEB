@@ -191,7 +191,7 @@ export  default{
 				title:this.form.title,
 				classify_id:this.form.fls.classify_id,
 				classify_name:this.form.fls.classify_name,
-				// compose:1,
+				compose:1,
 				tag:this.form.tag.join(),				
 			};
 			Object.assign(pr,pb);
