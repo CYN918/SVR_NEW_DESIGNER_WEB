@@ -5,13 +5,7 @@
 				<span>我的来电秀工程</span>
 				<a href="/#/help?on=4-02">如何通过制作来电秀获得收益？</a>
 			</div>
-			
-			
-			
 			<div class="tolu_02" >
-				
-				
-				
 				<div v-if="showK" class="tolu_03">
 					<img class="tolu_04" :src="imgPath+'svg/empty_nodata.svg'">
 					<div class="tolu_05">{{btn_a[btn_on].t}}</div>
@@ -22,8 +16,17 @@
 				</div>
 				
 				<div v-else class="tolu_06">
+					
 					<list :config="conf" ref="sfafa">
+						
 						<template v-slot:todo="{ todo }">
+							<div v-if="todo.id==1" @click="go(btn_a[btn_on].p)" class="tolu_06_x1 pend" >
+								<img :src="imgPath+'new/tools/icon_add_small.svg'">
+								<div>新建项目</div>
+								
+							</div>
+							
+							
 							<cent :el="todo"></cent>
 						</template>			
 					</list>
@@ -64,12 +67,14 @@ export default{
 			btn_on:0,
 			conf:{
 				ajax:{
-					url:'pr_list',
+					url:'sh_selfList',
 				},
-				pr:{},	
+				pr:{
+					type:'doing', 
+				},	
 				noData:'1',
 			},	
-			showK:1,
+			showK:'',
 			isnodata:'',
 		
 		}
@@ -87,7 +92,7 @@ export default{
 				this.btn_on = 1;
 				return
 			}
-			// this.showK = '';
+			this.showK = '';
 			
 			
 		},
@@ -98,11 +103,7 @@ export default{
 			this.isnodata = on;
 			
 		},
-		getZp(){
-			
-			
-			
-		},
+
 	}
 }
 </script>
@@ -123,7 +124,7 @@ export default{
 	color:rgba(255,146,0,1);
 }
 .tolu_02{
-	padding: 68px 0;
+
 	background: #fff;
 	border-radius: 5px;
 }
@@ -138,5 +139,29 @@ export default{
 	color:rgba(51,51,51,1);
 	line-height:20px;
 	margin-bottom: 32px;
+}
+.tolu_06{
+	padding: 20px;
+	text-align: left;
+}
+.tolu_06_x1{
+	display: inline-block;
+	vertical-align: top;
+	width:193px;
+	height:345px;
+	background:rgba(244,246,249,1);
+	border-radius:5px;
+
+}
+.tolu_06_x1>div{
+	font-size:14px;
+	color:rgba(30,30,30,1);
+	line-height:20px;
+	text-align: center;
+}
+.tolu_06_x1>img{
+	margin: 146px auto 10px;
+	display: block;
+	width:24px;
 }
 </style>

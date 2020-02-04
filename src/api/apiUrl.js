@@ -368,6 +368,14 @@ export default {
 		url:'/api/mobileshow/save',method:'post',baseURL:0,
 		isType:{cancelToken:1},
 	},
+	sh_selfList:{
+		url:'/api/mobileshow/selfList',method:'post',baseURL:0,
+		isType:{cancelToken:1},
+	},
+	sh_classify:{
+		url:'/api/mobileshow/classify',method:'post',baseURL:0,
+		isType:{cancelToken:1},
+	},
 	
 	
 	

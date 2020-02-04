@@ -151,22 +151,23 @@ export default{
 			})
 			
 		},
-		sh_audioUrld(id,t){
+		sh_audioUrld(el){
 			this.api.sh_audioUrl({
-				m_id:id
+				m_id:el.m_id
 			}).then((da)=>{
 				if(da=='error'){return}
-				this.$parent.setAdio(da.file_url,t);	
+				this.$parent.setAdio(da.file_url,el);	
 				this.close();
 			})
 		},
 		checks(el){
 
 			if(el){
-				this.sh_audioUrld(el.m_id,el.duration);
+				this.sh_audioUrld(el);
 				return
 			}
-			this.$parent.setAdio(this.$refs.aido.src,el.duration);
+			
+			this.$parent.setAdio(this.$refs.aido.src,this.bfData);
 			this.close();
 		},
 		sys(){
@@ -178,8 +179,9 @@ export default{
 				return
 			}
 			let ond = this.bfData.on-1;
-			let pd = this.datas[ond]
+			let pd = this.datas[ond];
 			this.bfData = {
+				m_id:pd.m_id,
 				on:ond,
 				logo:pd.logo,
 				name:pd.name,
@@ -202,6 +204,7 @@ export default{
 			let ond = this.bfData.on+1;
 			let pd = this.datas[ond]
 			this.bfData = {
+				m_id:pd.m_id,
 				on:ond,
 				logo:pd.logo,
 				name:pd.name,
@@ -218,6 +221,7 @@ export default{
 			
 				this.bfData = {
 					on:on,
+					m_id:el.m_id,
 					logo:el.logo,
 					name:el.name,
 					author:el.author,

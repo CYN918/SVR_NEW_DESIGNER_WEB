@@ -2,31 +2,32 @@
 	<div class="box_01x">
 		<div>
 			<div class="tols_01">
-				<span class="tols_01_1 pend" >
+				<span @click="go('/tolt/toluser')" class="tols_01_1 pend" >
 					<img :src="imgPath+'new/tools/icon_back.svg'" />返回
 				</span>
 				<div class="tols_01_2">
-					<span class="tols_01_3">
-						<span>{{title}}</span>
-						<input v-model="title" type="text">
-					</span>
-					<img :src="imgPath+'new/tools/icon_bj.svg'" >
+					<div :class="onType==inx?'oncke':''" v-for="(el,inx) in topNav">
+						<span>{{inx+1}}</span>{{el.n}}
+					</div>
 				</div>
 				<div class="tols_01_4">
+					<span v-if="onType>0" @click="Previous" class="pend btn_n">上一步</span>
 					<span @click="sh_save" class="pend btn_n">保存</span>
-					<span @click="next" class="btn_n btn_n3">下一步</span>
+					<span v-if="onType<topNav.length-1" @click="next" class="pend btn_n btn_n3">下一步</span>
 				</div>
 				
 			</div>
-			<div class="tols_02">
+			<div v-if="onType!=2" class="tols_02">
 				<video 
 				muted
 				class="videos" 
-				v-if="video.url" 
-				:src="video.url" 
+				v-if="form.video_url" 
+				:src="form.video_url" 
 				@timeupdate="timeupdate"
 				ref="yspic1"></video>
-				<el-progress v-else-if="onload" type="circle" :percentage="bfb"></el-progress>
+				<div v-else-if="onload" class="tols_02_x_1">
+					<el-progress  type="circle" :percentage="bfb"></el-progress>
+				</div>
 				
 				<div v-else class="tols_02_1" @click="upfile">
 					<img class="tols_02_2" :src="imgPath+'new/tools/icon_add_small.svg'"/>
@@ -35,15 +36,13 @@
 						来电秀视频需裁剪至30秒内，限上传mp4格式，最小不低于720（宽）
 					</div>
 				</div>
-				
-			
 			</div>
 			
-			<div class="tols_03">
+			<div v-if="onType!=2 && form.video_url" class="tols_03">
 				<img @click="bf" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
 				<img @click="backbf" class="tols_03_2 pend" :src="imgPath+'new/tools/sc_icon_sctp.svg'"/>
 			</div>
-			<component v-bind:is="video.zj" v-model="video" ref="vid"></component>
+			<component v-bind:is="topNav[onType].t" v-model="form" ref="vid"></component>
 		</div>				
 		<input class="fileipd" @change="sup" type="file" ref="upfile"/>
 		
@@ -58,36 +57,43 @@
 <script>
 import btnSc from './togBtn';
 import textD from './textD';
-import set_Video from './set_Video';
-import setMp3 from './setMp3';
-
+import setVideo from './set_Video';
+import setAdio from './setMp3';
+import setSave from './setSave';
 
 export  default{
 
-	components:{btnSc,textD,set_Video,setMp3},
+	components:{btnSc,textD,setVideo,setAdio,setSave},
 	data(){
 		return{
+			topNav:[
+				{n:'选取视频',t:'setVideo',ckFn:'checkA',prFn:'saveA'},
+				{n:'选取音频',t:'setAdio',ckFn:'checkB',prFn:'saveB'},
+				{n:'保存提交',t:'setSave',ckFn:'checkC',prFn:'saveC'},
+			],
+			onType:0,
+			form:{
 
-			Id:'20200017',
-			title:'来电秀模板',
-			
-			video:{
-				zj:'set_Video',
-				starT:0,
-				endT:0,
-				url:'',
-				max:'',
-				fps:0,
-				sd:'1.0',
-				cover_img:'',
-				fps_pic:'',
-				file_size_format:0,
-				audioUrl:'',
-				audioStar:0,
-				audioMax:0,
-			
-				
+				id:'20200020',
+				zj:'setVideo',
+				video_starT:0,
+				video_endT:0,
+				video_len:0,
+				video_url:'',
+				video_max:'',
+				video_fps:0,
+				video_sd:'1.0',
+				video_cover_img:'',
+				video_fps_pic:'',
+				video_file_size_format:0,
+				audio_url:'',
+				audio_starT:0,
+				audio_endT:0,
+				audio_max:0,				
 			},
+			
+			Id:'20200020',
+
 			videoObj:'',
 			onload:'',
 			bfb:0,
@@ -98,30 +104,117 @@ export  default{
 		this.init();
 	}, 
 	methods:{
+		Previous(){
+			if(this.onType>0){
+				this.onType--;
+				return
+			}
+		},
 		next(){
-			this.video.zj = 'setMp3';
-		
+			let len = this.topNav.length;		
+			if(this.onType<len){
+				if(this[this.topNav[this.onType].ckFn]()){
+					return
+				}
+				this.onType++;
+				return
+			}
+		},
+		go(to){
+			this.$router.push({path:to});	
+		},
+		checkA(){
+			if(!this.form.video_url){
+				this.$message({
+					message:'请先上传视频'
+				})
+				return true
+			}
+			return false
+		},
+		checkB(){
+			if(!this.form.audio_m_id){
+				this.$message({
+					message:'请先选择音频'
+				})
+				return true
+			}
+			return false
+		},
+		checkC(){
+			if(!this.form.title){
+				this.$message({
+					message:'请填写来电秀名称'
+				})
+				return true
+			}
+			if(!this.form.fls){
+				this.$message({
+					message:'请选择分类'
+				})
+				return true
+			}
+			if(!(this.form.tag && this.form.tag.length>0)){
+				this.$message({
+					message:'请选择标签'
+				})
+				return true
+			}
+			return false
+		},
+		saveA(){
+			return {
+				img:this.form.video_cover_img,
+				user_video_url:this.form.video_url,
+				user_video_size_format:this.form.video_file_size_format,
+				fps:this.form.video_fps,
+				fps_pic:this.form.video_fps_pic,
+				video_start:this.form.video_starT,
+				video_duration:this.form.video_endT-this.form.video_starT,	
+			}
+		},
+		saveB(){
+			let pr = this.saveA(),
+			pb = {
+				audio_m_id:this.form.audio_m_id,
+				audio_name:this.form.audio_name,
+				audio_author:this.form.audio_author,
+				audio_start:this.form.audio_starT,
+				audio_duration:this.form.video_endT-this.form.video_starT,
+			};
+			Object.assign(pr,pb);
+			return pr;
+		},
+		saveC(){
+			let pr = this.saveB(),
+			pb = {
+				title:this.form.title,
+				classify_id:this.form.fls.classify_id,
+				classify_name:this.form.fls.classify_name,
+				// compose:1,
+				tag:this.form.tag.join(),				
+			};
+			Object.assign(pr,pb);
+			return pr;
 		},
 		sh_save(){
-			this.api.sh_save({
-				id:this.Id,
-				title:this.title,
-				img:this.video.cover_img,
-				user_video_url:this.video.url,
-				user_video_size_format:'xx',
-				fps:this.video.fps,
-				fps_pic:this.video.fps_pic,
-				video_start:this.video.starT,
-				video_duration:this.video.endT-this.video.starT,			
-				
-
-			}).then((da)=>{
+		
+			if(this[this.topNav[this.onType].ckFn]()){
+				return
+			}
+			
+			let pr = this[this.topNav[this.onType].prFn]();
+			if(this.form.id){
+				pr.id = this.form.id;
+			}
+		
+			this.api.sh_save(pr).then((da)=>{
 				if(da=='error'){return}
 				
 				this.$message({
 					message:'保存成功',
 				})
-				this.Id = da;
+				this.form.id = da.id;
 			})
 		},
 		init(){
@@ -170,14 +263,13 @@ export  default{
 				this.clerI();
 				return
 			}
-			this.video.max = time;
+			this.form.video_max = time;
 			let t = 30;
 			if(time<30){
 				t = time;
 			}
-			this.video.endT = t;
-			this.videoW = wid;
-			this.videoH = this.$refs.yaz.videoHeight;
+			this.form.video_endT = t;
+
 			this.pushVideo();					
 		},
 		
@@ -204,11 +296,11 @@ export  default{
 				this.onload ='';
 				let ds = da.data;
 				if(ds.result==0){
-					this.video.url = ds.data.url;
-					this.video.fps = ds.data.fps;
-					this.video.cover_img = ds.data.cover_img;
-					this.video.fps_pic = ds.data.fps_pic;
-					this.video.file_size_format = ds.data.file_size_format;
+					this.form.video_url = ds.data.url;
+					this.form.video_fps = ds.data.fps;
+					this.form.video_cover_img = ds.data.cover_img;
+					this.form.video_fps_pic = ds.data.fps_pic;
+					this.form.video_file_size_format = ds.data.file_size_format;
 					return
 				}
 			}).catch(()=>{
@@ -218,14 +310,14 @@ export  default{
 		timeupdate(){
 			let t = this.$refs.yspic1.currentTime;
 			
-			if(t>=this.video.endT){
+			if(t>=this.form.video_endT){
 				this.$refs.yspic1.pause();
 			};			
 		},
 		bf(){
 			let t = this.$refs.yspic1.currentTime;
-			if(t<this.video.starT || t>=this.video.endT){
-				this.$refs.yspic1.currentTime = this.video.starT;
+			if(t<this.form.video_starT || t>=this.form.video_endT){
+				this.$refs.yspic1.currentTime = this.form.video_starT;
 			}
 			this.$refs.yspic1.play();
 			if(this.$refs.vid.pao){
@@ -238,7 +330,7 @@ export  default{
 			
 		},
 		backbf(){
-			this.setcurrentTime(this.video.starT);
+			this.setcurrentTime(this.form.video_starT);
 			this.bf();	
 			if(this.$refs.vid.backbf){
 				this.$refs.vid.backbf();
@@ -299,17 +391,46 @@ export  default{
 .tols_01_2{
 	text-align: center;
 }
-.tols_01_2>input{
-	min-width: 40px;
-	border: none;
-	background: none;
-}
-.tols_01_2>img{
+.tols_01_2>div{
 	display: inline-block;
 	vertical-align: top;
-	margin: 18px 0 0 10px;
-	width: 13px;
+	font-size:14px;
+	color:rgba(187,187,187,1);
+
 }
+.tols_01_2>div>span{
+	display: inline-block;
+	vertical-align: top;
+	margin: 12px 8px 0 0;
+	font-size:14px;
+	color:rgba(0,0,0,0.25);
+	line-height:23px;
+	text-align: center;
+	border-radius: 50%;
+	width:22px;
+	height:22px;
+	border:1px solid rgba(0,0,0,0.15);
+}
+.tols_01_2>div:after{
+	content: "";
+	display: inline-block;
+	vertical-align: top;
+	margin: 24px 8px 0;
+	width:48px;
+	height:1px;
+	background:rgba(0,0,0,0.15);
+}
+.tols_01_2>div:last-child:after{
+	display: none;
+}
+.tols_01_2>div.oncke{
+	color: #000;
+}
+.tols_01_2>div.oncke>span{
+	border-color: #33B3FF;
+	color: #33B3FF;
+}
+
 .tols_01_3{
 	position: relative;
 	margin-top: 14px;
@@ -351,8 +472,8 @@ export  default{
 	right: 20px;
 	
 }
-.tols_01_4>span.btn_n3{
-	margin-left: 15px;
+.tols_01_4>span{
+	margin-left:15px;
 }
 
 .tols_02{
@@ -471,5 +592,11 @@ export  default{
 	margin-left: 10px;
 }
 
-
+.tols_02_x_1{
+	position: absolute;
+	top:50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
 </style>

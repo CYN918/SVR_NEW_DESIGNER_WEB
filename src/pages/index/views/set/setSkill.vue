@@ -18,7 +18,6 @@
 							<el-select v-model="form.work_experience"  placeholder="请选择">
 								<el-option
 								  v-for="item in pz_work_experience"
-								  
 								  :label="item"
 								  :value="item">
 								</el-option>

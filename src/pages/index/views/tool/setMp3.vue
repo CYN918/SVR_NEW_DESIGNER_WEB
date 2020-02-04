@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="too_ad_01" v-if="!value.audioUrl">
+		<div class="too_ad_01" v-if="!value.audio_url">
 			<div @click="seletAdio" class="pend too_ad_01_1">选择音频</div>
 			<div class="too_ad_01_2">视频原声暂不支持使用，仅限选择音频库内的音乐，作为来电秀BGM</div>
 		</div>
@@ -14,7 +14,7 @@
 			</div>
 			<div class="tols_05">	
 				<a_vcom 
-				v-if="value.audioUrl"
+				v-if="value.audio_url"
 				v-model="value"
 				ref="setjs"
 				></a_vcom>				
@@ -29,7 +29,7 @@
 		<audio 
 		@timeupdate="timeupdate1" 
 		class="ycYo" 
-		:src="value.audioUrl" 
+		:src="value.audio_url" 
 		ref="aido"></audio>
 	</div>
 	
@@ -78,31 +78,41 @@ export default{
 	},
 	methods:{
 		setEnd(t){
-			this.value.audioStar = t;	
+			this.value.audio_starT = t;	
+			this.value.audio_endT = +t+this.video_len;
+			
 		},
 		setAdio(u,t){
-			this.value.audioUrl = u;
-			this.value.audioMax = t;
+			this.value.audio_url = u;
+			this.value.audio_max = t.duration;
+			this.video_len = this.value.video_endT-this.value.video_starT;
+			this.value.audio_endT = this.video_len;
+			this.value.audio_m_id=t.m_id;
+			this.value.audio_name=t.name;
+			this.value.audio_author=t.author;
+			
+			
+		
 		},
 		seletAdio(){
 			this.tanData = {zj:'mp3List'};
 		},
 		bf(){
 			let t = this.$refs.aido.currentTime;
-			if(t>=(this.value.audioStar+(this.value.endT-this.value.starT))|| t<this.value.audioStar){
-				this.$refs.aido.currentTime = this.value.audioStar;
+			if(t>=(this.value.audio_starT+this.video_len) || t<this.value.audio_starT){
+				this.$refs.aido.currentTime = this.value.audio_starT;
 			}
 			
 			this.$refs.aido.play();
 		},
 		backbf(){
-			this.$refs.aido.currentTime = this.value.audioStar;
+			this.$refs.aido.currentTime = this.value.audio_starT;
 			this.$refs.aido.play();
 		},
 		timeupdate1(){
-			let t = this.$refs.aido.currentTime;
-		
-			if(t>=(this.value.audioStar+(this.value.endT-this.value.starT))){
+			let t = this.$refs.aido.currentTime;	
+	
+			if(t>=(this.value.audio_starT+this.video_len)){
 				this.$refs.aido.pause();
 			};			
 		},

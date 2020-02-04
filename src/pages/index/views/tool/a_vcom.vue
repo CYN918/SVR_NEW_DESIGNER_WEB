@@ -52,15 +52,14 @@ export default{
 	}, 
 	methods:{
 		init(){
-			this.audioEnd = this.value.audioMax;
-			this.videoEnd = this.value.endT-this.value.starT;	
+			this.audioEnd = this.value.audio_max;
+			this.videoEnd = this.value.audio_endT-this.value.audio_starT;	
 			
-			this.value.audioStar
 			
 			
 			
 			this.rft = 1300-(this.videoEnd/this.audioEnd)*1300;		
-			this.lft =  (this.value.audioStar/this.audioEnd)*1300;
+			this.lft =  (this.value.audio_starT/this.audioEnd)*1300;
 			
 			
 		},
