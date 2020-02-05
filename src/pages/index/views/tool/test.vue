@@ -242,13 +242,12 @@ export  default{
 			
 			if(this.$route.query.id){
 				let op = JSON.parse(localStorage.getItem('ldxData'));
-				
+			
 				this.form = {
 					id:op.id,
-					title:op.title,
 					zj:'setVideo',
 					video_starT:+op.video_start,
-					video_endT:(+op.video_start+op.video_duration),
+					video_endT:(+op.video_start+(+op.video_duration)),
 					video_len:0,
 					video_url:op.user_video_url,
 					video_max:'',
@@ -257,21 +256,39 @@ export  default{
 					video_cover_img:op.img,
 					video_fps_pic:op.fps_pic,
 					video_file_size_format:op.user_video_size_format,
-					audio_url:'',
-					audio_starT:+op.audio_start,
-					audio_endT:(+op.audio_start+op.audio_duration),
-					audio_max:0,	
-					audio_m_id:op.audio_m_id,
-					audio_name:op.audio_name,
-					audio_author:op.audio_author,
-					tag:op.tag.split(','),
-					fls:{
-						classify_id:op.classify_id,
-						classify_name:op.classify_name,
-					},	
+					
+				};
+				
+				setTimeout(()=>{
+					this.form.video_max = this.$refs.yspic1.duration;
+					console.log(this.form)
+				},100)
+				if(op.audio_m_id){
+					let pr = {
+						audio_url:'',
+						audio_starT:+op.audio_start,
+						audio_endT:(+op.audio_start+(+op.audio_duration)),
+						audio_max:0,	
+						audio_m_id:op.audio_m_id,
+						audio_name:op.audio_name,
+						audio_author:op.audio_author,
+					};
+					Object.assign(this.form,pr);
 				}
+				if(op.title){
+					let po = {
+						title:op.title,
+						tag:op.tag.split(','),
+						fls:{
+							classify_id:op.classify_id,
+							classify_name:op.classify_name,
+						},	
+					};
+					Object.assign(this.form,po);
+				}
+	
 			}	
-			// 
+	
 				
 		},
 		upfile(){

@@ -141,6 +141,7 @@ export  default{
 			this.ajaxType = 1;
 			this.api.sh_save(pr).then((da)=>{				
 				this.stopHc(1);
+				this.ajaxType = '';
 				if(da=='error'){
 					return
 				}
@@ -314,6 +315,7 @@ export  default{
 	line-height:24px;
 }
 .ldx_sav_1_6{
+	position: absolute;
 	top: 0;
 	left: 0;
 	background: rgba(0,0,0,.5);

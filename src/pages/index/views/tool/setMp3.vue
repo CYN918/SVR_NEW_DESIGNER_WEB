@@ -76,7 +76,29 @@ export default{
 			this.value.zj = this.type;
 		},
 	},
+	mounted: function () {
+		this.init();
+	}, 
 	methods:{
+		init(){
+			if(this.value.audio_m_id){
+				this.sh_audioUrl(this.value.audio_m_id);
+			}
+		},
+		sh_audioUrl(id){
+			this.api.sh_audioUrl({
+				m_id:id
+			}).then((da)=>{
+				if(da=='error'){return}
+				this.value.audio_url = da
+				this.video_len = this.value.video_endT-this.value.video_starT;
+				this.value.audio_endT = this.video_len;
+				this.value.audio_max = this.$refs.aido.duration;
+				
+			})
+		},
+		
+		
 		setEnd(t){
 			this.value.audio_starT = t;	
 			this.value.audio_endT = +t+this.video_len;

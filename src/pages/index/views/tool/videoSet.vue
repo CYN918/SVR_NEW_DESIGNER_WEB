@@ -67,6 +67,7 @@ export default{
 			this.boxO = this.$refs.boxW.getBoundingClientRect();
 		},
 		back_l(nm){
+			console.log(nm);
 			return (nm/this.value.max)*100;
 		},
 		clTime2(dz){

@@ -9,8 +9,24 @@
 			<div class="ldx_l_1_1_5">00:30</div> -->
 			
 			<div class="ldx_l_1_btn">
-				<span @click="bjfn(el.id)" class="pend">编辑</span>
-				<span class="pend ldx_l_1_btn1">交稿</span>
+				<div class="ldx_l_1_btn" v-if="el.status==0">
+					<span @click="bjfn(el.id)" class="pend">编辑</span>
+					<span @click="pusjg" class="pend ldx_l_1_btn1">交稿</span>
+				</div>
+				<div v-if="el.status==1">
+					<span>审核中</span>
+				</div>
+				<div v-if="el.status==2">
+					<span @click="bjfn(el.id)">重新编辑</span>
+					<span>查看驳回原因</span>
+				</div>
+			</div>
+			
+			<div v-if="tjTy" class="ldx_sav_1_6">
+				<div class="ldx_sav_1_6_1">
+					<i class="loading_a m_c"></i>
+					<div class="ldx_sav_1_6_2">来电秀合成中</div>
+				</div>
 			</div>
 			
 		</div>
@@ -32,12 +48,84 @@ export default{
 			default:{}
 		},
 	},
+	data(){
+		return{
+			tjTy:'',
+		}
+		
+	},
 	methods:{
 		bjfn(id){
 			localStorage.setItem('ldxData',JSON.stringify(this.el));
 			this.$router.push({path:'/tools',query:{id:id}});
 	
-		}
+		},
+		pusjg(){
+			if(this.tjTy){
+				return
+			}
+			if(!el.audio_m_id){
+				this.$message({
+					message:"请先完善信息再提交"
+				})
+				return
+			}
+			if(!el.title){
+				this.$message({
+					message:"请先完善信息再提交"
+				})
+				return
+			}
+			if(!el.tag){
+				this.$message({
+					message:"请先完善信息再提交"
+				})
+				return
+			}
+			if(!el.classify_name){
+				this.$message({
+					message:"请先完善信息再提交"
+				})
+				return
+			}			
+			let pr = {
+				img:el.img,
+				user_video_url:this.el.user_video_url,
+				user_video_size_format:this.el.user_video_size_format,
+				fps:this.el.fps,
+				fps_pic:this.el.fps_pic,
+				video_start:this.el.video_start,
+				video_duration:this.el.video_duration,	
+				audio_m_id:this.el.audio_m_id,
+				audio_name:this.el.audio_name,
+				audio_author:this.el.audio_author,
+				audio_start:this.el.audio_start,
+				audio_duration:this.el.audio_duration,
+				title:this.el.title,
+				classify_id:this.el.classify_id,
+				classify_name:this.el.classify_name,
+				tag:this.el.tag,	
+				compose:1,
+				submit:1,
+			};
+			this.tjTy = 1;
+			this.api.sh_save(pr).then((da)=>{
+				this.tjTy = '';
+				if(da=='error'){
+					return
+				}
+				this.$message({
+					message:'交稿成功',
+				})
+				setTimeout(()=>{
+					this.$router.push({path:'/tolt/toluser'});	
+				},1000)
+					
+			}).catch(()=>{
+				this.tjTy = '';
+			})
+			
+		},
 	}
 }
 </script>

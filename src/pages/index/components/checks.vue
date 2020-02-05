@@ -58,15 +58,15 @@ export default {
 			this.plac2 = '标签';
 		},				
 		init(){
-			console.log()
+			
 			this.tags = this.cfg;
-			this.checkArr = this.value;
+			this.checkArr = this.value?this.value:[];
 		},
 		keyups(){
 			let on = this.tags.indexOf(this.newTaga);
 			if(on==-1){
 				this.tags.push(this.newTaga);
-				this.$refs.in.blur();
+				this.$refs.keydown2.blur();
 				
 				return
 			}
