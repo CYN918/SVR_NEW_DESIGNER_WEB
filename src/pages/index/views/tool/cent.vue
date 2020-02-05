@@ -13,12 +13,12 @@
 					<span @click="bjfn(el.id)" class="pend">编辑</span>
 					<span @click="pusjg" class="pend ldx_l_1_btn1">交稿</span>
 				</div>
-				<div v-if="el.status==1">
+				<div class="ldx_l_1_btn2" v-if="el.status==1">
 					<span>审核中</span>
 				</div>
-				<div v-if="el.status==2">
-					<span @click="bjfn(el.id)">重新编辑</span>
-					<span>查看驳回原因</span>
+				<div class="ldx_l_1_btn3" v-if="el.status==-1">
+					<span class="pend" @click="bjfn(el.id)">重新编辑</span>
+					<span class="pend ldx_l_1_btn3x">查看驳回原因</span>
 				</div>
 			</div>
 			
@@ -190,5 +190,37 @@ export default{
 	background:rgba(51,179,255,1);
 	color: #fff;
 	border-color: rgba(51,179,255,1);
+}
+.ldx_l_1_btn2>span{
+	display: block;
+	margin: 0 auto;
+	width:153px;
+	height:32px;
+	background:rgba(255,255,255,1);
+	border-radius:5px;
+	border:1px solid rgba(187,187,187,1);
+	font-size:14px;
+	color:rgba(102,102,102,1);
+	line-height:32px;
+	text-align: center;
+}
+.ldx_l_1_btn3>span{
+	display: block;
+	margin: 0 auto;
+	width:153px;
+	height:32px;
+	background:rgba(255,255,255,1);
+	border-radius:5px;
+	border:1px solid rgba(187,187,187,1);
+	font-size:14px;
+	color:rgba(102,102,102,1);
+	line-height:32px;
+	text-align: center;
+}
+.ldx_l_1_btn3>span.ldx_l_1_btn3x{
+	margin-top: 10px;
+	background: #33B3FF;
+	border-color: #33B3FF;
+	color: #fff;
 }
 </style>
