@@ -52,10 +52,15 @@ export default{
 	}, 
 	methods:{
 		init(){
+			if(!this.value.audio_max){
+				setTimeout(()=>{
+					this.init();
+				},100)
+				return
+			}
+	
 			this.audioEnd = this.value.audio_max;
-			this.videoEnd = this.value.audio_endT-this.value.audio_starT;	
-			
-			
+			this.videoEnd = (this.value.video_endT-this.value.video_starT);	
 			
 			
 			this.rft = 1300-(this.videoEnd/this.audioEnd)*1300;		
@@ -144,6 +149,8 @@ export default{
 	left: 0;
 	width: 100%;
 	height: 114px;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/tools/ybo.png) 0 center/auto 100% repeat-x;
+	
 }
 .toAdi_1_2,.toAdi_1_1{
 	position: absolute;

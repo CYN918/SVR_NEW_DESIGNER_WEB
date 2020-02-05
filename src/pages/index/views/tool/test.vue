@@ -23,6 +23,7 @@
 				class="videos" 
 				v-if="form.video_url" 
 				:src="form.video_url" 
+				@canplay="canplay"
 				@timeupdate="timeupdate"
 				ref="yspic1"></video>
 				<div v-else-if="onload" class="tols_02_x_1">
@@ -42,7 +43,7 @@
 				<img @click="bf" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
 				<img @click="backbf" class="tols_03_2 pend" :src="imgPath+'new/tools/sc_icon_sctp.svg'"/>
 			</div>
-			<component v-if="form.video_url"  v-bind:is="topNav[onType].t" v-model="form" ref="vid"></component>
+			<component v-if="form.video_url"  v-bind:is="form.zj" v-model="form" ref="vid"></component>
 		</div>				
 		<input class="fileipd" @change="sup" type="file" ref="upfile"/>
 		
@@ -58,12 +59,13 @@
 import btnSc from './togBtn';
 import textD from './textD';
 import setVideo from './set_Video';
+import setVideo2 from './videoSet';
 import setAdio from './setMp3';
 import setSave from './setSave';
 
 export  default{
 
-	components:{btnSc,textD,setVideo,setAdio,setSave},
+	components:{btnSc,textD,setVideo,setAdio,setSave,setVideo2},
 	data(){
 		return{
 			topNav:[
@@ -103,6 +105,9 @@ export  default{
 		this.init();
 	}, 
 	methods:{
+		canplay(){
+			this.form.video_max = this.$refs.yspic1.duration;
+		},
 		Previous(){
 			if(this.onType>0){
 				if(this.onType==2 && this.ajaxType){
@@ -113,23 +118,19 @@ export  default{
 					return
 				}
 				this.onType--;
+				this.form.zj = this.topNav[this.onType].t;
 				return
 			}
 		},
 		next(){
-			if(this.onType==2 && this.ajaxType){
-				this.$message({
-					message:'正在制作请稍后'
-				})
-				
-				return
-			}
+			
 			let len = this.topNav.length;		
 			if(this.onType<len){
 				if(this[this.topNav[this.onType].ckFn]()){
 					return
-				}
+				}				
 				this.onType++;
+				this.form.zj = this.topNav[this.onType].t;
 				return
 			}
 		},
@@ -259,10 +260,7 @@ export  default{
 					
 				};
 				
-				setTimeout(()=>{
-					this.form.video_max = this.$refs.yspic1.duration;
-					console.log(this.form)
-				},100)
+			
 				if(op.audio_m_id){
 					let pr = {
 						audio_url:'',
@@ -273,6 +271,11 @@ export  default{
 						audio_name:op.audio_name,
 						audio_author:op.audio_author,
 					};
+					
+					this.sh_audioUrl(pr.audio_m_id);
+					
+					
+					
 					Object.assign(this.form,pr);
 				}
 				if(op.title){
@@ -290,6 +293,14 @@ export  default{
 			}	
 	
 				
+		},
+		sh_audioUrl(id){
+			this.api.sh_audioUrl({
+				m_id:id
+			}).then((da)=>{
+				if(da=='error'){return}
+				this.form.audio_url = da.file_url;
+			})
 		},
 		upfile(){
 			this.$refs.upfile.click();

@@ -11,13 +11,20 @@
 				class="tols_04_1 tobtn"
 				:List="tab"
 				></spck>
+				<div class="tols_04adio_01">
+					<span class="tols_04adio_02">{{value.audio_name}}</span>
+					<span class="tols_04adio_03">-{{value.audio_author}}</span>
+					<span @click="seletAdio" class="tols_04adio_04 pend">更换音乐</span>
+				</div>
 			</div>
+			
 			<div class="tols_05">	
 				<a_vcom 
-				v-if="value.audio_url"
+				v-if="value.audio_url "
 				v-model="value"
 				ref="setjs"
-				></a_vcom>				
+				></a_vcom>	
+	
 			</div>
 			
 		</div>
@@ -28,6 +35,7 @@
 		ref="tcZjs"></component>
 		<audio 
 		@timeupdate="timeupdate1" 
+		@canplay="canplay"
 		class="ycYo" 
 		:src="value.audio_url" 
 		ref="aido"></audio>
@@ -57,10 +65,10 @@ export default{
 			},
 			setData:{},
 			tanData:{},
-			type:'setMp3',
+			type:'setAdio',
 			tab:[
-				{v:'视频',k:'set_Video'},
-				{v:'音频',k:'setMp3'}
+				{v:'视频',k:'setVideo2'},
+				{v:'音频',k:'setAdio'}
 			],
 			starT:0,
 			bfT:{
@@ -81,38 +89,25 @@ export default{
 	}, 
 	methods:{
 		init(){
-			if(this.value.audio_m_id){
-				this.sh_audioUrl(this.value.audio_m_id);
-			}
+			console.log(this.value)
 		},
-		sh_audioUrl(id){
-			this.api.sh_audioUrl({
-				m_id:id
-			}).then((da)=>{
-				if(da=='error'){return}
-				this.value.audio_url = da
-				this.video_len = this.value.video_endT-this.value.video_starT;
-				this.value.audio_endT = this.video_len;
-				this.value.audio_max = this.$refs.aido.duration;
-				
-			})
+		canplay(){
+			this.value.audio_max = this.$refs.aido.duration;
 		},
-		
-		
 		setEnd(t){
 			this.value.audio_starT = t;	
-			this.value.audio_endT = +t+this.video_len;
+			this.value.audio_endT = +t+(this.value.video_endT-this.value.video_starT);
 			
 		},
 		setAdio(u,t){
 			this.value.audio_url = u;
 			this.value.audio_max = t.duration;
-			this.video_len = this.value.video_endT-this.value.video_starT;
-			this.value.audio_endT = this.video_len;
+			this.value.audio_starT = 0;
+			this.value.audio_endT = this.value.video_endT-this.value.video_starT;
 			this.value.audio_m_id=t.m_id;
 			this.value.audio_name=t.name;
 			this.value.audio_author=t.author;
-			
+			this.$refs.setjs.init();
 			
 		
 		},
@@ -161,5 +156,23 @@ export default{
 	font-size:12px;
 	color:rgba(187,187,187,1);
 	line-height:18px;
+}
+.tols_04adio_01{
+	position: absolute;
+	right: 0;
+	top: 0;
+	line-height: 32px;
+	font-size:14px;
+}
+.tols_04adio_02{
+	color:rgba(102,102,102,1);
+}
+.tols_04adio_03{
+	margin-left: 2px;
+	color:#BBBBBB;
+}
+.tols_04adio_04{	
+	margin-left: 20px;
+	color:#33B3FF;
 }
 </style>

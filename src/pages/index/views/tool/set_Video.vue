@@ -17,8 +17,6 @@
 				<div class="tols_05_0bx">
 					<div class="tols_05_0" >
 						<div class="tols_05_1" >
-							
-							
 							<img :src="value.video_fps_pic"/>	
 						</div>
 					</div>

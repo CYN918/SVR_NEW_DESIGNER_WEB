@@ -1,58 +1,93 @@
 <template>
-	<div class="tols_05_0b" ref="boxW">
-		<div class="tols_05_0bx">
-			<div class="tols_05_0" >
-				<div class="tols_05_1" >
-					
-					
-					<img :src="value.fps_pic"/>	
-				</div>
+	<div class="tols_04x">
+		<div class="tols_04">
+			<div class="tols_04">
+				<spck
+				v-model="type"
+				class="tols_04_1 tobtn"
+				:List="tab"
+				></spck>
+			</div>
+			<div class="tols_04_2 tobtn">
+				<span 
+				@click="sdbq(el)"
+				v-for="el in sd_01"
+				:class="['pend',value.video_sd==el?'chekd':'']"
+				>{{el}}x</span>
 			</div>
 		</div>
-		<div class="tols_05_2">
-			
-			<div 
-			class="setv02" 
-			:style="'width:'+(100-back_l(value.endT))+'%;'"></div>
-			<div
-			class="setv03" 
-			:style="'width:'+back_l(value.starT)+'%;'"></div>
-			<div 
-			class="setv01" 
-			:style="'right:'+(100-back_l(value.endT))+'%;left:'+back_l(value.starT)+'%;'" 
-			ref="quy">
-				
-				<div 
-				@mousedown="dragS"
-				class="setv01btn setv01_0" ref="zbtn">
-					<i></i>
-					<i></i>
-					<i></i>
+		<div class="tols_05">
+			<div class="tols_05_0b" ref="boxW">
+				<div class="tols_05_0bx">
+					<div class="tols_05_0" >
+						<div class="tols_05_1" >
+							<img :src="value.video_fps_pic"/>	
+						</div>
+					</div>
 				</div>
-				<div 
-				@mousedown="dragE"
-				class="setv01btn setv01_1" ref="yzbtn">
-					<i></i>
-					<i></i>
-					<i></i>
-				</div>
-				<div class="timef time_1">{{clTime(this.value.starT)}}</div>				
-				<div class="timef time_3">{{clTime(this.value.endT)}}</div>				
-			</div>	
-			<div class="setv01_2" :style="leftt">
-				<span>{{clTime2(bfT)}}</span>
+				<div class="tols_05_2">
+					
+					<div 
+					class="setv02" 
+					:style="'width:'+(100-back_l(value.video_endT))+'%;'"></div>
+					<div
+					class="setv03" 
+					:style="'width:'+back_l(value.video_starT)+'%;'"></div>
+					<div 
+					class="setv01" 
+					:style="'right:'+(100-back_l(value.video_endT))+'%;left:'+back_l(value.video_starT)+'%;'" 
+					ref="quy">
+						
+						<div 
+						@mousedown="dragS"
+						class="setv01btn setv01_0" ref="zbtn">
+							<i></i>
+							<i></i>
+							<i></i>
+						</div>
+						<div 
+						@mousedown="dragE"
+						class="setv01btn setv01_1" ref="yzbtn">
+							<i></i>
+							<i></i>
+							<i></i>
+						</div>
+						<div class="timef time_1">{{clTime(this.value.video_starT)}}</div>				
+						<div class="timef time_3">{{clTime(this.value.video_endT)}}</div>				
+					</div>	
+					<div class="setv01_2" :style="leftt">
+						<span>{{clTime2(bfT)}}</span>
+					</div>
+				</div> 
 			</div>
-		</div> 
+		</div>	
+			
 	</div>
 </template>
 
 <script>
+import spck from './fospan'
 export default{
+	components:{
+		spck
+	},
 	props:{
-		value:Object,		
+		value:Object,
 	},
 	data(){
 		return{
+			tab:[
+				{v:'视频',k:'setVideo2'},
+				{v:'音频',k:'setAdio'}
+			],
+			type:'setVideo2',
+			sd_01:[
+				'2.25',
+				'0.5',
+				'1.0',
+				'1.25',
+				'1.5'
+			],
 			imgs:[],
 			isload:'',
 			boxO:{},
@@ -62,17 +97,26 @@ export default{
 			bfT:0,
 		}
 	},
-	methods:{		
-		init(){			
+	watch:{
+
+		'type'(){
+			this.value.zj = this.type;
+			console.log(this.value);
+		},
+	},
+	methods:{
+		sdbq(on){
+			this.value.video_sd = on;
+		},
+		init(){
 			this.boxO = this.$refs.boxW.getBoundingClientRect();
 		},
 		back_l(nm){
-			console.log(nm);
-			return (nm/this.value.max)*100;
+			return (nm/this.value.video_max)*100;
 		},
 		clTime2(dz){
-			let tm = Math.ceil(dz/this.value.fps);
-			let zs = dz%this.value.fps;
+			let tm = Math.ceil(dz/this.value.video_fps);
+			let zs = dz%this.value.video_fps;
 			if(zs<10){
 				zs = '0'+zs;
 			}
@@ -91,12 +135,15 @@ export default{
 			
 			return fn+':'+ms+':'+zs;
 		},
+		stop(){
+			
+		},
 		pao(){			
-			let zxJg = 1000/this.value.fps;
-			let star_z = parseInt(this.value.starT*this.value.fps);
-			let lenz = Math.ceil(this.value.endT*this.value.fps);	
-			let endT = this.value.endT-this.value.starT;
-			let maxzs = Math.ceil(this.value.max*this.value.fps);		
+			let zxJg = 1000/this.value.video_fps;
+			let star_z = parseInt(this.value.video_starT*this.value.video_fps);
+			let lenz = Math.ceil(this.value.video_endT*this.value.video_fps);	
+			let endT = this.value.video_endT-this.value.video_starT;
+			let maxzs = Math.ceil(this.value.video_max*this.value.video_fps);		
 			let mt = (endT*1000)/(lenz-star_z);
 			var fnsd = ()=>{
 				if(star_z+1>=lenz){
@@ -105,7 +152,7 @@ export default{
 					this.leftt = 'left:'+((star_z/maxzs)*100)+'%;';
 					return
 				}
-
+		
 				star_z++;
 				this.bfT = star_z;
 				this.leftt = 'left:'+((star_z/maxzs)*100)+'%;';
@@ -122,7 +169,7 @@ export default{
 				}
 				on = on+gk;
 				this.leftt = 'left:'+on+'%;';
-				this.bfT = (on/1300)*this.value.max;
+				this.bfT = (on/1300)*this.value.video_max;
 				setTimeout(()=>{
 					fnd();
 				},1000/60)
@@ -149,15 +196,15 @@ export default{
 			let fn = ()=>{
 				if(starz>=endz){
 					starz = endz;
-					this.bfz = this.value.endT;
+					this.bfz = this.value.video_endT;
 					
-					this.leftt = 'transform: translateX('+((this.value.endT/this.value.max)*1300)+'px);'
+					this.leftt = 'transform: translateX('+((this.value.video_endT/this.value.video_max)*1300)+'px);'
 					return
 				}
 				starz++;
-				this.bfT = starz/this.value.fps;
+				this.bfT = starz/this.value.video_fps;
 			
-				let od = (this.bfT/this.value.max)*1300;
+				let od = (this.bfT/this.value.video_max)*1300;
 				this.leftt = 'transform: translateX('+od+'px);'
 				setTimeout(()=>{
 					fn();
@@ -169,28 +216,28 @@ export default{
 		},
 		dragS(e){
 			this.init();
-	
+			
 			this.star = e.pageX;
-			this.mov = +this.value.starT;
+			this.mov = +this.value.video_starT;
 			let max = 30;
 			let min = 1;			
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
-				let wdt = (+this.mov + ((e.pageX-this.star)/1300)*this.value.max).toFixed(3);
+				let wdt = (+this.mov + ((e.pageX-this.star)/1300)*this.value.video_max).toFixed(3);
 				if(wdt<0){
 					wdt=0;
 				}
-				if(wdt>this.value.max){
-					wdt = this.value.max;
+				if(wdt>this.value.video_max){
+					wdt = this.value.video_max;
 				}
-				let vt = this.value.endT-wdt;
+				let vt = this.value.video_endT-wdt;
 				if(vt<1){
-					wdt = this.value.endT-1;
+					wdt = this.value.video_endT-1;
 				}
 				if(vt>30){
-					wdt = this.value.endT-30;
+					wdt = this.value.video_endT-30;
 				}
-				this.value.starT = wdt;
+				this.value.video_starT = wdt;
 			
 			}
 			
@@ -202,34 +249,34 @@ export default{
 			this.init();
 		
 			this.star = e.pageX;
-			this.mov = +this.value.endT;
+			this.mov = +this.value.video_endT;
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
-				let on = (+this.mov + ((e.pageX-this.star)/1300)*this.value.max).toFixed(3);
+				let on = (+this.mov + ((e.pageX-this.star)/1300)*this.value.video_max).toFixed(3);
 			
 			
-				if(on>this.value.max){
-					on = this.value.max;
+				if(on>this.value.video_max){
+					on = this.value.video_max;
 				}
-				let vt = on-this.value.starT;
+				let vt = on-this.value.video_starT;
 				if(vt<1){
-					on = this.value.starT+1;
+					on = this.value.video_starT+1;
 				}
 				if(vt>30){
-					on = this.value.starT+30;
+					on = this.value.video_starT+30;
 				}
-				this.value.endT = on;
+				this.value.video_endT = on;
 				
 			}
 			 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
 			}
-
+		
 		},
 		clTime(t){
-			let num = Math.ceil(t*this.value.fps);		
-			let zs = num%this.value.fps;
+			let num = Math.ceil(t*this.value.video_fps);		
+			let zs = num%this.value.video_fps;
 			if(zs<10){
 				zs = '0'+zs;
 			}
@@ -248,7 +295,6 @@ export default{
 			
 			return fn+':'+ms+':'+zs;
 		},
-
 	}
 }
 </script>
@@ -281,6 +327,7 @@ export default{
 	white-space: nowrap;
 }
 .tols_05_1>img{
+	pointer-events: none;
 	display: block;
 	height: 100%;
 }
@@ -384,16 +431,18 @@ export default{
 .setv01>.timef{
 	position: absolute;
 	top: 122px;	
+	color: #33B3FF;
 }
 .time_1{
-	left: 0;
+	left: -34px;
 }
 .time_2{
 	left: 50%;
 	transform: translateX(-50%);
 }
 .time_3{
-	right: 0;
+	
+	right: -34px;
 }
 .rdVideocz{
 	    position: fixed;
