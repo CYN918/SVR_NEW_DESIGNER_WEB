@@ -193,6 +193,7 @@ export  default{
 			Object.assign(pr,pb);
 			if(hc){
 				pr.compose = 1;
+				pr.submit = 1;
 			}
 			return pr;
 		},

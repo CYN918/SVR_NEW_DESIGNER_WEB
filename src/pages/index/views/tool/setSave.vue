@@ -80,7 +80,6 @@ export  default{
 			form:{},
 			fls:[],
 			tags:['极简','扁平','风景'],
-			isload:'',
 			hc:'',
 			istj:'',
 			ajaxType:'',
@@ -128,10 +127,7 @@ export  default{
 			this.hc=1;
 		},
 		stopHc(a){
-			this.hc='';
-			if(a){
-				this.isload=1;
-			}			
+			this.hc='';		
 		},
 		tijF(){
 			if(this.ajaxType){
@@ -140,17 +136,21 @@ export  default{
 				})
 				return
 			}
-
-			let pr = this.$parent.saveC(1);
+			let pr = this.$parent.saveC(1);		
 			this.starHc();
 			this.ajaxType = 1;
-			this.api.sh_save(pr).then((da)=>{
-				
+			this.api.sh_save(pr).then((da)=>{				
 				this.stopHc(1);
 				if(da=='error'){
 					return
 				}
-				this.sh_submit();
+				this.$message({
+					message:'交稿成功',
+				})
+				setTimeout(()=>{
+					this.$router.push({path:'/tolt/toluser'});	
+				},1000)
+		
 			}).catch(()=>{
 				this.stopHc();
 				this.ajaxType = '';
@@ -170,26 +170,7 @@ export  default{
 			}
 			this.istj = 1;
 		},
-		sh_submit(){
-			
-			this.api.sh_submit({
-				id:this.value.id
-			}).then((da)=>{
-				this.ajaxType = '';
-				if(da=='error'){
-					return
-				}
-				this.$message({
-					message:'交稿成功',
-				})
-				setTimeout(()=>{
-					this.$router.push({path:'/tolt/toluser'});	
-				},1000)
-				
-			}).catch(()=>{
-				this.ajaxType = '';
-			})
-		}
+		
 
 	}
 }
