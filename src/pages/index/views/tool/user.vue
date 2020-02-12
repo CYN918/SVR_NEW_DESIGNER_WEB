@@ -9,7 +9,7 @@
 				<div v-if="showK" class="tolu_03">
 					<img class="tolu_04" :src="imgPath+'svg/empty_nodata.svg'">
 					<div class="tolu_05">{{btn_a[btn_on].t}}</div>
-					<div>
+					<div class="btn_n4">
 						<span @click="go(btn_a[btn_on].p)" class="btn_n btn_n3">{{btn_a[btn_on].n}}</span>
 					</div>
 					
@@ -33,7 +33,7 @@
 					</list>
 					<div v-if="isnodata">
 						<div class="tolu_05">{{btn_a[btn_on].t}}</div>
-						<div>
+						<div class="btn_n4">
 							<span @click="go(btn_a[btn_on].p)" class="btn_n btn_n3">{{btn_a[btn_on].n}}</span>
 						</div>
 					</div>
@@ -95,7 +95,7 @@ export default{
 			}
 			this.showK = '';
 			
-			
+
 		},
 		go(to){
 			this.$router.push({path:to});	
@@ -136,13 +136,13 @@ export default{
 }
 .tolu_05{
 	font-size:14px;
-	
+	text-align: center;
 	color:rgba(51,51,51,1);
 	line-height:20px;
 	margin-bottom: 32px;
 }
 .tolu_06{
-	padding: 20px;
+	padding: 20px 20px 20px 0;
 	text-align: left;
 }
 .tolu_06_x1{
@@ -164,5 +164,9 @@ export default{
 	margin: 146px auto 10px;
 	display: block;
 	width:24px;
+}
+.btn_n4 {
+	text-align: center;
+	/*padding-bottom: 20px;*/
 }
 </style>

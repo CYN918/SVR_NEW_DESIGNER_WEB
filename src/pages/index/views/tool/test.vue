@@ -281,7 +281,7 @@ export  default{
 				if(op.title){
 					let po = {
 						title:op.title,
-						tag:op.tag.split(','),
+						tag:op.tag && op.tag.split(','),
 						fls:{
 							classify_id:op.classify_id,
 							classify_name:op.classify_name,
@@ -355,7 +355,7 @@ export  default{
 			this.pushVideo();					
 		},
 		
-		pushVideo(a){
+		pushVideo(){
 			let times = (Date.parse(new Date())/1000),
 			arr = [1001,window.userInfo.open_id,times],
 			formData = new FormData();
@@ -394,10 +394,13 @@ export  default{
 			
 			if(t>=this.form.video_endT){
 				this.$refs.yspic1.pause();
-			};			
+			}
 		},
 		bf(){
 			let t = this.$refs.yspic1.currentTime;
+			if ( t > this.form.video_starT && t < this.form.video_endT) {
+				return
+			}
 			if(t<this.form.video_starT || t>=this.form.video_endT){
 				this.$refs.yspic1.currentTime = this.form.video_starT;
 			}
@@ -406,17 +409,18 @@ export  default{
 				this.$refs.vid.pao();
 			}
 			
-			if(this.$refs.vid.bf){
+			/*if(this.$refs.vid.bf){
 				this.$refs.vid.bf();
-			}
-			
+			}*/
+
 		},
 		backbf(){
+			clearTimeout(this.$refs.vid.callback);
 			this.setcurrentTime(this.form.video_starT);
-			this.bf();	
-			if(this.$refs.vid.backbf){
+			this.bf();
+			/*if(this.$refs.vid.backbf){
 				this.$refs.vid.backbf();
-			}		
+			}		*/
 		},
 		pause(){
 			this.$refs.yspic1.pause();

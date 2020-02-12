@@ -69,7 +69,7 @@ export default{
 	data(){
 		return{
 			sd_01:[
-				'2.25',
+				'0.25',
 				'0.5',
 				'1.0',
 				'1.25',
@@ -82,6 +82,7 @@ export default{
 			star:0,
 			mov:0,
 			bfT:0,
+			callback:0,
 		}
 	},
 	methods:{
@@ -118,7 +119,7 @@ export default{
 		stop(){
 			
 		},
-		pao(){			
+		pao(){
 			let zxJg = 1000/this.value.video_fps;
 			let star_z = parseInt(this.value.video_starT*this.value.video_fps);
 			let lenz = Math.ceil(this.value.video_endT*this.value.video_fps);	
@@ -136,7 +137,7 @@ export default{
 				star_z++;
 				this.bfT = star_z;
 				this.leftt = 'left:'+((star_z/maxzs)*100)+'%;';
-				setTimeout(fnsd,zxJg)
+				this.callback = setTimeout(fnsd,zxJg)
 			};
 			fnsd();
 			return
@@ -248,7 +249,6 @@ export default{
 				this.value.video_endT = on;
 				
 			}
-			 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
 			}
@@ -296,8 +296,7 @@ export default{
 	height: 114px;
 	background: #006699;
 	overflow: hidden;
-	/* display: inline-block;
-	 */
+	/* display: inline-block; */
 }
 .tols_05_1{
 	position: relative;
@@ -425,15 +424,15 @@ export default{
 	right: -34px;
 }
 .rdVideocz{
-	    position: fixed;
-	    top: 0;
-	    /* bottom: 0; */
-	    left: 0;
-	    width: 0;
-	    /* height: 0; */
-	    /* border: none; */
-	    /* background: none; */
-	    width: 300px;
-	    height: 300px;
+	position: fixed;
+	top: 0;
+	/* bottom: 0; */
+	left: 0;
+	width: 0;
+	/* height: 0; */
+	/* border: none; */
+	/* background: none; */
+	width: 300px;
+	height: 300px;
 }
 </style>
