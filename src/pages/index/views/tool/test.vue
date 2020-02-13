@@ -415,23 +415,20 @@ export  default{
 				this.$refs.yspic1.pause();
 			}
 		},
-		bf(){
+		bf(b){
 			let t = this.$refs.yspic1.currentTime;
-			if ( t > this.form.video_starT && t < this.form.video_endT) {
-				return
-			}
 			if(t<this.form.video_starT || t>=this.form.video_endT){
 				this.$refs.yspic1.currentTime = this.form.video_starT;
 			}
 			this.$refs.yspic1.play();
 			this.IsStop = false;
 			if(this.$refs.vid.pao){
-				this.$refs.vid.pao();
+				this.$refs.vid.pao(b);
 			}
 			
-			/*if(this.$refs.vid.bf){
+			if(this.$refs.vid.bf){
 				this.$refs.vid.bf();
-			}*/
+			}
 
 		},
 		bs(){
@@ -442,12 +439,13 @@ export  default{
 			}
 		},
 		backbf(){
-			clearTimeout(this.$refs.vid.callback);
+			clearTimeout(this.$refs.vid.tstop)
+			this.IsStop = false;
 			this.setcurrentTime(this.form.video_starT);
-			this.bf();
-			/*if(this.$refs.vid.backbf){
+			this.bf("back");
+			if(this.$refs.vid.backbf){
 				this.$refs.vid.backbf();
-			}		*/
+			}		
 		},
 		pause(){
 			this.$refs.yspic1.pause();

@@ -4,7 +4,7 @@
 			<div class="tols_04_1 tobtn">
 				<span class="chekd">视频</span>
 			</div>
-			<div class="tols_04_2 tobtn" v-show="false">
+			<div class="tols_04_2 tobtn">
 				<span 
 				@click="sdbq(el)"
 				v-for="el in sd_01"
@@ -121,14 +121,14 @@ export default{
 				clearTimeout(this.tstop);
 			}
 		},
-		pao(){
+		pao(b){
 			let zxJg = 1000/this.value.video_fps;
 			let star_z = parseInt(this.value.video_starT*this.value.video_fps);
 			let lenz = Math.ceil(this.value.video_endT*this.value.video_fps);
 			let endT = this.value.video_endT-this.value.video_starT;
 			let maxzs = Math.ceil(this.value.video_max*this.value.video_fps);		
 			let mt = (endT*1000)/(lenz-star_z);
-			if(this.bfT > 0 && this.bfT < lenz){
+			if(this.bfT > 0 && this.bfT < lenz && b != "back"){
 				star_z = this.bfT;
 			} 
 			var fnsd = ()=>{
