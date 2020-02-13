@@ -4,7 +4,7 @@
 			<div class="tols_04_1 tobtn">
 				<span class="chekd">视频</span>
 			</div>
-			<div class="tols_04_2 tobtn">
+			<div class="tols_04_2 tobtn" v-show="false">
 				<span 
 				@click="sdbq(el)"
 				v-for="el in sd_01"
@@ -33,7 +33,7 @@
 					class="setv01" 
 					:style="'right:'+(100-back_l(value.video_endT))+'%;left:'+back_l(value.video_starT)+'%;'" 
 					ref="quy">
-						
+
 						<div 
 						@mousedown="dragS"
 						class="setv01btn setv01_0" ref="zbtn">
@@ -80,7 +80,8 @@ export default{
 			star:0,
 			mov:0,
 			bfT:0,
-			tstop:""
+			tstop:"",
+			callback:0,
 		}
 	},
 	methods:{
@@ -120,7 +121,7 @@ export default{
 				clearTimeout(this.tstop);
 			}
 		},
-		pao(){			
+		pao(){
 			let zxJg = 1000/this.value.video_fps;
 			let star_z = parseInt(this.value.video_starT*this.value.video_fps);
 			let lenz = Math.ceil(this.value.video_endT*this.value.video_fps);
@@ -254,7 +255,6 @@ export default{
 				this.value.video_endT = on;
 				
 			}
-			 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
 			}
@@ -302,8 +302,7 @@ export default{
 	height: 114px;
 	background: #006699;
 	overflow: hidden;
-	/* display: inline-block;
-	 */
+	/* display: inline-block; */
 }
 .tols_05_1{
 	position: relative;
@@ -431,15 +430,15 @@ export default{
 	right: -34px;
 }
 .rdVideocz{
-	    position: fixed;
-	    top: 0;
-	    /* bottom: 0; */
-	    left: 0;
-	    width: 0;
-	    /* height: 0; */
-	    /* border: none; */
-	    /* background: none; */
-	    width: 300px;
-	    height: 300px;
+	position: fixed;
+	top: 0;
+	/* bottom: 0; */
+	left: 0;
+	width: 0;
+	/* height: 0; */
+	/* border: none; */
+	/* background: none; */
+	width: 300px;
+	height: 300px;
 }
 </style>

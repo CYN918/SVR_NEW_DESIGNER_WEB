@@ -1,26 +1,29 @@
 <template>
 	<div class="box_01x">
 		<div>
-			<div class="tols_01">
+			<div class="top_menu" ref="top_menu" :class="{ fixedBar: isFixed }">
+				<div class="tols_01" ref="top_menu">
 				<span @click="go('/tolt/toluser')" class="tols_01_1 pend" >
 					<img :src="imgPath+'new/tools/icon_back.svg'" />返回
 				</span>
-				<div class="tols_01_2">
-					<div :class="onType==inx?'oncke':''" v-for="(el,inx) in topNav">
-						<span>{{inx+1}}</span>{{el.n}}
+					<div class="tols_01_2">
+						<div :class="onType==inx?'oncke':''" v-for="(el,inx) in topNav">
+							<span>{{inx+1}}</span>{{el.n}}
+						</div>
 					</div>
+					<div class="tols_01_4">
+						<span v-if="onType>0" @click="Previous" class="pend btn_n">上一步</span>
+						<span @click="sh_save" class="pend btn_n">保存</span>
+						<span v-if="onType<topNav.length-1" @click="next" class="pend btn_n btn_n3">下一步</span>
+					</div>
+
 				</div>
-				<div class="tols_01_4">
-					<span v-if="onType>0" @click="Previous" class="pend btn_n">上一步</span>
-					<span @click="sh_save" class="pend btn_n">保存</span>
-					<span v-if="onType<topNav.length-1" @click="next" class="pend btn_n btn_n3">下一步</span>
-				</div>
-				
 			</div>
-			<div v-if="onType!=2" class="tols_02">
+
+			<div v-if="onType!=2" class="tols_02" :style="{ marginTop: marginTop }">
 				<video 
 				muted
-				class="videos" 
+				class="videos"
 				v-if="form.video_url" 
 				:src="form.video_url" 
 				@canplay="canplay"
@@ -101,11 +104,16 @@ export  default{
 			yaz:'',
 			ajaxType:'',
 			IsStop:true
+			isFixed:false,
+			marginTop:'108px',
 		}
 	},
 	mounted: function () {
 		this.init();
-	}, 
+	},
+	destroyed: function() {
+		window.removeEventListener('scroll', this.handleScroll); // 离开页面 关闭监听 不然会报错
+	},
 	methods:{
 		canplay(){
 			this.form.video_max = this.$refs.yspic1.duration;
@@ -288,7 +296,7 @@ export  default{
 				if(op.title){
 					let po = {
 						title:op.title,
-						tag:op.tag.split(','),
+						tag:op.tag && op.tag.split(','),
 						fls:{
 							classify_id:op.classify_id,
 							classify_name:op.classify_name,
@@ -297,9 +305,13 @@ export  default{
 					Object.assign(this.form,po);
 				}
 	
-			}	
-	
-				
+			}
+
+			// 设置bar浮动阈值为 #fixedBar 至页面顶部的距离
+			this.offsetTop = document.querySelector('.top_menu').offsetTop;
+
+			// 开启滚动监听
+			window.addEventListener('scroll', this.handleScroll);
 		},
 		sh_audioUrl(id){
 			this.api.sh_audioUrl({
@@ -362,7 +374,7 @@ export  default{
 			this.pushVideo();					
 		},
 		
-		pushVideo(a){
+		pushVideo(){
 			let times = (Date.parse(new Date())/1000),
 			arr = [1001,window.userInfo.open_id,times],
 			formData = new FormData();
@@ -401,10 +413,13 @@ export  default{
 			
 			if(t>=this.form.video_endT){
 				this.$refs.yspic1.pause();
-			};			
+			}
 		},
 		bf(){
 			let t = this.$refs.yspic1.currentTime;
+			if ( t > this.form.video_starT && t < this.form.video_endT) {
+				return
+			}
 			if(t<this.form.video_starT || t>=this.form.video_endT){
 				this.$refs.yspic1.currentTime = this.form.video_starT;
 			}
@@ -414,10 +429,10 @@ export  default{
 				this.$refs.vid.pao();
 			}
 			
-			if(this.$refs.vid.bf){
+			/*if(this.$refs.vid.bf){
 				this.$refs.vid.bf();
-			}
-			
+			}*/
+
 		},
 		bs(){
 			this.IsStop = true
@@ -427,11 +442,12 @@ export  default{
 			}
 		},
 		backbf(){
+			clearTimeout(this.$refs.vid.callback);
 			this.setcurrentTime(this.form.video_starT);
-			this.bf();	
-			if(this.$refs.vid.backbf){
+			this.bf();
+			/*if(this.$refs.vid.backbf){
 				this.$refs.vid.backbf();
-			}		
+			}		*/
 		},
 		pause(){
 			this.$refs.yspic1.pause();
@@ -440,13 +456,24 @@ export  default{
 		setcurrentTime(t){
 			this.$refs.yspic1.currentTime = t;
 		},
-		
+		handleScroll () {
+			var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+
+			if (scrollTop >= this.offsetTop) {
+				this.isFixed = true;
+				this.marginTop = this.marginTop + document.querySelector('.top_menu').offsetHeight + 'px';
+			} else {
+				this.isFixed = false;
+				this.marginTop = '108px';
+			}
+		}
 	}
 }
 </script>
 
 <style>
 #app > div.box_01x{
+	position: absolute;
 	width: 100%;
 	height: 100%;
 	padding: 0;
@@ -695,5 +722,11 @@ export  default{
 	left: 50%;
 	-webkit-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
+}
+.top_menu {
+	position: fixed;
+	top: 0;
+	z-index: 999;
+	width: 100%;
 }
 </style>

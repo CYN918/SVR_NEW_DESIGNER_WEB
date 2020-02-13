@@ -36,7 +36,7 @@
 				<div class="mp3_04_01"><span></span><span>歌曲</span><span>歌手</span><span>时长</span><span></span></div>
 				
 				<div 
-				
+				@dblclick="bf(el, index)"
 				v-for="(el,index) in datas"
 				:class="['mp3_04_01 mp3_04_01xd',index%2==0?'mp3_04_01x':'']" 
 				>
@@ -44,7 +44,8 @@
 					<span class="mp3_04_01_t hft">{{el.name}}</span>
 					<span class="mp3_04_01opd mp3_04_01_bfs">
 						<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="imgPath+'tools/bf.svg'"/>
-						<img class="mp3_04_01_sc pend" :src="imgPath+'tools/sc.svg'"/>
+						<img @click="favor(el)" class="mp3_04_01_sc pend"
+							 :src="(el.is_collect == 0) ? imgPath +  'tools/sc.svg' : imgPath + 'tools/xcx.svg'"/>
 					</span>
 					</span><span>
 					{{el.author}}</span><span>
@@ -78,7 +79,7 @@
 						<img @click="sys()" :src="imgPath+'tools/shangyishou.svg'">
 						<img @click="bf()" :src="imgPath+'tools/bofang.svg'">
 						<img @click="xys()" :src="imgPath+'tools/xiayishou.svg'">
-						<img :src="imgPath+'tools/xcx.svg'">
+						<img @click="favor()" :src="imgPath+'tools/xcx.svg'">
 					</span>
 					<span @click="checks()" class="pend mp3_05_2_4">选用</span>
 				</div>
@@ -119,7 +120,6 @@ export default{
 				author:'--',
 				bft:'00:00',
 				duration:0,
-				
 			},
 		}
 	},
@@ -160,15 +160,31 @@ export default{
 				this.close();
 			})
 		},
+		sh_addFavorAudio(id) {
+			this.api.sh_addFavorAudio({
+				m_id : id
+			}).then((da) => {
+				if (da.result != 0) {
+					//弹错误消息
+					return;
+				}
+				//弹收藏成功,刷新列表
+				this.getList();
+			})
+		},
 		checks(el){
 
 			if(el){
 				this.sh_audioUrld(el);
 				return
 			}
-			
-			this.$parent.setAdio(this.$refs.aido.src,this.bfData);
-			this.close();
+
+			let ond = this.bfData.on;
+			let choseEl = this.datas[ond];
+			this.sh_audioUrld(choseEl);
+
+			//this.$parent.setAdio(this.$refs.aido.src,this.bfData);
+			//this.close();
 		},
 		sys(){
 			if(this.datas.length==0){
@@ -246,6 +262,21 @@ export default{
 				this.$refs.aido.play();
 				
 			})
+		},
+		favor(el) {
+			if (el) {
+				if (el.is_collect == 1) {
+					return
+				}
+				this.sh_addFavorAudio(el.m_id);
+			} else {
+				let ond = this.bfData.on;
+				if (this.datas[ond].is_collect) {
+					return;
+				}
+				let id = this.datas[ond].m_id;
+				this.sh_addFavorAudio(id);
+			}
 		},
 		ckAdio(el){
 		
@@ -341,10 +372,10 @@ export default{
 
 .mp3_01{
 	position: fixed;
-	top: 0;
+	top: 60px;
 	right: 0;
 	width:860px;
-	height:100%;
+	height:90%;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
 	border-radius:5px;
