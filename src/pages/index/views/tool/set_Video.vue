@@ -4,7 +4,7 @@
 			<div class="tols_04_1 tobtn">
 				<span class="chekd">视频</span>
 			</div>
-			<div class="tols_04_2 tobtn">
+			<div class="tols_04_2 tobtn" v-show="false">
 				<span 
 				@click="sdbq(el)"
 				v-for="el in sd_01"
@@ -33,7 +33,7 @@
 					class="setv01" 
 					:style="'right:'+(100-back_l(value.video_endT))+'%;left:'+back_l(value.video_starT)+'%;'" 
 					ref="quy">
-						
+
 						<div 
 						@mousedown="dragS"
 						class="setv01btn setv01_0" ref="zbtn">

@@ -363,6 +363,12 @@ export default {
 		url:'/api/mobileshow/audioCollectList',method:'post',baseURL:0,
 		isType:{cancelToken:1},
 	},
+
+	/* 音乐-收藏*/
+	sh_addFavorAudio : {
+		url :  '/api/mobileshow/audioAddCollect',
+		isType: {cancelToken : 1},
+	},
 	
 	sh_save:{
 		url:'/api/mobileshow/save',method:'post',baseURL:0,
