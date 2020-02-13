@@ -103,7 +103,7 @@ export  default{
 			bfb:0,
 			yaz:'',
 			ajaxType:'',
-			IsStop:true
+			IsStop:true,
 			isFixed:false,
 			marginTop:'108px',
 		}
