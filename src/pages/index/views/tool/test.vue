@@ -40,7 +40,8 @@
 			</div>
 			
 			<div v-if="onType!=2 && form.video_url" class="tols_03">
-				<img @click="bf" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
+				<img @click="bs" v-if="!IsStop" class="tols_03_1 pend" :src="imgPath+'new/tools/sc_icon_pause.svg'"/>
+				<img @click="bf" v-if="IsStop" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
 				<img @click="backbf" class="tols_03_2 pend" :src="imgPath+'new/tools/sc_icon_sctp.svg'"/>
 			</div>
 			<component v-if="form.video_url"  v-bind:is="form.zj" v-model="form" ref="vid"></component>
@@ -99,6 +100,7 @@ export  default{
 			bfb:0,
 			yaz:'',
 			ajaxType:'',
+			IsStop:true
 		}
 	},
 	mounted: function () {
@@ -109,14 +111,17 @@ export  default{
 			this.form.video_max = this.$refs.yspic1.duration;
 		},
 		Previous(){
+			
 			if(this.onType>0){
+				this.$refs.yspic1.currentTime = 0;
+				this.IsStop = false;
 				if(this.onType==2 && this.ajaxType){
 					this.$message({
 						message:'正在制作请稍后'
 					})
 					
 					return
-				}
+				} 
 				this.onType--;
 				this.form.zj = this.topNav[this.onType].t;
 				return
@@ -126,6 +131,8 @@ export  default{
 			
 			let len = this.topNav.length;		
 			if(this.onType<len){
+				this.$refs.yspic1.currentTime = 0;
+				this.IsStop = false;
 				if(this[this.topNav[this.onType].ckFn]()){
 					return
 				}				
@@ -402,6 +409,7 @@ export  default{
 				this.$refs.yspic1.currentTime = this.form.video_starT;
 			}
 			this.$refs.yspic1.play();
+			this.IsStop = false;
 			if(this.$refs.vid.pao){
 				this.$refs.vid.pao();
 			}
@@ -410,6 +418,13 @@ export  default{
 				this.$refs.vid.bf();
 			}
 			
+		},
+		bs(){
+			this.IsStop = true
+			this.$refs.yspic1.pause();
+			if(this.$refs.vid.stop){
+				this.$refs.vid.stop();
+			}
 		},
 		backbf(){
 			this.setcurrentTime(this.form.video_starT);
