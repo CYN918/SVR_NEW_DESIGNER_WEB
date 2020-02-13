@@ -164,8 +164,7 @@ export default{
 			this.api.sh_addFavorAudio({
 				m_id : id
 			}).then((da) => {
-				if (da.result != 0) {
-					//弹错误消息
+				if (da == 'error') {
 					return;
 				}
 				//弹收藏成功,刷新列表
