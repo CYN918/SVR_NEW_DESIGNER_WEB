@@ -62,6 +62,7 @@ export default{
 	background: none;
 	padding: 0 30px 0 20px;
 	line-height: 38px;
+	width: 100%;
 }
 .input_max>span{
 	position: absolute;

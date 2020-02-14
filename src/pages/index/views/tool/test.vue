@@ -121,7 +121,10 @@ export  default{
 		Previous(){
 			
 			if(this.onType>0){
-				this.$refs.yspic1.currentTime = 0;
+				if (this.$refs.yspic1) {
+					this.$refs.yspic1.currentTime = 0;
+				}
+
 				this.IsStop = false;
 				if(this.onType==2 && this.ajaxType){
 					this.$message({

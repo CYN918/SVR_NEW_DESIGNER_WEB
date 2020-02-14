@@ -10,7 +10,7 @@
 				<img :src="imgPath+'new/tools/v_02.svg'" >
 			</div>
 			<div class="ldx_sav_1_3"><img :src="imgPath+'new/tools/v_01.svg'" ></div>
-			<div class="ldx_sav_1_4">这首歌的名称很长-歌手名称</div>
+			<div class="ldx_sav_1_4">{{value.audio_name}}-{{value.audio_author}}</div>
 			<div class="ldx_sav_1_5">00:30</div>
 			
 			<div v-if="hc" class="ldx_sav_1_6">
@@ -49,8 +49,8 @@
 					</el-select>
 				</div>
 				<div class="ldx_sav_tip">
-					<div>1、提交过后，可前往狮圈儿-<a href="/projectAll">我的项目</a>，了解验收审核进展。</div>
-					<div>2、若验收审核通过，可前往狮圈儿-<a href="/profit">我的收益</a>，了解订单结果。</div>
+					<div>1、提交过后，可前往狮圈儿-<router-link target="_blank" :to="{path:'/projectAll'}">我的项目</router-link>，了解验收审核进展。</div>
+					<div>2、若验收审核通过，可前往狮圈儿-<router-link target="_blank" :to="{path:'/profit'}">我的收益</router-link>，了解订单结果。</div>
 					<div>3、若未验收通过，请了解驳回原因后，在工具重新制作提交。</div>
 					
 					<p class="ldx_sav_tip_1">
@@ -171,7 +171,6 @@ export  default{
 			}
 			this.istj = 1;
 		},
-		
 
 	}
 }
