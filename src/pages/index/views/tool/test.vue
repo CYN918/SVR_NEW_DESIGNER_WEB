@@ -119,13 +119,9 @@ export  default{
 			this.form.video_max = this.$refs.yspic1.duration;
 		},
 		Previous(){
-			
 			if(this.onType>0){
-				if (this.$refs.yspic1) {
-					this.$refs.yspic1.currentTime = 0;
-				}
-
-				this.IsStop = false;
+				this.IsStop = true;
+				this.pause()
 				if(this.onType==2 && this.ajaxType){
 					this.$message({
 						message:'正在制作请稍后'
@@ -139,11 +135,10 @@ export  default{
 			}
 		},
 		next(){
-			
+			this.pause()
+			this.IsStop = true;
 			let len = this.topNav.length;		
 			if(this.onType<len){
-				this.$refs.yspic1.currentTime = 0;
-				this.IsStop = false;
 				if(this[this.topNav[this.onType].ckFn]()){
 					return
 				}				
@@ -451,7 +446,11 @@ export  default{
 			}		
 		},
 		pause(){
-			this.$refs.yspic1.pause();
+			if (this.$refs.yspic1) {
+				this.$refs.yspic1.pause();
+				this.$refs.yspic1.currentTime = 0;
+			}
+			
 			// this.$refs.vid.stop();
 		},
 		setcurrentTime(t){
