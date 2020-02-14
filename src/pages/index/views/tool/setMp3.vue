@@ -73,7 +73,8 @@ export default{
 			starT:0,
 			bfT:{
 				star:0,				
-			}
+			},
+			cur:0,
 		}
 	},
 	watch:{
@@ -108,7 +109,8 @@ export default{
 			this.value.audio_name=t.name;
 			this.value.audio_author=t.author;
 			this.$refs.setjs.init();
-			
+			//this.$refs.aido.preload = true;
+			this.$refs.aido.currentTime = this.value.audio_starT;
 		
 		},
 		seletAdio(){
@@ -116,22 +118,35 @@ export default{
 		},
 		bf(){
 			let t = this.$refs.aido.currentTime;
-			if(t>=(this.value.audio_starT+this.video_len) || t<this.value.audio_starT){
+			if(t >= this.value.audio_endT || t < this.value.audio_starT){
 				this.$refs.aido.currentTime = this.value.audio_starT;
 			}
-			
+			let s = this.$refs.aido.buffered;
+
+			this.cur = this.value.audio_endT;
+			this.$refs.aido.addEventListener("timeupdate", this.callPause);
 			this.$refs.aido.play();
 		},
 		backbf(){
 			this.$refs.aido.currentTime = this.value.audio_starT;
 			this.$refs.aido.play();
 		},
+		callPause(){
+			if (this.cur > 0 && this.$refs.aido.currentTime >= this.cur) {
+				this.cur = 0;
+				this.$refs.aido.pause();
+				this.$refs.aido.load(); //暂停音乐无法timeupdate，另：fastSeek无效
+				this.$refs.aido.removeEventListener("timeupdate", this.callPause);
+			}
+		},
 		timeupdate1(){
 			let t = this.$refs.aido.currentTime;	
 	
 			if(t>=(this.value.audio_starT+this.video_len)){
 				this.$refs.aido.pause();
-			};			
+			}
+
+
 		},
 		
 		
