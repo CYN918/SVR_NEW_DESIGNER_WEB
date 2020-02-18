@@ -36,6 +36,7 @@
 
 						<div 
 						@mousedown="dragS"
+						style="cursor:e-resize"
 						class="setv01btn setv01_0" ref="zbtn">
 							<i></i>
 							<i></i>
@@ -43,6 +44,7 @@
 						</div>
 						<div 
 						@mousedown="dragE"
+						style="cursor:e-resize"
 						class="setv01btn setv01_1" ref="yzbtn">
 							<i></i>
 							<i></i>
@@ -342,7 +344,7 @@ export default{
 }
 .setv01>div{
 	position: absolute;
-	top: 25px;
+	top: 28px;
 }
 .setv01btn{
 	width:20px;

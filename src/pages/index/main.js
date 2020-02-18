@@ -331,7 +331,9 @@ Vue.prototype.checkLo = function(o){
 	});
 }
 
-
+router.afterEach((to,from,next) => {
+    window.scrollTo(0,0);
+});
 
 // Vue.prototype.miss = function(o){
 // 	Message({message:o});

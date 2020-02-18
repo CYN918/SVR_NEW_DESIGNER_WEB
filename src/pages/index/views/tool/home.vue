@@ -9,7 +9,8 @@
 					<div class="tole_06">来电秀是Android手机在拨打或接听电话时的界面个性化展现形式，本质上是[视频+铃声]，欢迎所有有优秀原创视频的小狮子们前来投稿~
 				<br/><br/>视频限30秒内，提供优质BGM音源，1分钟剪辑，直接交稿，长期征收！快把你们原创的抖音存货、唯美摄影、街拍航拍内容都拿出来“兑现”吧！</div>
 					<div class="tole_07">
-						<a @click="got" class="btn_n btn_n3">开始制作</a><a href="/#/index" class="tole_08">我有疑问？</a>
+						<a @click="got" class="btn_n btn_n3">开始制作</a>
+						<router-link :to="{path:'/help'}" class="tole_08">我有疑问？</router-link>
 					</div>
 				</div>
 			</div>

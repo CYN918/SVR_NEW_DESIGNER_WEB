@@ -73,7 +73,8 @@ export default{
 			starT:0,
 			bfT:{
 				star:0,				
-			}
+			},
+			cur:0,
 		}
 	},
 	watch:{
@@ -108,17 +109,34 @@ export default{
 			this.value.audio_m_id=t.m_id;
 			this.value.audio_name=t.name;
 			this.value.audio_author=t.author;
+<<<<<<< HEAD
 			this.$refs.setjs.init();					
+=======
+			this.$refs.setjs.init();
+			//this.$refs.aido.preload = true;
+			this.$refs.aido.currentTime = this.value.audio_starT;
+		
+>>>>>>> 5c6239270b4bc7621a66b33e0853312f4ee20cab
 		},
 		seletAdio(){
 			this.tanData = {zj:'mp3List'};
 		},
 		bf(b){
 			let t = this.$refs.aido.currentTime;
+<<<<<<< HEAD
 			if(t>=this.value.audio_endT || t<this.value.audio_starT){
 				this.$refs.aido.currentTime = this.value.audio_starT;
 			}		
 		
+=======
+			if(t >= this.value.audio_endT || t < this.value.audio_starT){
+				this.$refs.aido.currentTime = this.value.audio_starT;
+			}
+			let s = this.$refs.aido.buffered;
+
+			this.cur = this.value.audio_endT;
+			this.$refs.aido.addEventListener("timeupdate", this.callPause);
+>>>>>>> 5c6239270b4bc7621a66b33e0853312f4ee20cab
 			this.$refs.aido.play();
 			this.$refs.setjs.pao();
 		},
@@ -131,12 +149,22 @@ export default{
 			this.$refs.aido.play();
 			this.$refs.setjs.pao(1);
 		},
+		callPause(){
+			if (this.cur > 0 && this.$refs.aido.currentTime >= this.cur) {
+				this.cur = 0;
+				this.$refs.aido.pause();
+				this.$refs.aido.load(); //暂停音乐无法timeupdate，另：fastSeek无效
+				this.$refs.aido.removeEventListener("timeupdate", this.callPause);
+			}
+		},
 		timeupdate1(){
 			let t = this.$refs.aido.currentTime;	
 	
 			if(t>=this.value.audio_endT){
 				this.$refs.aido.pause();
-			};			
+			}
+
+
 		},
 		
 		

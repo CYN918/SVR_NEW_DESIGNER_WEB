@@ -363,7 +363,7 @@ export default{
 }
 .setv01>div{
 	position: absolute;
-	top: 25px;
+	top: 28px;
 }
 .setv01btn{
 	width:20px;
