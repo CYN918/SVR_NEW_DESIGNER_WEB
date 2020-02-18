@@ -44,7 +44,7 @@
 			
 			<div v-if="onType!=2 && form.video_url" class="tols_03">
 				<img @click="bs" v-if="!IsStop" class="tols_03_1 pend" src="../../../../assets/sc_icon_pause.svg"/>
-				<img @click="bf" v-if="IsStop" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
+				<img @click="bf()" v-if="IsStop" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
 				<img @click="backbf" class="tols_03_2 pend" :src="imgPath+'new/tools/sc_icon_sctp.svg'"/>
 			</div>
 			<component v-if="form.video_url"  v-bind:is="form.zj" v-model="form" ref="vid"></component>

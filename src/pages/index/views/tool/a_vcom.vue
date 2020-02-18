@@ -1,34 +1,23 @@
 <template>
 		<div class="toAdi" ref="boxW">
 			<div class="bfyp"></div>
-			<div @mousedown="dragS" class="toAdi_1">
+			<div @mousedown="dragS" class="toAdi_1" >
 				<div 
 				:style="'width:'+lft+'px;'"
 				class="toAdi_1_1"></div>
 				<div 
 				:style="'left:'+lft+'px;right:'+(rft-lft)+'px;'"
-				class="toAdi_1_3">
+				class="toAdi_1_3" ref="boxd">
 					<div class="toAdi_1_3_1">{{bact(lft)}}</div>
 					<div class="toAdi_1_3_2">{{bact(lft+(1300-rft))}}</div>
-					<div class="setv01_2" :style="'left:'+0+'px'">
-						<span>{{clTime2(bfT)}}</span>
+					<div class="setv01_2" :style="leftt">
+						<span>{{bT(bfT)}}</span>
 					</div>
 				</div>
 				<div :style="'width: '+(rft-lft)+'px;'"
 				class="toAdi_1_2"></div>
 				
 			</div>
-			<!-- <div class="tols_05_2">
-				<div class="setv02" :style="'width:'+eT+'px;'"></div>
-				<div class="setv03" :style="'width:'+sT+'px;'"></div>
-				<div class="setv01" :style="'right:'+eT+'px;left:'+sT+'px;'" ref="quy">
-					<div class="setv01_2" :style="leftt">
-						<span>{{clTime(bfz)}}</span>
-					</div>				
-					<div class="timef time_1">{{clTime(bfb2)}}</div>				
-					<div class="timef time_3">{{clTime(bfb)}}</div>				
-				</div>
-			</div> -->
 		</div>
 	
 </template>
@@ -46,7 +35,9 @@ export default{
 			mov:0,
 			lft:0,
 			rft:0,
-			bfT:""
+			bfT:0,
+			leftt:0,
+			tstop:'',
 		}
 	},
 	mounted: function () {
@@ -66,17 +57,13 @@ export default{
 			
 			
 			this.rft = 1300-(this.videoEnd/this.audioEnd)*1300;
-			console.log(this.value.audio_starT,this.value.audio_max)
+			
 			this.lft =  (this.value.audio_starT/this.audioEnd)*1300;
 			
 			
 		},
 		clTime2(dz){
 			let tm = Math.ceil(dz/this.value.video_fps);
-			// let zs = dz%this.value.video_fps;
-			// if(zs<10){
-			// 	zs = '0'+zs;
-			// }
 			let mt = tm;
 			let fn = '00';
 			let ms = mt%60;
@@ -92,28 +79,44 @@ export default{
 			
 			return fn+':'+ms;
 		},
-		// pao(t){
-		// 	this.bfz = this.bfb2;
-		// 	this.leftt = '';
-		// 	let tim = t*1000;
-		// 	let L = this.bfb-this.bfb2;
-		// 	let ot = tim/L;
-		// 	let fn = ()=>{
-		// 		if(this.bfz>=this.bfb){
-		// 			this.bfz = this.bfb;
-		// 			return
-		// 		}
-		// 		this.bfz++;
-		// 		setTimeout(()=>{
-		// 			fn();
-		// 		},ot)
-		// 	}
-		// 	fn();
-		// 	let wdtth = this.$refs.quy.getBoundingClientRect().width-2;
-		// 	setTimeout(()=>{		
-		// 		this.leftt = 'transition:transform '+t+'s linear;transform: translateX('+wdtth+'px);'
-		// 	},25)
-		// },
+		stopPao(){
+			clearTimeout(this.tstop);
+		},
+
+		pao(b){
+			
+			let zxpl = 1000/60;
+			let tys= zxpl/1000;
+			let domData = this.$refs.boxd.getBoundingClientRect();
+			let leng = domData.width-3;
+			let star =  parseInt(this.value.audio_starT);
+			let bftm = parseInt(this.value.audio_endT); 
+			let cst = star;
+			let timlen =bftm-star;
+
+			if(!b && this.bfT!=0 && this.bfT<=bftm){
+				star = this.bfT;
+			}
+			
+			this.bfT = star;
+			this.leftt = '';
+			var fnsd = ()=>{
+				if(this.bfT<=bftm){
+					star = star+tys;
+					this.bfT = star;				
+					this.leftt = 'left:'+(((star-cst)/timlen)*leng)+'px;';
+					this.tstop = setTimeout(fnsd,zxpl)
+					return
+				}
+		
+				
+				
+			};
+			fnsd();
+			
+			
+									
+		},
 		bact(n){
 			let t = (n/1300)*this.audioEnd;
 			return this.bT(t);

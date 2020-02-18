@@ -89,10 +89,10 @@ export default{
 	}, 
 	methods:{
 		init(){
-			console.log(this.value)
+		
 		},
 		canplay(){
-			//console.log(this.$refs.aido.duration+"????")
+			
 			this.value.audio_max = this.$refs.aido.duration;
 		},
 		setEnd(t){
@@ -101,7 +101,6 @@ export default{
 			
 		},
 		setAdio(u,t){
-			//console.log(t.duration)
 			this.value.audio_url = u;
 			this.value.audio_max = t.duration;
 			this.value.audio_starT = 0;
@@ -109,32 +108,33 @@ export default{
 			this.value.audio_m_id=t.m_id;
 			this.value.audio_name=t.name;
 			this.value.audio_author=t.author;
-			this.$refs.setjs.init();
-			
-		
+			this.$refs.setjs.init();					
 		},
 		seletAdio(){
 			this.tanData = {zj:'mp3List'};
 		},
-		bf(){
+		bf(b){
 			let t = this.$refs.aido.currentTime;
-			if(t>=(this.value.audio_starT+this.video_len) || t<this.value.audio_starT){
+			if(t>=this.value.audio_endT || t<this.value.audio_starT){
 				this.$refs.aido.currentTime = this.value.audio_starT;
-			}
-			
+			}		
+		
 			this.$refs.aido.play();
+			this.$refs.setjs.pao();
 		},
 		stop(){
 			this.$refs.aido.pause();
+			this.$refs.setjs.stopPao();
 		},
 		backbf(){
 			this.$refs.aido.currentTime = this.value.audio_starT;
 			this.$refs.aido.play();
+			this.$refs.setjs.pao(1);
 		},
 		timeupdate1(){
 			let t = this.$refs.aido.currentTime;	
 	
-			if(t>=(this.value.audio_starT+this.video_len)){
+			if(t>=this.value.audio_endT){
 				this.$refs.aido.pause();
 			};			
 		},
