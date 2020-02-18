@@ -43,7 +43,7 @@
 			</div>
 			
 			<div v-if="onType!=2 && form.video_url" class="tols_03">
-				<img @click="bs" v-if="!IsStop" class="tols_03_1 pend" :src="imgPath+'new/tools/sc_icon_pause.svg'"/>
+				<img @click="bs" v-if="!IsStop" class="tols_03_1 pend" src="../../../../assets/sc_icon_pause.svg"/>
 				<img @click="bf" v-if="IsStop" class="tols_03_1 pend" :src="imgPath+'new/tools/Upload_icon_video_24.svg'"/>
 				<img @click="backbf" class="tols_03_2 pend" :src="imgPath+'new/tools/sc_icon_sctp.svg'"/>
 			</div>
@@ -275,6 +275,7 @@ export  default{
 				
 			
 				if(op.audio_m_id){
+				    console.log(op.audio_start,op.audio_duration,">>>>.")
 					let pr = {
 						audio_url:'',
 						audio_starT:+op.audio_start,
@@ -284,7 +285,7 @@ export  default{
 						audio_name:op.audio_name,
 						audio_author:op.audio_author,
 					};
-					
+					//console.log(pr.audio_starT,pr.audio_endT,"<<<.")
 					this.sh_audioUrl(pr.audio_m_id);
 					
 					

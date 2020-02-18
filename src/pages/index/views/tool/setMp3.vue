@@ -92,6 +92,7 @@ export default{
 			console.log(this.value)
 		},
 		canplay(){
+			//console.log(this.$refs.aido.duration+"????")
 			this.value.audio_max = this.$refs.aido.duration;
 		},
 		setEnd(t){
@@ -100,6 +101,7 @@ export default{
 			
 		},
 		setAdio(u,t){
+			//console.log(t.duration)
 			this.value.audio_url = u;
 			this.value.audio_max = t.duration;
 			this.value.audio_starT = 0;
@@ -121,6 +123,9 @@ export default{
 			}
 			
 			this.$refs.aido.play();
+		},
+		stop(){
+			this.$refs.aido.pause();
 		},
 		backbf(){
 			this.$refs.aido.currentTime = this.value.audio_starT;

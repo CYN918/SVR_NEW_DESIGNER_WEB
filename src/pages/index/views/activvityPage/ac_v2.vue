@@ -494,10 +494,10 @@ export default{
 	opacity: .97;
 }
 .av_vbt>span.op{
-	background: url(/imge/ac_v2/bt2.png) 0 0/100% no-repeat;
+	background: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/ac_v2/bt2.png') 0 0/100% no-repeat;
 }
 .av_vbt>span.op1{
-	background: url(/imge/ac_v2/bt1.png) 0 0/100% no-repeat;
+	background: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/ac_v2/bt1.png') 0 0/100% no-repeat;
 }
 .fng_01{
 	position: relative;

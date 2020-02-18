@@ -10,12 +10,13 @@
 				class="toAdi_1_3">
 					<div class="toAdi_1_3_1">{{bact(lft)}}</div>
 					<div class="toAdi_1_3_2">{{bact(lft+(1300-rft))}}</div>
-					<div class="toAdi_1_3_3">
-						<span>00:00</span>
+					<div class="setv01_2" :style="'left:'+0+'px'">
+						<span>{{clTime2(bfT)}}</span>
 					</div>
 				</div>
 				<div :style="'width: '+(rft-lft)+'px;'"
 				class="toAdi_1_2"></div>
+				
 			</div>
 			<!-- <div class="tols_05_2">
 				<div class="setv02" :style="'width:'+eT+'px;'"></div>
@@ -45,6 +46,7 @@ export default{
 			mov:0,
 			lft:0,
 			rft:0,
+			bfT:""
 		}
 	},
 	mounted: function () {
@@ -63,12 +65,33 @@ export default{
 			this.videoEnd = (this.value.video_endT-this.value.video_starT);	
 			
 			
-			this.rft = 1300-(this.videoEnd/this.audioEnd)*1300;		
+			this.rft = 1300-(this.videoEnd/this.audioEnd)*1300;
+			console.log(this.value.audio_starT,this.value.audio_max)
 			this.lft =  (this.value.audio_starT/this.audioEnd)*1300;
 			
 			
 		},
-		
+		clTime2(dz){
+			let tm = Math.ceil(dz/this.value.video_fps);
+			// let zs = dz%this.value.video_fps;
+			// if(zs<10){
+			// 	zs = '0'+zs;
+			// }
+			let mt = tm;
+			let fn = '00';
+			let ms = mt%60;
+			if(mt>60){
+				fn = mt-ms;
+				if(fn<10){
+					fn = '0'+fn;
+				}
+			}
+			if(ms<10){
+				ms = '0'+ms;
+			}
+			
+			return fn+':'+ms;
+		},
 		// pao(t){
 		// 	this.bfz = this.bfb2;
 		// 	this.leftt = '';
@@ -126,6 +149,8 @@ export default{
 			}
 			
 			document.onmouseup =  ()=>{
+				// this.$parent.$refs.aido.play();
+				// this.$parent.$parent.$refs.yaz.play();
 			    document.onmousemove = document.onmouseup = null;
 			}
 		},
