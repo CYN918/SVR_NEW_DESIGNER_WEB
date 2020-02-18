@@ -118,6 +118,7 @@ export  default{
 		},
 		changefls(v){
 			this.value.fls = v;
+			this.check();
 		},
 		sh_classify(){
 			this.api.sh_classify({}).then((da)=>{

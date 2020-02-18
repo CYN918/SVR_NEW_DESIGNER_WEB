@@ -181,8 +181,8 @@ export  default{
 				user_video_size_format:this.form.video_file_size_format,
 				fps:this.form.video_fps,
 				fps_pic:this.form.video_fps_pic,
-				video_start:this.form.video_starT.toFixed(2),
-				video_duration:(this.form.video_endT-this.form.video_starT).toFixed(2),	
+				video_start:parseFloat(this.form.video_starT).toFixed(2),
+				video_duration:(parseFloat(this.form.video_endT)-parseFloat(this.form.video_starT)).toFixed(2),	
 			}
 		},
 		saveB(){
@@ -191,8 +191,8 @@ export  default{
 				audio_m_id:this.form.audio_m_id,
 				audio_name:this.form.audio_name,
 				audio_author:this.form.audio_author,
-				audio_start:this.form.audio_starT.toFixed(2),
-				audio_duration:(this.form.video_endT-this.form.video_starT).toFixed(2),
+				audio_start:parseFloat(this.form.audio_starT).toFixed(2),
+				audio_duration:(parseFloat(this.form.video_endT)-parseFloat(this.form.video_starT)).toFixed(2),
 			};
 			Object.assign(pr,pb);
 			return pr;
