@@ -39,7 +39,7 @@
 				<div class="ldx_sav_2_1">分类</div>
 				
 				<div class="ldx_sav_2_1x">
-					<el-select v-model="value.fls" value-key="classify_id" placeholder="请选择分类">
+					<el-select v-model="value_fls" value-key="classify_id" placeholder="请选择分类" @change="changefls(value_fls)">
 						<el-option
 					      v-for="item in fls"
 					      :key="item.classify_id"
@@ -83,6 +83,7 @@ export  default{
 			hc:'',
 			istj:'',
 			ajaxType:'',
+			value_fls:""
 		}
 	},
 	mounted: function () {
@@ -114,6 +115,9 @@ export  default{
 			
 			this.check();
 			this.sh_classify();
+		},
+		changefls(v){
+			this.value.fls = v;
 		},
 		sh_classify(){
 			this.api.sh_classify({}).then((da)=>{

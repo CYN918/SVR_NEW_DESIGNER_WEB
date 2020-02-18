@@ -116,7 +116,9 @@ export  default{
 	},
 	methods:{
 		canplay(){
-			this.form.video_max = this.$refs.yspic1.duration;
+			if(this.$refs.yspic1){
+				this.form.video_max = this.$refs.yspic1.duration;
+			}
 		},
 		Previous(){
 			if(this.onType>0){
@@ -275,7 +277,7 @@ export  default{
 				
 			
 				if(op.audio_m_id){
-				    console.log(op.audio_start,op.audio_duration,">>>>.")
+				   // console.log(op.audio_start,op.audio_duration,">>>>.")
 					let pr = {
 						audio_url:'',
 						audio_starT:+op.audio_start,
@@ -408,8 +410,10 @@ export  default{
 			})
 		},
 		timeupdate(){
-			let t = this.$refs.yspic1.currentTime;
-			
+			let t = {};
+			if(this.$refs.yspic1){
+				t = this.$refs.yspic1.currentTime;
+			}
 			if(t>=this.form.video_endT){
 				this.$refs.yspic1.pause();
 			}
