@@ -13,8 +13,8 @@
 					</div>
 					<div class="tols_01_4">
 						<span v-if="onType>0" @click="Previous" class="pend btn_n">上一步</span>
-						<span @click="sh_save" class="pend btn_n">保存</span>
-						<span v-if="onType<topNav.length-1" @click="next" class="pend btn_n btn_n3">下一步</span>
+						<span @click="sh_save" class="pend btn_n" v-show="bSave">保存</span>
+						<span v-if="onType<topNav.length-1" v-show="bNextStep" @click="next" class="pend btn_n btn_n3">下一步</span>
 					</div>
 
 				</div>
@@ -106,6 +106,8 @@ export  default{
 			IsStop:true,
 			isFixed:false,
 			marginTop:'108px',
+			bSave:false,
+			bNextStep:false,
 		}
 	},
 	mounted: function () {
@@ -320,6 +322,8 @@ export  default{
 			}).then((da)=>{
 				if(da=='error'){return}
 				this.form.audio_url = da.file_url;
+				this.bSave = true;
+				this.bNextStep = true;
 			})
 		},
 		upfile(){
@@ -372,7 +376,7 @@ export  default{
 			}
 			this.form.video_endT = t;
 
-			this.pushVideo();					
+			this.pushVideo();
 		},
 		
 		pushVideo(){
@@ -403,6 +407,9 @@ export  default{
 					this.form.video_cover_img = ds.data.cover_img;
 					this.form.video_fps_pic = ds.data.fps_pic;
 					this.form.video_file_size_format = ds.data.file_size_format;
+
+					this.bSave = true;
+					this.bNextStep = true;
 					return
 				}
 			}).catch(()=>{
