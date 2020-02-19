@@ -392,5 +392,9 @@ export default {
 		isType:{cancelToken:1},
 	},
 	
+	/* 删除来电秀 */
+	mobileshowdel:{
+		url:'/api/mobileshow/del',method:'post',baseURL:0,isType:{cancelToken:1}
+	},
 	
 }

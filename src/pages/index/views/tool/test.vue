@@ -20,7 +20,7 @@
 				</div>
 			</div>
 
-			<div v-if="onType!=2" class="tols_02" :style="{ marginTop: marginTop, width:videoBgWidth}">
+			<div v-if="onType!=2" class="tols_02" :style="{ marginTop: marginTop }">
 				<video 
 				muted
 				class="videos"
@@ -106,9 +106,9 @@ export  default{
 			IsStop:true,
 			isFixed:false,
 			marginTop:'108px',
-			videoBgWidth:'375px',
 			bSave:false,
 			bNextStep:false,
+			clearT:{},
 		}
 	},
 	mounted: function () {
@@ -116,6 +116,20 @@ export  default{
 	},
 	destroyed: function() {
 		window.removeEventListener('scroll', this.handleScroll); // 离开页面 关闭监听 不然会报错
+	},
+	watch:{
+		"onType":function(val){
+			let that = this
+			if(val == 2){
+				clearInterval(this.clearT)
+				this.clearT=setInterval(function(){
+					that.sh_save();
+				},10000)
+			}else {
+				clearInterval(this.clearT)
+			}
+			
+		}
 	},
 	methods:{
 		canplay(){
@@ -316,8 +330,6 @@ export  default{
 
 			// 开启滚动监听
 			window.addEventListener('scroll', this.handleScroll);
-
-			this.resetVideoBgStyle();
 		},
 		sh_audioUrl(id){
 			this.api.sh_audioUrl({
@@ -413,9 +425,6 @@ export  default{
 
 					this.bSave = true;
 					this.bNextStep = true;
-					//动态设置视频背景宽度
-					this.resetVideoBgStyle();
-
 					return
 				}
 			}).catch(()=>{
@@ -484,21 +493,6 @@ export  default{
 				this.isFixed = false;
 				this.marginTop = '108px';
 			}
-		},
-		getImgWidth() {
-			var videoImg = new Image();
-			videoImg.src = this.form.video_cover_img;
-			if (videoImg.complete) {
-				return (videoImg.width * 667) / videoImg.height;
-			} else {
-				videoImg.onload = function () {
-					return (videoImg.width * 667) / videoImg.height;
-				}
-			}
-		},
-		resetVideoBgStyle() {
-			let videoWidth = this.getImgWidth();
-			this.videoBgWidth = videoWidth + 'px';
 		}
 	}
 }

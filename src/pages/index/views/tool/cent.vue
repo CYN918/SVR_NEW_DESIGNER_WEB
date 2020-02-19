@@ -7,7 +7,14 @@
 			<div class="ldx_l_1_1_3"><img :src="imgPath+'new/tools/v_01.svg'" ></div>
 			<div class="ldx_l_1_1_4">这首歌的名称很长-歌手名称</div>
 			<div class="ldx_l_1_1_5">00:30</div> -->
-			
+			<div class="ldx_l_1_top">
+				<div class="ldx_l_1_top_btn" @click="changebtn()">···</div>
+				<div class="ldx_l_1_top_btn1" v-if="top_btn">
+					<div class="ldx_l_1_btn1_1" @click.stop="del(el.id)">
+						删除
+					</div>
+				</div>
+			</div>
 			<div class="ldx_l_1_btn">
 				<div class="ldx_l_1_btn" v-if="el.status==0">
 					<span @click="bjfn(el.id)" class="pend">编辑</span>
@@ -15,6 +22,9 @@
 				</div>
 				<div class="ldx_l_1_btn2" v-if="el.status==1">
 					<span>审核中</span>
+				</div>
+				<div class="ldx_l_1_btn2" v-if="el.status==10">
+					<span>合成中</span>
 				</div>
 				<div class="ldx_l_1_btn3" v-if="el.status==-1">
 					<span class="pend" @click="bjfn(el.id)">重新编辑</span>
@@ -45,16 +55,28 @@ export default{
 	props:{
 		el:{
 			type:Object,
-			default:{}
+			default:{},
 		},
 	},
 	data(){
 		return{
 			tjTy:'',
+			top_btn:false
 		}
 		
 	},
 	methods:{
+		del(id){
+			this.api.mobileshowdel({
+				id:id
+			}).then(da=>{
+				this.$parent.getData();	
+				this.changebtn();
+			})
+		},
+		changebtn(){
+			this.top_btn=!this.top_btn;
+		},
 		bjfn(id){
 			localStorage.setItem('ldxData',JSON.stringify(this.el));
 			this.$router.push({path:'/tools',query:{id:id}});
@@ -222,5 +244,42 @@ export default{
 	background: #33B3FF;
 	border-color: #33B3FF;
 	color: #fff;
+}
+.ldx_l_1_top{
+	position:absolute;
+	right: 10px;
+	top: 10px;
+	z-index: 100;
+}
+.ldx_l_1_top_btn{
+	width:26px;
+	height:18px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 4px 12px 0px rgba(0,0,0,0.2);
+	border-radius:5px;
+	text-align: center;
+	line-height: 18px;
+	font-size: 16px;
+	cursor: pointer;
+}
+.ldx_l_1_top_btn1{
+	width:82px;
+	height: 45px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+	border-radius:5px;
+	position: absolute;
+}
+.ldx_l_1_btn1_1{
+	width:100%;
+	height:45px;
+	font-size:14px;
+	font-family:PingFangSC-Regular,PingFang SC;
+	font-weight:400;
+	color:rgba(51,51,51,1);
+	line-height:45px;
+	position: absolute;
+	text-align: center;
+	cursor: pointer;
 }
 </style>
