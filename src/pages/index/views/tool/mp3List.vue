@@ -171,6 +171,17 @@ export default{
 				this.getList();
 			})
 		},
+		sh_delFavorAudio(id) {
+			this.api.sh_delFavorAudio({
+				m_id : id
+			}).then((da) => {
+				if (da == 'error') {
+					return;
+				}
+				//成功，刷新列表
+				this.getList();
+			})
+		},
 		checks(el){
 
 			if(el){
@@ -265,16 +276,20 @@ export default{
 		favor(el) {
 			if (el) {
 				if (el.is_collect == 1) {
-					return
+					this.sh_delFavorAudio(el.m_id);
+				} else {
+					this.sh_addFavorAudio(el.m_id);
 				}
-				this.sh_addFavorAudio(el.m_id);
+
 			} else {
 				let ond = this.bfData.on;
-				if (this.datas[ond].is_collect) {
-					return;
-				}
 				let id = this.datas[ond].m_id;
-				this.sh_addFavorAudio(id);
+				if (this.datas[ond].is_collect == 1) {
+					this.sh_delFavorAudio(id);
+				} else {
+					this.sh_addFavorAudio(id);
+				}
+
 			}
 		},
 		ckAdio(el){

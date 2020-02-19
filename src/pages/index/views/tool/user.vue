@@ -152,7 +152,7 @@ export default{
 	height:345px;
 	background:rgba(244,246,249,1);
 	border-radius:5px;
-
+	margin-left:20px;
 }
 .tolu_06_x1>div{
 	font-size:14px;

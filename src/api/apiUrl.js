@@ -369,6 +369,11 @@ export default {
 		url :  '/api/mobileshow/audioAddCollect',
 		isType: {cancelToken : 1},
 	},
+	/* 音乐-取消收藏 */
+	sh_delFavorAudio : {
+		url : '/api/mobileshow/audioDelCollect',
+		isType : {cancelToken : 1},
+	},
 	
 	sh_save:{
 		url:'/api/mobileshow/save',method:'post',baseURL:0,

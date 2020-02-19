@@ -231,7 +231,9 @@ export default{
 			}
 			
 			document.onmouseup =  ()=>{
-			    document.onmousemove = document.onmouseup = null;
+				//拖到后，刷新播放
+				this.$parent.backbf();
+				document.onmousemove = document.onmouseup = null;
 			}
 		},
 		dragE(e){
@@ -258,6 +260,8 @@ export default{
 				
 			}
 			document.onmouseup =  ()=>{
+				//拖到后，刷新播放
+				this.$parent.backbf();
 				document.onmousemove = document.onmouseup = null;
 			}
 		
