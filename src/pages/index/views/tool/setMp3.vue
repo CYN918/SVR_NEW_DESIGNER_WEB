@@ -109,34 +109,21 @@ export default{
 			this.value.audio_m_id=t.m_id;
 			this.value.audio_name=t.name;
 			this.value.audio_author=t.author;
-<<<<<<< HEAD
-			this.$refs.setjs.init();					
-=======
 			this.$refs.setjs.init();
 			//this.$refs.aido.preload = true;
 			this.$refs.aido.currentTime = this.value.audio_starT;
-		
->>>>>>> 5c6239270b4bc7621a66b33e0853312f4ee20cab
 		},
 		seletAdio(){
 			this.tanData = {zj:'mp3List'};
 		},
 		bf(b){
 			let t = this.$refs.aido.currentTime;
-<<<<<<< HEAD
-			if(t>=this.value.audio_endT || t<this.value.audio_starT){
-				this.$refs.aido.currentTime = this.value.audio_starT;
-			}		
-		
-=======
 			if(t >= this.value.audio_endT || t < this.value.audio_starT){
 				this.$refs.aido.currentTime = this.value.audio_starT;
 			}
-			let s = this.$refs.aido.buffered;
 
 			this.cur = this.value.audio_endT;
 			this.$refs.aido.addEventListener("timeupdate", this.callPause);
->>>>>>> 5c6239270b4bc7621a66b33e0853312f4ee20cab
 			this.$refs.aido.play();
 			this.$refs.setjs.pao();
 		},
