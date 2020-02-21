@@ -26,6 +26,7 @@ export default{
 		qh(en){
 			if(this.value==en){
 				en = '';
+				return;
 			}
 			this.$emit('input',en);
 		}

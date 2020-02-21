@@ -13,7 +13,7 @@
 					</div>
 					<div class="tols_01_4">
 						<span v-if="onType>0" @click="Previous" class="pend btn_n">上一步</span>
-						<span @click="sh_save" class="pend btn_n" v-show="bSave">保存</span>
+						<span @click="sh_save(false)" class="pend btn_n" v-show="bSave">保存</span>
 						<span v-if="onType<topNav.length-1" v-show="bNextStep" @click="next" class="pend btn_n btn_n3">下一步</span>
 					</div>
 
@@ -124,7 +124,7 @@ export  default{
 			if(val == 2){
 				clearInterval(this.clearT)
 				this.clearT=setInterval(function(){
-					that.sh_save();
+					that.sh_save(true);
 				},10000)
 			}else {
 				clearInterval(this.clearT)
@@ -232,7 +232,7 @@ export  default{
 			return pr;
 		},
 
-		sh_save(){
+		sh_save(bAuto){
 			
 			if(this[this.topNav[this.onType].ckFn]()){
 				return
@@ -260,9 +260,12 @@ export  default{
 				if(this.onType==2){
 					this.$refs.vid.stopHc(1);
 				}
-				this.$message({
-					message:'保存成功',
-				})
+				if (! bAuto) {
+					this.$message({
+						message:'保存成功',
+					})
+				}
+
 				this.form.id = da.id;
 
 			}).catch(()=>{
@@ -311,6 +314,11 @@ export  default{
 					
 					
 					Object.assign(this.form,pr);
+				} else {
+					//兼容字段缺少的情况
+
+					this.bSave = true;
+					this.bNextStep = true;
 				}
 				if(op.title){
 					let po = {

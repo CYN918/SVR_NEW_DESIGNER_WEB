@@ -40,6 +40,7 @@
 						
 						<div 
 						@mousedown="dragS"
+						style="cursor:e-resize"
 						class="setv01btn setv01_0" ref="zbtn">
 							<i></i>
 							<i></i>
@@ -47,6 +48,7 @@
 						</div>
 						<div 
 						@mousedown="dragE"
+						style="cursor:e-resize"
 						class="setv01btn setv01_1" ref="yzbtn">
 							<i></i>
 							<i></i>

@@ -11,7 +11,7 @@
 			</div>
 			<div class="ldx_sav_1_3"><img :src="imgPath+'new/tools/v_01.svg'" ></div>
 			<div class="ldx_sav_1_4">{{value.audio_name}}-{{value.audio_author}}</div>
-			<div class="ldx_sav_1_5">00:30</div>
+			<div class="ldx_sav_1_5">{{(value.video_endT - value.video_starT).toFixed(2)}}</div>
 			
 			<div v-if="hc" class="ldx_sav_1_6">
 				<div class="ldx_sav_1_6_1">

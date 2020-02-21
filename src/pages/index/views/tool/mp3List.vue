@@ -1,5 +1,5 @@
 <template>
-	<div class="pr_qp">
+	<div class="pr_qp" @click="closeD($event)">
 		<div class="mp3_01">
 			<div class="mp3_02">
 				<span class="mp3_02_1">音频库</span>
@@ -77,7 +77,7 @@
 					</span>
 					<span class="mp3_05_2_3">
 						<img @click="sys()" :src="imgPath+'tools/shangyishou.svg'">
-						<img @click="bf()" :src="imgPath+'tools/bofang.svg'">
+						<img @click="bf()" :src="bRunning ? imgPath + 'tools/zantingtingzhi.svg' : imgPath+'tools/bofang.svg'">
 						<img @click="xys()" :src="imgPath+'tools/xiayishou.svg'">
 						<img @click="favor()" :src="imgPath+'tools/xcx.svg'">
 					</span>
@@ -121,6 +121,7 @@ export default{
 				bft:'00:00',
 				duration:0,
 			},
+			bRunning:false,
 		}
 	},
 	watch:{
@@ -261,7 +262,14 @@ export default{
 			if(!this.$refs.aido.src){
 				return
 			}
-			this.$refs.aido.play();
+			if (this.bRunning) {
+				this.bRunning = false;
+				this.$refs.aido.pause();
+			} else {
+				this.bRunning = true;
+				this.$refs.aido.play();
+			}
+
 		},
 		sh_audioUrl(id){
 			this.api.sh_audioUrl({
@@ -269,6 +277,7 @@ export default{
 			}).then((da)=>{
 				if(da=='error'){return}
 				this.$refs.aido.src=da.file_url;
+				this.bRunning = true;
 				this.$refs.aido.play();
 				
 			})
@@ -358,6 +367,14 @@ export default{
 		},
 		close(){
 			this.$emit('input',{});
+		},
+		closeD(e) {
+			let listArea = document.querySelector(".mp3_01");
+			if(listArea){
+				if(!listArea.contains(e.target)){
+					this.close();
+				}
+			}
 		},
 		qh(el){
 			this.type = el;
