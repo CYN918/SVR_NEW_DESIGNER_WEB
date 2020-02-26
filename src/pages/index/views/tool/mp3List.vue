@@ -184,7 +184,7 @@ export default{
 			})
 		},
 		checks(el){
-
+			console.log(el);
 			if(el){
 				this.sh_audioUrld(el);
 				return
@@ -192,6 +192,7 @@ export default{
 
 			let ond = this.bfData.on;
 			let choseEl = this.datas[ond];
+			console.log(choseEl);
 			this.sh_audioUrld(choseEl);
 
 			//this.$parent.setAdio(this.$refs.aido.src,this.bfData);

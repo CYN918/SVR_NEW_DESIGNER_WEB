@@ -248,8 +248,6 @@ export  default{
 			}
 			
 			this.api.sh_save(pr).then((da)=>{
-				
-				
 				this.ajaxType = '';
 				if(da=='error'){
 					if(this.onType==2){

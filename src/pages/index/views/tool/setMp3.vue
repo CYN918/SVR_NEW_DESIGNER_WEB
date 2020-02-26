@@ -109,9 +109,10 @@ export default{
 			this.value.audio_m_id=t.m_id;
 			this.value.audio_name=t.name;
 			this.value.audio_author=t.author;
-			this.$refs.setjs.init();
+	
+			
 			//this.$refs.aido.preload = true;
-			this.$refs.aido.currentTime = this.value.audio_starT;
+			
 		},
 		seletAdio(){
 			this.tanData = {zj:'mp3List'};
