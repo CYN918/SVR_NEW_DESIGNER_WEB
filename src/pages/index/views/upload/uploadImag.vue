@@ -274,10 +274,10 @@ export default {
 			obj.xhr.abort();
 		},
 		clPic(fld,on){
-//			if(this.configData.type.indexOf(fld.type)==-1){
-//				Message({message: '该文件格式不支持'});
-//				return
-//			}
+			if(this.configData.type.indexOf(fld.type)==-1){
+				Message({message: '该文件格式不支持'});
+				return
+			}
 			if(fld.size>this.configData.max){
 				Message({message: '文件过大'});
 				return

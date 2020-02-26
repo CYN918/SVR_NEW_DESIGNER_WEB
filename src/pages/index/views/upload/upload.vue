@@ -198,7 +198,7 @@ export default {
 					max:1.5*1024*1024*1024,
 					type:['video/mp4','video/ogg','video/webm'],
 					getType:'video',
-					typexz:'video/mp4,video/ogg,video/webm'
+					typexz:'video/*,video/mp4'
 				},
 				{
 					title:'我的音频素材',

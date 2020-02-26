@@ -251,7 +251,7 @@ export default {
 	
 }
 .home_0x5_1{
-	width: 437px;
+	width: 456px;
 	display: inline-block;
 	vertical-align: top;
 	text-align: left;

@@ -43,8 +43,8 @@
 							<div v-else  class="uploadImg uploadImg2" :style="'background-image:url('+item.upData.cover_img+')'">
 								<el-progress v-if="!item.upData.cover_img" type="circle" :percentage="item.upData.bfb"></el-progress>
 								<div v-else class="hoverBtn">
-									<div @click="newUp(index)">重新上传</div>
 									<div class="deleteBtn" @click="deletex(index)">删除</div>
+									<div class="btnsd" @click="newUp(index)">重新上传</div>
 									<img @click="bfsp(item.upData.file,item.limittype)" class="bfbtn" src="/imge/videoPlay.png">
 								</div>
 							</div>
@@ -203,6 +203,9 @@ export default {
 	mounted: function () {	
 		this.showZp()
 	}, 
+	beforeDestroy:function(){
+		document.body.style = "";
+	},
 	methods:{
 		deletex(on){
 			this.$delete(this.list[on], "upData")
@@ -497,6 +500,7 @@ export default {
 				this.$router.push({path:'/login'})
 				return
 			}
+			document.body.style = "overflow: hidden;";
 			this.api.getPersonalInfo({
 				activity_id:this.$route.query.id
 			}).then((da)=>{
@@ -707,7 +711,7 @@ export default {
 }
 .page2_1_2{
 	position: relative;
-    background: #E6E6E6;
+    background: #F9FAFC;
     border-radius: 5px;
     float: left;
     margin: 5px 5px 5px 0px;
@@ -760,8 +764,8 @@ export default {
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 40px;
-	line-height: 40px;
+	height: 48px;
+	line-height: 48px;
 
 	background: rgba(0,0,0,0.5) !important;
 	border-radius: 0px !important;	
@@ -775,37 +779,28 @@ export default {
 	background: none;
 	display: block;
 }
+
 .deleteBtn{
-	cursor: pointer;
-	width: 80px !important;
-	height: 31px !important;
-	line-height: 31px !important;
-	text-align: center !important;
-	position: absolute;
-	bottom: 4px;
-	left: 40px;
-	background: #ffffff !important;
-	color: #666666 !important;
-	margin: 0 !important;
-	border-radius: 2px !important;
-	font-size: 12px !important;
-	-webkit-font-smoothing: antialiased;	
+	color:rgba(102,102,102,1);
+	background:rgba(255,255,255,1);
 }
-.hoverBtn > div:nth-child(1){
+.hoverBtn>div.btnsd{
+	color:#fff;
+	background:#33B3FF;
+	border-color: #33B3FF;
+}
+
+.hoverBtn>div{
+	display: inline-block;
 	cursor: pointer;
-	width: 80px !important;
-	height: 31px !important;
-	line-height: 31px !important;
-	text-align: center !important;
-	position: absolute;
-	bottom: 4px;
-	right: 40px;
-	background: #33b3ff !important;
-	color: #FFFFFF !important;
-	margin: 0 !important;
-	border-radius: 2px !important;
-	font-size: 12px !important;
-	-webkit-font-smoothing: antialiased;
+	width:78px;
+	height:30px;	
+	border-radius:5px;
+	border:1px solid rgba(187,187,187,1);
+	line-height: 30px;
+	text-align: center;
+	font-size:14px;	
+	margin: 0 10px;
 }
 .page2_1_2>div>div{
     width: 22.9px;
@@ -815,7 +810,7 @@ export default {
     text-align: center;
     line-height: 22.9px;
     background: #33b3ff;
-    color: #e6e6e6;
+    color: #F9FAFC;
     margin: 43px auto 11px;
 }
 .video_box{
@@ -1284,7 +1279,7 @@ export default {
 }
 .page2_box{
 	position: relative;
-    background: #E6E6E6;
+    background: #F9FAFC;
     border-radius: 5px;
     float: left;
     margin: 5px 5px 5px 0px;

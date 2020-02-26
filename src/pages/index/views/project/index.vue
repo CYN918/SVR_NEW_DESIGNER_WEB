@@ -150,7 +150,7 @@ export default {
 	width: 100%;
 	line-height: 80px;
     height: 80px;
-    margin-bottom: 30px;
+
 }
 .pr_02_1{
 	text-align: left;
@@ -182,7 +182,7 @@ export default {
 }
 .iopdlf_01>li{
 	display: inline-block;
-	margin-bottom: 40px;
+	margin-bottom: 20px;
 	margin-right: 20px;
 }
 .iopdlf_01>li:nth-child(2n+2){

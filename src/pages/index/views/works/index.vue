@@ -24,7 +24,7 @@
 			</pTop>
 			
 		</div>	
-		<list :config="data" ref="sfafa">
+		<list class="uiinop" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
 				<box_a :tjData="bdtjdata" :el="todo"></box_a>
 			</template>			
@@ -214,5 +214,8 @@ export default {
 	font-size: 14px;
 	background: initial;
 	color: #999999;
+}
+.uiinop{
+	margin-bottom: 140px !important;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>	
 	<div class="activvit">
-		<list :page="setPage" :config="data">
+		<list class="activsds" :page="setPage" :config="data">
 			<template v-slot:todo="{ todo }">
 				<div class="ac_list_Box_0" @click="go(todo,todo.id,todo.status==-1?'已结束':'进行中')">
 					<div class="ac_list_Box_2x" :style="backBn(todo.cover_img?todo.cover_img:todo.banner)"></div>					
@@ -157,5 +157,9 @@ export default {
 	display: block;
 	min-width: 100%;
 	min-height:100%;
+}
+.activvit .activsds{
+	padding-bottom: 0 !important;
+    margin-bottom: 140px !important;
 }
 </style>
