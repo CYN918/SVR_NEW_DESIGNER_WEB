@@ -188,6 +188,7 @@ export default {
 				formData.append('classify_1','avatar')
 				formData.append('timestamp',times)
 				formData.append('is_callback',1)
+				formData.append('set_ini',JSON.stringify({"convert":"jpg","resize":"339x255","optimize":80,"sharp":1}))
 
 				this.opType=1;
 				Message({message: '封面正在上传，请稍后'});
