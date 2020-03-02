@@ -21,6 +21,7 @@ export default {
 			list:[],
 			on:0,
 			jsan:'',
+			isks:'',
 		}
 	},
 	mounted: function () {	
@@ -37,7 +38,8 @@ export default {
 		getBanner(){
 			this.api.getBanner().then((da)=>{
 				if(da=='error'){return}
-				this.list = da;				
+				this.list = da;	
+				this.isks = 'aactionno';
 				this.setAn();
 			});			
 		},

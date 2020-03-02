@@ -96,6 +96,7 @@ export default {
 				fixedBox:true,
 				
 			},
+			isAlphaBackground:false,
 			tips:'',
 			opType:0,
 			isImff:'',
@@ -188,8 +189,12 @@ export default {
 				formData.append('classify_1','avatar')
 				formData.append('timestamp',times)
 				formData.append('is_callback',1)
-				formData.append('set_ini',JSON.stringify({"convert":"jpg","resize":"339x255","optimize":80,"sharp":1}))
-
+				
+				
+				
+				if(!this.isAlphaBackground){
+					formData.append('set_ini',JSON.stringify({"convert":"jpg","sharp":1}))
+				}
 				this.opType=1;
 				Message({message: '封面正在上传，请稍后'});
 				this.$ajax.post(window.basrul+'/File/File/insert', formData)
@@ -226,17 +231,45 @@ export default {
 			if(file.size<5000){
 				this.tips = '你上传的图片太小了，清晰的封面才会让狮友更青睐哦！';
 			}
-			let reader = new FileReader()
-			reader.onload =(e)=> {
-		
-			let data;
-			data = e.target.result;
-			if (typeof e.target.result === 'object') {
-				data = window.URL.createObjectURL(new Blob([e.target.result]))
-			} 					
-			this.option.img = data;
+			let reader = new FileReader(),
+			self_ = this,
+			img = new Image(),
+			canvas = document.createElement('canvas'),
+			context = canvas.getContext('2d');
+			
+			img.onload = function () {
+			    var originWidth = this.width;
+			    var originHeight = this.height;
+			    canvas.width = originWidth;
+			    canvas.height = originHeight;
+			    // 清除画布
+			    context.clearRect(0, 0, originWidth, originHeight);
+			    // 图片绘制在画布上
+			    context.drawImage(img, 0, 0);
+			    // 获取图片像素信息
+			    var imageData = context.getImageData(0, 0, originWidth, originHeight).data;
+			    // 检测有没有透明数据
+				self_.isAlphaBackground = false;
+			    for (var index = 3; index < imageData.length; index += 4) {
+			        if (imageData[index] != 255) {
+			            self_.isAlphaBackground = true;
+			            break;    
+			        }
+			    }	
+	
+			};
+			reader.onload =(e)=> {		
+				let data;
+				data = e.target.result;
+				if (typeof e.target.result === 'object') {
+					data = window.URL.createObjectURL(new Blob([e.target.result]))
+				} 					
+				this.option.img = data;
+
+				img.src = data;
 			}
 			reader.readAsArrayBuffer(file);
+			
 		},
 	}
 }	

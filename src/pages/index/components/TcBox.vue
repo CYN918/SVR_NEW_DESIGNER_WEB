@@ -24,7 +24,6 @@ export default {
 	methods: {	
 		show(){			
 			this.is = 1;
-			console.log(11111111111);
 			document.body.style = "overflow: hidden;";
 		},
 
