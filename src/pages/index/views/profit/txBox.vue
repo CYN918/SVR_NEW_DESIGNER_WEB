@@ -33,6 +33,31 @@
 				</div>
 				<div class="pr_xx_1_c">
 					<span>提现金额</span><span><input @input="oninput" class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
+					<div class="xf11l">
+						当月到账金额=当月提现总额-税费
+						<span class="iconfont">
+							&#xe65c;
+							<div class="txtipgr">
+								<div class="titledsx">税费计算</div>
+								<div class="conddf">
+									<span>劳动报酬 X</span>
+									<span>X≤800</span>
+									<span>800＜X≤4000</span>
+									<span>4000＜X≤25000</span>
+									<span>25000＜X≤62500</span>
+									<span>62500＜X</span>
+								</div>
+								<div class="conddf conddf2">
+									<span>个税</span>
+									<span>0</span>
+									<span>(X-800)*20%</span>
+									<span>X*80%*20%</span>
+									<span>X*800*30%-2000</span>
+									<span>X*80%*40%-7000</span>
+								</div>
+							</div>
+						</span>
+					</div>
 				</div>
 			</div>
 				
@@ -483,7 +508,7 @@ export default {
     -webkit-box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
-	overflow: hidden;
+
 }
 
 .newTanc_2{
@@ -777,7 +802,7 @@ export default {
 	font-weight:400;
 	color:rgba(153,153,153,1);
 	line-height:18px;
-	margin: 6px 0 0 135px;
+	margin: 6px 0 0 101px;
 }
 .xf11l>span{
 	position: relative;

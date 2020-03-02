@@ -1,7 +1,7 @@
 <template>
 	<div class="banner">
 		<div class="banner1">
-			<img v-for="(el,index) in list" @click="opend(el.jump_url,index)" :class="[on==index?'action':'actionno']" :src="el.banner_pic" alt="">
+			<img v-for="(el,index) in list" @click="opend(el.jump_url,index)" :class="backcls(index)" :src="el.banner_pic" alt="">
 		</div>
 		<div class="banner_nav1">
 			<span v-for="(el,index) in list" @click="checkBan(index)" :class="[on==index?'action':'']"></span>
@@ -21,13 +21,24 @@ export default {
 			list:[],
 			on:0,
 			jsan:'',
-			isks:'',
+
+
+			nexOn:0,
 		}
 	},
 	mounted: function () {	
 		this.getBanner();		
 	}, 
 	methods: {
+		backcls(inx){
+			if(inx==this.on){
+				return 'action'
+			}
+			if(this.nexOn!=this.on && inx==this.nexOn){
+				return 'actionno';
+			}
+			return '';
+		},
 		opend(url,on){
 			this.bdtj('首页','banner'+(on+1),'--');
 			if(!url){
@@ -39,12 +50,12 @@ export default {
 			this.api.getBanner().then((da)=>{
 				if(da=='error'){return}
 				this.list = da;	
-				this.isks = 'aactionno';
 				this.setAn();
 			});			
 		},
 		setAn(){
 			clearTimeout(this.jsan);
+		
 			this.jsan = setTimeout(()=>{
 				this.checkBan2();
 			},5000);
@@ -54,10 +65,12 @@ export default {
 				return
 			}
 			this.setAn();
+			this.nexOn = this.on;
 			this.on = on;
 		},
 		checkBan1(){
 			this.setAn();
+			this.nexOn = this.on;
 			if(this.on>0){
 				this.on--;
 				return
@@ -66,10 +79,13 @@ export default {
 		},
 		checkBan2(){
 			this.setAn();
+			this.nexOn = this.on;
 			if(this.on<this.list.length-1){
+			
 				this.on++;				
 				return
 			}
+			
 			this.on = 0;
 		},
 		
@@ -157,7 +173,6 @@ export default {
 .banner1>img{
 	cursor: pointer;
 	opacity: 0;
-	display: block;
 	width: 100%;
 	position: absolute;
 	top: 0;
@@ -165,12 +180,14 @@ export default {
 	display: none;
 }
 .banner1>img.action{
+
 	-webkit-animation: jxd 2s forwards;
 	animation: jxd 2s forwards;
 	display: block;
 
 }
 .banner1>img.actionno{
+	z-index: 10;
 	pointer-events: none;
 	-webkit-animation: jxd2 2s forwards;
 	animation: jxd2 2s forwards;
