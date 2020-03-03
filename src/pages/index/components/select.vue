@@ -16,7 +16,7 @@
 export default {
 	props:{
 		valued:{
-			default:0,
+			default:-1,
 		},
 		Data:Array,
 		prd:{

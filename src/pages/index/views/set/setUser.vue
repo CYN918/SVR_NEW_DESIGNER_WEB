@@ -272,7 +272,7 @@
 					}
 					return true
 				},
-				vocationOn: 0,
+				vocationOn: -1,
 				inDad: [{
 						label: '仅自己可见',
 						value: '0'
