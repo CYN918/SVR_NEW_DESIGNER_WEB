@@ -73,7 +73,7 @@ import img_list from './components/img_list2.vue'
 
 import personalCenter from './views/personalCenter/index.vue'
 
-import tolt from './views/tool/home.vue'
+// import tolt from './views/tool/home.vue'
 import toltIndex from './views/tool/index.vue'
 
 import toluser from './views/tool/user.vue'
@@ -98,10 +98,10 @@ let wb = [
 		component: Index,
 		children:[
 			
-			{path: '/tolt',name:'tolt',component: toltIndex,children:[
-				{path: '/tolt',name:'tolt',component: tolt},
-				{path: 'toluser',name:'tolt',component: toluser},
-			]},
+			// {path: '/tolt',name:'tolt',component: toltIndex,children:[
+			// 	{path: '/tolt',name:'tolt',component: tolt},
+			// 	{path: 'toluser',name:'tolt',component: toluser},
+			// ]},
 			// 
 			
 			{path: '/img_list',name: 'img_list',component: img_list},

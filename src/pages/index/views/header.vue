@@ -134,7 +134,7 @@ export default {
 				{path:'/project',n:'项目'},
 				{path:'/Work_i',n:'作品'},
 				{path:'/activvity',n:'活动'},
-				{path:'/tolt',n:'去赚钱',t:'NEW'},
+				// {path:'/tolt',n:'去赚钱',t:'NEW'},
 				
 				
 			]
