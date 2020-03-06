@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>icon_bj</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-1.2%" y="-47.9%" width="102.4%" height="195.8%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.05 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="zoocreator" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="10-来电秀工具-视频" transform="translate(-999.000000, -14.000000)" fill="#BBBBBB">
+            <g id="顶部/面包屑导航/层级/层级二" filter="url(#filter-1)">
+                <g id="面包屑导航">
+                    <g id="来电秀名称-&lt;h8-&gt;" transform="translate(899.000000, 14.000000)">
+                        <g id="icon_edit_caller-design" transform="translate(108.000000, 4.000000)">
+                            <g id="icon_bj">
+                                <path d="M11.7412582,0.804784493 L11.1712014,0.235708566 C10.8563817,-0.0785695221 10.3459765,-0.0785695221 10.0311567,0.235708566 L9.47891294,0.786988424 L11.1890694,2.49420246 L11.7412582,1.94295004 C12.0561466,1.62865824 12.0561466,1.11906258 11.7412582,0.804784493 Z M11.0769273,11.0784881 L0.894277779,11.0784881 L0.894277779,0.913371996 L7.38460904,0.913371996 L7.38460904,0.0206465821 L0.923086436,0.0206465821 C0.413258481,0.0206465821 0,0.433194031 0,0.942144803 L0,11.0785018 C0,11.5874526 0.413258481,12 0.923086436,12 L11.0769136,12 C11.5867415,12 12,11.5874526 12,11.0785018 L12,4.6280691 L11.0769136,4.6280691 L11.0769136,11.0784881 L11.0769273,11.0784881 Z M10.6011447,3.08110189 L8.89098825,1.37390157 L4.26465659,5.99221851 L4.26754295,5.99509991 L3.98664484,7.62324018 C3.95041411,7.83319798 4.13354699,8.01560414 4.34378418,7.97895551 L5.9707309,7.69539859 L5.97484054,7.69950116 L10.6011447,3.08110189 Z" id="形状"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

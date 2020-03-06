@@ -73,8 +73,9 @@ import img_list from './components/img_list2.vue'
 
 import personalCenter from './views/personalCenter/index.vue'
 
-// import tolt from './views/tool/home.vue'
+import tolt from './views/tool/home.vue'
 import toltIndex from './views/tool/index.vue'
+import pushTool from './views/tool/pushTool.vue'
 
 import toluser from './views/tool/user.vue'
 import tools from './views/tool/test.vue'
@@ -91,6 +92,7 @@ let wb = [
 	{path: '/Ac_v2',name: 'Ac_v2',component: Ac_v2},	
 	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
 	{path: '/tools',name: 'tools',component: tools},
+	{path: '/pushTool',name:'tolt',component: pushTool},
 	{
 		path: '/',
 		redirect: '/index',
@@ -98,10 +100,12 @@ let wb = [
 		component: Index,
 		children:[
 			
-			// {path: '/tolt',name:'tolt',component: toltIndex,children:[
-			// 	{path: '/tolt',name:'tolt',component: tolt},
-			// 	{path: 'toluser',name:'tolt',component: toluser},
-			// ]},
+			{path: '/tolt',name:'tolt',component: toltIndex,children:[
+				{path: '/tolt',name:'tolt',component: tolt},
+				{path: 'toluser',name:'tolt',component: toluser},
+			]},
+			
+			
 			// 
 			
 			{path: '/img_list',name: 'img_list',component: img_list},

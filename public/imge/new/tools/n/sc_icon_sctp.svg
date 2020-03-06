@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="19px" viewBox="0 0 16 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>sc_icon_sctp</title>
+    <desc>Created with Sketch.</desc>
+    <g id="zoocreator" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="10-来电秀工具-视频" transform="translate(-353.000000, -768.000000)" stroke="#282828" stroke-width="1.4">
+            <g id="预览窗口" transform="translate(0.000000, 48.000000)">
+                <g id="时间进度条" transform="translate(354.000000, 719.000000)">
+                    <g id="sc_icon_sctp" transform="translate(0.000000, 2.000000)">
+                        <g id="分-享">
+                            <path d="M7,2.625 C3.13400675,2.625 0,5.75900675 0,9.625 C0,13.4909932 3.13400675,16.625 7,16.625 L7,16.625 C10.8659932,16.625 14,13.4909932 14,9.625" id="Path"></path>
+                            <polyline id="Path" transform="translate(5.250000, 2.625000) rotate(-315.000000) translate(-5.250000, -2.625000) " points="3.5 0.875 7 0.875 7 4.375"></polyline>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
