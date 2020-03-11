@@ -2,51 +2,165 @@
 	<div class="setMt">
 		<div class="setMt_01">
 			媒体库<span>请上传图片、MP4格式（视频大小10MB以内，视频上传后自动处理为无声）</span>
-		</div>
-		
+		</div>		
 		<ul class="setMt_03">
 			<li>
-				<span class="setMtUp">
-					<img src="\imge\new\tools\n/up.svg">
-					上传视频/图片
-				</span>
-				
-			</li><li>
-				<span class="setMtUp">
-					<img src="\imge\new\tools\n/up.svg">
-					上传视频/图片
-				</span>
-				
-			</li><li>
-				<span class="setMtUp">
-					<img src="\imge\new\tools\n/up.svg">
-					上传视频/图片
-				</span>
-				
-			</li><li>
-				<span class="setMtUp">
-					<img src="\imge\new\tools\n/up.svg">
-					上传视频/图片
-				</span>
-				
-			</li><li>
-				<span class="setMtUp">
-					<img src="\imge\new\tools\n/up.svg">
-					上传视频/图片
-				</span>
-				
-			</li><li>
-				<span class="setMtUp">
+				<span @click="push" class="setMtUp">
 					<img src="\imge\new\tools\n/up.svg">
 					上传视频/图片
 				</span>
 				
 			</li>
+			<span v-for="(el,index) in list">
+				<li v-if="el.type!='erro'">
+					<div v-if="el.type=='up'">
+						<div class="jdt_002">
+							<el-progress :width="48" :stroke-width="2"  type="circle" :percentage="el.bf"></el-progress>
+							<span class="jdt_002x">正在上传</span>
+						</div>
+						
+					</div>
+					<div class="setMt_03_01" v-if="el.type=='ko'">
+						<img v-if="" :src="el.cover_img?el.cover_img:el.url">
+						<span v-if="el.long">00:20</span>
+					</div>
+				</li>
+			</span>
 		</ul>
+		<input class="ycyin" type="file" @change="fileUp" :accept="typexz" multiple="multiple" ref="upnfile"/>
+		
 	</div>
 </template>
 
 <script>
+export default{
+	data(){
+		return{
+			typexz:'image/gif,image/jpeg,image/png,video/mp4',
+			imgMax:10,
+			videoMax:100,
+			list:[{type:'up',bf:20,}],
+		}
+	},
+	methods:{
+		
+		fileUp(flie){
+			for(let i=0,n=flie.target.files.length;i<n;i++){
+				this.clPic(flie.target.files[i],i);
+			}
+			
+		},
+		clPic(fld,on){
+			
+			if(fld.type=='video/mp4'){
+				if(fld.size>104857600){
+					this.$message({
+						message:'视频过大请重新选取'
+					})
+					return
+				}
+				this.pushFile(fld);
+				return
+			}			
+			if(['image/gif','image/jpeg','image/png'].indexOf(fld.type)!=-1){
+				if(fld.size>10485760){
+					this.$message({
+						message:'图片过大请重新选取'
+					})
+					return
+				}
+				this.pushFile(fld);
+				return
+			}
+			this.$message({
+				message:'请上传正确格式的媒体'
+			})
+			return
+		},
+		
+		
+		push(){
+			this.$refs.upnfile.click();
+		},
+		pushFile(fld){
+			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				app_secret,
+				window.userInfo.open_id,
+				times
+			];
+			let formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',window.userInfo.open_id)
+			formData.append('file',fld)
+			formData.append('relation_type','mobile_show')
+			formData.append('timestamp',times)			
+			let xhr = new XMLHttpRequest();
+			
+			let pr={
+				bf:0,
+				xhr:xhr,
+				url:'',
+				cover_img:'',
+				type:'up'
+			};
+			if(fld.type=='video/mp4'){
+				let vo = document.createElement('video');
+				vo.src=URL.createObjectURL(fld);
+				pr.long = vo.duration;
+			}
+			console.log(pr);
+			this.list.unshift(pr);
+			let p = this.list[0];
+			let uploadProgress = (evt)=>{		
+				if(evt.lengthComputable) {
+					let percent = Math.round(evt.loaded * 100 / evt.total);
+			        percent = percent>98?98:percent;
+					p.bf  = Math.floor(percent);
+				}
+				
+				
+			};
+			let uploadComplete = (data)=>{
+				if(data.currentTarget.response){
+					let daaa = JSON.parse(data.currentTarget.response);
+					if(daaa.result!=0){
+						this.$message({message:daaa.data});
+						return
+					}
+					let da = daaa.data;
+					p.type='ko';
+					p.url = da.url;
+					if(da.cover_img){
+						p.cover_img = da.cover_img;
+					}							
+					this.$message({message: '文件上传成功'});
+				}				
+			};
+			let uploadFailed = ()=>{
+				this.$refs.upnfile.value ='';
+				p.type='erro';
+				this.$message({message: '文件上传失败请稍后重试'});
+				
+			};
+			let uploadCanceled = ()=>{
+				this.$refs.upnfile.value ='';
+				p.type='erro';
+				this.$message({message: '取消成功'});
+				
+			};
+			xhr.upload.addEventListener("progress",uploadProgress, false);
+			xhr.addEventListener("load",uploadComplete, false);
+			xhr.addEventListener("error",uploadFailed, false);
+			xhr.addEventListener("abort",uploadCanceled, false);
+			xhr.open("POST", window.basrul+"/File/File/insert");
+			xhr.send(formData);
+		},
+	}
+}
 </script>
 
 <style>
@@ -69,7 +183,7 @@
 	color:rgba(187,187,187,1);
 	line-height:20px;
 }
-.setMt_03>li{
+.setMt_03 li{
 	cursor: pointer;
 	position: relative;
 	display: inline-block;
@@ -80,17 +194,18 @@
 	border-radius:10px;
 	margin: 0 16px 16px 0;
 }
-.setMt_03>li:after{
+
+.setMt_03 li:after{
 	content: "";
 	position: absolute;
-	top: o;
+	top: 0;
 	left: 0;
 	border-radius:10px;
 	background: rgba(0,0,0,.3);
 	width: 100%;
 	height: 100%;
 }
-.setMt_03>li:hover:after{
+.setMt_03 li:hover:after{
 	display: none;
 }
 .setMtUp{
@@ -106,5 +221,36 @@
 	display: block;
 	margin: 0 auto 5px;
 	width: 25px;
+}
+.ycyin{
+	display: none;
+}
+.jdt_002{
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 2;
+	
+}
+.setMt_03_01{
+	width: 100%;
+	height: 100%;
+}
+.setMt_03_01>img{
+	display: block;
+	height: 100%;
+	width: auto;
+	margin: 0 auto;
+}
+.jdt_002 .el-progress__text{
+	color: #fff;
+}
+.jdt_002x{
+	display: block;
+	text-align: center;
+	color: #fff;
+	font-size:12px;
 }
 </style>

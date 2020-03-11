@@ -12,12 +12,13 @@
 				</div>
 				
 				<div class="noto_btns">
-					<span>保存</span><span class="noto_bys">制作完成</span>
+					<span @click="setvideo">保存</span><span @click="playd" class="noto_bys">制作完成</span>
 				</div>
 			</div>
 			<div class="ntob_cent">
 				<div class="ntob_cent_l">
-					<video class="ntob_cent_l_1" src=""></video>
+					<canvas id="myCanvas" ref="cavs"></canvas>
+					<video @loadeddata="csy"  id="boxf" class="ntob_cent_l_1" :src="video" ref="vids"></video>
 					<div class="ntob_cent_l_2">
 						<div>预览比例 9:16</div>
 						<div>00:00:00:00 / 00:00:30:00</div>
@@ -81,6 +82,7 @@ export default{
 	},
 	data(){
 		return{
+			video:'',
 			form:{
 				
 			},
@@ -92,10 +94,56 @@ export default{
 			navcoms:{
 				zj:'setMt',
 			},
-			kd:[1]
+			kd:[1],
+			fd_lave:0,
+			cans:'',
+			isinit:0,
+			po:'',
 		}
 	},
+	mounted: function () {
+		this.init();
+	}, 
 	methods:{
+		setvideo(){
+			this.video = 'http://res.shiquaner.zookingsoft.com/b1a81913ea29b29459545f505241851d.mp4';
+		},
+		playd(){
+			var dom = document.getElementById('boxf');
+			dom.play();
+			
+			
+			
+		},
+		csy(){
+			var dom = document.getElementById('boxf');
+			dom.currentTime = 0;
+			this.cans.drawImage(dom,0,0,391,695);
+			
+			setTimeout(()=>{
+				this.cans.drawImage(dom,0,0,391,695);
+			
+			}, 500);
+		},
+		cansdd(){
+			
+		},
+		init(){
+			this.$refs.cavs.width = 391;
+			this.$refs.cavs.height = 695;
+			this.cans = this.$refs.cavs.getContext("2d");
+			this.cans.fillStyle="#000";
+			this.cans.fillRect(0,0,391,695);
+			
+			this.$refs.vids.addEventListener('play',()=>{
+				this.po =window.setInterval(()=>
+			{
+				this.cans.drawImage(this.$refs.vids,0,0,391,695)
+			},20);},false);
+			this.$refs.vids.addEventListener('pause',()=>{window.clearInterval(this.po);},false);
+			this.$refs.vids.addEventListener('ended',()=>{clearInterval(this.po);},false);
+			
+		},
 		qhNav(o){
 			if(this.navson ==o){return}
 			this.navson = o;
@@ -190,12 +238,19 @@ export default{
 .ntob_cent_r{
 	background: #fff;
 }
-.ntob_cent_l_1{
+#myCanvas{
 	display: block;
 	margin: 0 auto;
 	width:391px;
-	height:695px;
-	background:rgba(40,40,40,1);
+	height:695px;		
+}
+.ntob_cent_l_1{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width:391px;
+	height:695px;	
+	display: none;
 }
 .ntob_cent_r{
 	position: relative;
