@@ -18,7 +18,7 @@
 			<div class="ntob_cent">
 				<div class="ntob_cent_l">
 					<canvas id="myCanvas" ref="cavs"></canvas>
-					<video @loadeddata="csy"  id="boxf" class="ntob_cent_l_1" :src="video" ref="vids"></video>
+					<video @ended="endeds()" @loadeddata="csy"  id="boxf" class="ntob_cent_l_1" :src="video" ref="vids"></video>
 					<div class="ntob_cent_l_2">
 						<div>预览比例 9:16</div>
 						<div>00:00:00:00 / 00:00:30:00</div>
@@ -41,18 +41,16 @@
 				<div class="ntob_footer_2">
 					<div class="tlo_box">
 						<div class="ntob_footer_2_1">
-							<div class="kdut">
-								<span class="kd_02"><span>00:00:00:00</span></span>
-								<div class="kdut_1" v-for="el in kd">
-									<span v-for="el in new Array(8)"></span>
-									<span class="kd_02">
-										<span>00:00:10:00</span>
-									</span>
-								</div>
+							<div v-html="backd()" class="kdut">
+								
 							</div>
 						</div>
 						
-						<div class="tlo_02"></div>
+						<div class="tlo_02">
+							<div :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.videos">
+								<!-- <img :src="el.fps_pic"> -->
+							</div>
+						</div>
 						<div class="tlo_03"></div>
 						<div class="tlo_04"></div>
 					</div>
@@ -93,26 +91,90 @@ export default{
 			],
 			navcoms:{
 				zj:'setMt',
+				videos:[],
+				audios:[],
+				imgs:[],
+				maxTime:0,
+				bflist:[],
 			},
 			kd:[1],
 			fd_lave:0,
 			cans:'',
 			isinit:0,
 			po:'',
+			sfjb:10,
+			bof:0,
+			bfon:0,
+			islast:'',
+			
 		}
 	},
 	mounted: function () {
 		this.init();
 	}, 
+
 	methods:{
-		setvideo(){
-			this.video = 'http://res.shiquaner.zookingsoft.com/b1a81913ea29b29459545f505241851d.mp4';
+		endeds(){
+			let len = this.navcoms.videos.length;
+			console.log(this.bfon)
+			console.log(len-1);
+			if(this.bfon<len-1){
+				this.bfon++;
+				this.setvideo(this.navcoms.videos[this.bfon].file_url,1);
+			}else{
+				console.log('jlle')
+				this.islast=1;
+			}
+		},
+		backd(){
+			let str='<span class="kd_02"><span>00:00:00:00</span></span>';
+			for(let i=0,n=Math.ceil(this.navcoms.maxTime/10);i<n;i++){
+				str+='<div class="kdut_1">';
+				for(let i2=0;i2<8;i2++){
+					str+='<span></span>';
+				}
+				str+='<span class="kd_02"><span>'+this.tutime(10*(i+1))+'</span></span>';
+				str+='</div>';
+			}
+			return str;				
+		},
+		tutime(t){
+			var h=0,m=0,s=0,om=0;
+			s = t%60;
+			if(t>=60){
+				m = (t-s)/60;
+				om = m%60;
+			}
+			if(m>=60){
+				h = (m-om)/60;
+			}
+
+		    return this.optu(h)+':'+this.optu(om)+':'+this.optu(s);
+		},
+		optu(n){
+			return n>9?n:'0'+n;
+		},
+		backtop(el,index){
+			return "width:190px;transform:translateX("+(index*100)+"%)";
+		},
+		setvideo(vido,a){
+			this.video = vido;
+			if(a){
+				this.playd();
+			}
 		},
 		playd(){
 			var dom = document.getElementById('boxf');
-			dom.play();
+			console.log(this.islast);
+			if(this.islast){
+				this.islast='';
+				this.bfon=0;
+				this.setvideo(this.navcoms.videos[this.bfon].file_url);
+			}
 			
-			
+			setTimeout(()=>{
+				dom.play();
+			},50)
 			
 		},
 		csy(){
@@ -124,9 +186,6 @@ export default{
 				this.cans.drawImage(dom,0,0,391,695);
 			
 			}, 500);
-		},
-		cansdd(){
-			
 		},
 		init(){
 			this.$refs.cavs.width = 391;
@@ -343,6 +402,7 @@ margin-left: 121px;
 	left: 0;
 	display: inline-block;
 	border-bottom: 1px solid #DEE1E9;
+	white-space: nowrap;
 }
 .kdut>span{
 	display: inline-block;
@@ -388,6 +448,7 @@ margin-left: 121px;
 	position: relative;
 }
 .tlo_02{
+	position: relative;
 	height: 72px;
 	background: #F4F6F9;
 	margin-bottom: 3px;
@@ -462,5 +523,13 @@ margin-left: 121px;
 	border-radius: 50%;
 	background:rgba(51,179,255,1);
 	box-shadow:0px 2px 4px 0px rgba(0,0,0,0.2);
+}
+.imgd{
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	background: red;
+	height: 100%;
 }
 </style>
