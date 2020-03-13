@@ -222,9 +222,15 @@ export default {
 			}).catch(()=>{
 				
 			});
+		},
+		getPath(){
+			this.getData();
 		}
 		
-	}
+	},
+	watch:{
+		'$route':'getPath'
+	},
 }
 </script>
 
