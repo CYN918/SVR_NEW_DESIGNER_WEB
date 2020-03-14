@@ -112,7 +112,7 @@ export default {
 		},
 	    'input'(val,oldeval) {
 			if(this.input){
-				this.numd = this.input.gblen();
+				this.numd = this.input.length;
 				if(this.isHz){
 					this.numd = this.backHz(this.input);
 				}				
@@ -120,7 +120,7 @@ export default {
 				this.numd = 0;
 			}
 			if(this.max>0 && this.numd>this.max){				
-				this.input = oldeval;				
+				this.input = val.substring(0,this.max);				
 				return
 			}
 	    	this.$emit('input', this.input); 

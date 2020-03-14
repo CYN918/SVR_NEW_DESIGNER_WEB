@@ -61,7 +61,7 @@
 			<div class="u_top3_2">
 				<div class="u_top3_2_1">{{backnAM(userMessage.username)}}</div>
 				<div class="u_top3_2_2">{{userMessage.province+'-'+userMessage.city}}</div>
-				<div class="u_top3_2_3">{{userMessage.personal_sign?userMessage.personal_sign:'这个人很懒，什么都没说~'}}</div>
+				<div class="u_top3_2_3 xsetd">{{userMessage.personal_sign?userMessage.personal_sign:'这个人很懒，什么都没说~'}}</div>
 			</div>
 			<div class="u_top3_3">
 				<span class="pend"  @click="goFans('/followFans',userMessage.open_id,'粉丝数')">粉丝<span>{{userMessage.fans_num}}</span></span>
@@ -742,5 +742,8 @@ export default {
 }
 .csBoxNx1{
 	min-height: 500px;
+}
+.xsetd{
+	width: 380px;
 }
 </style>
