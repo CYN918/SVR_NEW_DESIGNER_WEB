@@ -41,14 +41,13 @@
 				<div class="ntob_footer_2">
 					<div class="tlo_box">
 						<div class="ntob_footer_2_1">
-							<div v-html="backd()" class="kdut">
-								
-							</div>
+							<div v-html="backd()" class="kdut"></div>
 						</div>
 						
 						<div class="tlo_02">
 							<div :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.videos">
-								<!-- <img :src="el.fps_pic"> -->
+								<img v-if="el.fps_pic" :src="el.fps_pic">
+								
 							</div>
 						</div>
 						<div class="tlo_03"></div>
@@ -106,6 +105,8 @@ export default{
 			bof:0,
 			bfon:0,
 			islast:'',
+			page:1,
+			wdk:21,
 			
 		}
 	},
@@ -116,8 +117,7 @@ export default{
 	methods:{
 		endeds(){
 			let len = this.navcoms.videos.length;
-			console.log(this.bfon)
-			console.log(len-1);
+
 			if(this.bfon<len-1){
 				this.bfon++;
 				this.setvideo(this.navcoms.videos[this.bfon].file_url,1);
@@ -130,7 +130,7 @@ export default{
 			let str='<span class="kd_02"><span>00:00:00:00</span></span>';
 			for(let i=0,n=Math.ceil(this.navcoms.maxTime/10);i<n;i++){
 				str+='<div class="kdut_1">';
-				for(let i2=0;i2<8;i2++){
+				for(let i2=0;i2<9;i2++){
 					str+='<span></span>';
 				}
 				str+='<span class="kd_02"><span>'+this.tutime(10*(i+1))+'</span></span>';
@@ -155,24 +155,34 @@ export default{
 			return n>9?n:'0'+n;
 		},
 		backtop(el,index){
-			return "width:190px;transform:translateX("+(index*100)+"%)";
+			let str = "width:"+el.long*this.wdk+"px;transform:translateX("+(el.start*this.wdk)+"px);";
+			if(el.type=='image'){
+				str+='background-image: url('+el.bgimg+');';
+			}
+			
+		
+			return str;
 		},
 		setvideo(vido,a){
 			this.video = vido;
+			console.log(this.video);
 			if(a){
 				this.playd();
 			}
 		},
 		playd(){
 			var dom = document.getElementById('boxf');
-			console.log(this.islast);
+			console.log(dom);
 			if(this.islast){
 				this.islast='';
 				this.bfon=0;
-				this.setvideo(this.navcoms.videos[this.bfon].file_url);
+				
 			}
+			console.log(this.navcoms.videos[this.bfon]);
+			this.setvideo(this.navcoms.videos[this.bfon].file_url);
 			
 			setTimeout(()=>{
+				console.log(dom)
 				dom.play();
 			},50)
 			
@@ -206,7 +216,8 @@ export default{
 		qhNav(o){
 			if(this.navson ==o){return}
 			this.navson = o;
-		}
+		},
+		
 	}
 }
 </script>
@@ -410,11 +421,12 @@ margin-left: 121px;
 	width:1px;
 	height:8px;
 	background:rgba(96,98,102,1);
-	margin-right: 10px;
+
 }
 .kdut_1{
 	display: inline-block;
 	vertical-align: bottom;
+	margin-left: 10px;
 }
 .kdut_1>span{
 	display: inline-block;
@@ -529,7 +541,11 @@ margin-left: 121px;
 	top: 0;
 	left: 0;
 	overflow: hidden;
-	background: red;
+	background: #fff;
 	height: 100%;
+	background-position: 0;
+	background-repeat: repeat-x;
+	background-size: auto 100%;
+
 }
 </style>

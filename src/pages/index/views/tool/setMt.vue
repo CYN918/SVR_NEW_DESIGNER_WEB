@@ -20,8 +20,8 @@
 						
 					</div>
 					<div @click="checkV(el)" class="setMt_03_01" v-else>
-						<img v-if="" :src="el.img?el.img:el.url">
-						<span class="tim_013" v-if="el.video_duration">{{el.video_duration}}</span>
+						<img v-if="" :src="el.cover_img?el.cover_img:el.url">
+						<span class="tim_013" v-if="el.play_time">{{el.play_time}}</span>
 					</div>
 				</li>
 			</span>
@@ -40,104 +40,58 @@ export default{
 		return{
 			typexz:'image/gif,image/jpeg,image/png,video/mp4',
 			imgMax:10,
-			videoMax:100,
-			list:[
-				{
-					id: "20200026",
-					project_id: null,
-					open_id: "e272146897b337433a31",
-					title: "差三岁",
-					desc: "",
-					img: "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/b1a81913ea29b29459545f505241851d.jpg",
-					user_video_url: "http://res.shiquaner.zookingsoft.com/b1a81913ea29b29459545f505241851d.mp4",
-					user_video_size_format: "2.72 MB",
-					fps: "24",
-					fps_pic: "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/e6173a7504554b126838db43ce823ff2.png",
-					audio_m_id: "atzy_ad_80D75790C833DE8F5569BB40AF7AEF08",
-					audio_name: "二姑娘",
-					audio_author: "程小溪",
-					audio_com_id: "",
-					video_start: "0.00",
-					video_duration: "10.00",
-					audio_start: "91.27",
-					audio_duration: "10.00",
-					file_url: "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/bce447df4f099a2d7ae3dc1797af75a0.mp4",
-					file_size: null,
-					file_size_format: "",
-					duration: null,
-					tag: "扁平,极简",
-					classify_id: "meizu_keji",
-					classify_name: "科技炫光",
-					status: "0",
-					compose_times: "0",
-					created_at: "2020-02-05 14:42:45",
-					update_at: "2020-02-05 14:43:23",
-					is_del: "0",
-				},
-				
-				{
-					id: "20200026",
-					project_id: null,
-					open_id: "e272146897b337433a31",
-					title: "差三岁",
-					desc: "",
-					img: "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/62be2dc2728590b29e8f5b435d680d4d.jpg",
-					user_video_url: "http://res.shiquaner.zookingsoft.com/b1a81913ea29b29459545f505241851d.mp4",
-					user_video_size_format: "2.72 MB",
-					fps: "24",
-					fps_pic: "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/e6173a7504554b126838db43ce823ff2.png",
-					audio_m_id: "atzy_ad_80D75790C833DE8F5569BB40AF7AEF08",
-					audio_name: "二姑娘",
-					audio_author: "程小溪",
-					audio_com_id: "",
-					video_start: "0.00",
-					video_duration: "10.00",
-					audio_start: "91.27",
-					audio_duration: "10.00",
-					file_url: "http://zk-new-designer.oss-cn-beijing.aliyuncs.com/2c15642849b5a56b9b6930a777cdc243.mp4",
-					file_size: null,
-					file_size_format: "",
-					duration: null,
-					tag: "扁平,极简",
-					classify_id: "meizu_keji",
-					classify_name: "科技炫光",
-					status: "0",
-					compose_times: "0",
-					created_at: "2020-02-05 14:42:45",
-					update_at: "2020-02-05 14:43:23",
-					is_del: "0",
-				},
-				
-				{type:'up',bf:20,}],				
+			videoMax:100,						
+			list:[],
+			noGd:'',
+			isnoData:'',
+			page:1,
 					
 		}
 	},
+	mounted: function () {
+		this.getList();
+		
+	}, 		
 	methods:{
 		checkV(el){
-			let pr = {
-				"type": "video",
-				"file_url": el.file_url,
-				"start": 0,
-				"fps_pic":el.fps_pic,
-				fps:el.fps,
-				"end": el.video_duration,
-			};
+			let pr = {};
+			if(el.file_type=='image'){
+				pr={
+					type: "image",
+					file_url: el.url,
+					fid:el.fid,
+					start: 0,			
+					end: 5,
+					long:5,
+					bgimg:el.url,
+				}
+			}
+			if(el.file_type=='video'){
+				pr = {
+					type: "video",
+					file_url: el.url,
+					start: 0,
+					end: el.play_time,
+					long:el.play_time,
+					fps_pic:el.fps_pic,
+					fps:el.fps,
+					fid:el.fid,					
+				};				
+			}			
 			let ond = this.value.videos[this.value.videos.length-1];
 			if(ond){
 				pr.start = ond.end;
-				pr.end = pr.start+el.video_duration;
+				pr.end = pr.start+(+el.play_time);
 			}else{
-				this.$parent.setvideo(el.file_url);
+				this.$parent.setvideo(el.url);
 			}
-			if(this.value.bflist.indexOf(el.file_url)==-1){
-				this.value.bflist.push(el.file_url);
+			if(el.file_type=='video' && this.value.bflist.indexOf(el.url)==-1){
+				this.value.bflist.push(el.url);
 				var a = document.createElement('video');
-				a.src=el.file_url;
-			}
-			
-			this.value.maxTime = +el.video_duration+this.value.maxTime;
-			this.value.videos.push(pr);
-			console.log(this.value.maxTime);
+				a.src=el.url;
+			}			
+			this.value.maxTime = +pr.long+this.value.maxTime;
+			this.value.videos.push(pr);		
 		},
 		fileUp(flie){
 			for(let i=0,n=flie.target.files.length;i<n;i++){
@@ -192,22 +146,30 @@ export default{
 			formData.append('user',window.userInfo.open_id)
 			formData.append('file',fld)
 			formData.append('relation_type','mobile_show')
-			formData.append('timestamp',times)			
+			formData.append('timestamp',times)
+				
+				
+			
 			let xhr = new XMLHttpRequest();
 			
 			let pr={
 				bf:0,
 				xhr:xhr,
 				url:'',
-				img:'',
-				type:'up'
+				cover_img:'',
+				type:'up',
+				fps_pic:'',
+				fps:'',
+				play_time:'',
+				fid:'',
 			};
 			if(fld.type=='video/mp4'){
+				formData.append('fps_pic',1);
 				let vo = document.createElement('video');
 				vo.src=URL.createObjectURL(fld);
-				pr.long = vo.duration;
+				pr.play_time = vo.duration;
 			}
-			console.log(pr);
+			
 			this.list.unshift(pr);
 			let p = this.list[0];
 			let uploadProgress = (evt)=>{		
@@ -230,7 +192,11 @@ export default{
 					p.type='ko';
 					p.url = da.url;
 					if(da.cover_img){
-						p.img = da.cover_img;
+						p.cover_img = da.cover_img;
+						p.fps_pic = da.fps_pic;
+						p.fid = da.fid;
+						p.play_time = da.play_time;
+						p.fps = da.fps;
 					}							
 					this.$message({message: '文件上传成功'});
 				}				
@@ -253,6 +219,50 @@ export default{
 			xhr.addEventListener("abort",uploadCanceled, false);
 			xhr.open("POST", window.basrul+"/File/File/insert");
 			xhr.send(formData);
+		},
+		
+		getList(){
+			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',
+			times = (Date.parse(new Date())/1000),
+			arr = [
+				1001,
+				app_secret,
+				window.userInfo.open_id,
+				times
+			],
+			params = {
+				app_id:1001,
+				sign:this.MD5(encodeURIComponent(arr.sort())),
+				user:window.userInfo.open_id,
+				timestamp:times,
+				// file_type:'',
+				relation_type:'mobile_show',
+				limit:40,
+				page:this.page,
+			};
+			
+			this.api.fileList(params).then((da)=>{
+				if(da=='error'){
+					return
+				}
+				if(da.data.length==0 || !da){
+					this.noGd=1;
+				}
+				if(da.data.length==0 && this.list.length==0){
+					this.isnoData=1;
+				}else{
+					this.isnoData='';
+				}
+				this.total = da.total;
+				if(this.list.length>0){
+					this.list = this.list.concat(da.data);
+					return
+				}
+				this.list =da.data;
+				
+			}).catch(()=>{
+				
+			});
 		},
 	}
 }

@@ -397,4 +397,9 @@ export default {
 		url:'/api/mobileshow/del',method:'post',baseURL:0,isType:{cancelToken:1}
 	},
 	
+	
+	fileList:{
+		url:'/Api/User/fileList',method:'post',baseURL:0,isType:{cancelToken:1}
+	},
+	
 }
