@@ -12,22 +12,29 @@
 				</div>
 				
 				<div class="noto_btns">
-					<span @click="setvideo">保存</span><span @click="playd" class="noto_bys">制作完成</span>
+					<span >保存</span><span @click="zzwc"  class="noto_bys">制作完成</span>
 				</div>
 			</div>
 			<div class="ntob_cent">
 				<div class="ntob_cent_l">
 					<canvas id="myCanvas" ref="cavs"></canvas>
-					<video @ended="endeds()" @loadeddata="csy"  id="boxf" class="ntob_cent_l_1" :src="video" ref="vids"></video>
+					<video muted @ended="endeds()" @loadeddata="csy"  id="boxf" class="ntob_cent_l_1"  ref="vids"></video>
+					<audio 
+					class="ntob_cent_l_1" 
+					@ended="endAudio()"					
+					ref="aido"></audio>
 					<div class="ntob_cent_l_2">
-						<div>预览比例 9:16</div>
-						<div>00:00:00:00 / 00:00:30:00</div>
-						<div>来电预览</div>
+						<div class="ntob_cent_l_2_1">预览比例 9:16</div>
+						<div class="ntob_cent_l_2_2">
+							<span class="an_sx_01"></span><span @click="playAll" class="an_bf_01"></span>
+							<span>00:00:00:00</span> / <span class="tme_091">00:00:30:00</span>							
+						</div>
+						<div class="ntob_cent_l_2_3">来电预览</div>
 					</div>
 				</div>
 				<div class="ntob_cent_r">
 					<div class="ntob_cent_r_1">
-						<span @click="qhNav(index)" v-for="(el,index) in navs" :class="navson==index?'ckin':''"><img v-if="el.icon" :src="'/imge/new/tools/n/'+el.icon">{{el.n}}</span>
+						<span @click="qhNav(index,el.zj)" v-for="(el,index) in navs" :class="navson==index?'ckin':''"><img v-if="el.icon" :src="'/imge/new/tools/n/'+el.icon">{{el.n}}</span>
 					</div>
 					<div class="ntob_cent_r_2">
 						<component v-bind:is="navcoms.zj" v-model="navcoms" ref="vid"></component>						
@@ -45,12 +52,24 @@
 						</div>
 						
 						<div class="tlo_02">
-							<div :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.videos">
-								<img v-if="el.fps_pic" :src="el.fps_pic">
+							<div @click="" :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.media">
+								<img v-if="el.fps_pic" :src="el.fps_pic">	
+								<div class="setToll">
+									<div class="setToll1"></div>
+									<div class="setToll2"></div>
+									<div class="setToll3"></div>
+									<div class="setToll4">
+										<i></i><i></i><i></i>
+										<input @blur="csb" @focus="csa($event,{n:'media',o:index})" class="setToll4_1" type="text">
+									</div>
+								</div>							
 								
 							</div>
 						</div>
-						<div class="tlo_03"></div>
+						<div class="tlo_03">
+							<div :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.audio">
+							</div>
+						</div>
 						<div class="tlo_04"></div>
 					</div>
 					<div class="gund_01">
@@ -62,36 +81,56 @@
 							<div class="fdsx_06"></div>
 						</span>
 						<span class="fdsx_02">+</span>
+						
 					</div>
 					
 				</div>
 			</div>
+			<div :style="csad" class="setToll4_2">
+				<span>复制</span>
+				<span @click="delt()">删除</span>
+			</div>
+			<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
+		
 		</div>
+		
+		
+		
 	</div>
 	
 </template>
 
 <script>
 import setMt from './setMt';
+import mp3List from './setAdio';
+import saves from './saves';
 export default{
 	components:{
-		setMt
+		setMt,
+		mp3List,
+		saves
 	},
 	data(){
 		return{
+			tanc:{
+				zj:'',
+				title:'',
+			},
+			csad:'',
 			video:'',
 			form:{
 				
 			},
 			navson:0,
 			navs:[
-				{n:'媒体',icon:'icon_mt_video_pre.svg'},
-				{n:'音乐',icon:'icon_yy.svg'}
+				{n:'媒体',icon:'icon_mt_video_pre.svg',zj:'setMt'},
+				{n:'音乐',icon:'icon_yy.svg',zj:'mp3List'}
 			],
 			navcoms:{
 				zj:'setMt',
-				videos:[],
-				audios:[],
+				title:'',
+				media:[],
+				audio:[],
 				imgs:[],
 				maxTime:0,
 				bflist:[],
@@ -107,7 +146,12 @@ export default{
 			islast:'',
 			page:1,
 			wdk:21,
-			
+			audiosOn:0,
+			xzData:'',
+			formData:{
+				title:'',
+				media:[],
+			},
 		}
 	},
 	mounted: function () {
@@ -115,16 +159,62 @@ export default{
 	}, 
 
 	methods:{
+		scVideo(){
+			this.formData.media = this.navcoms.media;
+		},
+		scAduios(){
+			this.formData.media = this.navcoms.audio;
+		},
+		pushData(){
+			
+			
+			
+			
+		},
+		zzwc(){
+			if(this.navcoms.media.length==0){
+				return
+			}
+			if(this.navcoms.audio.length==0){
+				return
+			}
+			this.tanc.zj = 'saves';
+			this.tanc.json = {
+				media:this.navcoms.media,
+				audio:this.navcoms.audio
+			};
+			
+			
+		},
+		
+		
+		savePus(){
+			
+		},
+		delt(on){
+			return
+			if(!this.xzData){return}
+			this.navcoms[this.xzData.n].splice(this.xzData.o,1);
+			this.xzData='';
+			
+		},
 		endeds(){
-			let len = this.navcoms.videos.length;
-
+			let len = this.navcoms.media.length;
 			if(this.bfon<len-1){
 				this.bfon++;
-				this.setvideo(this.navcoms.videos[this.bfon].file_url,1);
-			}else{
-				console.log('jlle')
-				this.islast=1;
+				this.playVideo();
+				return
 			}
+			this.islast=1;			
+		},
+		
+		endAudio(){
+			let len = this.navcoms.audio.length;
+			if(this.audiosOn<len-1){
+				this.audiosOn++;
+				this.playAudio();
+			}
+			this.audioLast=1;			
 		},
 		backd(){
 			let str='<span class="kd_02"><span>00:00:00:00</span></span>';
@@ -165,28 +255,34 @@ export default{
 		},
 		setvideo(vido,a){
 			this.video = vido;
-			console.log(this.video);
-			if(a){
-				this.playd();
-			}
+
 		},
-		playd(){
-			var dom = document.getElementById('boxf');
-			console.log(dom);
+		playAll(){
+			this.playAudio();
+			this.playVideo();
+		},
+		playAudio(){
+			if(this.audioLast){
+				this.audioLast='';
+				this.audiosOn=0;				
+			}
+			this.$refs.aido.src=this.navcoms.audio[this.audiosOn].file_url;
+			setTimeout(()=>{
+				this.$refs.aido.play();				
+			},50)
+		},
+		playVideo(){
 			if(this.islast){
 				this.islast='';
-				this.bfon=0;
-				
+				this.bfon=0;				
 			}
-			console.log(this.navcoms.videos[this.bfon]);
-			this.setvideo(this.navcoms.videos[this.bfon].file_url);
-			
+			this.$refs.vids.src=this.navcoms.media[this.bfon].file_url;
 			setTimeout(()=>{
-				console.log(dom)
-				dom.play();
+				this.$refs.vids.play();				
 			},50)
 			
 		},
+		
 		csy(){
 			var dom = document.getElementById('boxf');
 			dom.currentTime = 0;
@@ -213,11 +309,23 @@ export default{
 			this.$refs.vids.addEventListener('ended',()=>{clearInterval(this.po);},false);
 			
 		},
-		qhNav(o){
+		qhNav(o,zj){
 			if(this.navson ==o){return}
 			this.navson = o;
+			this.navcoms.zj=zj;
 		},
-		
+		csa(e,b){
+			
+			let dom =  e.target.getBoundingClientRect();
+			this.xzData = b;
+			this.csad = 'display:block;top:'+(dom.y-5)+'px;left:'+(dom.x-22)+'px';
+		},
+		csb(e){
+			setTimeout(()=>{
+				this.csad = '';
+			},200)
+			
+		}
 	}
 }
 </script>
@@ -466,6 +574,7 @@ margin-left: 121px;
 	margin-bottom: 3px;
 }
 .tlo_03{
+	position: relative;
 	height: 32px;
 	background: #F4F6F9;
 	margin-bottom: 3px;
@@ -541,11 +650,153 @@ margin-left: 121px;
 	top: 0;
 	left: 0;
 	overflow: hidden;
-	background: #fff;
+	background: #839aba;
 	height: 100%;
 	background-position: 0;
 	background-repeat: repeat-x;
 	background-size: auto 100%;
 
+}
+.setToll{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	border:2px solid rgba(51,179,255,1);
+}
+.ntob_cent_l_2{
+	position: relative;
+	height: 74px;
+	background: #fff;
+}
+.ntob_cent_l_2_1{
+	position: absolute;
+	left: 23px;
+	top: 25px;
+	font-size:14px;
+	font-family:PingFangSC-Regular,PingFang SC;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+	line-height:20px;
+}
+.ntob_cent_l_2_2{
+	text-align: center;
+	font-size:16px;
+	font-family:PingFangSC-Regular,PingFang SC;
+	font-weight:400;
+	color:rgba(51,51,51,1);
+	line-height:22px;
+	padding-top: 24px;
+}
+.ntob_cent_l_2_3{
+	position: absolute;
+	right: 16px;
+	top: 25px;
+	font-size:14px;
+	font-family:PingFangSC-Regular,PingFang SC;
+	font-weight:400;
+	color:rgba(102,102,102,1);
+	line-height:20px;
+}
+.ntob_cent_l_2_2>span{
+	display: inline-block;
+	vertical-align: top;
+}
+.an_sx_01{
+	width:22px;
+	height:22px;
+	background: #282828;
+	margin-right: 16px;
+}
+.an_bf_01{
+	margin-right: 16px;
+	width:22px;
+	height:22px;
+	background: #282828;
+}
+.tme_091{
+	font-size:16px;
+	font-family:PingFangSC-Regular,PingFang SC;
+	font-weight:400;
+	color:rgba(143,147,153,1);
+	line-height:22px;
+}
+.setToll1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.setToll2{
+	position: absolute;
+	top: 0;
+	left: -1px;
+	width: 1px;
+	height: 100%;
+	background: red;
+}
+.setToll3{
+	position: absolute;
+	top: 0;
+	right: -1px;
+	width: 1px;
+	height: 100%;
+	background: red;
+}
+.setToll4{
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+
+	width:36px;
+	height:20px;
+	background:rgba(255,255,255,1);
+	border-radius: 6px;
+	box-shadow:0px 2px 4px 0px rgba(0,0,0,0.1);
+}
+.setToll4>i{
+	
+	display: inline-block;
+    vertical-align: top;
+    width: 4px;
+    height: 4px;
+    background: #000;
+    border-radius: 50%;
+    margin: 8px 2px;
+}
+.setToll4_1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+.setToll4_2{
+	display: none;
+	position: fixed;
+	left: 0;
+	width:82px;
+	transform: translateY(-100%);
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+	padding: 8px 0;
+    border-radius: 5px;
+}
+.setToll4_2>span{
+	cursor: pointer;
+	display: block;
+	line-height: 34px;
+	text-align: center;
+	font-size: 14px;
+}
+.setToll4_2>span:hover{
+	background-color: #f5f7fa;
 }
 </style>

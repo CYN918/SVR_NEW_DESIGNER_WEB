@@ -57,12 +57,14 @@ export default{
 			let pr = {};
 			if(el.file_type=='image'){
 				pr={
-					type: "image",
+					type: "pic",
 					file_url: el.url,
 					fid:el.fid,
 					start: 0,			
 					end: 5,
 					long:5,
+					cut_start: 0,
+					cut_end: 5,
 					bgimg:el.url,
 				}
 			}
@@ -72,16 +74,18 @@ export default{
 					file_url: el.url,
 					start: 0,
 					end: el.play_time,
+					cut_start: 0,
+					cut_end: el.play_time,
 					long:el.play_time,
 					fps_pic:el.fps_pic,
 					fps:el.fps,
 					fid:el.fid,					
 				};				
 			}			
-			let ond = this.value.videos[this.value.videos.length-1];
+			let ond = this.value.media[this.value.media.length-1];
 			if(ond){
 				pr.start = ond.end;
-				pr.end = pr.start+(+el.play_time);
+				pr.end = +pr.start+(+el.play_time);
 			}else{
 				this.$parent.setvideo(el.url);
 			}
@@ -91,7 +95,8 @@ export default{
 				a.src=el.url;
 			}			
 			this.value.maxTime = +pr.long+this.value.maxTime;
-			this.value.videos.push(pr);		
+			this.value.media.push(pr);		
+	
 		},
 		fileUp(flie){
 			for(let i=0,n=flie.target.files.length;i<n;i++){
