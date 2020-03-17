@@ -68,7 +68,18 @@
 							</div>
 						</div>
 						<div class="tlo_03">
-							<div :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.audio">
+							<div @click="checkDOm($event,el,index,'audio')" :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.audio">
+							
+								<div  v-if="el.ischeck" class="setToll">
+									<div @mousedown="jl3($event,el)" class="setToll1"></div>
+									<div @mousedown="jl2($event,el)"  class="setToll2"></div>
+									<div @mousedown="jl($event,el)" class="setToll3"></div>
+									<div class="setToll4">
+										<i></i><i></i><i></i>
+										<input @blur="csb" @focus="csa($event,{n:'audio',o:index})" class="setToll4_1" type="text">
+									</div>
+								</div>			
+							
 							</div>
 						</div>
 						<div class="tlo_04"></div>
@@ -204,7 +215,7 @@ export default{
 				if(pn<min){
 					pn = min;
 				}			
-				el.cut_end = pn;
+				el.cut_end = Math.round((pn*100)/100);
 				
 			}			 
 			document.onmouseup =  ()=>{
@@ -219,8 +230,7 @@ export default{
 			document.onmousemove = (e)=>{
 				let on = +(((e.pageX-this.tdStar)/wid)*el.long).toFixed(3);
 				let pn = +el.long+on;
-				
-				el.start = +cs+(on);
+				el.start =  Math.round(((+cs+(on))*100)/100);
 				
 				
 			}			 
@@ -244,7 +254,7 @@ export default{
 					pn = max;
 				}
 			
-				el.cut_start = pn;	
+				el.cut_start = Math.round((pn*100)/100);	
 				
 			}									 
 			document.onmouseup =  ()=>{

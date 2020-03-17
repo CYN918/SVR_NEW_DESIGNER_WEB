@@ -160,7 +160,8 @@ export default{
 						cut_end: el.duration,
 						fps_pic:'',
 						fps:'',
-						fid:el.m_id,					
+						fid:el.m_id,
+						ischeck:'',
 				};				
 				let ond = this.value.audio[this.value.audio.length-1];
 				if(ond){
