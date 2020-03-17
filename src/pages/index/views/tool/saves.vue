@@ -95,6 +95,7 @@ export default{
 				return
 			}
 			let pr = this.value;
+			pr.json = JSON.stringify(pr.json);
 			pr.submit = 1;
 		
 			this.ajaxType = 1;

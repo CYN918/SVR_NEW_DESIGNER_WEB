@@ -175,16 +175,18 @@ export default{
 				
 				let ydtime = (+el.long+ ((bf/wid)*el.maxlong)).toFixed(2);
 				
-				if(ydtime>el.maxlong){
-					console.log(ydtime)
+				if(+ydtime>+el.maxlong){
+				
+					
 					el.long = el.maxlong;
 					return
 				}
-				if(ydtime<1){
+				if(+ydtime<1){
 					el.long = 1;
 					return
 				}
-								console.log('xxx')
+				console.log(ydtime)
+				console.log('xxx')
 				el.long = +ydtime;		
 			}
 			 
