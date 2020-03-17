@@ -67,6 +67,7 @@ export default{
 					cut_start: 0,
 					cut_end: 5,
 					bgimg:el.url,
+					ischeck:'',
 				}
 			}
 			if(el.file_type=='video'){
@@ -82,6 +83,7 @@ export default{
 					fps:el.fps,
 					fid:el.fid,	
 					maxlong:el.play_time,
+					ischeck:'',
 				};				
 			}			
 			let ond = this.value.media[this.value.media.length-1];

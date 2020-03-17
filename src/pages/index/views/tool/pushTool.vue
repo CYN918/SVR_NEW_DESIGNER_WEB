@@ -52,16 +52,13 @@
 						</div>
 						
 						<div class="tlo_02">
-							<div @click="" :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.media">
+							<div @click="checkDOm($event,el,index,'media')" :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.media">
+								
 								<img v-if="el.fps_pic" :src="el.fps_pic">	
-								<div class="setToll">
-									<div class="setToll1"></div>
-									<div   class="setToll2">
-										
-									</div>
-									<div @mousedown="jl($event,el)" class="setToll3">
-									
-									</div>
+								<div  v-if="el.ischeck" class="setToll">
+									<div @mousedown="jl3($event,el)" class="setToll1"></div>
+									<div @mousedown="jl2($event,el)"  class="setToll2"></div>
+									<div @mousedown="jl($event,el)" class="setToll3"></div>
 									<div class="setToll4">
 										<i></i><i></i><i></i>
 										<input @blur="csb" @focus="csa($event,{n:'media',o:index})" class="setToll4_1" type="text">
@@ -157,6 +154,7 @@ export default{
 				media:[],
 			},
 			tdStar:0,
+			onck:-1,
 		}
 	},
 	mounted: function () {
@@ -164,38 +162,94 @@ export default{
 	}, 
 
 	methods:{
-		jl(e,el){
-			this.tdStar = e.pageX;
+		checkDOm(e,el,on,dom){
+			if(e && e.stopPropagation()) {
+				e.stopPropagation();
+			} else {
+				e.cancelBubble = false;
+			}
+			if(el.ischeck==1){
+				return
+			}
 			
-			let wid = el.long*this.wdk;		
+			el.ischeck = 1;
+			
+			if(this.onck!=-1){
+				this.navcoms[dom][this.onck].ischeck='';
+			}
+			this.onck = on;
+			document.onclick =  ()=>{
+				this.closed(el,on,dom);
+				document.onclick = null;
+			}
+		
+		},
+		closed(el,on,dom){
+			el.ischeck = '';
+			this.onck = -1;
+		},
+		jl(e,el){
+			this.tdStar = e.pageX;			
+			let wid = el.long*this.wdk;	
+			let mv = ((el.long-el.cut_end)/el.long)*wid;
+			let max = +el.long;
+			let min = el.cut_start+1;
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
+				let on = +(((e.pageX-this.tdStar-mv)/wid)*el.long).toFixed(3);
+				let pn = +el.long+on;
+				if(+pn>max){
+					pn = max;
+				}				
+				if(pn<min){
+					pn = min;
+				}			
+				el.cut_end = pn;
 				
-				let bf = parseInt(e.pageX-this.tdStar);
-				
-				let ydtime = (+el.long+ ((bf/wid)*el.maxlong)).toFixed(2);
-				
-				if(+ydtime>+el.maxlong){
-				
-					
-					el.long = el.maxlong;
-					return
-				}
-				if(+ydtime<1){
-					el.long = 1;
-					return
-				}
-				console.log(ydtime)
-				console.log('xxx')
-				el.long = +ydtime;		
-			}
-			 
+			}			 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
-		jl2(){
+		jl3(e,el){
+			this.tdStar = e.pageX;	
+			let cs = el.start;
+			let wid = el.long*this.wdk;	
+			document.onmousemove = document.onmouseup = null;
+			document.onmousemove = (e)=>{
+				let on = +(((e.pageX-this.tdStar)/wid)*el.long).toFixed(3);
+				let pn = +el.long+on;
+				
+				el.start = +cs+(on);
+				
+				
+			}			 
+			document.onmouseup =  ()=>{
+				document.onmousemove = document.onmouseup = null;
+			}
+		},
+		jl2(e,el){
+			this.tdStar = e.pageX;
+			let wid = el.long*this.wdk;	
+			let mv = ((el.long-el.cut_start)/el.long)*wid;
+			let max = +el.cut_end-1;
+			document.onmousemove = document.onmouseup = null;
+			document.onmousemove = (e)=>{
+				let on = +(((this.tdStar-e.pageX+mv)/wid)*el.long).toFixed(3);			
+				let pn = +el.long-on;	
+				if(+pn<0){
+					pn = 0;
+				}			
+				if(+pn>max){
+					pn = max;
+				}
 			
+				el.cut_start = pn;	
+				
+			}									 
+			document.onmouseup =  ()=>{
+				document.onmousemove = document.onmouseup = null;
+			}
 		},
 		scVideo(){
 			this.formData.media = this.navcoms.media;
@@ -283,11 +337,13 @@ export default{
 			return n>9?n:'0'+n;
 		},
 		backtop(el,index){
-			let str = "width:"+el.long*this.wdk+"px;transform:translateX("+(el.start*this.wdk)+"px);";
+			let str = "width:"+(el.cut_end-el.cut_start)*this.wdk+"px;transform:translateX("+((el.start+el.cut_start)*this.wdk)+"px);";
 			if(el.type=='image'){
 				str+='background-image: url('+el.bgimg+');';
 			}
-			
+			if(el.ischeck){
+				str+='z-index:2;';
+			}
 		
 			return str;
 		},
@@ -697,6 +753,14 @@ margin-left: 121px;
 	background-size: auto 100%;
 
 }
+.setTollxx2{
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
 .setToll{
 	position: absolute;
 	top: 0;
@@ -775,7 +839,7 @@ margin-left: 121px;
 	position: absolute;
 	top: 0;
 	left: 0px;
-	width: 20px;
+	width: 10px;
 	height: 100%;
 	cursor: col-resize;
 }
@@ -783,17 +847,18 @@ margin-left: 121px;
 	position: absolute;
 	top: 0;
 	right: 0px;
-	width: 20px;
+	width: 10px;
 	height: 100%;
 	cursor: col-resize;
 }
 .setToll4{
+	
 	cursor: pointer;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-
+	
 	width:36px;
 	height:20px;
 	background:rgba(255,255,255,1);
@@ -820,6 +885,7 @@ margin-left: 121px;
 	cursor: pointer;
 }
 .setToll4_2{
+	z-index: 10;
 	display: none;
 	position: fixed;
 	left: 0;
