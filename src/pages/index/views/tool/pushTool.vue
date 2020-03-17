@@ -56,8 +56,12 @@
 								<img v-if="el.fps_pic" :src="el.fps_pic">	
 								<div class="setToll">
 									<div class="setToll1"></div>
-									<div class="setToll2"></div>
-									<div class="setToll3"></div>
+									<div   class="setToll2">
+										
+									</div>
+									<div @mousedown="jl($event,el)" class="setToll3">
+									
+									</div>
 									<div class="setToll4">
 										<i></i><i></i><i></i>
 										<input @blur="csb" @focus="csa($event,{n:'media',o:index})" class="setToll4_1" type="text">
@@ -152,6 +156,7 @@ export default{
 				title:'',
 				media:[],
 			},
+			tdStar:0,
 		}
 	},
 	mounted: function () {
@@ -159,6 +164,37 @@ export default{
 	}, 
 
 	methods:{
+		jl(e,el){
+			this.tdStar = e.pageX;
+			
+			let wid = el.long*this.wdk;		
+			document.onmousemove = document.onmouseup = null;
+			document.onmousemove = (e)=>{
+				
+				let bf = parseInt(e.pageX-this.tdStar);
+				
+				let ydtime = (+el.long+ ((bf/wid)*el.maxlong)).toFixed(2);
+				
+				if(ydtime>el.maxlong){
+					console.log(ydtime)
+					el.long = el.maxlong;
+					return
+				}
+				if(ydtime<1){
+					el.long = 1;
+					return
+				}
+								console.log('xxx')
+				el.long = +ydtime;		
+			}
+			 
+			document.onmouseup =  ()=>{
+				document.onmousemove = document.onmouseup = null;
+			}
+		},
+		jl2(){
+			
+		},
 		scVideo(){
 			this.formData.media = this.navcoms.media;
 		},
@@ -191,8 +227,8 @@ export default{
 		savePus(){
 			
 		},
-		delt(on){
-			return
+		delt(){
+			
 			if(!this.xzData){return}
 			this.navcoms[this.xzData.n].splice(this.xzData.o,1);
 			this.xzData='';
@@ -262,6 +298,9 @@ export default{
 			this.playVideo();
 		},
 		playAudio(){
+			if(this.navcoms.audio.length==0){
+				return
+			}
 			if(this.audioLast){
 				this.audioLast='';
 				this.audiosOn=0;				
@@ -315,7 +354,6 @@ export default{
 			this.navcoms.zj=zj;
 		},
 		csa(e,b){
-			
 			let dom =  e.target.getBoundingClientRect();
 			this.xzData = b;
 			this.csad = 'display:block;top:'+(dom.y-5)+'px;left:'+(dom.x-22)+'px';
@@ -729,22 +767,23 @@ margin-left: 121px;
 	left: 0;
 	width: 100%;
 	height: 100%;
+	cursor: move;
 }
 .setToll2{
 	position: absolute;
 	top: 0;
-	left: -1px;
-	width: 1px;
+	left: 0px;
+	width: 20px;
 	height: 100%;
-	background: red;
+	cursor: col-resize;
 }
 .setToll3{
 	position: absolute;
 	top: 0;
-	right: -1px;
-	width: 1px;
+	right: 0px;
+	width: 20px;
 	height: 100%;
-	background: red;
+	cursor: col-resize;
 }
 .setToll4{
 	cursor: pointer;

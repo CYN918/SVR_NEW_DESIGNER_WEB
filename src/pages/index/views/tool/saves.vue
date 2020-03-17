@@ -94,11 +94,9 @@ export default{
 				})
 				return
 			}
-			let pr = this.value;		
-			console.log(pr);
-			console.log(JSON.stringify(pr));
-			
-			return
+			let pr = this.value;
+			pr.submit = 1;
+		
 			this.ajaxType = 1;
 			this.api.sh_save(pr).then((da)=>{				
 				this.ajaxType = '';

@@ -63,6 +63,7 @@ export default{
 					start: 0,			
 					end: 5,
 					long:5,
+					maxlong:5,
 					cut_start: 0,
 					cut_end: 5,
 					bgimg:el.url,
@@ -79,7 +80,8 @@ export default{
 					long:el.play_time,
 					fps_pic:el.fps_pic,
 					fps:el.fps,
-					fid:el.fid,					
+					fid:el.fid,	
+					maxlong:el.play_time,
 				};				
 			}			
 			let ond = this.value.media[this.value.media.length-1];
