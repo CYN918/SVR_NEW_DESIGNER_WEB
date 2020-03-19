@@ -68,6 +68,8 @@ export default{
 					cut_end: 5,
 					bgimg:el.url,
 					ischeck:'',
+					cover_img:el.url,
+					fd:1,
 				}
 			}
 			if(el.file_type=='video'){
@@ -84,6 +86,13 @@ export default{
 					fid:el.fid,	
 					maxlong:el.play_time,
 					ischeck:'',
+					cover_img:el.cover_img,
+					fd:1,
+					zbcl:{
+						sc:1,
+						x:0,
+						y:0,
+					}
 				};				
 			}			
 			let ond = this.value.media[this.value.media.length-1];

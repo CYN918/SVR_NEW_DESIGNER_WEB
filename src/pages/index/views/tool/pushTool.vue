@@ -17,16 +17,30 @@
 			</div>
 			<div class="ntob_cent">
 				<div class="ntob_cent_l">
-					<canvas id="myCanvas" ref="cavs"></canvas>
-					<video muted @ended="endeds()" @loadeddata="csy"  id="boxf" class="ntob_cent_l_1"  ref="vids"></video>
+					
+					<div class="videoBox">
+						<video :style="bacys()" muted @ended="endeds()" id="boxf" class="videoBox1"  ref="vids"></video>
+						<div :class="['videoBox2',sczz]"></div>
+					</div>
+					
+					
 					<audio 
 					class="ntob_cent_l_1" 
 					@ended="endAudio()"					
 					ref="aido"></audio>
 					<div class="ntob_cent_l_2">
-						<div class="ntob_cent_l_2_1">预览比例 9:16</div>
+						<div class="ntob_cent_l_2_1">
+							预览比例<span class="bl_000" @click="showCc">
+								{{cun[vdcc]}}
+								<div v-if="isCc" class="bl_001">
+									<span @click="qhcc(index)" v-for="(el,index) in cun" :class="index==vdcc?'cek':''">{{el}}</span>
+									
+								</div>
+							</span>
+							
+						</div>
 						<div class="ntob_cent_l_2_2">
-							<span class="an_sx_01"></span><span @click="playAll" class="an_bf_01"></span>
+							<span @click="playsx" class="an_sx_01"></span><span @click="playAll" class="an_bf_01"></span>
 							<span>00:00:00:00</span> / <span class="tme_091">00:00:30:00</span>							
 						</div>
 						<div class="ntob_cent_l_2_3">来电预览</div>
@@ -99,6 +113,7 @@
 				</div>
 			</div>
 			<div :style="csad" class="setToll4_2">
+				<span @click="cats()">裁剪</span>
 				<span>复制</span>
 				<span @click="delt()">删除</span>
 			</div>
@@ -116,17 +131,27 @@
 import setMt from './setMt';
 import mp3List from './setAdio';
 import saves from './saves';
+import cat from './cat';
 export default{
 	components:{
 		setMt,
 		mp3List,
-		saves
+		saves,
+		cat
 	},
 	data(){
 		return{
+			cun:[
+				'9:16',
+				'9:18'				
+			],
+			sczz:'',
+			vdcc:0,
+			isCc:'',
 			tanc:{
 				zj:'',
 				title:'',
+				data:{},
 			},
 			csad:'',
 			video:'',
@@ -166,6 +191,13 @@ export default{
 			},
 			tdStar:0,
 			onck:-1,
+			cjzb:{
+				x:0,
+				y:0,
+				w:391,
+				h:695,
+			},
+			ispaused:'',
 		}
 	},
 	mounted: function () {
@@ -173,6 +205,45 @@ export default{
 	}, 
 
 	methods:{
+		bacys(){
+			if(!this.navcoms.media[this.bfon]){
+				return
+			}
+			
+			
+			return	'transform: scale('+this.navcoms.media[this.bfon].fd+');'
+		},
+		showCc(e){
+			if(e && e.stopPropagation()) {
+				e.stopPropagation();
+			} else {
+				e.cancelBubble = false;
+			}
+			if(this.isCc==1){
+				return
+			}
+			this.isCc = 1;
+			document.onclick =  ()=>{
+				this.isCc='';
+				document.onclick = null;
+			}
+		},
+		qhcc(on){
+			this.vdcc = on;
+			if(on==0){
+				this.cjzb.x =0;				
+			}
+			if(on==1){
+				this.cjzb.x =21.75;
+				this.cjzb.w = 347.5;
+				this.sczz = 'issczz';						 
+			}
+			
+			setTimeout(()=>{
+				this.isCc='';
+			},50)
+			
+		},
 		checkDOm(e,el,on,dom){
 			if(e && e.stopPropagation()) {
 				e.stopPropagation();
@@ -252,10 +323,8 @@ export default{
 				}			
 				if(+pn>max){
 					pn = max;
-				}
-			
-				el.cut_start = Math.round((pn*100)/100);	
-				
+				}			
+				el.cut_start = Math.round((pn*100)/100);					
 			}									 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
@@ -268,10 +337,7 @@ export default{
 			this.formData.media = this.navcoms.audio;
 		},
 		pushData(){
-			
-			
-			
-			
+
 		},
 		zzwc(){
 			if(this.navcoms.media.length==0){
@@ -293,6 +359,15 @@ export default{
 		savePus(){
 			
 		},
+		cats(){
+			if(!this.xzData){return}
+			this.tanc ={
+				zj:'cat',
+				title:'',
+				data:this.navcoms[this.xzData.n][this.xzData.o]
+			};
+			
+		},
 		delt(){
 			
 			if(!this.xzData){return}
@@ -304,7 +379,7 @@ export default{
 			let len = this.navcoms.media.length;
 			if(this.bfon<len-1){
 				this.bfon++;
-				this.playVideo();
+				this.playVid();
 				return
 			}
 			this.islast=1;			
@@ -314,7 +389,7 @@ export default{
 			let len = this.navcoms.audio.length;
 			if(this.audiosOn<len-1){
 				this.audiosOn++;
-				this.playAudio();
+				this.playAio();
 			}
 			this.audioLast=1;			
 		},
@@ -357,65 +432,69 @@ export default{
 		
 			return str;
 		},
-		setvideo(vido,a){
-			this.video = vido;
-
+		setvideo(fi){
+			this.$refs.vids.src=fi;
 		},
-		playAll(){
-			this.playAudio();
-			this.playVideo();
+		playsx(){
+			if(this.navcoms.media.length==0){
+				return			
+			}			
+			this.islast='';
+			this.audioLast='';
+			this.audiosOn=0;
+			this.bfon=0;
+			this.playVid('sx');
+			this.playAio('sx');
 		},
-		playAudio(){
+		playVid(a){
+			if(this.navcoms.media.length==0){
+				return			
+			}
+			if(this.$refs.vids.src!=this.navcoms.media[this.bfon].file_url){
+				this.$refs.vids.src=this.navcoms.media[this.bfon].file_url;
+			}	
+			setTimeout(()=>{
+				if(a=='sx'){
+					this.$refs.vids.currentTime=0;
+				}
+				this.$refs.vids.play();				
+			},50)
+		},
+		playAio(a){
 			if(this.navcoms.audio.length==0){
 				return
 			}
-			if(this.audioLast){
-				this.audioLast='';
-				this.audiosOn=0;				
-			}
-			this.$refs.aido.src=this.navcoms.audio[this.audiosOn].file_url;
+			if(this.$refs.aido.src!=this.navcoms.audio[this.audiosOn].file_url){
+				this.$refs.aido.src=this.navcoms.audio[this.audiosOn].file_url;
+			}			
 			setTimeout(()=>{
+				if(a=='sx'){
+					this.$refs.aido.currentTime=0;
+				}
 				this.$refs.aido.play();				
 			},50)
 		},
-		playVideo(){
-			if(this.islast){
-				this.islast='';
-				this.bfon=0;				
-			}
-			this.$refs.vids.src=this.navcoms.media[this.bfon].file_url;
-			setTimeout(()=>{
-				this.$refs.vids.play();				
-			},50)
-			
-		},
 		
-		csy(){
-			var dom = document.getElementById('boxf');
-			dom.currentTime = 0;
-			this.cans.drawImage(dom,0,0,391,695);
+		playAll(){
+			if(this.$refs.vids.paused){
+				if(this.islast){
+					this.islast='';
+					this.bfon=0;
+					this.audioLast='';
+					this.audiosOn=0;
+				}
 			
-			setTimeout(()=>{
-				this.cans.drawImage(dom,0,0,391,695);
-			
-			}, 500);
+				
+				
+				
+				this.playAio();
+				this.playVid();
+				return
+			}
+			this.$refs.vids.pause();
+			this.$refs.aido.pause();
 		},
-		init(){
-			this.$refs.cavs.width = 391;
-			this.$refs.cavs.height = 695;
-			this.cans = this.$refs.cavs.getContext("2d");
-			this.cans.fillStyle="#000";
-			this.cans.fillRect(0,0,391,695);
-			
-			this.$refs.vids.addEventListener('play',()=>{
-				this.po =window.setInterval(()=>
-			{
-				this.cans.drawImage(this.$refs.vids,0,0,391,695)
-			},20);},false);
-			this.$refs.vids.addEventListener('pause',()=>{window.clearInterval(this.po);},false);
-			this.$refs.vids.addEventListener('ended',()=>{clearInterval(this.po);},false);
-			
-		},
+		init(){},
 		qhNav(o,zj){
 			if(this.navson ==o){return}
 			this.navson = o;
@@ -423,7 +502,10 @@ export default{
 		},
 		csa(e,b){
 			let dom =  e.target.getBoundingClientRect();
-			this.xzData = b;
+			if(b){
+				this.xzData = b;
+			}
+			
 			this.csad = 'display:block;top:'+(dom.y-5)+'px;left:'+(dom.x-22)+'px';
 		},
 		csb(e){
@@ -522,11 +604,28 @@ export default{
 .ntob_cent_r{
 	background: #fff;
 }
-#myCanvas{
+.videoBox{
+	position: relative;
 	display: block;
 	margin: 0 auto;
 	width:391px;
-	height:695px;		
+	height:695px;	
+	background: #000;
+	overflow: hidden;
+}
+.videoBox1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.videoBox2{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 .ntob_cent_l_1{
 	position: absolute;
@@ -763,6 +862,10 @@ margin-left: 121px;
 	background-size: auto 100%;
 
 }
+.imgd>img{
+	display: block;
+	height: 100%;
+}
 .setTollxx2{
 	cursor: pointer;
 	position: absolute;
@@ -916,4 +1019,39 @@ margin-left: 121px;
 .setToll4_2>span:hover{
 	background-color: #f5f7fa;
 }
+.bl_000{
+	position: relative;
+	cursor: pointer;
+}
+.bl_001{
+    position: absolute;
+    bottom: 23px;
+    left: -6px;
+	width:59px;
+	padding: 8px 0;
+	text-align: center;
+	height:72px;
+	border-radius: 5px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+}
+.bl_001>span{
+	cursor: pointer;
+	display: block;
+	width:100%;
+	height:36px;
+	font-size:14px;
+	color:rgba(51,51,51,1);
+	line-height:36px;
+}
+.bl_001>span.cek{
+	background:rgba(51,179,255,.1);
+	color: #33B3FF;
+}
+.issczz{
+	border-left: 21.75px solid #000;
+	border-right: 21.75px solid #000;
+	box-sizing: border-box;
+}
+
 </style>

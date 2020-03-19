@@ -86,7 +86,16 @@ export default{
 		},
 
 	
-		
+		clblank(el){
+			
+			// for(let i=0,n=el.length;i<n;i++){
+			// 	el[i].end = +el[i].start+(+el[i].cut_end);
+			// 	if(el[i+1]){
+					
+			// 	}
+				
+			// }
+		},
 		tijF(){
 			if(this.ajaxType){
 				this.$message({
@@ -95,7 +104,13 @@ export default{
 				return
 			}
 			let pr = this.value;
+			
+			
+			
+			
 			pr.json = JSON.stringify(pr.json);
+			
+			
 			pr.submit = 1;
 		
 			this.ajaxType = 1;
