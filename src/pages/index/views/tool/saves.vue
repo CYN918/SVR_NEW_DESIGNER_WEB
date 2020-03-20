@@ -86,15 +86,13 @@ export default{
 		},
 
 	
-		clblank(el){
+		clblank(el,max){
 			
-			// for(let i=0,n=el.length;i<n;i++){
-			// 	el[i].end = +el[i].start+(+el[i].cut_end);
-			// 	if(el[i+1]){
-					
-			// 	}
-				
-			// }
+			for(let i=0,n=el.length;i<n;i++){
+				el[i].start = 0;
+				el[i].end = max;
+				el[i].cut_end = el[i].cut_start+max;
+			}		
 		},
 		tijF(){
 			if(this.ajaxType){
@@ -105,11 +103,11 @@ export default{
 			}
 			let pr = this.value;
 			
-			
+			this.clblank(pr.json.audio,this.value.maxTime);
 			
 			
 			pr.json = JSON.stringify(pr.json);
-			
+			console.log(pr)
 			
 			pr.submit = 1;
 		

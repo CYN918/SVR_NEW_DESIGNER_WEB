@@ -8,10 +8,9 @@
 				<img class="pcat_02" :src="value.data.cover_img" ref="bgh"/>
 				
 				<div class="pcat_03"></div>
-				<div class="pcat_04" :style="ysd">
-					<img :style="vido" class="pcat_05" :src="value.data.cover_img"/>
-				
-				</div>
+				<div @mousedown="jl" class="pcat_04" :style="backys()">
+					<img :style="backIm()" class="pcat_05" :src="value.data.cover_img"/>					
+				</div>				
 			</div>
 			
 		</div>		
@@ -28,9 +27,20 @@ export default{
 	},
 	data(){
 		return{
-			ysd:'width:202.5px;height:360px;top:0;left:219px',
+			ysd:'',
 			vido:'',
-
+			pic:{
+				w:0,
+				h:0,
+				x:0,
+				y:0
+			},
+			cjk:{
+				x:0,
+				y:0,
+				w:0,
+				h:0
+			},
 		}
 	},
 	beforeDestroy:function(){
@@ -44,35 +54,56 @@ export default{
 		this.init();
 	}, 
 	methods:{
-		
+		jl(e){
+			let tdStar = e.pageX;	
+			document.onmousemove = document.onmouseup = null;
+			document.onmousemove = (e)=>{
+				this.cjk.x = 0;
+				this.cjk.y = 0;
+			}			 
+			document.onmouseup =  ()=>{
+				document.onmousemove = document.onmouseup = null;
+			}
+		},
+		picset(el){
+			this.pic = {
+				x:(640-el.width)/2,
+				y:(360-el.height)/2,
+				w:el.width,
+				h:el.height,
+			};
+		},
+		cjkset(el){
+			let pr = {};
+			console.log(el);
+			if(el.h>el.w){
+				pr.w = el.w;
+				pr.h = (el.w/9)*16;
+				
+				pr.fd = (360-pr.h)/pr.h;
+			
+			}else{
+				pr.h = el.h;
+				pr.w = (el.h/16)*9;
+				pr.fd = (640-pr.w)/pr.w;
+			}
+			pr.x=(640-pr.w)/2;
+			pr.y=(360-pr.h)/2;
+			this.cjk = pr;
+		},
+		backys(){
+			return 'width:'+this.cjk.w+'px;height:'+this.cjk.h+'px;top:0;left:0;transform: translate('+this.cjk.x+'px,'+this.cjk.y+'px);';
+		},
+		backIm(){
+			let x = (640-this.cjk.w)/2;
+			let y = (360-this.cjk.h)/2;
+			return 'width:'+this.pic.w+'px;height:'+this.pic.h+'px;transform: translate('+(-x)+'px,'+(-y)+'px);';
+		},
 		init(){		
 			setTimeout(()=>{
 				let dop = this.$refs.bgh.getBoundingClientRect();
-				this.vido = 'width:'+dop.width+'px;height:'+dop.height+'px;';
-				let wd = 0,hd = 0,str='';
-			
-				if(dop.height>dop.width){
-					wd = dop.width;
-					
-					hd = (dop.width/9)*16;
-					str = 'transform: translate('+((640-wd)/2)+'px,'+((360-hd)/2)+'px);';
-					
-					this.value.data.fd = (1+Math.round((((360-hd)/hd)*100))/100);
-					console.log(this.value);
-					
-				}else{
-					hd = dop.height;
-					wd = (dop.height/16)*9;
-					
-					str = 'transform: translate('+((640-wd)/2)+'px,0);';
-					
-					this.value.data.fd = (1+Math.round((((640-wd)/wd)*100))/100);
-					console.log(this.value);
-				}
-				
-				
-				
-				this.ysd = 'width:'+wd+'px;height:'+hd+'px;top:0;left:0;'+str;
+				this.picset(dop);				
+				this.cjkset(this.pic);								
 			},50)
 			document.body.style = "overflow: hidden;";
 		},
@@ -146,8 +177,7 @@ export default{
 }
 .pcat_05{
 	position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    top:0;
+    left:0;
 }
 </style>

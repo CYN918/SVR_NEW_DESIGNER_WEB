@@ -351,6 +351,7 @@ export default{
 				media:this.navcoms.media,
 				audio:this.navcoms.audio
 			};
+			this.tanc.maxTime = this.navcoms.maxTime;
 			
 			
 		},

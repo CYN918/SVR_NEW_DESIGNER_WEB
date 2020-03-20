@@ -92,7 +92,8 @@ export default{
 						sc:1,
 						x:0,
 						y:0,
-					}
+					},
+					
 				};				
 			}			
 			let ond = this.value.media[this.value.media.length-1];
