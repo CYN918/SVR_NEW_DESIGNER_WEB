@@ -18,7 +18,7 @@
 				<div class="ntob_cent_l">					
 					<div class="videoBox">
 						<canvas class="videoBox1" ref="cavs"></canvas>
-						<video muted @ended="endeds()" @loadeddata="csy"  id="boxf" class="ntob_cent_l_1" :src="video" ref="vids"></video>					
+						<video @timeupdate="timeupdatevideo" muted @ended="endeds()" @loadeddata="csy"  id="boxf" class="ntob_cent_l_1" :src="video" ref="vids"></video>					
 					</div>
 					<audio 
 					class="ntob_cent_l_1" 
@@ -241,10 +241,8 @@ export default{
 			}
 			if(el.ischeck==1){
 				return
-			}
-			
-			el.ischeck = 1;
-			
+			}			
+			el.ischeck = 1;			
 			if(this.onck!=-1){
 				this.navcoms[dom][this.onck].ischeck='';
 			}
@@ -252,14 +250,14 @@ export default{
 			document.onclick =  ()=>{
 				this.closed(el,on,dom);
 				document.onclick = null;
-			}
-		
+			}		
 		},
 		closed(el,on,dom){
 			el.ischeck = '';
 			this.onck = -1;
 		},
 		jl(e,el){
+			e.preventDefault();
 			this.tdStar = e.pageX;			
 			let wid = el.long*this.wdk;	
 			let mv = ((el.long-el.cut_end)/el.long)*wid;
@@ -267,6 +265,7 @@ export default{
 			let min = el.cut_start+1;
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
+				e.preventDefault();
 				let on = +(((e.pageX-this.tdStar-mv)/wid)*el.long).toFixed(3);
 				let pn = +el.long+on;
 				if(+pn>max){
@@ -275,38 +274,40 @@ export default{
 				if(pn<min){
 					pn = min;
 				}			
-				el.cut_end = Math.round((pn*100)/100);
-				
+				el.cut_end = Math.round((pn*100)/100);				
 			}			 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
 		jl3(e,el){
+			e.preventDefault();
 			this.tdStar = e.pageX;	
 			let cs = el.start;
 			let wid = el.long*this.wdk;	
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
+				e.preventDefault();
 				let on = +(((e.pageX-this.tdStar)/wid)*el.long).toFixed(3);
 				let pn = +el.long+on;
 				let dd = Math.round(((+cs+(on))*100)/100);
-				if(dd<0){dd=0;}
+				let ond = el.cut_start+dd;
+				if(ond<0){dd=0;}
 				el.start =  dd;
-				
-				
 			}			 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
 		jl2(e,el){
+			e.preventDefault();
 			this.tdStar = e.pageX;
 			let wid = el.long*this.wdk;	
 			let mv = ((el.long-el.cut_start)/el.long)*wid;
 			let max = +el.cut_end-1;
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
+				e.preventDefault();
 				let on = +(((this.tdStar-e.pageX+mv)/wid)*el.long).toFixed(3);			
 				let pn = +el.long-on;	
 				if(+pn<0){
@@ -349,15 +350,12 @@ export default{
 				zj:'cat',
 				title:'',
 				data:this.navcoms[this.xzData.n][this.xzData.o]
-			};
-			
+			};			
 		},
-		delt(){
-			
+		delt(){			
 			if(!this.xzData){return}
 			this.navcoms[this.xzData.n].splice(this.xzData.o,1);
-			this.xzData='';
-			
+			this.xzData='';			
 		},
 		endeds(){
 			let len = this.navcoms.media.length;
@@ -367,14 +365,17 @@ export default{
 					this.drmImg();
 					return
 				}
-				
-				
 				this.playVid();
 				return
 			}
 			this.islast=1;			
+		},	
+		timeupdatevideo(){
+			if(this.$refs.vids.currentTime>=this.navcoms.media[this.bfon].cut_end){
+				this.$refs.vids.pause();
+				this.endeds();
+			}			
 		},
-		
 		endAudio(){
 			let len = this.navcoms.audio.length;
 			if(this.audiosOn<len-1){
@@ -405,19 +406,16 @@ export default{
 			if(m>=60){
 				h = (m-om)/60;
 			}
-
 		    return this.optu(h)+':'+this.optu(om)+':'+this.optu(s);
 		},
 		optu(n){
 			return n>9?n:'0'+n;
 		},
 		backtop(el,index){
-			let str = "width:"+(el.cut_end-el.cut_start)*this.wdk+"px;transform:translateX("+((el.start+el.cut_start)*this.wdk)+"px);";
-			
+			let str = "width:"+(el.cut_end-el.cut_start)*this.wdk+"px;transform:translateX("+((el.start+el.cut_start)*this.wdk)+"px);";			
 			if(el.ischeck){
 				str+='z-index:2;';
-			}
-		
+			}		
 			return str;
 		},
 		setvideo(fi){
@@ -444,10 +442,8 @@ export default{
 			var a = document.createElement('img');
 			a.src=ob.file_url;
 			a.onload = ()=>{
-				this.cans.drawImage(a,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);
-				
-			}
-			
+				this.cans.drawImage(a,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);				
+			}			
 			setTimeout(()=>{
 				this.endeds();
 			},5000)
@@ -475,6 +471,11 @@ export default{
 				if(a=='sx'){
 					this.$refs.vids.currentTime=0;
 				}
+				if(this.$refs.vids.currentTime<this.navcoms.media[this.bfon].cut_start){
+					
+					this.$refs.vids.currentTime=this.navcoms.media[this.bfon].cut_start;
+				}
+				
 				this.$refs.vids.play();		
 				
 			},50)

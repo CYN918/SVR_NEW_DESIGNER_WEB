@@ -85,7 +85,10 @@ export default{
 			this.$emit('input',{});
 		},
 
-	
+		numqx(pn){
+			return Math.round((pn*100)/100);
+			
+		},
 		cl_audio(el){
 			let pd = el.json.audio;
 			let tims = 0;			
@@ -102,15 +105,7 @@ export default{
 		cl_video(el){
 			let pd = el.json.media;
 			for(let i=0,n=pd.length;i<n;i++){
-				let wbl = pd[i].sw/pd[i].yw;
-				let hbl = pd[i].sh/pd[i].yh;
-				
-				
-				let xk = wbl*1080;
-				let xh = hbl*1920;
-				let xx = wbl*pd[i].sx;
-				let xy = hbl*pd[i].sy;
-				pd[i].crop = xk+':'+xh+':'+xx+':'+xy;
+				pd[i].crop = this.numqx(pd[i].sw)+':'+this.numqx(pd[i].sh)+':'+this.numqx(pd[i].x)+':'+this.numqx(pd[i].sy);
 			}
 		},
 		tijF(){

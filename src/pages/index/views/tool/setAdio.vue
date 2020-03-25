@@ -179,7 +179,7 @@ export default{
 				if (da == 'error') {
 					return;
 				}
-				//弹收藏成功,刷新列表
+				
 				this.getList();
 			})
 		},

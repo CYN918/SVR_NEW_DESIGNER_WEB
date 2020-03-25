@@ -119,6 +119,11 @@ export default{
 			this.cjkset(this.pic);	
 		},		
 		td_01(e,tp){
+			if(e && e.stopPropagation()) {
+				e.stopPropagation();
+			} else {
+				e.cancelBubble = false;
+			}
 			let ev = e || window.event,
 			disX = ev.clientX,
 			disY = ev.clientY,
@@ -140,8 +145,13 @@ export default{
 			}		
 			var max_x = 0;
 			document.onmousemove = document.onmouseup = null;
-			document.onmousemove = (e)=>{
+			document.onmousemove = (ev)=>{
 				var ev = ev || window.event;
+				if(ev && ev.stopPropagation()) {
+					ev.stopPropagation();
+				} else {
+					ev.cancelBubble = false;
+				}
 				var ydx = ev.clientX - disX;
 				var ydy = ev.clientY - disY;
 				var x = ydx+disW;
@@ -292,7 +302,6 @@ export default{
 		},
 		backIm(){
 			let x = (640-this.cjk.w)/2 ;
-			// let x = -
 			let y = (360-this.cjk.h)/2;
 			return 'width:'+this.pic.w+'px;height:'+this.pic.h+'px;transform: translate('+(-this.cjk.x)+'px,'+(-this.cjk.y)+'px);';
 		},
@@ -300,13 +309,6 @@ export default{
 		close(){
 			this.$emit('input',{});
 		},
-
-		durm(){
-			
-		},
-		
-		
-
 	}
 }
 </script>
