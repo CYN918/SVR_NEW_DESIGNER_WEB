@@ -9,21 +9,17 @@
 				<div class="noto_title">
 					<input v-model="form.title" type="text" placeholder="请输入来电秀名称">
 					<img src="/imge\new\tools\n/icon_bj.svg"/>
-				</div>
-				
+				</div>				
 				<div class="noto_btns">
 					<span >保存</span><span @click="zzwc"  class="noto_bys">制作完成</span>
 				</div>
 			</div>
 			<div class="ntob_cent">
-				<div class="ntob_cent_l">
-					
+				<div class="ntob_cent_l">					
 					<div class="videoBox">
-						<video :style="bacys()" muted @ended="endeds()" id="boxf" class="videoBox1"  ref="vids"></video>
-						<div :class="['videoBox2',sczz]"></div>
+						<canvas class="videoBox1" ref="cavs"></canvas>
+						<video muted @ended="endeds()" @loadeddata="csy"  id="boxf" class="ntob_cent_l_1" :src="video" ref="vids"></video>					
 					</div>
-					
-					
 					<audio 
 					class="ntob_cent_l_1" 
 					@ended="endAudio()"					
@@ -67,7 +63,7 @@
 						
 						<div class="tlo_02">
 							<div @click="checkDOm($event,el,index,'media')" :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.media">
-								
+								<img v-if="el.type=='pic'" :src="el.file_url">
 								<img v-if="el.fps_pic" :src="el.fps_pic">	
 								<div  v-if="el.ischeck" class="setToll">
 									<div @mousedown="jl3($event,el)" class="setToll1"></div>
@@ -205,14 +201,7 @@ export default{
 	}, 
 
 	methods:{
-		bacys(){
-			if(!this.navcoms.media[this.bfon]){
-				return
-			}
-			
-			
-			return	'transform: scale('+this.navcoms.media[this.bfon].fd+');'
-		},
+		
 		showCc(e){
 			if(e && e.stopPropagation()) {
 				e.stopPropagation();
@@ -301,7 +290,9 @@ export default{
 			document.onmousemove = (e)=>{
 				let on = +(((e.pageX-this.tdStar)/wid)*el.long).toFixed(3);
 				let pn = +el.long+on;
-				el.start =  Math.round(((+cs+(on))*100)/100);
+				let dd = Math.round(((+cs+(on))*100)/100);
+				if(dd<0){dd=0;}
+				el.start =  dd;
 				
 				
 			}			 
@@ -330,35 +321,27 @@ export default{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
-		scVideo(){
-			this.formData.media = this.navcoms.media;
-		},
-		scAduios(){
-			this.formData.media = this.navcoms.audio;
-		},
-		pushData(){
-
-		},
-		zzwc(){
+		zzwc(){		
 			if(this.navcoms.media.length==0){
+				this.$message({
+					message:'请选择视频'
+				})
 				return
 			}
 			if(this.navcoms.audio.length==0){
+				this.$message({
+					message:'请选择音频'
+				})
 				return
 			}
 			this.tanc.zj = 'saves';
+			this.tanc.title = this.form.title;
 			this.tanc.json = {
+				
 				media:this.navcoms.media,
 				audio:this.navcoms.audio
 			};
 			this.tanc.maxTime = this.navcoms.maxTime;
-			
-			
-		},
-		
-		
-		savePus(){
-			
 		},
 		cats(){
 			if(!this.xzData){return}
@@ -380,6 +363,12 @@ export default{
 			let len = this.navcoms.media.length;
 			if(this.bfon<len-1){
 				this.bfon++;
+				if(this.navcoms.media[this.bfon].type=='pic'){
+					this.drmImg();
+					return
+				}
+				
+				
 				this.playVid();
 				return
 			}
@@ -424,9 +413,7 @@ export default{
 		},
 		backtop(el,index){
 			let str = "width:"+(el.cut_end-el.cut_start)*this.wdk+"px;transform:translateX("+((el.start+el.cut_start)*this.wdk)+"px);";
-			if(el.type=='image'){
-				str+='background-image: url('+el.bgimg+');';
-			}
+			
 			if(el.ischeck){
 				str+='z-index:2;';
 			}
@@ -435,6 +422,36 @@ export default{
 		},
 		setvideo(fi){
 			this.$refs.vids.src=fi;
+		},
+		csy(){		
+			this.$refs.vids.currentTime = 0;
+			this.drm();			
+			setTimeout(()=>{
+				this.drm();			
+			}, 500);				
+		},
+		drm(){
+			let ob = this.navcoms.media[this.bfon];
+			this.cans.fillStyle="#000";
+			this.cans.fillRect(0,0,391,695);
+			this.cans.drawImage(this.$refs.vids,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);			
+		},
+		drmImg(){
+			let ob = this.navcoms.media[this.bfon];
+			this.cans.fillStyle="#000";
+			this.cans.fillRect(0,0,391,695);
+			
+			var a = document.createElement('img');
+			a.src=ob.file_url;
+			a.onload = ()=>{
+				this.cans.drawImage(a,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);
+				
+			}
+			
+			setTimeout(()=>{
+				this.endeds();
+			},5000)
+			
 		},
 		playsx(){
 			if(this.navcoms.media.length==0){
@@ -458,7 +475,8 @@ export default{
 				if(a=='sx'){
 					this.$refs.vids.currentTime=0;
 				}
-				this.$refs.vids.play();				
+				this.$refs.vids.play();		
+				
 			},50)
 		},
 		playAio(a){
@@ -484,10 +502,6 @@ export default{
 					this.audioLast='';
 					this.audiosOn=0;
 				}
-			
-				
-				
-				
 				this.playAio();
 				this.playVid();
 				return
@@ -495,7 +509,21 @@ export default{
 			this.$refs.vids.pause();
 			this.$refs.aido.pause();
 		},
-		init(){},
+		init(){
+			this.$refs.cavs.width = 391;
+			this.$refs.cavs.height = 695;
+			this.cans = this.$refs.cavs.getContext("2d");
+			this.cans.fillStyle="#000";
+			this.cans.fillRect(0,0,391,695);
+			this.$refs.vids.addEventListener('play',()=>{
+				this.po =window.setInterval(()=>{
+					let ob = this.navcoms.media[this.bfon];
+					this.cans.drawImage(this.$refs.vids,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);
+				},20);
+			},false);
+			this.$refs.vids.addEventListener('pause',()=>{window.clearInterval(this.po);},false);
+			this.$refs.vids.addEventListener('ended',()=>{clearInterval(this.po);},false);	
+		},
 		qhNav(o,zj){
 			if(this.navson ==o){return}
 			this.navson = o;
@@ -611,7 +639,6 @@ export default{
 	margin: 0 auto;
 	width:391px;
 	height:695px;	
-	background: #000;
 	overflow: hidden;
 }
 .videoBox1{
@@ -621,13 +648,7 @@ export default{
 	width: 100%;
 	height: 100%;
 }
-.videoBox2{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
+
 .ntob_cent_l_1{
 	position: absolute;
 	bottom: 0;
@@ -1054,5 +1075,11 @@ margin-left: 121px;
 	border-right: 21.75px solid #000;
 	box-sizing: border-box;
 }
-
+.cgyi{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;	
+}
 </style>

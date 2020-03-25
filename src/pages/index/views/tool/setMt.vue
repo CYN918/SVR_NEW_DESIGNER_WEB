@@ -54,62 +54,111 @@ export default{
 	}, 		
 	methods:{
 		checkV(el){
-			let pr = {};
+			let isond = '';
+			let pr = {
+				x:0,y:0,w:0,h:0,sx:0,sy:0,sw:0,sh:0,
+				yw:0,yh:0,
+				file_url: el.url,
+				fid:el.fid,
+				cut_start: 0,
+				ischeck:'',
+				
+			};
 			if(el.file_type=='image'){
-				pr={
+				var pd = {
 					type: "pic",
-					file_url: el.url,
-					fid:el.fid,
-					start: 0,			
 					end: 5,
 					long:5,
 					maxlong:5,
-					cut_start: 0,
 					cut_end: 5,
-					bgimg:el.url,
-					ischeck:'',
 					cover_img:el.url,
-					fd:1,
-				}
+				};
+				pr = Object.assign(pr,pd);
 			}
 			if(el.file_type=='video'){
-				pr = {
+				var pd = {
 					type: "video",
-					file_url: el.url,
-					start: 0,
 					end: el.play_time,
-					cut_start: 0,
 					cut_end: el.play_time,
 					long:el.play_time,
 					fps_pic:el.fps_pic,
 					fps:el.fps,
-					fid:el.fid,	
-					maxlong:el.play_time,
-					ischeck:'',
-					cover_img:el.cover_img,
-					fd:1,
-					zbcl:{
-						sc:1,
-						x:0,
-						y:0,
-					},
-					
-				};				
+					maxlong:el.play_time,					
+					cover_img:el.cover_img,					
+				};
+				pr = Object.assign(pr,pd);				
+								
 			}			
 			let ond = this.value.media[this.value.media.length-1];
 			if(ond){
-				pr.start = ond.end;
-				pr.end = +pr.start+(+el.play_time);
-			}else{
-				this.$parent.setvideo(el.url);
+				pr.start = ond.end;			
+				if(pr.type=='pic'){
+					pr.end = +pr.start+(+pr.end);					
+				}else{
+					pr.end = +pr.start+(+el.play_time);
+				}				
 			}
-			if(el.file_type=='video' && this.value.bflist.indexOf(el.url)==-1){
-				this.value.bflist.push(el.url);
+			if(el.file_type=='image'){
+				var a = document.createElement('img');
+				a.src=el.url;
+				a.onload = ()=>{
+					let wd = a.width,
+					hd = a.height;
+					pr.yw = wd;
+					pr.yh =  hd;
+					pr.sw = wd;					
+					pr.sh = hd;
+					
+					if(wd>hd){
+						pr.w = 391;
+						pr.h = (391/wd)*hd;
+						pr.y = (695-pr.h)/2
+					}else{
+						pr.h = 695;
+						pr.w = (695/hd)*wd;
+						pr.x = (391-pr.w)/2;
+					}
+									
+					this.value.maxTime = +pr.long+this.value.maxTime;
+					this.value.media.push(pr);	
+					if(!ond){
+						this.$parent.setvideo(el.url);
+					}
+				};
+				setTimeout(()=>{
+					console.log(this.value)
+				},1000)
+			}
+			if(el.file_type=='video'){
 				var a = document.createElement('video');
 				a.src=el.url;
+				a.onloadeddata=(e)=>{
+					let wd = e.path[0].videoWidth,
+					hd = e.path[0].videoHeight;
+					pr.yw = wd;
+					pr.yh =  hd;
+					pr.sw = wd;					
+					pr.sh = hd;
+					
+					if(wd>hd){
+						pr.w = 391;
+						pr.h = (391/wd)*hd;
+						pr.y = (695-pr.h)/2
+					}else{
+						pr.h = 695;
+						pr.w = (695/hd)*wd;
+						pr.x = (391-pr.w)/2;
+					}
+				
+					this.value.maxTime = +pr.long+this.value.maxTime;
+					this.value.media.push(pr);	
+					if(!ond){
+						this.$parent.setvideo(el.url);
+					}
+				}
 			}			
-			this.value.maxTime = +pr.long+this.value.maxTime;
-			this.value.media.push(pr);		
+			
+		
 	
 		},
 		fileUp(flie){

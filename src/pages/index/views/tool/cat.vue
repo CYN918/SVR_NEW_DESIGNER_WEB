@@ -8,11 +8,35 @@
 				<img class="pcat_02" :src="value.data.cover_img" ref="bgh"/>
 				
 				<div class="pcat_03"></div>
-				<div @mousedown="jl" class="pcat_04" :style="backys()">
-					<img :style="backIm()" class="pcat_05" :src="value.data.cover_img"/>					
+				<div class="pcat_04" :style="backys()">
+					<img :style="backIm()" class="pcat_05" :src="value.data.cover_img"/>	
+									
+					<div class="tzk_01">
+						<div @mousedown="td_01($event,'m')" class="tzk_02"></div>
+						<div @mousedown="td_01($event,'l')" class="tzk_03"></div>
+						<div @mousedown="td_01($event,'t')" class="tzk_04"></div>
+						<div @mousedown="td_01($event,'r')" class="tzk_05"></div>
+						<div @mousedown="td_01($event,'b')" class="tzk_06"></div>
+						<div @mousedown="td_01($event,'t_l')" class="tzk_07"></div>
+						<div @mousedown="td_01($event,'t_r')" class="tzk_08"></div>
+						<div @mousedown="td_01($event,'b_l')" class="tzk_09"></div>
+						<div @mousedown="td_01($event,'b_r')" class="tzk_10"></div>
+					</div>
 				</div>				
 			</div>
 			
+			<div class="pcat_bt">
+				<label>
+					<span></span>9:16
+				</label>
+				<label>
+					<span></span>9:18
+				</label>
+				
+				<div class="pcat_bt_0x">
+					<span @click="cz" class="pend">重置</span><span @click="catd" class="pend pcat_bt_0x1">确定</span>
+				</div>
+			</div>
 		</div>		
 	</div>
 </template>
@@ -29,6 +53,14 @@ export default{
 		return{
 			ysd:'',
 			vido:'',
+			bl:[
+				{n:'9:16',max_w:'',max_h:''},
+				{n:'9:18',max_w:'',max_h:''}
+			],
+			max:{
+				w:0,
+				h:0
+			},
 			pic:{
 				w:0,
 				h:0,
@@ -43,28 +75,191 @@ export default{
 			},
 		}
 	},
-	beforeDestroy:function(){
-		
+	beforeDestroy:function(){		
 		document.body.style = "";
 	},
-	watch:{
-
-	},
+	watch:{},
 	mounted: function () {
 		this.init();
 	}, 
 	methods:{
-		jl(e){
-			let tdStar = e.pageX;	
+		init(){
+			setTimeout(()=>{
+				this.cz();								
+			},50)
+			document.body.style = "overflow: hidden;";
+		},
+		catd(){		
+			let w = 391,h = 695;
+			let x = 0,y=0;
+			let sx =0,sy=0,sw=0,sh=0;			
+			let kdb = this.value.data.yw/this.pic.w;
+			let gdb = this.value.data.yh/this.pic.h;
+			sw = kdb*this.cjk.w;
+			sh = gdb*this.cjk.h;
+			sx = kdb*(this.cjk.x-this.pic.x);
+			sy = gdb*(this.cjk.y-this.pic.y)
+			this.setcs('x',x);
+			this.setcs('y',y);
+			this.setcs('w',w);
+			this.setcs('h',h);
+			this.setcs('sx',sx);
+			this.setcs('sy',sy);
+			this.setcs('sw',sw);
+			this.setcs('sh',sh);
+			this.$parent.drm();
+			this.close();
+		},
+		setcs(n,v){
+			this.$set(this.value.data,n,v)
+		},
+		cz(){
+			let dop = this.$refs.bgh.getBoundingClientRect();
+			this.picset(dop);				
+			this.cjkset(this.pic);	
+		},		
+		td_01(e,tp){
+			let ev = e || window.event,
+			disX = ev.clientX,
+			disY = ev.clientY,
+			disW = this.cjk.x,
+			disH = this.cjk.y,	
+			y_w = this.cjk.w,
+			y_h = this.cjk.h,
+			max_l_x = this.pic.x,
+			max_l_y = this.pic.y,
+			max_r_x = this.pic.x+this.pic.w-this.cjk.w,
+			max_r_y = this.pic.y+this.pic.h - this.cjk.h;	
+					
+			/*计算最大边界值*/
+					
+			var max_w = this.pic.x+this.pic.w-this.cjk.x;
+			var max_h = this.pic.y+this.pic.h-this.cjk.y;
+			if(tp=='t'){
+				max_h = this.cjk.h+this.cjk.y-this.pic.y;
+			}		
+			var max_x = 0;
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
-				this.cjk.x = 0;
-				this.cjk.y = 0;
+				var ev = ev || window.event;
+				var ydx = ev.clientX - disX;
+				var ydy = ev.clientY - disY;
+				var x = ydx+disW;
+				var y = ydy+disH;
+				if(tp=='t'){
+					
+					var xkd = y_w-ydx;
+					var xgd = y_h-ydy;
+					
+					if(xgd>max_h){
+						xgd = max_h;					
+					}
+					xkd = (xgd/16)*9;
+					if(xkd>max_w){
+						xkd = max_w;
+					}
+					xgd = (xkd/9)*16;
+					this.cjk.w = xkd;
+					if(this.cjk.h!=xgd){
+						this.cjk.y = y;
+					}
+					this.cjk.h = xgd;
+					return
+				}
+				if(tp=='b'){
+					var xkd = y_w+ydx;
+					var xgd = y_h+ydy;					
+					if(xgd>max_h){						
+						xgd = max_h;						
+					}
+					xkd = (xgd/16)*9;
+					if(xkd>max_w){
+						xkd = max_w;
+					}
+					xgd = (xkd/9)*16;
+					
+					this.cjk.w = xkd;
+					this.cjk.h = xgd;
+					return
+				}
+				if(tp=='r'){
+					if(x<this.pic.x){
+						x = this.pic.x;
+					}
+					var xkd = y_w+ydx;
+					var xgd = y_h+ydy;
+					if(xkd>max_w){
+						xkd = max_w;											
+					}
+					xgd = (xkd/9)*16;
+					
+					if(xgd>max_h){
+						xgd = max_h;
+						xkd = (xgd/16)*9;
+					}					
+					if(xkd<2){
+						xkd=2;
+						x = y_w-xkd;
+					}
+					this.cjk.w = xkd;
+					this.cjk.h = xgd;					
+					return
+				}
+				if(tp=='l'){
+					if(x<this.pic.x){
+						x = this.pic.x;
+					}
+					var xkd = y_w-ydx;
+					var xgd = y_h-ydy;
+					if(xkd>max_w){
+						xkd = max_w;
+						x = max_l_x;
+						
+					}else{
+						this.cjk.x = x;
+					}
+					xgd = (xkd/9)*16;
+					if(xgd>max_h){
+						xgd = max_h;
+						xkd = (xgd/16)*9;
+					}
+					
+					if(xkd<2){
+						xkd=2;
+						x = y_w-xkd;
+					}
+					this.cjk.w = xkd;
+					this.cjk.h = xgd;
+					
+					return
+				}
+				
+				
+				
+				
+				if(x<max_l_x){
+					x=max_l_x;
+				}
+				if(y<max_l_y){
+					y=max_l_y;
+				}				
+				if(x>max_r_x){
+					x = max_r_x;
+				}
+				if(y>max_r_y){
+					y = max_r_y;
+				}	
+				if(tp=='m'){
+					this.cjk.x = x;
+					this.cjk.y = y;
+				}
+				
 			}			 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
+	
 		picset(el){
 			this.pic = {
 				x:(640-el.width)/2,
@@ -75,7 +270,6 @@ export default{
 		},
 		cjkset(el){
 			let pr = {};
-			console.log(el);
 			if(el.h>el.w){
 				pr.w = el.w;
 				pr.h = (el.w/9)*16;
@@ -89,29 +283,27 @@ export default{
 			}
 			pr.x=(640-pr.w)/2;
 			pr.y=(360-pr.h)/2;
+			this.max.w=pr.w;
+			this.max.h=pr.h;
 			this.cjk = pr;
 		},
 		backys(){
 			return 'width:'+this.cjk.w+'px;height:'+this.cjk.h+'px;top:0;left:0;transform: translate('+this.cjk.x+'px,'+this.cjk.y+'px);';
 		},
 		backIm(){
-			let x = (640-this.cjk.w)/2;
+			let x = (640-this.cjk.w)/2 ;
+			// let x = -
 			let y = (360-this.cjk.h)/2;
-			return 'width:'+this.pic.w+'px;height:'+this.pic.h+'px;transform: translate('+(-x)+'px,'+(-y)+'px);';
+			return 'width:'+this.pic.w+'px;height:'+this.pic.h+'px;transform: translate('+(-this.cjk.x)+'px,'+(-this.cjk.y)+'px);';
 		},
-		init(){		
-			setTimeout(()=>{
-				let dop = this.$refs.bgh.getBoundingClientRect();
-				this.picset(dop);				
-				this.cjkset(this.pic);								
-			},50)
-			document.body.style = "overflow: hidden;";
-		},
+		
 		close(){
 			this.$emit('input',{});
 		},
 
-	
+		durm(){
+			
+		},
 		
 		
 
@@ -171,7 +363,6 @@ export default{
 	position: absolute;
 	top: 0;
 	left: 0;
-	border:1px solid #0000CC;
 	overflow: hidden;
 	box-sizing: border-box;
 }
@@ -179,5 +370,110 @@ export default{
 	position: absolute;
     top:0;
     left:0;
+}
+.tzk_01{
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	border: 1px solid #0000CC;
+	width: 100%;
+	height: 100%;
+}
+.tzk_01>div{
+	position: absolute;
+}
+.tzk_02{
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.tzk_03{
+	top: 0;
+	left: 0;
+	width: 2px;
+	height: 100%;
+	cursor: e-resize;
+}
+.tzk_03,.tzk_05{
+	top: 0;
+	width: 2px;
+	height: 100%;
+	cursor: e-resize;
+}
+.tzk_03{	
+	left: 0;	
+}
+.tzk_05{
+	right: 0;	
+}
+.tzk_04,.tzk_06{
+	
+	left: 0;
+	width: 100px;
+	height: 2px;
+	cursor: n-resize;
+}
+.tzk_04{
+	top: 0;
+}
+.tzk_06{
+	bottom: 0;
+}
+.tzk_07{
+	left: 0;
+	top: 0;
+	width: 2px;
+	height: 2px;
+	cursor: nw-resize;
+}
+.tzk_08{
+	right: 0;
+	top: 0;
+	width: 2px;
+	height: 2px;
+	cursor: ne-resize;
+}
+.tzk_09{
+	right: 0;
+	bottom: 0;
+	width: 2px;
+	height: 2px;
+	cursor: nw-resize;
+	
+}
+.tzk_10{
+	left: 0;
+	bottom: 0;
+	width: 2px;
+	height: 2px;
+	cursor: ne-resize;
+}
+.pcat_bt{
+	position: relative;
+	margin: 40px 40px;
+}
+.pcat_bt_0x{
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+.pcat_bt_0x>span{
+	display: inline-block;
+	height:32px;
+	text-align: center;
+	font-size:14px;
+	font-weight:400;
+	color:#666666;
+	line-height:32px;
+}
+.pcat_bt_0x>span.pcat_bt_0x1{
+	margin-left: 32px;
+	width:64px;
+	background:rgba(51,179,255,1);
+	border-radius:5px;
+	color: #fff;
 }
 </style>

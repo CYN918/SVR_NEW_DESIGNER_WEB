@@ -76,6 +76,8 @@ import personalCenter from './views/personalCenter/index.vue'
 import tolt from './views/tool/home.vue'
 import toltIndex from './views/tool/index.vue'
 import pushTool from './views/tool/pushTool.vue'
+import videoSet from './views/tool/videoSet.vue'
+
 
 import toluser from './views/tool/user.vue'
 import tools from './views/tool/test.vue'
@@ -93,6 +95,8 @@ let wb = [
 	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
 	{path: '/tools',name: 'tools',component: tools},
 	{path: '/pushTool',name:'tolt',component: pushTool},
+	{path: '/videoSet',name:'tolt',component: videoSet},
+	
 	{
 		path: '/',
 		redirect: '/index',

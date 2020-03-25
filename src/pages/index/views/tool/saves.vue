@@ -86,13 +86,32 @@ export default{
 		},
 
 	
-		clblank(el,max){
-			
-			for(let i=0,n=el.length;i<n;i++){
-				el[i].start = 0;
-				el[i].end = max;
-				el[i].cut_end = el[i].cut_start+max;
+		cl_audio(el){
+			let pd = el.json.audio;
+			let tims = 0;			
+			for(let i=0,n=pd.length;i<n;i++){
+				let t = pd[i].cut_end-pd[i].cut_start;
+				let ner = tims+t;
+				if(ner>el.maxTime){
+					pd[i].cut_end = pd[i].cut_start+(el.maxTime-tims);
+					break
+				}
+				
 			}		
+		},
+		cl_video(el){
+			let pd = el.json.media;
+			for(let i=0,n=pd.length;i<n;i++){
+				let wbl = pd[i].sw/pd[i].yw;
+				let hbl = pd[i].sh/pd[i].yh;
+				
+				
+				let xk = wbl*1080;
+				let xh = hbl*1920;
+				let xx = wbl*pd[i].sx;
+				let xy = hbl*pd[i].sy;
+				pd[i].crop = xk+':'+xh+':'+xx+':'+xy;
+			}
 		},
 		tijF(){
 			if(this.ajaxType){
@@ -101,13 +120,10 @@ export default{
 				})
 				return
 			}
-			let pr = this.value;
-			
-			this.clblank(pr.json.audio,this.value.maxTime);
-			
-			
+			let pr = this.value;			
+			this.cl_video(pr);
+			this.cl_audio(pr);
 			pr.json = JSON.stringify(pr.json);
-			console.log(pr)
 			
 			pr.submit = 1;
 		
