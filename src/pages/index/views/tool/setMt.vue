@@ -62,6 +62,7 @@ export default{
 				fid:el.fid,
 				cut_start: 0,
 				ischeck:'',
+				start:0,
 				
 			};
 			if(el.file_type=='image'){

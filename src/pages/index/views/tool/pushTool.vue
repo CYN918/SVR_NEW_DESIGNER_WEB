@@ -66,9 +66,9 @@
 								<img v-if="el.type=='pic'" :src="el.file_url">
 								<img v-if="el.fps_pic" :src="el.fps_pic">	
 								<div  v-if="el.ischeck" class="setToll">
-									<div @mousedown="jl3($event,el)" class="setToll1"></div>
-									<div @mousedown="jl2($event,el)"  class="setToll2"></div>
-									<div @mousedown="jl($event,el)" class="setToll3"></div>
+									<div @mousedown="jl3($event,el,index,navcoms.media)" class="setToll1"></div>
+									<div @mousedown="jl2($event,el,index,navcoms.media)"  class="setToll2"></div>
+									<div @mousedown="jl($event,el,index,navcoms.media)" class="setToll3"></div>
 									<div class="setToll4">
 										<i></i><i></i><i></i>
 										<input @blur="csb" @focus="csa($event,{n:'media',o:index})" class="setToll4_1" type="text">
@@ -81,9 +81,9 @@
 							<div @click="checkDOm($event,el,index,'audio')" :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.audio">
 							
 								<div  v-if="el.ischeck" class="setToll">
-									<div @mousedown="jl3($event,el)" class="setToll1"></div>
-									<div @mousedown="jl2($event,el)"  class="setToll2"></div>
-									<div @mousedown="jl($event,el)" class="setToll3"></div>
+									<div @mousedown="jl3($event,el,index)" class="setToll1"></div>
+									<div @mousedown="jl2($event,el,index)"  class="setToll2"></div>
+									<div @mousedown="jl($event,el,index)" class="setToll3"></div>
 									<div class="setToll4">
 										<i></i><i></i><i></i>
 										<input @blur="csb" @focus="csa($event,{n:'audio',o:index})" class="setToll4_1" type="text">
@@ -204,8 +204,7 @@ export default{
 		this.init();
 	}, 
 
-	methods:{
-		
+	methods:{		
 		showCc(e){
 			if(e && e.stopPropagation()) {
 				e.stopPropagation();
@@ -216,7 +215,7 @@ export default{
 				return
 			}
 			this.isCc = 1;
-			document.onclick =  ()=>{
+			document.onclick = ()=>{
 				this.isCc='';
 				document.onclick = null;
 			}
@@ -243,16 +242,18 @@ export default{
 			} else {
 				e.cancelBubble = false;
 			}
-			
-			if(el.fid!=this.checkDOmx.fid && el.ischeck==1){
-				this.checkDOmx.ischeck = '';
-				return
+			if(this.checkDOmx){
+				if(el.fid!=this.checkDOmx.fid){
+					this.checkDOmx.ischeck = '';
+				}
 			}
+			
 			
 			if(el.ischeck==1){
 				return
 			}			
-			el.ischeck = 1;			
+			el.ischeck = 1;	
+			this.checkDOmx = el;		
 			if(this.onck!=-1){
 				this.navcoms[dom][this.onck].ischeck='';
 			}
@@ -260,7 +261,11 @@ export default{
 			this.onck = on;
 			let ond = el;
 			var clod = ()=>{
-				this.checkDOmx.ischeck = '';
+				console.log(11111);
+				if(this.checkDOmx){
+					this.checkDOmx.ischeck = '';
+				}
+				
 				this.onck = -1;
 				document.body.removeEventListener('click',clod);
 			};
@@ -291,19 +296,41 @@ export default{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
-		jl3(e,el){
+		jl3(e,el,onc,list){
 			e.preventDefault();
+		
 			this.tdStar = e.pageX;	
 			let cs = el.start;
-			let wid = el.long*this.wdk;	
+			let wid = el.long*this.wdk;
+			let ond = onc-1;
+			let ondn = onc+1;
+			let prEnd,prStar,nxEnd,nxStar;
+			if(list[ond]){
+				prEnd = list[ond].end;
+				prStar = list[ond].start;
+			}
+			if(list[ondn]){
+				nxEnd = list[ondn].end;
+				nxStar = list[ondn].start;
+			}
+			let tms = el.cut_end-el.cut_start;
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
 				e.preventDefault();
 				let on = +(((e.pageX-this.tdStar)/wid)*el.long).toFixed(3);
 				let pn = +el.long+on;
 				let dd = Math.round(((+cs+(on))*100)/100);
-				let ond = el.cut_start+dd;
-				if(ond<0){dd=0;}
+				if(prEnd && dd<prEnd){					
+					dd = prEnd;
+				}	
+							
+				
+				if(nxStar && (dd+tms)>nxStar){
+					dd = nxStar-tms;
+				}
+				if(dd<0){
+					dd = 0;
+				}
 				el.start =  dd;
 			}			 
 			document.onmouseup =  ()=>{
