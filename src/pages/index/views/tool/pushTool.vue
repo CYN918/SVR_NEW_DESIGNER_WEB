@@ -11,7 +11,7 @@
 					<img src="/imge\new\tools\n/icon_bj.svg"/>
 				</div>				
 				<div class="noto_btns">
-					<span >保存</span><span @click="zzwc"  class="noto_bys">制作完成</span>
+					<span >保存</span><span @click="zzwc()"  class="noto_bys">制作完成</span>
 				</div>
 			</div>
 			<div class="ntob_cent">
@@ -93,6 +93,9 @@
 							</div>
 						</div>
 						<div class="tlo_04"></div>
+					</div>
+					<div class="bf_o1">
+						<div class="bf_o1_1"></div>
 					</div>
 					<div class="gund_01">
 						<div class="gund_02"></div>
@@ -194,6 +197,7 @@ export default{
 				h:695,
 			},
 			ispaused:'',
+			checkDOmx:'',
 		}
 	},
 	mounted: function () {
@@ -239,6 +243,12 @@ export default{
 			} else {
 				e.cancelBubble = false;
 			}
+			
+			if(el.fid!=this.checkDOmx.fid && el.ischeck==1){
+				this.checkDOmx.ischeck = '';
+				return
+			}
+			
 			if(el.ischeck==1){
 				return
 			}			
@@ -246,16 +256,17 @@ export default{
 			if(this.onck!=-1){
 				this.navcoms[dom][this.onck].ischeck='';
 			}
+			
 			this.onck = on;
-			document.onclick =  ()=>{
-				this.closed(el,on,dom);
-				document.onclick = null;
-			}		
-		},
-		closed(el,on,dom){
-			el.ischeck = '';
-			this.onck = -1;
-		},
+			let ond = el;
+			var clod = ()=>{
+				this.checkDOmx.ischeck = '';
+				this.onck = -1;
+				document.body.removeEventListener('click',clod);
+			};
+			document.body.addEventListener('click',clod,false)
+		
+		},	
 		jl(e,el){
 			e.preventDefault();
 			this.tdStar = e.pageX;			
@@ -323,6 +334,7 @@ export default{
 			}
 		},
 		zzwc(){		
+			
 			if(this.navcoms.media.length==0){
 				this.$message({
 					message:'请选择视频'
@@ -1082,5 +1094,13 @@ margin-left: 121px;
 	left: 0;
 	width: 100%;
 	height: 100%;	
+}
+.bf_o1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1px;
+	height: 100%;
+	background: #0000FE;
 }
 </style>
