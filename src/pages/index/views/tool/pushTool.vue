@@ -19,6 +19,27 @@
 					<div class="videoBox">
 						<canvas class="videoBox1" ref="cavs"></canvas>
 						<video @timeupdate="timeupdatevideo" muted @ended="endeds()" @loadeddata="csy"  id="boxf" class="ntob_cent_l_1" :src="video" ref="vids"></video>					
+					
+						<div v-if="isld && vdcc2==0" class="show_00x_1">
+							<div class="show_00x_1_1">138-888-888</div>
+							<div class="show_00x_1_2">正在拨号…</div>
+							<div class="show_00x_1_3">
+								<span><img class="xx_01x" src="/imge/tools/d_04.png">静音</span>
+								<span><img class="xx_02x" src="/imge/tools/d_05.png">拨号键盘</span>
+								<span><img class="xx_03x" src="/imge/tools/d_06.png">免提</span>
+								<span><img class="xx_04x" src="/imge/tools/d_07.png">添加通话</span>
+								<span><img class="xx_05x" src="/imge/tools/d_08.png">保持</span>
+								<span><img class="xx_06x" src="/imge/tools/d_09.png">录音</span>
+							</div>
+							<img class="show_00x_1_4" src="/imge/tools/d_02.png">
+						</div>
+						<div v-if="isld && vdcc2==1" class="show_00x_2">
+							<img class="show_00x_2_1" src="/imge/tools/d_03.png"/>
+							<div class="show_00x_2_2">来电秀</div>
+							<div class="show_00x_2_3">156-0202-0101</div>
+							<img class="show_00x_2_4" src="/imge/tools/d_02.png"/>
+							<img class="show_00x_2_5" src="/imge/tools/d_01.png"/>
+						</div>
 					</div>
 					<audio 
 					class="ntob_cent_l_1" 
@@ -29,17 +50,27 @@
 							预览比例<span class="bl_000" @click="showCc">
 								{{cun[vdcc].n}}
 								<div v-if="isCc" class="bl_001">
-									<span @click="qhcc(index)" v-for="(el,index) in cun" :class="index==vdcc?'cek':''">{{el.n}}</span>
-									
+									<span @click="qhcc(index)" v-for="(el,index) in cun" :class="index==vdcc?'cek':''">{{el.n}}</span>									
 								</div>
-							</span>
-							
+							</span>							
 						</div>
 						<div class="ntob_cent_l_2_2">
 							<span @click="playsx" class="an_sx_01"></span><span @click="playAll" class="an_bf_01"></span>
 							<span>00:00:00:00</span> / <span class="tme_091">00:00:30:00</span>							
 						</div>
-						<div class="ntob_cent_l_2_3">来电预览</div>
+						<div class="ntob_cent_l_2_3">
+							<span @click="showCc2" class="bl_000" >
+								{{cun2[vdcc2]}}
+								<div v-if="isCc2" class="bl_001">
+									<span @click="qhcc2(index)" v-for="(el,index) in cun2" :class="index==vdcc2?'cek':''">{{el}}</span>									
+								</div>
+							</span>	
+							<el-switch
+							  v-model="isld"
+							  
+							  active-value="1">
+							</el-switch>	
+						</div>
 					</div>
 				</div>
 				<div class="ntob_cent_r">
@@ -163,9 +194,14 @@ export default{
 				{n:'9:16',x:0},
 				{n:'6:13',x:48}			
 			],
-			
+			cun2:[
+				'来电预览',
+				'去电预览'		
+			],
 			sczz:'',
+			isld:'',
 			vdcc:0,
+			vdcc2:0,
 			isCc:'',
 			tanc:{
 				zj:'',
@@ -217,6 +253,7 @@ export default{
 				h:695,
 			},
 			ispaused:'',
+			isCc2:'',
 			checkDOmx:'',
 		}
 	},
@@ -225,6 +262,13 @@ export default{
 	}, 
 
 	methods:{	
+		qhcc2(on){
+			this.vdcc2 = on;
+			setTimeout(()=>{
+				this.isCc2='';
+			},50)
+			this.isld = 1;
+		},
 		clickfn(fn){
 			if(!this[fn]){
 				return
@@ -243,6 +287,21 @@ export default{
 			this.isCc = 1;
 			document.onclick = ()=>{
 				this.isCc='';
+				document.onclick = null;
+			}
+		},
+		showCc2(e){
+			if(e && e.stopPropagation()) {
+				e.stopPropagation();
+			} else {
+				e.cancelBubble = false;
+			}
+			if(this.isCc2==1){
+				return
+			}
+			this.isCc2 = 1;
+			document.onclick = ()=>{
+				this.isCc2='';
 				document.onclick = null;
 			}
 		},
@@ -1227,5 +1286,98 @@ margin-left: 121px;
 	width: 240px;
 	color:rgba(187,187,187,1);
 	line-height:18px
+}
+.show_00x_1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+.show_00x_1_1{
+	font-size:35px;
+	margin: 176px auto 20px;
+	color:rgba(255,255,255,1);
+	line-height:50px;
+}
+.show_00x_1_2{
+	font-size:16px;
+	font-weight:500;
+	color:rgba(255,255,255,1);
+	line-height:22px;
+}
+.show_00x_1_3>span{
+	display: inline-block;
+	width: 75px;
+	font-size:16px;
+	font-weight:500;
+	color:rgba(255,255,255,1);
+	line-height:22px;
+	margin-top: 50px;
+}
+.show_00x_1_3>span>img{
+	display: block;
+	margin: 0 auto 10px;
+}
+.show_00x_1_3>span:nth-child(3n+2){
+	margin: 50px 60px 0;
+}
+.xx_01x{
+	width: 25px;
+}
+.xx_02x{
+	width: 25px;
+}
+.xx_03x{
+	width: 31px;
+}
+.xx_04x{
+	width: 33px;
+}
+.xx_05x{
+	width: 19px;
+}
+.xx_06x{
+	width: 31px;
+}
+.show_00x_1_4{
+	display: block;
+	width: 61px;
+	margin: 60px auto 0;
+}
+.show_00x_2{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.show_00x_2_1{
+	display: block;
+	margin: 177px auto 13px;
+	width: 67px;
+}
+.show_00x_2_2{
+	font-size:16px;
+	color:rgba(255,255,255,1);
+	line-height:22px;
+	margin-bottom: 10px;
+}
+.show_00x_2_3{
+	font-size:25px;
+	color:rgba(255,255,255,1);
+	line-height:30px;
+}
+.show_00x_2_4{
+	position: absolute;
+	width: 62px;
+	bottom: 133px;
+	left: 53px;
+}
+.show_00x_2_5{
+	position: absolute;
+	width: 62px;
+	bottom: 133px;
+	right: 53px;
 }
 </style>
