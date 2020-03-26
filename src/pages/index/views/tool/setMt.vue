@@ -19,20 +19,37 @@
 						</div>
 						
 					</div>
-					<div @click="checkV(el)" class="setMt_03_01" v-else>
+					<div  class="setMt_03_01" v-else>
 						<img v-if="" :src="el.cover_img?el.cover_img:el.url">
 						<span class="tim_013" v-if="el.play_time">{{el.play_time}}</span>
 					</div>
+					
+					<div @click="checkV(el)" class="tim_xz">+</div>
+					<div @click="delt(el,index)" class="tim_xzsx"><img  src="/imge/tools/sc.png"/></div>
+					
 				</li>
 			</span>
 		</ul>
 		<input class="ycyin" type="file" @change="fileUp" :accept="typexz" multiple="multiple" ref="upnfile"/>
-		
+		<div v-if="istype" class="pr_tc_01">
+			<div class="pr_tc_02">			
+				<div class="pr_tc_04">
+					删除确认<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
+				</div>
+				<div class="qxBm_btns_1">是否确定删除?删除后将永久消失</div>	
+				<div class="qxBm_btns">
+					<div @click="close" class="btns pend">取消</div>		
+					<div @click="qdFn" class="btns btns_js pend">确定</div>										
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
+import t_qr from '../../components/t_qr';
 export default{
+	components:{t_qr},
 	props:{
 		value:Object,
 	},
@@ -45,7 +62,9 @@ export default{
 			noGd:'',
 			isnoData:'',
 			page:1,
-					
+			deldetType:0,
+			istype:'',
+			maxwj:0,
 		}
 	},
 	mounted: function () {
@@ -53,8 +72,30 @@ export default{
 		
 	}, 		
 	methods:{
+		fileTotalSummary(){
+			this.api.fileTotalSummary({
+				relation_type:'mobile_show'
+			}).then((da)=>{
+				if(da=='error'){
+					return
+				}
+				this.maxwj = da.sum;
+				
+			})
+		},
+		close(){
+			this.istype = '';
+		},
+		delt(el,index){
+			if(this.deldetType==1){
+				this.$message({
+					message:'正在删除请稍后'
+				})
+				return
+			}
+			this.istype = {data:el,on:index};
+		},
 		checkV(el){
-			let isond = '';
 			let pr = {
 				x:0,y:0,w:0,h:0,sx:0,sy:0,sw:0,sh:0,
 				yw:0,yh:0,
@@ -99,12 +140,14 @@ export default{
 					pr.end = +pr.start+(+el.play_time);
 				}				
 			}
+		
 			if(el.file_type=='image'){
 				var a = document.createElement('img');
 				a.src=el.url;
 				a.onload = ()=>{
 					let wd = a.width,
 					hd = a.height;
+					
 					pr.yw = wd;
 					pr.yh =  hd;
 					pr.sw = wd;					
@@ -126,9 +169,7 @@ export default{
 						this.$parent.setvideo(el.url);
 					}
 				};
-				setTimeout(()=>{
-					console.log(this.value)
-				},1000)
+		
 			}
 			if(el.file_type=='video'){
 				var a = document.createElement('video');
@@ -140,15 +181,14 @@ export default{
 					pr.yh =  hd;
 					pr.sw = wd;					
 					pr.sh = hd;
-					
-					if(wd>hd){
-						pr.w = 391;
-						pr.h = (391/wd)*hd;
-						pr.y = (695-pr.h)/2
-					}else{
+					if(wd<hd){
 						pr.h = 695;
 						pr.w = (695/hd)*wd;
 						pr.x = (391-pr.w)/2;
+					}else{
+						pr.w = 391;
+						pr.h = (391/wd)*hd;
+						pr.y = (695-pr.h)/2
 					}
 				
 					this.value.maxTime = +pr.long+this.value.maxTime;
@@ -168,13 +208,71 @@ export default{
 			}
 			
 		},
-		clPic(fld,on){
+		qdFn(){
 			
+			let el = this.istype.data;
+			let index = this.istype.on;
+		
+			
+			let times = (Date.parse(new Date())/1000);
+			let arr = [
+				1001,
+				window.userInfo.open_id,
+				times
+			];
+			let formData = new FormData();
+			formData.append('app_id',1001);
+			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
+			formData.append('user',window.userInfo.open_id)
+			formData.append('fid',el.fid)
+			formData.append('timestamp',times)
+			this.deldetType=1;
+			this.$ajax.post(window.basrul+'/File/File/delete', formData)
+			.then((da)=>{
+				this.deldetType=0;
+				if(da.data.result==0){
+					this.$message({
+						message:'删除成功'
+					})
+					this.list.splice(index,1);
+					this.close();
+					return
+				
+				}
+				this.$message({
+					message:'删除失败'
+				})
+			
+			})
+			.catch(()=>{	
+				this.deldetType=0;
+				this.$message({
+					message:'删除失败'
+				})
+			});
+		},
+		clPic(fld,on){
+			let max = 5*1024*1024;			
+			if(this.maxwj>=max){
+				this.$message({
+					message:'媒体素材储存量已满（5G）'
+				})
+				this.$refs.upnfile.value = '';
+				return
+			}
+			if((+fld.size+this.maxwj)>max){
+				this.$message({
+					message:'视频过大媒体素材储存超过上限（5G）'
+				})
+				this.$refs.upnfile.value = '';
+				return
+			}			
 			if(fld.type=='video/mp4'){
 				if(fld.size>104857600){
 					this.$message({
 						message:'视频过大请重新选取'
 					})
+					this.$refs.upnfile.value = '';
 					return
 				}
 				this.pushFile(fld);
@@ -198,9 +296,15 @@ export default{
 		
 		
 		push(){
+		
+			
 			this.$refs.upnfile.click();
 		},
 		pushFile(fld){
+			
+			
+			
+			
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
@@ -216,7 +320,10 @@ export default{
 			formData.append('file',fld)
 			formData.append('relation_type','mobile_show')
 			formData.append('timestamp',times)
-				
+			if(fld.type=='image/gif'){
+				formData.append('set_ini','{"convert":"mp4"}')
+				formData.append('fps_pic',1);
+			}	
 				
 			
 			let xhr = new XMLHttpRequest();
@@ -266,6 +373,7 @@ export default{
 						p.fid = da.fid;
 						p.play_time = da.play_time;
 						p.fps = da.fps;
+						p.file_type = da.file_type;
 					}							
 					this.$message({message: '文件上传成功'});
 				}				
@@ -291,6 +399,7 @@ export default{
 		},
 		
 		getList(){
+			this.fileTotalSummary();
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',
 			times = (Date.parse(new Date())/1000),
 			arr = [
@@ -358,7 +467,7 @@ export default{
 	line-height:20px;
 }
 .setMt_03 li{
-	cursor: pointer;
+
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
@@ -382,6 +491,8 @@ export default{
 .setMt_03 li:hover:after{
 	display: none;
 }
+
+
 .setMtUp{
 	position: absolute;
 	top: 50%;
@@ -434,5 +545,44 @@ export default{
 	font-size:12px;
 	color:rgba(187,187,187,1);
 	line-height:20px;
+}
+.tim_xz{
+	cursor: pointer;
+	display: none;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	background: #33B3FF;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 18px;
+	color: #fff;
+	font-size: 21px;
+	width:18px;
+	height:18px;
+}
+.tim_xzsx{
+	cursor: pointer;
+	display: none;
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	background: rgba(0,0,0,.2);
+	border-radius: 50%;
+	width: 18px;
+	height: 18px;
+}
+.tim_xzsx>img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 11px;
+}
+.setMt_03 li:hover .tim_xz{
+	display: block;
+}
+.setMt_03 li:hover .tim_xzsx{
+	display: block;
 }
 </style>

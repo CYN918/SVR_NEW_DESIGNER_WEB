@@ -402,4 +402,9 @@ export default {
 		url:'/Api/User/fileList',method:'post',baseURL:0,isType:{cancelToken:1}
 	},
 	
+	fileTotalSummary:{
+		url:'/Api/User/fileTotalSummary',method:'post',baseURL:0,isType:{cancelToken:1}
+	},
+	
+	
 }

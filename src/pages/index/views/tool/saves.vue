@@ -94,6 +94,7 @@ export default{
 			let tims = 0;			
 			for(let i=0,n=pd.length;i<n;i++){
 				let t = pd[i].cut_end-pd[i].cut_start;
+				
 				let ner = tims+t;
 				if(ner>el.maxTime){
 					pd[i].cut_end = pd[i].cut_start+(el.maxTime-tims);
@@ -105,6 +106,7 @@ export default{
 		cl_video(el){
 			let pd = el.json.media;
 			for(let i=0,n=pd.length;i<n;i++){
+				pd[i].end = pd[i].start+(pd[i].cut_end-pd[i].cut_start);
 				if(pd[i].sw!=pd[i].yw || pd[i].sh!=pd[i].yh || pd[i].sx!=0 || pd[i].sy!=0){
 					pd[i].crop = this.numqx(pd[i].sw)+':'+this.numqx(pd[i].sh)+':'+this.numqx(pd[i].x)+':'+this.numqx(pd[i].sy);
 					

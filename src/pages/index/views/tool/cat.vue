@@ -26,13 +26,9 @@
 			</div>
 			
 			<div class="pcat_bt">
-				<label>
-					<span></span>9:16
+				<label @click="chcc(index)" v-for="(el,index) in bl" class="pend">
+					<span :class="ccun==index?'chek':''"></span>{{el.n}}
 				</label>
-				<label>
-					<span></span>9:18
-				</label>
-				
 				<div class="pcat_bt_0x">
 					<span @click="cz" class="pend">重置</span><span @click="catd" class="pend pcat_bt_0x1">确定</span>
 				</div>
@@ -54,8 +50,8 @@ export default{
 			ysd:'',
 			vido:'',
 			bl:[
-				{n:'9:16',max_w:'',max_h:''},
-				{n:'9:18',max_w:'',max_h:''}
+				{n:'9:16',x:9,y:16},
+				{n:'6:13',x:6,y:13}
 			],
 			max:{
 				w:0,
@@ -73,8 +69,10 @@ export default{
 				w:0,
 				h:0
 			},
+			ccun:0,
 		}
 	},
+	
 	beforeDestroy:function(){		
 		document.body.style = "";
 	},
@@ -83,8 +81,13 @@ export default{
 		this.init();
 	}, 
 	methods:{
+		chcc(on){
+			this.ccun = on;
+			this.cjkset(this.pic);
+		},
 		init(){
 			setTimeout(()=>{
+				this.ccun = 0;
 				this.cz();								
 			},50)
 			document.body.style = "overflow: hidden;";
@@ -117,6 +120,8 @@ export default{
 			let dop = this.$refs.bgh.getBoundingClientRect();
 			this.picset(dop);				
 			this.cjkset(this.pic);	
+			
+			
 		},		
 		td_01(e,tp){
 			if(e && e.stopPropagation()) {
@@ -282,13 +287,14 @@ export default{
 			let pr = {};
 			if(el.h>el.w){
 				pr.w = el.w;
-				pr.h = (el.w/9)*16;
+				
+				pr.h = (el.w/this.bl[this.ccun].x)*this.bl[this.ccun].y;
 				
 				pr.fd = (360-pr.h)/pr.h;
 			
 			}else{
 				pr.h = el.h;
-				pr.w = (el.h/16)*9;
+				pr.w = (el.h/this.bl[this.ccun].y)*this.bl[this.ccun].x;
 				pr.fd = (640-pr.w)/pr.w;
 			}
 			pr.x=(640-pr.w)/2;
@@ -477,5 +483,51 @@ export default{
 	background:rgba(51,179,255,1);
 	border-radius:5px;
 	color: #fff;
+}
+.pcat_bt>label{
+	
+	margin-right: 40px;
+}
+.pcat_bt>label>span{
+	display: inline-block;
+	position: relative;
+	vertical-align: top;
+	
+	width:16px;
+	height:16px;
+	border-radius: 50%;
+	background:rgba(255,255,255,1);
+	margin-right: 8px;
+	
+	box-sizing: border-box;
+}
+.pcat_bt>label>span:after{
+	content: "";
+	position: absolute;	
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 12px;
+	height: 12px;
+	background: #fff;
+	border-radius: 50%;
+}
+.pcat_bt>label>span:before{
+	content: "";
+	position: absolute;	
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background: #BBBBBB;
+}
+.pcat_bt>label>span.chek:after{
+	
+	transform: translate(-50%,-50%) scale(.7);
+	
+}
+.pcat_bt>label>span.chek:before{	
+	background: #33B3FF;	
 }
 </style>

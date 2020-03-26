@@ -11,7 +11,7 @@
 					<img src="/imge\new\tools\n/icon_bj.svg"/>
 				</div>				
 				<div class="noto_btns">
-					<span >保存</span><span @click="zzwc()"  class="noto_bys">制作完成</span>
+					<span >保存</span><span @click="zzyz()"  class="noto_bys">制作完成</span>
 				</div>
 			</div>
 			<div class="ntob_cent">
@@ -27,9 +27,9 @@
 					<div class="ntob_cent_l_2">
 						<div class="ntob_cent_l_2_1">
 							预览比例<span class="bl_000" @click="showCc">
-								{{cun[vdcc]}}
+								{{cun[vdcc].n}}
 								<div v-if="isCc" class="bl_001">
-									<span @click="qhcc(index)" v-for="(el,index) in cun" :class="index==vdcc?'cek':''">{{el}}</span>
+									<span @click="qhcc(index)" v-for="(el,index) in cun" :class="index==vdcc?'cek':''">{{el.n}}</span>
 									
 								</div>
 							</span>
@@ -62,9 +62,12 @@
 						</div>
 						
 						<div class="tlo_02">
-							<div @click="checkDOm($event,el,index,'media')" :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.media">
-								<img v-if="el.type=='pic'" :src="el.file_url">
-								<img v-if="el.fps_pic" :src="el.fps_pic">	
+							<div :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.media">
+								<div @click="checkDOm($event,el,index,'media')" class="setToll0">
+									<img v-if="el.type=='pic'" :src="el.file_url">
+									<img v-if="el.fps_pic" :src="el.fps_pic">	
+								</div>
+								
 								<div  v-if="el.ischeck" class="setToll">
 									<div @mousedown="jl3($event,el,index,navcoms.media)" class="setToll1"></div>
 									<div @mousedown="jl2($event,el,index,navcoms.media)"  class="setToll2"></div>
@@ -78,8 +81,8 @@
 							</div>
 						</div>
 						<div class="tlo_03">
-							<div @click="checkDOm($event,el,index,'audio')" :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.audio">
-							
+							<div  :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.audio">
+								<div @click="checkDOm($event,el,index,'audio')" class="setToll0"></div>
 								<div  v-if="el.ischeck" class="setToll">
 									<div @mousedown="jl3($event,el,index)" class="setToll1"></div>
 									<div @mousedown="jl2($event,el,index)"  class="setToll2"></div>
@@ -117,7 +120,22 @@
 				<span @click="delt()">删除</span>
 			</div>
 			<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
-		
+			<div v-if="istype" class="pr_tc_01">
+				<div class="pr_tc_02">			
+					<div class="pr_tc_04">
+						{{istype.t}}<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
+					</div>
+					<div class="newds_012">
+						{{istype.c1}}
+						<div class="newds_013">{{istype.c2}}</div>
+					</div>	
+					
+					<div class="qxBm_btns">
+						<div @click="close" class="btns pend">取消</div>		
+						<div @click="clickfn(istype.btnfn)" class="btns btns_js pend">{{istype.btnn}}</div>										
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		
@@ -140,10 +158,12 @@ export default{
 	},
 	data(){
 		return{
+			istype:'',
 			cun:[
-				'9:16',
-				'9:18'				
+				{n:'9:16',x:0},
+				{n:'6:13',x:48}			
 			],
+			
 			sczz:'',
 			vdcc:0,
 			isCc:'',
@@ -204,7 +224,13 @@ export default{
 		this.init();
 	}, 
 
-	methods:{		
+	methods:{	
+		clickfn(fn){
+			if(!this[fn]){
+				return
+			}
+			this[fn]();
+		},
 		showCc(e){
 			if(e && e.stopPropagation()) {
 				e.stopPropagation();
@@ -220,6 +246,9 @@ export default{
 				document.onclick = null;
 			}
 		},
+		close(){
+			this.istype = '';
+		},
 		qhcc(on){
 			this.vdcc = on;
 			if(on==0){
@@ -230,7 +259,7 @@ export default{
 				this.cjzb.w = 347.5;
 				this.sczz = 'issczz';						 
 			}
-			
+			this.drm();
 			setTimeout(()=>{
 				this.isCc='';
 			},50)
@@ -252,25 +281,10 @@ export default{
 			if(el.ischeck==1){
 				return
 			}			
-			el.ischeck = 1;	
+			el.ischeck = 1;		
 			this.checkDOmx = el;		
-			if(this.onck!=-1){
-				this.navcoms[dom][this.onck].ischeck='';
-			}
-			
-			this.onck = on;
-			let ond = el;
-			var clod = ()=>{
-				console.log(11111);
-				if(this.checkDOmx){
-					this.checkDOmx.ischeck = '';
-				}
-				
-				this.onck = -1;
-				document.body.removeEventListener('click',clod);
-			};
-			document.body.addEventListener('click',clod,false)
-		
+
+
 		},	
 		jl(e,el){
 			e.preventDefault();
@@ -304,28 +318,31 @@ export default{
 			let wid = el.long*this.wdk;
 			let ond = onc-1;
 			let ondn = onc+1;
-			let prEnd,prStar,nxEnd,nxStar;
-			if(list[ond]){
-				prEnd = list[ond].end;
-				prStar = list[ond].start;
-			}
-			if(list[ondn]){
-				nxEnd = list[ondn].end;
-				nxStar = list[ondn].start;
-			}
 			let tms = el.cut_end-el.cut_start;
+			
+			let prEnd,prStar,nxEnd,nxStar;
+			let prd = list[ond];
+			if(prd){
+				
+				prEnd = +prd.start +(prd.cut_end-prd.cut_start);
+				prStar = prd.start;
+			}
+			let nxd = list[ondn];
+			if(nxd){
+				nxEnd = +nxd.start+(nxd.cut_end-nxd.cut_start);
+				nxStar = nxd.start;
+			}
+		
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
 				e.preventDefault();
 				let on = +(((e.pageX-this.tdStar)/wid)*el.long).toFixed(3);
-				let pn = +el.long+on;
+			
 				let dd = Math.round(((+cs+(on))*100)/100);
-				if(prEnd && dd<prEnd){					
-					dd = prEnd;
-				}	
-							
-				
-				if(nxStar && (dd+tms)>nxStar){
+				if(prd && dd<prEnd){
+					dd = prEnd;					
+				}
+				if(nxd && (dd+tms)>nxStar){
 					dd = nxStar-tms;
 				}
 				if(dd<0){
@@ -333,7 +350,26 @@ export default{
 				}
 				el.start =  dd;
 			}			 
-			document.onmouseup =  ()=>{
+			document.onmouseup =  (e)=>{
+				e.preventDefault();
+				let on = +(((e.pageX-this.tdStar)/wid)*el.long).toFixed(3);
+				let dd = Math.round(((+cs+(on))*100)/100);				
+				if(prStar || prStar==0){					
+					if(dd<=prEnd-((prEnd-prStar)/2)){					
+						list[onc].start = list[ond].start;
+						list[ond].start = list[onc].start+(list[onc].cut_end-list[onc].cut_start);
+						list.splice(ond,2,list[onc],list[ond]);
+					}
+				}			
+				if(nxStar || nxStar==0){					
+					if(dd>=nxStar+((nxEnd-nxStar)/2)){				
+						list[ondn].start = list[onc].start;
+						list[onc].start = list[ondn].start+(list[ondn].cut_end-list[ondn].cut_start);
+						list.splice(onc,2,list[ondn],list[onc]);
+					}
+					
+				}
+				console.log(list);
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
@@ -360,20 +396,56 @@ export default{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
-		zzwc(){		
-			
+		zzyz(){
 			if(this.navcoms.media.length==0){
 				this.$message({
-					message:'请选择视频'
+					message:'请先上传并添加媒体素材至轨道'
 				})
 				return
 			}
 			if(this.navcoms.audio.length==0){
 				this.$message({
-					message:'请选择音频'
+					message:'请先选择音乐'
 				})
 				return
 			}
+			
+			
+			let len = this.navcoms.media[this.navcoms.media.length-1];
+			let ent = +len.star+(len.cut_end-len.cut_start);
+			let firs = this.navcoms.media[0].start;
+			
+			if(firs!=0){
+				this.$message({
+					message:'你的开头部分没有填充媒体是素材，请确保视频从00:00开始播放'
+				})
+			}
+			if(ent>120){
+				this.$message({
+					message:'来电秀内容的媒体剪辑时长不得超过120秒'
+				})
+				return
+			}
+			
+			let ant = this.navcoms.audio[this.navcoms.audio.length-1];
+			let ant_t = +ant.star+(ant.cut_end-ant.cut_start);
+		
+			if(ent!=ant_t){
+				this.istype = {
+					t:'提示',
+					c1:'当前音频与视频时长不一致',
+					c2:'来电秀时长以视频剪辑时长为准，建议将音乐与视频的时长裁剪一致，以保证效果',
+					btnn:'直接提交',
+					btnfn:'zzwc',
+				}
+				
+				return
+			}
+			this.zzwc();
+			
+		},
+		zzwc(){		
+			this.istype = '';
 			this.tanc.zj = 'saves';
 			this.tanc.title = this.form.title;
 			this.tanc.json = {
@@ -472,6 +544,12 @@ export default{
 			this.cans.fillStyle="#000";
 			this.cans.fillRect(0,0,391,695);
 			this.cans.drawImage(this.$refs.vids,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);			
+			let po = this.cun[this.vdcc].x;
+			if(po){
+				this.cans.fillRect(0,0,po,695);
+				this.cans.fillRect(391-po,0,po,695);
+			}
+			
 		},
 		drmImg(){
 			let ob = this.navcoms.media[this.bfon];
@@ -924,7 +1002,7 @@ margin-left: 121px;
 	background-size: auto 100%;
 
 }
-.imgd>img{
+.setToll0>img{
 	display: block;
 	height: 100%;
 }
@@ -933,6 +1011,10 @@ margin-left: 121px;
 	position: absolute;
 	top: 0;
 	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.setToll0{
 	width: 100%;
 	height: 100%;
 }
@@ -1129,5 +1211,21 @@ margin-left: 121px;
 	width: 1px;
 	height: 100%;
 	background: #0000FE;
+}
+.newds_012{
+	margin: 28px 84px;
+	font-size:14px;
+	text-align: center;
+	color:rgba(102,102,102,1);
+	line-height:20px;
+}
+.newds_013{
+	
+	margin: 8px auto 0;
+	text-align: center;
+	font-size:12px;
+	width: 240px;
+	color:rgba(187,187,187,1);
+	line-height:18px
 }
 </style>
