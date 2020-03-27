@@ -115,9 +115,9 @@
 							<div  :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.audio">
 								<div @click="checkDOm($event,el,index,'audio')" class="setToll0"></div>
 								<div  v-if="el.ischeck" class="setToll">
-									<div @mousedown="jl3($event,el,index)" class="setToll1"></div>
-									<div @mousedown="jl2($event,el,index)"  class="setToll2"></div>
-									<div @mousedown="jl($event,el,index)" class="setToll3"></div>
+									<div @mousedown="jl3($event,el,index,navcoms.audio)" class="setToll1"></div>
+									<div @mousedown="jl2($event,el,index,navcoms.audio)"  class="setToll2"></div>
+									<div @mousedown="jl($event,el,index,navcoms.audio)" class="setToll3"></div>
 									<div class="setToll4">
 										<i></i><i></i><i></i>
 										<input @blur="csb" @focus="csa($event,{n:'audio',o:index})" class="setToll4_1" type="text">
@@ -131,8 +131,8 @@
 					<div class="bf_o1">
 						<div class="bf_o1_1"></div>
 					</div>
-					<div class="gund_01">
-						<div class="gund_02"></div>
+					<div class="gund_01" ref="gund_01x">
+						<div :style="tdfn()" class="gund_02"></div>
 					</div>
 					<div class="fdsx_01">
 						<span class="fdsx_02">-</span>
@@ -262,6 +262,17 @@ export default{
 	}, 
 
 	methods:{	
+		tdfn(){
+			if(!this.$refs.gund_01x){return}
+			let maxd =  Math.ceil(this.navcoms.maxTime/10)*200;
+			let len = this.$refs.gund_01x.offsetWidth;
+			let pd = len/maxd;
+			if(pd>1){
+				pd = 1;
+			}
+			pd = pd*100;
+			return "width:"+pd+"%";			
+		},
 		qhcc2(on){
 			this.vdcc2 = on;
 			setTimeout(()=>{
@@ -345,13 +356,19 @@ export default{
 
 
 		},	
-		jl(e,el){
+		jl(e,el,index,list){
 			e.preventDefault();
 			this.tdStar = e.pageX;			
 			let wid = el.long*this.wdk;	
 			let mv = ((el.long-el.cut_end)/el.long)*wid;
 			let max = +el.long;
+			
 			let min = el.cut_start+1;
+			let prEnd,prStar,nxEnd,nxStar;
+			let doml = list[index-1];
+	
+		
+			
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
 				e.preventDefault();
@@ -363,12 +380,33 @@ export default{
 				if(pn<min){
 					pn = min;
 				}			
-				el.cut_end = Math.round((pn*100)/100);				
+				el.cut_end = Math.round((pn*100)/100);
+				this.setHm(index,el,list);		
 			}			 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
+		setHm(on,el,list){
+	
+			let ond = el.start+(el.cut_end-el.cut_start);
+			for(let i=on,n=list.length;i<n;i++){
+				if(list[i+1]){
+					list[i+1].start = list[i].start+(list[i].cut_end-list[i].cut_start);
+				}
+				
+			}
+
+		},
+		// setQm(on,el,list){			
+		// 	let ond = el.start+(el.cut_end-el.cut_start);
+		// 	for(let i=on,n=list.length;i<n;i++){
+		// 		if(list[i+1]){
+		// 			list[i+1].start = list[i].start+(list[i].cut_end-list[i].cut_start);
+		// 		}
+				
+		// 	}		
+		// },
 		jl3(e,el,onc,list){
 			e.preventDefault();
 		
@@ -428,11 +466,11 @@ export default{
 					}
 					
 				}
-				console.log(list);
+				
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
-		jl2(e,el){
+		jl2(e,el,index,list){
 			e.preventDefault();
 			this.tdStar = e.pageX;
 			let wid = el.long*this.wdk;	
@@ -449,7 +487,8 @@ export default{
 				if(+pn>max){
 					pn = max;
 				}			
-				el.cut_start = Math.round((pn*100)/100);					
+				el.cut_start = Math.round((pn*100)/100);
+										
 			}									 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;

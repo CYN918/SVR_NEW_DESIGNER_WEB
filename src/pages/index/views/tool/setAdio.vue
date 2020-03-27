@@ -165,10 +165,15 @@ export default{
 				};				
 				let ond = this.value.audio[this.value.audio.length-1];
 				if(ond){
-					pr.start = ond.end;
-					pr.end = pr.start+(+el.duration);
+					pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
 				}
-				this.value.audio.push(pr);	
+				let maxt = +pr.start+pr.long;
+				this.value.audio.push(pr);
+				
+				if(this.value.maxTime<maxt){
+					this.value.maxTime = maxt;
+				}	
+					
 							
 			})
 		},

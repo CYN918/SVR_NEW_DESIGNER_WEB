@@ -133,12 +133,7 @@ export default{
 			}			
 			let ond = this.value.media[this.value.media.length-1];
 			if(ond){
-				pr.start = ond.end;			
-				if(pr.type=='pic'){
-					pr.end = +pr.start+(+pr.end);					
-				}else{
-					pr.end = +pr.start+(+el.play_time);
-				}				
+				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
 			}
 		
 			if(el.file_type=='image'){
@@ -190,8 +185,13 @@ export default{
 						pr.h = (391/wd)*hd;
 						pr.y = (695-pr.h)/2
 					}
-				
-					this.value.maxTime = +pr.long+this.value.maxTime;
+			
+					let maxt = +pr.start+pr.long;
+					
+					if(this.value.maxTime<maxt){
+						this.value.maxTime = maxt;
+					}	
+					
 					this.value.media.push(pr);	
 					if(!ond){
 						this.$parent.setvideo(el.url);
