@@ -3,12 +3,12 @@
         <ul>
             <li class="nav_logo"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
             <li class="nav_upload"><img :src="imgSig+'newHome/upload.svg'" alt=""/><p>上传作品</p></li>
-            <li class="nav_tolt" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning.svg'" alt=""/><p>去赚钱</p></li>
+            <li class="nav_tolt" @mouseenter="mouseover('d')"><img :src="imgSig+'newHome/icon-earning.svg'" alt=""/><p>去赚钱</p></li>
             <li class="nav_weixin" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')"><img :src="imgSig+'newHome/icon-ewm-small.png'" alt=""/><p>微信公众号</p></li>
             <li class="nav_weibo">官方微博</li>
             <li class="nav_top" @click="go_top()" v-if="isShow">TOP</li>
         </ul>
-        <div class="nav_tolt_hover" v-if="toltShow">
+        <div class="nav_tolt_hover" v-if="toltShow" @mouseleave="mouseLeave('d')">
             <img :src="imgSig+'newHome/icon-zq-hover.svg'" alt=""/>
             <button class="nav_tolt_hover_btn" @click="go_tolt()">点我赚钱</button>
         </div>
