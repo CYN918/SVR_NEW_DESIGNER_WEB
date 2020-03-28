@@ -100,6 +100,7 @@ export default{
 					pd[i].cut_end = pd[i].cut_start+(el.maxTime-tims);
 					break
 				}
+				pd[i].end = pd[i].start+(pd[i].cut_end-pd[i].cut_start);
 				
 			}		
 		},
