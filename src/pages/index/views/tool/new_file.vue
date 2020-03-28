@@ -167,9 +167,7 @@
 					</div>
 				</div>
 			</div>
-			
 		</div>
-		
 		
 		
 		
@@ -182,14 +180,12 @@ import setMt from './setMt';
 import mp3List from './setAdio';
 import saves from './saves';
 import cat from './cat';
-import tips from './tips';
 export default{
 	components:{
 		setMt,
 		mp3List,
 		saves,
-		cat,
-		tips
+		cat
 	},
 	data(){
 		return{
@@ -266,10 +262,6 @@ export default{
 				{s:120,jg:120},
 			],
 			fdjb:0,
-			tipszb:{
-				x:0,
-				y:0
-			}
 		}
 	},
 	mounted: function () {
@@ -277,11 +269,6 @@ export default{
 	}, 
 
 	methods:{	
-		showTip(){
-			this.tanc = {
-				zj:'tips'
-			}
-		},
 		addms(){
 			if(this.fdjb<2){
 				this.fdjb++;
@@ -294,7 +281,7 @@ export default{
 		},
 		tdfn(){
 			if(!this.$refs.gund_01x){return}
-			let maxd =  Math.ceil(this.navcoms.maxTime/10)*200;
+			let maxd =  Math.ceil(this.navcoms.maxTime/this.fd[this.fdjb])*200;
 			let len = this.$refs.gund_01x.offsetWidth;
 			// let pd = (maxd-len)/len;
 			
@@ -386,17 +373,18 @@ export default{
 				e.cancelBubble = false;
 			}
 			if(this.checkDOmx){
-				if(el.fid+on!=this.checkDOmx.fid){
+				if(el.fid!=this.checkDOmx.fid){
 					this.checkDOmx.ischeck = '';
 				}
 			}
-
+			
+			
 			if(el.ischeck==1){
 				return
 			}			
 			el.ischeck = 1;		
 			this.checkDOmx = el;		
-			this.checkDOmx.fid = this.checkDOmx.fid+on;
+
 
 		},	
 		jlx(e,el,index,list){
@@ -836,12 +824,6 @@ export default{
 				this.csad = '';
 			},200)
 			
-		},
-		setips(n){
-			this.tipszb = {
-				x:n.x,
-				y:n.y
-			};
 		}
 	}
 }

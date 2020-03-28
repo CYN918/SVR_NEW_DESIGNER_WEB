@@ -4,7 +4,7 @@
 			媒体库<span>请上传图片、MP4格式（视频大小10MB以内，视频上传后自动处理为无声）</span>
 		</div>		
 		<ul class="setMt_03">
-			<li>
+			<li ref="dwyd">
 				<span @click="push" class="setMtUp">
 					<img src="\imge\new\tools\n/up.svg">
 					上传视频/图片
@@ -186,12 +186,12 @@ export default{
 						pr.y = (695-pr.h)/2
 					}
 			
-					let maxt = +pr.start+pr.long;
+					let maxt = +pr.start+(+pr.long);
 					
 					if(this.value.maxTime<maxt){
 						this.value.maxTime = maxt;
 					}	
-					
+					console.log(this.value.maxTime);
 					this.value.media.push(pr);	
 					if(!ond){
 						this.$parent.setvideo(el.url);
@@ -399,6 +399,8 @@ export default{
 		},
 		
 		getList(){
+		
+			this.$parent.setips(this.$refs.dwyd.getBoundingClientRect());
 			this.fileTotalSummary();
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',
 			times = (Date.parse(new Date())/1000),
@@ -423,8 +425,10 @@ export default{
 				if(da=='error'){
 					return
 				}
+				
 				if(da.data.length==0 || !da){
 					this.noGd=1;
+					this.$parent.showTip();
 				}
 				if(da.data.length==0 && this.list.length==0){
 					this.isnoData=1;
