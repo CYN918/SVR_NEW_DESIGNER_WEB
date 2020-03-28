@@ -16,6 +16,7 @@ Vue.prototype.goFn = (n)=>{
 }
 
 Vue.prototype.imgPath = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/';
+Vue.prototype.imgSig = 'http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/';
 
 let s = window.screen.width / 1920;
 document.body.style.zoom = s;

@@ -10,6 +10,18 @@
 			<div class="banner_jt pend banner_jt1" @click="checkBan1()"></div>
 			<div class="banner_jt pend banner_jt2" @click="checkBan2()"></div>
 		</div>
+		<div class="banner_propaganda">
+			<ul>
+				<li>
+					<img :src="imgPath+'newHome/project_rukou.svg'" alt=""/>
+					<button class="undertake" @click="go_p()">承接项目</button>
+				</li>
+				<li class="banner_propaganda_t">
+					<img :src="imgPath+'newHome/show_laidian.svg'" alt=""/>
+					<button class="making" @click="go_show()">开始制作来电秀</button>
+				</li>
+			</ul>
+		</div>
 		
 	</div>
 </template>
@@ -88,6 +100,12 @@ export default {
 			
 			this.on = 0;
 		},
+		go_p(){
+			this.$router.push({path:'/project'});	
+		},
+		go_show(){
+			this.$router.push({path:'/tolt'});	
+		}
 		
 	}
 }
@@ -96,14 +114,15 @@ export default {
 <style>
 .banner{
 	position: relative;
-	background: #f1f1f1;
+	background: #FFFFFF;
 	overflow: hidden;
-	padding-bottom: 31.25%;
+	/* padding-bottom: 31.25%; */
 	width: 100%;
+	height: 719px;
 }
 .bannerBtn{
 	position: absolute;
-	top: 50%;
+	top: 25%;
 	left: 50%;
 	-webkit-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
@@ -134,16 +153,16 @@ export default {
     transform: translate(-35%,-50%) rotate(-45deg);
 }
 .banner_jt1{	
-    left:100px;
+    left:410px;
 }
 .banner_jt2{	
-    right: 100px;
+    right: 410px;
     -webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
 .banner_nav1{
 	position: absolute;
-	bottom: 24px;
+	bottom: 365px;
 	width: 100%;
 	text-align: center;
 }
@@ -168,12 +187,17 @@ export default {
 
 .banner1{
 	position: relative;
-	width: 100%;
+	width: 1300px;
+	height: 356px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
 }
 .banner1>img{
 	cursor: pointer;
 	opacity: 0;
 	width: 100%;
+	max-height: 356px;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -192,6 +216,50 @@ export default {
 	-webkit-animation: jxd2 2s forwards;
 	animation: jxd2 2s forwards;
 	display: block;
+}
+.banner_propaganda{
+	width: 1300px;
+	height: 234px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+.banner_propaganda > ul > li{
+	width: 640px;
+	height: 234px;
+	float: left;
+	position: relative;
+}
+.banner_propaganda > ul .banner_propaganda_t{
+	margin-left: 20px;
+}
+.banner_propaganda > ul > li > button{
+	outline: none;
+	border: none;
+	position: absolute;
+	left: 24px;
+	top: 172px;
+	cursor: pointer;
+}
+.banner_propaganda > ul > li .undertake{
+	width: 88px;
+	height: 38px;
+	text-align: center;
+	line-height: 38px;
+	background: #FFFFFF;
+	color: #975BF1;
+	font-size: 14px;
+	border-radius: 5px;
+}
+.banner_propaganda > ul > li .making{
+	width: 130px;
+	height: 38px;
+	text-align: center;
+	line-height: 38px;
+	background: #FFFFFF;
+	color: #3F6DF2;
+	font-size: 14px;
+	border-radius: 5px;
 }
 @-webkit-keyframes jxd{
 	from {opacity: 0}

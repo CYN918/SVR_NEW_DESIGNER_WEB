@@ -55,5 +55,7 @@ export default {
 }
 .md_nav_01>span.checks{
 	color: #33B3FF;
+	/* border-bottom: 3px solid;
+    padding-bottom: 27px; */
 }
 </style>

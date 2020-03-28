@@ -64,6 +64,20 @@ export default {
 			islod:'',
 		}
 	},
+	created(){
+		let currentpage = sessionStorage.getItem('currentpage');
+		let currentlimit = sessionStorage.getItem('currentlimit');
+		if(currentpage != null){
+			this.page.page = Number(currentpage);
+		};
+		if(currentlimit != null){
+			this.page.limit = Number(currentlimit);
+		};
+		// if(this.$route.path){
+		// 	this.page.page = 1;
+        //     this.page.limit = 40;
+		// }
+	},
 	mounted: function () {	
 
 		this.getData();		
@@ -77,10 +91,10 @@ export default {
 				this.$parent.kfn(this.isNodeat);
 			}
 			
-		}
+		},
+		
 	},
 	methods: {
-
 		paramCl(){
 			let pr = {
 				page:this.page.page,
@@ -145,6 +159,7 @@ export default {
 			}
 			this.goTop=1;
 			this.page.limit = val;
+			sessionStorage.setItem('currentlimit', val);
 			this.page.page=1;
 			this.total=0;
 			this.getData();
@@ -157,6 +172,7 @@ export default {
 			this.goTop=1;
 			this.total=0;
 			this.page.page = val;
+			sessionStorage.setItem('currentpage', val);
 			this.getData();
 		},
 
