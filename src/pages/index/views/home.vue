@@ -3,7 +3,7 @@
 		<baner></baner>
 		<div class="csBox">		
 			<div class="in_d1">
-				<pTop class="in_d3 in_d3 p_isTop" :cn="topCn">
+				<pTop class="in_d3" :cn="topCn">
 					<template v-slot:todo="{ todo }">
 						<div class="homghhd">
 							<div class="md_titie"><img :src="imgSig+'newHome/home_icon_tj.svg'" alt="" style="margin-right: 8px;"/>作品推荐</div>
@@ -146,7 +146,8 @@ export default {
 			this.mJs.scTop(1);
 			this.getClass();
 		},
-		setFL(){	
+		setFL(){
+			
 			if(this.value){
 				this.data.pr.classify_name = this.value;
 			}else{
@@ -161,8 +162,10 @@ export default {
 			this.data.pr.type = id;
 			this.value = '';
 			this.mJs.scTop(1);	
-			this.$refs.sfafa.sxfn();	
+			this.$refs.sfafa.sxfn();
+		
 		},
+
 		getClass(){
 			this.api.getClassify().then((da)=>{
 				if(da=='error'){
@@ -186,7 +189,7 @@ export default {
 				}
 				this.options = arr1;   
 			})
-		},
+		}
 		// sec(n){
 		// 	if(n==this.cOn){
 		// 		return
@@ -246,6 +249,8 @@ export default {
 }
 .in_d1{
 	height: 75px;	
+	position: relative;
+    top: -76px;
 }
 .in_d3{
 	width: 100%;
@@ -299,9 +304,8 @@ export default {
 .homghhd>a.router-link-active{
 	color: #33B3FF;
 }
-
 .in_d1 .p_isTop{
-	z-index: 9999;
+	/* z-index: 9999;
 	position: relative !important;
 	top: -76px !important;
 	left: 0;
@@ -310,7 +314,17 @@ export default {
 	-webkit-animation: none !important;
 	animation: none !important;
 	-webkit-box-shadow: none !important;
-	box-shadow: none !important;
+	box-shadow: none !important; */
+	z-index: 9999;
+	position: fixed;
+	top: 0;
+	left: 0;
+
+	width: 100%;
+	-webkit-animation: bjs .3s linear forwards;
+	animation: bjs .3s linear forwards;
+	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+	box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
 }
 .md_titie{
 	position: absolute;

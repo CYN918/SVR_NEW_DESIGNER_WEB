@@ -73,17 +73,22 @@ export default {
 		if(currentlimit != null){
 			this.page.limit = Number(currentlimit);
 		};
-		// if(this.$route.path){
-		// 	this.page.page = 1;
-        //     this.page.limit = 40;
-		// }
+					
 	},
-	mounted: function () {	
-
-		this.getData();		
+	mounted: function () {			
+		let currentpage = sessionStorage.getItem('currentpage');
+		let currentlimit = sessionStorage.getItem('currentlimit');
+		if(this.$route.path){
+			if(currentpage == null && currentlimit == null){
+				this.page.page = 1;
+				this.page.limit = 40;
+			}
+		}
+		this.getData();	
 	}, 
 	beforeDestroy:function(){
 		this.loading.close();
+		this.removeSession();
 	},
 	watch:{
 		'isNodeat'(){
@@ -92,9 +97,12 @@ export default {
 			}
 			
 		},
-		
 	},
 	methods: {
+		removeSession(){
+			sessionStorage.removeItem('currentpage')
+		    sessionStorage.removeItem('currentlimit')
+		},
 		paramCl(){
 			let pr = {
 				page:this.page.page,
