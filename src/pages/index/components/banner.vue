@@ -104,7 +104,7 @@ export default {
 			this.$router.push({path:'/project'});	
 		},
 		go_show(){
-			this.$router.push({path:'/tolt'});	
+			this.$router.push({path:'/pushTool'});	
 		}
 		
 	}

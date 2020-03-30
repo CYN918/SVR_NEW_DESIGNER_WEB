@@ -3,16 +3,16 @@
         <ul>
             <li class="nav_logo"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
             <li class="nav_upload" @click="upload()"><img :src="imgSig+'newHome/upload.svg'" alt=""/><p>上传作品</p></li>
-            <li class="nav_tolt" @mouseenter="mouseover('d')"><img :src="imgSig+'newHome/icon-earning.svg'" alt=""/><p>去赚钱</p></li>
+            <li class="nav_tolt" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning.svg'" alt=""/><p>去赚钱</p></li>
             <li class="nav_weixin" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')"><img :src="imgSig+'newHome/icon-ewm-small.png'" alt=""/><p>微信公众号</p></li>
             <li class="nav_weibo" @click="go_weibo()">官方微博</li>
             <li class="nav_top" @click="go_top()" v-if="isShow">TOP</li>
         </ul>
-        <div class="nav_tolt_hover" v-if="toltShow" @mouseleave="mouseLeave('d')">
+        <div class="nav_tolt_hover" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')">
             <img :src="imgSig+'newHome/icon-zq-hover.svg'" alt=""/>
             <button class="nav_tolt_hover_btn" @click="go_tolt()">点我赚钱</button>
         </div>
-        <div class="nav_weixin_hover" v-if="weinxinShow">
+        <div class="nav_weixin_hover" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')">
             <img :src="imgSig+'newHome/icon-ewm-big.png'" alt=""/>
             <p>微信公众号</p>
         </div>
@@ -24,8 +24,6 @@ export default {
     data(){
         return {
             isShow:false,
-            toltShow:false,
-            weinxinShow:false,
         }
     },
     mounted: function(){
@@ -55,22 +53,30 @@ export default {
         },
         mouseover(type){
             if(type == 'd'){
-                this.toltShow = true;
+                document.getElementsByClassName('nav_tolt_hover')[0].style.display = 'block'
+                document.getElementsByClassName('nav_tolt')[0].style.background = '#33B3FF'
+                document.getElementsByClassName('nav_tolt')[0].style.color = '#ffffff'
             }
             if(type == 'a'){
-                this.weinxinShow = true;
+                document.getElementsByClassName('nav_weixin_hover')[0].style.display = 'block'
+                document.getElementsByClassName('nav_weixin')[0].style.background = '#33B3FF'
+                document.getElementsByClassName('nav_weixin')[0].style.color = '#ffffff'
             }    
         },
         mouseLeave(type){
             if(type == 'd'){
-                this.toltShow = false;
+                document.getElementsByClassName('nav_tolt_hover')[0].style.display = 'none'
+                document.getElementsByClassName('nav_tolt')[0].style.background = '#FFFFFF'
+                document.getElementsByClassName('nav_tolt')[0].style.color = '#1E1E1E'
             } 
             if(type == 'a'){
-                this.weinxinShow = false;
+                document.getElementsByClassName('nav_weixin_hover')[0].style.display = 'none'
+                document.getElementsByClassName('nav_weixin')[0].style.background = '#FFFFFF'
+                document.getElementsByClassName('nav_weixin')[0].style.color = '#1E1E1E'
             }  
         },
         go_tolt(){
-            this.$router.push({path:'/tolt'});
+            this.$router.push({path:'/tolt/toluser'});
         },
         upload(){
             this.$router.push({path:'/upload'});
@@ -149,6 +155,7 @@ export default {
     position: fixed;
     right: 294px;
     top: 562px;
+    display: none;
 }
 .nav_tolt_hover .nav_tolt_hover_btn{
     width: 120px;
@@ -166,6 +173,7 @@ export default {
     position: relative;
     bottom: 69px;
     border-radius: 5px;
+    cursor: pointer;
 }
 .nav_weixin_hover{
     width: 220px;
@@ -176,6 +184,9 @@ export default {
     border: 1px solid #33B3FF;
     border-radius: 5px;
     background: #FFFFFF;
+    padding: 5px;
+    display: none;
+    cursor: pointer;
 }
 .nav_weixin_hover > img{
     border: 1px #0066B4 dashed;

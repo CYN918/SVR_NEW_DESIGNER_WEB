@@ -132,10 +132,10 @@ export default {
 			topNData:[
 				{path:'/index',n:'首页'},
 				{path:'/project',n:'项目'},
-				{path:'/Work_i',n:'作品'},
+				// {path:'/Work_i',n:'作品'},
 				{path:'/activvity',n:'活动'},
-				{path:'/tolt',n:'去赚钱',t:'NEW'},
-				{path:'/pushTool',n:'新工具'},
+				{path:'/tolt',n:'赚钱',t:'NEW'},
+				// {path:'/pushTool',n:'新工具'},
 				
 			]
 		}		
@@ -292,14 +292,14 @@ export default {
 			let last = this.topNData[this.topNData.length-1].n;
 			if(window.userInfo){
 				this.userMssge = window.userInfo;	
-				if(!window.userInfo.contributor_format_status && last!='供稿人'){
-					this.topNData.push({path:'/tip',n:'供稿人'});
-				}
-				return
+				// if(!window.userInfo.contributor_format_status && last!='供稿人'){
+				// 	this.topNData.push({path:'/tip',n:'供稿人'});
+				// }
+				// return
 			}
-			if(last!='供稿人'){
-				this.topNData.push({path:'/tip',n:'供稿人'});
-			}
+			// if(last!='供稿人'){
+			// 	this.topNData.push({path:'/tip',n:'供稿人'});
+			// }
 			
 		
 			
