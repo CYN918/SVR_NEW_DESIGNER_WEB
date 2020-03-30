@@ -55,7 +55,11 @@
 							</span>							
 						</div>
 						<div class="ntob_cent_l_2_2">
-							<span @click="playsx" class="an_sx_01"></span><span @click="playAll" class="an_bf_01"></span>
+							<span @click="playsx" class="an_sx_01">
+								<img src="/imge/tools/v_v0.svg"/>
+							</span><span @click="playAll" class="an_bf_01">
+								<img src="/imge/tools/v_v1.svg"/>
+							</span>
 							<span>00:00:00:00</span> / <span class="tme_091">00:00:30:00</span>							
 						</div>
 						<div class="ntob_cent_l_2_3">
@@ -94,9 +98,8 @@
 						
 						<div class="tlo_02">
 							<div :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.media">
-								<div @click="checkDOm($event,el,index,'media')" class="setToll0">
-									<img v-if="el.type=='pic'" :src="el.file_url">
-									<img v-if="el.fps_pic" :src="el.fps_pic">	
+								<div :style="bgtf(el)" @click="checkDOm($event,el,index,'media')" class="setToll0">
+									
 								</div>
 								
 								<div  v-if="el.ischeck" class="setToll">
@@ -284,6 +287,11 @@ export default{
 		}
 	},
 	methods:{	
+		bgtf(el){
+			if(!el){return}
+			let url = el.type=='pic'?el.file_url:el.fps_pic;
+			return "background:url("+url+") 0 0/auto 100% repeat-x;";
+		},
 		baclsf(){
 			let max = 64;
 			return "transform: translateX("+(this.fdjb/120)*max+"px);";			
@@ -462,7 +470,11 @@ export default{
 			this.tdStar = e.pageX;			
 			let wid = el.long*this.wdk;	
 			let mv = ((el.long-el.cut_end)/el.long)*wid;
-			let max = +el.long;			
+			
+			let max = +el.long;	
+			if(el.type=='pic'){
+				max = 999999;
+			}		
 			let min = el.cut_start+1;
 			let prEnd,prStar,nxEnd,nxStar;
 			let doml = list[index-1];
@@ -1124,7 +1136,7 @@ margin-left: 121px;
 }
 .ntob_footer_2_1,.ntob_footer_1_1{
 	
-	width: 100%;
+	min-width: 100%;
 	height:52px;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
@@ -1183,7 +1195,7 @@ margin-left: 121px;
 	left: 0;
 }
 .tlo_box{
-	width: 100%;
+	min-width: 100%;
 	position: relative;
 }
 .tlo_02{
@@ -1344,14 +1356,17 @@ margin-left: 121px;
 .an_sx_01{
 	width:22px;
 	height:22px;
-	background: #282828;
+
 	margin-right: 16px;
+}
+.an_sx_01>img,.an_bf_01>img{
+	display: block;
+	width: 100%;
 }
 .an_bf_01{
 	margin-right: 16px;
 	width:22px;
 	height:22px;
-	background: #282828;
 }
 .tme_091{
 	font-size:16px;
