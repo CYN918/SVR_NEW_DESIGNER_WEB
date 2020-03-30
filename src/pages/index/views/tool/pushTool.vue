@@ -86,7 +86,7 @@
 				<div class="ntob_footer_1">
 					<div class="ntob_footer_1_1"></div>
 				</div>
-				<div class="ntob_footer_2">
+				<div class="ntob_footer_2" ref="gdbox">
 					<div :style="bal()" class="tlo_box">
 						<div class="ntob_footer_2_1">
 							<div v-html="backd()" class="kdut"></div>
@@ -261,21 +261,28 @@ export default{
 			checkDOmx:'',
 			tdjl:0,
 			fd:[
+				{s:1,jg:.1},
+				{s:2,jg:.2},
 				{s:10,jg:1},
 				{s:60,jg:60},
 				{s:120,jg:120},
 			],
-			fdjb:0,
+			fdjb:10,
 			tipszb:{
 				x:0,
 				y:0
-			}
+			},
+			bl:1,
 		}
 	},
 	mounted: function () {
 		this.init();
 	}, 
-
+	watch:{
+		fdjb(){
+			this.bl = this.fdjb/10;
+		}
+	},
 	methods:{	
 		showTip(){
 			this.tanc = {
@@ -283,21 +290,19 @@ export default{
 			}
 		},
 		addms(){
-			if(this.fdjb<2){
+			if(this.fdjb<120){
 				this.fdjb++;
 			}
 		},
 		jms(){
-			if(this.fdjb>0){
+			if(this.fdjb>1){
 				this.fdjb--;
 			}
 		},
 		tdfn(){
 			if(!this.$refs.gund_01x){return}
-			let maxd =  Math.ceil(this.navcoms.maxTime/10)*200;
+			let maxd =  Math.ceil(this.navcoms.maxTime/this.fdjb)*210;
 			let len = this.$refs.gund_01x.offsetWidth;
-			// let pd = (maxd-len)/len;
-			
 			let bl = len/maxd;
 			
 			
@@ -312,9 +317,10 @@ export default{
 		},
 		bal(){
 			if(!this.$refs.gund_01x){return}
-			let maxd =  Math.ceil(this.navcoms.maxTime/10)*200;
+			let maxd =  Math.ceil(this.navcoms.maxTime/this.fdjb)*210;
 			let len = this.$refs.gund_01x.offsetWidth;
 			let pd = maxd/len;
+
 			return "transform: translateX("+-(this.tdjl*pd)+"px);";	
 		},
 		qhcc2(on){
@@ -403,7 +409,7 @@ export default{
 			e.preventDefault();
 			if(!this.$refs.gund_01x){return}
 			let tdStar = e.pageX;			
-			let maxd =  Math.ceil(this.navcoms.maxTime/10)*200;
+			let maxd =  Math.ceil(this.navcoms.maxTime/this.fdjb)*210;
 			let len = this.$refs.gund_01x.offsetWidth;
 			let bl = len/maxd;
 			let pd = (maxd-len)*bl;
@@ -677,7 +683,7 @@ export default{
 					str+='<span></span>';
 				}
 				
-				str+='<span class="kd_02"><span>'+this.tutime(this.fd[this.fdjb].s*(i+1))+'</span></span>';
+				str+='<span class="kd_02"><span>'+this.tutime(this.fdjb*(i+1))+'</span></span>';
 				str+='</div>';
 			}
 			return str;				
@@ -698,8 +704,8 @@ export default{
 			return n>9?n:'0'+n;
 		},
 		backtop(el,index){
-			
-			let str = "width:"+((el.cut_end-el.cut_start)/this.fd[this.fdjb].jg)*this.wdk+"px;transform:translateX("+((el.start*this.fd[this.fdjb].jg)*this.wdk)+"px);";			
+		
+			let str = "width:"+((el.cut_end-el.cut_start)/this.bl)*this.wdk+"px;transform:translateX("+((el.start/this.bl)*this.wdk)+"px);";			
 			if(el.ischeck){
 				str+='z-index:2;';
 			}		
@@ -804,6 +810,62 @@ export default{
 			this.$refs.aido.pause();
 		},
 		init(){
+			let onk = '';
+			document.addEventListener('keydown',(e)=>{					
+				var ctrlKey = e.ctrlKey || e.metaKey;	
+				
+				var shiftKey = e.shiftKey;
+				if(shiftKey && shiftKey){
+					onk = '';
+				}
+				if(ctrlKey) {
+				    onk = 1;
+				}
+				if(shiftKey){
+					onk = 2;
+				}
+				if(this.checkDOmx && e.keyCode === 8){
+					e.preventDefault();
+					console.log('回退');
+					this.delt();
+				}
+				
+				
+			},false);
+			document.addEventListener('keyup',(e)=>{
+				onk = '';
+			},false);
+			this.$refs.gdbox.addEventListener('mousewheel',(e)=>{
+				if(!onk){
+					return
+				}
+				e = e || window.event;
+				e.preventDefault();
+				var kd = e.wheelDelta?e.wheelDelta:e.detail;
+				
+				
+				if(kd>0){
+					// alert("滑轮向上滚动");
+					if(onk==1  &&  this.fdjb<120){
+						this.fdjb++;
+					}
+					if(onk==2 ){
+						this.tdjl++;
+					}
+				}
+				if(kd<0){
+					if(onk==1 && this.fdjb>1){
+						this.fdjb--;
+					}
+					if(onk==2 && this.tdjl>0){
+						this.tdjl--;
+					}
+				}
+				
+				
+			},false)
+			
+			
 			this.$refs.cavs.width = 391;
 			this.$refs.cavs.height = 695;
 			this.cans = this.$refs.cavs.getContext("2d");
@@ -842,6 +904,10 @@ export default{
 				x:n.x,
 				y:n.y
 			};
+			
+			
+			
+			
 		}
 	}
 }
