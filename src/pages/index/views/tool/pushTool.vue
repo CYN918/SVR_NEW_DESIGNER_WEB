@@ -137,7 +137,7 @@
 					<div class="fdsx_01">
 						<span @click="jms()" class="fdsx_02">-</span>
 						<span class="fdsx_03">
-							<div class="fdsx_06"></div>
+							<div @mousedown="jlx2($event)" :style="baclsf()" class="fdsx_06"></div>
 						</span>
 						<span @click="addms()" class="fdsx_02">+</span>
 						
@@ -284,6 +284,10 @@ export default{
 		}
 	},
 	methods:{	
+		baclsf(){
+			let max = 64;
+			return "transform: translateX("+(this.fdjb/120)*max+"px);";			
+		},
 		showTip(){
 			this.tanc = {
 				zj:'tips'
@@ -404,7 +408,29 @@ export default{
 			this.checkDOmx = el;		
 			this.checkDOmx.fid = this.checkDOmx.fid+on;
 
-		},	
+		},
+		jlx2(e){
+			e.preventDefault();
+			
+			let tdStar = e.pageX;						
+			let mv = this.fdjb;
+			document.onmousemove = document.onmouseup = null;
+			document.onmousemove = (e)=>{
+				e.preventDefault();
+				let on = Math.round((e.pageX-tdStar)*100)/100+mv;
+				if(on<1){
+					on=1;
+				}
+				if(on>120){
+					on=120;
+				}
+				
+				this.fdjb = on;
+			}			 
+			document.onmouseup =  ()=>{
+				document.onmousemove = document.onmouseup = null;
+			}
+		},
 		jlx(e,el,index,list){
 			e.preventDefault();
 			if(!this.$refs.gund_01x){return}
@@ -1213,6 +1239,7 @@ margin-left: 121px;
 	vertical-align: middle;
 }
 .fdsx_02{
+	cursor: pointer;
 	width:12px;
 	height:12px;
 	border-radius: 50%;
