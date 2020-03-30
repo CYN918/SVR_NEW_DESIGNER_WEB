@@ -2,12 +2,17 @@
 	<tanC :title="'报名项目'">
 		<template v-slot:todo="{ todo }">
 			<div class="bmXm_00">
-				<!-- <div class="bmXm_01">
-					请选择你期望的项目成交方式：
+				<div class="bmXm_01">
+					请选择项目收益结算方式：
 					<div class="bmXm_01_1">
-						<label @click="chekdeal_type(el.k)" v-for="(el,index) in deal_types" :key="index"><span :class="el.k==postData.deal_type?'chekdOn':''"></span>{{el.n}}</label>
+						<label @click="chekdeal_type(el.k)" v-for="(el,index) in deal_types" :key="index">
+							<span :class="el.k==postData.deal_type?'chekdOn':''"></span>{{el.n}}
+							<!-- <div v-if="el.k == 1"></div>
+							<div v-if="el.k == 2">项目收录的作品最终会投放至与平台合作的渠道终端,并持续产生收益,最终按照产品曝光量与固定分成单价,与创作者结算该收益。即作品曝光量越高,分成收益越多,且是永久性的哟~</div> -->
+						</label>
+						
 					</div>
-				</div> -->
+				</div>
 				<div class="bmXm_02">请选择至少 <span>1个符合</span> 项目需求的 <span>原创作品</span> 作为案例</div>
 				<div class="bmXm_03_box" @scroll="test">
 					<ul class="bmXm_03">
