@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="16px" viewBox="0 0 13 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>icon_video_play</title>
+    <desc>Created with Sketch.</desc>
+    <g id="zoocreator" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="10-来电秀工具-视频" transform="translate(-392.000000, -770.000000)" fill="#000000" fill-rule="nonzero">
+            <g id="预览窗口/默认" transform="translate(0.000000, 48.000000)">
+                <g id="预览窗口">
+                    <g id="时间进度条" transform="translate(354.000000, 719.000000)">
+                        <g id="icon_view_play_def" transform="translate(38.000000, 3.000000)">
+                            <path d="M1.49613894,15.1450635 L12.4805745,8.86824314 C12.9600919,8.59423317 13.1266887,7.98337851 12.8526787,7.50386106 C12.7640894,7.34882978 12.6356058,7.22034616 12.4805745,7.13175686 L1.49613894,0.854936536 C1.01662149,0.580926567 0.405766827,0.747523293 0.131756858,1.22704074 C0.0454153173,1.37813844 4.22777057e-16,1.54915274 0,1.72317968 L0,14.2768203 C6.76353751e-17,14.8291051 0.44771525,15.2768203 1,15.2768203 C1.17402694,15.2768203 1.34504124,15.231405 1.49613894,15.1450635 Z" id="icon_video_play"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

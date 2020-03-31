@@ -4,7 +4,7 @@
 			<div class="ntob_footer_1_1"></div>
 		</div>
 		<div class="ntob_footer_2">
-			<div :style="bal()" class="tlo_box">
+			<div :style="move_box()" class="tlo_box">
 				<div class="ntob_footer_2_1">
 					<div v-html="backd()" class="kdut"></div>
 				</div>
@@ -29,7 +29,7 @@
 					</div>
 				</div>
 				<div class="tlo_03">
-					<div  :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.audio">
+					<div :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.audio">
 						<div @click="checkDOm($event,el,index,'audio')" class="setToll0"></div>
 						<div  v-if="el.ischeck" class="setToll">
 							<div @mousedown="jl3($event,el,index,navcoms.audio)" class="setToll1"></div>
@@ -72,6 +72,94 @@
 </template>
 
 <script>
+export default{
+	props:{
+		value:Object
+	},
+	data(){
+		return{
+			move_box_num:0,
+			
+		}
+	},
+	methods:{
+		backd(){
+			if(!this.value.maxTime){
+				return
+			}
+		
+			let str='<span class="kd_02"><span>00:00:00:00</span></span>';
+			for(let i=0,n=Math.ceil(this.value.maxTime/10);i<n;i++){
+				str+='<div class="kdut_1">';
+				for(let i2=0;i2<9;i2++){
+					str+='<span></span>';
+				}
+				
+				str+='<span class="kd_02"><span>'+this.tutime(this.fd[this.fdjb].s*(i+1))+'</span></span>';
+				str+='</div>';
+			}
+			return str;				
+		},
+		tutime(t){
+			var h=0,m=0,s=0,om=0;
+			s = t%60;
+			if(t>=60){
+				m = (t-s)/60;
+				om = m%60;
+			}
+			if(m>=60){
+				h = (m-om)/60;
+			}
+			let optu = (n)=>{
+				return n>9?n:'0'+n;
+			};
+		    return optu(h)+':'+optu(om)+':'+optu(s);
+		},
+		backtop(el,index){
+			
+			let str = "width:"+((el.cut_end-el.cut_start)/this.fd[this.fdjb].jg)*this.wdk+"px;transform:translateX("+((el.start*this.fd[this.fdjb].jg)*this.wdk)+"px);";			
+			if(el.ischeck){
+				str+='z-index:2;';
+			}		
+			return str;
+		},
+		move_box(){
+			if(!this.$refs.gund_01x){return}
+			let maxd =  Math.ceil(this.navcoms.maxTime/10)*200;
+			let len = this.$refs.gund_01x.offsetWidth;
+			let pd = maxd/len;
+			return "transform: translateX("+-(this.move_box_num*pd)+"px);";	
+		},
+		// addms(){
+		// 	if(this.fdjb<2){
+		// 		this.fdjb++;
+		// 	}
+		// },
+		// jms(){
+		// 	if(this.fdjb>0){
+		// 		this.fdjb--;
+		// 	}
+		// },
+		// tdfn(){
+		// 	if(!this.$refs.gund_01x){return}
+		// 	let maxd =  Math.ceil(this.navcoms.maxTime/this.fd[this.fdjb])*200;
+		// 	let len = this.$refs.gund_01x.offsetWidth;
+		// 	// let pd = (maxd-len)/len;
+			
+		// 	let bl = len/maxd;
+			
+			
+		// 	let pd = len/maxd;
+		
+		// 	if(pd>1){
+		// 		pd = 1;
+		// 	}
+		// 	pd = pd*100;
+			    
+		// 	return "width:"+pd+"%;transform: translate("+this.tdjl+"px,-50%);";			
+		// },
+	}
+}
 </script>
 
 <style>
