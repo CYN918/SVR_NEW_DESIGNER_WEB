@@ -387,7 +387,6 @@ export default {
 	margin-right: 15px;
 	width:640px;
 	height:240px;
-	box-shadow:0px 5px 15px 0px rgba(0,0,0,0.1);
 	border-radius:5px;
 	background-size:cover;
 }
@@ -550,8 +549,7 @@ export default {
 	line-height: 38px;
 	color: #FF9300;
 	font-size: 24px;
-	margin-top: 5px;
-	margin-left: 5px;
-	margin-right: 5px;
+	padding: 5px;
+	margin: 5px;
 }
 </style>

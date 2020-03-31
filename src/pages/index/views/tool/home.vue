@@ -22,13 +22,13 @@
 	<div>
 		<div class="hot_topbox">
 			<img class="hotBaner" :src="imgSig+'toltImg/ZQ-banner.svg'">
-			<button @click="godd" v-if="userMssge.contributor_format_status == 0">立即加入</button>
+			<button @click="godd" v-if="userMssge.contributor_format_status == 0 || userMssge == ''">立即加入</button>
 			
 		</div>
 		<div class="hotCent">
 			<div class="hotCent2">
 				<ul>
-					<li><img class="hotBaner" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_project" @click="go_project()">去挑选项目</button></li>
+					<li><img class="hotBaner" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_upload" @click="go_project()">去挑选项目</button></li>
 					<li class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-cjxm.svg'"><button class="go_upload" @click="go_upload()">上传原创作品</button></li>
 					<li class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-dsp.svg'"><button class="go_upload" @click="go_show()">前往制作来电秀</button></li>
 				</ul>
@@ -57,10 +57,10 @@ export default{
 		// 	this.$router.push({path:'/tolt/toluser'});	
 		// },
 		initHead(){	
-			this.userMssge = '';
 			if(window.userInfo){
 				this.userMssge = window.userInfo;
 			}
+			console.log(this.userMssge)
 		},
 		godd(){
 			

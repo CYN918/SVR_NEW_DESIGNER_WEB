@@ -1,5 +1,5 @@
 <template>
-	<div class="pr_cent2_1">
+	<!-- <div class="pr_cent2_1">
 		<div @click="openCent()" class="pr_cent2_2">
 			<img  class="pr_cent2_3" :src="deta.banner"/>
 			<div class="pr_cent2_rs" v-if="deta.status==1 || deta.status==2">{{deta.sign_up_num}}人已报名</div>
@@ -21,6 +21,39 @@
 		
 		<div class="sjxd" v-if="deta.extra_reward && deta.extra_reward!='0.00'">
 			额外奖金¥{{deta.extra_reward}}
+		</div>
+		<component v-bind:is="tcZj"  :datad="tcData"></component>
+	</div> -->
+	<div class="pr_cent2_1">
+		<div @click="openCent()" class="pr_cent2_2">
+			<img  class="pr_cent2_3" :src="deta.banner"/>
+			<img  class="pr_cent2_3" v-if="deta.banner == ''" :src="imgSig+'toltImg/Zoocreators_logo.svg'"/>
+			<div class="pr_cent2_rs" v-if="deta.status==1 || deta.status==2">{{deta.sign_up_num}}人已报名</div>
+			<div class="pr_cent2_r2" v-html="tips"></div>
+			<div v-if="this.$route.path == '/projectAll'">
+			    <div class="pr_cent2_status" style="background:rgba(241,251,255,1);border:1px solid rgba(51,179,255,1);color:#33B3FF;" v-if="deta.status==1">招募期</div>
+				<div class="pr_cent2_status" style="background:rgba(255,251,230,1);border:1px solid rgba(255,229,143,1);color:#FCAE00;" v-if="deta.status==0">待发布</div>
+				<div class="pr_cent2_status" style="background:rgba(255,241,240,1);border:1px solid rgba(255,163,158,1);color:#F5222D;" v-if="deta.status==2">选标期</div>
+				<div class="pr_cent2_status" style="background:rgba(249,240,255,1);border:1px solid rgba(211,173,247,1);color:#722ED1;"  v-if="deta.status==3">制作期</div>
+				<div class="pr_cent2_status" style="background:rgba(255,251,230,1);border:1px solid rgba(255,229,143,1);color:#FCAE00;" v-if="deta.status==4">待验收</div>
+				<div class="pr_cent2_status" style="background:rgba(246,255,237,1);border:1px solid rgba(183,235,143,1);color:#52C41A;" v-if="deta.status==5">已验收</div>
+				<div class="pr_cent2_status" style="background:rgba(255,241,240,1);border:1px solid rgba(255,163,158,1);color:#F5222D;" v-if="deta.status==-1">已终止</div>
+			</div>
+		</div>
+		<div class="pr_cent2_4">
+			<div @click="openCent()" class="pr_cent2_5">
+				<div class="pr_cent2_6">{{deta.name}}</div>
+				<div class="pr_cent2_7">项目类型：{{deta.classify_name}}<i></i>制作周期：<span>{{deta.production_cycle_d}}天{{deta.production_cycle_h}}时</span></div>
+				<div class="pr_cent2_10" v-html="tip"></div>
+				<!-- <div class="pr_cent2_8">领域范围：<span v-for="(ed,index) in deta.fields">{{ed}}</span></div>	 -->
+			</div>
+			<div class="pr_cent2_9">				
+				<div class="pr_cent2_11">
+					<ul>
+						<li v-for="(els,index) in btns" @click="ckd(els.fn)" :class="['btns pend',els.cls]">{{els.n}}</li>
+					</ul>
+				</div>				
+			</div>
 		</div>
 		<component v-bind:is="tcZj"  :datad="tcData"></component>
 	</div>
@@ -60,6 +93,7 @@ export default {
 	mounted: function(){
 		this.init();
 		this.backtims();
+		console.log(this.$route.path)
 	}, 
 	watch: {		
 		'elm': function() {
@@ -113,7 +147,7 @@ export default {
 				
 				
 				if(this.deta.is_de){
-					this.tips = '<div class="backdse pr_cent2_r2_2">你已延期'+this.deta.delay_time.d+'天'+this.deta.delay_time.h+'小时，请尽快完成</div>';
+					this.tips = '<div class="backdse pr_cent2_r2_4">你已延期'+this.deta.delay_time.d+'天'+this.deta.delay_time.h+'小时，请尽快完成</div>';
 					return
 				}
 		
@@ -130,7 +164,7 @@ export default {
 				this.btns = [
 					{n:'稿件撤回',fn:'qxGj'}
 				];
-				this.tips = '<div class="backdse pr_cent2_r2_2">稿件已提交，请等待验收审核</div>';
+				this.tips = '<div class="backdse pr_cent2_r2_3">稿件已提交，请等待验收审核</div>';
 				return
 			}
 			if(this.deta.status==5){
@@ -205,7 +239,7 @@ export default {
 </script>
 
 <style>
-.pr_cent2_1{
+/* .pr_cent2_1{
 	position: relative;
 	width:600px;
 	height:212px;
@@ -343,5 +377,187 @@ export default {
 .pr_cent2_11>div{
 	margin: 0;
 	margin-right: 10px;
+} */
+.pr_cent2_1{
+	position: relative;
+	width:640px;
+	height:354px;
+	background:rgba(255,255,255,1);
+	border-radius:5px;
+}
+.pr_cent2_2{
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	overflow: hidden;
+	width:640px;
+	height:240px;
+	border-radius:5px 5px 5px 5px;
+}
+.pr_cent2_3{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.pr_cent2_4{
+	display: inline-block;
+	vertical-align: top;
+	width:640px;
+}
+.pr_cent2_5{
+	cursor: pointer;
+	width:60%;
+	float: left;
+
+}
+.pr_cent2_6{
+	font-size:16px;
+	color:rgba(40,40,40,1);
+	line-height:22px;
+	margin-bottom: 10px;
+	width: 220px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-left: 10px;
+	margin-top: 15px;
+}
+.pr_cent2_7,.pr_cent2_8{
+	font-size:12px;
+	color:rgba(187,187,187,1);
+	padding-left: 10px;
+	
+}
+.pr_cent2_7{
+	margin-bottom: 4px;
+	line-height:18px;
+}
+.pr_cent2_7>i {
+    display: inline-block;
+    vertical-align: top;
+    margin: 3px 20px;
+    width: 1px;
+    height: 12px;
+    background: rgba(216,216,216,.3);
+}
+.pr_cent2_8{margin-bottom: 20px;line-height:22px;}
+.pr_cent2_8>span{
+	display: inline-block;vertical-align: top;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	padding: 0 8px;
+	height: 22px;
+	background:rgba(244,246,249,1);
+	border-radius:5px;
+}
+.pr_cent2_rs{
+	position: absolute;
+    right: 5px;
+    top: 5px;
+    padding: 1px 8px;
+	background:rgba(0,0,0,.5);
+	border-radius:3px;
+	font-size:12px;
+	color:rgba(255,255,255,1);
+	line-height:20px;
+}
+.pr_cent2_r2{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height:32px;
+	
+	
+}
+.pr_cent2_r2>div{
+	border-radius:0px 0px 5px 5px;
+	text-align: center;	
+	line-height:32px;
+	height: 100%;
+	width: 100%;
+}
+
+.backdse{
+	background:rgba(0,0,0,.7);
+}
+.pr_cent2_r2_1{		
+	font-size:12px;
+	color:rgba(255,255,255,.7);		
+	background: #33B3FF;
+}
+.pr_cent2_r2_1>span{
+	margin-right: 4px;
+}
+.pr_cent2_r2_1>span>span{
+	font-family: PingFang SC Medium;
+	font-size: 16px;
+	margin:0 1px;
+	color:rgba(255,255,255,1);
+}
+.pr_cent2_r2_2{
+	font-size:14px;
+	color:rgba(255,255,255,1);
+}
+.pr_cent2_r2_3{
+	font-size:14px;
+	color:rgba(255,255,255,1);
+	background: #FF9200;
+}
+.pr_cent2_r2_4{
+	font-size:14px;
+	color:rgba(255,255,255,1);
+	background: #FF3B30;
+}
+.pr_cent2_js{
+	position: absolute;
+    bottom: 80px;
+    right: 5px;
+    width: 98px;
+	
+}
+.pr_cent2_10{
+	height:18px;
+	font-size:12px;
+	color:rgba(187,187,187,1);
+	line-height:22px;
+	padding-left: 10px;
+	margin-top: 15px;
+}
+.pr_cent2_10>span{
+	font-size:14px;
+	color:#FF9300;
+}
+.pr_cent2_10>span.csyaswz_01{
+	font-size:16px;
+	color: #33B3FF;
+}
+.pr_cent2_11>div{
+	margin: 0;
+	margin-right: 10px;
+}
+.pr_cent2_9{
+	width: 40%;
+	float: right;
+}
+.pr_cent2_11{
+	margin-top: 65px;
+}
+.pr_cent2_11 > ul > li{
+	display: inline-block;
+	width: 100px;
+}
+.pr_cent2_status{
+	position: absolute;
+    top: 10px;
+	left: 10px;
+    width: 80px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+	border-radius: 5px;
+	font-weight:600;
+	font-size: 16px;
 }
 </style>

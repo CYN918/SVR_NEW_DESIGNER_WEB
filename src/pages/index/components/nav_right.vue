@@ -2,8 +2,10 @@
     <div class="nav_rig">
         <ul>
             <li class="nav_logo"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
-            <li class="nav_upload" @click="upload()"><img :src="imgSig+'newHome/upload.svg'" alt=""/><p>上传作品</p></li>
-            <li class="nav_tolt" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning.svg'" alt=""/><p>去赚钱</p></li>
+            <li class="nav_upload" v-if="uploadShow" @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'newHome/upload.svg'" alt=""/><p>上传作品</p></li>
+            <li class="nav_upload" v-else @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'newHome/bar_icon_upload.svg'" alt=""/><p>上传作品</p></li>
+            <li class="nav_tolt" v-if="totalShow" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning-black.svg'" alt=""/><p>去赚钱</p></li>
+            <li class="nav_tolt" v-else @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning-money.svg'" alt=""/><p>去赚钱</p></li>
             <li class="nav_weixin" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')"><img :src="imgSig+'newHome/icon-ewm-small.png'" alt=""/><p>微信公众号</p></li>
             <li class="nav_weibo" @click="go_weibo()">官方微博</li>
             <li class="nav_top" @click="go_top()" v-if="isShow">TOP</li>
@@ -24,6 +26,8 @@ export default {
     data(){
         return {
             isShow:false,
+            uploadShow:true,
+            totalShow:true,
         }
     },
     mounted: function(){
@@ -56,27 +60,35 @@ export default {
                 document.getElementsByClassName('nav_tolt_hover')[0].style.display = 'block'
                 document.getElementsByClassName('nav_tolt')[0].style.background = '#33B3FF'
                 document.getElementsByClassName('nav_tolt')[0].style.color = '#ffffff'
+                this.totalShow = false;
             }
             if(type == 'a'){
                 document.getElementsByClassName('nav_weixin_hover')[0].style.display = 'block'
-                document.getElementsByClassName('nav_weixin')[0].style.background = '#33B3FF'
-                document.getElementsByClassName('nav_weixin')[0].style.color = '#ffffff'
-            }    
+            }  
+            if(type == 'c'){
+                document.getElementsByClassName('nav_upload')[0].style.background = '#33B3FF'
+                document.getElementsByClassName('nav_upload')[0].style.color = '#ffffff'
+                this.uploadShow = false;
+            }  
         },
         mouseLeave(type){
             if(type == 'd'){
                 document.getElementsByClassName('nav_tolt_hover')[0].style.display = 'none'
                 document.getElementsByClassName('nav_tolt')[0].style.background = '#FFFFFF'
                 document.getElementsByClassName('nav_tolt')[0].style.color = '#1E1E1E'
+                this.totalShow = true;
             } 
             if(type == 'a'){
                 document.getElementsByClassName('nav_weixin_hover')[0].style.display = 'none'
-                document.getElementsByClassName('nav_weixin')[0].style.background = '#FFFFFF'
-                document.getElementsByClassName('nav_weixin')[0].style.color = '#1E1E1E'
-            }  
+            } 
+            if(type == 'c'){
+                document.getElementsByClassName('nav_upload')[0].style.background = '#FFFFFF'
+                document.getElementsByClassName('nav_upload')[0].style.color = '#1E1E1E'
+                this.uploadShow = true;
+            } 
         },
         go_tolt(){
-            this.$router.push({path:'/tolt/toluser'});
+            this.$router.push({path:'/tolt'});
         },
         upload(){
             this.$router.push({path:'/upload'});
@@ -116,8 +128,8 @@ export default {
     margin-top: 15px;
 }
 .nav_weixin{
-    width: 91.53px;
-    height: 92px;
+    width: 93.53px;
+    height: 94px;
     border: 1px solid #0066B4;
 	border-radius: 5px;
     margin-top: 4px;
@@ -127,14 +139,13 @@ export default {
 }
 .nav_weixin > img{
     margin-top: 10px;
-    border: 1px #0066B4 dashed;
 }
 .nav_rig > ul > li{
 	width: 93.53px;
 	text-align: center;
     cursor: pointer;
 }
-.nav_upload:hover,.nav_tolt:hover,.nav_weixin:hover,.nav_rig > ul .nav_weibo:hover,.nav_rig > ul .nav_top:hover{
+.nav_rig > ul .nav_weibo:hover,.nav_rig > ul .nav_top:hover{
     background: #33B3FF;
     color: #ffffff;
 }
@@ -180,7 +191,7 @@ export default {
     height: 240px;
     position: fixed;
     right: 294px;
-    top: 634px;
+    top: 635px;
     border: 1px solid #33B3FF;
     border-radius: 5px;
     background: #FFFFFF;
@@ -189,7 +200,6 @@ export default {
     cursor: pointer;
 }
 .nav_weixin_hover > img{
-    border: 1px #0066B4 dashed;
     margin-top: 15px;
 }
 .nav_weixin_hover > p{
