@@ -27,9 +27,11 @@
 			
 			<div class="pr_bg_04">
 				<div class="pr_bg_04_1">价格计算详情</div>
-				<div class="pr_bg_04_2">成交价格=验收价格+额外奖金-延期交稿+收益加成<br/>¥ 1,284.00 = ¥ 1,140.00 + ¥ 500.00 - ¥ 228.00</div>
-				<div class="pr_bg_04_3">
-					<div>
+				<!-- <div class="pr_bg_04_2">成交价格=验收价格+额外奖金-延期交稿+收益加成<br/>¥ 1,284.00 = ¥ 1,140.00 + ¥ 500.00 - ¥ 228.00</div> -->
+				<div class="pr_bg_04_2" v-if="das.deal_type == '1'">成交价格=验收价格+收益加成<br/>¥ 1,640.00 = ¥ 1,140.00 + ¥ 500.00</div>
+				<div class="pr_bg_04_2" v-if="das.deal_type == '2' || das.deal_type == '3'">分成收益=渠道曝光数量*渠道分成单价*(100%+收益加成比%)<br/>每个月内出上个月收益结果,因各渠道方结算周期不固定,请耐心等待</div>
+				<div class="pr_bg_04_3" v-if="das.deal_type == '1'">
+					<!-- <div>
 						<div class="pr_bg_04_3_1">验收价格</div>
 						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.acceptance_price)}}</div>
 					</div><div v-if="das.extra_reward && das.extra_reward!='0.00'">
@@ -43,10 +45,23 @@
 						<div class="pr_bg_04_3_1">{{das.gain_share_rate}} 收益加成</div>
 						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.gain_share_price)}}</div>
 						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg">
+					</div> -->
+					<div>
+						<div class="pr_bg_04_3_1">验收价格</div>
+						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.acceptance_price)}}</div>
+					</div>
+					
+					<div v-if="das.gain_share_price && das.gain_share_price!='0.00'">
+						<div class="pr_bg_04_3_1">{{das.gain_share_rate}} 收益加成</div>
+						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.gain_share_price)}}</div>
+						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg">
 					</div>
 					
 					
 					
+				</div>
+				<div class="pr_bg_04_3" v-if="das.deal_type == '2' || das.deal_type == '3'">
+					<button class="proportion" @click="go_profit()">查看分成收益明细</button>	
 				</div>
 				<div class="pr_bg_04_4">
 					<div @click="back()" class="btns pend">返回</div>
@@ -77,6 +92,9 @@ export default {
 		this.init();
 	}, 
 	methods: {	
+		go_profit(){
+			this.$router.push({path:'/profit'})
+		},
 		backf(on){
 			return on==1?'买断式':'分成式';
 		},
@@ -282,7 +300,7 @@ export default {
 .pr_bg_03_2_2{
 	font-size:48px;
 	font-weight:600;
-	color:#33B3FF;
+	color:#FBB026;
 	line-height:34px;
 	margin-bottom: 57px;
 }
@@ -338,7 +356,7 @@ export default {
 .pr_bg_04_3_2{
 	font-size:24px;
 	font-weight:600;
-	color:#33B3FF;
+	color:#FF9200;
 	line-height:34px;
 }
 .pr_bg_04_3_3{
@@ -369,5 +387,16 @@ export default {
 }
 .cen_tiop_01.newd2>div{
 	padding: 30px 0;
+}
+.proportion{
+	width: 140px;
+	height: 40px;
+	border: none;
+	outline: none;
+	background: #33B3FF;
+	color: #ffffff;
+	font-size: 14px;
+	border-radius: 5px;
+	cursor: pointer;
 }
 </style>

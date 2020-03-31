@@ -47,7 +47,11 @@
 				<div class="pr_cent2_10" v-html="tip"></div>
 				<!-- <div class="pr_cent2_8">领域范围：<span v-for="(ed,index) in deta.fields">{{ed}}</span></div>	 -->
 			</div>
-			<div class="pr_cent2_9">				
+			<div class="pr_cent2_9">
+				<div style="width:100%;height:50px;">
+					<div v-if="deta.settlement == '1'" class="md">买断</div>	
+				    <div v-if="deta.settlement == '2'" class="fc">分成</div>	
+				</div>			
 				<div class="pr_cent2_11">
 					<ul>
 						<li v-for="(els,index) in btns" @click="ckd(els.fn)" :class="['btns pend',els.cls]">{{els.n}}</li>
@@ -542,10 +546,36 @@ export default {
 	float: right;
 }
 .pr_cent2_11{
-	margin-top: 65px;
+	margin-top: 15px;
+}
+.fc{
+	width: 80px;
+	height: 32px;
+	line-height: 32px;
+	text-align: center;
+	background:#efffe5;
+    border-radius:16px;
+	color: #4DC600;
+	font-size: 14px;
+	margin-top: 15px;
+    float: right;
+    margin-right: 15px;
+}
+.md{
+	width: 80px;
+	height: 32px;
+	line-height: 32px;
+	text-align: center;
+	background:#e5f5ff;
+    border-radius:16px;
+	color: #33B3FF;
+	font-size: 14px;
+	margin-top: 15px;
+    float: right;
+    margin-right: 15px;
 }
 .pr_cent2_11 > ul > li{
-	display: inline-block;
+	float: right;
 	width: 100px;
 }
 .pr_cent2_status{

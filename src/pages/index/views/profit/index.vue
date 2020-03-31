@@ -468,10 +468,10 @@ export default {
 	margin-bottom: 14px;
 }
 .sytc_2>div.sydpjcOn{
-	color: #33B3FF;
+	color: #FF9200;
 }
 .sytc_2>div.sydpjcOn~div{
-	color:rgba(51,51,51,1);
+	color:#BBBBBB;
 }
 .sytc_1_n1{
 	font-size:16px;

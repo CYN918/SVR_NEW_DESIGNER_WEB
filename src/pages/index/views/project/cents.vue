@@ -59,7 +59,7 @@
 		</div>
 		
 		<tipd  :tipCent="csff" :style="sfas" ref="csdf"></tipd>
-		<component v-bind:is="tcZj"  :datad="tcData"></component>
+		<component v-bind:is="tcZj"  :datad="tcData" :expected_profit="deta.expected_profit"></component>
 		
 		
 		<topGd v-if="topTyped==1 && deta.status==1" :obj="pzTop" ref="topGd"></topGd>
