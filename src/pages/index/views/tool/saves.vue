@@ -5,7 +5,7 @@
 				<span class="a">来电秀信息填写</span><img @click="close()" class="pend b" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg">
 			</div>
 			<div class="mp3_01x_2">
-				<div class="sa_a_01"></div>
+				
 				<div class="sa_a_02">
 					<div>
 						<div class="ldx_sav_2_1">来电秀名称</div>
@@ -182,7 +182,7 @@ export default{
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-	width:834px;	
+
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
 	border-radius:5px;	

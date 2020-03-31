@@ -4,8 +4,8 @@
 			媒体库<span>请上传图片、MP4格式（视频大小10MB以内，视频上传后自动处理为无声）</span>
 		</div>		
 		<ul class="setMt_03">
-			<li ref="dwyd">
-				<span @click="push" class="setMtUp">
+			<li ref="dwyd" @click="push" class="rsc_002">
+				<span  class="setMtUp">
 					<img src="\imge\new\tools\n/up.svg">
 					上传视频/图片
 				</span>				
@@ -21,7 +21,7 @@
 					</div>
 					<div  class="setMt_03_01" v-else>
 						<img v-if="" :src="el.cover_img?el.cover_img:el.url">
-						<span class="tim_013" v-if="el.play_time">{{el.play_time}}</span>
+						<span class="tim_013" v-if="el.play_time">{{backtio(el.play_time)}}</span>
 					</div>
 					
 					<div @click="checkV(el)" class="tim_xz">+</div>
@@ -72,6 +72,15 @@ export default{
 		
 	}, 		
 	methods:{
+		backtio(t){
+			console.log(t);
+			var f='00',s;
+			if(t>60){
+				f = Math.round(t/60);
+			}
+			s = Math.round(t%60);
+		return f+':'+s;
+		},
 		fileTotalSummary(){
 			this.api.fileTotalSummary({
 				relation_type:'mobile_show'
@@ -595,5 +604,8 @@ export default{
 }
 .setMt_03 li:hover .tim_xzsx{
 	display: block;
+}
+.rsc_002{
+	cursor: pointer;
 }
 </style>

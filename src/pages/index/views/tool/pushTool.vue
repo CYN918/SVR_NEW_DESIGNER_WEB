@@ -47,8 +47,8 @@
 					ref="aido"></audio>
 					<div class="ntob_cent_l_2">
 						<div class="ntob_cent_l_2_1">
-							预览比例<span class="bl_000" @click="showCc">
-								{{cun[vdcc].n}}
+							<img class="ntob_cent_l_2_1x" src="/imge/tools/v_size.svg">预览比例<span class="bl_000" @click="showCc">
+								{{cun[vdcc].n}}<div class="mx_dsj"></div>
 								<div v-if="isCc" class="bl_001">
 									<span @click="qhcc(index)" v-for="(el,index) in cun" :class="index==vdcc?'cek':''">{{el.n}}</span>									
 								</div>
@@ -64,9 +64,9 @@
 						</div>
 						<div class="ntob_cent_l_2_3">
 							<span @click="showCc2" class="bl_000" >
-								{{cun2[vdcc2]}}
+								{{cun2[vdcc2]}}<div class="mx_dsj"></div>
 								<div v-if="isCc2" class="bl_001">
-									<span @click="qhcc2(index)" v-for="(el,index) in cun2" :class="index==vdcc2?'cek':''">{{el}}</span>									
+									<span  @click="qhcc2(index)" v-for="(el,index) in cun2" :class="['cds',index==vdcc2?'cek':'']">{{el}}</span>									
 								</div>
 							</span>	
 							<el-switch
@@ -349,7 +349,7 @@ export default{
 			setTimeout(()=>{
 				this.isCc2='';
 			},50)
-			this.isld = 1;
+			
 		},
 		clickfn(fn){
 			if(!this[fn]){
@@ -1495,12 +1495,14 @@ margin-left: 121px;
 .bl_000{
 	position: relative;
 	cursor: pointer;
+	padding-right: 26px;
 }
 .bl_001{
     position: absolute;
-    bottom: 23px;
+    top: 23px;
+	z-index: 9;
     left: -6px;
-	width:59px;
+	min-width:59px;
 	padding: 8px 0;
 	text-align: center;
 	height:72px;
@@ -1516,6 +1518,9 @@ margin-left: 121px;
 	font-size:14px;
 	color:rgba(51,51,51,1);
 	line-height:36px;
+}
+.bl_001>span.cds{
+	width: 77px;
 }
 .bl_001>span.cek{
 	background:rgba(51,179,255,.1);
@@ -1698,5 +1703,22 @@ margin-left: 121px;
 }
 .ckin>div{
 	transform: translateX(-85px);
+}
+.mx_dsj{
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #BBBBBB;
+    position: absolute;
+    top: 8px;
+    right: 9px;
+    border-radius: 2px;
+}
+.ntob_cent_l_2_1x{
+	display: inline-block;
+	vertical-align: top;
+	margin: 2px 2px 0 0;
+	width: 16px;
 }
 </style>
