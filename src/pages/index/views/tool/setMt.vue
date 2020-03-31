@@ -4,8 +4,8 @@
 			媒体库<span>请上传图片、MP4格式（视频大小10MB以内，视频上传后自动处理为无声）</span>
 		</div>		
 		<ul class="setMt_03">
-			<li ref="dwyd">
-				<span @click="push" class="setMtUp">
+			<li ref="dwyd" @click="push" class="rsc_002">
+				<span  class="setMtUp">
 					<img src="\imge\new\tools\n/up.svg">
 					上传视频/图片
 				</span>				
@@ -21,7 +21,7 @@
 					</div>
 					<div  class="setMt_03_01" v-else>
 						<img v-if="" :src="el.cover_img?el.cover_img:el.url">
-						<span class="tim_013" v-if="el.play_time">{{el.play_time}}</span>
+						<span class="tim_013" v-if="el.play_time">{{backtio(el.play_time)}}</span>
 					</div>
 					
 					<div @click="checkV(el)" class="tim_xz">+</div>
@@ -72,6 +72,15 @@ export default{
 		
 	}, 		
 	methods:{
+		backtio(t){
+			console.log(t);
+			var f='00',s;
+			if(t>60){
+				f = Math.round(t/60);
+			}
+			s = Math.round(t%60);
+		return f+':'+s;
+		},
 		fileTotalSummary(){
 			this.api.fileTotalSummary({
 				relation_type:'mobile_show'
@@ -87,6 +96,7 @@ export default{
 			this.istype = '';
 		},
 		delt(el,index){
+			
 			if(this.deldetType==1){
 				this.$message({
 					message:'正在删除请稍后'
@@ -96,6 +106,7 @@ export default{
 			this.istype = {data:el,on:index};
 		},
 		checkV(el){
+		
 			let pr = {
 				x:0,y:0,w:0,h:0,sx:0,sy:0,sw:0,sh:0,
 				yw:0,yh:0,
@@ -159,9 +170,9 @@ export default{
 					}
 									
 					this.value.maxTime = +pr.long+this.value.maxTime;
-					this.value.media.push(pr);	
+					this.value.media.push(pr);						
 					if(!ond){
-						this.$parent.setvideo(el.url);
+						this.$parent.drmImgs();
 					}
 				};
 		
@@ -191,8 +202,9 @@ export default{
 					if(this.value.maxTime<maxt){
 						this.value.maxTime = maxt;
 					}	
-					console.log(this.value.maxTime);
+					
 					this.value.media.push(pr);	
+					
 					if(!ond){
 						this.$parent.setvideo(el.url);
 					}
@@ -226,6 +238,7 @@ export default{
 			formData.append('user',window.userInfo.open_id)
 			formData.append('fid',el.fid)
 			formData.append('timestamp',times)
+			formData.append('mobile_show',1)
 			this.deldetType=1;
 			this.$ajax.post(window.basrul+'/File/File/delete', formData)
 			.then((da)=>{
@@ -367,14 +380,16 @@ export default{
 					let da = daaa.data;
 					p.type='ko';
 					p.url = da.url;
+					p.file_type = da.file_type;
+					p.fid = da.fid;
 					if(da.cover_img){
 						p.cover_img = da.cover_img;
 						p.fps_pic = da.fps_pic;
-						p.fid = da.fid;
+						
 						p.play_time = da.play_time;
-						p.fps = da.fps;
-						p.file_type = da.file_type;
-					}							
+						p.fps = da.fps;						
+					}	
+					this.$refs.upnfile.value ='';
 					this.$message({message: '文件上传成功'});
 				}				
 			};
@@ -477,6 +492,7 @@ export default{
 	vertical-align: top;
 	width:180px;
 	height:100px;
+	overflow: hidden;
 	background:rgba(40,40,40,1);
 	border-radius:10px;
 	margin: 0 16px 16px 0;
@@ -588,5 +604,8 @@ export default{
 }
 .setMt_03 li:hover .tim_xzsx{
 	display: block;
+}
+.rsc_002{
+	cursor: pointer;
 }
 </style>

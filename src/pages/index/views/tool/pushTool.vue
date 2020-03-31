@@ -47,8 +47,8 @@
 					ref="aido"></audio>
 					<div class="ntob_cent_l_2">
 						<div class="ntob_cent_l_2_1">
-							预览比例<span class="bl_000" @click="showCc">
-								{{cun[vdcc].n}}
+							<img class="ntob_cent_l_2_1x" src="/imge/tools/v_size.svg">预览比例<span class="bl_000" @click="showCc">
+								{{cun[vdcc].n}}<div class="mx_dsj"></div>
 								<div v-if="isCc" class="bl_001">
 									<span @click="qhcc(index)" v-for="(el,index) in cun" :class="index==vdcc?'cek':''">{{el.n}}</span>									
 								</div>
@@ -56,17 +56,17 @@
 						</div>
 						<div class="ntob_cent_l_2_2">
 							<span @click="playsx" class="an_sx_01">
-								<img src="/imge/tools/v_v0.svg"/>
+								<img src="/imge/tools/v_sx.svg"/>
 							</span><span @click="playAll" class="an_bf_01">
-								<img src="/imge/tools/v_v1.svg"/>
+								<img src="/imge/tools/v_play.svg"/>
 							</span>
-							<span>00:00:00:00</span> / <span class="tme_091">00:00:30:00</span>							
+							<span>00:00:00</span> / <span class="tme_091">00:00:30</span>							
 						</div>
 						<div class="ntob_cent_l_2_3">
 							<span @click="showCc2" class="bl_000" >
-								{{cun2[vdcc2]}}
+								{{cun2[vdcc2]}}<div class="mx_dsj"></div>
 								<div v-if="isCc2" class="bl_001">
-									<span @click="qhcc2(index)" v-for="(el,index) in cun2" :class="index==vdcc2?'cek':''">{{el}}</span>									
+									<span  @click="qhcc2(index)" v-for="(el,index) in cun2" :class="['cds',index==vdcc2?'cek':'']">{{el}}</span>									
 								</div>
 							</span>	
 							<el-switch
@@ -79,7 +79,10 @@
 				</div>
 				<div class="ntob_cent_r">
 					<div class="ntob_cent_r_1">
-						<span @click="qhNav(index,el.zj)" v-for="(el,index) in navs" :class="navson==index?'ckin':''"><img v-if="el.icon" :src="'/imge/new/tools/n/'+el.icon">{{el.n}}</span>
+						<span @click="qhNav(index,el.zj)" v-for="(el,index) in navs" :class="navson==index?'ckin':''">
+							<div class="con-right-iocn-img">
+								　　<img class="icon con-right-iocn-img" :src="'/imge/tools/'+el.icon"/>
+								</div>{{el.n}}</span>
 					</div>
 					<div class="ntob_cent_r_2">
 						<component v-bind:is="navcoms.zj" v-model="navcoms" ref="vid"></component>						
@@ -89,6 +92,11 @@
 			<div class="ntob_footer">
 				<div class="ntob_footer_1">
 					<div class="ntob_footer_1_1"></div>
+					<div class="ntob_footer_1_2">
+						<div><img src="/imge/tools/t_sp.svg"/> 媒体</div>
+						<div><img src="/imge/tools/t_yy.svg"/>音频</div>
+						<div><img src="/imge/tools/t_zs.svg"/>装饰</div>
+					</div>
 				</div>
 				<div class="ntob_footer_2" ref="gdbox">
 					<div :style="bal()" class="tlo_box">
@@ -169,13 +177,8 @@
 						<div @click="clickfn(istype.btnfn)" class="btns btns_js pend">{{istype.btnn}}</div>										
 					</div>
 				</div>
-			</div>
-			
+			</div>			
 		</div>
-		
-		
-		
-		
 	</div>
 	
 </template>
@@ -222,8 +225,8 @@ export default{
 			},
 			navson:0,
 			navs:[
-				{n:'媒体',icon:'icon_mt_video_pre.svg',zj:'setMt'},
-				{n:'音乐',icon:'icon_yy.svg',zj:'mp3List'}
+				{n:'媒体',icon:'nav_sp_ac.svg',zj:'setMt'},
+				{n:'音乐',icon:'nav_yy.svg',zj:'mp3List'}
 			],
 			navcoms:{
 				zj:'setMt',
@@ -276,6 +279,7 @@ export default{
 				y:0
 			},
 			bl:1,
+			ht:'',
 		}
 	},
 	mounted: function () {
@@ -340,7 +344,7 @@ export default{
 			setTimeout(()=>{
 				this.isCc2='';
 			},50)
-			this.isld = 1;
+			
 		},
 		clickfn(fn){
 			if(!this[fn]){
@@ -404,7 +408,7 @@ export default{
 				e.cancelBubble = false;
 			}
 			if(this.checkDOmx){
-				if(el.fid+on!=this.checkDOmx.fid){
+				if(el.fid+on!=this.checkDOmx.fidjl){
 					this.checkDOmx.ischeck = '';
 				}
 			}
@@ -413,8 +417,8 @@ export default{
 				return
 			}			
 			el.ischeck = 1;		
-			this.checkDOmx = el;		
-			this.checkDOmx.fid = this.checkDOmx.fid+on;
+			this.checkDOmx = el;				
+			this.checkDOmx.fidjl = this.checkDOmx.fid+on;
 
 		},
 		jlx2(e){
@@ -771,7 +775,7 @@ export default{
 			}
 			
 		},
-		drmImg(){
+		drmImgs(){
 			let ob = this.navcoms.media[this.bfon];
 			this.cans.fillStyle="#000";
 			this.cans.fillRect(0,0,391,695);
@@ -781,7 +785,19 @@ export default{
 			a.onload = ()=>{
 				this.cans.drawImage(a,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);				
 			}			
-			setTimeout(()=>{
+		},
+		drmImg(){
+			let ob = this.navcoms.media[this.bfon];
+			this.cans.fillStyle="#000";
+			this.cans.fillRect(0,0,391,695);
+			
+			var a = document.createElement('img');
+			a.src=ob.file_url;
+			a.onload = ()=>{
+				this.cans.drawImage(a,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);				
+			}
+			clearTimeout(this.ht);
+			this.ht = setTimeout(()=>{
 				this.endeds();
 			},5000)
 			
@@ -789,12 +805,16 @@ export default{
 		playsx(){
 			if(this.navcoms.media.length==0){
 				return			
-			}			
+			}
 			this.islast='';
 			this.audioLast='';
 			this.audiosOn=0;
 			this.bfon=0;
-			this.playVid('sx');
+			if(this.navcoms.media[this.bfon].type=='pic'){
+				this.drmImg();
+				return
+			}						
+			this.playVid('sx');			
 			this.playAio('sx');
 		},
 		playVid(a){
@@ -833,19 +853,30 @@ export default{
 		},
 		
 		playAll(){
+			if(this.islast){
+				this.islast='';
+				this.bfon=0;
+				this.audioLast='';
+				this.audiosOn=0;
+			}
+			if(this.navcoms.media[this.bfon].type=='pic'){
+				this.drmImg();
+				return
+			}
 			if(this.$refs.vids.paused){
-				if(this.islast){
-					this.islast='';
-					this.bfon=0;
-					this.audioLast='';
-					this.audiosOn=0;
-				}
+				
 				this.playAio();
 				this.playVid();
 				return
 			}
-			this.$refs.vids.pause();
-			this.$refs.aido.pause();
+			
+			if(this.$refs.vids){
+				this.$refs.vids.pause();
+			}
+			if(this.$refs.aido){
+				this.$refs.aido.pause();
+			}
+			
 		},
 		init(){
 			let onk = '';
@@ -1087,6 +1118,7 @@ margin-left: 121px;
 	font-weight:400;
 	color:rgba(153,153,153,1);
 	line-height:42px;
+	overflow: hidden;
 }
 .ntob_cent_r_1>span.ckin,.ntob_cent_r_1>span:hover{
 	background: rgba(51,179,255,.1);
@@ -1360,8 +1392,9 @@ margin-left: 121px;
 	margin-right: 16px;
 }
 .an_sx_01>img,.an_bf_01>img{
+	cursor: pointer;
 	display: block;
-	width: 100%;
+	width: 18px;
 }
 .an_bf_01{
 	margin-right: 16px;
@@ -1457,12 +1490,14 @@ margin-left: 121px;
 .bl_000{
 	position: relative;
 	cursor: pointer;
+	padding-right: 26px;
 }
 .bl_001{
     position: absolute;
-    bottom: 23px;
+    top: 23px;
+	z-index: 9;
     left: -6px;
-	width:59px;
+	min-width:59px;
 	padding: 8px 0;
 	text-align: center;
 	height:72px;
@@ -1478,6 +1513,9 @@ margin-left: 121px;
 	font-size:14px;
 	color:rgba(51,51,51,1);
 	line-height:36px;
+}
+.bl_001>span.cds{
+	width: 77px;
 }
 .bl_001>span.cek{
 	background:rgba(51,179,255,.1);
@@ -1611,5 +1649,71 @@ margin-left: 121px;
 	width: 62px;
 	bottom: 133px;
 	right: 53px;
+}
+.ntob_footer_1_2>div{
+	margin-bottom: 3px;
+	font-size:14px;
+	color:rgba(51,51,51,1);
+	
+}
+.ntob_footer_1_2>div>img{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 8px;
+	width: 18px;
+}
+.ntob_footer_1_2>div:nth-child(1){
+	line-height: 72px;
+	
+}
+.ntob_footer_1_2>div:nth-child(1)>img{
+	margin-top: 27px;
+}
+.ntob_footer_1_2>div:nth-child(2){
+	line-height: 32px;
+}
+.ntob_footer_1_2>div:nth-child(2)>img{
+	margin-top: 7px;
+}
+.ntob_footer_1_2>div:nth-child(3){
+	line-height: 72px;
+}
+.ntob_footer_1_2>div:nth-child(3)>img{
+	margin-top: 27px;
+}
+
+.con-right-iocn-img {
+	display: inline-block;
+	vertical-align: initial;
+	width: 18px;
+	margin-right: 8px;
+}
+.con-right-iocn-img > .icon {
+	position: relative;
+	left: 0;
+	color: rgba(51,179,255,1);
+	-webkit-filter: drop-shadow(89px 0);
+	filter: drop-shadow(89px 0);
+	border-right: 34px solid transparent;
+}
+.ckin>div{
+	transform: translateX(-85px);
+}
+.mx_dsj{
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #BBBBBB;
+    position: absolute;
+    top: 8px;
+    right: 9px;
+    border-radius: 2px;
+}
+.ntob_cent_l_2_1x{
+	display: inline-block;
+	vertical-align: top;
+	margin: 2px 2px 0 0;
+	width: 16px;
 }
 </style>
