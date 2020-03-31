@@ -60,7 +60,7 @@
 							</span><span @click="playAll" class="an_bf_01">
 								<img src="/imge/tools/v_play.svg"/>
 							</span>
-							<span>00:00:00:00</span> / <span class="tme_091">00:00:30:00</span>							
+							<span>00:00:00</span> / <span class="tme_091">00:00:30</span>							
 						</div>
 						<div class="ntob_cent_l_2_3">
 							<span @click="showCc2" class="bl_000" >
@@ -177,13 +177,8 @@
 						<div @click="clickfn(istype.btnfn)" class="btns btns_js pend">{{istype.btnn}}</div>										
 					</div>
 				</div>
-			</div>
-			
+			</div>			
 		</div>
-		
-		
-		
-		
 	</div>
 	
 </template>
@@ -413,7 +408,7 @@ export default{
 				e.cancelBubble = false;
 			}
 			if(this.checkDOmx){
-				if(el.fid+on!=this.checkDOmx.fid){
+				if(el.fid+on!=this.checkDOmx.fidjl){
 					this.checkDOmx.ischeck = '';
 				}
 			}
@@ -422,8 +417,8 @@ export default{
 				return
 			}			
 			el.ischeck = 1;		
-			this.checkDOmx = el;		
-			this.checkDOmx.fid = this.checkDOmx.fid+on;
+			this.checkDOmx = el;				
+			this.checkDOmx.fidjl = this.checkDOmx.fid+on;
 
 		},
 		jlx2(e){

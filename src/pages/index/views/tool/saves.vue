@@ -115,6 +115,7 @@ export default{
 			}
 		},
 		tijF(){
+
 			if(this.ajaxType){
 				this.$message({
 					message:'正在处理请稍后',
