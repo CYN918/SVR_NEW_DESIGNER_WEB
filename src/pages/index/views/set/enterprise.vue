@@ -630,6 +630,7 @@ export default {
 				type:2,
 				company_name:this.postData.company_name,
 				code:this.postData.code,
+				address:this.postData.address,
 				business_license:this.postData.business_license,
 				opening_permit:this.postData.opening_permit,
 				tax_rate_type:this.postData.tax_rate_type,

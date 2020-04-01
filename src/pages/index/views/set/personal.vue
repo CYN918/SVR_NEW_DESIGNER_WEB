@@ -142,17 +142,7 @@
 									上传照片
 									<uploadFile :setJdt="setJdt4" :sussFn="uploadSC4" :cg="fileConfig"></uploadFile>
 								</span>
-								<!-- <div class="suc_1_9_4 iconfont" @click="scsk('银行卡正面照片？')">&#xe65c;
-									<div class="suc_1_9_5">
-										<div class="suc_1_9_6">
-											<div class="suc_1_9_9">证件上传示例</div>
-											<div class="suc_1_9_8"><span></span>四角完整</div>
-											<div class="suc_1_9_8"><span></span>亮度均匀</div>
-											<div class="suc_1_9_8"><span></span>照片清晰</div>
-										</div>
-										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/sfz_sc.svg" alt="">
-									</div>
-								</div> -->
+								
 							</div>
 						</div>
 						<div class="suc_1_10">
@@ -171,17 +161,7 @@
 									上传照片
 									<uploadFile :setJdt="setJdt5" :sussFn="uploadSC5" :cg="fileConfig"></uploadFile>
 								</span>
-								<!-- <div class="suc_1_9_4 iconfont" @click="scsk('银行卡背面照片？')">&#xe65c;
-									<div class="suc_1_9_5">
-										<div class="suc_1_9_6">
-											<div class="suc_1_9_9">证件上传示例</div>
-											<div class="suc_1_9_8"><span></span>四角完整</div>
-											<div class="suc_1_9_8"><span></span>亮度均匀</div>
-											<div class="suc_1_9_8"><span></span>照片清晰</div>
-										</div>
-										<img class="suc_1_9_7" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/sfz_sc.svg" alt="">
-									</div>
-								</div> -->
+								
 							</div>
 						</div>
 						<div class="suc_1_10">
@@ -353,6 +333,13 @@ export default {
 		'postData.address'(){
 			this.checkPost();
 		},
+		'postData.address'(){
+			this.checkPost();
+		},
+		
+		'postData.bank_card_back'(){
+			this.checkPost();
+		},
 		'postData.front_photo'() {
 
 			this.checkPost();
@@ -493,6 +480,14 @@ export default {
 			if(!this.postData.address){
 				return
 			}
+			if(!this.postData.bank_card_back){
+				return
+			}
+			if(!this.postData.bank_card_front){
+				return
+			}
+			
+			
 			
 			let regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
 			if(!regIdNo.test(this.postData.id_card)){  				  
@@ -879,8 +874,11 @@ export default {
 				name:this.postData.name,
 				id_card:this.postData.id_card,
 				front_photo:this.postData.front_photo,
+				address:this.postData.address,
 				back_photo:this.postData.back_photo,
 				hand_hold_photo:this.postData.hand_hold_photo,
+				bank_card_front:this.postData.bank_card_front,
+				bank_card_back:this.postData.bank_card_back,
 				account_name:this.postData.account_name,
 				bank_card_no:this.postData.bank_card_no,
 				reserve_phone:this.postData.reserve_phone,
