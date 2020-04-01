@@ -2,8 +2,8 @@
 	<div>
 		<div class="ntob">
 			<div class="ntob_head">
-				<div class="noto_back">
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/tools/icon_back.svg">
+				<div @click="backs()" class="noto_back">
+					<img  src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/tools/icon_back.svg">
 					返回
 				</div>
 				<div class="noto_title">
@@ -291,6 +291,10 @@ export default{
 		}
 	},
 	methods:{	
+		backs(){
+			this.$router.push({path:'/tolt/toluser'});	
+			
+		},
 		bgtf(el){
 			if(!el){return}
 			let url = el.type=='pic'?el.file_url:el.fps_pic;
@@ -893,10 +897,9 @@ export default{
 				if(shiftKey){
 					onk = 2;
 				}
-				if(this.checkDOmx && e.keyCode === 8){
+				if(this.checkDOmx && ctrlKey && e.keyCode === 8){
 					e.preventDefault();
-					console.log('回退');
-					this.delt();
+					onk = 3;
 				}
 				
 				
@@ -915,20 +918,21 @@ export default{
 				
 				if(kd>0){
 					// alert("滑轮向上滚动");
-					if(onk==1  &&  this.fdjb<120){
-						this.fdjb++;
-					}
-					if(onk==2 ){
-						this.tdjl++;
-					}
-				}
-				if(kd<0){
 					if(onk==1 && this.fdjb>1){
 						this.fdjb--;
 					}
 					if(onk==2 && this.tdjl>0){
 						this.tdjl--;
 					}
+				}
+				if(kd<0){
+					if(onk==1  &&  this.fdjb<120){
+						this.fdjb++;
+					}
+					if(onk==2 ){
+						this.tdjl++;
+					}
+					
 				}
 				
 				

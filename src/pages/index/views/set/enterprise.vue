@@ -21,6 +21,9 @@
 							<span>统一社会信用代码</span><el-input class="suc_1_9_1" v-model="postData.code" placeholder="请输入统一社会信用代码"></el-input>
 						</div>
 						<div class="suc_1_9">
+							<span>企业地址</span><el-input class="suc_1_9_1" v-model="postData.address" placeholder="请输入地址"></el-input>
+						</div>
+						<div class="suc_1_9">
 							<span>营业执照</span>
 							<div class="suc_1_9_2">
 								<span class="suc_1_9_3" @click="scsk('营业执照')">
@@ -255,6 +258,9 @@ export default {
 		'postData.code'() {
 			this.checkPost();
 		},
+		'postData.address'(){
+			this.checkPost();
+		},
 		'postData.business_license'() {
 			this.checkPost();
 		},
@@ -342,6 +348,9 @@ export default {
 				return
 			}
 			if(!this.postData.code){
+				return
+			}
+			if(!this.postData.address){
 				return
 			}
 			if(this.postData.code.length!=18){
