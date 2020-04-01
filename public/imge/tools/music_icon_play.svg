@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="18px" viewBox="0 0 19 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>music_icon_play</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Upload_icon_video_24" transform="translate(1.000000, 1.000000)" stroke="#BBBBBB">
+            <g id="music_icon_play">
+                <path d="M10.1585149,5.33296426 L13.2631244,10.655152 C13.40624,10.900493 13.3233699,11.2153993 13.0780289,11.3585149 C12.9993761,11.4043957 12.9099519,11.4285714 12.8188953,11.4285714 L6.60967617,11.4285714 C6.32564401,11.4285714 6.09539046,11.1983179 6.09539046,10.9142857 C6.09539046,10.823229 6.1195662,10.7338049 6.16544702,10.655152 L9.27005657,5.33296426 C9.41317214,5.08762327 9.7280784,5.0047532 9.97341938,5.14786878 C10.0500498,5.19256987 10.1138138,5.25633381 10.1585149,5.33296426 Z" id="Triangle" stroke-linejoin="round" transform="translate(9.714286, 8.000000) rotate(-270.000000) translate(-9.714286, -8.000000) "></path>
+                <path d="M8.67279895,-0.5 C13.3676601,-0.5 17.1727989,3.30513888 17.1727989,8 C17.1727989,12.6948611 13.3676601,16.5 8.67279895,16.5 C3.97793782,16.5 0.172798949,12.6948611 0.172798949,8 C0.172798949,3.30513888 3.97793782,-0.5 8.67279895,-0.5 Z" id="Path" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

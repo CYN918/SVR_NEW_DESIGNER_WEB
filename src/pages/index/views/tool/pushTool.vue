@@ -69,11 +69,7 @@
 									<span  @click="qhcc2(index)" v-for="(el,index) in cun2" :class="['cds',index==vdcc2?'cek':'']">{{el}}</span>									
 								</div>
 							</span>	
-							<el-switch
-							  v-model="isld"
-							  
-							  active-value="1">
-							</el-switch>	
+							<el-switch v-model="isld" active-value="1"></el-switch>	
 						</div>
 					</div>
 				</div>
@@ -496,7 +492,9 @@ export default{
 				}				
 				if(pn<min){
 					pn = min;
-				}			
+				}	
+			
+				// pn = pn*this.bl;
 				el.cut_end = Math.round((pn*100)/100);
 				this.setHm(index,el,list);		
 			}			 
@@ -515,15 +513,6 @@ export default{
 			}
 
 		},
-		// setQm(on,el,list){			
-		// 	let ond = el.start+(el.cut_end-el.cut_start);
-		// 	for(let i=on,n=list.length;i<n;i++){
-		// 		if(list[i+1]){
-		// 			list[i+1].start = list[i].start+(list[i].cut_end-list[i].cut_start);
-		// 		}
-				
-		// 	}		
-		// },
 		jl3(e,el,onc,list){
 			e.preventDefault();
 		
@@ -640,7 +629,7 @@ export default{
 				return
 			}
 			let len = this.navcoms.media[this.navcoms.media.length-1];
-			let ent = +len.star+(len.cut_end-len.cut_start);
+			let ent = +len.start+(+len.cut_end-len.cut_start);
 			let firs = this.navcoms.media[0].start;
 			
 			if(firs!=0){
@@ -656,8 +645,8 @@ export default{
 			}
 			
 			let ant = this.navcoms.audio[this.navcoms.audio.length-1];
-			let ant_t = +ant.star+(ant.cut_end-ant.cut_start);
-		
+			let ant_t = +ant.start+(+ant.cut_end-ant.cut_start);
+
 			if(ent!=ant_t){
 				this.istype = {
 					t:'提示',
@@ -669,6 +658,7 @@ export default{
 				
 				return
 			}
+	
 			this.zzwc();			
 		},
 		zzwc(){		
@@ -952,6 +942,11 @@ export default{
 				this.po =window.setInterval(()=>{
 					let ob = this.navcoms.media[this.bfon];
 					this.cans.drawImage(this.$refs.vids,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);
+					let po = this.cun[this.vdcc].x;
+					if(po){
+						this.cans.fillRect(0,0,po,695);
+						this.cans.fillRect(391-po,0,po,695);
+					}
 				},20);
 			},false);
 			this.$refs.vids.addEventListener('pause',()=>{window.clearInterval(this.po);},false);
