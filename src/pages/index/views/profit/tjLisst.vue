@@ -18,7 +18,7 @@
 						<span v-if="el.production_cycle_h>0">{{el.production_cycle_h}}小时</span>
 						制作周期
 					</div>
-					<div class="tjE_3_2_3">{{el.sign_up_num}} <span class="tjE_3_2_3_1">人已报名</span><span class="tjE_3_2_3_2">{{el.expected_profit}}</span></div>
+					<div class="tjE_3_2_3">{{el.sign_up_num}} <span class="tjE_3_2_3_1">人已报名</span><span class="tjE_3_2_3_2" v-if="el.settlement == '1'">[买断]{{el.expected_profit}}</span><span class="tjE_3_2_3_2" v-if="el.settlement == '2'">[分成]{{el.expected_profit}}</span><span class="tjE_3_2_3_2" v-if="el.settlement == '0'">{{el.expected_profit}}</span></div>
 				</div>
 			</li>
 		</ul>
@@ -163,7 +163,7 @@ export default {
 	display: block;
 	float: right;
 	font-size:14px;
-	color:#33B3FF;
+	color:#FF9200;
 	line-height:20px;
 }
 </style>

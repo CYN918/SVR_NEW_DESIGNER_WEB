@@ -115,7 +115,7 @@ export default {
 				bdtj:[['首页','翻页'],['首页','更改单页显示数']]				
 			},	
 			topCn:{
-				min:644,
+				min:670,
 			},
 			bdtjdata:[['首页','作品'],['首页','创作者']],
 			type:'rec',

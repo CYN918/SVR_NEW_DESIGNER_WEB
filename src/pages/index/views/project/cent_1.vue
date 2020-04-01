@@ -69,7 +69,7 @@
 					</div>
 				</div>
 				<div style="width:40%;float:left;">
-					<div class="pr_list_08" style="padding-top: 20px;">
+					<div class="pr_list_08" style="padding-top: 13px;">
 						<span >
 							<span>
 								<div class="pr_cent_2_9" v-html="djtime"></div>

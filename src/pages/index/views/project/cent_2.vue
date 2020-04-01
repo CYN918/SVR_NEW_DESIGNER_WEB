@@ -131,7 +131,15 @@ export default {
 		},
 		clsfn(){
 			this.btns = [];
-			this.tip = '预计收益：<span>'+this.deta.expected_profit+'</span>';
+			if(this.deta.settlement == '0'){
+				this.tip = '预计收益：<span>'+this.deta.expected_profit+'</span>';
+			}
+			if(this.deta.settlement == '1'){
+				this.tip = '预计收益：<span>'+ '[买断]' +this.deta.expected_profit+'</span>';
+			}
+			if(this.deta.settlement == '2'){
+				this.tip = '预计收益：<span>'+ '[分成]' +this.deta.expected_profit+'</span>';
+			}
 			if(this.deta.status==1){
 				this.tips = '<div class="pr_cent2_r2_1 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
 				return
