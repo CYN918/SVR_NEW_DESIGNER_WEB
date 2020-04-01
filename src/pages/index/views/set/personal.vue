@@ -21,7 +21,9 @@
 						<div class="suc_1_9">
 							<span>身份证号码</span><el-input class="suc_1_9_1" v-model="postData.id_card" placeholder="请输入身份证号码"></el-input>
 						</div>
-						
+						<div class="suc_1_9">
+							<span>地址</span><el-input class="suc_1_9_1" v-model="postData.address" placeholder="请输入地址"></el-input>
+						</div>
 						<div class="suc_1_9">
 							<span>身份证正面照片</span>
 							<div class="suc_1_9_2">
@@ -108,6 +110,7 @@
 								<jdt v-if="isJdt3" ref="jdt3"></jdt>
 							</div>
 						</div>
+						
 	
 						
 					</div>
@@ -131,6 +134,45 @@
 							
 						</div>
 						
+						
+						<div class="suc_1_9">
+							<span>银行卡正面照片</span>
+							<div class="suc_1_9_2">
+								<span class="suc_1_9_3" @click="scsk('银行卡正面照片')">
+									上传照片
+									<uploadFile :setJdt="setJdt4" :sussFn="uploadSC4" :cg="fileConfig"></uploadFile>
+								</span>
+								
+							</div>
+						</div>
+						<div class="suc_1_10">
+							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
+							<div class="suc_1_10_2">
+								银行卡正面照片
+								<img v-if="postData.bank_card_front" class="suc_1_10_3" :src="postData.bank_card_front" alt="">
+								<jdt v-if="isJdt4" ref="jdt3"></jdt>
+							</div>
+						</div>
+						
+						<div class="suc_1_9">
+							<span>银行卡背面照片</span>
+							<div class="suc_1_9_2">
+								<span class="suc_1_9_3" @click="scsk('银行卡背面照片')">
+									上传照片
+									<uploadFile :setJdt="setJdt5" :sussFn="uploadSC5" :cg="fileConfig"></uploadFile>
+								</span>
+								
+							</div>
+						</div>
+						<div class="suc_1_10">
+							<div class="suc_1_10_1">格式jpg，jpeg，png，大小不超过20M</div>
+							<div class="suc_1_10_2">
+								银行卡背面照片
+								<img v-if="postData.bank_card_back" class="suc_1_10_3" :src="postData.bank_card_back" alt="">
+								<jdt v-if="isJdt5" ref="jdt3"></jdt>
+							</div>
+						</div>
+				
 						
 					</div>
 					<div class="scBox suc_1 suc_3">
@@ -214,6 +256,8 @@ export default {
 			isJdt1:'',
 			isJdt2:'',
 			isJdt3:'',
+			isJdt4:'',
+			isJdt5:'',
 			fileConfig:{
 				type:['image/jpeg','image/png'],
 				max:20*1024*1024,
@@ -284,6 +328,16 @@ export default {
 			this.checkPost();
 		},
 		'postData.id_card'() {
+			this.checkPost();
+		},
+		'postData.address'(){
+			this.checkPost();
+		},
+		'postData.address'(){
+			this.checkPost();
+		},
+		
+		'postData.bank_card_back'(){
 			this.checkPost();
 		},
 		'postData.front_photo'() {
@@ -362,6 +416,16 @@ export default {
 			this.postData.hand_hold_photo = da.url;
 			this.checkPost();
 		},
+		uploadSC4(da){
+			this.isJdt4='';
+			this.postData.bank_card_front = da.url;
+			this.checkPost();
+		},
+		uploadSC5(da){
+			this.isJdt5='';
+			this.postData.bank_card_back = da.url;
+			this.checkPost();
+		},
 		setJdt1(on){
 			this.isJdt1=1;
 			if(this.$refs.jdt1){
@@ -378,6 +442,18 @@ export default {
 			this.isJdt3=1;
 			if(this.$refs.jdt3){
 				this.$refs.jdt3.bfb = on;
+			}		
+		},
+		setJdt4(on){
+			this.isJdt4=1;
+			if(this.$refs.jdt4){
+				this.$refs.jdt4.bfb = on;
+			}		
+		},
+		setJdt5(on){
+			this.isJdt5=1;
+			if(this.$refs.jdt5){
+				this.$refs.jdt5.bfb = on;
 			}		
 		},
 		goPu(ud){
@@ -401,6 +477,17 @@ export default {
 			if(!this.postData.id_card){
 				return
 			}
+			if(!this.postData.address){
+				return
+			}
+			if(!this.postData.bank_card_back){
+				return
+			}
+			if(!this.postData.bank_card_front){
+				return
+			}
+			
+			
 			
 			let regIdNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
 			if(!regIdNo.test(this.postData.id_card)){  				  
@@ -787,8 +874,11 @@ export default {
 				name:this.postData.name,
 				id_card:this.postData.id_card,
 				front_photo:this.postData.front_photo,
+				address:this.postData.address,
 				back_photo:this.postData.back_photo,
 				hand_hold_photo:this.postData.hand_hold_photo,
+				bank_card_front:this.postData.bank_card_front,
+				bank_card_back:this.postData.bank_card_back,
 				account_name:this.postData.account_name,
 				bank_card_no:this.postData.bank_card_no,
 				reserve_phone:this.postData.reserve_phone,

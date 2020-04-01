@@ -2,8 +2,8 @@
 	<div>
 		<div class="ntob">
 			<div class="ntob_head">
-				<div class="noto_back">
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/tools/icon_back.svg">
+				<div @click="backs()" class="noto_back">
+					<img  src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/tools/icon_back.svg">
 					返回
 				</div>
 				<div class="noto_title">
@@ -69,11 +69,7 @@
 									<span  @click="qhcc2(index)" v-for="(el,index) in cun2" :class="['cds',index==vdcc2?'cek':'']">{{el}}</span>									
 								</div>
 							</span>	
-							<el-switch
-							  v-model="isld"
-							  
-							  active-value="1">
-							</el-switch>	
+							<el-switch v-model="isld" active-value="1"></el-switch>	
 						</div>
 					</div>
 				</div>
@@ -291,6 +287,10 @@ export default{
 		}
 	},
 	methods:{	
+		backs(){
+			this.$router.push({path:'/tolt/toluser'});	
+			
+		},
 		bgtf(el){
 			if(!el){return}
 			let url = el.type=='pic'?el.file_url:el.fps_pic;
@@ -395,11 +395,11 @@ export default{
 				this.cjzb.w = 347.5;
 				this.sczz = 'issczz';						 
 			}
-			this.drm();
+			
 			setTimeout(()=>{
 				this.isCc='';
 			},50)
-			
+			this.drm();
 		},
 		checkDOm(e,el,on,dom){
 			if(e && e.stopPropagation()) {
@@ -492,7 +492,9 @@ export default{
 				}				
 				if(pn<min){
 					pn = min;
-				}			
+				}	
+			
+				// pn = pn*this.bl;
 				el.cut_end = Math.round((pn*100)/100);
 				this.setHm(index,el,list);		
 			}			 
@@ -511,15 +513,6 @@ export default{
 			}
 
 		},
-		// setQm(on,el,list){			
-		// 	let ond = el.start+(el.cut_end-el.cut_start);
-		// 	for(let i=on,n=list.length;i<n;i++){
-		// 		if(list[i+1]){
-		// 			list[i+1].start = list[i].start+(list[i].cut_end-list[i].cut_start);
-		// 		}
-				
-		// 	}		
-		// },
 		jl3(e,el,onc,list){
 			e.preventDefault();
 		
@@ -636,7 +629,7 @@ export default{
 				return
 			}
 			let len = this.navcoms.media[this.navcoms.media.length-1];
-			let ent = +len.star+(len.cut_end-len.cut_start);
+			let ent = +len.start+(+len.cut_end-len.cut_start);
 			let firs = this.navcoms.media[0].start;
 			
 			if(firs!=0){
@@ -652,8 +645,8 @@ export default{
 			}
 			
 			let ant = this.navcoms.audio[this.navcoms.audio.length-1];
-			let ant_t = +ant.star+(ant.cut_end-ant.cut_start);
-		
+			let ant_t = +ant.start+(+ant.cut_end-ant.cut_start);
+
 			if(ent!=ant_t){
 				this.istype = {
 					t:'提示',
@@ -665,6 +658,7 @@ export default{
 				
 				return
 			}
+	
 			this.zzwc();			
 		},
 		zzwc(){		
@@ -719,7 +713,11 @@ export default{
 		},
 		backd(){
 			let str='<span class="kd_02"><span>00:00:00:00</span></span>';
-			for(let i=0,n=Math.ceil(this.navcoms.maxTime/10);i<n;i++){
+			let tins = this.navcoms.maxTime;
+			if(tins<120){
+				tins = 120;
+			}
+			for(let i=0,n=Math.ceil(tins/10);i<n;i++){
 				str+='<div class="kdut_1">';
 				for(let i2=0;i2<9;i2++){
 					str+='<span></span>';
@@ -893,10 +891,9 @@ export default{
 				if(shiftKey){
 					onk = 2;
 				}
-				if(this.checkDOmx && e.keyCode === 8){
+				if(this.checkDOmx && ctrlKey && e.keyCode === 8){
 					e.preventDefault();
-					console.log('回退');
-					this.delt();
+					onk = 3;
 				}
 				
 				
@@ -915,20 +912,21 @@ export default{
 				
 				if(kd>0){
 					// alert("滑轮向上滚动");
-					if(onk==1  &&  this.fdjb<120){
-						this.fdjb++;
-					}
-					if(onk==2 ){
-						this.tdjl++;
-					}
-				}
-				if(kd<0){
 					if(onk==1 && this.fdjb>1){
 						this.fdjb--;
 					}
 					if(onk==2 && this.tdjl>0){
 						this.tdjl--;
 					}
+				}
+				if(kd<0){
+					if(onk==1  &&  this.fdjb<120){
+						this.fdjb++;
+					}
+					if(onk==2 ){
+						this.tdjl++;
+					}
+					
 				}
 				
 				
@@ -944,6 +942,11 @@ export default{
 				this.po =window.setInterval(()=>{
 					let ob = this.navcoms.media[this.bfon];
 					this.cans.drawImage(this.$refs.vids,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);
+					let po = this.cun[this.vdcc].x;
+					if(po){
+						this.cans.fillRect(0,0,po,695);
+						this.cans.fillRect(391-po,0,po,695);
+					}
 				},20);
 			},false);
 			this.$refs.vids.addEventListener('pause',()=>{window.clearInterval(this.po);},false);

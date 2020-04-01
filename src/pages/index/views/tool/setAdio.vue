@@ -34,17 +34,13 @@
 			v-for="(el,index) in datas"
 			:class="['mp3_04_01 mp3_04_01xd',index%2==0?'mp3_04_01x':'']" 
 			>
-				<span>{{index+1}}</span><span>
-				<span class="mp3_04_01_t hft">{{el.name}}</span>
-				<span class="mp3_04_01opd mp3_04_01_bfs">
-					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="imgPath+'tools/bf.svg'"/>
-					<img @click="favor(el)" class="mp3_04_01_sc pend"
-						 :src="(el.is_collect == 0) ? imgPath +  'tools/sc.svg' : imgPath + 'tools/xcx.svg'"/>
-				</span>
-				</span><span>
+				<span><span :class="index<3?'setAdio_01':''">{{index+1}}</span></span>
+				<span><span class="mp3_04_01_t hft">{{el.name}}</span></span><span>
 				{{el.author}}</span><span>
-				{{backT(el.duration)}}</span><span>
-				<span @click="checks(el)" class="mp3_04_01_btn mp3_04_01opd pend">选用</span>
+				{{backT(el.duration)}}</span><span class="seadio_to">
+					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="bRunning && (bfData.on && bfData.on==index)?'/imge/tools/music_icon_pause.svg':'/imge/tools/music_icon_play.svg'"/>
+					<img @click="favor(el)" class="mp3_04_01_sc pend" :src="el.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
+					<span @click="checks(el)" class="setAdio_02 pend">选用</span>
 				</span>
 			</div>
 		</div>
@@ -70,10 +66,10 @@
 					</div>
 				</span>
 				<span class="mp3_05_2_3">
-					<img @click="sys()" :src="imgPath+'tools/shangyishou.svg'">
-					<img @click="bf()" :src="bRunning ? imgPath + 'tools/zantingtingzhi.svg' : imgPath+'tools/bofang.svg'">
-					<img @click="xys()" :src="imgPath+'tools/xiayishou.svg'">
-					<img @click="favor()" :src="imgPath+'tools/xcx.svg'">
+					<div @click="sys()" class="pr_adio"></div>
+					<div @click="bf()" :class="['pr_adio_03',bRunning?'pr_adio_03_2':'pr_adio_03_1']"></div>
+					<div @click="xys()" class="pr_adio pr_adio_02"></div>					
+					<img @click="favor()" class="mp3_04_01_sc pend" :src="bfData.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
 				</span>
 				<span @click="checks()" class="pend mp3_05_2_4">选用</span>
 			</div>
@@ -112,6 +108,7 @@ export default{
 				author:'--',
 				bft:'00:00',
 				duration:0,
+				is_collect:0,
 			},
 			bRunning:false,
 		}
@@ -254,10 +251,10 @@ export default{
 			this.$refs.aido.pause()
 			this.sh_audioUrl(pd.m_id);
 		},
-		bf(el,on){
+		bf(el,on,ispd){
 			
-			if(el){
-			
+			if(el && this.bfData &&  this.bfData.m_id!=el.m_id){
+				
 				this.bfData = {
 					on:on,
 					m_id:el.m_id,
@@ -266,11 +263,13 @@ export default{
 					author:el.author,
 					bft:'00:00',
 					duration:el.duration,
+					is_collect:el.is_collect,
 				};
 				
 				this.sh_audioUrl(el.m_id);
 				return
 			}
+			console.log(111111111);
 			if(!this.$refs.aido.src){
 				return
 			}
@@ -401,7 +400,7 @@ export default{
 }
 </script>
 
-<style scoped="scoped">
+<style>	
 .pr_qp{
 	position: fixed;
 	top: 0;
@@ -578,7 +577,7 @@ export default{
 	border-radius:50%;
 }
 .mp3_05_2_2{
-	margin-right: 56px;
+
 }
 .mp3_05_2_2_1{
 	width: 210px;
@@ -588,7 +587,7 @@ export default{
 	margin-bottom: 10px;
 }
 .mp3_05_2_2_2{
-	width: 210px;
+	width: 141px;
 	position: relative;
 	font-size:12px;
 	font-family:PingFangSC-Regular,PingFang SC;
@@ -638,23 +637,26 @@ export default{
 }
 .mp3_04_01>span:nth-child(1){
 	text-indent: 20px;
-	width: 50px;
+	width: 12%;
 }
 .mp3_04_01>span:nth-child(2){
-	width: 150px;
+	width: 30%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 .mp3_04_01>span:nth-child(3){
-	width: 120px;
+	width: 30%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 
 }
 .mp3_04_01>span:nth-child(4){
-	width: 50px;
+	width: 12%;
 }
 .mp3_04_01>span:nth-child(5){
-	width: 48px;
+	width: 16%;
 }
 .mp3_04_01x{
 	background: rgba(242,242,242,.3);
@@ -667,13 +669,8 @@ export default{
 .mp3_04_01xd{
 	font-size: 14px;
 }
-.mp3_04_01:hover .mp3_04_01opd{
-	display: block;
-}
-.mp3_04_01_btn{
-	display: none;
-	color: #33B3FF;
-}
+
+
 .mp3_04_01_bfs{
 	display: none;
 	position: absolute;
@@ -692,5 +689,74 @@ export default{
 }
 .box_p_01{
 	position: relative;
+}
+.seadio_to>img{
+	display: inline-block;
+	vertical-align: top;
+	width: 19px;
+	margin-top: 14px;
+    margin-right: 10px;
+}
+.setAdio_02{
+	color: #33B3FF;
+}
+.setAdio_01{
+	color: #FF9200;
+}
+.pr_adio{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 20px;
+}
+.pr_adio:before{
+	content: "";
+	display: inline-block;
+	background: #33B3FF;
+	width: 2px;
+	height: 16px;
+	
+}
+.pr_adio:after{
+	content: "";
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-top: 8px solid transparent;
+	border-bottom:8px solid transparent;
+	border-right:13px solid #33B3FF;
+}
+.pr_adio_02{
+	transform: rotate(180deg);
+    transform-origin: 50% 41%;
+    
+}
+.pr_adio_03{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	border-radius: 50%;
+	width:40px;
+	height:40px;
+	background:rgba(51,179,255,1);
+}
+.pr_adio_03:after{
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+.pr_adio_03_1:after{	
+	width:0;
+	height:0;
+	border-top:8px solid transparent;	
+	border-bottom:8px solid transparent;
+	border-left:13px solid #fff;
+}
+.pr_adio_03_2:after{
+	width:12px;
+	height:16px;
+	background: #fff;
+	background-image: linear-gradient(to right,#fff 2px,rgba(51,179,255,1) 8px,#fff 2px);
 }
 </style>
