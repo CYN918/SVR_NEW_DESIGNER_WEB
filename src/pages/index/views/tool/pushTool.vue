@@ -399,11 +399,11 @@ export default{
 				this.cjzb.w = 347.5;
 				this.sczz = 'issczz';						 
 			}
-			this.drm();
+			
 			setTimeout(()=>{
 				this.isCc='';
 			},50)
-			
+			this.drm();
 		},
 		checkDOm(e,el,on,dom){
 			if(e && e.stopPropagation()) {
@@ -723,7 +723,11 @@ export default{
 		},
 		backd(){
 			let str='<span class="kd_02"><span>00:00:00:00</span></span>';
-			for(let i=0,n=Math.ceil(this.navcoms.maxTime/10);i<n;i++){
+			let tins = this.navcoms.maxTime;
+			if(tins<120){
+				tins = 120;
+			}
+			for(let i=0,n=Math.ceil(tins/10);i<n;i++){
 				str+='<div class="kdut_1">';
 				for(let i2=0;i2<9;i2++){
 					str+='<span></span>';
