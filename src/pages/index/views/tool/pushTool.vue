@@ -100,7 +100,7 @@
 							<div v-html="backd()" class="kdut"></div>
 						</div>
 						
-						<div class="tlo_02">
+						<div class="tlo_02" @dragenter="setMos(1)" @dragleave="setMos('')">
 							<div :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.media">
 								<div :style="bgtf(el)" @click="checkDOm($event,el,index,'media')" class="setToll0">
 									
@@ -276,6 +276,8 @@ export default{
 			},
 			bl:1,
 			ht:'',
+			isdra:'',
+			Mos:'',
 		}
 	},
 	mounted: function () {
@@ -286,7 +288,18 @@ export default{
 			this.bl = this.fdjb/10;
 		}
 	},
-	methods:{	
+	methods:{
+		setMos(on){
+			this.Mos = on;
+		
+		},
+		tochs(){
+			this.isdra = 1;
+			
+		},
+		toche(){
+			this.isdra = '';		
+		},
 		backs(){
 			this.$router.push({path:'/tolt/toluser'});	
 			
@@ -682,7 +695,9 @@ export default{
 		delt(){			
 			if(!this.xzData){return}
 			this.navcoms[this.xzData.n].splice(this.xzData.o,1);
-			this.xzData='';			
+			this.xzData='';	
+			this.checkDOmx = '';
+			this.setMaxTime();
 		},
 		endeds(){
 			let len = this.navcoms.media.length;
@@ -711,13 +726,35 @@ export default{
 			}
 			this.audioLast=1;			
 		},
+		setMaxTime(){
+			let video = this.navcoms.media[this.navcoms.media.length-1],
+			audio = this.navcoms.audio[this.navcoms.audio.length-1],
+			max = 0;
+			if(video){
+				max = this.backTim(video);
+			}
+			if(audio){
+				let tim = this.backTim(audio);
+				if(tim>max){
+					max = tim;
+				}
+			}
+			this.navcoms.maxTime = max;
+		},
+		backTim(ob){
+			return (ob.cut_end-ob.cut_start)+ob.start;
+		},
 		backd(){
 			let str='<span class="kd_02"><span>00:00:00:00</span></span>';
 			let tins = this.navcoms.maxTime;
 			if(tins<120){
 				tins = 120;
 			}
-			for(let i=0,n=Math.ceil(tins/10);i<n;i++){
+			let nd = Math.ceil(tins/10);
+			if(nd>10){
+				nd=10;
+			}
+			for(let i=0,n=nd;i<n;i++){
 				str+='<div class="kdut_1">';
 				for(let i2=0;i2<9;i2++){
 					str+='<span></span>';

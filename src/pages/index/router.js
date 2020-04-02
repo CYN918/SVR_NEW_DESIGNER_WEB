@@ -80,7 +80,7 @@ import videoSet from './views/tool/videoSet.vue'
 
 
 import toluser from './views/tool/user.vue'
-import tools from './views/tool/test.vue'
+
 
 Vue.use(Router)
 const router = new Router({
@@ -93,9 +93,9 @@ let wb = [
 	{path: '/Ac_v',name: 'Ac_v',component: Ac_v1},	
 	{path: '/Ac_v2',name: 'Ac_v2',component: Ac_v2},	
 	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
-	{path: '/tools',name: 'tools',component: tools},
+
 	{path: '/pushTool',name:'tolt',component: pushTool},
-	{path: '/videoSet',name:'tolt',component: videoSet},
+	
 	
 	{
 		path: '/',

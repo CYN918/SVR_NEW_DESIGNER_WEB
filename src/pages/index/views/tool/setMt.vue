@@ -11,7 +11,7 @@
 				</span>				
 			</li>
 			<span v-for="(el,index) in list">
-				<li v-if="el.type!='erro'">
+				<li  v-if="el.type!='erro'">
 					<div v-if="el.type=='up'">
 						<div class="jdt_002">
 							<el-progress :width="48" :stroke-width="2"  type="circle" :percentage="el.bf"></el-progress>
@@ -19,7 +19,10 @@
 						</div>
 						
 					</div>
-					<div  class="setMt_03_01" v-else>
+					<div 
+						@mousedown="starD($event,el)"
+					
+					class="setMt_03_01" v-else>
 						<img v-if="" :src="el.cover_img?el.cover_img:el.url">
 						<span class="tim_013" v-if="el.play_time">{{backtio(el.play_time)}}</span>
 					</div>
@@ -72,13 +75,45 @@ export default{
 		
 	}, 		
 	methods:{
+		dras(){
+			console.log('kais');
+			this.$parent.tochs();
+		},
+		drae(el){		
+			this.$parent.toche();	
+			console.log(this.$parent.Mos);
+			if(this.$parent.Mos==1){
+				this.checkV(el);
+			}
+			
+		},
+		starD(e,el){
+			console.log(e);
+			e.preventDefault();
+			let tdStar = e.pageX;						
+			let dom = document.createElement('div');
+			dom.className = 'testd';
+			dom.style.cssText = 'left:'+el.screenX+'px;top:'+el.screenY+'px;width: 200px;background: red;';
+			document.body.appendChild(dom);
+			document.onmousemove = document.onmouseup = null;
+			document.onmousemove = (e)=>{
+				e.preventDefault();
+				
+				console.log(e.pageX-tdStar);
+			}			 
+			document.onmouseup =  ()=>{
+				document.onmousemove = document.onmouseup = null;
+			}
+		},
 		backtio(t){
-			console.log(t);
 			var f='00',s;
 			if(t>60){
 				f = Math.round(t/60);
 			}
 			s = Math.round(t%60);
+			if(s<10){
+				s = '0'+s;
+			}
 		return f+':'+s;
 		},
 		fileTotalSummary(){
@@ -265,7 +300,7 @@ export default{
 			});
 		},
 		clPic(fld,on){
-			let max = 5*1024*1024;			
+			let max = 5*1024*1024*1024;	
 			if(this.maxwj>=max){
 				this.$message({
 					message:'媒体素材储存量已满（5G）'
@@ -309,15 +344,9 @@ export default{
 		
 		
 		push(){
-		
-			
 			this.$refs.upnfile.click();
 		},
 		pushFile(fld){
-			
-			
-			
-			
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY';
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
@@ -607,5 +636,9 @@ export default{
 }
 .rsc_002{
 	cursor: pointer;
+}
+.testd{
+	position: fixed;
+	border: 1px solid #000;
 }
 </style>
