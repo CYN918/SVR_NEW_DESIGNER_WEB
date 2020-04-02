@@ -79,7 +79,7 @@ export default{
 		},
 		bjfn(id){
 			localStorage.setItem('ldxData',JSON.stringify(this.el));
-			this.$router.push({path:'/tools',query:{id:id}});
+			this.$router.push({path:'/pushTool',query:{id:id}});
 	
 		},
 		pusjg(){

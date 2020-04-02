@@ -11,7 +11,7 @@
 					<img src="/imge\new\tools\n/icon_bj.svg"/>
 				</div>				
 				<div class="noto_btns">
-					<span >保存</span><span @click="zzyz()"  class="noto_bys">制作完成</span>
+					<span @click="tijF()">保存</span><span @click="zzyz()"  class="noto_bys">制作完成</span>
 				</div>
 			</div>
 			<div class="ntob_cent">
@@ -278,6 +278,7 @@ export default{
 			ht:'',
 			isdra:'',
 			Mos:'',
+			ajaxType:'',
 		}
 	},
 	mounted: function () {
@@ -913,6 +914,15 @@ export default{
 			
 		},
 		init(){
+			if(this.$route.query.id){
+				let op = JSON.parse(localStorage.getItem('ldxData'));
+				let json = JSON.parse(op.json);
+				this.form.title = op.title;
+				this.navcoms.media = json.media;
+				this.navcoms.audio = json.audio;
+				this.setMaxTime();
+			}
+			
 			let onk = '';
 			document.addEventListener('keydown',(e)=>{					
 				var ctrlKey = e.ctrlKey || e.metaKey;	
@@ -1012,11 +1022,76 @@ export default{
 				x:n.x,
 				y:n.y
 			};
+		},
+		tijF(){
+			if(!this.form.title){
+				this.$message({
+					message:'请输入来电秀名称'
+				})
+				return
+			}
+			if(this.ajaxType){
+				this.$message({
+					message:'正在处理请稍后',
+				})
+				return
+			}
+			
+			let pr = {
+				title:this.form.title,
+				json:{
+					media:this.navcoms.media,
+					audio:this.navcoms.audio
+				}
+			};			
+			this.cl_video(pr);
+			this.cl_audio(pr);
+			pr.json = JSON.stringify(pr.json);
+			this.ajaxType = 1;
+			this.api.sh_save(pr).then((da)=>{				
+				this.ajaxType = '';
+				if(da=='error'){
+					return
+				}
+				this.$message({
+					message:'交稿成功',
+				})
+				setTimeout(()=>{
+					this.$router.push({path:'/tolt/toluser'});	
+				},1000)
+		
+			}).catch(()=>{
+		
+				this.ajaxType = '';
+			})
 			
 			
-			
-			
-		}
+		},
+		cl_audio(el){
+			let pd = el.json.audio;
+			let tims = 0;			
+			for(let i=0,n=pd.length;i<n;i++){
+				let t = pd[i].cut_end-pd[i].cut_start;
+				
+				let ner = tims+t;
+				if(ner>el.maxTime){
+					pd[i].cut_end = pd[i].cut_start+(el.maxTime-tims);
+					break
+				}
+				pd[i].end = pd[i].start+(pd[i].cut_end-pd[i].cut_start);
+				
+			}		
+		},
+		
+		cl_video(el){
+			let pd = el.json.media;
+			for(let i=0,n=pd.length;i<n;i++){
+				pd[i].end = pd[i].start+(pd[i].cut_end-pd[i].cut_start);
+				if(pd[i].sw!=pd[i].yw || pd[i].sh!=pd[i].yh || pd[i].sx!=0 || pd[i].sy!=0){
+					pd[i].crop = this.numqx(pd[i].sw)+':'+this.numqx(pd[i].sh)+':'+this.numqx(pd[i].x)+':'+this.numqx(pd[i].sy);					
+				}
+			}
+		},
 	}
 }
 </script>
