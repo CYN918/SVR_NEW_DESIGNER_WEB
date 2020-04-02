@@ -83,8 +83,19 @@ export default{
 			let wdStar = e.pageY;
 
 			let dom = document.createElement('div');
+			console.log(el);
+			let url = el.file_type=='image'?el.url:el.fps_pic;
+			let tim = el.file_type=='image'?5:el.play_time;
+			
+			let str = 'background:url('+url+') 0 0/auto 100% repeat-x;width:'+(21*tim)+'px;';
+		
 			dom.className = 'testd';
-			dom.style.cssText = 'left:'+e.x+'px;top:'+e.y+'px;width: 200px;background: red;';
+			dom.style.cssText = str+'left:'+e.x+'px;top:'+e.y+'px;';
+			
+			
+			
+			
+			
 			document.body.appendChild(dom);
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
@@ -92,7 +103,7 @@ export default{
 		
 				let x = e.x;
 				let y = e.y;
-				dom.style.cssText = 'left:'+(x+20)+'px;top:'+y+'px;width: 200px;background: red;';
+				dom.style.cssText = str+'left:'+(x+20)+'px;top:'+y+'px;';
 			}			 
 			document.onmouseup =  ()=>{
 				
@@ -637,6 +648,7 @@ export default{
 }
 .testd{
 	position: fixed;
-	border: 1px solid #000;
+	border: 2px solid rgba(51,179,255,1);
+	height: 72px;
 }
 </style>
