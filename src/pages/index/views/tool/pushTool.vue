@@ -153,8 +153,8 @@
 				</div>
 			</div>
 			<div :style="csad" class="setToll4_2">
-				<span @click="cats()">裁剪</span>
-				<span>复制</span>
+				<span v-if="this.xzData.n=='media'" @click="cats()">裁剪</span>
+				<span v-if="this.xzData.n=='media'">复制</span>
 				<span @click="delt()">删除</span>
 			</div>
 			<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
