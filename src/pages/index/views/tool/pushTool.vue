@@ -100,7 +100,7 @@
 							<div v-html="backd()" class="kdut"></div>
 						</div>
 						
-						<div class="tlo_02" @dragenter="setMos(1)" @dragleave="setMos('')">
+						<div class="tlo_02"  @mouseover="setMos(1)" @mouseout="setMos('')">
 							<div :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.media">
 								<div :style="bgtf(el)" @click="checkDOm($event,el,index,'media')" class="setToll0">
 									
@@ -289,9 +289,8 @@ export default{
 		}
 	},
 	methods:{
-		setMos(on){
+		setMos(on){		
 			this.Mos = on;
-		
 		},
 		tochs(){
 			this.isdra = 1;

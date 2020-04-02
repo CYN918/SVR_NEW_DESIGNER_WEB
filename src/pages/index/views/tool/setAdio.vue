@@ -160,16 +160,15 @@ export default{
 						fid:el.m_id,
 						ischeck:'',
 				};				
-				let ond = this.value.audio[this.value.audio.length-1];
-				if(ond){
-					pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
+				let ond = this.value.audio[0];
+				if(!ond){
+					this.value.audio.push(pr);
+					return
 				}
-				let maxt = +pr.start+pr.long;
-				this.value.audio.push(pr);
 				
-				if(this.value.maxTime<maxt){
-					this.value.maxTime = maxt;
-				}	
+				this.value.audio.splice(0,1,pr);
+				console.log(this.value.audio);
+				
 					
 							
 			})
@@ -707,6 +706,12 @@ export default{
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 20px;
+	margin-top: 12px;
+}
+img.mp3_04_01_sc {
+    margin-top: 13px;
+    display: inline-block;
+    vertical-align: top;
 }
 .pr_adio:before{
 	content: "";
@@ -735,6 +740,7 @@ export default{
 	display: inline-block;
 	vertical-align: top;
 	border-radius: 50%;
+	margin-right: 20px;
 	width:40px;
 	height:40px;
 	background:rgba(51,179,255,1);

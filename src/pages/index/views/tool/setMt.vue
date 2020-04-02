@@ -75,33 +75,31 @@ export default{
 		
 	}, 		
 	methods:{
-		dras(){
-			console.log('kais');
-			this.$parent.tochs();
-		},
-		drae(el){		
-			this.$parent.toche();	
-			console.log(this.$parent.Mos);
-			if(this.$parent.Mos==1){
-				this.checkV(el);
-			}
-			
-		},
+	
 		starD(e,el){
-			console.log(e);
+			
 			e.preventDefault();
-			let tdStar = e.pageX;						
+			let tdStar = e.pageX;	
+			let wdStar = e.pageY;
+
 			let dom = document.createElement('div');
 			dom.className = 'testd';
-			dom.style.cssText = 'left:'+el.screenX+'px;top:'+el.screenY+'px;width: 200px;background: red;';
+			dom.style.cssText = 'left:'+e.x+'px;top:'+e.y+'px;width: 200px;background: red;';
 			document.body.appendChild(dom);
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
 				e.preventDefault();
-				
-				console.log(e.pageX-tdStar);
+		
+				let x = e.x;
+				let y = e.y;
+				dom.style.cssText = 'left:'+(x+20)+'px;top:'+y+'px;width: 200px;background: red;';
 			}			 
 			document.onmouseup =  ()=>{
+				
+				if(this.$parent.Mos==1){
+					this.checkV(el);
+				}
+				document.body.removeChild(dom);
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
