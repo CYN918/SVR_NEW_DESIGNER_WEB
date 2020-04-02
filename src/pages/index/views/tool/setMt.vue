@@ -2,7 +2,8 @@
 	<div class="setMt">
 		<div class="setMt_01">
 			媒体库<span>请上传图片、MP4格式（视频大小10MB以内，视频上传后自动处理为无声）</span>
-		</div>		
+		</div>
+		<div class="setMt_03box">
 		<ul class="setMt_03">
 			<li ref="dwyd" @click="push" class="rsc_002">
 				<span  class="setMtUp">
@@ -33,6 +34,7 @@
 				</li>
 			</span>
 		</ul>
+		</div>
 		<input class="ycyin" type="file" @change="fileUp" :accept="typexz" multiple="multiple" ref="upnfile"/>
 		<div v-if="istype" class="pr_tc_01">
 			<div class="pr_tc_02">			
@@ -505,7 +507,7 @@ export default{
 
 <style>
 .setMt{
-	padding: 24px 24px 0 24px;
+	padding: 24px 0 0 24px;
 }
 .setMt_01{
 	font-size:16px;
@@ -650,5 +652,10 @@ export default{
 	position: fixed;
 	border: 2px solid rgba(51,179,255,1);
 	height: 72px;
+}
+.setMt_03box{
+	height: 700px;
+	overflow: hidden;
+	overflow-y: auto;
 }
 </style>
