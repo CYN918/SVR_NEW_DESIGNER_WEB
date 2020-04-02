@@ -1062,11 +1062,9 @@ export default{
 					return
 				}
 				this.$message({
-					message:'交稿成功',
+					message:'保存成功',
 				})
-				setTimeout(()=>{
-					this.$router.push({path:'/tolt/toluser'});	
-				},1000)
+				
 		
 			}).catch(()=>{
 		
