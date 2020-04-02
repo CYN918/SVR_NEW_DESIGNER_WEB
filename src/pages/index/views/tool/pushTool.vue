@@ -48,10 +48,10 @@
 					<div class="ntob_cent_l_2">
 						<div class="ntob_cent_l_2_1">
 							<img class="ntob_cent_l_2_1x" src="/imge/tools/v_size.svg">预览比例<span class="bl_000" @click="showCc">
-								{{cun[vdcc].n}}<div class="mx_dsj"></div>
-								<div v-if="isCc" class="bl_001">
+								{{cun[vdcc].n}}<!-- <div class="mx_dsj"></div> -->
+								<!-- <div v-if="isCc" class="bl_001">
 									<span @click="qhcc(index)" v-for="(el,index) in cun" :class="index==vdcc?'cek':''">{{el.n}}</span>									
-								</div>
+								</div> -->
 							</span>							
 						</div>
 						<div class="ntob_cent_l_2_2">
@@ -959,8 +959,6 @@ export default{
 				e = e || window.event;
 				e.preventDefault();
 				var kd = e.wheelDelta?e.wheelDelta:e.detail;
-				
-				
 				if(kd>0){
 					// alert("滑轮向上滚动");
 					if(onk==1 && this.fdjb>1){
@@ -982,8 +980,14 @@ export default{
 				
 				
 			},false)
-			
-			
+			this.$refs.gdbox.addEventListener('mousedown',(e)=>{
+				var e = e || window.event;
+				if(e.button == "2"){  
+				
+				   
+				} 	
+			},false);
+	
 			this.$refs.cavs.width = 391;
 			this.$refs.cavs.height = 695;
 			this.cans = this.$refs.cavs.getContext("2d");
