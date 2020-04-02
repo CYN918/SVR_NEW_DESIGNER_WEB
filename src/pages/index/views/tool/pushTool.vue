@@ -678,10 +678,14 @@ export default{
 			this.istype = '';
 			this.tanc.zj = 'saves';
 			this.tanc.title = this.form.title;
+			if(this.form.id){
+				this.tanc.id = this.form.id;
+			}
 			this.tanc.json = {
 				media:this.navcoms.media,
 				audio:this.navcoms.audio
 			};
+			
 			this.tanc.maxTime = this.navcoms.maxTime;
 		},
 		cats(){
@@ -920,6 +924,7 @@ export default{
 				this.form.title = op.title;
 				this.navcoms.media = json.media;
 				this.navcoms.audio = json.audio;
+				this.form.id = op.id;
 				this.setMaxTime();
 			}
 			
@@ -1047,6 +1052,9 @@ export default{
 			this.cl_video(pr);
 			this.cl_audio(pr);
 			pr.json = JSON.stringify(pr.json);
+			if(this.form.id){
+				pr.id = this.form.id;
+			}
 			this.ajaxType = 1;
 			this.api.sh_save(pr).then((da)=>{				
 				this.ajaxType = '';
