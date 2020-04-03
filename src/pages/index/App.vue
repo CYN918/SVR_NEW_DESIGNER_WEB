@@ -4,14 +4,13 @@
 	</div>
 </template>
 <style lang="scss">
-html {
-　　filter:grayscale(100%);
-　　-webkit-filter:grayscale(100%);
-　　-moz-filter:grayscale(100%);
-　　-ms-filter:grayscale(100%);
-　　-o-filter:grayscale(100%);
-　　filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
-　　-webkit-filter:grayscale(1);
+html{
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
 }
 html,body,div,img,p,ul,li{
 	margin: 0;
