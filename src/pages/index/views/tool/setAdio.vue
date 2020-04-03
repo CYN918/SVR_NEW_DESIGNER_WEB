@@ -104,7 +104,7 @@ export default{
 			datas:[],
 			bfData:{
 				logo:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/resizeApi.png',
-				name:'--',
+				name:'双击列表音乐播放',
 				author:'--',
 				bft:'00:00',
 				duration:0,
@@ -293,20 +293,33 @@ export default{
 			})
 		},
 		favor(el) {
+			//console.log(el)
 			if (el) {
+				//列表收藏逻辑
 				if (el.is_collect == 1) {
 					this.sh_delFavorAudio(el.m_id);
 				} else {
 					this.sh_addFavorAudio(el.m_id);
 				}
-
+				
+				//点击列表收藏修改播放收藏状态
+				if(el.m_id == this.bfData.m_id){
+					if(el.is_collect == 1){
+						this.$set(this.bfData,"is_collect",0)
+					} else {
+						this.$set(this.bfData,"is_collect",1)
+					}
+				}
 			} else {
+				//播放收藏按钮逻辑
 				let ond = this.bfData.on;
 				let id = this.datas[ond].m_id;
 				if (this.datas[ond].is_collect == 1) {
 					this.sh_delFavorAudio(id);
+					this.$set(this.bfData,"is_collect",0)
 				} else {
 					this.sh_addFavorAudio(id);
+					this.$set(this.bfData,"is_collect",1)
 				}
 
 			}
@@ -519,11 +532,15 @@ export default{
 	color:rgba(51,51,51,1);
 	line-height:30px;
 	text-align: center;
+	cursor: pointer;
+}
+.mp3_03_3>span:hover{
+	color:#33B3FF;
 }
 .mp3_03_3>span.chekd{
-	color: #fff;
-	background: #33B3FF;
-	border-color: #33B3FF;
+	color: #33B3FF;
+	background:rgba(51,179,255,0.1);
+	border:1px solid rgba(51,179,255,0.2);
 }
 .mp3_05{
 	position: absolute;
