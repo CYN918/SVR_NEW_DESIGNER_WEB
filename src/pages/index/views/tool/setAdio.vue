@@ -223,6 +223,7 @@ export default{
 				author:pd.author,
 				bft:'00:00',
 				duration:pd.duration,
+				is_collect:pd.is_collect
 			};
 			this.$refs.aido.pause()
 			this.sh_audioUrl(pd.m_id);
@@ -246,6 +247,7 @@ export default{
 				author:pd.author,
 				bft:'00:00',
 				duration:pd.duration,
+				is_collect:pd.is_collect
 			};
 			this.$refs.aido.pause()
 			this.sh_audioUrl(pd.m_id);
@@ -729,6 +731,8 @@ img.mp3_04_01_sc {
     margin-top: 13px;
     display: inline-block;
     vertical-align: top;
+	tap-highlight-color:transparent;
+	user-select:none;
 }
 .pr_adio:before{
 	content: "";
