@@ -165,7 +165,7 @@ export default {
     height: 160px;
     position: fixed;
     right: 294px;
-    top: 562px;
+    top: 575px;
     display: none;
 }
 .nav_tolt_hover .nav_tolt_hover_btn{
@@ -191,7 +191,7 @@ export default {
     height: 240px;
     position: fixed;
     right: 294px;
-    top: 635px;
+    top: 648px;
     border: 1px solid #33B3FF;
     border-radius: 5px;
     background: #FFFFFF;
