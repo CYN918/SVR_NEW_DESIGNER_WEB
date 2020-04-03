@@ -362,7 +362,7 @@ export default{
 			if(this.name){
 				pr.name = this.name;
 			}
-			if(this.clas){
+			if(this.clas && this.clas != "全部"){
 				pr.com_classify_name = this.clas;
 			}
 			if(window.source){

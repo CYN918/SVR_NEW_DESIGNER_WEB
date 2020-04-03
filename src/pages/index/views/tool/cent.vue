@@ -1,6 +1,6 @@
 <template>
 	<div class="ldx_l_1x">
-		<div class="ldx_l_1" >
+		<div class="ldx_l_1">
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
 		
 		<!-- 	<div class="ldx_l_1_1_2"><img :src="imgPath+'new/tools/v_02.svg'" ></div>
@@ -16,17 +16,17 @@
 				</div>
 			</div>
 			<div class="ldx_l_1_btn">
-				<div class="ldx_l_1_btn" v-if="el.status==0">
+				<div class="ldx_l_1_btn" v-if="el.status==0 && Isbtn">
 					<span @click="bjfn(el.id)" class="pend">编辑</span>
 					<span @click="pusjg" class="pend ldx_l_1_btn1">交稿</span>
 				</div>
-				<div class="ldx_l_1_btn2" v-if="el.status==1">
+				<div class="ldx_l_1_btn2" v-if="el.status==1 && Isbtn">
 					<span>审核中</span>
 				</div>
 				<div class="ldx_l_1_btn2" v-if="el.status==10">
 					<span>合成中</span>
 				</div>
-				<div class="ldx_l_1_btn3" v-if="el.status==-1">
+				<div class="ldx_l_1_btn3" v-if="el.status==-1 && Isbtn">
 					<span class="pend" @click="bjfn(el.id)">重新编辑</span>
 					<span class="pend ldx_l_1_btn3x">查看驳回原因</span>
 				</div>
@@ -61,11 +61,18 @@ export default{
 	data(){
 		return{
 			tjTy:'',
-			top_btn:false
+			top_btn:false,
+			Isbtn:true
 		}
 		
 	},
 	methods:{
+		btnchange(e){
+			//console.log(e.target.className)
+			// if(e.target.className != 'ldx_l_1_btn'){
+			this.Isbtn = true;
+			
+		},
 		del(id){
 			this.api.mobileshowdel({
 				id:id
@@ -148,6 +155,13 @@ export default{
 			})
 			
 		},
+	},
+	mounted() {
+		document.addEventListener('click', (e)=> {
+			if (e.target.className != 'ldx_l_1_top_btn1' && e.target.className != 'ldx_l_1_top_btn') {
+				this.top_btn = false;
+			}
+		})
 	}
 }
 </script>
@@ -269,6 +283,7 @@ export default{
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
 	border-radius:5px;
 	position: absolute;
+	margin-top: 2px;
 }
 .ldx_l_1_btn1_1{
 	width:100%;
