@@ -119,7 +119,11 @@
 						</div>
 						<div class="tlo_03">
 							<div  :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.audio">
-								<div @click="checkDOm($event,el,index,'audio')" class="setToll0"></div>
+								<div :style="bgtf(el)" @click="checkDOm($event,el,index,'audio')" class="setToll0">
+									
+								</div>
+								
+								
 								<div  v-if="el.ischeck" class="setToll">
 									<div @mousedown="jl3($event,el,index,navcoms.audio)" class="setToll1"></div>
 									<div @mousedown="jl2($event,el,index,navcoms.audio)"  class="setToll2"></div>

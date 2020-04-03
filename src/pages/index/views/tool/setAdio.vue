@@ -155,7 +155,7 @@ export default{
 						long:el.duration,
 						cut_start: 0,
 						cut_end: el.duration,
-						fps_pic:'',
+						fps_pic:el.soundwave_pic,
 						fps:'',
 						fid:el.m_id,
 						ischeck:'',
