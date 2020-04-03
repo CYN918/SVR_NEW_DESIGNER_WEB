@@ -20,7 +20,7 @@
 						<canvas class="videoBox1" ref="cavs"></canvas>
 						<video @timeupdate="timeupdatevideo" muted @ended="endeds()" @loadeddata="csy"  id="boxf" class="ntob_cent_l_1" :src="video" ref="vids"></video>					
 					
-						<div v-if="isld && vdcc2==0" class="show_00x_1">
+						<div v-if="isld && vdcc2==1" class="show_00x_1">
 							<div class="show_00x_1_1">138-888-888</div>
 							<div class="show_00x_1_2">正在拨号…</div>
 							<div class="show_00x_1_3">
@@ -33,7 +33,7 @@
 							</div>
 							<img class="show_00x_1_4" src="/imge/tools/d_02.png">
 						</div>
-						<div v-if="isld && vdcc2==1" class="show_00x_2">
+						<div v-if="isld && vdcc2==0" class="show_00x_2">
 							<img class="show_00x_2_1" src="/imge/tools/d_03.png"/>
 							<div class="show_00x_2_2">来电秀</div>
 							<div class="show_00x_2_3">156-0202-0101</div>
@@ -110,9 +110,8 @@
 									<div @mousedown="jl3($event,el,index,navcoms.media)" class="setToll1"></div>
 									<div @mousedown="jl2($event,el,index,navcoms.media)"  class="setToll2"></div>
 									<div @mousedown="jl($event,el,index,navcoms.media)" class="setToll3"></div>
-									<div class="setToll4">
+									<div @click="showcj($event,{n:'media',on:index})" class="setToll4">
 										<i></i><i></i><i></i>
-										<input @blur="csb" @focus="csa($event,{n:'media',o:index})" class="setToll4_1" type="text">
 									</div>
 								</div>							
 								
@@ -125,9 +124,8 @@
 									<div @mousedown="jl3($event,el,index,navcoms.audio)" class="setToll1"></div>
 									<div @mousedown="jl2($event,el,index,navcoms.audio)"  class="setToll2"></div>
 									<div @mousedown="jl($event,el,index,navcoms.audio)" class="setToll3"></div>
-									<div class="setToll4">
+									<div @click="showcj($event,{n:'audio',on:index})" class="setToll4">
 										<i></i><i></i><i></i>
-										<input @blur="csb" @focus="csa($event,{n:'audio',o:index})" class="setToll4_1" type="text">
 									</div>
 								</div>			
 							
@@ -980,11 +978,11 @@ export default{
 				
 				
 			},false)
-			this.$refs.gdbox.addEventListener('mousedown',(e)=>{
+			this.$refs.gdbox.addEventListener('contextmenu',(e)=>{
 				var e = e || window.event;
 				if(e.button == "2"){  
-				
-				   
+					e.preventDefault();
+					console.log(1111111111);
 				} 	
 			},false);
 	
@@ -1012,19 +1010,31 @@ export default{
 			this.navson = o;
 			this.navcoms.zj=zj;
 		},
-		csa(e,b){
+		showcj(e,b){
 			let dom =  e.target.getBoundingClientRect();
 			if(b){
 				this.xzData = b;
 			}
 			
 			this.csad = 'display:block;top:'+(dom.y-5)+'px;left:'+(dom.x-22)+'px';
+			let fn = ()=>{
+				setTimeout(()=>{
+					this.csad = '';
+				},100)
+			};
+			this.clerClick(fn)
 		},
-		csb(e){
+		clerClick(fn){
+			document.onclick = null;
 			setTimeout(()=>{
-				this.csad = '';
-			},200)
-			
+				document.onclick=()=>{					
+					if(fn){
+						fn()
+					}
+					document.onclick = null;
+				}		
+			},50)
+				
 		},
 		setips(n){
 			this.tipszb = {
