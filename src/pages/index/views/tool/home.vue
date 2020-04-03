@@ -214,6 +214,7 @@ export default{
 .hotCent2{
 	width: 1300px;
 	margin: 0 auto;
+	margin-top: 39px;
 }
 .hotCent2 > ul > li{
 	width: 420px;
