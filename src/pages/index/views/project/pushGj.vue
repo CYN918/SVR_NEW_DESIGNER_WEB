@@ -122,6 +122,7 @@ export default {
 				userType:'user_info',
 			},
 			isJdt1:'',
+			file_info:'',
 		}
 	},
 	mounted: function(){
@@ -194,6 +195,7 @@ export default {
 					file_url:this.fileList3[0].url,
 					file_size:this.fileList3[0].size,
 					remark:this.eell,
+					file_info:JSON.stringify(this.file_info),
 				};
 			}
 			
@@ -277,6 +279,7 @@ export default {
 						return
 					}
 					let da = opd.data;
+					this.file_info = da;
 					p.file_name = da.file_name;
 					p.size = da.file_size;	
 					p.fid=da.fid;

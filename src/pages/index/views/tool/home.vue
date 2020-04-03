@@ -155,7 +155,7 @@ export default{
 } */
 .hot_topbox{
 	position: relative;
-	margin-bottom: 60px;
+	margin-bottom: 0px;
 	text-align: center;
 }
 .hot_topbox > button{
@@ -213,11 +213,12 @@ export default{
 }
 .hotCent2{
 	width: 1300px;
-	margin: 0 auto 60px;
+	margin: 0 auto;
+	margin-top: 39px;
 }
 .hotCent2 > ul > li{
 	width: 420px;
-	height: 586px;
+	height: 430px;
 	display: inline-block;
 	position: relative;
 	text-align: center;
