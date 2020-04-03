@@ -120,6 +120,9 @@ export default{
 			var f='00',s;
 			if(t>60){
 				f = Math.round(t/60);
+				if(f<10){
+					f='0'+f;
+				}
 			}
 			s = Math.round(t%60);
 			if(s<10){
