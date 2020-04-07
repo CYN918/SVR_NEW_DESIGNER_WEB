@@ -7,9 +7,11 @@
 					<div class="ac_list_Box_2">
 						<div class="ac_list_Box_4">{{todo.activity_name}}</div>
 						<div class="ac_list_Box_5"><span>{{todo.category_name}}</span>投稿时间：{{todo.start_time.split(" ")[0]}} 至 {{todo.end_time.split(" ")[0]}}</div>
-						<div class="ac_list_Box_3">
-							<span v-if="todo.status==1" class="ac_list_Box_6">{{todo.left_day==0?'今':todo.left_day}}天</span><span v-if="todo.status==1" class="ac_list_Box_7">距离截止</span>
-							<span v-else-if="todo.status==-1" class="ac_list_Box_8">已结束</span>
+						<div class="ac_list_Box_3" v-if="todo.status==1">
+							<span class="ac_list_Box_6">{{todo.left_day==0?'今':todo.left_day}}天</span><span v-if="todo.status==1" class="ac_list_Box_7">距离截止</span>
+						</div>
+						<div class="ac_list_Box_9" v-else-if="todo.status==-1">
+							<span class="ac_list_Box_8">已结束</span>
 						</div>
 					</div>
 				</div>
@@ -118,18 +120,30 @@ export default {
 .ac_list_Box_3{
 	position: absolute;
 	bottom: 26px;
+	right: 0px;
+	background: #FF9200;
+	width: 98px;
+	text-align: center;
+	border-top-left-radius: 100px;
+	border-bottom-left-radius: 100px;
+}
+.ac_list_Box_9{
+	position: absolute;
+	bottom: 26px;
 	right: 20px;
-	text-align:right;
+	text-align: right;
 }
 .ac_list_Box_6{
 	display: block;
 	font-size: 16px;
-	color: #1D1D1D;
+	color: #FFFFFF;
 	margin-bottom: 4px;
 }
 .ac_list_Box_7{
 	font-size: 14px;
-	color: #999999;
+	color: #FFFFFF;
+	margin-bottom: 4px;
+    display: block;
 }
 .ac_list_Box_8{
 	display: inline-block;

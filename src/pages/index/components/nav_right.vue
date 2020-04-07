@@ -103,36 +103,47 @@ export default {
 .nav_rig{
 	width: 93.53px;
 	position: fixed;
-	right: 196px;
+	right: 2.3%;
 	top: 40%;
     z-index: 999999;
 }
 .nav_logo{
     height: 112px;
     position: relative;
-    top: 20px;
+    top: 60px;
     z-index: -1;
 }
-.nav_upload,.nav_tolt{
+.nav_upload{
     width: 91.53px;
     height: 66px;
-    border: 1px solid #0066B4;
-	border-radius: 5px;
-    margin-top: 4px;
     z-index: 999999;
     background: #FFFFFF;
     color: #1E1E1E;
     font-size: 14px;
+    border-top: 1px solid #0066B4;
+    border-left: 1px solid #0066B4;
+    border-right: 1px solid #0066B4;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.nav_tolt{
+    width: 91.53px;
+    height: 66px;
+    z-index: 999999;
+    background: #FFFFFF;
+    color: #1E1E1E;
+    font-size: 14px;
+    border-left: 1px solid #0066B4;
+    border-right: 1px solid #0066B4;
 }
 .nav_upload > img,.nav_tolt > img{
     margin-top: 15px;
 }
 .nav_weixin{
-    width: 93.53px;
+    width: 91.53px;
     height: 94px;
-    border: 1px solid #0066B4;
-	border-radius: 5px;
-    margin-top: 4px;
+    border-left: 1px solid #0066B4;
+    border-right: 1px solid #0066B4;
     background: #FFFFFF;
     color: #1E1E1E;
     font-size: 14px;
@@ -141,16 +152,28 @@ export default {
     margin-top: 10px;
 }
 .nav_rig > ul > li{
-	width: 93.53px;
 	text-align: center;
     cursor: pointer;
 }
-.nav_rig > ul .nav_weibo:hover,.nav_rig > ul .nav_top:hover{
+.nav_rig > ul .nav_weibo:hover,.nav_rig > ul .nav_top:hover,.nav_weixin:hover{
     background: #33B3FF;
     color: #ffffff;
 }
-.nav_rig > ul .nav_weibo,.nav_rig > ul .nav_top{
+.nav_rig > ul .nav_weibo{
 	width: 91.53px;
+	height: 34px;
+	line-height: 36px;
+	color: #1E1E1E;
+	font-size: 14px;
+	border-left: 1px solid #0066B4;
+    border-right: 1px solid #0066B4;
+    border-bottom: 1px solid #0066b4;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background: #FFFFFF;
+}
+.nav_rig > ul .nav_top{
+    width: 91.53px;
 	height: 34px;
 	line-height: 36px;
 	color: #1E1E1E;
@@ -163,9 +186,9 @@ export default {
 .nav_tolt_hover{
     width: 280px;
     height: 160px;
-    position: fixed;
-    right: 294px;
-    top: 575px;
+    position: absolute;
+    right: 105%;
+    top: 35%;
     display: none;
 }
 .nav_tolt_hover .nav_tolt_hover_btn{
@@ -189,9 +212,9 @@ export default {
 .nav_weixin_hover{
     width: 220px;
     height: 240px;
-    position: fixed;
-    right: 294px;
-    top: 648px;
+    position: absolute;
+    right: 105%;
+    top: 25%;
     border: 1px solid #33B3FF;
     border-radius: 5px;
     background: #FFFFFF;
