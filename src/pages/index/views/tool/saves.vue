@@ -122,6 +122,14 @@ export default{
 				})
 				return
 			}
+			
+			if(!this.isok){
+				this.$message({
+					message:"名称*标签不能为空"
+				})
+				return;
+			}
+			
 			let pr = this.value;			
 			this.cl_video(pr);
 			this.cl_audio(pr);
@@ -225,6 +233,7 @@ export default{
 	font-size:14px;
 	color:rgba(187,187,187,1);
 	line-height:40px;
+	cursor: pointer;
 }
 .mp3_01x_3>span.mp3_01x_3ok{
 	cursor: pointer;

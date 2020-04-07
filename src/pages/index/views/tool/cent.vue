@@ -1,6 +1,6 @@
 <template>
 	<div class="ldx_l_1x">
-		<div class="ldx_l_1">
+		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1" >
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
 		
 		<!-- 	<div class="ldx_l_1_1_2"><img :src="imgPath+'new/tools/v_02.svg'" ></div>
@@ -62,16 +62,16 @@ export default{
 		return{
 			tjTy:'',
 			top_btn:false,
-			Isbtn:true
+			Isbtn:false
 		}
 		
 	},
 	methods:{
 		btnchange(e){
-			//console.log(e.target.className)
-			// if(e.target.className != 'ldx_l_1_btn'){
 			this.Isbtn = true;
-			
+		},
+		btnchange1(e){
+			this.Isbtn = false;
 		},
 		del(id){
 			this.api.mobileshowdel({

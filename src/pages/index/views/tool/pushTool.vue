@@ -102,9 +102,7 @@
 						
 						<div class="tlo_02"  @mouseover="setMos(1)" @mouseout="setMos('')">
 							<div :style="backtop(el,index)" class="imgd" v-for="(el,index) in navcoms.media">
-								<div :style="bgtf(el)" @click="checkDOm($event,el,index,'media')" class="setToll0">
-									
-								</div>
+								<div :style="bgtf(el)" @click="checkDOm($event,el,index,'media')" class="setToll0"></div>
 								
 								<div  v-if="el.ischeck" class="setToll">
 									<div @mousedown="jl3($event,el,index,navcoms.media)" class="setToll1"></div>
@@ -156,7 +154,7 @@
 			</div>
 			<div :style="csad" class="setToll4_2">
 				<span v-if="this.xzData.n=='media'" @click="cats()">裁剪</span>
-				<span v-if="this.xzData.n=='media'">复制</span>
+				<span v-if="this.xzData.n=='media'" @click="pastes()">复制</span>
 				<span @click="delt()">删除</span>
 			</div>
 			<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
@@ -689,6 +687,11 @@ export default{
 			};
 			
 			this.tanc.maxTime = this.navcoms.maxTime;
+		},
+		pastes(){
+			console.log(this.navcoms.media)
+			this.navcoms.media.push(this.checkDOmx);
+			console.log(this.navcoms.media)
 		},
 		cats(){
 			if(!this.xzData){return}
