@@ -3,7 +3,7 @@
 		<span 
 		v-for="el in List"
 		@click="qh(el[keys])"
-		:class="['pend',el[keys]==value?'chekd':'']"
+		:class="[el[keys]==value?'chekd':'']"
 		>{{el[v]}}</span>
 	</div>
 </template>

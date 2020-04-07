@@ -5,6 +5,12 @@
 				<span>我的来电秀工程</span>
 				<a href="/#/help?on=4-02">如何通过制作来电秀获得收益？</a>
 			</div>
+			<div>
+				<ul class="listbg">
+					<li v-for="(item,index) in statelist" :class="['statelist',statelistindex == index?'statelist-active':'']" @click="statechange(index,item.state)">{{item.title}}</li>
+				</ul>
+				<div class="listbgline"></div>
+			</div>
 			<div class="tolu_02" >
 				<div v-if="showK" class="tolu_03">
 					<img class="tolu_04" :src="imgPath+'svg/empty_nodata.svg'">
@@ -72,12 +78,23 @@ export default{
 				},
 				pr:{
 					type:'doing', 
+					
 				},	
 				noData:'1',
 			},	
 			showK:'',
 			isnodata:'',
-		
+			statelist:[
+				{
+					title:"进行中",
+					state:"doing"
+				},
+				{
+					title:"已完成",
+					state:"finish"
+				}
+			],
+			statelistindex:0
 		}
 	},
 	mounted: function () {
@@ -104,7 +121,11 @@ export default{
 			this.isnodata = on;
 			
 		},
-
+		statechange(index,type){
+			this.statelistindex = index;
+			this.conf.pr.type = type;
+			this.$refs.sfafa.getData();
+		}
 	}
 }
 </script>
@@ -168,5 +189,36 @@ export default{
 .btn_n4 {
 	text-align: center;
 	/*padding-bottom: 20px;*/
+}
+.listbg{
+	overflow: hidden;
+	margin-top: 21px;
+	position: relative;
+}
+.listbgline{
+	width: 100%;
+	height: 1px;
+	background: #D9D9D9;
+	margin-bottom: 21px;
+	position: relative;
+	top: -1px;
+	z-index: 0;
+}
+.statelist{
+	float: left;
+	margin-right: 48px;
+	font-weight:500;
+	color:#1E1E1E;
+	font-size:14px;
+	font-family:PingFangSC-Medium,PingFang SC;
+	padding-bottom: 13px;
+	cursor: pointer;
+	position: relative;
+	z-index: 1;
+}
+
+.statelist-active{
+	color:rgba(51,179,255,1);
+	border-bottom: 1px solid rgba(51,179,255,1);
 }
 </style>
