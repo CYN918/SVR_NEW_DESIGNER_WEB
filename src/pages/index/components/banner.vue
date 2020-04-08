@@ -126,7 +126,7 @@ export default {
 	left: 50%;
 	-webkit-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
-	width: 100%;
+	width: 1300px;
 	height: 0;
 }
 .banner_jt{
@@ -153,10 +153,10 @@ export default {
     transform: translate(-35%,-50%) rotate(-45deg);
 }
 .banner_jt1{	
-    left:410px;
+    left:3.6%;
 }
 .banner_jt2{	
-    right: 410px;
+    right: 3.6%;
     -webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
@@ -202,6 +202,7 @@ export default {
 	top: 0;
 	left: 0;
 	display: none;
+	border-radius: 5px;
 }
 .banner1>img.action{
 

@@ -211,6 +211,9 @@ export default{
 	color:rgba(51,51,51,1);
 	line-height:40px;
 }
+.hotCent{
+	margin-top: 39px;
+}
 .hotCent2{
 	width: 1300px;
 	margin: 0 auto;

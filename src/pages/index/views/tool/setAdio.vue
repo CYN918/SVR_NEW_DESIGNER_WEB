@@ -1,5 +1,6 @@
 <template>
 	<div class="box_p_01">
+		
 		<div class="mp3_03" ref="nsdf">
 			<div class="mp3_03_0">
 				<spck
@@ -32,10 +33,22 @@
 			<div 
 			@dblclick="bf(el, index)"
 			v-for="(el,index) in datas"
-			:class="['mp3_04_01 mp3_04_01xd',index%2==0?'mp3_04_01x':'']" 
+			:class="['mp3_04_01 mp3_04_01xd',index%2==0?'mp3_04_01x':'',bfData.on==index?'chebf':'']" 
 			>
 				<span><span :class="index<3?'setAdio_01':''">{{index+1}}</span></span>
-				<span><span class="mp3_04_01_t hft">{{el.name}}</span></span><span>
+				<span>
+					<span class="mp3_04_01_t hft ">
+						<span class="playsd_an_1">
+							{{el.name}}
+							<lottie-player v-if="bfData.on==index" ref="chean"
+								class="playsd_an" src="./js/anm/music.json" background="transparent" speed="1" loop>
+							</lottie-player>
+						</span>
+						
+						
+					</span>
+					
+				</span><span>
 				{{el.author}}</span><span>
 				{{backT(el.duration)}}</span><span class="seadio_to">
 					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="bRunning && (bfData.on && bfData.on==index)?'/imge/tools/music_icon_pause.svg':'/imge/tools/music_icon_play.svg'"/>
@@ -51,7 +64,7 @@
 			</div>
 			<div class="mp3_05_2">
 				<span class="mp3_05_2_1">
-					<img  :src="bfData.logo"/>
+					<img :class="['ant',bRunning?'':'paused']" src="/imge/tools/Rectangle.png"/>
 				</span>
 				
 				<span class="mp3_05_2_2">
@@ -226,6 +239,7 @@ export default{
 				is_collect:pd.is_collect
 			};
 			this.$refs.aido.pause()
+			
 			this.sh_audioUrl(pd.m_id);
 			
 		},
@@ -250,6 +264,7 @@ export default{
 				is_collect:pd.is_collect
 			};
 			this.$refs.aido.pause()
+			
 			this.sh_audioUrl(pd.m_id);
 		},
 		bf(el,on,ispd){
@@ -270,16 +285,18 @@ export default{
 				this.sh_audioUrl(el.m_id);
 				return
 			}
-			console.log(111111111);
+			
 			if(!this.$refs.aido.src){
 				return
 			}
 			if (this.bRunning) {
 				this.bRunning = false;
 				this.$refs.aido.pause();
+				this.$refs.chean[0].pause();
 			} else {
 				this.bRunning = true;
 				this.$refs.aido.play();
+				this.$refs.chean[0].play();
 			}
 
 		},
@@ -291,6 +308,7 @@ export default{
 				this.$refs.aido.src=da.file_url;
 				this.bRunning = true;
 				this.$refs.aido.play();
+				this.$refs.chean[0].play();
 				
 			})
 		},
@@ -521,6 +539,29 @@ export default{
     margin-bottom: 10px;
     margin-right: -20px;
 }
+.ant{
+	animation: 2500ms xz infinite linear;
+}
+.paused{
+	animation-play-state: paused;
+}
+@keyframes xz{
+	0%{
+		transform: rotateZ(0deg);
+	}
+	25%{
+		transform: rotateZ(90deg);
+	}
+	50%{
+		transform: rotateZ(180deg);
+	}
+	75%{
+		transform: rotateZ(270deg);
+	}
+	100%{
+		transform: rotateZ(360deg);
+	}
+}
 .mp3_03_3>span{
 	margin-right: 20px;
 	display: inline-block;
@@ -615,7 +656,7 @@ export default{
 }
 .mp3_05_2_2_2_1{
 	display: block;
-	width: 105px;
+	width: 72px;
 }
 .mp3_05_2_2_2_2{
 	position: absolute;
@@ -647,6 +688,10 @@ export default{
 	position: relative;
 	top: 0;
 }
+.mp3_04_01:hover{
+    background: rgba(187,187,187,.3);
+}
+
 .mp3_04_01>span{
 	position: relative;
 	display: inline-block;
@@ -658,23 +703,24 @@ export default{
 	width: 12%;
 }
 .mp3_04_01>span:nth-child(2){
-	width: 30%;
+	width: 28%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 .mp3_04_01>span:nth-child(3){
-	width: 30%;
+	width: 28%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	cursor: context-menu;
 
 }
 .mp3_04_01>span:nth-child(4){
 	width: 12%;
 }
 .mp3_04_01>span:nth-child(5){
-	width: 16%;
+	width: 20%;
 }
 .mp3_04_01x{
 	background: rgba(242,242,242,.3);
@@ -683,6 +729,7 @@ export default{
 	display: inline-block;
 	vertical-align: top;
 	width: 212px;
+	cursor: context-menu;
 }
 .mp3_04_01xd{
 	font-size: 14px;
@@ -785,5 +832,19 @@ img.mp3_04_01_sc {
 	height:16px;
 	background: #fff;
 	background-image: linear-gradient(to right,#fff 2px,rgba(51,179,255,1) 8px,#fff 2px);
+}
+.playsd_an_1{
+	display: inline-block;
+	position: relative;
+}
+.playsd_an{
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    right: -75px;
+    top: -39px;
+}
+.chebf{
+	background: rgba(187,187,187,.3);
 }
 </style>

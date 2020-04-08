@@ -250,6 +250,9 @@ export default {
 	Income_flowList:{
 		url:'/Api/Income/flowList',method:'post',baseURL:0,
 	},
+	Income_personMoney:{
+		url:'/Api/Income/PersonMoney',method:'post',baseURL:0,
+	},
 	
 	Income_applyList:{
 		url:'/Api/Income/applyList',method:'post',baseURL:0,
