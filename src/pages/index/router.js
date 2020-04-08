@@ -39,6 +39,7 @@ import messgeCl from './views/messgeCl/index.vue'
 import pt_index from './views/profit/index.vue'
 // import pt_works from './views/profit/works.vue'
 import pt_projects from './views/profit/projects.vue'
+import pt_divided from './views/profit/divided.vue'
 import pt_money from './views/profit/money.vue'
 // import pt_fcsy from './views/profit/fcsy.vue'
 import pt_noRz from './views/profit/noRz.vue'
@@ -193,7 +194,8 @@ let wb = [
 				component:pt_index,
 				children:[
 					// {path: '/profit',name: 'profit',component:pt_works},
-					{path: '/profit',name: 'profit',component:pt_projects},				
+					{path: '/profit',name: 'profit',component:pt_projects},	
+					{path: '/divided',name: 'divided',component:pt_divided},			
 					{path: '/money',name: 'money',component:pt_money},
 					// {path: '/fcsy',name: 'fcsy',component:pt_fcsy},		
 					{path: '/qtsy',name: 'qtsy',component:pt_qtsy},												
