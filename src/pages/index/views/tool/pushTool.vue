@@ -104,7 +104,7 @@
 							<div :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'media',o:index})" class="imgd" v-for="(el,index) in navcoms.media">
 								<div :style="bgtf(el)" @click="checkDOm($event,el,index,'media')" class="setToll0"></div>
 								
-								<div  v-if="el.ischeck" class="setToll">
+								<div   class="setToll">
 									<div @mousedown="jl3($event,el,index,navcoms.media)" class="setToll1"></div>
 									<div @mousedown="jl2($event,el,index,navcoms.media)"  class="setToll2"></div>
 									<div @mousedown="jl($event,el,index,navcoms.media)" class="setToll3"></div>
@@ -122,7 +122,7 @@
 								</div>
 								
 								
-								<div  v-if="el.ischeck" class="setToll">
+								<div   class="setToll">
 									<div @mousedown="jl3($event,el,index,navcoms.audio)" class="setToll1"></div>
 									<div @mousedown="jl2($event,el,index,navcoms.audio)"  class="setToll2"></div>
 									<div @mousedown="jl($event,el,index,navcoms.audio)" class="setToll3"></div>
@@ -1508,7 +1508,13 @@ margin-left: 121px;
 	width: 100%;
 	height: 100%;
 	box-sizing: border-box;
-	border:2px solid rgba(51,179,255,1);
+	border:2px solid transparent;
+}
+.setToll:hover{
+	border-color: rgba(51,179,255,1);
+}
+.setToll:hover .setToll4{
+	display: block;
 }
 .ntob_cent_l_2{
 	position: relative;
@@ -1596,7 +1602,7 @@ margin-left: 121px;
 	cursor: col-resize;
 }
 .setToll4{
-	
+	display: none;
 	cursor: pointer;
 	position: absolute;
 	top: 50%;

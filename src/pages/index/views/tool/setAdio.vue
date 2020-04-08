@@ -656,7 +656,7 @@ export default{
 }
 .mp3_05_2_2_2_1{
 	display: block;
-	width: 105px;
+	width: 72px;
 }
 .mp3_05_2_2_2_2{
 	position: absolute;
@@ -688,6 +688,10 @@ export default{
 	position: relative;
 	top: 0;
 }
+.mp3_04_01:hover{
+    background: rgba(187,187,187,.3);
+}
+
 .mp3_04_01>span{
 	position: relative;
 	display: inline-block;
@@ -709,6 +713,7 @@ export default{
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	cursor: context-menu;
 
 }
 .mp3_04_01>span:nth-child(4){
@@ -724,6 +729,7 @@ export default{
 	display: inline-block;
 	vertical-align: top;
 	width: 212px;
+	cursor: context-menu;
 }
 .mp3_04_01xd{
 	font-size: 14px;

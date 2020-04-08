@@ -17,7 +17,7 @@
 			</div>
 			<div class="ldx_l_1_btn">
 				<div class="ldx_l_1_btn" v-if="el.status==0 && Isbtn">
-					<span @click="bjfn(el.id)" class="pend">编辑</span>
+					<span @click="bjfn(el.id)" class="pendno">编辑</span>
 					
 				</div>
 				<div class="ldx_l_1_btn2" v-if="el.status==1 && Isbtn">
@@ -27,8 +27,8 @@
 					<span>合成中</span>
 				</div>
 				<div class="ldx_l_1_btn3" v-if="el.status==-1 && Isbtn">
-					<span class="pend" @click="bjfn(el.id)">重新编辑</span>
-					<span class="pend ldx_l_1_btn3x">查看驳回原因</span>
+					<span class="pendno" @click="bjfn(el.id)">重新编辑</span>
+					<span class="pendno ldx_l_1_btn3x">查看驳回原因</span>
 				</div>
 			</div>
 			
@@ -125,6 +125,9 @@ export default{
 	background-size: cover;
 	background-position: center;
 	
+}
+.pendno{
+	cursor: pointer;
 }
 .ldx_l_1x_2{
 	margin: 8px 0 4px;
