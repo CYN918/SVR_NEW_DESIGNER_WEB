@@ -51,7 +51,7 @@
 			</div>
 			<div class="mp3_05_2">
 				<span class="mp3_05_2_1">
-					<img  :src="bfData.logo"/>
+					<img :class="['ant',bRunning?'':'paused']" src="/imge/tools/Rectangle.png"/>
 				</span>
 				
 				<span class="mp3_05_2_2">
@@ -521,6 +521,29 @@ export default{
     margin-bottom: 10px;
     margin-right: -20px;
 }
+.ant{
+	animation: 2500ms xz infinite linear;
+}
+.paused{
+	animation-play-state: paused;
+}
+@keyframes xz{
+	0%{
+		transform: rotateZ(0deg);
+	}
+	25%{
+		transform: rotateZ(90deg);
+	}
+	50%{
+		transform: rotateZ(180deg);
+	}
+	75%{
+		transform: rotateZ(270deg);
+	}
+	100%{
+		transform: rotateZ(360deg);
+	}
+}
 .mp3_03_3>span{
 	margin-right: 20px;
 	display: inline-block;
@@ -658,13 +681,13 @@ export default{
 	width: 12%;
 }
 .mp3_04_01>span:nth-child(2){
-	width: 30%;
+	width: 28%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 .mp3_04_01>span:nth-child(3){
-	width: 30%;
+	width: 28%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -674,7 +697,7 @@ export default{
 	width: 12%;
 }
 .mp3_04_01>span:nth-child(5){
-	width: 16%;
+	width: 20%;
 }
 .mp3_04_01x{
 	background: rgba(242,242,242,.3);
