@@ -78,7 +78,9 @@
 						<span @click="qhNav(index,el.zj)" v-for="(el,index) in navs" :class="navson==index?'ckin':''">
 							<div class="con-right-iocn-img">
 								　　<img class="icon con-right-iocn-img" :src="'/imge/tools/'+el.icon"/>
-								</div>{{el.n}}</span>
+							</div>
+							{{el.n}}
+						</span>
 					</div>
 					<div class="ntob_cent_r_2">
 						<component v-bind:is="navcoms.zj" v-model="navcoms" ref="vid"></component>						
@@ -1856,6 +1858,9 @@ margin-left: 121px;
 	vertical-align: initial;
 	width: 18px;
 	margin-right: 8px;
+}
+.con-right-iocn-text{
+	height: 100%;
 }
 .con-right-iocn-img > .icon {
 	position: relative;
