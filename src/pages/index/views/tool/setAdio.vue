@@ -38,7 +38,7 @@
 				<span><span :class="index<3?'setAdio_01':''">{{index+1}}</span></span>
 				<span>
 					<span class="mp3_04_01_t hft ">
-						<span class="playsd_an_1">
+						<span class="playsd_an_1" :title="el.name">
 							{{el.name}}
 							<lottie-player v-if="bfData.on==index" ref="chean"
 								class="playsd_an" src="./js/anm/music.json" background="transparent" speed="1" loop>
@@ -48,10 +48,10 @@
 						
 					</span>
 					
-				</span><span>
+				</span><span :title="el.author">
 				{{el.author}}</span><span>
 				{{backT(el.duration)}}</span><span class="seadio_to">
-					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="bRunning && (bfData.on && bfData.on==index)?'/imge/tools/music_icon_pause.svg':'/imge/tools/music_icon_play.svg'"/>
+					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="bRunning && (bfData.on==index)?'/imge/tools/music_icon_pause.svg':'/imge/tools/music_icon_play.svg'"/>
 					<img @click="favor(el)" class="mp3_04_01_sc pend" :src="el.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
 					<span @click="checks(el)" class="setAdio_02 pend">选用</span>
 				</span>
@@ -113,7 +113,7 @@ export default{
 				{n:'1',k:'2'},
 				{n:'1',k:'3'}
 			],
-			clas:'',
+			clas:'全部',
 			datas:[],
 			bfData:{
 				logo:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/resizeApi.png',
@@ -488,6 +488,7 @@ export default{
 	margin-bottom: 20px;
 }
 .mp3_03_1>span{
+	cursor:context-menu;
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
@@ -728,7 +729,7 @@ export default{
 .mp3_04_01_t{
 	display: inline-block;
 	vertical-align: top;
-	width: 212px;
+	width: 100%;
 	cursor: context-menu;
 }
 .mp3_04_01xd{
@@ -836,12 +837,19 @@ img.mp3_04_01_sc {
 .playsd_an_1{
 	display: inline-block;
 	position: relative;
+	max-width: 100%;
+	padding-right: 31px;
+    box-sizing: border-box;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	
 }
 .playsd_an{
     width: 120px;
     height: 120px;
     position: absolute;
-    right: -75px;
+    right: -41px;
     top: -39px;
 }
 .chebf{

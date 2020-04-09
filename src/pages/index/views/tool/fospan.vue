@@ -30,6 +30,8 @@ export default{
 			}
 			this.$emit('input',en);
 		}
+	},
+	mounted(){
 	}
 }	
 </script>

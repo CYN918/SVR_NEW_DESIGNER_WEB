@@ -100,10 +100,17 @@ export default{
 					pd[i].cut_end = pd[i].cut_start+(el.maxTime-tims);
 					break
 				}
-				pd[i].end = pd[i].start+(pd[i].cut_end-pd[i].cut_start);
+				pd[i].start = this.backto(pd[i].start);
+				pd[i].cut_end = this.backto(pd[i].cut_end);
+				pd[i].cut_start = this.backto(pd[i].cut_start);
+				pd[i].end = this.backto(pd[i].start+(pd[i].cut_end-pd[i].cut_start));
 				
 			}		
 		},
+		backto(num){
+			return Math.round(num*100)/100
+		},
+		
 		cl_video(el){
 			let pd = el.json.media;
 			for(let i=0,n=pd.length;i<n;i++){
@@ -112,6 +119,10 @@ export default{
 					pd[i].crop = this.numqx(pd[i].sw)+':'+this.numqx(pd[i].sh)+':'+this.numqx(pd[i].x)+':'+this.numqx(pd[i].sy);
 					
 				}
+				pd[i].start = this.backto(pd[i].start);
+				pd[i].cut_end = this.backto(pd[i].cut_end);
+				pd[i].cut_start = this.backto(pd[i].cut_start);
+				pd[i].end = this.backto(pd[i].end);				
 			}
 		},
 		tijF(){
