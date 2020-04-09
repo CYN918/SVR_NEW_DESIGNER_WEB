@@ -8,11 +8,11 @@
 			</div>
 		</template>			
 	</TcBox>
-</div>
 </template>
 <script>
 import TcBox from './TcBox';
 export default {
+	inject:['reload'],
 	components:{TcBox},
 	data(){
 		return{
@@ -33,8 +33,9 @@ export default {
 				localStorage.setItem('pass','');			
 				localStorage.setItem('userT','');
 				window.userInfo='';
-				window.passIn = '';			
-				this.$router.push({path: '/login'})	
+				window.passIn = '';		
+				this.reload();	
+				this.$router.push({path: '/index'})	
 			});
 		},
 		show(){

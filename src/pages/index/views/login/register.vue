@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<!-- <div>
 		<img class="login_x1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg" @click="jump">
 		<p class="login_x2">让创意更有价值，让生活更加自在</p>
 		<el-form ref="myform" :model="form">	
@@ -11,6 +11,18 @@
 				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">注册</el-button>				
 			</el-form-item>
 			<p class="lgoin_s5">已有账号？<a class="pend" @click="god('/login')">登录</a></p>
+		</el-form>
+	</div> -->
+	<div class="box">
+		<el-form ref="myform" :model="form">	
+			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
+			<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+			<Input v-model="form.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'6 - 16位密码，区分大小写'"></Input>			
+			<Input v-model="form.password_repass" :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认密码'"  ></Input>
+			<el-form-item>
+				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">注册</el-button>				
+			</el-form-item>
+			<p class="lgoin_s5">已有账号？<a class="pend" @click="god()">登录</a></p>
 		</el-form>
 	</div>
 </template>
@@ -85,6 +97,10 @@ export default {
 			},
 			timer:'获取验证码',
 			ajaxType:0,
+			outc:{
+				num:1,
+				scroll:2,
+			}
 		}
 	},
 	mounted: function () {	
@@ -101,11 +117,12 @@ export default {
 				}					
 			});
 		},
-		god(d){
-			this.bdtj('注册页','已有账号','--')
-			this.$router.push({
-			    path:d
-			})
+		god(){
+			// this.bdtj('注册页','已有账号','--')
+			// this.$router.push({
+			//     path:d
+			// })
+			this.$emit('func',this.outc)
 		},
         jump(){
             this.$router.push({
@@ -236,6 +253,18 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped="scoped">
+.box{
+	width:404px;
+	height:486px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 8px 32px 0px rgba(0,0,0,0.05);
+	border-radius:5px;
+	position: absolute;
+	top: 160px;
+    left: 21px;
+}
+.el-form{
+	padding: 30px 30px 0px 30px;
+}
 </style>

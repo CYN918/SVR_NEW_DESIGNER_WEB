@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="padding:0px 30px 0px 30px;">
 		<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
 		<Input v-model="form.verify_code" @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>							
 		<div class="lgoin_s2zy"></div>	

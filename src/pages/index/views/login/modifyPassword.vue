@@ -1,6 +1,6 @@
 
 <template>
-	<div>
+	<!-- <div>
 		<div class="wjmm">忘记密码</div>
 		<el-form ref="myform" :model="form">	
 			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
@@ -11,6 +11,19 @@
 				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">完成</el-button>
 			</el-form-item>
 			<p class="lgoin_s5">返回  <router-link class="pend" to="/login">登录</router-link></p>
+		</el-form>
+	</div> -->
+	<div class="box">
+		<div class="wjmm">忘记密码</div>
+		<el-form ref="myform" :model="form">	
+			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
+			<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+			<Input v-model="form.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'请输入新密码，6-16位'"></Input>			
+			<Input v-model="form.password_repass"  :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'再次输入新密码'"  ></Input>
+			<el-form-item>
+				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">完成</el-button>
+			</el-form-item>
+			<p class="lgoin_s5">返回  <a class="pend" @click="god()">登录</a></p>
 		</el-form>
 	</div>
 </template>
@@ -85,11 +98,18 @@ export default {
 			},
 			timer:'获取验证码',
 			ajaxType:0,
+			outc:{
+				num:1,
+				scroll:2,
+			}
 		}
 	},
 	mounted: function () {	
 	}, 
 	methods: {
+		god(){
+			this.$emit('func',this.outc)
+		},
 		ajaxYzm(){
 			let pd = this.chekPhpne(this.form.mobile);
 			if(pd!=true && pd.type!=true){
@@ -187,6 +207,23 @@ export default {
 }
 </script>
 
-<style>
+<style scoped="scoped">
+.box{
+	width:404px;
+	height:486px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 8px 32px 0px rgba(0,0,0,0.05);
+	border-radius:5px;
+	position: absolute;
+	top: 160px;
+    left: 21px;
+}
+.el-form{
+	padding: 0px 30px 0px 30px;
+}
+.wjmm{
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
 
 </style>
