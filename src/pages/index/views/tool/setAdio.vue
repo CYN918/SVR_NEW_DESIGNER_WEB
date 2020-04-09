@@ -488,6 +488,7 @@ export default{
 	margin-bottom: 20px;
 }
 .mp3_03_1>span{
+	cursor: pointer;
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
@@ -728,7 +729,7 @@ export default{
 .mp3_04_01_t{
 	display: inline-block;
 	vertical-align: top;
-	width: 212px;
+	width: 100%;
 	cursor: context-menu;
 }
 .mp3_04_01xd{
@@ -836,12 +837,19 @@ img.mp3_04_01_sc {
 .playsd_an_1{
 	display: inline-block;
 	position: relative;
+	max-width: 100%;
+	padding-right: 31px;
+    box-sizing: border-box;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	
 }
 .playsd_an{
     width: 120px;
     height: 120px;
     position: absolute;
-    right: -75px;
+    right: -41px;
     top: -39px;
 }
 .chebf{

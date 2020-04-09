@@ -102,13 +102,13 @@
 						
 						<div  class="tlo_02"  @mouseover="setMos(1)" @mouseout="setMos('')">
 							<div :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'media',o:index})" class="imgd" v-for="(el,index) in navcoms.media">
-								<div :style="bgtf(el)" @click="checkDOm($event,el,index,'media')" class="setToll0"></div>
+								<div :style="bgtf(el)" class="setToll0"></div>
 								
 								<div   class="setToll">
 									<div @mousedown="jl3($event,el,index,navcoms.media)" class="setToll1"></div>
 									<div @mousedown="jl2($event,el,index,navcoms.media)"  class="setToll2"></div>
 									<div @mousedown="jl($event,el,index,navcoms.media)" class="setToll3"></div>
-									<div @click="showcj($event,{n:'media',o:index})" class="setToll4">
+									<div @click="showcj($event,{n:'media',o:index},el)" class="setToll4">
 										<i></i><i></i><i></i>
 									</div>
 								</div>							
@@ -117,16 +117,12 @@
 						</div>
 						<div class="tlo_03">
 							<div  :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'audio',o:index})" class="imgd" v-for="(el,index) in navcoms.audio">
-								<div :style="bgtf(el)" @click="checkDOm($event,el,index,'audio')" class="setToll0">
-									
-								</div>
-								
-								
-								<div   class="setToll">
+								<div :style="bgtf(el)" class="setToll0"></div>
+								<div class="setToll">
 									<div @mousedown="jl3($event,el,index,navcoms.audio)" class="setToll1"></div>
 									<div @mousedown="jl2($event,el,index,navcoms.audio)"  class="setToll2"></div>
 									<div @mousedown="jl($event,el,index,navcoms.audio)" class="setToll3"></div>
-									<div @click="showcj($event,{n:'audio',o:index})" class="setToll4">
+									<div @click="showcj($event,{n:'audio',o:index},el)" class="setToll4">
 										<i></i><i></i><i></i>
 									</div>
 								</div>			
@@ -437,25 +433,8 @@ export default{
 			},50)
 			this.drm();
 		},
-		checkDOm(e,el,on,dom){
-			if(e && e.stopPropagation()) {
-				e.stopPropagation();
-			} else {
-				e.cancelBubble = false;
-			}
-			if(this.checkDOmx){
-				if(el.fid+on!=this.checkDOmx.fidjl){
-					this.checkDOmx.ischeck = '';
-				}
-			}
-
-			if(el.ischeck==1){
-				return
-			}			
-			el.ischeck = 1;		
-			this.checkDOmx = el;				
-			this.checkDOmx.fidjl = this.checkDOmx.fid+on;
-
+		checkDOm(el){
+			this.checkDOmx = el;
 		},
 		jlx2(e){
 			e.preventDefault();
@@ -712,7 +691,7 @@ export default{
 			this.tanc.maxTime = this.navcoms.maxTime;
 		},
 		pastes(){
-		
+			
 			this.navcoms.media.push(this.checkDOmx);
 			
 		},
@@ -1039,12 +1018,13 @@ export default{
 			this.navson = o;
 			this.navcoms.zj=zj;
 		},
-		showcj(e,b){
+		showcj(e,b,el){
 			let dom =  e.target.getBoundingClientRect();
 			if(b){
 				this.xzData = b;
 			}
-			
+			this.checkDOm = el;
+			console.log(this.checkDOm);
 			this.csad = 'display:block;top:'+(dom.y-5)+'px;left:'+(dom.x-22)+'px';
 			let fn = ()=>{
 				setTimeout(()=>{
