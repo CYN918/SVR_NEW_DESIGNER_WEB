@@ -300,6 +300,7 @@ export default{
 				}
 	
 				this.csad = 'display:block;top:'+(e.y-5)+'px;left:'+(e.x-22)+'px';
+				this.checkDOm(this.navcoms[this.xzData.n][this.xzData.o]);
 				let fn = ()=>{
 					setTimeout(()=>{
 						this.csad = '';
@@ -437,6 +438,7 @@ export default{
 		},
 		checkDOm(el){
 			this.checkDOmx = el;
+			console.log(1111111);
 		},
 		jlx2(e){
 			e.preventDefault();
@@ -488,6 +490,7 @@ export default{
 		},
 		jl(e,el,index,list){
 			e.preventDefault();
+			this.checkDOm(el);
 			this.tdStar = e.pageX;			
 			let wid = el.long*this.wdk;	
 			let mv = ((el.long-el.cut_end)/el.long)*wid;
@@ -534,7 +537,7 @@ export default{
 		},
 		jl3(e,el,onc,list){
 			e.preventDefault();
-		
+			this.checkDOm(el);
 			this.tdStar = e.pageX;	
 			let cs = el.start;
 			let wid = el.long*this.wdk;
@@ -598,6 +601,7 @@ export default{
 		},
 		jl2(e,el,index,list){
 			e.preventDefault();
+			this.checkDOm(el);
 			this.tdStar = e.pageX;
 			let wid = el.long*this.wdk;	
 			let timd = el.cut_end-el.cut_start;
@@ -700,7 +704,14 @@ export default{
 		},
 		pastes(){
 			
-			this.navcoms.media.push(this.checkDOmx);
+			let doms = JSON.parse(JSON.stringify(this.checkDOmx));
+			let ends = this.navcoms.media[this.navcoms.media.length-1];
+			console.log(doms);
+			let sta = +ends.start+(ends.cut_end-ends.cut_start);
+			console.log(sta);
+			doms.start = sta;
+			console.log(sta);
+			this.navcoms.media.push(doms);
 			
 		},
 		cats(){
@@ -959,9 +970,10 @@ export default{
 				if(shiftKey){
 					onk = 2;
 				}
-				if(this.checkDOmx && ctrlKey && e.keyCode === 8){
-					e.preventDefault();
-					onk = 3;
+				
+				if(this.xzData && e.keyCode === 8){
+					e.preventDefault();					
+					this.delt()
 				}
 				
 				
@@ -1031,8 +1043,7 @@ export default{
 			if(b){
 				this.xzData = b;
 			}
-			this.checkDOm = el;
-			
+			this.checkDOmx = el;			
 			this.csad = 'display:block;top:'+(dom.y-5)+'px;left:'+(dom.x-22)+'px';
 			let fn = ()=>{
 				setTimeout(()=>{
