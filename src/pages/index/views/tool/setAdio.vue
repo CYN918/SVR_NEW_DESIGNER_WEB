@@ -113,7 +113,7 @@ export default{
 				{n:'1',k:'2'},
 				{n:'1',k:'3'}
 			],
-			clas:'',
+			clas:'全部',
 			datas:[],
 			bfData:{
 				logo:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/resizeApi.png',

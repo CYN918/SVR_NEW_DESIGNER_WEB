@@ -318,7 +318,7 @@ export default {
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 20px;
-	width:310px;
+	width:400px;
 	height:232px;
 
 }
@@ -489,7 +489,7 @@ export default {
 .pr_down_mb{
 	position: absolute;
 	bottom: 28px;
-	left: 612px;
+	left: 705px;
 	height:20px;
 	font-size:14px;	
 	color:rgba(51,179,255,1);

@@ -145,6 +145,7 @@ export default{
 		},
 		
 		navCl(el){
+			console.log(el)
 			if(el.p==this.navOn){
 				return
 			}
