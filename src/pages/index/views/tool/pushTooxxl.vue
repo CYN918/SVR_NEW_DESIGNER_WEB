@@ -101,23 +101,11 @@
 						<div class="ntob_footer_2_1">
 							<div v-html="backd()" class="kdut"></div>
 						</div>
+						<tcEN v-model="navcoms.media" v-bind:conf="{bl:bl,wdk:wdk}"></tcEN>
 						
-						<div  class="tlo_02"  @mouseover="setMos(1)" @mouseout="setMos('')">
-							<div :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'media',o:index})" class="imgd" v-for="(el,index) in navcoms.media">
-								<div :style="bgtf(el)" class="setToll0"></div>
-								
-								<div   class="setToll">
-									<div @mousedown="jl3($event,el,index,navcoms.media)" class="setToll1"></div>
-									<div @mousedown="jl2($event,el,index,navcoms.media)"  class="setToll2"></div>
-									<div @mousedown="jl($event,el,index,navcoms.media)" class="setToll3"></div>
-									<div @click="showcj($event,{n:'media',o:index},el)" class="setToll4">
-										<i></i><i></i><i></i>
-									</div>
-								</div>							
-								
-							</div>
-						</div>
 						<div class="tlo_03">
+							
+							
 							<div  :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'audio',o:index})" class="imgd" v-for="(el,index) in navcoms.audio">
 								<div :style="bgtf(el)" class="setToll0"></div>
 								<div class="setToll">
@@ -183,13 +171,15 @@ import mp3List from './setAdio';
 import saves from './saves';
 import cat from './cat';
 import tips from './tips';
+import tcEN from './td_list';
 export default{
 	components:{
 		setMt,
 		mp3List,
 		saves,
 		cat,
-		tips
+		tips,
+		tcEN
 	},
 	data(){
 		return{
@@ -499,13 +489,11 @@ export default{
 			let min = el.cut_start+1;
 			let prEnd,prStar,nxEnd,nxStar;
 			let doml = list[index-1];
-			let cen = el.cut_end;
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
 				e.preventDefault();
-				let on = -(this.tdStar-e.pageX)/(this.wdk/this.bl);
-				
-				let pn = +cen+on;
+				let on = +(((e.pageX-this.tdStar-mv)/wid)*el.long).toFixed(3);
+				let pn = +el.long+on;
 				if(+pn>max){
 					pn = max;
 				}				
@@ -514,7 +502,7 @@ export default{
 				}	
 			
 				// pn = pn*this.bl;
-				el.cut_end = pn;
+				el.cut_end = Math.round((pn*100)/100);
 				this.setHm(index,el,list);		
 			}			 
 			document.onmouseup =  ()=>{
@@ -557,11 +545,10 @@ export default{
 		
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
-				e.preventDefault();				
-				let on = -(this.tdStar-e.pageX)/(this.wdk/this.bl);
+				e.preventDefault();
+				let on = +(((e.pageX-this.tdStar)/wid)*el.long).toFixed(3);
 			
-				let dd = +cs+on;
-			
+				let dd = Math.round(((+cs+(on))*100)/100);
 				if(prd && dd<prEnd){
 					dd = prEnd;					
 				}
@@ -600,38 +587,35 @@ export default{
 			e.preventDefault();
 			this.tdStar = e.pageX;
 			let wid = el.long*this.wdk;	
-			let timd = el.cut_end-el.cut_start;
-			
-			let max = (+timd)-1;
+			let mv = ((el.long-el.cut_start)/el.long)*wid;
+			let max = +el.cut_end-1;
 			let osta = el.start;
 			let stad = el.start-el.cut_start;
-			let cuat = el.cut_start;
-			
-			let min = 0;
-			
-			let ond = list[index-1];
-			if(ond){
-				min = ond.start+(ond.cut_end-ond.cut_start);				
-			}
-			
-	
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
 				e.preventDefault();
-				let on = -(this.tdStar-e.pageX)/(this.wdk/this.bl);
-					
-				let pn = (+cuat+on);
-					
-				if(+pn<min){
-					pn = min;
+				let on = +(((this.tdStar-e.pageX+mv)/wid)*el.long).toFixed(3);			
+				let pn = +el.long-on;	
+				if(+pn<0){
+					pn = 0;
 				}			
 				if(+pn>max){
 					pn = max;
 				}
+				let opd = Math.round((pn*100)/100);
+				let pnmin = stad+opd;
+				let ond = list[index-1];
+				if(ond){
+					let maxd = ond.start+(ond.cut_end-ond.cut_start);
+					if(pnmin<maxd){
+						el.cut_start = maxd-stad;												
+						el.start = maxd;						
+						return
+					}
+					
+				}
 				
-				el.cut_start = pn;
-				
-				
+				el.cut_start = opd;
 				el.start = 	stad+el.cut_start;					
 			}									 
 			document.onmouseup =  ()=>{
@@ -1032,7 +1016,7 @@ export default{
 				this.xzData = b;
 			}
 			this.checkDOm = el;
-			
+			console.log(this.checkDOm);
 			this.csad = 'display:block;top:'+(dom.y-5)+'px;left:'+(dom.x-22)+'px';
 			let fn = ()=>{
 				setTimeout(()=>{
