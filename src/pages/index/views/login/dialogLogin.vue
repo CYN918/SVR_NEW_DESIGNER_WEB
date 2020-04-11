@@ -61,7 +61,7 @@ export default {
 				id:'login_container',
 				appid:'wxdf1b8a041cf76df1',
 				scope:'snsapi_login',
-				redirect_uri:'https%3A%2F%2Fshiquaner-api.zookingsoft.com%2FPassport%2FAuth%2Fcallback%3Ftype%3Dweixin',
+				redirect_uri:"https%3A%2F%2Fshiquaner-api.zookingsoft.com%2FPassport%2FAuth%2Fcallback%3Ftype%3Dweixin",
 				state:'login',
 				style:'black',
 				href:'https://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/text.css',
