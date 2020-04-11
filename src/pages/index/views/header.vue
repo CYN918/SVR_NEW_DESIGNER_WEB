@@ -187,7 +187,8 @@ export default {
 		},
 		goMssg(on){
 			if(!window.userInfo){
-				this.$router.push({path:'/login'});	
+				this.$refs.logindialog.show();
+				this.outc.num = 1;	
 				return
 			}
 			setTimeout(()=>{
