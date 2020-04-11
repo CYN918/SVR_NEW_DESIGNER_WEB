@@ -116,6 +116,7 @@
 							<div v-html="backd()" class="kdut"></div>
 						</div>
 						
+<<<<<<< HEAD
 						<div class="necBox">
 							<div  class="tlo_02"  @mouseover="setMos({on:0,n:'media'})" @mouseout="setMos('')">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'media',o:index})" class="imgd" v-for="(el,index) in navcoms.media">
@@ -143,9 +144,54 @@
 											<i></i><i></i><i></i>
 										</div>
 									</div>			
+=======
+						<div  class="tlo_02"  @mouseover="setMos(1)" @mouseout="setMos('')">
+							<div :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'media',o:index})" class="imgd" v-for="(el,index) in navcoms.media">
+								<div :style="bgtf(el)" class="setToll0"></div>
+								
+								<div   class="setToll">
+									<div @mousedown="jl3($event,el,index,navcoms.media)" class="setToll1"></div>
+									<div @mousedown="jl2($event,el,index,navcoms.media)"  class="setToll2">
+										<div class="setToll2_1">
+											<i></i><i></i><i></i>
+										</div>
+									</div>
+									<div @mousedown="jl($event,el,index,navcoms.media)" class="setToll3">
+										<div class="setToll3_1">
+											<i></i><i></i><i></i>
+										</div>
+									</div>
+									<div @click="showcj($event,{n:'media',o:index},el)" class="setToll4">
+										<i></i><i></i><i></i>
+									</div>
+								</div>							
+>>>>>>> 7aca5421d732ddfd9afe6f400db73662f2b3b6fd
 								
 								</div>
 							</div>
+<<<<<<< HEAD
+=======
+						</div>
+						<div class="tlo_03">
+							<div  :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'audio',o:index})" class="imgd" v-for="(el,index) in navcoms.audio">
+								<div :style="bgtf(el)" class="setToll0"></div>
+								<div class="setToll">
+									<div @mousedown="jl3($event,el,index,navcoms.audio)" class="setToll1"></div>
+									<div @mousedown="jl2($event,el,index,navcoms.audio)"  class="setToll2">
+										<div class="setToll2_1" style="top:6px;height: 14px;">
+											<i></i><i></i>
+										</div>
+									</div>
+									<div @mousedown="jl($event,el,index,navcoms.audio)" class="setToll3">
+										<div class="setToll3_1" style="top:6px;height: 14px;">
+											<i></i><i></i>
+										</div>
+									</div>
+									<div @click="showcj($event,{n:'audio',o:index},el)" class="setToll4">
+										<i></i><i></i><i></i>
+									</div>
+								</div>			
+>>>>>>> 7aca5421d732ddfd9afe6f400db73662f2b3b6fd
 							
 							
 							<div 
@@ -1022,8 +1068,8 @@ export default{
 				this.drmImg();
 				return
 			}
+			
 			if(this.$refs.vids.paused){
-				
 				this.playAio();
 				this.playVid();
 				return
@@ -1620,7 +1666,6 @@ margin-left: 121px;
 	position: absolute;
 	top: 0;
 	left: 0;
-	overflow: hidden;
 	background: #839aba;
 	height: 100%;
 	background-position: 0;
@@ -1655,9 +1700,16 @@ margin-left: 121px;
 }
 .setToll:hover{
 	border-color: rgba(51,179,255,1);
+	background-color: rgba(0,0,0,0.3);
 }
 .setToll:hover .setToll4{
 	display: block;
+}
+.setToll:hover .setToll3_1{
+	visibility: visible;
+}
+.setToll:hover .setToll2_1{
+	visibility: visible;
 }
 .ntob_cent_l_2{
 	position: relative;
@@ -1736,6 +1788,21 @@ margin-left: 121px;
 	height: 100%;
 	cursor: col-resize;
 }
+.setToll2_1{
+	width:6px;
+	height:24px;
+	background:rgba(51,179,255,1);
+	box-shadow:0px 4px 8px 0px rgba(0,0,0,0.2);
+	border-radius:10px;
+	position: absolute;
+	left: -4px;
+	top: 22px;
+	visibility: hidden;
+	display: flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
+}
 .setToll3{
 	position: absolute;
 	top: 0;
@@ -1743,6 +1810,30 @@ margin-left: 121px;
 	width: 10px;
 	height: 100%;
 	cursor: col-resize;
+}
+
+.setToll3_1{
+	width:6px;
+	height:24px;
+	background:rgba(51,179,255,1);
+	box-shadow:0px 4px 8px 0px rgba(0,0,0,0.2);
+	border-radius:10px;
+	position: absolute;
+	right: -4px;
+	top: 22px;
+	visibility: hidden;
+	display: flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:center;
+}
+.setToll2_1 > i,.setToll3_1 > i{
+	width: 3px;
+	height: 3px;
+	background: white;
+	border-radius: 50%;
+	display: block;
+	margin: 1px 0;
 }
 .setToll4{
 	display: none;
