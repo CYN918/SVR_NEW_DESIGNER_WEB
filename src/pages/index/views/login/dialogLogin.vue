@@ -60,9 +60,11 @@ export default {
 				self_redirect:false,
 				id:'login_container',
 				appid:'wxdf1b8a041cf76df1',
+				// appid:'wx6b797a220a5d7bcf',
 				scope:'snsapi_login',
-				//redirect_uri:"https%3A%2F%2Fshiquaner-api.zookingsoft.com%2FPassport%2FAuth%2Fcallback%3Ftype%3Dweixin",正式环境
-				redirect_url:"http%3A%2F%2F139.129.221.123%2FPassport%2FAuth%2Fcallback%3Ftype%3Dweixin", //测试环境
+				redirect_uri:"https%3A%2F%2Fshiquaner-api.zookingsoft.com%2FPassport%2FAuth%2Fcallback%3Ftype%3Dweixin", //正式环境
+				// redirect_url:"http%3A%2F%2F139.129.221.123%2FPassport%2FAuth%2Fcallback%3Ftype%3Dweixin", //测试环境
+				response_type:'code',
 				state:'login',
 				style:'black',
 				href:'https://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/text.css',
