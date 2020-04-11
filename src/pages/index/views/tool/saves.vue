@@ -125,6 +125,20 @@ export default{
 				pd[i].end = this.backto(pd[i].end);				
 			}
 		},
+		cldevs(on){
+			let arr = [];
+			for(let i=0,n=on.length;i<n;i++){
+				let ar = on[i];
+				for(let i2=0,n2=ar.length;i2<n2;i2++){
+					ar[i2].ond = i;
+					ar[i2].end = this.backto(ar[i2].start+(ar[i2].cut_end-ar[i2].cut_start));					
+					ar[i2].resize = this.backto(ar[i2].w)+':'+this.backto(ar[i2].h)
+					arr.push(ar[i2]);
+				}	
+			}
+			return arr;
+		},
+	
 		tijF(){
 
 			if(this.ajaxType){
@@ -144,6 +158,13 @@ export default{
 			let pr = this.value;			
 			this.cl_video(pr);
 			this.cl_audio(pr);
+			
+			
+			let sd = this.cldevs(pr.json.decorates);
+			if(sd.length>0){
+				pr.json.decoration = sd;
+			}
+			
 			pr.json = JSON.stringify(pr.json);
 			
 			pr.submit = 1;

@@ -20,17 +20,6 @@
 						<canvas class="videoBox1" ref="cavs"></canvas>
 						<video @timeupdate="timeupdatevideo" muted @ended="endeds()" @loadeddata="csy"  id="boxf" class="ntob_cent_l_1" :src="video" ref="vids"></video>					
 					
-						<div class="debox_01">
-							<div v-for="(el,index) in navcoms.decorates">
-								<div v-for="(el2,index2) in el" v-if="el2.start+(el2.cut_end-el2.cut_start)>=bfTime && bfTime>=el2.start">
-									<setDevs  v-model="navcoms.decorates[index][index2]"></setDevs>
-								</div>
-								
-							</div>
-							
-							
-						</div>
-					
 						<div v-if="isld && vdcc2==1" class="show_00x_1">
 							<div class="show_00x_1_1">138-888-888</div>
 							<div class="show_00x_1_2">正在拨号…</div>
@@ -71,7 +60,7 @@
 							</span><span @click="playAll" class="an_bf_01">
 								<img src="/imge/tools/v_play.svg"/>
 							</span>
-							<span>{{bckti(parseInt(this.bfTime))}}</span> / <span class="tme_091">00:00:30</span>							
+							<span>00:00:00</span> / <span class="tme_091">00:00:30</span>							
 						</div>
 						<div class="ntob_cent_l_2_3">
 							<span @click="showCc2" class="bl_000" >
@@ -108,7 +97,6 @@
 						v-for="el in navcoms.decorates"
 						><img src="/imge/tools/t_zs.svg"/>装饰</div>
 					</div>
-					<img @click="adddevd" class="add" src="/imge/tools/icon_gd_tjgd_def.svg">
 				</div>
 				<div class="ntob_footer_2" ref="gdbox">
 					<div :style="bal()" class="tlo_box">
@@ -156,9 +144,9 @@
 									<div :style="bgtf(el2)" class="setToll0"></div>
 									
 									<div   class="setToll">
-										<div @mousedown="jl3($event,el2,index2,el2)" class="setToll1"></div>
-										<div @mousedown="jl2($event,el2,index2,el2)"  class="setToll2"></div>
-										<div @mousedown="jl($event,el2,index2,el2)" class="setToll3"></div>
+										<div @mousedown="jl3($event,el,index,el2)" class="setToll1"></div>
+										<div @mousedown="jl2($event,el,index,el2)"  class="setToll2"></div>
+										<div @mousedown="jl($event,el,index,el2)" class="setToll3"></div>
 										<div @click="showcj($event,{n:'media',o:index2},el2)" class="setToll4">
 											<i></i><i></i><i></i>
 										</div>
@@ -220,15 +208,13 @@ import mp3List from './setAdio';
 import saves from './saves';
 import cat from './cat';
 import tips from './tips';
-import setDevs from './setDevs';
 export default{
 	components:{
 		setMt,
 		mp3List,
 		saves,
 		cat,
-		tips,
-		setDevs
+		tips
 	},
 	data(){
 		return{
@@ -272,9 +258,10 @@ export default{
 				bflist:[],
 				decorates:[
 					[],
+					[],
+					[],
 				]
 			},
-			
 			kd:[1],
 			fd_lave:0,
 			cans:'',
@@ -321,10 +308,7 @@ export default{
 			isdra:'',
 			Mos:'',
 			ajaxType:'',
-			issvd:'',
-			zsgd:{},
-			bfTime:0,
-	
+			issvd:''
 		}
 	},
 	mounted: function () {
@@ -336,27 +320,6 @@ export default{
 		}
 	},
 	methods:{
-		bckti(t){
-			var f='00',s;
-				if(t>60){
-					f = Math.round(t/60);
-					if(f<10){
-						f='0'+f;
-					}
-				}
-				s = Math.round(t%60);
-				if(s<10){
-					s = '0'+s;
-				}
-			return f+':'+s;
-		},
-		showDevs(on,on1){
-			this.zsgd = this.navcoms.decorates[on][on1];
-			
-		},
-		adddevd(){
-			this.navcoms.decorates.push([]);
-		},
 		savsout(){
 			clearTimeout(this.issvd);
 			this.issvd =setTimeout(()=>{
@@ -776,8 +739,7 @@ export default{
 			}
 			this.tanc.json = {
 				media:this.navcoms.media,
-				audio:this.navcoms.audio,
-				decorates:this.navcoms.decorates
+				audio:this.navcoms.audio
 			};
 			
 			this.tanc.maxTime = this.navcoms.maxTime;
@@ -786,11 +748,11 @@ export default{
 			
 			let doms = JSON.parse(JSON.stringify(this.checkDOmx));
 			let ends = this.navcoms.media[this.navcoms.media.length-1];
-		
+			console.log(doms);
 			let sta = +ends.start+(ends.cut_end-ends.cut_start);
-		
+			console.log(sta);
 			doms.start = sta;
-		
+			console.log(sta);
 			this.navcoms.media.push(doms);
 			
 		},
@@ -825,15 +787,7 @@ export default{
 			this.islast=1;			
 		},	
 		timeupdatevideo(){
-			let nx = 0
-			if(this.bfon>0){
-				let prd = this.navcoms.media[this.bfon-1];
-				
-				nx = (prd.cut_end-prd.cut_start)+prd.start;
-			}
-			let ontm = this.$refs.vids.currentTime;
-			this.bfTime = nx +ontm; 
-			if(ontm>=this.navcoms.media[this.bfon].cut_end){
+			if(this.$refs.vids.currentTime>=this.navcoms.media[this.bfon].cut_end){
 				this.$refs.vids.pause();
 				this.endeds();
 			}			
@@ -900,7 +854,7 @@ export default{
 		optu(n){
 			return n>9?n:'0'+n;
 		},
-		backtop(el){
+		backtop(el,index){
 		
 			let str = "width:"+((el.cut_end-el.cut_start)/this.bl)*this.wdk+"px;transform:translateX("+((el.start/this.bl)*this.wdk)+"px);";			
 			if(el.ischeck){
@@ -952,14 +906,10 @@ export default{
 				this.cans.drawImage(a,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);				
 			}
 			clearTimeout(this.ht);
-			this.tptime = 0;
-			this.ht = setInterval(()=>{
-				this.tptime = this.tptime+50;
-				if(this.tptime==5000){
-					this.endeds();
-					clearInterval(this.ht);
-				}
-			},50);
+			this.ht = setTimeout(()=>{
+				this.endeds();
+			},5000)
+			
 		},
 		playsx(){
 			if(this.navcoms.media.length==0){
@@ -1037,7 +987,6 @@ export default{
 			}
 			
 		},
-		
 		init(){
 			if(this.$route.query.id){
 				let op = JSON.parse(localStorage.getItem('ldxData'));
@@ -1045,25 +994,7 @@ export default{
 				this.form.title = op.title;
 				this.navcoms.media = json.media;
 				this.navcoms.audio = json.audio;
-				
-				if(json.decoration && json.decoration.length>0){
-					let arr1 = [];
-					for(let i=0,n=json.decoration.length;i<n;i++){
-						if(!arr1[json.decoration[i].ond]){
-							arr1[json.decoration[i].ond] = [];
-						}
-						arr1[json.decoration[i].ond].push(json.decoration[i]);
-						
-						
-					}
-			
-					this.navcoms.decorates = arr1;
-				}
 				this.form.id = op.id;
-				
-				
-				
-				
 				this.setMaxTime();
 			}
 			this.savsout();
@@ -1120,7 +1051,10 @@ export default{
 				
 				
 			},false)
-			
+			// this.$refs.gdbox.addEventListener('contextmenu',(e)=>{
+			// 	var e = e || window.event;
+				
+			// },false);
 		
 			this.$refs.cavs.width = 391;
 			this.$refs.cavs.height = 695;
@@ -1178,24 +1112,9 @@ export default{
 				y:n.y
 			};
 		},
-		cldevs(on){
-			let arr = [];
-			for(let i=0,n=on.length;i<n;i++){
-				let ar = on[i];
-				
-				for(let i2=0,n2=ar.length;i2<n2;i2++){
-					ar[i2].ond = i;
-					ar[i2].end = ar[i2].start+(ar[i2].cut_end-ar[i2].cut_start);
-					ar[i2].resize = this.backto(ar[i2].w)+':'+this.backto(ar[i2].h);
-					arr.push(ar[i2]);
-				}	
-			}
-			return arr;
-		},
-		backto(num){
-			return Math.round(num*100)/100
-		},
 		tijF(a){
+			
+			
 			if(!this.form.title && 	this.navcoms.media.length==0 && this.navcoms.audio.length==0){
 				if(a){return}
 				this.$message({
@@ -1219,10 +1138,8 @@ export default{
 					audio:this.navcoms.audio
 				}
 			};		
-			let sd = this.cldevs(this.navcoms.decorates);
-			if(sd.length>0){
-				pr.json.decoration = sd;
-			}
+			
+				
 			this.cl_video(pr);
 			this.cl_audio(pr);
 			pr.json = JSON.stringify(pr.json);
@@ -2043,12 +1960,4 @@ margin-left: 121px;
 	overflow-y: auto;
 	height: 187px;
 }
-.debox_01{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-
 </style>
