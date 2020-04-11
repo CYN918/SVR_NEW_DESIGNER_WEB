@@ -312,8 +312,16 @@ export default {
 			
 		},
 		goUpload(){
-			if(!this.userMssge){this.$router.push({path:'/login'}); return}
-			this.$router.push({path:'/upload'})			
+			if(!this.userMssge){
+				// this.$router.push({path:'/login'}); 
+				// return
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+			}else{
+				this.$router.push({path:'/upload'})		
+
+			}
+				
 		},
 		goUser(a){
 			this.bdtj('通用模块','顶部栏点击_'+a,'--');

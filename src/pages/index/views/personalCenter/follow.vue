@@ -43,6 +43,7 @@
 				</template>			
 			</list>	
 		</div>
+		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 
 	</div>
 </template>
@@ -52,9 +53,10 @@
 import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 import list from '../../components/list';
+import loginDialog from '../../components/loginDialog';
 export default {
 	name: 'works',
-	components:{list},
+	components:{list,loginDialog},
 	data(){
 		return {
 			data:{
@@ -88,6 +90,10 @@ export default {
 			follwTyle:0,
 			openOns:'',
 			tjZt:'他人视角-',
+			outc:{
+				num:'',
+				scroll:2,
+			}
 		}
 	},
 	watch: {	
@@ -123,6 +129,11 @@ export default {
 			this.total = n;
 		},
 		gosx(el,a){
+			if(!window.userInfo){
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+				return
+			}
 			this.bdtjCom(a);
 			this.$router.push({path:'/chat',query:{
 				open_id:el.open_id,

@@ -1,11 +1,14 @@
 <template>
-	<TcBox :config="outc"  @qFn="Follow_del" ref="tcBox"></TcBox>
-</div>
+	<div>
+		<TcBox :config="outc"  @qFn="Follow_del" ref="tcBox"></TcBox>
+	    <loginDialog ref="logindialog" :config="outc"></loginDialog>	
+	</div>
 </template>
 <script>
 import TcBox from './TcBoxQr';
+import loginDialog from '../components/loginDialog';
 export default {
-	components:{TcBox},
+	components:{TcBox,loginDialog},
 	data(){
 		return{
 			outc:{
@@ -15,12 +18,20 @@ export default {
 				qFn:'Follow_del',
 			},
 			follwTyle:'',
-			follwId:''
+			follwId:'',
+			outc:{
+				num:'',
+				scroll:2,
+			}
 		}
 	},
 	methods: {			
 		Follow_del(){
-			if(!this.isLogin()){return}		
+			if(!window.userInfo){
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+				return
+			}	
 			if(this.follwTyle==1){
 				this.$message({message:'正在处理中请稍后'});
 				return
@@ -43,7 +54,11 @@ export default {
 			});
 		},
 		Follow_add(id){
-			if(!this.isLogin()){return}
+			if(!window.userInfo){
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+				return
+			}
 
 			if(this.follwTyle==1){this.$message({message:'正在处理中请稍后'}) ;return}
 			this.follwTyle=1;

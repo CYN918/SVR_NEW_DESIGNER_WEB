@@ -38,7 +38,8 @@
 	</div>
 </template>
 <script>
-import headNav from '../../components/myHead2'
+import headNav from '../../components/myHead2';
+import { Loading } from 'element-ui';
 export default {
 	components:{headNav},
 	name: 'index',
@@ -65,6 +66,7 @@ export default {
 				{t:'项目制作指南',h:'[name="4-01"]'},
 			],
 			list:'',
+			loading: '',
 		}
 	},	
 	mounted: function(){
@@ -196,9 +198,11 @@ export default {
 				}
 			})			
 		},
-		getPzData(){			
+		getPzData(){
+			this.loading = Loading.service({target:'.jloadBox', fullscreen: true,background:'rgba(0,0,0,0)' });		
 			this.api.documentget({type:this.$route.name}).then((da)=>{
 				if(da=="error" || !da.document){this.getMrData();return}
+				this.loading.close();
 				this.isaj = 1;
 				this.comt = da.document;
 				

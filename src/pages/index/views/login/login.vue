@@ -1,5 +1,5 @@
 <template>
-	<!-- <div>
+	<div>
 		<img class="login_x1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg" @click="jump">
 		<p class="login_x2">让创意更有价值，让生活更加自由</p>
 		<div class="login_x3">
@@ -12,24 +12,10 @@
 		<div class="lgoin_s6">
 			<span @click="thirdLogin('qq')" class="dsf_qq"></span>
 			<span @click="thirdLogin('weixin')" class="dsf_wx"></span>
-			<span @click="thirdLogin('weibo')" class="dsf_wb"></span> -->
+			<span @click="thirdLogin('weibo')" class="dsf_wb"></span>
 <!-- 			<img  src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/qq.svg" alt="">
 			<img  src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/wx.svg" alt="">
 			<img  src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/wb.svg" alt=""> -->
-		<!-- </div>
-	</div> -->
-	<div class="box">
-		<div class="login_x3">
-			<span @click="cheackLogin('password')" :class="['pend',btnType=='password'?'cheack':'']">账户密码登录</span><span @click="cheackLogin('verify_code')" :class="['pend',btnType=='verify_code'?'cheack':'']">手机号登录</span>
-		</div>	
-		<component v-bind:is="btnType" ref="loginFrom"></component>			
-		<el-button :class="['lgoin_s4',btnType2]" type="primary" @click="loginUp">登录</el-button>		
-		<p class="lgoin_s5"><span>没有账号？<a class="pend" @click="gotj()">注册</a></span><span><router-link class="pend" to="/index">返回首页</router-link></span></p>
-		<div class="lgoin_s6x"></div>
-		<div class="lgoin_s6">
-			<span @click="thirdLogin('qq')" class="dsf_qq"></span>
-			<span @click="thirdLogin('weixin')" class="dsf_wx"></span>
-			<span @click="thirdLogin('weibo')" class="dsf_wb"></span>
 		</div>
 	</div>
 </template>
@@ -38,7 +24,6 @@ import password from './login3'
 import {Message} from 'element-ui'
 import verify_code from './login4'
 export default {
-	inject:['reload'],
 	components:{password,verify_code},
 	name: 'login',	 
 	data(){				
@@ -46,10 +31,6 @@ export default {
 			btnType:'password',		
 			btnType2:'',
 			ajaxType:0,
-			outc:{
-				num:2,
-				scroll:2,
-			}
 		}
 	},
 	mounted: function () {	
@@ -74,12 +55,11 @@ export default {
 			}
 			},false)
 		},
-		gotj(){
-			// this.bdtj('登录页','没有帐号去注册','--');
-			// this.$router.push({
-			// 	path:d
-			// })
-			this.$emit('funcRegister',this.outc)
+		gotj(d){
+			this.bdtj('登录页','没有帐号去注册','--');
+			this.$router.push({
+				path:d
+			})
 		},
 		jump(){
 		    this.$router.push({
@@ -158,9 +138,6 @@ export default {
 				
 				this.api.getSelfInfo(pr).then((da)=>{
 					if(da=='error'){return}		
-					this.$parent.$parent.close()
-					console.log(da)
-					this.reload();
 					let userData = window.userInfo.access_token;
 					window.userInfo = da;		
 					window.userInfo.access_token = userData;
@@ -168,7 +145,7 @@ export default {
 				
 					
 				
-				// this.$router.push({path: '/index'})
+				this.$router.push({path: '/index'})
 									
 			}).catch(()=>{
 				this.bdtj('登录页','登录失败','--');
@@ -189,26 +166,5 @@ export default {
 <style scoped="scoped">
 .lgoin_s6{
 	border-radius: 0 0 8px 8px;
-}
-.box{
-	width:404px;
-	height:486px;
-	background:rgba(255,255,255,1);
-	box-shadow:0px 8px 32px 0px rgba(0,0,0,0.05);
-	border-radius:5px;
-	position: absolute;
-	top: 160px;
-    left: 21px;
-}
-.login_x3{
-	margin-top: 30px;
-	padding-left: 30px;
-	padding-right: 30px;
-}
-.lgoin_s4{
-	width: 85%;
-}
-.lgoin_s5{
-	padding:0px 30px 0px 30px;
 }
 </style>

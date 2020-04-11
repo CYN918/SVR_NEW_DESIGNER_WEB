@@ -22,11 +22,14 @@
 				</li>
 			</ul>
 		</div>
+		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 		
 	</div>
 </template>
 <script>
+import loginDialog from '../components/loginDialog'
 export default {
+	components:{loginDialog},
 	name: 'banner',
 	data(){
 		return {
@@ -36,6 +39,10 @@ export default {
 
 
 			nexOn:0,
+			outc:{
+				num:'',
+				scroll:2,
+			}
 		}
 	},
 	mounted: function () {	
@@ -104,7 +111,13 @@ export default {
 			this.$router.push({path:'/project'});	
 		},
 		go_show(){
-			this.$router.push({path:'/pushTool'});	
+			if(!window.userInfo){
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+			}else{
+				this.$router.push({path:'/pushTool'});
+			}
+				
 		}
 		
 	}

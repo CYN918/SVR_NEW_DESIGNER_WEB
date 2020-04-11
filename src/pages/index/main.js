@@ -7,6 +7,7 @@ import router from './router'
 import mJs from '../../assets/comm.js'
 
 
+
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
 Vue.prototype.mJs = mJs
@@ -38,8 +39,8 @@ Vue.filter('followType', (val)=>{
 
 Vue.prototype.isLogin=function(){
 	if(!window.userInfo){
-		this.$router.push({path: '/login'})
-		return false;
+		// this.$router.push({path: '/login'})
+		// return false;
 	}
 	return true;
 }
@@ -277,7 +278,7 @@ Vue.prototype.go = (a,b,c)=>{
 	_hmt.push(['_trackEvent',a,b,c]);
 };
 import VueCropper from 'vue-cropper' 
-import { Button,Switch, Select,Steps,Step,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination,Dialog,Progress } from 'element-ui'
+import { Button,Switch, Select,Steps,Step,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination,Dialog,Progress} from 'element-ui'
 Vue.use(VueCropper)
 Vue.component(Input.name, Input)
 Vue.component(Button.name, Button)
@@ -297,6 +298,7 @@ Vue.component(FormItem.name, FormItem)
 Vue.component(Message.name, Message)
 Vue.component(Checkbox.name, Checkbox)
 Vue.component(Switch.name, Switch)
+
 
 Vue.prototype.$message = Message;
 Vue.config.productionTip = false

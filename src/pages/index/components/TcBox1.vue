@@ -1,6 +1,9 @@
 <template>
 	<div v-if="is" class="pr_tc_01">
 		<div class="pr_tc_02" :style="'background-image: url('+imgSig+'newHome/sign_bg.svg'+')'">
+		    <div class="pr_tc_04">
+				<img @click="close" class="pr_tc_03 pend" :src="imgSig+'newHome/toast_icon_close.svg'" alt="">
+			</div>
 		    <p class="login_p1" v-if="config.num == 1">登陆狮圈儿</p>
 			<p class="login_p1" v-if="config.num == 2">注册狮圈儿</p>
 			<p class="login_p1" v-if="config.num == 3">寻找狮圈儿</p>
@@ -92,13 +95,13 @@ export default {
 	font-weight:400;
 	color:rgba(51,51,51,1);
 	line-height:54px;
-	border-bottom: 1px solid rgba(244,246,249,1);
+	border-bottom: none;
 }
 .pr_tc_03{
 	position: absolute;
-    top: 19px;
-    right: 24px;
-    width: 16px;
+    top: 40px;
+    right: -45px;
+    width: 28px;
 }
 .login_p1{
 	width:210px;

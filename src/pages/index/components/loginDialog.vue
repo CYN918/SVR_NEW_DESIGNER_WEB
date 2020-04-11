@@ -9,9 +9,9 @@
 </template>
 <script>
 import TcBox from './TcBox1';
-import Login from '../../index/views/login/login';
-import Register from '../../index/views/login/register';
-import ModifyPassword from '../../index/views/login/modifyPassword';
+import Login from '../../index/views/login/dialogLogin';
+import Register from '../../index/views/login/dialogRegister';
+import ModifyPassword from '../../index/views/login/dialogModifyPassword';
 export default {
 	components:{TcBox,Login,Register,ModifyPassword},
 	props:{

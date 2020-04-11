@@ -180,6 +180,7 @@
 		<unfollow @sussFn="unfollowSu" @suUnFn="showUnfoolow" ref="unfollow"></unfollow>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
 		<TcBox :config="outc"  @qFn="delComment" ref="tcBox"></TcBox>
+		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 </template>
 
@@ -193,8 +194,9 @@ import unfollow from '../../components/unfollow';
 import TcBox from '../../components/TcBoxQr';
 
 import pTop from '../../components/postionTop';
+import loginDialog from '../../components/loginDialog';
 export default {
-	components:{Input,RPT,fxd,box_a,TcBox,unfollow,pTop},
+	components:{Input,RPT,fxd,box_a,TcBox,unfollow,pTop,loginDialog},
 	data(){
 		return{
 			topCn:{
@@ -255,6 +257,10 @@ export default {
 			onhfObj:'',
 			userTk:'他人视角-',
 			isftype:'',
+			outc:{
+				num:'',
+				scroll:2,
+			}
 		}
 	},
 	mounted: function () {
@@ -339,6 +345,11 @@ export default {
 		},
 		gosx(el){
 			if(this.isYl){return}
+			if(!window.userInfo){
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+				return
+			}
 			this.bdtj('作品详情','他人视角-私信','--');
 			let pr = {
 				open_id:el.open_id,
@@ -377,7 +388,8 @@ export default {
 		addLike(type,id,obj,wz){
 			if(this.isYl){return}
 			if(!window.userInfo){
-				this.$router.push({path: '/login'})
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
 				return
 			}
 			let msg1 = '正在点赞',
@@ -447,7 +459,8 @@ export default {
 			if(this.isYl){return}
 			this.bdtj('作品详情','他人视角-关注','--');
 			if(!window.userInfo){
-				this.$router.push({path: '/login'})
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
 				return
 			}
 			if(this.follwTyle==1){

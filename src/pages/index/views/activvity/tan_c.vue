@@ -131,6 +131,7 @@
 		
 		
 		<component v-bind:is="tanData.zj" v-model="tanData"></component>
+		<!-- <loginDialog ref="logindialog" :config="outc"></loginDialog> -->
 	</div>
 </template>
 
@@ -139,6 +140,7 @@ import {Message} from 'element-ui';
 import { log } from 'util';
 import uploadFile from '../../components/uploadFile'
 import bfvideo from '../../components/bfVideo'
+// import loginDialog from '../../components/loginDialog'
 export default {
 	components:{uploadFile,bfvideo},
 	props:{
@@ -196,6 +198,10 @@ export default {
 			progressVideo: 0,
 			isimgurl: false,
 			imgurl:"",
+			// outc:{
+			// 	num:'',
+			// 	scroll:2,
+			// }
 		}
 		
 	},
@@ -495,11 +501,14 @@ export default {
 	
 	
 		showZp(){
-			if(!window.userInfo){
-				Message({message: '未登陆，请先登陆!'});
-				this.$router.push({path:'/login'})
-				return
-			}
+			// if(!window.userInfo){
+			// 	// Message({message: '未登陆，请先登陆!'});
+			// 	// this.$router.push({path:'/login'})
+			// 	// return
+			// 	this.$refs.logindialog.show();
+			// 	this.outc.num = 1;
+			
+			// }
 			document.body.style = "overflow: hidden;";
 			this.api.getPersonalInfo({
 				activity_id:this.$route.query.id
