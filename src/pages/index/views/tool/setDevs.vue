@@ -54,12 +54,25 @@ export default{
 				if(ws<391){
 					xs = (391-xs)/2+xs;
 				}
-				if(!this.value.kb){
-					this.value.x = xs;
-					this.value.y = ys;
-					this.value.w = op.width;
-					this.value.h = op.height;
-					this.value.kb = op.width/op.height;
+				
+				if(!this.value.zskb){
+					console.log(xs)
+					console.log(ys)
+					console.log(op.width)
+					console.log(op.height)
+					
+					this.$set(this.value,'zsx',xs);
+					this.$set(this.value,'zsy',ys);
+					this.$set(this.value,'zsh',op.height);
+					this.$set(this.value,'zsw',op.width);
+					this.$set(this.value,'zskb',op.width/op.height)
+					
+					
+					// this.value.x = xs;
+					// this.value.y = ys;
+					// this.value.w = op.width;
+					// this.value.h = op.height;
+					// this.value.kb = op.width/op.height;
 				}
 				
 			
@@ -69,8 +82,8 @@ export default{
 	
 	
 		backIm(){
-		
-			return 'width:'+this.value.w+'px;height:'+this.value.h+'px;transform: translate('+this.value.x+'px,'+this.value.y+'px);';
+			
+			return 'width:'+this.value.zsw+'px;height:'+this.value.zsh+'px;transform: translate('+this.value.zsx+'px,'+this.value.zsy+'px);';
 		},
 	
 		td_01(e,tp){
@@ -83,10 +96,10 @@ export default{
 			let ev = e || window.event,
 			disX = ev.clientX,
 			disY = ev.clientY,
-			disW = this.value.x,
-			disH = this.value.y,
-			disWD = this.value.w?this.value.w:0,
-			disHD = this.value.h?this.value.h:0;
+			disW = this.value.zsx,
+			disH = this.value.zsy,
+			disWD = this.value.zsw?this.value.zsw:0,
+			disHD = this.value.zsh?this.value.zsh:0;
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (ev)=>{
 				var ev = ev || window.event;
@@ -102,8 +115,8 @@ export default{
 				var y = ydy+disH;
 				
 				if(tp=='mv'){
-					this.value.y = y;
-					this.value.x = x;
+					this.value.zsy = y;
+					this.value.zsx = x;
 					return
 				}
 				let jdx = Math.abs(ydx);
@@ -112,8 +125,8 @@ export default{
 				if(tp=='l'){
 					
 					let wd = disWD-ydx;
-					this.value.w = wd;
-					this.value.h = wd/this.value.kb;
+					this.value.zsw = wd;
+					this.value.zsh = wd/this.value.zskb;
 					
 					return
 					
@@ -121,24 +134,24 @@ export default{
 				if(tp=='r'){
 					let wd = disWD+ydx;
 					
-					this.value.w = wd;
-					this.value.h = wd/this.value.kb;
+					this.value.zsw = wd;
+					this.value.zsh = wd/this.value.zskb;
 					return
 				}
 				if(tp=='b_l'){
 					
 					let hd = disHD+ydy;
 								
-					this.value.w = hd*this.value.kb;
-					this.value.h = hd;					
+					this.value.zsw = hd*this.value.zskb;
+					this.value.zsh = hd;					
 					return
 				}
 				if(tp=='b_r'){
 				
 					let hd = disHD+ydy;
 				
-					this.value.w = hd*this.value.kb;
-					this.value.h = hd;					
+					this.value.zsw = hd*this.value.zskb;
+					this.value.zsh = hd;					
 					return
 				}
 				

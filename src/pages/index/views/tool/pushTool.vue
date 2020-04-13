@@ -380,15 +380,15 @@ export default{
 			this.navcoms.decorates.push([]);
 		},
 		savsout(){
+			return
 			clearTimeout(this.issvd);
 			this.issvd =setTimeout(()=>{
-			
 				if(this.$route.path!='/pushTool'){
 					return
 				}
 				this.tijF(1);
 				this.savsout();
-			},10000);
+			},60000);
 		},
 		contexMs(e,b){
 			
@@ -931,6 +931,7 @@ export default{
 			return str;
 		},
 		setvideo(fi){
+			
 			this.$refs.vids.src=fi;
 		},
 		csy(){		
@@ -1082,7 +1083,7 @@ export default{
 					this.navcoms.decorates = arr1;
 				}
 				this.form.id = op.id;
-				
+			
 				
 				
 				
@@ -1162,6 +1163,12 @@ export default{
 			},false);
 			this.$refs.vids.addEventListener('pause',()=>{window.clearInterval(this.po);},false);
 			this.$refs.vids.addEventListener('ended',()=>{clearInterval(this.po);},false);	
+			
+			if(this.navcoms.media[0]){
+	
+				this.setvideo(this.navcoms.media[0].file_url);
+			
+			}
 		},
 		qhNav(o,zj){
 			if(this.navson ==o){return}
@@ -1202,13 +1209,17 @@ export default{
 		},
 		cldevs(on){
 			let arr = [];
+			let wdb = 1080/391;
+			let hy = 1920/695;
 			for(let i=0,n=on.length;i<n;i++){
 				let ar = on[i];
 				
 				for(let i2=0,n2=ar.length;i2<n2;i2++){
 					ar[i2].ond = i;
 					ar[i2].end = ar[i2].start+(ar[i2].cut_end-ar[i2].cut_start);
-					ar[i2].resize = this.backto(ar[i2].w)+':'+this.backto(ar[i2].h);
+					ar[i2].x = this.backto(ar[i2].zsx*wdb);
+					ar[i2].y = this.backto(ar[i2].zsy*hy);
+					ar[i2].resize = this.backto(ar[i2].zsw*wdb)+':'+this.backto(ar[i2].zsh*hy);
 					arr.push(ar[i2]);
 				}	
 			}

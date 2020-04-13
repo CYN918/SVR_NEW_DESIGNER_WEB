@@ -127,12 +127,16 @@ export default{
 		},
 		cldevs(on){
 			let arr = [];
+			let wdb = 1080/391;
+			let hy = 1920/695;
 			for(let i=0,n=on.length;i<n;i++){
 				let ar = on[i];
 				for(let i2=0,n2=ar.length;i2<n2;i2++){
 					ar[i2].ond = i;
 					ar[i2].end = this.backto(ar[i2].start+(ar[i2].cut_end-ar[i2].cut_start));					
-					ar[i2].resize = this.backto(ar[i2].w)+':'+this.backto(ar[i2].h)
+					ar[i2].x = this.backto(ar[i2].zsx*wdb);
+					ar[i2].y = this.backto(ar[i2].zsy*hy);
+					ar[i2].resize = this.backto(ar[i2].zsw*wdb)+':'+this.backto(ar[i2].zsh*hy);
 					arr.push(ar[i2]);
 				}	
 			}
