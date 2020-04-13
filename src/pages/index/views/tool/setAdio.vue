@@ -180,10 +180,7 @@ export default{
 				}
 				
 				this.value.audio.splice(0,1,pr);
-				console.log(this.value.audio);
-				
-					
-							
+				this.$parent.playsx();
 			})
 		},
 		sh_addFavorAudio(id) {

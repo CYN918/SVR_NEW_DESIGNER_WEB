@@ -7,7 +7,7 @@
 			<div class="ldx_l_1_1_3"><img :src="imgPath+'new/tools/v_01.svg'" ></div>
 			<div class="ldx_l_1_1_4">这首歌的名称很长-歌手名称</div>
 			<div class="ldx_l_1_1_5">00:30</div> -->
-			<div class="ldx_l_1_top">
+			<div class="ldx_l_1_top" v-if="el.status==0">
 				<div class="ldx_l_1_top_btn" @click="changebtn()">···</div>
 				<div class="ldx_l_1_top_btn1" v-if="top_btn">
 					<div class="ldx_l_1_btn1_1" @click.stop="del(el.id)">

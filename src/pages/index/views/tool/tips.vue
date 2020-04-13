@@ -84,6 +84,6 @@ export default{
 .tips_m05{
 	position: absolute;
 	top: 0px;
-	left: calc(50% + 322px);
+	right: 0;
 }
 </style>
