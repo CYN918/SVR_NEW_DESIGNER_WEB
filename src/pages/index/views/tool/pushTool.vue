@@ -101,7 +101,7 @@
 			<div class="ntob_footer">
 				<div class="ntob_footer_1">
 					<div class="ntob_footer_1_1"></div>
-					<div class="ntob_footer_1_2">
+					<div class="ntob_footer_1_2"ref="gd_02">
 						<div><img src="/imge/tools/t_sp.svg"/> 媒体</div>
 						<div><img src="/imge/tools/t_yy.svg"/>音频</div>
 						<div class="nl_ti1"
@@ -117,7 +117,7 @@
 						</div>
 						
 
-						<div class="necBox">
+						<div class="necBox"  @scroll="gdfn($event)" ref="gd_01">
 							<div  class="tlo_02"  @mouseover="setMos({on:0,n:'media'})" @mouseout="setMos('')">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'media',o:index})" class="imgd" v-for="(el,index) in navcoms.media">
 									<div :style="bgtf(el)" class="setToll0"></div>
@@ -254,6 +254,7 @@ export default{
 	},
 	data(){
 		return{
+			spgd:0,
 			istype:'',
 			cun:[
 				{n:'9:16',x:0},
@@ -346,6 +347,7 @@ export default{
 			issvd:'',
 			zsgd:{},
 			bfTime:0,
+			isgdon:0,
 	
 		}
 	},
@@ -358,6 +360,17 @@ export default{
 		}
 	},
 	methods:{
+	
+		gdfn(ev){
+
+			this.$refs.gd_02.scrollTop = ev.target.scrollTop;			
+		},
+		// gdfn2(ev){
+		// 	if(this.isgdon!=2){
+		// 		return
+		// 	}
+		// 	this.$refs.gd_01.scrollTop = ev.target.scrollTop;			
+		// },
 		bckti(t){
 			var f='00',s;
 				if(t>60){
@@ -576,12 +589,11 @@ export default{
 			document.onmousemove = (e)=>{
 				e.preventDefault();
 				let on = Math.round((e.pageX-tdStar)*100)/100+mv;
-				
-				if(on<0){
-					on=0;
-				}
 				if(on>pd){
 					on=pd;
+				}
+				if(on<0){
+					on=0;
 				}
 				this.tdjl = on;
 			}			 
