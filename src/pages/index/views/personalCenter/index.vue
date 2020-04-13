@@ -50,6 +50,7 @@
 		<fxd :shareData="shareData" ref="fxd"></fxd>
 		<RPT ref="report"></RPT>
 		<component v-bind:is="tcZj" ref="tcZjs"></component>	
+		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 </template>
 
@@ -66,8 +67,9 @@ import RPT from '../../components/report'
 import fxd from '../../components/share';
 import unfollow from '../../components/unfollow';
 import pTop from '../../components/postionTop';
+import loginDialog from '../../components/loginDialog';
 export default {
-	components:{Topbk,pe_works,pe_recommend,pe_follow,pe_fans,pe_info,fxd,RPT,unfollow,pTop},
+	components:{Topbk,pe_works,pe_recommend,pe_follow,pe_fans,pe_info,fxd,RPT,unfollow,pTop,loginDialog},
 	name: 'index',
 	data(){
 		return{
@@ -100,6 +102,10 @@ export default {
 			qurId:'',
 			userTped:'',
 			ison:'',
+			outc:{
+				num:'',
+				scroll:2,
+			}
 		}
 	},
 	mounted: function () {	
@@ -158,6 +164,11 @@ export default {
 			this.$refs.fxd.showShare(true);
 		},
 		gsxd(){	
+			if(!window.userInfo){
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+				return
+			}
 			this.$router.push({path:'/chat',query:{
 				open_id:this.userMessage.open_id,
 				avatar:this.userMessage.avatar,

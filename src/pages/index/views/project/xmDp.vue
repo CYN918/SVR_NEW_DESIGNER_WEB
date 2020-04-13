@@ -21,6 +21,7 @@
 			<div class="cenDjs_4">
 				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.cl]" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
 			</div>
+			<loginDialog ref="logindialog" :config="outc"></loginDialog>
 			<div class="cenDjs_5">{{da.btn_tip}}</div>
 		</div>
 		
@@ -43,7 +44,9 @@
 </template>
 
 <script>
+import loginDialog from '../../components/loginDialog'
 export default {
+	components:{loginDialog},
 	props:{
 		obj:Object,		
 	},
@@ -75,6 +78,10 @@ export default {
 			endjg:'',
 			options:[{n:'终止项目',cs:'Stop'},{n:'交稿记录',cs:'Log'}],
 			islog:'',
+			outc:{
+				num:'',
+				scroll:2,
+			}
 		}
 	},
 	mounted: function(){
@@ -119,6 +126,10 @@ export default {
 			this.$message({message:'你已经评价过了'});
 		},
 		clickFn(n,b){
+			if(!window.userInfo){
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+			}
 			if(n){
 				this[n](b);
 			}

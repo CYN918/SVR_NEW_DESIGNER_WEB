@@ -1,17 +1,21 @@
-
 <template>
-	<div>
-		<div class="wjmm">忘记密码</div>
+	<div class="box">
 		<el-form ref="myform" :model="form">	
 			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
 			<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
-			<Input v-model="form.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'请输入新密码，6-16位'"></Input>			
-			<Input v-model="form.password_repass"  :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'再次输入新密码'"  ></Input>
+			<Input v-model="form.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'6 - 16位密码，区分大小写'"></Input>			
+			<Input v-model="form.password_repass" :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认密码'"  ></Input>
 			<el-form-item>
-				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">完成</el-button>
+				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">注册</el-button>				
 			</el-form-item>
-			<p class="lgoin_s5">返回  <router-link class="pend" to="/login">登录</router-link></p>
+			<p class="lgoin_s5">已有账号？<a class="pend" @click="god()">登录</a></p>
 		</el-form>
+		<div class="tip_t"><p class="p_t"></p><p class="p_text">第三方快捷登陆</p><p class="p_h"></p></div>
+		<div class="lgoin_s6">
+			<span @click="thirdLogin('qq')" class="dsf_qq"></span>
+			<span @click="thirdLogin('weixin')" class="dsf_wx"></span>
+			<span @click="thirdLogin('weibo')" class="dsf_wb"></span>
+		</div>
 	</div>
 </template>
 
@@ -85,28 +89,61 @@ export default {
 			},
 			timer:'获取验证码',
 			ajaxType:0,
+			outc:{
+				num:1,
+				scroll:2,
+			}
 		}
 	},
 	mounted: function () {	
+		this.init();
 	}, 
 	methods: {
+		init(){
+			
+			document.addEventListener('keydown',(e)=>{
+				if(e.keyCode==13){				
+				if(this.$route.fullPath=='/register'){
+					this.submitForm('myform');
+				}
+				}					
+			});
+		},
+		thirdLogin(type){
+			this.bdtj('登录页','第三方登录_'+type,'--');
+			if(!type){return}
+			window.location.href=window.basrul+'/Passport/user/thirdLogin?type='+type;
+		},
 		god(){
+			// this.bdtj('注册页','已有账号','--')
+			// this.$router.push({
+			//     path:d
+			// })
 			this.$emit('func',this.outc)
 		},
+        jump(){
+            this.$router.push({
+                path:'/index'
+            })
+        },
 		ajaxYzm(){
+			this.bdtj('注册页','获取验证码','--');
 			let pd = this.chekPhpne(this.form.mobile);
 			if(pd!=true && pd.type!=true){
 				Message({message: '请先填写手机号码'});
 				return
 			}
-			this.$refs.verify.runTimer(60);			
+				
 			let params = {
 				mobile:this.form.mobile,
 				mobile_zone:this.form.mobile_zone,
-				type:'login',
+				type:'register',
 			};
-			this.api.sendVerifyCode(params).then(()=>{	
-				
+			this.api.sendVerifyCode(params).then((da)=>{	
+				if(da=='error'){
+					return	
+				}
+				this.$refs.verify.runTimer(60);		
 			}).catch(()=>{
 				
 			});
@@ -118,7 +155,7 @@ export default {
 			this[data] = this[data]=='password'?'text':'password';
 		},
 		submitForm(formName){
-			this.bdtj('重置密码页','重置密码','--');
+			this.bdtj('注册页','注册按钮','点击');
 			if(!this.btnType){
 				return
 			}
@@ -126,25 +163,49 @@ export default {
 				Message({message: '正在提交'});
 				return
 			}
-			let params = this.form;
+		
+			let params = {
+				mobile:this.form.mobile_zone,
+				mobile_zone: this.form.mobile_zone,
+				mobile: this.form.mobile,
+				verify_code: this.form.verify_code,
+				password: this.form.password,
+				password_repass:this.form.password_repass
+			};
 			params.password = this.MD5(params.password);
 			params.password_repass = this.MD5(params.password_repass);
-			
-			
 			this.ajaxType=1;
-			this.api.modifyPassword(params).then((da)=>{	
+			this.api.register(params).then((da)=>{
+				
 				if(da=='error'){
-					this.bdtj('重置密码页','重置密码失败','--');
-					return;
+					this.bdtj('注册页','注册失败','--');
+					this.ajaxType=0;
+					return
 				}
-				this.ajaxType=0;
-				this.bdtj('重置密码页','重置密码成功','--');
-				Message({message: '修改成功'});
-				setTimeout(()=>{
-					this.$router.push({path: '/login'});
-				},1000)
-			}).catch(()=>{		
-				this.bdtj('重置密码页','重置密码失败','--');
+				this.bdtj('注册页','注册成功','--');
+				Message({message: '注册成功'});
+				let pr = {			
+					mobile_zone:params.mobile_zone,
+					mobile:params.mobile,	
+					password:params.password,
+					login_type:'password',
+				};
+				this.api.login(pr).then((da)=>{	
+					
+					if(da=='error'){
+						return
+					}
+					this.ajaxType=0;
+					localStorage.setItem('userT',JSON.stringify(da));
+					window.userInfo = da;										
+					this.$router.push({path: '/userme'})	
+				}).catch(()=>{
+					Message({message: '自定登录失败请稍后自行登录'});
+					this.ajaxType=0;
+				});	
+			}).catch(()=>{	
+				this.bdtj('注册页','注册失败','--');
+				Message({message: '注册失败'});
 				this.ajaxType=0;
 			});	
 		},
@@ -173,7 +234,6 @@ export default {
 	},
 	watch: {
 	    'form.mobile'(val) {
-	   
 	    	this.pdys1();
 	    },
 	    'form.password'(val) {
@@ -190,6 +250,47 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped="scoped">
+.box{
+	width:404px;
+	height:486px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 8px 32px 0px rgba(0,0,0,0.05);
+	border-radius:5px;
+	position: absolute;
+	top: 160px;
+    left: 21px;
+}
+.el-form{
+	padding: 30px 30px 0px 30px;
+}
+.tip_t{
+	padding:0px 30px 0px 30px;
+	height: 20px;
+	line-height: 20px;
+	margin-top: 30px;
+}
+.p_t{
+	width: 100px;
+	height: 1px;
+	background: #E6E6E6;
+	float: left;
+	margin-top: 10px;
+}
+.p_text{
+	float: left;
+	color: #666666;
+	font-size: 14px;
+	margin-left: 25px;
+}
+.p_h{
+	width: 100px;
+	height: 1px;
+	background: #E6E6E6;
+	float: right;
+	margin-top: 10px;
+}
+.inptud{
+	margin-bottom: 5px;
+}
 </style>

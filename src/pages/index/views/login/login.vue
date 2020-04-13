@@ -36,8 +36,12 @@ export default {
 	mounted: function () {	
 		this.init();
 	}, 
-	methods: {	
-		init(){	
+	methods: {
+		init(data){
+			if(data){
+				this.outc.num = data.num;
+				this.gotj();
+			}	
 			let passIN = localStorage.getItem('pass');
 			if(passIN){
 				this.loginPost(JSON.parse(passIN),'ispass');
@@ -105,6 +109,8 @@ export default {
 					this.ajaxType=0;
 					return
 				}
+				console.log(da)
+				
 				this.bdtj('登录页','登录成功','--');
 				this.ajaxType=0;
 				window.userInfo = da;
@@ -132,13 +138,15 @@ export default {
 				
 				this.api.getSelfInfo(pr).then((da)=>{
 					if(da=='error'){return}		
-					
 					let userData = window.userInfo.access_token;
 					window.userInfo = da;		
 					window.userInfo.access_token = userData;
 				}).catch();
 				
-				this.$router.push({path: '/index'})							
+					
+				
+				this.$router.push({path: '/index'})
+									
 			}).catch(()=>{
 				this.bdtj('登录页','登录失败','--');
 				this.ajaxType=0;
@@ -155,7 +163,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped="scoped">
 .lgoin_s6{
 	border-radius: 0 0 8px 8px;
 }

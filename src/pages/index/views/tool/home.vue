@@ -35,14 +35,21 @@
 					
 			</div>
 		</div>
+		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 </template>
 
 <script>
+import loginDialog from '../../components/loginDialog'
 export default{
+	components:{loginDialog},
 	data(){
 		return {
-			userMssge:''
+			userMssge:'',
+			outc:{
+				num:'',
+				scroll:2,
+			}
 		}	
 	},
 	mounted: function () {	
@@ -65,27 +72,36 @@ export default{
 		godd(){
 			
 			if(!window.userInfo){
-				this.$router.push({path: '/login'});
-				return
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+			}else{
+				this.$router.push({path: '/setPersonal'});
+
 			}
-			this.$router.push({path: '/setPersonal'});
+			
 		},
 		go_project(){
 			this.$router.push({path: '/project'});
 		},
 		go_upload(){
 			if(!window.userInfo){
-				this.$router.push({path: '/login'});
-				return
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+			}else{
+				this.$router.push({path: '/upload'});
+
 			}
-			this.$router.push({path: '/upload'});
+			
 		},
 		go_show(){
 			if(!window.userInfo){
-				this.$router.push({path: '/login'});
-				return
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+			}else{
+				this.$router.push({path:'/tolt/toluser'});
+
 			}
-			this.$router.push({path:'/tolt/toluser'});
+			
 		}
 	}
 }
@@ -157,6 +173,7 @@ export default{
 	position: relative;
 	margin-bottom: 0px;
 	text-align: center;
+	height: 420px;
 }
 .hot_topbox > button{
 	position: relative;
@@ -170,6 +187,9 @@ export default{
 	outline: none;
 	border-radius: 5px;
 	cursor: pointer;
+}
+.hotCent{
+	margin-top: 39px;
 }
 .hotBaner{
 	cursor: pointer;
@@ -210,9 +230,6 @@ export default{
 	font-weight:400;
 	color:rgba(51,51,51,1);
 	line-height:40px;
-}
-.hotCent{
-	margin-top: 39px;
 }
 .hotCent2{
 	width: 1300px;

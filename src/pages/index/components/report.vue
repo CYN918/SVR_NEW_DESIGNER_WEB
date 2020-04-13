@@ -1,32 +1,36 @@
 <template>
-	<TcBox :config="config" ref="tcBox">
-		<template v-slot:todo="{ todo }">
-			<div class="rep_x1">
-                <template>
-                    <el-radio v-for="(item,index) in list" :label="index"  v-model="classify">{{item.classify_name}}</el-radio>
-               	</template>
-            </div>
-			<div class="upRpt_txt">
-                <el-input
-                    type="textarea"
-                    resize="none"
-                    :rows="7"
-                    placeholder="请写下举报原因，以便平台公正的惩戒被举报者"
-                   	v-model="detail">
-                </el-input>
-            </div>
-            <div class="btm2o">
-				<div @click="hidReport('取消')" class="btns pend">取消</div>
-				<div @click="AddReport" class="btns btns_js pend">提交意见</div>				
-			</div>
-		</template>			
-	</TcBox>
+    <div>
+		<TcBox :config="config" ref="tcBox">
+			<template v-slot:todo="{ todo }">
+				<div class="rep_x1">
+					<template>
+						<el-radio v-for="(item,index) in list" :label="index"  v-model="classify">{{item.classify_name}}</el-radio>
+					</template>
+				</div>
+				<div class="upRpt_txt">
+					<el-input
+						type="textarea"
+						resize="none"
+						:rows="7"
+						placeholder="请写下举报原因，以便平台公正的惩戒被举报者"
+						v-model="detail">
+					</el-input>
+				</div>
+				<div class="btm2o">
+					<div @click="hidReport('取消')" class="btns pend">取消</div>
+					<div @click="AddReport" class="btns btns_js pend">提交意见</div>				
+				</div>
+			</template>			
+		</TcBox>
+		<loginDialog ref="logindialog" :config="outc"></loginDialog>
+	</div>
 </template>
 
 <script>
 import TcBox from './TcBox';
+import loginDialog from '../components/loginDialog';
 export default {
-	components:{TcBox},
+	components:{TcBox,loginDialog},
         name: "report",
         data () {
             return {
@@ -42,6 +46,10 @@ export default {
 				link_id:'',
 				position:'',
 				ajaxType:0,
+				outc:{
+					num:'',
+					scroll:2,
+				}
             }
         },
         mounted(){},
@@ -58,7 +66,8 @@ export default {
 				if(!window.userInfo){
 					this.$message({message:'请先登录'});
 						setTimeout(()=>{				
-							this.$router.push({path:'/login'})
+							this.$refs.logindialog.show();
+				            this.outc.num = 1;
 						},2000);
 					return
 				}	

@@ -97,6 +97,7 @@
 			</div>
 		</div>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
+		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 	
 </template>
@@ -111,8 +112,9 @@ import TcBox from '../../components/TcBox';
 import pTop from '../../components/postionTop';
 import bm_01 from '../activvity/tan_c';
 import { log } from 'util';
+import loginDialog from '../../components/loginDialog'
 export default {
-	components:{fxd,detailed_detailed,detailed_into,detailed_admission,TcBox,pTop,bm_01},
+	components:{fxd,detailed_detailed,detailed_into,detailed_admission,TcBox,pTop,bm_01,loginDialog},
 	name: 'home',	 
 	data(){	
 		return{
@@ -144,7 +146,11 @@ export default {
 			active: 0,
 			remeber_tips: '',
 			opType:0,		
-			tanData:{},			
+			tanData:{},		
+			outc:{
+				num:'',
+				scroll:2,
+			}	
 		}
 		
 	},
@@ -200,9 +206,20 @@ export default {
 			this.zpList = [];
 		},
 		showZp(){
-			this.tanData = {
-				zj:'bm_01'
-			};			
+			if(!window.userInfo){
+				// Message({message: '未登陆，请先登陆!'});
+				// this.$router.push({path:'/login'})
+				// return
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+			
+			}else{
+				this.tanData = {
+					zj:'bm_01'
+				};
+
+			}
+						
 		},
 		
 		checkZp(id){

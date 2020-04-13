@@ -120,7 +120,7 @@ export default {
 				localStorage.setItem('userT','');
 				window.userInfo='';
 				window.passIn = '';
-				this.$router.push({path: '/login'})	
+				this.$router.push({path: '/index'})	
 			});
 		},
 		

@@ -1,6 +1,6 @@
 
 <template>
-	<div>
+	<div class="box">
 		<div class="wjmm">忘记密码</div>
 		<el-form ref="myform" :model="form">	
 			<Input v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
@@ -10,7 +10,7 @@
 			<el-form-item>
 				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">完成</el-button>
 			</el-form-item>
-			<p class="lgoin_s5">返回  <router-link class="pend" to="/login">登录</router-link></p>
+			<p class="lgoin_s5">返回  <a class="pend" @click="god()">登录</a></p>
 		</el-form>
 	</div>
 </template>
@@ -85,6 +85,10 @@ export default {
 			},
 			timer:'获取验证码',
 			ajaxType:0,
+			outc:{
+				num:1,
+				scroll:2,
+			}
 		}
 	},
 	mounted: function () {	
@@ -190,6 +194,23 @@ export default {
 }
 </script>
 
-<style>
+<style scoped="scoped">
+.box{
+	width:404px;
+	height:486px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 8px 32px 0px rgba(0,0,0,0.05);
+	border-radius:5px;
+	position: absolute;
+	top: 160px;
+    left: 21px;
+}
+.el-form{
+	padding: 0px 30px 0px 30px;
+}
+.wjmm{
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
 
 </style>

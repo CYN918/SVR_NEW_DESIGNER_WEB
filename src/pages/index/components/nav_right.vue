@@ -1,7 +1,7 @@
 <template>
     <div class="nav_rig">
         <ul>
-            <li class="nav_logo"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
+            <li class="nav_logo" @mouseenter="mouseover('e')" @mouseleave="mouseLeave('e')"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
             <li class="nav_upload" v-if="uploadShow" @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'newHome/upload.svg'" alt=""/><p>上传作品</p></li>
             <li class="nav_upload" v-else @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'newHome/bar_icon_upload.svg'" alt=""/><p>上传作品</p></li>
             <li class="nav_tolt" v-if="totalShow" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning-black.svg'" alt=""/><p>去赚钱</p></li>
@@ -69,6 +69,9 @@ export default {
                 document.getElementsByClassName('nav_upload')[0].style.background = '#33B3FF'
                 document.getElementsByClassName('nav_upload')[0].style.color = '#ffffff'
                 this.uploadShow = false;
+            }
+            if(type == 'e'){
+                document.getElementsByClassName('nav_logo')[0].style.top = '15px'
             }  
         },
         mouseLeave(type){
@@ -85,7 +88,10 @@ export default {
                 document.getElementsByClassName('nav_upload')[0].style.background = '#FFFFFF'
                 document.getElementsByClassName('nav_upload')[0].style.color = '#1E1E1E'
                 this.uploadShow = true;
-            } 
+            }
+            if(type == 'e'){
+                document.getElementsByClassName('nav_logo')[0].style.top = '60px'
+            }  
         },
         go_tolt(){
             this.$router.push({path:'/tolt'});
@@ -95,7 +101,7 @@ export default {
         },
         go_weibo(){
             window.open('https://weibo.com/shiquanerzk?is_all=1','_blank')
-        }
+        },
     }  
 }
 </script>
@@ -105,18 +111,16 @@ export default {
 	position: fixed;
 	right: 2.3%;
 	top: 40%;
-    z-index: 999999;
 }
 .nav_logo{
     height: 112px;
     position: relative;
     top: 60px;
-    z-index: -1;
+    z-index: 0;
 }
 .nav_upload{
     width: 91.53px;
     height: 66px;
-    z-index: 999999;
     background: #FFFFFF;
     color: #1E1E1E;
     font-size: 14px;
@@ -125,6 +129,32 @@ export default {
     border-right: 1px solid #0066B4;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+    z-index: 99999;
+    position: relative;
+}
+.nav_upload > p{
+    width: 48px;
+    font-size: 12px;
+    border-bottom: 1px #D9D9D9 solid;
+    margin: 2px auto 0px auto;
+    padding-bottom: 12px;
+    color: #1E1E1E;
+}
+.nav_tolt > p{
+    width: 48px;
+    font-size: 12px;
+    border-bottom: 1px #D9D9D9 solid;
+    margin: 2px auto 0px auto;
+    padding-bottom: 10px;
+    color: #1E1E1E;
+}
+.nav_weixin > p{
+    width: 60px;
+    font-size: 12px;
+    border-bottom: 1px #D9D9D9 solid;
+    margin: 2px auto 0px auto;
+    padding-bottom: 6px;
+    color: #1E1E1E;
 }
 .nav_tolt{
     width: 91.53px;

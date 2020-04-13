@@ -5,8 +5,11 @@
 				<div class="bmXm_01">
 					请选择项目收益结算方式：
 					<div class="bmXm_01_1">
-						<ul>
+						<ul v-if="settlement == '0'">
 							<li @click="chekdeal_type(el.k)" v-for="(el,index) in deal_types" :key="index" :class="el.k==postData.deal_type?'chekdOn':''">{{el.n}}</li>
+						</ul>
+						<ul v-else>
+							<li v-for="(el,index) in deal_types" :key="index" :class="el.k==postData.deal_type?'chekdOn':''">{{el.n}}</li>
 						</ul>			
 					</div>
 					<div class="buyout" v-show="postData.deal_type == '1'">
@@ -53,6 +56,7 @@ export default {
 	props:{
 		datad:Object,
 		expected_profit:String,
+		settlement:String,
 	},
 	data(){
 		return{
@@ -65,7 +69,7 @@ export default {
 			List:[],
 			isnoData:'',
 			postData:{
-				deal_type:1,
+				deal_type:this.settlement,
 				work_ids:[],
 			},
 			getType:'',
@@ -76,6 +80,9 @@ export default {
 	
 	mounted: function(){
 		this.init();
+		if(this.settlement == '0'){
+			this.postData.deal_type = 1;
+		}
 	},
 	methods: {	
 		init(){

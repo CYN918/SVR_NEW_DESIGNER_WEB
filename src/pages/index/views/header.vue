@@ -98,15 +98,18 @@
 				</div>
 			</span>	
 			<span class="header_4" v-else>
-				<a class="pend" @click="goZP('/login','登录')">登录</a><span>|</span><a class="pend" @click="goZP('/register','注册')">注册</a></span>				
+				<!-- <a class="pend" @click="goZP('/login','登录')">登录</a><span>|</span><a class="pend" @click="goZP('/register','注册')">注册</a></span>				 -->
+				<a class="pend" @click="logTo(1)">登录</a><span>|</span><a class="pend" @click="logTo(2)">注册</a></span>
 		</div>
 		<out ref="out"></out>
+		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</header>
 </template>
 <script>
 import out from '../components/out';
+import loginDialog from '../components/loginDialog'
 export default {
-	components:{out},
+	components:{out,loginDialog},
 	name: 'home',	 
 	data(){	
 		return{
@@ -137,7 +140,11 @@ export default {
 				{path:'/tolt',n:'赚钱',t:'NEW'},
 				// {path:'/pushTool',n:'新工具'},
 				
-			]
+			],
+			outc:{
+				num:'',
+				scroll:2,
+			} 
 		}		
 	},
 	mounted: function () {	
@@ -180,7 +187,8 @@ export default {
 		},
 		goMssg(on){
 			if(!window.userInfo){
-				this.$router.push({path:'/login'});	
+				this.$refs.logindialog.show();
+				this.outc.num = 1;	
 				return
 			}
 			setTimeout(()=>{
@@ -305,8 +313,16 @@ export default {
 			
 		},
 		goUpload(){
-			if(!this.userMssge){this.$router.push({path:'/login'}); return}
-			this.$router.push({path:'/upload'})			
+			if(!this.userMssge){
+				// this.$router.push({path:'/login'}); 
+				// return
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+			}else{
+				this.$router.push({path:'/upload'})		
+
+			}
+				
 		},
 		goUser(a){
 			this.bdtj('通用模块','顶部栏点击_'+a,'--');
@@ -319,6 +335,20 @@ export default {
 			}
 			this.$refs.out.show();
 			
+		},
+		logTo(num){
+			if(num==1){
+				// this.bdtj('通用模块','顶部栏点击_登陆','--');
+				this.$refs.logindialog.show();
+				this.outc.num = num;
+			}
+			if(num==2){
+				// this.bdtj('通用模块','顶部栏点击_登陆','--');
+				this.$refs.logindialog.show();
+				this.outc.num = num;
+			}
+			
+
 		},
 		
 		getMessgNumber(){
