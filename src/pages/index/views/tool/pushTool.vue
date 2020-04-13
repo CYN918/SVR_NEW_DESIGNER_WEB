@@ -116,105 +116,81 @@
 							<div v-html="backd()" class="kdut"></div>
 						</div>
 						
-<<<<<<< HEAD
+
 						<div class="necBox">
 							<div  class="tlo_02"  @mouseover="setMos({on:0,n:'media'})" @mouseout="setMos('')">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'media',o:index})" class="imgd" v-for="(el,index) in navcoms.media">
 									<div :style="bgtf(el)" class="setToll0"></div>
 									
-									<div   class="setToll">
+									
+									<div class="setToll">
 										<div @mousedown="jl3($event,el,index,navcoms.media)" class="setToll1"></div>
-										<div @mousedown="jl2($event,el,index,navcoms.media)"  class="setToll2"></div>
-										<div @mousedown="jl($event,el,index,navcoms.media)" class="setToll3"></div>
+										<div @mousedown="jl2($event,el,index,navcoms.media)"  class="setToll2">
+											<div class="setToll2_1" style="top:6px;height: 14px;">
+												<i></i><i></i>
+											</div>
+										</div>
+										<div @mousedown="jl($event,el,index,navcoms.media)" class="setToll3">
+											<div class="setToll3_1" style="top:6px;height: 14px;">
+												<i></i><i></i>
+											</div>
+										</div>
 										<div @click="showcj($event,{n:'media',o:index},el)" class="setToll4">
 											<i></i><i></i><i></i>
 										</div>
-									</div>							
+									</div>			
+									
+											
 									
 								</div>
 							</div>
+									
+
+						
 							<div class="tlo_03">
 								<div  :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'audio',o:index})" class="imgd" v-for="(el,index) in navcoms.audio">
 									<div :style="bgtf(el)" class="setToll0"></div>
 									<div class="setToll">
 										<div @mousedown="jl3($event,el,index,navcoms.audio)" class="setToll1"></div>
-										<div @mousedown="jl2($event,el,index,navcoms.audio)"  class="setToll2"></div>
-										<div @mousedown="jl($event,el,index,navcoms.audio)" class="setToll3"></div>
+										<div @mousedown="jl2($event,el,index,navcoms.audio)"  class="setToll2">
+											<div class="setToll2_1" style="top:6px;height: 14px;">
+												<i></i><i></i>
+											</div>
+										</div>
+										<div @mousedown="jl($event,el,index,navcoms.audio)" class="setToll3">
+											<div class="setToll3_1" style="top:6px;height: 14px;">
+												<i></i><i></i>
+											</div>
+										</div>
 										<div @click="showcj($event,{n:'audio',o:index},el)" class="setToll4">
 											<i></i><i></i><i></i>
 										</div>
 									</div>			
-=======
-						<div  class="tlo_02"  @mouseover="setMos(1)" @mouseout="setMos('')">
-							<div :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'media',o:index})" class="imgd" v-for="(el,index) in navcoms.media">
-								<div :style="bgtf(el)" class="setToll0"></div>
-								
-								<div   class="setToll">
-									<div @mousedown="jl3($event,el,index,navcoms.media)" class="setToll1"></div>
-									<div @mousedown="jl2($event,el,index,navcoms.media)"  class="setToll2">
-										<div class="setToll2_1">
-											<i></i><i></i><i></i>
-										</div>
-									</div>
-									<div @mousedown="jl($event,el,index,navcoms.media)" class="setToll3">
-										<div class="setToll3_1">
-											<i></i><i></i><i></i>
-										</div>
-									</div>
-									<div @click="showcj($event,{n:'media',o:index},el)" class="setToll4">
-										<i></i><i></i><i></i>
-									</div>
-								</div>							
->>>>>>> 7aca5421d732ddfd9afe6f400db73662f2b3b6fd
-								
 								</div>
-							</div>
-<<<<<<< HEAD
-=======
-						</div>
-						<div class="tlo_03">
-							<div  :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'audio',o:index})" class="imgd" v-for="(el,index) in navcoms.audio">
-								<div :style="bgtf(el)" class="setToll0"></div>
-								<div class="setToll">
-									<div @mousedown="jl3($event,el,index,navcoms.audio)" class="setToll1"></div>
-									<div @mousedown="jl2($event,el,index,navcoms.audio)"  class="setToll2">
-										<div class="setToll2_1" style="top:6px;height: 14px;">
-											<i></i><i></i>
-										</div>
+							</div>	
+						
+							<div class="tlo_04">
+								<div
+								v-for="(el,index) in navcoms.decorates" 
+								@mouseover="setMos({on:index,n:'decorates'})" @mouseout="setMos('')"
+								class="tlo_04">
+									<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{n:'media',o:index2})" class="imgd" v-for="(el2,index2) in el">
+										<div :style="bgtf(el2)" class="setToll0"></div>
+										
+										<div   class="setToll">
+											<div @mousedown="jl3($event,el2,index2,el2)" class="setToll1"></div>
+											<div @mousedown="jl2($event,el2,index2,el2)"  class="setToll2"></div>
+											<div @mousedown="jl($event,el2,index2,el2)" class="setToll3"></div>
+											<div @click="showcj($event,{n:'media',o:index2},el2)" class="setToll4">
+												<i></i><i></i><i></i>
+											</div>
+										</div>							
+										
 									</div>
-									<div @mousedown="jl($event,el,index,navcoms.audio)" class="setToll3">
-										<div class="setToll3_1" style="top:6px;height: 14px;">
-											<i></i><i></i>
-										</div>
-									</div>
-									<div @click="showcj($event,{n:'audio',o:index},el)" class="setToll4">
-										<i></i><i></i><i></i>
-									</div>
-								</div>			
->>>>>>> 7aca5421d732ddfd9afe6f400db73662f2b3b6fd
-							
-							
-							<div 
-							v-for="(el,index) in navcoms.decorates" 
-							@mouseover="setMos({on:index,n:'decorates'})" @mouseout="setMos('')"
-							class="tlo_04">
-								<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{n:'media',o:index2})" class="imgd" v-for="(el2,index2) in el">
-									<div :style="bgtf(el2)" class="setToll0"></div>
-									
-									<div   class="setToll">
-										<div @mousedown="jl3($event,el2,index2,el2)" class="setToll1"></div>
-										<div @mousedown="jl2($event,el2,index2,el2)"  class="setToll2"></div>
-										<div @mousedown="jl($event,el2,index2,el2)" class="setToll3"></div>
-										<div @click="showcj($event,{n:'media',o:index2},el2)" class="setToll4">
-											<i></i><i></i><i></i>
-										</div>
-									</div>							
-									
 								</div>
 								
-								
 							</div>
-						</div>
+
 					</div>
 					<div class="bf_o1">
 						<div class="bf_o1_1"></div>
@@ -257,7 +233,7 @@
 			</div>			
 		</div>
 	</div>
-	
+	</div>
 </template>
 
 <script>
