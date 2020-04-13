@@ -79,13 +79,12 @@ export default{
 	methods:{
 	
 		starD(e,el){
-			
 			e.preventDefault();
 			let tdStar = e.pageX;	
 			let wdStar = e.pageY;
 
 			let dom = document.createElement('div');
-			console.log(el);
+		
 			let url = el.file_type=='image'?el.url:el.fps_pic;
 			let tim = el.file_type=='image'?5:el.play_time;
 			
@@ -93,11 +92,6 @@ export default{
 		
 			dom.className = 'testd';
 			dom.style.cssText = str+'left:'+e.x+'px;top:'+e.y+'px;';
-			
-			
-			
-			
-			
 			document.body.appendChild(dom);
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
@@ -109,12 +103,71 @@ export default{
 			}			 
 			document.onmouseup =  ()=>{
 				
-				if(this.$parent.Mos==1){
-					this.checkV(el);
+				if(this.$parent.Mos){
+					
+					if(this.$parent.Mos.n=='decorates'){
+						this.setDecorates(el);
+					}else{
+						this.checkV(el);
+					}
+					
 				}
 				document.body.removeChild(dom);
 				document.onmousemove = document.onmouseup = null;
 			}
+		},
+		setDecorates(el){
+			if(el.file_type!='image'){
+				return
+			}
+			let pr = {
+				x:0,y:0,w:0,h:0,sx:0,sy:0,sw:0,sh:0,
+				yw:0,yh:0,
+				file_url: el.url,
+				fid:el.fid,
+				cut_start: 0,
+				ischeck:'',
+				start:0,				
+			};
+			var pd = {
+					type: "pic",
+					end: 5,
+					long:5,
+					maxlong:5,
+					cut_end: 5,
+					cover_img:el.url,
+			};
+			pr = Object.assign(pr,pd);
+			
+			let opb = this.value.decorates[this.$parent.Mos.on];		
+			let ond = opb[opb.length-1];
+			if(ond){
+				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
+			}		
+			
+				var a = document.createElement('img');
+				a.src=el.url;
+				a.onload = ()=>{
+					let wd = a.width,
+					hd = a.height;
+					pr.yw = wd;
+					pr.yh =  hd;
+					pr.sw = wd;					
+					pr.sh = hd;
+					if(wd>hd){
+						pr.w = 391;
+						pr.h = (391/wd)*hd;
+						pr.y = (695-pr.h)/2
+					}else{
+						pr.h = 695;
+						pr.w = (695/hd)*wd;
+						pr.x = (391-pr.w)/2;
+					}
+					this.value.maxTime = +pr.long+this.value.maxTime;
+					this.value.decorates[this.$parent.Mos.on].push(pr);
+							
+					this.$parent.showDevs(this.$parent.Mos.on,this.value.decorates[this.$parent.Mos.on].length-1);
+				};
 		},
 		backtio(t){
 			var f='00',s;
@@ -155,7 +208,6 @@ export default{
 			this.istype = {data:el,on:index};
 		},
 		checkV(el){
-		
 			let pr = {
 				x:0,y:0,w:0,h:0,sx:0,sy:0,sw:0,sh:0,
 				yw:0,yh:0,
@@ -163,8 +215,7 @@ export default{
 				fid:el.fid,
 				cut_start: 0,
 				ischeck:'',
-				start:0,
-				
+				start:0,				
 			};
 			if(el.file_type=='image'){
 				var pd = {
@@ -188,26 +239,22 @@ export default{
 					maxlong:el.play_time,					
 					cover_img:el.cover_img,					
 				};
-				pr = Object.assign(pr,pd);				
-								
+				pr = Object.assign(pr,pd);												
 			}			
 			let ond = this.value.media[this.value.media.length-1];
 			if(ond){
 				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
-			}
-		
+			}		
 			if(el.file_type=='image'){
 				var a = document.createElement('img');
 				a.src=el.url;
 				a.onload = ()=>{
 					let wd = a.width,
 					hd = a.height;
-					
 					pr.yw = wd;
 					pr.yh =  hd;
 					pr.sw = wd;					
 					pr.sh = hd;
-					
 					if(wd>hd){
 						pr.w = 391;
 						pr.h = (391/wd)*hd;
@@ -217,7 +264,6 @@ export default{
 						pr.w = (695/hd)*wd;
 						pr.x = (391-pr.w)/2;
 					}
-									
 					this.value.maxTime = +pr.long+this.value.maxTime;
 					this.value.media.push(pr);						
 					if(!ond){
@@ -245,15 +291,11 @@ export default{
 						pr.h = (391/wd)*hd;
 						pr.y = (695-pr.h)/2
 					}
-			
 					let maxt = +pr.start+(+pr.long);
-					
 					if(this.value.maxTime<maxt){
 						this.value.maxTime = maxt;
 					}	
-					
 					this.value.media.push(pr);	
-					
 					if(!ond){
 						this.$parent.setvideo(el.url);
 					}

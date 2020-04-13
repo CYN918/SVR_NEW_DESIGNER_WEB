@@ -1,15 +1,18 @@
 <template>
-	<div :style="backtop(value)" @contextmenu="contexMs($event)" class="imgd">
-		<div :style="bgtf(value)" class="setToll0"></div>			
-			<div   class="setToll">
-				<div @mousedown="tdFn($event)" class="setToll1"></div>
-				<div @mousedown="tdFn($event)"  class="setToll2"></div>
-				<div @mousedown="tdFn($event)" class="setToll3"></div>
-				<div @click="showcj($event,value)" class="setToll4">
-					<i></i><i></i><i></i>
-			</div>
-		</div>										
+	<div :style="backtop()" @contextmenu="contexMs($event)" class="imgd">
+		<div :style="bgtf()" class="setToll0"></div>
+		<div class="setToll">
+			<div @mousedown="jl3($event)" class="setToll1"></div>
+			<div @mousedown="jl2($event)"  class="setToll2"></div>
+			<div @mousedown="jl($event)" class="setToll3"></div>
+			<!-- <div @click="showcj($event,{n:'audio',o:index},value)" class="setToll4">
+				<i></i><i></i><i></i>
+			</div> -->
+		</div>			
+	
 	</div>
+	
+	
 	
 </template>
 
@@ -27,14 +30,16 @@ export default{
 		}
 	},
 	methods:{
-		backtop(el){
-			let str = "width:"+((el.cut_end-el.cut_start)/this.conf.bl)*this.conf.wdk+"px;transform:translateX("+((el.start/this.bl)*this.wdk)+"px);";			
+		backtop(){
+			let el = this.value;
+			let str = "width:"+((el.cut_end-el.cut_start)/this.bl)*this.wdk+"px;transform:translateX("+((el.start/this.bl)*this.wdk)+"px);";			
 			if(el.ischeck){
 				str+='z-index:2;';
-			}	
+			}		
 			return str;
 		},
-		bgtf(el){
+		bgtf(){
+			let el = this.value;
 			if(!el){return}
 			let url = el.type=='pic'?el.file_url:el.fps_pic;
 			return "background:url("+url+") 0 0/auto 100% repeat-x;";
@@ -44,73 +49,63 @@ export default{
 				return
 			}
 			e.preventDefault();
-			// let dom =  e.target.getBoundingClientRect();
-			// if(b){
-			// 	this.xzData = b;
-			// }
-			// this.csad = 'display:block;top:'+(e.y-5)+'px;left:'+(e.x-22)+'px';
-			// let fn = ()=>{
-			// 	setTimeout(()=>{
-			// 		this.csad = '';
-			// 	},100)
-			// };
-			// this.clerClick(fn)
+			this.$parent.contexMs(e,b);
 		},
 		
 		showcj(){
 			
 		},
-	
-		getCon(el){
-			let obj = {};
-			obj.min = el.cut_start+1;
-			obj.max = +el.long;
-			if(el.type=='pic'){
-				obj.max = 999999;
-			}
-				
-			return obj;
-		},
-		tdFn(e){
+		jl(e,el,index,list){
 			e.preventDefault();
-			let el = this.value;
-			let tdStar = e.pageX;			
+			this.checkDOm(el);
+			this.tdStar = e.pageX;			
 			let wid = el.long*this.wdk;	
 			let mv = ((el.long-el.cut_end)/el.long)*wid;
-			let max = this.setMax(el);				
-			let min = this.setMin(el);
 			
-			let con = this.getCon(el);
-			
+			let max = +el.long;	
+			if(el.type=='pic'){
+				max = 999999;
+			}		
+			let min = el.cut_start+1;
+			let prEnd,prStar,nxEnd,nxStar;
+			let doml = list[index-1];
+			let cen = el.cut_end;
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
 				e.preventDefault();
-				let on = +(((e.pageX-tdStar-con.mv)/wid)*el.long).toFixed(3);
-				let pn = +el.long+on;
-				if(+pn>con.max){
-					pn = con.max;
+				let on = -(this.tdStar-e.pageX)/(this.wdk/this.bl);
+				
+				let pn = +cen+on;
+				if(+pn>max){
+					pn = max;
 				}				
-				if(pn<con.min){
-					pn = con.min;
+				if(pn<min){
+					pn = min;
 				}	
-				el.cut_end = Math.round((pn*100)/100);
-				this.setHm(el);		
+			
+				// pn = pn*this.bl;
+				el.cut_end = pn;
+				this.setHm(index,el,list);		
 			}			 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
-		setHm(){
-			if(!this.$parent.setHm){
-				return
+		setHm(on,el,list){
+			
+			let ond = el.start+(el.cut_end-el.cut_start);
+			for(let i=on,n=list.length;i<n;i++){
+				if(list[i+1]){
+					list[i+1].start = list[i].start+(list[i].cut_end-list[i].cut_start);
+				}
+				
 			}
-			this.$parent.setHm(this.on,this.value);		
-		},
 		
+		},
 		jl3(e,el,onc,list){
 			e.preventDefault();
-		
-			let tdStar = e.pageX;	
+			this.checkDOm(el);
+			this.tdStar = e.pageX;	
 			let cs = el.start;
 			let wid = el.long*this.wdk;
 			let ond = onc-1;
@@ -119,28 +114,24 @@ export default{
 			
 			let prEnd,prStar,nxEnd,nxStar;
 			let prd = list[ond];
-			
-			
-			let max = max;
-			let min = min;
-			
-			// if(prd){
+			if(prd){
 				
-			// 	prEnd = +prd.start +(prd.cut_end-prd.cut_start);
-			// 	prStar = prd.start;
-			// }
-			// let nxd = list[ondn];
-			// if(nxd){
-			// 	nxEnd = +nxd.start+(nxd.cut_end-nxd.cut_start);
-			// 	nxStar = nxd.start;
-			// }
+				prEnd = +prd.start +(prd.cut_end-prd.cut_start);
+				prStar = prd.start;
+			}
+			let nxd = list[ondn];
+			if(nxd){
+				nxEnd = +nxd.start+(nxd.cut_end-nxd.cut_start);
+				nxStar = nxd.start;
+			}
 		
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
-				e.preventDefault();
-				let on = +(((e.pageX-this.tdStar)/wid)*el.long).toFixed(3);
+				e.preventDefault();				
+				let on = -(this.tdStar-e.pageX)/(this.wdk/this.bl);
 			
-				let dd = Math.round(((+cs+(on))*100)/100);
+				let dd = +cs+on;
+			
 				if(prd && dd<prEnd){
 					dd = prEnd;					
 				}
@@ -154,7 +145,7 @@ export default{
 			}			 
 			document.onmouseup =  (e)=>{
 				e.preventDefault();
-				let on = +(((e.pageX-tdStar)/wid)*el.long).toFixed(3);
+				let on = +(((e.pageX-this.tdStar)/wid)*el.long).toFixed(3);
 				let dd = Math.round(((+cs+(on))*100)/100);				
 				if(prStar || prStar==0){					
 					if(dd<=prEnd-((prEnd-prStar)/2)){					
@@ -177,44 +168,47 @@ export default{
 		},
 		jl2(e,el,index,list){
 			e.preventDefault();
-			let tdStar = e.pageX;
+			this.checkDOm(el);
+			this.tdStar = e.pageX;
 			let wid = el.long*this.wdk;	
-			let mv = ((el.long-el.cut_start)/el.long)*wid;
-			let max = +el.cut_end-1;
+			let timd = el.cut_end-el.cut_start;
+			
+			let max = (+timd)-1;
 			let osta = el.start;
 			let stad = el.start-el.cut_start;
+			let cuat = el.cut_start;
+			
+			let min = 0;
+			
+			let ond = list[index-1];
+			if(ond){
+				min = ond.start+(ond.cut_end-ond.cut_start);				
+			}
+			
+			
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
 				e.preventDefault();
-				let on = +(((tdStar-e.pageX+mv)/wid)*el.long).toFixed(3);			
-				let pn = +el.long-on;	
-				if(+pn<0){
-					pn = 0;
+				let on = -(this.tdStar-e.pageX)/(this.wdk/this.bl);
+					
+				let pn = (+cuat+on);
+					
+				if(+pn<min){
+					pn = min;
 				}			
 				if(+pn>max){
 					pn = max;
 				}
-				let opd = Math.round((pn*100)/100);
-				let pnmin = stad+opd;
-				let ond = list[index-1];
-				if(ond){
-					let maxd = ond.start+(ond.cut_end-ond.cut_start);
-					if(pnmin<maxd){
-						el.cut_start = maxd-stad;												
-						el.start = maxd;						
-						return
-					}
-					
-				}
 				
-				el.cut_start = opd;
+				el.cut_start = pn;
+				
+				
 				el.start = 	stad+el.cut_start;					
 			}									 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
-
 	}
 }
 </script>
