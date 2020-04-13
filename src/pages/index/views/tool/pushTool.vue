@@ -166,14 +166,14 @@
 								 class="tlo_04">
 
 
-									<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{n:'media',o:index2})" class="imgd" v-for="(el2,index2) in el">
+									<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{n:'decorates',o:index2})" class="imgd" v-for="(el2,index2) in el">
 										<div :style="bgtf(el2)" class="setToll0"></div>
 
 										<div class="setToll">
 											<div @mousedown="jl3($event,el2,index2,el2)" class="setToll1"></div>
 											<div @mousedown="jl2($event,el2,index2,el2)" class="setToll2"></div>
 											<div @mousedown="jl($event,el2,index2,el2)" class="setToll3"></div>
-											<div @click="showcj($event,{n:'media',o:index2},el2)" class="setToll4">
+											<div @click="showcj($event,{n:'decorates',o:index2},el2)" class="setToll4">
 												<i></i><i></i><i></i>
 											</div>
 										</div>
@@ -184,21 +184,22 @@
 							</div>
 
 						</div>
-						<div class="bf_o1">
-							<div class="bf_o1_1"></div>
-						</div>
-						<div class="gund_01" ref="gund_01x">
-							<div @mousedown="jlx($event)" :style="tdfn()" class="gund_02"></div>
-						</div>
-						<div class="fdsx_01">
-							<span @click="jms()" class="fdsx_02">-</span>
-							<span class="fdsx_03">
-								<div @mousedown="jlx2($event)" :style="baclsf()" class="fdsx_06"></div>
-							</span>
-							<span @click="addms()" class="fdsx_02">+</span>
+						
 
-						</div>
-
+					</div>
+					<div class="bf_o1">
+						<div class="bf_o1_1"></div>
+					</div>
+					<div class="gund_01" ref="gund_01x">
+						<div @mousedown="jlx($event)" :style="tdfn()" class="gund_02"></div>
+					</div>
+					<div class="fdsx_01">
+						<span @click="jms()" class="fdsx_02">-</span>
+						<span class="fdsx_03">
+							<div @mousedown="jlx2($event)" :style="baclsf()" class="fdsx_06"></div>
+						</span>
+						<span @click="addms()" class="fdsx_02">+</span>
+					
 					</div>
 				</div>
 				
@@ -421,7 +422,6 @@
 				}, 60000);
 			},
 			contexMs(e, b) {
-
 				if (e.button == "2") {
 					e.preventDefault();
 					let dom = e.target.getBoundingClientRect();
@@ -439,10 +439,7 @@
 					};
 					this.clerClick(fn)
 				}
-
-
 			},
-
 			setMos(on) {
 				this.Mos = on;
 			},
@@ -946,10 +943,10 @@
 				if (tins < 120) {
 					tins = 120;
 				}
-				let nd = Math.ceil(tins / 10);
-				if (nd > 10) {
-					nd = 10;
-				}
+				let nd = Math.ceil(tins / 10)+1;
+				// if (nd > 10) {
+				// 	nd = 10;
+				// }
 				for (let i = 0, n = nd; i < n; i++) {
 					str += '<div class="kdut_1">';
 					for (let i2 = 0; i2 < 9; i2++) {
@@ -1621,9 +1618,7 @@
 	}
 
 	.kdut {
-		position: absolute;
-		bottom: 2px;
-		left: 0;
+		margin-top: 32px;
 		display: inline-block;
 		border-bottom: 1px solid #DEE1E9;
 		white-space: nowrap;
@@ -1678,6 +1673,7 @@
 
 	.tlo_box {
 		min-width: 100%;
+		display: inline-block;
 		position: relative;
 	}
 
@@ -2316,10 +2312,13 @@
 	}
 
 	.necBox {
+		overflow: hidden;
 		overflow-y: auto;
 		height: 187px;
 	}
-
+	.necBox::-webkit-scrollbar {
+		width: 0;
+	}
 	.debox_01 {
 		position: absolute;
 		top: 0;
