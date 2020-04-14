@@ -114,9 +114,19 @@ export default {
 			if(!window.userInfo){
 				this.$refs.logindialog.show();
 				this.outc.num = 1;
-			}else{
-				this.$router.push({path:'/pushTool'});
+				return
 			}
+			
+			if(window.userInfo.contributor_format_status == 2){
+				this.$router.push({path:'/tolt/toluser'});
+				return
+			}
+			this.$message({
+				message:'请先认证'
+			})
+			setTimeout(()=>{
+				this.$router.push({path: '/setPersonal'})
+			}, 1000);
 				
 		}
 		
