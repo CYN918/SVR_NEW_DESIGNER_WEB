@@ -7,8 +7,12 @@
 					返回
 				</div>
 				<div class="noto_title">
-					<input v-model="form.title" type="text" placeholder="请输入来电秀名称">
-					<img src="/imge\new\tools\n/icon_bj.svg" />
+					<input
+					 @focus="titlon(1)"
+					 @blur="titlon('')"
+					 v-model="form.title" type="text" placeholder="请输入来电秀名称">
+					<span v-if="istitle" class="noto_t1">{{form.title.length}}/20</span>
+					<img v-else src="/imge\new\tools\n/icon_bj.svg" />
 				</div>
 				<div class="noto_btns">
 					<span @click="tijF()">保存</span><span @click="zzyz()" class="noto_bys">制作完成</span>
@@ -277,7 +281,7 @@
 				csad: '',
 				video: '',
 				form: {
-
+					title:''
 				},
 				navson: 0,
 				navs: [{
@@ -371,6 +375,7 @@
 				bfTime: 0,
 				isgdon: 0,
 				imgPftime:0,
+				istitle:'',
 			}
 		},
 		mounted: function() {
@@ -380,9 +385,17 @@
 		watch: {
 			fdjb() {
 				this.bl = this.fdjb / 10;
-			}
+			},
+			'form.title'(a,b){
+				if(a.length>20){
+					this.form.title = a.substring(0,20);				
+				}
+			}	
 		},
 		methods: {
+			titlon(on){
+				this.istitle = on;
+			},
 			bcotm(){
 				let tm = this.navcoms.media.length;
 				if(tm==0){
@@ -1058,12 +1071,12 @@
 					this.cans.drawImage(a, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 				}
 				clearTimeout(this.ht);
-				
+			
 				let tim = ob.cut_end-ob.cut_start;
-				
+				this.ispaused = 1;
 				this.ht = setInterval(() => {
 					this.imgPftime = this.imgPftime + 50;
-					
+					this.ispaused = 1;
 					let ond = 0;
 					if(this.bfon>0){
 						let obdg = this.navcoms.media[this.bfon-1];
@@ -1074,6 +1087,7 @@
 					if (this.imgPftime >= tim*1000) {
 						this.imgPftime = 0;
 						clearTimeout(this.ht);
+					
 						this.endeds();						
 					}
 				}, 50);
@@ -1147,6 +1161,7 @@
 				
 			
 				if(this.ispaused){
+				
 					this.ispaused = '';
 					clearTimeout(this.ht);
 					if (this.$refs.vids) {
@@ -2379,5 +2394,11 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
+	}
+	.noto_t1{
+		margin-left: 10px;
+		line-height: 22px;
+		font-size: 14px;
+		color: rgba(187,187,187,1);
 	}
 </style>
