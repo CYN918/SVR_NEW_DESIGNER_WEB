@@ -755,9 +755,7 @@
 							list[onc].start = list[ondn].start + (list[ondn].cut_end - list[ondn].cut_start);
 							list.splice(onc, 2, list[ondn], list[onc]);
 						}
-
 					}
-
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
@@ -771,20 +769,15 @@
 				this.tdStar = e.pageX;
 				let wid = el.long * this.wdk;
 				let timd = el.cut_end - el.cut_start;
-
 				let max = (+timd) - 1;
 				let osta = el.start;
 				let stad = el.start - el.cut_start;
 				let cuat = el.cut_start;
-
 				let min = 0;
-
 				let ond = list[index - 1];
 				if (ond) {
 					min = ond.start + (ond.cut_end - ond.cut_start);
 				}
-
-
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
@@ -872,8 +865,7 @@
 			pastes() {
 				if(!this.checkOn.list){
 					return
-				}
-			
+				}			
 				let doms = JSON.parse(JSON.stringify(this.checkOn.list[this.checkOn.on]));
 				let ends = this.checkOn.list[this.checkOn.list.length - 1];
 				let sta = +ends.start + (ends.cut_end - ends.cut_start);
@@ -894,19 +886,14 @@
 				if (!this.checkOn.list) {
 					return
 				}	
-				
-				
 				let onsd = this.checkOn.list[this.checkOn.on];
 				let ot = onsd.start+(onsd.cut_end-onsd.cut_start);
 				if(this.bfTime>=onsd.start && this.bfTime<ot){
 					this.cans.fillStyle = "#000";
 					this.cans.fillRect(0, 0, 391, 695);
-				}
-			
-				this.checkOn.list.splice(this.checkOn.on,1);
-				
-				this.checkOn = {};
-				
+				}			
+				this.checkOn.list.splice(this.checkOn.on,1);				
+				this.checkOn = {};				
 				if (this.$refs.vids) {
 					this.$refs.vids.pause();
 				}
@@ -917,9 +904,7 @@
 				this.islast = '';
 				this.audioLast = '';
 				this.audiosOn = 0;
-				this.bfon = 0;
-				
-				
+				this.bfon = 0;				
 				this.setMaxTime();
 			},
 			endeds() {
@@ -984,9 +969,6 @@
 					tins = 120;
 				}
 				let nd = Math.ceil(tins / 10)+1;
-				// if (nd > 10) {
-				// 	nd = 10;
-				// }
 				for (let i = 0, n = nd; i < n; i++) {
 					str += '<div class="kdut_1">';
 					for (let i2 = 0; i2 < 9; i2++) {
@@ -1048,17 +1030,7 @@
 				}
 
 			},
-			drmImgs() {
-				let ob = this.navcoms.media[this.bfon];
-				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, 391, 695);
-
-				var a = document.createElement('img');
-				a.src = ob.file_url;
-				a.onload = () => {
-					this.cans.drawImage(a, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
-				}
-			},
+	
 			drmImg() {
 				
 				let ob = this.navcoms.media[this.bfon];
@@ -1068,6 +1040,8 @@
 				var a = document.createElement('img');
 				a.src = ob.file_url;
 				a.onload = () => {
+					this.cans.fillStyle = "#000";
+					this.cans.fillRect(0, 0, 391, 695);
 					this.cans.drawImage(a, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 				}
 				clearTimeout(this.ht);
@@ -1108,6 +1082,14 @@
 					this.drmImg();
 					return
 				}
+				
+				if (this.$refs.vids) {
+					this.$refs.vids.pause();
+				}
+				if (this.$refs.aido) {
+					this.$refs.aido.pause();
+				}
+				
 				this.playVid('sx');
 				this.playAio('sx');
 			},
@@ -1118,29 +1100,28 @@
 				if (this.$refs.vids.src != this.navcoms.media[this.bfon].file_url) {
 					this.$refs.vids.src = this.navcoms.media[this.bfon].file_url;
 				}
-				setTimeout(() => {
-					if (a == 'sx') {
-						this.$refs.vids.currentTime = 0;
-					}
-					if (this.$refs.vids.currentTime < this.navcoms.media[this.bfon].cut_start) {
-
-						this.$refs.vids.currentTime = this.navcoms.media[this.bfon].cut_start;
-					}
-
-					this.$refs.vids.play();
-
-				}, 50)
+				if (a && a == 'sx') {
+					this.$refs.vids.src = this.navcoms.media[0].file_url;
+					this.$refs.vids.currentTime = 0;
+				}
+				if (this.$refs.vids.currentTime < this.navcoms.media[this.bfon].cut_start) {
+				
+					this.$refs.vids.currentTime = this.navcoms.media[this.bfon].cut_start;
+				}
+				
+				this.$refs.vids.play();
 			},
 			playAio(a) {
 				if (this.navcoms.audio.length == 0) {
 					return
 				}
-				if (this.$refs.aido.src != this.navcoms.audio[this.audiosOn].file_url) {
-					this.$refs.aido.src = this.navcoms.audio[this.audiosOn].file_url;
+				if(!this.$refs.aido.src){
+					this.$refs.aido.src = this.navcoms.audio[0].file_url;
 				}
+				
 				setTimeout(() => {
 					if (a == 'sx') {
-						this.$refs.aido.currentTime = 0;
+						this.$refs.aido.currentTime = this.navcoms.audio[0].start;
 					}
 					this.$refs.aido.play();
 				}, 50)
@@ -1157,9 +1138,6 @@
 					this.audiosOn = 0;
 					
 				}
-			
-				
-			
 				if(this.ispaused){
 				
 					this.ispaused = '';
@@ -1186,8 +1164,10 @@
 			},
 
 			init() {
-				
-				
+				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
+					this.$router.push({path: '/'})					
+					return
+				}
 				let isjr = localStorage.getItem('isldxs');
 				if(!isjr){
 					this.showTip();
@@ -1284,6 +1264,8 @@
 				this.cans.fillRect(0, 0, 391, 695);
 				this.$refs.vids.addEventListener('play', () => {
 					this.po = window.setInterval(() => {
+						this.cans.fillRect(0, 0, 391, 695);
+						
 						let ob = this.navcoms.media[this.bfon];
 						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 						let po = this.cun[this.vdcc].x;

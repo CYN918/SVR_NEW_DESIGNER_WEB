@@ -105,6 +105,11 @@ export default{
 			if(!window.userInfo){
 				this.$router.push({path:'/login'});	
 			}
+			if(!window.userInfo || window.userInfo.contributor_format_status != 2){
+				this.$router.push({path: '/'})					
+				return
+			}
+			
 			if(window.userInfo.is_contributor!=true){
 				this.showK = 1;
 				this.btn_on = 1;
