@@ -139,11 +139,7 @@ export default{
 				ct:0
 			},
 			bRunning:false,
-<<<<<<< HEAD
-			
-=======
 			isNOdata:'',
->>>>>>> e0e9577829a0898b4119b2cac4b96a00320afc56
 		}
 	},
 	watch:{
