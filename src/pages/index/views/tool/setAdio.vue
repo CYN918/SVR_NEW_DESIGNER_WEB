@@ -28,7 +28,11 @@
 			></spck>
 			
 		</div>
-		<div class="mp3_04">
+		<div v-if="isNOdata" class="mp3_04 mp3_04nod">
+			<img src="/imge/tools/empty_nodata.svg">
+			<div>哎呀，没找到音乐</div>
+		</div>
+		<div v-else class="mp3_04">
 			<div class="mp3_04_01"><span></span><span>歌曲</span><span>歌手</span><span>时长</span><span></span></div>
 			
 			<div 
@@ -125,6 +129,7 @@ export default{
 				is_collect:0,
 			},
 			bRunning:false,
+			isNOdata:'',
 		}
 	},
 	watch:{
@@ -182,6 +187,10 @@ export default{
 				
 				this.value.audio.splice(0,1,pr);
 				this.$parent.playsx();
+				this.$message({
+					message:"选用成功"
+				})
+				
 			})
 		},
 		sh_addFavorAudio(id) {
@@ -384,9 +393,13 @@ export default{
 			if(this.name){
 				pr.name = this.name;
 			}
+		
 			if(this.clas && this.clas != "全部"){
 				pr.com_classify_name = this.clas;
+			}else{
+				this.clas = '全部';
 			}
+				
 			if(window.source){
 				window.isStop=1;
 				setTimeout(()=>{
@@ -395,7 +408,7 @@ export default{
 				window.source();
 			}
 			
-			
+		
 			
 			this.api[this.type](pr).then((da)=>{
 				if(da=='error'){
@@ -403,10 +416,15 @@ export default{
 				}
 				try{
 					this.datas = da.data;
+				
 				}catch(e){
 					
 				}
-				
+				if(this.datas.length==0){
+					this.isNOdata = 1;
+				}else{
+					this.isNOdata = '';
+				}
 				
 			})
 		},
@@ -862,5 +880,16 @@ img.mp3_04_01_sc {
 }
 .chebf{
 	background: rgba(187,187,187,.3);
+}
+.mp3_04nod>img{
+	display: block;
+    width: 556px;
+    margin: 48px auto;
+}
+.mp3_04nod>div{
+	font-size: 12px;
+    color: rgba(102,102,102,1);
+    line-height: 18px;
+    text-align: center;
 }
 </style>
