@@ -391,13 +391,9 @@
 				let obj = this.navcoms.media[tm-1];
 				return (obj.cut_end - obj.cut_start)+obj.start;
 			},
-
-
-
 			gdfn(ev) {
 				this.$refs.gd_02.scrollTop = ev.target.scrollTop;
 			},
-
 			bckti(t) {
 				var f = '00',
 					s;
