@@ -131,13 +131,8 @@
 											<i></i><i></i><i></i>
 										</div>
 									</div>
-
-
-
 								</div>
 							</div>
-
-
 
 							<div class="tlo_03">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'audio',o:index})" class="imgd" v-for="(el,index) in navcoms.audio">
@@ -1525,6 +1520,7 @@
 
 	.ntob_cent_r_2 {
 		margin-left: 121px;
+		height: 100%;
 	}
 
 	.ntob_cent_r_1 {

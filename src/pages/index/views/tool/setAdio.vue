@@ -59,36 +59,42 @@
 			</div>
 		</div>
 		
-		<div class="mp3_05">
-			<div class="mp3_05_1">
-				<span></span>
+		<div class="mp3_05" v-if="bRunning">
+			<div class="mp3_05_1" v-drag>
+				<span :style="{'width': bfData.ct+'%'}"></span>
 			</div>
 			<div class="mp3_05_2">
-				<span class="mp3_05_2_1">
-					<img :class="['ant',bRunning?'':'paused']" src="/imge/tools/Rectangle.png"/>
-				</span>
-				
-				<span class="mp3_05_2_2">
-					<div class="mp3_05_2_2_1 hft">
-						{{bfData.name}}
-					</div>
-					<div class="mp3_05_2_2_2">
-						<span class="mp3_05_2_2_2_1 hft">{{bfData.author}}</span>
-						<span class="mp3_05_2_2_2_2">
-						{{bfData.bft}} / {{backT(bfData.duration)}}
-						</span>
-					</div>
-				</span>
+				<div class="mp3_05_2_0">
+					<span class="mp3_05_2_1">
+						<img :class="['ant',bRunning?'':'paused']" src="/imge/tools/Rectangle.png"/>
+					</span>
+					<span class="mp3_05_2_2">
+						<div class="mp3_05_2_2_1" ref="bxbg">
+							<div ref="bxch">
+								{{bfData.name}}
+							</div>
+						</div>
+						<div class="mp3_05_2_2_2">
+							<span class="mp3_05_2_2_2_1 hft">{{bfData.author}}</span>
+							<span class="mp3_05_2_2_2_2">
+							{{bfData.bft}} / {{backT(bfData.duration)}}
+							</span>
+						</div>
+					</span>
+				</div>
 				<span class="mp3_05_2_3">
 					<div @click="sys()" class="pr_adio"></div>
 					<div @click="bf()" :class="['pr_adio_03',bRunning?'pr_adio_03_2':'pr_adio_03_1']"></div>
-					<div @click="xys()" class="pr_adio pr_adio_02"></div>					
-					<img @click="favor()" class="mp3_04_01_sc pend" :src="bfData.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
+					<div @click="xys()" class="pr_adio pr_adio_02"></div>
 				</span>
-				<span @click="checks()" class="pend mp3_05_2_4">选用</span>
+				<div class="mp3_05_2_0" style="right: 0;">
+					<img @click="favor()" class="mp3_04_01_sc pend" style="margin-top: 33px;" :src="bfData.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
+					<span @click="checks()" class="pend mp3_05_2_4_1">选用</span>
+				</div>
+				
 			</div>
 		</div>
-		<audio @timeupdate="timeupdate" ref="aido"></audio>
+		<audio @timeupdate="timeupdate" ref="aido" @ended="ended"></audio>
 	</div>
 </template>
 
@@ -100,6 +106,9 @@ export default{
 	},
 	props:{
 		value:Object
+	},
+	directives:{
+		
 	},
 	data(){
 		return{
@@ -123,8 +132,10 @@ export default{
 				bft:'00:00',
 				duration:0,
 				is_collect:0,
+				ct:0
 			},
 			bRunning:false,
+			
 		}
 	},
 	watch:{
@@ -138,6 +149,30 @@ export default{
 			this.clas = '';			
 		},
 		
+	},
+	 directives: {
+		drag: function(el) {
+			let dragBox = el; //获取当前元素
+			dragBox.onmousedown = e => {
+				//算出鼠标相对元素的位置
+				let disX = e.clientX - dragBox.offsetLeft;
+				let disY = e.clientY - dragBox.offsetTop;
+				document.onmousemove = e => {
+					//用鼠标的位置减去鼠标相对元素的位置，得到元素的位置
+					let left = e.clientX - disX;
+					let top = e.clientY - disY;
+					//移动当前元素
+					dragBox.style.left = left + "px";
+					dragBox.style.top = top + "px";
+				};
+				document.onmouseup = e => {
+					  //鼠标弹起来的时候不再移动
+					  document.onmousemove = null;
+					 //预防鼠标弹起来后还会循环（即预防鼠标放上去的时候还会移动）  
+					document.onmouseup = null;
+				};
+			};
+		}
 	},
 	mounted: function () {
 		this.init();
@@ -236,8 +271,7 @@ export default{
 				duration:pd.duration,
 				is_collect:pd.is_collect
 			};
-			this.$refs.aido.pause()
-			
+			this.$refs.aido.pause();
 			this.sh_audioUrl(pd.m_id);
 			
 		},
@@ -281,12 +315,14 @@ export default{
 				};
 				
 				this.sh_audioUrl(el.m_id);
+				///this.scroll();
 				return
 			}
 			
 			if(!this.$refs.aido.src){
 				return
 			}
+			//this.scroll();
 			if (this.bRunning) {
 				this.bRunning = false;
 				this.$refs.aido.pause();
@@ -296,6 +332,8 @@ export default{
 				this.$refs.aido.play();
 				this.$refs.chean[0].play();
 			}
+			
+			
 
 		},
 		sh_audioUrl(id){
@@ -336,6 +374,9 @@ export default{
 				let ond = this.bfData.on;
 				let id = this.datas[ond].m_id;
 				if (this.datas[ond].is_collect == 1) {
+					this.$message({
+						message:'已取消收藏'
+					})
 					this.sh_delFavorAudio(id);
 					this.$set(this.bfData,"is_collect",0)
 				} else {
@@ -349,7 +390,13 @@ export default{
 		
 		},
 		timeupdate(){
-			this.$set(this.bfData,'bft',this.backT(Math.ceil(this.$refs.aido.currentTime)));		
+			let ctime =  ((this.$refs.aido.currentTime / this.$refs.aido.duration)*100).toFixed(2);
+			//console.log(ctime)
+			this.$set(this.bfData,'ct',ctime);
+			this.$set(this.bfData,'bft',this.backT(Math.ceil(this.$refs.aido.currentTime)));
+		},
+		ended(){
+			this.bf(this.datas[this.bfData.on+1],this.bfData.on+1)
 		},
 		backT(t){
 			
@@ -429,6 +476,13 @@ export default{
 				let on =  this.$refs.nsdf.getBoundingClientRect();
 				return on.height+on.top+44;
 			}			
+		},
+		scroll(){
+			let fw = this.$refs.bxbg.clientWidth;
+			let cw = this.$refs.bxch.clientWidth;
+			let child = this.$refs.bxch;
+			let sw = cw - fw;
+			
 		}
 	}
 }
@@ -600,33 +654,43 @@ export default{
 	width:100%;
 	height:82px;
 	background:rgba(251,251,251,1);
+	z-index: 999;
 }
 .mp3_05_1{
 	position: relative;
 	background: #FBFBFB;
-	height: 1px;
+	height: 2px;
 	overflow: hidden;
+	cursor: pointer;
 }
 .mp3_05_1>span{
 	position: absolute;
 	top: 0;
 	left: 0;
-	-webkit-transform: translateX(-100%);
-	transform: translateX(-100%);
-	width: 100%;
+	width: 0%;
 	height: 100%;
 	background: #33B3FF;
+	cursor: pointer;
 }
 .mp3_05_2{
 	box-sizing: border-box;
 	padding: 24px 40px;
 	height: 78px;
     background: #fff;
-    border-top: 2px solid #D9D9D9;
+    /* border-top: 2px solid #D9D9D9; */
 }
-.mp3_05_2>span{
+.mp3_05_2_0{
+	position: absolute;
+	top: 0;
+}
+.mp3_05_2_0>span{
 	display: inline-block;
 	vertical-align: top;
+	margin-top: 17px;
+}
+.mp3_05_2_3{
+	display: flex;
+	justify-content: center;
 }
 .mp3_05_2_1{
 	position: relative;
@@ -648,11 +712,17 @@ export default{
 
 }
 .mp3_05_2_2_1{
-	width: 210px;
+	width: 168px;
 	font-size:14px;
 	color:rgba(102,102,102,1);
 	line-height:20px;
 	margin-bottom: 10px;
+	white-space:nowrap;
+	position: relative;
+	height: 22px;
+}
+.mp3_05_2_2_1 > div{
+	position: absolute;
 }
 .mp3_05_2_2_2{
 	width: 141px;
@@ -686,6 +756,19 @@ export default{
 	color:rgba(255,255,255,1);
 	line-height:32px;
 	color: #fff;
+}
+.mp3_05_2_4_1{
+	text-align: center;
+	width:100px;
+	height:32px;
+	background:rgba(51,179,255,1);
+	border-radius:5px;
+	font-size:14px;
+	color:rgba(255,255,255,1);
+	line-height:32px;
+	color: #fff;
+	margin: 0 32px;
+	margin-top: 25px !important;
 }
 .mp3_04{
 	overflow: hidden;
@@ -763,6 +846,7 @@ export default{
 }
 .box_p_01{
 	position: relative;
+	height: 100%;
 }
 .seadio_to>img{
 	display: inline-block;
@@ -809,7 +893,7 @@ img.mp3_04_01_sc {
 }
 .pr_adio_02{
 	transform: rotate(180deg);
-    transform-origin: 50% 41%;
+    transform-origin: 50% 29%;
     
 }
 .pr_adio_03{
@@ -848,7 +932,6 @@ img.mp3_04_01_sc {
 	max-width: 100%;
 	padding-right: 31px;
     box-sizing: border-box;
-	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	
