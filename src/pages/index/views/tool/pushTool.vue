@@ -20,18 +20,13 @@
 						<canvas class="videoBox1" ref="cavs"></canvas>
 						<video @timeupdate="timeupdatevideo" muted @ended="endeds()" @loadeddata="csy" id="boxf" class="ntob_cent_l_1"
 						 :src="video" ref="vids"></video>
-
 						<div class="debox_01">
 							<div v-for="(el,index) in navcoms.decorates">
 								<div v-for="(el2,index2) in el" v-if="el2.start+(el2.cut_end-el2.cut_start)>=bfTime && bfTime>=el2.start">
 									<setDevs v-model="navcoms.decorates[index][index2]"></setDevs>
 								</div>
-
 							</div>
-
-
 						</div>
-
 						<div v-if="isld && vdcc2==1" class="show_00x_1">
 							<div class="show_00x_1_1">138-888-888</div>
 							<div class="show_00x_1_2">正在拨号…</div>
@@ -64,9 +59,11 @@
 							<span @click="playsx" class="an_sx_01">
 								<img src="/imge/tools/v_sx.svg" />
 							</span><span @click="playAll" class="an_bf_01">
-								<img src="/imge/tools/v_play.svg" />
+								<img :src="'/imge/tools/'+(ispaused?'icon_view_stop_def':'v_play')+'.svg'" />
+							
+								
 							</span>
-							<span>{{bckti(parseInt(this.bfTime))}}</span> / <span class="tme_091">00:00:30</span>
+							<span>{{bckti(parseInt(bfTime))}}</span> / <span class="tme_091">{{bckti(parseInt(bcotm()))}}</span>
 						</div>
 						<div class="ntob_cent_l_2_3">
 							<span @click="showCc2" class="bl_000">
@@ -109,11 +106,9 @@
 						<div class="ntob_footer_2_1">
 							<div v-html="backd()" class="kdut"></div>
 						</div>
-
-
 						<div class="necBox" @scroll="gdfn($event)" ref="gd_01">
 							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'})" @mouseout="setMos('')">
-								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'media',o:index})" class="imgd" v-for="(el,index) in navcoms.media">
+								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})" class="imgd" v-for="(el,index) in navcoms.media">
 									<div :style="bgtf(el)" class="setToll0"></div>
 									<div class="setToll">
 										<div @mousedown="jl3($event,el,index,navcoms.media,'media')" class="setToll1"></div>
@@ -127,7 +122,7 @@
 												<i></i><i></i>
 											</div>
 										</div>
-										<div @click="showcj($event,{n:'media',o:index},el)" class="setToll4">
+										<div @click="showcj($event,{type:'media',on:index,list:navcoms.media})" class="setToll4">
 											<i></i><i></i><i></i>
 										</div>
 									</div>
@@ -140,7 +135,7 @@
 
 
 							<div class="tlo_03">
-								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{n:'audio',o:index})" class="imgd" v-for="(el,index) in navcoms.audio">
+								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'audio',on:index,list:navcoms.audio})" class="imgd" v-for="(el,index) in navcoms.audio">
 									<div :style="bgtf(el)" class="setToll0"></div>
 									<div class="setToll">
 										<div @mousedown="jl3($event,el,index,navcoms.audio,'audio')" class="setToll1"></div>
@@ -154,7 +149,7 @@
 												<i></i><i></i>
 											</div>
 										</div>
-										<div @click="showcj($event,{n:'audio',o:index},el)" class="setToll4">
+										<div @click="showcj($event,{type:'audio',on:index,list:navcoms.audio})" class="setToll4">
 											<i></i><i></i><i></i>
 										</div>
 									</div>
@@ -166,14 +161,15 @@
 								 class="tlo_04">
 
 
-									<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{n:'decorates',o:index2})" class="imgd" v-for="(el2,index2) in el">
+									<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="imgd" v-for="(el2,index2) in el">
 										<div :style="bgtf(el2)" class="setToll0"></div>
 
 										<div class="setToll">
-											<div @mousedown="jl3($event,el2,index2,el2)" class="setToll1"></div>
-											<div @mousedown="jl2($event,el2,index2,el2)" class="setToll2"></div>
-											<div @mousedown="jl($event,el2,index2,el2)" class="setToll3"></div>
-											<div @click="showcj($event,{n:'decorates',o:index2},el2)" class="setToll4">
+										
+											<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
+											<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2"></div>
+											<div @mousedown="jl($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll3"></div>
+											<div @click="showcj($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="setToll4">
 												<i></i><i></i><i></i>
 											</div>
 										</div>
@@ -206,9 +202,11 @@
 				
 				
 			</div>
+			
+			
 			<div :style="csad" class="setToll4_2">
-				<span v-if="this.xzData.n=='media'" @click="cats()">裁剪</span>
-				<span v-if="this.xzData.n=='media'" @click="pastes()">复制</span>
+				<span v-if="checkOn.type=='media'" @click="cats()">裁剪</span>
+				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="pastes()">复制</span>
 				<span @click="delt()">删除</span>
 			</div>
 			<div v-if="istype" class="pr_tc_01">
@@ -267,6 +265,7 @@
 				],
 				sczz: '',
 				isld: '',
+				issuspend:'',
 				vdcc: 0,
 				vdcc2: 0,
 				isCc: '',
@@ -306,6 +305,7 @@
 					]
 				},
 				checkOn: {},
+				crtc:{},
 				kd: [1],
 				fd_lave: 0,
 				cans: '',
@@ -318,7 +318,7 @@
 				page: 1,
 				wdk: 21,
 				audiosOn: 0,
-				xzData: '',
+			
 				formData: {
 					title: '',
 					media: [],
@@ -333,7 +333,7 @@
 				},
 				ispaused: '',
 				isCc2: '',
-				checkDOmx: '',
+	
 				tdjl: 0,
 				fd: [{
 						s: 1,
@@ -370,7 +370,7 @@
 				zsgd: {},
 				bfTime: 0,
 				isgdon: 0,
-
+				imgPftime:0,
 			}
 		},
 		mounted: function() {
@@ -383,6 +383,16 @@
 			}
 		},
 		methods: {
+			bcotm(){
+				let tm = this.navcoms.media.length;
+				if(tm==0){
+					return 0;
+				}
+				let obj = this.navcoms.media[tm-1];
+				return (obj.cut_end - obj.cut_start)+obj.start;
+			},
+
+
 
 			gdfn(ev) {
 				this.$refs.gd_02.scrollTop = ev.target.scrollTop;
@@ -391,7 +401,7 @@
 			bckti(t) {
 				var f = '00',
 					s;
-				if (t > 60) {
+				if (t >= 60) {
 					f = Math.round(t / 60);
 					if (f < 10) {
 						f = '0' + f;
@@ -427,11 +437,11 @@
 					let dom = e.target.getBoundingClientRect();
 
 					if (b) {
-						this.xzData = b;
+						this.checkOn = b;
+						
 					}
 
 					this.csad = 'display:block;top:' + (e.y - 5) + 'px;left:' + (e.x - 22) + 'px';
-					this.checkDOm(this.navcoms[this.xzData.n][this.xzData.o]);
 					let fn = () => {
 						setTimeout(() => {
 							this.csad = '';
@@ -572,10 +582,6 @@
 				}, 50)
 				this.drm();
 			},
-			checkDOm(el) {
-				this.checkDOmx = el;
-
-			},
 			jlx2(e) {
 				e.preventDefault();
 
@@ -631,7 +637,8 @@
 
 				this.checkOn = {
 					type: n,
-					on: index
+					on: index,
+					list:list,
 				};
 				this.tdStar = e.pageX;
 				let wid = el.long * this.wdk;
@@ -681,7 +688,8 @@
 				e.preventDefault();
 				this.checkOn = {
 					type: n,
-					on: onc
+					on: onc,
+					list:list,
 				};
 				this.tdStar = e.pageX;
 				let cs = el.start;
@@ -748,7 +756,8 @@
 				e.preventDefault();
 				this.checkOn = {
 					type: n,
-					on: index
+					on: index,
+					list:list,
 				};
 				this.tdStar = e.pageX;
 				let wid = el.long * this.wdk;
@@ -852,42 +861,41 @@
 				this.tanc.maxTime = this.navcoms.maxTime;
 			},
 			pastes() {
-
-				let doms = JSON.parse(JSON.stringify(this.checkDOmx));
-				let ends = this.navcoms.media[this.navcoms.media.length - 1];
-
+				if(!this.checkOn.list){
+					return
+				}
+			
+				let doms = JSON.parse(JSON.stringify(this.checkOn.list[this.checkOn.on]));
+				let ends = this.checkOn.list[this.checkOn.list.length - 1];
 				let sta = +ends.start + (ends.cut_end - ends.cut_start);
-
 				doms.start = sta;
-
-				this.navcoms.media.push(doms);
-
+				this.checkOn.list.push(doms);
 			},
 			cats() {
-				if (!this.xzData) {
+				if (!this.checkOn.list) {
 					return
 				}
 				this.tanc = {
 					zj: 'cat',
 					title: '',
-					data: this.navcoms[this.xzData.n][this.xzData.o]
+					data: this.checkOn.list[this.checkOn.on]
 				};
 			},
 			delt() {
-				if (!this.xzData) {
+				if (!this.checkOn.list) {
 					return
-				}
-
-				this.navcoms[this.xzData.n].splice(this.xzData.o, 1);
-
-				this.xzData = '';
-				this.checkDOmx = '';
+				}	
+				this.checkOn.list.splice(this.checkOn.on,1);
+				
+				this.checkOn = {};
+			
 				this.setMaxTime();
 			},
 			endeds() {
 				let len = this.navcoms.media.length;
 				if (this.bfon < len - 1) {
 					this.bfon++;
+					this.ispaused = 1;
 					if (this.navcoms.media[this.bfon].type == 'pic') {
 						this.drmImg();
 						return
@@ -896,6 +904,7 @@
 					return
 				}
 				this.islast = 1;
+				this.ispaused = '';
 			},
 			timeupdatevideo() {
 				let nx = 0
@@ -1020,22 +1029,34 @@
 				}
 			},
 			drmImg() {
+				
 				let ob = this.navcoms.media[this.bfon];
 				this.cans.fillStyle = "#000";
 				this.cans.fillRect(0, 0, 391, 695);
-
+				
 				var a = document.createElement('img');
 				a.src = ob.file_url;
 				a.onload = () => {
 					this.cans.drawImage(a, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 				}
 				clearTimeout(this.ht);
-				this.tptime = 0;
+				
+				let tim = ob.cut_end-ob.cut_start;
+				
 				this.ht = setInterval(() => {
-					this.tptime = this.tptime + 50;
-					if (this.tptime == 5000) {
-						this.endeds();
-						clearInterval(this.ht);
+					this.imgPftime = this.imgPftime + 50;
+					
+					let ond = 0;
+					if(this.bfon>0){
+						let obdg = this.navcoms.media[this.bfon-1];
+						ond = obdg.start+(obdg.cut_end-obdg.cut_start);
+					}
+					
+					this.bfTime = ond+(this.imgPftime/1000);
+					if (this.imgPftime >= tim*1000) {
+						this.imgPftime = 0;
+						clearTimeout(this.ht);
+						this.endeds();						
 					}
 				}, 50);
 			},
@@ -1043,6 +1064,7 @@
 				if (this.navcoms.media.length == 0) {
 					return
 				}
+				this.ispaused = 1;
 				this.islast = '';
 				this.audioLast = '';
 				this.audiosOn = 0;
@@ -1095,28 +1117,44 @@
 					this.bfon = 0;
 					this.audioLast = '';
 					this.audiosOn = 0;
+					
 				}
+			
+				
+			
+				if(this.ispaused){
+					this.ispaused = '';
+					clearTimeout(this.ht);
+					if (this.$refs.vids) {
+						this.$refs.vids.pause();
+					}
+					if (this.$refs.aido) {
+						this.$refs.aido.pause();
+					}
+					return
+				}
+				this.ispaused = 1;
 				if (this.navcoms.media[this.bfon].type == 'pic') {
 					this.drmImg();
 					return
 				}
-
 				if (this.$refs.vids && this.$refs.vids.paused) {
 					this.playAio();
 					this.playVid();
+					
 					return
 				}
-
-				if (this.$refs.vids) {
-					this.$refs.vids.pause();
-				}
-				if (this.$refs.aido) {
-					this.$refs.aido.pause();
-				}
-
 			},
 
 			init() {
+				
+				
+				let isjr = localStorage.getItem('isldxs');
+				if(!isjr){
+					this.showTip();
+				}
+				
+				
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
 					let json = JSON.parse(op.json);
@@ -1147,23 +1185,18 @@
 				this.savsout();
 				let onk = '';
 				document.addEventListener('keydown', (e) => {
+					
 					var ctrlKey = e.ctrlKey || e.metaKey;
-					var shiftKey = e.shiftKey;
-
-					if (ctrlKey) {
-						onk = 1;
-						return
-					}
-					if (shiftKey) {
-						onk = 2;
-						return
-					}
-
-					if ((this.checkOn.on || this.checkOn.on == 0) && e.keyCode === 8) {
+					var shiftKey = e.shiftKey;				
+					if(ctrlKey && e.keyCode==67){
+						e.preventDefault();						
+					}			
+					if(ctrlKey && e.keyCode==86){
 						e.preventDefault();
-						// this.delt()
-
-						this.navcoms[this.checkOn.type].splice(this.checkOn.on, 1)
+					}
+					if(this.checkOn.list && e.keyCode === 8) {
+						e.preventDefault();
+						this.checkOn.list.splice(this.checkOn.on, 1);
 						this.checkOn = {};
 						return
 					}
@@ -1175,33 +1208,30 @@
 
 
 				}, false);
-				document.addEventListener('keyup', (e) => {
-					onk = '';
-				}, false);
-				this.$refs.gdbox.addEventListener('mousewheel', (e) => {
-					if (!onk) {
+				this.$refs.gdbox.addEventListener('mousewheel', (e) => {					
+					e = e || window.event;
+					var ctrlKey = e.ctrlKey || e.metaKey;
+					var shiftKey = e.shiftKey;
+					if(!ctrlKey && shiftKey){
 						return
 					}
-					e = e || window.event;
 					e.preventDefault();
 					var kd = e.wheelDelta ? e.wheelDelta : e.detail;
-					if (kd > 0) {
-						// alert("滑轮向上滚动");
-						if (onk == 1 && this.fdjb > 1) {
+					if (kd > 0) {						
+						if (ctrlKey && this.fdjb > 1) {
 							this.fdjb--;
 						}
-						if (onk == 2 && this.tdjl > 0) {
-							this.tdjl--;
+						if (shiftKey && this.tdjl > 0) {
+							this.tdjl = this.tdjl-3;
 						}
 					}
 					if (kd < 0) {
-						if (onk == 1 && this.fdjb < 120) {
+						if (ctrlKey && this.fdjb < 120) {
 							this.fdjb++;
 						}
-						if (onk == 2) {
-							this.tdjl++;
+						if (shiftKey) {						
+							this.tdjl = this.tdjl+3;
 						}
-
 					}
 
 
@@ -1244,12 +1274,12 @@
 				this.navson = o;
 				this.navcoms.zj = zj;
 			},
-			showcj(e, b, el) {
+			showcj(e,b) {
 				let dom = e.target.getBoundingClientRect();
 				if (b) {
-					this.xzData = b;
+				
+					this.checkOn = b;
 				}
-				this.checkDOmx = el;
 				this.csad = 'display:block;top:' + (dom.y - 5) + 'px;left:' + (dom.x - 22) + 'px';
 				let fn = () => {
 					setTimeout(() => {

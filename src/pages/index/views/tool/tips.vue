@@ -26,7 +26,8 @@ export default{
 	methods:{
 		xyb(){
 			this.on++;
-			if(this.on==4){
+			if(this.on==4){				
+				localStorage.setItem('isldxs',1);
 				this.$emit('input','');
 			}
 		},

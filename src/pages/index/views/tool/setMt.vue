@@ -528,7 +528,7 @@ export default{
 				
 				if(da.data.length==0 || !da){
 					this.noGd=1;
-					this.$parent.showTip();
+					
 				}
 				if(da.data.length==0 && this.list.length==0){
 					this.isnoData=1;

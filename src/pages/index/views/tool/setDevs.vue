@@ -44,6 +44,8 @@ export default{
 			this.$refs.imgs.onload=()=>{
 				let op = this.$refs.imgs.getBoundingClientRect();
 				let posd = this.$refs.boxs.getBoundingClientRect();
+				console.log(op);
+				console.log(posd);
 				let xs = op.x-posd.x;
 				let ys = op.y-posd.y;
 				let ws = op.width;
@@ -51,15 +53,16 @@ export default{
 				if(hs<695){
 					ys = (695-hs)/2+ys;
 				}
+				
+				
+			
 				if(ws<391){
-					xs = (391-xs)/2+xs;
+				
+					xs = (391-ws)/2+xs;
 				}
 				
 				if(!this.value.zskb){
-					console.log(xs)
-					console.log(ys)
-					console.log(op.width)
-					console.log(op.height)
+
 					
 					this.$set(this.value,'zsx',xs);
 					this.$set(this.value,'zsy',ys);
