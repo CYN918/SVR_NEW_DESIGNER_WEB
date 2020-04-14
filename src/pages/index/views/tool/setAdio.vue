@@ -11,13 +11,14 @@
 				:v="'n'"
 				></spck>
 				<div class="mp3_03_2">
-					<img @click="ss()" :src="imgPath+'tools/ss.png'"/>
+					<img class="mp3_03_2_img1" @click="ss()" :src="imgPath+'tools/ss.png'"/>
 					<input @keyup.enter="ss()" v-model="name" placeholder="搜索音乐" type="text">
+					<img v-if="name" class="mp3_03_2_img2" @click="del()" src="../../../../assets/del.png"/>
 				</div>
 			</div>				
 			<spck 
 			
-			v-if="type=='sh_List'"
+			v-if="type=='sh_List' && !name"
 			v-model="clas"
 			class="mp3_03_3"
 			:List="cls"
@@ -314,6 +315,9 @@ export default{
 			if (el) {
 				//列表收藏逻辑
 				if (el.is_collect == 1) {
+					this.$message({
+						message:'已取消收藏'
+					})
 					this.sh_delFavorAudio(el.m_id);
 				} else {
 					this.sh_addFavorAudio(el.m_id);
@@ -366,6 +370,9 @@ export default{
 			return fz+':'+ond;
 			
 		},
+		del(){
+			this.name = "";
+		},
 		ss(){
 			this.getList();
 		},
@@ -392,9 +399,7 @@ export default{
 			
 			this.api[this.type](pr).then((da)=>{
 				if(da=='error'){
-					return
-					
-					
+					return	
 				}
 				try{
 					this.datas = da.data;
@@ -515,10 +520,16 @@ export default{
 	border-radius:25px;
 	border:1px solid rgba(217,217,217,1);
 }
-.mp3_03_2>img{
+.mp3_03_2 .mp3_03_2_img1{
 	position: absolute;
 	top: 9px;
 	left: 21px;
+	width: 12.86px;
+}
+.mp3_03_2 .mp3_03_2_img2{
+	position: absolute;
+	top: 9px;
+	right: 21px;
 	width: 12.86px;
 	
 }
@@ -528,7 +539,7 @@ export default{
 	display: block;	
 	box-sizing: border-box;
 	padding: 0 10px 0 44px;
-	width: 100%;
+	width: 83%;
 	height: 100%;
 	font-size:14px;
 }

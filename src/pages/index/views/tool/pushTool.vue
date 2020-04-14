@@ -113,13 +113,13 @@
 									<div class="setToll">
 										<div @mousedown="jl3($event,el,index,navcoms.media,'media')" class="setToll1"></div>
 										<div @mousedown="jl2($event,el,index,navcoms.media,'media')" class="setToll2">
-											<div class="setToll2_1" style="top:6px;height: 14px;">
-												<i></i><i></i>
+											<div class="setToll2_1">
+												<i></i><i></i><i></i>
 											</div>
 										</div>
 										<div @mousedown="jl($event,el,index,navcoms.media,'media')" class="setToll3">
-											<div class="setToll3_1" style="top:6px;height: 14px;">
-												<i></i><i></i>
+											<div class="setToll3_1">
+												<i></i><i></i><i></i>
 											</div>
 										</div>
 										<div @click="showcj($event,{type:'media',on:index,list:navcoms.media})" class="setToll4">
