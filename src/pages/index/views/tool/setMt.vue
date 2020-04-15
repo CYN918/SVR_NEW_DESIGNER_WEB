@@ -20,16 +20,14 @@
 						</div>
 						
 					</div>
-					<div 
-						@mousedown="starD($event,el)"
-					
-					class="setMt_03_01" v-else>
-						<img v-if="" :src="el.cover_img?el.cover_img:el.url">
+					<div @mousedown="starD($event,el)" @mouseover="ybf(index,el)" class="setMt_03_01" v-else>
+						<img :src="el.cover_img?el.cover_img:el.url">
+						<video muted class="video" ref="video" :src="el.url"></video>
 						<span class="tim_013" v-if="el.play_time">{{backtio(el.play_time)}}</span>
 					</div>
 					
-					<div @click="checkV(el)" class="tim_xz">+</div>
-					<div @click="delt(el,index)" class="tim_xzsx"><img  src="/imge/tools/sc.png"/></div>
+					<div @click="checkV(el)" class="tim_xz"><img width="100%" src="../../../../assets/icon_add_small.png" alt=""></div>
+					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="../../../../assets/sc_icon_delete.png"/></div>
 					
 				</li>
 			</span>
@@ -70,6 +68,8 @@ export default{
 			deldetType:0,
 			istype:'',
 			maxwj:0,
+			Isvideo:false,
+			num:0
 		}
 	},
 	mounted: function () {
@@ -77,7 +77,19 @@ export default{
 		
 	}, 		
 	methods:{
-	
+		ybf(i,el){
+			if(el.file_type == 'video'){
+				let v = this.$refs.video[i];
+				v.currentTime=0;
+				v.play();
+				let t;
+				clearTimeout(t);
+				t=setTimeout(function(){
+					v.pause();
+				}, 3000);
+			}
+			
+		},
 		starD(e,el){
 			e.preventDefault();
 			let tdStar = e.pageX;	
@@ -88,8 +100,8 @@ export default{
 			let url = el.file_type=='image'?el.url:el.fps_pic;
 			let tim = el.file_type=='image'?5:el.play_time;
 			
-			let str = 'background:url('+url+') 0 0/auto 100% repeat-x;width:'+(21*tim)+'px;';
-		
+			let str = 'z-index:999;background:url('+url+') 0 0/auto 100% repeat-x;width:'+(21*tim)+'px;';
+			let ony = 0;
 			dom.className = 'testd';
 			dom.style.cssText = str+'left:'+e.x+'px;top:'+e.y+'px;';
 			document.body.appendChild(dom);
@@ -99,7 +111,12 @@ export default{
 		
 				let x = e.x;
 				let y = e.y;
+				if(this.$parent.Mos){
+					
+					y = this.$parent.Mos.y;
+				}
 				dom.style.cssText = str+'left:'+(x+20)+'px;top:'+y+'px;';
+				
 			}			 
 			document.onmouseup =  ()=>{
 				
@@ -155,13 +172,13 @@ export default{
 					pr.sw = wd;					
 					pr.sh = hd;
 					if(wd>hd){
-						pr.w = 391;
-						pr.h = (391/wd)*hd;
-						pr.y = (695-pr.h)/2
+						pr.w = this.$parent.boxW;
+						pr.h = (this.$parent.boxW/wd)*hd;
+						pr.y = (this.$parent.boxH-pr.h)/2
 					}else{
-						pr.h = 695;
-						pr.w = (695/hd)*wd;
-						pr.x = (391-pr.w)/2;
+						pr.h = this.$parent.boxH;
+						pr.w = (this.$parent.boxH/hd)*wd;
+						pr.x = (this.$parent.boxW-pr.w)/2;
 					}
 					this.value.maxTime = +pr.long+this.value.maxTime;
 					this.value.decorates[this.$parent.Mos.on].push(pr);
@@ -256,14 +273,19 @@ export default{
 					pr.sw = wd;					
 					pr.sh = hd;
 					if(wd>hd){
-						pr.w = 391;
-						pr.h = (391/wd)*hd;
-						pr.y = (695-pr.h)/2
+						pr.w = this.$parent.boxW;
+						pr.h = (this.$parent.boxW/wd)*hd;
+						pr.y = (this.$parent.boxH-pr.h)/2
 					}else{
-						pr.h = 695;
-						pr.w = (695/hd)*wd;
-						pr.x = (391-pr.w)/2;
+						pr.h = this.$parent.boxH;
+						pr.w = (this.$parent.boxH/hd)*wd;
+						pr.x = (this.$parent.boxW-pr.w)/2;
 					}
+					
+					
+					
+					
+					
 					this.value.maxTime = +pr.long+this.value.maxTime;
 					this.value.media.push(pr);						
 					if(!ond){
@@ -283,13 +305,13 @@ export default{
 					pr.sw = wd;					
 					pr.sh = hd;
 					if(wd<hd){
-						pr.h = 695;
-						pr.w = (695/hd)*wd;
-						pr.x = (391-pr.w)/2;
+						pr.h = this.$parent.boxH;
+						pr.w = (this.$parent.boxH/hd)*wd;
+						pr.x = (this.$parent.boxW-pr.w)/2;
 					}else{
-						pr.w = 391;
-						pr.h = (391/wd)*hd;
-						pr.y = (695-pr.h)/2
+						pr.w = this.$parent.boxW;
+						pr.h = (this.$parent.boxW/wd)*hd;
+						pr.y = (this.$parent.boxH-pr.h)/2
 					}
 					let maxt = +pr.start+(+pr.long);
 					if(this.value.maxTime<maxt){
@@ -500,7 +522,7 @@ export default{
 		
 		getList(){
 		
-			this.$parent.setips(this.$refs.dwyd.getBoundingClientRect());
+			
 			this.fileTotalSummary();
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',
 			times = (Date.parse(new Date())/1000),
@@ -552,7 +574,10 @@ export default{
 
 <style>
 .setMt{
+	position: relative;
+	box-sizing: border-box;
 	padding: 24px 0 0 24px;
+	height: 100%;
 }
 .setMt_01{
 	font-size:16px;
@@ -581,6 +606,7 @@ export default{
 	background:rgba(40,40,40,1);
 	border-radius:10px;
 	margin: 0 16px 16px 0;
+	border:2px solid transparent;
 }
 
 .setMt_03 li:after{
@@ -597,7 +623,17 @@ export default{
 	display: none;
 }
 
+.setMt_03 li:hover .video{
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 888;
+}
 
+.setMt_03 li:hover{
+	border-color: rgba(51,179,255,1);
+}
 .setMtUp{
 	position: absolute;
 	top: 50%;
@@ -627,9 +663,17 @@ export default{
 .setMt_03_01{
 	width: 100%;
 	height: 100%;
+	position: relative;
 }
 .setMt_03_01>img{
 	display: block;
+	height: 100%;
+	width: auto;
+	margin: 0 auto;
+}
+
+.setMt_03_01> .video{
+	display: none;
 	height: 100%;
 	width: auto;
 	margin: 0 auto;
@@ -665,6 +709,7 @@ export default{
 	font-size: 21px;
 	width:18px;
 	height:18px;
+	z-index: 1000;
 }
 .tim_xzsx{
 	cursor: pointer;
@@ -676,13 +721,14 @@ export default{
 	border-radius: 50%;
 	width: 18px;
 	height: 18px;
+	z-index: 1000;
 }
 .tim_xzsx>img{
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-	width: 11px;
+	width: 100%;
 }
 .setMt_03 li:hover .tim_xz{
 	display: block;
@@ -699,8 +745,12 @@ export default{
 	height: 72px;
 }
 .setMt_03box{
-	height: 700px;
 	overflow: hidden;
-	overflow-y: auto;
+    overflow-y: auto;
+    position: absolute;
+    top: 64px;
+    bottom: 0;
+    left: 24px;
+    right: 0;
 }
 </style>

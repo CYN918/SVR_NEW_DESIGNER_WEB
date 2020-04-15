@@ -22,8 +22,8 @@
 			v-model="clas"
 			class="mp3_03_3"
 			:List="cls"
-			:keys="'com_classify_name'"
-			:v="'com_classify_name'"
+			:keys="'classify_name'"
+			:v="'classify_name'"
 			
 			></spck>
 			
@@ -443,7 +443,7 @@ export default{
 			}
 		
 			if(this.clas && this.clas != "全部"){
-				pr.com_classify_name = this.clas;
+				pr.classify_name = this.clas;
 			}else{
 				this.clas = '全部';
 			}
@@ -764,7 +764,7 @@ export default{
 }
 .mp3_05_2_2_2_1{
 	display: block;
-	width: 72px;
+	width: 65px;
 }
 .mp3_05_2_2_2_2{
 	position: absolute;
@@ -811,6 +811,11 @@ export default{
 }
 .mp3_04_01:hover{
     background: rgba(187,187,187,.3);
+	
+}
+
+.mp3_04_01:hover .seadio_to>img{
+	visibility: visible;
 }
 
 .mp3_04_01>span{
@@ -876,6 +881,7 @@ export default{
 .box_p_01{
 	position: relative;
 	height: 100%;
+	overflow: hidden;
 }
 .seadio_to>img{
 	display: inline-block;
@@ -883,6 +889,7 @@ export default{
 	width: 19px;
 	margin-top: 14px;
     margin-right: 10px;
+	visibility: hidden;
 }
 .setAdio_02{
 	color: #33B3FF;
@@ -898,7 +905,6 @@ export default{
 }
 img.mp3_04_01_sc {
     margin-top: 13px;
-    display: inline-block;
     vertical-align: top;
 	tap-highlight-color:transparent;
 	user-select:none;

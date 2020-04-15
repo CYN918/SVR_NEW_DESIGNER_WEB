@@ -19,8 +19,9 @@
 				</div>
 			</div>
 			<div class="ntob_cent">
-				<div class="ntob_cent_l">
-					<div class="videoBox">
+				<div class="ntob_cent_l" >
+					<div class="ntob_cent_lxbo" ref="vidobox">
+					<div class="videoBox" :style="'width:'+boxW+'px;height:'+boxH+'px'">
 						<canvas class="videoBox1" ref="cavs"></canvas>
 						<video @timeupdate="timeupdatevideo" muted @ended="endeds()" @loadeddata="csy" id="boxf" class="ntob_cent_l_1"
 						 :src="video" ref="vids"></video>
@@ -31,7 +32,7 @@
 								</div>
 							</div>
 						</div>
-						<div v-if="isld && vdcc2==1" class="show_00x_1">
+						<div v-if="isld && vdcc2==1" class="show_00x_1" :style="'zoom:'+zoomd">
 							<div class="show_00x_1_1">138-888-888</div>
 							<div class="show_00x_1_2">正在拨号…</div>
 							<div class="show_00x_1_3">
@@ -44,7 +45,7 @@
 							</div>
 							<img class="show_00x_1_4" src="/imge/tools/d_02.png">
 						</div>
-						<div v-if="isld && vdcc2==0" class="show_00x_2">
+						<div v-if="isld && vdcc2==0" class="show_00x_2" :style="'zoom:'+zoomd">
 							<img class="show_00x_2_1" src="/imge/tools/d_03.png" />
 							<div class="show_00x_2_2">来电秀</div>
 							<div class="show_00x_2_3">156-0202-0101</div>
@@ -53,48 +54,55 @@
 						</div>
 					</div>
 					<audio class="ntob_cent_l_1" @ended="endAudio()" ref="aido"></audio>
-					<div class="ntob_cent_l_2">
-						<div class="ntob_cent_l_2_1">
-							<img class="ntob_cent_l_2_1x" src="/imge/tools/v_size.svg">预览比例<span class="bl_000" @click="showCc">
-								{{cun[vdcc].n}}
-							</span>
-						</div>
-						<div class="ntob_cent_l_2_2">
-							<span @click="playsx" class="an_sx_01">
-								<img src="/imge/tools/v_sx.svg" />
-							</span><span @click="playAll" class="an_bf_01">
-								<img :src="'/imge/tools/'+(ispaused?'icon_view_stop_def':'v_play')+'.svg'" />
-							
-								
-							</span>
-							<span>{{bckti(parseInt(bfTime))}}</span> / <span class="tme_091">{{bckti(parseInt(bcotm()))}}</span>
-						</div>
-						<div class="ntob_cent_l_2_3">
-							<span @click="showCc2" class="bl_000">
-								{{cun2[vdcc2]}}
-								<div class="mx_dsj"></div>
-								<div v-if="isCc2" class="bl_001">
-									<span @click="qhcc2(index)" v-for="(el,index) in cun2" :class="['cds',index==vdcc2?'cek':'']">{{el}}</span>
-								</div>
-							</span>
-							<el-switch v-model="isld" active-value="1"></el-switch>
-						</div>
+					
+				</div>
+				<div class="ntob_cent_l_2">
+					<div class="ntob_cent_l_2_1">
+						<img class="ntob_cent_l_2_1x" src="/imge/tools/v_size.svg">预览比例<span class="bl_000" @click="showCc">
+							{{cun[vdcc].n}}
+						</span>
 					</div>
+					<div class="ntob_cent_l_2_2">
+						<span @click="playsx" class="an_sx_01">
+							<img src="/imge/tools/v_sx.svg" />
+						</span><span @click="playAll" class="an_bf_01">
+							<img :src="'/imge/tools/'+(ispaused?'icon_view_stop_def':'v_play')+'.svg'" />
+						
+							
+						</span>
+						<span>{{bckti(parseInt(bfTime))}}</span> / <span class="tme_091">{{bckti(parseInt(bcotm()))}}</span>
+					</div>
+					<div class="ntob_cent_l_2_3">
+						<span @click="showCc2" class="bl_000">
+							{{cun2[vdcc2]}}
+							<div class="mx_dsj"></div>
+							<div v-if="isCc2" class="bl_001">
+								<span @click="qhcc2(index)" v-for="(el,index) in cun2" :class="['cds',index==vdcc2?'cek':'']">{{el}}</span>
+							</div>
+						</span>
+						<el-switch v-model="isld" active-value="1"></el-switch>
+					</div>
+				</div>
 				</div>
 				<div class="ntob_cent_r">
 					<div class="ntob_cent_r_1">
 						<span @click="qhNav(index,el.zj)" v-for="(el,index) in navs" :class="navson==index?'ckin':''">
 							<div class="con-right-iocn-img">
-								　　<img class="icon con-right-iocn-img" :src="'/imge/tools/'+el.icon" />
+								<img class="icon con-right-iocn-img" :src="'/imge/tools/'+el.icon" />
 							</div>
 							{{el.n}}
 						</span>
 					</div>
+					
 					<div class="ntob_cent_r_2">
+							
+<keep-alive>
 						<component v-bind:is="navcoms.zj" v-model="navcoms" ref="vid"></component>
+					</keep-alive>
 					</div>
 				</div>
 			</div>
+			
 			<div class="ntob_footer">
 				<div class="ntob_footer_1">
 					<div class="ntob_footer_1_1"></div>
@@ -111,7 +119,7 @@
 							<div v-html="backd()" class="kdut"></div>
 						</div>
 						<div class="necBox" @scroll="gdfn($event)" ref="gd_01">
-							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'})" @mouseout="setMos('')">
+							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'},$event)" @mouseout="setMos('')">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})" class="imgd" v-for="(el,index) in navcoms.media">
 									<div :style="bgtf(el)" class="setToll0"></div>
 									<div class="setToll">
@@ -156,7 +164,7 @@
 							</div>
 
 							<div class="tlo_04">
-								<div v-for="(el,index) in navcoms.decorates" @mouseover="setMos({on:index,n:'decorates'})" @mouseout="setMos('')"
+								<div v-for="(el,index) in navcoms.decorates" @mouseover="setMos({on:index,n:'decorates'},$event)" @mouseout="setMos('')"
 								 class="tlo_04">
 
 
@@ -247,6 +255,9 @@
 		},
 		data() {
 			return {
+				zoomd:1,
+				boxW:0,
+				boxH:0,
 				spgd: 0,
 				istype: '',
 				cun: [{
@@ -454,7 +465,11 @@
 					this.clerClick(fn)
 				}
 			},
-			setMos(on) {
+			setMos(on,e) {
+				if(e){
+					on.y = e.target.getBoundingClientRect().y;
+				}
+				
 				this.Mos = on;
 			},
 			tochs() {
@@ -570,22 +585,7 @@
 			close() {
 				this.istype = '';
 			},
-			qhcc(on) {
-				this.vdcc = on;
-				if (on == 0) {
-					this.cjzb.x = 0;
-				}
-				if (on == 1) {
-					this.cjzb.x = 21.75;
-					this.cjzb.w = 347.5;
-					this.sczz = 'issczz';
-				}
-
-				setTimeout(() => {
-					this.isCc = '';
-				}, 50)
-				this.drm();
-			},
+			
 			jlx2(e) {
 				e.preventDefault();
 
@@ -817,6 +817,7 @@
 					this.$message({
 						message: '你的开头部分没有填充媒体是素材，请确保视频从00:00开始播放'
 					})
+					return
 				}
 				if (ent > 120) {
 					this.$message({
@@ -885,7 +886,7 @@
 				let ot = onsd.start+(onsd.cut_end-onsd.cut_start);
 				if(this.bfTime>=onsd.start && this.bfTime<ot){
 					this.cans.fillStyle = "#000";
-					this.cans.fillRect(0, 0, 391, 695);
+					this.cans.fillRect(0, 0, this.boxW, this.boxH);
 				}			
 				this.checkOn.list.splice(this.checkOn.on,1);				
 				this.checkOn = {};				
@@ -1016,18 +1017,16 @@
 			drm() {
 				let ob = this.navcoms.media[this.bfon];
 				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, 391, 695);
+				this.cans.fillRect(0, 0, this.boxW, this.boxH);
 				this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 				let po = this.cun[this.vdcc].x;
 				if (po) {
-					this.cans.fillRect(0, 0, po, 695);
-					this.cans.fillRect(391 - po, 0, po, 695);
+					this.cans.fillRect(0, 0, po, this.boxH);
+					this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
 				}
 
 			},
-	
-			drmImg() {
-				
+			drmImgs(){
 				let ob = this.navcoms.media[this.bfon];
 				this.cans.fillStyle = "#000";
 				this.cans.fillRect(0, 0, 391, 695);
@@ -1039,6 +1038,10 @@
 					this.cans.fillRect(0, 0, 391, 695);
 					this.cans.drawImage(a, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 				}
+			},
+			drmImg() {
+				
+				this.drmImgs();
 				clearTimeout(this.ht);
 			
 				let tim = ob.cut_end-ob.cut_start;
@@ -1157,7 +1160,13 @@
 					return
 				}
 			},
-
+			setVwh(){
+				let domd = this.$refs.vidobox.getBoundingClientRect();							
+				this.boxH = domd.height;
+				this.boxW = (domd.height/16)*9;
+			},
+			
+			
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
 					this.$router.push({path: '/'})					
@@ -1169,6 +1178,9 @@
 				}
 				
 				
+				this.setVwh();
+			
+				this.zoomd = this.boxW/391;
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
 					let json = JSON.parse(op.json);
@@ -1226,7 +1238,7 @@
 					e = e || window.event;
 					var ctrlKey = e.ctrlKey || e.metaKey;
 					var shiftKey = e.shiftKey;
-					if(!ctrlKey && shiftKey){
+					if(!ctrlKey && !shiftKey){
 						return
 					}
 					e.preventDefault();
@@ -1252,21 +1264,21 @@
 				}, false)
 
 
-				this.$refs.cavs.width = 391;
-				this.$refs.cavs.height = 695;
+				this.$refs.cavs.width = this.boxW;
+				this.$refs.cavs.height = this.boxH;
 				this.cans = this.$refs.cavs.getContext("2d");
 				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, 391, 695);
+				this.cans.fillRect(0, 0, this.boxW, this.boxH);
 				this.$refs.vids.addEventListener('play', () => {
 					this.po = window.setInterval(() => {
-						this.cans.fillRect(0, 0, 391, 695);
+						this.cans.fillRect(0, 0, this.boxW, this.boxH);
 						
 						let ob = this.navcoms.media[this.bfon];
 						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 						let po = this.cun[this.vdcc].x;
 						if (po) {
-							this.cans.fillRect(0, 0, po, 695);
-							this.cans.fillRect(391 - po, 0, po, 695);
+							this.cans.fillRect(0, 0, po, this.boxH);
+							this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
 						}
 					}, 20);
 				}, false);
@@ -1316,16 +1328,11 @@
 				}, 50)
 
 			},
-			setips(n) {
-				this.tipszb = {
-					x: n.x,
-					y: n.y
-				};
-			},
+			
 			cldevs(on) {
 				let arr = [];
-				let wdb = 1080 / 391;
-				let hy = 1920 / 695;
+				let wdb = 1080 / this.boxW;
+				let hy = 1920 / this.boxH;
 				for (let i = 0, n = on.length; i < n; i++) {
 					let ar = on[i];
 
@@ -1444,10 +1451,13 @@
 <style>
 	#app>div>div.ntob {
 		padding: 0;
+		min-height: 100%;
 	}
 
 	.ntob_head {
-		position: relative;
+		position: fixed;
+		top: 0;
+		left: 0;
 		text-align: center;
 		background: #fff;
 		height: 48px;
@@ -1457,15 +1467,29 @@
 		z-index: 2;
 	}
 
-	.ntob_cent {}
+	.ntob_cent {
+		position: fixed;
+		top: 48px;
+		bottom: 264px;
+		left: 0;
+		right: 0;
+		z-index: 2;
+	}
 
 	.ntob_cent>div {
+		position: relative;
 		display: inline-block;
 		vertical-align: top;
 		width: 50%;
+		height: 100%;
 
 	}
-
+	.ntob_cent>div.ntob_cent_l{
+		width: 50.5%;
+	}
+	.ntob_cent>div.ntob_cent_r{
+		width: 49.5%;
+	}
 	.noto_back {
 		text-align: left;
 		cursor: pointer;
@@ -1541,8 +1565,6 @@
 		position: relative;
 		display: block;
 		margin: 0 auto;
-		width: 391px;
-		height: 695px;
 		overflow: hidden;
 	}
 
@@ -1558,8 +1580,7 @@
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		width: 391px;
-		height: 695px;
+
 		display: none;
 	}
 
@@ -1588,7 +1609,7 @@
 		position: relative;
 		display: block;
 		text-align: center;
-		font-size: 14px;
+		font-size: 18px;
 		margin-top: 24px;
 		font-weight: 400;
 		color: rgba(153, 153, 153, 1);
@@ -1624,7 +1645,9 @@
 	}
 
 	.ntob_footer {
-		position: relative;
+		position: fixed;
+		bottom: 0;
+		left: 0;
 		width: 100%;
 		height: 264px;
 	}
@@ -1875,7 +1898,10 @@
 	}
 
 	.ntob_cent_l_2 {
-		position: relative;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
 		height: 74px;
 		background: #fff;
 	}
@@ -2165,7 +2191,7 @@
 
 	.show_00x_1_1 {
 		font-size: 35px;
-		margin: 176px auto 20px;
+		margin: 175px auto 20px;
 		color: rgba(255, 255, 255, 1);
 		line-height: 50px;
 	}
@@ -2193,7 +2219,7 @@
 	}
 
 	.show_00x_1_3>span:nth-child(3n+2) {
-		margin: 50px 60px 0;
+		margin: 50px 15% 0;
 	}
 
 	.xx_01x {
@@ -2330,13 +2356,13 @@
 		position: relative;
 		left: 0;
 		color: rgba(51, 179, 255, 1);
-		-webkit-filter: drop-shadow(89px 0);
-		filter: drop-shadow(89px 0);
+		-webkit-filter: drop-shadow(95px 0);
+		filter: drop-shadow(95px 0);
 		border-right: 34px solid transparent;
 	}
 
 	.ckin>div {
-		transform: translateX(-85px);
+		transform: translateX(-95px);
 	}
 
 	.mx_dsj {
@@ -2378,5 +2404,14 @@
 		line-height: 22px;
 		font-size: 14px;
 		color: rgba(187,187,187,1);
+	}
+	.ntob_cent_lxbo{
+		
+		position: absolute;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 75px;
+
 	}
 </style>
