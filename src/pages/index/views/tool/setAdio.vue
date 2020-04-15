@@ -63,9 +63,11 @@
 			</div>
 		</div>
 		
-		<div class="mp3_05" v-if="bRunning">
+		<div class="mp3_05" v-if="Isfirst">
 			<div class="mp3_05_1" v-drag>
-				<span :style="{'width': bfData.ct+'%'}"></span>
+				<span :style="{'width': bfData.ct+'%'}">
+					<span class="mp3_05_1_1"></span>
+				</span>
 			</div>
 			<div class="mp3_05_2">
 				<div class="mp3_05_2_0">
@@ -140,6 +142,7 @@ export default{
 			},
 			bRunning:false,
 			isNOdata:'',
+			Isfirst:false
 		}
 	},
 	watch:{
@@ -308,9 +311,8 @@ export default{
 			this.sh_audioUrl(pd.m_id);
 		},
 		bf(el,on,ispd){
-			
+			this.Isfirst = true;
 			if(el && this.bfData &&  this.bfData.m_id!=el.m_id){
-				
 				this.bfData = {
 					on:on,
 					m_id:el.m_id,
@@ -677,7 +679,6 @@ export default{
 	position: relative;
 	background: #FBFBFB;
 	height: 2px;
-	overflow: hidden;
 	cursor: pointer;
 }
 .mp3_05_1>span{
@@ -688,6 +689,17 @@ export default{
 	height: 100%;
 	background: #33B3FF;
 	cursor: pointer;
+}
+
+.mp3_05_1_1{
+	width:5px;
+	height:6px;
+	background-color: #33B3FF;
+	border-radius: 50%;
+	position: absolute;
+	right: 0;
+	top: -2px;
+	z-index: 999;
 }
 .mp3_05_2{
 	box-sizing: border-box;
