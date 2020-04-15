@@ -17,7 +17,7 @@
 						</div>
 					</div><div>
 						<div class="ldx_sav_2_1">标签</div>
-						<div class="xldof">
+						<div class="xldof" style="width: 390px;height: 70px;">
 							<checks :cfg="tags" v-model="value.tag"></checks>	
 						</div>
 					</div><div>
