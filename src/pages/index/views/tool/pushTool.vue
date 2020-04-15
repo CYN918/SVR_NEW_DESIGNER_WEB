@@ -32,7 +32,7 @@
 								</div>
 							</div>
 						</div>
-						<div v-if="isld && vdcc2==1" class="show_00x_1">
+						<div v-if="isld && vdcc2==1" class="show_00x_1" :style="'zoom:'+zoomd">
 							<div class="show_00x_1_1">138-888-888</div>
 							<div class="show_00x_1_2">正在拨号…</div>
 							<div class="show_00x_1_3">
@@ -45,7 +45,7 @@
 							</div>
 							<img class="show_00x_1_4" src="/imge/tools/d_02.png">
 						</div>
-						<div v-if="isld && vdcc2==0" class="show_00x_2">
+						<div v-if="isld && vdcc2==0" class="show_00x_2" :style="'zoom:'+zoomd">
 							<img class="show_00x_2_1" src="/imge/tools/d_03.png" />
 							<div class="show_00x_2_2">来电秀</div>
 							<div class="show_00x_2_3">156-0202-0101</div>
@@ -94,7 +94,10 @@
 						</span>
 					</div>
 					<div class="ntob_cent_r_2">
+							
+<keep-alive>
 						<component v-bind:is="navcoms.zj" v-model="navcoms" ref="vid"></component>
+					</keep-alive>
 					</div>
 				</div>
 			</div>
@@ -115,7 +118,7 @@
 							<div v-html="backd()" class="kdut"></div>
 						</div>
 						<div class="necBox" @scroll="gdfn($event)" ref="gd_01">
-							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'})" @mouseout="setMos('')">
+							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'},$event)" @mouseout="setMos('')">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})" class="imgd" v-for="(el,index) in navcoms.media">
 									<div :style="bgtf(el)" class="setToll0"></div>
 									<div class="setToll">
@@ -160,7 +163,7 @@
 							</div>
 
 							<div class="tlo_04">
-								<div v-for="(el,index) in navcoms.decorates" @mouseover="setMos({on:index,n:'decorates'})" @mouseout="setMos('')"
+								<div v-for="(el,index) in navcoms.decorates" @mouseover="setMos({on:index,n:'decorates'},$event)" @mouseout="setMos('')"
 								 class="tlo_04">
 
 
@@ -251,6 +254,7 @@
 		},
 		data() {
 			return {
+				zoomd:1,
 				boxW:0,
 				boxH:0,
 				spgd: 0,
@@ -460,7 +464,11 @@
 					this.clerClick(fn)
 				}
 			},
-			setMos(on) {
+			setMos(on,e) {
+				if(e){
+					on.y = e.target.getBoundingClientRect().y;
+				}
+				
 				this.Mos = on;
 			},
 			tochs() {
@@ -808,6 +816,7 @@
 					this.$message({
 						message: '你的开头部分没有填充媒体是素材，请确保视频从00:00开始播放'
 					})
+					return
 				}
 				if (ent > 120) {
 					this.$message({
@@ -1016,20 +1025,22 @@
 				}
 
 			},
-	
-			drmImg() {
-				
+			drmImgs(){
 				let ob = this.navcoms.media[this.bfon];
 				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, this.boxW, this.boxH);
+				this.cans.fillRect(0, 0, 391, 695);
 				
 				var a = document.createElement('img');
 				a.src = ob.file_url;
 				a.onload = () => {
 					this.cans.fillStyle = "#000";
-					this.cans.fillRect(0, 0, this.boxW, this.boxH);
+					this.cans.fillRect(0, 0, 391, 695);
 					this.cans.drawImage(a, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 				}
+			},
+			drmImg() {
+				
+				this.drmImgs();
 				clearTimeout(this.ht);
 			
 				let tim = ob.cut_end-ob.cut_start;
@@ -1153,6 +1164,8 @@
 				this.boxH = domd.height;
 				this.boxW = (domd.height/16)*9;
 			},
+			
+			
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
 					this.$router.push({path: '/'})					
@@ -1163,9 +1176,10 @@
 					this.showTip();
 				}
 				
+				
 				this.setVwh();
 			
-				
+				this.zoomd = this.boxW/391;
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
 					let json = JSON.parse(op.json);
@@ -1313,12 +1327,7 @@
 				}, 50)
 
 			},
-			setips(n) {
-				this.tipszb = {
-					x: n.x,
-					y: n.y
-				};
-			},
+			
 			cldevs(on) {
 				let arr = [];
 				let wdb = 1080 / this.boxW;
@@ -1463,6 +1472,7 @@
 		bottom: 264px;
 		left: 0;
 		right: 0;
+		z-index: 2;
 	}
 
 	.ntob_cent>div {
@@ -1473,7 +1483,12 @@
 		height: 100%;
 
 	}
-
+	.ntob_cent>div.ntob_cent_l{
+		width: 50.5%;
+	}
+	.ntob_cent>div.ntob_cent_r{
+		width: 49.5%;
+	}
 	.noto_back {
 		text-align: left;
 		cursor: pointer;
@@ -2175,7 +2190,7 @@
 
 	.show_00x_1_1 {
 		font-size: 35px;
-		margin: 176px auto 20px;
+		margin: 175px auto 20px;
 		color: rgba(255, 255, 255, 1);
 		line-height: 50px;
 	}
@@ -2203,7 +2218,7 @@
 	}
 
 	.show_00x_1_3>span:nth-child(3n+2) {
-		margin: 50px 60px 0;
+		margin: 50px 15% 0;
 	}
 
 	.xx_01x {

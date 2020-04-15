@@ -1,15 +1,6 @@
-<template>
-	
-	<div :class="['tips_m01',on==2?'':'bck']" @click="xyb()">
-		<img v-if="on==0" class="tips_m02" src="/imge/tools/tip_1.png">
-		<img v-if="on==1"  class="tips_m03" src="/imge/tools/tip_2.png">
-		
-		<div v-if="on==2">
-			<div class="tips_m04_1 bck"></div>
-			<div class="tips_m04_2 bck"></div>
-			<img class="tips_m04_3" src="/imge/tools/tip_3.png">
-		</div>
-		<img v-if="on==3"  class="tips_m05" src="/imge/tools/tip_4.png">
+<template>	
+	<div :style="zooms()" class="tips_m01" @click="xyb()">
+		<img :class="['tips_m02','tips_m'+on]" :src="'/imge/tools/tip_'+(on+1)+'.svg'">		
 	</div>
 </template>
 
@@ -24,7 +15,11 @@ export default{
 		}
 	},
 	methods:{
+		zooms(){
+			return 'zoo:'+document.body.offsetWidth/1920;
+		},
 		xyb(){
+			
 			this.on++;
 			if(this.on==4){				
 				localStorage.setItem('isldxs',1);
@@ -48,43 +43,9 @@ export default{
 }
 .tips_m02{
 	position: absolute;
-
-    left: calc(50% + 134px);;
-    top: 98px;
-}
-.bck{
-	background: rgba(0,0,0,.6);
-}
-.tips_m03{
-	position: absolute;
-
-    left: calc(50% - 75px);
-    top: 120px;	
-}
-.tips_m04_1{
-	position: absolute;
 	top: 0;
-	left: 0;
 	width: 100%;
-	height: 48px;
-	
+	left: 0;
 }
-.tips_m04_2{
-	position: absolute;
-	top: 48px;
-	right: 0;
-	width: 50%;
-	height: 820px;
 
-}
-.tips_m04_3{
-	position: absolute;
-	top: 670px;
-	left: calc(50% + 32px);
-}
-.tips_m05{
-	position: absolute;
-	top: 0px;
-	right: 0;
-}
 </style>

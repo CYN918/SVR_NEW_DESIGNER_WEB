@@ -88,8 +88,8 @@ export default{
 			let url = el.file_type=='image'?el.url:el.fps_pic;
 			let tim = el.file_type=='image'?5:el.play_time;
 			
-			let str = 'background:url('+url+') 0 0/auto 100% repeat-x;width:'+(21*tim)+'px;';
-		
+			let str = 'z-index:999;background:url('+url+') 0 0/auto 100% repeat-x;width:'+(21*tim)+'px;';
+			let ony = 0;
 			dom.className = 'testd';
 			dom.style.cssText = str+'left:'+e.x+'px;top:'+e.y+'px;';
 			document.body.appendChild(dom);
@@ -99,7 +99,12 @@ export default{
 		
 				let x = e.x;
 				let y = e.y;
+				if(this.$parent.Mos){
+					
+					y = this.$parent.Mos.y;
+				}
 				dom.style.cssText = str+'left:'+(x+20)+'px;top:'+y+'px;';
+				
 			}			 
 			document.onmouseup =  ()=>{
 				
@@ -505,7 +510,7 @@ export default{
 		
 		getList(){
 		
-			this.$parent.setips(this.$refs.dwyd.getBoundingClientRect());
+			
 			this.fileTotalSummary();
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',
 			times = (Date.parse(new Date())/1000),
@@ -710,7 +715,7 @@ export default{
 	overflow: hidden;
     overflow-y: auto;
     position: absolute;
-    top: 88px;
+    top: 64px;
     bottom: 0;
     left: 24px;
     right: 0;

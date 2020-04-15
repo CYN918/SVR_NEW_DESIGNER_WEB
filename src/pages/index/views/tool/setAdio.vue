@@ -22,8 +22,8 @@
 			v-model="clas"
 			class="mp3_03_3"
 			:List="cls"
-			:keys="'com_classify_name'"
-			:v="'com_classify_name'"
+			:keys="'classify_name'"
+			:v="'classify_name'"
 			
 			></spck>
 			
@@ -443,7 +443,7 @@ export default{
 			}
 		
 			if(this.clas && this.clas != "全部"){
-				pr.com_classify_name = this.clas;
+				pr.classify_name = this.clas;
 			}else{
 				this.clas = '全部';
 			}
@@ -764,7 +764,7 @@ export default{
 }
 .mp3_05_2_2_2_1{
 	display: block;
-	width: 72px;
+	width: 65px;
 }
 .mp3_05_2_2_2_2{
 	position: absolute;
@@ -876,6 +876,7 @@ export default{
 .box_p_01{
 	position: relative;
 	height: 100%;
+	overflow: hidden;
 }
 .seadio_to>img{
 	display: inline-block;
