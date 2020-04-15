@@ -1,6 +1,6 @@
 <template>
 	<div :class="['cenDjs',da.cl]">
-		<div class="cenDjs_1"></div>
+		<!-- <div class="cenDjs_1"></div>
 		<div class="yu_o9">
 			<div class="yu_o9_1bx">
 				<div v-if="djsshow.h" class="cenDjs_2">
@@ -39,7 +39,30 @@
 					</div>
 				</div>
 			</div>
-		</div>		
+		</div>		 -->
+		
+		<div class="yu_o9">
+			
+			
+			<div class="cenDjs_4">
+				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.cl]" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
+			</div>
+			<loginDialog ref="logindialog" :config="outc"></loginDialog>
+			
+		</div>
+		
+		
+		<div v-if="obj.status>=3 " class="worksBox_2 tg_iocn_2 tg_iocn_2x">
+			<div class="worksBox_2_1x">
+				<div v-if="obj.status==3" @click="showTc('Stop')">终止项目</div>
+				<div v-if="islog" @click="showTc('Log')">交稿记录</div>
+				<div v-if="obj.contract_file && obj.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
+					<div class="worksBox_2_4">
+						<div v-for="(el,index) in obj.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -276,7 +299,7 @@ export default {
 }
 .cenDjs_4>div{
 	display: inline-block;
-	margin: 0 7px;
+	margin-left: 20px;
 	font-size:14px;
 	font-weight:400;
 	color:#666;
