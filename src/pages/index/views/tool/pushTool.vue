@@ -88,11 +88,12 @@
 					<div class="ntob_cent_r_1">
 						<span @click="qhNav(index,el.zj)" v-for="(el,index) in navs" :class="navson==index?'ckin':''">
 							<div class="con-right-iocn-img">
-								　　<img class="icon con-right-iocn-img" :src="'/imge/tools/'+el.icon" />
+								<img class="icon con-right-iocn-img" :src="'/imge/tools/'+el.icon" />
 							</div>
 							{{el.n}}
 						</span>
 					</div>
+					
 					<div class="ntob_cent_r_2">
 							
 <keep-alive>
@@ -1608,7 +1609,7 @@
 		position: relative;
 		display: block;
 		text-align: center;
-		font-size: 14px;
+		font-size: 18px;
 		margin-top: 24px;
 		font-weight: 400;
 		color: rgba(153, 153, 153, 1);
@@ -2355,13 +2356,13 @@
 		position: relative;
 		left: 0;
 		color: rgba(51, 179, 255, 1);
-		-webkit-filter: drop-shadow(89px 0);
-		filter: drop-shadow(89px 0);
+		-webkit-filter: drop-shadow(95px 0);
+		filter: drop-shadow(95px 0);
 		border-right: 34px solid transparent;
 	}
 
 	.ckin>div {
-		transform: translateX(-85px);
+		transform: translateX(-95px);
 	}
 
 	.mx_dsj {

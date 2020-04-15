@@ -811,6 +811,11 @@ export default{
 }
 .mp3_04_01:hover{
     background: rgba(187,187,187,.3);
+	
+}
+
+.mp3_04_01:hover .seadio_to>img{
+	visibility: visible;
 }
 
 .mp3_04_01>span{
@@ -884,6 +889,7 @@ export default{
 	width: 19px;
 	margin-top: 14px;
     margin-right: 10px;
+	visibility: hidden;
 }
 .setAdio_02{
 	color: #33B3FF;
@@ -899,7 +905,6 @@ export default{
 }
 img.mp3_04_01_sc {
     margin-top: 13px;
-    display: inline-block;
     vertical-align: top;
 	tap-highlight-color:transparent;
 	user-select:none;
