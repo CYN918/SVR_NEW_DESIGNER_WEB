@@ -1650,6 +1650,7 @@
 		left: 0;
 		width: 100%;
 		height: 264px;
+		
 	}
 
 	.ntob_footer_1 {
@@ -1661,6 +1662,7 @@
 		overflow: hidden;
 		background: #fff;
 		z-index: 1;
+		border-top: 1px solid #F0F0F0;
 	}
 
 	.ntob_footer_2 {
@@ -1670,6 +1672,7 @@
 		overflow: hidden;
 		height: 100%;
 		background: #fff;
+		border-top: 1px solid #F0F0F0;
 	}
 
 	.ntob_footer_2_1,
@@ -2306,7 +2309,7 @@
 		margin-bottom: 3px;
 		font-size: 14px;
 		color: rgba(51, 51, 51, 1);
-
+		cursor: pointer;
 	}
 
 	.ntob_footer_1_2>div>img {
