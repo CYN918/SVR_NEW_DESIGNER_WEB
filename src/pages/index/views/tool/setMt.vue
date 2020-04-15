@@ -704,6 +704,7 @@ export default{
 	font-size: 21px;
 	width:18px;
 	height:18px;
+	z-index: 1000;
 }
 .tim_xzsx{
 	cursor: pointer;
@@ -715,6 +716,7 @@ export default{
 	border-radius: 50%;
 	width: 18px;
 	height: 18px;
+	z-index: 1000;
 }
 .tim_xzsx>img{
 	position: absolute;
