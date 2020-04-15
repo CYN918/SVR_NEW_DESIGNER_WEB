@@ -134,13 +134,8 @@
 											<i></i><i></i><i></i>
 										</div>
 									</div>
-
-
-
 								</div>
 							</div>
-
-
 
 							<div class="tlo_03">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'audio',on:index,list:navcoms.audio})" class="imgd" v-for="(el,index) in navcoms.audio">
