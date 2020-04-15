@@ -97,7 +97,7 @@
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
 						<p>已终止</p>
 					</div>
-					<div class="jz_time" v-if="djsshow.h || deta.status==1 || deta.status==4">
+					<div class="jz_time" v-if="djsshow.h || deta.status==1">
 						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止报名时间</i></p>
 						<span class="f_a" v-if="djsshow.d>0">{{djsshow.d}}<span class="cenDjs_2_dy_01">天</span></span><span class="f_a">{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
 					</div>
