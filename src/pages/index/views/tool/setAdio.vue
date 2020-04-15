@@ -403,7 +403,7 @@ export default{
 			let ctime =  ((this.$refs.aido.currentTime / this.$refs.aido.duration)*100).toFixed(2);
 			//console.log(ctime)
 			this.$set(this.bfData,'ct',ctime);
-			this.$set(this.bfData,'bft',this.backT(Math.ceil(this.$refs.aido.currentTime)));
+			this.$set(this.bfData,'bft',this.backT(Math.floor(this.$refs.aido.currentTime)));
 		},
 		ended(){
 			this.bf(this.datas[this.bfData.on+1],this.bfData.on+1)
