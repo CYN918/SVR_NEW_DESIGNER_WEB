@@ -47,7 +47,7 @@
 			<div class="cenDjs_4">
 				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.cl]" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
 			</div>
-			<loginDialog ref="logindialog" :config="outc"></loginDialog>
+			<!-- <loginDialog ref="logindialog" :config="outc"></loginDialog> -->
 			
 		</div>
 		
