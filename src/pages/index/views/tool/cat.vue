@@ -93,7 +93,7 @@ export default{
 			document.body.style = "overflow: hidden;";
 		},
 		catd(){		
-			let w = 391,h = 695;
+			let w = this.$parent.boxW,h = this.$parent.boxH;
 			let x = 0,y=0;
 			let sx =0,sy=0,sw=0,sh=0;			
 			let kdb = this.value.data.yw/this.pic.w;

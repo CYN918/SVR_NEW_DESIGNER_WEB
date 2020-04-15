@@ -1,5 +1,5 @@
 <template>
-	<div class="cengg">
+	<!-- <div class="cengg">
 		<div class="cens_01">
 			<div class="cens_02">
 				<div class="cens_02_1 oijdiv">				
@@ -63,6 +63,93 @@
 		
 		
 		<topGd v-if="topTyped==1 && deta.status==1" :obj="pzTop" ref="topGd"></topGd>
+	</div> -->
+	<div class="cengg">
+		<div class="cens_01">
+			<div class="cents_box">
+				<img class="cens_02_1_img" :src="deta.banner" alt="">
+				<div class="cents_box_status">
+					<div class="cenDjs_5" v-if="deta.status == '1'">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p>招募期</p>
+					</div>
+					<div class="cenDjs_5" v-if="deta.status == '0'">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p>待发布</p>
+					</div>
+					<div class="cenDjs_5" v-if="deta.status == '2'">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p>选标期</p>
+					</div>
+					<div class="cenDjs_5" v-if="deta.status == '3'">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p>制作期</p>
+					</div>
+					<div class="cenDjs_5" v-if="deta.status == '4'">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p>待验收</p>
+					</div>
+					<div class="cenDjs_5" v-if="deta.status == '5'">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p>已验收</p>
+					</div>
+					<div class="cenDjs_5" v-if="deta.status == '-1'">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p>已终止</p>
+					</div>
+					<div class="jz_time" v-if="djsshow.h || deta.status==1 || deta.status==3 || deta.status==4">
+						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止报名时间</i></p>
+						<span class="f_a" v-if="djsshow.d>0">{{djsshow.d}}<span class="cenDjs_2_dy_01">天</span></span><span class="f_a">{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
+					</div>
+					<div v-if="deta.status==1 || deta.status==2" class="bm_dp">
+						<p><img :src="imgSig+'prcent/xm_icon_num.svg'"/><i>报名人数</i></p>
+						<p>{{deta.sign_up_num}}</p>
+					</div>
+					<div class="yj_sy">
+						<p><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>预计收益</i></p>
+						<p v-if="deta.settlement == '0'">{{deta.expected_profit}}</p>
+						<p v-if="deta.settlement == '1'">[买断]{{deta.expected_profit}}</p>
+						<p v-if="deta.settlement == '2'">[分成]永久收益</p>
+					</div>
+				</div>
+			</div>
+			<div class="cens_02_1_cent">
+				<div class="cens_x0">
+					<div class="cens_x1">{{deta.name}}</div>
+					
+					
+				</div>
+				<div class="cens_x0_bottom">
+					<div class="cens_x5">
+						<div class="cens_x2">项目类型：{{deta.classify_name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制作周期:<span v-html="backZq(deta.production_cycle_d,deta.production_cycle_h)"></span></div>
+						<div class="cens_x3"><span v-for="(el,index) in deta.fields" :key="index">{{el}}</span></div>
+						
+					</div>
+					<div class="event_op">
+						<div v-if="deta.template_file_url" @click="dowloadmb(deta)" class="pend pr_down_mb">
+							<!-- <img :src="imgSig+'prcent/icon_download.svg'"/>下载附件 ({{deta.template_file_size}}) -->
+							<img :src="imgSig+'prcent/icon_download.svg'"/>下载附件
+						</div>
+						<xmDp v-if="deta.status" :obj="deta" ref="xmDp"></xmDp>
+
+					</div>
+					
+					
+					
+				</div>
+				
+				
+			</div>
+			<div v-for="(el,index) in deta.desc" :key="index" class="cens_02_2 oijdiv">
+				<div class="cens_02_2hd">{{el.module_title}}</div>
+				<div class="cens_02_2ce" v-html="el.module_content"></div>
+			</div>
+			<topGd v-if="topTyped==1 && deta.status==1" :obj="pzTop" ref="topGd"></topGd>
+			<tipd  :tipCent="csff" :style="sfas" ref="csdf"></tipd>
+		    <component v-bind:is="tcZj"  :datad="tcData" :expected_profit="deta.expected_profit" :settlement="deta.settlement"></component>
+			<prnavright></prnavright>
+
+		</div>
 	</div>
 	
 </template>
@@ -82,14 +169,16 @@ import Stop from './stop';
 import question from './question';
 import presentation from './presentation';
 import topGd from './topGd';
+import prnavright from './pr_nav_right'
 
 export default {
-	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm,shareD,pushGj,qxGj,Log,Stop,question,presentation,topGd},
+	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm,shareD,pushGj,qxGj,Log,Stop,question,presentation,topGd,prnavright},
 	data(){
 		return{
 			tcZj:'',
 			tcData:'',
 			shareData:{},
+			djsshow:{},
 			sfas:'display:none',
 			csff:'项目验收价格，会根据验收稿的质量有所浮动，但只要稿件完成度符合项目需求，则验收价格不会低于“预计收益”的范围区间。',
 			tips:[
@@ -219,9 +308,60 @@ export default {
 					id:da.id,
 				};
 				this.deta = da;
+				this.djsfn(da.left_time)
 			}).catch(()=>{
 				
 			});
+		},
+		djsfn(da){			
+			if(da.d==0 && da.h==0 && da.m==0 && da.s==0){
+				this.djsshow.s = '00';
+				this.xmTypeOn++;
+				this.djsshow = '';
+				this.da = this.xmType[this.xmTypeOn];	
+				this.timeF(this.djsshow);
+				return
+			}	
+			setTimeout(()=>{
+				this.djsfn(da);
+			},1000);
+			let p ={};
+			for(let el in da){				
+				p[el] = this.btime(da[el]);
+			}
+			this.djsshow = p;
+			if(da.s>0){
+				da.s--;
+				this.timeF(this.djsshow);
+				return
+			}
+			if(da.m>0){
+				da.m--;
+				da.s = 59;
+				this.timeF(this.djsshow);
+				return
+			}
+			if(da.h>0){
+				da.h--;
+				da.m= 59;
+				da.s = 59;
+				this.timeF(this.djsshow);
+				return
+			}
+			if(da.d>0){
+				da.d--;
+				da.h = 23;
+				da.m= 59;
+				da.s = 59;
+				this.timeF(this.djsshow);
+				return
+			}
+			
+			
+			
+		},
+		btime(t){
+			return t>9?t:'0'+t
 		},
 		getPath(){
 			this.getData();
@@ -234,8 +374,8 @@ export default {
 }
 </script>
 
-<style>
-.cengg{
+<style scoped="scoped">
+/* .cengg{
 	background:rgba(244,246,249,1);
 }
 .cens_01{
@@ -501,5 +641,223 @@ export default {
 	margin-top: 3px;
 	margin-right: 9px;
 	width: 20px;
+} */
+.cengg{
+	background:rgba(244,246,249,1);
 }
+.cens_01{
+	padding: 20px 0 60px;
+	margin: 0 auto;
+	width: 1300px;
+}
+.cents_box{
+	width: 1300px;
+	height: 480px;
+	position: relative;
+}
+.cens_02_1_img{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 20px;
+	width:100%;
+	height:100%;
+
+}
+.cens_02_2{
+	width: 1300px;
+	background: #fff;
+}
+.cens_02_1_cent{
+	width: 1300px;
+	height: 139px;
+	background: #fff;
+	border-bottom: 1px solid rgba(244,246,249,1);
+}
+.cens_02_2hd{
+	font-size:24px;
+	font-weight:400;
+	color:rgba(153,153,153,1);
+	line-height:33px;
+	text-align: center;
+	line-height: 93px;
+	height: 93px;
+}
+.cens_x0{
+	padding-top: 15px;
+}
+.cens_x1{
+	width: 864px;
+	height: 26px;
+	margin: 0 auto;
+	line-height: 26px;
+	font-size:18px;
+	font-family:PingFangSC-Medium,PingFang SC;
+	font-weight:bold;
+	color:rgba(40,40,40,1);
+	text-align: left;
+	padding-left: 6px;
+}
+.cens_x0_bottom{
+	padding-top: 10px;
+	width: 864px;
+	height: 98px;
+	margin: 0 auto;
+}
+.cens_x2{
+	text-align: left;
+	padding-left: 6px;
+	color: #BBBBBB;
+	font-size: 12px;
+}
+.cens_x2 > span >>> .f_a {
+    color: #BBBBBB;
+}
+.cens_x3{
+	text-align: left;
+	height: 40px;
+	padding-top: 20px;
+}
+.cens_x3 > span{
+	/* width: 40px; */
+	height: 22px;
+	text-align: center;
+	line-height: 22px;
+	display: block;
+	float: left;
+	background:rgba(244,246,249,1);
+    border-radius:2px;
+	font-size:12px;
+	font-family:PingFangSC-Regular,PingFang SC;
+	font-weight:bold;
+	color:rgba(153,153,153,1);
+	margin-left: 6px;
+	padding-left: 5px;
+    padding-right: 5px;
+}
+.cens_x5{
+	width: 70%;
+	float: left;
+	
+}
+.event_op{
+	width: 30%;
+	float: right;
+	
+}
+.event_op > div{
+	height: 40px;
+	line-height: 40px;
+	float: left;
+	cursor: pointer;
+}
+.pr_down_mb{
+	width: 120px;
+	text-align: center;
+	background: #33B3FF;
+	color: #fff;
+	font-size: 14px;
+	border-radius:5px;
+}
+.pr_down_mb > img{
+	margin-top: 11px;
+}
+.bm_btn{
+	width: 100px;
+	text-align: center;
+	background: #33B3FF;
+	color: #fff;
+	font-size: 14px;
+	border-radius:5px;
+	margin-left: 20px;
+}
+.cents_box_status{
+	position: absolute;
+	height: 98px;
+	width: 875px;
+	bottom: 48px;
+    left: 215px;
+}
+.cents_box_status > div{
+	height: 98px;
+	float: left;
+}
+.cents_box_status > div > p > i{
+	font-style: normal;
+	height:20px;
+	font-size:14px;
+	font-family:PingFangSC-Regular,PingFang SC;
+	font-weight:400;
+	color:rgba(153,153,153,1);
+	line-height:20px;
+}
+.cents_box_status > div > p:nth-child(1){
+	margin-top: 16px;
+}
+.cents_box_status > div > p:nth-child(2){
+	margin-top: 16px;
+}
+.cenDjs_5 > p:nth-child(2){
+	font-size:24px;
+	font-family:PingFangSC-Medium,PingFang SC;
+	font-weight:bold;
+	color:rgba(40,40,40,1);
+}
+.jz_time .f_a{
+	font-size:28px;
+	font-family:PingFangSC-Semibold,PingFang SC;
+	font-weight:600;
+	color:rgba(255,146,0,1);
+	margin-top: 6px;
+    display: inline-block;
+}
+.cenDjs_2_dy_01{
+	font-size:22px;
+	font-family:PingFangSC-Regular,PingFang SC;
+	font-weight:400;
+	color:rgba(187,187,187,1);
+	margin: 4px 4px 0px 4px;
+}
+.cents_box_status > div > p:nth-child(1) > img{
+	margin: 3px 3px 0px 0px;
+}
+.cenDjs_5{
+	width: 114px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 16px 32px 0px rgba(0,0,0,0.2);
+	border-radius:10px;
+}
+.jz_time{
+	width:222px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 16px 32px 0px rgba(0,0,0,0.2);
+	border-radius:10px;
+	margin-left: 20px;
+}
+.bm_dp{
+	width:116px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 16px 32px 0px rgba(0,0,0,0.2);
+	border-radius:10px;
+	margin-left: 20px;
+}
+.yj_sy{
+	width:360px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 16px 32px 0px rgba(0,0,0,0.2);
+	border-radius:10px;
+	margin-left: 20px;
+}
+.bm_dp > p:nth-child(2){
+	font-size:24px;
+	font-family:PingFangSC-Medium,PingFang SC;
+	font-weight:500;
+	color:rgba(40,40,40,1);
+}
+.yj_sy > p:nth-child(2){
+	font-size:24px;
+	font-family:PingFangSC-Medium,PingFang SC;
+	font-weight:500;
+	color:rgba(255,146,0,1);
+}
+
 </style>

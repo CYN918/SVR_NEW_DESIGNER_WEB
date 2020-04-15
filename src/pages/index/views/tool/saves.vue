@@ -127,8 +127,8 @@ export default{
 		},
 		cldevs(on){
 			let arr = [];
-			let wdb = 1080/391;
-			let hy = 1920/695;
+			let wdb = 1080/this.$parent.boxW;
+			let hy = 1920/this.$parent.boxH;
 			for(let i=0,n=on.length;i<n;i++){
 				let ar = on[i];
 				for(let i2=0,n2=ar.length;i2<n2;i2++){

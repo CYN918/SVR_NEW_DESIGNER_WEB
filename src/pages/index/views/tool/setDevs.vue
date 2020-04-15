@@ -44,21 +44,19 @@ export default{
 			this.$refs.imgs.onload=()=>{
 				let op = this.$refs.imgs.getBoundingClientRect();
 				let posd = this.$refs.boxs.getBoundingClientRect();
-				console.log(op);
-				console.log(posd);
 				let xs = op.x-posd.x;
 				let ys = op.y-posd.y;
 				let ws = op.width;
 				let hs = op.height;
-				if(hs<695){
-					ys = (695-hs)/2+ys;
+				if(hs<this.$parent.boxH){
+					ys = (this.$parent.boxH-hs)/2+ys;
 				}
 				
 				
 			
-				if(ws<391){
+				if(ws<this.$parent.boxW){
 				
-					xs = (391-ws)/2+xs;
+					xs = (this.$parent.boxW-ws)/2+xs;
 				}
 				
 				if(!this.value.zskb){

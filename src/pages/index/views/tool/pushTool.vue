@@ -19,8 +19,9 @@
 				</div>
 			</div>
 			<div class="ntob_cent">
-				<div class="ntob_cent_l">
-					<div class="videoBox">
+				<div class="ntob_cent_l" >
+					<div class="ntob_cent_lxbo" ref="vidobox">
+					<div class="videoBox" :style="'width:'+boxW+'px;height:'+boxH+'px'">
 						<canvas class="videoBox1" ref="cavs"></canvas>
 						<video @timeupdate="timeupdatevideo" muted @ended="endeds()" @loadeddata="csy" id="boxf" class="ntob_cent_l_1"
 						 :src="video" ref="vids"></video>
@@ -53,33 +54,35 @@
 						</div>
 					</div>
 					<audio class="ntob_cent_l_1" @ended="endAudio()" ref="aido"></audio>
-					<div class="ntob_cent_l_2">
-						<div class="ntob_cent_l_2_1">
-							<img class="ntob_cent_l_2_1x" src="/imge/tools/v_size.svg">预览比例<span class="bl_000" @click="showCc">
-								{{cun[vdcc].n}}
-							</span>
-						</div>
-						<div class="ntob_cent_l_2_2">
-							<span @click="playsx" class="an_sx_01">
-								<img src="/imge/tools/v_sx.svg" />
-							</span><span @click="playAll" class="an_bf_01">
-								<img :src="'/imge/tools/'+(ispaused?'icon_view_stop_def':'v_play')+'.svg'" />
-							
-								
-							</span>
-							<span>{{bckti(parseInt(bfTime))}}</span> / <span class="tme_091">{{bckti(parseInt(bcotm()))}}</span>
-						</div>
-						<div class="ntob_cent_l_2_3">
-							<span @click="showCc2" class="bl_000">
-								{{cun2[vdcc2]}}
-								<div class="mx_dsj"></div>
-								<div v-if="isCc2" class="bl_001">
-									<span @click="qhcc2(index)" v-for="(el,index) in cun2" :class="['cds',index==vdcc2?'cek':'']">{{el}}</span>
-								</div>
-							</span>
-							<el-switch v-model="isld" active-value="1"></el-switch>
-						</div>
+					
+				</div>
+				<div class="ntob_cent_l_2">
+					<div class="ntob_cent_l_2_1">
+						<img class="ntob_cent_l_2_1x" src="/imge/tools/v_size.svg">预览比例<span class="bl_000" @click="showCc">
+							{{cun[vdcc].n}}
+						</span>
 					</div>
+					<div class="ntob_cent_l_2_2">
+						<span @click="playsx" class="an_sx_01">
+							<img src="/imge/tools/v_sx.svg" />
+						</span><span @click="playAll" class="an_bf_01">
+							<img :src="'/imge/tools/'+(ispaused?'icon_view_stop_def':'v_play')+'.svg'" />
+						
+							
+						</span>
+						<span>{{bckti(parseInt(bfTime))}}</span> / <span class="tme_091">{{bckti(parseInt(bcotm()))}}</span>
+					</div>
+					<div class="ntob_cent_l_2_3">
+						<span @click="showCc2" class="bl_000">
+							{{cun2[vdcc2]}}
+							<div class="mx_dsj"></div>
+							<div v-if="isCc2" class="bl_001">
+								<span @click="qhcc2(index)" v-for="(el,index) in cun2" :class="['cds',index==vdcc2?'cek':'']">{{el}}</span>
+							</div>
+						</span>
+						<el-switch v-model="isld" active-value="1"></el-switch>
+					</div>
+				</div>
 				</div>
 				<div class="ntob_cent_r">
 					<div class="ntob_cent_r_1">
@@ -96,6 +99,7 @@
 					</div>
 				</div>
 			</div>
+			
 			<div class="ntob_footer">
 				<div class="ntob_footer_1">
 					<div class="ntob_footer_1_1"></div>
@@ -248,6 +252,8 @@
 		},
 		data() {
 			return {
+				boxW:0,
+				boxH:0,
 				spgd: 0,
 				istype: '',
 				cun: [{
@@ -571,22 +577,7 @@
 			close() {
 				this.istype = '';
 			},
-			qhcc(on) {
-				this.vdcc = on;
-				if (on == 0) {
-					this.cjzb.x = 0;
-				}
-				if (on == 1) {
-					this.cjzb.x = 21.75;
-					this.cjzb.w = 347.5;
-					this.sczz = 'issczz';
-				}
-
-				setTimeout(() => {
-					this.isCc = '';
-				}, 50)
-				this.drm();
-			},
+			
 			jlx2(e) {
 				e.preventDefault();
 
@@ -886,7 +877,7 @@
 				let ot = onsd.start+(onsd.cut_end-onsd.cut_start);
 				if(this.bfTime>=onsd.start && this.bfTime<ot){
 					this.cans.fillStyle = "#000";
-					this.cans.fillRect(0, 0, 391, 695);
+					this.cans.fillRect(0, 0, this.boxW, this.boxH);
 				}			
 				this.checkOn.list.splice(this.checkOn.on,1);				
 				this.checkOn = {};				
@@ -1017,12 +1008,12 @@
 			drm() {
 				let ob = this.navcoms.media[this.bfon];
 				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, 391, 695);
+				this.cans.fillRect(0, 0, this.boxW, this.boxH);
 				this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 				let po = this.cun[this.vdcc].x;
 				if (po) {
-					this.cans.fillRect(0, 0, po, 695);
-					this.cans.fillRect(391 - po, 0, po, 695);
+					this.cans.fillRect(0, 0, po, this.boxH);
+					this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
 				}
 
 			},
@@ -1031,13 +1022,13 @@
 				
 				let ob = this.navcoms.media[this.bfon];
 				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, 391, 695);
+				this.cans.fillRect(0, 0, this.boxW, this.boxH);
 				
 				var a = document.createElement('img');
 				a.src = ob.file_url;
 				a.onload = () => {
 					this.cans.fillStyle = "#000";
-					this.cans.fillRect(0, 0, 391, 695);
+					this.cans.fillRect(0, 0, this.boxW, this.boxH);
 					this.cans.drawImage(a, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 				}
 				clearTimeout(this.ht);
@@ -1158,7 +1149,11 @@
 					return
 				}
 			},
-
+			setVwh(){
+				let domd = this.$refs.vidobox.getBoundingClientRect();							
+				this.boxH = domd.height;
+				this.boxW = (domd.height/16)*9;
+			},
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
 					this.$router.push({path: '/'})					
@@ -1169,6 +1164,8 @@
 					this.showTip();
 				}
 				
+				this.setVwh();
+			
 				
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
@@ -1227,7 +1224,7 @@
 					e = e || window.event;
 					var ctrlKey = e.ctrlKey || e.metaKey;
 					var shiftKey = e.shiftKey;
-					if(!ctrlKey && shiftKey){
+					if(!ctrlKey && !shiftKey){
 						return
 					}
 					e.preventDefault();
@@ -1253,21 +1250,21 @@
 				}, false)
 
 
-				this.$refs.cavs.width = 391;
-				this.$refs.cavs.height = 695;
+				this.$refs.cavs.width = this.boxW;
+				this.$refs.cavs.height = this.boxH;
 				this.cans = this.$refs.cavs.getContext("2d");
 				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, 391, 695);
+				this.cans.fillRect(0, 0, this.boxW, this.boxH);
 				this.$refs.vids.addEventListener('play', () => {
 					this.po = window.setInterval(() => {
-						this.cans.fillRect(0, 0, 391, 695);
+						this.cans.fillRect(0, 0, this.boxW, this.boxH);
 						
 						let ob = this.navcoms.media[this.bfon];
 						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 						let po = this.cun[this.vdcc].x;
 						if (po) {
-							this.cans.fillRect(0, 0, po, 695);
-							this.cans.fillRect(391 - po, 0, po, 695);
+							this.cans.fillRect(0, 0, po, this.boxH);
+							this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
 						}
 					}, 20);
 				}, false);
@@ -1325,8 +1322,8 @@
 			},
 			cldevs(on) {
 				let arr = [];
-				let wdb = 1080 / 391;
-				let hy = 1920 / 695;
+				let wdb = 1080 / this.boxW;
+				let hy = 1920 / this.boxH;
 				for (let i = 0, n = on.length; i < n; i++) {
 					let ar = on[i];
 
@@ -1445,10 +1442,13 @@
 <style>
 	#app>div>div.ntob {
 		padding: 0;
+		min-height: 100%;
 	}
 
 	.ntob_head {
-		position: relative;
+		position: fixed;
+		top: 0;
+		left: 0;
 		text-align: center;
 		background: #fff;
 		height: 48px;
@@ -1458,12 +1458,20 @@
 		z-index: 2;
 	}
 
-	.ntob_cent {}
+	.ntob_cent {
+		position: fixed;
+		top: 48px;
+		bottom: 264px;
+		left: 0;
+		right: 0;
+	}
 
 	.ntob_cent>div {
+		position: relative;
 		display: inline-block;
 		vertical-align: top;
 		width: 50%;
+		height: 100%;
 
 	}
 
@@ -1542,8 +1550,6 @@
 		position: relative;
 		display: block;
 		margin: 0 auto;
-		width: 391px;
-		height: 695px;
 		overflow: hidden;
 	}
 
@@ -1559,8 +1565,7 @@
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		width: 391px;
-		height: 695px;
+
 		display: none;
 	}
 
@@ -1625,7 +1630,9 @@
 	}
 
 	.ntob_footer {
-		position: relative;
+		position: fixed;
+		bottom: 0;
+		left: 0;
 		width: 100%;
 		height: 264px;
 	}
@@ -1876,7 +1883,10 @@
 	}
 
 	.ntob_cent_l_2 {
-		position: relative;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
 		height: 74px;
 		background: #fff;
 	}
@@ -2379,5 +2389,14 @@
 		line-height: 22px;
 		font-size: 14px;
 		color: rgba(187,187,187,1);
+	}
+	.ntob_cent_lxbo{
+		
+		position: absolute;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 75px;
+
 	}
 </style>

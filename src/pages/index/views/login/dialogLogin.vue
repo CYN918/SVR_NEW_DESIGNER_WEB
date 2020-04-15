@@ -93,10 +93,11 @@ export default {
 				return;
 			}
 			document.addEventListener('keydown',(e)=>{
-				if(e.keyCode==13){				
-				if(this.$route.fullPath=='/login'){
-					this.loginUp();
-				}					
+				if(e.keyCode==13){	
+					this.loginUp();		
+				// if(this.$route.fullPath=='/login'){
+				// 	this.loginUp();
+				// }					
 			}
 			},false)
 		},

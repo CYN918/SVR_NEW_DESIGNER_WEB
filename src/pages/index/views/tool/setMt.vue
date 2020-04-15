@@ -167,13 +167,13 @@ export default{
 					pr.sw = wd;					
 					pr.sh = hd;
 					if(wd>hd){
-						pr.w = 391;
-						pr.h = (391/wd)*hd;
-						pr.y = (695-pr.h)/2
+						pr.w = this.$parent.boxW;
+						pr.h = (this.$parent.boxW/wd)*hd;
+						pr.y = (this.$parent.boxH-pr.h)/2
 					}else{
-						pr.h = 695;
-						pr.w = (695/hd)*wd;
-						pr.x = (391-pr.w)/2;
+						pr.h = this.$parent.boxH;
+						pr.w = (this.$parent.boxH/hd)*wd;
+						pr.x = (this.$parent.boxW-pr.w)/2;
 					}
 					this.value.maxTime = +pr.long+this.value.maxTime;
 					this.value.decorates[this.$parent.Mos.on].push(pr);
@@ -268,14 +268,19 @@ export default{
 					pr.sw = wd;					
 					pr.sh = hd;
 					if(wd>hd){
-						pr.w = 391;
-						pr.h = (391/wd)*hd;
-						pr.y = (695-pr.h)/2
+						pr.w = this.$parent.boxW;
+						pr.h = (this.$parent.boxW/wd)*hd;
+						pr.y = (this.$parent.boxH-pr.h)/2
 					}else{
-						pr.h = 695;
-						pr.w = (695/hd)*wd;
-						pr.x = (391-pr.w)/2;
+						pr.h = this.$parent.boxH;
+						pr.w = (this.$parent.boxH/hd)*wd;
+						pr.x = (this.$parent.boxW-pr.w)/2;
 					}
+					
+					
+					
+					
+					
 					this.value.maxTime = +pr.long+this.value.maxTime;
 					this.value.media.push(pr);						
 					if(!ond){
@@ -295,13 +300,13 @@ export default{
 					pr.sw = wd;					
 					pr.sh = hd;
 					if(wd<hd){
-						pr.h = 695;
-						pr.w = (695/hd)*wd;
-						pr.x = (391-pr.w)/2;
+						pr.h = this.$parent.boxH;
+						pr.w = (this.$parent.boxH/hd)*wd;
+						pr.x = (this.$parent.boxW-pr.w)/2;
 					}else{
-						pr.w = 391;
-						pr.h = (391/wd)*hd;
-						pr.y = (695-pr.h)/2
+						pr.w = this.$parent.boxW;
+						pr.h = (this.$parent.boxW/wd)*hd;
+						pr.y = (this.$parent.boxH-pr.h)/2
 					}
 					let maxt = +pr.start+(+pr.long);
 					if(this.value.maxTime<maxt){
@@ -564,7 +569,10 @@ export default{
 
 <style>
 .setMt{
+	position: relative;
+	box-sizing: border-box;
 	padding: 24px 0 0 24px;
+	height: 100%;
 }
 .setMt_01{
 	font-size:16px;
@@ -730,8 +738,12 @@ export default{
 	height: 72px;
 }
 .setMt_03box{
-	height: 700px;
 	overflow: hidden;
-	overflow-y: auto;
+    overflow-y: auto;
+    position: absolute;
+    top: 88px;
+    bottom: 0;
+    left: 24px;
+    right: 0;
 }
 </style>
