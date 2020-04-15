@@ -47,7 +47,7 @@
 			<div class="cenDjs_4">
 				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.cl]" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
 			</div>
-			<!-- <loginDialog ref="logindialog" :config="outc"></loginDialog> -->
+			<loginDialog ref="logindialog" :config="outc"></loginDialog>
 			
 		</div>
 		
@@ -109,6 +109,7 @@ export default {
 	},
 	mounted: function(){
 		this.init();
+		console.log(this.obj.status)
 	}, 
 	methods: {
 
@@ -445,8 +446,8 @@ export default {
 .worksBox_2_1x{
 	display: none;
 	position: absolute;
-	top: 32px;
-	right: 0;
+	top: 43px;
+	right: 9px;
 	z-index: 99;
 	background: #FFFFFF;
 	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
@@ -469,7 +470,8 @@ export default {
 .tg_iocn_2{
 	width: 55px;
     height: 26px;
-    top: 11px;
+    top: -3px;
+	right: -8px;
 }
 .is_seldf{
 	font-size:16px;
