@@ -54,7 +54,7 @@
 					</span>
 					
 				</span><span :title="el.author">
-				{{el.author}}</span><span>
+				{{el.author?el.author:'无歌手'}}</span><span>
 				{{backT(el.duration)}}</span><span class="seadio_to">
 					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="bRunning && (bfData.on==index)?'/imge/tools/music_icon_pause.svg':'/imge/tools/music_icon_play.svg'"/>
 					<img @click="favor(el)" class="mp3_04_01_sc pend" :src="el.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>

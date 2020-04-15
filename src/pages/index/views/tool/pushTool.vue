@@ -1040,7 +1040,7 @@
 				}
 			},
 			drmImg() {
-				
+				let ob = this.navcoms.media[this.bfon];
 				this.drmImgs();
 				clearTimeout(this.ht);
 			

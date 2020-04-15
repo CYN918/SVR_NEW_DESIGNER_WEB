@@ -129,14 +129,14 @@ export default {
 			
 			let str = '';
 			
-			if(+this.basDa.total_income>=ond){
+			if(+this.basDa.year_total_income>=ond){
 				str = 'sydpjcOn';
 			}					
 			let ond2 = this.basDa.profit_config[on+1];
 			if(!ond2){
 				return str;
 			}
-			if(+this.basDa.total_income>=+ond2.total_income){
+			if(+this.basDa.year_total_income>=+ond2.total_income){
 				str =  '';
 			}
 			return str;
@@ -147,7 +147,7 @@ export default {
 			this.getUserDetail();
 		},
 		mod(e){
-			// this.sfas = '';
+			this.sfas = '';
 		},
 		modx(e,on){
 			this.sfas = 1;
