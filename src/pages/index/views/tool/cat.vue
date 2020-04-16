@@ -123,9 +123,7 @@ export default{
 			this.cjkset(this.pic);	
 			
 			
-		},	
-		
-	
+		},		
 		td_01(e,tp){
 			if(e && e.stopPropagation()) {
 				e.stopPropagation();
@@ -146,26 +144,52 @@ export default{
 					
 			/*计算最大边界值*/
 					
-			var max_w = this.pic.x+this.pic.w-this.cjk.x;
-			var max_h = this.pic.y+this.pic.h-this.cjk.y;
+				
+			
+			
+			var min_h=0;
+			var max_h=0;
+			var min_w=0;
+			var max_w=0;
+			var max_y = 0;
+			var min_y = 0;
+			var min_x = 0;
+			var max_x = 0;
+			max_w = this.pic.x+this.pic.w-this.cjk.x;
+			max_h = this.pic.y+this.pic.h-this.cjk.y;
 			if(tp=='t'){
 				max_h = this.cjk.h+this.cjk.y-this.pic.y;
-			}		
-			var max_x = 0;
-			var min_h=0;
-			var fnd = ()=>{
-				
-			};
+			}	
+			/*计算边界*/
 			if(tp=='t'){
-				
 				if(this.ccun==1){
-					max_h = this.cjk.h+this.cjk.y-this.pic.y;
-					min_h = this.cjk.h-1;
-				
+					min_y = this.pic.y;
+					max_y = this.cjk.h+this.cjk.y-5;					
 				}
-				
-				
 			}
+			if(tp=='b'){
+				if(this.ccun==1){
+					min_h = 5;
+					max_h = this.pic.h-this.cjk.y-this.pic.y;					
+				}
+			}
+			if(tp=='l'){
+				if(this.ccun==1){
+					min_x = this.pic.x;
+					max_x = this.cjk.x+this.cjk.w-5;										
+				}
+			}
+			
+			if(tp=='r'){
+				if(this.ccun==1){
+					min_w = 5;
+					max_w = this.pic.w-this.cjk.x+this.pic.x;					
+				}
+			}
+			
+			
+			
+			
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (ev)=>{
 				var ev = ev || window.event;
@@ -178,12 +202,26 @@ export default{
 				var ydy = ev.clientY - disY;
 				var x = ydx+disW;
 				var y = ydy+disH;
-				var xkd = y_w-ydx;
-				var xgd = y_h-ydy;
-				
-				
-				
 				if(tp=='t'){
+					
+					var xkd = y_w-ydx;
+					var xgd = y_h-ydy;
+					
+					if(this.ccun==1){
+						
+						if(y>max_y){
+							y = max_y;
+						}
+						if(y<min_y){
+							y = min_y;
+						}
+						
+						this.cjk.y = y;
+						xgd = y_h-(y-disH);
+						this.cjk.h = xgd;
+						return
+					}
+					
 					if(xgd>max_h){
 						xgd = max_h;					
 					}
@@ -196,27 +234,26 @@ export default{
 					if(this.cjk.h!=xgd){
 						this.cjk.y = y;
 					}
-					
-					if(this.ccun==1){
-						if(xgd>max_h){
-							xgd = max_h;					
-						}
-						
-						if(xgd<min_h){
-							xgd = min_h;
-						}
-						this.cjk.h = xgd;
-						return
-					}
 					this.cjk.h = xgd;
-					
-					
 					this.cjk.w = xkd;
 					
 					return
 				}
 				if(tp=='b'){
-							
+					var xkd = y_w+ydx;
+					var xgd = y_h+ydy;	
+									
+									
+					if(this.ccun==1){
+						if(xgd>max_h){
+							xgd = max_h;
+						}
+						if(xgd<min_h){
+							xgd = min_h;
+						}
+						this.cjk.h = xgd;
+						return
+					}				
 					if(xgd>max_h){						
 						xgd = max_h;						
 					}
@@ -228,16 +265,29 @@ export default{
 					
 					
 					this.cjk.h = xgd;
-					if(this.ccun==1){
-						return
-					}
+					
 					this.cjk.w = xkd;
 				}
 				if(tp=='r'){
 					if(x<this.pic.x){
 						x = this.pic.x;
 					}
-			
+					var xkd = y_w+ydx;
+					var xgd = y_h+ydy;
+					
+					if(this.ccun==1){
+					
+						
+						if(xkd>max_w){
+							xkd = max_w;
+						}
+						if(xkd<min_w){
+							xkd = min_w;
+						}
+						this.cjk.w = xkd;
+						return
+					}
+					
 					if(xkd>max_w){
 						xkd = max_w;											
 					}
@@ -252,9 +302,7 @@ export default{
 						x = y_w-xkd;
 					}
 					this.cjk.w = xkd;
-					if(this.ccun==1){
-						return
-					}
+					
 					this.cjk.h = xgd;					
 					return
 				}
@@ -262,7 +310,21 @@ export default{
 					if(x<this.pic.x){
 						x = this.pic.x;
 					}
-				
+					var xkd = y_w-ydx;
+					var xgd = y_h-ydy;
+					if(this.ccun==1){
+						if(x>max_x){
+							x = max_x;
+						}
+						if(x<min_x){
+							x = min_x;
+						}
+						this.cjk.x = x;
+						xkd = y_w-(x-disW);
+						this.cjk.w = xkd;
+						return
+					}
+					
 					if(xkd>max_w){
 						xkd = max_w;
 						x = max_l_x;
@@ -281,9 +343,7 @@ export default{
 						x = y_w-xkd;
 					}
 					this.cjk.w = xkd;
-					if(this.ccun==1){
-						return
-					}
+					
 					this.cjk.h = xgd;
 					
 					return
@@ -325,10 +385,13 @@ export default{
 		},
 		cjkset(el){
 			let pr = {};
-			if(el.h<el.w){
+			if(el.h>el.w){
 				pr.w = el.w;
+				
 				pr.h = (el.w/this.bl[this.ccun].x)*this.bl[this.ccun].y;
+				
 				pr.fd = (360-pr.h)/pr.h;
+			
 			}else{
 				pr.h = el.h;
 				pr.w = (el.h/this.bl[this.ccun].y)*this.bl[this.ccun].x;
@@ -346,8 +409,12 @@ export default{
 		backIm(){
 			let x = (640-this.pic.w)/2 ;
 			let y = (360-this.pic.h)/2;
+			
+			
+			
 			return 'width:'+this.pic.w+'px;height:'+this.pic.h+'px;transform: translate('+(x-this.cjk.x)+'px,'+(y-this.cjk.y)+'px);';
 		},
+		
 		close(){
 			this.$emit('input',{});
 		},
@@ -432,7 +499,6 @@ export default{
 	left: 0;
 	width: 100%;
 	height: 100%;
-	cursor: move;
 }
 
 .tzk_03{
