@@ -51,6 +51,7 @@ export default{
 			vido:'',
 			bl:[
 				{n:'9:16',x:9,y:16},
+				{n:'自由裁剪',x:9,y:16},
 				// {n:'6:13',x:6,y:13}
 			],
 			max:{
@@ -149,6 +150,20 @@ export default{
 				max_h = this.cjk.h+this.cjk.y-this.pic.y;
 			}		
 			var max_x = 0;
+			var min_h=0;
+			var fnd = ()=>{
+				
+			};
+			if(tp=='t'){
+				
+				if(this.ccun==1){
+					max_h = this.cjk.h+this.cjk.y-this.pic.y;
+					min_h = this.cjk.h-1;
+				
+				}
+				
+				
+			}
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (ev)=>{
 				var ev = ev || window.event;
@@ -161,11 +176,9 @@ export default{
 				var ydy = ev.clientY - disY;
 				var x = ydx+disW;
 				var y = ydy+disH;
+				var xkd = y_w-ydx;
+				var xgd = y_h-ydy;
 				if(tp=='t'){
-					
-					var xkd = y_w-ydx;
-					var xgd = y_h-ydy;
-					
 					if(xgd>max_h){
 						xgd = max_h;					
 					}
@@ -174,11 +187,27 @@ export default{
 						xkd = max_w;
 					}
 					xgd = (xkd/9)*16;
-					this.cjk.w = xkd;
+					
 					if(this.cjk.h!=xgd){
 						this.cjk.y = y;
 					}
+					
+					if(this.ccun==1){
+						if(xgd>max_h){
+							xgd = max_h;					
+						}
+						
+						if(xgd<min_h){
+							xgd = min_h;
+						}
+						this.cjk.h = xgd;
+						return
+					}
 					this.cjk.h = xgd;
+					
+					
+					this.cjk.w = xkd;
+					
 					return
 				}
 				if(tp=='b'){
@@ -193,9 +222,12 @@ export default{
 					}
 					xgd = (xkd/9)*16;
 					
-					this.cjk.w = xkd;
+					
 					this.cjk.h = xgd;
-					return
+					if(this.ccun==1){
+						return
+					}
+					this.cjk.w = xkd;
 				}
 				if(tp=='r'){
 					if(x<this.pic.x){
@@ -217,6 +249,9 @@ export default{
 						x = y_w-xkd;
 					}
 					this.cjk.w = xkd;
+					if(this.ccun==1){
+						return
+					}
 					this.cjk.h = xgd;					
 					return
 				}
@@ -244,6 +279,9 @@ export default{
 						x = y_w-xkd;
 					}
 					this.cjk.w = xkd;
+					if(this.ccun==1){
+						return
+					}
 					this.cjk.h = xgd;
 					
 					return
@@ -285,13 +323,10 @@ export default{
 		},
 		cjkset(el){
 			let pr = {};
-			if(el.h>el.w){
+			if(el.h<el.w){
 				pr.w = el.w;
-				
 				pr.h = (el.w/this.bl[this.ccun].x)*this.bl[this.ccun].y;
-				
 				pr.fd = (360-pr.h)/pr.h;
-			
 			}else{
 				pr.h = el.h;
 				pr.w = (el.h/this.bl[this.ccun].y)*this.bl[this.ccun].x;
@@ -307,11 +342,10 @@ export default{
 			return 'width:'+this.cjk.w+'px;height:'+this.cjk.h+'px;top:0;left:0;transform: translate('+this.cjk.x+'px,'+this.cjk.y+'px);';
 		},
 		backIm(){
-			let x = (640-this.cjk.w)/2 ;
-			let y = (360-this.cjk.h)/2;
-			return 'width:'+this.pic.w+'px;height:'+this.pic.h+'px;transform: translate('+(-this.cjk.x)+'px,'+(-this.cjk.y)+'px);';
+			let x = (640-this.pic.w)/2 ;
+			let y = (360-this.pic.h)/2;
+			return 'width:'+this.pic.w+'px;height:'+this.pic.h+'px;transform: translate('+(x-this.cjk.x)+'px,'+(y-this.cjk.y)+'px);';
 		},
-		
 		close(){
 			this.$emit('input',{});
 		},
@@ -396,6 +430,7 @@ export default{
 	left: 0;
 	width: 100%;
 	height: 100%;
+	cursor: move;
 }
 
 .tzk_03{
@@ -484,9 +519,10 @@ export default{
 	border-radius:5px;
 	color: #fff;
 }
-.pcat_bt>label{
-	
+.pcat_bt>label{	
 	margin-right: 40px;
+    font-size: 15px;
+    line-height: 16px;
 }
 .pcat_bt>label>span{
 	display: inline-block;

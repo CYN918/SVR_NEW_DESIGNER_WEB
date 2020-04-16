@@ -53,7 +53,7 @@
 							<img class="show_00x_2_5" src="/imge/tools/d_01.png" />
 						</div>
 					</div>
-					<audio class="ntob_cent_l_1" @ended="endAudio()" ref="aido"></audio>
+					<audio class="ntob_cent_l_1" @timeupdate="timeupdatevideo2" @ended="endAudio()" ref="aido"></audio>
 					
 				</div>
 				<div class="ntob_cent_l_2">
@@ -107,11 +107,12 @@
 				<div class="ntob_footer_1">
 					<div class="ntob_footer_1_1"></div>
 					<div class="ntob_footer_1_2" ref="gd_02">
-						<div><img src="/imge/tools/t_sp.svg" /> 媒体</div>
-						<div><img src="/imge/tools/t_yy.svg" />音频</div>
 						<div class="nl_ti1" v-for="el in navcoms.decorates"><img src="/imge/tools/t_zs.svg" />装饰</div>
+						
+						<div class="nl_ti2"><img src="/imge/tools/t_sp.svg" /> 媒体</div>
+						<div class="nl_ti3"><img src="/imge/tools/t_yy.svg" />音频</div>
 					</div>
-					<img @click="adddevd" class="add" src="/imge/tools/icon_gd_tjgd_def.svg">
+					
 				</div>
 				<div class="ntob_footer_2" ref="gdbox">
 					<div :style="bal()" class="tlo_box">
@@ -119,6 +120,30 @@
 							<div v-html="backd()" class="kdut"></div>
 						</div>
 						<div class="necBox" @scroll="gdfn($event)" ref="gd_01">
+							<div class="tlo_04">
+								<div v-for="(el,index) in navcoms.decorates" @mouseover="setMos({on:index,n:'decorates'},$event)" @mouseout="setMos('')"
+								 class="tlo_04">
+							
+							
+									<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="imgd" v-for="(el2,index2) in el">
+										<div :style="bgtf(el2)" class="setToll0"></div>
+							
+										<div class="setToll">
+										
+											<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
+											<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2"></div>
+											<div @mousedown="jl($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll3"></div>
+											<div @click="showcj($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="setToll4">
+												<i></i><i></i><i></i>
+											</div>
+										</div>
+							
+									</div>
+								</div>
+							
+							</div>
+							
+							
 							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'},$event)" @mouseout="setMos('')">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})" class="imgd" v-for="(el,index) in navcoms.media">
 									<div :style="bgtf(el)" class="setToll0"></div>
@@ -162,33 +187,7 @@
 									</div>
 								</div>
 							</div>
-
-							<div class="tlo_04">
-								<div v-for="(el,index) in navcoms.decorates" @mouseover="setMos({on:index,n:'decorates'},$event)" @mouseout="setMos('')"
-								 class="tlo_04">
-
-
-									<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="imgd" v-for="(el2,index2) in el">
-										<div :style="bgtf(el2)" class="setToll0"></div>
-
-										<div class="setToll">
-										
-											<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
-											<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2"></div>
-											<div @mousedown="jl($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll3"></div>
-											<div @click="showcj($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="setToll4">
-												<i></i><i></i><i></i>
-											</div>
-										</div>
-
-									</div>
-								</div>
-
-							</div>
-
-						</div>
-						
-
+						</div>						
 					</div>
 					<div class="bf_o1">
 						<div class="bf_o1_1"></div>
@@ -205,12 +204,7 @@
 					
 					</div>
 				</div>
-				
-				
-				
 			</div>
-			
-			
 			<div :style="csad" class="setToll4_2">
 				<span v-if="checkOn.type=='media'" @click="cats()">裁剪</span>
 				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="pastes()">复制</span>
@@ -387,7 +381,15 @@
 		mounted: function() {
 			this.init();
 		},
-
+		beforeDestroy:function(){
+			/*清除事件监听*/
+			window.removeEventListener('resize',this.setVwh);			
+			document.removeEventListener('keydown',this.LineKey);
+			this.$refs.gdbox.removeEventListener('mousewheel',this.LineWheel);
+			this.$refs.vids.removeEventListener('play',this.LinePlay);
+			this.$refs.vids.removeEventListener('pause',this.LineClerDrm);
+			this.$refs.vids.removeEventListener('ended',this.LineClerDrm);
+		},
 		watch: {
 			fdjb() {
 				this.bl = this.fdjb / 10;
@@ -399,6 +401,70 @@
 			}	
 		},
 		methods: {
+			LineKey(e){
+				let ctrlKey = e.ctrlKey || e.metaKey,
+				shiftKey = e.shiftKey;				
+				if(ctrlKey && e.keyCode==67){
+					e.preventDefault();						
+				}			
+				if(ctrlKey && e.keyCode==86){
+					e.preventDefault();
+				}
+				if(this.checkOn.list && e.keyCode === 8) {
+					e.preventDefault();
+					this.checkOn.list.splice(this.checkOn.on, 1);
+					this.checkOn = {};
+					return
+				}
+				if (e.keyCode == 32) {
+					e.preventDefault()
+					this.playAll();
+					return
+				}
+			},
+			LineWheel(e){
+				e = e || window.event;
+				let ctrlKey = e.ctrlKey || e.metaKey,
+				shiftKey = e.shiftKey;
+				if(!ctrlKey && !shiftKey){
+					return
+				}
+				e.preventDefault();
+				var kd = e.wheelDelta ? e.wheelDelta : e.detail;
+				if (kd > 0) {						
+					if (ctrlKey && this.fdjb > 1) {
+						this.fdjb--;
+					}
+					if (shiftKey && this.tdjl > 0) {
+						this.tdjl = this.tdjl-30;
+					}
+				}
+				if (kd < 0) {
+					if (ctrlKey && this.fdjb < 120) {
+						this.fdjb++;
+					}
+					if (shiftKey) {						
+						this.tdjl = this.tdjl+30;
+					}
+				}
+			
+			
+			},
+			LinePlay(){
+				this.po = window.setInterval(() => {
+					this.cans.fillRect(0, 0, this.boxW, this.boxH);
+					let ob = this.navcoms.media[this.bfon];
+					this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
+					let po = this.cun[this.vdcc].x;
+					if (po) {
+						this.cans.fillRect(0, 0, po, this.boxH);
+						this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
+					}
+				}, 20);
+			},
+			LineClerDrm(){
+				window.clearInterval(this.po);
+			},
 			titlon(on){
 				this.istitle = on;
 			},
@@ -932,6 +998,28 @@
 					this.endeds();
 				}
 			},
+			timeupdatevideo2(){
+				let objd = this.navcoms.audio[this.audiosOn];
+				
+				let bftm = objd.cut_end-objd.cut_start;
+				
+				let ontm = this.$refs.aido.currentTime;
+				let max2box = this.navcoms.media[this.navcoms.media.length - 1];
+				let max2boxt = max2box.start+(max2box.cut_end-max2box.cut_start);
+				
+				
+				
+				if (ontm >= max2boxt) {
+					this.$refs.aido.pause();	
+					return
+				}
+				if (ontm >= bftm) {
+					this.$refs.aido.pause();					
+				}
+				
+				
+				
+			},
 			endAudio() {
 				let len = this.navcoms.audio.length;
 				if (this.audiosOn < len - 1) {
@@ -1069,6 +1157,7 @@
 					return
 				}
 				clearTimeout(this.ht);
+				this.$refs.aido.currentTime = 0;
 				this.imgPftime = 0;
 				this.ispaused = 1;
 				this.islast = '';
@@ -1087,7 +1176,6 @@
 				if (this.$refs.aido) {
 					this.$refs.aido.pause();
 				}
-				
 				this.playVid('sx');
 				this.playAio('sx');
 			},
@@ -1161,6 +1249,7 @@
 				}
 			},
 			setVwh(){
+				console.log(11111);
 				let domd = this.$refs.vidobox.getBoundingClientRect();							
 				this.boxH = domd.height;
 				this.boxW = (domd.height/16)*9;
@@ -1172,14 +1261,11 @@
 					this.$router.push({path: '/'})					
 					return
 				}
-				let isjr = localStorage.getItem('isldxs');
-				if(!isjr){
-					this.showTip();
-				}
+				
 				
 				
 				this.setVwh();
-			
+				window.addEventListener('resize',this.setVwh,false)
 				this.zoomd = this.boxW/391;
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
@@ -1209,59 +1295,9 @@
 					this.setMaxTime();
 				}
 				this.savsout();
-				let onk = '';
-				document.addEventListener('keydown', (e) => {
-					
-					var ctrlKey = e.ctrlKey || e.metaKey;
-					var shiftKey = e.shiftKey;				
-					if(ctrlKey && e.keyCode==67){
-						e.preventDefault();						
-					}			
-					if(ctrlKey && e.keyCode==86){
-						e.preventDefault();
-					}
-					if(this.checkOn.list && e.keyCode === 8) {
-						e.preventDefault();
-						this.checkOn.list.splice(this.checkOn.on, 1);
-						this.checkOn = {};
-						return
-					}
-					if (e.keyCode == 32) {
-						e.preventDefault()
-						this.playAll();
-						return
-					}
-
-
-				}, false);
-				this.$refs.gdbox.addEventListener('mousewheel', (e) => {					
-					e = e || window.event;
-					var ctrlKey = e.ctrlKey || e.metaKey;
-					var shiftKey = e.shiftKey;
-					if(!ctrlKey && !shiftKey){
-						return
-					}
-					e.preventDefault();
-					var kd = e.wheelDelta ? e.wheelDelta : e.detail;
-					if (kd > 0) {						
-						if (ctrlKey && this.fdjb > 1) {
-							this.fdjb--;
-						}
-						if (shiftKey && this.tdjl > 0) {
-							this.tdjl = this.tdjl-3;
-						}
-					}
-					if (kd < 0) {
-						if (ctrlKey && this.fdjb < 120) {
-							this.fdjb++;
-						}
-						if (shiftKey) {						
-							this.tdjl = this.tdjl+3;
-						}
-					}
-
-
-				}, false)
+				
+				document.addEventListener('keydown',this.LineKey, false);
+				this.$refs.gdbox.addEventListener('mousewheel', this.LineWheel, false)
 
 
 				this.$refs.cavs.width = this.boxW;
@@ -1269,30 +1305,11 @@
 				this.cans = this.$refs.cavs.getContext("2d");
 				this.cans.fillStyle = "#000";
 				this.cans.fillRect(0, 0, this.boxW, this.boxH);
-				this.$refs.vids.addEventListener('play', () => {
-					this.po = window.setInterval(() => {
-						this.cans.fillRect(0, 0, this.boxW, this.boxH);
-						
-						let ob = this.navcoms.media[this.bfon];
-						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
-						let po = this.cun[this.vdcc].x;
-						if (po) {
-							this.cans.fillRect(0, 0, po, this.boxH);
-							this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
-						}
-					}, 20);
-				}, false);
-				this.$refs.vids.addEventListener('pause', () => {
-					window.clearInterval(this.po);
-				}, false);
-				this.$refs.vids.addEventListener('ended', () => {
-					clearInterval(this.po);
-				}, false);
-
+				this.$refs.vids.addEventListener('play',this.LinePlay, false);
+				this.$refs.vids.addEventListener('pause',this.LineClerDrm, false);
+				this.$refs.vids.addEventListener('ended',this.LineClerDrm, false);
 				if (this.navcoms.media[0]) {
-
 					this.setvideo(this.navcoms.media[0].file_url);
-
 				}
 			},
 			qhNav(o, zj) {
@@ -1452,10 +1469,12 @@
 	#app>div>div.ntob {
 		padding: 0;
 		min-height: 100%;
+		overflow-y: hidden;
 	}
 
 	.ntob_head {
-		position: fixed;
+		position: absolute;
+		min-width: 1300px;
 		top: 0;
 		left: 0;
 		text-align: center;
@@ -1468,7 +1487,8 @@
 	}
 
 	.ntob_cent {
-		position: fixed;
+		position: absolute;
+		min-width: 1300px;
 		top: 48px;
 		bottom: 264px;
 		left: 0;
@@ -1645,9 +1665,10 @@
 	}
 
 	.ntob_footer {
-		position: fixed;
+		position: absolute;
 		bottom: 0;
 		left: 0;
+		min-width: 1300px;
 		width: 100%;
 		height: 264px;
 		
@@ -2319,22 +2340,19 @@
 		width: 18px;
 	}
 
-	.ntob_footer_1_2>div:nth-child(1) {
+	.ntob_footer_1_2>div.nl_ti2,.ntob_footer_1_2>div.nl_ti1{
 		line-height: 72px;
 
 	}
 
-	.ntob_footer_1_2>div:nth-child(1)>img {
+	.ntob_footer_1_2>div.nl_ti2>img {
 		margin-top: 27px;
 	}
 
-	.ntob_footer_1_2>div:nth-child(2) {
+	.ntob_footer_1_2>div.nl_ti3{
 		line-height: 32px;
 	}
 
-	.ntob_footer_1_2>div:nth-child(2)>img {
-		margin-top: 7px;
-	}
 
 	.ntob_footer_1_2>div.nl_ti1 {
 		line-height: 72px;
@@ -2343,7 +2361,9 @@
 	.ntob_footer_1_2>div.nl_ti1>img {
 		margin-top: 27px;
 	}
-
+	.ntob_footer_1_2>div.nl_ti3>img {
+		margin-top: 7px;
+	}
 	.con-right-iocn-img {
 		display: inline-block;
 		vertical-align: initial;
