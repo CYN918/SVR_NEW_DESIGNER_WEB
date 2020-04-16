@@ -398,6 +398,7 @@ export default{
 		},
 		bf(el,on,ispd){
 			this.Isfirst = true;
+			this.$refs.aido.currentTime = 0;
 			if(el && this.bfData &&  this.bfData.m_id!=el.m_id){
 				this.bfData = {
 					on:on,

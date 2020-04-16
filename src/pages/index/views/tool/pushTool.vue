@@ -1168,6 +1168,7 @@
 				this.bfTime = 0;
 				if (this.navcoms.media[this.bfon].type == 'pic') {
 					this.drmImg();
+					this.playAio('sx');
 					return
 				}
 				
@@ -1242,6 +1243,7 @@
 				this.ispaused = 1;
 				if (this.navcoms.media[this.bfon].type == 'pic') {
 					this.drmImg();
+					this.playAio();
 					return
 				}
 				if (this.$refs.vids && this.$refs.vids.paused) {
