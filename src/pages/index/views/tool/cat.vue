@@ -123,7 +123,9 @@ export default{
 			this.cjkset(this.pic);	
 			
 			
-		},		
+		},	
+		
+	
 		td_01(e,tp){
 			if(e && e.stopPropagation()) {
 				e.stopPropagation();
@@ -178,6 +180,9 @@ export default{
 				var y = ydy+disH;
 				var xkd = y_w-ydx;
 				var xgd = y_h-ydy;
+				
+				
+				
 				if(tp=='t'){
 					if(xgd>max_h){
 						xgd = max_h;					
@@ -211,8 +216,7 @@ export default{
 					return
 				}
 				if(tp=='b'){
-					var xkd = y_w+ydx;
-					var xgd = y_h+ydy;					
+							
 					if(xgd>max_h){						
 						xgd = max_h;						
 					}
@@ -233,8 +237,7 @@ export default{
 					if(x<this.pic.x){
 						x = this.pic.x;
 					}
-					var xkd = y_w+ydx;
-					var xgd = y_h+ydy;
+			
 					if(xkd>max_w){
 						xkd = max_w;											
 					}
@@ -259,8 +262,7 @@ export default{
 					if(x<this.pic.x){
 						x = this.pic.x;
 					}
-					var xkd = y_w-ydx;
-					var xgd = y_h-ydy;
+				
 					if(xkd>max_w){
 						xkd = max_w;
 						x = max_l_x;
