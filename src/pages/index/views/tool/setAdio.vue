@@ -38,14 +38,14 @@
 			<div 
 			@dblclick="bf(el, index)"
 			v-for="(el,index) in datas"
-			:class="['mp3_04_01 mp3_04_01xd',index%2==0?'mp3_04_01x':'',bfData.on==index?'chebf':'']" 
+			:class="['mp3_04_01 mp3_04_01s mp3_04_01xd',index%2==0?'mp3_04_01x':'',bfData.on==index?'chebf':'']" 
 			>
 				<span><span :class="index<3?'setAdio_01':''">{{index+1}}</span></span>
 				<span>
 					<span class="mp3_04_01_t hft ">
 						<span class="playsd_an_1" :title="el.name">
 							{{el.name}}
-							<lottie-player v-if="bfData.on==index" ref="chean"
+							<lottie-player v-if="bfData.on==index && bfData.m_id==el.m_id" ref="chean"
 								class="playsd_an" src="./js/anm/music.json" background="transparent" speed="1" loop>
 							</lottie-player>
 						</span>
@@ -189,6 +189,11 @@ export default{
 	mounted: function () {
 		this.init();
 	}, 
+	activated: function (){
+		if(this.bRunning){
+			this.$refs.aido.play()
+		}
+	},
 	methods:{
 		mp3down(el) {
 			//算出鼠标相对元素的位置
@@ -237,10 +242,15 @@ export default{
 				that.$refs.aido.play();
 			};
 		},
-		
+		cs(){
+			
+		},
 		init(){
 			this.getcls();
+			
 			this.getList();
+			
+			
 		},
 		getcls(){
 			this.api.sh_class({}).then((da)=>{
@@ -521,7 +531,7 @@ export default{
 				}
 				try{
 					this.datas = da.data;
-				
+					
 				}catch(e){
 					
 				}
@@ -530,6 +540,14 @@ export default{
 				}else{
 					this.isNOdata = '';
 				}
+				
+				setTimeout(()=>{
+					if(this.bRunning && this.$refs.chean[0]){
+						this.$refs.chean[0].play();
+					}
+				},250)
+				
+				
 				
 			})
 		},
@@ -866,16 +884,16 @@ export default{
 	position: relative;
 	top: 0;
 }
-.mp3_04_01:hover{
-    background: rgba(187,187,187,.3);
-	
+.mp3_04_01s:hover{
+    background: rgba(187,187,187,.3);	
 }
 
-.mp3_04_01:hover .seadio_to>img{
+.mp3_04_01s:hover .seadio_to>img{
 	visibility: visible;
 }
 
 .mp3_04_01>span{
+	cursor: context-menu;
 	position: relative;
 	display: inline-block;
 	vertical-align: top;

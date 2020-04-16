@@ -103,19 +103,25 @@ export default{
 			let str = 'z-index:999;background:url('+url+') 0 0/auto 100% repeat-x;width:'+(21*tim)+'px;';
 			let ony = 0;
 			dom.className = 'testd';
+			let brdr = '';
 			dom.style.cssText = str+'left:'+e.x+'px;top:'+e.y+'px;';
 			document.body.appendChild(dom);
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (e)=>{
 				e.preventDefault();
-		
+				brdr = '';
 				let x = e.x;
 				let y = e.y;
 				if(this.$parent.Mos){
+					if((this.$parent.Mos.n=='decorates' && el.file_type=='image') || this.$parent.Mos.n=='media'){
+						y = this.$parent.Mos.y;
+						brdr = 'border-color:rgba(51,179,255,1)';
+					}
 					
-					y = this.$parent.Mos.y;
+					
 				}
-				dom.style.cssText = str+'left:'+(x+20)+'px;top:'+y+'px;';
+				console.log(brdr);
+				dom.style.cssText = str+'left:'+(x+20)+'px;top:'+y+'px;'+brdr;
 				
 			}			 
 			document.onmouseup =  ()=>{
@@ -741,7 +747,7 @@ export default{
 }
 .testd{
 	position: fixed;
-	border: 2px solid rgba(51,179,255,1);
+	border: 2px solid transparent;
 	height: 72px;
 }
 .setMt_03box{

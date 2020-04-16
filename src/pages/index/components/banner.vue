@@ -12,13 +12,13 @@
 		</div>
 		<div class="banner_propaganda">
 			<ul>
-				<li>
+				<li @click="go_p()">
 					<img :src="imgSig+'newHome/project_rukou.svg'" alt=""/>
-					<button class="undertake" @click="go_p()">承接项目</button>
+					<button class="undertake">承接项目</button>
 				</li>
-				<li class="banner_propaganda_t">
+				<li class="banner_propaganda_t"  @click="go_show()">
 					<img :src="imgSig+'newHome/show_laidian.svg'" alt=""/>
-					<button class="making" @click="go_show()">开始制作来电秀</button>
+					<button class="making">开始制作来电秀</button>
 				</li>
 			</ul>
 		</div>

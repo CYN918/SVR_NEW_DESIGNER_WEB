@@ -30,7 +30,7 @@
 				</template>			
 			</list>
 		</div>
-		<navRight v-if="isShow"></navRight>
+		<navRight></navRight>
 		<!-- <div class="home_0x1">
 			<div class="home_0x2">让设计更有价值，让生活更加自由</div>
 			<div class="home_0x3">如果你是设计师、摄影师、特效工程师、音乐工作者、短视频等创作者或创意团队，加入狮圈儿，这里就是你施展才华的圈子，让作品获取最大的价值！</div>
@@ -123,7 +123,7 @@ export default {
 			adFn:'',
 			options:[],
 			value:'',
-			isShow:true,
+			
 			// Ds_01:[
 			// 	{n:'UI图标',t:'UI Icon',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/1.svg'},
 			// 	{n:'摄影',t:'Photography',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/2.svg'},
@@ -139,22 +139,21 @@ export default {
 	},
 	mounted: function(){
 		this.init()
-		this.getMothod()
+		// this.getMothod()
 		// this.getData()
 		// this.getClass();
 	}, 
 	methods: {
-		getMothod(){
-			//定义变量获取屏幕视口宽度
-			var windowWidth = window.innerWidth;
-			if(windowWidth <= 1440){
-				this.isShow = false;
-			}
-			if(windowWidth > 1440){
+		// getMothod(){
+		// 	var windowWidth = window.innerWidth;
+		// 	if(windowWidth <= 1440){
+		// 		this.isShow = false;
+		// 	}
+		// 	if(windowWidth > 1440){
 				
-			}
+		// 	}
 
-		},
+		// },
 		init(){
 			this.mJs.scTop(1);
 			this.getClass();
