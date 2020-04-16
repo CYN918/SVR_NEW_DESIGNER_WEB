@@ -89,6 +89,7 @@ export default {
 	position: fixed;
 	right: 2.3%;
 	top: 40%;
+    z-index: 999999;
 }
 .nav_logo{
     height: 112px;

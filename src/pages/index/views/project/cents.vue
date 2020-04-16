@@ -121,7 +121,7 @@
 				</div>
 				<div class="cens_x0_bottom">
 					<div class="cens_x5">
-						<div class="cens_x2">项目类型：{{deta.classify_name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制作周期:<span v-html="backZq(deta.production_cycle_d,deta.production_cycle_h)"></span></div>
+						<div class="cens_x2">项目类型：{{deta.classify_name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制作周期：<span v-html="backZq(deta.production_cycle_d,deta.production_cycle_h)"></span></div>
 						<div class="cens_x3"><span v-for="(el,index) in deta.fields" :key="index">{{el}}</span></div>
 						
 					</div>
