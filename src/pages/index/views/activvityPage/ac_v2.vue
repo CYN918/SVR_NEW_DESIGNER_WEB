@@ -100,7 +100,7 @@
 					<img :src="imgPath+'ac_v2/fx1.png'"/>
 				</div>
 			</div>
-			<component v-bind:is="tanDatazj"  :datad="tanData"></component>
+			<component v-bind:is="tanDatazj"  :datad="tanData"  :settlement="deta.settlement" :expected_profit="deta.expected_profit"></component>
 		</div>
 		
 	</div>
@@ -236,7 +236,7 @@ export default{
 					return
 				}
 				this.tanDatazj = 'bmXm';
-				this.tanData.project_id = this.deta.id;			
+				this.tanData.project_id = this.deta.id;	
 			}).catch(()=>{
 				
 			})
