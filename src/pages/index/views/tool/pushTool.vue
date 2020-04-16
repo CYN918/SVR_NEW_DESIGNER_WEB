@@ -53,7 +53,7 @@
 							<img class="show_00x_2_5" src="/imge/tools/d_01.png" />
 						</div>
 					</div>
-					<audio class="ntob_cent_l_1" @ended="endAudio()" ref="aido"></audio>
+					<audio class="ntob_cent_l_1" @timeupdate="timeupdatevideo2" @ended="endAudio()" ref="aido"></audio>
 					
 				</div>
 				<div class="ntob_cent_l_2">
@@ -187,12 +187,7 @@
 									</div>
 								</div>
 							</div>
-
-							
-
-						</div>
-						
-
+						</div>						
 					</div>
 					<div class="bf_o1">
 						<div class="bf_o1_1"></div>
@@ -209,12 +204,7 @@
 					
 					</div>
 				</div>
-				
-				
-				
 			</div>
-			
-			
 			<div :style="csad" class="setToll4_2">
 				<span v-if="checkOn.type=='media'" @click="cats()">裁剪</span>
 				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="pastes()">复制</span>
@@ -1008,6 +998,28 @@
 					this.endeds();
 				}
 			},
+			timeupdatevideo2(){
+				let objd = this.navcoms.audio[this.audiosOn];
+				
+				let bftm = objd.cut_end-objd.cut_start;
+				
+				let ontm = this.$refs.aido.currentTime;
+				let max2box = this.navcoms.media[this.navcoms.media.length - 1];
+				let max2boxt = max2box.start+(max2box.cut_end-max2box.cut_start);
+				
+				
+				
+				if (ontm >= max2boxt) {
+					this.$refs.aido.pause();	
+					return
+				}
+				if (ontm >= bftm) {
+					this.$refs.aido.pause();					
+				}
+				
+				
+				
+			},
 			endAudio() {
 				let len = this.navcoms.audio.length;
 				if (this.audiosOn < len - 1) {
@@ -1145,6 +1157,7 @@
 					return
 				}
 				clearTimeout(this.ht);
+				this.$refs.aido.currentTime = 0;
 				this.imgPftime = 0;
 				this.ispaused = 1;
 				this.islast = '';
