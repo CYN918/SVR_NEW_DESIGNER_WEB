@@ -65,7 +65,7 @@
 						项目类型：<span>{{el.classify_name}}</span><i></i>制作周期：<span>{{el.production_cycle_d}}天{{el.production_cycle_h}}时</span> 
 					</div>
 					<div class="pr_list_06">
-						预计收益:<span class="pr_list_07_1" v-if="el.settlement == '0'">{{el.expected_profit}}</span><span class="pr_list_07_1" v-if="el.settlement == '1'">[买断]{{el.expected_profit}}</span><span class="pr_list_07_1" v-if="el.settlement == '2'">[分成]永久收益</span>
+						预计收益:<span class="pr_list_07_1" v-if="el.settlement == '0'">[买断]{{el.expected_profit}}<i style="font-style: normal;color:#282828;font-size:14px;margin-left:5px;margin-right:5px;">或</i>[分成]永久收益</span><span class="pr_list_07_1" v-if="el.settlement == '1'">[买断]{{el.expected_profit}}</span><span class="pr_list_07_1" v-if="el.settlement == '2'">[分成]永久收益</span>
 					</div>
 				</div>
 				<div style="width:40%;float:left;">
