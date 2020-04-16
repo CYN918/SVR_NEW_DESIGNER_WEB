@@ -63,10 +63,10 @@
 			</div>
 		</div>
 		
-		<div class="mp3_05" v-if="Isfirst">
-			<div class="mp3_05_1" v-drag>
-				<span :style="{'width': bfData.ct+'%'}">
-					<span class="mp3_05_1_1"></span>
+		<div class="mp3_05" v-if="Isfirst" ref="mp3_05_1">
+			<div class="mp3_05_1">
+				<span :style="{'width': bfData.ct+'%'}" ref="mp3_05_1_bg">
+					<span class="mp3_05_1_1" @mousedown="mp3down"></span>
 				</span>
 			</div>
 			<div class="mp3_05_2">
@@ -174,11 +174,16 @@ export default{
 				};
 				document.onmouseup = e => {
 					  //鼠标弹起来的时候不再移动
-					  document.onmousemove = null;
+					document.onmousemove = null;
 					 //预防鼠标弹起来后还会循环（即预防鼠标放上去的时候还会移动）  
 					document.onmouseup = null;
 				};
 			};
+		},
+		progress:(el)=>{
+			let dragBox = el; //获取当前元素
+			let flag = false;
+			
 		}
 	},
 	mounted: function () {
@@ -190,6 +195,53 @@ export default{
 		}
 	},
 	methods:{
+		mp3down(el) {
+			//算出鼠标相对元素的位置
+			let that = this;
+			let dragBox= el.currentTarget;
+			//that.$refs.aido.pause();
+			let t = 0;
+			let dX = el.clientX;
+			let px = that.$refs.mp3_05_1.clientWidth;
+			let cx = that.$refs.mp3_05_1_bg.clientWidth;
+			let bfb = 0;
+			document.onmousemove = e => {
+				//用鼠标的位置减去鼠标相对元素的位置，得到元素的位置
+				//console.log(that.$refs.aido.currentTime);
+				
+				let mX = e.clientX;
+				let x = (mX - dX) <= 0 ? -(mX - dX) : (mX - dX);
+				///console.log(dragBox.offsetLeft)
+				
+				console.log(mX)
+				if((mX-dX) > 0){
+					if(0<x < (px-cx)){
+						bfb = x/px;
+						t = bfb*(that.$refs.aido.duration).toFixed(2);
+						console.log(t,(bfb*(that.$refs.aido.duration)).toFixed(2))
+					}
+				}else if((mX-dX) < 0) {
+					if(0< x < cx){
+						bfb = x/px;
+						t = bfb*(that.$refs.aido.duration).toFixed(2);
+					}
+					
+				}else if((dX - mX) == 0) {
+					
+				}
+				
+				that.$refs.aido.currentTime = t;
+				
+			};
+			document.onmouseup = e => {
+				//鼠标弹起来的时候不再移动
+				//that.$refs.aido.play();
+				document.onmousemove = null;
+				 //预防鼠标弹起来后还会循环（即预防鼠标放上去的时候还会移动）  
+				document.onmouseup = null;
+				that.$refs.aido.play();
+			};
+		},
 		cs(){
 			
 		},
@@ -411,10 +463,14 @@ export default{
 		
 		},
 		timeupdate(){
+			//console.log(this.$refs.aido.currentTime+">>>>>>");
 			let ctime =  ((this.$refs.aido.currentTime / this.$refs.aido.duration)*100).toFixed(2);
 			//console.log(ctime)
 			this.$set(this.bfData,'ct',ctime);
 			this.$set(this.bfData,'bft',this.backT(Math.floor(this.$refs.aido.currentTime)));
+		},
+		progress(){
+			
 		},
 		ended(){
 			this.bf(this.datas[this.bfData.on+1],this.bfData.on+1)
