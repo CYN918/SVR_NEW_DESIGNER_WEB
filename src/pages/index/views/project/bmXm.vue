@@ -45,7 +45,8 @@
 				
 			</div>
 			<div class="bmXm_01Btn">
-				<div @click="pushBm" class="btns btns_js pend">提交报名 ({{postData.work_ids.length}})</div>
+				<div v-if="postData.work_ids.length == '0'" class="btns btns_js pend" style="background: #F4F6F9;border-color: #F4F6F9;color: #333333;">提交报名</div>
+				<div v-else @click="pushBm" class="btns btns_js pend">提交报名 ({{postData.work_ids.length}})</div>
 			</div>
 		</template>			
 	</tanC>
