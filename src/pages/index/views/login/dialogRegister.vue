@@ -8,7 +8,10 @@
 			<el-form-item>
 				<el-button :class="['lgoin_s4',btnType]" type="primary" @click="submitForm('myform')">注册</el-button>				
 			</el-form-item>
-			<p class="lgoin_s5">已有账号？<a class="pend" @click="god()">登录</a></p>
+			<div class="xyckeck">
+				<div class="yd"><el-checkbox v-model="ck_box"></el-checkbox>我已阅读并接受<span @click="go_xy()">用户协议</span></div>
+				<p class="lgoin_s5">已有账号？<a class="pend" @click="god()">登录</a></p>
+			</div>
 		</el-form>
 		<div class="tip_t"><p class="p_t"></p><p class="p_text">第三方快捷登陆</p><p class="p_h"></p></div>
 		<div class="lgoin_s6">
@@ -92,7 +95,8 @@ export default {
 			outc:{
 				num:1,
 				scroll:2,
-			}
+			},
+			ck_box:true,
 		}
 	},
 	mounted: function () {	
@@ -125,7 +129,13 @@ export default {
             this.$router.push({
                 path:'/index'
             })
-        },
+		},
+		go_xy(){
+			this.$parent.close()
+			this.$router.push({
+                path:'/userProtocol'
+            })
+		},
 		ajaxYzm(){
 			this.bdtj('注册页','获取验证码','--');
 			let pd = this.chekPhpne(this.form.mobile);
@@ -161,6 +171,10 @@ export default {
 			}
 			if(this.ajaxType==1){
 				Message({message: '正在提交'});
+				return
+			}
+			if(this.ck_box == false){
+				Message({message: '请勾选用户协议'});
 				return
 			}
 		
@@ -292,5 +306,32 @@ export default {
 }
 .inptud{
 	margin-bottom: 5px;
+}
+.xyckeck{
+	width: 100%;
+	height: 25px;
+    line-height: 25px;
+}
+.xyckeck .yd{
+	width: 60%;
+	float: left;
+	font-size: 16px;
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    color: #333333;
+}
+.xyckeck .yd >>> .el-checkbox{
+	margin-right: 3px;
+}
+.el-form-item{
+	margin-bottom: 0px;
+}
+.xyckeck .yd span{
+	color: #33B3FF;
+	cursor: pointer;
+}
+.xyckeck .lgoin_s5{
+	width: 40%;
+	float: right;
 }
 </style>
