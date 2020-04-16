@@ -454,6 +454,9 @@
 				this.po = window.setInterval(() => {
 					this.cans.fillRect(0, 0, this.boxW, this.boxH);
 					let ob = this.navcoms.media[this.bfon];
+					if(!this.cans.drawImage){
+						window.clearInterval(this.po);
+					}
 					this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 					let po = this.cun[this.vdcc].x;
 					if (po) {
@@ -1001,14 +1004,12 @@
 			timeupdatevideo2(){
 				let objd = this.navcoms.audio[this.audiosOn];
 				
-				let bftm = objd.cut_end-objd.cut_start;
+				let bftm = objd.cut_end;
 				
-				let ontm = this.$refs.aido.currentTime;
+				let ontm = this.$refs.aido.currentTime-objd.cut_start;
 				let max2box = this.navcoms.media[this.navcoms.media.length - 1];
 				let max2boxt = max2box.start+(max2box.cut_end-max2box.cut_start);
-				
-				
-				
+
 				if (ontm >= max2boxt) {
 					this.$refs.aido.pause();	
 					return
@@ -1157,7 +1158,7 @@
 					return
 				}
 				clearTimeout(this.ht);
-				this.$refs.aido.currentTime = 0;
+				this.$refs.aido.currentTime = this.navcoms.audio[0].cut_start;
 				this.imgPftime = 0;
 				this.ispaused = 1;
 				this.islast = '';
@@ -1203,12 +1204,14 @@
 				}
 				if(!this.$refs.aido.src){
 					this.$refs.aido.src = this.navcoms.audio[0].file_url;
+					this.$refs.aido.currentTime = this.navcoms.audio[0].cut_start;
 				}
 				
 				setTimeout(() => {
 					if (a == 'sx') {
-						this.$refs.aido.currentTime = this.navcoms.audio[0].start;
+						this.$refs.aido.currentTime = this.navcoms.audio[0].cut_start;
 					}
+					
 					this.$refs.aido.play();
 				}, 50)
 			},
