@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<div class="b_con_01">
+		<component v-if="coms.zj" v-bind:is="coms.zj" v-model="coms" ref="vid"></component>
+		<div v-else class="b_con_01">
 			<div class="tolu_01">
 				<span>我的来电秀工程</span>
 				<a href="/#/help?on=4-02">如何通过制作来电秀获得收益？</a>
@@ -12,16 +13,9 @@
 				<div class="listbgline"></div>
 			</div>
 			<div class="tolu_02" >
-				<div v-if="showK" class="tolu_03">
-					<img class="tolu_04" :src="imgPath+'svg/empty_nodata.svg'">
-					<div class="tolu_05">{{btn_a[btn_on].t}}</div>
-					<div class="btn_n4">
-						<span @click="go(btn_a[btn_on].p)" class="btn_n btn_n3">{{btn_a[btn_on].n}}</span>
-					</div>
-					
-				</div>
 				
-				<div v-else class="tolu_06">
+				
+				<div  class="tolu_06">
 					
 					<list :config="conf" ref="sfafa">
 						
@@ -61,15 +55,20 @@
 <script>
 import list from '../../components/list2';
 import cent from './cent';
+import noDshow from './noDshow';
 export default{
-	components:{list,cent},
+	components:{list,cent,noDshow},
 	data(){
 		return{
+			coms:{
+				zj:'noDshow',
+				type:0,
+			},
 			isRz:'',
 			btn_a:[
 				{t:'来电秀工程为空，快去开启你的设计之路吧！',n:'开始制作',p:'/pushTool'},
 				{t:'认证供稿人后，即可开始制作',n:'立即认证',p:'/setPersonal'},
-				
+				{t:'认证供稿人后，即可开始制作',n:'立即认证',p:'/setPersonal'},
 			],
 			btn_on:0,
 			conf:{
@@ -105,19 +104,9 @@ export default{
 			if(!window.userInfo){
 				this.$router.push({path:'/login'});	
 			}
-			if(!window.userInfo || window.userInfo.contributor_format_status != 2){
-				this.$router.push({path: '/'})					
-				return
+			if(window.userInfo.contributor_format_status==2){
+				this.coms.zj = '';
 			}
-			
-			if(window.userInfo.is_contributor!=true){
-				this.showK = 1;
-				this.btn_on = 1;
-				return
-			}
-			this.showK = '';
-			
-
 		},
 		go(to){
 			this.$router.push({path:to});	

@@ -16,16 +16,16 @@
 					<img v-if="name" class="mp3_03_2_img2" @click="del()" src="../../../../assets/del.png"/>
 				</div>
 			</div>				
-			<spck 
+			<spck2 
 			
 			v-if="type=='sh_List' && !name"
 			v-model="clas"
 			class="mp3_03_3"
-			:List="cls"
+			:List="showNav"
 			:keys="'classify_name'"
 			:v="'classify_name'"
 			
-			></spck>
+			></spck2>
 			
 		</div>
 		<div v-if="isNOdata" class="mp3_04 mp3_04nod">
@@ -58,7 +58,12 @@
 				{{backT(el.duration)}}</span><span class="seadio_to">
 					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="bRunning && (bfData.on==index)?'/imge/tools/music_icon_pause.svg':'/imge/tools/music_icon_play.svg'"/>
 					<img @click="favor(el)" class="mp3_04_01_sc pend" :src="el.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
-					<span @click="checks(el)" class="setAdio_02 pend">选用</span>
+					
+					<span @click="checks(el)" class="setAdio_02 pend">
+						<img v-if="el.m_id==aaa" class="setAdio_02x" src="/imge/tools/oclod.svg">
+						<span v-else>选用</span>
+						
+					</span>
 				</span>
 			</div>
 		</div>
@@ -106,9 +111,11 @@
 
 <script>
 import spck from './fospan'
+import spck2 from './fospan2'
 export default{
 	components:{
-		spck
+		spck,
+		spck2
 	},
 	props:{
 		value:Object
@@ -142,7 +149,9 @@ export default{
 			},
 			bRunning:false,
 			isNOdata:'',
-			Isfirst:false
+			Isfirst:false,
+			showNav:[],
+			aaa:'',
 		}
 	},
 	watch:{
@@ -205,13 +214,18 @@ export default{
 				if(da=='error'){return}
 				this.cls = da;
 				
+				this.showNav = this.cls;
+				
+				
 			})
 			
 		},
 		sh_audioUrld(el){
+			
 			this.api.sh_audioUrl({
 				m_id:el.m_id
 			}).then((da)=>{
+				this.aaa='';
 				if(da=='error'){return}
 			
 				let pr = {
@@ -235,10 +249,13 @@ export default{
 				
 				this.value.audio.splice(0,1,pr);
 				this.$parent.playsx();
+				
 				this.$message({
 					message:"选用成功"
 				})
 				
+			}).catch(()=>{
+				this.aaa='';
 			})
 		},
 		sh_addFavorAudio(id) {
@@ -264,13 +281,19 @@ export default{
 			})
 		},
 		checks(el){
+			if(this.aaa){
+				return
+			}
+			
 			if(el){
+				this.aaa=el.m_id;
 				this.sh_audioUrld(el);
 				return
 			}
 
 			let ond = this.bfData.on;
 			let choseEl = this.datas[ond];
+			this.aaa=choseEl.m_id;
 			this.sh_audioUrld(choseEl);
 		},
 		sys(){
@@ -636,7 +659,7 @@ export default{
 	font-size:14px;
 }
 .mp3_03_3{
-	overflow: hidden;
+	
     margin-bottom: 10px;
     margin-right: -20px;
 }
@@ -663,7 +686,7 @@ export default{
 		transform: rotateZ(360deg);
 	}
 }
-.mp3_03_3>span{
+.mp3_03_3>div>span{
 	margin-right: 20px;
 	display: inline-block;
 	vertical-align: top;
@@ -674,14 +697,15 @@ export default{
 	font-size:14px;
 	margin-bottom: 10px;
 	color:rgba(51,51,51,1);
+	border-radius: 16px;
 	line-height:30px;
 	text-align: center;
 	cursor: pointer;
 }
-.mp3_03_3>span:hover{
+.mp3_03_3>div>span:hover{
 	color:#33B3FF;
 }
-.mp3_03_3>span.chekd{
+.mp3_03_3>div>span.chekd{
 	color: #33B3FF;
 	background:rgba(51,179,255,0.1);
 	border:1px solid rgba(51,179,255,0.2);
@@ -912,6 +936,17 @@ export default{
 }
 .setAdio_02{
 	color: #33B3FF;
+}
+.setAdio_02x{
+	display: inline-block;
+	width: 21px;
+	vertical-align: top;
+	margin-top: 12px;
+	animation:  zqn 1s linear infinite;
+}
+@keyframes zqn{
+	from{ transform: rotate(0);}
+	to{transform: rotate(360deg);}
 }
 .setAdio_01{
 	color: #FF9200;
