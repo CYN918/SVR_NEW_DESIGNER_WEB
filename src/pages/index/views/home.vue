@@ -173,7 +173,7 @@ export default {
 		qhZt(id){
 			this.data.pr.type = id;
 			this.value = '';
-			this.mJs.scTop(1);	
+			this.mJs.scTop(702);	
 			this.$refs.sfafa.sxfn();
 		
 		},
