@@ -374,7 +374,6 @@ export default{
 	left: 50%;
 	transform: translate(-50%,-50%);
 	width:720px;
-	height:555px;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
 	border-radius:5px;	
@@ -499,6 +498,7 @@ export default{
 .pcat_bt{
 	position: relative;
 	margin: 40px 40px;
+	height: 32px;
 }
 .pcat_bt_0x{
 	position: absolute;
