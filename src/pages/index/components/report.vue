@@ -68,7 +68,7 @@ export default {
 						setTimeout(()=>{				
 							this.$refs.logindialog.show();
 				            this.outc.num = 1;
-						},2000);
+						},100);
 					return
 				}	
 				if(!id){return}

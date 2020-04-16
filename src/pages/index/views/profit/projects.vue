@@ -21,9 +21,9 @@ export default {
 					{n:'验收价格',clfn:(da)=>{ return '￥'+this.mJs.money_deiv(da.acceptance_price)}},
 					// {n:'额外奖金',clfn:(da)=>{ return '￥'+this.mJs.money_deiv(da.extra_reward)}},
 					// {n:'延时交稿扣减',clfn:(da)=>{ return '-￥'+this.mJs.money_deiv(da.deduction_price)}},
-					{n:'收益加成',clfn:(da)=>{ return '￥'+this.mJs.money_deiv(da.gain_share_price)+'('+da.gain_share_rate+'%)'}},
+					{n:'收益加成',clfn:(da)=>{if(da.deal_type == '2'){return '永久分成'}else{return '￥'+this.mJs.money_deiv(da.gain_share_price)+'('+da.gain_share_rate+'%)'}}},
 					{n:'成交价格',temp:{cls:'pend',clfn:(d)=>{
-						return '<span class="font_cf">￥'+this.mJs.money_deiv(d.deal_price)+'</span>';
+						if(d.deal_type == '2'){return '永久分成'}else{return '<span class="font_cf">￥'+this.mJs.money_deiv(d.deal_price)+'</span>'};
 					}}},
 			
 					{n:'验收时间',clfn:(da)=>{ return this.mJs.backTime(da.deal_time,'/')}},
