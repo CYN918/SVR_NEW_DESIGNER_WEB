@@ -96,7 +96,7 @@
 					
 					<div class="ntob_cent_r_2">
 							
-<keep-alive>
+					<keep-alive>
 						<component v-bind:is="navcoms.zj" v-model="navcoms" ref="vid"></component>
 					</keep-alive>
 					</div>
@@ -189,7 +189,7 @@
 							</div>
 						</div>						
 					</div>
-					<div class="bf_o1">
+					<div :class="['bf_o1',isbf?'gdAm':'']" :style="backbft()">
 						<div class="bf_o1_1"></div>
 					</div>
 					<div class="gund_01" ref="gund_01x">
@@ -254,6 +254,7 @@
 				boxH:0,
 				spgd: 0,
 				istype: '',
+				isbf:'',
 				cun: [{
 						n: '9:16',
 						x: 0
@@ -401,6 +402,9 @@
 			}	
 		},
 		methods: {
+			backbft(){
+				return 'transform: translateX('+((this.bfTime/this.bl) * this.wdk)+'px);';
+			},
 			LineKey(e){
 				let ctrlKey = e.ctrlKey || e.metaKey,
 				shiftKey = e.shiftKey;				
@@ -452,11 +456,13 @@
 			},
 			LinePlay(){
 				this.po = window.setInterval(() => {
-					this.cans.fillRect(0, 0, this.boxW, this.boxH);
-					let ob = this.navcoms.media[this.bfon];
-					if(!this.cans.drawImage){
+					if(!this.navcoms.media[this.bfon]){
 						window.clearInterval(this.po);
 					}
+					
+					this.cans.fillRect(0, 0, this.boxW, this.boxH);
+					let ob = this.navcoms.media[this.bfon];
+					
 					this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 					let po = this.cun[this.vdcc].x;
 					if (po) {
@@ -985,6 +991,7 @@
 					return
 				}
 				this.islast = 1;
+				this.isbf = '';
 				this.ispaused = '';
 			},
 			timeupdatevideo() {
@@ -1157,8 +1164,13 @@
 				if (this.navcoms.media.length == 0) {
 					return
 				}
-				clearTimeout(this.ht);
-				this.$refs.aido.currentTime = this.navcoms.audio[0].cut_start;
+				
+				if(this.navcoms.audio[0]){
+					clearTimeout(this.ht);
+					this.$refs.aido.currentTime = this.navcoms.audio[0].cut_start;
+					
+				}
+				
 				this.imgPftime = 0;
 				this.ispaused = 1;
 				this.islast = '';
@@ -1229,7 +1241,7 @@
 					
 				}
 				if(this.ispaused){
-				
+					this.isbf = '';
 					this.ispaused = '';
 					clearTimeout(this.ht);
 					if (this.$refs.vids) {
@@ -1240,6 +1252,7 @@
 					}
 					return
 				}
+				this.isbf = 1;
 				this.ispaused = 1;
 				if (this.navcoms.media[this.bfon].type == 'pic') {
 					this.drmImg();
@@ -1254,7 +1267,6 @@
 				}
 			},
 			setVwh(){
-				console.log(11111);
 				let domd = this.$refs.vidobox.getBoundingClientRect();							
 				this.boxH = domd.height;
 				this.boxW = (domd.height/16)*9;
@@ -2441,5 +2453,8 @@
 	    right: 0;
 	    bottom: 75px;
 
+	}
+	.gdAm{
+		transition: transform .5s;
 	}
 </style>

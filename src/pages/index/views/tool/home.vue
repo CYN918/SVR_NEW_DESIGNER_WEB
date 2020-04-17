@@ -84,9 +84,7 @@ export default{
 			// 	this.$router.push({path:'/tolt/toluser'});
 			// 	return
 			// }
-			this.$message({
-				message:'请先认证'
-			})
+			
 			setTimeout(()=>{
 				this.$router.push({path: '/setPersonal'})
 			}, 1000);
