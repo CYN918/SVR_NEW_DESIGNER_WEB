@@ -152,6 +152,7 @@ export default{
 			Isfirst:false,
 			showNav:[],
 			aaa:'',
+			ym:0
 		}
 	},
 	watch:{
@@ -206,49 +207,55 @@ export default{
 	methods:{
 		mp3down(el) {
 			//算出鼠标相对元素的位置
-			let that = this;
+			this.$refs.aido.pause();
 			let dragBox= el.currentTarget;
-			//that.$refs.aido.pause();
-			let t = 0;
+			let that = this;
+			let t = that.$refs.aido.currentTime;
 			let dX = el.clientX;
+			let dY = el.clientY;
 			let px = that.$refs.mp3_05_1.clientWidth;
 			let cx = that.$refs.mp3_05_1_bg.clientWidth;
-			let bfb = 0;
 			document.onmousemove = e => {
 				//用鼠标的位置减去鼠标相对元素的位置，得到元素的位置
 				//console.log(that.$refs.aido.currentTime);
 				
 				let mX = e.clientX;
-				let x = (mX - dX) <= 0 ? -(mX - dX) : (mX - dX);
-				///console.log(dragBox.offsetLeft)
+				//let x = (mX - dX) < 0 ? -(mX - dX) : (mX - dX);
 				
-				console.log(mX)
-				if((mX-dX) > 0){
-					if(0<x < (px-cx)){
-						bfb = x/px;
-						t = bfb*(that.$refs.aido.duration).toFixed(2);
-						console.log(t,(bfb*(that.$refs.aido.duration)).toFixed(2))
-					}
-				}else if((mX-dX) < 0) {
-					if(0< x < cx){
-						bfb = x/px;
-						t = bfb*(that.$refs.aido.duration).toFixed(2);
-					}
-					
-				}else if((dX - mX) == 0) {
-					
-				}
-				
+					// if((mX-dX) >= 0){
+					// 	if(x < (px-cx)){
+					// 		t = (x+this.ym)/px*(that.$refs.aido.duration);
+					// 		console.log(">>>>>>>>",t,x,px)
+					// 	}  else {
+					// 		t = that.$refs.aido.duration;
+					// 	}
+					// }
+					// if((mX-dX) < 0) {
+					// 	if(x < (px-cx)){
+					// 		t = (x+this.ym)/px*(that.$refs.aido.duration);
+					// 		console.log("???????",t,x,(px-cx),mX,dX)
+					// 	} else {
+					// 		t = 0;
+					// 	}
+						
+					// }
+					// that.$refs.aido.currentTime = t;
+				let x = (mX - dX)
+				t = (x+this.ym)/px*(that.$refs.aido.duration);
 				that.$refs.aido.currentTime = t;
+				
+				
 				
 			};
 			document.onmouseup = e => {
+				let uX = e.clientX;
+				this.ym = uX - dX;
 				//鼠标弹起来的时候不再移动
-				//that.$refs.aido.play();
+				that.$refs.aido.play();
 				document.onmousemove = null;
 				 //预防鼠标弹起来后还会循环（即预防鼠标放上去的时候还会移动）  
 				document.onmouseup = null;
-				that.$refs.aido.play();
+				//that.$refs.aido.play();
 			};
 		},
 		cs(){
