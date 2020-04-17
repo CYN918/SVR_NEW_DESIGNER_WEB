@@ -86,17 +86,9 @@
 							</div>
 						</div>
 						<div class="mp3_05_2_2_2">
-<<<<<<< HEAD
-							<span class="mp3_05_2_2_2_1 hft">{{bfData.author}}</span>
-							<span class="mp3_05_2_2_2_2">
-								
-								
-							{{backT(bfData.onTime)}} / {{backT(bfData.duration)}}
-=======
 							<span class="mp3_05_2_2_2_1 hft" onselectstart="return false;">{{bfData.author?bfData.author:'无歌手'}}</span>
 							<span class="mp3_05_2_2_2_2" onselectstart="return false;">
-							{{bfData.bft}} / {{backT(bfData.duration)}}
->>>>>>> 9f3c38b3a35985929abe7df1317e9497d465e984
+							{{backT(bfData.onTime)}} / {{backT(bfData.duration)}}
 							</span>
 						</div>
 					</span>
@@ -366,7 +358,8 @@ export default{
 				author:pd.author,
 				onTime:0,
 				duration:pd.duration,
-				is_collect:pd.is_collect
+				is_collect:pd.is_collect,
+				face_pic:el.face_pic
 			};
 			this.$parent.playAdio({
 				type:'pauseFn',
@@ -394,6 +387,7 @@ export default{
 				duration:pd.duration,
 				is_collect:pd.is_collect,
 				onTime:0,
+				face_pic:el.face_pic
 			};
 			this.$parent.playAdio({
 				type:'pauseFn',
@@ -412,13 +406,8 @@ export default{
 					onTime:0,	
 					duration:el.duration,
 					is_collect:el.is_collect,
-<<<<<<< HEAD
-				};				
-=======
 					face_pic:el.face_pic
 				};
-				
->>>>>>> 9f3c38b3a35985929abe7df1317e9497d465e984
 				this.sh_audioUrl(el.m_id);
 				return
 			}
