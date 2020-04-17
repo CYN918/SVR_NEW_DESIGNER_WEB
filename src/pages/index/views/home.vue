@@ -167,7 +167,7 @@ export default {
 					type:this.data.pr.type
 				};
 			}
-			this.mJs.scTop(1);
+			this.mJs.scTop(702);
 			this.$refs.sfafa.sxfn();	
 		},
 		qhZt(id){

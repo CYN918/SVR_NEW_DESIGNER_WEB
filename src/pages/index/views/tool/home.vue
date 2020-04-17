@@ -3,7 +3,8 @@
 	<div>
 		<div class="hot_topbox">
 			<img class="hotBaner" :src="imgSig+'toltImg/ZQ-banner.svg'">
-			<button @click="godd" v-if="userMssge.contributor_format_status == 0 || userMssge == ''">立即加入</button>
+			<button @click="godd" v-if="userMssge.contributor_format_status == 0 || userMssge == '' || userMssge.contributor_format_status == -1">立即加入</button>
+			<button v-if="userMssge.contributor_format_status == 1">审核中</button>
 			
 		</div>
 		<div class="hotCent">
