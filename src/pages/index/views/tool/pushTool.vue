@@ -199,6 +199,7 @@
 					</div>
 					<div :class="['bf_o1',isbf?'gdAm':'']" :style="backbft()">
 						<div class="bf_o1_1"></div>
+						<img src="/imge/tools/GD_icon_sjz.svg"/>
 					</div>
 					<div class="gund_01" ref="gund_01x">
 						<div @mousedown="jlx($event)" :style="tdfn()" class="gund_02"></div>
@@ -920,6 +921,11 @@
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
+			
+			
+			setDomStar(x){				
+				return ((x-120)/this.wdk)*this.bl;				
+			},
 			zzyz() {
 				if (this.navcoms.media.length == 0) {
 					this.$message({
@@ -1394,7 +1400,6 @@
 			showcj(e,b) {
 				let dom = e.target.getBoundingClientRect();
 				if (b) {
-				
 					this.checkOn = b;
 				}
 				this.csad = 'display:block;top:' + (dom.y - 5) + 'px;left:' + (dom.x - 22) + 'px';
@@ -1445,7 +1450,7 @@
 						return
 					}
 					this.$message({
-						message: '请先设置类容',
+						message: '请先添加内容',
 					})
 					return
 				}
@@ -2252,13 +2257,19 @@
 
 	.bf_o1 {
 		position: absolute;
-		top: 0;
+		top: 52px;
 		left: 0;
-		width: 1px;
-		height: 100%;
-		background: #0000FE;
+		width:2px;
+		height:214px;
+		background: #33B3FF;
 	}
-
+	.bf_o1>img{
+		position: absolute;
+		top: -20px;
+		left: 50%;
+		width: 20px;
+		transform: translateX(-50%);
+	}
 	.newds_012 {
 		margin: 28px 84px;
 		font-size: 14px;
