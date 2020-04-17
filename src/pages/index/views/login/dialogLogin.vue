@@ -10,7 +10,7 @@
 			</div>	
 			<component v-bind:is="btnType" ref="loginFrom"></component>			
 			<el-button :class="['lgoin_s4',btnType2]" type="primary" @click="loginUp">登录</el-button>		
-			<p class="lgoin_s5"><span>没有账号？<a class="pend" @click="gotj()">注册</a></span><span><router-link class="pend" to="/index">返回首页</router-link></span></p>
+			<p class="lgoin_s5"><span><a class="pend" @click="goTj()" style="color: #666666;">忘记密码</a></span><span>没有账号？<a class="pend" @click="gotj()">注册</a></span></p>
 			<!-- <div class="lgoin_s6x"></div> -->
 			<div class="tip_t"><p class="p_t"></p><p class="p_text">第三方快捷登陆</p><p class="p_h"></p></div>
 			<div class="lgoin_s6">
@@ -69,6 +69,12 @@ export default {
 				style:'black',
 				href:'https://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/text.css',
 			})
+		},
+		goTj(){
+			// this.bdtj('登录页','忘记密码','--');
+			// this.$router.push({path:d})
+			// this.$parent.$parent.getRetrieve(this.outc)
+			this.init({num:3,scroll:2})
 		},
 		btnTab(type){
 			if(type == 'ewm'){
