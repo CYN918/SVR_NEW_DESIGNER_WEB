@@ -67,7 +67,8 @@
 	<div class="cengg">
 		<div class="cens_01">
 			<div class="cents_box">
-				<img class="cens_02_1_img" :src="deta.banner" alt="">
+				<img class="cens_02_1_img" v-if="deta.detail_banner" :src="deta.detail_banner" alt="">
+				<img class="cens_02_1_img" v-else :src="deta.banner" alt="">
 				<div class="cents_box_status">
 					<div class="cenDjs_5" v-if="deta.status == '1'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
@@ -111,6 +112,43 @@
 						<p v-if="deta.settlement == '1'">{{deta.expected_profit}}</p>
 						<p v-if="deta.settlement == '2'">永久分成</p>
 					</div>
+					
+				</div>
+				<div class="liucheng" v-if="deta.status == '3'">
+					<div class="element1" style="background-color: #FF9200;"></div>
+					<div class="t-1">制作期</div>
+					<div class="t-2"></div>
+					<div class="element2"></div>
+					<div class="t-3">待审核</div>
+					<div class="t-4"></div>
+					<div class="element3"></div>
+					<div class="t-5">已验收</div>
+					<div class="t-6">请在规定时间交付稿件</div>
+
+				</div>
+				<div class="liucheng" v-if="deta.status == '4'" style="background:rgba(255,146,0,1);">
+					<div class="element1" style="background-color: #FF9200;"></div>
+					<div class="t-1">制作期</div>
+					<div class="t-2"></div>
+					<div class="element2" style="background-color: #FF9200;"></div>
+					<div class="t-3">待审核</div>
+					<div class="t-4"></div>
+					<div class="element3"></div>
+					<div class="t-5">已验收</div>
+					<div class="t-6">稿件已提交，请等待验收审核</div>
+
+				</div>
+				<div class="liucheng" v-if="deta.status == '5'" style="background:rgba(77,198,0,1);">
+					<div class="element1" style="background-color: #FF9200;"></div>
+					<div class="t-1">制作期</div>
+					<div class="t-2"></div>
+					<div class="element2" style="background-color: #FF9200;"></div>
+					<div class="t-3">待审核</div>
+					<div class="t-4"></div>
+					<div class="element3" style="background-color: #FF9200;"></div>
+					<div class="t-5">已验收</div>
+					<div class="t-6">项目已验收，感谢与你的本次合作</div>
+
 				</div>
 			</div>
 			<div class="cens_02_1_cent">
@@ -778,10 +816,12 @@ export default {
 	width: 875px;
 	bottom: 48px;
     left: 215px;
+	text-align: center;
 }
 .cents_box_status > div{
 	height: 98px;
-	float: left;
+	vertical-align:top;
+	display: inline-block;
 }
 .cents_box_status > div > p > i{
 	font-style: normal;
@@ -860,6 +900,46 @@ export default {
 	font-family:PingFangSC-Medium,PingFang SC;
 	font-weight:500;
 	color:rgba(255,146,0,1);
+}
+.liucheng{
+	width: 1300px;
+	height: 40px;
+	line-height: 40px;
+	position: absolute;
+	bottom: 0;
+	background: #33B3FF;
+	text-align: center;
+	opacity:0.7;
+}
+.liucheng > div{
+	vertical-align: top;
+	display: inline-block;
+}
+.liucheng .element1,.liucheng .element2,.liucheng .element3{
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	border: 2px solid #ffffff;
+	margin: 13px 5px 13px 0px;
+}
+.liucheng .t-1,.liucheng .t-3,.liucheng .t-5{
+	color: #ffffff;
+	font-size: 14px;
+	font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+}
+.liucheng .t-6{
+	color: #ffffff;
+	font-size: 14px;
+	font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+	margin-left: 62px;
+}
+.liucheng .t-2,.liucheng .t-4{
+	width: 115px;
+	height: 1px;
+	background: #ffffff;
+	margin: 19px 0px 18px 12px;
 }
 
 </style>
