@@ -131,8 +131,16 @@
 										<div class="setToll">
 										
 											<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
-											<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2"></div>
-											<div @mousedown="jl($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll3"></div>
+											<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2">
+												<div class="setToll2_1">
+													<i></i><i></i><i></i>
+												</div>
+											</div>
+											<div @mousedown="jl($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll3">
+												<div class="setToll3_1">
+													<i></i><i></i><i></i>
+												</div>
+											</div>
 											<div @click="showcj($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="setToll4">
 												<i></i><i></i><i></i>
 											</div>
@@ -227,6 +235,15 @@
 				</div>
 			</div>
 			<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
+			
+			
+			<audio 
+			class="ntob_cent_l_1" 
+			@timeupdate="setAdioLad" 
+			@ended="setendAudio()" 
+			ref="setAdios"
+			></audio>
+			
 		</div>
 	</div>
 </template>
@@ -402,6 +419,35 @@
 			}	
 		},
 		methods: {
+			playAdio(t){
+				if(t.url){
+					this.$refs.setAdios.src = t.url;
+				}
+				if(t.time){
+					this.$refs.setAdios.currentTime = t.time;
+				}
+				this[t.type](this.$refs.setAdios)
+			},
+			
+			playFn(obj){
+				obj.play();
+			},
+			pauseFn(obj){
+				obj.pause();
+			},
+			setcurrentTime(t){
+				this.$refs.setAdios.currentTime = t;
+			},
+			setAdioLad(){
+				if(this.$refs.vid && this.$refs.vid.setTime){
+					this.$refs.vid.setTime(this.$refs.setAdios.currentTime);
+				}
+			},
+			setendAudio(){
+				if(this.$refs.vid && this.$refs.vid.ended){
+					this.$refs.vid.ended();
+				}
+			},
 			backbft(){
 				return 'transform: translateX('+((this.bfTime/this.bl) * this.wdk)+'px);';
 			},

@@ -70,7 +70,7 @@
 		
 		<div class="mp3_05" v-if="Isfirst" ref="mp3_05_1">
 			<div class="mp3_05_1">
-				<span class="mp3_05_1_2" :style="'transform: translateX('+((bfData.onTime/$refs.aido.duration)-1)*100+'%);'" ref="mp3_05_1_bg">
+				<span class="mp3_05_1_2" :style="backTX()" ref="mp3_05_1_bg">
 					<span class="mp3_05_1_1" @mousedown="mp3down"></span>
 				</span>
 			</div>
@@ -88,7 +88,9 @@
 						<div class="mp3_05_2_2_2">
 							<span class="mp3_05_2_2_2_1 hft">{{bfData.author}}</span>
 							<span class="mp3_05_2_2_2_2">
-							{{bfData.bft}} / {{backT(bfData.duration)}}
+								
+								
+							{{backT(bfData.onTime)}} / {{backT(bfData.duration)}}
 							</span>
 						</div>
 					</span>
@@ -105,7 +107,7 @@
 				
 			</div>
 		</div>
-		<audio @timeupdate="timeupdate" ref="aido" @ended="ended"></audio>
+		<audio ref="aido" @ended="ended"></audio>
 	</div>
 </template>
 
@@ -141,14 +143,10 @@ export default{
 			bfData:{
 				logo:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/resizeApi.png',
 				name:'双击列表音乐播放',
-				author:'--',
-				bft:'00:00',
+				author:'--',		
 				duration:0,
 				is_collect:0,
-				ct:0,
-				onTime:0,
-				durations:0,
-				
+				onTime:0,				
 			},
 			bRunning:false,
 			isNOdata:'',
@@ -209,28 +207,27 @@ export default{
 		}
 	},
 	methods:{
+		backTX(){
+			return 'transform: translateX('+((this.bfData.onTime/this.bfData.duration)-1)*100+'%);';
+		},
 		mp3down(el) {
 			//算出鼠标相对元素的位置
-			this.$refs.aido.pause();
-			let dragBox= el.currentTarget;
+			
+			this.$parent.playAdio({
+				type:'pauseFn',
+			})
+			
+			
+			
 			let that = this;
-			let t = that.$refs.aido.currentTime;
-			let dX = el.clientX;
-			let dY = el.clientY;
-			let px = that.$refs.mp3_05_1.clientWidth;
 			
-			
-			let cx = that.$refs.mp3_05_1_bg.clientWidth;
 			
 			let max_w = that.$refs.mp3_05_1.clientWidth;
 			let starX = el.clientX;
 			let onTime = this.bfData.onTime;
-			let longTime = this.$refs.aido.duration;
+			let longTime = this.bfData.duration;
 			
 			document.onmousemove = e => {
-				//用鼠标的位置减去鼠标相对元素的位置，得到元素的位置
-				//console.log(that.$refs.aido.currentTime);
-				
 				let mX = e.clientX;				
 				let x = e.clientX - starX;
 				let mvtime = (x/max_w)*longTime;
@@ -243,56 +240,20 @@ export default{
 					pn = longTime;
 				}
 				this.bfData.onTime = pn;
-				that.$refs.aido.currentTime = pn;
-				
-				return
-				//let x = (mX - dX) < 0 ? -(mX - dX) : (mX - dX);
-				
-					// if((mX-dX) >= 0){
-					// 	if(x < (px-cx)){
-					// 		t = (x+this.ym)/px*(that.$refs.aido.duration);
-					// 		console.log(">>>>>>>>",t,x,px)
-					// 	}  else {
-					// 		t = that.$refs.aido.duration;
-					// 	}
-					// }
-					// if((mX-dX) < 0) {
-					// 	if(x < (px-cx)){
-					// 		t = (x+this.ym)/px*(that.$refs.aido.duration);
-					// 		console.log("???????",t,x,(px-cx),mX,dX)
-					// 	} else {
-					// 		t = 0;
-					// 	}
-						
-					// }
-					// that.$refs.aido.currentTime = t;
-				// let x = (mX - dX)
-				// t = (x+this.ym)/px*(that.$refs.aido.duration);
-				// that.$refs.aido.currentTime = t;
-				
-				
-				
+				this.$parent.setcurrentTime(pn);
 			};
 			document.onmouseup = e => {
-				let uX = e.clientX;
-				this.ym = uX - dX;
-				//鼠标弹起来的时候不再移动
-				that.$refs.aido.play();
-				document.onmousemove = null;
-				 //预防鼠标弹起来后还会循环（即预防鼠标放上去的时候还会移动）  
+				this.$parent.playAdio({
+					type:'playFn',
+				})
+				document.onmousemove = null;				
 				document.onmouseup = null;
-				//that.$refs.aido.play();
 			};
 		},
-		cs(){
-			
-		},
+
 		init(){
 			this.getcls();
-			
 			this.getList();
-			
-			
 		},
 		getcls(){
 			this.api.sh_class({}).then((da)=>{
@@ -397,11 +358,13 @@ export default{
 				logo:pd.logo,
 				name:pd.name,
 				author:pd.author,
-				bft:'00:00',
+				onTime:0,
 				duration:pd.duration,
 				is_collect:pd.is_collect
 			};
-			this.$refs.aido.pause();
+			this.$parent.playAdio({
+				type:'pauseFn',
+			});
 			this.sh_audioUrl(pd.m_id);
 			
 		},
@@ -421,45 +384,47 @@ export default{
 				logo:pd.logo,
 				name:pd.name,
 				author:pd.author,
-				bft:'00:00',
-				duration:pd.duration,
-				is_collect:pd.is_collect
-			};
-			this.$refs.aido.pause()
 			
+				duration:pd.duration,
+				is_collect:pd.is_collect,
+				onTime:0,
+			};
+			this.$parent.playAdio({
+				type:'pauseFn',
+			});
 			this.sh_audioUrl(pd.m_id);
 		},
 		bf(el,on,ispd){
 			this.Isfirst = true;
-			this.$refs.aido.currentTime = 0;
-			if(el && this.bfData &&  this.bfData.m_id!=el.m_id){
+			if(el && this.bfData.m_id!=el.m_id){
 				this.bfData = {
 					on:on,
 					m_id:el.m_id,
 					logo:el.logo,
 					name:el.name,
 					author:el.author,
-					bft:'00:00',
+					onTime:0,	
 					duration:el.duration,
 					is_collect:el.is_collect,
-				};
-				
+				};				
 				this.sh_audioUrl(el.m_id);
-				///this.scroll();
 				return
 			}
 			
-			if(!this.$refs.aido.src){
+			if(!this.bfData.m_id){
 				return
 			}
-			//this.scroll();
 			if (this.bRunning) {
 				this.bRunning = false;
-				this.$refs.aido.pause();
-				this.$refs.chean[0].pause();
+				this.$refs.chean[0].pause();				
+				this.$parent.playAdio({
+					type:'pauseFn',
+				});
 			} else {
 				this.bRunning = true;
-				this.$refs.aido.play();
+				this.$parent.playAdio({
+					type:'playFn',
+				});				
 				this.$refs.chean[0].play();
 			}
 			
@@ -471,11 +436,12 @@ export default{
 				m_id:id
 			}).then((da)=>{
 				if(da=='error'){return}
-				this.$refs.aido.src=da.file_url;
 				this.bRunning = true;
-				this.$refs.aido.play();
-				this.$refs.chean[0].play();
-				
+				this.$refs.chean[0].play();				
+				this.$parent.playAdio({
+					url:da.file_url,
+					type:'playFn',
+				});
 			})
 		},
 		favor(el) {
@@ -519,38 +485,33 @@ export default{
 		ckAdio(el){
 		
 		},
-		timeupdate(){
-			//console.log(this.$refs.aido.currentTime+">>>>>>");
-			let ctime =  ((this.$refs.aido.currentTime / this.$refs.aido.duration)*100).toFixed(2);
-			//console.log(ctime)
-			this.$set(this.bfData,'ct',ctime);
-			this.$set(this.bfData,'bft',this.backT(Math.floor(this.$refs.aido.currentTime)));
-			this.bfData.onTime = this.$refs.aido.currentTime;
+		setTime(t){	
+			this.bfData.onTime = t;
 		},
 		progress(){
 			
 		},
 		ended(){
-			this.bf(this.datas[this.bfData.on+1],this.bfData.on+1)
+			let len = this.datas.length;
+			if(this.bfData.on<len-1){
+				this.bf(this.datas[this.bfData.on+1],this.bfData.on+1);
+			}
+			
 		},
-		backT(t){
-			
+		backT(t){			
 			let ond = t%60;
-			
-			if(ond<10){
-				ond = '0'+ond;
+			let fzz = '00';
+			if(t>60){
+				fzz = parseInt(t/60);
+				if(fzz<10){
+					fzz = '0'+fzz;
+				}
 			}
-			if(t<60){
-				return '00:'+ond;
+			let ms = parseInt(t%60);
+			if(ms<10){
+				ms = '0'+ms;
 			}
-			
-			let fz = (t-ond)/60;
-			if(fz<10){
-				fz = '0'+fz;
-			}
-			
-			return fz+':'+ond;
-			
+			return fzz+':'+ms;			
 		},
 		del(){
 			this.name = "";
