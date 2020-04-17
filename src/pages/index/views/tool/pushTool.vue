@@ -970,7 +970,7 @@
 
 					return
 				}
-
+				this.checkOn = {};
 				this.zzwc();
 			},
 			zzwc() {
