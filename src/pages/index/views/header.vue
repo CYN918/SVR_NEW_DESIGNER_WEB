@@ -88,7 +88,7 @@
 				<div  class="userBpx">
 					<a @click="goUser('昵称')">{{backnAM(userMssge.username)}}</a>
 					<ul> 
-						<a @click="goZP('/projectAll','我的项目')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdxm.svg" alt="" />我的项目</li></a>						
+						<a @click="goZP('/projectBm','我的项目')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdxm.svg" alt="" />我的项目</li></a>						
 						<a @click="goZP('/myAll','我的创作')"><li><img class="svgImg2 svgImg2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdcz.svg" alt="" />我的创作</li></a>
 						<a @click="goZP('/myDynamic','我的关注')"><li><img class="svgImg2 svgImg2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_wdgz.svg" alt="" />我的关注</li></a>
 						<a @click="goZP('/profit','我的收益')"><li><img class="svgImg2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/head/home_grxx_tk_icon_sy.svg" alt="" />我的收益</li></a>

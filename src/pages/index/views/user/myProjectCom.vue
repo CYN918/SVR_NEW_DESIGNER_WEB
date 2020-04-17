@@ -24,7 +24,7 @@ export default {
 			navData:{
 				title:'我的项目',
 				list:[
-					{a:'/projectAll',b:'全部'},
+					// {a:'/projectAll',b:'全部'},
 					{a:'/projectBm',b:'已报名'},
 					{a:'/projectZz',b:'制作中'},
 					{a:'/projectYs',b:'已验收'},									
@@ -32,7 +32,7 @@ export default {
 				bdtj:'我的项目'				
 			},
 			isTypeList:{
-				projectAll:'',
+				// projectAll:'',
 				projectBm:'1',
 				projectZz:'2',
 				projectYs:'3',

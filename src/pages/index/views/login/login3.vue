@@ -1,10 +1,7 @@
 <template>
 	<div style="padding:0px 30px 0px 30px;">
 		<Inputdf v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"></Inputdf>			
-		<Inputdf v-model="form.password" :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'请输入密码'"></Inputdf>	
-		<div class="lgoin_s2zy">			
-			<a class="last pend" @click="goTj()">忘记密码</a>
-		</div>	
+		<Inputdf v-model="form.password" :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'请输入密码'"></Inputdf>		
 	</div>
 </template>
 <script>
@@ -38,10 +35,6 @@ export default {
 			},
 			ajaxType:0,
 			checkType:'',
-			outc:{
-				num:3,
-				scroll:2,
-			}
 		}
 	},
 	mounted: function () {}, 
@@ -54,12 +47,6 @@ export default {
 				return this.form;
 			}
 			return '';
-		},
-		goTj(){
-			// this.bdtj('登录页','忘记密码','--');
-			// this.$router.push({path:d})
-			// this.$parent.$parent.getRetrieve(this.outc)
-			this.$parent.init(this.outc)
 		},
 		
 		
