@@ -1096,7 +1096,7 @@ img.mp3_04_01_sc {
 	content: "";
 	position: absolute;
 	top: 50%;
-	left: 54%;
+	left: 50%;
 	transform: translate(-50%,-50%);
 }
 .pr_adio_03_1:after{	
@@ -1105,12 +1105,13 @@ img.mp3_04_01_sc {
 	border-top:8px solid transparent;	
 	border-bottom:8px solid transparent;
 	border-left:13px solid #fff;
+	left: 54%;
 }
 .pr_adio_03_2:after{
 	width:12px;
 	height:16px;
-	background: #fff;
-	background-image: linear-gradient(to right,#fff 2px,rgba(51,179,255,1) 8px,#fff 2px);
+	left: 50%;
+	background:  url(../../../../assets/icon_view_stop_def_whit.png) center center no-repeat;
 }
 .playsd_an_1{
 	display: inline-block;
