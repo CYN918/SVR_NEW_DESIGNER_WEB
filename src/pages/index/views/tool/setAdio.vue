@@ -77,17 +77,17 @@
 			<div class="mp3_05_2">
 				<div class="mp3_05_2_0">
 					<span class="mp3_05_2_1">
-						<img :class="['ant',bRunning?'':'paused']" src="/imge/tools/Rectangle.png"/>
+						<img :class="['ant',bRunning?'':'paused']" :src="bfData.face_pic ? bfData.face_pic : '/imge/tools/Rectangle.png'"/>
 					</span>
 					<span class="mp3_05_2_2">
 						<div class="mp3_05_2_2_1" ref="bxbg">
-							<div ref="bxch">
+							<div ref="bxch" onselectstart="return false;">
 								{{bfData.name}}
 							</div>
 						</div>
 						<div class="mp3_05_2_2_2">
-							<span class="mp3_05_2_2_2_1 hft">{{bfData.author}}</span>
-							<span class="mp3_05_2_2_2_2">
+							<span class="mp3_05_2_2_2_1 hft" onselectstart="return false;">{{bfData.author?bfData.author:'无歌手'}}</span>
+							<span class="mp3_05_2_2_2_2" onselectstart="return false;">
 							{{bfData.bft}} / {{backT(bfData.duration)}}
 							</span>
 						</div>
@@ -442,6 +442,7 @@ export default{
 					bft:'00:00',
 					duration:el.duration,
 					is_collect:el.is_collect,
+					face_pic:el.face_pic
 				};
 				
 				this.sh_audioUrl(el.m_id);
@@ -554,6 +555,7 @@ export default{
 		},
 		del(){
 			this.name = "";
+			this.getList();
 		},
 		ss(){
 			this.getList();
@@ -1094,7 +1096,7 @@ img.mp3_04_01_sc {
 	content: "";
 	position: absolute;
 	top: 50%;
-	left: 50%;
+	left: 54%;
 	transform: translate(-50%,-50%);
 }
 .pr_adio_03_1:after{	
