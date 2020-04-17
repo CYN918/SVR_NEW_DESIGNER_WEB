@@ -105,7 +105,8 @@ export default{
 				pd[i].cut_start = this.backto(pd[i].cut_start);
 				pd[i].end = this.backto(pd[i].start+(pd[i].cut_end-pd[i].cut_start));
 				
-			}		
+			}
+			return pd[0].start+(pd[0].cut_end - pd[0].cut_start);
 		},
 		backto(num){
 			return Math.round(num*100)/100
@@ -113,7 +114,8 @@ export default{
 		
 		cl_video(el){
 			let pd = el.json.media;
-			for(let i=0,n=pd.length;i<n;i++){
+			let len = pd.length;
+			for(let i=0,n=len;i<n;i++){
 				pd[i].end = pd[i].start+(pd[i].cut_end-pd[i].cut_start);
 				if(pd[i].sw!=pd[i].yw || pd[i].sh!=pd[i].yh || pd[i].sx!=0 || pd[i].sy!=0){
 					pd[i].crop = this.numqx(pd[i].sw)+':'+this.numqx(pd[i].sh)+':'+this.numqx(pd[i].x)+':'+this.numqx(pd[i].sy);
@@ -124,6 +126,8 @@ export default{
 				pd[i].cut_start = this.backto(pd[i].cut_start);
 				pd[i].end = this.backto(pd[i].end);				
 			}
+			return pd[len-1].start+(pd[len-1].cut_end-pd[len-1].cut_start);
+			
 		},
 		cldevs(on){
 			let arr = [];
@@ -136,13 +140,14 @@ export default{
 					ar[i2].end = this.backto(ar[i2].start+(ar[i2].cut_end-ar[i2].cut_start));					
 					ar[i2].x = this.backto(ar[i2].zsx*wdb);
 					ar[i2].y = this.backto(ar[i2].zsy*hy);
-					ar[i2].resize = this.backto(ar[i2].zsw*wdb)+':'+this.backto(ar[i2].zsh*hy);
+					if(ar[i2].zsw){
+						ar[i2].resize = this.backto(ar[i2].zsw*wdb)+':'+this.backto(ar[i2].zsh*hy);						
+					}
 					arr.push(ar[i2]);
 				}	
 			}
 			return arr;
 		},
-	
 		tijF(){
 
 			if(this.ajaxType){
@@ -160,9 +165,12 @@ export default{
 			}
 			
 			let pr = this.value;			
-			this.cl_video(pr);
-			this.cl_audio(pr);
-			
+			let videoMaxTime = this.cl_video(pr);
+			let audioMaxTime = this.cl_audio(pr);
+			pr.json.max_length = audioMaxTime;
+			if(audioMaxTime>videoMaxTime){
+				pr.json.max_length = videoMaxTime;
+			}
 			
 			let sd = this.cldevs(pr.json.decorates);
 			if(sd.length>0){

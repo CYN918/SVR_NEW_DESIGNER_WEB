@@ -121,17 +121,16 @@ export default{
 					
 				}
 			
-				dom.style.cssText = str+'left:'+(x+20)+'px;top:'+y+'px;'+brdr;
+				dom.style.cssText = str+'left:'+(x+10)+'px;top:'+y+'px;'+brdr;
 				
 			}			 
-			document.onmouseup =  ()=>{
-				
+			document.onmouseup =  (e)=>{
+				;
 				if(this.$parent.Mos){
-					
 					if(this.$parent.Mos.n=='decorates'){
-						this.setDecorates(el);
+						this.setDecorates(el,e.x+10);
 					}else{
-						this.checkV(el);
+						this.checkV(el,e.x+10);
 					}
 					
 				}
@@ -139,7 +138,7 @@ export default{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
-		setDecorates(el){
+		setDecorates(el,x){
 			if(el.file_type!='image'){
 				return
 			}
@@ -167,7 +166,10 @@ export default{
 			if(ond){
 				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
 			}		
-			
+			if(x){
+				let time = this.$parent.setDomStar(x);
+				pr.start = time;
+			}
 				var a = document.createElement('img');
 				a.src=el.url;
 				a.onload = ()=>{
@@ -230,7 +232,7 @@ export default{
 			}
 			this.istype = {data:el,on:index};
 		},
-		checkV(el){
+		checkV(el,x){
 			let pr = {
 				x:0,y:0,w:0,h:0,sx:0,sy:0,sw:0,sh:0,
 				yw:0,yh:0,
@@ -265,9 +267,23 @@ export default{
 				pr = Object.assign(pr,pd);												
 			}			
 			let ond = this.value.media[this.value.media.length-1];
+			
+			
+			// var fn = ()=>{
+				
+			// };
+			
+			
+			
 			if(ond){
 				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
-			}		
+			}	
+				
+			if(x){
+				let time = this.$parent.setDomStar(x);
+				pr.start = time;
+			}	
+				
 			if(el.file_type=='image'){
 				var a = document.createElement('img');
 				a.src=el.url;
@@ -776,8 +792,9 @@ export default{
 }
 .testd{
 	position: fixed;
-	border: 2px solid transparent;
+	border: 2px solid #F0F0F0;
 	height: 72px;
+	
 }
 .setMt_03box{
 	overflow: hidden;

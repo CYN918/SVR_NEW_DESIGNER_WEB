@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>GD_icon_sjz</title>
+    <desc>Created with Sketch.</desc>
+    <g id="zoocreator" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="10-来电秀工具-上传视频图片" transform="translate(-534.000000, -848.000000)">
+            <g id="轨道区/默认" transform="translate(0.000000, 763.000000)">
+                <g transform="translate(0.000000, 53.000000)" id="时间轴">
+                    <g>
+                        <g id="轨道区/帧位置/默认-copy" transform="translate(534.000000, 32.000000)">
+                            <g id="帧位置">
+                                <g id="GD_icon_sjz">
+                                    <path d="M2,0 L18,0 C19.1045695,-2.02906125e-16 20,0.8954305 20,2 L20,12.8676192 C20,13.5701449 19.6314023,14.2211586 19.0289915,14.5826051 L11.0289915,19.3826051 C10.3956267,19.762624 9.60437326,19.762624 8.97100849,19.3826051 L0.971008489,14.5826051 C0.368597668,14.2211586 8.60345855e-17,13.5701449 0,12.8676192 L0,2 C-1.3527075e-16,0.8954305 0.8954305,2.02906125e-16 2,0 Z" id="时间帧滑块" fill="#33B3FF"></path>
+                                    <rect id="帧竖线1" fill="#FFFFFF" x="5.55555556" y="4" width="2.22222222" height="8" rx="1"></rect>
+                                    <rect id="帧竖线2" fill="#FFFFFF" x="12.2222222" y="4" width="2.22222222" height="8" rx="1"></rect>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
