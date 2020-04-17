@@ -120,7 +120,7 @@ export default{
 					
 					
 				}
-				console.log(brdr);
+			
 				dom.style.cssText = str+'left:'+(x+20)+'px;top:'+y+'px;'+brdr;
 				
 			}			 
