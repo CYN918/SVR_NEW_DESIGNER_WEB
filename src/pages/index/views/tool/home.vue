@@ -81,11 +81,13 @@ export default{
 				this.outc.num = 1;
 				return
 			}
-			// if(window.userInfo.contributor_format_status == 2){
-			// 	this.$router.push({path:'/tolt/toluser'});
-			// 	return
-			// }
-			
+			if(window.userInfo.contributor_format_status == 2){
+				this.$router.push({path:'/tolt/toluser'});
+				return
+			}
+			this.$message({
+				message:'请先认证'
+			})
 			setTimeout(()=>{
 				this.$router.push({path: '/setPersonal'})
 			}, 1000);

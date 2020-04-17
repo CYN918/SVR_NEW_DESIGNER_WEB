@@ -99,7 +99,7 @@
 					</div>
 					<div class="jz_time" v-if="djsshow.h || deta.status==1">
 						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止报名时间</i></p>
-						<span class="f_a" v-if="djsshow.d>0">{{djsshow.d}}<span class="cenDjs_2_dy_01">天</span></span><span class="f_a">{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
+						<detailGd :obj="pzTop" ref="topGd"></detailGd>
 					</div>
 					<div v-if="deta.status==1 || deta.status==2" class="bm_dp">
 						<p><img :src="imgSig+'prcent/xm_icon_num.svg'"/><i>报名人数</i></p>
@@ -107,9 +107,9 @@
 					</div>
 					<div class="yj_sy">
 						<p><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>预计收益</i></p>
-						<p v-if="deta.settlement == '0'">{{deta.expected_profit}}</p>
-						<p v-if="deta.settlement == '1'">[买断]{{deta.expected_profit}}</p>
-						<p v-if="deta.settlement == '2'">[分成]永久收益</p>
+						<p v-if="deta.settlement == '0'">{{deta.expected_profit}}<i style="font-style: normal;color:#282828;font-size:24px;margin-left:5px;margin-right:5px;">或</i>永久分成</p>
+						<p v-if="deta.settlement == '1'">{{deta.expected_profit}}</p>
+						<p v-if="deta.settlement == '2'">永久分成</p>
 					</div>
 				</div>
 			</div>
@@ -169,10 +169,11 @@ import Stop from './stop';
 import question from './question';
 import presentation from './presentation';
 import topGd from './topGd';
+import detailGd from './detailGd';
 import prnavright from './pr_nav_right'
 
 export default {
-	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm,shareD,pushGj,qxGj,Log,Stop,question,presentation,topGd,prnavright},
+	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm,shareD,pushGj,qxGj,Log,Stop,question,presentation,topGd,prnavright,detailGd},
 	data(){
 		return{
 			tcZj:'',
@@ -199,6 +200,7 @@ export default {
 	},
 	mounted: function(){
 		this.init();
+		console.log(this.djsshow)
 	}, 
 	methods: {	
 		init(){		
@@ -206,7 +208,7 @@ export default {
 				this.$router.push({path:'/project'});
 				return
 			}
-					
+								
 			this.getData();			
 		},
 		autoS(){
@@ -308,7 +310,7 @@ export default {
 					id:da.id,
 				};
 				this.deta = da;
-				this.djsfn(da.left_time)
+				
 			}).catch(()=>{
 				
 			});
