@@ -38,7 +38,7 @@
 			<div 
 			@dblclick="bf(el, index)"
 			v-for="(el,index) in datas"
-			:class="['mp3_04_01 mp3_04_01s mp3_04_01xd',index%2==0?'mp3_04_01x':'',bfData.on==index?'chebf':'']" 
+			:class="['mp3_04_01 mp3_04_01s mp3_04_01xd',index%2==0?'mp3_04_01x':'',(bfData.on==index && bfData.m_id==el.m_id)?'chebf':'']" 
 			>
 				<span><span :class="index<3?'setAdio_01':''">{{index+1}}</span></span>
 				<span>
@@ -56,7 +56,7 @@
 				</span><span :title="el.author">
 				{{el.author?el.author:'无歌手'}}</span><span>
 				{{backT(el.duration)}}</span><span class="seadio_to">
-					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="bRunning && (bfData.on==index)?'/imge/tools/music_icon_pause.svg':'/imge/tools/music_icon_play.svg'"/>
+					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="bRunning && (bfData.on==index && bfData.m_id==el.m_id)?'/imge/tools/music_icon_pause.svg':'/imge/tools/music_icon_play.svg'"/>
 					<img @click="favor(el)" class="mp3_04_01_sc pend" :src="el.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
 					
 					<span @click="checks(el)" class="setAdio_02 pend">
