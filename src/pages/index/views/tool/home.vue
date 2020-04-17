@@ -1,6 +1,6 @@
 <template>
 	
-	<div>
+	<div class="box">
 		<div class="hot_topbox">
 			<img class="hotBaner" :src="imgSig+'toltImg/ZQ-banner.svg'">
 			<button @click="godd" v-if="userMssge.contributor_format_status == 0 || userMssge == '' || userMssge.contributor_format_status == -1">立即加入</button>
@@ -98,7 +98,7 @@ export default{
 }
 </script>
 
-<style>
+<style scoped="scoped">
 
 .hot_topbox{
 	position: relative;
@@ -121,6 +121,13 @@ export default{
 }
 .hotCent{
 	margin-top: 39px;
+	margin-bottom: 59px;
+}
+.box{
+	padding: 60px 0px 118px 0px !important;
+}
+.hotCent:hover{
+	margin-top: 19px;
 }
 .hotBaner{
 	cursor: pointer;

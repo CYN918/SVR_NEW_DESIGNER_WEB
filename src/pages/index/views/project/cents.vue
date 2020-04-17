@@ -716,7 +716,7 @@ export default {
 .cens_02_2hd{
 	font-size:24px;
 	font-weight:400;
-	color:rgba(153,153,153,1);
+	color:rgba(40,40,40,1);
 	line-height:33px;
 	text-align: center;
 	line-height: 93px;
@@ -787,7 +787,7 @@ export default {
 .event_op > div{
 	height: 40px;
 	line-height: 40px;
-	float: left;
+	float: right;
 	cursor: pointer;
 }
 .pr_down_mb{
