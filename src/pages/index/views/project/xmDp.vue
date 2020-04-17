@@ -109,7 +109,7 @@ export default {
 	},
 	mounted: function(){
 		this.init();
-		console.log(this.obj.status)
+		console.log(this.obj.contract_file)
 	}, 
 	methods: {
 
