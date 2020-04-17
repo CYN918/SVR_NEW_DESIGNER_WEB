@@ -344,10 +344,11 @@ export default{
 			if(this.datas.length==0){
 				return
 			}
-
+			console.log(1111111);
 			if(this.bfData.on<1){
 				return
 			}
+			console.log(22);
 			let ond = this.bfData.on-1;
 			let pd = this.datas[ond];
 			this.bfData = {
@@ -359,10 +360,11 @@ export default{
 				onTime:0,
 				duration:pd.duration,
 				is_collect:pd.is_collect,
-				face_pic:el.face_pic
+				face_pic:pd.face_pic
 			};
 			this.$parent.playAdio({
 				type:'pauseFn',
+				time:0,
 			});
 			this.sh_audioUrl(pd.m_id);
 			
@@ -387,12 +389,17 @@ export default{
 				duration:pd.duration,
 				is_collect:pd.is_collect,
 				onTime:0,
-				face_pic:el.face_pic
+				face_pic:pd.face_pic
 			};
 			this.$parent.playAdio({
 				type:'pauseFn',
+				time:0,
 			});
 			this.sh_audioUrl(pd.m_id);
+		},
+		setRun(){
+			this.bRunning = false;
+			this.$refs.chean[0].pause();	
 		},
 		bf(el,on,ispd){
 			this.Isfirst = true;
@@ -812,11 +819,13 @@ export default{
 .mp3_05_2_0{
 	position: absolute;
 	top: 0;
+	
 }
 .mp3_05_2_0>span{
 	display: inline-block;
 	vertical-align: top;
 	margin-top: 17px;
+	pointer-events: none;
 }
 .mp3_05_2_3{
 	display: flex;

@@ -434,6 +434,9 @@
 			},
 			pauseFn(obj){
 				obj.pause();
+				if(this.$refs.vid && this.$refs.vid.setRun){
+					this.$refs.vid.setRun();
+				}
 			},
 			setcurrentTime(t){
 				this.$refs.setAdios.currentTime = t;
@@ -1207,6 +1210,9 @@
 				}, 50);
 			},
 			playsx() {
+				this.playAdio({
+					type:'pauseFn'
+				})
 				if (this.navcoms.media.length == 0) {
 					return
 				}
@@ -1276,6 +1282,9 @@
 			},
 
 			playAll() {
+				this.playAdio({
+					type:'pauseFn'
+				})
 				if(this.navcoms.media.length==0){
 					return
 				}
