@@ -18,7 +18,7 @@
 					</div>
 					<div class="detail-js" v-show="postData.deal_type == '2'">详细分成介绍</div>
 					<div class="buyout" v-show="postData.deal_type == '2'">
-						<p style="margin: 10px 15px 10px 15px;">项目收录的作品最终会投放至平台合作的渠道终端,并持续产生收益,最终按照产品曝光量与固定分成单价,与创作者结算该收益.即作品曝光量越高,分成收益越多,且是永久性的哟~</p>
+						<p style="margin: 22px 15px 22px 15px;">项目收录的作品最终会投放至平台合作的渠道终端,并持续产生收益,最终按照产品曝光量与固定分成单价,与创作者结算该收益.即作品曝光量越高,分成收益越多,且是永久性的哟~</p>
 					</div>
 				</div>
 				<div class="bmXm_02">请选择至少 <span>1个符合</span> 项目需求的 <span>原创作品</span> 作为案例</div>
@@ -341,6 +341,7 @@ export default {
 	border-top-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
+	background: #FFFFFF;
 }
 .detail-js{
 	width: 84px;

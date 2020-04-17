@@ -39,6 +39,11 @@ html,body,div,img,p,ul,li{
 	margin: 0;
 	padding: 0;
 	border: none;
+	moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
 }
 html,body{
 	position: relative;
