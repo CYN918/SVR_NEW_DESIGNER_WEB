@@ -131,8 +131,16 @@
 										<div class="setToll">
 										
 											<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
-											<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2"></div>
-											<div @mousedown="jl($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll3"></div>
+											<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2">
+												<div class="setToll2_1">
+													<i></i><i></i><i></i>
+												</div>
+											</div>
+											<div @mousedown="jl($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll3">
+												<div class="setToll3_1">
+													<i></i><i></i><i></i>
+												</div>
+											</div>
 											<div @click="showcj($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="setToll4">
 												<i></i><i></i><i></i>
 											</div>
@@ -191,6 +199,7 @@
 					</div>
 					<div :class="['bf_o1',isbf?'gdAm':'']" :style="backbft()">
 						<div class="bf_o1_1"></div>
+						<img src="/imge/tools/GD_icon_sjz.svg"/>
 					</div>
 					<div class="gund_01" ref="gund_01x">
 						<div @mousedown="jlx($event)" :style="tdfn()" class="gund_02"></div>
@@ -227,6 +236,15 @@
 				</div>
 			</div>
 			<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
+			
+			
+			<audio 
+			class="ntob_cent_l_1" 
+			@timeupdate="setAdioLad" 
+			@ended="setendAudio()" 
+			ref="setAdios"
+			></audio>
+			
 		</div>
 	</div>
 </template>
@@ -402,6 +420,38 @@
 			}	
 		},
 		methods: {
+			playAdio(t){
+				if(t.url){
+					this.$refs.setAdios.src = t.url;
+				}
+				if(t.time){
+					this.$refs.setAdios.currentTime = t.time;
+				}
+				this[t.type](this.$refs.setAdios)
+			},
+			
+			playFn(obj){
+				obj.play();
+			},
+			pauseFn(obj){
+				obj.pause();
+				if(this.$refs.vid && this.$refs.vid.setRun){
+					this.$refs.vid.setRun();
+				}
+			},
+			setcurrentTime(t){
+				this.$refs.setAdios.currentTime = t;
+			},
+			setAdioLad(){
+				if(this.$refs.vid && this.$refs.vid.setTime){
+					this.$refs.vid.setTime(this.$refs.setAdios.currentTime);
+				}
+			},
+			setendAudio(){
+				if(this.$refs.vid && this.$refs.vid.ended){
+					this.$refs.vid.ended();
+				}
+			},
 			backbft(){
 				return 'transform: translateX('+((this.bfTime/this.bl) * this.wdk)+'px);';
 			},
@@ -871,6 +921,11 @@
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
+			
+			
+			setDomStar(x){				
+				return ((x-120)/this.wdk)*this.bl;				
+			},
 			zzyz() {
 				if (this.navcoms.media.length == 0) {
 					this.$message({
@@ -915,7 +970,7 @@
 
 					return
 				}
-
+				this.checkOn = {};
 				this.zzwc();
 			},
 			zzwc() {
@@ -1161,6 +1216,9 @@
 				}, 50);
 			},
 			playsx() {
+				this.playAdio({
+					type:'pauseFn'
+				})
 				if (this.navcoms.media.length == 0) {
 					return
 				}
@@ -1230,6 +1288,9 @@
 			},
 
 			playAll() {
+				this.playAdio({
+					type:'pauseFn'
+				})
 				if(this.navcoms.media.length==0){
 					return
 				}
@@ -1339,7 +1400,6 @@
 			showcj(e,b) {
 				let dom = e.target.getBoundingClientRect();
 				if (b) {
-				
 					this.checkOn = b;
 				}
 				this.csad = 'display:block;top:' + (dom.y - 5) + 'px;left:' + (dom.x - 22) + 'px';
@@ -1390,7 +1450,7 @@
 						return
 					}
 					this.$message({
-						message: '请先设置类容',
+						message: '请先添加内容',
 					})
 					return
 				}
@@ -2197,13 +2257,19 @@
 
 	.bf_o1 {
 		position: absolute;
-		top: 0;
+		top: 52px;
 		left: 0;
-		width: 1px;
-		height: 100%;
-		background: #0000FE;
+		width:2px;
+		height:214px;
+		background: #33B3FF;
 	}
-
+	.bf_o1>img{
+		position: absolute;
+		top: -20px;
+		left: 50%;
+		width: 20px;
+		transform: translateX(-50%);
+	}
 	.newds_012 {
 		margin: 28px 84px;
 		font-size: 14px;

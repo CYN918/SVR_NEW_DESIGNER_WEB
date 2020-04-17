@@ -109,7 +109,7 @@ export default {
 	},
 	mounted: function(){
 		this.init();
-		console.log(this.obj.status)
+		console.log(this.obj.contract_file)
 	}, 
 	methods: {
 
@@ -300,7 +300,7 @@ export default {
 }
 .cenDjs_4>div{
 	display: inline-block;
-	margin-left: 20px;
+	margin-right: 20px;
 	font-size:14px;
 	font-weight:400;
 	color:#666;
@@ -418,8 +418,8 @@ export default {
 .worksBox_2{
 	cursor: pointer;
 	position: absolute;
-	right: 0;
-	top: 0;
+	right: -284px;
+    top: -501px;
 	font-size: 14px;
 	color: #666666;
 	text-align: center;
@@ -470,8 +470,6 @@ export default {
 .tg_iocn_2{
 	width: 55px;
     height: 26px;
-    top: -3px;
-	right: -8px;
 }
 .is_seldf{
 	font-size:16px;

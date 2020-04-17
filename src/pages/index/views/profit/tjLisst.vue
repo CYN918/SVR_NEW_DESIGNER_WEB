@@ -167,5 +167,6 @@ export default {
 	line-height:20px;
 	overflow: hidden;
     width: 180px;
+	height: 20px;
 }
 </style>
