@@ -70,7 +70,7 @@
 		
 		<div class="mp3_05" v-if="Isfirst" ref="mp3_05_1">
 			<div class="mp3_05_1">
-				<span :style="{'width': bfData.ct+'%'}" ref="mp3_05_1_bg">
+				<span class="mp3_05_1_2" :style="'transform: translateX('+((bfData.onTime/$refs.aido.duration)-1)*100+'%);'" ref="mp3_05_1_bg">
 					<span class="mp3_05_1_1" @mousedown="mp3down"></span>
 				</span>
 			</div>
@@ -145,14 +145,18 @@ export default{
 				bft:'00:00',
 				duration:0,
 				is_collect:0,
-				ct:0
+				ct:0,
+				onTime:0,
+				durations:0,
+				
 			},
 			bRunning:false,
 			isNOdata:'',
 			Isfirst:false,
 			showNav:[],
 			aaa:'',
-			ym:0
+			ym:0,
+			mvX:0,
 		}
 	},
 	watch:{
@@ -214,12 +218,34 @@ export default{
 			let dX = el.clientX;
 			let dY = el.clientY;
 			let px = that.$refs.mp3_05_1.clientWidth;
+			
+			
 			let cx = that.$refs.mp3_05_1_bg.clientWidth;
+			
+			let max_w = that.$refs.mp3_05_1.clientWidth;
+			let starX = el.clientX;
+			let onTime = this.bfData.onTime;
+			let longTime = this.$refs.aido.duration;
+			
 			document.onmousemove = e => {
 				//用鼠标的位置减去鼠标相对元素的位置，得到元素的位置
 				//console.log(that.$refs.aido.currentTime);
 				
-				let mX = e.clientX;
+				let mX = e.clientX;				
+				let x = e.clientX - starX;
+				let mvtime = (x/max_w)*longTime;
+				
+				let pn = onTime+mvtime;
+				if(pn<0){
+					pn=0;
+				}
+				if(pn>longTime){
+					pn = longTime;
+				}
+				this.bfData.onTime = pn;
+				that.$refs.aido.currentTime = pn;
+				
+				return
 				//let x = (mX - dX) < 0 ? -(mX - dX) : (mX - dX);
 				
 					// if((mX-dX) >= 0){
@@ -240,9 +266,9 @@ export default{
 						
 					// }
 					// that.$refs.aido.currentTime = t;
-				let x = (mX - dX)
-				t = (x+this.ym)/px*(that.$refs.aido.duration);
-				that.$refs.aido.currentTime = t;
+				// let x = (mX - dX)
+				// t = (x+this.ym)/px*(that.$refs.aido.duration);
+				// that.$refs.aido.currentTime = t;
 				
 				
 				
@@ -499,6 +525,7 @@ export default{
 			//console.log(ctime)
 			this.$set(this.bfData,'ct',ctime);
 			this.$set(this.bfData,'bft',this.backT(Math.floor(this.$refs.aido.currentTime)));
+			this.bfData.onTime = this.$refs.aido.currentTime;
 		},
 		progress(){
 			
@@ -807,6 +834,10 @@ export default{
 	right: 0;
 	top: -2px;
 	z-index: 999;
+}
+.mp3_05_1>span.mp3_05_1_2{
+	width: 100%;
+	transform: translateX(-100%);
 }
 .mp3_05_2{
 	box-sizing: border-box;
