@@ -49,7 +49,7 @@ export default {
         scrollToTop(){
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
             this.scrollTop = scrollTop;
-            if(this.scrollTop > 60){
+            if(this.scrollTop > 980){
                 this.isShow = true;
             }else{
                 this.isShow = false;

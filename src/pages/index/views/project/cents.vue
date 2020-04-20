@@ -262,12 +262,12 @@ export default {
 				document.body.scrollTop =1;
 			}
 			if(this.topTyped==''){
-				if(t>188){
+				if(t>411){
 					this.topTyped=1;
 				}
 				
 			}
-			if(t<=188){
+			if(t<=411){
 				this.topTyped='';
 			}
 		},
@@ -361,8 +361,7 @@ export default {
 					
 					let otim = this.bckdtimed(this.deta.delivery_deadline);
 			
-					this.tips = otim[0]+otim[1];
-					console.log(this.tips)
+					this.tips = otim[0]+ '&nbsp;&nbsp;' + otim[1];
 				
 				}
 				
@@ -718,10 +717,10 @@ export default {
 .cens_01{
 	padding: 20px 0 60px;
 	margin: 0 auto;
-	width: 1300px;
+	width: 1170px;
 }
 .cents_box{
-	width: 1300px;
+	width: 1170px;
 	height: 480px;
 	position: relative;
 }
@@ -734,11 +733,11 @@ export default {
 
 }
 .cens_02_2{
-	width: 1300px;
+	width: 1170px;
 	background: #fff;
 }
 .cens_02_1_cent{
-	width: 1300px;
+	width: 1170px;
 	height: 139px;
 	background: #fff;
 	border-bottom: 1px solid rgba(244,246,249,1);
@@ -751,12 +750,14 @@ export default {
 	text-align: center;
 	line-height: 93px;
 	height: 93px;
+	width: 860px;
+	margin: 0 auto;
 }
 .cens_x0{
 	padding-top: 15px;
 }
 .cens_x1{
-	width: 864px;
+	width: 860px;
 	height: 26px;
 	margin: 0 auto;
 	line-height: 26px;
@@ -765,7 +766,7 @@ export default {
 	font-weight:bold;
 	color:rgba(40,40,40,1);
 	text-align: left;
-	padding-left: 6px;
+	padding-left: 125px;
 }
 .cens_x0_bottom{
 	padding-top: 10px;
@@ -804,10 +805,14 @@ export default {
 	padding-left: 5px;
     padding-right: 5px;
 }
+.cens_02_2ce{
+	width: 860px;
+	margin: 0 auto;
+}
 .cens_x5{
 	/* width: 55%; */
 	float: left;
-    padding-left: 214px;
+    padding-left: 210px;
 }
 .event_op{
 	/* width: 45%; */
@@ -937,7 +942,7 @@ export default {
 	overflow: hidden;
 }
 .liucheng{
-	width: 1300px;
+	width: 1170px;
 	height: 40px;
 	line-height: 40px;
 	position: absolute;

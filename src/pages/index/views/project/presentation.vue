@@ -18,7 +18,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="pr_bg_03_2">
+				<div class="pr_bg_03_2" v-if="das.deal_type != '2'">
 					<div class="pr_bg_03_2_1">最终成交价格</div>
 					<div class="pr_bg_03_2_2">¥ {{mJs.money_deiv(das.deal_price)}}</div>
 					<div class="pr_bg_03_2_3">感谢您本次的项目合作，如有疑问可前往 <router-link to="/help">帮助中心</router-link> 了解更多</div>
@@ -93,7 +93,7 @@ export default {
 	}, 
 	methods: {	
 		go_profit(){
-			this.$router.push({path:'/profit'})
+			this.$router.push({path:'/divided'})
 		},
 		backf(on){
 			return on==1?'买断式':'分成式';
@@ -152,7 +152,7 @@ export default {
 			this.sfas = 'top:'+y+'px;left:'+x+'px';
 		},
 		back(){
-			this.$router.push({path:'/projectAll'})	
+			this.$router.push({path:'/projectBm'})	
 		},
 		goTo(on){
 			this.$router.push({path: on})	
