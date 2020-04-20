@@ -53,7 +53,7 @@
 							<img class="show_00x_2_5" src="/imge/tools/d_01.png" />
 						</div>
 					</div>
-					<audio class="ntob_cent_l_1" @timeupdate="timeupdatevideo2" @ended="endAudio()" ref="aido"></audio>
+					<audio class="ntob_cent_l_1" @timeupdate="timeupdatevideo2" ref="aido"></audio>
 					
 				</div>
 				<div class="ntob_cent_l_2">
@@ -66,7 +66,7 @@
 						<span @click="playsx" class="an_sx_01">
 							<img src="/imge/tools/v_sx.svg" />
 						</span><span @click="playAll" class="an_bf_01">
-							<img :src="'/imge/tools/'+(ispaused?'icon_view_stop_def':'v_play')+'.svg'" />
+							<img :src="'/imge/tools/'+(playT==1?'icon_view_stop_def':'v_play')+'.svg'" />
 						
 							
 						</span>
@@ -395,6 +395,10 @@
 				isgdon: 0,
 				imgPftime:0,
 				istitle:'',
+				
+				playT:0,
+				adiT:0,
+				isk:0,
 			}
 		},
 		mounted: function() {
@@ -424,9 +428,14 @@
 				if(t.url){
 					this.$refs.setAdios.src = t.url;
 				}
+				if(!this.$refs.setAdios.src){
+					return
+				}
 				if(t.time){
 					this.$refs.setAdios.currentTime = t.time;
 				}
+				
+				
 				this[t.type](this.$refs.setAdios)
 			},
 			
@@ -504,23 +513,7 @@
 			
 			
 			},
-			LinePlay(){
-				this.po = window.setInterval(() => {
-					if(!this.navcoms.media[this.bfon]){
-						window.clearInterval(this.po);
-					}
-					
-					this.cans.fillRect(0, 0, this.boxW, this.boxH);
-					let ob = this.navcoms.media[this.bfon];
-					
-					this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
-					let po = this.cun[this.vdcc].x;
-					if (po) {
-						this.cans.fillRect(0, 0, po, this.boxH);
-						this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
-					}
-				}, 20);
-			},
+			
 			LineClerDrm(){
 				window.clearInterval(this.po);
 			},
@@ -1039,11 +1032,50 @@
 				this.playsx();
 				this.setMaxTime();
 			},
+			
+			bfkfn(){
+				let tims = this.navcoms.media[this.bfon+1].start-this.backTim(this.navcoms.media[this.bfon]);
+				
+				if(tims<=0){
+					return
+				}
+				
+				this.isk = 1;
+				this.clerHz();	
+				this.cans.fillStyle = "#000";
+				this.cans.fillRect(0, 0, 391, 695);			
+				this.ht = setInterval(() => {	
+					this.imgPftime = this.imgPftime + 50;			
+					let ond = this.backTim(this.navcoms.media[this.bfon]);	
+					let timds = this.imgPftime/1000;
+					this.bfTime = ond+timds;
+					this.checkAdio();
+					if (timds >= tims) {
+							this.imgPftime = 0;
+							this.isk = 0;
+							clearTimeout(this.ht);					
+							this.endeds();						
+						}
+				}, 50);
+				
+				
+			},	
 			endeds() {
 				let len = this.navcoms.media.length;
 				if (this.bfon < len - 1) {
+
+					let tims = this.navcoms.media[this.bfon+1].start-this.bfTime;
+					if(tims>0){
+					
+						this.bfkfn(tims);
+						return
+					}
+					
+					
 					this.bfon++;
-					this.ispaused = 1;
+					
+			
+			
 					if (this.navcoms.media[this.bfon].type == 'pic') {
 						this.drmImg();
 						return
@@ -1051,51 +1083,34 @@
 					this.playVid();
 					return
 				}
-				this.islast = 1;
-				this.isbf = '';
-				this.ispaused = '';
+				this.playT = 0;
+		
 			},
 			timeupdatevideo() {
-				let nx = 0
-				if (this.bfon > 0) {
-					let prd = this.navcoms.media[this.bfon - 1];
-
-					nx = (prd.cut_end - prd.cut_start) + prd.start;
-				}
-				let ontm = this.$refs.vids.currentTime;
-				this.bfTime = nx + ontm;
-				if (ontm >= this.navcoms.media[this.bfon].cut_end) {
+				this.checkAdio();
+				let obj = this.navcoms.media[this.bfon];
+				let onT = this.$refs.vids.currentTime;						
+				let ontm = onT-obj.cut_start; 
+				this.bfTime = obj.start + ontm;
+				
+				if (onT >= obj.cut_end) {
 					this.$refs.vids.pause();
 					this.endeds();
 				}
 			},
 			timeupdatevideo2(){
-				let objd = this.navcoms.audio[this.audiosOn];
-				
-				let bftm = objd.cut_end;
-				
-				let ontm = this.$refs.aido.currentTime-objd.cut_start;
-				let max2box = this.navcoms.media[this.navcoms.media.length - 1];
-				let max2boxt = max2box.start+(max2box.cut_end-max2box.cut_start);
-
-				if (ontm >= max2boxt) {
-					this.$refs.aido.pause();	
+				let objd = this.navcoms.audio[0],
+				adioTim = this.backTim(objd),
+				vdTim = this.backTim(this.navcoms.media[this.navcoms.media.length - 1]);				
+				let ontime = this.$refs.aido.currentTime;				
+				let sjTim = ontime - objd.cut_start+objd.start;
+				if(ontime>=objd.cut_end){
+					this.$refs.aido.pause();
 					return
-				}
-				if (ontm >= bftm) {
+				}				
+				if (sjTim >= vdTim){
 					this.$refs.aido.pause();					
 				}
-				
-				
-				
-			},
-			endAudio() {
-				let len = this.navcoms.audio.length;
-				if (this.audiosOn < len - 1) {
-					this.audiosOn++;
-					this.playAio();
-				}
-				this.audioLast = 1;
 			},
 			setMaxTime() {
 				let video = this.navcoms.media[this.navcoms.media.length - 1],
@@ -1161,11 +1176,10 @@
 				return str;
 			},
 			setvideo(fi) {
-
 				this.$refs.vids.src = fi;
 			},
 			csy() {
-				this.$refs.vids.currentTime = 0;
+				this.$refs.vids.currentTime = this.navcoms.media[this.bfon].cut_start;
 				this.drm();
 				setTimeout(() => {
 					this.drm();
@@ -1183,42 +1197,22 @@
 				}
 
 			},
-			drmImgs(){
-				let ob = this.navcoms.media[this.bfon];
-				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, 391, 695);
-				
-				var a = document.createElement('img');
-				a.src = ob.file_url;
-				a.onload = () => {
-					this.cans.fillStyle = "#000";
-					this.cans.fillRect(0, 0, 391, 695);
-					this.cans.drawImage(a, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
-				}
-			},
-			drmImg() {
-				let ob = this.navcoms.media[this.bfon];
-				this.drmImgs();
+			LinePlay(){
 				clearTimeout(this.ht);
-			
-				let tim = ob.cut_end-ob.cut_start;
-				this.ispaused = 1;
-				this.ht = setInterval(() => {
-					this.imgPftime = this.imgPftime + 50;
-					this.ispaused = 1;
-					let ond = 0;
-					if(this.bfon>0){
-						let obdg = this.navcoms.media[this.bfon-1];
-						ond = obdg.start+(obdg.cut_end-obdg.cut_start);
-					}
+				this.po = window.setInterval(() => {
+					if(!this.navcoms.media[this.bfon]){
+						window.clearInterval(this.po);
+					}			
+					this.cans.fillRect(0, 0, this.boxW, this.boxH);
+					let ob = this.navcoms.media[this.bfon];
 					
-					this.bfTime = ond+(this.imgPftime/1000);
-					if (this.imgPftime >= tim*1000) {
-						this.imgPftime = 0;
-						clearTimeout(this.ht);
-					
-						this.endeds();						
+					this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
+					let po = this.cun[this.vdcc].x;
+					if (po) {
+						this.cans.fillRect(0, 0, po, this.boxH);
+						this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
 					}
+
 				}, 50);
 			},
 			playsx() {
@@ -1245,92 +1239,155 @@
 				if (this.navcoms.media[this.bfon].type == 'pic') {
 					this.drmImg();
 					this.playAio('sx');
+
+				}
+			},			
+			checkAdio(){
+				let ado = this.navcoms.audio[0];
+				if(!ado){
+
 					return
 				}
-				
-				if (this.$refs.vids) {
-					this.$refs.vids.pause();
+				let bftx = this.backTim(ado);
+				if(this.bfTime<ado.start || this.bfTime>bftx){
+					return
 				}
-				if (this.$refs.aido) {
-					this.$refs.aido.pause();
-				}
-				this.playVid('sx');
-				this.playAio('sx');
+				this.playAio();				
 			},
-			playVid(a) {
-				if (this.navcoms.media.length == 0) {
+			playAio() {
+				let aoi = this.navcoms.audio[0];
+				if(!aoi){
 					return
 				}
-				if (this.$refs.vids.src != this.navcoms.media[this.bfon].file_url) {
-					this.$refs.vids.src = this.navcoms.media[this.bfon].file_url;
-				}
-				if (a && a == 'sx') {
-					this.$refs.vids.src = this.navcoms.media[0].file_url;
-					this.$refs.vids.currentTime = 0;
-				}
-				if (this.$refs.vids.currentTime < this.navcoms.media[this.bfon].cut_start) {
 				
-					this.$refs.vids.currentTime = this.navcoms.media[this.bfon].cut_start;
-				}
-				
-				this.$refs.vids.play();
-			},
-			playAio(a) {
-				if (this.navcoms.audio.length == 0) {
-					return
-				}
-				if(!this.$refs.aido.src){
-					this.$refs.aido.src = this.navcoms.audio[0].file_url;
-					this.$refs.aido.currentTime = this.navcoms.audio[0].cut_start;
-				}
-				
-				setTimeout(() => {
-					if (a == 'sx') {
-						this.$refs.aido.currentTime = this.navcoms.audio[0].cut_start;
-					}
-					
-					this.$refs.aido.play();
-				}, 50)
+				this.$refs.aido.play();
 			},
 
 			playAll() {
-				this.playAdio({
-					type:'pauseFn'
-				})
+				
 				if(this.navcoms.media.length==0){
-					return
+					return 
 				}
-				if (this.islast) {
-					this.islast = '';
-					this.bfon = 0;
-					this.audioLast = '';
-					this.audiosOn = 0;
-					
-				}
-				if(this.ispaused){
-					this.isbf = '';
-					this.ispaused = '';
-					clearTimeout(this.ht);
+				let viOn = this.navcoms.media[this.bfon];				
+				this.playAdio({type:'pauseFn'})		
+				/*播放状态*/
+				if(this.playT==1){
 					if (this.$refs.vids) {
 						this.$refs.vids.pause();
 					}
 					if (this.$refs.aido) {
 						this.$refs.aido.pause();
 					}
+					this.clerHz();
+					this.playT=2;
 					return
 				}
-				this.isbf = 1;
-				this.ispaused = 1;
-				if (this.navcoms.media[this.bfon].type == 'pic') {
-					this.drmImg();
-					this.playAio();
-					return
-				}
-				if (this.$refs.vids && this.$refs.vids.paused) {
-					this.playAio();
-					this.playVid();
+				/*暂停状态*/
+				if(this.playT==2){
+					this.playT=1;
+					this.checkAdio();
+					if(this.isk){
+						
+						this.bfkfn();
+						return
+					}
 					
+					
+					if(viOn.type== 'pic'){
+						this.drmImg();
+						return
+					}				
+					if (this.$refs.vids) {
+						this.$refs.vids.play();
+					}
 					return
+				}
+				/*初始状态*/
+				this.playsx();
+				
+			},
+			playsx(){
+				let viOn = this.navcoms.media[0];
+				if(!viOn){
+					return
+				}
+				this.clerHz();
+				this.playAdio({type:'pauseFn'});	
+				this.bfon = 0;
+				this.bfTime = 0;
+				this.playT = 1;
+				this.imgPftime = 0;
+				let aoi = this.navcoms.audio[0];
+				if(aoi){
+					this.$refs.aido.src = aoi.file_url;	
+					this.$refs.aido.currentTime = aoi.cut_start;
+					this.checkAdio();
+				}	
+				if(viOn.type== 'pic'){
+					this.drmImg();
+					return
+				}
+				
+				this.playVid();
+							
+				
+			},
+			playVid() {
+				this.clerHz();
+				let onVideo = this.navcoms.media[this.bfon];
+				if(!onVideo){
+					return
+				}
+				this.$refs.vids.src = onVideo.file_url;		
+				this.$refs.vids.currentTime = onVideo.cut_start;	
+				this.$refs.vids.play();
+				
+			},
+			clerHz(){
+				clearTimeout(this.ht);
+				window.clearInterval(this.po);
+			},
+			drmImg() {
+				let ob = this.navcoms.media[this.bfon];
+				if(!ob){
+					return
+				}
+				this.clerHz();				
+				this.drmImgs();
+				let tim = ob.cut_end-ob.cut_start;	
+				let a = document.createElement('img');
+				a.src = ob.file_url;
+				a.onload = () => {
+					this.cans.fillStyle = "#000";
+					this.cans.fillRect(0, 0, 391, 695);
+					this.cans.drawImage(a, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
+						this.ht = setInterval(() => {					
+						this.imgPftime = this.imgPftime + 50;			
+						let ond = 0;
+						if(this.bfon>0){
+							let obdg = this.navcoms.media[this.bfon-1];
+							ond = obdg.start+(obdg.cut_end-obdg.cut_start);
+						}
+						this.bfTime = ond+(this.imgPftime/1000);
+						this.checkAdio();
+						if (this.imgPftime >= tim*1000) {
+							this.imgPftime = 0;
+							clearTimeout(this.ht);					
+							this.endeds();						
+						}
+					}, 50);
+				}
+			},
+			drmImgs(){
+				let ob = this.navcoms.media[this.bfon];
+				this.cans.fillStyle = "#000";
+				this.cans.fillRect(0, 0, 391, 695);
+				var a = document.createElement('img');
+				a.src = ob.file_url;
+				a.onload = () => {
+					this.cans.fillStyle = "#000";
+					this.cans.fillRect(0, 0, 391, 695);
+					this.cans.drawImage(a, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 				}
 			},
 			setVwh(){
