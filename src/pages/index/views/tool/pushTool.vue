@@ -800,6 +800,7 @@
 				}
 				document.onmouseup = () => {
 					document.onmousemove = document.onmouseup = null;
+					this.playsx()
 				}
 			},
 			setHm(on, el, list) {
@@ -860,6 +861,7 @@
 				}
 				document.onmouseup = (e) => {
 					e.preventDefault();
+					
 					let on = +(((e.pageX - this.tdStar) / wid) * el.long).toFixed(3);
 					let dd = Math.round(((+cs + (on)) * 100) / 100);
 					if (prStar || prStar == 0) {
@@ -876,6 +878,7 @@
 							list.splice(onc, 2, list[ondn], list[onc]);
 						}
 					}
+					this.playsx()
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
@@ -918,6 +921,7 @@
 					el.start = stad + el.cut_start;
 				}
 				document.onmouseup = () => {
+					this.playsx()
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
@@ -997,6 +1001,7 @@
 				let sta = +ends.start + (ends.cut_end - ends.cut_start);
 				doms.start = sta;
 				this.checkOn.list.push(doms);
+				this.playsx();
 			},
 			cats() {
 				if (!this.checkOn.list) {
@@ -1030,7 +1035,8 @@
 				this.islast = '';
 				this.audioLast = '';
 				this.audiosOn = 0;
-				this.bfon = 0;				
+				this.bfon = 0;	
+				this.playsx();
 				this.setMaxTime();
 			},
 			endeds() {
@@ -1226,7 +1232,7 @@
 				if(this.navcoms.audio[0]){
 					clearTimeout(this.ht);
 					this.$refs.aido.currentTime = this.navcoms.audio[0].cut_start;
-					
+					this.$refs.aido.src = this.navcoms.audio[0].file_url;
 				}
 				
 				this.imgPftime = 0;
