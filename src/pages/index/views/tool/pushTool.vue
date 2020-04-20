@@ -1353,6 +1353,7 @@
 				this.playT = 1;
 				this.imgPftime = 0;
 				let aoi = this.navcoms.audio[0];
+				this.playT=1;
 				if(aoi){
 					this.$refs.aido.src = aoi.file_url;	
 					this.$refs.aido.currentTime = aoi.cut_start;
