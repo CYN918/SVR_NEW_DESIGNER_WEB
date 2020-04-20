@@ -769,7 +769,7 @@ export default {
 }
 .cens_x0_bottom{
 	padding-top: 10px;
-	width: 864px;
+	/* width: 864px; */
 	height: 98px;
 	margin: 0 auto;
 }
@@ -805,14 +805,14 @@ export default {
     padding-right: 5px;
 }
 .cens_x5{
-	width: 55%;
+	/* width: 55%; */
 	float: left;
-	
+    padding-left: 214px;
 }
 .event_op{
-	width: 45%;
+	/* width: 45%; */
 	float: right;
-	
+	padding-right: 10px;
 }
 .event_op > div{
 	height: 38px;

@@ -418,8 +418,8 @@ export default {
 .worksBox_2{
 	cursor: pointer;
 	position: absolute;
-	right: -284px;
-    top: -501px;
+	right: -40px;
+    top: -510px;
 	font-size: 14px;
 	color: #666666;
 	text-align: center;
@@ -446,8 +446,8 @@ export default {
 .worksBox_2_1x{
 	display: none;
 	position: absolute;
-	top: 20px;
-	right: 0px;
+	top: 35px;
+	right: -57px;
 	z-index: 99;
 	background: #FFFFFF;
 	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
@@ -469,7 +469,7 @@ export default {
 }
 .tg_iocn_2{
 	width: 55px;
-    height: 26px;
+    height: 33px;
 }
 .is_seldf{
 	font-size:16px;
@@ -550,10 +550,7 @@ export default {
 	background: #E6E6E6;
 }
 .tg_iocn_2x{
-	width:32px;
-	height:18px;
-	background:rgba(255,255,255,1);
-	box-shadow:0px 4px 16px 0px rgba(0,0,0,0.2);
-	border-radius:6px;
+	background-repeat: no-repeat;
+	background-image: url(http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/prcent/icon_more.svg);
 }
 </style>

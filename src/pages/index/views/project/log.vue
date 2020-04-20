@@ -8,8 +8,7 @@
 					<div>交稿时间</div>
 					<div>验收结果</div>
 					<div>验收反馈时间</div>
-					<div>预览</div>
-					<div>驳回理由</div>					
+					<div>操作</div>				
 				</div>
 				<div v-for="(el,index) in List" :key="index" class="jgbix jgcent">
 					<div class="log_tipbox log_tipbox2">
@@ -29,11 +28,6 @@
 					<div>{{el.check_status | typsuu}}</div>
 					<div>{{el.updated_at | logtime}}</div>
 					<div>
-						<div @click="showPic(el.preview_pic)" class="log_tipbox" v-if="el.preview_pic">预览</div>
-						
-					</div>
-		
-					<div>
 						<div class="log_tipbox" v-if="el.check_status==-1">
 							驳回理由
 							<div class="log_tip">
@@ -44,6 +38,14 @@
 						
 										
 					</div>
+					<div>
+						<div @click="showPic(el.preview_pic)" class="log_tipbox" v-if="el.preview_pic">预览</div>
+						<div @click="fileCy(el)" class="log_tipbox" v-if="el.status == '4'">撤回</div>
+						
+					</div>
+					<qxGj v-if="isShow" :datad="datad"></qxGj>
+		
+					
 
 					
 					
@@ -63,15 +65,18 @@
 </template>
 <script>
 import tanC from '../../components/tanC';
+import qxGj from './qxGj';
 
 export default {
-	components:{tanC},
+	components:{tanC,qxGj},
 	data(){
 		return{
 			List:[],
 			csff:'',
 			sfas:'display:none',
-			ylt:''
+			ylt:'',
+			isShow:false,
+			datad:{}
 		}
 	},
 	filters: {
@@ -103,6 +108,10 @@ export default {
 		this.init();
 	},
 	methods: {
+		fileCy(data){
+			this.isShow = true;
+			this.datad = data;
+		},
 		closepick(){
 			this.ylt = '';
 		},
