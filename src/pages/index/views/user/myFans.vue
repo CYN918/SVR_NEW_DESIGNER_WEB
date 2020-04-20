@@ -209,7 +209,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped="scoped">
 .dysxboxd{
 	position: relative;
 	width: 1300px;

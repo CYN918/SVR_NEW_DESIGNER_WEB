@@ -425,7 +425,7 @@ export default {
 	text-align: center;
 	width: 95px;
 }
-.worksBox_2:after{
+/* .worksBox_2:after{
 	position: absolute;
 	top: 22px;
 	right: 21px;
@@ -439,15 +439,15 @@ export default {
 	margin-left: 8px;
     transform: rotate(-135deg);
 
-}
+} */
 .worksBox_2:hover>.worksBox_2_1x{
 	display: block;
 }
 .worksBox_2_1x{
 	display: none;
 	position: absolute;
-	top: 43px;
-	right: 9px;
+	top: 20px;
+	right: 0px;
 	z-index: 99;
 	background: #FFFFFF;
 	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
@@ -550,7 +550,10 @@ export default {
 	background: #E6E6E6;
 }
 .tg_iocn_2x{
-	height: 40px;
-	width: 40px;
+	width:32px;
+	height:18px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 4px 16px 0px rgba(0,0,0,0.2);
+	border-radius:6px;
 }
 </style>

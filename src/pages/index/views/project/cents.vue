@@ -100,7 +100,7 @@
 					</div>
 					<div class="jz_time" v-if="djsshow.h || deta.status==1">
 						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止报名时间</i></p>
-						<detailGd :obj="pzTop" ref="topGd"></detailGd>
+						<detailGd :obj="pzTop" ref="topGd1"></detailGd>
 					</div>
 					<div class="jz_time" v-if="deta.status==4 || deta.status==3">
 						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止交稿时间</i></p>
@@ -326,6 +326,9 @@ export default {
 			this.djstimd = time;
 			if(this.$refs.topGd){
 				this.$refs.topGd.setTim(time);
+			}
+			if(this.$refs.topGd1){
+				this.$refs.topGd1.setTim(time);
 			}
 			
 		},
@@ -929,6 +932,9 @@ export default {
 	font-family:PingFangSC-Medium,PingFang SC;
 	font-weight:500;
 	color:rgba(255,146,0,1);
+	width: 360px;
+	height: 35px;
+	overflow: hidden;
 }
 .liucheng{
 	width: 1300px;
