@@ -102,7 +102,7 @@
 						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止报名时间</i></p>
 						<detailGd :obj="pzTop" ref="topGd"></detailGd>
 					</div>
-					<div class="jz_time" v-if="deta.status==4">
+					<div class="jz_time" v-if="deta.status==4 || deta.status==3">
 						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止交稿时间</i></p>
 						<p v-html="tips"></p>
 					</div>

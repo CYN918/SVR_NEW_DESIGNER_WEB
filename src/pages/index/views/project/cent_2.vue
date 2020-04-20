@@ -164,9 +164,15 @@ export default {
 				}
 		
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
-					let otim = this.bckdtimed(this.deta.delivery_deadline);
+					if(this.deta.is_rejected==1){
+						this.tips = '<div class="backdse pr_cent2_r2_4">你的稿件未通过，请重新提交</div>';
+					}else{
+						let otim = this.bckdtimed(this.deta.delivery_deadline);
 			
-					this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
+					    this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
+
+					}
+					
 				
 				}
 				return
