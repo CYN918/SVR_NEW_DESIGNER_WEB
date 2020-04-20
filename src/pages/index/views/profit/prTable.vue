@@ -148,10 +148,10 @@ export default {
 			this.getData();
 		},
 		mod(e){
-			alert(1)
+			
 		},
 		modx(e,on){
-			alert(2)
+			
 		},
 	}
 }
@@ -207,5 +207,13 @@ export default {
 }
 .proLink{
 	color:rgba(51,51,51,1);
+}
+.pbx_n_img{
+	display: inline-block;
+    cursor: pointer;
+    vertical-align: top;
+    width: 16px;
+    margin: 20px 0 0 5px;
+
 }
 </style>
