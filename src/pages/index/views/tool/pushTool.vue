@@ -458,7 +458,20 @@
 			},
 			
 			playFn(obj){
+				if(this.playT==1){
+					if (this.$refs.vids) {
+						this.$refs.vids.pause();
+					}
+					console.log(this.$refs.aido);
+					if (this.$refs.aido) {
+						this.$refs.aido.pause();
+					}
+					this.clerHz();
+					this.playT=2;
+					
+				}
 				obj.play();
+				
 			},
 			pauseFn(obj){
 				obj.pause();
@@ -828,7 +841,10 @@
 				}
 				document.onmouseup = () => {
 					document.onmousemove = document.onmouseup = null;
-					this.playsx()
+					if(this.playT==1){
+						this.playsx()
+					}
+					
 				}
 			},
 			setHm(on, el, list) {
@@ -906,7 +922,9 @@
 							list.splice(onc, 2, list[ondn], list[onc]);
 						}
 					}
-					this.playsx()
+					if(this.playT==1){
+						this.playsx()
+					}
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
@@ -949,7 +967,9 @@
 					el.start = stad + el.cut_start;
 				}
 				document.onmouseup = () => {
-					this.playsx()
+					if(this.playT==1){
+						this.playsx()
+					}
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
@@ -1029,7 +1049,9 @@
 				let sta = +ends.start + (ends.cut_end - ends.cut_start);
 				doms.start = sta;
 				this.checkOn.list.push(doms);
-				this.playsx();
+				if(this.playT==1){
+					this.playsx()
+				}
 			},
 			cats() {
 				if (!this.checkOn.list) {
@@ -1064,7 +1086,12 @@
 				this.audioLast = '';
 				this.audiosOn = 0;
 				this.bfon = 0;	
-				this.playsx();
+				
+				if(this.playT==1){
+					this.playsx();
+				}
+				
+				
 				this.setMaxTime();
 			},
 			
@@ -1287,14 +1314,22 @@
 				if(this.bfTime<ado.start || this.bfTime>bftx){
 					return
 				}
+				
+				
 				this.playAio();				
 			},
 			playAio() {
+				if(!this.$refs.aido.paused){
+					return
+				}
 				let aoi = this.navcoms.audio[0];
 				if(!aoi){
 					return
 				}
-				
+			
+				if(this.$refs.vids.paused){
+					return
+				}
 				this.$refs.aido.play();
 			},
 
@@ -1311,6 +1346,7 @@
 						this.$refs.vids.pause();
 					}
 					if (this.$refs.aido) {
+						console.log('gb');
 						this.$refs.aido.pause();
 					}
 					this.clerHz();

@@ -293,7 +293,10 @@ export default{
 				}
 				
 				this.value.audio.splice(0,1,pr);
-				this.$parent.playsx();
+				if(this.$parent.playT==1){
+					this.$parent.playsx();
+				}
+				
 				
 				this.$message({
 					message:"选用成功"

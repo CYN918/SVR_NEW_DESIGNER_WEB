@@ -39,7 +39,7 @@
 				<div class="pr_tc_04">
 					删除确认<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
 				</div>
-				<div class="qxBm_btns_1">是否确定删除?删除后将永久消失</div>	
+				<div class="qxBm_btns_1 qxBm_btns_1x2">是否确定删除?删除后将永久消失</div>	
 				<div class="qxBm_btns">
 					<div @click="close" class="btns pend">取消</div>		
 					<div @click="qdFn" class="btns btns_js pend">确定</div>										
@@ -267,14 +267,6 @@ export default{
 				pr = Object.assign(pr,pd);												
 			}			
 			let ond = this.value.media[this.value.media.length-1];
-			
-			
-			// var fn = ()=>{
-				
-			// };
-			
-			
-			
 			if(ond){
 				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
 			}	
@@ -282,7 +274,41 @@ export default{
 			if(x){
 				let time = this.$parent.setDomStar(x);
 				pr.start = time;
-			}	
+			}
+			var sumTime = (obj)=>{
+				return obj.start+(obj.cut_end-obj.cut_start);
+			};
+			
+			
+			
+			
+			var fn = (obj)=>{
+				let n = obj.length;
+				if(n==0){
+					return
+				}
+				for(let i=0;i<n;i++){
+					let end = sumTime(obj[i]);
+					let star = obj[i].start;
+					
+					
+					if(pr.start<end){
+						
+						
+						
+						break
+					}
+					
+					
+					
+					
+				}
+				
+			};
+			
+			
+			
+				
 				
 			if(el.file_type=='image'){
 				var a = document.createElement('img');
@@ -659,7 +685,9 @@ export default{
 	margin: 0 16px 16px 0;
 	border:2px solid transparent;
 }
-
+.qxBm_btns_1x2{
+	text-align: center;
+}
 .setMt_03 li:after{
 	content: "";
 	position: absolute;
