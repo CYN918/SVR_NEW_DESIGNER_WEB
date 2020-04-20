@@ -107,7 +107,7 @@
 				<div class="ntob_footer_1">
 					<div class="ntob_footer_1_1"></div>
 					<div class="ntob_footer_1_2" ref="gd_02">
-						<div class="nl_ti1" v-for="el in navcoms.decorates"><img src="/imge/tools/t_zs.svg" />装饰</div>
+						<div @click="showZs($event,index)" class="nl_ti1" v-for="el in navcoms.decorates"><img src="/imge/tools/t_zs.svg" />装饰</div>
 						
 						<div class="nl_ti2"><img src="/imge/tools/t_sp.svg" /> 媒体</div>
 						<div class="nl_ti3"><img src="/imge/tools/t_yy.svg" />音频</div>
@@ -219,6 +219,18 @@
 				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="pastes()">复制</span>
 				<span @click="delt()">删除</span>
 			</div>
+			
+			<div :style="zsys" class="zs_box">
+				<span @click="adddevd()">
+					<span class="zs_box1"><img src="/imge/tools/icon_gd_smile.svg"/></span><span>添加装饰轨</span>					
+				</span>
+				<span @click="delevd()">
+					<span class="zs_box1"><img src="/imge/tools/gd_toast_icon_delete.svg"/></span><span>删除装饰轨</span>
+				</span>
+			</div>
+			
+			
+			
 			<div v-if="istype" class="pr_tc_01">
 				<div class="pr_tc_02">
 					<div class="pr_tc_04">
@@ -267,6 +279,7 @@
 		},
 		data() {
 			return {
+				zsys:'',
 				zoomd:1,
 				boxW:0,
 				boxH:0,
@@ -550,6 +563,12 @@
 				this.zsgd = this.navcoms.decorates[on][on1];
 
 			},
+			delevd(){
+				if(this.navcoms.decorates.length==1){
+					return
+				}				
+				this.zsgd = this.navcoms.decorates.splice(this.zsOn,1);
+			},
 			adddevd() {
 				this.navcoms.decorates.push([]);
 			},
@@ -563,6 +582,17 @@
 					this.tijF(1);
 					this.savsout();
 				}, 60000);
+			},
+			showZs(e,b){
+				let dom = e.target.getBoundingClientRect();
+				this.zsys = 'display:block;top:' + (e.y - 5) + 'px;left:' + (e.x - 22) + 'px';
+				this.zsOn = b;
+				let fn = () => {
+					setTimeout(() => {
+						this.zsys = '';
+					}, 100)
+				};
+				this.clerClick(fn)
 			},
 			contexMs(e, b) {
 				if (e.button == "2") {
@@ -2260,7 +2290,58 @@
 		text-align: center;
 		font-size: 14px;
 	}
+	.zs_box{
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 99;
+		width:124px;
+		height:72px;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+		border-radius:5px;
+		padding: 8px 0;
+	}
+	.zs_box>span{
+		cursor: pointer;
+		display: block;
+		text-align: center;
+		font-size:14px;
+		color:rgba(51,51,51,1);
+		line-height:36px;
+		overflow: hidden;
+	}
+	.zs_box>span:hover{
+		color: #33B3FF;
+		background: rgba(51,179,255,.1);;
+	}
+	.zs_box>span:hover>span{
+		-webkit-transform: translateX(-120px);
+		transform: translateX(-120px);
+	}
+	
+	.zs_box>span>span>img{
+		display: inline-block;
+		vertical-align: top;
+		margin: 10px 6px 0 0;
+	}
+	.zs_box>span:hover>span>img{
+	    position: relative;
+	    left: 0;
+	    color: rgba(51, 179, 255, 1);
+	    -webkit-filter: drop-shadow(95px 0);
+	    filter: drop-shadow(120px 0);
+	    border-right: 34px solid transparent;
+	}
+	.zs_box1{
+		display: inline-block;
+		vertical-align: top;
+		height: 100%;
+		
+		width: 16px;
+		margin-right: 6px;
 
+	}
 	.setToll4_2>span:hover {
 		background-color: #f5f7fa;
 	}
