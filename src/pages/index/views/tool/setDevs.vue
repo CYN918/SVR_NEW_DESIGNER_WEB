@@ -128,7 +128,8 @@ export default{
 					let wd = disWD-ydx;
 					this.value.zsw = wd;
 					this.value.zsh = wd/this.value.zskb;
-					
+					this.value.zsx = disW-(this.value.zsw-disWD);	
+					this.value.zsy = disH-(this.value.zsh-disHD);
 					return
 					
 				}
@@ -137,6 +138,9 @@ export default{
 					
 					this.value.zsw = wd;
 					this.value.zsh = wd/this.value.zskb;
+					this.value.zsy = disH-(this.value.zsh-disHD);
+					
+					
 					return
 				}
 				if(tp=='b_l'){
@@ -144,7 +148,10 @@ export default{
 					let hd = disHD+ydy;
 								
 					this.value.zsw = hd*this.value.zskb;
-					this.value.zsh = hd;					
+					this.value.zsh = hd;	
+									
+					this.value.zsx = disW-(this.value.zsw-disWD);			
+									
 					return
 				}
 				if(tp=='b_r'){
