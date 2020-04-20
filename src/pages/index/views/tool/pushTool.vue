@@ -841,7 +841,10 @@
 				}
 				document.onmouseup = () => {
 					document.onmousemove = document.onmouseup = null;
-					this.playsx()
+					if(this.playT==1){
+						this.playsx()
+					}
+					
 				}
 			},
 			setHm(on, el, list) {
@@ -919,7 +922,9 @@
 							list.splice(onc, 2, list[ondn], list[onc]);
 						}
 					}
-					this.playsx()
+					if(this.playT==1){
+						this.playsx()
+					}
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
@@ -962,7 +967,9 @@
 					el.start = stad + el.cut_start;
 				}
 				document.onmouseup = () => {
-					this.playsx()
+					if(this.playT==1){
+						this.playsx()
+					}
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
@@ -1042,7 +1049,9 @@
 				let sta = +ends.start + (ends.cut_end - ends.cut_start);
 				doms.start = sta;
 				this.checkOn.list.push(doms);
-				this.playsx();
+				if(this.playT==1){
+					this.playsx()
+				}
 			},
 			cats() {
 				if (!this.checkOn.list) {
