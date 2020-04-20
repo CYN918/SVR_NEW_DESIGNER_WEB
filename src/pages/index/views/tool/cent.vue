@@ -1,6 +1,6 @@
 <template>
 	<div class="ldx_l_1x">
-		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1" >
+		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1fd2" >
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
 		
 		<!-- 	<div class="ldx_l_1_1_2"><img :src="imgPath+'new/tools/v_02.svg'" ></div>
@@ -110,6 +110,13 @@ export default{
 	width:193px;
 	height:343px;
 	background: rgba(244,246,249,1);
+	border-radius:5px;
+}
+.ldx_l_1fd2{
+	position: relative;
+	width:193px;
+	height:343px;
+	background: #000;
 	border-radius:5px;
 }
 .ldx_l_1x{
