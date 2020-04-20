@@ -270,8 +270,8 @@ export default {
 	height: 38px;
 	text-align: center;
 	line-height: 38px;
-	background: #FFFFFF;
-	color: #975BF1;
+	background: #A53030;
+	color: #FFFFFF;
 	font-size: 14px;
 	border-radius: 5px;
 }
@@ -280,8 +280,8 @@ export default {
 	height: 38px;
 	text-align: center;
 	line-height: 38px;
-	background: #FFFFFF;
-	color: #3F6DF2;
+	background: #1950b2;
+	color: #FFFFFF;
 	font-size: 14px;
 	border-radius: 5px;
 }
