@@ -2,7 +2,7 @@
 	<div :class="['pr_boxd',total>40?'toptool':'']">
 		<table v-if="List.length>0" class="tabld" border="1">
 			<tr >
-				<th v-for="(el,index) in cg.title" :key="index">{{el.n}}</th>
+				<th v-for="(el,index) in cg.title" :key="index">{{el.n}}<img v-if="el.t == '1'"  @mouseout="mod()" @mouseover="modx($event,1)" class="pbx_n_06" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg" alt=""></th>
 			</tr>
 			<tr v-for="(el,index) in List" :key="index">
 				<td v-for="(el2,index2) in cg.title" :key="index2">
@@ -32,6 +32,33 @@
 			<!-- <div class="noDatawan">找不到数据了o(╥﹏╥)o</div> -->
 			<div class="noDatawan">这里还什么都没有呢~</div>
 		</div>
+		<!-- <div v-if="sfas" class="sytc">
+			<div class="sytc_1">
+				<div class="sytc_1_n1">年收益加成</div>
+				<div class="sytc_1_n2">若达成年累计收益条件，则该年后续每单项目均会获得额外百分比收益加成，年末累计收益清零重新计算。</div>
+				<div class="sytc_1_n3">项目加成收益=验收价格*收益加成比</div>
+				<div class="sytc_1_n4">
+					<span class="sytc_1_n5">
+						你的{{new Date().getFullYear()}}累计收益：
+						<span class="sytc_1_n6">￥ {{basDa.year_total_income?basDa.year_total_income:0}}</span>
+					</span>
+					<span class="sytc_1_n7">
+						当前收益加成：
+						<span class="sytc_1_n8">+ {{basDa.gain_share_rate}}</span>
+					</span>
+				</div>
+			</div>
+			<div class="sytc_2">
+				<div class="sytc_2_1">
+					<span>达成条件</span><span>收益加成</span>
+				</div>
+				<div v-for="(el,index) in basDa.profit_config" :key="index" :class="backCl(index)">
+					<span>累计收益达到 ￥ {{el.total_income}}</span><span>+ {{el.gain_share_rate}}%</span>
+				</div>
+				
+				
+			</div>
+		</div>		 -->
 	</div>
 </template>
 
@@ -42,7 +69,8 @@ export default {
 	props:{
 		cg:{
 			type:Object,
-			default:{pr:{}}
+			default:{pr:{}},
+			sfas:'',
 		},
 	},
 	data(){
@@ -118,7 +146,13 @@ export default {
 		handleCurrentChange(val) {
 			this.page = val;
 			this.getData();
-		}
+		},
+		mod(e){
+			alert(1)
+		},
+		modx(e,on){
+			alert(2)
+		},
 	}
 }
 </script>
@@ -160,5 +194,18 @@ export default {
 .noDatawan{
 	color: #33B3FF;
     margin-top: 18px;
+}
+.jc{
+	color:rgba(255,146,0,1);
+	
+}
+.pbx_n_06{
+	margin-top: 19px;
+}
+.sy{
+	color:rgba(255,146,0,1);
+}
+.proLink{
+	color:rgba(51,51,51,1);
 }
 </style>

@@ -556,8 +556,8 @@ img{
 }
 .lgoin_s4{
 	font-size: 16px;
-	margin-top: 17px;
-	margin-bottom: 22px;
+	// margin-top: 17px;
+	margin-bottom: 16px;
 	width: 100%;
 	color:#fff;
 	background: #33B3FF !important;
@@ -569,7 +569,7 @@ img{
 }
 
 .login_x3{
-	margin-bottom: 38px;
+	margin-bottom: 49px;
 }
 .login_x3>span{
 	display: inline-block;
@@ -578,7 +578,6 @@ img{
 	font-size: 16px;
 	color: #666666;
 	line-height: 40px;
-	border-bottom: 1px solid #EEEEEE;
 }
 .login_x3>span.cheack{
 	border-bottom: 2px solid #33B3FF;
@@ -629,7 +628,7 @@ img{
 	vertical-align: top;
 	width: 36px;
 	height:36px;
-	margin: 15px 0 0;
+	// margin: 15px 0 0;
 	background-size:100% ;
 	
 }

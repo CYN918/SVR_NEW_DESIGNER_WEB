@@ -19,7 +19,7 @@
 					</el-select>
 				</div>
 			</div>
-		</div>			
+		</div>	
 	</div>
 </template>
 <script>
@@ -30,7 +30,7 @@ export default {
 			type:Object,
 			default:{
 				list1:[],
-				list2:[]
+				list2:[],
 			}
 		}
 	},

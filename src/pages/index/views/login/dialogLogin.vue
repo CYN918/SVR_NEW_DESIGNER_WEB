@@ -240,10 +240,11 @@ export default {
 	float: left;
 }
 .login_x3{
-	margin-top: 30px;
-	padding-left: 30px;
-	padding-right: 30px;
+	margin-top: 40px;
+	margin-left: 32px;
+    margin-right: 32px;
 	height: 42px;
+	border-bottom: 1px solid #ddd;
 }
 .lgoin_s4{
 	width: 85%;

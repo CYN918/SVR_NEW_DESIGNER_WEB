@@ -16,9 +16,11 @@ export default {
 			config:{
 				title:[
 					{n:'结算日期',poprs:'balance_date'},
-					{n:'项目名称',poprs:'name'},
-					{n:'收益加成',poprs:'gain_share_rate'},
-					{n:'收益',poprs:'advance_payment_total_income'},
+					{n:'项目名称',temp:{cFn:'goWork',poprs:'name',cls:'pend',clfn:(d)=>{
+						return '<span class="ficSp1">'+d.name+'</span>';
+					}}},
+					{n:'收益加成',clfn:(da)=>{return '￥'+this.mJs.money_deiv(da.profit_fee)+'(' + '+' +da.gain_share_rate+'%)'}},
+					{n:'收益',t:'1',temp:{cFn:'btn',clfn:(da)=>{if(da.deal_type == '3'){return '￥'+this.mJs.money_deiv(da.balance_fee)+'(已付预付金)' + '<img class="pbx_n_06" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg" alt=""/>'}else if(da.deal_type == '2'){return '<span class="sy">' + '￥'+this.mJs.money_deiv(da.balance_fee) + '</span>'}else{return}}}},
 				],
 					
 				ajax:{
@@ -53,10 +55,14 @@ export default {
 		},
 
 		goWork(d){
-			this.$router.push({path: '/cont',query:{id:d.work_id}});
+			this.$router.push({path: '/prcent',query:{id:d.work_id}});
 		},
 		goAc(d){
 			this.$router.push({path: '/detailed',query:{id:d.activity_id}});
+		},
+		btn(d){
+			alert(1)
+
 		},
 		setType(o){
 			this.typed = o;
