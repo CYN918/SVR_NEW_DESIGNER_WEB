@@ -26,10 +26,15 @@
 						<video @timeupdate="timeupdatevideo" muted @ended="endeds()" @loadeddata="csy" id="boxf" class="ntob_cent_l_1"
 						 :src="video" ref="vids"></video>
 						<div class="debox_01">
-							<div v-for="(el,index) in navcoms.decorates">
-								<div v-for="(el2,index2) in el" v-if="el2.start+(el2.cut_end-el2.cut_start)>=bfTime && bfTime>=el2.start">
-									<setDevs v-model="navcoms.decorates[index][index2]"></setDevs>
-								</div>
+							<div v-for="(el,index) in navcoms.decorates" :class="playT==1?'setop':''">
+								<span v-for="(el2,index2) in el">
+									<div
+									v-if="backTim(el2)>=bfTime && bfTime>=el2.start"
+									>
+										<setDevs v-model="navcoms.decorates[index][index2]"></setDevs>
+									</div>					
+								</span>
+								
 							</div>
 						</div>
 						<div v-if="isld && vdcc2==1" class="show_00x_1" :style="'zoom:'+zoomd">
@@ -2291,6 +2296,7 @@
 		font-size: 14px;
 	}
 	.zs_box{
+		display: none;
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -2341,6 +2347,9 @@
 		width: 16px;
 		margin-right: 6px;
 
+	}
+	.setop .setDvs_02x1{
+		display: none;
 	}
 	.setToll4_2>span:hover {
 		background-color: #f5f7fa;
