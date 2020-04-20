@@ -5,7 +5,7 @@
 				<span class="a">视频剪辑</span><img @click="close()" class="pend b" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg">
 			</div>
 			<div class="pcat_01">
-				<img class="pcat_02" :src="value.data.cover_img" ref="bgh"/>
+				<img :style="imgs" class="pcat_02" :src="value.data.cover_img" ref="bgh"/>
 				
 				<div class="pcat_03"></div>
 				<div class="pcat_04" :style="backys()">
@@ -64,6 +64,7 @@ export default{
 				x:0,
 				y:0
 			},
+			imgs:'',
 			cjk:{
 				x:0,
 				y:0,
@@ -118,9 +119,33 @@ export default{
 			this.$set(this.value.data,n,v)
 		},
 		cz(){
-			let dop = this.$refs.bgh.getBoundingClientRect();
-			this.picset(dop);				
-			this.cjkset(this.pic);	
+			
+			let maxw = 640;
+			let maxy = 360;
+			let onw = 0;
+			let onh = 0;
+			let img = document.createElement('img');
+			img.src=this.value.data.cover_img;
+			img.onload = ()=>{
+				console.log()
+				let w = img.naturalWidth;
+				let y = img.naturalHeight;
+				let bl = w/y;
+			
+				onh = 360;
+				onw = bl*onh;
+				if(onw>640){
+					onw = 640;
+					onh = onw/bl;
+				}
+				this.imgs = 'width:'+onw+'px;height:'+onh+'px;';
+				this.picset({
+					width:onw,
+					height:onh
+				});				
+				this.cjkset(this.pic);	
+			}
+			
 			
 			
 		},		
@@ -143,10 +168,6 @@ export default{
 			max_r_y = this.pic.y+this.pic.h - this.cjk.h;	
 					
 			/*计算最大边界值*/
-					
-				
-			
-			
 			var min_h=0;
 			var max_h=0;
 			var min_w=0;

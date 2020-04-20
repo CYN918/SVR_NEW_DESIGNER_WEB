@@ -458,7 +458,20 @@
 			},
 			
 			playFn(obj){
+				if(this.playT==1){
+					if (this.$refs.vids) {
+						this.$refs.vids.pause();
+					}
+					console.log(this.$refs.aido);
+					if (this.$refs.aido) {
+						this.$refs.aido.pause();
+					}
+					this.clerHz();
+					this.playT=2;
+					
+				}
 				obj.play();
+				
 			},
 			pauseFn(obj){
 				obj.pause();
@@ -1064,7 +1077,12 @@
 				this.audioLast = '';
 				this.audiosOn = 0;
 				this.bfon = 0;	
-				this.playsx();
+				
+				if(this.playT==1){
+					this.playsx();
+				}
+				
+				
 				this.setMaxTime();
 			},
 			
@@ -1287,14 +1305,22 @@
 				if(this.bfTime<ado.start || this.bfTime>bftx){
 					return
 				}
+				
+				
 				this.playAio();				
 			},
 			playAio() {
+				if(!this.$refs.aido.paused){
+					return
+				}
 				let aoi = this.navcoms.audio[0];
 				if(!aoi){
 					return
 				}
-				
+			
+				if(this.$refs.vids.paused){
+					return
+				}
 				this.$refs.aido.play();
 			},
 
@@ -1311,6 +1337,7 @@
 						this.$refs.vids.pause();
 					}
 					if (this.$refs.aido) {
+						console.log('gb');
 						this.$refs.aido.pause();
 					}
 					this.clerHz();
