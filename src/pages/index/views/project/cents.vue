@@ -88,7 +88,7 @@
 					</div>
 					<div class="cenDjs_5" v-if="deta.status == '4'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-						<p>待验收</p>
+						<p>待审核</p>
 					</div>
 					<div class="cenDjs_5" v-if="deta.status == '5'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
@@ -101,6 +101,10 @@
 					<div class="jz_time" v-if="djsshow.h || deta.status==1">
 						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止报名时间</i></p>
 						<detailGd :obj="pzTop" ref="topGd"></detailGd>
+					</div>
+					<div class="jz_time" v-if="deta.status==4">
+						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止交稿时间</i></p>
+						<p v-html="tips"></p>
 					</div>
 					<div v-if="deta.status==1 || deta.status==2" class="bm_dp">
 						<p><img :src="imgSig+'prcent/xm_icon_num.svg'"/><i>报名人数</i></p>
@@ -127,10 +131,10 @@
 
 				</div>
 				<div class="liucheng" v-if="deta.status == '4'" style="background:rgba(255,146,0,1);">
-					<div class="element1" style="background-color: #FF9200;"></div>
+					<div class="element1" style="background-color: #33B3FF;"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
-					<div class="element2" style="background-color: #FF9200;"></div>
+					<div class="element2" style="background-color: #33B3FF;"></div>
 					<div class="t-3">待审核</div>
 					<div class="t-4"></div>
 					<div class="element3"></div>
@@ -234,11 +238,12 @@ export default {
 			topTyped:'',
 			pzTop:{},
 			djstimd:{},
+			tips:'',
 		}
 	},
 	mounted: function(){
 		this.init();
-		console.log(this.djsshow)
+
 	}, 
 	methods: {	
 		init(){		
@@ -246,6 +251,7 @@ export default {
 				this.$router.push({path:'/project'});
 				return
 			}
+			
 								
 			this.getData();			
 		},
@@ -348,10 +354,31 @@ export default {
 					id:da.id,
 				};
 				this.deta = da;
+				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
+					
+					let otim = this.bckdtimed(this.deta.delivery_deadline);
+			
+					this.tips = otim[0]+otim[1];
+					console.log(this.tips)
+				
+				}
 				
 			}).catch(()=>{
 				
 			});
+		},
+		bckdtimed(t){
+		
+			let times =new Date(t.replace(/-/g,'/')),
+			Y = times.getFullYear(),
+			M = times.getMonth()+1,
+			D = times.getDate(),
+			h = times.getHours(),
+			m = times.getMinutes();
+			return [(Y+'/'+this.bNus(M)+'/'+this.bNus(D)),(this.bNus(h)+':'+this.bNus(m))];
+		},
+		bNus(n){ 
+			return n<10?'0'+n:n;		
 		},
 		djsfn(da){			
 			if(da.d==0 && da.h==0 && da.m==0 && da.s==0){
@@ -785,18 +812,19 @@ export default {
 	
 }
 .event_op > div{
-	height: 40px;
-	line-height: 40px;
+	height: 38px;
+	line-height: 38px;
 	float: right;
 	cursor: pointer;
 }
 .pr_down_mb{
 	width: 120px;
 	text-align: center;
-	background: #33B3FF;
-	color: #fff;
+	background:rgba(255,255,255,1);
+	color:rgba(102,102,102,1);
 	font-size: 14px;
 	border-radius:5px;
+	border:1px solid rgba(187,187,187,1);
 }
 .pr_down_mb > img{
 	margin-top: 11px;
@@ -837,6 +865,7 @@ export default {
 }
 .cents_box_status > div > p:nth-child(2){
 	margin-top: 16px;
+	font-size: 24px;
 }
 .cenDjs_5 > p:nth-child(2){
 	font-size:24px;

@@ -97,7 +97,7 @@ export default {
 	mounted: function(){
 		this.init();
 		this.backtims();
-		console.log(this.$route.path)
+		// console.log(this.$route.path)
 	}, 
 	watch: {		
 		'elm': function() {

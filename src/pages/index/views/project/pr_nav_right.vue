@@ -2,12 +2,12 @@
     <div class="nav_rig">
         <ul>
             <li class="nav_logo" @mouseenter="mouseover('e')" @mouseleave="mouseLeave('e')"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
-            <li class="nav_upload" @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'prcent/icon_qq.svg'" alt=""/><p>项目顾问</p></li>
-            
-            <li class="nav_tolt" @click="go_tolt()" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'prcent/px_share.svg'" alt=""/><p>分享项目</p></li>
-            
-            <li class="nav_weixin" @click="go_weibo()"><img :src="imgSig+'prcent/xmxq_icon_zn.svg'" alt=""/><p>项目指南</p></li>
-            
+            <li class="nav_upload" v-if="uploadShow" @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'prcent/icon_qq.svg'" alt=""/><p>项目顾问</p></li>
+            <li class="nav_upload" v-else @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'prcent/bar_icon_qq.svg'" alt=""/><p>项目顾问</p></li>
+            <li class="nav_tolt" v-if="totalShow"  @click="go_tolt()" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'prcent/px_share.svg'" alt=""/><p>分享项目</p></li>
+            <li class="nav_tolt" v-else @click="go_tolt()" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'prcent/bar_px_share.svg'" alt=""/><p>分享项目</p></li>
+            <li class="nav_weixin" v-if="xmxq" @click="go_weibo()" @mouseenter="mouseover('f')" @mouseleave="mouseLeave('f')"><img :src="imgSig+'prcent/xmxq_icon_zn.svg'" alt=""/><p>项目指南</p></li>
+            <li class="nav_weixin" v-else @click="go_weibo()" @mouseenter="mouseover('f')" @mouseleave="mouseLeave('f')"><img :src="imgSig+'prcent/bar_xmxq_icon_zn.svg'" alt=""/><p>项目指南</p></li>
             <li class="nav_top" @click="go_top()" v-if="isShow">TOP</li>
         </ul>
     </div>
@@ -18,6 +18,9 @@ export default {
     data(){
         return {
             isShow:false,
+            uploadShow:true,
+            totalShow:true,
+            xmxq:true,
         }
     },
     mounted: function(){
@@ -49,10 +52,17 @@ export default {
             if(type == 'd'){
                 document.getElementsByClassName('nav_tolt')[0].style.background = '#33B3FF'
                 document.getElementsByClassName('nav_tolt')[0].style.color = '#ffffff'
+                this.totalShow = false;
+            }
+            if(type == 'f'){
+                document.getElementsByClassName('nav_weixin')[0].style.background = '#33B3FF'
+                document.getElementsByClassName('nav_weixin')[0].style.color = '#ffffff'
+                this.xmxq = false;
             }
             if(type == 'c'){
                 document.getElementsByClassName('nav_upload')[0].style.background = '#33B3FF'
                 document.getElementsByClassName('nav_upload')[0].style.color = '#ffffff'
+                this.uploadShow = false;
             }
             if(type == 'e'){
                 document.getElementsByClassName('nav_logo')[0].style.top = '15px'
@@ -62,10 +72,17 @@ export default {
              if(type == 'd'){
                 document.getElementsByClassName('nav_tolt')[0].style.background = '#FFFFFF'
                 document.getElementsByClassName('nav_tolt')[0].style.color = '#1E1E1E'
+                this.totalShow = true;
             } 
+            if(type == 'f'){
+                document.getElementsByClassName('nav_weixin')[0].style.background = '#FFFFFF'
+                document.getElementsByClassName('nav_weixin')[0].style.color = '#1E1E1E'
+                this.xmxq = true;
+            }
             if(type == 'c'){
                 document.getElementsByClassName('nav_upload')[0].style.background = '#FFFFFF'
                 document.getElementsByClassName('nav_upload')[0].style.color = '#1E1E1E'
+                this.uploadShow = true;
             }
             if(type == 'e'){
                 document.getElementsByClassName('nav_logo')[0].style.top = '60px'
