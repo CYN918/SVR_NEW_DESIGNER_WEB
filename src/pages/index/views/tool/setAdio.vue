@@ -244,6 +244,7 @@ export default{
 				this.$parent.playAdio({
 					type:'playFn',
 				})
+				this.bRunning = true;
 				document.onmousemove = null;				
 				document.onmouseup = null;
 			};
