@@ -82,9 +82,13 @@
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
 						<p>选标期</p>
 					</div>
-					<div class="cenDjs_5" v-if="deta.status == '3'">
+					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
 						<p>制作期</p>
+					</div>
+					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected == '1'">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p style="color:rgba(255,59,48,1);">未通过</p>
 					</div>
 					<div class="cenDjs_5" v-if="deta.status == '4'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
@@ -119,7 +123,7 @@
 					</div>
 					
 				</div>
-				<div class="liucheng" v-if="deta.status == '3'">
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1'">
 					<div class="element1" style="background-color: #FF9200;"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
@@ -129,6 +133,18 @@
 					<div class="element3"></div>
 					<div class="t-5">已验收</div>
 					<div class="t-6">请在规定时间交付稿件</div>
+
+				</div>
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected == '1'" style="background-color: rgba(255,59,48,1);">
+					<div class="element1" style="background-color: rgba(51,179,255,1);"></div>
+					<div class="t-1">制作期</div>
+					<div class="t-2"></div>
+					<div class="element2"></div>
+					<div class="t-3">待审核</div>
+					<div class="t-4"></div>
+					<div class="element3"></div>
+					<div class="t-5">已验收</div>
+					<div class="t-6">你的稿件未通过，请重新提交</div>
 
 				</div>
 				<div class="liucheng" v-if="deta.status == '4'" style="background:rgba(255,146,0,1);">

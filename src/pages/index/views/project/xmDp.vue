@@ -109,7 +109,7 @@ export default {
 	},
 	mounted: function(){
 		this.init();
-		console.log(this.obj.contract_file)
+		console.log(this.obj.contract_fileobj.status)
 	}, 
 	methods: {
 
@@ -417,9 +417,9 @@ export default {
 
 .worksBox_2{
 	cursor: pointer;
-	position: absolute;
-	right: -40px;
-    top: -510px;
+	position: fixed;
+    right: 433px;
+    top: 110px;
 	font-size: 14px;
 	color: #666666;
 	text-align: center;
