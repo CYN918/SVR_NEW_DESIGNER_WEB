@@ -82,9 +82,13 @@
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
 						<p>选标期</p>
 					</div>
-					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1'">
+					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) >= new Date()">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
 						<p>制作期</p>
+					</div>
+					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) < new Date()">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p>已延期</p>
 					</div>
 					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected == '1'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
@@ -121,9 +125,20 @@
 						<p v-if="deta.settlement == '1'">{{deta.expected_profit}}</p>
 						<p v-if="deta.settlement == '2'">永久分成</p>
 					</div>
+					<div v-if="deta.status>=3 && deta.status != 4 && deta.status != 5 " class="worksBox_2 tg_iocn_2 tg_iocn_2x">
+						<div class="worksBox_2_1x">
+							<div v-if="deta.status==3" @click="showTc('Stop')">终止项目</div>
+							<div v-if="islog" @click="showTc('Log')">交稿记录</div>
+							<div v-if="deta.contract_file && deta.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
+								<div class="worksBox_2_4">
+									<div v-for="(el,index) in deta.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
+								</div>
+							</div>
+						</div>
+					</div>
 					
 				</div>
-				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1'">
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1'  && new Date(Date.parse(deta.delivery_deadline)) >= new Date()">
 					<div class="element1" style="background-color: #FF9200;"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
@@ -133,6 +148,18 @@
 					<div class="element3"></div>
 					<div class="t-5">已验收</div>
 					<div class="t-6">请在规定时间交付稿件</div>
+
+				</div>
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) < new Date()" style="background-color: rgba(255,59,48,1);">
+					<div class="element1" style="background-color: rgba(51,179,255,1);"></div>
+					<div class="t-1">制作期</div>
+					<div class="t-2"></div>
+					<div class="element2"></div>
+					<div class="t-3">待审核</div>
+					<div class="t-4"></div>
+					<div class="element3"></div>
+					<div class="t-5">已验收</div>
+					<div class="t-6">你已延期交付稿件，请尽快完成并提交</div>
 
 				</div>
 				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected == '1'" style="background-color: rgba(255,59,48,1);">
@@ -257,6 +284,7 @@ export default {
 			djstimd:{},
 			timeTips:'',
 			isShow:true,
+			islog:'',
 		}
 	},
 	mounted: function(){
@@ -801,11 +829,11 @@ export default {
 	font-weight:bold;
 	color:rgba(40,40,40,1);
 	text-align: left;
-	padding-left: 125px;
+	padding-left: 10px;
 }
 .cens_x0_bottom{
 	padding-top: 10px;
-	/* width: 864px; */
+	width: 860px;
 	height: 98px;
 	margin: 0 auto;
 }
@@ -847,7 +875,6 @@ export default {
 .cens_x5{
 	/* width: 55%; */
 	float: left;
-    padding-left: 210px;
 }
 .event_op{
 	/* width: 45%; */
@@ -1015,6 +1042,24 @@ export default {
 	height: 1px;
 	background: #ffffff;
 	margin: 19px 0px 18px 12px;
+}
+.tg_iocn_2x{
+	background-repeat: no-repeat;
+	background-image: url(http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/prcent/icon_more.svg);
+}
+.tg_iocn_2{
+	width: 55px;
+    height: 33px !important;
+}
+.worksBox_2{
+	cursor: pointer;
+	position: absolute;
+    right: -95px;
+    top: -300px;
+	font-size: 14px;
+	color: #666666;
+	text-align: center;
+	width: 95px;
 }
 
 </style>

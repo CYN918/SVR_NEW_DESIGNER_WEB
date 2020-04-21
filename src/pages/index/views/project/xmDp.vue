@@ -52,17 +52,7 @@
 		</div>
 		
 		
-		<div v-if="obj.status>=3 " class="worksBox_2 tg_iocn_2 tg_iocn_2x">
-			<div class="worksBox_2_1x">
-				<div v-if="obj.status==3" @click="showTc('Stop')">终止项目</div>
-				<div v-if="islog" @click="showTc('Log')">交稿记录</div>
-				<div v-if="obj.contract_file && obj.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
-					<div class="worksBox_2_4">
-						<div v-for="(el,index) in obj.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
-					</div>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 </template>
 
@@ -109,7 +99,7 @@ export default {
 	},
 	mounted: function(){
 		this.init();
-		console.log(this.obj.contract_fileobj.status)
+		console.log(this.obj.status)
 	}, 
 	methods: {
 
@@ -415,16 +405,7 @@ export default {
 	line-height:34px;
 }
 
-.worksBox_2{
-	cursor: pointer;
-	position: fixed;
-    right: 433px;
-    top: 110px;
-	font-size: 14px;
-	color: #666666;
-	text-align: center;
-	width: 95px;
-}
+
 /* .worksBox_2:after{
 	position: absolute;
 	top: 22px;
@@ -447,7 +428,7 @@ export default {
 	display: none;
 	position: absolute;
 	top: 35px;
-	right: -57px;
+	right: -17px;
 	z-index: 99;
 	background: #FFFFFF;
 	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
@@ -467,10 +448,7 @@ export default {
 .worksBox_2_1x>div:hover{
 	background: #E6E6E6;
 }
-.tg_iocn_2{
-	width: 55px;
-    height: 33px;
-}
+
 .is_seldf{
 	font-size:16px;
 	font-family:PingFangSC;
@@ -549,8 +527,5 @@ export default {
 .worksBox_2_4>div:hover{
 	background: #E6E6E6;
 }
-.tg_iocn_2x{
-	background-repeat: no-repeat;
-	background-image: url(http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/prcent/icon_more.svg);
-}
+
 </style>
