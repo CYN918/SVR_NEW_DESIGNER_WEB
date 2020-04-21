@@ -103,8 +103,9 @@
 						<detailGd :obj="pzTop" ref="topGd1"></detailGd>
 					</div>
 					<div class="jz_time" v-if="deta.status==4 || deta.status==3">
-						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止交稿时间</i></p>
-						<p v-html="tips"></p>
+						<p v-if="isShow"><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止交稿时间</i></p>
+						<p v-else><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>项目已延期交稿</i></p>
+						<p v-html="timeTips"></p>
 					</div>
 					<div v-if="deta.status==1 || deta.status==2" class="bm_dp">
 						<p><img :src="imgSig+'prcent/xm_icon_num.svg'"/><i>报名人数</i></p>
@@ -238,7 +239,8 @@ export default {
 			topTyped:'',
 			pzTop:{},
 			djstimd:{},
-			tips:'',
+			timeTips:'',
+			isShow:true,
 		}
 	},
 	mounted: function(){
@@ -358,10 +360,27 @@ export default {
 				};
 				this.deta = da;
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
-					
-					let otim = this.bckdtimed(this.deta.delivery_deadline);
+					var d2 = new Date();
+					var d1 = new Date(Date.parse(this.deta.delivery_deadline));
+						
+					if(d1 > d2){
+						this.isShow = true;
+						let otim = this.bckdtimed(this.deta.delivery_deadline);
 			
-					this.tips = otim[0]+ '&nbsp;&nbsp;' + otim[1];
+						this.timeTips = otim[0]+ '&nbsp;&nbsp;' + otim[1];
+						
+						
+					}else{
+						this.isShow = false;
+						var d3 = d2 - d1;
+						var days = Math.floor(d3/(24*3600*1000));
+						var leave1 = d3%(24*3600*1000);
+						var hours = Math.floor(leave1/(3600*1000));
+						
+						this.timeTips = '<span style="color:rgba(255,59,48,1);">'+days+'天'+hours+'小时</span>';
+					}
+					
+					
 				
 				}
 				
@@ -851,7 +870,7 @@ export default {
 	height: 98px;
 	width: 875px;
 	bottom: 48px;
-    left: 215px;
+    left: 148px;
 	text-align: center;
 }
 .cents_box_status > div{

@@ -167,9 +167,23 @@ export default {
 					if(this.deta.is_rejected==1){
 						this.tips = '<div class="backdse pr_cent2_r2_4">你的稿件未通过，请重新提交</div>';
 					}else{
-						let otim = this.bckdtimed(this.deta.delivery_deadline);
+						var d2 = new Date();
+						var d1 = new Date(Date.parse(this.deta.delivery_deadline));
+						 
+						if(d1 > d2){
+							let otim = this.bckdtimed(this.deta.delivery_deadline);
 			
-					    this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
+					        this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
+							
+						}else{
+							var d3 = d2 - d1;
+							var days = Math.floor(d3/(24*3600*1000));
+							var leave1 = d3%(24*3600*1000);
+                            var hours = Math.floor(leave1/(3600*1000));
+							
+                            this.tips = '<div class="backdse pr_cent2_r2_4">你已延期<span>'+days+'天'+hours+'小时</span>，请尽快完成</div>';
+						}  
+						
 
 					}
 					
@@ -603,5 +617,9 @@ export default {
 	border-radius: 5px;
 	font-weight:600;
 	font-size: 16px;
+}
+.pr_cent2_r2_4 > span{
+	font-size: 16px;
+	margin-left: 5px;
 }
 </style>
