@@ -117,6 +117,7 @@ export default {
 			this.pzData();
 			if(this.$route.query.on){
 				this.topTyped=1;
+				this.addLsSc();
 			}
 		},
 		
