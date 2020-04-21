@@ -82,9 +82,13 @@
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
 						<p>选标期</p>
 					</div>
-					<div class="cenDjs_5" v-if="deta.status == '3'">
+					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
 						<p>制作期</p>
+					</div>
+					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected == '1'">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p style="color:rgba(255,59,48,1);">未通过</p>
 					</div>
 					<div class="cenDjs_5" v-if="deta.status == '4'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
@@ -103,8 +107,9 @@
 						<detailGd :obj="pzTop" ref="topGd1"></detailGd>
 					</div>
 					<div class="jz_time" v-if="deta.status==4 || deta.status==3">
-						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止交稿时间</i></p>
-						<p v-html="tips"></p>
+						<p v-if="isShow"><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止交稿时间</i></p>
+						<p v-else><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>项目已延期交稿</i></p>
+						<p v-html="timeTips"></p>
 					</div>
 					<div v-if="deta.status==1 || deta.status==2" class="bm_dp">
 						<p><img :src="imgSig+'prcent/xm_icon_num.svg'"/><i>报名人数</i></p>
@@ -118,7 +123,7 @@
 					</div>
 					
 				</div>
-				<div class="liucheng" v-if="deta.status == '3'">
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1'">
 					<div class="element1" style="background-color: #FF9200;"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
@@ -128,6 +133,18 @@
 					<div class="element3"></div>
 					<div class="t-5">已验收</div>
 					<div class="t-6">请在规定时间交付稿件</div>
+
+				</div>
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected == '1'" style="background-color: rgba(255,59,48,1);">
+					<div class="element1" style="background-color: rgba(51,179,255,1);"></div>
+					<div class="t-1">制作期</div>
+					<div class="t-2"></div>
+					<div class="element2"></div>
+					<div class="t-3">待审核</div>
+					<div class="t-4"></div>
+					<div class="element3"></div>
+					<div class="t-5">已验收</div>
+					<div class="t-6">你的稿件未通过，请重新提交</div>
 
 				</div>
 				<div class="liucheng" v-if="deta.status == '4'" style="background:rgba(255,146,0,1);">
@@ -238,7 +255,8 @@ export default {
 			topTyped:'',
 			pzTop:{},
 			djstimd:{},
-			tips:'',
+			timeTips:'',
+			isShow:true,
 		}
 	},
 	mounted: function(){
@@ -358,10 +376,27 @@ export default {
 				};
 				this.deta = da;
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
-					
-					let otim = this.bckdtimed(this.deta.delivery_deadline);
+					var d2 = new Date();
+					var d1 = new Date(Date.parse(this.deta.delivery_deadline));
+						
+					if(d1 > d2){
+						this.isShow = true;
+						let otim = this.bckdtimed(this.deta.delivery_deadline);
 			
-					this.tips = otim[0]+ '&nbsp;&nbsp;' + otim[1];
+						this.timeTips = otim[0]+ '&nbsp;&nbsp;' + otim[1];
+						
+						
+					}else{
+						this.isShow = false;
+						var d3 = d2 - d1;
+						var days = Math.floor(d3/(24*3600*1000));
+						var leave1 = d3%(24*3600*1000);
+						var hours = Math.floor(leave1/(3600*1000));
+						
+						this.timeTips = '<span style="color:rgba(255,59,48,1);">'+days+'天'+hours+'小时</span>';
+					}
+					
+					
 				
 				}
 				
@@ -851,7 +886,7 @@ export default {
 	height: 98px;
 	width: 875px;
 	bottom: 48px;
-    left: 215px;
+    left: 148px;
 	text-align: center;
 }
 .cents_box_status > div{
