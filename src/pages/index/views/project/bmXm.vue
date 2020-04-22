@@ -338,7 +338,7 @@ export default {
 	line-height: 79px;
 }
 .buyout{
-	width: 683px;
+	width: 922px;
 	height: 83px;
 	border: 1px solid #33B3FF;
 	border-top-right-radius: 5px;
@@ -352,9 +352,10 @@ export default {
 	text-align: center;
 	line-height: 20px;
 	position: absolute;
-	right: 286px;
+	right: 45px;
     top: 125px;
 	color: #33B3FF;
 	font-size: 14px;
+	cursor: pointer;
 }
 </style>

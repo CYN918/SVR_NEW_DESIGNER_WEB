@@ -61,7 +61,7 @@ export default {
 			this.$router.push({path: '/detailed',query:{id:d.activity_id}});
 		},
 		btn(d){
-			alert(1)
+			
 
 		},
 		setType(o){

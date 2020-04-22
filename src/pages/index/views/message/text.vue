@@ -50,7 +50,7 @@ export default {
 				arr:[
 					{u:'/about',n:'关于我们'},
 					{u:'/userProtocol',n:'用户协议'},
-					{u:'/authorization',n:'授权协议'},
+					{u:'/authorization',n:'供稿人协议'},
 					{u:'/help',n:'帮助中心'}
 				]
 			},

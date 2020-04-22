@@ -48,7 +48,12 @@
 				<!-- <div class="pr_cent2_8">领域范围：<span v-for="(ed,index) in deta.fields">{{ed}}</span></div>	 -->
 			</div>
 			<div class="pr_cent2_9">
-				<div style="width:100%;height:50px;">
+				<div style="width:100%;height:50px;" v-if="this.$route.path == '/projectYs'">
+					<div v-if="deta.deal_type == '1'" class="md">买断</div>	
+				    <div v-if="deta.deal_type == '2'" class="fc">分成</div>	
+					<div v-if="deta.deal_type == '3'" class="fc">预付金+分成</div>
+				</div>
+				<div style="width:100%;height:50px;" v-else>
 					<div v-if="deta.settlement == '1'" class="md">买断</div>	
 				    <div v-if="deta.settlement == '2'" class="fc">分成</div>	
 				</div>			
@@ -131,15 +136,30 @@ export default {
 		},
 		clsfn(){
 			this.btns = [];
-			if(this.deta.settlement == '0'){
-				this.tip = '预计收益：<span>'+this.deta.expected_profit+'</span>';
+			if(this.$route.path == '/projectBm' || this.$route.path == '/projectZz'){
+				if(this.deta.settlement == '0'){
+					this.tip = '预计收益：<span>'+ '[买断]'+this.deta.expected_profit+'<i style="font-style: normal;color:#282828;font-size:14px;margin-left:5px;margin-right:5px;">或</i>永久分成</span>';
+				}
+				if(this.deta.settlement == '1'){
+					this.tip = '预计收益：<span>'+ '[买断]' +this.deta.expected_profit+'</span>';
+				}
+				if(this.deta.settlement == '2'){
+					this.tip = '预计收益：<span>永久分成</span>';
+				}
 			}
-			if(this.deta.settlement == '1'){
-				this.tip = '预计收益：<span>'+ '[买断]' +this.deta.expected_profit+'</span>';
+			if(this.$route.path == '/projectYs'){
+				if(this.deta.money.length != '0'){
+					if(this.deta.money[0].advance_payment != '0.00'){
+						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money[0].advance_payment_total_income+'</span>'+ '<span style="color:rgba(187,187,187,1);font-size:12px;">' + '('+'￥'+this.deta.money[0].advance_payment+'预付金'+')' + '</span>';
+					}else{
+						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money[0].advance_payment_total_income+'</span>';
+					}
+				}else{
+					this.tip = '累计分成收益：';
+				}
 			}
-			if(this.deta.settlement == '2'){
-				this.tip = '预计收益：<span>永久分成</span>';
-			}
+			
+			
 			if(this.deta.status==1){
 				this.tips = '<div class="pr_cent2_r2_1 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
 				return
@@ -210,7 +230,7 @@ export default {
 					bd[1].fn = 'ypj';
 				}
 				this.btns = bd;
-				this.tip = '成交价格：<span class="csyaswz_01">'+this.deta.deal_price+'</span>';
+				
 				this.tips = '<div class="backdse pr_cent2_r2_2">项目已验收，感谢与你的本次合作</div>';
 			}
 				
@@ -563,7 +583,7 @@ export default {
 }
 .pr_cent2_10>span.csyaswz_01{
 	font-size:16px;
-	color: #33B3FF;
+	color: rgba(255,59,48,1);
 }
 .pr_cent2_11>div{
 	margin: 0;

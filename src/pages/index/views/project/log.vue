@@ -174,7 +174,7 @@ export default {
 }
 .jgbix>div:nth-child(1){
 	padding-left:20px;
-	width: 194px;
+	width: 245px;
 	height: 58px;
 
 }

@@ -153,7 +153,7 @@ export default {
 			isyazfs:0,
 			tancData:{
 				mobile_zone:'86',
-				old_mobile_zone:'86'
+				old_mobile_zone:'86',
 			},
 
 			form:{},
