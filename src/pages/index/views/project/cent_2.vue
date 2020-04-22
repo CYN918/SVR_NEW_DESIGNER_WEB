@@ -51,7 +51,7 @@
 				<div style="width:100%;height:50px;" v-if="this.$route.path == '/projectYs'">
 					<div v-if="deta.deal_type == '1'" class="md">买断</div>	
 				    <div v-if="deta.deal_type == '2'" class="fc">分成</div>	
-					<div v-if="deta.deal_type == '3'" class="fc">预付金+分成</div>
+					<div v-if="deta.deal_type == '3'" class="fc" style="width: 120px;">预付金+分成</div>
 				</div>
 				<div style="width:100%;height:50px;" v-else>
 					<div v-if="deta.settlement == '1'" class="md">买断</div>	
