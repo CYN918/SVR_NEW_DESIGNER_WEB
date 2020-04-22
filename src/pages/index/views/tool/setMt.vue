@@ -18,7 +18,6 @@
 							<el-progress :width="48" :stroke-width="2"  type="circle" :percentage="el.bf"></el-progress>
 							<span class="jdt_002x">正在上传</span>
 						</div>
-						
 					</div>
 					<div @mousedown="starD($event,el)" @mouseover="ybf(index,el)" class="setMt_03_01" v-else>
 						<img :src="el.cover_img?el.cover_img:el.url">
@@ -28,7 +27,6 @@
 					
 					<div @click="checkV(el)" class="tim_xz"><img width="100%" src="../../../../assets/icon_add_small.png" alt=""></div>
 					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="../../../../assets/sc_icon_delete.png"/></div>
-					
 				</li>
 			</span>
 		</ul>
