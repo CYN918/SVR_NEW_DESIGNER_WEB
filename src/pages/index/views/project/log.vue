@@ -26,9 +26,9 @@
 					</div>
 					<div>{{el.created_at | logtime}}</div>
 					<div>{{el.check_status | typsuu}}</div>
-					<div>{{el.updated_at | logtime}}</div>
-					<div>
-						<div class="log_tipbox" v-if="el.check_status==-1">
+					<div style="margin-right:6px;">{{el.updated_at | logtime}}</div>
+					<div v-if="el.check_status==-1">
+						<div class="log_tipbox">
 							驳回理由
 							<div class="log_tip">
 								<span class="log_tip1">{{el.check_reason}}</span>
@@ -201,6 +201,7 @@ export default {
 	color:rgba(102,102,102,1);
 	line-height: 53px;
 	border-bottom:1px solid rgba(244,246,249,1);
+	float: left;
 }
 .log_tipbox{
 	cursor: pointer;

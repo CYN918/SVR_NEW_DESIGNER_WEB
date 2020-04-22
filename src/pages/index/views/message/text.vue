@@ -114,7 +114,11 @@ export default {
 		init(){
 			this.mJs.scTop(1);		
 			
-			this.pzData();		
+			this.pzData();
+			if(this.$route.query.on){
+				this.topTyped=1;
+				this.addLsSc();
+			}
 		},
 		
 		reHid(i){

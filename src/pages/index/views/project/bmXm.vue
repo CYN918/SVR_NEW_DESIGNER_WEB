@@ -16,7 +16,7 @@
 						<p style="margin: 5px 0px 5px 15px;color:#FF3B30;">{{expected_profit}}</p>
 						<p style="margin-left:15px;margin-right:15px;">项目验收价格,会根据验收稿的质量有所浮动,但只要稿件完成度符合验收要求,最终收益就会在该价格区间内.</p>
 					</div>
-					<div class="detail-js" v-show="postData.deal_type == '2'">详细分成介绍</div>
+					<div class="detail-js" v-show="postData.deal_type == '2'" @click="goOn('/help',{on:'4-13'})">详细分成介绍</div>
 					<div class="buyout" v-show="postData.deal_type == '2'">
 						<p style="margin: 22px 15px 22px 15px;">项目收录的作品最终会投放至平台合作的渠道终端,并持续产生收益,最终按照产品曝光量与固定分成单价,与创作者结算该收益.即作品曝光量越高,分成收益越多,且是永久性的哟~</p>
 					</div>
@@ -87,6 +87,9 @@ export default {
 		}
 	},
 	methods: {	
+		goOn(on,cs){
+			this.$router.push({path:on,query:cs})	
+		},
 		init(){
 			if(!this.datad.project_id){
 				this.close();
