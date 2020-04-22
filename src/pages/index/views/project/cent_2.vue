@@ -148,14 +148,14 @@ export default {
 				}
 			}
 			if(this.$route.path == '/projectYs'){
-				if(this.deta.money.length != '0'){
-					if(this.deta.money[0].advance_payment != '0.00'){
-						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money[0].advance_payment_total_income+'</span>'+ '<span style="color:rgba(187,187,187,1);font-size:12px;">' + '('+'￥'+this.deta.money[0].advance_payment+'预付金'+')' + '</span>';
+				if(this.deta.money != ''){
+					if(this.deta.money.advance_payment != '0.00'){
+						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>'+ '<span style="color:rgba(187,187,187,1);font-size:12px;">' + '('+'￥'+this.deta.money.advance_payment+'预付金'+')' + '</span>';
 					}else{
-						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money[0].advance_payment_total_income+'</span>';
+						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>';
 					}
 				}else{
-					this.tip = '累计分成收益：';
+					this.tip = '累计分成收益：暂无分成收益';
 				}
 			}
 			
