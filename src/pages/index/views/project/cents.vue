@@ -150,7 +150,7 @@
 					<div class="t-6">请在规定时间交付稿件</div>
 
 				</div>
-				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) < new Date()" style="background-color: rgba(255,59,48,1);">
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) < new Date()" style="background-color: #ff6e66;">
 					<div class="element1" style="background-color: rgba(51,179,255,1);"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
@@ -162,7 +162,7 @@
 					<div class="t-6">你已延期交付稿件，请尽快完成并提交</div>
 
 				</div>
-				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected == '1'" style="background-color: rgba(255,59,48,1);">
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected == '1'" style="background-color: #ff6e66;">
 					<div class="element1" style="background-color: rgba(51,179,255,1);"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
@@ -174,7 +174,7 @@
 					<div class="t-6">你的稿件未通过，请重新提交</div>
 
 				</div>
-				<div class="liucheng" v-if="deta.status == '4'" style="background:rgba(255,146,0,1);">
+				<div class="liucheng" v-if="deta.status == '4'" style="background:#ffbe66;">
 					<div class="element1" style="background-color: #33B3FF;"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
@@ -186,7 +186,7 @@
 					<div class="t-6">稿件已提交，请等待验收审核</div>
 
 				</div>
-				<div class="liucheng" v-if="deta.status == '5'" style="background:rgba(77,198,0,1);">
+				<div class="liucheng" v-if="deta.status == '5'" style="background:#a1ff66;">
 					<div class="element1" style="background-color: #FF9200;"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
@@ -1009,9 +1009,8 @@ export default {
 	line-height: 40px;
 	position: absolute;
 	bottom: 0;
-	background: #33B3FF;
+	background: #80cfff;
 	text-align: center;
-	opacity:0.7;
 }
 .liucheng > div{
 	vertical-align: top;

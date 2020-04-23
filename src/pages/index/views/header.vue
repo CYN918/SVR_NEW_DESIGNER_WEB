@@ -287,8 +287,7 @@ export default {
 			this.$router.push({path: a})			
 		},
 		
-		initHead(){	
-		
+		initHead(){
 			this.ison = '/'+this.$route.fullPath.split('/')[1];
 			
 			this.hidisXXNav();
@@ -298,6 +297,7 @@ export default {
 			
 			
 			let last = this.topNData[this.topNData.length-1].n;
+			console.log(window.userInfo)
 			if(window.userInfo){
 				this.userMssge = window.userInfo;	
 				// if(!window.userInfo.contributor_format_status && last!='供稿人'){
