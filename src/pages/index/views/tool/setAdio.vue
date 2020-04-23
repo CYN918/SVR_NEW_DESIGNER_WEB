@@ -110,7 +110,7 @@
 		<div v-if="istype" class="pr_tc_01">
 			<div class="pr_tc_02">			
 				<div class="pr_tc_04">
-					删除确认<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
+					选用确认<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
 				</div>
 				<div class="qxBm_btns_1 qxBm_btns_1x2">当前仅支持选择一首音乐，是否替换当前已选用音乐？</div>	
 				<div class="qxBm_btns">
@@ -439,6 +439,9 @@ export default{
 			this.sh_audioUrl(pd.m_id);
 		},
 		setRun(){
+			if(!this.$refs.chean){
+				return
+			}
 			this.bRunning = false;
 			this.$refs.chean[0].pause();	
 		},

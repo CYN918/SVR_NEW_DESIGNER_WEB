@@ -467,6 +467,13 @@
 				}
 			},
 			newPlay(){
+				if(this.$refs.setAdios){
+					this.$refs.setAdios.pause();
+				}
+				
+				if(this.$refs.vid && this.$refs.vid.setRun){
+					this.$refs.vid.setRun();
+				}
 				this.puandFn();
 				this.bfTime = 0;
 				this.playT = 0;
@@ -495,7 +502,14 @@
 				this.playT = 2;
 			},
 			/*播放相关*/
-			playAll(){				
+			playAll(){	
+				if(this.$refs.setAdios){
+					this.$refs.setAdios.pause();
+				}
+				
+				if(this.$refs.vid && this.$refs.vid.setRun){
+					this.$refs.vid.setRun();
+				}
 				if(this.navcoms.media.length==0){
 					return
 				}
@@ -730,7 +744,7 @@
 					if (this.$refs.aido) {
 						this.$refs.aido.pause();
 					}
-					this.clerHz();
+					this.puandFn2();
 					this.playT=2;
 					
 				}
