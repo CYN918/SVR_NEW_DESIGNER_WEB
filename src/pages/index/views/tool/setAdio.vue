@@ -98,7 +98,7 @@
 					<div @click="bf()" :class="['pr_adio_03',bRunning?'pr_adio_03_2':'pr_adio_03_1']"></div>
 					<div @click="xys()" class="pr_adio pr_adio_02"></div>
 				</span>
-				<div class="mp3_05_2_0" style="right: 0;">
+				<div class="mp3_05_2_0" style="right: 0;overflow: hidden;">
 					<img @click="favor()" class="mp3_04_01_sc pend" style="margin-top: 33px;" :src="bfData.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
 					<span @click="checkDom()" class="pend mp3_05_2_4_1">选用</span>
 				</div>
@@ -370,13 +370,12 @@ export default{
 			}
 			let el = this.chek;
 			if(el){
+				
 				this.aaa=el.m_id;
 				this.sh_audioUrld(el);
 				return
 			}
-			
-			
-			
+
 			let ond = this.bfData.on;
 			let choseEl = this.datas[ond];
 			this.aaa=choseEl.m_id;
@@ -938,7 +937,7 @@ export default{
 	line-height:32px;
 	color: #fff;
 }
-.mp3_05_2_4_1{
+ .mp3_05_2_0 > .mp3_05_2_4_1{
 	text-align: center;
 	width:100px;
 	height:32px;
@@ -950,6 +949,8 @@ export default{
 	color: #fff;
 	margin: 0 32px;
 	margin-top: 25px !important;
+	cursor: pointer;
+	pointer-events: auto;
 }
 .mp3_04{
 	overflow: hidden;

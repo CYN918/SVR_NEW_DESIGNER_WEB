@@ -283,7 +283,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped="scoped">
 .emptyData{
 	width: 1300px;
 	margin: 20px auto 60px;

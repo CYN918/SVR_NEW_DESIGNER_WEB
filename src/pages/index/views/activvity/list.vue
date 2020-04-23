@@ -118,14 +118,15 @@ export default {
 	margin-right: 10px;
 }
 .ac_list_Box_3{
+	width:98px;
+    height:48px;
 	position: absolute;
 	bottom: 26px;
 	right: 0px;
-	background: #FF9200;
+	background:rgba(255,146,0,1);
 	width: 98px;
 	text-align: center;
-	border-top-left-radius: 100px;
-	border-bottom-left-radius: 100px;
+	border-radius:100px 0px 0px 100px;
 }
 .ac_list_Box_9{
 	position: absolute;
@@ -135,15 +136,21 @@ export default {
 }
 .ac_list_Box_6{
 	display: block;
-	font-size: 16px;
-	color: #FFFFFF;
-	margin-bottom: 4px;
+	height: 26px;
+	font-size:18px;
+	font-family:PingFangSC-Medium,PingFang SC;
+	font-weight:500;
+	color:rgba(255,255,255,1);
+	line-height:26px;
 }
 .ac_list_Box_7{
-	font-size: 14px;
-	color: #FFFFFF;
-	margin-bottom: 4px;
-    display: block;
+	display: block;
+	height:20px;
+	font-size:12px;
+	font-family:PingFangSC-Regular,PingFang SC;
+	font-weight:400;
+	color:rgba(255,255,255,1);
+	line-height:20px;
 }
 .ac_list_Box_8{
 	display: inline-block;

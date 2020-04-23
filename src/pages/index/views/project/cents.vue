@@ -82,13 +82,21 @@
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
 						<p>选标期</p>
 					</div>
-					<div class="cenDjs_5" v-if="deta.status == '3'">
+					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) >= new Date()">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
 						<p>制作期</p>
 					</div>
+					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) < new Date()">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p>已延期</p>
+					</div>
+					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected == '1'">
+						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+						<p style="color:rgba(255,59,48,1);">未通过</p>
+					</div>
 					<div class="cenDjs_5" v-if="deta.status == '4'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-						<p>待验收</p>
+						<p>待审核</p>
 					</div>
 					<div class="cenDjs_5" v-if="deta.status == '5'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
@@ -100,7 +108,12 @@
 					</div>
 					<div class="jz_time" v-if="djsshow.h || deta.status==1">
 						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止报名时间</i></p>
-						<detailGd :obj="pzTop" ref="topGd"></detailGd>
+						<detailGd :obj="pzTop" ref="topGd1"></detailGd>
+					</div>
+					<div class="jz_time" v-if="deta.status==4 || deta.status==3">
+						<p v-if="isShow"><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止交稿时间</i></p>
+						<p v-else><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>项目已延期交稿</i></p>
+						<p v-html="timeTips"></p>
 					</div>
 					<div v-if="deta.status==1 || deta.status==2" class="bm_dp">
 						<p><img :src="imgSig+'prcent/xm_icon_num.svg'"/><i>报名人数</i></p>
@@ -112,9 +125,20 @@
 						<p v-if="deta.settlement == '1'">{{deta.expected_profit}}</p>
 						<p v-if="deta.settlement == '2'">永久分成</p>
 					</div>
+					<div v-if="deta.status>=3 && deta.status != 4 && deta.status != 5 " class="worksBox_2 tg_iocn_2 tg_iocn_2x">
+						<div class="worksBox_2_1x">
+							<div v-if="deta.status==3" @click="showTc('Stop')">终止项目</div>
+							<div v-if="islog" @click="showTc('Log')">交稿记录</div>
+							<div v-if="deta.contract_file && deta.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
+								<div class="worksBox_2_4">
+									<div v-for="(el,index) in deta.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
+								</div>
+							</div>
+						</div>
+					</div>
 					
 				</div>
-				<div class="liucheng" v-if="deta.status == '3'">
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1'  && new Date(Date.parse(deta.delivery_deadline)) >= new Date()">
 					<div class="element1" style="background-color: #FF9200;"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
@@ -126,11 +150,35 @@
 					<div class="t-6">请在规定时间交付稿件</div>
 
 				</div>
-				<div class="liucheng" v-if="deta.status == '4'" style="background:rgba(255,146,0,1);">
-					<div class="element1" style="background-color: #FF9200;"></div>
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) < new Date()" style="background-color: #ff6e66;">
+					<div class="element1" style="background-color: rgba(51,179,255,1);"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
-					<div class="element2" style="background-color: #FF9200;"></div>
+					<div class="element2"></div>
+					<div class="t-3">待审核</div>
+					<div class="t-4"></div>
+					<div class="element3"></div>
+					<div class="t-5">已验收</div>
+					<div class="t-6">你已延期交付稿件，请尽快完成并提交</div>
+
+				</div>
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected == '1'" style="background-color: #ff6e66;">
+					<div class="element1" style="background-color: rgba(51,179,255,1);"></div>
+					<div class="t-1">制作期</div>
+					<div class="t-2"></div>
+					<div class="element2"></div>
+					<div class="t-3">待审核</div>
+					<div class="t-4"></div>
+					<div class="element3"></div>
+					<div class="t-5">已验收</div>
+					<div class="t-6">你的稿件未通过，请重新提交</div>
+
+				</div>
+				<div class="liucheng" v-if="deta.status == '4'" style="background:#ffbe66;">
+					<div class="element1" style="background-color: #33B3FF;"></div>
+					<div class="t-1">制作期</div>
+					<div class="t-2"></div>
+					<div class="element2" style="background-color: #33B3FF;"></div>
 					<div class="t-3">待审核</div>
 					<div class="t-4"></div>
 					<div class="element3"></div>
@@ -138,7 +186,7 @@
 					<div class="t-6">稿件已提交，请等待验收审核</div>
 
 				</div>
-				<div class="liucheng" v-if="deta.status == '5'" style="background:rgba(77,198,0,1);">
+				<div class="liucheng" v-if="deta.status == '5'" style="background:#a1ff66;">
 					<div class="element1" style="background-color: #FF9200;"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
@@ -234,11 +282,14 @@ export default {
 			topTyped:'',
 			pzTop:{},
 			djstimd:{},
+			timeTips:'',
+			isShow:true,
+			islog:'',
 		}
 	},
 	mounted: function(){
 		this.init();
-		console.log(this.djsshow)
+
 	}, 
 	methods: {	
 		init(){		
@@ -246,6 +297,7 @@ export default {
 				this.$router.push({path:'/project'});
 				return
 			}
+			
 								
 			this.getData();			
 		},
@@ -256,12 +308,12 @@ export default {
 				document.body.scrollTop =1;
 			}
 			if(this.topTyped==''){
-				if(t>188){
+				if(t>411){
 					this.topTyped=1;
 				}
 				
 			}
-			if(t<=188){
+			if(t<=411){
 				this.topTyped='';
 			}
 		},
@@ -321,6 +373,9 @@ export default {
 			if(this.$refs.topGd){
 				this.$refs.topGd.setTim(time);
 			}
+			if(this.$refs.topGd1){
+				this.$refs.topGd1.setTim(time);
+			}
 			
 		},
 		getData(){
@@ -348,10 +403,47 @@ export default {
 					id:da.id,
 				};
 				this.deta = da;
+				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
+					var d2 = new Date();
+					var d1 = new Date(Date.parse(this.deta.delivery_deadline));
+						
+					if(d1 > d2){
+						this.isShow = true;
+						let otim = this.bckdtimed(this.deta.delivery_deadline);
+			
+						this.timeTips = otim[0]+ '&nbsp;&nbsp;' + otim[1];
+						
+						
+					}else{
+						this.isShow = false;
+						var d3 = d2 - d1;
+						var days = Math.floor(d3/(24*3600*1000));
+						var leave1 = d3%(24*3600*1000);
+						var hours = Math.floor(leave1/(3600*1000));
+						
+						this.timeTips = '<span style="color:rgba(255,59,48,1);">'+days+'天'+hours+'小时</span>';
+					}
+					
+					
+				
+				}
 				
 			}).catch(()=>{
 				
 			});
+		},
+		bckdtimed(t){
+		
+			let times =new Date(t.replace(/-/g,'/')),
+			Y = times.getFullYear(),
+			M = times.getMonth()+1,
+			D = times.getDate(),
+			h = times.getHours(),
+			m = times.getMinutes();
+			return [(Y+'/'+this.bNus(M)+'/'+this.bNus(D)),(this.bNus(h)+':'+this.bNus(m))];
+		},
+		bNus(n){ 
+			return n<10?'0'+n:n;		
 		},
 		djsfn(da){			
 			if(da.d==0 && da.h==0 && da.m==0 && da.s==0){
@@ -688,10 +780,10 @@ export default {
 .cens_01{
 	padding: 20px 0 60px;
 	margin: 0 auto;
-	width: 1300px;
+	width: 1170px;
 }
 .cents_box{
-	width: 1300px;
+	width: 1170px;
 	height: 480px;
 	position: relative;
 }
@@ -704,11 +796,11 @@ export default {
 
 }
 .cens_02_2{
-	width: 1300px;
+	width: 1170px;
 	background: #fff;
 }
 .cens_02_1_cent{
-	width: 1300px;
+	width: 1170px;
 	height: 139px;
 	background: #fff;
 	border-bottom: 1px solid rgba(244,246,249,1);
@@ -721,12 +813,14 @@ export default {
 	text-align: center;
 	line-height: 93px;
 	height: 93px;
+	width: 860px;
+	margin: 0 auto;
 }
 .cens_x0{
 	padding-top: 15px;
 }
 .cens_x1{
-	width: 864px;
+	width: 860px;
 	height: 26px;
 	margin: 0 auto;
 	line-height: 26px;
@@ -735,11 +829,11 @@ export default {
 	font-weight:bold;
 	color:rgba(40,40,40,1);
 	text-align: left;
-	padding-left: 6px;
+	padding-left: 10px;
 }
 .cens_x0_bottom{
 	padding-top: 10px;
-	width: 864px;
+	width: 860px;
 	height: 98px;
 	margin: 0 auto;
 }
@@ -774,29 +868,33 @@ export default {
 	padding-left: 5px;
     padding-right: 5px;
 }
+.cens_02_2ce{
+	width: 860px;
+	margin: 0 auto;
+}
 .cens_x5{
-	width: 55%;
+	/* width: 55%; */
 	float: left;
-	
 }
 .event_op{
-	width: 45%;
+	/* width: 45%; */
 	float: right;
-	
+	padding-right: 10px;
 }
 .event_op > div{
-	height: 40px;
-	line-height: 40px;
+	height: 38px;
+	line-height: 38px;
 	float: right;
 	cursor: pointer;
 }
 .pr_down_mb{
 	width: 120px;
 	text-align: center;
-	background: #33B3FF;
-	color: #fff;
+	background:rgba(255,255,255,1);
+	color:rgba(102,102,102,1);
 	font-size: 14px;
 	border-radius:5px;
+	border:1px solid rgba(187,187,187,1);
 }
 .pr_down_mb > img{
 	margin-top: 11px;
@@ -815,7 +913,7 @@ export default {
 	height: 98px;
 	width: 875px;
 	bottom: 48px;
-    left: 215px;
+    left: 148px;
 	text-align: center;
 }
 .cents_box_status > div{
@@ -837,6 +935,7 @@ export default {
 }
 .cents_box_status > div > p:nth-child(2){
 	margin-top: 16px;
+	font-size: 24px;
 }
 .cenDjs_5 > p:nth-child(2){
 	font-size:24px;
@@ -900,16 +999,18 @@ export default {
 	font-family:PingFangSC-Medium,PingFang SC;
 	font-weight:500;
 	color:rgba(255,146,0,1);
+	width: 360px;
+	height: 35px;
+	overflow: hidden;
 }
 .liucheng{
-	width: 1300px;
+	width: 1170px;
 	height: 40px;
 	line-height: 40px;
 	position: absolute;
 	bottom: 0;
-	background: #33B3FF;
+	background: #80cfff;
 	text-align: center;
-	opacity:0.7;
 }
 .liucheng > div{
 	vertical-align: top;
@@ -940,6 +1041,24 @@ export default {
 	height: 1px;
 	background: #ffffff;
 	margin: 19px 0px 18px 12px;
+}
+.tg_iocn_2x{
+	background-repeat: no-repeat;
+	background-image: url(http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/prcent/icon_more.svg);
+}
+.tg_iocn_2{
+	width: 55px;
+    height: 33px !important;
+}
+.worksBox_2{
+	cursor: pointer;
+	position: absolute;
+    right: -95px;
+    top: -300px;
+	font-size: 14px;
+	color: #666666;
+	text-align: center;
+	width: 95px;
 }
 
 </style>

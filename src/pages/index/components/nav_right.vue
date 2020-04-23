@@ -49,7 +49,7 @@ export default {
         scrollToTop(){
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
             this.scrollTop = scrollTop;
-            if(this.scrollTop > 60){
+            if(this.scrollTop > 980){
                 this.isShow = true;
             }else{
                 this.isShow = false;
@@ -71,7 +71,7 @@ export default {
                 this.uploadShow = false;
             }
             if(type == 'e'){
-                document.getElementsByClassName('nav_logo')[0].style.top = '15px'
+                document.getElementsByClassName('nav_logo')[0].style.top = '50px'
             }  
         },
         mouseLeave(type){

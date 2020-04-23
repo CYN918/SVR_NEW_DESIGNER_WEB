@@ -464,6 +464,7 @@ export default {
 					this.opType=0;
 					let ds = da.data;
 					if(ds.result==0){
+						this.$message({message: '文件上传成功'});
 						this.datas[index] = ds.data.url;
 						this.datas.splice(index,1,ds.data.url);	
 						this.list[on].upData.file = ds.data.url;

@@ -441,7 +441,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped="scoped">
 .mylists{
 	margin: 0 20px 20px 0;
     background: #fff;

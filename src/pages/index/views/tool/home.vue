@@ -10,9 +10,9 @@
 		<div class="hotCent">
 			<div class="hotCent2">
 				<ul>
-					<li><img class="hotBaner" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_upload" @click="go_project()">去挑选项目</button></li>
-					<li class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-cjxm.svg'"><button class="go_upload" @click="go_upload()">上传原创作品</button></li>
-					<li class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-dsp.svg'"><button class="go_upload" @click="go_show()">前往制作来电秀</button></li>
+					<li id="nav_tolt" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')"><img class="hotBaner" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_upload" @click="go_project()">去挑选项目</button></li>
+					<li id="nav_upload" @mouseenter="mouseover('b')" @mouseleave="mouseLeave('b')" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-cjxm.svg'"><button class="go_upload" @click="go_upload()">上传原创作品</button></li>
+					<li id="nav_logo" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-dsp.svg'"><button class="go_upload" @click="go_show()">前往制作来电秀</button></li>
 				</ul>
 					
 			</div>
@@ -51,6 +51,28 @@ export default{
 			}
 			
 		},
+		mouseover(type){
+            if(type == 'a'){
+                document.getElementById('nav_tolt').style.top = '-19px'
+            }
+            if(type == 'b'){
+                document.getElementById('nav_upload').style.top = '-19px'
+            }  
+            if(type == 'c'){
+                document.getElementById('nav_logo').style.top = '-19px'
+            }
+		},
+		mouseLeave(type){
+            if(type == 'a'){
+                document.getElementById('nav_tolt').style.top = '0px'
+            } 
+            if(type == 'b'){
+                document.getElementById('nav_upload').style.top = '0px'
+            } 
+            if(type == 'c'){
+                document.getElementById('nav_logo').style.top = '0px'
+            }
+        },
 		godd(){
 			
 			if(!window.userInfo){
@@ -81,16 +103,23 @@ export default{
 				this.outc.num = 1;
 				return
 			}
-			if(window.userInfo.contributor_format_status == 2){
-				this.$router.push({path:'/tolt/toluser'});
-				return
-			}
-			this.$message({
-				message:'请先认证'
-			})
-			setTimeout(()=>{
-				this.$router.push({path: '/setPersonal'})
-			}, 1000);
+			
+			// if(!window.userInfo){
+			// 	this.$refs.logindialog.show();
+			// 	this.outc.num = 1;
+			// 	return
+			// }
+			this.$router.push({path:'/tolt/toluser'});
+			// if(window.userInfo.contributor_format_status == 2){
+			// 	this.$router.push({path:'/tolt/toluser'});
+			// 	return
+			// }
+			// this.$message({
+			// 	message:'请先认证'
+			// })
+			// setTimeout(()=>{
+			// 	this.$router.push({path: '/setPersonal'})
+			// }, 1000);
 			
 			
 		}
@@ -120,14 +149,11 @@ export default{
 	cursor: pointer;
 }
 .hotCent{
-	margin-top: 39px;
-	margin-bottom: 59px;
+	margin-top: 39px !important;
+	margin-bottom: 59px !important;
 }
 .box{
 	padding: 60px 0px 118px 0px !important;
-}
-.hotCent:hover{
-	margin-top: 19px;
 }
 .hotBaner{
 	cursor: pointer;
@@ -179,6 +205,7 @@ export default{
 	display: inline-block;
 	position: relative;
 	text-align: center;
+	top: 0px;
 }
 .hotCent2 > ul > li > button{
 	position: relative;

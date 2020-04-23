@@ -18,17 +18,15 @@
 							<el-progress :width="48" :stroke-width="2"  type="circle" :percentage="el.bf"></el-progress>
 							<span class="jdt_002x">正在上传</span>
 						</div>
-						
 					</div>
 					<div @mousedown="starD($event,el)" @mouseover="ybf(index,el)" class="setMt_03_01" v-else>
 						<img :src="el.cover_img?el.cover_img:el.url">
 						<video muted class="video" ref="video" :src="el.url"></video>
-						<span class="tim_013" v-if="el.play_time">{{backtio(el.play_time)}}</span>
+						<span class="tim_013" v-if="el.play_time" ref="videotime">{{ backtio(el.play_time)}}</span>
 					</div>
 					
 					<div @click="checkV(el)" class="tim_xz"><img width="100%" src="../../../../assets/icon_add_small.png" alt=""></div>
 					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="../../../../assets/sc_icon_delete.png"/></div>
-					
 				</li>
 			</span>
 		</ul>
@@ -69,7 +67,8 @@ export default{
 			istype:'',
 			maxwj:0,
 			Isvideo:false,
-			num:0
+			num:0,
+			videotime:""
 		}
 	},
 	mounted: function () {
@@ -77,6 +76,9 @@ export default{
 		
 	}, 		
 	methods:{
+		timeupdate(i){
+			this.$refs.videotime[i].innerHTML = this.backtio(this.$refs.video[i].currentTime);
+		},
 		ybf(i,el){
 			if(el.file_type == 'video'){
 				let v = this.$refs.video[i];
@@ -668,7 +670,8 @@ export default{
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
-	width:180px;
+	width: 180px;
+	min-width: 162px;
 	height:100px;
 	overflow: hidden;
 	background:rgba(40,40,40,1);
@@ -676,6 +679,11 @@ export default{
 	margin: 0 16px 16px 0;
 	border:2px solid transparent;
 }
+
+.setMt_03{
+	min-width: 600px;
+}
+
 .qxBm_btns_1x2{
 	text-align: center;
 }
@@ -699,6 +707,7 @@ export default{
 	top: 0;
 	left: 0;
 	z-index: 888;
+	width: 100%;
 }
 
 .setMt_03 li:hover{
@@ -764,6 +773,7 @@ export default{
 	font-size:12px;
 	color:rgba(187,187,187,1);
 	line-height:20px;
+	z-index: 1000;
 }
 .tim_xz{
 	cursor: pointer;
@@ -817,7 +827,7 @@ export default{
 }
 .setMt_03box{
 	overflow: hidden;
-    overflow-y: auto;
+    overflow: auto;
     position: absolute;
     top: 64px;
     bottom: 0;

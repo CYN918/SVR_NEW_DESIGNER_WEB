@@ -8,7 +8,7 @@
 					<div class="pr_bg_03_1_2">
 						<div class="pr_bg_03_1_2_1">
 							<div class="pr_bg_03_1_2_1_1">项目名称：{{das.name}}</div>
-							<div class="pr_bg_03_1_2_1_2">项目类型：{{das.classify_name}}<!-- <span></span> --><!-- 成交方式：{{backf(das.deal_type)}} --></div>
+							<div class="pr_bg_03_1_2_1_2">项目类型：{{das.classify_name}}<span></span>成交方式：{{backf(das.deal_type)}}</div>
 						</div>
 						<div class="pr_bg_03_1_2_2">
 							项目评价<span>{{das.level}}</span>
@@ -18,7 +18,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="pr_bg_03_2">
+				<div class="pr_bg_03_2" v-if="das.deal_type == '1'">
 					<div class="pr_bg_03_2_1">最终成交价格</div>
 					<div class="pr_bg_03_2_2">¥ {{mJs.money_deiv(das.deal_price)}}</div>
 					<div class="pr_bg_03_2_3">感谢您本次的项目合作，如有疑问可前往 <router-link to="/help">帮助中心</router-link> 了解更多</div>
@@ -93,10 +93,18 @@ export default {
 	}, 
 	methods: {	
 		go_profit(){
-			this.$router.push({path:'/profit'})
+			this.$router.push({path:'/divided'})
 		},
 		backf(on){
-			return on==1?'买断式':'分成式';
+			if(on == 1){
+				return '买断'
+			}
+			if(on == 2){
+				return '分成'
+			}
+			if(on == 3){
+				return '预付金+分成'
+			}
 		},
 		init(){
 			
@@ -152,7 +160,7 @@ export default {
 			this.sfas = 'top:'+y+'px;left:'+x+'px';
 		},
 		back(){
-			this.$router.push({path:'/projectAll'})	
+			this.$router.push({path:'/projectYs'})	
 		},
 		goTo(on){
 			this.$router.push({path: on})	

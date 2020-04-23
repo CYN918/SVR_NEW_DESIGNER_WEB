@@ -36,7 +36,7 @@
 			</div>
 			<div class="suc_1_3">
 				<span class="dqys_1">个性签名</span>
-				<Input :valued="form.personal_sign" class="userBoxd2_1" v-model="form.personal_sign" :oType="'max'" :max="30" :chekFn="chekusername" :type="'text'" :placeholder="'请输入签名'"></Input>
+				<Input :valued="form.personal_sign" class="userBoxd2_1" v-model="form.personal_sign" :oType="'max'" :max="30" :chekFn="chekusername" :type="'text'" :placeholder="'请输入标签，15字以内（或30字符内）'"></Input>
 			</div>
 		</div>
 		<div class="scBox suc_1 suc_2">

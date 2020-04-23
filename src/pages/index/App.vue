@@ -381,7 +381,7 @@ img{
 .inptud{
 	width: 100%;
 	height: 40px;
-	margin-bottom: 22px;
+	margin-bottom: 14px;
 }
 .myInput{
 	position: relative;
@@ -633,7 +633,7 @@ img{
 	
 }
 .dsf_wx{
-	margin: 15px 86px 0;
+	margin: 0px 86px 0;
 }
 .dsf_qq{
 	background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/login/qq.svg) no-repeat 0/100%;

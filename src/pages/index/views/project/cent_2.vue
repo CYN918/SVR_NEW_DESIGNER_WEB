@@ -48,7 +48,12 @@
 				<!-- <div class="pr_cent2_8">领域范围：<span v-for="(ed,index) in deta.fields">{{ed}}</span></div>	 -->
 			</div>
 			<div class="pr_cent2_9">
-				<div style="width:100%;height:50px;">
+				<div style="width:100%;height:50px;" v-if="this.$route.path == '/projectYs'">
+					<div v-if="deta.deal_type == '1'" class="md">买断</div>	
+				    <div v-if="deta.deal_type == '2'" class="fc">分成</div>	
+					<div v-if="deta.deal_type == '3'" class="fc" style="width: 120px;">预付金+分成</div>
+				</div>
+				<div style="width:100%;height:50px;" v-else>
 					<div v-if="deta.settlement == '1'" class="md">买断</div>	
 				    <div v-if="deta.settlement == '2'" class="fc">分成</div>	
 				</div>			
@@ -97,7 +102,7 @@ export default {
 	mounted: function(){
 		this.init();
 		this.backtims();
-		console.log(this.$route.path)
+		// console.log(this.$route.path)
 	}, 
 	watch: {		
 		'elm': function() {
@@ -131,15 +136,30 @@ export default {
 		},
 		clsfn(){
 			this.btns = [];
-			if(this.deta.settlement == '0'){
-				this.tip = '预计收益：<span>'+this.deta.expected_profit+'</span>';
+			if(this.$route.path == '/projectBm' || this.$route.path == '/projectZz'){
+				if(this.deta.settlement == '0'){
+					this.tip = '预计收益：<span>'+ '[买断]'+this.deta.expected_profit+'<i style="font-style: normal;color:#282828;font-size:14px;margin-left:5px;margin-right:5px;">或</i>永久分成</span>';
+				}
+				if(this.deta.settlement == '1'){
+					this.tip = '预计收益：<span>'+ '[买断]' +this.deta.expected_profit+'</span>';
+				}
+				if(this.deta.settlement == '2'){
+					this.tip = '预计收益：<span>永久分成</span>';
+				}
 			}
-			if(this.deta.settlement == '1'){
-				this.tip = '预计收益：<span>'+ '[买断]' +this.deta.expected_profit+'</span>';
+			if(this.$route.path == '/projectYs'){
+				if(this.deta.money != ''){
+					if(this.deta.money.advance_payment != '0.00'){
+						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>'+ '<span style="color:rgba(187,187,187,1);font-size:12px;">' + '('+'￥'+this.deta.money.advance_payment+'预付金'+')' + '</span>';
+					}else{
+						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>';
+					}
+				}else{
+					this.tip = '累计分成收益：暂无分成收益';
+				}
 			}
-			if(this.deta.settlement == '2'){
-				this.tip = '预计收益：<span>'+ '[分成]' +this.deta.expected_profit+'</span>';
-			}
+			
+			
 			if(this.deta.status==1){
 				this.tips = '<div class="pr_cent2_r2_1 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
 				return
@@ -164,9 +184,29 @@ export default {
 				}
 		
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
-					let otim = this.bckdtimed(this.deta.delivery_deadline);
+					if(this.deta.is_rejected==1){
+						this.tips = '<div class="backdse pr_cent2_r2_4">你的稿件未通过，请重新提交</div>';
+					}else{
+						var d2 = new Date();
+						var d1 = new Date(Date.parse(this.deta.delivery_deadline));
+						 
+						if(d1 > d2){
+							let otim = this.bckdtimed(this.deta.delivery_deadline);
 			
-					this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
+					        this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
+							
+						}else{
+							var d3 = d2 - d1;
+							var days = Math.floor(d3/(24*3600*1000));
+							var leave1 = d3%(24*3600*1000);
+                            var hours = Math.floor(leave1/(3600*1000));
+							
+                            this.tips = '<div class="backdse pr_cent2_r2_4">你已延期<span>'+days+'天'+hours+'小时</span>，请尽快完成</div>';
+						}  
+						
+
+					}
+					
 				
 				}
 				return
@@ -190,7 +230,7 @@ export default {
 					bd[1].fn = 'ypj';
 				}
 				this.btns = bd;
-				this.tip = '成交价格：<span class="csyaswz_01">'+this.deta.deal_price+'</span>';
+				
 				this.tips = '<div class="backdse pr_cent2_r2_2">项目已验收，感谢与你的本次合作</div>';
 			}
 				
@@ -543,7 +583,7 @@ export default {
 }
 .pr_cent2_10>span.csyaswz_01{
 	font-size:16px;
-	color: #33B3FF;
+	color: rgba(255,59,48,1);
 }
 .pr_cent2_11>div{
 	margin: 0;
@@ -597,5 +637,9 @@ export default {
 	border-radius: 5px;
 	font-weight:600;
 	font-size: 16px;
+}
+.pr_cent2_r2_4 > span{
+	font-size: 16px;
+	margin-left: 5px;
 }
 </style>

@@ -112,7 +112,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped="scoped">
 .worksBox{
 	margin: 17px auto 0;
 }

@@ -18,7 +18,6 @@
 			<div class="ldx_l_1_btn">
 				<div class="ldx_l_1_btn" v-if="el.status==0 && Isbtn">
 					<span @click="bjfn(el.id)" class="pendno">编辑</span>
-					
 				</div>
 				<div class="ldx_l_1_btn2" v-if="el.status==1 && Isbtn">
 					<span>审核中</span>
@@ -29,9 +28,26 @@
 				<div class="ldx_l_1_btn2" v-if="el.status==-10">
 					<span>合成失败</span>
 				</div>
+				<div class="ldx_l_1_btn2" v-if="el.status==2 && Isbtn">
+					<span class="ldx_l_1_btn2_a">项目结果</span>
+				</div>
 				<div class="ldx_l_1_btn3" v-if="el.status==-1 && Isbtn">
 					<span class="pendno" @click="bjfn(el.id)">重新编辑</span>
-					<span class="pendno ldx_l_1_btn3x">查看驳回原因</span>
+					<span class="pendno ldx_l_1_btn3x" @click="getrejectInfo(el.project_id)">
+						查看驳回原因 
+						<div class="ldx_l_1_btn3xt" v-if="Ischeck">
+							<div class="ldx_l_1_btn3xt_1">驳回理由：</div>
+							<div class="ldx_l_1_btn3xt_2">
+								{{ checkinfo.check_reason }}
+							</div>
+							<div class="ldx_l_1_btn3xt_1">驳回详情：</div>
+							<div class="ldx_l_1_btn3xt_2">
+								{{ checkinfo.check_comment }}
+							</div>
+						</div>
+					
+					</span>
+					
 				</div>
 			</div>
 			
@@ -65,7 +81,12 @@ export default{
 		return{
 			tjTy:'',
 			top_btn:false,
-			Isbtn:false
+			Isbtn:false,
+			checkinfo:{
+				check_reason:"",
+				check_comment:""
+			},
+			Ischeck:false
 		}
 		
 	},
@@ -75,6 +96,7 @@ export default{
 		},
 		btnchange1(e){
 			this.Isbtn = false;
+			this.Ischeck = false
 		},
 		del(id){
 			this.api.mobileshowdel({
@@ -92,6 +114,24 @@ export default{
 			this.$router.push({path:'/pushTool',query:{id:id}});
 	
 		},
+		getrejectInfo(id){
+			if(this.Ischeck){
+				this.Ischeck = false;
+				return;
+			}
+			if(id){
+				this.api.rejectInfo({
+					project_id:id
+				}).then(da=>{
+					//console.log(da)
+					this.checkinfo = da;
+					this.Ischeck = !this.Ischeck
+				}).catch(da=>{
+					
+				})
+			}
+			
+		}
 
 	},
 	mounted() {
@@ -206,6 +246,26 @@ export default{
 	background: #33B3FF;
 	border-color: #33B3FF;
 	color: #fff;
+	position: relative;
+}
+.ldx_l_1_btn3xt{
+	width:200px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+	border-radius:4px;
+	position: absolute;
+	top: 0;
+	left: 157px;
+	padding: 16px;
+	z-index: 999;
+	text-align: left;
+}
+.ldx_l_1_btn3xt_1{
+	color: #333333;
+}
+.ldx_l_1_btn3xt_2{
+	color: #666666;
+	line-height: 20px;
 }
 .ldx_l_1_top{
 	position:absolute;
@@ -244,5 +304,10 @@ export default{
 	position: absolute;
 	text-align: center;
 	cursor: pointer;
+}
+.ldx_l_1_btn2 .ldx_l_1_btn2_a{
+	background: #33B3FF;
+	border-color: #33B3FF;
+	color: #fff;
 }
 </style>

@@ -5,8 +5,8 @@
 		</div>
 		<ul class="tjEvent_3">
 			<li @click="goEvent(el.id)" class="pend" v-for="(el,index) in list" :key="index">
-				<div class="tjEvent_3_1">
-					<img :src="el.banner" alt="">
+				<div class="tjEvent_3_1" :style="'background-image: url('+backBan(el.banner)+')'">
+					
 					
 				</div>
 				<div class="tjEvent_3_2">
@@ -45,6 +45,13 @@ export default {
 				
 				this.list  = da;
 			});
+		},
+		backBan(o){
+
+			if(!o || o==null || o==undefined || o=='null' || o=='undefined'){
+				return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/com/no_img.svg';
+			}
+			return o;
 		},
 		backtime(d){
 			if(!d){return}
@@ -93,7 +100,7 @@ export default {
 	display: inline-block;
 	margin: 0 20px 0 0;
 	width:310px;
-	height:338px;
+	height:222.25px;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 10px 0px rgba(0,0,0,0.06);
 	border-radius:5px;
@@ -104,14 +111,15 @@ export default {
 .tjEvent_3_1{
 	position: relative;
 	width:310px;
-	height:232px;
+	height:116.25px;
 	border-radius:5px 5px 0px 0px;
 	overflow: hidden;
+	background-size:cover;
 }
 .tjEvent_3_1>img{
 	display: inline-block;
 	width:310px;
-	height:232px;
+	height:116.25px;
 	border-radius:5px 5px 0px 0px;
 }
 .tjEvent_3_1>span{
