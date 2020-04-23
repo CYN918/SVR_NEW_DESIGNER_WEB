@@ -102,7 +102,7 @@
 					<div class="tc_spasswodr_1_1" v-if="isyazfs==1">
 						<div class="tc_sucd_1_2">
 							<InputO v-model="tancData.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'" :dataMobile="mJs.phone_encryption(form.mobile)" :dataMobilezone="form.mobile_zone" ></InputO>
-							<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(tancData.mobile,tancData.mobile_zone)" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+							<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(form.mobile,tancData.mobile_zone)" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 							<Input v-model="tancData.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'新密码，6-16位'"></Input>			
 							<Input v-model="tancData.password_repass" :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认新密码，6-16位'"></Input>
 							<div class="tc_sucd_1_2">
@@ -155,6 +155,7 @@ export default {
 			tancData:{
 				mobile_zone:'86',
 				old_mobile_zone:'86',
+				mobile:'',
 			},
 
 			form:{},
@@ -374,10 +375,10 @@ export default {
 			})
 		},
 		qdTc5(){
-			if(this.chekPhpne2(this.tancData.mobile)!=true){
-				Message({message: '请输入正确的手机号码'});
-				return
-			}
+			// if(this.chekPhpne2(this.tancData.mobile)!=true){
+			// 	Message({message: '请输入正确的手机号码'});
+			// 	return
+			// }
 			if(this.chekverify(this.tancData.verify_code)!=true){
 				Message({message: '请输入正确的验证码'});
 				return
@@ -419,7 +420,7 @@ export default {
 			this.isyazfs = on;
 			if(on==0){
 				this.tancData.mobile_zone = '';	
-				this.tancData.mobile = '';
+				// this.tancData.mobile = '';
 				this.tancData.password = '';
 				this.tancData.verify_code = '';
 				this.tancData.password_repass = '';
@@ -441,18 +442,19 @@ export default {
 		},
 		ajaxYzm(p,m){
 			let pd = p;
-			if(m!='86'){
-				if(!(typeof pd === 'number' && pd%1 === 0)){
-					Message({message: '请输入正确的手机号码'});
-					return 					
-				}			
-			}else{
-				if(!(/^1[345789]\d{9}$/.test(pd))){ 
-					Message({message: '请输入正确的手机号码'});
-					return
-				} 
+			// if(m!='86'){
+			// 	if(!(typeof pd === 'number' && pd%1 === 0)){
+			// 		Message({message: '请输入正确的手机号码'});
+			// 		return 					
+			// 	}			
+			// }else{
+			// 	if(!(/^1[345789]\d{9}$/.test(pd))){ 
+			// 		Message({message: '请输入正确的手机号码'});
+			// 		return
+			// 	} 
 				
-			}		
+			// }
+			this.tancData.mobile = p;		
 			let params = {
 				mobile:p,
 				mobile_zone:m,
