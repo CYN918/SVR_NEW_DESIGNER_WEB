@@ -509,7 +509,7 @@ export default{
 	top: 0;
 	left: 0;
 	box-sizing: border-box;
-	border: 1px solid #0000CC;
+	border: 1px solid #33B3FF;
 	width: 100%;
 	height: 100%;
 }
@@ -529,6 +529,7 @@ export default{
 	width: 2px;
 	height: 100%;
 	cursor: e-resize;
+	background: #33B3FF;
 }
 .tzk_03,.tzk_05{
 	top: 0;

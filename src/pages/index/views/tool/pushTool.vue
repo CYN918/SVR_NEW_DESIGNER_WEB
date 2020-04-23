@@ -38,7 +38,7 @@
 							</div>
 						</div>
 						<div v-if="isld && vdcc2==1" class="show_00x_1" :style="'zoom:'+zoomd">
-							<div class="show_00x_1_1">138-888-888</div>
+							<!-- <div class="show_00x_1_1">138-888-888</div>
 							<div class="show_00x_1_2">正在拨号…</div>
 							<div class="show_00x_1_3">
 								<span><img class="xx_01x" src="/imge/tools/d_04.png">静音</span>
@@ -48,14 +48,16 @@
 								<span><img class="xx_05x" src="/imge/tools/d_08.png">保持</span>
 								<span><img class="xx_06x" src="/imge/tools/d_09.png">录音</span>
 							</div>
-							<img class="show_00x_1_4" src="/imge/tools/d_02.png">
+							<img class="show_00x_1_4" src="/imge/tools/d_02.png"> -->
+							<img width="100%" height="100%" src="../../../../assets/qd.png" alt="">
 						</div>
 						<div v-if="isld && vdcc2==0" class="show_00x_2" :style="'zoom:'+zoomd">
-							<img class="show_00x_2_1" src="/imge/tools/d_03.png" />
+							<!-- <img class="show_00x_2_1" src="/imge/tools/d_03.png" />
 							<div class="show_00x_2_2">来电秀</div>
 							<div class="show_00x_2_3">156-0202-0101</div>
 							<img class="show_00x_2_4" src="/imge/tools/d_02.png" />
-							<img class="show_00x_2_5" src="/imge/tools/d_01.png" />
+							<img class="show_00x_2_5" src="/imge/tools/d_01.png" /> -->
+							<img width="100%" height="100%" src="../../../../assets/ld.png" alt="">
 						</div>
 					</div>
 					<audio class="ntob_cent_l_1" @timeupdate="timeupdatevideo2" ref="aido"></audio>
