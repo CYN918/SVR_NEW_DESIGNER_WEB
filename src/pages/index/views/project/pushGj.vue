@@ -25,7 +25,7 @@
 					</div>
 				</div>
 				<div class="pushGj_02">
-					<div class="pushGj_03_1">稿件上传<span class="pushGj_iop">文件大小为1GB内，建议压缩后上传</span></div>
+					<div class="pushGj_03_1">稿件上传<span class="pushGj_iop">文件大小为1GB内，建议压缩后上传</span><span class="pushGj_ts">稿件太大？用网盘传吧</span></div>
 					<el-upload
 					  class="upload-demo"
 					  drag
@@ -76,6 +76,7 @@
 					</div>
 				</div>
 				<div>
+					<div class="pushGj_05_1">网盘交稿仅支持大文件，小于1G的文件请使用<span @click="qhType(1)" :class="type==1?'pushOx':''">本地上传交稿</span></div>
 					<div class="pushGj_03_1">请将稿件上传至网盘后，提供稿件的网盘地址</div>
 					<input placeholder="如：https://pan.baidu.com/s/xxxx_xxxx_xx" v-model="online_disk_url" type="text">
 				</div>
@@ -90,7 +91,7 @@
 			</div>
 			</div>
 			<div class="bmXm_01Btn">
-				
+			
 				<div @click="pushfiled"  class="btns btns_js pend">提交</div>
 			</div>
 		</template>			
@@ -526,8 +527,12 @@ export default {
     transform: translate(-50%, -50%);
 
 }
-.closeX_1{
-	
+.pushGj_ts{
+	font-size:14px;
+	font-family:PingFangSC-Regular,PingFang SC;
+	font-weight:400;
+	color:rgba(51,179,255,1);
+	float: right;
 }	
 .pugjFm_01>div.cd_d>div{
     width: 24px;
@@ -547,5 +552,21 @@ export default {
 .cd_d_2{
 	width: 100%;
 	height: 100%;
+}
+.pushGj_05_1{
+	height:44px;
+	background:rgba(51,179,255,0.1);
+	border-radius:4px;
+	border:1px solid rgba(51,179,255,1);
+	line-height: 44px;
+	text-align: center;
+	margin-bottom: 40px;
+	font-size: 14px;
+	color:rgba(51,51,51,1);
+}
+.pushGj_05_1 > span{
+	color: #33B3FFFF;
+	margin-left: 5px;
+	cursor: pointer;
 }
 </style>
