@@ -32,7 +32,7 @@
 			<img src="/imge/tools/empty_nodata.svg">
 			<div>哎呀，没找到音乐</div>
 		</div>
-		<div v-else class="mp3_04">
+		<div v-else class="mp3_04" ref='mp3_04'>
 			<div class="mp3_04_01"><span></span><span>歌曲</span><span>歌手</span><span>时长</span><span></span></div>
 			
 			<div 
@@ -220,6 +220,9 @@ export default{
 		}
 	},
 	methods:{
+		scrolls(){
+			this.$refs.mp3_04.scrollTop=0;
+		},
 		closesf(){
 			this.chek = '';
 			this.istype = '';
@@ -840,7 +843,7 @@ export default{
 }
 
 .mp3_05_1_1{
-	width:5px;
+	width:6px;
 	height:6px;
 	background-color: #33B3FF;
 	border-radius: 50%;
@@ -855,7 +858,7 @@ export default{
 }
 .mp3_05_2{
 	box-sizing: border-box;
-	padding: 24px 40px;
+	padding: 24px 24px;
 	height: 78px;
     background: #fff;
     /* border-top: 2px solid #D9D9D9; */
@@ -874,6 +877,7 @@ export default{
 .mp3_05_2_3{
 	display: flex;
 	justify-content: center;
+	margin-top: -5px;
 }
 .mp3_05_2_1{
 	position: relative;
@@ -950,7 +954,7 @@ export default{
 	color:rgba(255,255,255,1);
 	line-height:32px;
 	color: #fff;
-	margin: 0 32px;
+	margin: 0 24px;
 	margin-top: 25px !important;
 	cursor: pointer;
 	pointer-events: auto;
@@ -961,7 +965,6 @@ export default{
 	box-sizing: border-box;
 	width: 100%;
 	height: 582px;
-	padding: 0 20px;
 	position: relative;
 	top: 0;
 }
@@ -981,7 +984,7 @@ export default{
 	line-height: 44px;
 }
 .mp3_04_01>span:nth-child(1){
-	text-indent: 20px;
+	text-indent: 24px;
 	width: 12%;
 }
 .mp3_04_01>span:nth-child(2){
@@ -1032,7 +1035,7 @@ export default{
 	margin-top: 15px;
 }
 .mp3_04_01_bfs>img.mp3_04_01_sc{
-	margin-top: 16px;
+	margin-top: 14px;
 }
 .box_p_01{
 	position: relative;
@@ -1138,6 +1141,11 @@ img.mp3_04_01_sc {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	
+}
+@media screen and (max-width: 1440px) {
+	.playsd_an_1 {
+		overflow: hidden;
+	}
 }
 .playsd_an{
     width: 120px;

@@ -6,7 +6,7 @@
 			@click="qh(el[keys])"
 			:class="[el[keys]==value?'chekd':'']"
 			>{{el[v]}}</span>
-			<span @click="showFn">更多</span>
+			<span @click="showFn">更多 <i :class="['el-icon-arrow-down',isCc?'selicon':'selicoc']"></i></span>
 		</div>
 		<div v-if="isCc" class="spam_so_f_1">
 			<span
@@ -59,6 +59,7 @@ export default{
 				en = '';
 				return;
 			}
+			this.$parent.scrolls();
 			this.$emit('input',en);
 		},
 		setfn(){
@@ -105,7 +106,8 @@ export default{
 	position: absolute;
 	bottom: 0;
 	padding: 10px 24px;
-	border-radius: 16px;
+	border-radius: 8px;
+	padding-top: 24px;
 	z-index: 9;
 	left: -20px;
 	width: 90%;
