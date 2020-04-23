@@ -127,7 +127,7 @@ export default{
 			let img = document.createElement('img');
 			img.src=this.value.data.cover_img;
 			img.onload = ()=>{
-				console.log()
+			
 				let w = img.naturalWidth;
 				let y = img.naturalHeight;
 				let bl = w/y;

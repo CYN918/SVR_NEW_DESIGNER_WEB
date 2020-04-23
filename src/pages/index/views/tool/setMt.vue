@@ -129,6 +129,7 @@ export default{
 				if(this.$parent.Mos){
 					if(this.$parent.Mos.n=='decorates'){
 						this.setDecorates(el,e.x+10);
+						
 					}else{
 						this.checkV(el,e.x+10);
 					}
@@ -190,7 +191,10 @@ export default{
 					}
 					this.value.maxTime = +pr.long+this.value.maxTime;
 					this.value.decorates[this.$parent.Mos.on].push(pr);
-							
+					if(this.$parent.playT==1 || this.$parent.playT==2){
+						
+						this.$parent.puandFn2();
+					}		
 					this.$parent.showDevs(this.$parent.Mos.on,this.value.decorates[this.$parent.Mos.on].length-1);
 				};
 		},
@@ -290,26 +294,12 @@ export default{
 				for(let i=0;i<n;i++){
 					let end = sumTime(obj[i]);
 					let star = obj[i].start;
-					
-					
 					if(pr.start<end){
-						
-						
-						
 						break
 					}
-					
-					
-					
-					
 				}
 				
 			};
-			
-			
-			
-				
-				
 			if(el.file_type=='image'){
 				var a = document.createElement('img');
 				a.src=el.url;
@@ -329,14 +319,15 @@ export default{
 						pr.w = (this.$parent.boxH/hd)*wd;
 						pr.x = (this.$parent.boxW-pr.w)/2;
 					}
-					
-					
-					
-					
-					
 					this.value.maxTime = +pr.long+this.value.maxTime;
-					this.value.media.push(pr);						
+					this.value.media.push(pr);	
+										
+					if(this.$parent.playT==1 || this.$parent.playT==2){
+						
+						this.$parent.puandFn2();
+					}
 					if(!ond){
+						
 						this.$parent.drmImgs();
 					}
 				};
@@ -366,14 +357,14 @@ export default{
 						this.value.maxTime = maxt;
 					}	
 					this.value.media.push(pr);	
+					if(this.$parent.playT==1 || this.$parent.playT==2){
+						this.$parent.puandFn2();
+					}
 					if(!ond){
 						this.$parent.setvideo(el.url);
 					}
 				}
 			}			
-			
-		
-	
 		},
 		fileUp(flie){
 			for(let i=0,n=flie.target.files.length;i<n;i++){
