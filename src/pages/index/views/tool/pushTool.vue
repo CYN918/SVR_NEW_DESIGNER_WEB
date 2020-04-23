@@ -1336,6 +1336,9 @@
 			playAll() {
 				
 				if(this.navcoms.media.length==0){
+					this.$message({
+						message:"请先添加内容"
+					})
 					return 
 				}
 				let viOn = this.navcoms.media[this.bfon];				
@@ -1482,6 +1485,7 @@
 				this.zoomd = this.boxW/391;
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
+					console.log(op.json);
 					let json = JSON.parse(op.json);
 					this.form.title = op.title;
 					this.navcoms.media = json.media;

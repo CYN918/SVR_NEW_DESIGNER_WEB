@@ -96,7 +96,6 @@ export default {
 			this.page.limit=this.page.size[0];
 			this.getData();			
 		},
-		
 		getData(){	
 			let params = this.paramCl();	
 			this.isNodeat='';
