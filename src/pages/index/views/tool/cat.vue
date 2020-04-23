@@ -13,10 +13,10 @@
 									
 					<div class="tzk_01">
 						<div @mousedown="td_01($event,'m')" class="tzk_02"></div>
-						<div @mousedown="td_01($event,'l')" class="tzk_03"></div>
-						<div @mousedown="td_01($event,'t')" class="tzk_04"></div>
-						<div @mousedown="td_01($event,'r')" class="tzk_05"></div>
-						<div @mousedown="td_01($event,'b')" class="tzk_06"></div>
+						<!-- <div @mousedown="td_01($event,'l')" class="tzk_03"></div> -->
+						<!-- <div @mousedown="td_01($event,'t')" class="tzk_04"></div> -->
+						<!-- <div @mousedown="td_01($event,'r')" class="tzk_05"></div> -->
+						<!-- <div @mousedown="td_01($event,'b')" class="tzk_06"></div> -->
 						<div @mousedown="td_01($event,'t_l')" class="tzk_07"></div>
 						<div @mousedown="td_01($event,'t_r')" class="tzk_08"></div>
 						<div @mousedown="td_01($event,'b_l')" class="tzk_09"></div>
@@ -180,38 +180,31 @@ export default{
 			var max_x = 0;
 			max_w = this.pic.x+this.pic.w-this.cjk.x;
 			max_h = this.pic.y+this.pic.h-this.cjk.y;
-			if(tp=='t'){
-				max_h = this.cjk.h+this.cjk.y-this.pic.y;
-			}	
-			/*计算边界*/
-			if(tp=='t'){
-				if(this.ccun==1){
-					min_y = this.pic.y;
-					max_y = this.cjk.h+this.cjk.y-5;					
-				}
-			}
-			if(tp=='b'){
-				if(this.ccun==1){
-					min_h = 5;
-					max_h = this.pic.h-this.cjk.y-this.pic.y;					
-				}
-			}
-			if(tp=='l'){
-				if(this.ccun==1){
-					min_x = this.pic.x;
-					max_x = this.cjk.x+this.cjk.w-5;										
-				}
-			}
 			
-			if(tp=='r'){
-				if(this.ccun==1){
-					min_w = 5;
-					max_w = this.pic.w-this.cjk.x+this.pic.x;					
-				}
+			if(tp=='m'){
+				min_x = this.pic.x;
+				min_y = this.pic.y;
+				max_x = this.pic.x+this.pic.w-this.cjk.w;
+				max_y = this.pic.y+this.pic.h - this.cjk.h;
 			}
+			let mw = 0,mh =0;
 			
-			
-			
+			if(tp=='t_l' || tp=='b_l'){
+				mw = this.cjk.x-this.pic.x+this.cjk.w;
+				mh = this.cjk.y-this.pic.y+this.cjk.h;					
+			}
+			if(tp=='t_r' || tp=='b_r'){
+				mw = this.pic.w-(this.cjk.x-this.pic.x);
+				mh = this.cjk.y-this.pic.y+this.cjk.h;				
+			}			
+			var hg = mw/9*16;
+			if(hg<=mh){
+				max_w = mw;					
+				max_h = hg;					
+			}else{				
+				max_w = mh/16*9;
+				max_h = hg;
+			}
 			
 			document.onmousemove = document.onmouseup = null;
 			document.onmousemove = (ev)=>{
@@ -225,167 +218,75 @@ export default{
 				var ydy = ev.clientY - disY;
 				var x = ydx+disW;
 				var y = ydy+disH;
-				if(tp=='t'){
-					
-					var xkd = y_w-ydx;
-					var xgd = y_h-ydy;
-					
-					if(this.ccun==1){
-						
-						if(y>max_y){
-							y = max_y;
-						}
-						if(y<min_y){
-							y = min_y;
-						}
-						
-						this.cjk.y = y;
-						xgd = y_h-(y-disH);
-						this.cjk.h = xgd;
-						return
+				
+				if(tp=='t_l'){				
+					let zd = ydx;
+					let wd = y_w-zd;
+					if(wd>max_w){
+						wd = max_w;
 					}
-					
-					if(xgd>max_h){
-						xgd = max_h;					
+					if(wd<5){
+						wd = 5;
 					}
-					xkd = (xgd/16)*9;
-					if(xkd>max_w){
-						xkd = max_w;
+					this.cjk.w = wd;
+					this.cjk.h = wd/9*16;
+					this.cjk.x = disW-(wd-y_w);
+					this.cjk.y = disH+(y_h-this.cjk.h);
+					return
+				}
+				if(tp=='t_r'){
+					let zd = ydx;
+					let wd = y_w+zd;
+					if(wd>max_w){
+						wd = max_w;
 					}
-					xgd = (xkd/9)*16;
-					
-					if(this.cjk.h!=xgd){
-						this.cjk.y = y;
+					if(wd<5){
+						wd = 5;
 					}
-					this.cjk.h = xgd;
-					this.cjk.w = xkd;
+					this.cjk.w = wd;
+					this.cjk.h = wd/9*16;
+					this.cjk.y = disH+(y_h-this.cjk.h);
+					return
+				}
+				if(tp=='b_l'){
+				
+					let zd = ydx;
+					let wd = y_w+zd;
+					if(wd>max_w){
+						wd = max_w;
+					}
+					if(wd<5){
+						wd = 5;
+					}
+		
+					this.cjk.w = wd;
+					this.cjk.h = wd/9*16;
 					
 					return
 				}
-				if(tp=='b'){
-					var xkd = y_w+ydx;
-					var xgd = y_h+ydy;	
-									
-									
-					if(this.ccun==1){
-						if(xgd>max_h){
-							xgd = max_h;
-						}
-						if(xgd<min_h){
-							xgd = min_h;
-						}
-						this.cjk.h = xgd;
-						return
-					}				
-					if(xgd>max_h){						
-						xgd = max_h;						
+				if(tp=='b_r'){
+					let zd = ydx;
+					let wd = y_w-zd;
+					if(wd>max_w){
+						wd = max_w;
 					}
-					xkd = (xgd/16)*9;
-					if(xkd>max_w){
-						xkd = max_w;
-					}
-					xgd = (xkd/9)*16;
-					
-					
-					this.cjk.h = xgd;
-					
-					this.cjk.w = xkd;
-				}
-				if(tp=='r'){
-					if(x<this.pic.x){
-						x = this.pic.x;
-					}
-					var xkd = y_w+ydx;
-					var xgd = y_h+ydy;
-					
-					if(this.ccun==1){
-					
-						
-						if(xkd>max_w){
-							xkd = max_w;
-						}
-						if(xkd<min_w){
-							xkd = min_w;
-						}
-						this.cjk.w = xkd;
-						return
-					}
-					
-					if(xkd>max_w){
-						xkd = max_w;											
-					}
-					xgd = (xkd/9)*16;
-					
-					if(xgd>max_h){
-						xgd = max_h;
-						xkd = (xgd/16)*9;
-					}					
-					if(xkd<2){
-						xkd=2;
-						x = y_w-xkd;
-					}
-					this.cjk.w = xkd;
-					
-					this.cjk.h = xgd;					
+					this.cjk.w = wd;
+					this.cjk.h = wd/9*16;
+					this.cjk.x = disW-(wd-y_w);	
 					return
+					
 				}
-				if(tp=='l'){
-					if(x<this.pic.x){
-						x = this.pic.x;
-					}
-					var xkd = y_w-ydx;
-					var xgd = y_h-ydy;
-					if(this.ccun==1){
-						if(x>max_x){
-							x = max_x;
-						}
-						if(x<min_x){
-							x = min_x;
-						}
-						this.cjk.x = x;
-						xkd = y_w-(x-disW);
-						this.cjk.w = xkd;
-						return
-					}
-					
-					if(xkd>max_w){
-						xkd = max_w;
-						x = max_l_x;
-						
-					}else{
-						this.cjk.x = x;
-					}
-					xgd = (xkd/9)*16;
-					if(xgd>max_h){
-						xgd = max_h;
-						xkd = (xgd/16)*9;
-					}
-					
-					if(xkd<2){
-						xkd=2;
-						x = y_w-xkd;
-					}
-					this.cjk.w = xkd;
-					
-					this.cjk.h = xgd;
-					
-					return
+				if(x>max_x){
+					x=max_x;
 				}
-				
-				
-				
-				
-				if(x<max_l_x){
-					x=max_l_x;
-				}
-				if(y<max_l_y){
-					y=max_l_y;
+				if(y>max_y){
+					y=max_y;
 				}				
-				if(x>max_r_x){
-					x = max_r_x;
+				if(x<min_x){
+					x = min_x;
 				}
-				if(y>max_r_y){
-					y = max_r_y;
+				if(y<min_y){
+					y = min_y;
 				}	
 				if(tp=='m'){
 					this.cjk.x = x;
@@ -509,7 +410,7 @@ export default{
 	top: 0;
 	left: 0;
 	box-sizing: border-box;
-	border: 1px solid #0000CC;
+	border: 1px solid #33B3FF;
 	width: 100%;
 	height: 100%;
 }
