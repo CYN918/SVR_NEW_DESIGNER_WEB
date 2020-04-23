@@ -112,7 +112,9 @@ export default{
 			this.setcs('sy',sy);
 			this.setcs('sw',sw);
 			this.setcs('sh',sh);
-			this.$parent.drm();
+			
+			this.$parent.drmOn();
+			
 			this.close();
 		},
 		setcs(n,v){

@@ -420,6 +420,7 @@
 				valObj:'',
 				valTime:0,
 				bfObj:'',
+				psd:'',
 			}
 		},
 		mounted: function() {
@@ -445,6 +446,38 @@
 			}	
 		},
 		methods: {
+			drmOn(){
+				let obd = this.backPlayVideo();
+				if(!obd || obd.type=='null'){
+					this.drmBg();
+					return
+				}
+				if(obd.type=='video'){
+					if(this.$refs.vids.src!=obd.file_url){
+						this.$refs.vids.src=obd.file_url;	
+					}
+					this.$refs.vids.currentTime = (this.bfTime - obd.start)+obd.cut_start;
+					let ob = obd;
+					clearTimeout(this.psd)
+					this.psd = setTimeout(()=>{
+						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);						
+					},100)
+					
+					return
+				}
+				if(obd.type=='pic'){
+					this.drmBg();
+					let a = document.createElement('img');
+					a.src = obd.file_url;
+					a.onload = () => {
+						this.drmBg();
+						this.cans.drawImage(a,obd.sx,obd.sy,obd.sw,obd.sh,obd.x,obd.y,obd.w,obd.h);
+					}
+					return
+				}
+				
+				
+			},			
 			/*暂停播放*/
 			/*playT 0初始状态or结束状态 1播放状态 2暂停状态*/
 			todTime(e) {
@@ -459,14 +492,21 @@
 					let dd = +cs + on;
 					if(dd<0){dd=0}
 					this.bfTime = dd;
-			
+					
 				}
 				document.onmouseup = (e) => {
 					e.preventDefault();
+					this.drmOn()
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
 			newPlay(){
+				if(this.navcoms.media.length==0){
+					this.$message({
+						message:'请先添加内容'
+					})
+					return
+				}
 				if(this.$refs.setAdios){
 					this.$refs.setAdios.pause();
 				}
@@ -474,6 +514,7 @@
 				if(this.$refs.vid && this.$refs.vid.setRun){
 					this.$refs.vid.setRun();
 				}
+				
 				this.puandFn();
 				this.bfTime = 0;
 				this.playT = 0;
@@ -503,6 +544,12 @@
 			},
 			/*播放相关*/
 			playAll(){	
+				if(this.navcoms.media.length==0){
+					this.$message({
+						message:'请先添加内容'
+					})
+					return
+				}
 				if(this.$refs.setAdios){
 					this.$refs.setAdios.pause();
 				}
@@ -510,9 +557,7 @@
 				if(this.$refs.vid && this.$refs.vid.setRun){
 					this.$refs.vid.setRun();
 				}
-				if(this.navcoms.media.length==0){
-					return
-				}
+				
 				if(this.playT==1){
 					this.playT=2;
 					
@@ -1120,9 +1165,10 @@
 				document.onmouseup = () => {
 					document.onmousemove = document.onmouseup = null;
 					if(this.playT==1 || this.playT==2){
-						this.puandFn2()
+						this.puandFn2();
+						
 					}
-					
+					this.drmOn();
 				}
 			},
 			setHm(on, el, list) {
@@ -1201,8 +1247,9 @@
 						}
 					}
 					if(this.playT==1 || this.playT==2){
-						this.puandFn2()
+						this.puandFn2();
 					}
+					this.drmOn();
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
@@ -1248,6 +1295,7 @@
 					if(this.playT==1 || this.playT==2){
 						this.puandFn2()
 					}
+					this.drmOn();
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
@@ -1330,11 +1378,13 @@
 				if(this.playT==1 || this.playT==2){
 					this.puandFn2()
 				}
+				this.drmOn();
 			},
 			cats() {
 				if (!this.checkOn.list) {
 					return
 				}
+				this.puandFn2();
 				this.tanc = {
 					zj: 'cat',
 					title: '',
@@ -1363,18 +1413,13 @@
 				this.islast = '';
 				this.audioLast = '';
 				this.audiosOn = 0;
-				this.bfon = 0;	
-				
+				this.bfon = 0;					
 				if(this.playT==1 || this.playT==2){
 					this.puandFn2();
 				}
-				
-				
+				this.drmOn();
 				this.setMaxTime();
 			},
-			
-				
-			
 			setMaxTime() {
 				let video = this.navcoms.media[this.navcoms.media.length - 1],
 					audio = this.navcoms.audio[this.navcoms.audio.length - 1],
@@ -1463,11 +1508,11 @@
 			LinePlay(){
 				clearTimeout(this.ht);
 				this.po = window.setInterval(() => {
-					if(!this.navcoms.media[this.bfon]){
+					if(!this.bfObj || this.bfObj.type!='video'){
 						window.clearInterval(this.po);
 					}			
 					this.cans.fillRect(0, 0, this.boxW, this.boxH);
-					let ob = this.navcoms.media[this.bfon];
+					let ob = this.bfObj;
 					
 					this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 					let po = this.cun[this.vdcc].x;
@@ -1485,16 +1530,11 @@
 				this.boxH = domd.height;
 				this.boxW = (domd.height/16)*9;
 			},
-			
-			
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
 					this.$router.push({path: '/'})					
 					return
 				}
-				
-				
-				
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false)
 				this.zoomd = this.boxW/391;
@@ -2464,6 +2504,7 @@
 	}
 
 	.bf_o1 {
+		cursor: pointer;
 		position: absolute;
 		top: 52px;
 		left: 0;
