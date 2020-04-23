@@ -29,7 +29,7 @@
 					<span>合成失败</span>
 				</div>
 				<div class="ldx_l_1_btn2" v-if="el.status==2 && Isbtn">
-					<span class="ldx_l_1_btn2_a">项目结果</span>
+					<span @click="gojg(el.project_id)" class="ldx_l_1_btn2_a">项目结果</span>
 				</div>
 				<div class="ldx_l_1_btn3" v-if="el.status==-1 && Isbtn">
 					<span class="pendno" @click="bjfn(el.id)">重新编辑</span>
@@ -113,6 +113,10 @@ export default{
 			localStorage.setItem('ldxData',JSON.stringify(this.el));
 			this.$router.push({path:'/pushTool',query:{id:id}});
 	
+		},
+		gojg(id){
+			
+			this.$router.push({path:'/prcent',query:{id:id}});
 		},
 		getrejectInfo(id){
 			if(this.Ischeck){
@@ -309,5 +313,8 @@ export default{
 	background: #33B3FF;
 	border-color: #33B3FF;
 	color: #fff;
+}
+.ldx_l_1_btn2_a{
+	cursor: pointer;
 }
 </style>
