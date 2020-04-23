@@ -18,15 +18,17 @@
 							<el-progress :width="48" :stroke-width="2"  type="circle" :percentage="el.bf"></el-progress>
 							<span class="jdt_002x">正在上传</span>
 						</div>
+						
 					</div>
 					<div @mousedown="starD($event,el)" @mouseover="ybf(index,el)" class="setMt_03_01" v-else>
 						<img :src="el.cover_img?el.cover_img:el.url">
 						<video muted class="video" ref="video" :src="el.url"></video>
-						<span class="tim_013" v-if="el.play_time" ref="videotime">{{ backtio(el.play_time)}}</span>
+						<span class="tim_013" v-if="el.play_time">{{backtio(el.play_time)}}</span>
 					</div>
 					
 					<div @click="checkV(el)" class="tim_xz"><img width="100%" src="../../../../assets/icon_add_small.png" alt=""></div>
 					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="../../../../assets/sc_icon_delete.png"/></div>
+					
 				</li>
 			</span>
 		</ul>
@@ -67,8 +69,7 @@ export default{
 			istype:'',
 			maxwj:0,
 			Isvideo:false,
-			num:0,
-			videotime:""
+			num:0
 		}
 	},
 	mounted: function () {
@@ -76,9 +77,6 @@ export default{
 		
 	}, 		
 	methods:{
-		timeupdate(i){
-			this.$refs.videotime[i].innerHTML = this.backtio(this.$refs.video[i].currentTime);
-		},
 		ybf(i,el){
 			if(el.file_type == 'video'){
 				let v = this.$refs.video[i];
@@ -131,6 +129,7 @@ export default{
 				if(this.$parent.Mos){
 					if(this.$parent.Mos.n=='decorates'){
 						this.setDecorates(el,e.x+10);
+						
 					}else{
 						this.checkV(el,e.x+10);
 					}
@@ -192,7 +191,10 @@ export default{
 					}
 					this.value.maxTime = +pr.long+this.value.maxTime;
 					this.value.decorates[this.$parent.Mos.on].push(pr);
-							
+					if(this.$parent.playT==1 || this.$parent.playT==2){
+						
+						this.$parent.puandFn2();
+					}		
 					this.$parent.showDevs(this.$parent.Mos.on,this.value.decorates[this.$parent.Mos.on].length-1);
 				};
 		},
@@ -292,26 +294,12 @@ export default{
 				for(let i=0;i<n;i++){
 					let end = sumTime(obj[i]);
 					let star = obj[i].start;
-					
-					
 					if(pr.start<end){
-						
-						
-						
 						break
 					}
-					
-					
-					
-					
 				}
 				
 			};
-			
-			
-			
-				
-				
 			if(el.file_type=='image'){
 				var a = document.createElement('img');
 				a.src=el.url;
@@ -331,16 +319,14 @@ export default{
 						pr.w = (this.$parent.boxH/hd)*wd;
 						pr.x = (this.$parent.boxW-pr.w)/2;
 					}
-					
-					
-					
-					
-					
 					this.value.maxTime = +pr.long+this.value.maxTime;
-					this.value.media.push(pr);						
-					if(!ond){
-						this.$parent.drmImgs();
+					this.value.media.push(pr);	
+										
+					if(this.$parent.playT==1 || this.$parent.playT==2){
+						
+						this.$parent.puandFn2();
 					}
+					this.$parent.drmOn();
 				};
 		
 			}
@@ -368,14 +354,12 @@ export default{
 						this.value.maxTime = maxt;
 					}	
 					this.value.media.push(pr);	
-					if(!ond){
-						this.$parent.setvideo(el.url);
+					if(this.$parent.playT==1 || this.$parent.playT==2){
+						this.$parent.puandFn2();
 					}
+					this.$parent.drmOn();
 				}
 			}			
-			
-		
-	
 		},
 		fileUp(flie){
 			for(let i=0,n=flie.target.files.length;i<n;i++){
@@ -679,8 +663,7 @@ export default{
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
-	width: 180px;
-	min-width: 162px;
+	width:180px;
 	height:100px;
 	overflow: hidden;
 	background:rgba(40,40,40,1);
@@ -688,11 +671,6 @@ export default{
 	margin: 0 16px 16px 0;
 	border:2px solid transparent;
 }
-
-.setMt_03{
-	min-width: 600px;
-}
-
 .qxBm_btns_1x2{
 	text-align: center;
 }
@@ -716,7 +694,6 @@ export default{
 	top: 0;
 	left: 0;
 	z-index: 888;
-	width: 100%;
 }
 
 .setMt_03 li:hover{
@@ -782,7 +759,6 @@ export default{
 	font-size:12px;
 	color:rgba(187,187,187,1);
 	line-height:20px;
-	z-index: 1000;
 }
 .tim_xz{
 	cursor: pointer;
@@ -836,7 +812,7 @@ export default{
 }
 .setMt_03box{
 	overflow: hidden;
-    overflow: auto;
+    overflow-y: auto;
     position: absolute;
     top: 64px;
     bottom: 0;

@@ -4,7 +4,15 @@
 		<div v-else class="b_con_01">
 			<div class="tolu_01">
 				<span>我的来电秀工程</span>
-				<a href="/#/help?on=4-02">如何通过制作来电秀获得收益？</a>
+				<span style="float: right;">
+					<a href="/#/help?on=4-02">如何通过制作来电秀获得收益？</a>
+					<span style="padding-left: 64px;font-size:14px;" @click="hoverb">{{ timerulec }} <i :class="['el-icon-arrow-down',timerule?'selicon':'seliconc']"></i></span>
+					<div class="timetoast" v-if="timerule">
+						<div :class="['timetoast_1',timerulec == '修改时间'?'timetoast_1_c':'']" @click="settimerule('修改时间')">修改时间</div>
+						<div :class="['timetoast_1',timerulec == '创建时间'?'timetoast_1_c':'']" @click="settimerule('创建时间')">创建时间</div>
+					</div>
+				</span>
+				
 			</div>
 			<div>
 				<ul class="listbg">
@@ -21,13 +29,10 @@
 						
 						<template v-slot:todo="{ todo }">
 						
-							<div v-if="todo.on==0" @click="go(btn_a[btn_on].p)" class="tolu_06_x1 pend" >
+							<div v-if="todo.on==0 && statelistindex != 1" @click="go(btn_a[btn_on].p)" class="tolu_06_x1 pend" >
 								<img :src="imgPath+'new/tools/icon_add_small.svg'">
 								<div>新建项目</div>
-								
 							</div>
-							
-							
 							<cent :el="todo.data"></cent>
 						</template>			
 					</list>
@@ -77,7 +82,7 @@ export default{
 				},
 				pr:{
 					type:'doing', 
-					
+					sort:'{"update_at":"ASC"}'
 				},	
 				noData:'1',
 			},	
@@ -93,7 +98,9 @@ export default{
 					state:"finish"
 				}
 			],
-			statelistindex:0
+			statelistindex:0,
+			timerule:false,
+			timerulec:"修改时间"
 		}
 	},
 	mounted: function () {
@@ -119,6 +126,19 @@ export default{
 			this.statelistindex = index;
 			this.conf.pr.type = type;
 			this.$refs.sfafa.getData();
+		},
+		hoverb(){
+			this.timerule = !this.timerule;
+		},
+		settimerule(i){
+			this.timerulec = i;
+			this.timerule = false;
+			if(i == '修改时间'){
+				this.conf.pr['sort']='{"update_at":"ASC"}'
+			} else {
+				this.conf.pr['sort']='{"created_at":"ASC"}'
+			}
+			this.$refs.sfafa.getData();
 		}
 	}
 }
@@ -133,10 +153,7 @@ export default{
 	line-height:22px;
 	margin-bottom: 23px;
 }
-.tolu_01>a{
-	position: absolute;
-	top: 0;
-	right: 0;
+.tolu_01>span>a{
 	color:rgba(255,146,0,1);
 }
 .tolu_02{
@@ -214,5 +231,43 @@ export default{
 .statelist-active{
 	color:rgba(51,179,255,1);
 	border-bottom: 1px solid rgba(51,179,255,1);
+}
+.selicon{
+	animation:rz 0.25s forwards;
+}
+
+.seliconc{
+	animation:rzc 0.25s forwards;
+}
+@keyframes rz{
+	from{transform: rotateZ(0deg);}
+	to{transform: rotateZ(180deg)}
+}
+@keyframes rzc{
+	from{transform: rotateZ(180deg);}
+	to{transform: rotateZ(0deg)}
+}
+.timetoast{
+	width:105px;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+	border-radius:5px;
+	position: absolute;
+	top: 25px;
+	right: 0;
+	z-index: 999;
+	padding: 5px 0;
+	
+}
+.timetoast_1{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	color: #333333;
+	text-align: center;
+	font-size:14px;
+}
+.timetoast_1_c{
+	background: #F2F2F2;
 }
 </style>

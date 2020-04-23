@@ -59,7 +59,7 @@
 					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="bRunning && (bfData.on==index && bfData.m_id==el.m_id)?'/imge/tools/music_icon_pause.svg':'/imge/tools/music_icon_play.svg'"/>
 					<img @click="favor(el)" class="mp3_04_01_sc pend" :src="el.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
 					
-					<span @click="checks(el)" class="setAdio_02 pend">
+					<span @click="checkDom(el)" class="setAdio_02 pend">
 						<img v-if="el.m_id==aaa" class="setAdio_02x" src="/imge/tools/oclod.svg">
 						<span v-else>选用</span>
 						
@@ -100,12 +100,25 @@
 				</span>
 				<div class="mp3_05_2_0" style="right: 0;overflow: hidden;">
 					<img @click="favor()" class="mp3_04_01_sc pend" style="margin-top: 33px;" :src="bfData.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
-					<span @click="checks()" class="pend mp3_05_2_4_1">选用</span>
+					<span @click="checkDom()" class="pend mp3_05_2_4_1">选用</span>
 				</div>
 				
 			</div>
 		</div>
 		<audio ref="aido" @ended="ended"></audio>
+		
+		<div v-if="istype" class="pr_tc_01">
+			<div class="pr_tc_02">			
+				<div class="pr_tc_04">
+					选用确认<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
+				</div>
+				<div class="qxBm_btns_1 qxBm_btns_1x2">当前仅支持选择一首音乐，是否替换当前已选用音乐？</div>	
+				<div class="qxBm_btns">
+					<div @click="closesf" class="btns pend">取消</div>		
+					<div @click="qdFn" class="btns btns_js pend">确定</div>										
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -125,6 +138,7 @@ export default{
 	},
 	data(){
 		return{
+			istype:'',
 			navs:[
 				{n:'发现音乐',v:'sh_List'},
 				{n:'我收藏的',v:'sh_CollectList'},
@@ -153,6 +167,7 @@ export default{
 			aaa:'',
 			ym:0,
 			mvX:0,
+			chek:'',
 		}
 	},
 	watch:{
@@ -205,6 +220,14 @@ export default{
 		}
 	},
 	methods:{
+		closesf(){
+			this.chek = '';
+			this.istype = '';
+		},
+		qdFn(){
+			this.checks();
+			this.closesf();
+		},
 		backTX(){
 			return 'transform: translateX('+((this.bfData.onTime/this.bfData.duration)-1)*100+'%);';
 		},
@@ -293,8 +316,8 @@ export default{
 				}
 				
 				this.value.audio.splice(0,1,pr);
-				if(this.$parent.playT==1){
-					this.$parent.playsx();
+				if(this.$parent.playT==1 || this.$parent.playT==2){
+					this.$parent.puandFn2();
 				}
 				
 				
@@ -328,18 +351,31 @@ export default{
 				this.getList();
 			})
 		},
-		checks(el){
-			
+		checkDom(el){
 			if(this.aaa){
 				return
 			}
+			this.chek = el;
+			if(this.value.audio.length==0){
+				this.checks();
+				return
+			}
 			
+			this.istype = 1;
+			
+		},
+		checks(){
+			if(this.aaa){
+				return
+			}
+			let el = this.chek;
 			if(el){
 				
 				this.aaa=el.m_id;
 				this.sh_audioUrld(el);
 				return
 			}
+
 			let ond = this.bfData.on;
 			let choseEl = this.datas[ond];
 			this.aaa=choseEl.m_id;
@@ -349,11 +385,11 @@ export default{
 			if(this.datas.length==0){
 				return
 			}
-			console.log(1111111);
+			
 			if(this.bfData.on<1){
 				return
 			}
-			console.log(22);
+			
 			let ond = this.bfData.on-1;
 			let pd = this.datas[ond];
 			this.bfData = {
@@ -403,6 +439,9 @@ export default{
 			this.sh_audioUrl(pd.m_id);
 		},
 		setRun(){
+			if(!this.$refs.chean){
+				return
+			}
 			this.bRunning = false;
 			this.$refs.chean[0].pause();	
 		},
@@ -458,7 +497,7 @@ export default{
 			})
 		},
 		favor(el) {
-			//console.log(el)
+		
 			if (el) {
 				//列表收藏逻辑
 				if (el.is_collect == 1) {

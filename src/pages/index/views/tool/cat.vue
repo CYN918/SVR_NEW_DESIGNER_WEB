@@ -112,7 +112,9 @@ export default{
 			this.setcs('sy',sy);
 			this.setcs('sw',sw);
 			this.setcs('sh',sh);
-			this.$parent.drm();
+			
+			this.$parent.drmOn();
+			
 			this.close();
 		},
 		setcs(n,v){
@@ -127,7 +129,7 @@ export default{
 			let img = document.createElement('img');
 			img.src=this.value.data.cover_img;
 			img.onload = ()=>{
-				console.log()
+			
 				let w = img.naturalWidth;
 				let y = img.naturalHeight;
 				let bl = w/y;
