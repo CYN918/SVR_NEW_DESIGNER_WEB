@@ -101,7 +101,7 @@
 					</div>
 					<div class="tc_spasswodr_1_1" v-if="isyazfs==1">
 						<div class="tc_sucd_1_2">
-							<Input v-model="tancData.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"  ></Input>
+							<InputO v-model="tancData.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'" :dataMobile="mJs.phone_encryption(form.mobile)" :dataMobilezone="form.mobile_zone" ></InputO>
 							<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(tancData.mobile,tancData.mobile_zone)" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 							<Input v-model="tancData.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'新密码，6-16位'"></Input>			
 							<Input v-model="tancData.password_repass" :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认新密码，6-16位'"></Input>
@@ -139,10 +139,11 @@
 
 import {Message} from 'element-ui'
 import Input from '../../components/input'
+import InputO from '../../components/input_1'
 import TcBox from '../../components/TcBox';
 export default {
 	name: 'works',
-	components:{Input,TcBox},
+	components:{Input,TcBox,InputO},
 	data(){
 		return {
 			outc:{

@@ -297,7 +297,6 @@ export default {
 			
 			
 			let last = this.topNData[this.topNData.length-1].n;
-			console.log(window.userInfo)
 			if(window.userInfo){
 				this.userMssge = window.userInfo;	
 				// if(!window.userInfo.contributor_format_status && last!='供稿人'){
@@ -357,6 +356,7 @@ export default {
 			}
 			this.api.getCounter().then((da)=>{
 				if(da=='error'){
+					this.userMssge = '';
 					return
 				}
 				this.messgNum = da;
