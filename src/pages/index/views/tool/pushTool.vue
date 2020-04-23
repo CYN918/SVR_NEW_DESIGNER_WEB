@@ -1421,6 +1421,9 @@
 				}
 				this.drmOn();
 				this.setMaxTime();
+				if(this.navcoms.media.length==0){
+					this.bfTime = 0;
+				}
 			},
 			setMaxTime() {
 				let video = this.navcoms.media[this.navcoms.media.length - 1],
@@ -1446,7 +1449,13 @@
 				if (tins < 120) {
 					tins = 120;
 				}
-				let nd = Math.ceil(tins / 10)+1;
+				let nd = Math.ceil(tins / this.fdjb)+1;
+				
+				
+				if(nd<13){
+					nd = 13;
+				}
+				
 				for (let i = 0, n = nd; i < n; i++) {
 					str += '<div class="kdut_1">';
 					for (let i2 = 0; i2 < 9; i2++) {

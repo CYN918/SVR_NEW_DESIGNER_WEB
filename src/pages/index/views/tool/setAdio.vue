@@ -18,7 +18,7 @@
 			</div>				
 			<spck2 
 			
-			v-if="type=='sh_List' && !name"
+			v-if="type=='sh_List' && !name && isshs"
 			v-model="clas"
 			class="mp3_03_3"
 			:List="showNav"
@@ -139,6 +139,7 @@ export default{
 	data(){
 		return{
 			istype:'',
+			isshs:'',
 			navs:[
 				{n:'发现音乐',v:'sh_List'},
 				{n:'我收藏的',v:'sh_CollectList'},
@@ -573,6 +574,12 @@ export default{
 			this.getList();
 		},
 		ss(){
+			
+			if(this.name){
+				this.isshs = 1;
+			}else{
+				this.isshs = '';
+			}
 			this.getList();
 		},
 		getList(){
