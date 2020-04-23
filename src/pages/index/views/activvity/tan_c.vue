@@ -63,10 +63,10 @@
 								<div class="fileIcon">
 									<img src="/imge/Project_content_toast_icon.png" alt="">
 								</div>
-								<div class="fileContent">
-									{{flieList[index]}}
-									<img @click="deleteFile(index)" class="detelImage" src="/imge/delete_icon.png" alt="">
-								</div>
+							</div>
+							<div class="fileContent">
+								{{flieList[index]}}
+								<img @click="deleteFile(index)" class="detelImage" src="/imge/delete_icon.png" alt="">
 							</div>
 							<el-progress :text-inside="true" :stroke-width="2" :percentage="progress" :id="'isShowfile'+index"></el-progress>
 						</div>				
@@ -448,7 +448,6 @@ export default {
 			formData.append('timestamp',times)
 			// formData.append('is_callback',1)			
 			this.opType=1;
-
 			
 			this.$ajax.post(window.basrul+'/File/File/insert', formData,{
 					headers: {
@@ -456,8 +455,9 @@ export default {
 					},
 					onUploadProgress: progressEvent => {
 						this.list[on].upData.bfb = (progressEvent.loaded / progressEvent.total * 100 | 0);
+						this.progress = (progressEvent.loaded / progressEvent.total * 100 | 0);
 						
-					}
+					},
 				})
 				.then((da)=>{	
 					this.clerIn();
@@ -480,7 +480,7 @@ export default {
 				})
 				.catch(function () {
 					this.clerIn();
-					this.opType=0;		
+					this.opType=0;	
 				});
 				
 			
@@ -1304,6 +1304,16 @@ export default {
     top: -63px;
     left: 50%;
     transform: translateX(-50%);
+}
+.detelImage{
+	float: right;
+	margin-left: 252px;
+}
+.fileContent{
+	width: 370px;
+	position: absolute;
+    top: 8px;
+    left: 145px;
 }
 </style>
 
