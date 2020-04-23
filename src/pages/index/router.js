@@ -275,6 +275,9 @@ function setTitle(t){
 			break;	
 		case '/activvity':	
 			str = '活动-狮圈儿（Zoocreators）';
+			break;
+		case '/project':
+			str = '项目-狮圈儿（Zoocreators）';
 			break;	
 		case '/myAll':	
 		case '/myExamine':
@@ -313,7 +316,7 @@ function setTitle(t){
 	}
 	if(str){
 		document.title=str;
-	}	
+	}
 }
 router.beforeEach((to, from, next) => {
 //	window.removeEventListener('mousewheel',window.dwzFn);

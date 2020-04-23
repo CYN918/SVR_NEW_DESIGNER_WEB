@@ -298,6 +298,7 @@ export default {
 				return
 			}
 			
+			
 								
 			this.getData();			
 		},
@@ -403,6 +404,7 @@ export default {
 					id:da.id,
 				};
 				this.deta = da;
+				document.title=this.deta.name+'-狮圈儿（Zoocreators）';
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
 					var d2 = new Date();
 					var d1 = new Date(Date.parse(this.deta.delivery_deadline));
