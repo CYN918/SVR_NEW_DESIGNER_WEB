@@ -420,6 +420,7 @@
 			this.$refs.vids.removeEventListener('play',this.LinePlay);
 			this.$refs.vids.removeEventListener('pause',this.LineClerDrm);
 			this.$refs.vids.removeEventListener('ended',this.LineClerDrm);
+			this.puandFn();
 		},
 		watch: {
 			fdjb() {
@@ -1562,7 +1563,7 @@
 					if(!this.bfObj || this.bfObj.type!='video'){
 						window.clearInterval(this.valObj);
 					}	
-							
+					this.checkAdio();
 					toTim+=.05;		
 						
 					this.cans.fillRect(0, 0, this.boxW, this.boxH);
