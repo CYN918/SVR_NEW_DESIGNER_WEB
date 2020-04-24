@@ -24,6 +24,9 @@
 						<img :src="el.cover_img?el.cover_img:el.url">
 						<video muted class="video" ref="video" :src="el.url"></video>
 						<span class="tim_013" v-if="el.play_time">{{backtio(el.play_time)}}</span>
+						<span class="tim_014" v-if="IsSelect(el.fid)">
+							<img width="19px" src="../../../../assets/icon_mt_usemt.png" alt="">
+						</span>
 					</div>
 					
 					<div @click="checkV(el)" class="tim_xz"><img width="100%" src="../../../../assets/icon_add_small.png" alt=""></div>
@@ -77,6 +80,17 @@ export default{
 		
 	}, 		
 	methods:{
+		IsSelect(el){
+			let id = false;
+			//console.log(el);
+			this.$parent.navcoms.media.forEach(item=>{
+				if(el == item.fid){
+					id = true;
+				}
+			})
+			//console.log(id)
+			return id;
+		},
 		ybf(i,el){
 			if(el.file_type == 'video'){
 				let v = this.$refs.video[i];
@@ -694,6 +708,7 @@ export default{
 	top: 0;
 	left: 0;
 	z-index: 888;
+	width: 100%;
 }
 
 .setMt_03 li:hover{
@@ -759,6 +774,16 @@ export default{
 	font-size:12px;
 	color:rgba(187,187,187,1);
 	line-height:20px;
+	z-index: 999;
+}
+.tim_014{
+	position: absolute;
+	bottom: -1px;
+	left: 8px;
+	font-size:12px;
+	color:rgba(187,187,187,1);
+	line-height:20px;
+	z-index: 999;
 }
 .tim_xz{
 	cursor: pointer;

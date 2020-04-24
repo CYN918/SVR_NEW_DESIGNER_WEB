@@ -130,12 +130,10 @@
 							<div class="tlo_04">
 								<div v-for="(el,index) in navcoms.decorates" @mouseover="setMos({on:index,n:'decorates'},$event)" @mouseout="setMos('')"
 								 class="tlo_04">
-							
-							
 									<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="imgd" v-for="(el2,index2) in el">
 										<div :style="bgtf(el2)" class="setToll0"></div>
 							
-										<div class="setToll">
+										<div :class="['setToll',(Mos.type=='decorates'&& IsShowStyle)?'setToll_active':'']">
 										
 											<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
 											<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2">
@@ -162,7 +160,7 @@
 							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'},$event)" @mouseout="setMos('')">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})" class="imgd" v-for="(el,index) in navcoms.media">
 									<div :style="bgtf(el)" class="setToll0"></div>
-									<div class="setToll">
+									<div class="setToll" @mousedown="settoll($event)" @mouseup="settoll1($event)">
 										<div @mousedown="jl3($event,el,index,navcoms.media,'media')" class="setToll1"></div>
 										<div @mousedown="jl2($event,el,index,navcoms.media,'media')" class="setToll2">
 											<div class="setToll2_1">
@@ -184,7 +182,7 @@
 							<div class="tlo_03">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'audio',on:index,list:navcoms.audio})" class="imgd" v-for="(el,index) in navcoms.audio">
 									<div :style="bgtf(el)" class="setToll0"></div>
-									<div class="setToll">
+									<div :class="['setToll',IsShowStyle?'setToll_active':'']">
 										<div @mousedown="jl3($event,el,index,navcoms.audio,'audio')" class="setToll1"></div>
 										<div @mousedown="jl2($event,el,index,navcoms.audio,'audio')" class="setToll2">
 											<div class="setToll2_1" style="top:6px;height: 14px;">
@@ -423,6 +421,8 @@
 				valTime:0,
 				bfObj:'',
 				psd:'',
+				IsShowStyle:false,
+				indexstyle:0
 			}
 		},
 		mounted: function() {
@@ -448,6 +448,14 @@
 			}	
 		},
 		methods: {
+			settoll(e){
+				e.preventDefault();
+				e.currentTarget.className = 'setToll setToll_active'
+			},
+			settoll1(e){
+				e.preventDefault();
+				e.currentTarget.className = 'setToll'
+			},
 			drmOn(){
 				let obd = this.backPlayVideo();
 				if(!obd || obd.type=='null'){
@@ -962,6 +970,7 @@
 				}
 				
 				this.Mos = on;
+				console.log(this.Mos)
 			},
 			tochs() {
 				this.isdra = 1;
@@ -1186,6 +1195,7 @@
 			},
 			jl3(e, el, onc, list, n) {
 				e.preventDefault();
+				this.IsShowStyle = true;
 				this.checkOn = {
 					type: n,
 					on: onc,
@@ -1210,7 +1220,6 @@
 					nxEnd = +nxd.start + (nxd.cut_end - nxd.cut_start);
 					nxStar = nxd.start;
 				}
-
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
@@ -1252,6 +1261,7 @@
 						this.puandFn2();
 					}
 					this.drmOn();
+					this.IsShowStyle = false;
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
@@ -2176,7 +2186,7 @@
 		border: 2px solid transparent;
 	}
 
-	.setToll:hover {
+	/* .setToll:hover {
 		border-color: rgba(51, 179, 255, 1);
 		background-color: rgba(0, 0, 0, 0.3);
 	}
@@ -2190,6 +2200,23 @@
 	}
 
 	.setToll:hover .setToll2_1 {
+		visibility: visible;
+	} */
+	
+	.setToll_active{
+		border-color: rgba(51, 179, 255, 1);
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	
+	.setToll_active .setToll4 {
+		display: block;
+	}
+	
+	.setToll_active .setToll3_1 {
+		visibility: visible;
+	}
+	
+	.setToll_active .setToll2_1 {
 		visibility: visible;
 	}
 
