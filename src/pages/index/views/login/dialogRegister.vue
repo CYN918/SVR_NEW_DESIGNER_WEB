@@ -305,7 +305,10 @@ export default {
 	margin-top: 10px;
 }
 .inptud{
-	margin-bottom: 5px;
+	margin-bottom: 14px;
+}
+.inptud:nth-child(4){
+	margin-bottom: 18px;
 }
 .xyckeck{
 	width: 100%;
