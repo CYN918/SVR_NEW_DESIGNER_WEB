@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="nav_rig" v-if="visualWidth" @mouseleave="mouseLeave('g')">
+        <div class="nav_rig" v-if="visualWidth" @mouseleave="mouseLeave('g')" style="height:300px;">
             <ul>
                 <li class="nav_logo" @mouseenter="mouseover('e')" @mouseleave="mouseLeave('e')"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
                 <li class="nav_upload" v-if="uploadShow" @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'newHome/upload.svg'" alt=""/><p>上传作品</p></li>
@@ -40,9 +40,9 @@
                 <p>微信公众号</p>
             </div>
         </div>
-        <div class="nav_rig_1" v-if="visualWidth_1" @mouseenter="mouseover('g')">
+        <div class="nav_rig_1" v-if="visualWidth_1">
             <ul>
-                <li class="nav_logo_1"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
+                <li class="nav_logo_1" @mouseenter="mouseover('g')"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
             </ul>
         </div>
     </div>  
