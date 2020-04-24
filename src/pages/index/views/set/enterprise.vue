@@ -325,7 +325,9 @@ export default {
 		},
 		setJdt1(on){
 			this.isJdt1=1;
-			this.$refs.jdt1.bfb = on;
+			if(this.$refs.jdt1){
+				this.$refs.jdt1.bfb = on;
+			}
 		},
 		setJdt2(on){
 			this.isJdt2=1;
@@ -635,6 +637,7 @@ export default {
 				opening_permit:this.postData.opening_permit,
 				tax_rate_type:this.postData.tax_rate_type,
 				bank_card_no:this.postData.bank_card_no,
+				contact:this.postData.contact,
 				branch_bank:this.postData.branch_bank,				
 				verify_code:this.postData.verify_code,
 				bank_name:this.postData.bank_name,
