@@ -49,7 +49,6 @@ export default {
 			},
 			isShow_ewm:true,
 			isShow_dn:false,
-			tip:''
 		}
 	},
 	mounted: function () {	
@@ -156,7 +155,6 @@ export default {
 			}			
 			this.api.login(data).then((da)=>{	
 				if(da=='error'){
-					this.tip = '用户密码错误';
 					this.bdtj('登录页','登录失败','--');
 					if(ispass){
 						localStorage.setItem('pass','');

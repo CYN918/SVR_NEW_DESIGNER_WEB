@@ -9,7 +9,6 @@ import {Message} from 'element-ui'
 import Inputdf from '../../components/input'
 import xcheckBox from '../../components/checkBox'
 export default {
-	props:{tip:String},
 	components:{Inputdf,xcheckBox},
 	name: 'login',	 
 	data(){				
