@@ -282,7 +282,7 @@ export default {
 	padding:0px 30px 0px 30px;
 	height: 20px;
 	line-height: 20px;
-	margin-top: 30px;
+	margin-top: 27px;
 }
 .p_t{
 	width: 100px;
@@ -318,7 +318,7 @@ export default {
 .xyckeck .yd{
 	width: 60%;
 	float: left;
-	font-size: 16px;
+	font-size: 14px;
     font-family: PingFangSC-Regular;
     font-weight: 400;
     color: #333333;
@@ -336,5 +336,6 @@ export default {
 .xyckeck .lgoin_s5{
 	width: 40%;
 	float: right;
+	font-size: 14px;
 }
 </style>
