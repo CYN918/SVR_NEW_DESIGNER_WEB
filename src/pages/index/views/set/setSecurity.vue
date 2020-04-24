@@ -156,6 +156,7 @@ export default {
 				mobile_zone:'86',
 				old_mobile_zone:'86',
 				mobile:'',
+				old_password:'',
 			},
 
 			form:{},
