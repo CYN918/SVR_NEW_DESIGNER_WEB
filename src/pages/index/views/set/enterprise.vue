@@ -319,6 +319,10 @@ export default {
 		},
 		setJdt1(on){
 			this.isJdt1=1;
+		
+			if(this.$refs.jdt1){
+				this.$refs.jdt1.bfb = on;
+			}	
 			this.$refs.jdt1.bfb = on;
 		},
 		setJdt2(on){
@@ -629,6 +633,7 @@ export default {
 				verify_code:this.postData.verify_code,
 				bank_name:this.postData.bank_name,
 				mobile_zone:window.userInfo.mobile_zone,
+				contact:this.postData.contact,
 				mobile:window.userInfo.mobile,
 				check_type:this.check_type,
 				email:this.emailD
