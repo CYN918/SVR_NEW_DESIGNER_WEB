@@ -82,7 +82,7 @@ export default{
 				},
 				pr:{
 					type:'doing', 
-					sort:'{"update_at":"ASC"}'
+					sort:'{"update_at":"DESC"}'
 				},	
 				noData:'1',
 			},	

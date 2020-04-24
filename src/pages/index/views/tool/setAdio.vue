@@ -571,6 +571,7 @@ export default{
 		},
 		del(){
 			this.name = "";
+			this.isshs = '';
 			this.getList();
 		},
 		ss(){
@@ -580,9 +581,9 @@ export default{
 			}else{
 				this.isshs = '';
 			}
-			this.getList();
+			this.getList('ss');
 		},
-		getList(){
+		getList(a){
 			let pr = {
 				page:1,
 				limit:100,
@@ -591,11 +592,14 @@ export default{
 				pr.name = this.name;
 			}
 		
-			if(this.clas && this.clas != "全部"){
-				pr.classify_name = this.clas;
-			}else{
-				this.clas = '全部';
+			if(!a){
+				if(this.clas && this.clas != "全部"){
+					pr.classify_name = this.clas;
+				}else{
+					this.clas = '全部';
+				}
 			}
+			
 				
 			if(window.source){
 				window.isStop=1;
