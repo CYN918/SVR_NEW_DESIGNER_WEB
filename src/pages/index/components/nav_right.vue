@@ -169,6 +169,7 @@ export default {
 }
 .nav_upload > img,.nav_tolt > img{
     margin-top: 15px;
+    max-width:21px;
 }
 .nav_weixin{
     width: 91.53px;
@@ -181,6 +182,7 @@ export default {
 }
 .nav_weixin > img{
     margin-top: 10px;
+    max-width: 56px;
 }
 .nav_rig > ul > li{
 	text-align: center;
