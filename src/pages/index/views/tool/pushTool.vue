@@ -109,7 +109,7 @@
 				<div class="ntob_footer_2" ref="gdbox">
 					<div :style="bal()" class="tlo_box">
 						<div class="ntob_footer_2_1">
-							<div v-html="backd()" class="kdut"></div>
+							<div @click="kdClick($event)" v-html="backd()" class="kdut"></div>
 						</div>
 						<div class="necBox" @scroll="gdfn($event)" ref="gd_01">
 							<div class="tlo_04">
@@ -429,7 +429,12 @@
 				if(a.length>20){
 					this.form.title = a.substring(0,20);				
 				}
-			}	
+			},
+			bfTime(a,b){
+				if(a<0){
+					this.bfTime = 0;
+				}
+			},
 		},
 		methods: {
 			drmOn(){
@@ -470,6 +475,15 @@
 			},			
 			/*暂停播放*/
 			/*playT 0初始状态or结束状态 1播放状态 2暂停状态*/
+			kdClick(e){
+				let cs = this.bfTime;
+				this.puandFn2()
+				e.preventDefault();			
+				let dd =(e.x-120)/ (this.wdk / this.bl);				
+				if(dd<0){dd=0}
+				this.bfTime = dd;
+				this.drmOn()
+			},			
 			todTime(e) {
 				e.preventDefault();
 				let tdStar = e.pageX;
@@ -635,7 +649,8 @@
 				this.drmBg();	
 				this.valObj = setInterval(() => {
 					this.checkAdio();
-					vtime+=.05																
+					vtime+=.05;
+																					
 					this.bfTime = ontim+vtime;
 					if (this.bfTime >= onBj.endTime) {
 						this.bfTime = onBj.endTime;
@@ -733,17 +748,17 @@
 				this.playT = 0;					
 			},
 			timeupdatevideo() {
-				this.checkAdio();
+				// this.checkAdio();
 				let onT = this.$refs.vids.currentTime;		
-				console.log(this.$refs.vids.currentTime);
+				
 				onT = onT?onT:0;				
-				if(this.bfObj){
-					let tomd = this.bfObj.start + (onT-this.bfObj.cut_start);
-					if(tomd !=this.bfTime){
-						this.bfTime = this.bfObj.start + (onT-this.bfObj.cut_start);
-					}
+				// if(this.bfObj){
+				// 	let tomd = this.bfObj.start + (onT-this.bfObj.cut_start);
+				// 	if(tomd !=this.bfTime){
+				// 		this.bfTime = this.bfObj.start + (onT-this.bfObj.cut_start);
+				// 	}
 					
-				}
+				// }
 				if (onT >= this.bfObj.cut_end) {
 					this.$refs.vids.pause();
 					this.endeds();
@@ -1541,10 +1556,15 @@
 			},
 			LinePlay(){
 				clearTimeout(this.ht);
+				let ontime = this.bfTime;
+				let toTim = 0;
 				this.po = window.setInterval(() => {
 					if(!this.bfObj || this.bfObj.type!='video'){
 						window.clearInterval(this.po);
-					}			
+					}	
+							
+					toTim+=.05;		
+							
 					this.cans.fillRect(0, 0, this.boxW, this.boxH);
 					let ob = this.bfObj;
 					
@@ -1554,6 +1574,7 @@
 						this.cans.fillRect(0, 0, po, this.boxH);
 						this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
 					}
+					this.bfTime = ontime + toTim;
 
 				}, 50);
 			
