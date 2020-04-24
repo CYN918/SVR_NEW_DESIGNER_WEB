@@ -18,7 +18,7 @@
 			</div>				
 			<spck2 
 			
-			v-if="type=='sh_List' && !name && isshs"
+			v-if="type=='sh_List' && !name && !isshs"
 			v-model="clas"
 			class="mp3_03_3"
 			:List="showNav"
