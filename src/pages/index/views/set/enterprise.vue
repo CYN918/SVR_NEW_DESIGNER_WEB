@@ -628,6 +628,7 @@ export default {
 				branch_bank:this.postData.branch_bank,				
 				verify_code:this.postData.verify_code,
 				bank_name:this.postData.bank_name,
+				contact:this.postData.contact,
 				mobile_zone:window.userInfo.mobile_zone,
 				mobile:window.userInfo.mobile,
 				check_type:this.check_type,
