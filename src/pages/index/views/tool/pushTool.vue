@@ -1558,13 +1558,13 @@
 				clearTimeout(this.ht);
 				let ontime = this.bfTime;
 				let toTim = 0;
-				this.po = window.setInterval(() => {
+				this.valObj = window.setInterval(() => {
 					if(!this.bfObj || this.bfObj.type!='video'){
-						window.clearInterval(this.po);
+						window.clearInterval(this.valObj);
 					}	
 							
 					toTim+=.05;		
-							
+						
 					this.cans.fillRect(0, 0, this.boxW, this.boxH);
 					let ob = this.bfObj;
 					
@@ -1574,8 +1574,7 @@
 						this.cans.fillRect(0, 0, po, this.boxH);
 						this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
 					}
-					this.bfTime = ontime + toTim;
-
+					this.bfTime = ontime + toTim;	
 				}, 50);
 			
 
