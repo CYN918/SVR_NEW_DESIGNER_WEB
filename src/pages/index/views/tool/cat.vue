@@ -197,6 +197,13 @@ export default{
 				mw = this.pic.w-(this.cjk.x-this.pic.x);
 				mh = this.cjk.y-this.pic.y+this.cjk.h;				
 			}			
+			if(tp=='b_r' || tp=='b_l'){
+				
+				mh = this.pic.h-(this.cjk.y - this.pic.y);
+				
+				
+			}
+			
 			var hg = mw/9*16;
 			if(hg<=mh){
 				max_w = mw;					
@@ -460,30 +467,35 @@ export default{
 .tzk_07{
 	left: 0;
 	top: 0;
-	width: 2px;
-	height: 2px;
+	
+	width: 5px;
+	height: 5px;
 	cursor: nw-resize;
 }
 .tzk_08{
 	right: 0;
 	top: 0;
-	width: 2px;
-	height: 2px;
+
+	
+	width: 5px;
+	height: 5px;
 	cursor: ne-resize;
 }
 .tzk_09{
 	right: 0;
 	bottom: 0;
-	width: 2px;
-	height: 2px;
+	
+	width: 5px;
+	height: 5px;
 	cursor: nw-resize;
 	
 }
 .tzk_10{
 	left: 0;
 	bottom: 0;
-	width: 2px;
-	height: 2px;
+	
+	width: 5px;
+	height: 5px;
 	cursor: ne-resize;
 }
 .pcat_bt{

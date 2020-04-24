@@ -135,9 +135,9 @@ export default{
 			this.timerule = false;
 			if(i == '修改时间'){
 		
-				this.conf.pr['sort']='{"update_at":"DESC"}'
+				this.conf.pr['sort']='{"update_at":"ASC"}'
 			} else {
-				this.conf.pr['sort']='{"created_at":"DESC"}'
+				this.conf.pr['sort']='{"created_at":"ASC"}'
 			}
 			this.$refs.sfafa.getData();
 		}
