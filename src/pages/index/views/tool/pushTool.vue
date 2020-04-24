@@ -107,7 +107,7 @@
 					
 				</div>
 				<div class="ntob_footer_2" ref="gdbox">
-					<div :style="bal()" class="tlo_box">
+					<div :style="bal()" class="tlo_box" ref="qyBox">
 						<div class="ntob_footer_2_1">
 							<div @click="kdClick($event)" v-html="backd()" class="kdut"></div>
 						</div>
@@ -1144,8 +1144,8 @@
 				if (!this.$refs.gund_01x) {
 					return
 				}
-				let tdStar = e.pageX;
-				let maxd = Math.ceil((this.backTim(this.navcoms.media[this.navcoms.media.length-1])/this.fdjb)*210);
+				let tdStar = e.pageX;				
+				let maxd = this.$refs.qyBox.offsetWidth;
 				let len = this.$refs.gund_01x.offsetWidth;
 				let bl = len / maxd;
 				let pd = (maxd - len) * bl;
@@ -1372,7 +1372,7 @@
 				
 				let ant = this.navcoms.audio[this.navcoms.audio.length - 1];
 				let ant_t = +ant.start + (+ant.cut_end - ant.cut_start);
-
+					
 				if (ent != ant_t) {
 					this.istype = {
 						t: '提示',
@@ -1428,7 +1428,9 @@
 				};
 			},
 			delt() {
-				
+				if(this.tanc.zj == 'saves'){
+					return
+				}
 			
 				if (!this.checkOn.list) {
 					return
@@ -1488,16 +1490,7 @@
 				let str = '<span class="kd_02"><span>00:00:00:00</span></span>';
 				let tins = this.navcoms.maxTime;
 				
-				let len1 = this.navcoms.media.length;
-				let len2 = this.navcoms.decorates.length;
-				let bcktim = 0;
-				if(len1>0){
-					bcktim = this.backTim(this.navcoms.media[len1-1]);
-				}
-				if(len2>0){
-					let zst = this.backTim(this.navcoms.decorates[len2-1])
-					bcktim = zst>bcktim?zst:bcktim;
-				}
+			
 				if (tins < 120) {
 					tins = 120;
 				}
