@@ -38,25 +38,10 @@
 							</div>
 						</div>
 						<div v-if="isld && vdcc2==1" class="show_00x_1" :style="'zoom:'+zoomd">
-							<!-- <div class="show_00x_1_1">138-888-888</div>
-							<div class="show_00x_1_2">正在拨号…</div>
-							<div class="show_00x_1_3">
-								<span><img class="xx_01x" src="/imge/tools/d_04.png">静音</span>
-								<span><img class="xx_02x" src="/imge/tools/d_05.png">拨号键盘</span>
-								<span><img class="xx_03x" src="/imge/tools/d_06.png">免提</span>
-								<span><img class="xx_04x" src="/imge/tools/d_07.png">添加通话</span>
-								<span><img class="xx_05x" src="/imge/tools/d_08.png">保持</span>
-								<span><img class="xx_06x" src="/imge/tools/d_09.png">录音</span>
-							</div>
-							<img class="show_00x_1_4" src="/imge/tools/d_02.png"> -->
+							
 							<img width="100%" height="100%" src="../../../../assets/qd.png" alt="">
 						</div>
-						<div v-if="isld && vdcc2==0" class="show_00x_2" :style="'zoom:'+zoomd">
-							<!-- <img class="show_00x_2_1" src="/imge/tools/d_03.png" />
-							<div class="show_00x_2_2">来电秀</div>
-							<div class="show_00x_2_3">156-0202-0101</div>
-							<img class="show_00x_2_4" src="/imge/tools/d_02.png" />
-							<img class="show_00x_2_5" src="/imge/tools/d_01.png" /> -->
+						<div v-if="isld && vdcc2==0" class="show_00x_1" :style="'zoom:'+zoomd">
 							<img width="100%" height="100%" src="../../../../assets/ld.png" alt="">
 						</div>
 					</div>
@@ -334,7 +319,6 @@
 						zj: 'mp3List'
 					}
 				],
-
 				navcoms: {
 					zj: 'setMt',
 					title: '',
@@ -450,6 +434,7 @@
 		methods: {
 			drmOn(){
 				let obd = this.backPlayVideo();
+				this.bfObj = obd;
 				if(!obd || obd.type=='null'){
 					this.drmBg();
 					return
@@ -459,9 +444,12 @@
 						this.$refs.vids.src=obd.file_url;	
 					}
 					this.$refs.vids.currentTime = (this.bfTime - obd.start)+obd.cut_start;
+					
 					let ob = obd;
 					clearTimeout(this.psd)
+					
 					this.psd = setTimeout(()=>{
+						this.drmBg();
 						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);						
 					},100)
 					
@@ -581,6 +569,9 @@
 				let on=0;
 				let arr = this.navcoms.media;
 				let len = arr.length;
+				if(len==0){
+					return
+				}
 				let fn = ()=>{
 					
 					let star = arr[on].start,
@@ -744,9 +735,14 @@
 			timeupdatevideo() {
 				this.checkAdio();
 				let onT = this.$refs.vids.currentTime;		
+				console.log(this.$refs.vids.currentTime);
 				onT = onT?onT:0;				
 				if(this.bfObj){
-					this.bfTime = this.bfObj.start + (onT-this.bfObj.cut_start);
+					let tomd = this.bfObj.start + (onT-this.bfObj.cut_start);
+					if(tomd !=this.bfTime){
+						this.bfTime = this.bfObj.start + (onT-this.bfObj.cut_start);
+					}
+					
 				}
 				if (onT >= this.bfObj.cut_end) {
 					this.$refs.vids.pause();
@@ -849,21 +845,40 @@
 					return
 				}
 				e.preventDefault();
+				let len = this.navcoms.media.length;
+				let maxd = 0;
+				let pd = 0;
+				if(len>0){
+					maxd = Math.ceil((this.backTim(this.navcoms.media[len-1])/this.fdjb)*210);
+					len = this.$refs.gund_01x.offsetWidth;
+					pd = (maxd - len) * (len / maxd);
+				}
+
 				var kd = e.wheelDelta ? e.wheelDelta : e.detail;
-				if (kd > 0) {						
-					if (ctrlKey && this.fdjb > 1) {
+				if (kd > 0) {	
+				
+					if (ctrlKey && this.fdjb > 1 && this.fdjb>0) {						
 						this.fdjb--;
 					}
-					if (shiftKey && this.tdjl > 0) {
-						this.tdjl = this.tdjl-30;
+					if (shiftKey) {
+						let ond = this.tdjl-30;
+						if(ond<0){
+							ond = 0;
+						}					
+						this.tdjl = ond;
 					}
 				}
 				if (kd < 0) {
 					if (ctrlKey && this.fdjb < 120) {
 						this.fdjb++;
 					}
-					if (shiftKey) {						
-						this.tdjl = this.tdjl+30;
+					if (shiftKey) {		
+						let ond = this.tdjl+30;
+						
+						if(ond>pd){
+							ond = pd;
+						}
+						this.tdjl = ond;
 					}
 				}
 			
@@ -974,14 +989,14 @@
 				this.$router.push({
 					path: '/tolt/toluser'
 				});
-
 			},
 			bgtf(el) {
 				if (!el) {
 					return
 				}
 				let url = el.type == 'pic' ? el.file_url : el.fps_pic;
-				return "background:url(" + url + ") 0 0/auto 100% repeat-x;";
+				let xd = -(el.cut_start/this.bl*this.wdk);
+				return "background:url(" + url + ") "+xd+"px 0/auto 100% repeat-x;";
 			},
 			baclsf() {
 				let max = 64;
@@ -1105,7 +1120,7 @@
 					return
 				}
 				let tdStar = e.pageX;
-				let maxd = Math.ceil(this.navcoms.maxTime / this.fdjb) * 210;
+				let maxd = Math.ceil((this.backTim(this.navcoms.media[this.navcoms.media.length-1])/this.fdjb)*210);
 				let len = this.$refs.gund_01x.offsetWidth;
 				let bl = len / maxd;
 				let pd = (maxd - len) * bl;
@@ -1394,17 +1409,23 @@
 				};
 			},
 			delt() {
+				
+			
 				if (!this.checkOn.list) {
 					return
 				}	
 				let onsd = this.checkOn.list[this.checkOn.on];
+				if(!onsd){
+					return
+				}
 				let ot = onsd.start+(onsd.cut_end-onsd.cut_start);
 				if(this.bfTime>=onsd.start && this.bfTime<ot){
 					this.cans.fillStyle = "#000";
 					this.cans.fillRect(0, 0, this.boxW, this.boxH);
 				}			
 				this.checkOn.list.splice(this.checkOn.on,1);				
-				this.checkOn = {};				
+				this.checkOn = {};	
+				
 				if (this.$refs.vids) {
 					this.$refs.vids.pause();
 				}
@@ -1419,7 +1440,8 @@
 				if(this.playT==1 || this.playT==2){
 					this.puandFn2();
 				}
-				this.drmOn();
+				
+			
 				this.setMaxTime();
 				if(this.navcoms.media.length==0){
 					this.bfTime = 0;
@@ -1498,11 +1520,12 @@
 				this.$refs.vids.src = fi;
 			},
 			csy() {
-				this.$refs.vids.currentTime = this.navcoms.media[this.bfon].cut_start;
-				this.drm();
-				setTimeout(() => {
-					this.drm();
-				}, 500);
+				// this.bfTime = this.bfObj.start + (onT-this.bfObj.cut_start);
+				// this.$refs.vids.currentTime = this.navcoms.media[this.bfon].cut_start;
+				// this.drm();
+				// setTimeout(() => {
+				// 	this.drm();
+				// }, 500);
 			},
 			drm() {
 				let ob = this.navcoms.media[this.bfon];
@@ -1551,7 +1574,7 @@
 				this.zoomd = this.boxW/391;
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
-					console.log(op.json);
+					
 					let json = JSON.parse(op.json);
 					this.form.title = op.title;
 					this.navcoms.media = json.media;
@@ -2548,117 +2571,8 @@
 		line-height: 18px
 	}
 
-	.show_00x_1 {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		text-align: center;
-	}
-
-	.show_00x_1_1 {
-		font-size: 35px;
-		margin: 175px auto 20px;
-		color: rgba(255, 255, 255, 1);
-		line-height: 50px;
-	}
-
-	.show_00x_1_2 {
-		font-size: 16px;
-		font-weight: 500;
-		color: rgba(255, 255, 255, 1);
-		line-height: 22px;
-	}
-
-	.show_00x_1_3>span {
-		display: inline-block;
-		width: 75px;
-		font-size: 16px;
-		font-weight: 500;
-		color: rgba(255, 255, 255, 1);
-		line-height: 22px;
-		margin-top: 50px;
-	}
-
-	.show_00x_1_3>span>img {
-		display: block;
-		margin: 0 auto 10px;
-	}
-
-	.show_00x_1_3>span:nth-child(3n+2) {
-		margin: 50px 15% 0;
-	}
-
-	.xx_01x {
-		width: 25px;
-	}
-
-	.xx_02x {
-		width: 25px;
-	}
-
-	.xx_03x {
-		width: 31px;
-	}
-
-	.xx_04x {
-		width: 33px;
-	}
-
-	.xx_05x {
-		width: 19px;
-	}
-
-	.xx_06x {
-		width: 31px;
-	}
-
-	.show_00x_1_4 {
-		display: block;
-		width: 61px;
-		margin: 60px auto 0;
-	}
-
-	.show_00x_2 {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
-
-	.show_00x_2_1 {
-		display: block;
-		margin: 177px auto 13px;
-		width: 67px;
-	}
-
-	.show_00x_2_2 {
-		font-size: 16px;
-		color: rgba(255, 255, 255, 1);
-		line-height: 22px;
-		margin-bottom: 10px;
-	}
-
-	.show_00x_2_3 {
-		font-size: 25px;
-		color: rgba(255, 255, 255, 1);
-		line-height: 30px;
-	}
-
-	.show_00x_2_4 {
-		position: absolute;
-		width: 62px;
-		bottom: 133px;
-		left: 53px;
-	}
-
-	.show_00x_2_5 {
-		position: absolute;
-		width: 62px;
-		bottom: 133px;
-		right: 53px;
-	}
+	
+	
 
 	.ntob_footer_1_2::-webkit-scrollbar {
 		width: 0;
@@ -2750,7 +2664,13 @@
 		margin: 2px 2px 0 0;
 		width: 16px;
 	}
-
+	.show_00x_1{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
 	.necBox {
 		overflow: hidden;
 		overflow-y: auto;
