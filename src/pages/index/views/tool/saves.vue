@@ -126,9 +126,44 @@ export default{
 				pd[i].cut_start = this.backto(pd[i].cut_start);
 				pd[i].end = this.backto(pd[i].end);				
 			}
+			
+			el.json.max_length = this.backTim(pd[len-1]);
 			return pd[len-1].start+(pd[len-1].cut_end-pd[len-1].cut_start);
 			
 		},
+		backPlayVideo(){
+			let obj;
+			let on=0;
+			let arr = this.navcoms.media;
+			let len = arr.length;
+			let fn = ()=>{
+				let star = arr[on].start,
+				end = this.backTim(arr[on]);
+				if(star>this.bfTime){					
+					obj = {
+						type:'null',
+						endTime:star,							
+					};
+					return
+				}
+				
+				if(end>this.bfTime){
+					obj = arr[on];
+					obj.endTime = end;
+					return
+				}
+				if(on<len-1){
+					on++
+					fn();
+				}
+			}
+			fn();
+			return obj;
+		},	
+		backTim(ob) {
+			return (ob.cut_end - ob.cut_start) + ob.start;
+		},
+		
 		cldevs(on){
 			let arr = [];
 			let wdb = 1080/this.$parent.boxW;

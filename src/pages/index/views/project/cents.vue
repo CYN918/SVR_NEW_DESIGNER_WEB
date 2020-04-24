@@ -139,7 +139,7 @@
 					
 				</div>
 				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1'  && new Date(Date.parse(deta.delivery_deadline)) >= new Date()">
-					<div class="element1" style="background-color: #FF9200;"></div>
+					<div class="element1" style="background: rgba(77,198,0,1);"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
 					<div class="element2"></div>
@@ -150,8 +150,8 @@
 					<div class="t-6">请在规定时间交付稿件</div>
 
 				</div>
-				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) < new Date()" style="background-color: #ff6e66;">
-					<div class="element1" style="background-color: rgba(51,179,255,1);"></div>
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) < new Date()" style="background-color: rgba(255,59,48,1);">
+					<div class="element1" style="background: rgba(77,198,0,1);"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
 					<div class="element2"></div>
@@ -162,8 +162,8 @@
 					<div class="t-6">你已延期交付稿件，请尽快完成并提交</div>
 
 				</div>
-				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected == '1'" style="background-color: #ff6e66;">
-					<div class="element1" style="background-color: rgba(51,179,255,1);"></div>
+				<div class="liucheng" v-if="deta.status == '3' && deta.is_rejected == '1'" style="background-color:rgba(255,59,48,1);">
+					<div class="element1" style="background: rgba(77,198,0,1);"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
 					<div class="element2"></div>
@@ -174,11 +174,11 @@
 					<div class="t-6">你的稿件未通过，请重新提交</div>
 
 				</div>
-				<div class="liucheng" v-if="deta.status == '4'" style="background:#ffbe66;">
-					<div class="element1" style="background-color: #33B3FF;"></div>
+				<div class="liucheng" v-if="deta.status == '4'" style="background-color:rgba(255,146,0,1);">
+					<div class="element1" style="background:rgba(77,198,0,1);"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
-					<div class="element2" style="background-color: #33B3FF;"></div>
+					<div class="element2" style="background:rgba(77,198,0,1);"></div>
 					<div class="t-3">待审核</div>
 					<div class="t-4"></div>
 					<div class="element3"></div>
@@ -186,14 +186,14 @@
 					<div class="t-6">稿件已提交，请等待验收审核</div>
 
 				</div>
-				<div class="liucheng" v-if="deta.status == '5'" style="background:#a1ff66;">
-					<div class="element1" style="background-color: #FF9200;"></div>
+				<div class="liucheng" v-if="deta.status == '5'" style="background-color:rgba(77,198,0,1);">
+					<div class="element1" style="background: rgba(77,198,0,1);"></div>
 					<div class="t-1">制作期</div>
 					<div class="t-2"></div>
-					<div class="element2" style="background-color: #FF9200;"></div>
+					<div class="element2" style="background: rgba(77,198,0,1);"></div>
 					<div class="t-3">待审核</div>
 					<div class="t-4"></div>
-					<div class="element3" style="background-color: #FF9200;"></div>
+					<div class="element3" style="background: rgba(77,198,0,1);"></div>
 					<div class="t-5">已验收</div>
 					<div class="t-6">项目已验收，感谢与你的本次合作</div>
 
@@ -297,6 +297,7 @@ export default {
 				this.$router.push({path:'/project'});
 				return
 			}
+			
 			
 								
 			this.getData();			
@@ -403,6 +404,7 @@ export default {
 					id:da.id,
 				};
 				this.deta = da;
+				document.title=this.deta.name+'-狮圈儿（Zoocreators）';
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
 					var d2 = new Date();
 					var d1 = new Date(Date.parse(this.deta.delivery_deadline));
@@ -1009,8 +1011,9 @@ export default {
 	line-height: 40px;
 	position: absolute;
 	bottom: 0;
-	background: #80cfff;
+	background-color:rgba(51,179,255,1);
 	text-align: center;
+	opacity:0.7;
 }
 .liucheng > div{
 	vertical-align: top;
@@ -1024,13 +1027,13 @@ export default {
 	margin: 13px 5px 13px 0px;
 }
 .liucheng .t-1,.liucheng .t-3,.liucheng .t-5{
-	color: #ffffff;
+	color: rgba(255,255,255,1);
 	font-size: 14px;
 	font-family:PingFangSC-Regular,PingFang SC;
     font-weight:400;
 }
 .liucheng .t-6{
-	color: #ffffff;
+	color: rgba(255,255,255,1);
 	font-size: 14px;
 	font-family:PingFangSC-Regular,PingFang SC;
     font-weight:400;
@@ -1039,7 +1042,7 @@ export default {
 .liucheng .t-2,.liucheng .t-4{
 	width: 115px;
 	height: 1px;
-	background: #ffffff;
+	background: rgba(255,255,255,1);
 	margin: 19px 0px 18px 12px;
 }
 .tg_iocn_2x{

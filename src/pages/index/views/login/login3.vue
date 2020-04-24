@@ -1,7 +1,7 @@
 <template>
 	<div style="padding:0px 30px 0px 30px;">
 		<Inputdf v-model="form.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'"></Inputdf>			
-		<Inputdf v-model="form.password" :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'请输入密码'"></Inputdf>		
+		<Inputdf v-model="form.password" :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'请输入密码'" :tip="tip"></Inputdf>	
 	</div>
 </template>
 <script>
@@ -9,6 +9,7 @@ import {Message} from 'element-ui'
 import Inputdf from '../../components/input'
 import xcheckBox from '../../components/checkBox'
 export default {
+	props:{tip:String},
 	components:{Inputdf,xcheckBox},
 	name: 'login',	 
 	data(){				
@@ -80,8 +81,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped="scoped">
 .lgoin_s6{
 	border-radius: 0 0 8px 8px;
+}
+.tip{
+	color: #F56C6C;
+    font-size: 12px;
+    line-height: 27px;
+    text-align: left;
 }
 </style>
