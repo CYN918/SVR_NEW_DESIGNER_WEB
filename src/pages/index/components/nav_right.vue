@@ -1,24 +1,51 @@
 <template>
-    <div class="nav_rig">
-        <ul>
-            <li class="nav_logo" @mouseenter="mouseover('e')" @mouseleave="mouseLeave('e')"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
-            <li class="nav_upload" v-if="uploadShow" @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'newHome/upload.svg'" alt=""/><p>上传作品</p></li>
-            <li class="nav_upload" v-else @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'newHome/bar_icon_upload.svg'" alt=""/><p>上传作品</p></li>
-            <li class="nav_tolt" v-if="totalShow" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning-black.svg'" alt=""/><p>去赚钱</p></li>
-            <li class="nav_tolt" v-else @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning-money.svg'" alt=""/><p>去赚钱</p></li>
-            <li class="nav_weixin" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')"><img :src="imgSig+'newHome/icon-ewm-small.png'" alt=""/><p>微信公众号</p></li>
-            <li class="nav_weibo" @click="go_weibo()">官方微博</li>
-            <li class="nav_top" @click="go_top()" v-if="isShow">TOP</li>
-        </ul>
-        <div class="nav_tolt_hover" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')">
-            <img :src="imgSig+'newHome/icon-zq-hover.svg'" alt=""/>
-            <button class="nav_tolt_hover_btn" @click="go_tolt()">点我赚钱</button>
+    <div>
+        <div class="nav_rig" v-if="visualWidth" @mouseleave="mouseLeave('g')">
+            <ul>
+                <li class="nav_logo" @mouseenter="mouseover('e')" @mouseleave="mouseLeave('e')"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
+                <li class="nav_upload" v-if="uploadShow" @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'newHome/upload.svg'" alt=""/><p>上传作品</p></li>
+                <li class="nav_upload" v-else @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'newHome/bar_icon_upload.svg'" alt=""/><p>上传作品</p></li>
+                <li class="nav_tolt" v-if="totalShow" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning-black.svg'" alt=""/><p>去赚钱</p></li>
+                <li class="nav_tolt" v-else @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning-money.svg'" alt=""/><p>去赚钱</p></li>
+                <li class="nav_weixin" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')"><img :src="imgSig+'newHome/icon-ewm-small.png'" alt=""/><p>微信公众号</p></li>
+                <li class="nav_weibo" @click="go_weibo()">官方微博</li>
+                <li class="nav_top" @click="go_top()" v-if="isShow">TOP</li>
+            </ul>
+            <div class="nav_tolt_hover" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')">
+                <img :src="imgSig+'newHome/icon-zq-hover.svg'" alt=""/>
+                <button class="nav_tolt_hover_btn" @click="go_tolt()">点我赚钱</button>
+            </div>
+            <div class="nav_weixin_hover" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')">
+                <img :src="imgSig+'newHome/icon-ewm-big.png'" alt=""/>
+                <p>微信公众号</p>
+            </div>
         </div>
-        <div class="nav_weixin_hover" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')">
-            <img :src="imgSig+'newHome/icon-ewm-big.png'" alt=""/>
-            <p>微信公众号</p>
+        <div class="nav_rig" v-if="visualWidth_2">
+            <ul>
+                <li class="nav_logo" @mouseenter="mouseover('e')" @mouseleave="mouseLeave('e')"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
+                <li class="nav_upload" v-if="uploadShow" @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'newHome/upload.svg'" alt=""/><p>上传作品</p></li>
+                <li class="nav_upload" v-else @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'newHome/bar_icon_upload.svg'" alt=""/><p>上传作品</p></li>
+                <li class="nav_tolt" v-if="totalShow" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning-black.svg'" alt=""/><p>去赚钱</p></li>
+                <li class="nav_tolt" v-else @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'newHome/icon-earning-money.svg'" alt=""/><p>去赚钱</p></li>
+                <li class="nav_weixin" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')"><img :src="imgSig+'newHome/icon-ewm-small.png'" alt=""/><p>微信公众号</p></li>
+                <li class="nav_weibo" @click="go_weibo()">官方微博</li>
+                <li class="nav_top" @click="go_top()" v-if="isShow">TOP</li>
+            </ul>
+            <div class="nav_tolt_hover" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')">
+                <img :src="imgSig+'newHome/icon-zq-hover.svg'" alt=""/>
+                <button class="nav_tolt_hover_btn" @click="go_tolt()">点我赚钱</button>
+            </div>
+            <div class="nav_weixin_hover" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')">
+                <img :src="imgSig+'newHome/icon-ewm-big.png'" alt=""/>
+                <p>微信公众号</p>
+            </div>
         </div>
-    </div>
+        <div class="nav_rig_1" v-if="visualWidth_1" @mouseenter="mouseover('g')">
+            <ul>
+                <li class="nav_logo_1"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
+            </ul>
+        </div>
+    </div>  
 </template>
 <script>
 export default {
@@ -28,15 +55,39 @@ export default {
             isShow:false,
             uploadShow:true,
             totalShow:true,
+            visualWidth:true,
+            visualWidth_1:false,
+            visualWidth_2:false,
         }
     },
     mounted: function(){
-		window.addEventListener('scroll',this.scrollToTop);
+        window.addEventListener('scroll',this.scrollToTop);
     }, 
+    created(){
+        this.getWidth();
+    },
     destroyed(){
         window.removeEventListener('scroll',this.scrollToTop);
     },
     methods: {
+        getWidth() {
+            var winWidth;
+            if(window.innerWidth) {
+                winWidth = window.innerWidth;
+            } else if((document.body) && (document.body.clientWidth)) {
+                winWidth = document.body.clientWidth;
+            }
+            if(winWidth <= 1440){
+                this.visualWidth = false;
+                this.visualWidth_1 = true;
+                this.visualWidth_2 = false;
+            }else{
+                this.visualWidth = false;
+                this.visualWidth_1 = false;
+                this.visualWidth_2 = true;
+            }
+            // console.log(winWidth);
+        },
         go_top(){
             let timer = setInterval(() => {
                 let ispeed = Math.floor(-this.scrollTop / 5);
@@ -72,7 +123,11 @@ export default {
             }
             if(type == 'e'){
                 document.getElementsByClassName('nav_logo')[0].style.top = '50px'
-            }  
+            } 
+            if(type == 'g'){
+                this.visualWidth = true;
+                this.visualWidth_1 = false;
+            } 
         },
         mouseLeave(type){
             if(type == 'd'){
@@ -91,6 +146,10 @@ export default {
             }
             if(type == 'e'){
                 document.getElementsByClassName('nav_logo')[0].style.top = '60px'
+            } 
+            if(type == 'g'){
+                this.visualWidth = false;
+                this.visualWidth_1 = true;
             }  
         },
         go_tolt(){
@@ -262,5 +321,21 @@ export default {
     font-size: 14px;
     color: #1E1E1E;
     text-align: center;
+}
+@media (max-width: 1440px){
+    .nav_rig_1{
+        position: fixed;
+        right: -3%;
+        top: 40%;
+        z-index: 999999;
+        cursor: pointer;
+    }
+    .nav_logo_1{
+        transform:rotate(-53deg);
+        -ms-transform:rotate(-53deg); /* Internet Explorer */
+        -moz-transform:rotate(-53deg); /* Firefox */
+        -webkit-transform:rotate(-53deg); /* Safari 和 Chrome */
+        -o-transform:rotate(-53deg); /* Opera */
+    }
 }
 </style>

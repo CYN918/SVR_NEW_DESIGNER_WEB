@@ -437,7 +437,6 @@ export default{
 	width: 2px;
 	height: 100%;
 	cursor: e-resize;
-	background: #33B3FF;
 }
 .tzk_03,.tzk_05{
 	top: 0;

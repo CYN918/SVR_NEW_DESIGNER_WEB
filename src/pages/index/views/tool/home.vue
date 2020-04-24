@@ -36,6 +36,7 @@ export default{
 	},
 	mounted: function () {	
 		this.initHead()
+		console.log(this.userMssge.contributor_format_status)
 	},
 	methods:{
 		// got(){
