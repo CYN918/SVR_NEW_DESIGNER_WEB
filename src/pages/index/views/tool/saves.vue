@@ -199,14 +199,32 @@ export default{
 				return;
 			}
 			
+			let len1 = this.value.media.length;
+			let len2 = this.value.decorates.length;
+			let maxTime =0;
+			if(len1>0){
+				maxTime = this.backTim(this.value.media[len1-1]);
+			}
+			if(len2>0){
+				let len3 = this.value.decorates[len2-1].length;
+				let onbj = this.value.decorates[len2-1][len3-1];
+				if(onbj){
+					let zst = this.backTim(onbj);						
+					maxTime = zst>maxTime?zst:maxTime;
+				}	
+			}
+			if(maxTime>120){
+				this.$message({
+					message:"视频时长超过2分钟请重新剪辑后提交"
+				})
+				return;
+			}
+			
+			
 			let pr = this.value;			
 			let videoMaxTime = this.cl_video(pr);
 			let audioMaxTime = this.cl_audio(pr);
-			pr.json.max_length = audioMaxTime;
-			if(audioMaxTime>videoMaxTime){
-				pr.json.max_length = videoMaxTime;
-			}
-			
+			pr.json.max_length = maxTime;
 			let sd = this.cldevs(pr.json.decorates);
 			if(sd.length>0){
 				pr.json.decoration = sd;
