@@ -29,7 +29,7 @@
 						
 						<template v-slot:todo="{ todo }">
 						
-							<div v-if="todo.on==0 && statelistindex != 1" @click="go(btn_a[btn_on].p)" class="tolu_06_x1 pend" >
+							<div v-if="todo.on==0 && statelistindex != 1" @click="addShow()" class="tolu_06_x1 pend" >
 								<img :src="imgPath+'new/tools/icon_add_small.svg'">
 								<div>新建项目</div>
 							</div>
@@ -51,20 +51,43 @@
 				
 				
 			</div> -->
-			
+			<div v-if="istype" class="pr_tc_01">
+				<div class="pr_tc_02">			
+					<div class="pr_tc_04">
+						新建来电秀工程<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
+					</div>
+					<div class="qxBm_btns_1 qxBm_btns_1x2">
+						<inputMax
+							v-model="title"
+							:max="20"
+						>
+						</inputMax>
+					</div>	
+					<div class="qxBm_btns">
+						<div @click="close" class="btns pend">取消</div>		
+						<div @click="qdFn" class="btns btns_js pend">确定</div>										
+					</div>
+				</div>
+			</div>
 			
 		</div>
+		
+		
+		
 	</div>
 </template>
 
 <script>
+import inputMax from '../../components/inputMax'
 import list from '../../components/list2';
 import cent from './cent';
 import noDshow from './noDshow';
 export default{
-	components:{list,cent,noDshow},
+	components:{list,cent,noDshow,inputMax},
 	data(){
 		return{
+			istype:'',
+			title:'',
 			coms:{
 				zj:'noDshow',
 				type:0,
@@ -88,6 +111,7 @@ export default{
 			},	
 			showK:'',
 			isnodata:'',
+			ajaxType:'',
 			statelist:[
 				{
 					title:"进行中",
@@ -107,6 +131,59 @@ export default{
 		this.init();
 	}, 
 	methods:{
+		close(){
+			this.istype = '';
+		},
+		addShow(){
+			this.istype = 1;
+		},
+		qdFn(){
+			if (this.ajaxType) {
+				this.$message({
+					message: '正在处理请稍后',
+				})
+				return
+			}
+		
+			let pr = {
+				title: this.title,				
+			};
+			
+			this.ajaxType = 1;
+			this.api.sh_save(pr).then((da) => {
+				this.ajaxType = '';
+				if (da == 'error') {
+					this.$message({
+						message: '处理失败请稍后重试',
+					})
+					return
+				}
+				let obj = {
+					title:pr.title,
+					json:{
+						media:[],
+						audio:[],
+					},
+					id:da.id
+				};
+				obj.json = JSON.stringify(obj.json);
+				
+				localStorage.setItem('ldxData', JSON.stringify(obj))
+				this.$router.push({
+					path: '/pushTool',
+					query: {
+						id: da.id
+					}
+				});
+			}).catch(() => {
+				this.$message({
+					message: '处理失败请稍后重试',
+				})
+				this.ajaxType = '';
+			})
+		
+		
+		},
 		init(){
 			if(!window.userInfo){
 				this.$router.push({path:'/login'});	

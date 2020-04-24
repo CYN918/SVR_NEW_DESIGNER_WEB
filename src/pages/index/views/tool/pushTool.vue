@@ -115,12 +115,10 @@
 							<div class="tlo_04">
 								<div v-for="(el,index) in navcoms.decorates" @mouseover="setMos({on:index,n:'decorates'},$event)" @mouseout="setMos('')"
 								 class="tlo_04">
-							
-							
 									<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="imgd" v-for="(el2,index2) in el">
 										<div :style="bgtf(el2)" class="setToll0"></div>
 							
-										<div class="setToll">
+										<div :class="['setToll',(Mos.type=='decorates'&& IsShowStyle)?'setToll_active':'']">
 										
 											<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
 											<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2">
@@ -147,7 +145,7 @@
 							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'},$event)" @mouseout="setMos('')">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})" class="imgd" v-for="(el,index) in navcoms.media">
 									<div :style="bgtf(el)" class="setToll0"></div>
-									<div class="setToll">
+									<div class="setToll" @mousedown="settoll($event)" @mouseup="settoll1($event)">
 										<div @mousedown="jl3($event,el,index,navcoms.media,'media')" class="setToll1"></div>
 										<div @mousedown="jl2($event,el,index,navcoms.media,'media')" class="setToll2">
 											<div class="setToll2_1">
@@ -169,7 +167,7 @@
 							<div class="tlo_03">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'audio',on:index,list:navcoms.audio})" class="imgd" v-for="(el,index) in navcoms.audio">
 									<div :style="bgtf(el)" class="setToll0"></div>
-									<div class="setToll">
+									<div :class="['setToll',IsShowStyle?'setToll_active':'']">
 										<div @mousedown="jl3($event,el,index,navcoms.audio,'audio')" class="setToll1"></div>
 										<div @mousedown="jl2($event,el,index,navcoms.audio,'audio')" class="setToll2">
 											<div class="setToll2_1" style="top:6px;height: 14px;">
@@ -407,6 +405,8 @@
 				valTime:0,
 				bfObj:'',
 				psd:'',
+				IsShowStyle:false,
+				indexstyle:0
 			}
 		},
 		mounted: function() {
@@ -438,6 +438,14 @@
 			},
 		},
 		methods: {
+			settoll(e){
+				e.preventDefault();
+				e.currentTarget.className = 'setToll setToll_active'
+			},
+			settoll1(e){
+				e.preventDefault();
+				e.currentTarget.className = 'setToll'
+			},
 			drmOn(){
 				let obd = this.backPlayVideo();
 				this.bfObj = obd;
@@ -993,6 +1001,7 @@
 				}
 				
 				this.Mos = on;
+				
 			},
 			tochs() {
 				this.isdra = 1;
@@ -1160,56 +1169,41 @@
 
 			jl(e, el, index, list, n) {
 				e.preventDefault();
-
 				this.checkOn = {
 					type: n,
 					on: index,
 					list:list,
-				};
-				this.tdStar = e.pageX;
-				let wid = el.long * this.wdk;
-				let mv = ((el.long - el.cut_end) / el.long) * wid;
-
-				let max = +el.long;
-				if (el.type == 'pic') {
-					max = 999999;
-				}
-				let min = el.cut_start + 1;
-				let prEnd, prStar, nxEnd, nxStar;
-				let doml = list[index - 1];
-				let cen = el.cut_end;
+				};				
+				let startX = e.pageX,
+				oldCut_end = el.cut_end,
+				max = el.type == 'pic'?999999:el.long,
+				min = el.cut_start + 1;	
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
-					let on = -(this.tdStar - e.pageX) / (this.wdk / this.bl);
+					let on = -(startX - e.pageX) / (this.wdk / this.bl);
 
-					let pn = +cen + on;
+					let pn = +oldCut_end + on;
 					if (+pn > max) {
 						pn = max;
 					}
 					if (pn < min) {
 						pn = min;
 					}
-
-					// pn = pn*this.bl;
 					el.cut_end = pn;
 					this.setHm(index, el, list);
 				}
 				document.onmouseup = () => {
 					document.onmousemove = document.onmouseup = null;
-					if(this.playT==1 || this.playT==2){
-						this.puandFn2();
-						
-					}
+					this.puandFn2();
 					this.drmOn();
 				}
 			},
 			setHm(on, el, list) {
-
-				let ond = el.start + (el.cut_end - el.cut_start);
 				for (let i = on, n = list.length; i < n; i++) {
-					if (list[i + 1]) {
-						list[i + 1].start = list[i].start + (list[i].cut_end - list[i].cut_start);
+					let ond = this.backTim(list[i]);
+					if (list[i+1] && list[i+1].start<ond) {
+						list[i+1].start = ond;
 					}
 
 				}
@@ -1217,6 +1211,7 @@
 			},
 			jl3(e, el, onc, list, n) {
 				e.preventDefault();
+				this.IsShowStyle = true;
 				this.checkOn = {
 					type: n,
 					on: onc,
@@ -1279,10 +1274,9 @@
 							list.splice(onc, 2, list[ondn], list[onc]);
 						}
 					}
-					if(this.playT==1 || this.playT==2){
-						this.puandFn2();
-					}
+					this.puandFn2();
 					this.drmOn();
+					this.IsShowStyle = false;
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
@@ -1293,25 +1287,23 @@
 					on: index,
 					list:list,
 				};
-				this.tdStar = e.pageX;
-				let wid = el.long * this.wdk;
-				let timd = el.cut_end - el.cut_start;
-				let max = (+timd) - 1;
-				let osta = el.start;
-				let stad = el.start - el.cut_start;
-				let cuat = el.cut_start;
-				let min = 0;
-				let ond = list[index - 1];
-				if (ond) {
-					min = ond.start + (ond.cut_end - ond.cut_start);
+				let startX = e.pageX,
+				oldStart = el.start,
+				oldCut_start = el.cut_start,
+				max = el.cut_end-1,
+				min = 0;	
+				if(list[index-1]){
+					let po2 =  this.backTim(list[index-1]); 
+					let po3 = oldStart-po2;
+					if(po3<oldCut_start){
+						min = oldCut_start-po3;
+					}
 				}
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
-					let on = -(this.tdStar - e.pageX) / (this.wdk / this.bl);
-
-					let pn = (+cuat + on);
-
+					let on = -(startX - e.pageX) / (this.wdk / this.bl);
+					let pn = (+oldCut_start + on);
 					if (+pn < min) {
 						pn = min;
 					}
@@ -1320,14 +1312,10 @@
 					}
 
 					el.cut_start = pn;
-
-
-					el.start = stad + el.cut_start;
+					el.start = oldStart + (pn-oldCut_start);
 				}
 				document.onmouseup = () => {
-					if(this.playT==1 || this.playT==2){
-						this.puandFn2()
-					}
+					this.puandFn2();
 					this.drmOn();
 					document.onmousemove = document.onmouseup = null;
 				}
@@ -1360,13 +1348,28 @@
 					})
 					return
 				}
-				if (ent > 120) {
-					this.$message({
-						message: '来电秀内容的媒体剪辑时长不得超过120秒'
-					})
-					return
+				
+				let len1 = this.navcoms.media.length;
+				let len2 = this.navcoms.decorates.length;
+				let maxTime =0;
+				if(len1>0){
+					maxTime = this.backTim(this.navcoms.media[len1-1]);
 				}
-
+				if(len2>0){
+					let len3 = this.navcoms.decorates[len2-1].length;
+					let onbj = this.navcoms.decorates[len2-1][len3-1];
+					if(onbj){
+						let zst = this.backTim(onbj);						
+						maxTime = zst>maxTime?zst:maxTime;
+					}	
+				}
+				if(maxTime>120){
+					this.$message({
+						message:"来电秀内容的媒体剪辑时长不得超过120秒"
+					})
+					return;
+				}
+				
 				let ant = this.navcoms.audio[this.navcoms.audio.length - 1];
 				let ant_t = +ant.start + (+ant.cut_end - ant.cut_start);
 
@@ -1484,22 +1487,29 @@
 			backd() {
 				let str = '<span class="kd_02"><span>00:00:00:00</span></span>';
 				let tins = this.navcoms.maxTime;
+				
+				let len1 = this.navcoms.media.length;
+				let len2 = this.navcoms.decorates.length;
+				let bcktim = 0;
+				if(len1>0){
+					bcktim = this.backTim(this.navcoms.media[len1-1]);
+				}
+				if(len2>0){
+					let zst = this.backTim(this.navcoms.decorates[len2-1])
+					bcktim = zst>bcktim?zst:bcktim;
+				}
 				if (tins < 120) {
 					tins = 120;
 				}
 				let nd = Math.ceil(tins / this.fdjb)+1;
-				
-				
 				if(nd<13){
 					nd = 13;
 				}
-				
 				for (let i = 0, n = nd; i < n; i++) {
 					str += '<div class="kdut_1">';
 					for (let i2 = 0; i2 < 9; i2++) {
 						str += '<span></span>';
 					}
-
 					str += '<span class="kd_02"><span>' + this.tutime(this.fdjb * (i + 1)) + '</span></span>';
 					str += '</div>';
 				}
@@ -1556,9 +1566,10 @@
 
 			},
 			LinePlay(){
-				clearTimeout(this.ht);
+				clearTimeout(this.valObj);
 				let ontime = this.bfTime;
 				let toTim = 0;
+				let endt = this.backTim(this.bfObj);
 				this.valObj = window.setInterval(() => {
 					if(!this.bfObj || this.bfObj.type!='video'){
 						window.clearInterval(this.valObj);
@@ -1575,7 +1586,16 @@
 						this.cans.fillRect(0, 0, po, this.boxH);
 						this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
 					}
-					this.bfTime = ontime + toTim;	
+					this.bfTime = ontime + toTim;
+						
+					let onT = this.$refs.vids.currentTime;
+					
+					onT = onT?onT:0;				
+					
+					if (this.bfTime >= endt) {
+						clearTimeout(this.valObj);
+					}	
+						
 				}, 50);
 			
 
@@ -1608,10 +1628,7 @@
 								arr1[json.decoration[i].ond] = [];
 							}
 							arr1[json.decoration[i].ond].push(json.decoration[i]);
-
-
 						}
-
 						this.navcoms.decorates = arr1;
 					}
 					this.form.id = op.id;
@@ -2229,7 +2246,7 @@
 		border: 2px solid transparent;
 	}
 
-	.setToll:hover {
+	/* .setToll:hover {
 		border-color: rgba(51, 179, 255, 1);
 		background-color: rgba(0, 0, 0, 0.3);
 	}
@@ -2243,6 +2260,23 @@
 	}
 
 	.setToll:hover .setToll2_1 {
+		visibility: visible;
+	} */
+	
+	.setToll_active{
+		border-color: rgba(51, 179, 255, 1);
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	
+	.setToll_active .setToll4 {
+		display: block;
+	}
+	
+	.setToll_active .setToll3_1 {
+		visibility: visible;
+	}
+	
+	.setToll_active .setToll2_1 {
 		visibility: visible;
 	}
 
