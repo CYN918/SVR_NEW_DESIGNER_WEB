@@ -8,7 +8,7 @@
 			<div class="login_x3">
 				<span @click="cheackLogin('password')" :class="['pend',btnType=='password'?'cheack':'']">账户登录</span><span @click="cheackLogin('verify_code')" :class="['pend',btnType=='verify_code'?'cheack':'']">手机号登录</span>
 			</div>	
-			<component v-bind:is="btnType" ref="loginFrom"></component>			
+			<component v-bind:is="btnType" ref="loginFrom" :tip="tip"></component>			
 			<el-button :class="['lgoin_s4',btnType2]" type="primary" @click="loginUp">登录</el-button>		
 			<p class="lgoin_s5"><span><a class="pend" @click="goTj()" style="color: #666666;">忘记密码</a></span><span>没有账号？<a class="pend" @click="gotj()">注册</a></span></p>
 			<!-- <div class="lgoin_s6x"></div> -->
@@ -149,7 +149,7 @@ export default {
 			this.ajaxType=1;
 			this.loginPost(params);				
 		},
-		loginPost(data,ispass){			
+		loginPost(data,ispass){		
 			if(window.login_froms){
 				data.from = window.login_froms;
 			}			
@@ -162,7 +162,7 @@ export default {
 					this.ajaxType=0;
 					return
 				}
-				console.log(da)
+				
 				
 				this.bdtj('登录页','登录成功','--');
 				this.ajaxType=0;

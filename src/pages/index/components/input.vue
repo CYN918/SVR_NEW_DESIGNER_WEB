@@ -103,7 +103,6 @@ export default {
 	},
 	mounted: function () {	
 		
-		
 
 	}, 
 	watch: {
