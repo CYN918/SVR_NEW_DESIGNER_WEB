@@ -46,7 +46,7 @@
 							<div class="ldx_l_1_btn3xt_2">
 								{{ checkinfo.check_reason }}
 							</div>
-							<div class="ldx_l_1_btn3xt_1">驳回详情：</div>
+							<div v-if="checkinfo.check_comment" class="ldx_l_1_btn3xt_1">驳回详情：</div>
 							<div class="ldx_l_1_btn3xt_2">
 								{{ checkinfo.check_comment }}
 							</div>

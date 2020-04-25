@@ -1516,12 +1516,12 @@
 				}			
 				this.checkOn.list.splice(this.checkOn.on,1);				
 				this.checkOn = {};	
-				this.setMaxTime();
+				this.setMaxTime('',1);
 				if(this.navcoms.media.length==0){
 					this.bfTime = 0;
 				}
 			},
-			setMaxTime(el) {
+			setMaxTime(el,jq) {
 				let maxt = 0;
 				let times = 0;
 				if(el){
@@ -1550,9 +1550,14 @@
 					}
 				}
 				maxt = times>maxt?times:maxt;
+				
 				if(maxt>this.navcoms.maxTime){
 					this.navcoms.maxTime = maxt;
-				}				
+				}	
+							
+				if(jq){
+					this.navcoms.maxTime = maxt;
+				}			
 			},
 			backTim(ob) {
 				return (ob.cut_end - ob.cut_start) + ob.start;
