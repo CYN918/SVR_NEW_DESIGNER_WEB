@@ -114,52 +114,46 @@ export default{
 		
 		cl_video(el){
 			let pd = el.json.media;
+			let on=0;
+			
 			let len = pd.length;
-			for(let i=0,n=len;i<n;i++){
-				pd[i].end = pd[i].start+(pd[i].cut_end-pd[i].cut_start);
-				if(pd[i].sw!=pd[i].yw || pd[i].sh!=pd[i].yh || pd[i].sx!=0 || pd[i].sy!=0){
-					pd[i].crop = this.numqx(pd[i].sw)+':'+this.numqx(pd[i].sh)+':'+this.numqx(pd[i].x)+':'+this.numqx(pd[i].sy);
+			if(len==0){
+				el.json.media = [{type:'blank',start:0,end:this.backto(el.maxTime)}];
+				return		
+			}
+			var fn = ()=>{
+				
+				pd[on].end = this.backTim(pd[on]);
+				
+				if(pd[on].sw!=pd[on].yw || pd[on].sh!=pd[on].yh || pd[on].sx!=0 || pd[on].sy!=0){
+					pd[on].crop = this.numqx(pd[on].sw)+':'+this.numqx(pd[on].sh)+':'+this.numqx(pd[on].x)+':'+this.numqx(pd[on].sy);
 					
 				}
-				pd[i].start = this.backto(pd[i].start);
-				pd[i].cut_end = this.backto(pd[i].cut_end);
-				pd[i].cut_start = this.backto(pd[i].cut_start);
-				pd[i].end = this.backto(pd[i].end);				
-			}
-			
-			el.json.max_length = this.backTim(pd[len-1]);
-			return pd[len-1].start+(pd[len-1].cut_end-pd[len-1].cut_start);
-			
-		},
-		backPlayVideo(){
-			let obj;
-			let on=0;
-			let arr = this.navcoms.media;
-			let len = arr.length;
-			let fn = ()=>{
-				let star = arr[on].start,
-				end = this.backTim(arr[on]);
-				if(star>this.bfTime){					
-					obj = {
-						type:'null',
-						endTime:star,							
-					};
-					return
-				}
+				pd[on].start = this.backto(pd[on].start);
+				pd[on].cut_end = this.backto(pd[on].cut_end);
+				pd[on].cut_start = this.backto(pd[on].cut_start);
+				pd[on].end = this.backto(pd[on].end);
 				
-				if(end>this.bfTime){
-					obj = arr[on];
-					obj.endTime = end;
-					return
-				}
+				
 				if(on<len-1){
-					on++
+					on++;
+					if(pd[on].start>pd[on-1].end){
+						pd.splice(on,1,{type:'blank',start:this.backto(pd[on-1].end),end:this.backto(pd[on].start)},pd[on]); 
+					}
+					on++;
 					fn();
-				}
+				}				
 			}
 			fn();
-			return obj;
-		},	
+			
+			let lend = pd.length-1;
+			if(pd[lend].end<el.maxTime){
+				pd.push({type:'blank',start:this.backto(pd[lend].end),end:this.backto(el.maxTime)});
+			}			 
+			
+			return 			
+		},
+		
 		backTim(ob) {
 			return (ob.cut_end - ob.cut_start) + ob.start;
 		},
@@ -199,15 +193,20 @@ export default{
 				return;
 			}
 			
-			let len1 = this.value.media.length;
-			let len2 = this.value.decorates.length;
+			
+			
+			
+			let pr = this.value;	
+					
+			let len1 = pr.json.media.length;
+			let len2 = pr.json.decorates.length;
 			let maxTime =0;
 			if(len1>0){
-				maxTime = this.backTim(this.value.media[len1-1]);
+				maxTime = this.backTim(pr.json.media[len1-1]);
 			}
 			if(len2>0){
-				let len3 = this.value.decorates[len2-1].length;
-				let onbj = this.value.decorates[len2-1][len3-1];
+				let len3 = pr.json.decorates[len2-1].length;
+				let onbj = pr.json.decorates[len2-1][len3-1];
 				if(onbj){
 					let zst = this.backTim(onbj);						
 					maxTime = zst>maxTime?zst:maxTime;
@@ -218,12 +217,10 @@ export default{
 					message:"视频时长超过2分钟请重新剪辑后提交"
 				})
 				return;
-			}
-			
-			
-			let pr = this.value;			
-			let videoMaxTime = this.cl_video(pr);
-			let audioMaxTime = this.cl_audio(pr);
+			}		
+					
+			this.cl_video(pr);
+			this.cl_audio(pr);
 			pr.json.max_length = maxTime;
 			let sd = this.cldevs(pr.json.decorates);
 			if(sd.length>0){

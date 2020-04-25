@@ -23,7 +23,7 @@
 					<div class="ntob_cent_lxbo" ref="vidobox">
 					<div class="videoBox" :style="'width:'+boxW+'px;height:'+boxH+'px'">
 						<canvas class="videoBox1" ref="cavs"></canvas>
-						<video @timeupdate="timeupdatevideo" muted @ended="endeds()" @loadeddata="csy" id="boxf" class="ntob_cent_l_1"
+						<video @timeupdate="timeupdatevideo" muted @ended="cksd()" @loadeddata="csy" id="boxf" class="ntob_cent_l_1"
 						 :src="video" ref="vids"></video>
 						<div class="debox_01">
 							<div v-for="(el,index) in navcoms.decorates" :class="playT==1?'setop':''">
@@ -99,7 +99,11 @@
 				<div class="ntob_footer_1">
 					<div class="ntob_footer_1_1"></div>
 					<div class="ntob_footer_1_2" ref="gd_02">
-						<div @click="showZs($event,index)" class="nl_ti1" v-for="el in navcoms.decorates"><img src="/imge/tools/t_zs.svg" />装饰</div>
+						<div 
+						@click="showZs($event,index)" 
+						class="nl_ti1" 
+						v-for="(el,index) in navcoms.decorates"
+						><img src="/imge/tools/t_zs.svg" />装饰</div>
 						
 						<div class="nl_ti2"><img src="/imge/tools/t_sp.svg" /> 媒体</div>
 						<div class="nl_ti3"><img src="/imge/tools/t_yy.svg" />音频</div>
@@ -112,9 +116,12 @@
 							<div @click="kdClick($event)" v-html="backd()" class="kdut"></div>
 						</div>
 						<div class="necBox" @scroll="gdfn($event)" ref="gd_01">
-							<div class="tlo_04">
-								<div v-for="(el,index) in navcoms.decorates" @mouseover="setMos({on:index,n:'decorates'},$event)" @mouseout="setMos('')"
-								 class="tlo_04">
+							<div class="tlo_04" 
+							v-for="(el,index) in navcoms.decorates"
+							@mouseover="setMos({on:index,n:'decorates'},$event)"
+							@mouseout="setMos('')"
+							>
+								
 									<div 
 									:style="backtop(el2,index2)" 
 									@contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" 
@@ -141,7 +148,7 @@
 										</div>
 										<div class="minzss">{{el2.file_name}}</div>
 									</div>
-								</div>
+								
 							
 							</div>
 							
@@ -480,6 +487,9 @@
 					this.drmBg();
 					return
 				}
+				
+				
+				
 				if(obd.type=='video'){
 					if(this.$refs.vids.src!=obd.file_url){
 						this.$refs.vids.src=obd.file_url;	
@@ -565,21 +575,15 @@
 			},			
 			puandFn(){
 				this.stopDr();
-				if(this.$refs.vids){
-					this.$refs.vids.pause();
+				if(this.$refs.vids && !this.$refs.vids.paused){
+					this.$refs.vids.pause();					
 				}
-				if(this.$refs.aido){
+				if(this.$refs.aido && !this.$refs.aido.paused){
 					this.$refs.aido.pause();
 				}
 			},
 			puandFn2(){
-				this.stopDr();
-				if(this.$refs.vids){
-					this.$refs.vids.pause();
-				}
-				if(this.$refs.aido){
-					this.$refs.aido.pause();
-				}
+				this.puandFn();
 				this.playT = 2;
 			},
 			/*播放相关*/
@@ -614,55 +618,37 @@
 				
 			},						
 			backPlayVideo(){
-				
-				
-				
-				let obj;
-				let on=0;
-				let arr = this.navcoms.media;
-				let len = arr.length;
+				let pd = this.navcoms.media;
+				let on=0;			
+				let len = pd.length;
+				let obj = {type:'null',endTime:this.bfMax};
 				if(len==0){
-					return
+					return obj;
 				}
-				
-				let meMax = this.backTim(arr[len-1]);
-				if(this.bfTime>meMax){
-					obj = {
-						type:'null',
-						endTime:this.bfMax-this.bfTime,							
-					};					
-					return
+				var fn = ()=>{
+					let end = this.backTim(pd[on]);
 					
-				}
-				
-				let fn = ()=>{
-					let star = arr[on].start,
-					end = this.backTim(arr[on]);
+					if(this.bfTime>=pd[on].start && this.bfTime<end){
+						obj = pd[on];
+						return 
+					}
 					
-					if(star>this.bfTime){					
-						obj = {
-							type:'null',
-							endTime:star,							
-						};
+					
+					on++;
+					if(!pd[on]){						 
+						return ;
+					}
+					if(this.bfTime<pd[on].start){
+						obj = {type:'null',endTime:pd[on].start};
 						return
 					}
-					
-					if(end>this.bfTime){
-						obj = arr[on];
-						obj.endTime = end;
-						return
-					}
-					if(on<len-1){
-						on++
-						fn();
-					}
+					fn();			
 				}
 				fn();
 				return obj;
 			},		
 			/*播放视频*/
 			playVideo(){
-				
 				let len = this.navcoms.media.length;
 				if(len==0){
 					this.puandFn();
@@ -671,6 +657,7 @@
 					return;
 				}
 				this.bfObj = this.backPlayVideo();
+			
 				if(!this.bfObj){
 					return
 				}
@@ -683,7 +670,9 @@
 					this.drmImg(this.bfObj);
 					return
 				}				
-				
+				if(!this.$refs.vids){
+					return
+				}
 				if(this.$refs.vids.src!=this.bfObj.file_url){
 					this.$refs.vids.src=this.bfObj.file_url;	
 				}
@@ -742,7 +731,9 @@
 				if(!onBj){
 					return
 				}		
-				
+				if(!this.$refs.aido){
+					return
+				}
 				if(this.$refs.aido.src!=onBj.file_url){
 					this.$refs.aido.src=onBj.file_url;
 				}
@@ -779,22 +770,28 @@
 			
 			endeds() {
 				let len = this.navcoms.media.length;
-				if(this.bfTime<this.backTim(this.navcoms.media[len-1])){
-		
+				let ktime = this.backTim(this.navcoms.media[len-1]);
+				
+				if(this.bfTime<ktime){
 					this.playVideo();
 					return
 				}
+			
 				if(this.bfTime<this.bfMax){
 					this.playSc();
+					return
 				}
 				this.playT = 0;					
 			},
-			playSc(){				
+			playSc(){
+				
 				let ontim = this.bfTime;
 				let vtime = 0;
-				this.puandFn2();
+				this.puandFn();
+				this.playT=1;
 				this.drmBg();	
 				this.valObj = setInterval(() => {
+					
 					this.checkAdio();
 					vtime+=.05;
 					this.bfTime = ontim+vtime;
@@ -823,20 +820,19 @@
 				return maxTime;
 			},
 			timeupdatevideo() {
-				// this.checkAdio();
-				let onT = this.$refs.vids.currentTime;		
-				
-				onT = onT?onT:0;				
-				// if(this.bfObj){
-				// 	let tomd = this.bfObj.start + (onT-this.bfObj.cut_start);
-				// 	if(tomd !=this.bfTime){
-				// 		this.bfTime = this.bfObj.start + (onT-this.bfObj.cut_start);
-				// 	}
-					
-				// }
+				this.checkAdio();
+			
+				if(this.bfObj.type!='video'){
+					this.$refs.vids.pause();
+					return
+				}
+				let onT = this.$refs.vids.currentTime;						
+				onT = onT?onT:0;
+								
 				if (onT >= this.bfObj.cut_end) {
 					this.$refs.vids.pause();
 					this.endeds();
+					
 				}
 			},
 			timeupdatevideo2(){
@@ -881,7 +877,10 @@
 					this.playT=2;
 					
 				}
-				obj.play();
+				if(obj){
+					obj.play();
+				}
+				
 				
 			},
 			pauseFn(obj){
@@ -1007,7 +1006,7 @@
 				this.zsgd = this.navcoms.decorates.splice(this.zsOn,1);
 			},
 			adddevd() {
-				this.navcoms.decorates.push([]);
+				this.navcoms.decorates.push([]);		
 			},
 			savsout() {
 				return
@@ -1679,9 +1678,14 @@
 							}
 							this.navcoms.decorates = arr1;
 						}
+						
+						if(this.navcoms.audio.length>0){
+							this.sh_audioUrld(this.navcoms.audio[0]);
+						}
 					}
-					console.log(this.navcoms)
-					// file_name
+					
+					
+					
 					this.form.id = op.id;
 					this.setMaxTime();
 				}
@@ -1702,6 +1706,13 @@
 				if (this.navcoms.media[0]) {
 					this.setvideo(this.navcoms.media[0].file_url);
 				}
+			},
+			cksd(){
+				
+				if(this.bfObj.type!='video'){
+					return
+				}
+				this.endeds()
 			},
 			qhNav(o, zj) {
 				if (this.navson == o) {
@@ -1736,7 +1747,15 @@
 				}, 50)
 
 			},
-			
+			sh_audioUrld(el){
+				this.api.sh_audioUrl({
+					m_id:el.fid
+				}).then((da)=>{
+					this.aaa='';
+					if(da=='error'){return}			
+					el.file_url = da.file_url;				
+				})
+			},
 			cldevs(on) {
 				let arr = [];
 				let wdb = 1080 / this.boxW;

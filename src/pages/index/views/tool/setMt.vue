@@ -142,10 +142,12 @@ export default{
 		
 				if(this.$parent.Mos){
 					if(this.$parent.Mos.n=='decorates'){
-						this.setDecorates(el,e.x+10);
+						// this.setDecorates(el,e.x+10);
+						this.setDecorates(el);
 						
 					}else{
-						this.checkV(el,e.x+10);
+						// this.checkV(el,e.x+10);
+						this.checkV(el);
 					}
 					
 				}
