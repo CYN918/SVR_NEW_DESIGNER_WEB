@@ -919,8 +919,8 @@
 				}
 				if(this.checkOn.list && e.keyCode === 8) {
 					e.preventDefault();
-					this.checkOn.list.splice(this.checkOn.on, 1);
-					this.checkOn = {};
+					this.delt()
+				
 					return
 				}
 				if (e.keyCode == 32) {
