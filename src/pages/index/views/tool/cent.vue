@@ -106,13 +106,18 @@ export default{
 	
 	methods:{
 		ybf(){
-			this.$refs.video.currentTime = 0;
-			this.$refs.video.play();
+			if(this.$refs.video){
+				this.$refs.video.currentTime = 0;
+				this.$refs.video.play();
+			}
+			
 		},
 		stopbf(){
+			if(this.$refs.video && !this.$refs.video.paused){
+				this.$refs.video.pause();
+				this.$refs.video.currentTime = 0;
+			}
 			
-			this.$refs.video.pause();
-			this.$refs.video.currentTime = 0;
 		},
 		init(){
 		
