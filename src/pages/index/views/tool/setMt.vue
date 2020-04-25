@@ -212,6 +212,7 @@ export default{
 					
 					this.value.decorates[this.$parent.Mos.on].push(pr);
 					this.$parent.setMaxTime(pr);
+				
 					this.$parent.puandFn2();	
 					this.$parent.showDevs(this.$parent.Mos.on,this.value.decorates[this.$parent.Mos.on].length-1);
 				};

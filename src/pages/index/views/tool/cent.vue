@@ -3,10 +3,16 @@
 		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1fd2" >
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
 		
-		<!-- 	<div class="ldx_l_1_1_2"><img :src="imgPath+'new/tools/v_02.svg'" ></div>
-			<div class="ldx_l_1_1_3"><img :src="imgPath+'new/tools/v_01.svg'" ></div>
-			<div class="ldx_l_1_1_4">这首歌的名称很长-歌手名称</div>
-			<div class="ldx_l_1_1_5">00:30</div> -->
+		
+			
+			<div class="ldxwc_yy">
+				<img src="/imge/tools/Upload_icon_music_24.svg" alt="">
+				<div>{{(jsons.audio && jsons.audio[0])?jsons.audio[0].author:'无歌手名'}}</div>
+			</div>
+			
+			
+			
+			
 			<div class="ldx_l_1_top" v-if="el.status==0 || el.status==-10">
 				<div class="ldx_l_1_top_btn" @click="changebtn()">···</div>
 				<div class="ldx_l_1_top_btn1" v-if="top_btn">
@@ -51,6 +57,11 @@
 				</div>
 			</div>
 			
+			<div class="ldxwc_01">
+				
+			</div>
+			
+			
 			<div v-if="tjTy" class="ldx_sav_1_6">
 				<div class="ldx_sav_1_6_1">
 					<i class="loading_a m_c"></i>
@@ -87,11 +98,24 @@ export default{
 				check_reason:"",
 				check_comment:""
 			},
-			Ischeck:false
+			Ischeck:false,
+			jsons:{},
 		}
 		
 	},
+	mounted: function() {
+		this.init();
+	},
 	methods:{
+		init(){
+			try{
+				this.jsons = JSON.parse(this.el.json);
+				console.log(this.jsons);
+			}catch(e){
+				//TODO handle the exception
+			}
+			
+		},
 		backtims(el){
 			if(this.pr.sort){
 				return this.mJs.getTimes(this.pr.sort =='{"update_at":"DESC"}'?el.update_at:el.created_at)
@@ -284,7 +308,11 @@ export default{
 	top: 10px;
 	z-index: 100;
 }
+.ldx_l_1x:hover .ldx_l_1_top_btn{
+	display: block;
+} 
 .ldx_l_1_top_btn{
+	display: none;
 	width:26px;
 	height:18px;
 	background:rgba(255,255,255,1);
@@ -323,5 +351,29 @@ export default{
 }
 .ldx_l_1_btn2_a{
 	cursor: pointer;
+}
+.ldxwc_yy{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	
+}
+.ldxwc_yy>img{
+	display: inline-block;
+	vertical-align: top;
+	width: 24px;
+}
+.ldxwc_yy>div{
+	margin-left: 4px;
+	display: inline-block;
+	width:129px;
+	height:24px;
+	padding: 0 8px;
+	background:rgba(0,0,0,.5);
+	border-radius:12px;
+	font-size:12px;
+	color:rgba(255,255,255,1);
+	line-height:24px;
+	overflow: hidden;
 }
 </style>

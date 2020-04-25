@@ -1389,6 +1389,7 @@
 				return ((x-120)/this.wdk)*this.bl;				
 			},
 			zzyz() {
+			
 				if (this.navcoms.media.length == 0) {
 					this.$message({
 						message: '请先上传并添加媒体素材至轨道'
@@ -1447,6 +1448,9 @@
 
 					return
 				}
+				
+				
+				
 				if(this.checkOn.list){
 					this.checkOn.list[this.checkOn.on].ischeck='';
 				}
@@ -1766,8 +1770,14 @@
 					for (let i2 = 0, n2 = ar.length; i2 < n2; i2++) {
 						ar[i2].ond = i;
 						ar[i2].end = ar[i2].start + (ar[i2].cut_end - ar[i2].cut_start);
-						ar[i2].x = this.backto(ar[i2].zsx * wdb);
-						ar[i2].y = this.backto(ar[i2].zsy * hy);
+						if(ar[i2].zsx){
+							ar[i2].x = this.backto(ar[i2].zsx * wdb);
+						}
+						if(this.backto(ar[i2].zsy * hy)){
+							ar[i2].y = this.backto(ar[i2].zsy * hy);
+						}
+						
+						
 						ar[i2].resize = this.backto(ar[i2].zsw * wdb) + ':' + this.backto(ar[i2].zsh * hy);
 						arr.push(ar[i2]);
 					}

@@ -50,6 +50,7 @@ export default{
 			isok:'',
 			tags:['极简','扁平','风景'],
 			ajaxType:'',
+			bfmax:0,
 		}
 	},
 	beforeDestroy:function(){
@@ -69,7 +70,7 @@ export default{
 	methods:{
 		init(){
 			document.body.style = "overflow: hidden;";
-	
+			this.bfmax = this.$parent.getSc();
 			if(this.value.tag){
 				for(let i=0,n=this.value.tag.length;i<n;i++){
 					let pod = this.value.tag[i];
@@ -142,14 +143,17 @@ export default{
 					}
 					on++;
 					fn();
+					
+				}else{
+					if(pd[on].end<this.bfmax){
+						pd.push({type:'blank',start:this.backto(pd[on].end),end:this.backto(this.bfmax)});
+					}	
+					
 				}				
 			}
 			fn();
 			
-			let lend = pd.length-1;
-			if(pd[lend].end<el.maxTime){
-				pd.push({type:'blank',start:this.backto(pd[lend].end),end:this.backto(el.maxTime)});
-			}			 
+				 
 			
 			return 			
 		},
@@ -159,6 +163,7 @@ export default{
 		},
 		
 		cldevs(on){
+		
 			let arr = [];
 			let wdb = 1080/this.$parent.boxW;
 			let hy = 1920/this.$parent.boxH;
@@ -167,8 +172,14 @@ export default{
 				for(let i2=0,n2=ar.length;i2<n2;i2++){
 					ar[i2].ond = i;
 					ar[i2].end = this.backto(ar[i2].start+(ar[i2].cut_end-ar[i2].cut_start));					
-					ar[i2].x = this.backto(ar[i2].zsx*wdb);
-					ar[i2].y = this.backto(ar[i2].zsy*hy);
+					
+					if(ar[i2].zsx){
+						ar[i2].x = this.backto(ar[i2].zsx * wdb);
+					}
+					if(this.backto(ar[i2].zsy * hy)){
+						ar[i2].y = this.backto(ar[i2].zsy * hy);
+					}
+					
 					if(ar[i2].zsw){
 						ar[i2].resize = this.backto(ar[i2].zsw*wdb)+':'+this.backto(ar[i2].zsh*hy);						
 					}

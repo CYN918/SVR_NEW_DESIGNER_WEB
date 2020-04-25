@@ -327,6 +327,7 @@ export default{
 						end: el.duration,
 						long:el.duration,
 						cut_start: 0,
+						author:el.author?el.author:'无歌手',
 						cut_end: el.duration,
 						fps_pic:el.soundwave_pic,
 						fps:'',
@@ -468,8 +469,9 @@ export default{
 					m_id:el.m_id,
 					logo:el.logo,
 					name:el.name,
-					author:el.author,
-					onTime:0,	
+					author:el.author?el.author:'无歌手',
+					onTime:0,
+			
 					duration:el.duration,
 					is_collect:el.is_collect,
 					face_pic:el.face_pic
