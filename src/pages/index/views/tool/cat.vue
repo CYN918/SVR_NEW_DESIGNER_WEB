@@ -314,7 +314,7 @@ export default{
 		},
 		cjkset(el){
 			let pr = {};
-			if(el.h>el.w){
+			if(el.h<el.w){
 				pr.w = el.w;
 				
 				pr.h = (el.w/this.bl[this.ccun].x)*this.bl[this.ccun].y;
