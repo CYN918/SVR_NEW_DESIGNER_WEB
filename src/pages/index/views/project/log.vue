@@ -40,7 +40,7 @@
 					</div>
 					<div>
 						<div @click="showPic(el.preview_pic)" class="log_tipbox" v-if="el.preview_pic">预览</div>
-						<div @click="fileCy(el)" class="log_tipbox" v-if="el.status == '4'">撤回</div>
+						<div @click="fileCy(el)" class="log_tipbox" v-if="el.check_status != -2 && el.check_status != -1">撤回</div>
 						
 					</div>
 					<qxGj v-if="isShow" :datad="datad"></qxGj>
