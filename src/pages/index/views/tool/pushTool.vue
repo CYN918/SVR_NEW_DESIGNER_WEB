@@ -115,11 +115,15 @@
 							<div class="tlo_04">
 								<div v-for="(el,index) in navcoms.decorates" @mouseover="setMos({on:index,n:'decorates'},$event)" @mouseout="setMos('')"
 								 class="tlo_04">
-									<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="imgd" v-for="(el2,index2) in el">
+									<div 
+									:style="backtop(el2,index2)" 
+									@contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" 
+									class="imgd" 
+									@click="setCheckOn({type:'decorates',list:navcoms.decorates[index],on:index2})"
+									v-for="(el2,index2) in el">
 										<div :style="bgtf(el2)" class="setToll0"></div>
-							
-										<div :class="['setToll',(Mos.type=='decorates'&& IsShowStyle)?'setToll_active':'']">
-										
+										<div 
+										:class="['setToll',el2.ischeck?'setToll_active':'']">
 											<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
 											<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2">
 												<div class="setToll2_1">
@@ -143,10 +147,16 @@
 							
 							
 							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'},$event)" @mouseout="setMos('')">
-								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})" class="imgd" v-for="(el,index) in navcoms.media">
+								<div 
+								:style="backtop(el,index)" 
+								@contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})" 
+								@click="setCheckOn({type:'media',list:navcoms.media,on:index})"
+								class="imgd" 
+								v-for="(el,index) in navcoms.media">
 									<div :style="bgtf(el)" class="setToll0"></div>
 									
-									<div class="setToll" @mousedown="settoll($event)" @mouseup="settoll1($event)">
+									<div 
+									:class="['setToll',el.ischeck?'setToll_active':'']">
 										<div @mousedown="jl3($event,el,index,navcoms.media,'media')" class="setToll1"></div>
 										<div @mousedown="jl2($event,el,index,navcoms.media,'media')" class="setToll2">
 											<div class="setToll2_1">
@@ -167,10 +177,15 @@
 							</div>
 
 							<div class="tlo_03">
-								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'audio',on:index,list:navcoms.audio})" class="imgd" v-for="(el,index) in navcoms.audio">
+								<div 
+								:style="backtop(el,index)" 
+								@contextmenu="contexMs($event,{type:'audio',on:index,list:navcoms.audio})" 
+								@click="setCheckOn({type:'audio',list:navcoms.audio,on:index})"
+								class="imgd" 
+								v-for="(el,index) in navcoms.audio">
 									<div :style="bgtf(el)" class="setToll0"></div>
 									
-									<div :class="['setToll',IsShowStyle?'setToll_active':'']">
+									<div :class="['setToll',el.ischeck?'setToll_active':'']">
 										<div @mousedown="jl3($event,el,index,navcoms.audio,'audio')" class="setToll1"></div>
 										<div @mousedown="jl2($event,el,index,navcoms.audio,'audio')" class="setToll2">
 											<div class="setToll2_1" style="top:6px;height: 14px;">
@@ -440,6 +455,13 @@
 			},
 		},
 		methods: {
+			setCheckOn(obj){
+				if(this.checkOn.list){
+					this.checkOn.list[this.checkOn.on].ischeck='';
+				}
+				this.checkOn = obj;
+				this.checkOn.list[this.checkOn.on].ischeck=1;
+			},
 			settoll(e){
 				e.preventDefault();
 				e.currentTarget.className = 'setToll setToll_active'
@@ -447,6 +469,9 @@
 			settoll1(e){
 				e.preventDefault();
 				e.currentTarget.className = 'setToll'
+			},
+			backISx(el){
+				
 			},
 			drmOn(){
 				let obd = this.backPlayVideo();
@@ -1011,13 +1036,13 @@
 				this.clerClick(fn)
 			},
 			contexMs(e, b) {
+			
 				if (e.button == "2") {
 					e.preventDefault();
 					let dom = e.target.getBoundingClientRect();
 
 					if (b) {
-						this.checkOn = b;
-						
+						this.setCheckOn(b)						
 					}
 
 					this.csad = 'display:block;top:' + (e.y - 5) + 'px;left:' + (e.x - 22) + 'px';
@@ -1203,11 +1228,13 @@
 
 			jl(e, el, index, list, n) {
 				e.preventDefault();
-				this.checkOn = {
+
+				this.setCheckOn({
 					type: n,
 					on: index,
 					list:list,
-				};				
+				})
+					
 				let startX = e.pageX,
 				oldCut_end = el.cut_end,
 				max = el.type == 'pic'?999999:el.long,
@@ -1247,11 +1274,12 @@
 			jl3(e, el, onc, list, n) {
 				e.preventDefault();
 				this.IsShowStyle = true;
-				this.checkOn = {
+				this.setCheckOn({
 					type: n,
 					on: onc,
 					list:list,
-				};
+				})
+				
 				this.tdStar = e.pageX;
 				let cs = el.start;
 				let wid = el.long * this.wdk;
@@ -1319,11 +1347,13 @@
 			},
 			jl2(e, el, index, list, n) {
 				e.preventDefault();
-				this.checkOn = {
+
+				this.setCheckOn({
 					type: n,
 					on: index,
 					list:list,
-				};
+				})
+			
 				let startX = e.pageX,
 				oldStart = el.start,
 				oldCut_start = el.cut_start,
@@ -1422,6 +1452,10 @@
 
 					return
 				}
+				if(this.checkOn.list){
+					this.checkOn.list[this.checkOn.on].ischeck='';
+				}
+				
 				this.checkOn = {};
 				this.zzwc();
 			},
@@ -1684,6 +1718,7 @@
 				let dom = e.target.getBoundingClientRect();
 				if (b) {
 					this.checkOn = b;
+					this.checkOn.list[this.checkOn.on].ischeck=1;
 				}
 				this.csad = 'display:block;top:' + (dom.y - 5) + 'px;left:' + (dom.x - 22) + 'px';
 				let fn = () => {
@@ -2233,7 +2268,19 @@
 		background-size: auto 100%;
 
 	}
-
+	.imgd:hover .setToll{
+		border-color: rgba(51, 179, 255, 1);
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	.imgd:hover .setToll2_1{
+		visibility: visible;
+	}
+	.imgd:hover .setToll3_1{
+		visibility: visible;
+	}
+	.imgd:hover .setToll4{
+		display: block;
+	}
 	.setToll0>img {
 		display: block;
 		height: 100%;
