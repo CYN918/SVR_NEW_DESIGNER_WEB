@@ -68,8 +68,8 @@
 			</div>
 		</div>
 		
-		<div class="mp3_05" v-if="Isfirst" ref="mp3_05_1" @click="setBf($event)">
-			<div class="mp3_05_1">
+		<div class="mp3_05" v-if="Isfirst" ref="mp3_05_1" >
+			<div class="mp3_05_1" @click="setBf($event)">
 				<span class="mp3_05_1_2" :style="backTX()" ref="mp3_05_1_bg">
 					<span class="mp3_05_1_1" @mousedown="mp3down"></span>
 				</span>
@@ -249,13 +249,23 @@ export default{
 		setBf(e){
 			e.preventDefault();
 			this.pauseAll();
-			// let onX = el.x;
-			console.log(e.x);	
-			// let dd =(e.x-120)/ (this.wdk / this.bl);				
-			// if(dd<0){dd=0}
-			// this.bfTime = dd;
-			// this.drmOn()
 			
+			let obsds = this.$refs.mp3_05_1.getBoundingClientRect();
+			let longTime = this.bfData.duration;
+			let mvtime = ((e.x-obsds.x)/obsds.width)*longTime;
+			
+			if(mvtime<0){
+				mvtime=0;
+			}
+			if(mvtime>longTime){
+				mvtime = longTime;
+			}
+			this.bfData.onTime = mvtime;
+			this.$parent.setcurrentTime(mvtime);
+			this.bRunning = true;
+			this.$parent.playAdio({
+				type:'playFn',
+			})	
 		},
 		mp3down(el) {
 			//算出鼠标相对元素的位置			
@@ -284,9 +294,7 @@ export default{
 				this.$parent.setcurrentTime(pn);
 			};
 			document.onmouseup = e => {
-				this.$parent.playAdio({
-					type:'playFn',
-				})
+				
 				this.bRunning = true;
 				document.onmousemove = null;				
 				document.onmouseup = null;
@@ -840,6 +848,7 @@ export default{
 	z-index: 999;
 }
 .mp3_05_1{
+	z-index: 10;
 	position: relative;
 	background: #D9D9D9;
 	height: 2px;
