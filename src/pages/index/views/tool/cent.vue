@@ -2,17 +2,21 @@
 	<div class="ldx_l_1x">
 		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1fd2" >
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
-		
-		
-			
-			<div class="ldxwc_yy">
+			<video @mouseover="ybf()" @mouseout="stopbf()" v-if="el.file_url" class="bof" muted ref="video" :src="el.file_url"></video>
+			<div v-if="el.status==2 || el.status==1" class="ldxwc_yy">
 				<img src="/imge/tools/Upload_icon_music_24.svg" alt="">
 				<div>{{(jsons.audio && jsons.audio[0])?jsons.audio[0].author:'无歌手名'}}</div>
 			</div>
 			
-			
-			
-			
+			<div class="ldxdsh_01" v-if="el.status==1">审核中</div>
+			<div class="hcsb" v-if="el.status==-10">
+				<img src="/imge/tools/LDXGC_icon_sb.svg">
+				<span>合成失败</span>
+			</div>
+			<div class="hcsb" v-if="el.status==10">
+				<img src="/imge/tools/LDXGC_icon_hcz.svg">
+				<span>合成中</span>
+			</div>
 			<div class="ldx_l_1_top" v-if="el.status==0 || el.status==-10">
 				<div class="ldx_l_1_top_btn" @click="changebtn()">···</div>
 				<div class="ldx_l_1_top_btn1" v-if="top_btn">
@@ -25,15 +29,11 @@
 				<div class="ldx_l_1_btn" v-if="el.status==0 && Isbtn">
 					<span @click="bjfn(el.id)" class="pendno">编辑</span>
 				</div>
-				<div class="ldx_l_1_btn2" v-if="el.status==1 && Isbtn">
-					<span>审核中</span>
-				</div>
+	
 				<div class="ldx_l_1_btn2" v-if="el.status==10">
 					<span>合成中</span>
 				</div>
-				<div class="ldx_l_1_btn2" v-if="el.status==-10">
-					<span>合成失败</span>
-				</div>
+				
 				<div class="ldx_l_1_btn2" v-if="el.status==2 && Isbtn">
 					<span @click="gojg(el.project_id)" class="ldx_l_1_btn2_a">项目结果</span>
 				</div>
@@ -103,11 +103,19 @@ export default{
 		}
 		
 	},
-	mounted: function() {
-		this.init();
-	},
+	
 	methods:{
+		ybf(){
+			this.$refs.video.currentTime = 0;
+			this.$refs.video.play();
+		},
+		stopbf(){
+			
+			this.$refs.video.pause();
+			this.$refs.video.currentTime = 0;
+		},
 		init(){
+		
 			try{
 				this.jsons = JSON.parse(this.el.json);
 				console.log(this.jsons);
@@ -170,6 +178,7 @@ export default{
 
 	},
 	mounted() {
+		this.init();
 		document.addEventListener('click', (e)=> {
 			if (e.target.className != 'ldx_l_1_top_btn1' && e.target.className != 'ldx_l_1_top_btn') {
 				this.top_btn = false;
@@ -363,9 +372,13 @@ export default{
 	vertical-align: top;
 	width: 24px;
 }
-.ldxwc_yy>div{
-	margin-left: 4px;
+.ldxwc_yy:hover>div{
 	display: inline-block;
+}
+.ldxwc_yy>div{
+
+	margin-left: 4px;
+	display: none;
 	width:129px;
 	height:24px;
 	padding: 0 8px;
@@ -375,5 +388,44 @@ export default{
 	color:rgba(255,255,255,1);
 	line-height:24px;
 	overflow: hidden;
+}
+.hcsb{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
+.hcsb>img{
+	display: block;
+	margin: 0 auto 16px;
+	width: 32px;
+}
+.hcsb>span{
+	display: block;
+	text-align: center;
+	font-size:14px;
+	font-weight:500;
+	color:rgba(255,255,255,1);
+}
+.ldxdsh_01{
+	position: absolute;
+	top: 12px;
+	right: 10px;
+	width:54px;
+	height:20px;
+	background:rgba(255,146,0,.8);
+	border-radius:10px;
+	font-size:12px;
+	text-align: center;
+	color:rgba(255,255,255,1);
+	line-height:20px;
+}
+.bof{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 </style>
