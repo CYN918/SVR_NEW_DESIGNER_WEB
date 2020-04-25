@@ -1,7 +1,7 @@
 <template>
     <div class="nav_rig">
         <ul>
-            <li class="nav_logo" @mouseenter="mouseover('e')" @mouseleave="mouseLeave('e')"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
+            <li class="nav_logo" @mouseenter="mouseover('e')" @mouseleave="mouseLeave('e')"><img :src="imgSig+'newHome/ip_pr.svg'" alt=""/></li>
             <li class="nav_upload" v-if="uploadShow" @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'prcent/icon_qq.svg'" alt=""/><p>项目顾问</p></li>
             <li class="nav_upload" v-else @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'prcent/bar_icon_qq.svg'" alt=""/><p>项目顾问</p></li>
             <li class="nav_tolt" v-if="totalShow"  @click="go_tolt()" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'prcent/px_share.svg'" alt=""/><p>分享项目</p></li>
@@ -65,7 +65,7 @@ export default {
                 this.uploadShow = false;
             }
             if(type == 'e'){
-                document.getElementsByClassName('nav_logo')[0].style.top = '50px'
+                document.getElementsByClassName('nav_logo')[0].style.top = '60px'
             }  
         },
         mouseLeave(type){
@@ -85,7 +85,7 @@ export default {
                 this.uploadShow = true;
             }
             if(type == 'e'){
-                document.getElementsByClassName('nav_logo')[0].style.top = '60px'
+                document.getElementsByClassName('nav_logo')[0].style.top = '70px'
             }  
         },
         go_tolt(){
@@ -102,7 +102,7 @@ export default {
 </script>
 <style scoped>
 .nav_rig{
-	width: 93.53px;
+	width: 66px;
 	position: fixed;
 	right: 2.3%;
 	top: 40%;
@@ -111,11 +111,11 @@ export default {
 .nav_logo{
     height: 112px;
     position: relative;
-    top: 60px;
+    top: 70px;
     z-index: 0;
 }
 .nav_upload{
-    width: 91.53px;
+    width: 64px;
     height: 69px;
     background: #FFFFFF;
     color: #1E1E1E;
@@ -152,7 +152,7 @@ export default {
     color: #1E1E1E;
 }
 .nav_tolt{
-    width: 91.53px;
+    width: 64px;
     height: 68px;
     z-index: 999999;
     background: #FFFFFF;
@@ -165,7 +165,7 @@ export default {
     margin-top: 15px;
 }
 .nav_weixin{
-    width: 91.53px;
+    width: 64px;
     height: 66px;
     border-left: 1px solid #0066B4;
     border-right: 1px solid #0066B4;
@@ -188,7 +188,7 @@ export default {
     color: #ffffff;
 }
 .nav_rig > ul .nav_weibo{
-	width: 91.53px;
+	width: 64px;
 	height: 34px;
 	line-height: 36px;
 	color: #1E1E1E;
@@ -201,7 +201,7 @@ export default {
     background: #FFFFFF;
 }
 .nav_rig > ul .nav_top{
-    width: 91.53px;
+    width: 64px;
 	height: 34px;
 	line-height: 36px;
 	color: #1E1E1E;
