@@ -143,7 +143,10 @@ export default{
 					width:onw,
 					height:onh
 				});				
-				this.cjkset(this.pic);	
+				this.cjkset({
+					width:onw,
+					height:onh
+				});	
 			}
 			
 			
@@ -305,6 +308,7 @@ export default{
 		},
 	
 		picset(el){
+		
 			this.pic = {
 				x:(640-el.width)/2,
 				y:(360-el.height)/2,
@@ -314,22 +318,21 @@ export default{
 		},
 		cjkset(el){
 			let pr = {};
-			if(el.h<el.w){
-				pr.w = el.w;
-				
-				pr.h = (el.w/this.bl[this.ccun].x)*this.bl[this.ccun].y;
-				
-				pr.fd = (360-pr.h)/pr.h;
-			
-			}else{
-				pr.h = el.h;
-				pr.w = (el.h/this.bl[this.ccun].y)*this.bl[this.ccun].x;
+
+			pr.w = el.width;
+			pr.h = pr.w/9*16;
+		
+			pr.fd = (360-pr.h)/pr.h;
+			if(pr.h>340){
+				pr.h = el.height;
+				pr.w = el.height/16*9;
 				pr.fd = (640-pr.w)/pr.w;
 			}
 			pr.x=(640-pr.w)/2;
 			pr.y=(360-pr.h)/2;
 			this.max.w=pr.w;
 			this.max.h=pr.h;
+
 			this.cjk = pr;
 		},
 		backys(){
