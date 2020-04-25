@@ -2,13 +2,14 @@
 	<div class="box_p_01">
 		
 		<div class="mp3_03" ref="nsdf">
-			<div class="mp3_03_0">
+			<div class="mp3_03_0" ref="spnds">
 				<spck
 				v-model="type"
 				class="mp3_03_1"
 				:List="navs"
 				:keys="'v'"
 				:v="'n'"
+				
 				></spck>
 				<div class="mp3_03_2">
 					<img class="mp3_03_2_img1" @click="ss()" :src="imgPath+'tools/ss.png'"/>
@@ -34,7 +35,6 @@
 		</div>
 		<div v-else class="mp3_04" ref='mp3_04'>
 			<div class="mp3_04_01"><span></span><span>歌曲</span><span>歌手</span><span>时长</span><span></span></div>
-			
 			<div 
 			@dblclick="bf(el, index)"
 			v-for="(el,index) in datas"
@@ -226,6 +226,7 @@ export default{
 		}
 	},
 	methods:{
+		
 		scrolls(){
 			this.$refs.mp3_04.scrollTop=0;
 		},
@@ -840,8 +841,7 @@ export default{
 	border:1px solid rgba(51,179,255,0.2);
 }
 .mp3_05{
-	position: absolute;
-	bottom: 0;
+	position: relative;
 	width:100%;
 	height:82px;
 	background:rgba(251,251,251,1);
@@ -986,7 +986,6 @@ export default{
 	overflow-y: auto;
 	box-sizing: border-box;
 	width: 100%;
-	height: 582px;
 	position: relative;
 	top: 0;
 }
@@ -1061,6 +1060,8 @@ export default{
 }
 .box_p_01{
 	position: relative;
+	display: flex;
+    flex-direction: column;
 	height: 100%;
 	overflow: hidden;
 }

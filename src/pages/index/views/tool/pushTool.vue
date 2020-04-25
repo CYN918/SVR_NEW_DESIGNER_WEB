@@ -62,7 +62,7 @@
 						
 							
 						</span>
-						<span>{{bckti(parseInt(bfTime))}}</span> / <span class="tme_091">{{bckti(parseInt(bcotm()))}}</span>
+						<span>{{bckti(parseInt(bfTime))}}</span> / <span class="tme_091">{{bckti(parseInt(navcoms.maxTime))}}</span>
 					</div>
 					<div class="ntob_cent_l_2_3">
 						<span @click="showCc2" class="bl_000">
@@ -885,7 +885,10 @@
 				
 			},
 			pauseFn(obj){
-				obj.pause();
+				if(obj){
+					obj.pause();
+				}
+				
 				if(this.$refs.vid && this.$refs.vid.setRun){
 					this.$refs.vid.setRun();
 				}
@@ -974,14 +977,7 @@
 			titlon(on){
 				this.istitle = on;
 			},
-			bcotm(){
-				let tm = this.navcoms.media.length;
-				if(tm==0){
-					return 0;
-				}
-				let obj = this.navcoms.media[tm-1];
-				return (obj.cut_end - obj.cut_start)+obj.start;
-			},
+			
 			gdfn(ev) {
 				this.$refs.gd_02.scrollTop = ev.target.scrollTop;
 			},
@@ -1763,7 +1759,13 @@
 				return Math.round(num * 100) / 100
 			},
 			tijF(a) {
-				if (!this.form.title && this.navcoms.media.length == 0 && this.navcoms.audio.length == 0) {
+				if(!this.form.title){
+					this.$message({
+						message: '请填写来电秀名称',
+					})
+					return
+				}
+				if (this.navcoms.maxTime==0) {
 					if (a) {
 						return
 					}
@@ -1772,21 +1774,19 @@
 					})
 					return
 				}
-
 				if (this.ajaxType) {
-
 					this.$message({
 						message: '正在处理请稍后',
 					})
 					return
 				}
-
 				let pr = {
 					title: this.form.title,
 					json: {
 						media: this.navcoms.media,
-						audio: this.navcoms.audio
-					}
+						audio: this.navcoms.audio,						
+					},
+					
 				};
 				let sd = this.cldevs(this.navcoms.decorates);
 				if (sd.length > 0) {
@@ -2009,6 +2009,7 @@
 	.ntob_cent_r_2 {
 		margin-left: 121px;
 		height: 100%;
+		overflow-x: hidden;
 	}
 
 	.ntob_cent_r_1 {
@@ -2278,9 +2279,7 @@
 	.imgd:hover .setToll3_1{
 		visibility: visible;
 	}
-	.imgd:hover .setToll4{
-		display: block;
-	}
+
 	.setToll0>img {
 		display: block;
 		height: 100%;
@@ -2824,10 +2823,12 @@
 		transition: transform .5s;
 	}
 	.minzss{
+		pointer-events: none;
 		position: absolute;
 		top: 50%;
 		left: 10px;
 		color: #fff;
+		white-space: nowrap;
 		transform: translateY(-50%);
 		font-size: 12px;
 	}

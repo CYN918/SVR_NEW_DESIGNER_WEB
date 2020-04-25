@@ -650,6 +650,7 @@ export default{
 	box-sizing: border-box;
 	padding: 24px 0 0 24px;
 	height: 100%;
+	min-width: 641px;
 }
 .setMt_01{
 	font-size:16px;
