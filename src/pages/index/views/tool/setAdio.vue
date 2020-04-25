@@ -303,6 +303,7 @@ export default{
 						type: "audio",
 						file_url: da.file_url,
 						start: 0,
+						file_name:el.name,
 						end: el.duration,
 						long:el.duration,
 						cut_start: 0,

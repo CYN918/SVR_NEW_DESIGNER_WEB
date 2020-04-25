@@ -135,7 +135,7 @@
 												<i></i><i></i><i></i>
 											</div>
 										</div>
-							
+										<div class="minzss">{{el2.file_name}}</div>
 									</div>
 								</div>
 							
@@ -145,6 +145,7 @@
 							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'},$event)" @mouseout="setMos('')">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})" class="imgd" v-for="(el,index) in navcoms.media">
 									<div :style="bgtf(el)" class="setToll0"></div>
+									
 									<div class="setToll" @mousedown="settoll($event)" @mouseup="settoll1($event)">
 										<div @mousedown="jl3($event,el,index,navcoms.media,'media')" class="setToll1"></div>
 										<div @mousedown="jl2($event,el,index,navcoms.media,'media')" class="setToll2">
@@ -161,18 +162,21 @@
 											<i></i><i></i><i></i>
 										</div>
 									</div>
+									<div class="minzss">{{el.file_name}}</div>
 								</div>
 							</div>
 
 							<div class="tlo_03">
 								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'audio',on:index,list:navcoms.audio})" class="imgd" v-for="(el,index) in navcoms.audio">
 									<div :style="bgtf(el)" class="setToll0"></div>
+									
 									<div :class="['setToll',IsShowStyle?'setToll_active':'']">
 										<div @mousedown="jl3($event,el,index,navcoms.audio,'audio')" class="setToll1"></div>
 										<div @mousedown="jl2($event,el,index,navcoms.audio,'audio')" class="setToll2">
 											<div class="setToll2_1" style="top:6px;height: 14px;">
 												<i></i><i></i>
 											</div>
+											
 										</div>
 										<div @mousedown="jl($event,el,index,navcoms.audio,'audio')" class="setToll3">
 											<div class="setToll3_1" style="top:6px;height: 14px;">
@@ -183,6 +187,7 @@
 											<i></i><i></i><i></i>
 										</div>
 									</div>
+									<div class="minzss">{{el.file_name}}</div>
 								</div>
 							</div>
 						</div>						
@@ -1645,6 +1650,8 @@
 							this.navcoms.decorates = arr1;
 						}
 					}
+					console.log(this.navcoms)
+					// file_name
 					this.form.id = op.id;
 					this.setMaxTime();
 				}
@@ -2768,5 +2775,13 @@
 	}
 	.gdAm{
 		transition: transform .5s;
+	}
+	.minzss{
+		position: absolute;
+		top: 50%;
+		left: 10px;
+		color: #fff;
+		transform: translateY(-50%);
+		font-size: 12px;
 	}
 </style>
