@@ -33,7 +33,7 @@
 								<img :src="imgPath+'new/tools/icon_add_small.svg'">
 								<div>新建项目</div>
 							</div>
-							<cent :el="todo.data"></cent>
+							<cent :pr="conf.pr" :el="todo.data"></cent>
 						</template>			
 					</list>
 					<div v-if="isnodata">
@@ -211,7 +211,6 @@ export default{
 			this.timerulec = i;
 			this.timerule = false;
 			if(i == '修改时间'){
-		
 				this.conf.pr['sort']='{"update_at":"DESC"}'
 			} else {
 				this.conf.pr['sort']='{"created_at":"DESC"}'

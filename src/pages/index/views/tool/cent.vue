@@ -63,7 +63,7 @@
 			{{el.title}}
 		</div>
 		<div class="ldx_l_1x_3">
-			{{mJs.getTimes(el.update_at) }}
+			{{backtims(el)}}
 		</div>
 	</div>
 	
@@ -76,6 +76,7 @@ export default{
 			type:Object,
 			default:{},
 		},
+		pr:Object,
 	},
 	data(){
 		return{
@@ -91,6 +92,12 @@ export default{
 		
 	},
 	methods:{
+		backtims(el){
+			if(this.pr.sort){
+				return this.mJs.getTimes(this.pr.sort =='{"update_at":"DESC"}'?el.update_at:el.created_at)
+			}
+			
+		},
 		btnchange(e){
 			this.Isbtn = true;
 		},

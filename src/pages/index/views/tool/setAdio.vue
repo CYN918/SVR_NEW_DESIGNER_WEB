@@ -68,7 +68,7 @@
 			</div>
 		</div>
 		
-		<div class="mp3_05" v-if="Isfirst" ref="mp3_05_1">
+		<div class="mp3_05" v-if="Isfirst" ref="mp3_05_1" @click="setBf($event)">
 			<div class="mp3_05_1">
 				<span class="mp3_05_1_2" :style="backTX()" ref="mp3_05_1_bg">
 					<span class="mp3_05_1_1" @mousedown="mp3down"></span>
@@ -240,15 +240,26 @@ export default{
 		backTX(){
 			return 'transform: translateX('+((this.bfData.onTime/this.bfData.duration)-1)*100+'%);';
 		},
-		mp3down(el) {
-			//算出鼠标相对元素的位置
-			
+		pauseAll(){
 			this.$parent.playAdio({
 				type:'pauseFn',
-			})
+			});
+			this.$parent.puandFn2();			
+		},
+		setBf(e){
+			e.preventDefault();
+			this.pauseAll();
+			// let onX = el.x;
+			console.log(e.x);	
+			// let dd =(e.x-120)/ (this.wdk / this.bl);				
+			// if(dd<0){dd=0}
+			// this.bfTime = dd;
+			// this.drmOn()
 			
-			
-			
+		},
+		mp3down(el) {
+			//算出鼠标相对元素的位置			
+			this.pauseAll();
 			let that = this;
 			
 			
@@ -830,7 +841,7 @@ export default{
 }
 .mp3_05_1{
 	position: relative;
-	background: #FBFBFB;
+	background: #D9D9D9;
 	height: 2px;
 	cursor: pointer;
 }
