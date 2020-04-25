@@ -338,12 +338,8 @@
 				po: '',
 				sfjb: 10,
 				bof: 0,
-				bfon: 0,
-				islast: '',
 				page: 1,
 				wdk: 21,
-				audiosOn: 0,
-			
 				formData: {
 					title: '',
 					media: [],
@@ -356,7 +352,7 @@
 					w: 391,
 					h: 695,
 				},
-				ispaused: '',
+			
 				isCc2: '',
 	
 				tdjl: 0,
@@ -696,16 +692,7 @@
 					}, 50);
 				}
 			},
-			drmImgs(){
-				this.drmBg();
-				let ob = this.navcoms.media[this.bfon],
-				a = document.createElement('img');
-				a.src = ob.file_url;
-				a.onload = () => {
-					this.drmBg();
-					this.cans.drawImage(a,ob.sx,ob.sy,ob.sw,ob.sh,ob.x,ob.y,ob.w,ob.h);
-				}
-			},
+			
 			playAdio_d(){
 				let onBj = this.navcoms.audio[0];
 				if(!onBj){
@@ -873,40 +860,33 @@
 				let maxd = 0;
 				let pd = 0;
 				if(len>0){
-					maxd = Math.ceil((this.backTim(this.navcoms.media[len-1])/this.fdjb)*210);
+					let maxd = Math.ceil(this.navcoms.maxTime / this.fdjb) * 210;
 					len = this.$refs.gund_01x.offsetWidth;
-					pd = (maxd - len) * (len / maxd);
+					pd = (maxd - len)/(maxd / len);
 				}
-
+				
 				var kd = e.wheelDelta ? e.wheelDelta : e.detail;
 				if (kd > 0) {	
-				
-					if (ctrlKey && this.fdjb > 1 && this.fdjb>0) {						
+					if (ctrlKey && this.fdjb > 1) {						
 						this.fdjb--;
 					}
 					if (shiftKey) {
-						let ond = this.tdjl-30;
-						if(ond<0){
-							ond = 0;
-						}					
-						this.tdjl = ond;
+						let ond = this.tdjl-30;				
+						this.tdjl = ond<0?0:ond;
 					}
 				}
 				if (kd < 0) {
 					if (ctrlKey && this.fdjb < 120) {
-						this.fdjb++;
+						this.fdjb++;					
 					}
 					if (shiftKey) {		
-						let ond = this.tdjl+30;
-						
+						let ond = this.tdjl+30;						
 						if(ond>pd){
 							ond = pd;
 						}
-						this.tdjl = ond;
+						this.tdjl = ond;					
 					}
 				}
-			
-			
 			},
 			
 			LineClerDrm(){
@@ -1196,6 +1176,7 @@
 				document.onmouseup = () => {
 					document.onmousemove = document.onmouseup = null;
 					this.puandFn2();
+					this.setMaxTime(el);
 					this.drmOn();
 				}
 			},
@@ -1257,7 +1238,7 @@
 				}
 				document.onmouseup = (e) => {
 					e.preventDefault();
-					
+					document.onmousemove = document.onmouseup = null;
 					let on = +(((e.pageX - this.tdStar) / wid) * el.long).toFixed(3);
 					let dd = Math.round(((+cs + (on)) * 100) / 100);
 					if (prStar || prStar == 0) {
@@ -1275,9 +1256,10 @@
 						}
 					}
 					this.puandFn2();
+					this.setMaxTime(el);
 					this.drmOn();
 					this.IsShowStyle = false;
-					document.onmousemove = document.onmouseup = null;
+					
 				}
 			},
 			jl2(e, el, index, list, n) {
@@ -1315,9 +1297,10 @@
 					el.start = oldStart + (pn-oldCut_start);
 				}
 				document.onmouseup = () => {
-					this.puandFn2();
-					this.drmOn();
 					document.onmousemove = document.onmouseup = null;
+					this.puandFn2();
+					this.setMaxTime(el);
+					this.drmOn();					
 				}
 			},
 			
@@ -1431,7 +1414,6 @@
 				if(this.tanc.zj == 'saves'){
 					return
 				}
-			
 				if (!this.checkOn.list) {
 					return
 				}	
@@ -1439,49 +1421,50 @@
 				if(!onsd){
 					return
 				}
-				let ot = onsd.start+(onsd.cut_end-onsd.cut_start);
-				if(this.bfTime>=onsd.start && this.bfTime<ot){
-					this.cans.fillStyle = "#000";
-					this.cans.fillRect(0, 0, this.boxW, this.boxH);
+				this.puandFn2();
+				let maxt = this.backTim(onsd);
+				if(this.bfTime>=onsd.start && this.bfTime<maxt){
+					this.drmBg();
 				}			
 				this.checkOn.list.splice(this.checkOn.on,1);				
 				this.checkOn = {};	
-				
-				if (this.$refs.vids) {
-					this.$refs.vids.pause();
-				}
-				if (this.$refs.aido) {
-					this.$refs.aido.pause();
-				}
-				this.ispaused = '';
-				this.islast = '';
-				this.audioLast = '';
-				this.audiosOn = 0;
-				this.bfon = 0;					
-				if(this.playT==1 || this.playT==2){
-					this.puandFn2();
-				}
-				
-			
 				this.setMaxTime();
 				if(this.navcoms.media.length==0){
 					this.bfTime = 0;
 				}
 			},
-			setMaxTime() {
-				let video = this.navcoms.media[this.navcoms.media.length - 1],
-					audio = this.navcoms.audio[this.navcoms.audio.length - 1],
-					max = 0;
-				if (video) {
-					max = this.backTim(video);
-				}
-				if (audio) {
-					let tim = this.backTim(audio);
-					if (tim > max) {
-						max = tim;
+			setMaxTime(el) {
+				let maxt = 0;
+				let times = 0;
+				if(el){
+					maxt = this.backTim(el);
+				}else{
+					let len1 = this.navcoms.media.length,
+					len2 = this.navcoms.audio.length,
+					len3 = this.navcoms.decorates.length;
+					
+					if(len1>0){
+						times = this.backTim(this.navcoms.media[len1-1]);
+					}
+					if(len2>0){
+						let tim = this.backTim(this.navcoms.audio[len2-1]);
+						times = tim>times?tim:times;
+					}
+					if(len3>0){
+						for(let i=0;i<len3;i++){
+							let obj = this.navcoms.decorates[i];
+							for(let i2=0,n=obj.length;i2<n;i2++){
+								let tim = this.backTim(obj[i2]);
+								times = tim>times?tim:times;
+							}							
+						}
+						
 					}
 				}
-				this.navcoms.maxTime = max;
+				maxt = times>maxt?times:maxt;
+				if(maxt>this.navcoms.maxTime){
+					this.navcoms.maxTime = maxt;
+				}				
 			},
 			backTim(ob) {
 				return (ob.cut_end - ob.cut_start) + ob.start;
@@ -1489,8 +1472,6 @@
 			backd() {
 				let str = '<span class="kd_02"><span>00:00:00:00</span></span>';
 				let tins = this.navcoms.maxTime;
-				
-			
 				if (tins < 120) {
 					tins = 120;
 				}
@@ -1546,18 +1527,7 @@
 				// 	this.drm();
 				// }, 500);
 			},
-			drm() {
-				let ob = this.navcoms.media[this.bfon];
-				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, this.boxW, this.boxH);
-				this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
-				let po = this.cun[this.vdcc].x;
-				if (po) {
-					this.cans.fillRect(0, 0, po, this.boxH);
-					this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
-				}
-
-			},
+			
 			LinePlay(){
 				clearTimeout(this.valObj);
 				let ontime = this.bfTime;
@@ -1608,27 +1578,24 @@
 				this.zoomd = this.boxW/391;
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
-					
-					let json = JSON.parse(op.json);
 					this.form.title = op.title;
-					this.navcoms.media = json.media;
-					this.navcoms.audio = json.audio;
-
-					if (json.decoration && json.decoration.length > 0) {
-						let arr1 = [];
-						for (let i = 0, n = json.decoration.length; i < n; i++) {
-							if (!arr1[json.decoration[i].ond]) {
-								arr1[json.decoration[i].ond] = [];
+					if(op.json){
+						let json = JSON.parse(op.json);
+						this.navcoms.media = json.media;
+						this.navcoms.audio = json.audio;
+						
+						if (json.decoration && json.decoration.length > 0) {
+							let arr1 = [];
+							for (let i = 0, n = json.decoration.length; i < n; i++) {
+								if (!arr1[json.decoration[i].ond]) {
+									arr1[json.decoration[i].ond] = [];
+								}
+								arr1[json.decoration[i].ond].push(json.decoration[i]);
 							}
-							arr1[json.decoration[i].ond].push(json.decoration[i]);
+							this.navcoms.decorates = arr1;
 						}
-						this.navcoms.decorates = arr1;
 					}
 					this.form.id = op.id;
-
-
-
-
 					this.setMaxTime();
 				}
 				this.savsout();

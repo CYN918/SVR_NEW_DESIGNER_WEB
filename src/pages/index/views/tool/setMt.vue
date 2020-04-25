@@ -139,7 +139,7 @@ export default{
 				
 			}			 
 			document.onmouseup =  (e)=>{
-				;
+		
 				if(this.$parent.Mos){
 					if(this.$parent.Mos.n=='decorates'){
 						this.setDecorates(el,e.x+10);
@@ -203,12 +203,11 @@ export default{
 						pr.w = (this.$parent.boxH/hd)*wd;
 						pr.x = (this.$parent.boxW-pr.w)/2;
 					}
-					this.value.maxTime = +pr.long+this.value.maxTime;
+					
+					
 					this.value.decorates[this.$parent.Mos.on].push(pr);
-					if(this.$parent.playT==1 || this.$parent.playT==2){
-						
-						this.$parent.puandFn2();
-					}		
+					this.$parent.setMaxTime(pr);
+					this.$parent.puandFn2();	
 					this.$parent.showDevs(this.$parent.Mos.on,this.value.decorates[this.$parent.Mos.on].length-1);
 				};
 		},
@@ -333,13 +332,10 @@ export default{
 						pr.w = (this.$parent.boxH/hd)*wd;
 						pr.x = (this.$parent.boxW-pr.w)/2;
 					}
-					this.value.maxTime = +pr.long+this.value.maxTime;
+					
 					this.value.media.push(pr);	
-										
-					if(this.$parent.playT==1 || this.$parent.playT==2){
-						
-						this.$parent.puandFn2();
-					}
+					this.$parent.setMaxTime(pr);
+					this.$parent.puandFn2();				
 					this.$parent.drmOn();
 				};
 		
@@ -363,14 +359,9 @@ export default{
 						pr.h = (this.$parent.boxW/wd)*hd;
 						pr.y = (this.$parent.boxH-pr.h)/2
 					}
-					let maxt = +pr.start+(+pr.long);
-					if(this.value.maxTime<maxt){
-						this.value.maxTime = maxt;
-					}	
 					this.value.media.push(pr);	
-					if(this.$parent.playT==1 || this.$parent.playT==2){
-						this.$parent.puandFn2();
-					}
+					this.$parent.setMaxTime(pr);
+					this.$parent.puandFn2();
 					this.$parent.drmOn();
 				}
 			}			

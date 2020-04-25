@@ -289,22 +289,16 @@ export default{
 		getcls(){
 			this.api.sh_class({}).then((da)=>{
 				if(da=='error'){return}
-				this.cls = da;
-				
+				this.cls = da;				
 				this.showNav = this.cls;
-				
-				
-			})
-			
+			})			
 		},
-		sh_audioUrld(el){
-			
+		sh_audioUrld(el){			
 			this.api.sh_audioUrl({
 				m_id:el.m_id
 			}).then((da)=>{
 				this.aaa='';
-				if(da=='error'){return}
-			
+				if(da=='error'){return}			
 				let pr = {
 						type: "audio",
 						file_url: da.file_url,
@@ -318,18 +312,9 @@ export default{
 						fid:el.m_id,
 						ischeck:'',
 				};				
-				let ond = this.value.audio[0];
-				if(!ond){
-					this.value.audio.push(pr);
-					return
-				}
-				
 				this.value.audio.splice(0,1,pr);
-				if(this.$parent.playT==1 || this.$parent.playT==2){
-					this.$parent.puandFn2();
-				}
-				
-				
+				this.$parent.setMaxTime(pr);
+				this.$parent.puandFn2();
 				this.$message({
 					message:"选用成功"
 				})
