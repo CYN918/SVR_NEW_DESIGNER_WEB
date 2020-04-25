@@ -179,11 +179,13 @@ export default{
 			let opb = this.value.decorates[this.$parent.Mos.on];		
 			let ond = opb[opb.length-1];
 			if(ond){
-				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
+				pr.start = +ond.start+(ond.cut_end-ond.cut_start);	
+				
 			}		
 			if(x){
 				let time = this.$parent.setDomStar(x);
 				pr.start = time;
+			
 			}
 				var a = document.createElement('img');
 				a.src=el.url;

@@ -402,7 +402,8 @@
 				bfObj:'',
 				psd:'',
 				IsShowStyle:false,
-				indexstyle:0
+				indexstyle:0,
+				bfMax:0,
 			}
 		},
 		mounted: function() {
@@ -523,7 +524,7 @@
 				if(this.$refs.vid && this.$refs.vid.setRun){
 					this.$refs.vid.setRun();
 				}
-				
+				this.bfMax = this.getSc();
 				this.puandFn();
 				this.bfTime = 0;
 				this.playT = 0;
@@ -553,6 +554,7 @@
 			},
 			/*播放相关*/
 			playAll(){	
+				
 				if(this.navcoms.media.length==0){
 					this.$message({
 						message:'请先添加内容'
@@ -566,15 +568,13 @@
 				if(this.$refs.vid && this.$refs.vid.setRun){
 					this.$refs.vid.setRun();
 				}
-				
+				this.bfMax = this.getSc();
 				if(this.playT==1){
 					this.playT=2;
-					
 					this.puandFn();
 					return
-				}
-				let bd = this.backTim(this.navcoms.media[this.navcoms.media.length-1]); 
-				if(this.bfTime>=bd){
+				}				
+				if(this.bfTime>=this.bfMax){
 					this.bfTime=0;
 				}
 				
@@ -584,6 +584,9 @@
 				
 			},						
 			backPlayVideo(){
+				
+				
+				
 				let obj;
 				let on=0;
 				let arr = this.navcoms.media;
@@ -591,8 +594,18 @@
 				if(len==0){
 					return
 				}
-				let fn = ()=>{
+				
+				let meMax = this.backTim(arr[len-1]);
+				if(this.bfTime>meMax){
+					obj = {
+						type:'null',
+						endTime:this.bfMax-this.bfTime,							
+					};					
+					return
 					
+				}
+				
+				let fn = ()=>{
 					let star = arr[on].start,
 					end = this.backTim(arr[on]);
 					
@@ -619,6 +632,7 @@
 			},		
 			/*播放视频*/
 			playVideo(){
+				
 				let len = this.navcoms.media.length;
 				if(len==0){
 					this.puandFn();
@@ -740,8 +754,43 @@
 					this.playVideo();
 					return
 				}
-				
+				if(this.bfTime<this.bfMax){
+					this.playSc();
+				}
 				this.playT = 0;					
+			},
+			playSc(){				
+				let ontim = this.bfTime;
+				let vtime = 0;
+				this.puandFn2();
+				this.drmBg();	
+				this.valObj = setInterval(() => {
+					this.checkAdio();
+					vtime+=.05;
+					this.bfTime = ontim+vtime;
+					if (this.bfTime >= this.bfMax) {
+						this.bfTime = this.bfMax;
+							clearTimeout(this.valObj);					
+							this.endeds();					
+						}
+				}, 50);				
+			},
+			getSc(){
+				let len1 = this.navcoms.media.length;
+				let len2 = this.navcoms.decorates.length;
+				let maxTime =0;
+				if(len1>0){
+					maxTime = this.backTim(this.navcoms.media[len1-1]);
+				}
+				if(len2>0){
+					let len3 = this.navcoms.decorates[len2-1].length;
+					let onbj = this.navcoms.decorates[len2-1][len3-1];
+					if(onbj){
+						let zst = this.backTim(onbj);						
+						maxTime = zst>maxTime?zst:maxTime;
+					}	
+				}
+				return maxTime;
 			},
 			timeupdatevideo() {
 				// this.checkAdio();
@@ -1204,7 +1253,7 @@
 				let ond = onc - 1;
 				let ondn = onc + 1;
 				let tms = el.cut_end - el.cut_start;
-
+				
 				let prEnd, prStar, nxEnd, nxStar;
 				let prd = list[ond];
 				if (prd) {
@@ -1234,6 +1283,7 @@
 					if (dd < 0) {
 						dd = 0;
 					}
+					
 					el.start = dd;
 				}
 				document.onmouseup = (e) => {
