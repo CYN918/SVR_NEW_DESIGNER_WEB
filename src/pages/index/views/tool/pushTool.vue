@@ -937,14 +937,16 @@
 					return
 				}
 				e.preventDefault();
-				let len = this.navcoms.media.length;
+				
 				let maxd = 0;
 				let pd = 0;
-				if(len>0){
-					let maxd = Math.ceil(this.navcoms.maxTime / this.fdjb) * 210;
-					len = this.$refs.gund_01x.offsetWidth;
-					pd = (maxd - len)/(maxd / len);
-				}
+				maxd = Math.ceil(this.navcoms.maxTime / this.fdjb) * 210;
+			
+				let len = this.$refs.gund_01x.offsetWidth;
+				
+				len = len/this.fdjb;
+				
+				pd = (maxd - len)/(maxd / len);
 				
 				var kd = e.wheelDelta ? e.wheelDelta : e.detail;
 				if (kd > 0) {	
