@@ -40,9 +40,9 @@
                 <p>微信公众号</p>
             </div>
         </div>
-        <div class="nav_rig_1" v-if="visualWidth_1">
+        <div class="nav_rig_1" v-if="visualWidth_1" @mouseenter="mouseover('g')">
             <ul>
-                <li class="nav_logo_1" @mouseenter="mouseover('g')"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
+                <li class="nav_logo_1"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
             </ul>
         </div>
     </div>  
@@ -329,6 +329,8 @@ export default {
         top: 40%;
         z-index: 999999;
         cursor: pointer;
+        width: 95px;
+        height: 800px;
     }
     .nav_logo_1{
         transform:rotate(-53deg);

@@ -10,9 +10,9 @@
 		<div class="hotCent">
 			<div class="hotCent2">
 				<ul>
-					<li id="nav_tolt" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')"><img class="hotBaner" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_upload" @click="go_project()">去挑选项目</button></li>
-					<li id="nav_upload" @mouseenter="mouseover('b')" @mouseleave="mouseLeave('b')" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-cjxm.svg'"><button class="go_upload" @click="go_upload()">上传原创作品</button></li>
-					<li id="nav_logo" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-dsp.svg'"><button class="go_upload" @click="go_show()">前往制作来电秀</button></li>
+					<li id="nav_tolt"><img class="hotBaner" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_upload" @click="go_project()">去挑选项目</button></li>
+					<li id="nav_upload" class="t"><img class="hotBaner" @mouseenter="mouseover('b')" @mouseleave="mouseLeave('b')" :src="imgSig+'toltImg/zq-cjxm.svg'"><button class="go_upload" @click="go_upload()">上传原创作品</button></li>
+					<li id="nav_logo" class="t"><img class="hotBaner" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')" :src="imgSig+'toltImg/zq-dsp.svg'"><button class="go_upload" @click="go_show()">前往制作来电秀</button></li>
 				</ul>
 					
 			</div>
