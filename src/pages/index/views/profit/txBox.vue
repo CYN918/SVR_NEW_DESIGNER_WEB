@@ -430,7 +430,8 @@ export default {
 			this.api.Income_applyCash(pr).then((da)=>{
 				if(da=='error'){return}
 				Message({message: '申请成功请耐心等待审核'});
-				this.$parent.txcg(pr.cash_money);			
+				this.$parent.txcg(pr.cash_money);	
+				this.$parent.getData();		
 			});	
 		},
 		editPhone(){
