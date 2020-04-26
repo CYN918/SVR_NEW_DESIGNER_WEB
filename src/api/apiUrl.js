@@ -8,6 +8,11 @@ export default {
 	thirdLogin:{
 		url:'/Passport/user/thirdLogin',method:'get',baseURL:0
 	},
+
+	dividedList:{
+		url: '/Api/Appshow/AdvancePayment',method:'post',baseURL:0
+
+	},
 	
 
 	logout:{

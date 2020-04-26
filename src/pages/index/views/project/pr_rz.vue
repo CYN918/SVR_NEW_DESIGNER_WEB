@@ -32,6 +32,10 @@ export default {
 	data(){
 		return{}
 	},
+	created(){
+		console.log(this.datad)
+
+	},
 	methods: {	
 		gorz(){
 			this.is='';
