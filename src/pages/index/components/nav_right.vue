@@ -40,8 +40,8 @@
                 <p>微信公众号</p>
             </div>
         </div>
-        <div class="nav_rig_1" v-if="visualWidth_1" @mouseenter="mouseover('g')">
-            <ul>
+        <div class="nav_rig_1" v-if="visualWidth_1">
+            <ul @mouseenter="mouseover('g')">
                 <li class="nav_logo_1"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
             </ul>
         </div>
