@@ -9,10 +9,15 @@
 						<div>完成供稿人认证</div>
 						<div class="btns btns_js pend" style="background:#999999;border-color:#999999;color:#FFFFFF;">认证审核中</div>
 					</div>
-					<div v-if="datad.contributor_format_status == '0' || datad.contributor_format_status == '-1'">
+					<div v-if="datad.contributor_format_status == '0'">
 						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/rz_01.svg" alt="">
 						<div>完成供稿人认证</div>
 						<div @click="goTo('/setPersonal')" class="btns btns_js pend">立即认证</div>
+					</div>
+					<div v-if="datad.contributor_format_status == '-1'">
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/rz_01.svg" alt="">
+						<div>完成供稿人认证</div>
+						<div @click="goTo('/setPersonal')" class="btns btns_js pend" style="background:#999999;border-color:#999999;color:#FFFFFF;">认证失败再次认证</div>
 					</div>
 					<div @click="goTo('/upload')" v-if="datad.work_num<=3">
 						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/rz_02.svg" alt="">
