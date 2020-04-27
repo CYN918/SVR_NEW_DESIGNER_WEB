@@ -1378,7 +1378,7 @@
 				let startX = e.pageX,
 				oldCut_end = el.cut_end,
 				max = el.type == 'pic'?999999:el.long,
-				min = el.cut_start + 1;	
+				min = el.cut_start + .1;	
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
@@ -1497,7 +1497,7 @@
 				let startX = e.pageX,
 				oldStart = el.start,
 				oldCut_start = el.cut_start,
-				max = el.cut_end-1,
+				max = el.cut_end-.1,
 				min = 0;	
 				if(list[index-1]){
 					let po2 =  this.backTim(list[index-1]); 
