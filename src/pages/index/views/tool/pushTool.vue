@@ -523,6 +523,14 @@
 					})
 					return
 				}
+				if(this.$refs.setAdios){
+					this.$refs.setAdios.pause();
+				}
+				
+				if(this.$refs.vid && this.$refs.vid.setRun){
+					this.$refs.vid.setRun();
+				}
+				
 				this.setPreviewObj();
 				let bfObj = this.preview.previewObj;
 				
@@ -900,7 +908,7 @@
 			},
 			/*检测是否播放音乐*/
 			checkAdio(){
-				if(this.playT!=1){
+				if(this.preview.state!=1){
 					return
 				}
 				let ado = this.navcoms.audio[0];
@@ -1007,19 +1015,12 @@
 			},
 			
 			playFn(obj){
-				if(this.playT==1){
-					if (this.$refs.vids) {
-						this.$refs.vids.pause();
-					}
-					if (this.$refs.aido) {
-						this.$refs.aido.pause();
-					}
-					this.puandFn2();
-					this.playT=2;
-					
+				if(this.preview.state==1){
+					this.setPreviewState(2);
 				}
 				if(obj){
 					obj.play();
+					
 				}
 				
 				
@@ -1032,6 +1033,7 @@
 				if(this.$refs.vid && this.$refs.vid.setRun){
 					this.$refs.vid.setRun();
 				}
+				
 			},
 			setcurrentTime(t){
 				this.$refs.setAdios.currentTime = t;
