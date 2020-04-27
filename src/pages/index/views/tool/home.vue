@@ -10,9 +10,9 @@
 		<div class="hotCent">
 			<div class="hotCent2">
 				<ul>
-					<li id="nav_tolt" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')"><img class="hotBaner" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_upload" @click="go_project()">去挑选项目</button></li>
-					<li id="nav_upload" class="t" @mouseenter="mouseover('b')" @mouseleave="mouseLeave('b')"><img class="hotBaner" :src="imgSig+'toltImg/zq-cjxm.svg'"><button class="go_upload" @click="go_upload()">上传原创作品</button></li>
-					<li id="nav_logo" class="t" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="hotBaner" :src="imgSig+'toltImg/zq-dsp.svg'"><button class="go_upload" @click="go_show()">前往制作来电秀</button></li>
+					<li id="nav_tolt"><img class="hotBaner" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_upload" @click="go_project()">去挑选项目</button></li>
+					<li id="nav_upload" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-cjxm.svg'"><button class="go_upload" @click="go_upload()">上传原创作品</button></li>
+					<li id="nav_logo" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-dsp.svg'"><button class="go_upload" @click="go_show()">前往制作来电秀</button></li>
 				</ul>
 					
 			</div>
@@ -52,28 +52,6 @@ export default{
 			}
 			
 		},
-		mouseover(type){
-            if(type == 'a'){
-                document.getElementById('nav_tolt').style.top = '-19px'
-            }
-            if(type == 'b'){
-                document.getElementById('nav_upload').style.top = '-19px'
-            }  
-            if(type == 'c'){
-                document.getElementById('nav_logo').style.top = '-19px'
-            }
-		},
-		mouseLeave(type){
-            if(type == 'a'){
-                document.getElementById('nav_tolt').style.top = '0px'
-            } 
-            if(type == 'b'){
-                document.getElementById('nav_upload').style.top = '0px'
-            } 
-            if(type == 'c'){
-                document.getElementById('nav_logo').style.top = '0px'
-            }
-        },
 		godd(){
 			
 			if(!window.userInfo){
@@ -207,6 +185,9 @@ export default{
 	position: relative;
 	text-align: center;
 	top: 0px;
+}
+.hotCent2 > ul > li:hover{
+	top: -19px;
 }
 .hotCent2 > ul > li > button{
 	position: relative;
