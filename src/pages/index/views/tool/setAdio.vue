@@ -983,6 +983,7 @@ export default{
 	pointer-events: auto;
 }
 .mp3_04{
+	flex: 1;
 	overflow: hidden;
 	overflow-y: auto;
 	box-sizing: border-box;

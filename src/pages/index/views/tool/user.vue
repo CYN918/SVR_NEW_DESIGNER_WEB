@@ -58,6 +58,7 @@
 					</div>
 					<div class="qxBm_btns_1 qxBm_btns_1x2">
 						<inputMax
+							:placeholder="'请输入来电秀名称'"
 							v-model="title"
 							:max="20"
 						>

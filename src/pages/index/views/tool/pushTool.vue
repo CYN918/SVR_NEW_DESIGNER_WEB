@@ -575,6 +575,7 @@
 				if(this.$refs.aido && !this.$refs.aido.paused){
 					this.$refs.aido.pause();
 				}
+			
 			},	
 			setPreviewTimes(el,type,isdur){
 				if(this.preview.state==1){
@@ -670,29 +671,29 @@
 				e.preventDefault();
 				e.currentTarget.className = 'setToll'
 			},
+		
 			drmOn(){
 				this.setPreviewObj();
 			
 				let obd = this.preview.previewObj;
-			
+				console.log(obd);
 				if(!obd || obd.type=='null'){
 					this.drmBg();
 					return
 				}
 				if(obd.type=='video'){
-					if(this.$refs.vids.src!=obd.file_url){
-						this.$refs.vids.src=obd.file_url;	
-					}
-					this.$refs.vids.currentTime = (this.preview.onTime - obd.start)+obd.cut_start;
-					
-					let ob = obd;
-					clearTimeout(this.psd)
-					this.psd = setTimeout(()=>{
+					let fn = ()=>{
+						this.$refs.vids.currentTime = (this.preview.onTime - obd.start)+obd.cut_start;
+						let ob = obd;					
 						this.drmBg();
-						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);						
-					
-					
-					},500)
+						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
+						setTimeout(()=>{
+							this.$refs.vids.removeEventListener('canplay',fn);
+						},500)
+						
+					}
+					this.$refs.vids.addEventListener('canplay',fn);
+					this.$refs.vids.src=obd.file_url;	
 					
 					return
 				}
@@ -1019,8 +1020,7 @@
 					this.setPreviewState(2);
 				}
 				if(obj){
-					obj.play();
-					
+					obj.play();					
 				}
 				
 				
@@ -1813,6 +1813,11 @@
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false)
 				this.zoomd = this.boxW/391;
+				this.$refs.cavs.width = this.boxW;
+				this.$refs.cavs.height = this.boxH;
+				this.cans = this.$refs.cavs.getContext("2d");
+				this.cans.fillStyle = "#000";
+				this.cans.fillRect(0, 0, this.boxW, this.boxH);
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
 					this.form.title = op.title;
@@ -1840,19 +1845,14 @@
 					
 					
 					this.form.id = op.id;
-					this.setMaxTime();
+					this.setPreviewTimes('','del',1);
+					this.drmOn();
 				}
 				this.savsout();
 				
 				document.addEventListener('keydown',this.LineKey, false);
 				this.$refs.gdbox.addEventListener('mousewheel', this.LineWheel, false)
-
-
-				this.$refs.cavs.width = this.boxW;
-				this.$refs.cavs.height = this.boxH;
-				this.cans = this.$refs.cavs.getContext("2d");
-				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, this.boxW, this.boxH);
+				
 				this.$refs.vids.addEventListener('play',this.LinePlay, false);
 				this.$refs.vids.addEventListener('pause',this.LineClerDrm, false);
 				this.$refs.vids.addEventListener('ended',this.LineClerDrm, false);
