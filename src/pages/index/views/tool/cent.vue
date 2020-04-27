@@ -100,19 +100,24 @@ export default{
 			},
 			Ischeck:false,
 			jsons:{},
+			isBFdjs:''
 		}
 		
 	},
 	
 	methods:{
 		ybf(){
-			if(this.$refs.video){
-				this.$refs.video.currentTime = 0;
-				this.$refs.video.play();
-			}
+			clearTimeout(this.isBFdjs);
+			this.isBFdjs = setTimeout(()=>{
+				if(this.$refs.video){
+					this.$refs.video.currentTime = 0;
+					this.$refs.video.play();
+				}
+			},200)
 			
 		},
 		stopbf(){
+			clearTimeout(this.isBFdjs);
 			if(this.$refs.video && !this.$refs.video.paused){
 				this.$refs.video.pause();
 				this.$refs.video.currentTime = 0;
@@ -123,7 +128,6 @@ export default{
 		
 			try{
 				this.jsons = JSON.parse(this.el.json);
-				console.log(this.jsons);
 			}catch(e){
 				//TODO handle the exception
 			}
@@ -171,11 +175,8 @@ export default{
 				this.api.rejectInfo({
 					project_id:id
 				}).then(da=>{
-					//console.log(da)
 					this.checkinfo = da;
 					this.Ischeck = !this.Ischeck
-				}).catch(da=>{
-					
 				})
 			}
 			

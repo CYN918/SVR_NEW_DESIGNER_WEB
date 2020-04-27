@@ -335,8 +335,7 @@ export default{
 						ischeck:'',
 				};				
 				this.value.audio.splice(0,1,pr);
-				this.$parent.setMaxTime(pr);
-				this.$parent.puandFn2();
+				this.$parent.setPreviewTimes(pr,'audio',1);
 				this.$message({
 					message:"选用成功"
 				})
@@ -984,6 +983,7 @@ export default{
 	pointer-events: auto;
 }
 .mp3_04{
+	flex: 1;
 	overflow: hidden;
 	overflow-y: auto;
 	box-sizing: border-box;

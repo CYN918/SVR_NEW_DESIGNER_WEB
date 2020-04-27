@@ -1,6 +1,6 @@
 <template>
 	<div class="input_max">
-		<input type="text" v-model="input" name="" id="">
+		<input :placeholder="placeholder" type="text" v-model="input" name="" id="">
 		<span>{{input.length}}/{{max}}</span>
 	</div>
 </template>
@@ -15,6 +15,10 @@ export default{
 		max:{
 			default:0,
 			type:Number
+		},
+		placeholder:{
+			default:'',
+			type:String
 		}
 	},
 

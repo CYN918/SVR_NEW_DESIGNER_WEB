@@ -29,7 +29,8 @@
 							<div v-for="(el,index) in navcoms.decorates" :class="playT==1?'setop':''">
 								<span v-for="(el2,index2) in el">
 									<div
-									v-if="backTim(el2)>=bfTime && bfTime>=el2.start"
+									
+									v-if="el2.start<preview.onTime && backTim(el2)>=preview.onTime"
 									>
 										<setDevs v-model="navcoms.decorates[index][index2]"></setDevs>
 									</div>					
@@ -55,14 +56,14 @@
 						</span>
 					</div>
 					<div class="ntob_cent_l_2_2">
-						<span @click="newPlay" class="an_sx_01">
+						<span @click="playd(1)" class="an_sx_01">
 							<img src="/imge/tools/v_sx.svg" />
-						</span><span @click="playAll" class="an_bf_01">
-							<img :src="'/imge/tools/'+(playT==1?'icon_view_stop_def':'v_play')+'.svg'" />
+						</span><span @click="playd()" class="an_bf_01">
+							<img :src="'/imge/tools/'+(preview.state==1?'icon_view_stop_def':'v_play')+'.svg'" />
 						
 							
 						</span>
-						<span>{{bckti(parseInt(bfTime))}}</span> / <span class="tme_091">{{bckti(parseInt(navcoms.maxTime))}}</span>
+						<span>{{bckti(parseInt(preview.onTime))}}</span> / <span class="tme_091">{{bckti(parseInt(preview.maxTime))}}</span>
 					</div>
 					<div class="ntob_cent_l_2_3">
 						<span @click="showCc2" class="bl_000">
@@ -265,6 +266,11 @@
 				</div>
 			</div>
 			<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
+			<div>
+				<span v-for="el in navcoms.media">
+					<video v-if="el.type=='video'"  class="ntob_cent_l_1" :src="el.file_url"></video>
+				</span>
+			</div>
 			
 			
 			<audio 
@@ -431,6 +437,17 @@
 				IsShowStyle:false,
 				indexstyle:0,
 				bfMax:0,
+				
+				previewSatae:0,
+				/*预览对象*/
+				preview:{
+					/*state 0停止；1播放中；2暂停*/
+					state:0,
+					previewObj:{},
+					maxTime:0,
+					onTime:0,
+					duration:0,
+				}
 			}
 		},
 		mounted: function() {
@@ -450,18 +467,195 @@
 			fdjb() {
 				this.bl = this.fdjb / 10;
 			},
-			'form.title'(a,b){
+			'form.title'(a){
 				if(a.length>20){
 					this.form.title = a.substring(0,20);				
 				}
 			},
-			bfTime(a,b){
+			bfTime(a){
 				if(a<0){
-					this.bfTime = 0;
+					this.preview.onTime = 0;
 				}
+			},
+			'preview.state'(newD,oldeD){
+			
+				switch(newD) {
+				     case 1:
+						this.playPreview();
+						break;
+				     case 2:
+				        this.puandFn();
+						break;
+				} 
+				
 			},
 		},
 		methods: {
+			setPreviewState(n){
+				this.preview.state = n;
+			},
+			setPreviewData(n,v){
+				this.preview[n] = v;
+			},
+			playd(a){
+				if(a){
+					this.preview.onTime = 0;
+					if(this.preview.state ==1){
+						this.playPreview();
+						return
+					}
+					
+				}
+				if(this.preview.state==0 && this.preview.onTime>=this.preview.maxTime){
+					this.preview.onTime = 0;
+				}
+				if(this.preview.state==1){
+					this.preview.state = 2;
+				}else{
+					this.preview.state = 1;
+				}
+			},
+			playPreview(){
+			
+				if(this.navcoms.media.length==0){
+					this.$message({
+						message:'请先添加内容'
+					})
+					return
+				}
+				if(this.$refs.setAdios){
+					this.$refs.setAdios.pause();
+				}
+				
+				if(this.$refs.vid && this.$refs.vid.setRun){
+					this.$refs.vid.setRun();
+				}
+				
+				this.setPreviewObj();
+				let bfObj = this.preview.previewObj;
+				
+							
+				if(bfObj.type=='null'){
+					this.drmNull(bfObj);
+					return
+				}
+				if(bfObj.type=='pic'){
+					this.drmImg(bfObj);
+					return
+				}				
+				if(!this.$refs.vids){
+					return
+				}
+			
+				if(this.$refs.vids.src!=bfObj.file_url){
+					
+					this.$refs.vids.src=bfObj.file_url;	
+				}
+				
+				let onto = (this.preview.onTime - bfObj.start)+bfObj.cut_start;
+				
+				if(this.$refs.vids.currentTime!=onto){
+				
+					this.$refs.vids.currentTime = onto;
+				}
+				this.$refs.vids.pause();
+				setTimeout(()=>{
+					this.$refs.vids.play();
+				},10)
+					
+				
+				
+						
+			},
+			puandFn(){
+				this.stopDr();
+				if(this.$refs.vids && !this.$refs.vids.paused){
+					this.$refs.vids.pause();					
+				}
+				if(this.$refs.aido && !this.$refs.aido.paused){
+					this.$refs.aido.pause();
+				}
+			
+			},	
+			setPreviewTimes(el,type,isdur){
+				if(this.preview.state==1){
+					this.setPreviewState(2);
+				}			
+				let maxt = 0;
+				if(el){
+					maxt = this.backTim(el);
+					if(maxt>this.preview.maxTime){
+						if(type!='audio'){
+							this.preview.maxTime = maxt;
+						}												
+					}
+					if(isdur && maxt>this.preview.duration){
+						this.preview.duration = maxt;
+					}					
+					return
+				}
+				let time = 0;				
+				if(type=='media' || type=='del'){
+					let mediaArry = this.navcoms.media,
+					len1 = mediaArry.length;
+					if(len1>0){
+						time = this.backTim(mediaArry[len1-1]);
+					}
+					
+				}
+				if(type=='decorates' || type=='del'){
+					let decoratesArry = this.navcoms.decorates;
+					for(let i =0,n=decoratesArry.length;i<n;i++){
+						let nd = decoratesArry[i];
+						for(let i2=0,n2=nd.length;i2<n2;i2++){
+							let tim = this.backTim(nd[i2]);
+							if(tim>time){
+								time = tim;
+							}
+						}
+					}					
+				}
+				this.preview.maxTime = time;
+				if((type=='audio' || type=='del') && isdur){
+				
+					let audioArry = this.navcoms.audio,
+					len2 = audioArry.length;
+					if(len2>0){
+						let tim = this.backTim(audioArry[len2-1]);
+						if(tim>time){
+							time = tim;
+						}
+					}					
+				}
+				if(isdur){
+					this.preview.duration = time;
+				}
+				
+			},			
+			setPreviewObj(){
+				let pd = this.navcoms.media,on=0,len = pd.length,	
+				obj = {};
+				var fn = ()=>{
+					let onT = this.preview.onTime;
+					if(!pd[on]){
+						obj = {type:'null',end:this.preview.maxTime};
+						return
+					}
+					if(onT<pd[on].start){
+						obj = {type:'null',end:pd[on].start};
+						return
+					}
+					let end = this.backTim(pd[on]);
+					if(this.preview.onTime<end){
+						obj = pd[on];
+						return 
+					}
+					on++;
+					fn();			
+				}
+				fn();
+				this.preview.previewObj = obj;		
+			},			
 			setCheckOn(obj){
 				if(this.checkOn.list){
 					this.checkOn.list[this.checkOn.on].ischeck='';
@@ -477,32 +671,29 @@
 				e.preventDefault();
 				e.currentTarget.className = 'setToll'
 			},
-			backISx(el){
-				
-			},
+		
 			drmOn(){
-				let obd = this.backPlayVideo();
-				this.bfObj = obd;
+				this.setPreviewObj();
+			
+				let obd = this.preview.previewObj;
+				console.log(obd);
 				if(!obd || obd.type=='null'){
 					this.drmBg();
 					return
 				}
-				
-				
-				
 				if(obd.type=='video'){
-					if(this.$refs.vids.src!=obd.file_url){
-						this.$refs.vids.src=obd.file_url;	
-					}
-					this.$refs.vids.currentTime = (this.bfTime - obd.start)+obd.cut_start;
-					
-					let ob = obd;
-					clearTimeout(this.psd)
-					
-					this.psd = setTimeout(()=>{
+					let fn = ()=>{
+						this.$refs.vids.currentTime = (this.preview.onTime - obd.start)+obd.cut_start;
+						let ob = obd;					
 						this.drmBg();
-						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);						
-					},100)
+						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
+						setTimeout(()=>{
+							this.$refs.vids.removeEventListener('canplay',fn);
+						},500)
+						
+					}
+					this.$refs.vids.addEventListener('canplay',fn);
+					this.$refs.vids.src=obd.file_url;	
 					
 					return
 				}
@@ -522,18 +713,18 @@
 			/*暂停播放*/
 			/*playT 0初始状态or结束状态 1播放状态 2暂停状态*/
 			kdClick(e){
-				let cs = this.bfTime;
+				let cs = this.preview.onTime;
 				this.puandFn2()
 				e.preventDefault();			
 				let dd =(e.x-120)/ (this.wdk / this.bl);				
 				if(dd<0){dd=0}
-				this.bfTime = dd;
+				this.preview.onTime = dd;
 				this.drmOn()
 			},			
 			todTime(e) {
 				e.preventDefault();
 				let tdStar = e.pageX;
-				let cs = this.bfTime;
+				let cs = this.preview.onTime;
 				this.puandFn2()
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
@@ -541,7 +732,7 @@
 					let on = -(tdStar - e.pageX) / (this.wdk / this.bl);			
 					let dd = +cs + on;
 					if(dd<0){dd=0}
-					this.bfTime = dd;
+					this.preview.onTime = dd;
 					
 				}
 				document.onmouseup = (e) => {
@@ -566,7 +757,7 @@
 				}
 				this.bfMax = this.getSc();
 				this.puandFn();
-				this.bfTime = 0;
+				this.preview.onTime = 0;
 				this.playT = 0;
 				this.playVideo();
 			},
@@ -587,48 +778,19 @@
 				this.playT = 2;
 			},
 			/*播放相关*/
-			playAll(){	
-				
-				if(this.navcoms.media.length==0){
-					this.$message({
-						message:'请先添加内容'
-					})
-					return
-				}
-				if(this.$refs.setAdios){
-					this.$refs.setAdios.pause();
-				}
-				
-				if(this.$refs.vid && this.$refs.vid.setRun){
-					this.$refs.vid.setRun();
-				}
-				this.bfMax = this.getSc();
-				if(this.playT==1){
-					this.playT=2;
-					this.puandFn();
-					return
-				}				
-				if(this.bfTime>=this.bfMax){
-					this.bfTime=0;
-				}
-				
-				this.playT=1;
-				this.playVideo();
-				return
-				
-			},						
+								
 			backPlayVideo(){
 				let pd = this.navcoms.media;
 				let on=0;			
 				let len = pd.length;
-				let obj = {type:'null',endTime:this.bfMax};
+				let obj = {type:'null',end:this.bfMax};
 				if(len==0){
 					return obj;
 				}
 				var fn = ()=>{
 					let end = this.backTim(pd[on]);
 					
-					if(this.bfTime>=pd[on].start && this.bfTime<end){
+					if(this.preview.onTime>=pd[on].start && this.preview.onTime<end){
 						obj = pd[on];
 						return 
 					}
@@ -638,8 +800,8 @@
 					if(!pd[on]){						 
 						return ;
 					}
-					if(this.bfTime<pd[on].start){
-						obj = {type:'null',endTime:pd[on].start};
+					if(this.preview.onTime<pd[on].start){
+						obj = {type:'null',end:pd[on].start};
 						return
 					}
 					fn();			
@@ -676,12 +838,13 @@
 				if(this.$refs.vids.src!=this.bfObj.file_url){
 					this.$refs.vids.src=this.bfObj.file_url;	
 				}
-				this.$refs.vids.currentTime = (this.bfTime - this.bfObj.start)+this.bfObj.cut_start;
+				this.$refs.vids.currentTime = (this.preview.onTime - this.bfObj.start)+this.bfObj.cut_start;
+				
 				this.$refs.vids.play();
 			},
 			drmNull(onBj){
 				if(!onBj){return}
-				let ontim = this.bfTime;
+				let ontim = this.preview.onTime;
 				let vtime = 0;
 				this.videoPn();
 				this.drmBg();	
@@ -689,9 +852,9 @@
 					this.checkAdio();
 					vtime+=.05;
 																					
-					this.bfTime = ontim+vtime;
-					if (this.bfTime >= onBj.endTime) {
-						this.bfTime = onBj.endTime;
+					this.preview.onTime = ontim+vtime;
+					if (this.preview.onTime >= onBj.end) {
+						this.preview.onTime = onBj.end;
 							clearTimeout(this.valObj);					
 							this.endeds();					
 						}
@@ -706,20 +869,20 @@
 			/*检测是否是图片*/
 			drmImg(onBj) {
 				let a = document.createElement('img'),			
-				ontim = this.bfTime,
+				ontim = this.preview.onTime,
 				vtime = 0;
-				a.src = onBj.file_url;
-				this.videoPn();
+				a.src = onBj.file_url;	
+				let end = this.backTim(onBj);
 				a.onload = () => {
 					this.drmBg();
 					this.cans.drawImage(a,onBj.sx,onBj.sy,onBj.sw,onBj.sh,onBj.x,onBj.y,onBj.w,onBj.h);
 					this.valObj = setInterval(() => {					
 						vtime = vtime + .05;			
-						this.bfTime = ontim+vtime;
+						this.preview.onTime = ontim+vtime;
 						this.checkAdio();
-						if (this.bfTime>=onBj.endTime){
+						if (this.preview.onTime>=end){
 							clearTimeout(this.valObj);	
-							this.bfTime = onBj.endTime;
+							this.preview.onTime = end;
 							this.endeds();						
 						}
 					}, 50);
@@ -741,24 +904,24 @@
 					return
 				}	
 				
-				this.$refs.aido.currentTime =this.bfTime-onBj.start+onBj.cut_start;
+				this.$refs.aido.currentTime =this.preview.onTime-onBj.start+onBj.cut_start;
 				this.$refs.aido.play();
 			},
 			/*检测是否播放音乐*/
 			checkAdio(){
-				if(this.playT!=1){
+				if(this.preview.state!=1){
 					return
 				}
 				let ado = this.navcoms.audio[0];
 				if(!ado){
 					return
 				}
-				let endTime = this.backTim(ado);
+				let end = this.backTim(ado);
 				
-				if(this.bfTime<ado.start || this.bfTime>endTime){
+				if(this.preview.onTime<ado.start || this.preview.onTime>end){
 					return
 				}
-				
+			
 				this.playAdio_d();						
 			},
 	
@@ -769,23 +932,16 @@
 			},
 			
 			endeds() {
-				let len = this.navcoms.media.length;
-				let ktime = this.backTim(this.navcoms.media[len-1]);
 				
-				if(this.bfTime<ktime){
-					this.playVideo();
+				if(this.preview.onTime<this.preview.maxTime){
+					
+					this.playPreview();
 					return
 				}
-			
-				if(this.bfTime<this.bfMax){
-					this.playSc();
-					return
-				}
-				this.playT = 0;					
+				this.setPreviewState(0);				
 			},
 			playSc(){
-				
-				let ontim = this.bfTime;
+				let ontim = this.preview.onTime;
 				let vtime = 0;
 				this.puandFn();
 				this.playT=1;
@@ -794,9 +950,9 @@
 					
 					this.checkAdio();
 					vtime+=.05;
-					this.bfTime = ontim+vtime;
-					if (this.bfTime >= this.bfMax) {
-						this.bfTime = this.bfMax;
+					this.preview.onTime = ontim+vtime;
+					if (this.preview.onTime >= this.bfMax) {
+						this.preview.onTime = this.bfMax;
 							clearTimeout(this.valObj);					
 							this.endeds();					
 						}
@@ -821,19 +977,13 @@
 			},
 			timeupdatevideo() {
 				this.checkAdio();
-			
-				if(this.bfObj.type!='video'){
-					this.$refs.vids.pause();
-					return
-				}
-				let onT = this.$refs.vids.currentTime;						
-				onT = onT?onT:0;
-								
-				if (onT >= this.bfObj.cut_end) {
-					this.$refs.vids.pause();
-					this.endeds();
+				// let onT = this.$refs.vids.currentTime;						
+				// onT = onT?onT:0;
+				
+				// if (onT >= this.preview.previewObj.cut_end) {
+				// 	this.endeds();
 					
-				}
+				// }
 			},
 			timeupdatevideo2(){
 				let objd = this.navcoms.audio[0],
@@ -866,19 +1016,11 @@
 			},
 			
 			playFn(obj){
-				if(this.playT==1){
-					if (this.$refs.vids) {
-						this.$refs.vids.pause();
-					}
-					if (this.$refs.aido) {
-						this.$refs.aido.pause();
-					}
-					this.puandFn2();
-					this.playT=2;
-					
+				if(this.preview.state==1){
+					this.setPreviewState(2);
 				}
 				if(obj){
-					obj.play();
+					obj.play();					
 				}
 				
 				
@@ -891,6 +1033,7 @@
 				if(this.$refs.vid && this.$refs.vid.setRun){
 					this.$refs.vid.setRun();
 				}
+				
 			},
 			setcurrentTime(t){
 				this.$refs.setAdios.currentTime = t;
@@ -906,7 +1049,7 @@
 				}
 			},
 			backbft(){
-				return 'transform: translateX('+((this.bfTime/this.bl) * this.wdk)+'px);';
+				return 'transform: translateX('+((this.preview.onTime/this.bl) * this.wdk)+'px);';
 			},
 			LineKey(e){
 				let ctrlKey = e.ctrlKey || e.metaKey,
@@ -925,7 +1068,7 @@
 				}
 				if (e.keyCode == 32) {
 					e.preventDefault()
-					this.playAll();
+					this.playPreview();
 					return
 				}
 			},
@@ -940,7 +1083,7 @@
 				
 				let maxd = 0;
 				let pd = 0;
-				maxd = Math.ceil(this.navcoms.maxTime / this.fdjb) * 210;
+				maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 			
 				let len = this.$refs.gund_01x.offsetWidth;
 				
@@ -1102,7 +1245,7 @@
 				if (!this.$refs.gund_01x) {
 					return
 				}
-				let maxd = Math.ceil(this.navcoms.maxTime / this.fdjb) * 210;
+				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len = this.$refs.gund_01x.offsetWidth;
 				let bl = len / maxd;
 
@@ -1120,7 +1263,7 @@
 				if (!this.$refs.gund_01x) {
 					return
 				}
-				let maxd = Math.ceil(this.navcoms.maxTime / this.fdjb) * 210;
+				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len = this.$refs.gund_01x.offsetWidth;
 				let pd = maxd / len;
 
@@ -1235,7 +1378,7 @@
 				let startX = e.pageX,
 				oldCut_end = el.cut_end,
 				max = el.type == 'pic'?999999:el.long,
-				min = el.cut_start + 1;	
+				min = el.cut_start + .1;	
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
@@ -1253,8 +1396,8 @@
 				}
 				document.onmouseup = () => {
 					document.onmousemove = document.onmouseup = null;
-					this.puandFn2();
-					this.setMaxTime(el);
+					this.puandFn();
+					this.setPreviewTimes('','del');				
 					this.drmOn();
 				}
 			},
@@ -1335,8 +1478,8 @@
 							list.splice(onc, 2, list[ondn], list[onc]);
 						}
 					}
-					this.puandFn2();
-					this.setMaxTime(el);
+					this.puandFn();
+					this.setPreviewTimes('','del');				
 					this.drmOn();
 					this.IsShowStyle = false;
 					
@@ -1354,7 +1497,7 @@
 				let startX = e.pageX,
 				oldStart = el.start,
 				oldCut_start = el.cut_start,
-				max = el.cut_end-1,
+				max = el.cut_end-.1,
 				min = 0;	
 				if(list[index-1]){
 					let po2 =  this.backTim(list[index-1]); 
@@ -1380,9 +1523,9 @@
 				}
 				document.onmouseup = () => {
 					document.onmousemove = document.onmouseup = null;
-					this.puandFn2();
-					this.setMaxTime(el);
-					this.drmOn();					
+					this.puandFn();
+					this.setPreviewTimes('','del');					
+					this.drmOn();				
 				}
 			},
 			
@@ -1473,7 +1616,7 @@
 					decorates: this.navcoms.decorates
 				};
 
-				this.tanc.maxTime = this.navcoms.maxTime;
+				this.tanc.maxTime = this.preview.maxTime;
 			},
 			pastes() {
 				if(!this.checkOn.list){
@@ -1513,14 +1656,14 @@
 				}
 				this.puandFn2();
 				let maxt = this.backTim(onsd);
-				if(this.bfTime>=onsd.start && this.bfTime<maxt){
+				if(this.preview.onTime>=onsd.start && this.preview.onTime<maxt){
 					this.drmBg();
 				}			
 				this.checkOn.list.splice(this.checkOn.on,1);				
 				this.checkOn = {};	
-				this.setMaxTime('',1);
+				this.setPreviewTimes('','del',1);
 				if(this.navcoms.media.length==0){
-					this.bfTime = 0;
+					this.preview.onTime = 0;
 				}
 			},
 			setMaxTime(el,jq) {
@@ -1553,12 +1696,12 @@
 				}
 				maxt = times>maxt?times:maxt;
 				
-				if(maxt>this.navcoms.maxTime){
-					this.navcoms.maxTime = maxt;
+				if(maxt>this.preview.maxTime){
+					this.preview.maxTime = maxt;
 				}	
 							
 				if(jq){
-					this.navcoms.maxTime = maxt;
+					this.preview.maxTime = maxt;
 				}			
 			},
 			backTim(ob) {
@@ -1566,7 +1709,7 @@
 			},
 			backd() {
 				let str = '<span class="kd_02"><span>00:00:00:00</span></span>';
-				let tins = this.navcoms.maxTime;
+				let tins = this.preview.maxTime;
 				if (tins < 120) {
 					tins = 120;
 				}
@@ -1615,28 +1758,25 @@
 				this.$refs.vids.src = fi;
 			},
 			csy() {
-				// this.bfTime = this.bfObj.start + (onT-this.bfObj.cut_start);
-				// this.$refs.vids.currentTime = this.navcoms.media[this.bfon].cut_start;
-				// this.drm();
-				// setTimeout(() => {
-				// 	this.drm();
-				// }, 500);
+				
 			},
 			
 			LinePlay(){
+			
 				clearTimeout(this.valObj);
-				let ontime = this.bfTime;
+				let ontime = this.preview.onTime;
 				let toTim = 0;
-				let endt = this.backTim(this.bfObj);
+				let endt = this.backTim(this.preview.previewObj);
 				this.valObj = window.setInterval(() => {
-					if(!this.bfObj || this.bfObj.type!='video'){
+					
+					if(this.preview.previewObj.type!='video'){
 						window.clearInterval(this.valObj);
 					}	
 					this.checkAdio();
 					toTim+=.05;		
 						
 					this.cans.fillRect(0, 0, this.boxW, this.boxH);
-					let ob = this.bfObj;
+					let ob = this.preview.previewObj;
 					
 					this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
 					let po = this.cun[this.vdcc].x;
@@ -1644,14 +1784,16 @@
 						this.cans.fillRect(0, 0, po, this.boxH);
 						this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
 					}
-					this.bfTime = ontime + toTim;
+					this.preview.onTime = ontime + toTim;
 						
 					let onT = this.$refs.vids.currentTime;
 					
 					onT = onT?onT:0;				
 					
-					if (this.bfTime >= endt) {
+					if (this.preview.onTime >= endt) {
 						clearTimeout(this.valObj);
+						
+						this.endeds()
 					}	
 						
 				}, 50);
@@ -1671,6 +1813,11 @@
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false)
 				this.zoomd = this.boxW/391;
+				this.$refs.cavs.width = this.boxW;
+				this.$refs.cavs.height = this.boxH;
+				this.cans = this.$refs.cavs.getContext("2d");
+				this.cans.fillStyle = "#000";
+				this.cans.fillRect(0, 0, this.boxW, this.boxH);
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
 					this.form.title = op.title;
@@ -1698,19 +1845,14 @@
 					
 					
 					this.form.id = op.id;
-					this.setMaxTime();
+					this.setPreviewTimes('','del',1);
+					this.drmOn();
 				}
 				this.savsout();
 				
 				document.addEventListener('keydown',this.LineKey, false);
 				this.$refs.gdbox.addEventListener('mousewheel', this.LineWheel, false)
-
-
-				this.$refs.cavs.width = this.boxW;
-				this.$refs.cavs.height = this.boxH;
-				this.cans = this.$refs.cavs.getContext("2d");
-				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, this.boxW, this.boxH);
+				
 				this.$refs.vids.addEventListener('play',this.LinePlay, false);
 				this.$refs.vids.addEventListener('pause',this.LineClerDrm, false);
 				this.$refs.vids.addEventListener('ended',this.LineClerDrm, false);
@@ -1720,10 +1862,15 @@
 			},
 			cksd(){
 				
-				if(this.bfObj.type!='video'){
-					return
-				}
-				this.endeds()
+				// if(this.preview.onTime<this.preview.maxTime){
+				
+				// 	this.playPreview();
+				// 	return
+				// }
+				
+				// if(this.bfObj.type=='video'){
+				// 	this.endeds()
+				// }				
 			},
 			qhNav(o, zj) {
 				if (this.navson == o) {
@@ -1801,7 +1948,7 @@
 					})
 					return
 				}
-				if (this.navcoms.maxTime==0) {
+				if (this.preview.maxTime==0) {
 					if (a) {
 						return
 					}
@@ -2861,6 +3008,8 @@
 	.minzss{
 		pointer-events: none;
 		position: absolute;
+		max-width: 100%;
+		overflow: hidden;
 		top: 50%;
 		left: 10px;
 		color: #fff;
