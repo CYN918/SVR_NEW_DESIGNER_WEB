@@ -208,13 +208,10 @@ export default{
 						pr.w = (this.$parent.boxH/hd)*wd;
 						pr.x = (this.$parent.boxW-pr.w)/2;
 					}
-					
-					
 					this.value.decorates[this.$parent.Mos.on].push(pr);
-					this.$parent.setMaxTime(pr);
+					this.$parent.setPreviewTimes(pr,'decorates',1);
 				
-					this.$parent.puandFn2();	
-					this.$parent.showDevs(this.$parent.Mos.on,this.value.decorates[this.$parent.Mos.on].length-1);
+					// this.$parent.showDevs(this.$parent.Mos.on,this.value.decorates[this.$parent.Mos.on].length-1);
 				};
 		},
 		backtio(t){
@@ -341,9 +338,8 @@ export default{
 					}
 					
 					this.value.media.push(pr);	
-					this.$parent.setMaxTime(pr);
-					this.$parent.puandFn2();				
-					this.$parent.drmOn();
+					this.$parent.setPreviewTimes(pr,'media',1);	
+					this.$parent.drmOn();								
 				};
 		
 			}
@@ -367,8 +363,7 @@ export default{
 						pr.y = (this.$parent.boxH-pr.h)/2
 					}
 					this.value.media.push(pr);	
-					this.$parent.setMaxTime(pr);
-					this.$parent.puandFn2();
+					this.$parent.setPreviewTimes(pr,'media',1);
 					this.$parent.drmOn();
 				}
 			}			
