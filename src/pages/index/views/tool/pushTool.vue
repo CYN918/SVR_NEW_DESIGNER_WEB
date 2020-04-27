@@ -30,7 +30,7 @@
 								<span v-for="(el2,index2) in el">
 									<div
 									
-									v-if="el2.start<preview.onTime && backTim(el2)>=preview.onTime"
+									v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime"
 									>
 										<setDevs v-model="navcoms.decorates[index][index2]"></setDevs>
 									</div>					
@@ -1462,6 +1462,7 @@
 				document.onmouseup = (e) => {
 					e.preventDefault();
 					document.onmousemove = document.onmouseup = null;
+					this.checkOn.list[this.checkOn.on].ischeck = '';
 					let on = +(((e.pageX - this.tdStar) / wid) * el.long).toFixed(3);
 					let dd = Math.round(((+cs + (on)) * 100) / 100);
 					if (prStar || prStar == 0) {
@@ -1469,6 +1470,10 @@
 							list[onc].start = list[ond].start;
 							list[ond].start = list[onc].start + (list[onc].cut_end - list[onc].cut_start);
 							list.splice(ond, 2, list[onc], list[ond]);
+							// this.checkOn.list[this.checkOn.on].ischeck = '';
+							this.checkOn.on = ond;
+							// this.checkOn.on = ondn;
+							// this.checkOn.list[this.checkOn.on].ischeck = 1;
 						}
 					}
 					if (nxStar || nxStar == 0) {
@@ -1476,8 +1481,15 @@
 							list[ondn].start = list[onc].start;
 							list[onc].start = list[ondn].start + (list[ondn].cut_end - list[ondn].cut_start);
 							list.splice(onc, 2, list[ondn], list[onc]);
+							// this.checkOn.list[this.checkOn.on].ischeck = '';
+							this.checkOn.on = ondn;
+							// this.checkOn.on = ondn;
+							// this.checkOn.list[this.checkOn.on].ischeck = 1;
 						}
+						
 					}
+					console.log(this.checkOn.on);
+					this.checkOn.list[this.checkOn.on].ischeck = 1;
 					this.puandFn();
 					this.setPreviewTimes('','del');				
 					this.drmOn();

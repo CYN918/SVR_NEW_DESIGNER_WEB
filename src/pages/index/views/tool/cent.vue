@@ -2,7 +2,7 @@
 	<div class="ldx_l_1x">
 		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1fd2" >
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
-			<video @mouseover="ybf()" @mouseout="stopbf()" v-if="el.file_url" class="bof" muted ref="video" :src="el.file_url"></video>
+			<video @mouseover="ybf()" @mouseout="stopbf()" v-if="el.file_url" class="bof"  ref="video" :src="el.file_url"></video>
 			<div v-if="el.status==2 || el.status==1" class="ldxwc_yy">
 				<img src="/imge/tools/Upload_icon_music_24.svg" alt="">
 				<div>{{(jsons.audio && jsons.audio[0])?jsons.audio[0].author:'无歌手名'}}</div>
@@ -17,6 +17,13 @@
 				<img src="/imge/tools/LDXGC_icon_hcz.svg">
 				<span>合成中</span>
 			</div>
+			
+			<div class="hcsb2" v-if="el.file_url">
+				<div><img src="/imge/tools/icon_video_caller lis.svg" alt=""></div>
+				<div class="fol">00:01</div>
+			</div>
+			
+			
 			<div class="ldx_l_1_top" v-if="el.status==0 || el.status==-10">
 				<div class="ldx_l_1_top_btn" @click="changebtn()">···</div>
 				<div class="ldx_l_1_top_btn1" v-if="top_btn">
@@ -30,9 +37,7 @@
 					<span @click="bjfn(el.id)" class="pendno">编辑</span>
 				</div>
 	
-				<div class="ldx_l_1_btn2" v-if="el.status==10">
-					<span>合成中</span>
-				</div>
+				
 				
 				<div class="ldx_l_1_btn2" v-if="el.status==2 && Isbtn">
 					<span @click="gojg(el.project_id)" class="ldx_l_1_btn2_a">项目结果</span>
@@ -433,5 +438,27 @@ export default{
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+.hcsb2{
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	right: 10px;
+}
+.hcsb2>div{
+	display: inline-block;
+	vertical-align: top;
+	padding: 0 6px;
+	height:20px;
+	line-height: 20px;
+	background:rgba(0,0,0,.5);
+	border-radius:10px;
+	font-size:12px;
+
+	color:rgba(255,255,255,1);
+
+}
+.hcsb2>div.fol{
+	float: right;
 }
 </style>
