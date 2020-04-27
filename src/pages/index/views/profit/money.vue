@@ -63,7 +63,21 @@ export default {
 					{n:'审核时间',poprs:'check_time'},
 					{n:'操作',temp:{cFn:'chtj',clfn:(da)=>{
 							if(da.check_status==0){
-								return '<span class="pend">撤回</span>';
+								let time = da.apply_time;
+								let timearr = time.replace(" ", ":").replace(/\:/g, "-").split("-");
+								let timestr = timearr[0] + "年" + timearr[1].split("")[1] + "月" + timearr[2] + "日\t" + timearr[3] + ":" + timearr[4] + ":" + timearr[5] + "";
+								let month = timearr[1];
+								let month2 = parseInt(month) + 1;
+								if(month2 == 13){
+									month2 = 1;
+								}
+								if(month2 < 10) {
+									month2 = '0' + month2;
+								}
+								let endtime = timearr[0] + '-' + month2 + '-' + 10 + '\t' + timearr[3] + ":" + timearr[4] + ":" + timearr[5] + "";
+								if(new Date() < new Date(Date.parse(endtime))){
+									return '<span class="pend">撤回</span>';
+								}
 							}
 							return '<span>--</span>';
 						}}

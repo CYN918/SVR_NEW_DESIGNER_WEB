@@ -4,7 +4,7 @@
 			推荐项目<a class="tjEvent_2 pend" @click="go('/project')">查看更多</a>
 		</div>
 		<ul class="tjEvent_3">
-			<li @click="goEvent(el.id)" class="pend" v-for="(el,index) in list" :key="index">
+			<li @click="goEvent(el.id)" class="pend" v-for="(el,index) in list.slice(0, 4)" :key="index">
 				<div class="tjEvent_3_1" :style="'background-image: url('+backBan(el.banner)+')'">
 					
 					
