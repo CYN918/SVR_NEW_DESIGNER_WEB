@@ -67,7 +67,7 @@ export default{
 			this.sl = parseInt(wdth/120)*2;
 			let len = this.List.length;
 			this.lists = this.List.slice(0,this.sl-1);	
-			this.molist = this.List.slice(this.sl-1,len-1);	
+			this.molist = this.List.slice(this.sl-1,len);	
 		},
 		init(){
 			this.setfn();
