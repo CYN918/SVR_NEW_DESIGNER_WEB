@@ -1794,8 +1794,8 @@
 			},
 			setVwh(){
 				let domd = this.$refs.vidobox.getBoundingClientRect();							
-				this.boxH = domd.height;
-				this.boxW = (domd.height/16)*9;
+				this.boxH = parseInt(domd.height*100)/100;
+				this.boxW = parseInt((domd.height/16)*9*100)/100;
 			},
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
@@ -1805,6 +1805,7 @@
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false)
 				this.zoomd = this.boxW/391;
+				
 				this.$refs.cavs.width = this.boxW;
 				this.$refs.cavs.height = this.boxH;
 				this.cans = this.$refs.cavs.getContext("2d");
@@ -1955,8 +1956,10 @@
 					})
 					return
 				}
+				if(this.checkOn.list){
+					this.checkOn.list[this.checkOn.on].ischeck='';
+				}
 				
-				this.checkOn.list[this.checkOn.on].ischeck='';
 				let pr = {
 					title: this.form.title,
 					json: {
