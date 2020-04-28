@@ -2,7 +2,7 @@
 	<div class="ldx_l_1x">
 		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1fd2" >
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
-			<video @mouseover="ybf()" @mouseout="stopbf()" v-if="el.file_url" class="bof"  ref="video" :src="el.file_url"></video>
+			<video @canplay="setTime()" loop="loop" @mouseover="ybf()" @mouseout="stopbf()" v-if="el.file_url" class="bof"  ref="video" :src="el.file_url"></video>
 			<div v-if="el.status==2 || el.status==1" class="ldxwc_yy">
 				<img src="/imge/tools/Upload_icon_music_24.svg" alt="">
 				<div>{{(jsons.audio && jsons.audio[0])?jsons.audio[0].author:'无歌手名'}}</div>
@@ -19,8 +19,8 @@
 			</div>
 			
 			<div class="hcsb2" v-if="el.file_url">
-				<div><img src="/imge/tools/icon_video_caller lis.svg" alt=""></div>
-				<div class="fol">00:01</div>
+				<div class="foll"><img src="/imge/tools/icon_video_caller lis.svg" alt=""></div>
+				<div class="fol">{{times?times:'00:00'}}</div>
 			</div>
 			
 			
@@ -105,12 +105,31 @@ export default{
 			},
 			Ischeck:false,
 			jsons:{},
-			isBFdjs:''
+			isBFdjs:'',
+			times:'',
 		}
 		
 	},
 	
 	methods:{
+		setTime(){
+			if(!this.$refs.video){
+				return
+			}
+			let t = this.$refs.video.duration;
+			var f='00',s;
+			if(t>60){
+				f = Math.round(t/60);
+				if(f<10){
+					f='0'+f;
+				}
+			}
+			s = Math.round(t%60);
+			if(s<10){
+				s = '0'+s;
+			}
+			this.times =  f+':'+s;
+		},
 		ybf(){
 			clearTimeout(this.isBFdjs);
 			this.isBFdjs = setTimeout(()=>{
@@ -457,6 +476,11 @@ export default{
 
 	color:rgba(255,255,255,1);
 
+}
+.hcsb2>div.foll>img{
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 6px;
 }
 .hcsb2>div.fol{
 	float: right;
