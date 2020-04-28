@@ -515,10 +515,7 @@ export default{
 				formData.append('set_ini','{"convert":"mp4"}')
 				formData.append('fps_pic',1);
 			}	
-				
-			
 			let xhr = new XMLHttpRequest();
-			
 			let pr={
 				bf:0,
 				xhr:xhr,
@@ -529,6 +526,8 @@ export default{
 				fps:'',
 				play_time:'',
 				fid:'',
+				timestamp:new Date().getTime(),
+				
 			};
 			if(fld.type=='video/mp4'){
 				formData.append('fps_pic',1);
@@ -539,20 +538,28 @@ export default{
 			
 			this.list.unshift(pr);
 			let p = this.list[0];
+			let deletFn = ()=>{
+				for(let i=0,n=this.list.length;i<n;i++){
+					if(this.list[i].timestamp==p.timestamp){
+						this.list.splice(i,1);
+						break;
+					}							
+				}				
+			};
+			
 			let uploadProgress = (evt)=>{		
 				if(evt.lengthComputable) {
 					let percent = Math.round(evt.loaded * 100 / evt.total);
 			        percent = percent>98?98:percent;
 					p.bf  = Math.floor(percent);
 				}
-				
-				
 			};
 			let uploadComplete = (data)=>{
 				if(data.currentTarget.response){
 					let daaa = JSON.parse(data.currentTarget.response);
 					if(daaa.result!=0){
 						this.$message({message:daaa.data});
+						deletFn();
 						return
 					}
 					let da = daaa.data;
@@ -574,13 +581,13 @@ export default{
 			};
 			let uploadFailed = ()=>{
 				this.$refs.upnfile.value ='';
-				p.type='erro';
+				deletFn();
 				this.$message({message: '文件上传失败请稍后重试'});
 				
 			};
 			let uploadCanceled = ()=>{
 				this.$refs.upnfile.value ='';
-				p.type='erro';
+				deletFn();
 				this.$message({message: '取消成功'});
 				
 			};
