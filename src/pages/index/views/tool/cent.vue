@@ -24,7 +24,7 @@
 			</div>
 			
 			
-			<div class="ldx_l_1_top" v-if="el.status==0 || el.status==-10">
+			<div class="ldx_l_1_top" v-if="[0,-10,-1].indexOf(+el.status)!=-1">
 				<div class="ldx_l_1_top_btn" @click="changebtn()">···</div>
 				<div class="ldx_l_1_top_btn1" v-if="top_btn">
 					<div class="ldx_l_1_btn1_1" @click.stop="del(el.id)">
@@ -36,9 +36,6 @@
 				<div class="ldx_l_1_btn" v-if="el.status==0 && Isbtn">
 					<span @click="bjfn(el.id)" class="pendno">编辑</span>
 				</div>
-	
-				
-				
 				<div class="ldx_l_1_btn2" v-if="el.status==2 && Isbtn">
 					<span @click="gojg(el.project_id)" class="ldx_l_1_btn2_a">项目结果</span>
 				</div>
@@ -60,20 +57,7 @@
 					</span>
 					
 				</div>
-			</div>
-			
-			<div class="ldxwc_01">
-				
-			</div>
-			
-			
-			<div v-if="tjTy" class="ldx_sav_1_6">
-				<div class="ldx_sav_1_6_1">
-					<i class="loading_a m_c"></i>
-					<div class="ldx_sav_1_6_2">来电秀合成中</div>
-				</div>
-			</div>
-			
+			</div>		
 		</div>
 		<div class="ldx_l_1x_2">
 			{{el.title}}
@@ -96,7 +80,6 @@ export default{
 	},
 	data(){
 		return{
-			tjTy:'',
 			top_btn:false,
 			Isbtn:false,
 			checkinfo:{

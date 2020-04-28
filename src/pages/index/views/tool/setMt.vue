@@ -146,8 +146,8 @@ export default{
 						this.setDecorates(el);
 						
 					}else{
-						// this.checkV(el,e.x+10);
-						this.checkV(el);
+						this.checkV(el,e.x+10);
+						// this.checkV(el);
 					}
 					
 				}
@@ -292,10 +292,39 @@ export default{
 				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
 			}	
 				
-			if(x){
-				let time = this.$parent.setDomStar(x);
-				pr.start = time;
-			}
+			// if(x){
+			// 	let time = this.$parent.setDomStar(x);
+			// 	pr.start = time;
+			// 	for(let i=0,n=this.value.media.length;i<n;i++){
+			// 		let ob = this.value.media[i];
+			// 		let end = this.backEnd(ob);
+			// 		let en2 = this.backEnd(pr);
+					
+			// 		if(en2>=time){
+			// 			// break;
+			// 		}
+					
+			// 		if(time>)
+					
+					
+					
+			// 	}
+			// 	let pn = this.value.media;
+			// 	let on = 0;
+				
+			// 	let clFn = ()=>{
+			// 		if(!pn[on]){return}
+					
+			// 		let end = this.backEnd(pn[on]);
+			// 		if(time>pn[on].start && time<)
+			// 	};
+			// }
+			
+			
+			
+			
+			
+			
 			var sumTime = (obj)=>{
 				return obj.start+(obj.cut_end-obj.cut_start);
 			};
@@ -460,8 +489,9 @@ export default{
 			})
 			return
 		},
-		
-		
+		backEnd(ob){			
+			return  +ob.start+ob.cut_end-ob.cut_start;
+		},
 		push(){
 			this.$refs.upnfile.click();
 		},
@@ -530,6 +560,7 @@ export default{
 					p.url = da.url;
 					p.file_type = da.file_type;
 					p.fid = da.fid;
+					p.file_name = da.file_name;
 					if(da.cover_img){
 						p.cover_img = da.cover_img;
 						p.fps_pic = da.fps_pic;
