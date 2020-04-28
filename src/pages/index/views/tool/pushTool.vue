@@ -676,7 +676,7 @@
 				this.setPreviewObj();
 			
 				let obd = this.preview.previewObj;
-				console.log(obd);
+			
 				if(!obd || obd.type=='null'){
 					this.drmBg();
 					return
@@ -1457,9 +1457,9 @@
 					document.onmousemove = document.onmouseup = null;
 					this.checkOn.list[this.checkOn.on].ischeck = '';
 					let ont = this.getMousTime(e);
-					
+	
 					if (prStar || prStar == 0) {
-						if (ont <= (prEnd/2)) {
+						if (ont <= (prStar+(prEnd-prStar)/2)) {
 							list[onc].start = list[ond].start;
 							list[ond].start = this.backTim(list[onc]);
 							list.splice(ond,2,list[onc], list[ond]);
@@ -1467,7 +1467,7 @@
 						}
 					}
 					if (nxStar || nxStar == 0) {
-						if (ont >= (nxEnd/2)) {
+						if (ont >= nxStar+((nxEnd-nxStar)/2)) {
 							list[ondn].start = list[onc].start;
 							list[onc].start = this.backTim(list[ondn]);
 							list.splice(onc, 2, list[ondn], list[onc]);						
@@ -1955,6 +1955,8 @@
 					})
 					return
 				}
+				
+				this.checkOn.list[this.checkOn.on].ischeck='';
 				let pr = {
 					title: this.form.title,
 					json: {
@@ -1966,7 +1968,7 @@
 				let sd = this.cldevs(this.navcoms.decorates);
 				if (sd.length > 0) {
 					pr.json.decoration = sd;
-				}
+				}				
 				this.cl_video(pr);
 				this.cl_audio(pr);
 				pr.json = JSON.stringify(pr.json);
@@ -1988,22 +1990,13 @@
 							id: da.id
 						}
 					});
-					if (a) {
-
-
-						return
-					}
+					if(a){return}
 					this.$message({
 						message: '保存成功',
 					})
-
-
 				}).catch(() => {
-
 					this.ajaxType = '';
 				})
-
-
 			},
 			cl_audio(el) {
 				let pd = el.json.audio;
