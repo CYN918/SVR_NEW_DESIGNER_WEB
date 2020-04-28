@@ -3,8 +3,8 @@
 		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1fd2" >
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
 			<video @canplay="setTime()" loop="loop" @mouseover="ybf()" @mouseout="stopbf()" v-if="el.file_url" class="bof"  ref="video" :src="el.file_url"></video>
-			<div v-if="el.status==2 || el.status==1" class="ldxwc_yy">
-				<img src="/imge/tools/Upload_icon_music_24.svg" alt="">
+			<div v-if="el.status==2 || el.status==1 || el.status==0" class="ldxwc_yy">
+				<img :class="['ant',Isbf?'paused':'']" src="/imge/tools/Upload_icon_music_24.svg" alt="">
 				<div>{{(jsons.audio && jsons.audio[0])?jsons.audio[0].author:'无歌手名'}}</div>
 			</div>
 			
@@ -90,6 +90,7 @@ export default{
 			jsons:{},
 			isBFdjs:'',
 			times:'',
+			Isbf:true
 		}
 		
 	},
@@ -119,6 +120,7 @@ export default{
 				if(this.$refs.video){
 					this.$refs.video.currentTime = 0;
 					this.$refs.video.play();
+					this.Isbf = false;
 				}
 			},200)
 			
@@ -128,7 +130,9 @@ export default{
 			if(this.$refs.video && !this.$refs.video.paused){
 				this.$refs.video.pause();
 				this.$refs.video.currentTime = 0;
+				this.Isbf = true;
 			}
+			
 			
 		},
 		init(){
@@ -460,6 +464,32 @@ export default{
 	color:rgba(255,255,255,1);
 
 }
+
+.ant{
+	animation: 2500ms xz infinite linear;
+}
+
+.paused{
+	animation-play-state: paused;
+}
+@keyframes xz{
+	0%{
+		transform: rotateZ(0deg);
+	}
+	25%{
+		transform: rotateZ(90deg);
+	}
+	50%{
+		transform: rotateZ(180deg);
+	}
+	75%{
+		transform: rotateZ(270deg);
+	}
+	100%{
+		transform: rotateZ(360deg);
+	}
+}
+
 .hcsb2>div.foll>img{
 	display: inline-block;
 	vertical-align: top;

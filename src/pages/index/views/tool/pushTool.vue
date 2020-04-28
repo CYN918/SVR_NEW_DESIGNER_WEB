@@ -191,7 +191,7 @@
 								@click="setCheckOn({type:'audio',list:navcoms.audio,on:index})"
 								class="imgd" 
 								v-for="(el,index) in navcoms.audio">
-									<div :style="bgtf(el)" class="setToll0"></div>
+									<div :style="bgtf(el)" class="setToll0 setToll0xs"></div>
 									
 									<div :class="['setToll',el.ischeck?'setToll_active':'']">
 										<div @mousedown="jl3($event,el,index,navcoms.audio,'audio')" class="setToll1"></div>
@@ -1804,6 +1804,7 @@
 					this.$router.push({path: '/'})					
 					return
 				}
+				
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false)
 				this.zoomd = this.boxW/391;
@@ -1815,6 +1816,10 @@
 				this.cans.fillRect(0, 0, this.boxW, this.boxH);
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
+					if(!op){
+						this.$router.push({path: '/'})	
+						return
+					}
 					this.form.title = op.title;
 					if(op.json){
 						let json = JSON.parse(op.json);
@@ -2470,6 +2475,7 @@
 	.setToll0 {
 		width: 100%;
 		height: 100%;
+	
 	}
 
 	.setToll {
@@ -3008,5 +3014,9 @@
 		-webkit-transform: translateY(-50%);
 		transform: translateY(-50%);
 		font-size: 12px;
+	}
+	.setToll0xs{
+		background-repeat: no-repeat !important; 
+		background-size: 100% 100% !important;
 	}
 </style>
