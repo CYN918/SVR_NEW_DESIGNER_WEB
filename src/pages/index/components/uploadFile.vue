@@ -93,8 +93,12 @@ export default{
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;				
 					this.sussFn(da);				
-					this.$refs.fileDom.value ='';						
-					Message({message: '上传成功'});
+					this.$refs.fileDom.value ='';
+					if(JSON.parse(data.currentTarget.response).result == '0'){
+						Message({message: JSON.parse(data.currentTarget.response).msg});
+					}else{
+						Message({message: JSON.parse(data.currentTarget.response).data});
+					}	
 				}
 			};
 			let uploadFailed = ()=>{
