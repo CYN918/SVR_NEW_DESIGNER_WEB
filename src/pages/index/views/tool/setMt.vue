@@ -130,11 +130,8 @@ export default{
 					if((this.$parent.Mos.n=='decorates' && el.file_type=='image') || this.$parent.Mos.n=='media'){
 						y = this.$parent.Mos.y;
 						brdr = 'border-color:rgba(51,179,255,1)';
-					}
-					
-					
+					}	
 				}
-			
 				dom.style.cssText = str+'left:'+(x+10)+'px;top:'+y+'px;'+brdr;
 				
 			}			 
@@ -146,6 +143,7 @@ export default{
 						this.setDecorates(el);
 						
 					}else{
+	
 						this.checkV(el,e.x+10);
 						// this.checkV(el);
 					}
@@ -291,34 +289,29 @@ export default{
 			if(ond){
 				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
 			}	
+			// let onds;	
+			if(x){
+				// let time = this.$parent.setDomStar(x);
+				// pr.start = time;
+				// onds = -1;
+				// console.log(time);
+				// for(let i=0,n=this.value.media.length;i<n;i++){
+				// 	let ob = this.value.media[i];
+				// 	let end = this.backEnd(ob);
+				// 	let end2 = this.backEnd(pr);
+					
+				// 	if(pr.start>=ob.start && end>=pr.start){
+				// 		pr.start = end;
+				// 		onds = i;
+				// 		continue
+				// 	}
+				// 	if(pr.start<end && end2>ob.start){
+				// 		pr.cut_end = ob.start+pr.cut_start-pr.start;
+				// 		break
+				// 	}
+				// }
 				
-			// if(x){
-			// 	let time = this.$parent.setDomStar(x);
-			// 	pr.start = time;
-			// 	for(let i=0,n=this.value.media.length;i<n;i++){
-			// 		let ob = this.value.media[i];
-			// 		let end = this.backEnd(ob);
-			// 		let en2 = this.backEnd(pr);
-					
-			// 		if(en2>=time){
-			// 			// break;
-			// 		}
-					
-			// 		if(time>)
-					
-					
-					
-			// 	}
-			// 	let pn = this.value.media;
-			// 	let on = 0;
-				
-			// 	let clFn = ()=>{
-			// 		if(!pn[on]){return}
-					
-			// 		let end = this.backEnd(pn[on]);
-			// 		if(time>pn[on].start && time<)
-			// 	};
-			// }
+			}
 			
 			
 			
@@ -365,8 +358,8 @@ export default{
 						pr.w = (this.$parent.boxH/hd)*wd;
 						pr.x = (this.$parent.boxW-pr.w)/2;
 					}
-					
 					this.value.media.push(pr);	
+					
 					this.$parent.setPreviewTimes(pr,'media',1);	
 					this.$parent.drmOn();								
 				};
