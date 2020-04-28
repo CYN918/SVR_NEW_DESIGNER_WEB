@@ -108,7 +108,8 @@
 				<div ref="botmm"></div>
 				<div v-if="isnoData">
 					<img  class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
-					<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
+					<!-- <div class="noDatawan">找不到数据了o(╥﹏╥)o</div> -->
+					<div class="noDatawan">你还没有可参与的作品o(╥﹏╥)o</div>
 				</div>
 				
 			</ul>
