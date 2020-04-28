@@ -86,10 +86,6 @@ export default{
 			this.$emit('input',{});
 		},
 
-		numqx(pn){
-			return Math.round((pn*100)/100);
-			
-		},
 		cl_audio(el){
 			let pd = el.json.audio;
 			let tims = 0;			
@@ -116,24 +112,22 @@ export default{
 		cl_video(el){
 			let pd = el.json.media;
 			let on=0;
-			
 			let len = pd.length;
 			if(len==0){
 				el.json.media = [{type:'blank',start:0,end:this.backto(el.maxTime)}];
 				return		
 			}
 			var fn = ()=>{
-				
 				pd[on].end = this.backTim(pd[on]);
-				
 				if(pd[on].sw!=pd[on].yw || pd[on].sh!=pd[on].yh || pd[on].sx!=0 || pd[on].sy!=0){
-					pd[on].crop = this.numqx(pd[on].sw)+':'+this.numqx(pd[on].sh)+':'+this.numqx(pd[on].x)+':'+this.numqx(pd[on].sy);
-					
+					pd[on].crop = this.backto(pd[on].sw)+':'+this.backto(pd[on].sh)+':'+this.backto(pd[on].x)+':'+this.backto(pd[on].sy);
 				}
 				pd[on].start = this.backto(pd[on].start);
 				pd[on].cut_end = this.backto(pd[on].cut_end);
 				pd[on].cut_start = this.backto(pd[on].cut_start);
 				pd[on].end = this.backto(pd[on].end);
+				pd[on].x = this.backto(pd[on].x);
+				pd[on].y = this.backto(pd[on].y);
 				
 				
 				if(on<len-1){

@@ -1794,8 +1794,8 @@
 			},
 			setVwh(){
 				let domd = this.$refs.vidobox.getBoundingClientRect();							
-				this.boxH = parseInt(domd.height*100)/100;
-				this.boxW = parseInt((domd.height/16)*9*100)/100;
+				this.boxH = parseInt(domd.height);
+				this.boxW = parseInt((domd.height/16)*9);
 			},
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
@@ -1957,7 +1957,7 @@
 					return
 				}
 				if(this.checkOn.list){
-					this.checkOn.list[this.checkOn.on].ischeck='';
+					this.checkOn.list[this.checkOn.on].ischeck = '';
 				}
 				
 				let pr = {
