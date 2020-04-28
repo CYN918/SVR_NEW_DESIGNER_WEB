@@ -289,6 +289,8 @@ export default {
 					
 					if(opd.result!=0){
 						this.$message({message: opd.data});
+						this.fileList3.pop();
+				        this.filelist.pop();
 						return
 					}
 					let da = opd.data;
