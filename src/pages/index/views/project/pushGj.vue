@@ -26,7 +26,7 @@
 				</div>
 				<div class="pushGj_02">
 					<div class="pushGj_03_1">稿件上传<span class="pushGj_iop">文件大小为1GB内，建议压缩后上传</span><span class="pushGj_ts">稿件太大？用网盘传吧</span></div>
-					<el-upload
+					<!-- <el-upload
 					  class="upload-demo"
 					  drag
 					  http-request="myup"
@@ -36,6 +36,18 @@
 					  :http-request="uploadFile"
 					  :show-file-list='true'
 					  accept='.zip,.tar'
+					  action="customize"
+					  
+					  > -->
+					  <el-upload
+					  class="upload-demo"
+					  drag
+					  http-request="myup"
+					  :file-list="filelist"
+					  :limit="1" 
+					  :auto-upload="true" 
+					  :http-request="uploadFile"
+					  :show-file-list='true'
 					  action="customize"
 					  
 					  >

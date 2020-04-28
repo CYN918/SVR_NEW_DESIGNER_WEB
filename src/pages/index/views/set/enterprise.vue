@@ -696,6 +696,7 @@ export default {
 					return
 				}
 				let navd = 0;
+				console.log(da.check_status)
 				if(da.check_status==0){
 					this.check_type = 1;
 					da.tax_rate_type = "1";
