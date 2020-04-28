@@ -3,8 +3,8 @@
 	<div class="box">
 		<div class="hot_topbox">
 			<img class="hotBaner" :src="imgSig+'toltImg/ZQ-banner.svg'">
-			<button @click="godd" v-if="userMssge.contributor_format_status == 0 || userMssge == '' || userMssge.contributor_format_status == -1">立即加入</button>
-			<button v-if="userMssge.contributor_format_status == 1">审核中</button>
+			<button @click="godd" v-if="contributor_format_status == 0 || contributor_format_status == -1">立即加入</button>
+			<button v-if="contributor_format_status == 1">审核中</button>
 			
 		</div>
 		<div class="hotCent">
@@ -27,7 +27,7 @@ export default{
 	components:{loginDialog},
 	data(){
 		return {
-			userMssge:'',
+			contributor_format_status:'',
 			outc:{
 				num:'',
 				scroll:2,
@@ -36,7 +36,6 @@ export default{
 	},
 	mounted: function () {	
 		this.initHead()
-		console.log(this.userMssge.contributor_format_status)
 	},
 	methods:{
 		// got(){
@@ -47,9 +46,13 @@ export default{
 		// 	this.$router.push({path:'/tolt/toluser'});	
 		// },
 		initHead(){	
-			if(window.userInfo){
-				this.userMssge = window.userInfo;
-			}
+			let pr = {
+				access_token:window.userInfo.access_token
+			};
+			this.api.getSelfInfo(pr).then((da)=>{
+				if(da=='error'){return}		
+				this.contributor_format_status = da.contributor_format_status;
+			}).catch();
 			
 		},
 		godd(){
