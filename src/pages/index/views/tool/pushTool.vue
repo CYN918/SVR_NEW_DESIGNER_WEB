@@ -961,19 +961,21 @@
 			},
 			getSc(){
 				let len1 = this.navcoms.media.length;
-				let len2 = this.navcoms.decorates.length;
 				let maxTime =0;
 				if(len1>0){
 					maxTime = this.backTim(this.navcoms.media[len1-1]);
 				}
-				if(len2>0){
-					let len3 = this.navcoms.decorates[len2-1].length;
-					let onbj = this.navcoms.decorates[len2-1][len3-1];
-					if(onbj){
-						let zst = this.backTim(onbj);						
-						maxTime = zst>maxTime?zst:maxTime;
-					}	
+				for(let i=0,n=this.navcoms.decorates.length;i<n;i++){
+					let ob = this.navcoms.decorates[i];
+					for(let i2=0,n2=ob.length;i2<n2;i2++){
+						let maxd =  this.backTim(ob[i2]);
+						if(maxd>maxTime){
+							maxTime = maxd;
+						}
+					}
+					
 				}
+				
 				return maxTime;
 			},
 			timeupdatevideo() {

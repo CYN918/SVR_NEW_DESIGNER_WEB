@@ -128,8 +128,6 @@ export default{
 				pd[on].end = this.backto(pd[on].end);
 				pd[on].x = this.backto(pd[on].x);
 				pd[on].y = this.backto(pd[on].y);
-				
-				
 				if(on<len-1){
 					on++;
 					if(pd[on].start>pd[on-1].end){
