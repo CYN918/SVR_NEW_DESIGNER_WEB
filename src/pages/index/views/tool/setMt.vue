@@ -351,7 +351,7 @@ export default{
 					pr.sh = hd;
 					
 					
-					let pdw = this.$parent.boxW;
+					let pdw = this.$parent.boxW,
 					pdh = pdw/9*16;
 					if(pdh>this.$parent.boxH){
 						pdh = this.$parent.boxH;
