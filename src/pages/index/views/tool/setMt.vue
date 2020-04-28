@@ -130,11 +130,8 @@ export default{
 					if((this.$parent.Mos.n=='decorates' && el.file_type=='image') || this.$parent.Mos.n=='media'){
 						y = this.$parent.Mos.y;
 						brdr = 'border-color:rgba(51,179,255,1)';
-					}
-					
-					
+					}	
 				}
-			
 				dom.style.cssText = str+'left:'+(x+10)+'px;top:'+y+'px;'+brdr;
 				
 			}			 
@@ -146,6 +143,7 @@ export default{
 						this.setDecorates(el);
 						
 					}else{
+	
 						this.checkV(el,e.x+10);
 						// this.checkV(el);
 					}
@@ -291,34 +289,29 @@ export default{
 			if(ond){
 				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
 			}	
+			// let onds;	
+			if(x){
+				// let time = this.$parent.setDomStar(x);
+				// pr.start = time;
+				// onds = -1;
+				// console.log(time);
+				// for(let i=0,n=this.value.media.length;i<n;i++){
+				// 	let ob = this.value.media[i];
+				// 	let end = this.backEnd(ob);
+				// 	let end2 = this.backEnd(pr);
+					
+				// 	if(pr.start>=ob.start && end>=pr.start){
+				// 		pr.start = end;
+				// 		onds = i;
+				// 		continue
+				// 	}
+				// 	if(pr.start<end && end2>ob.start){
+				// 		pr.cut_end = ob.start+pr.cut_start-pr.start;
+				// 		break
+				// 	}
+				// }
 				
-			// if(x){
-			// 	let time = this.$parent.setDomStar(x);
-			// 	pr.start = time;
-			// 	for(let i=0,n=this.value.media.length;i<n;i++){
-			// 		let ob = this.value.media[i];
-			// 		let end = this.backEnd(ob);
-			// 		let en2 = this.backEnd(pr);
-					
-			// 		if(en2>=time){
-			// 			// break;
-			// 		}
-					
-			// 		if(time>)
-					
-					
-					
-			// 	}
-			// 	let pn = this.value.media;
-			// 	let on = 0;
-				
-			// 	let clFn = ()=>{
-			// 		if(!pn[on]){return}
-					
-			// 		let end = this.backEnd(pn[on]);
-			// 		if(time>pn[on].start && time<)
-			// 	};
-			// }
+			}
 			
 			
 			
@@ -356,17 +349,21 @@ export default{
 					pr.yh =  hd;
 					pr.sw = wd;					
 					pr.sh = hd;
-					if(wd>hd){
-						pr.w = this.$parent.boxW;
-						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2
-					}else{
-						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;
-						pr.x = (this.$parent.boxW-pr.w)/2;
+					
+					
+					let pdw = this.$parent.boxW;
+					pdh = pdw/9*16;
+					if(pdh>this.$parent.boxH){
+						pdh = this.$parent.boxH;
+						pdw = pdh/16*9;
 					}
+					pr.w = pdw;
+					pr.h = pdh;
+					pr.y = (this.$parent.boxH-pr.h)/2;
+					pr.x = (this.$parent.boxW-pr.W)/2;
 					
 					this.value.media.push(pr);	
+					
 					this.$parent.setPreviewTimes(pr,'media',1);	
 					this.$parent.drmOn();								
 				};
@@ -515,10 +512,7 @@ export default{
 				formData.append('set_ini','{"convert":"mp4"}')
 				formData.append('fps_pic',1);
 			}	
-				
-			
 			let xhr = new XMLHttpRequest();
-			
 			let pr={
 				bf:0,
 				xhr:xhr,
@@ -529,6 +523,8 @@ export default{
 				fps:'',
 				play_time:'',
 				fid:'',
+				timestamp:new Date().getTime(),
+				
 			};
 			if(fld.type=='video/mp4'){
 				formData.append('fps_pic',1);
@@ -539,20 +535,28 @@ export default{
 			
 			this.list.unshift(pr);
 			let p = this.list[0];
+			let deletFn = ()=>{
+				for(let i=0,n=this.list.length;i<n;i++){
+					if(this.list[i].timestamp==p.timestamp){
+						this.list.splice(i,1);
+						break;
+					}							
+				}				
+			};
+			
 			let uploadProgress = (evt)=>{		
 				if(evt.lengthComputable) {
 					let percent = Math.round(evt.loaded * 100 / evt.total);
 			        percent = percent>98?98:percent;
 					p.bf  = Math.floor(percent);
 				}
-				
-				
 			};
 			let uploadComplete = (data)=>{
 				if(data.currentTarget.response){
 					let daaa = JSON.parse(data.currentTarget.response);
 					if(daaa.result!=0){
 						this.$message({message:daaa.data});
+						deletFn();
 						return
 					}
 					let da = daaa.data;
@@ -574,13 +578,13 @@ export default{
 			};
 			let uploadFailed = ()=>{
 				this.$refs.upnfile.value ='';
-				p.type='erro';
+				deletFn();
 				this.$message({message: '文件上传失败请稍后重试'});
 				
 			};
 			let uploadCanceled = ()=>{
 				this.$refs.upnfile.value ='';
-				p.type='erro';
+				deletFn();
 				this.$message({message: '取消成功'});
 				
 			};

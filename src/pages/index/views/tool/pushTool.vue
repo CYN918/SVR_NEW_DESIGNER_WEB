@@ -676,7 +676,7 @@
 				this.setPreviewObj();
 			
 				let obd = this.preview.previewObj;
-				console.log(obd);
+			
 				if(!obd || obd.type=='null'){
 					this.drmBg();
 					return
@@ -711,16 +711,17 @@
 				
 			},			
 			/*暂停播放*/
-			/*playT 0初始状态or结束状态 1播放状态 2暂停状态*/
 			kdClick(e){
-				let cs = this.preview.onTime;
 				this.puandFn2()
 				e.preventDefault();			
+				this.preview.onTime = this.getMousTime(e);
+				this.drmOn()
+			},	
+			getMousTime(e){		
 				let dd =(e.x-120)/ (this.wdk / this.bl);				
 				if(dd<0){dd=0}
-				this.preview.onTime = dd;
-				this.drmOn()
-			},			
+				return dd;
+			},		
 			todTime(e) {
 				e.preventDefault();
 				let tdStar = e.pageX;
@@ -988,14 +989,13 @@
 			timeupdatevideo2(){
 				let objd = this.navcoms.audio[0],
 				adioTim = this.backTim(objd),
-				vdTim = this.backTim(this.navcoms.media[this.navcoms.media.length-1]);				
-				let ontime = this.$refs.aido.currentTime;				
+				ontime = this.$refs.aido.currentTime;				
 				let sjTim = ontime - objd.cut_start+objd.start;
 				if(ontime>=objd.cut_end){
 					this.$refs.aido.pause();
 					return
 				}				
-				if (sjTim >= vdTim){
+				if (sjTim >= this.preview.maxTime){
 					this.$refs.aido.pause();					
 				}
 			},
@@ -1418,19 +1418,16 @@
 					type: n,
 					on: onc,
 					list:list,
-				})
-				
+				})				
 				this.tdStar = e.pageX;
 				let cs = el.start;
 				let wid = el.long * this.wdk;
 				let ond = onc - 1;
 				let ondn = onc + 1;
-				let tms = el.cut_end - el.cut_start;
-				
+				let tms = el.cut_end - el.cut_start;				
 				let prEnd, prStar, nxEnd, nxStar;
 				let prd = list[ond];
 				if (prd) {
-
 					prEnd = +prd.start + (prd.cut_end - prd.cut_start);
 					prStar = prd.start;
 				}
@@ -1439,14 +1436,11 @@
 					nxEnd = +nxd.start + (nxd.cut_end - nxd.cut_start);
 					nxStar = nxd.start;
 				}
-
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
 					let on = -(this.tdStar - e.pageX) / (this.wdk / this.bl);
-
-					let dd = +cs + on;
-
+					let dd = +cs + on;					
 					if (prd && dd < prEnd) {
 						dd = prEnd;
 					}
@@ -1456,56 +1450,44 @@
 					if (dd < 0) {
 						dd = 0;
 					}
-					
 					el.start = dd;
 				}
 				document.onmouseup = (e) => {
 					e.preventDefault();
 					document.onmousemove = document.onmouseup = null;
 					this.checkOn.list[this.checkOn.on].ischeck = '';
-					let on = +(((e.pageX - this.tdStar) / wid) * el.long).toFixed(3);
-					let dd = Math.round(((+cs + (on)) * 100) / 100);
+					let ont = this.getMousTime(e);
+	
 					if (prStar || prStar == 0) {
-						if (dd <= prEnd - ((prEnd - prStar) / 2)) {
+						if (ont <= (prStar+(prEnd-prStar)/2)) {
 							list[onc].start = list[ond].start;
-							list[ond].start = list[onc].start + (list[onc].cut_end - list[onc].cut_start);
-							list.splice(ond, 2, list[onc], list[ond]);
-							// this.checkOn.list[this.checkOn.on].ischeck = '';
+							list[ond].start = this.backTim(list[onc]);
+							list.splice(ond,2,list[onc], list[ond]);
 							this.checkOn.on = ond;
-							// this.checkOn.on = ondn;
-							// this.checkOn.list[this.checkOn.on].ischeck = 1;
 						}
 					}
 					if (nxStar || nxStar == 0) {
-						if (dd >= nxStar + ((nxEnd - nxStar) / 2)) {
+						if (ont >= nxStar+((nxEnd-nxStar)/2)) {
 							list[ondn].start = list[onc].start;
-							list[onc].start = list[ondn].start + (list[ondn].cut_end - list[ondn].cut_start);
-							list.splice(onc, 2, list[ondn], list[onc]);
-							// this.checkOn.list[this.checkOn.on].ischeck = '';
-							this.checkOn.on = ondn;
-							// this.checkOn.on = ondn;
-							// this.checkOn.list[this.checkOn.on].ischeck = 1;
-						}
-						
-					}
-					console.log(this.checkOn.on);
+							list[onc].start = this.backTim(list[ondn]);
+							list.splice(onc, 2, list[ondn], list[onc]);						
+							this.checkOn.on = ondn;							
+						}						
+					}					
 					this.checkOn.list[this.checkOn.on].ischeck = 1;
 					this.puandFn();
 					this.setPreviewTimes('','del');				
 					this.drmOn();
-					this.IsShowStyle = false;
-					
+					this.IsShowStyle = false;					
 				}
 			},
 			jl2(e, el, index, list, n) {
 				e.preventDefault();
-
 				this.setCheckOn({
 					type: n,
 					on: index,
 					list:list,
-				})
-			
+				})			
 				let startX = e.pageX,
 				oldStart = el.start,
 				oldCut_start = el.cut_start,
@@ -1540,9 +1522,7 @@
 					this.drmOn();				
 				}
 			},
-			
-			
-			setDomStar(x){				
+			setDomStar(x){							
 				return ((x-120)/this.wdk)*this.bl;				
 			},
 			zzyz() {
@@ -1814,8 +1794,8 @@
 			},
 			setVwh(){
 				let domd = this.$refs.vidobox.getBoundingClientRect();							
-				this.boxH = domd.height;
-				this.boxW = (domd.height/16)*9;
+				this.boxH = parseInt(domd.height);
+				this.boxW = parseInt((domd.height/16)*9);
 			},
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
@@ -1825,6 +1805,7 @@
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false)
 				this.zoomd = this.boxW/391;
+				
 				this.$refs.cavs.width = this.boxW;
 				this.$refs.cavs.height = this.boxH;
 				this.cans = this.$refs.cavs.getContext("2d");
@@ -1975,6 +1956,10 @@
 					})
 					return
 				}
+				if(this.checkOn.list){
+					this.checkOn.list[this.checkOn.on].ischeck = '';
+				}
+				
 				let pr = {
 					title: this.form.title,
 					json: {
@@ -1986,7 +1971,7 @@
 				let sd = this.cldevs(this.navcoms.decorates);
 				if (sd.length > 0) {
 					pr.json.decoration = sd;
-				}
+				}				
 				this.cl_video(pr);
 				this.cl_audio(pr);
 				pr.json = JSON.stringify(pr.json);
@@ -2008,22 +1993,13 @@
 							id: da.id
 						}
 					});
-					if (a) {
-
-
-						return
-					}
+					if(a){return}
 					this.$message({
 						message: '保存成功',
 					})
-
-
 				}).catch(() => {
-
 					this.ajaxType = '';
 				})
-
-
 			},
 			cl_audio(el) {
 				let pd = el.json.audio;
@@ -3020,12 +2996,14 @@
 	.minzss{
 		pointer-events: none;
 		position: absolute;
-		max-width: 100%;
+		max-width: 90%;
 		overflow: hidden;
 		top: 50%;
-		left: 10px;
+		left: 0;
+		text-indent: 10px;
 		color: #fff;
 		white-space: nowrap;
+		-webkit-transform: translateY(-50%);
 		transform: translateY(-50%);
 		font-size: 12px;
 	}
