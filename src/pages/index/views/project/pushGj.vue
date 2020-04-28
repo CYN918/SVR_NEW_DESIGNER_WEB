@@ -36,7 +36,6 @@
 					  :auto-upload="true" 
 					  :http-request="uploadFile"
 					  :show-file-list='true'
-					  accept='.zip,.tar'
 					  action="customize"
 					  
 					  >
