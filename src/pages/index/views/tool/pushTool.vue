@@ -56,7 +56,7 @@
 						</span>
 					</div>
 					<div class="ntob_cent_l_2_2">
-						<span @click="playd(1)" class="an_sx_01">
+						<span @click="newplayPreview()" class="an_sx_01">
 							<img src="/imge/tools/v_sx.svg" />
 						</span><span @click="playd()" class="an_bf_01">
 							<img :src="'/imge/tools/'+(preview.state==1?'icon_view_stop_def':'v_play')+'.svg'" />
@@ -509,15 +509,14 @@
 			setPreviewData(n,v){
 				this.preview[n] = v;
 			},
+			newplayPreview(){
+				this.preview.onTime = 0;
+				this.preview.state = 2;
+				setTimeout(()=>{
+					this.preview.state = 1;
+				},20)
+			},
 			playd(a){
-				if(a){
-					
-					this.puandFn();
-					this.preview.onTime = 0;
-					this.preview.state = 0;
-					this.playPreview();
-					return
-				}
 				if(this.preview.state==0 && this.preview.onTime>=this.preview.maxTime){
 					this.preview.onTime = 0;
 				}
@@ -527,7 +526,8 @@
 					this.preview.state = 1;
 				}
 			},
-			playPreview(){
+
+			playPreview(a){
 			
 				if(this.navcoms.media.length==0){
 					this.$message({
@@ -543,6 +543,12 @@
 					this.$refs.vid.setRun();
 				}
 				
+				if(a){
+					this.preview.state = 2;
+					this.puandFn();
+					return 
+				}
+				this.preview.state = 1;
 				this.setPreviewObj();
 				let bfObj = this.preview.previewObj;
 				this.preview.state=1;
