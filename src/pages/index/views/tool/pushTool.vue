@@ -684,7 +684,11 @@
 				e.preventDefault();
 				e.currentTarget.className = 'setToll'
 			},
-		
+			drvideo(obd){
+				console.log(obd);
+				this.drmBg();
+				this.cans.drawImage(this.$refs.vids, obd.sx, obd.sy, obd.sw, obd.sh, obd.x, obd.y, obd.w, obd.h);				
+			},
 			drmOn(){
 				this.setPreviewObj();
 			
@@ -695,19 +699,16 @@
 					return
 				}
 				if(obd.type=='video'){
-					let fn = ()=>{
-						this.$refs.vids.currentTime = (this.preview.onTime - obd.start)+obd.cut_start;
-						let ob = obd;					
-						this.drmBg();
-						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
-						setTimeout(()=>{
-							this.$refs.vids.removeEventListener('canplay',fn);
-						},500)
-						
-					}
-					this.$refs.vids.addEventListener('canplay',fn);
-					this.$refs.vids.src=obd.file_url;	
 					
+					
+					this.$refs.vids.src=obd.file_url;	
+					this.$refs.vids.currentTime = this.backto((this.preview.onTime - obd.start)+obd.cut_start);
+					
+					this.valObj = setInterval(this.drvideo(obd),25);
+					
+					setTimeout(()=>{
+						clearInterval(this.valObj);
+					},1000)
 					return
 				}
 				if(obd.type=='pic'){
@@ -1656,7 +1657,7 @@
 				if(this.tanc.zj == 'saves'){
 					return
 				}
-				console.log(this.checkOn);
+				
 				if (!this.checkOn.list) {
 					return
 				}	
