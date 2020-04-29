@@ -1,7 +1,8 @@
 <template>
 	<div class="setMt">
 		<div class="setMt_01">
-			媒体库<span>请上传图片、MP4格式（视频大小10MB以内，视频上传后自动处理为无声）</span>
+			媒体库<span>请上传图片、MP4格式（视频大小100MB以内，视频上传后自动处理为无声）</span>
+			<div class="uo_o1">{{zGys()}}/5G</div>
 		</div>
 		<div class="setMt_03box">
 		<ul class="setMt_03">
@@ -80,6 +81,18 @@ export default{
 		
 	}, 		
 	methods:{
+		backto(num){
+			return Math.round(num*100)/100
+		},
+		zGys(){
+			if(this.maxwj<1024){
+				return this.backto(this.maxwj)+'KB';
+			}
+			if(this.maxwj<1024*1024){
+				return this.backto(this.maxwj/1024)+'MB';
+			}
+			return this.backto(this.maxwj/1024/1024)+'G';
+		},
 		IsSelect(el){
 			let id = false;
 			//console.log(el);
@@ -246,7 +259,7 @@ export default{
 				if(da=='error'){
 					return
 				}
-				this.maxwj = da.sum;
+				this.maxwj = da.total_file_size;
 				
 			})
 		},
@@ -498,7 +511,7 @@ export default{
 			if(fld.type=='video/mp4'){
 				if(fld.size>104857600){
 					this.$message({
-						message:'视频过大请重新选取'
+						message:'视频文件请小于100M上传'
 					})
 					this.$refs.upnfile.value = '';
 					return
@@ -509,7 +522,7 @@ export default{
 			if(['image/gif','image/jpeg','image/png'].indexOf(fld.type)!=-1){
 				if(fld.size>10485760){
 					this.$message({
-						message:'图片过大请重新选取'
+						message:'图片过大请小于10M上传'
 					})
 					return
 				}
@@ -721,6 +734,7 @@ export default{
 	min-width: 641px;
 }
 .setMt_01{
+	position: relative;
 	font-size:16px;
 	font-family:PingFangSC-Regular,PingFang SC;
 	font-weight:400;
@@ -907,5 +921,13 @@ export default{
     bottom: 0;
     left: 24px;
     right: 0;
+}
+.uo_o1{
+	font-size: 12px;
+    position: absolute;
+    right: 41px;
+    top: 0;
+    color: rgba(187,187,187,1);
+    line-height: 29px;
 }
 </style>

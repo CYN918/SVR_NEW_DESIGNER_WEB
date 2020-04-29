@@ -1621,6 +1621,7 @@
 				let ends = this.checkOn.list[this.checkOn.list.length - 1];
 				let sta = +ends.start + (ends.cut_end - ends.cut_start);
 				doms.start = sta;
+				doms.ischeck = '';
 				this.checkOn.list.push(doms);
 				if(this.playT==1 || this.playT==2){
 					this.puandFn2()
