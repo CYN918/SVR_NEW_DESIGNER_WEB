@@ -170,7 +170,13 @@ export default{
 					}
 					
 					if(ar[i2].zsw){
-						ar[i2].resize = this.backto(ar[i2].zsw*wdb)+':'+this.backto(ar[i2].zsh*hy);						
+						ar[i2].zsw = ar[i2].zsw?ar[i2].zsw:0;
+						ar[i2].zsh = ar[i2].zsh?ar[i2].zsh:0;
+						wdb = wdb?wdb:0;
+						hy = hy?hy:0;
+						let x =  this.backto(ar[i2].zsw*wdb);
+						let y = this.backto(ar[i2].zsh*hy);
+						ar[i2].resize =x+':'+y;						
 					}
 					arr.push(ar[i2]);
 				}	
@@ -192,36 +198,14 @@ export default{
 				})
 				return;
 			}
-			
-			
-			
-			
 			let pr = this.value;	
 					
 			let len1 = pr.json.media.length;
 			let len2 = pr.json.decorates.length;
-			let maxTime =0;
-			if(len1>0){
-				maxTime = this.backTim(pr.json.media[len1-1]);
-			}
-			if(len2>0){
-				let len3 = pr.json.decorates[len2-1].length;
-				let onbj = pr.json.decorates[len2-1][len3-1];
-				if(onbj){
-					let zst = this.backTim(onbj);						
-					maxTime = zst>maxTime?zst:maxTime;
-				}	
-			}
-			if(maxTime>120){
-				this.$message({
-					message:"视频时长超过2分钟请重新剪辑后提交"
-				})
-				return;
-			}		
-			maxTime = this.backto(maxTime);		
+				
 			this.cl_video(pr);
 			this.cl_audio(pr);
-			pr.json.max_length = maxTime;
+			pr.json.max_length = this.bfmax;
 			let sd = this.cldevs(pr.json.decorates);
 			if(sd.length>0){
 				pr.json.decoration = sd;
