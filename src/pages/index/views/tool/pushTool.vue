@@ -32,7 +32,7 @@
 									
 									v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime"
 									>
-										<setDevs v-model="navcoms.decorates[index][index2]"></setDevs>
+										<setDevs :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
 									</div>					
 								</span>
 								
@@ -246,9 +246,6 @@
 					<span class="zs_box1"><img src="/imge/tools/gd_toast_icon_delete.svg"/></span><span>删除装饰轨</span>
 				</span>
 			</div>
-			
-			
-			
 			<div v-if="istype" class="pr_tc_01">
 				<div class="pr_tc_02">
 					<div class="pr_tc_04">
@@ -493,9 +490,13 @@
 			},
 		},
 		methods: {
-			clickfns(){
-				
+			clickfns(e){
+			
 				if(this.checkOn.list){
+					if(!this.checkOn.ison){
+						this.checkOn.ison = 1;
+						return
+					}
 					this.checkOn.list[this.checkOn.on].ischeck='';
 					this.checkOn = {};
 				}
@@ -510,13 +511,12 @@
 			},
 			playd(a){
 				if(a){
+					
 					this.puandFn();
 					this.preview.onTime = 0;
-					if(this.preview.state ==1){
-						this.playPreview();
-						return
-					}
-					
+					this.preview.state = 0;
+					this.playPreview();
+					return
 				}
 				if(this.preview.state==0 && this.preview.onTime>=this.preview.maxTime){
 					this.preview.onTime = 0;
@@ -545,7 +545,7 @@
 				
 				this.setPreviewObj();
 				let bfObj = this.preview.previewObj;
-				
+				this.preview.state=1;
 							
 				if(bfObj.type=='null'){
 					this.drmNull(bfObj);
@@ -580,6 +580,11 @@
 						
 			},
 			puandFn(){
+			
+				if(this.preview.state==1){
+					this.preview.state=2;
+					return
+				}
 				this.stopDr();
 				if(this.$refs.vids && !this.$refs.vids.paused){
 					this.$refs.vids.pause();					
@@ -645,6 +650,7 @@
 				
 			},			
 			setPreviewObj(){
+				
 				let pd = this.navcoms.media,on=0,len = pd.length,	
 				obj = {};
 				var fn = ()=>{
@@ -683,7 +689,10 @@
 				e.preventDefault();
 				e.currentTarget.className = 'setToll'
 			},
-		
+			drmvideo(a){
+				this.drmBg();
+				this.cans.drawImage(this.$refs.vids,a.sx,a.sy,a.sw,a.sh,a.x,a.y,a.w,a.h);
+			},
 			drmOn(){
 				this.setPreviewObj();
 			
@@ -694,19 +703,17 @@
 					return
 				}
 				if(obd.type=='video'){
-					let fn = ()=>{
-						this.$refs.vids.currentTime = (this.preview.onTime - obd.start)+obd.cut_start;
-						let ob = obd;					
-						this.drmBg();
-						this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
-						setTimeout(()=>{
-							this.$refs.vids.removeEventListener('canplay',fn);
-						},500)
-						
-					}
-					this.$refs.vids.addEventListener('canplay',fn);
-					this.$refs.vids.src=obd.file_url;	
 					
+					clearTimeout(this.valObj);
+					this.$refs.vids.src=obd.file_url;	
+					this.$refs.vids.currentTime = this.backto((this.preview.onTime - obd.start)+obd.cut_start);
+				
+					let fns = ()=>{
+						this.drmvideo(obd);
+						removeEventListener('loadeddata',fns);
+					};
+					this.$refs.vids.addEventListener('loadeddata',fns);
+				
 					return
 				}
 				if(obd.type=='pic'){
@@ -777,18 +784,10 @@
 			stopDr(){
 				clearInterval(this.valObj);
 			},			
-			puandFn(){
-				this.stopDr();
-				if(this.$refs.vids && !this.$refs.vids.paused){
-					this.$refs.vids.pause();					
-				}
-				if(this.$refs.aido && !this.$refs.aido.paused){
-					this.$refs.aido.pause();
-				}
-			},
+		
 			puandFn2(){
 				this.puandFn();
-				this.playT = 2;
+				
 			},
 			/*播放相关*/
 								
@@ -1095,16 +1094,12 @@
 				}
 				e.preventDefault();
 				
-				let maxd = 0;
+				
 				let pd = 0;
-				maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
-			
+				let maxd = this.$refs.qyBox.offsetWidth;
 				let len = this.$refs.gund_01x.offsetWidth;
-				
-				len = len/this.fdjb;
-				
-				pd = (maxd - len)/(maxd / len);
-				
+				let bl = len / maxd;
+				pd = (maxd - len) * bl;
 				var kd = e.wheelDelta ? e.wheelDelta : e.detail;
 				if (kd > 0) {	
 					if (ctrlKey && this.fdjb > 1) {						
@@ -1120,7 +1115,8 @@
 						this.fdjb++;					
 					}
 					if (shiftKey) {		
-						let ond = this.tdjl+30;						
+						let ond = this.tdjl+30;		
+										
 						if(ond>pd){
 							ond = pd;
 						}
@@ -1655,6 +1651,7 @@
 				if(this.tanc.zj == 'saves'){
 					return
 				}
+				
 				if (!this.checkOn.list) {
 					return
 				}	
@@ -1782,11 +1779,8 @@
 					}	
 					this.checkAdio();
 					toTim+=.05;		
-						
-					this.cans.fillRect(0, 0, this.boxW, this.boxH);
 					let ob = this.preview.previewObj;
-					
-					this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
+					this.drmvideo(ob);
 					let po = this.cun[this.vdcc].x;
 					if (po) {
 						this.cans.fillRect(0, 0, po, this.boxH);
@@ -1821,7 +1815,7 @@
 				
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false);
-				// window.addEventListener('click',this.clickfns,true);
+				window.addEventListener('click',this.clickfns,false);
 				
 				this.zoomd = this.boxW/391;
 				
