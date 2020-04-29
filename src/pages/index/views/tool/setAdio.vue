@@ -225,10 +225,11 @@ export default{
 			this.$refs.aido.play()
 		}
 	},
-	methods:{
-		
+	methods:{		
 		scrolls(){
-			this.$refs.mp3_04.scrollTop=0;
+			if(this.$refs.mp3_04){
+				this.$refs.mp3_04.scrollTop=0;
+			}			
 		},
 		closesf(){
 			this.chek = '';
