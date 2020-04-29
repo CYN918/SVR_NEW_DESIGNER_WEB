@@ -116,7 +116,7 @@ export default {
 				this.outc.num = 1;
 				return
 			}
-			this.$router.push({path:'/tolt/toluser'});
+			this.$router.push({path:'/toluser'});
 			// if(window.userInfo.contributor_format_status == 2){
 			// 	
 			// 	return

@@ -107,7 +107,7 @@ let wb = [
 			
 			{path: '/tolt',name:'tolt',component: toltIndex,children:[
 				{path: '/tolt',name:'tolt',component: tolt},
-				{path: 'toluser',name:'tolt',component: toluser},
+				{path: '/toluser',name:'tolt',component: toluser},
 			]},
 			
 			
