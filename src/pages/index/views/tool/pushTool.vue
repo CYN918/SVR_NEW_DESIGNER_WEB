@@ -122,14 +122,14 @@
 							@mouseover="setMos({on:index,n:'decorates'},$event)"
 							@mouseout="setMos('')"
 							>
-								
-									<div 
-									:style="backtop(el2,index2)" 
-									@contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" 
-									class="imgd" 
-									@click="setCheckOn({type:'decorates',list:navcoms.decorates[index],on:index2})"
-									v-for="(el2,index2) in el">
-										<div :style="bgtf(el2)" class="setToll0"></div>
+							<div 
+								:style="backtop(el2,index2)" 
+								@contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" 
+								class="imgd" 
+								@click="setCheckOn({type:'decorates',list:navcoms.decorates[index],on:index2})"
+								v-for="(el2,index2) in el">
+							<div :style="bgtf(el2)" class="setToll0"></div>
+							<div class="minzss">{{el2.file_name}}</div>
 										<div 
 										:class="['setToll',el2.ischeck?'setToll_active':'']">
 											<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
@@ -147,7 +147,7 @@
 												<i></i><i></i><i></i>
 											</div>
 										</div>
-										<div class="minzss">{{el2.file_name}}</div>
+										
 									</div>
 								
 							
@@ -162,7 +162,7 @@
 								class="imgd" 
 								v-for="(el,index) in navcoms.media">
 									<div :style="bgtf(el)" class="setToll0"></div>
-									
+									<div class="minzss">{{el.file_name}}</div>
 									<div 
 									:class="['setToll',el.ischeck?'setToll_active':'']">
 										<div @mousedown="jl3($event,el,index,navcoms.media,'media')" class="setToll1"></div>
@@ -180,7 +180,7 @@
 											<i></i><i></i><i></i>
 										</div>
 									</div>
-									<div class="minzss">{{el.file_name}}</div>
+									
 								</div>
 							</div>
 
@@ -192,7 +192,7 @@
 								class="imgd" 
 								v-for="(el,index) in navcoms.audio">
 									<div :style="bgtf(el)" class="setToll0 setToll0xs"></div>
-									
+									<div class="minzss">{{el.file_name}}</div>
 									<div :class="['setToll',el.ischeck?'setToll_active':'']">
 										<div @mousedown="jl3($event,el,index,navcoms.audio,'audio')" class="setToll1"></div>
 										<div @mousedown="jl2($event,el,index,navcoms.audio,'audio')" class="setToll2">
@@ -210,7 +210,7 @@
 											<i></i><i></i><i></i>
 										</div>
 									</div>
-									<div class="minzss">{{el.file_name}}</div>
+									
 								</div>
 							</div>
 						</div>						
@@ -457,6 +457,7 @@
 			/*清除事件监听*/
 			window.removeEventListener('resize',this.setVwh);			
 			document.removeEventListener('keydown',this.LineKey);
+			window.removeEventListener('click',this.clickfns);		
 			this.$refs.gdbox.removeEventListener('mousewheel',this.LineWheel);
 			this.$refs.vids.removeEventListener('play',this.LinePlay);
 			this.$refs.vids.removeEventListener('pause',this.LineClerDrm);
@@ -491,6 +492,13 @@
 			},
 		},
 		methods: {
+			clickfns(){
+				if(this.checkOn.list){
+					this.checkOn.list[this.checkOn.on].ischeck='';
+					this.checkOn = {};
+				}
+				
+			},
 			setPreviewState(n){
 				this.preview.state = n;
 			},
@@ -1808,7 +1816,9 @@
 				}
 				
 				this.setVwh();
-				window.addEventListener('resize',this.setVwh,false)
+				window.addEventListener('resize',this.setVwh,false);
+				window.addEventListener('click',this.clickfns,true);
+				
 				this.zoomd = this.boxW/391;
 				
 				this.$refs.cavs.width = this.boxW;

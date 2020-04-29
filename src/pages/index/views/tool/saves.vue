@@ -70,7 +70,7 @@ export default{
 	methods:{
 		init(){
 			document.body.style = "overflow: hidden;";
-			this.bfmax = this.$parent.getSc();
+			this.bfmax = this.backto(this.$parent.getSc());
 			if(this.value.tag){
 				for(let i=0,n=this.value.tag.length;i<n;i++){
 					let pod = this.value.tag[i];
@@ -113,11 +113,14 @@ export default{
 			let pd = el.json.media;
 			let on=0;
 			let len = pd.length;
+			let arrdo = [];
 			if(len==0){
 				el.json.media = [{type:'blank',start:0,end:this.backto(el.maxTime)}];
 				return		
 			}
+			
 			var fn = ()=>{
+				
 				pd[on].end = this.backTim(pd[on]);
 				if(pd[on].sw!=pd[on].yw || pd[on].sh!=pd[on].yh || pd[on].sx!=0 || pd[on].sy!=0){
 					pd[on].crop = this.backto(pd[on].sw)+':'+this.backto(pd[on].sh)+':'+this.backto(pd[on].x)+':'+this.backto(pd[on].sy);
@@ -128,25 +131,24 @@ export default{
 				pd[on].end = this.backto(pd[on].end);
 				pd[on].x = this.backto(pd[on].x);
 				pd[on].y = this.backto(pd[on].y);
+				arrdo.push(pd[on]);
 				if(on<len-1){
 					on++;
+					
 					if(pd[on].start>pd[on-1].end){
-						pd.splice(on,1,{type:'blank',start:this.backto(pd[on-1].end),end:this.backto(pd[on].start)},pd[on]); 
+						arrdo.push(
+						{type:'blank',
+						start:this.backto(pd[on-1].end),
+						end:this.backto(pd[on].start)});						
 					}
-					on++;
 					fn();
 					
-				}else{
-					if(pd[on].end<this.bfmax){
-						pd.push({type:'blank',start:this.backto(pd[on].end),end:this.backto(this.bfmax)});
-					}	
-					
+				}else if(pd[on].end<this.bfmax){
+					arrdo.push({type:'blank',start:this.backto(pd[on].end),end:this.backto(this.bfmax)});		
 				}				
 			}
-			fn();
-			
-				 
-			
+			fn(); 
+			el.json.media = arrdo;
 			return 			
 		},
 		
@@ -221,7 +223,7 @@ export default{
 				})
 				return;
 			}		
-					
+			maxTime = this.backto(maxTime);		
 			this.cl_video(pr);
 			this.cl_audio(pr);
 			pr.json.max_length = maxTime;
@@ -229,7 +231,8 @@ export default{
 			if(sd.length>0){
 				pr.json.decoration = sd;
 			}
-			
+			console.log(pr.json);
+			return
 			pr.json = JSON.stringify(pr.json);
 			
 			pr.submit = 1;
