@@ -1892,12 +1892,13 @@
 				this.navcoms.zj = zj;
 			},
 			showcj(e,b) {
-				let dom = e.target.getBoundingClientRect();
+
 				if (b) {
 					this.checkOn = b;
 					this.checkOn.list[this.checkOn.on].ischeck=1;
 				}
-				this.csad = 'display:block;top:' + (dom.y - 5) + 'px;left:' + (dom.x - 22) + 'px';
+		
+				this.csad = 'display:block;top:' + (e.y - 5) + 'px;left:' + (e.x - 22) + 'px';
 				let fn = () => {
 					setTimeout(() => {
 						this.csad = '';
