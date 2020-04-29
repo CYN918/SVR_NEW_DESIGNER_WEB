@@ -43,8 +43,10 @@
 		<div class="pr_cent2_4">
 			<div @click="openCent()" class="pr_cent2_5">
 				<div class="pr_cent2_6">{{deta.name}}</div>
-				<div class="pr_cent2_7">项目类型：{{deta.classify_name}}<i></i>制作周期：<span>{{deta.production_cycle_d}}天{{deta.production_cycle_h}}时</span></div>
-				<div class="pr_cent2_10" v-html="tip"></div>
+				<div class="pr_cent2_7" v-if="deta.deal_type == '3'">项目类型：{{deta.classify_name}}<i></i>制作周期：<span>{{deta.production_cycle_d}}天{{deta.production_cycle_h}}时</span><i></i>预付金：<span style="color:rgba(255,147,0,1);">￥{{deta.money.advance_payment}}</span></div>
+				<div class="pr_cent2_7" v-else>项目类型：{{deta.classify_name}}<i></i>制作周期：<span>{{deta.production_cycle_d}}天{{deta.production_cycle_h}}时</span></div>
+				<div class="pr_cent2_10" v-html="tip1" v-if="this.$route.path == '/projectYs'"></div>
+				<div class="pr_cent2_10" v-html="tip" v-else></div>
 				<!-- <div class="pr_cent2_8">领域范围：<span v-for="(ed,index) in deta.fields">{{ed}}</span></div>	 -->
 			</div>
 			<div class="pr_cent2_9">
@@ -95,6 +97,7 @@ export default {
 			djtime:'',
 			tips:'',
 			tip:'',
+			tip1:'',
 			btns:'',
 			deta:{},
 		}
@@ -148,14 +151,14 @@ export default {
 				}
 			}
 			if(this.$route.path == '/projectYs'){
-				if(this.deta.money != ''){
-					if(this.deta.money.advance_payment != '0.00'){
-						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>'+ '<span style="color:rgba(187,187,187,1);font-size:12px;">' + '('+'￥'+this.deta.money.advance_payment+'预付金'+')' + '</span>';
-					}else{
-						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>';
-					}
-				}else{
-					this.tip = '累计分成收益：暂无分成收益';
+				if(this.deta.deal_type == '1'){
+					this.tip1 = '成交价格：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>';	
+				}
+				if(this.deta.deal_type == '2'){
+					this.tip1 = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>';
+				}
+				if(this.deta.deal_type == '3'){
+					this.tip1 = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>';
 				}
 			}
 			
