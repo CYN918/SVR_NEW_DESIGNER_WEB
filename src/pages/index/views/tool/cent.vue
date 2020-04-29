@@ -1,16 +1,16 @@
 <template>
 	<div class="ldx_l_1x">
-		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1fd2" >
+		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1fd2" @mouseover="ybf($event)" @mouseout="stopbf($event)">
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
 			
-			<div class="video_po_01" @mouseover="ybf()" @mouseout="stopbf()">				
-				<video @canplay="setTime()" loop="loop" v-if="el.file_url" class="bof" ref="video" :src="el.file_url"></video>
-				<div v-if="el.status==2 || el.status==1 || el.status==0" class="ldxwc_yy">
-					<img :class="['ant',Isbf?'paused':'']" src="/imge/tools/Upload_icon_music_24.svg" alt="">
-					<div class="gdwz_001"><span :style="yu_tle">{{backdr()}}</span></div>
-				</div>			
-			</div>
-			
+			<video @canplay="setTime()" loop="loop" v-if="el.file_url" class="bof" ref="video" :src="el.file_url"></video>
+			<div 
+			@mouseover="showT()" @mouseout="hinT()"
+			v-if="el.status==2 || el.status==1 || el.status==0" 
+			class="ldxwc_yy">
+				<img :class="['ant',Isbf?'paused':'']" src="/imge/tools/Upload_icon_music_24.svg" alt="">
+				<div :class="['gdwz_001',showTil?'showTil':'']"><span :style="yu_tle">{{backdr()}}</span></div>
+			</div>	
 			
 			
 			<div class="ldxdsh_01" v-if="el.status==1">审核中</div>
@@ -96,12 +96,19 @@ export default{
 			jsons:{},
 			isBFdjs:'',
 			times:'',
-			Isbf:true
+			Isbf:true,
+			showTil:'',
 		}
 		
 	},
 	
 	methods:{
+		showT(e){
+			this.showTil = 1;
+		},
+		hinT(e){
+			this.showTil = '';
+		},
 		backyo(){
 			if(this.$refs.tiles){
 				console.log(this.$refs.tiles.getBoundingClientRect().width);
@@ -133,27 +140,34 @@ export default{
 			}
 			this.times =  f+':'+s;
 		},
-		ybf(){
+		ybf(e){
+			if(!this.$refs.video){
+				return
+			}
 			clearTimeout(this.isBFdjs);
+			if(!this.$refs.video.paused){
+				return
+			}
 			this.isBFdjs = setTimeout(()=>{
 				if(this.$refs.video){
 					this.$refs.video.currentTime = 0;
 					this.$refs.video.play();
 					this.Isbf = false;
 				}
-			},200)
-			
+			},200)			
 		},
-		stopbf(){
-			console.log(1111111111);
+		stopbf(e){
+			if(!this.$refs.video){
+				return
+			}
 			clearTimeout(this.isBFdjs);
 			if(this.$refs.video && !this.$refs.video.paused){
-				this.$refs.video.pause();
-				this.$refs.video.currentTime = 0;
-				this.Isbf = true;
-			}
-			
-			
+				this.isBFdjs = setTimeout(()=>{
+					this.$refs.video.pause();
+					this.$refs.video.currentTime = 0;
+					this.Isbf = true;
+				},200)				
+			}			
 		},
 		init(){
 		
@@ -400,6 +414,7 @@ export default{
 .ldx_l_1_btn2_a{
 	cursor: pointer;
 }
+
 .ldxwc_yy{
 	position: absolute;
 	top: 10px;
@@ -411,13 +426,12 @@ export default{
 	vertical-align: top;
 	width: 24px;
 }
-.ldxwc_yy:hover>div{
+/* .ldxwc_yy:hover>div{
 	display: inline-block;
-}
+} */
 .ldxwc_yy>div{
 
 	margin-left: 4px;
-	display: none;
 	width:129px;
 	height:24px;
 	padding: 0 8px;
@@ -528,6 +542,7 @@ export default{
 	float: right;
 }
 .gdwz_001{
+	display: none;
 	position: relative;
 	overflow: hidden;
 	
@@ -538,7 +553,13 @@ export default{
 	top: 0;
 	padding: 0 10px;
 	display: inline-block;
-	transition: transform 1s linear;
+	animation: test 5s linear infinite;
 }
-
+@keyframes test{
+	from{transform: translateX(0);}
+	to{transform: translateX(-100%);}
+}
+.showTil{
+	display: inline-block;
+}
 </style>
