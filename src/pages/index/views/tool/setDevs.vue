@@ -41,7 +41,14 @@ export default{
 	}, 
 	methods:{
 		init(){
+			
 			this.$refs.imgs.onload=()=>{
+				if(!this.$refs.boxs){
+					return
+				}
+				if(!this.$refs.imgs){
+					return
+				}
 				let op = this.$refs.imgs.getBoundingClientRect();
 				let posd = this.$refs.boxs.getBoundingClientRect();
 				let xs = op.x-posd.x;
@@ -177,6 +184,9 @@ export default{
 	display: block;
 	width: 100%;
 	height: 100%;
+}
+.isnobhd .setDvs_02x1{
+	display: none;
 }
 .setDvs_02x1{
 	position: absolute;

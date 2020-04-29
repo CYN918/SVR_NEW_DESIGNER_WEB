@@ -30,9 +30,9 @@
 								<span v-for="(el2,index2) in el">
 									<div
 									
-									v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime && preview.state!=1"
+									v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime"
 									>
-										<setDevs v-model="navcoms.decorates[index][index2]"></setDevs>
+										<setDevs :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
 									</div>					
 								</span>
 								
