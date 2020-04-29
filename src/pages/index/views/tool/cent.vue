@@ -6,7 +6,7 @@
 			<video @canplay="setTime()" loop="loop" v-if="el.file_url" class="bof" ref="video" :src="el.file_url"></video>
 			<div 
 			@mouseover="showT()" @mouseout="hinT()"
-			v-if="el.status==2 || el.status==1 || el.status==0" 
+			v-if="[2,1,0,-1].indexOf(+el.status)!=-1"
 			class="ldxwc_yy">
 				<img :class="['ant',Isbf?'paused':'']" src="/imge/tools/Upload_icon_music_24.svg" alt="">
 				<div :class="['gdwz_001',showTil?'showTil':'']"><span :style="yu_tle">{{backdr()}}</span></div>
