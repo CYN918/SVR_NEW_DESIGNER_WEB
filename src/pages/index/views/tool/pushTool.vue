@@ -511,13 +511,12 @@
 			},
 			playd(a){
 				if(a){
+					
 					this.puandFn();
 					this.preview.onTime = 0;
-					if(this.preview.state ==1){
-						this.playPreview();
-						return
-					}
-					
+					this.preview.state = 0;
+					this.playPreview();
+					return
 				}
 				if(this.preview.state==0 && this.preview.onTime>=this.preview.maxTime){
 					this.preview.onTime = 0;
@@ -546,7 +545,7 @@
 				
 				this.setPreviewObj();
 				let bfObj = this.preview.previewObj;
-				
+				this.preview.state=1;
 							
 				if(bfObj.type=='null'){
 					this.drmNull(bfObj);
@@ -651,6 +650,7 @@
 				
 			},			
 			setPreviewObj(){
+				
 				let pd = this.navcoms.media,on=0,len = pd.length,	
 				obj = {};
 				var fn = ()=>{
