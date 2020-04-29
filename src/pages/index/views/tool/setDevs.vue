@@ -51,29 +51,15 @@ export default{
 				if(hs<this.$parent.boxH){
 					ys = (this.$parent.boxH-hs)/2+ys;
 				}
-				
-				
-			
 				if(ws<this.$parent.boxW){
-				
 					xs = (this.$parent.boxW-ws)/2+xs;
-				}
-				
+				}				
 				if(!this.value.zskb){
-
-					
 					this.$set(this.value,'zsx',xs);
 					this.$set(this.value,'zsy',ys);
 					this.$set(this.value,'zsh',op.height);
 					this.$set(this.value,'zsw',op.width);
 					this.$set(this.value,'zskb',op.width/op.height)
-					
-					
-					// this.value.x = xs;
-					// this.value.y = ys;
-					// this.value.w = op.width;
-					// this.value.h = op.height;
-					// this.value.kb = op.width/op.height;
 				}
 				
 			
