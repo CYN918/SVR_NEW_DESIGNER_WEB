@@ -231,8 +231,7 @@ export default{
 			if(sd.length>0){
 				pr.json.decoration = sd;
 			}
-			console.log(pr.json);
-			return
+			
 			pr.json = JSON.stringify(pr.json);
 			
 			pr.submit = 1;

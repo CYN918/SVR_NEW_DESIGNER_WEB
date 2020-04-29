@@ -2,11 +2,16 @@
 	<div class="ldx_l_1x">
 		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1fd2" >
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
-			<video @canplay="setTime()" loop="loop" @mouseover="ybf()" @mouseout="stopbf()" v-if="el.file_url" class="bof"  ref="video" :src="el.file_url"></video>
-			<div v-if="el.status==2 || el.status==1 || el.status==0" class="ldxwc_yy">
-				<img :class="['ant',Isbf?'paused':'']" src="/imge/tools/Upload_icon_music_24.svg" alt="">
-				<div>{{(jsons.audio && jsons.audio[0])?jsons.audio[0].author:'无歌手名'}}</div>
+			
+			<div class="video_po_01" @mouseover="ybf()" @mouseout="stopbf()">				
+				<video @canplay="setTime()" loop="loop" v-if="el.file_url" class="bof" ref="video" :src="el.file_url"></video>
+				<div v-if="el.status==2 || el.status==1 || el.status==0" class="ldxwc_yy">
+					<img :class="['ant',Isbf?'paused':'']" src="/imge/tools/Upload_icon_music_24.svg" alt="">
+					<div class="gdwz_001"><span :style="yu_tle">{{backdr()}}</span></div>
+				</div>			
 			</div>
+			
+			
 			
 			<div class="ldxdsh_01" v-if="el.status==1">审核中</div>
 			<div class="hcsb" v-if="el.status==-10">
@@ -80,6 +85,7 @@ export default{
 	},
 	data(){
 		return{
+			yu_tle:'',
 			top_btn:false,
 			Isbtn:false,
 			checkinfo:{
@@ -96,6 +102,19 @@ export default{
 	},
 	
 	methods:{
+		backyo(){
+			if(this.$refs.tiles){
+				console.log(this.$refs.tiles.getBoundingClientRect().width);
+				return this.$refs.tiles.getBoundingClientRect().width>1?'tian_01':'';
+			}
+			
+		},
+		backdr(){
+			if(this.jsons.audio && this.jsons.audio[0] && this.jsons.audio[0].author){
+				return  this.jsons.audio[0].file_name+'-'+this.jsons.audio[0].author;
+			}			
+			return '无歌手名';
+		},
 		setTime(){
 			if(!this.$refs.video){
 				return
@@ -126,6 +145,7 @@ export default{
 			
 		},
 		stopbf(){
+			console.log(1111111111);
 			clearTimeout(this.isBFdjs);
 			if(this.$refs.video && !this.$refs.video.paused){
 				this.$refs.video.pause();
@@ -138,7 +158,9 @@ export default{
 		init(){
 		
 			try{
-				this.jsons = JSON.parse(this.el.json);
+				let op = JSON.parse(this.el.json);
+				this.jsons = op?op:{};
+				
 			}catch(e){
 				//TODO handle the exception
 			}
@@ -438,6 +460,13 @@ export default{
 	color:rgba(255,255,255,1);
 	line-height:20px;
 }
+.video_po_01{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
 .bof{
 	position: absolute;
 	top: 0;
@@ -498,4 +527,18 @@ export default{
 .hcsb2>div.fol{
 	float: right;
 }
+.gdwz_001{
+	position: relative;
+	overflow: hidden;
+	
+}
+.gdwz_001>span{
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding: 0 10px;
+	display: inline-block;
+	transition: transform 1s linear;
+}
+
 </style>
