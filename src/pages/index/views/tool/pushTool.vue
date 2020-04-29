@@ -1094,16 +1094,12 @@
 				}
 				e.preventDefault();
 				
-				let maxd = 0;
+				
 				let pd = 0;
-				maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
-			
+				let maxd = this.$refs.qyBox.offsetWidth;
 				let len = this.$refs.gund_01x.offsetWidth;
-				
-				len = len/this.fdjb;
-				
-				pd = (maxd - len)/(maxd / len);
-				
+				let bl = len / maxd;
+				pd = (maxd - len) * bl;
 				var kd = e.wheelDelta ? e.wheelDelta : e.detail;
 				if (kd > 0) {	
 					if (ctrlKey && this.fdjb > 1) {						
@@ -1119,7 +1115,8 @@
 						this.fdjb++;					
 					}
 					if (shiftKey) {		
-						let ond = this.tdjl+30;						
+						let ond = this.tdjl+30;		
+										
 						if(ond>pd){
 							ond = pd;
 						}
