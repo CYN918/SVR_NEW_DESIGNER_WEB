@@ -581,6 +581,7 @@
 						
 			},
 			puandFn(){
+			
 				if(this.preview.state==1){
 					this.preview.state=2;
 					return
@@ -688,7 +689,10 @@
 				e.preventDefault();
 				e.currentTarget.className = 'setToll'
 			},
-			
+			drmvideo(a){
+				this.drmBg();
+				this.cans.drawImage(this.$refs.vids,a.sx,a.sy,a.sw,a.sh,a.x,a.y,a.w,a.h);
+			},
 			drmOn(){
 				this.setPreviewObj();
 			
@@ -705,9 +709,7 @@
 					this.$refs.vids.currentTime = this.backto((this.preview.onTime - obd.start)+obd.cut_start);
 				
 					let fns = ()=>{
-						this.drmBg();
-						this.cans.drawImage(this.$refs.vids, obd.sx, obd.sy, obd.sw, obd.sh, obd.x, obd.y, obd.w, obd.h);
-						
+						this.drmvideo(obd);
 						removeEventListener('loadeddata',fns);
 					};
 					this.$refs.vids.addEventListener('loadeddata',fns);
@@ -782,18 +784,10 @@
 			stopDr(){
 				clearInterval(this.valObj);
 			},			
-			puandFn(){
-				this.stopDr();
-				if(this.$refs.vids && !this.$refs.vids.paused){
-					this.$refs.vids.pause();					
-				}
-				if(this.$refs.aido && !this.$refs.aido.paused){
-					this.$refs.aido.pause();
-				}
-			},
+		
 			puandFn2(){
 				this.puandFn();
-				this.playT = 2;
+				
 			},
 			/*播放相关*/
 								
@@ -1788,11 +1782,8 @@
 					}	
 					this.checkAdio();
 					toTim+=.05;		
-						
-					this.cans.fillRect(0, 0, this.boxW, this.boxH);
 					let ob = this.preview.previewObj;
-					
-					this.cans.drawImage(this.$refs.vids, ob.sx, ob.sy, ob.sw, ob.sh, ob.x, ob.y, ob.w, ob.h);
+					this.drmvideo(ob);
 					let po = this.cun[this.vdcc].x;
 					if (po) {
 						this.cans.fillRect(0, 0, po, this.boxH);

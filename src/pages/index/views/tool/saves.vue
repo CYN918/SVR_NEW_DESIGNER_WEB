@@ -93,10 +93,10 @@ export default{
 			if(pd[0].start!=0){
 				arr.push({type:'blank',start:0,end:this.backto(pd[0].start)});				
 			}		
-			pd[0].start = this.backto(pd[i].start);
-			pd[0].cut_end = this.backto(pd[i].cut_end);
-			pd[0].cut_start = this.backto(pd[i].cut_start);
-			pd[0].end = this.backto(pd[i].start+(pd[i].cut_end-pd[i].cut_start));			
+			pd[0].start = this.backto(pd[0].start);
+			pd[0].cut_end = this.backto(pd[0].cut_end);
+			pd[0].cut_start = this.backto(pd[0].cut_start);
+			pd[0].end = this.backto(pd[0].start+(pd[0].cut_end-pd[0].cut_start));			
 			arr.push(pd[0]);
 			el.json.audio = arr;
 		},
@@ -241,7 +241,7 @@ export default{
 					message:'交稿成功',
 				})
 				setTimeout(()=>{
-					this.$router.push({path:'/tolt/toluser'});	
+					this.$router.push({path:'/toluser'});	
 				},1000)
 		
 			}).catch(()=>{
