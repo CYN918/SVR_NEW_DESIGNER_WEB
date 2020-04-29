@@ -1832,10 +1832,20 @@
 						this.$router.push({path: '/'})	
 						return
 					}
+					
 					this.form.title = op.title;
 					if(op.json){
 						let json = JSON.parse(op.json);
-						this.navcoms.media = json.media;
+						
+						console.log(json);
+						let arr = [];
+						for(let i =0,n=json.media.length;i<n;i++){
+							if(json.media[i].type!="blank"){
+								arr.push(json.media[i])
+							}
+						}
+						
+						this.navcoms.media = arr;
 						this.navcoms.audio = json.audio;
 						
 						if (json.decoration && json.decoration.length > 0) {
