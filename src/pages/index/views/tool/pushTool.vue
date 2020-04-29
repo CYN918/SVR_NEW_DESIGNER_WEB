@@ -246,9 +246,6 @@
 					<span class="zs_box1"><img src="/imge/tools/gd_toast_icon_delete.svg"/></span><span>删除装饰轨</span>
 				</span>
 			</div>
-			
-			
-			
 			<div v-if="istype" class="pr_tc_01">
 				<div class="pr_tc_02">
 					<div class="pr_tc_04">
@@ -493,9 +490,13 @@
 			},
 		},
 		methods: {
-			clickfns(){
-				
+			clickfns(e){
+			
 				if(this.checkOn.list){
+					if(!this.checkOn.ison){
+						this.checkOn.ison = 1;
+						return
+					}
 					this.checkOn.list[this.checkOn.on].ischeck='';
 					this.checkOn = {};
 				}
@@ -1655,6 +1656,7 @@
 				if(this.tanc.zj == 'saves'){
 					return
 				}
+				console.log(this.checkOn);
 				if (!this.checkOn.list) {
 					return
 				}	
@@ -1821,7 +1823,7 @@
 				
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false);
-				// window.addEventListener('click',this.clickfns,true);
+				window.addEventListener('click',this.clickfns,false);
 				
 				this.zoomd = this.boxW/391;
 				
