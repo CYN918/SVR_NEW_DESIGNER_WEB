@@ -684,11 +684,7 @@
 				e.preventDefault();
 				e.currentTarget.className = 'setToll'
 			},
-			drvideo(obd){
-				console.log(obd);
-				this.drmBg();
-				this.cans.drawImage(this.$refs.vids, obd.sx, obd.sy, obd.sw, obd.sh, obd.x, obd.y, obd.w, obd.h);				
-			},
+			
 			drmOn(){
 				this.setPreviewObj();
 			
@@ -703,11 +699,10 @@
 					
 					this.$refs.vids.src=obd.file_url;	
 					this.$refs.vids.currentTime = this.backto((this.preview.onTime - obd.start)+obd.cut_start);
-					
-					this.valObj = setInterval(this.drvideo(obd),25);
-					
 					setTimeout(()=>{
-						clearInterval(this.valObj);
+						this.drmBg();
+						this.cans.drawImage(this.$refs.vids, obd.sx, obd.sy, obd.sw, obd.sh, obd.x, obd.y, obd.w, obd.h);
+						
 					},1000)
 					return
 				}
