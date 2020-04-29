@@ -499,6 +499,7 @@
 			},
 			playd(a){
 				if(a){
+					this.puandFn();
 					this.preview.onTime = 0;
 					if(this.preview.state ==1){
 						this.playPreview();

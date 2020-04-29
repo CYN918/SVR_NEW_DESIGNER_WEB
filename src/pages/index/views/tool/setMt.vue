@@ -200,12 +200,25 @@ export default{
 					if(wd>hd){
 						pr.w = this.$parent.boxW;
 						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2
+						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.x = 0;
 					}else{
 						pr.h = this.$parent.boxH;
 						pr.w = (this.$parent.boxH/hd)*wd;
-						pr.x = (this.$parent.boxW-pr.w)/2;
-					}
+						
+						if(pr.w>this.$parent.boxW){
+							
+							pr.w = this.$parent.boxW;
+							pr.h = (this.$parent.boxW/wd)*hd;
+							pr.y = (this.$parent.boxH-pr.h)/2;
+							pr.x = 0;
+						}else{
+							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.y = 0;
+						}
+						
+						
+					}		
 					this.value.decorates[this.$parent.Mos.on].push(pr);
 					this.$parent.setPreviewTimes(pr,'decorates',1);
 				
@@ -349,19 +362,28 @@ export default{
 					pr.yh =  hd;
 					pr.sw = wd;					
 					pr.sh = hd;
-					
-					
-					let pdw = this.$parent.boxW,
-					pdh = pdw/9*16;
-					if(pdh>this.$parent.boxH){
-						pdh = this.$parent.boxH;
-						pdw = pdh/16*9;
-					}
-					pr.w = pdw;
-					pr.h = pdh;
-					pr.y = (this.$parent.boxH-pr.h)/2;
-					pr.x = (this.$parent.boxW-pr.W)/2;
-					
+					if(wd>hd){
+						pr.w = this.$parent.boxW;
+						pr.h = (this.$parent.boxW/wd)*hd;
+						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.x = 0;
+					}else{
+						pr.h = this.$parent.boxH;
+						pr.w = (this.$parent.boxH/hd)*wd;
+						
+						if(pr.w>this.$parent.boxW){
+							
+							pr.w = this.$parent.boxW;
+							pr.h = (this.$parent.boxW/wd)*hd;
+							pr.y = (this.$parent.boxH-pr.h)/2;
+							pr.x = 0;
+						}else{
+							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.y = 0;
+						}
+						
+						
+					}				
 					this.value.media.push(pr);	
 					
 					this.$parent.setPreviewTimes(pr,'media',1);	
@@ -379,15 +401,28 @@ export default{
 					pr.yh =  hd;
 					pr.sw = wd;					
 					pr.sh = hd;
-					if(wd<hd){
-						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;
-						pr.x = (this.$parent.boxW-pr.w)/2;
-					}else{
+					if(wd>hd){
 						pr.w = this.$parent.boxW;
 						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2
-					}
+						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.x = 0;
+					}else{
+						pr.h = this.$parent.boxH;
+						pr.w = (this.$parent.boxH/hd)*wd;
+						
+						if(pr.w>this.$parent.boxW){
+							
+							pr.w = this.$parent.boxW;
+							pr.h = (this.$parent.boxW/wd)*hd;
+							pr.y = (this.$parent.boxH-pr.h)/2;
+							pr.x = 0;
+						}else{
+							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.y = 0;
+						}
+						
+						
+					}		
 					this.value.media.push(pr);	
 					this.$parent.setPreviewTimes(pr,'media',1);
 					this.$parent.drmOn();
