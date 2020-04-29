@@ -1225,7 +1225,7 @@
 			},
 			backs() {
 				this.$router.push({
-					path: '/tolt/toluser'
+					path: '/toluser'
 				});
 			},
 			bgtf(el) {
