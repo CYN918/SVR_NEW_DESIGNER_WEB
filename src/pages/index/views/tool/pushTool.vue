@@ -447,7 +447,8 @@
 					maxTime:0,
 					onTime:0,
 					duration:0,
-				}
+				},
+				xstd:''
 			}
 		},
 		mounted: function() {
@@ -493,10 +494,12 @@
 		},
 		methods: {
 			clickfns(){
+				
 				if(this.checkOn.list){
 					this.checkOn.list[this.checkOn.on].ischeck='';
 					this.checkOn = {};
 				}
+				
 				
 			},
 			setPreviewState(n){
@@ -1648,6 +1651,7 @@
 				};
 			},
 			delt() {
+			
 				if(this.tanc.zj == 'saves'){
 					return
 				}
@@ -1817,7 +1821,7 @@
 				
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false);
-				window.addEventListener('click',this.clickfns,true);
+				// window.addEventListener('click',this.clickfns,true);
 				
 				this.zoomd = this.boxW/391;
 				
@@ -1831,24 +1835,19 @@
 					if(!op){
 						this.$router.push({path: '/'})	
 						return
-					}
-					
+					}					
 					this.form.title = op.title;
 					if(op.json){
 						let json = JSON.parse(op.json);
-						
-						console.log(json);
 						let arr = [];
 						for(let i =0,n=json.media.length;i<n;i++){
 							if(json.media[i].type!="blank"){
 								arr.push(json.media[i])
 							}
 						}
-						
 						this.navcoms.media = arr;
 						this.navcoms.audio = json.audio;
-						
-						if (json.decoration && json.decoration.length > 0) {
+						if(json.decoration && json.decoration.length > 0) {
 							let arr1 = [];
 							for (let i = 0, n = json.decoration.length; i < n; i++) {
 								if (!arr1[json.decoration[i].ond]) {
@@ -1863,18 +1862,13 @@
 							this.sh_audioUrld(this.navcoms.audio[0]);
 						}
 					}
-					
-					
-					
 					this.form.id = op.id;
 					this.setPreviewTimes('','del',1);
 					this.drmOn();
 				}
-				this.savsout();
-				
+				this.savsout();				
 				document.addEventListener('keydown',this.LineKey, false);
-				this.$refs.gdbox.addEventListener('mousewheel', this.LineWheel, false)
-				
+				this.$refs.gdbox.addEventListener('mousewheel', this.LineWheel, false)				
 				this.$refs.vids.addEventListener('play',this.LinePlay, false);
 				this.$refs.vids.addEventListener('pause',this.LineClerDrm, false);
 				this.$refs.vids.addEventListener('ended',this.LineClerDrm, false);
@@ -1883,16 +1877,7 @@
 				}
 			},
 			cksd(){
-				
-				// if(this.preview.onTime<this.preview.maxTime){
-				
-				// 	this.playPreview();
-				// 	return
-				// }
-				
-				// if(this.bfObj.type=='video'){
-				// 	this.endeds()
-				// }				
+			
 			},
 			qhNav(o, zj) {
 				if (this.navson == o) {
@@ -1902,7 +1887,6 @@
 				this.navcoms.zj = zj;
 			},
 			showcj(e,b) {
-
 				if (b) {
 					this.checkOn = b;
 					this.checkOn.list[this.checkOn.on].ischeck=1;
