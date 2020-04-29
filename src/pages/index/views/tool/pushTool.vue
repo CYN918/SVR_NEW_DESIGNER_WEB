@@ -30,7 +30,7 @@
 								<span v-for="(el2,index2) in el">
 									<div
 									
-									v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime"
+									v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime && preview.state!=1"
 									>
 										<setDevs v-model="navcoms.decorates[index][index2]"></setDevs>
 									</div>					
@@ -581,6 +581,10 @@
 						
 			},
 			puandFn(){
+				if(this.preview.state==1){
+					this.preview.state=2;
+					return
+				}
 				this.stopDr();
 				if(this.$refs.vids && !this.$refs.vids.paused){
 					this.$refs.vids.pause();					
@@ -696,14 +700,18 @@
 				}
 				if(obd.type=='video'){
 					
-					
+					clearTimeout(this.valObj);
 					this.$refs.vids.src=obd.file_url;	
 					this.$refs.vids.currentTime = this.backto((this.preview.onTime - obd.start)+obd.cut_start);
-					setTimeout(()=>{
+				
+					let fns = ()=>{
 						this.drmBg();
 						this.cans.drawImage(this.$refs.vids, obd.sx, obd.sy, obd.sw, obd.sh, obd.x, obd.y, obd.w, obd.h);
 						
-					},1000)
+						removeEventListener('loadeddata',fns);
+					};
+					this.$refs.vids.addEventListener('loadeddata',fns);
+				
 					return
 				}
 				if(obd.type=='pic'){
@@ -1222,7 +1230,7 @@
 			},
 			backs() {
 				this.$router.push({
-					path: '/tolt/toluser'
+					path: '/toluser'
 				});
 			},
 			bgtf(el) {
