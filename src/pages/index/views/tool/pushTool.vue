@@ -191,7 +191,10 @@
 								@click="setCheckOn({type:'audio',list:navcoms.audio,on:index})"
 								class="imgd" 
 								v-for="(el,index) in navcoms.audio">
-									<div :style="bgtf(el)" class="setToll0 setToll0xs"></div>
+									<div class="se10hid">
+										<img :style="setHidmg(el)" :src="el.type == 'pic' ? el.file_url : el.fps_pic">
+									</div>
+									
 									<div class="minzss">{{el.file_name}}</div>
 									<div :class="['setToll',el.ischeck?'setToll_active':'']">
 										<div @mousedown="jl3($event,el,index,navcoms.audio,'audio')" class="setToll1"></div>
@@ -502,6 +505,11 @@
 				}
 				
 				
+			},
+			setHidmg(el){
+				return "width:" + (el.long / this.bl) * this.wdk + "px;transform:translateX(" + -((el.cut_start /
+					this.bl) * this.wdk) + "px);";
+				 
 			},
 			setPreviewState(n){
 				this.preview.state = n;
@@ -1233,13 +1241,16 @@
 					path: '/toluser'
 				});
 			},
-			bgtf(el) {
+			bgtf(el,a) {
 				if (!el) {
 					return
 				}
 				let url = el.type == 'pic' ? el.file_url : el.fps_pic;
 				let xd = -(el.cut_start/this.bl*this.wdk);
-				return "background:url(" + url + ") "+xd+"px 0/auto 100% repeat-x;";
+				
+				
+				return "background:url(" + url + ") "+xd+"px 0/auto 100% repeat-x";
+				
 			},
 			baclsf() {
 				let max = 64;
@@ -1855,6 +1866,10 @@
 							}
 						}
 						this.navcoms.media = arr;
+						let len = json.audio.length;
+						if(len>1){
+							json.audio = [json.audio[len-1]];
+						}
 						this.navcoms.audio = json.audio;
 						if(json.decoration && json.decoration.length > 0) {
 							let arr1 = [];
@@ -2045,8 +2060,7 @@
 				for (let i = 0, n = pd.length; i < n; i++) {
 					pd[i].end = pd[i].start + (pd[i].cut_end - pd[i].cut_start);
 					if (pd[i].sw != pd[i].yw || pd[i].sh != pd[i].yh || pd[i].sx != 0 || pd[i].sy != 0) {
-						pd[i].crop = this.numqx(pd[i].sw) + ':' + this.numqx(pd[i].sh) + ':' + this.numqx(pd[i].x) + ':' + this.numqx(pd[
-							i].sy);
+						pd[i].crop = pd[i].sw + ':' + pd[i].sh + ':' + pd[i].x + ':' + pd[i].sy;
 					}
 				}
 			},
@@ -2477,8 +2491,21 @@
 	.setToll0>img {
 		display: block;
 		height: 100%;
+		
 	}
-
+	.se10hid{
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+		height: 100%;
+	}
+	.se10hid>img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		height: 100%;
+	}
 	.setTollxx2 {
 		cursor: pointer;
 		position: absolute;
