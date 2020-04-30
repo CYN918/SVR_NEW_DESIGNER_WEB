@@ -491,7 +491,6 @@
 		},
 		methods: {
 			clickfns(e){
-			
 				if(this.checkOn.list){
 					if(!this.checkOn.ison){
 						this.checkOn.ison = 1;
@@ -1435,7 +1434,7 @@
 					on: onc,
 					list:list,
 				})				
-				this.tdStar = e.pageX;
+				let tdStar = e.pageX;
 				let cs = el.start;
 				let wid = el.long * this.wdk;
 				let ond = onc - 1;
@@ -1455,7 +1454,7 @@
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
-					let on = -(this.tdStar - e.pageX) / (this.wdk / this.bl);
+					let on = -(tdStar - e.pageX) / (this.wdk / this.bl);
 					let dd = +cs + on;					
 					if (prd && dd < prEnd) {
 						dd = prEnd;
@@ -1471,6 +1470,11 @@
 				document.onmouseup = (e) => {
 					e.preventDefault();
 					document.onmousemove = document.onmouseup = null;
+					let xs = tdStar - e.pageX;
+					if(xs<20 && xs>-20){
+						return
+					}
+					
 					this.checkOn.list[this.checkOn.on].ischeck = '';
 					let ont = this.getMousTime(e);
 	

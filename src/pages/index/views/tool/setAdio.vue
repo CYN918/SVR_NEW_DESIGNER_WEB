@@ -345,24 +345,33 @@ export default{
 				this.aaa='';
 			})
 		},
-		sh_addFavorAudio(id) {
+		sh_addFavorAudio(obj) {
 			this.api.sh_addFavorAudio({
-				m_id : id
+				m_id : obj.m_id
 			}).then((da) => {
 				if (da == 'error') {
 					return;
 				}
-				
+				obj.is_collect = 1;
+				this.$message({
+					message:"收藏成功"
+				})
 				this.getList();
 			})
 		},
-		sh_delFavorAudio(id) {
+		sh_delFavorAudio(obj) {
 			this.api.sh_delFavorAudio({
-				m_id : id
+				m_id : obj.m_id
 			}).then((da) => {
 				if (da == 'error') {
 					return;
 				}
+				obj.is_collect = '';
+				this.$message({
+					message:'取消收藏成功'
+				})
+				
+				
 				//成功，刷新列表
 				this.getList();
 			})
@@ -514,42 +523,16 @@ export default{
 			})
 		},
 		favor(el) {
-		
-			if (el) {
-				//列表收藏逻辑
-				if (el.is_collect == 1) {
-					this.$message({
-						message:'已取消收藏'
-					})
-					this.sh_delFavorAudio(el.m_id);
-				} else {
-					this.sh_addFavorAudio(el.m_id);
-				}
-				
-				//点击列表收藏修改播放收藏状态
-				if(el.m_id == this.bfData.m_id){
-					if(el.is_collect == 1){
-						this.$set(this.bfData,"is_collect",0)
-					} else {
-						this.$set(this.bfData,"is_collect",1)
-					}
-				}
-			} else {
-				//播放收藏按钮逻辑
-				let ond = this.bfData.on;
-				let id = this.datas[ond].m_id;
-				if (this.datas[ond].is_collect == 1) {
-					this.$message({
-						message:'已取消收藏'
-					})
-					this.sh_delFavorAudio(id);
-					this.$set(this.bfData,"is_collect",0)
-				} else {
-					this.sh_addFavorAudio(id);
-					this.$set(this.bfData,"is_collect",1)
-				}
-
+			if(!el && !this.bfData.m_id){
+				return
 			}
+			
+			let obj = el?el:this.bfData;
+			if(obj.is_collect == 1) {
+				this.sh_delFavorAudio(obj);
+				return
+			}
+			this.sh_addFavorAudio(obj);
 		},
 		ckAdio(el){
 		
