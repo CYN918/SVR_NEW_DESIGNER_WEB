@@ -213,12 +213,13 @@
 									
 								</div>
 							</div>
+							<div @mousedown="todTime($event)" :class="['bf_o1',isbf?'gdAm':'']" :style="backbft()">
+								<div class="bf_o1_1"></div>
+								<img src="/imge/tools/GD_icon_sjz.svg"/>
+							</div>
 						</div>						
 					</div>
-					<div @mousedown="todTime($event)" :class="['bf_o1',isbf?'gdAm':'']" :style="backbft()">
-						<div class="bf_o1_1"></div>
-						<img src="/imge/tools/GD_icon_sjz.svg"/>
-					</div>
+					
 					<div class="gund_01" ref="gund_01x">
 						<div @mousedown="jlx($event)" :style="tdfn()" class="gund_02"></div>
 					</div>
@@ -515,7 +516,7 @@
 					this.preview.state = 1;
 				},20)
 			},
-			playd(a){
+			playd(){
 				if(this.preview.state==0 && this.preview.onTime>=this.preview.maxTime){
 					this.preview.onTime = 0;
 				}
@@ -1086,7 +1087,7 @@
 				}
 				if (e.keyCode == 32) {
 					e.preventDefault()
-					this.playPreview();
+					this.playd();
 					return
 				}
 			},
@@ -1107,25 +1108,28 @@
 				pd = (maxd - len) * bl;
 				var kd = e.wheelDelta ? e.wheelDelta : e.detail;
 				if (kd > 0) {	
-					if (ctrlKey && this.fdjb > 1) {						
-						this.fdjb--;
+					if (ctrlKey && this.fdjb > 1) {							
+						
+						this.fdjb--;						
 					}
 					if (shiftKey) {
 						let ond = this.tdjl-30;				
 						this.tdjl = ond<0?0:ond;
+					
 					}
 				}
 				if (kd < 0) {
 					if (ctrlKey && this.fdjb < 120) {
-						this.fdjb++;					
+						this.fdjb++;	
+					
 					}
 					if (shiftKey) {		
-						let ond = this.tdjl+30;		
-										
+						let ond = this.tdjl+30;												
 						if(ond>pd){
 							ond = pd;
 						}
-						this.tdjl = ond;					
+						this.tdjl = ond;	
+					
 					}
 				}
 			},
