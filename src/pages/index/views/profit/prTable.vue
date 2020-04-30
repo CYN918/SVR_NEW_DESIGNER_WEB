@@ -2,7 +2,7 @@
 	<div :class="['pr_boxd',total>40?'toptool':'']">
 		<table v-if="List.length>0" class="tabld" border="1">
 			<tr >
-				<th v-for="(el,index) in cg.title" :key="index">{{el.n}}<img v-if="el.t == '1'" @mouseout="mod()" @mouseover="modx($event,1)"  class="pbx_n_06" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg" alt="" style="margin-top:19px;"></th>
+				<th v-for="(el,index) in cg.title" :key="index">{{el.n}}</th>
 			</tr>
 			<tr v-for="(el,index) in List" :key="index">
 				<td v-for="(el2,index2) in cg.title" :key="index2">
