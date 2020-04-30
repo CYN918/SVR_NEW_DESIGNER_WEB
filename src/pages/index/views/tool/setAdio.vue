@@ -38,14 +38,14 @@
 			<div 
 			@dblclick="bf(el, index)"
 			v-for="(el,index) in datas"
-			:class="['mp3_04_01 mp3_04_01s mp3_04_01xd',index%2==0?'mp3_04_01x':'',(bfData.on==index && bfData.m_id==el.m_id)?'chebf':'']" 
+			:class="['mp3_04_01 mp3_04_01s mp3_04_01xd',index%2==0?'mp3_04_01x':'',ischeckd(el.m_id,index)?'chebf':'']" 
 			>
 				<span><span :class="index<3?'setAdio_01':''">{{index+1}}</span></span>
 				<span>
 					<span class="mp3_04_01_t hft ">
 						<span class="playsd_an_1" :title="el.name">
 							{{el.name}}
-							<lottie-player v-if="bfData.on==index && bfData.m_id==el.m_id" ref="chean"
+							<lottie-player v-if="ischeckd(el.m_id)" ref="chean"
 								class="playsd_an" src="./js/anm/music.json" background="transparent" speed="1" loop>
 							</lottie-player>
 						</span>
@@ -225,7 +225,10 @@ export default{
 			this.$refs.aido.play()
 		}
 	},
-	methods:{		
+	methods:{	
+		ischeckd(id){
+			return this.bfData.m_id==id;
+		},
 		scrolls(){
 			if(this.$refs.mp3_04){
 				this.$refs.mp3_04.scrollTop=0;
@@ -273,8 +276,6 @@ export default{
 			//算出鼠标相对元素的位置			
 			this.pauseAll();
 			let that = this;
-			
-			
 			let max_w = that.$refs.mp3_05_1.clientWidth;
 			let starX = el.clientX;
 			let onTime = this.bfData.onTime;
@@ -414,10 +415,26 @@ export default{
 			this.aaa=choseEl.m_id;
 			this.sh_audioUrld(choseEl);
 		},
+		checkOlist(){
+			let ond = this.bfData.on;
+			let str = -1;
+			if(this.datas[ond] && this.datas[ond].m_id==this.bfData.m_id){
+				return ond;
+			}
+			for(let i=0,n=this.datas.length;i<n;i++){
+				if(this.datas[i].m_id==this.bfData.m_id){
+					str = i;
+				}
+			}
+			
+			return str;
+		},
 		sys(){
 			if(this.datas.length==0){
 				return
 			}
+			
+			this.bfData.on = this.checkOlist();
 			
 			if(this.bfData.on<1){
 				return
@@ -425,6 +442,12 @@ export default{
 			
 			let ond = this.bfData.on-1;
 			let pd = this.datas[ond];
+			if(!pd){
+				pd = this.datas[0];
+			}
+			
+			
+			
 			this.bfData = {
 				m_id:pd.m_id,
 				on:ond,
@@ -448,11 +471,15 @@ export default{
 			if(len==0){
 				return
 			}
+			this.bfData.on = this.checkOlist();
 			if(this.bfData.on>len-2){
 				return
 			}
 			let ond = this.bfData.on+1;
-			let pd = this.datas[ond]
+			let pd = this.datas[ond];
+			if(!pd){
+				pd = this.datas[0];
+			}
 			this.bfData = {
 				m_id:pd.m_id,
 				on:ond,
