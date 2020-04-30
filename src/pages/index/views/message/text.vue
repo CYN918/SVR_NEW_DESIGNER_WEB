@@ -75,7 +75,7 @@ export default {
 	}, 
 	methods: {
 		goAnchor(a) {
-			let anchor = this.$el.querySelector(a);
+			let anchor = document.querySelector(a);
 			if(!anchor){
 				setTimeout(()=>{
 					this.goAnchor(a);
