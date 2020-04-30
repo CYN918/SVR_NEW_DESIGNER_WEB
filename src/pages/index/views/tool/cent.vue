@@ -3,7 +3,7 @@
 		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1fd2" @mouseover="ybf($event)" @mouseout="stopbf($event)">
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
 			
-			<video @canplay="setTime()" loop="loop" v-if="el.file_url" class="bof" ref="video" :src="el.file_url"></video>
+			<video @timeupdate="timeupdate" @canplay="setTime()" loop="loop" v-if="el.file_url" class="bof" ref="video" :src="el.file_url"></video>
 			<div 
 			@mouseover="showT()" @mouseout="hinT()"
 			v-if="[2,1,0,-1].indexOf(+el.status)!=-1"
@@ -25,7 +25,7 @@
 			
 			<div class="hcsb2" v-if="el.file_url">
 				<div class="foll"><img src="/imge/tools/icon_video_caller lis.svg" alt=""></div>
-				<div class="fol">{{times?times:'00:00'}}</div>
+				<div class="fol">{{setTimed(times-cumime)}}</div>
 			</div>
 			
 			
@@ -96,6 +96,7 @@ export default{
 			jsons:{},
 			isBFdjs:'',
 			times:'',
+			cumime:0,
 			Isbf:true,
 			showTil:'',
 		}
@@ -122,11 +123,17 @@ export default{
 			}			
 			return '无歌手名';
 		},
+		timeupdate(){
+			this.cumime = this.$refs.video.currentTime;
+		},
 		setTime(){
 			if(!this.$refs.video){
 				return
 			}
-			let t = this.$refs.video.duration;
+			this.times = this.$refs.video.duration;
+		},
+		setTimed(t){
+			
 			var f='00',s;
 			if(t>60){
 				f = Math.round(t/60);
@@ -138,7 +145,7 @@ export default{
 			if(s<10){
 				s = '0'+s;
 			}
-			this.times =  f+':'+s;
+			return f+':'+s;
 		},
 		ybf(e){
 			if(!this.$refs.video){

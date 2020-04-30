@@ -118,7 +118,7 @@ export default{
 				
 				pd[on].end = this.backTim(pd[on]);
 				if(pd[on].sw!=pd[on].yw || pd[on].sh!=pd[on].yh || pd[on].sx!=0 || pd[on].sy!=0){
-					pd[on].crop = this.backto(pd[on].sw)+':'+this.backto(pd[on].sh)+':'+this.backto(pd[on].x)+':'+this.backto(pd[on].sy);
+					pd[on].crop = this.backto(pd[on].sw)+':'+this.backto(pd[on].sh)+':'+this.backto(pd[on].sx)+':'+this.backto(pd[on].sy);
 				}
 				pd[on].start = this.backto(pd[on].start);
 				pd[on].cut_end = this.backto(pd[on].cut_end);
