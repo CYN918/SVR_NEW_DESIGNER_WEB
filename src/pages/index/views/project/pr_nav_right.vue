@@ -31,13 +31,7 @@ export default {
     },
     methods: {
         go_top(){
-            let timer = setInterval(() => {
-                let ispeed = Math.floor(-this.scrollTop / 5);
-                document.documentElement.scrollTop = document.body.scrollTop = this.scrollTop + ispeed;
-                if(this.scrollTop === 0){
-                    clearInterval(timer);
-                }
-            },16);
+            this.mJs.scTop(0);
         },
         scrollToTop(){
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;

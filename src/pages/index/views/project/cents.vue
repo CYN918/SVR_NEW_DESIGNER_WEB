@@ -127,6 +127,10 @@
 						<p v-if="deta.deal_type == '2'">￥{{deta.income}}</p>
 						<p v-if="deta.deal_type == '3'">￥{{deta.advance_payment}}</p>
 					</div>
+					<div class="jz_time" v-if="deta.status==5 && deta.deal_type == '3'">
+						<p><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>累计分成收益</i></p>
+						<p>￥{{deta.income}}</p>
+					</div>
 					<div class="yj_sy" v-if="deta.status!=5">
 						<p><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>预计收益</i></p>
 						<p v-if="deta.settlement == '0'">{{deta.expected_profit}}<i style="font-style: normal;color:#282828;font-size:24px;margin-left:5px;margin-right:5px;">或</i>永久分成</p>
