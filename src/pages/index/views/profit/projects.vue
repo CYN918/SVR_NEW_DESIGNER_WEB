@@ -35,9 +35,9 @@ export default {
 						if(d.deal_type == '2'){
 							return '永久分成'
 						}else if(d.deal_type == '3'){
-							return '￥'+this.mJs.money_deiv(d.balance_fee)+'（预付金+永久分成）'
+							return '￥'+this.mJs.money_deiv(d.income)+'（' + '￥'+this.mJs.money_deiv(d.advance_payment) + '预付金+永久分成）'
 						}else if(d.deal_type == '1'){
-							return '<span class="font_cf">￥'+this.mJs.money_deiv(d.balance_fee)+'</span>'
+							return '<span class="font_cf">￥'+this.mJs.money_deiv(d.income)+'</span>'
 						};
 					}}},
 			

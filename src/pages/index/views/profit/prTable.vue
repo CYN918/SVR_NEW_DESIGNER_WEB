@@ -29,12 +29,12 @@
 										<li v-for="(todo,index1) in item.data">
 											<div v-if="dateList[1] == (index1+1)">
 												<p>{{index1+1}}月</p>
-												<p v-if="todo == '0'" class="teshu">暂无数据</p>
+												<p v-if="todo == '0'" class="teshu" style="color: rgba(153,153,153,1);">暂无数据</p>
 												<p v-else class="teshu">￥{{formatMoney(todo)}}</p>
 											</div>
 											<div v-else>
 												<p>{{index1+1}}月</p>
-												<p v-if="todo == '0'">暂无数据</p>
+												<p v-if="todo == '0'" style="color: rgba(153,153,153,1);">暂无数据</p>
 												<p v-else>￥{{formatMoney(todo)}}</p>
 											</div>	
 										</li>
@@ -44,7 +44,7 @@
 									<ul>
 										<li v-for="(todo,index1) in item.data">	
 											<p>{{index1+1}}月</p>
-											<p v-if="todo == '0'">暂无数据</p>
+											<p v-if="todo == '0'" style="color: rgba(153,153,153,1);">暂无数据</p>
 											<p v-else>￥{{formatMoney(todo)}}</p>	
 										</li>
 									</ul>
