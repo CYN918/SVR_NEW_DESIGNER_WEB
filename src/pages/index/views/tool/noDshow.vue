@@ -7,7 +7,7 @@
 			<span v-if="pdn()">供稿人申请已提交，请等待审核</span><span @click="go('/setPersonal')" class="tole_04t" v-else>立即认证供稿人</span>
 		</div>
 		<img class="tole_05" src="/imge/tools/ldx.png">
-		<div class="tole_06">1分钟完成剪辑，永久获取作品收益。<router-link :to="{path:'/help'}" class="tole_08">了解详情</router-link></div>
+		<div class="tole_06">1分钟完成剪辑，永久获取作品收益。<a class="tole_07 pend" @click="gozo">了解详情</a></div>
 	</div>
 </template>
 
@@ -22,6 +22,9 @@ export default{
 		},
 		pdn(){
 			return window.userInfo.contributor_format_status==1
+		},
+		gozo(){
+			window.location.href = 'https://shiquaner.zookingsoft.com/#/cont?id=158825145538';
 		}
 	}
 }
@@ -94,7 +97,9 @@ export default{
 	color:rgba(51,51,51,1);
 	line-height:22px;
 }
-.tole_08{
+
+.tole_07{
+
 	color: #33B3FF;
 }
 </style>
