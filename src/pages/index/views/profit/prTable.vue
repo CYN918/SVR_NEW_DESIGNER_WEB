@@ -20,15 +20,15 @@
 					<img class="box-detele_n8" src="http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/prcent/detele.svg"  @click="modseout(index)"/>
 					<div class="box-sytc_1">
 						<div class="box-sytc_1_n1">累计已付预付金</div>
-						<div class="box-sytc_1_n2">￥{{formatMoney(dqpayment)}}/￥{{formatMoney(paymentObj.advance_payment_total_income)}}</div>
+						<div class="box-sytc_1_n2"><i style="color:rgba(51,179,255,1);font-style: normal;">￥{{formatMoney(dqpayment)}}</i>/￥{{formatMoney(paymentObj.advance_payment_total_income)}}</div>
 						<div class="box-time_n3">
 							<li v-for="(item,index) in paymentData" :class="[on==index?'action':'']">
 								{{item.year}}年
 								<div class="box-month_1_n4" v-if="dateList[0] == item.year">
 									<ul>
 										<li v-for="(todo,index1) in item.data">
-											<div v-if="dateList[1] == (index1+1)">
-												<p>{{index1+1}}月</p>
+											<div v-if="dateList[1] == (index1+1)" style="background:rgba(51,179,255,1);width: 92px;height: 60px;border-radius: 5px;border:1px solid rgba(51,179,255,1);">
+												<p style="color: rgba(255,255,255,1);">{{index1+1}}月</p>
 												<p v-if="todo == '0'" class="teshu" style="color: rgba(153,153,153,1);">暂无数据</p>
 												<p v-else class="teshu">￥{{formatMoney(todo)}}</p>
 											</div>
@@ -124,7 +124,7 @@ export default {
 		},
 		btnright(){
 			if(this.on<this.paymentData.length-1){
-				this.on++;				
+				this.on++;			
 				return
 			}
 			// this.on = 0;
@@ -159,7 +159,7 @@ export default {
 				limit:this.limit
 			};
 			
-			params =  Object.assign(params,this.cg.pr);		
+			params =  Object.assign(params,this.cg.pr);	
 			this.loading = Loading.service({ fullscreen: true });
 			this.api[this.cg.ajax.url](params).then((da)=>{
 				this.loading.close();
@@ -200,9 +200,10 @@ export default {
 				this.paymentObj = da;
 				this.paymentData = da.data;
 				this.dateList = date.split('-');
-				this.paymentData.forEach(element => {
+				this.paymentData.forEach((element,index) => {
 					if(this.dateList[0] == element.year){
 						this.dqpayment = element.data[Number(this.dateList[1]-1)];
+						this.on = index;
 					}
 				});
 			})
@@ -382,6 +383,9 @@ export default {
 	float: left;
 	margin: 10px 7.5px 0px 0px;
 }
+.box-month_1_n4 > ul > li:hover{
+	border:1px solid rgba(51,179,255,1);
+}
 .box-month_1_n4 > ul > li > div > p{
 	height: 22px;
 	font-size:14px;
@@ -390,11 +394,11 @@ export default {
 	line-height:22px;
 }
 .box-month_1_n4 > ul > li > div .teshu{
-	color:rgba(255,146,0,1) !important;
+	color:rgba(255,255,255,1) !important;
 }
 .box-month_1_n4 > ul > li > div > p:nth-child(1){
 	color:rgba(153,153,153,1);	
-	margin-top: 8px;
+	padding-top: 8px;
 }
 .box-month_1_n4 > ul > li > div > p:nth-child(2){
 	color:rgba(40,40,40,1);

@@ -98,7 +98,12 @@ export default {
 		},
 		setTim(o){
 			this.timed = o;
-			this.config.pr.time =  parseInt(new Date().getTime()/1000)-(this.timed*60*60*24);
+			if(o != '0'){
+				this.config.pr.time =  parseInt(new Date().getTime()/1000)-(this.timed*60*60*24);
+			}else{
+				this.config.pr.time =  '';
+
+			}	
 			this.$refs.tabds.sxfn();
 		}
 	}
