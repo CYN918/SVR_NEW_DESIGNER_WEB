@@ -1647,6 +1647,7 @@
 				if(this.playT==1 || this.playT==2){
 					this.puandFn2()
 				}
+				this.setPreviewTimes('','del',1);
 				this.drmOn();
 			},
 			cats() {
