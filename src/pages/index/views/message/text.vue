@@ -88,6 +88,7 @@ export default {
 		},
 		setNavd(on){
 			this.navdOn = on;
+			console.log('你妹')
 			this.goAnchor(this.navDta[on].h);
 		},		
 		pzData(){
