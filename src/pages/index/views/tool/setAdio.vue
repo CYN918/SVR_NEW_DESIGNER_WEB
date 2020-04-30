@@ -353,6 +353,11 @@ export default{
 					return;
 				}
 				obj.is_collect = 1;
+				if(obj.m_id==this.bfData.m_id){
+					this.bfData.is_collect = 1;
+				}
+				
+				
 				this.$message({
 					message:"收藏成功"
 				})
@@ -367,6 +372,9 @@ export default{
 					return;
 				}
 				obj.is_collect = '';
+				if(obj.m_id==this.bfData.m_id){
+					this.bfData.is_collect = '';
+				}
 				this.$message({
 					message:'取消收藏成功'
 				})
@@ -468,7 +476,7 @@ export default{
 				return
 			}
 			this.bRunning = false;
-			this.$refs.chean[0].pause();	
+			
 		},
 		bf(el,on,ispd){
 			this.Isfirst = true;
@@ -494,7 +502,7 @@ export default{
 			}
 			if (this.bRunning) {
 				this.bRunning = false;
-				this.$refs.chean[0].pause();				
+								
 				this.$parent.playAdio({
 					type:'pauseFn',
 				});
@@ -503,7 +511,7 @@ export default{
 				this.$parent.playAdio({
 					type:'playFn',
 				});				
-				this.$refs.chean[0].play();
+				
 			}
 			
 			
@@ -528,6 +536,7 @@ export default{
 			}
 			
 			let obj = el?el:this.bfData;
+			
 			if(obj.is_collect == 1) {
 				this.sh_delFavorAudio(obj);
 				return

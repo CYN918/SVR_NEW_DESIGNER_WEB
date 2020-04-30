@@ -114,6 +114,7 @@ export default{
 			this.setcs('sh',sh);			
 			this.$parent.puandFn2();			
 			this.close();
+			this.$parent.drmOn();
 		},
 		setcs(n,v){
 			this.$set(this.value.data,n,v)
