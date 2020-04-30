@@ -12,7 +12,7 @@
 					 @blur="titlon('')"
 					 v-model="form.title" type="text" placeholder="请输入来电秀名称">
 					<span v-if="istitle" class="noto_t1">{{form.title.length}}/20</span>
-					<img v-else src="/imge\new\tools\n/icon_bj.svg" />
+					<img v-else src="/imge/new/tools/n/icon_bj.svg" />
 				</div>
 				<div class="noto_btns">
 					<span @click="tijF()">保存</span><span @click="zzyz()" class="noto_bys">制作完成</span>

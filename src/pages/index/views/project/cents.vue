@@ -119,7 +119,7 @@
 						<p><img :src="imgSig+'prcent/xm_icon_num.svg'"/><i>报名人数</i></p>
 						<p>{{deta.sign_up_num}}</p>
 					</div>
-					<div class="yj_sy" v-if="deta.status==5">
+					<div class="yj_sy2" v-if="deta.status==5">
 						<p v-if="deta.deal_type == '1'"><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>成交价格</i></p>
 						<p v-if="deta.deal_type == '2'"><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>累计分成收益</i></p>
 						<p v-if="deta.deal_type == '3'"><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>预付金</i></p>
@@ -405,6 +405,8 @@ export default {
 				}
 				
 				
+				
+				
 				document.removeEventListener('scroll',this.autoS);	
 				if(da.status==1 && da.is_sign_up==0){
 					document.addEventListener('scroll',this.autoS,false);	
@@ -416,6 +418,13 @@ export default {
 					id:da.id,
 				};
 				this.deta = da;
+				
+				setTimeout(()=>{
+					if(this.$refs.xmDp){
+						this.$refs.xmDp.init();
+					}
+				},200)
+				
 				document.title=this.deta.name+'-狮圈儿（Zoocreators）';
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
 					var d2 = new Date();
@@ -1002,11 +1011,27 @@ export default {
 	border-radius:10px;
 	margin-left: 20px;
 }
+.yj_sy2{
+	padding: 0 20px;
+	width:auto;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 16px 32px 0px rgba(0,0,0,0.2);
+	border-radius:10px;
+	margin-left: 20px;	
+}
 .bm_dp > p:nth-child(2){
 	font-size:24px;
 	font-family:PingFangSC-Medium,PingFang SC;
 	font-weight:500;
 	color:rgba(40,40,40,1);
+}
+.yj_sy2> p:nth-child(2){
+	font-size:24px;
+	font-family:PingFangSC-Medium,PingFang SC;
+	font-weight:500;
+	color:rgba(255,146,0,1);
+	height: 35px;
+	overflow: hidden;
 }
 .yj_sy > p:nth-child(2){
 	font-size:24px;

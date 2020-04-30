@@ -82,7 +82,7 @@ export default {
 				},100)
 				return
 			}
-			let ghh = anchor.offsetTop - 80;
+			let ghh = anchor.offsetTop - 160;
 			this.mJs.scTop(ghh);
 		},
 		setNavd(on){

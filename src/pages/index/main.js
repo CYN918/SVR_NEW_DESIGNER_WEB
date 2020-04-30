@@ -301,6 +301,11 @@ Vue.component(Switch.name, Switch)
 
 
 Vue.prototype.$message = Message;
+Vue.prototype.tipMr = (n)=>{
+	Message({
+		message:n
+	})
+};
 Vue.config.productionTip = false
 Vue.prototype.checkLo = function(o){
 	api[o.api](o.pr).then((da)=>{

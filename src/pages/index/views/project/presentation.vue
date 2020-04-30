@@ -14,7 +14,7 @@
 							项目评价<span>{{das.level}}</span>
 						</div>
 						<div class="pr_bg_03_1_2_3">
-							领域范围：<span v-for="(el,index) in das.fields" :key="index">{{el}}</span>
+							<p class="pr_bg_03_1_2_3x">领域范围：</p><span v-for="(el,index) in das.fields" :key="index">{{el}}</span>
 						</div>
 					</div>
 				</div>
@@ -281,6 +281,15 @@ export default {
 	font-weight:600;
 	color:#33B3FF;
 
+}
+.pr_bg_03_1_2_3{
+	position: relative;
+	padding-left: 70px;
+}
+.pr_bg_03_1_2_3x{
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 .pr_bg_03_1_2_3>span{
 	display: inline-block;
