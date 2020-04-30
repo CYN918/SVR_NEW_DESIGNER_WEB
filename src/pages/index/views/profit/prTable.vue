@@ -2,7 +2,7 @@
 	<div :class="['pr_boxd',total>40?'toptool':'']">
 		<table v-if="List.length>0" class="tabld" border="1">
 			<tr >
-				<th v-for="(el,index) in cg.title" :key="index">{{el.n}}<img v-if="el.t == '1'" @mouseout="mod()" @mouseover="modx($event,1)"  class="pbx_n_06" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg" alt="" style="margin-top:19px;"></th>
+				<th v-for="(el,index) in cg.title" :key="index">{{el.n}}</th>
 			</tr>
 			<tr v-for="(el,index) in List" :key="index">
 				<td v-for="(el2,index2) in cg.title" :key="index2">
@@ -20,22 +20,22 @@
 					<img class="box-detele_n8" src="http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/prcent/detele.svg"  @click="modseout(index)"/>
 					<div class="box-sytc_1">
 						<div class="box-sytc_1_n1">累计已付预付金</div>
-						<div class="box-sytc_1_n2">￥{{dqpayment}}/￥{{paymentObj.advance_payment_total_income}}</div>
+						<div class="box-sytc_1_n2">￥{{formatMoney(dqpayment)}}/￥{{formatMoney(paymentObj.advance_payment_total_income)}}</div>
 						<div class="box-time_n3">
 							<li v-for="(item,index) in paymentData" :class="[on==index?'action':'']">
-								{{item.year}}
+								{{item.year}}年
 								<div class="box-month_1_n4" v-if="dateList[0] == item.year">
 									<ul>
 										<li v-for="(todo,index1) in item.data">
 											<div v-if="dateList[1] == (index1+1)">
 												<p>{{index1+1}}月</p>
-												<p v-if="todo == '0'" class="teshu">暂无数据</p>
-												<p v-else class="teshu">{{todo}}</p>
+												<p v-if="todo == '0'" class="teshu" style="color: rgba(153,153,153,1);">暂无数据</p>
+												<p v-else class="teshu">￥{{formatMoney(todo)}}</p>
 											</div>
 											<div v-else>
 												<p>{{index1+1}}月</p>
-												<p v-if="todo == '0'">暂无数据</p>
-												<p v-else>{{todo}}</p>
+												<p v-if="todo == '0'" style="color: rgba(153,153,153,1);">暂无数据</p>
+												<p v-else>￥{{formatMoney(todo)}}</p>
 											</div>	
 										</li>
 									</ul>
@@ -44,8 +44,8 @@
 									<ul>
 										<li v-for="(todo,index1) in item.data">	
 											<p>{{index1+1}}月</p>
-											<p v-if="todo == '0'">暂无数据</p>
-											<p v-else>{{todo}}</p>	
+											<p v-if="todo == '0'" style="color: rgba(153,153,153,1);">暂无数据</p>
+											<p v-else>￥{{formatMoney(todo)}}</p>	
 										</li>
 									</ul>
 								</div>
@@ -65,12 +65,12 @@
 		@size-change="handleSizeChange"
 		@current-change="handleCurrentChange"
 		:current-page="page"
-		:page-sizes="[40, 80, 120, 160]"
+		:page-sizes="[10, 20, 40]"
 		:page-size="limit"
 		layout="prev,pager, next,sizes, jumper"
 		:total="total">   
 		</el-pagination>
-		<div v-if="isNodeat" class="emptyData">
+		<div v-if="List.length == 0" class="emptyData">
 			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
 			<!-- <div class="noDatawan">找不到数据了o(╥﹏╥)o</div> -->
 			<div class="noDatawan">这里还什么都没有呢~</div>
@@ -110,6 +110,11 @@ export default {
 		this.getData();
 	}, 
 	methods: {
+		formatMoney(input){ 
+			var n = parseFloat(input).toFixed(2);
+			var re = /(\d{1,3})(?=(\d{3})+(?:\.))/g;
+			return n.replace(re, "$1,");
+		},
 		btnleft(){
 			if(this.on>0){
 				this.on--;

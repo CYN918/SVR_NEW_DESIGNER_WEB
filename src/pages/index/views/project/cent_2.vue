@@ -152,13 +152,25 @@ export default {
 			}
 			if(this.$route.path == '/projectYs'){
 				if(this.deta.deal_type == '1'){
-					this.tip1 = '成交价格：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>';	
+					if(this.deta.money.length == '0'){
+						this.tip1 = '成交价格：暂无成交价格';	
+					}else{
+						this.tip1 = '成交价格：<span class="csyaswz_01">'+'￥'+this.deta.money.income+'</span>';	
+					}
 				}
 				if(this.deta.deal_type == '2'){
-					this.tip1 = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>';
+					if(this.deta.money.length == '0'){
+						this.tip1 = '累计分成收益：暂无累计分成收益';
+					}else{
+						this.tip1 = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.income+'</span>';
+					}		
 				}
 				if(this.deta.deal_type == '3'){
-					this.tip1 = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>';
+					if(this.deta.money.length == '0'){
+						this.tip1 = '累计分成收益：暂无累计分成收益';
+					}else{
+						this.tip1 = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.income+'</span>';
+					}
 				}
 			}
 			
@@ -462,7 +474,7 @@ export default {
 }
 .pr_cent2_5{
 	cursor: pointer;
-	width:60%;
+	width:65%;
 	float: left;
 
 }
@@ -593,7 +605,7 @@ export default {
 	margin-right: 10px;
 }
 .pr_cent2_9{
-	width: 40%;
+	width: 35%;
 	float: right;
 }
 .pr_cent2_11{
@@ -627,7 +639,7 @@ export default {
 }
 .pr_cent2_11 > ul > li{
 	float: right;
-	width: 100px;
+	width: 85px;
 }
 .pr_cent2_status{
 	position: absolute;
