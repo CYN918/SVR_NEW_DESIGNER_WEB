@@ -74,23 +74,19 @@ export default {
 		
 	}, 
 	methods: {
-		goAnchor(a) {
-			console.log(a)
-			let anchor = document.querySelector(a);
-			console.log(anchor)
+		goAnchor(a) {		
+			let anchor = document.querySelector(a);		
 			if(!anchor){
 				setTimeout(()=>{
 					this.goAnchor(a);
 				},100)
 				return
 			}
-			let ghh = anchor.offsetTop - 160;
-			console.log(ghh);
+			let ghh = anchor.offsetTop - 160;			
 			this.mJs.scTop(ghh);
 		},
 		setNavd(on){
-			this.navdOn = on;
-			console.log('你妹')
+			this.navdOn = on;		
 			this.goAnchor(this.navDta[on].h);
 		},		
 		pzData(){
