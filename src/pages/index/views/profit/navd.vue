@@ -6,7 +6,14 @@
 			<a :class="['pend',ison=='/qtsy'?'router-link-active':'']" @click="goZP('/qtsy','其他收益')">其他收益</a>
 			<a :class="['last pend',ison=='/money'?'router-link-active':'']" @click="goZP('/money','提现记录')">提现记录</a>
 			<div class="pr_seBox">
-				
+				<!-- <div v-if="ison == '/divided'">
+					<el-input
+						placeholder="请输入项目名称"
+						v-model="input"
+						@input="change1"
+						clearable>
+					</el-input>
+				</div> -->
 				<div>
 					筛选：
 					<el-select @change="sxFn2" v-model="v2" placeholder="请选择">
@@ -38,7 +45,8 @@ export default {
 		return {
 			v1:'',
 			v2:'',
-			ison:'profit'
+			ison:'profit',
+			input:''
 		}
 	},
 	mounted: function(){
@@ -54,6 +62,10 @@ export default {
 			}
 			this.ison = this.$route.fullPath;
 		},
+		// change1(){
+		// 	this.$parent.setTim1(this.input);
+
+		// },
 		sxFn1(){
 			this.$parent.setType(this.v1);
 		},

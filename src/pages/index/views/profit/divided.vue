@@ -71,7 +71,11 @@ export default {
 			this.timed = o;
 			this.config.pr.time =  parseInt(new Date().getTime()/1000)-(this.timed*60*60*24);
 			this.$refs.tabds.sxfn();
-		}
+		},
+		// setTim1(o){
+		// 	this.config.pr.name =  o;
+		// 	this.$refs.tabds.sxfn();
+		// }
 	}
 }
 </script>

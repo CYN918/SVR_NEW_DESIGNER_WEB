@@ -15,8 +15,8 @@ export default {
 		return {
 			config:{
 				title:[
-					{n:'收益类型',poprs:'task_name'},
-					{n:'备注信息',html:'task_desc'},
+					{n:'收益类型',clfn:(da)=>{if(da.work_type == 2){return '其他收益'}}},
+					{n:'备注信息',clfn:(da)=>{if(da.desc_reason == ''){return '暂无备注信息'}else{return da.desc_reason}}},
 					{n:'收益发放时间',poprs:'hire_time'},
 					{n:'收益金额',poprs:'income'},
 				],
