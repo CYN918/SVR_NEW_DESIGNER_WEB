@@ -56,9 +56,9 @@ export default {
 		return{
 			shareData:{},
 			icons:[
-				{i:'/imge/svg/see/zs_icon_gk.svg',n:'view_num'},
-				{i:'/imge/svg/see/zs_icon_dz.svg',n:'like_num'},
-				{i:'/imge/svg/see/zs_icon_xx.svg',n:'comment_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_gk.svg',n:'view_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_dz.svg',n:'like_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_xx.svg',n:'comment_num'},
 				
 			],
 			showtIP:'',

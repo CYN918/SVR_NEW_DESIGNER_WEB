@@ -59,7 +59,7 @@
 						<span @click="newplayPreview()" class="an_sx_01">
 							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/v_sx.svg" />
 						</span><span @click="playd()" class="an_bf_01">
-							<img :src="'/imge/tools/'+(preview.state==1?'icon_view_stop_def':'v_play')+'.svg'" />
+							<img :src="'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/'+(preview.state==1?'icon_view_stop_def':'v_play')+'.svg'" />
 						
 							
 						</span>
@@ -81,7 +81,7 @@
 					<div class="ntob_cent_r_1">
 						<span @click="qhNav(index,el.zj)" v-for="(el,index) in navs" :class="navson==index?'ckin':''">
 							<div class="con-right-iocn-img">
-								<img class="icon con-right-iocn-img" :src="'/imge/tools/'+el.icon" />
+								<img class="icon con-right-iocn-img" :src="'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/'+el.icon" />
 							</div>
 							{{el.n}}
 						</span>

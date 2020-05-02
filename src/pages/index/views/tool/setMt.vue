@@ -8,7 +8,7 @@
 		<ul class="setMt_03">
 			<li ref="dwyd" @click="push" class="rsc_002">
 				<span  class="setMtUp">
-					<img src="\imge\new\tools\n/up.svg">
+					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/tools/n/up.svg">
 					上传视频/图片
 				</span>				
 			</li>

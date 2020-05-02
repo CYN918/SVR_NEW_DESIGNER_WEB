@@ -1,6 +1,6 @@
 <template>	
 	<div :style="zooms()" class="tips_m01" @click="xyb()">
-		<img :class="['tips_m02','tips_m'+on]" :src="'/imge/tools/tip_'+(on+1)+'.svg'">		
+		<img :class="['tips_m02','tips_m'+on]" :src="'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/tip_'+(on+1)+'.svg'">		
 	</div>
 </template>
 

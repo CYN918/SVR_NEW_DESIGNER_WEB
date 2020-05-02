@@ -56,8 +56,8 @@
 				</span><span :title="el.author">
 				{{el.author?el.author:'无歌手'}}</span><span>
 				{{backT(el.duration)}}</span><span class="seadio_to">
-					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="bRunning && (bfData.on==index && bfData.m_id==el.m_id)?'/imge/tools/music_icon_pause.svg':'/imge/tools/music_icon_play.svg'"/>
-					<img @click="favor(el)" class="mp3_04_01_sc pend" :src="el.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
+					<img @click="bf(el,index)" class="mp3_04_01_bf pend" :src="bRunning && (bfData.on==index && bfData.m_id==el.m_id)?'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/music_icon_pause.svg':'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/music_icon_play.svg'"/>
+					<img @click="favor(el)" class="mp3_04_01_sc pend" :src="el.is_collect==0?'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/music_icon_list_like_def.svg' :'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/music_icon_list_like.svg'"/>
 					
 					<span @click="checkDom(el)" class="setAdio_02 pend">
 						<img v-if="el.m_id==aaa" class="setAdio_02x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/oclod.svg">
@@ -77,7 +77,7 @@
 			<div class="mp3_05_2">
 				<div class="mp3_05_2_0">
 					<span class="mp3_05_2_1">
-						<img :class="['ant',bRunning?'':'paused']" :src="bfData.face_pic ? bfData.face_pic : '/imge/tools/Rectangle.png'"/>
+						<img :class="['ant',bRunning?'':'paused']" :src="bfData.face_pic ? bfData.face_pic : 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/Rectangle.png'"/>
 					</span>
 					<span class="mp3_05_2_2">
 						<div class="mp3_05_2_2_1" ref="bxbg">
@@ -99,7 +99,7 @@
 					<div @click="xys()" class="pr_adio pr_adio_02"></div>
 				</span>
 				<div class="mp3_05_2_0" style="right: 0;overflow: hidden;">
-					<img @click="favor()" class="mp3_04_01_sc pend" style="margin-top: 33px;" :src="bfData.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
+					<img @click="favor()" class="mp3_04_01_sc pend" style="margin-top: 33px;" :src="bfData.is_collect==0?'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/music_icon_list_like_def.svg' :'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/music_icon_list_like.svg'"/>
 					<span @click="checkDom()" class="pend mp3_05_2_4_1">选用</span>
 				</div>
 				

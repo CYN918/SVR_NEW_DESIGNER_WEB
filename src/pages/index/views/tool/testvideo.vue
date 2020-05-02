@@ -27,7 +27,7 @@
 				</div>
 				<div class="ntob_cent_r">
 					<div class="ntob_cent_r_1">
-						<span @click="qhNav(index)" v-for="(el,index) in navs" :class="navson==index?'ckin':''"><img v-if="el.icon" :src="'/imge/new/tools/n/'+el.icon">{{el.n}}</span>
+						<span @click="qhNav(index)" v-for="(el,index) in navs" :class="navson==index?'ckin':''"><img v-if="el.icon" :src="'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/tools/n/'+el.icon">{{el.n}}</span>
 					</div>
 					<div class="ntob_cent_r_2">
 						<component v-bind:is="navcoms.zj" v-model="navcoms" ref="vid"></component>						

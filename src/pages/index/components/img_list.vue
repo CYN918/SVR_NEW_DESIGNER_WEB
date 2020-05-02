@@ -87,7 +87,7 @@ export default {
 					break;
 				case 'video': p+=b;
 					break;
-				case 'audio': p+='/imge/m.jpg';
+				case 'audio': p+='https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/m.jpg';
 					break;	
 			}
 			return p+");";
