@@ -506,6 +506,18 @@
 				
 				
 			},
+			checkBf(){
+				let len1 = this.navcoms.media.length;
+				let len2 = 0;
+				for(let i=0,n=this.navcoms.decorates.length;i<n;i++){
+					let led = this.navcoms.decorates[i].length;
+					len2 = led>0?led:0;					
+				}
+				if(len1>0 || len2>0){
+					return true
+				}
+				return false
+			},
 			setHidmg(el){
 				return "width:" + (el.long / this.bl) * this.wdk + "px;transform:translateX(" + -((el.cut_start /
 					this.bl) * this.wdk) + "px);";
@@ -525,6 +537,10 @@
 				},20)
 			},
 			playd(){
+				if(!this.checkBf()){
+					this.tipMr('请先添加内容');
+					return
+				}
 				if(this.preview.state==0 && this.preview.onTime>=this.preview.maxTime){
 					this.preview.onTime = 0;
 				}
@@ -538,9 +554,7 @@
 			playPreview(a){
 			
 				if(this.navcoms.media.length==0){
-					this.$message({
-						message:'请先添加内容'
-					})
+					this.tipMr('请先添加内容');
 					return
 				}
 				if(this.$refs.setAdios){

@@ -85,6 +85,7 @@ export default{
 			return Math.round(num*100)/100
 		},
 		zGys(){
+			if(!this.maxwj)
 			if(this.maxwj<1024){
 				return this.backto(this.maxwj)+'KB';
 			}
@@ -259,7 +260,7 @@ export default{
 				if(da=='error'){
 					return
 				}
-				this.maxwj = da.total_file_size;
+				this.maxwj = da.total_file_size?da.total_file_size:0;
 				
 			})
 		},
@@ -476,6 +477,7 @@ export default{
 						message:'删除成功'
 					})
 					this.list.splice(index,1);
+					this.fileTotalSummary();
 					this.close();
 					return
 				
@@ -621,6 +623,7 @@ export default{
 						p.fps = da.fps;						
 					}	
 					this.$refs.upnfile.value ='';
+					this.fileTotalSummary();
 					this.$message({message: '文件上传成功'});
 				}				
 			};
