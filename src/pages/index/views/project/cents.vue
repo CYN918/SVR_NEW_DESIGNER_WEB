@@ -334,6 +334,7 @@ export default {
 			window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
 		backZq(a,b){
+			
 			let str = '';
 			if(a){
 				str+='<span class="f_a">'+a+'</span>天';
@@ -382,6 +383,7 @@ export default {
 			this.$refs.xmDp.setStuts(on);
 		},
 		timeF(time){
+		
 			this.djstimd = time;
 			if(this.$refs.topGd){
 				this.$refs.topGd.setTim(time);
@@ -391,8 +393,7 @@ export default {
 			}
 			
 		},
-		getData(){
-			
+		getData(){		
 			let pr = {
 				id : this.$route.query.id
 			};
@@ -403,10 +404,6 @@ export default {
 					this.$router.push({path: '/Ac_v2',query:{id:da.id}});
 					return
 				}
-				
-				
-				
-				
 				document.removeEventListener('scroll',this.autoS);	
 				if(da.status==1 && da.is_sign_up==0){
 					document.addEventListener('scroll',this.autoS,false);	
@@ -424,7 +421,7 @@ export default {
 						this.$refs.xmDp.init();
 					}
 				},200)
-				
+			
 				document.title=this.deta.name+'-狮圈儿（Zoocreators）';
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
 					var d2 = new Date();
@@ -468,7 +465,8 @@ export default {
 		bNus(n){ 
 			return n<10?'0'+n:n;		
 		},
-		djsfn(da){			
+		djsfn(da){	
+			
 			if(da.d==0 && da.h==0 && da.m==0 && da.s==0){
 				this.djsshow.s = '00';
 				this.xmTypeOn++;

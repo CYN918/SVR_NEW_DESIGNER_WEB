@@ -94,7 +94,8 @@ export default {
 			outc:{
 				num:'',
 				scroll:2,
-			}
+			},
+			djsfo:''
 		}
 	},
 	mounted: function(){
@@ -184,16 +185,19 @@ export default {
 		showTc(o,data){		
 			this.$parent.showTc(o,data);
 		},
-		djsfn(da){			
+		djsfn(da){		
+			
 			if(da.d==0 && da.h==0 && da.m==0 && da.s==0){
 				this.djsshow.s = '00';
 				this.xmTypeOn++;
 				this.djsshow = '';
 				this.da = this.xmType[this.xmTypeOn];	
 				this.$parent.timeF(this.djsshow);
+				
 				return
 			}	
-			setTimeout(()=>{
+			clearTimeout(this.djsfo);
+			this.djsfo = setTimeout(()=>{
 				this.djsfn(da);
 			},1000);
 			let p ={};
