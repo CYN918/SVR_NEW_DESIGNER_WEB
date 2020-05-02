@@ -82,10 +82,10 @@ export default{
 	}, 		
 	methods:{
 		backto(num){
-			return Math.round(num*100)/100
+			return parseInt(num*100)/100
 		},
 		zGys(){
-			if(!this.maxwj)
+			
 			if(this.maxwj<1024){
 				return this.backto(this.maxwj)+'KB';
 			}
