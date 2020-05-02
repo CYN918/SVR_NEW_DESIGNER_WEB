@@ -86,7 +86,9 @@ export default {
 	
 	mounted: function(){
 		this.init();
-		this.postData.deal_type = this.settlement?this.settlement:1;
+
+		this.postData.deal_type = (this.settlement && this.settlement!=0)?this.settlement:1;
+	
 	},
 	methods: {	
 		goOn(on,cs){
