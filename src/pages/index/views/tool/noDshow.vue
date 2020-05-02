@@ -25,6 +25,7 @@ export default{
 		},
 		goxn(){
 			window.location.href= 'https://shiquaner.zookingsoft.com/#/cont?id=158825145538';
+
 		}
 	}
 }
@@ -97,6 +98,7 @@ export default{
 	color:rgba(51,51,51,1);
 	line-height:22px;
 }
+
 .tole_07{
 	color: #33B3FF;
 }
