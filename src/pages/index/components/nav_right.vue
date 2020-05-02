@@ -86,7 +86,7 @@ export default {
                 this.visualWidth_1 = false;
                 this.visualWidth_2 = true;
             }
-            // console.log(winWidth);
+         
         },
         go_top(){
             // let timer = setInterval(() => {

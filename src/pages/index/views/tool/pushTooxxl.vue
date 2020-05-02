@@ -1016,7 +1016,7 @@ export default{
 				this.xzData = b;
 			}
 			this.checkDOm = el;
-			console.log(this.checkDOm);
+			
 			this.csad = 'display:block;top:'+(dom.y-5)+'px;left:'+(dom.x-22)+'px';
 			let fn = ()=>{
 				setTimeout(()=>{

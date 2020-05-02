@@ -84,10 +84,10 @@ export default{
 				return
 			}
 			this.isCc = 1;
-			console.log(this.isCc);
+			
 			document.onclick = () => {
 				this.isCc = '';
-				console.log(this.isCc);
+				
 				document.onclick = null;
 			}
 		},

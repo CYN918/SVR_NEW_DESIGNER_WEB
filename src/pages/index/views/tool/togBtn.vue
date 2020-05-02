@@ -25,7 +25,7 @@ export  default{
 	methods:{
 	
 		dragS(e){
-			console.log('star');
+		
 		},
 		dragE(e){
 			let x = e.x;		

@@ -194,7 +194,7 @@ export default {
 				this.api.getSelfInfo(pr).then((da)=>{
 					if(da=='error'){return}		
 					this.$parent.$parent.close()
-					console.log(da)
+				
 					this.reload();
 					let userData = window.userInfo.access_token;
 					window.userInfo = da;		

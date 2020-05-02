@@ -58,7 +58,7 @@ export default {
 			this.postData[a] = b;
 		},
 		cseee(e){
-			console.log(e)
+		
 		},
 		close(){			
 			this.$parent.close();

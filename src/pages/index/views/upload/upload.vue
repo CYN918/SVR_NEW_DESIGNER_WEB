@@ -417,7 +417,7 @@ export default {
 				this.$set(this.form,'face_pic',img)
 
 			}	
-			console.log(this.form.face_pic);
+			
 			this.zk_wrokids[0] = fmid;	
 		},
 		showTd(on){

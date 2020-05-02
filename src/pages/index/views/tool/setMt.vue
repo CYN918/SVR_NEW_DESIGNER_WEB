@@ -96,13 +96,13 @@ export default{
 		},
 		IsSelect(el){
 			let id = false;
-			//console.log(el);
+			
 			this.$parent.navcoms.media.forEach(item=>{
 				if(el == item.fid){
 					id = true;
 				}
 			})
-			//console.log(id)
+		
 			return id;
 		},
 		ybf(i,el){
@@ -321,7 +321,7 @@ export default{
 				// let time = this.$parent.setDomStar(x);
 				// pr.start = time;
 				// onds = -1;
-				// console.log(time);
+				
 				// for(let i=0,n=this.value.media.length;i<n;i++){
 				// 	let ob = this.value.media[i];
 				// 	let end = this.backEnd(ob);

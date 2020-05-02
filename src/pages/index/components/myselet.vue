@@ -33,7 +33,7 @@ export default {
 	methods: {
 		cs(){
 			this.isfuse='isfuse';
-			console.log(this.$refs.zbwz);
+			
 		},
 		bfn(){
 			setTimeout(()=>{

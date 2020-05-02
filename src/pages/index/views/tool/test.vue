@@ -296,8 +296,7 @@ export  default{
 				
 			
 				if(op.audio_m_id){
-				   // console.log(op.audio_start,op.audio_duration,">>>>.")
-					let pr = {
+				  let pr = {
 						audio_url:'',
 						audio_starT:+op.audio_start,
 						audio_endT:(+op.audio_start+(+op.audio_duration)),
@@ -306,7 +305,6 @@ export  default{
 						audio_name:op.audio_name,
 						audio_author:op.audio_author,
 					};
-					//console.log(pr.audio_starT,pr.audio_endT,"<<<.")
 					this.sh_audioUrl(pr.audio_m_id);
 					
 					

@@ -32,7 +32,7 @@ export default {
 			this.$router.push({path:'/setPersonal'})			
 		},
 		getUserDetail(){
-			console.log(window.userInfo);
+			
 			if(!window.userInfo){
 				this.$router.push({path:'/login'})
 				return

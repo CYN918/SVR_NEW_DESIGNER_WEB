@@ -112,7 +112,7 @@ export default{
 		},
 		backyo(){
 			if(this.$refs.tiles){
-				console.log(this.$refs.tiles.getBoundingClientRect().width);
+				
 				return this.$refs.tiles.getBoundingClientRect().width>1?'tian_01':'';
 			}
 			

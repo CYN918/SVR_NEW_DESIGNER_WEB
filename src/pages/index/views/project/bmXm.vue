@@ -5,12 +5,16 @@
 				<div class="bmXm_01">
 					请选择项目收益结算方式：
 					<div class="bmXm_01_1">
-						<ul v-if="settlement == '0'">
-							<li @click="chekdeal_type(el.k)" v-for="(el,index) in deal_types" :key="index" :class="el.k==postData.deal_type?'chekdOn':''">{{el.n}}</li>
+						<ul>
+							<li 
+							@click="chekdeal_type(el.k)" 
+							v-for="(el,index) in deal_types" 
+							:key="index" 
+							>
+							<p :class="el.k==postData.deal_type?'chekdOn':''" v-if="settlement==0 || settlement==el.k">{{el.n}}</p>
+							</li>
 						</ul>
-						<ul v-else>
-							<li v-for="(el,index) in deal_types" :key="index" :class="el.k==postData.deal_type?'chekdOn':''">{{el.n}}</li>
-						</ul>			
+					
 					</div>
 					<div class="buyout" v-show="postData.deal_type == '1'">
 						<p style="margin: 5px 0px 5px 15px;color:#FF3B30;">{{expected_profit}}</p>
@@ -82,9 +86,7 @@ export default {
 	
 	mounted: function(){
 		this.init();
-		if(this.settlement == '0'){
-			this.postData.deal_type = 1;
-		}
+		this.postData.deal_type = this.settlement?this.settlement:1;
 	},
 	methods: {	
 		goOn(on,cs){
@@ -196,7 +198,7 @@ export default {
 	height: 28px;
 	margin-top: 15px;
 }
-.bmXm_01_1 > ul > li{
+.bmXm_01_1 > ul > li>p{
 	width: 80px;
 	height: 28px;
 	text-align: center;

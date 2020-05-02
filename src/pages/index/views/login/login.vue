@@ -109,7 +109,7 @@ export default {
 					this.ajaxType=0;
 					return
 				}
-				console.log(da)
+			
 				
 				this.bdtj('登录页','登录成功','--');
 				this.ajaxType=0;

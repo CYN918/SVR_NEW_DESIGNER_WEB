@@ -127,10 +127,10 @@ export default {
 			return sr.replace(re,"<span>"+ck+"</span>")
 		},
 		ovshow(e){
-			console.log(e)
+		
 		},
 		oushow(e){
-			console.log(e)
+		
 		},
 		backBan(o){
 

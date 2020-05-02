@@ -119,7 +119,7 @@ export default {
 				limit:40,
 				page:this.page,
 			};
-			console.log(params);
+			
 			this.api.getFList(params).then((da)=>{
 				this.getType='';
 				if(da=='error'){

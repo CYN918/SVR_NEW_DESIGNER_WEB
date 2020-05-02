@@ -144,7 +144,7 @@ export default {
 		    });
 		},
 		backtime(time){
-			console.log(22222);
+			
 			return	window.getTimes(time);
 		},	
 		showWorks(){

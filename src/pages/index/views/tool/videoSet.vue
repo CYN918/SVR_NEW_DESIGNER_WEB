@@ -102,7 +102,7 @@ export default{
 
 		'type'(){
 			this.value.zj = this.type;
-			console.log(this.value);
+			
 		},
 	},
 	methods:{

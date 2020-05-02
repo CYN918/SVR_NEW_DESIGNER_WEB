@@ -354,7 +354,7 @@ router.afterEach((to,from,next) => {
 // document.addEventListener("scroll",()=>{
 	
 // 	for(let i=0,n=Vue.prototype.scrollFns.length;i<n;i++){
-// 		console.log(Vue.prototype.scrollFns[i])
+
 // 		if(Vue.prototype.scrollFns[i]){
 // 			Vue.prototype.scrollFns[i]();
 // 		}else{

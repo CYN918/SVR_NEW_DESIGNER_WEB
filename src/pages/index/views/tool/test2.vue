@@ -154,7 +154,7 @@ export  default{
 			this.yaz = '';
 		},
 		yzfn(){
-			console.log(this.$refs.yaz);
+		
 			let time = this.$refs.yaz.duration,
 			wid = this.$refs.yaz.videoWidth;
 			if(time>600){

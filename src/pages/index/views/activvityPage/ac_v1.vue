@@ -145,7 +145,7 @@ export default{
 		},
 		
 		navCl(el){
-			console.log(el)
+		
 			if(el.p==this.navOn){
 				return
 			}
@@ -252,7 +252,7 @@ export default{
 				
 				document.title=this.infoData.activity_name+'-狮圈儿（Zoocreators）';
 				let dp = window.location.origin+'/aindex.html#/conta?id='+this.infoData.id;
-				console.log(dp);
+			
 				this.shar({
 					titlec:'活动分享',
 					url:window.location.origin+'/aindex.html#/conta?id='+this.infoData.id, 

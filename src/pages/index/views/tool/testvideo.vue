@@ -122,7 +122,7 @@ export default{
 				this.bfon++;
 				this.setvideo(this.navcoms.videos[this.bfon].file_url,1);
 			}else{
-				console.log('jlle')
+				
 				this.islast=1;
 			}
 		},
@@ -165,24 +165,24 @@ export default{
 		},
 		setvideo(vido,a){
 			this.video = vido;
-			console.log(this.video);
+		
 			if(a){
 				this.playd();
 			}
 		},
 		playd(){
 			var dom = document.getElementById('boxf');
-			console.log(dom);
+			
 			if(this.islast){
 				this.islast='';
 				this.bfon=0;
 				
 			}
-			console.log(this.navcoms.videos[this.bfon]);
+			
 			this.setvideo(this.navcoms.videos[this.bfon].file_url);
 			
 			setTimeout(()=>{
-				console.log(dom)
+				
 				dom.play();
 			},50)
 			

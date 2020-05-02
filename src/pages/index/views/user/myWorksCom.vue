@@ -287,7 +287,7 @@ export default {
 				this.show();
 				try{
 					this.form.labels = JSON.parse(this.form.labels);					
-				}catch(e){console.log(1)}
+				}catch(e){}
 				
 				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
 				if(this.page2.classify.length>0){

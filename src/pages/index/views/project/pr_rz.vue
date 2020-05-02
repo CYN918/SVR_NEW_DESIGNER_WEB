@@ -45,7 +45,7 @@ export default {
 		return{}
 	},
 	created(){
-		console.log(this.datad)
+	
 
 	},
 	methods: {	
