@@ -24,21 +24,21 @@
 							<div class="show_00x_1_1">138-888-888</div>
 							<div class="show_00x_1_2">正在拨号…</div>
 							<div class="show_00x_1_3">
-								<span><img class="xx_01x" src="/imge/tools/d_04.png">静音</span>
-								<span><img class="xx_02x" src="/imge/tools/d_05.png">拨号键盘</span>
-								<span><img class="xx_03x" src="/imge/tools/d_06.png">免提</span>
-								<span><img class="xx_04x" src="/imge/tools/d_07.png">添加通话</span>
-								<span><img class="xx_05x" src="/imge/tools/d_08.png">保持</span>
-								<span><img class="xx_06x" src="/imge/tools/d_09.png">录音</span>
+								<span><img class="xx_01x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/d_04.png">静音</span>
+								<span><img class="xx_02x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/d_05.png">拨号键盘</span>
+								<span><img class="xx_03x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/d_06.png">免提</span>
+								<span><img class="xx_04x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/d_07.png">添加通话</span>
+								<span><img class="xx_05x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/d_08.png">保持</span>
+								<span><img class="xx_06x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/d_09.png">录音</span>
 							</div>
-							<img class="show_00x_1_4" src="/imge/tools/d_02.png">
+							<img class="show_00x_1_4" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/d_02.png">
 						</div>
 						<div v-if="isld && vdcc2==0" class="show_00x_2">
-							<img class="show_00x_2_1" src="/imge/tools/d_03.png"/>
+							<img class="show_00x_2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/d_03.png"/>
 							<div class="show_00x_2_2">来电秀</div>
 							<div class="show_00x_2_3">156-0202-0101</div>
-							<img class="show_00x_2_4" src="/imge/tools/d_02.png"/>
-							<img class="show_00x_2_5" src="/imge/tools/d_01.png"/>
+							<img class="show_00x_2_4" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/d_02.png"/>
+							<img class="show_00x_2_5" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/d_01.png"/>
 						</div>
 					</div>
 					<audio 
@@ -47,7 +47,7 @@
 					ref="aido"></audio>
 					<div class="ntob_cent_l_2">
 						<div class="ntob_cent_l_2_1">
-							<img class="ntob_cent_l_2_1x" src="/imge/tools/v_size.svg">预览比例<span class="bl_000" @click="showCc">
+							<img class="ntob_cent_l_2_1x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/v_size.svg">预览比例<span class="bl_000" @click="showCc">
 								{{cun[vdcc].n}}<!-- <div class="mx_dsj"></div> -->
 								<!-- <div v-if="isCc" class="bl_001">
 									<span @click="qhcc(index)" v-for="(el,index) in cun" :class="index==vdcc?'cek':''">{{el.n}}</span>									
@@ -56,9 +56,9 @@
 						</div>
 						<div class="ntob_cent_l_2_2">
 							<span @click="playsx" class="an_sx_01">
-								<img src="/imge/tools/v_sx.svg"/>
+								<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/v_sx.svg"/>
 							</span><span @click="playAll" class="an_bf_01">
-								<img src="/imge/tools/v_play.svg"/>
+								<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/v_play.svg"/>
 							</span>
 							<span>00:00:00</span> / <span class="tme_091">00:00:30</span>							
 						</div>
@@ -91,9 +91,9 @@
 				<div class="ntob_footer_1">
 					<div class="ntob_footer_1_1"></div>
 					<div class="ntob_footer_1_2">
-						<div><img src="/imge/tools/t_sp.svg"/> 媒体</div>
-						<div><img src="/imge/tools/t_yy.svg"/>音频</div>
-						<div><img src="/imge/tools/t_zs.svg"/>装饰</div>
+						<div><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/t_sp.svg"/> 媒体</div>
+						<div><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/t_yy.svg"/>音频</div>
+						<div><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/t_zs.svg"/>装饰</div>
 					</div>
 				</div>
 				<div class="ntob_footer_2" ref="gdbox">
@@ -147,7 +147,7 @@
 			<div v-if="istype" class="pr_tc_01">
 				<div class="pr_tc_02">			
 					<div class="pr_tc_04">
-						{{istype.t}}<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
+						{{istype.t}}<img @click="close" class="pr_tc_03 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg" alt="">
 					</div>
 					<div class="newds_012">
 						{{istype.c1}}
@@ -780,7 +780,7 @@ export default{
 			if(m>=60){
 				h = (m-om)/60;
 			}
-		    return this.optu(h)+':'+this.optu(om)+':'+this.optu(s);
+		    return this.optu(h)+':'+this.optu(om)+':'+this.optu(s);
 		},
 		optu(n){
 			return n>9?n:'0'+n;

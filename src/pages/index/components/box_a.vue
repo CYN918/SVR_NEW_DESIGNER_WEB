@@ -10,7 +10,7 @@
 					
 				</span>
 				<span v-else class="hft">{{el.work_name}}</span>
-				<img v-if="el.is_recommend==1" src="/imge/new/works/icon_r.svg" />
+				<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg" />
 			</div>
 			<div class="wk_a_2_2">
 				<span>{{el.classify_1_name}}</span>{{el.classify_2_name+'-'+el.classify_3_name}}

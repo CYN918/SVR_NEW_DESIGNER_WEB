@@ -26,12 +26,12 @@
 						<video muted class="video" ref="video" :src="el.url"></video>
 						<span class="tim_013" v-if="el.play_time">{{backtio(el.play_time)}}</span>
 						<span class="tim_014" v-if="IsSelect(el.fid)">
-							<img width="19px" src="../../../../assets/icon_mt_usemt.png" alt="">
+							<img width="19px" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_mt_usemt.png" alt="">
 						</span>
 					</div>
 					
-					<div @click="checkV(el)" class="tim_xz"><img width="100%" src="../../../../assets/icon_add_small.png" alt=""></div>
-					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="../../../../assets/sc_icon_delete.png"/></div>
+					<div @click="checkV(el)" class="tim_xz"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_add_small.png" alt=""></div>
+					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/sc_icon_delete.png"/></div>
 					
 				</li>
 			</span>
@@ -41,7 +41,7 @@
 		<div v-if="istype" class="pr_tc_01">
 			<div class="pr_tc_02">			
 				<div class="pr_tc_04">
-					删除确认<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
+					删除确认<img @click="close" class="pr_tc_03 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg" alt="">
 				</div>
 				<div class="qxBm_btns_1 qxBm_btns_1x2">是否确定删除?删除后将永久消失</div>	
 				<div class="qxBm_btns">

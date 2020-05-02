@@ -14,7 +14,7 @@
 				<div class="mp3_03_2">
 					<img class="mp3_03_2_img1" @click="ss()" :src="imgPath+'tools/ss.png'"/>
 					<input @keyup.enter="ss()" v-model="name" placeholder="搜索音乐" type="text">
-					<img v-if="name" class="mp3_03_2_img2" @click="del()" src="../../../../assets/del.png"/>
+					<img v-if="name" class="mp3_03_2_img2" @click="del()" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/del.png"/>
 				</div>
 			</div>				
 			<spck2 
@@ -30,7 +30,7 @@
 			
 		</div>
 		<div v-if="isNOdata" class="mp3_04 mp3_04nod">
-			<img src="/imge/tools/empty_nodata.svg">
+			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/empty_nodata.svg">
 			<div>哎呀，没找到音乐</div>
 		</div>
 		<div v-else class="mp3_04" ref='mp3_04'>
@@ -60,7 +60,7 @@
 					<img @click="favor(el)" class="mp3_04_01_sc pend" :src="el.is_collect==0?'/imge/tools/music_icon_list_like_def.svg' :'/imge/tools/music_icon_list_like.svg'"/>
 					
 					<span @click="checkDom(el)" class="setAdio_02 pend">
-						<img v-if="el.m_id==aaa" class="setAdio_02x" src="/imge/tools/oclod.svg">
+						<img v-if="el.m_id==aaa" class="setAdio_02x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/oclod.svg">
 						<span v-else>选用</span>
 						
 					</span>
@@ -110,7 +110,7 @@
 		<div v-if="istype" class="pr_tc_01">
 			<div class="pr_tc_02">			
 				<div class="pr_tc_04">
-					选用确认<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
+					选用确认<img @click="close" class="pr_tc_03 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg" alt="">
 				</div>
 				<div class="qxBm_btns_1 qxBm_btns_1x2">当前仅支持选择一首音乐，是否替换当前已选用音乐？</div>	
 				<div class="qxBm_btns">
@@ -1175,7 +1175,7 @@ img.mp3_04_01_sc {
 	width:12px;
 	height:16px;
 	left: 50%;
-	background:  url(../../../../assets/icon_view_stop_def_whit.png) center center no-repeat;
+	background:  url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_view_stop_def_whit.png) center center no-repeat;
 }
 .playsd_an_1{
 	display: inline-block;

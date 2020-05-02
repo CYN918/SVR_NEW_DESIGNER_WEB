@@ -8,23 +8,23 @@
 			@mouseover="showT()" @mouseout="hinT()"
 			v-if="[2,1,0,-1].indexOf(+el.status)!=-1"
 			class="ldxwc_yy">
-				<img :class="['ant',Isbf?'paused':'']" src="/imge/tools/Upload_icon_music_24.svg" alt="">
+				<img :class="['ant',Isbf?'paused':'']" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/Upload_icon_music_24.svg" alt="">
 				<div :class="['gdwz_001',showTil?'showTil':'']"><span :style="yu_tle">{{backdr()}}</span></div>
 			</div>	
 			
 			
 			<div class="ldxdsh_01" v-if="el.status==1">审核中</div>
 			<div class="hcsb" v-if="el.status==-10">
-				<img src="/imge/tools/LDXGC_icon_sb.svg">
+				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/LDXGC_icon_sb.svg">
 				<span>合成失败</span>
 			</div>
 			<div class="hcsb" v-if="el.status==10">
-				<img src="/imge/tools/LDXGC_icon_hcz.svg">
+				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/LDXGC_icon_hcz.svg">
 				<span>合成中</span>
 			</div>
 			
 			<div class="hcsb2" v-if="el.file_url">
-				<div class="foll"><img src="/imge/tools/icon_video_caller lis.svg" alt=""></div>
+				<div class="foll"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_video_caller lis.svg" alt=""></div>
 				<div class="fol">{{setTimed(times-cumime)}}</div>
 			</div>
 			

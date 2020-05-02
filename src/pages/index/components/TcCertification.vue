@@ -2,7 +2,7 @@
 	<div v-if="is" class="pr_tc_01">
 		<div class="pr_tc_02">			
 			<div class="pr_tc_04">
-				{{certification.title}}<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
+				{{certification.title}}<img @click="close" class="pr_tc_03 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg" alt="">
 			</div>
 			<slot name="todoRz"></slot>	
 		</div>
