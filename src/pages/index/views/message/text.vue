@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="hp_cbo">
 		<headNav :config="navData" class="cenct_n2" ref="xtop"></headNav>
 		<headNav v-if="topTyped" class="cenct_n2 dbxfyS btomShow" :config="navData" ref="xtop"></headNav>
 		<div v-if="isJD" class="content">
@@ -289,5 +289,8 @@ export default {
 	left: 0;
 	width: 100%;
 	text-align: center;
+}
+.hp_cbo{
+	overflow: hidden;
 }
 </style>
