@@ -77,12 +77,11 @@ import personalCenter from './views/personalCenter/index.vue'
 import tolt from './views/tool/home.vue'
 import toltIndex from './views/tool/index.vue'
 import pushTool from './views/tool/pushTool.vue'
-import videoSet from './views/tool/videoSet.vue'
 
 
 import toluser from './views/tool/user.vue'
 
-
+import pushTools from './views/tool/toolIndex.vue'
 Vue.use(Router)
 const router = new Router({
 
@@ -95,7 +94,8 @@ let wb = [
 	{path: '/Ac_v2',name: 'Ac_v2',component: Ac_v2},	
 	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
 
-	{path: '/pushTool',name:'tolt',component: pushTool},
+	{path: '/pushTool',name:'pushTool',component: pushTool},
+	{path: '/pushTools',name:'pushTools',component: pushTools},
 	
 	
 	{

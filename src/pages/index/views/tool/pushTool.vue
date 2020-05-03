@@ -1,10 +1,10 @@
 <template>
 	<div>
 		<div class="ntob">
+			
 			<div class="ntob_head">
 				<div @click="backs()" class="noto_back">
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/tools/icon_back.svg">
-					返回
+					<i class="icon_jt_left"></i>返回
 				</div>
 				<div class="noto_title">
 					<input
@@ -12,12 +12,14 @@
 					 @blur="titlon('')"
 					 v-model="form.title" type="text" placeholder="请输入来电秀名称">
 					<span v-if="istitle" class="noto_t1">{{form.title.length}}/20</span>
-					<img v-else src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/tools/n/icon_bj.svg" />
+					<img v-else :src="setImgU('new/tools/n/icon_bj.svg')" />
 				</div>
 				<div class="noto_btns">
 					<span @click="tijF()">保存</span><span @click="zzyz()" class="noto_bys">制作完成</span>
 				</div>
 			</div>
+			
+			
 			<div class="ntob_cent">
 				<div class="ntob_cent_l" >
 					<div class="ntob_cent_lxbo" ref="vidobox">
@@ -51,17 +53,15 @@
 				</div>
 				<div class="ntob_cent_l_2">
 					<div class="ntob_cent_l_2_1">
-						<img class="ntob_cent_l_2_1x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/v_size.svg">预览比例<span class="bl_000" @click="showCc">
+						<img class="ntob_cent_l_2_1x" :src="setImgU('tools/v_size.svg')">预览比例<span class="bl_000" @click="showCc">
 							{{cun[vdcc].n}}
 						</span>
 					</div>
 					<div class="ntob_cent_l_2_2">
 						<span @click="newplayPreview()" class="an_sx_01">
-							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/v_sx.svg" />
+							<img :src="setImgU('tools/v_sx.svg')" />
 						</span><span @click="playd()" class="an_bf_01">
-							<img :src="'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/'+(preview.state==1?'icon_view_stop_def':'v_play')+'.svg'" />
-						
-							
+							<img :src="setImgU('tools/'+(preview.state==1?'icon_view_stop_def':'v_play')+'.svg')" />
 						</span>
 						<span>{{bckti(parseInt(preview.onTime))}}</span> / <span class="tme_091">{{bckti(parseInt(preview.maxTime))}}</span>
 					</div>
@@ -76,42 +76,41 @@
 						<el-switch v-model="isld" active-value="1"></el-switch>
 					</div>
 				</div>
+			</div>
+			
+			<div class="ntob_cent_r">
+				<div class="ntob_cent_r_1">
+					<span @click="qhNav(index,el.zj)" v-for="(el,index) in navs" :class="navson==index?'ckin':''">
+						<div class="con-right-iocn-img">
+							<img class="icon con-right-iocn-img" :src="setImgU('tools/'+el.icon)"/>
+						</div>
+						{{el.n}}
+					</span>
 				</div>
-				<div class="ntob_cent_r">
-					<div class="ntob_cent_r_1">
-						<span @click="qhNav(index,el.zj)" v-for="(el,index) in navs" :class="navson==index?'ckin':''">
-							<div class="con-right-iocn-img">
-								<img class="icon con-right-iocn-img" :src="'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/'+el.icon" />
-							</div>
-							{{el.n}}
-						</span>
-					</div>
 					
-					<div class="ntob_cent_r_2">
-							
+				<div class="ntob_cent_r_2">
 					<keep-alive>
 						<component v-bind:is="navcoms.zj" v-model="navcoms" ref="vid"></component>
 					</keep-alive>
-					</div>
 				</div>
 			</div>
+		</div>
 			
-			<div class="ntob_footer">
-				<div class="ntob_footer_1">
-					<div class="ntob_footer_1_1"></div>
-					<div class="ntob_footer_1_2" ref="gd_02">
-						<div 
+		<div class="ntob_footer">
+			<div class="ntob_footer_1">
+				<div class="ntob_footer_1_1"></div>
+				<div class="ntob_footer_1_2" ref="gd_02">
+					<div 
 						@click="showZs($event,index)" 
 						class="nl_ti1" 
 						v-for="(el,index) in navcoms.decorates"
-						><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/t_zs.svg" />装饰</div>
-						
-						<div class="nl_ti2"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/t_sp.svg" /> 媒体</div>
-						<div class="nl_ti3"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/t_yy.svg" />音频</div>
-					</div>
-					
+						><img :src="setImgU('tools/t_zs.svg')" />装饰</div>						
+					<div class="nl_ti2"><img :src="setImgU('tools/t_sp.svg')"/> 媒体</div>
+					<div class="nl_ti3"><img :src="setImgU('tools/t_yy.svg')"/>音频</div>
 				</div>
-				<div class="ntob_footer_2" ref="gdbox">
+			</div>
+			
+			<div class="ntob_footer_2" ref="gdbox">
 					<div :style="bal()" class="tlo_box" ref="qyBox">
 						<div class="ntob_footer_2_1">
 							<div @click="kdClick($event)" v-html="backd()" class="kdut"></div>
@@ -218,7 +217,7 @@
 							</div>
 							<div @mousedown="todTime($event)" :class="['bf_o1',isbf?'gdAm':'']" :style="backbft()">
 								<div class="bf_o1_1"></div>
-								<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/GD_icon_sjz.svg"/>
+								<img :src="setImgU('tools/GD_icon_sjz.svg')"/>
 							</div>
 						</div>						
 					</div>
@@ -244,16 +243,16 @@
 			
 			<div :style="zsys" class="zs_box">
 				<span @click="adddevd()">
-					<span class="zs_box1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_gd_smile.svg"/></span><span>添加装饰轨</span>					
+					<span class="zs_box1"><img :src="setImgU('tools/icon_gd_smile.svg')"/></span><span>添加装饰轨</span>					
 				</span>
 				<span @click="delevd()">
-					<span class="zs_box1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/gd_toast_icon_delete.svg"/></span><span>删除装饰轨</span>
+					<span class="zs_box1"><img :src="setImgU('tools/gd_toast_icon_delete.svg')"/></span><span>删除装饰轨</span>
 				</span>
 			</div>
 			<div v-if="istype" class="pr_tc_01">
 				<div class="pr_tc_02">
 					<div class="pr_tc_04">
-						{{istype.t}}<img @click="close" class="pr_tc_03 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg" alt="">
+						{{istype.t}}<img @click="close" class="pr_tc_03 pend" :src="setImgU('project/cj_00.svg')"/>
 					</div>
 					<div class="newds_012">
 						{{istype.c1}}
@@ -267,24 +266,15 @@
 				</div>
 			</div>
 			<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
-			<div>
-				<span v-for="el in navcoms.media">
-					<video v-if="el.type=='video'"  class="ntob_cent_l_1" :src="el.file_url"></video>
-				</span>
-			</div>
-			
-			
 			<audio 
 			class="ntob_cent_l_1" 
 			@timeupdate="setAdioLad" 
 			@ended="setendAudio()" 
 			ref="setAdios"
-			></audio>
-			
+			></audio>			
 		</div>
 	</div>
 </template>
-
 <script>
 	import setMt from './setMt';
 	import mp3List from './setAdio';
@@ -601,27 +591,22 @@
 				this.$refs.vids.pause();
 				setTimeout(()=>{
 					this.$refs.vids.play();
-				},10)
-					
-				
-				
-						
+				},10)		
 			},
 			puandFn(){
-			
 				if(this.preview.state==1){
 					this.preview.state=2;
 					return
 				}
 				this.stopDr();
-				if(this.$refs.vids && !this.$refs.vids.paused){
-					this.$refs.vids.pause();					
+				this.stopMeat(this.$refs.vids)
+				this.stopMeat(this.$refs.aido)
+			},
+			stopMeat(obj){
+				if(obj && !obj.paused){
+					obj.pause()
 				}
-				if(this.$refs.aido && !this.$refs.aido.paused){
-					this.$refs.aido.pause();
-				}
-			
-			},	
+			},
 			setPreviewTimes(el,type,isdur){
 				if(this.preview.state==1){
 					this.setPreviewState(2);
@@ -759,7 +744,7 @@
 			},			
 			/*暂停播放*/
 			kdClick(e){
-				this.puandFn2()
+				this.puandFn()
 				e.preventDefault();			
 				this.preview.onTime = this.getMousTime(e);
 				this.drmOn()
@@ -773,7 +758,7 @@
 				e.preventDefault();
 				let tdStar = e.pageX;
 				let cs = this.preview.onTime;
-				this.puandFn2()
+				this.puandFn()
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
@@ -812,13 +797,7 @@
 			stopDr(){
 				clearInterval(this.valObj);
 			},			
-		
-			puandFn2(){
-				this.puandFn();
-				
-			},
-			/*播放相关*/
-								
+			/*播放相关*/								
 			backPlayVideo(){
 				let pd = this.navcoms.media;
 				let on=0;			
@@ -1671,7 +1650,7 @@
 				doms.ischeck = '';
 				this.checkOn.list.push(doms);
 				if(this.playT==1 || this.playT==2){
-					this.puandFn2()
+					this.puandFn()
 				}
 				this.setPreviewTimes('','del',1);
 				this.drmOn();
@@ -1680,7 +1659,7 @@
 				if (!this.checkOn.list) {
 					return
 				}
-				this.puandFn2();
+				this.puandFn();
 				this.tanc = {
 					zj: 'cat',
 					title: '',
@@ -1700,7 +1679,7 @@
 				if(!onsd){
 					return
 				}
-				this.puandFn2();
+				this.puandFn();
 				let maxt = this.backTim(onsd);
 				if(this.preview.onTime>=onsd.start && this.preview.onTime<maxt){
 					this.drmBg();
@@ -2535,7 +2514,15 @@
 		height: 100%;
 	
 	}
-
+.icon_jt_left{
+	margin: 10px 0 0 16px;
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	overflow: hidden;
+	width: 24px;
+	height: 24px;
+}
 	.setToll {
 		position: absolute;
 		top: 0;

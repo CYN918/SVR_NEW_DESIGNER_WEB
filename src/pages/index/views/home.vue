@@ -30,64 +30,7 @@
 				</template>			
 			</list>
 		</div>
-		<navRight></navRight>
-		<!-- <div class="home_0x1">
-			<div class="home_0x2">让设计更有价值，让生活更加自由</div>
-			<div class="home_0x3">如果你是设计师、摄影师、特效工程师、音乐工作者、短视频等创作者或创意团队，加入狮圈儿，这里就是你施展才华的圈子，让作品获取最大的价值！</div>
-			<div class="home_0x4">
-				<a  v-for="(el,index) in Ds_01" :key="index">
-					<div class="home_0x4_1">
-						<img :src="el.i"/>
-					</div>
-					<div class="home_0x4_2">{{el.n}}</div>
-					<span class="home_0x4_3">{{el.t}}</span>
-				</a>
-			</div>
-			<a class="btns btns_js home_0x5_bt pend" href="/#/project">立即查看项目</a>
-		</div>	
-		
-		<div class="home_0x5">
-			<div>
-				<div class="home_0x5_1">
-					<div>自由创作，轻松赚取收益</div>
-					以更轻松的方式专注创作，其他交给我们。从投稿设计项目、征集活动，到作品录用和获取收益，全程透明化无忧呈现。
-				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/7.svg"/>
-			</div><div>
-				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/9.svg"/>
-				<div class="home_0x5_1">
-					<div>让你的创作突破限制</div>
-					不要让你的作品像在其他平台上一样在角落里积灰，狮圈儿将创意、分发、收益和社区一站式无缝连接，助你达成更高的成就。
-				</div>
-			</div><div>
-				<div class="home_0x5_1">
-					<div>让全球7亿人看到你的作品</div>
-					稿件一经录用发行即可被7亿人看到，获得不限于华为、OPPO、VIVO、魅族等遍布全球73%安卓移动终端用户的海量曝光。
-				</div><img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/8.svg"/>
-			</div><div>
-				<img class="home_0x5_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/10.svg"/>
-				<div class="home_0x5_1">
-					<div>包容性最强的创作者平台</div>
-					狮圈儿具有极大的包容性和爆发性，持续不断的内容需求和收益加成，让每一个热爱创作的人都能实现自己的价值。
-				</div>
-			</div>
-			
-			<a class="btns btns_js home_0x5_bt pend" href="/#/project">立即入驻，承接项目</a>
-		</div>
-		
-		<div class="home_0x6">
-			<div class="home_0x7">
-				<div class="home_0x7_1">优秀作品推荐，为你持续输出灵感</div>
-				<div class="home_0x7_2 hovs">
-					<span :class="cOn==fls[el]?'check':''" @click="sec(fls[el])" v-for="el in [0,1,2,3,4]">{{fls[el]}}</span>
-					<i class="fgx_01"></i>
-					<span @click="goFn('/Work_i')">更多</span>
-				</div>
-			</div>
-			<div class="home_0x8">
-				<box_a v-for="(el,index) in List" :el="el" :key="index"></box_a>
-			</div>
-			<a class="btns btns_js home_0x5_bt pend" href="/#/upload">上传我的原创作品</a>
-		</div>	 -->
+		<navRight></navRight>		
 	</div>
 </template>
 <script>
@@ -97,10 +40,7 @@ import list from '../components/list';
 import box_a from '../components/box_a';
 import pTop from '../components/postionTop';
 import navRight from '../components/nav_right';
-// import list from '../components/list';
-// import box_a from '../components/box_a';
 export default {
-	// components:{baner,list,box_a},
 	components:{baner,list,box_a,pTop,workNav,navRight},
 	name: 'home',
 	data(){
@@ -123,37 +63,13 @@ export default {
 			adFn:'',
 			options:[],
 			value:'',
-			
-			// Ds_01:[
-			// 	{n:'UI图标',t:'UI Icon',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/1.svg'},
-			// 	{n:'摄影',t:'Photography',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/2.svg'},
-			// 	{n:'视觉设计',t:'Visual Design',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/3.svg'},
-			// 	{n:'动效制作',t:'Animation production',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/4.svg'},
-			// 	{n:'脚本制作',t:'Script production',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/5.svg'},
-			// 	{n:'插画',t:'Illustration',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/6.svg'}
-			// ],
-			// List:[],
-			// fls:[],
-			// cOn:'全部',
+
 		}
 	},
 	mounted: function(){
 		this.init()
-		// this.getMothod()
-		// this.getData()
-		// this.getClass();
 	}, 
 	methods: {
-		// getMothod(){
-		// 	var windowWidth = window.innerWidth;
-		// 	if(windowWidth <= 1440){
-		// 		this.isShow = false;
-		// 	}
-		// 	if(windowWidth > 1440){
-				
-		// 	}
-
-		// },
 		init(){
 			this.mJs.scTop(1);
 			this.getClass();
@@ -201,55 +117,7 @@ export default {
 				}
 				this.options = arr1;   
 			})
-		}
-		// sec(n){
-		// 	if(n==this.cOn){
-		// 		return
-		// 	}
-		// 	this.cOn = n;
-		// 	if(n=='全部'){
-		// 		n = '';
-		// 	}
-		// 	this.getData(n);
-		// },
-		// getData(cn){
-		// 	let pr = {
-		// 		type:'rec',
-		// 		page:1,
-		// 		limit:4
-		// 	};
-		// 	if(cn){
-		// 		pr.classify_name = cn;				
-		// 	}
-		// 	this.api.getHList(pr).then((da)=>{
-		// 		if(da=='error'){return}				
-		// 		this.List = da.data;
-		// 	})
-		// },
-		// getClass(){
-		// 	this.api.getClassify().then((da)=>{
-		// 		if(da=='error'){
-		// 			return
-		// 		}
-		// 		let arr1 = [],arr2=['全部'];
-		// 		for(let i=0,n=da.length;i<n;i++){
-		// 			arr1 = arr1.concat(sbd(da[i].sub_data));
-		// 		}
-		// 		function sbd(d){
-		// 			let arr = [];
-		// 			for(let i=0,n=d.length;i<n;i++){
-		// 				if(arr2.indexOf(d[i].classify_name)!=-1){
-		// 					continue
-		// 					return
-		// 				}
-		// 				arr2.push(d[i].classify_name);
-						
-		// 			}
-		// 			return arr;
-		// 		}
-		// 		this.fls = arr2;  
-		// 	})
-		// }
+		}		
 	}
 }
 </script>

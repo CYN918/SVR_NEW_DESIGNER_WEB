@@ -3,7 +3,7 @@
 		<template v-slot:todo="{ todo }">
 			<div class="bmXm_00">
 				<div class="bmXm_01">
-					请选择项目收益结算方式：
+					{{settlement==0?'请选择项目收益结算方式：':'项目收益结算方式：'}}
 					<div class="bmXm_01_1">
 						<ul>
 							<li 

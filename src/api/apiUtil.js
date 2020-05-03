@@ -1,12 +1,9 @@
 import axios from 'axios'
-
 import {Message} from 'element-ui'
 let basrurl = 'http://139.129.221.123';
 if(window.location.host=='shiquaner.zookingsoft.com'){
 	basrurl = 'https://shiquaner-api.zookingsoft.com';
 }
-
-
 if(window.location.host=='120.27.22.130:8080'){
 	basrurl = 'http://120.27.22.130:8081';
 	window.login_froms = 'new_designer_pre';
@@ -89,6 +86,7 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 		}
 	},error => {	 
 		if(window.isStop){
+			window.isStop = '';
 			return
 		}
 		Message({message: '服务器故障',type: 'warning'});

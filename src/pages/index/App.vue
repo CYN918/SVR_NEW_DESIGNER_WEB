@@ -6,35 +6,27 @@
 <script>
     export default {
         name: 'App',
-        provide () {    //父组件中通过provide来提供变量，在子组件中通过inject来注入变量。                                             
+        provide () {                                            
             return {
                 reload: this.reload                                              
             }
         },
         data() {
             return{
-                isRouterAlive: true                    //控制视图是否显示的变量
+                isRouterAlive: true
             }
         },
         methods: {
             reload () {
-                this.isRouterAlive = false;            //先关闭，
+                this.isRouterAlive = false;
                 this.$nextTick(function () {
-                    this.isRouterAlive = true;         //再打开
+                    this.isRouterAlive = true;
                 }) 
             }
         }
     }
 </script>
 <style lang="scss">
-// html{
-//   -webkit-filter: grayscale(100%);
-//   -moz-filter: grayscale(100%);
-//   -ms-filter: grayscale(100%);
-//   -o-filter: grayscale(100%);
-//   filter: grayscale(100%);
-//   filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
-// }
 html,body,div,img,p,ul,li{
 	margin: 0;
 	padding: 0;

@@ -46,7 +46,7 @@
 						<span class="playsd_an_1" :title="el.name">
 							{{el.name}}
 							<lottie-player v-if="ischeckd(el.m_id)" ref="chean"
-								class="playsd_an" src="./js/anm/music.json" background="transparent" speed="1" loop>
+								class="playsd_an" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/js/anm/music.json" background="transparent" speed="1" loop>
 							</lottie-player>
 						</span>
 						
@@ -246,9 +246,7 @@ export default{
 			return 'transform: translateX('+((this.bfData.onTime/this.bfData.duration)-1)*100+'%);';
 		},
 		pauseAll(){
-			this.$parent.playAdio({
-				type:'pauseFn',
-			});
+			this.puandFn(0)
 			this.$parent.puandFn2();			
 		},
 		setBf(e){
@@ -267,10 +265,30 @@ export default{
 			}
 			this.bfData.onTime = mvtime;
 			this.$parent.setcurrentTime(mvtime);
+			this.playFn();
+			
+		},
+		playFn(url){
 			this.bRunning = true;
-			this.$parent.playAdio({
-				type:'playFn',
-			})	
+			if(this.$refs.chean[0]){
+				this.$refs.chean[0].play();
+			}
+			let pr = {type:'playFn'};
+			if(url){
+				pr.url = url;
+			}
+			this.$parent.playAdio(pr)	
+		},
+		puandFn(t){
+			
+			if(this.$refs.chean[0]){
+				this.$refs.chean[0].stop();
+			}
+			let pr = {type:'pauseFn'};
+			if(t || t==0){
+				pr.time = t;
+			}
+			this.$parent.playAdio(pr);
 		},
 		mp3down(el) {
 			//算出鼠标相对元素的位置			
@@ -459,10 +477,7 @@ export default{
 				is_collect:pd.is_collect,
 				face_pic:pd.face_pic
 			};
-			this.$parent.playAdio({
-				type:'pauseFn',
-				time:0,
-			});
+			this.puandFn(0)
 			this.sh_audioUrl(pd.m_id);
 			
 		},
@@ -492,15 +507,12 @@ export default{
 				onTime:0,
 				face_pic:pd.face_pic
 			};
-			this.$parent.playAdio({
-				type:'pauseFn',
-				time:0,
-			});
+			this.puandFn(0)
 			this.sh_audioUrl(pd.m_id);
 		},
 		setRun(){
-			if(!this.$refs.chean){
-				return
+			if(this.$refs.chean[0]){
+				this.$refs.chean[0].stop();
 			}
 			this.bRunning = false;
 			
@@ -529,32 +541,18 @@ export default{
 			}
 			if (this.bRunning) {
 				this.bRunning = false;
-								
-				this.$parent.playAdio({
-					type:'pauseFn',
-				});
+				this.puandFn()
 			} else {
-				this.bRunning = true;
-				this.$parent.playAdio({
-					type:'playFn',
-				});				
+				this.playFn();		
 				
 			}
-			
-			
-
 		},
 		sh_audioUrl(id){
 			this.api.sh_audioUrl({
 				m_id:id
 			}).then((da)=>{
 				if(da=='error'){return}
-				this.bRunning = true;
-				this.$refs.chean[0].play();				
-				this.$parent.playAdio({
-					url:da.file_url,
-					type:'playFn',
-				});
+				this.playFn(da.file_url);
 			})
 		},
 		favor(el) {

@@ -8,6 +8,7 @@ import mJs from '../../assets/comm.js'
 
 
 
+
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
 Vue.prototype.mJs = mJs
@@ -19,34 +20,15 @@ Vue.prototype.goFn = (n)=>{
 
 Vue.prototype.imgPath = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/';
 Vue.prototype.imgSig = 'http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/';
-
-let s = window.screen.width / 1920;
-document.body.style.zoom = s;
+Vue.prototype.setImgU = (u)=>{
+	return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/'+u;
+}
 //定义全局过滤器
 Vue.filter('followType', (val)=>{
 	if(val == 1){return '已关注'}
 	if(val == 2){return '互相关注'}
 	return '关注';
 })
-
-// function getWindowSize(){	
-// 	document.body.style.zoom = window.screen.width/1920;
-// }
-// getWindowSize();
-// window.onresize = function(){
-// 	getWindowSize();
-// }
-
-Vue.prototype.isLogin=function(){
-	if(!window.userInfo){
-		// this.$router.push({path: '/login'})
-		// return false;
-	}
-	return true;
-}
-
-
-
 Vue.prototype.MD5 = function(string){ 
     function RotateLeft(lValue, iShiftBits) {
         return (lValue<<iShiftBits) | (lValue>>>(32-iShiftBits));
@@ -306,6 +288,7 @@ Vue.prototype.tipMr = (n)=>{
 		message:n
 	})
 };
+
 Vue.config.productionTip = false
 Vue.prototype.checkLo = function(o){
 	api[o.api](o.pr).then((da)=>{
@@ -345,26 +328,6 @@ Vue.prototype.checkLo = function(o){
 router.afterEach((to,from,next) => {
     window.scrollTo(0,0);
 });
-
-// Vue.prototype.miss = function(o){
-// 	Message({message:o});
-// };
-
-// Vue.prototype.scrollFns = [];
-// document.addEventListener("scroll",()=>{
-	
-// 	for(let i=0,n=Vue.prototype.scrollFns.length;i<n;i++){
-
-// 		if(Vue.prototype.scrollFns[i]){
-// 			Vue.prototype.scrollFns[i]();
-// 		}else{
-// 			Vue.prototype.scrollFns.splice(i,1);
-// 		}
-// 	}
-	
-// });
-
-
 new Vue({
   router,
   render: h => h(App)

@@ -1,110 +1,65 @@
 <template>
-	
 	<div class="box">
 		<div class="hot_topbox">
 			<img class="hotBaner" :src="imgSig+'toltImg/ZQ-banner.svg'">
-			<button @click="godd" v-if="contributor_format_status == 0 || contributor_format_status == -1">立即加入</button>
-			<button v-if="contributor_format_status == 1">审核中</button>
-			
+			<button v-if="status!=2" @click="gocis()">{{status == 1?'审核中':'立即加入'}}</button>			
 		</div>
 		<div class="hotCent">
 			<div class="hotCent2">
 				<ul>
-					<li id="nav_tolt"><img class="hotBaner" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_upload" @click="go_project()">去挑选项目</button></li>
-					<li id="nav_upload" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-cjxm.svg'"><button class="go_upload" @click="go_upload()">上传原创作品</button></li>
-					<li id="nav_logo" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-dsp.svg'"><button class="go_upload" @click="go_show()">前往制作来电秀</button></li>
-				</ul>
-					
+					<li id="nav_tolt"><img class="hotBaner" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_upload" @click="go_to('/project')">去挑选项目</button></li>
+					<li id="nav_upload" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-cjxm.svg'"><button class="go_upload" @click="goOn('/upload')">上传原创作品</button></li>
+					<li id="nav_logo" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-dsp.svg'"><button class="go_upload" @click="goOn('/toluser')">前往制作来电秀</button></li>
+				</ul>					
 			</div>
 		</div>
 		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 </template>
-
 <script>
 import loginDialog from '../../components/loginDialog'
 export default{
 	components:{loginDialog},
 	data(){
 		return {
-			contributor_format_status:'',
+			status:'',
 			outc:{
 				num:'',
 				scroll:2,
-			}
+			} 
 		}	
 	},
 	mounted: function () {	
 		this.initHead()
 	},
 	methods:{
-		// got(){
-		// 	if(!window.userInfo){
-		// 		this.$router.push({path:'/login'});	
-		// 		return
-		// 	}
-		// 	this.$router.push({path:'/tolt/toluser'});	
-		// },
 		initHead(){	
-			let pr = {
-				access_token:window.userInfo.access_token
-			};
-			this.api.getSelfInfo(pr).then((da)=>{
+			this.api.getSelfInfo({}).then((da)=>{
 				if(da=='error'){return}		
-				this.contributor_format_status = da.contributor_format_status;
-			}).catch();
-			
+				this.status = da.contributor_format_status;
+			});			
 		},
-		godd(){
-			
-			if(!window.userInfo){
-				this.$refs.logindialog.show();
-				this.outc.num = 1;
-			}else{
-				this.$router.push({path: '/setPersonal'});
-
-			}
-			
-		},
-		go_project(){
-			this.$router.push({path: '/project'});
-		},
-		go_upload(){
-			if(!window.userInfo){
-				this.$refs.logindialog.show();
-				this.outc.num = 1;
-			}else{
-				this.$router.push({path: '/upload'});
-
-			}
-			
-		},
-		go_show(){
-			if(!window.userInfo){
-				this.$refs.logindialog.show();
-				this.outc.num = 1;
+		gocis(){
+			if(this.status==1){
 				return
 			}
-			
-			// if(!window.userInfo){
-			// 	this.$refs.logindialog.show();
-			// 	this.outc.num = 1;
-			// 	return
-			// }
-			this.$router.push({path:'/toluser'});
-			// if(window.userInfo.contributor_format_status == 2){
-			// 	this.$router.push({path:'/tolt/toluser'});
-			// 	return
-			// }
-			// this.$message({
-			// 	message:'请先认证'
-			// })
-			// setTimeout(()=>{
-			// 	this.$router.push({path: '/setPersonal'})
-			// }, 1000);
-			
-			
-		}
+			this.goOn('/setPersonal');
+		},
+		checkLogin(){
+			if(!window.userInfo){
+				this.$refs.logindialog.show();
+				this.outc.num = 1;	
+				return false
+			}
+			return true
+		},		
+		goOn(url){
+			if(!this.checkLogin()){return}
+			this.go_to(url)
+		},
+		go_to(url){
+			this.$router.push({path:url});	
+		},
 	}
 }
 </script>

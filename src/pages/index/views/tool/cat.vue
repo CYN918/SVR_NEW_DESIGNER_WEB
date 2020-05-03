@@ -112,7 +112,7 @@ export default{
 			this.setcs('sy',sy);
 			this.setcs('sw',sw);
 			this.setcs('sh',sh);			
-			this.$parent.puandFn2();			
+			this.$parent.puandFn();			
 			this.close();
 			this.$parent.drmOn();
 		},
