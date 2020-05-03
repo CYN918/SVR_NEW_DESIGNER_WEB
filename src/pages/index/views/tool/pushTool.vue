@@ -1099,9 +1099,7 @@
 				if(!ctrlKey && !shiftKey){
 					return
 				}
-				e.preventDefault();
-				
-				
+				e.preventDefault();								
 				let pd = 0;
 				let maxd = this.$refs.qyBox.offsetWidth;
 				let len = this.$refs.gund_01x.offsetWidth;
@@ -1109,28 +1107,24 @@
 				pd = (maxd - len) * bl;
 				var kd = e.wheelDelta ? e.wheelDelta : e.detail;
 				if (kd > 0) {	
-					if (ctrlKey && this.fdjb > 1) {							
-						
+					if (ctrlKey && this.fdjb > 1) {													
 						this.fdjb--;						
 					}
 					if (shiftKey) {
 						let ond = this.tdjl-30;				
-						this.tdjl = ond<0?0:ond;
-					
+						this.tdjl = ond<0?0:ond;					
 					}
 				}
 				if (kd < 0) {
 					if (ctrlKey && this.fdjb < 120) {
-						this.fdjb++;	
-					
+						this.fdjb++;						
 					}
 					if (shiftKey) {		
 						let ond = this.tdjl+30;												
 						if(ond>pd){
 							ond = pd;
 						}
-						this.tdjl = ond;	
-					
+						this.tdjl = ond;						
 					}
 				}
 			},
@@ -1146,7 +1140,6 @@
 				this.$refs.gd_02.scrollTop = ev.target.scrollTop;
 			},
 			bckti(t) {
-
 				var f = '00',
 					s;
 				if (t >= 60) {
@@ -1163,7 +1156,6 @@
 			},
 			showDevs(on, on1) {
 				this.zsgd = this.navcoms.decorates[on][on1];
-
 			},
 			delevd(){
 				if(this.navcoms.decorates.length==1){
@@ -1197,15 +1189,11 @@
 				this.clerClick(fn)
 			},
 			contexMs(e, b) {
-			
 				if (e.button == "2") {
 					e.preventDefault();
-					let dom = e.target.getBoundingClientRect();
-
 					if (b) {
 						this.setCheckOn(b)						
 					}
-
 					this.csad = 'display:block;top:' + (e.y - 5) + 'px;left:' + (e.x - 22) + 'px';
 					let fn = () => {
 						setTimeout(() => {
