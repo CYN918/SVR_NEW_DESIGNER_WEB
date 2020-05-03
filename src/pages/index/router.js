@@ -81,7 +81,6 @@ import pushTool from './views/tool/pushTool.vue'
 
 import toluser from './views/tool/user.vue'
 
-import pushTools from './views/tool/toolIndex.vue'
 Vue.use(Router)
 const router = new Router({
 
@@ -95,8 +94,6 @@ let wb = [
 	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
 
 	{path: '/pushTool',name:'pushTool',component: pushTool},
-	{path: '/pushTools',name:'pushTools',component: pushTools},
-	
 	
 	{
 		path: '/',
