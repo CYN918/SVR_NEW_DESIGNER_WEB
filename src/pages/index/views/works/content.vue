@@ -604,11 +604,16 @@ export default {
 					return
 				}
 				da.labels = JSON.parse(da.labels);
+				
+				var da = {
+					content:'<p><br/></p><p style="max-width:100%;height:auto;"><img zk_workid="vDYQiGF4qBPTnNyl" style="max-width:100%;height:auto" src="http://res.shiquaner.zookingsoft.com/b1cdd0fd8848e2c1822aeee30bfd990d.jpg"/></p><p><br/></p><p><br/></p>'
+				};
+				
 				da.content = da.content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, function (match, capture) {
 					let str = capture.split('?')[0];
 					let reg2 = /^(\s|\S)+(.jpeg|.JPEG|.jpg|.png|.JPG|.PNG)$/;			
 					if (reg2.test(str)) {
-					  str = +'?x-oss-process=image/resize,w_870';					  
+					  str+='?x-oss-process=image/resize,w_870';					  
 					  match = match.replace(/(src="=?).+(?=")/i,'src="'+capture);
 					}
 				  return match;
