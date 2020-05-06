@@ -349,8 +349,7 @@ export default {
 			let uploadCanceled = ()=>{
 				p.type="none";
 				this.$refs.upnfile.value ='';
-				Message({message: '取消成功'});
-				
+				Message({message: '取消成功'});				
 			};
 			xhr.upload.addEventListener("progress",uploadProgress, false);
 			xhr.addEventListener("load",uploadComplete, false);
@@ -373,7 +372,6 @@ export default {
 			for(let i=0,n=flie.target.files.length;i<n;i++){
 				this.clPic(flie.target.files[i],i);
 			}
-      		
       	},
     }
 }
@@ -635,7 +633,7 @@ export default {
 
 
 .circleProgress_wrapper{
-   	width: 60px;
+	width: 60px;
     height: 60px;
     margin: 0 auto;
     position: absolute;

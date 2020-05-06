@@ -604,7 +604,17 @@ export default {
 					return
 				}
 				da.labels = JSON.parse(da.labels);
-				
+				da.content = da.content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, function (match, capture) {
+				  
+				  
+				  let reg2 = /^(\s|\S)+(.jpg|.png|.JPG|.PNG)/;
+			
+				  if (reg2.test(capture)) {
+					  capture = capture.split('?')[0]+'?x-oss-process=image/resize,w_870';					  
+					  match = match.replace(/(src="=?).+(?=")/i,'src="'+capture);
+				  }
+				  return match;
+				});
 				this.contDat = da;
 			
 				this.shareData = {

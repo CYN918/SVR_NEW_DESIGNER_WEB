@@ -375,10 +375,8 @@
 					y: 0,
 					w: 391,
 					h: 695,
-				},
-			
+				},		
 				isCc2: '',
-	
 				tdjl: 0,
 				fd: [{
 						s: 1,
@@ -1206,14 +1204,11 @@
 			setMos(on,e) {
 				if(e){
 					on.y = e.target.getBoundingClientRect().y;
-				}
-				
-				this.Mos = on;
-				
+				}				
+				this.Mos = on;				
 			},
 			tochs() {
 				this.isdra = 1;
-
 			},
 			toche() {
 				this.isdra = '';
