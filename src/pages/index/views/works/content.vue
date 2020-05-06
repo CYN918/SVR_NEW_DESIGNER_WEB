@@ -605,14 +605,12 @@ export default {
 				}
 				da.labels = JSON.parse(da.labels);
 				da.content = da.content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, function (match, capture) {
-				  
-				  
-				  let reg2 = /^(\s|\S)+(.jpg|.png|.JPG|.PNG)/;
-			
-				  if (reg2.test(capture)) {
-					  capture = capture.split('?')[0]+'?x-oss-process=image/resize,w_870';					  
+					let str = capture.split('?')[0];
+					let reg2 = /^(\s|\S)+(.jpeg|.JPEG|.jpg|.png|.JPG|.PNG)$/;			
+					if (reg2.test(str)) {
+					  str = +'?x-oss-process=image/resize,w_870';					  
 					  match = match.replace(/(src="=?).+(?=")/i,'src="'+capture);
-				  }
+					}
 				  return match;
 				});
 				this.contDat = da;
