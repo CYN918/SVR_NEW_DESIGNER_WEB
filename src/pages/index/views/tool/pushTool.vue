@@ -1548,7 +1548,7 @@
 							if(opb){
 								ond = opb[opb.length-1];
 							}
-							let ond = opb[opb.length-1];
+							
 							if(ond){
 								list[onc].start = +ond.start+(ond.cut_end-ond.cut_start);	
 							}else{
