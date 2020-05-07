@@ -599,7 +599,8 @@ export default {
 		ajaxYzmZd(){
 			
 			if(this.form.mobile!=window.userInfo.mobile){
-				this.form.mobile = window.userInfo.mobile;
+				this.$set(this.form,'mobile',window.userInfo.mobile)
+				
 			}
 			
 			this.bdtj('个人认证页面','获取验证码','--');
