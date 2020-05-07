@@ -25,6 +25,7 @@ export default {
 		show(){			
 			this.is = 1;
 			document.body.style = "overflow: hidden;";
+			console.log(this.config);
 		},
 
 		close(){

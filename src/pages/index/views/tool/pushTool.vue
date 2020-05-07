@@ -538,7 +538,9 @@
 					this.preview.state = 1;
 				}
 			},
-
+			getEndTiem(){
+				
+			},
 			playPreview(a){
 			
 				if(this.navcoms.media.length==0){
@@ -1253,12 +1255,12 @@
 					return
 				}
 				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				
 				let len = this.$refs.gund_01x.offsetWidth;
-				let bl = len / maxd;
-
-
+				console.log(maxd);
+				console.log(len);
 				let pd = len / maxd;
-
+				console.log(pd);
 				if (pd > 1) {
 					pd = 1;
 				}
