@@ -432,6 +432,9 @@ export default {
 			this.tancData.old_mobile_zone = val;
 		},
 		ajaxYzmZd(){
+			if(this.form.mobile!=window.userInfo.mobile){
+				this.form.mobile = window.userInfo.mobile;
+			}
 			this.bdtj('企业认证页面','获取验证码','--');
 			let pd = this.form.mobile;
 			if(this.form.mobile_zone!='86'){
@@ -463,6 +466,7 @@ export default {
 			});
 		},
 		ajaxYzm(){
+			
 			let pd = this.tancData.newMoble;
 			if(this.tancData.mobile_zone!='86'){
 				if(!(typeof pd === 'number' && pd%1 === 0)){
@@ -530,7 +534,8 @@ export default {
 				if(da=='error'){
 					return
 				}
-				this.form.mobile = this.tancData.newMoble;
+				this.form.mobile = pr.mobile;
+				this.form.mobile_zone = pr.mobile_zone;
 				this.tancData.mobile_zone = '86';
 				this.tancData.newMoble = '';
 				this.tancData.oldMoble = '';
@@ -538,6 +543,9 @@ export default {
 				this.tancData.verify_code = '';			
 				this.tAncType=0;
 				this.closeTc1();
+				window.userInfo.mobile = this.form.mobile;
+				window.userInfo.mobile_zone = this.form.mobile_zone;
+				localStorage.setItem('userT', JSON.stringify(window.userInfo));
 				Message({message: '修改成功'});
 				
 				

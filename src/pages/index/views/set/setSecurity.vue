@@ -527,7 +527,8 @@ export default {
 				if(da=='error'){
 					return
 				}
-				this.form.mobile = this.tancData.newMoble;
+				this.form.mobile = pr.mobile;
+				this.form.mobile_zone = pr.mobile_zone;
 				this.tancData.mobile_zone = '86';
 				this.tancData.newMoble = '';
 				this.tancData.oldMoble = '';
@@ -535,6 +536,9 @@ export default {
 				this.tancData.verify_code = '';	
 				this.close2();
 				this.tAncType=0;
+				window.userInfo.mobile = this.form.mobile;
+				window.userInfo.mobile_zone = this.form.mobile_zone;
+				localStorage.setItem('userT', JSON.stringify(window.userInfo));
 				Message({message: '修改成功'});
 				
 				
