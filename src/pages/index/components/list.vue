@@ -65,19 +65,30 @@ export default {
 		}
 	},
 	created(){
-		let currentpage = sessionStorage.getItem('currentpage');
-		let currentlimit = sessionStorage.getItem('currentlimit');
-		if(currentpage != null){
-			this.page.page = Number(currentpage);
-		};
-		if(currentlimit != null){
-			this.page.limit = Number(currentlimit);
-		};
+		
+		let apid = sessionStorage.getItem('currentApi');
+		if(apid==this.config.ajax.url){
+			let currentpage = sessionStorage.getItem('currentpage'),
+			currentlimit = sessionStorage.getItem('currentlimit');
+			if(currentpage != null){
+				this.page.page = Number(currentpage);
+			};
+			if(currentlimit != null){
+				this.page.limit = Number(currentlimit);
+			};
+		}
+		
 					
 	},
-	mounted: function () {			
-		let currentpage = sessionStorage.getItem('currentpage');
-		let currentlimit = sessionStorage.getItem('currentlimit');
+	mounted: function () {	
+		
+		let currentpage = null,
+		currentlimit = null;
+		let apid = sessionStorage.getItem('currentApi');
+		if(apid==this.config.ajax.url){
+			currentpage = sessionStorage.getItem('currentpage');
+			currentlimit = sessionStorage.getItem('currentlimit');
+		}
 		if(this.$route.path){
 			if(currentpage == null && currentlimit == null){
 				this.page.page = 1;
@@ -100,6 +111,8 @@ export default {
 	},
 	methods: {
 		removeSession(){
+			
+			
 			sessionStorage.removeItem('currentpage')
 		    sessionStorage.removeItem('currentlimit')
 		},
@@ -167,6 +180,7 @@ export default {
 			}
 			this.goTop=1;
 			this.page.limit = val;
+			sessionStorage.setItem('currentApi', this.config.ajax.url);
 			sessionStorage.setItem('currentlimit', val);
 			this.page.page=1;
 			this.total=0;
@@ -180,6 +194,7 @@ export default {
 			this.goTop=1;
 			this.total=0;
 			this.page.page = val;
+			sessionStorage.setItem('currentApi', this.config.ajax.url);
 			sessionStorage.setItem('currentpage', val);
 			this.getData();
 		},

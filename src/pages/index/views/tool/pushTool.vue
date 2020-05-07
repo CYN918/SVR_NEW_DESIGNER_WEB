@@ -539,7 +539,11 @@
 				}
 			},
 			getEndTiem(){
-				
+				let len = this.getBur(this.$refs.gdbox).width;
+			
+				len = len+this.tdjl;
+				console.log(len)
+				return len/this.wdk*this.bl;			
 			},
 			playPreview(a){
 			
@@ -1250,22 +1254,24 @@
 					this.fdjb--;
 				}
 			},
+			getBur(obj){
+				return obj.getBoundingClientRect();
+			},
 			tdfn() {
 				if (!this.$refs.gund_01x) {
 					return
 				}
-				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
-				
-				let len = this.$refs.gund_01x.offsetWidth;
-				console.log(maxd);
-				console.log(len);
-				let pd = len / maxd;
-				console.log(pd);
+				let maxd = Math.ceil(this.preview.maxTime / this.bl) * this.wdk;
+				let prw = this.getBur(this.$refs.gdbox).width;
+				let prt = prw/this.wdk*this.bl;
+				if(prw>maxd){
+					maxd = prw;					
+				}
+				let pd = prw / maxd;
 				if (pd > 1) {
 					pd = 1;
 				}
 				pd = pd * 100;
-
 				return "width:" + pd + "%;transform: translate(" + this.tdjl + "px,-50%);";
 			},
 			bal() {
@@ -1349,18 +1355,21 @@
 			},
 			jlx(e, el, index, list) {
 				e.preventDefault();
+			
 				if (!this.$refs.gund_01x) {
 					return
 				}
-				let tdStar = e.pageX;				
-				let maxd = this.$refs.qyBox.offsetWidth;
-				let len = this.$refs.gund_01x.offsetWidth;
+				
+				let maxd = Math.ceil(this.preview.maxTime / this.bl) * this.wdk;
+				let tdStar = e.pageX;	
+				let len = this.getBur(this.$refs.gdbox).width;
 				let bl = len / maxd;
 				let pd = (maxd - len) * bl;
 				let mv = this.tdjl;
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
+					
 					let on = Math.round((e.pageX - tdStar) * 100) / 100 + mv;
 					if (on > pd) {
 						on = pd;
@@ -1627,13 +1636,30 @@
 			pastes() {
 				if(!this.checkOn.list){
 					return
-				}			
+				}		
+				
 				let doms = JSON.parse(JSON.stringify(this.checkOn.list[this.checkOn.on]));
 				let ends = this.checkOn.list[this.checkOn.list.length - 1];
 				let sta = +ends.start + (ends.cut_end - ends.cut_start);
 				doms.start = sta;
 				doms.ischeck = '';
+				
 				this.checkOn.list.push(doms);
+				let end = this.getEndTiem();
+				console.log(end);
+				
+				let onend = this.backTim(doms);
+				console.log(onend);
+				if(onend>end){
+					let mvt = onend-end;
+					console.log(mvt);
+					
+					let mvon =(mvt*this.wdk)/this.bl;
+				console.log(mvon)
+					this.tdjl = this.tdjl+mvon;
+					
+					
+				}
 				if(this.playT==1 || this.playT==2){
 					this.puandFn()
 				}
