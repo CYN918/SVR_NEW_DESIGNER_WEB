@@ -376,6 +376,7 @@ export default{
 					pr.yh =  hd;
 					pr.sw = wd;					
 					pr.sh = hd;
+					pr.zpY=0;
 					if(wd>hd){
 						pr.w = this.$parent.boxW;
 						pr.h = (this.$parent.boxW/wd)*hd;

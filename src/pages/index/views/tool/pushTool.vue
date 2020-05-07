@@ -111,77 +111,65 @@
 			</div>
 			
 			<div class="ntob_footer_2" ref="gdbox">
-					<div :style="bal()" class="tlo_box" ref="qyBox">
-						<div class="ntob_footer_2_1">
-							<div @click="kdClick($event)" v-html="backd()" class="kdut"></div>
-						</div>
-						<div class="necBox" @scroll="gdfn($event)" ref="gd_01">
-							<div class="tlo_04" 
+				<div :style="bal()" class="tlo_box" ref="qyBox">
+					<div class="ntob_footer_2_1">
+						<div @click="kdClick($event)" v-html="backd()" class="kdut"></div>
+					</div>
+					
+					<div class="necBox" @scroll="gdfn($event)" ref="gd_01">
+						<div class="tlo_04" 
 							v-for="(el,index) in navcoms.decorates"
 							@mouseover="setMos({on:index,n:'decorates'},$event)"
 							@mouseout="setMos('')"
-							>
+						>
 							<div 
 								:style="backtop(el2,index2)" 
 								@contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" 
 								class="imgd" 
 								@click="setCheckOn({type:'decorates',list:navcoms.decorates[index],on:index2})"
-								v-for="(el2,index2) in el">
-							<div :style="bgtf(el2)" class="setToll0"></div>
-							<div class="minzss">{{el2.file_name}}</div>
-										<div 
-										:class="['setToll',el2.ischeck?'setToll_active':'']">
-											<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
-											<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2">
-												<div class="setToll2_1">
-													<i></i><i></i><i></i>
-												</div>
-											</div>
-											<div @mousedown="jl($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll3">
-												<div class="setToll3_1">
-													<i></i><i></i><i></i>
-												</div>
-											</div>
-											<div @click="showcj($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="setToll4">
-												<i></i><i></i><i></i>
-											</div>
-										</div>
-										
+								v-for="(el2,index2) in el"
+							>
+								<div :style="bgtf(el2)" class="setToll0"></div>
+								<div class="minzss">{{el2.file_name}}</div>
+								<div :class="['setToll',el2.ischeck?'setToll_active':'']">
+									<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
+									<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2">
+										<div class="setToll2_1"><i></i><i></i><i></i></div>
 									</div>
-								
-							
+									<div @mousedown="jl($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll3">
+										<div class="setToll3_1"><i></i><i></i><i></i></div>
+									</div>
+									<div @click="showcj($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="setToll4">
+										<i></i><i></i><i></i>
+									</div>
+								</div>										
 							</div>
-							
-							
-							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'},$event)" @mouseout="setMos('')">
-								<div 
+						</div>
+						
+						<div class="tlo_02" @mouseover="setMos({on:0,n:'media'},$event)" @mouseout="setMos('')">
+							<div 
 								:style="backtop(el,index)" 
 								@contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})" 
 								@click="setCheckOn({type:'media',list:navcoms.media,on:index})"
 								class="imgd" 
-								v-for="(el,index) in navcoms.media">
-									<div :style="bgtf(el)" class="setToll0"></div>
-									<div class="minzss">{{el.file_name}}</div>
-									<div 
-									:class="['setToll',el.ischeck?'setToll_active':'']">
-										<div @mousedown="jl3($event,el,index,navcoms.media,'media')" class="setToll1"></div>
-										<div @mousedown="jl2($event,el,index,navcoms.media,'media')" class="setToll2">
-											<div class="setToll2_1">
-												<i></i><i></i><i></i>
-											</div>
-										</div>
-										<div @mousedown="jl($event,el,index,navcoms.media,'media')" class="setToll3">
-											<div class="setToll3_1">
-												<i></i><i></i><i></i>
-											</div>
-										</div>
-										<div @click="showcj($event,{type:'media',on:index,list:navcoms.media})" class="setToll4">
-											<i></i><i></i><i></i>
-										</div>
+								v-for="(el,index) in navcoms.media"
+							>
+								<div :style="bgtf(el)" class="setToll0"></div>
+								<div class="minzss">{{el.file_name}}</div>
+								<div :class="['setToll',el.ischeck?'setToll_active':'']">
+									<div @mousedown="jl3($event,el,index,navcoms.media,'media')" class="setToll1"></div>
+									<div @mousedown="jl2($event,el,index,navcoms.media,'media')" class="setToll2">
+										<div class="setToll2_1"><i></i><i></i><i></i></div>
 									</div>
-									
-								</div>
+									<div @mousedown="jl($event,el,index,navcoms.media,'media')" class="setToll3">
+										<div class="setToll3_1"><i></i><i></i><i></i></div>
+									</div>
+									<div @click="showcj($event,{type:'media',on:index,list:navcoms.media})" class="setToll4">
+										<i></i><i></i><i></i>
+									</div>
+								</div>								
 							</div>
+						</div>
 
 							<div class="tlo_03">
 								<div 
@@ -245,7 +233,7 @@
 				<span @click="adddevd()">
 					<span class="zs_box1"><img :src="setImgU('tools/icon_gd_smile.svg')"/></span><span>添加装饰轨</span>					
 				</span>
-				<span @click="delevd()">
+				<span v-if="zsOn!=navcoms.decorates.length-1" @click="delevd()">
 					<span class="zs_box1"><img :src="setImgU('tools/gd_toast_icon_delete.svg')"/></span><span>删除装饰轨</span>
 				</span>
 			</div>
@@ -299,6 +287,7 @@
 				boxH:0,
 				spgd: 0,
 				istype: '',
+				zsOn:0,
 				isbf:'',
 				cun: [{
 						n: '9:16',
@@ -437,7 +426,8 @@
 					onTime:0,
 					duration:0,
 				},
-				xstd:''
+				xstd:'',
+				ispart:'',
 			}
 		},
 		mounted: function() {
@@ -522,6 +512,7 @@
 				this.preview.state = 2;
 				setTimeout(()=>{
 					this.preview.state = 1;
+					this.ispart = 1;
 				},20)
 			},
 			playd(){
@@ -536,14 +527,17 @@
 					this.preview.state = 2;
 				}else{
 					this.preview.state = 1;
+					this.ispart = 1;
 				}
 			},
 			getEndTiem(){
+				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let len2 = this.$refs.gund_01x.offsetWidth;
+				let pd = maxd / len2;
+				let sdas = this.tdjl * pd;
 				let len = this.getBur(this.$refs.gdbox).width;
-			
-				len = len+this.tdjl;
-				console.log(len)
-				return len/this.wdk*this.bl;			
+				len = len+sdas;				
+				return len;													
 			},
 			playPreview(a){
 			
@@ -869,6 +863,11 @@
 				if(!onBj){return}
 				let ontim = this.preview.onTime;
 				let vtime = 0;
+				let endx = this.getEndTiem();
+				let len23 = this.getBur(this.$refs.gdbox).width;
+				let maxLen = this.preview.maxTime/this.bl*this.wdk;
+				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let len2 = this.$refs.gund_01x.offsetWidth;
 				this.videoPn();
 				this.drmBg();	
 				this.valObj = setInterval(() => {
@@ -876,6 +875,21 @@
 					vtime+=.05;
 																					
 					this.preview.onTime = ontim+vtime;
+					
+					
+					let onend = this.preview.onTime/this.bl*this.wdk;
+					if(onend>endx){
+						let mv = 0;
+						let pd = maxd / len2;
+						if(maxLen-endx>len23){
+							mv = len23/pd;
+						}else{
+							mv = (len23-(maxLen-endx))/pd;
+						}
+						this.tdjl = this.tdjl+mv;
+						endx = this.getEndTiem();
+					}
+					
 					if (this.preview.onTime >= onBj.end) {
 						this.preview.onTime = onBj.end;
 							clearTimeout(this.valObj);					
@@ -896,12 +910,30 @@
 				vtime = 0;
 				a.src = onBj.file_url;	
 				let end = this.backTim(onBj);
+				let endx = this.getEndTiem();
+				let len23 = this.getBur(this.$refs.gdbox).width;
+				let maxLen = this.preview.maxTime/this.bl*this.wdk;
+				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let len2 = this.$refs.gund_01x.offsetWidth;
 				a.onload = () => {
 					this.drmBg();
 					this.cans.drawImage(a,onBj.sx,onBj.sy,onBj.sw,onBj.sh,onBj.x,onBj.y,onBj.w,onBj.h);
 					this.valObj = setInterval(() => {					
 						vtime = vtime + .05;			
 						this.preview.onTime = ontim+vtime;
+						
+						let onend = this.preview.onTime/this.bl*this.wdk;
+						if(onend>endx){
+							let mv = 0;
+							let pd = maxd / len2;
+							if(maxLen-endx>len23){
+								mv = len23/pd;
+							}else{
+								mv = (len23-(maxLen-endx))/pd;
+							}
+							this.tdjl = this.tdjl+mv;
+							endx = this.getEndTiem();
+						}
 						this.checkAdio();
 						if (this.preview.onTime>=end){
 							clearTimeout(this.valObj);	
@@ -968,12 +1000,31 @@
 				let vtime = 0;
 				this.puandFn();
 				this.playT=1;
+				let endx = this.getEndTiem();
+				let len23 = this.getBur(this.$refs.gdbox).width;
+				let maxLen = this.preview.maxTime/this.bl*this.wdk;
+				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let len2 = this.$refs.gund_01x.offsetWidth;
 				this.drmBg();	
 				this.valObj = setInterval(() => {
 					
 					this.checkAdio();
 					vtime+=.05;
 					this.preview.onTime = ontim+vtime;
+					
+					let onend = this.preview.onTime/this.bl*this.wdk;
+					if(onend>endx){
+						let mv = 0;
+						let pd = maxd / len2;
+						if(maxLen-endx>len23){
+							mv = len23/pd;
+						}else{
+							mv = (len23-(maxLen-endx))/pd;
+						}
+						this.tdjl = this.tdjl+mv;
+						endx = this.getEndTiem();
+					}
+					
 					if (this.preview.onTime >= this.bfMax) {
 						this.preview.onTime = this.bfMax;
 							clearTimeout(this.valObj);					
@@ -1109,6 +1160,7 @@
 				let len = this.$refs.gund_01x.offsetWidth;
 				let bl = len / maxd;
 				pd = (maxd - len) * bl;
+				this.puandFn();
 				var kd = e.wheelDelta ? e.wheelDelta : e.detail;
 				if (kd > 0) {	
 					if (ctrlKey && this.fdjb > 1) {													
@@ -1208,6 +1260,7 @@
 				}
 			},
 			setMos(on,e) {
+				
 				if(e){
 					on.y = e.target.getBoundingClientRect().y;
 				}				
@@ -1333,7 +1386,7 @@
 			
 			jlx2(e) {
 				e.preventDefault();
-
+				this.puandFn();
 				let tdStar = e.pageX;
 				let mv = this.fdjb;
 				document.onmousemove = document.onmouseup = null;
@@ -1355,14 +1408,14 @@
 			},
 			jlx(e, el, index, list) {
 				e.preventDefault();
-			
+				
 				if (!this.$refs.gund_01x) {
 					return
 				}
-				
+				this.puandFn();
 				let maxd = Math.ceil(this.preview.maxTime / this.bl) * this.wdk;
 				let tdStar = e.pageX;	
-				let len = this.getBur(this.$refs.gdbox).width;
+				let len = this.getBur(this.$refs.gund_01x).width;
 				let bl = len / maxd;
 				let pd = (maxd - len) * bl;
 				let mv = this.tdjl;
@@ -1438,7 +1491,9 @@
 					list:list,
 				})				
 				let tdStar = e.pageX;
+				let tdStarY = e.pageY;
 				let cs = el.start;
+				let zby = el.zpY;
 				let wid = el.long * this.wdk;
 				let ond = onc - 1;
 				let ondn = onc + 1;
@@ -1469,10 +1524,48 @@
 						dd = 0;
 					}
 					el.start = dd;
+					if(n=='media' && (zby ||zby==0)){
+						let ony = tdStarY-e.pageY;
+						el.zpY = zby-ony;
+					}
+					
 				}
 				document.onmouseup = (e) => {
 					e.preventDefault();
 					document.onmousemove = document.onmouseup = null;
+					
+					if(n=='media' && (zby ||zby==0)){
+						let ony = tdStarY-e.pageY;
+						list[onc].zpY = 0;
+						
+						if(ony>50 && ony<160){
+							let ond1 = 0;
+							if(ony>80){
+								ond1 = 1;
+							}
+							let opb = this.navcoms.decorates[ond1];
+							let ond;
+							if(opb){
+								ond = opb[opb.length-1];
+							}
+							let ond = opb[opb.length-1];
+							if(ond){
+								list[onc].start = +ond.start+(ond.cut_end-ond.cut_start);	
+							}else{
+								list[onc].start = 0;
+							}	
+							list[onc].ischeck = '';
+							this.navcoms.decorates[ond1].push(list[onc]);
+							
+							list.splice(onc,1)
+							this.checkOn ={};
+							return
+						}
+					}
+					
+					
+					
+					
 					let xs = tdStar - e.pageX;
 					if(xs<20 && xs>-20){
 						return
@@ -1646,17 +1739,11 @@
 				
 				this.checkOn.list.push(doms);
 				let end = this.getEndTiem();
-				console.log(end);
-				
-				let onend = this.backTim(doms);
-				console.log(onend);
+				let onend = this.backTim(doms)/this.bl*this.wdk;
 				if(onend>end){
 					let mvt = onend-end;
-					console.log(mvt);
 					
-					let mvon =(mvt*this.wdk)/this.bl;
-				console.log(mvon)
-					this.tdjl = this.tdjl+mvon;
+					this.tdjl = this.tdjl+mvt;
 					
 					
 				}
@@ -1782,9 +1869,9 @@
 				return n > 9 ? n : '0' + n;
 			},
 			backtop(el) {
-
-				let str = "width:" + ((el.cut_end - el.cut_start) / this.bl) * this.wdk + "px;transform:translateX(" + ((el.start /
-					this.bl) * this.wdk) + "px);";
+				
+				let str = "width:" + ((el.cut_end - el.cut_start) / this.bl) * this.wdk + "px;transform:translate(" + ((el.start /
+					this.bl) * this.wdk) + "px,"+(el.zpY?el.zpY:0)+"px);";
 				if (el.ischeck) {
 					str += 'z-index:2;';
 				}
@@ -1803,6 +1890,11 @@
 				let ontime = this.preview.onTime;
 				let toTim = 0;
 				let endt = this.backTim(this.preview.previewObj);
+				let endx = this.getEndTiem();
+				let len23 = this.getBur(this.$refs.gdbox).width;
+				let maxLen = this.preview.maxTime/this.bl*this.wdk;
+				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let len2 = this.$refs.gund_01x.offsetWidth;
 				this.valObj = window.setInterval(() => {
 					
 					if(this.preview.previewObj.type!='video'){
@@ -1823,6 +1915,19 @@
 					
 					onT = onT?onT:0;				
 					
+					
+					let onend = this.preview.onTime/this.bl*this.wdk;
+					if(onend>endx){
+						let mv = 0;
+						let pd = maxd / len2;
+						if(maxLen-endx>len23){
+							mv = len23/pd;
+						}else{
+							mv = (len23-(maxLen-endx))/pd;
+						}
+						this.tdjl = this.tdjl+mv;
+						endx = this.getEndTiem();
+					}
 					if (this.preview.onTime >= endt) {
 						clearTimeout(this.valObj);
 						
