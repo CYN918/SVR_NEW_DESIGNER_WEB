@@ -269,8 +269,12 @@ Vue.prototype.go = (a,b,c)=>{
 	_hmt.push(['_trackEvent',a,b,c]);
 };
 import VueCropper from 'vue-cropper' 
-import { Button, Select,Steps,Step,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination,Dialog,Progress } from 'element-ui'
+import { Col, Row, Card, Tag, Button, Select,Steps,Step,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination,Dialog,Progress } from 'element-ui'
 Vue.use(VueCropper)
+Vue.component(Col.name, Col)
+Vue.component(Row.name, Row)
+Vue.component(Card.name, Card)
+Vue.component(Tag.name, Tag)
 Vue.component(Input.name, Input)
 Vue.component(Button.name, Button)
 Vue.component(Steps.name, Steps)

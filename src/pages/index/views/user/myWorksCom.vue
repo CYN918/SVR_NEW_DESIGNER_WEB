@@ -1,8 +1,23 @@
 <template>
 	<div>
 		<tophead :con="navData"></tophead>
+		<div class="draftboxd">
+			<div class="draftbox">
+				<!-- <span class="draftBtn" @click="goZP">草稿箱{{draftNum}}</span> -->
+				<span class="iconfont  messgeH1">
+					<span class="pend" @click="goZP">
+						草稿箱
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/head/top2.svg"/>
+						<div @click="goZP" v-if="draftNum && draftNum>0" :class="['messgeH2','customMess',draftNum>9?'messgeH2x':'']">
+							{{backXXnUM(draftNum)}}
+						</div>
+					</span>
+					
+				</span>
+			</div>
+		</div>
 		<div class="csBox opodd">
-			<list :config="data" ref="listDom">
+			<list :config="data" ref="listDom" :filter-data-func="filterDataFunc">
 				<template v-slot:todo="{ todo }">
 					<div class="mylists">
 						<div @click="openxq(todo)" class="myListBox_1">
@@ -19,10 +34,15 @@
 							<span class="myListBox_3_2">{{backtime(todo.create_time)}}</span>
 						</div>
 						<div class="myListBox_4">
-						
-							<span class="myListBox_4_1" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</span>
+							<span>最后修改日期:{{backtime(todo.create_time)}}</span>
+							<div class="handle-container">
+									<el-button @click="showTopc('delet',todo)">删除作品</el-button>
+									<el-button type="primary" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">编辑作品</el-button>
+									<el-button type="primary" @click="updata(todo)" v-else-if="todo.status!=0">编辑作品</el-button>
+							</div>
+							<!-- <span class="myListBox_4_1" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</span>
 							<span @click="updata(todo)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>					
-							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span>
+							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span> -->
 						</div>			
 					</div>
 				</template>			
@@ -144,13 +164,13 @@ export default {
 			},
 			navData:{
 				title:'我的创作',
-				list:[
-					{a:'/myAll',b:'全部'},
-					{a:'/myExamine',b:'待审核'},
-					{a:'/myPass',b:'已通过'},
-					{a:'/myNotPass',b:'未通过'},					
-					{a:'/myDraft',b:'草稿'}
-				],
+				// list:[
+				// 	{a:'/myAll',b:'全部'},
+				// 	{a:'/myExamine',b:'待审核'},
+				// 	{a:'/myPass',b:'已通过'},
+				// 	{a:'/myNotPass',b:'未通过'},					
+				// 	{a:'/myDraft',b:'草稿'}
+				// ],
 				bdtj:'我的创作'				
 			},
 			form:{labels:[]},
@@ -188,7 +208,7 @@ export default {
 				myPass:'2',
 				myDraft:'-1'
 			},
-			
+			draftNum: 0
 		}
 	},
 	created(){
@@ -209,6 +229,18 @@ export default {
 		},
 	},
 	methods: {
+		backXXnUM(n) {
+			if (n > 999) return 999
+			return n
+		},
+		goZP() {
+			this.$router.push({ path: '/myDraft' })
+		},
+		filterDataFunc(data) {
+			const statusOptions = this.$route.name == 'myAll' ? ['0', '2'] : ['-1', '-2']
+			this.draftNum = data.filter(item => item.status == '-1' || item.status == '-2').length
+			return data.filter(item => statusOptions.indexOf(item.status) > -1)
+		},
 		show(){
 			this.$refs.tcBox.show();
 		},
@@ -216,7 +248,8 @@ export default {
 			this.$refs.tcBox.close();
 		},
 		init(){
-			this.data.pr.status =  this.isTypeList[this.$route.name];
+			// this.data.pr.status =  this.isTypeList[this.$route.name];
+			this.data.pr.status =  'all';
 		},
 		backFm(ur){
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
@@ -442,12 +475,32 @@ export default {
 </script>
 
 <style>
+.draftboxd{
+	position: relative;
+	width: 1300px;
+	margin: 0 auto;
+}
+.draftbox{
+	position: absolute;
+	top: -50px;
+	right: 1px;
+}
+.draftBtn{
+	font-size: 14px;
+	color: #999;
+	cursor: pointer;
+}
+.customMess{
+	top: -10px;left: 60px;
+}
 .mylists{
 	margin: 0 20px 20px 0;
     background: #fff;
     border-radius: 5px;
     box-sizing: border-box;
     border: 1px solid #f6f6f6;
+	position: relative;
+	overflow: hidden;
 }
 .opodd{
 	padding-top: 20px;
@@ -579,7 +632,7 @@ export default {
 }
 .myListBox_2{
 	text-align: left;
-	margin: 6.4px 10px 3.1px;
+	margin: 10px 10px 8px;
 }
 .myListBox_2>.myListBox_2_1{
 	cursor: pointer;
@@ -601,7 +654,7 @@ export default {
 	
 }
 .myListBox_3{
-	margin: 0 10px 14.9px;
+	margin: 0 10px 18px;
 	font-size: 12.19px;
 	color: #878787;
 	line-height: 17px;
@@ -610,11 +663,29 @@ export default {
 .myListBox_3_2{
 	float: right;
 }
-.myListBox_4{
-	margin: 0 10px 0;
-	text-align: left;
+.mylists:hover .myListBox_4{
+	bottom: 0;
 }
-.myListBox_4>span{
+.myListBox_4{
+	width: 100%;
+	height: 72px;
+	/* margin: 0 10px 0; */
+	text-align: center;
+	position: absolute;
+	bottom: -72px;
+	background: #fff;
+	transition: bottom 0.3s;
+	font-size: 12.19px;
+    color: #878787;
+    line-height: 17px;
+}
+.myListBox_4 .handle-container{
+	margin: 10px 0;
+}
+.myListBox_4 .el-button{
+	padding: 8px 30px;
+}
+/* .myListBox_4>span{
 	cursor: pointer;
 	display: inline-block;
 	margin-right: 16.3px;
@@ -629,7 +700,7 @@ export default {
 }
 .myListBox_4>span:hover{
 	color: #33B3FF;
-}
+} */
 
 .myListBox_6{
 	position: fixed;
