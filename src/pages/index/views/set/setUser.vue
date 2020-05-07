@@ -450,8 +450,8 @@
 						this.bdtj('帐号设置', '基本信息-修改手机号弹窗-修改失败', '--');
 						return
 					}
-					this.form.mobile = this.tancData.newMoble;
-					this.form.mobile_zone = this.tancData.mobile_zone;
+					this.form.mobile = pr.mobile;
+					this.form.mobile_zone = pr.mobile_zone;
 					this.tancData.mobile_zone = '86';
 					this.tancData.newMoble = '';
 					this.tancData.oldMoble = '';
@@ -459,7 +459,7 @@
 					this.tancData.verify_code = '';
 					this.closeTc1();
 					this.tAncType = 0;
-					window.userInfo.mobile = this.form.newMoble;
+					window.userInfo.mobile = this.form.mobile;
 					window.userInfo.mobile_zone = this.form.mobile_zone;
 					localStorage.setItem('userT', JSON.stringify(window.userInfo));
 					this.bdtj('帐号设置', '基本信息-修改手机号弹窗-修改成功', '--');
