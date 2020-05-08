@@ -8,6 +8,7 @@ import Tip from './views/activvityPage/tip.vue'
 import Ac_v1 from './views/activvityPage/ac_v1.vue'
 import Ac_v2 from './views/activvityPage/ac_v2.vue'
 import Ac_v3 from './views/activvityPage/ac_v3.vue'
+import Ac_v4 from './views/activvityPage/ac_v4.vue'
 import upload from './views/upload/upload.vue'
 
 import myWorksCom from './views/user/myWorksCom.vue'
@@ -91,7 +92,8 @@ let wb = [
 	{path: '/404',name: 'erro2',component: Errors},	
 	{path: '/Ac_v',name: 'Ac_v',component: Ac_v1},	
 	{path: '/Ac_v2',name: 'Ac_v2',component: Ac_v2},	
-	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
+	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},	
+	{path: '/Ac_v4',name: 'Ac_v4',component: Ac_v4},	
 
 	{path: '/pushTool',name:'pushTool',component: pushTool},
 	

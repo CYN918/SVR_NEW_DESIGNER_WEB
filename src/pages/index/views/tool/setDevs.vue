@@ -1,23 +1,19 @@
 <template>
 	<div class="setDvs_0" ref="boxs">
 		<img :src="value.file_url" class="setDvs_01" ref="imgs"/>
-	
+		<div class="hind_012">
+			<div  :style="backIm()"  class="setDvs_02x" ref="posd">
+				<img :src="value.file_url" class="setDvs_01x"/>				
+			</div>	
+		</div>
 		
-		<div  :style="backIm()"  class="setDvs_02x" ref="posd">
-			<img :src="value.file_url" class="setDvs_01x"/>
+		<div  :style="backIm()"  class="setDvs_02x setDvs_02x11" ref="posd">
 			<div class="setDvs_02x1">
 				<p @mousedown="td_01($event,'mv')" class="setDvs_02"></p>
 				<div @mousedown="td_01($event,'l')" class="setDvs_03"></div>
 				<div @mousedown="td_01($event,'r')" class="setDvs_05"></div>
 				<div @mousedown="td_01($event,'b_r')" class="setDvs_06"></div>
 				<div @mousedown="td_01($event,'b_l')" class="setDvs_07"></div>
-				<!-- <div @mousedown="td_01($event,'t')" class="setDvs_04"></div>
-				
-				
-				
-				<div @mousedown="td_01($event,'t_r')" class="setDvs_08"></div>
-				<div @mousedown="td_01($event,'b_l')" class="setDvs_09"></div>
-				<div @mousedown="td_01($event,'b_r')" class="setDvs_10"></div>	 -->
 			</div>
 			
 		</div>	
@@ -180,6 +176,9 @@ export default{
 .setDvs_02x{
 	position: absolute;
 }
+.setDvs_02x11{
+	z-index: 99;
+}
 .setDvs_01x{
 	display: block;
 	width: 100%;
@@ -228,5 +227,13 @@ export default{
 .setDvs_07{	
 	bottom: 0;
 	left: 0;
+}
+.hind_012{
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 </style>
