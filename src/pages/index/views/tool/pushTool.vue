@@ -1766,18 +1766,10 @@
 				doms.ischeck = '';
 				
 				this.checkOn.list.push(doms);
-				let end = this.getEndTiem();
 				let lasteln = this.backTim(doms);
-				let tdtim = this.getTdtim();
 				
-				this.settimfj();
-				if(onend>end){
-					let mvt = onend-end;
-					
-					this.tdjl = this.tdjl+mvt;
-					
-					
-				}
+				this.setTdjl(lasteln);
+				
 				if(this.playT==1 || this.playT==2){
 					this.puandFn()
 				}
@@ -1921,12 +1913,27 @@
 				let sdas = this.tdjl * pd;
 				return this.backto(sdas/210*this.fdjb);
 			},
-		
+			setTdjl(t){
+				let widtime = this.backto(this.getBur(this.$refs.gdbox).width/210*this.fdjb);
+				let tdTim = this.getTdtim();
+				if(t>widtime+tdTim){
+					
+					let sytm = this.preview.maxTime-t;
+					if(sytm<widtime){
+						let onsd = widtime-sytm;
+						t = t-onsd+2;
+					}
+					this.settimfj(t)
+				}
+			},
+			
+			
 			settimfj(t){
 				let maxdxx = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len2xx = this.$refs.gund_01x.offsetWidth;
 				let pd = maxdxx / len2xx;
 				this.tdjl = t/this.fdjb*210/pd;
+				
 			},
 			LinePlay(){
 			
