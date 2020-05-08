@@ -821,7 +821,7 @@ export default {
 	position: relative;
 	margin-top: 16px;
 	display: inline-block;
-	width: 88px;
+	width: 133.5px;
 	height: 28px;
 	border-right:1px solid rgba(0, 0, 0, 0.05);
 }

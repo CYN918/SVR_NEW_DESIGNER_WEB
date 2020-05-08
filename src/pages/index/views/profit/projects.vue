@@ -65,7 +65,7 @@ export default {
 					{label:'全部记录',value:0},
 					{label:'近一周',value:7},
 					{label:'近一个月',value:30},
-					{label:'近一半年',value:183},
+					{label:'近半年',value:183},
 					{label:'近一年',value:365}
 				],
 				v2:30
