@@ -30,10 +30,7 @@
 						<div class="debox_01">
 							<div v-for="(el,index) in navcoms.decorates" :class="playT==1?'setop':''">
 								<span v-for="(el2,index2) in el">
-									<div
-									
-									v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime"
-									>
+									<div v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime">
 										<setDevs :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
 									</div>					
 								</span>
@@ -41,7 +38,6 @@
 							</div>
 						</div>
 						<div v-if="isld && vdcc2==1" class="show_00x_1" :style="'zoom:'+zoomd">
-							
 							<img width="100%" height="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/qd.png" alt="">
 						</div>
 						<div v-if="isld && vdcc2==0" class="show_00x_1" :style="'zoom:'+zoomd">
@@ -740,7 +736,7 @@
 				
 				
 			},			
-			/*暂停播放*/
+			
 			kdClick(e){
 				this.puandFn()
 				e.preventDefault();			
@@ -748,7 +744,14 @@
 				this.drmOn()
 			},	
 			getMousTime(e){		
-				let dd =(e.x-120)/ (this.wdk / this.bl);				
+				/*已拖动距离*/
+				
+				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let len = this.$refs.gund_01x.offsetWidth;
+				let pd = maxd / len;
+				
+				
+				let dd =((e.x+this.tdjl * pd)-120)/ (this.wdk / this.bl);				
 				if(dd<0){dd=0}
 				return dd;
 			},		
@@ -1895,6 +1898,10 @@
 				let maxLen = this.preview.maxTime/this.bl*this.wdk;
 				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len2 = this.$refs.gund_01x.offsetWidth;
+				
+				console.log(len23);
+				
+				
 				this.valObj = window.setInterval(() => {
 					
 					if(this.preview.previewObj.type!='video'){
@@ -1917,9 +1924,11 @@
 					
 					
 					let onend = this.preview.onTime/this.bl*this.wdk;
+					
 					if(onend>endx){
 						let mv = 0;
 						let pd = maxd / len2;
+
 						if(maxLen-endx>len23){
 							mv = len23/pd;
 						}else{
@@ -2299,7 +2308,7 @@
 		position: relative;
 		display: block;
 		margin: 0 auto;
-		overflow: hidden;
+	
 	}
 
 	.videoBox1 {
