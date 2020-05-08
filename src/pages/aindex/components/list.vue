@@ -3,7 +3,7 @@
 		<li v-for="(el,index) in List" :key="index">
 			<slot name="todo" v-bind:todo="el"></slot>			
 		</li>
-		<img class="boxdn_01" src="/imge/app/noData.png">
+		<img v-if="isNodaa" class="boxdn_01" src="/imge/app/noData.png">
 		<span v-if="total>List.length" @click="addMo" class="btns">查看更多</span>
 	</ul>
 </template>
@@ -23,6 +23,7 @@ export default {
 			limit:10,
 			total:0,
 			loading: '',
+			isNodaa:''
 		}
 	},
 	mounted: function () {	
@@ -45,17 +46,29 @@ export default {
 				params[this.config.prms.n] = this.config.prms.v();
 			}
 			this.api[this.config.ajaxUrl](params).then((da)=>{
+				
 				if(da=='error'){
+					if(this.List.length==0){
+						this.isNodaa = 1;
+					}
 					return
 				}
+				this.isNodaa = '';
 				this.total = da.total;
+				if(this.List.length==0 && da.data.length==0){
+					this.isNodaa = 1;
+				}
+				
 				if(this.List.length>0){
 					this.List = this.List.concat(da.data);
 					return
 				}
-				this.List = da.data;								
+				this.List = da.data;	
+				
 			}).catch(()=>{
-
+				if(this.List.length==0){
+					this.isNodaa = 1;
+				}
 			})
 		},
 	}
