@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60 (88103) - https://sketch.com -->
+    <title>warning-circle</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/24px/icons-copy-16" transform="translate(-2.000000, -2.000000)">
+            <g id="warning-circle" transform="translate(3.000000, 3.000000)">
+                <path d="M9,0 C4.02991071,0 0,4.02991071 0,9 C0,13.9700893 4.02991071,18 9,18 C13.9700893,18 18,13.9700893 18,9 C18,4.02991071 13.9700893,0 9,0 Z" id="Path" stroke="#FF3B30" fill-rule="nonzero"></path>
+                <line x1="9" y1="4.07663331" x2="9" y2="11.0766333" id="Line-3" stroke="#FF3B30" stroke-linecap="round" stroke-linejoin="round"></line>
+                <circle id="Oval" fill="#FF3B30" cx="9" cy="13.4552047" r="1"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

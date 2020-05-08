@@ -7,7 +7,7 @@
 				<span class="iconfont  messgeH1">
 					<span class="pend" @click="goZP">
 						草稿箱
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/head/top2.svg"/>
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_wdcz_cgx.svg"/>
 						<div @click="goZP" v-if="draftNum && draftNum>0" :class="['messgeH2','customMess',draftNum>9?'messgeH2x':'']">
 							{{backXXnUM(draftNum)}}
 						</div>
@@ -33,17 +33,27 @@
 							<span class="myListBox_3_1">{{todo.classify_1_name+'-'+todo.classify_2_name}}</span>
 							<span class="myListBox_3_2">{{backtime(todo.create_time)}}</span>
 						</div>
-						<div class="myListBox_4">
+						<div class="myListBox_4" v-if="!isMyAll()">
 							<span>最后修改日期:{{backtime(todo.create_time)}}</span>
 							<div class="handle-container">
 									<el-button @click="showTopc('delet',todo)">删除作品</el-button>
-									<el-button type="primary" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">编辑作品</el-button>
+									<el-button type="primary" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</el-button>
 									<el-button type="primary" @click="updata(todo)" v-else-if="todo.status!=0">编辑作品</el-button>
 							</div>
 							<!-- <span class="myListBox_4_1" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</span>
 							<span @click="updata(todo)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>					
 							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span> -->
-						</div>			
+						</div>
+						<div class="myListBox_5" v-if="isMyAll()">
+							<el-dropdown trigger="click" placement="bottom-end">
+								<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg" class="bt-Img">
+								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
+									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" v-if="todo.like_num < 5" @click.native="updata(todo)">编辑</el-dropdown-item>
+									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" v-else @click.native="showissetDatasXX(todo.work_id,todo.status)">修改设置</el-dropdown-item>
+									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" @click.native="showTopc('delet',todo)">删除</el-dropdown-item>
+								</el-dropdown-menu>
+							</el-dropdown>	
+						</div>		
 					</div>
 				</template>			
 			</list>
@@ -229,6 +239,9 @@ export default {
 		},
 	},
 	methods: {
+		isMyAll() {
+			return this.$route.name == 'myAll'
+		},
 		backXXnUM(n) {
 			if (n > 999) return 999
 			return n
@@ -701,6 +714,23 @@ export default {
 .myListBox_4>span:hover{
 	color: #33B3FF;
 } */
+
+.myListBox_5{
+	position: absolute;
+	right: 10px;top: 10px;
+	display: none;
+}
+.mylists:hover .myListBox_5{
+	display: block;
+}
+.myListBox_5 .comonbtn{
+	width:124px;
+	height:32px;
+	margin:0;
+	line-height:32px;
+	text-align: right;
+	padding-right: 10px;
+}
 
 .myListBox_6{
 	position: fixed;

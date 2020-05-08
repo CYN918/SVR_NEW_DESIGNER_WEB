@@ -5,7 +5,7 @@
                 <el-col :span="24">
                     <el-card class="commonCard">
                         <div slot="header">
-                            <span>上传作品</span>
+                            <span>作品信息</span>
                         </div>
                         <el-form>
                             <el-form-item>
@@ -14,7 +14,7 @@
                                         <el-input v-model="form.work_name" placeholder="请输入作品标题" maxlength="50" show-word-limit @blur="checkValue('title')"></el-input>
                                         <span class="btBlue"></span>
                                     </el-col>
-                                    <el-col v-show="nameNull" :span="5" class="notice">请输入作品标题</el-col>
+                                    <el-col v-show="nameNull" :span="5" class="notice"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/warning-circle.svg" alt="" />请输入作品标题</el-col>
                                 </el-row>
                             </el-form-item>
                             <el-form-item>
@@ -41,7 +41,7 @@
                                             </el-option>
                                         </el-select>
                                     </el-col>
-                                    <el-col v-show="typeNull" :offset="2" :span="5" class="notice">请选择作品类型</el-col>
+                                    <el-col v-show="typeNull" :offset="2" :span="5" class="notice"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/warning-circle.svg" alt="" />请选择作品类型</el-col>
                                 </el-row>
                             </el-form-item>
                             <el-form-item>
@@ -125,14 +125,15 @@
                         <el-radio v-model="form.attachment_visible" label="0">仅自己可见</el-radio>
                         <el-radio v-model="form.attachment_visible" label="1">所有人可见</el-radio>
                     </el-card>
-                    <el-card class="commonCard" v-if="checkisptggr()">
+                    <el-card class="commonCard">
                         <div slot="header">
                             <span>设为投稿作品 <span class="description">若作品符合需求，平台会联系你沟通收录细节</span></span>
                         </div>
-                        <div class="page2_1_7_r">
+                        <div class="page2_1_7_r" v-if="checkisptggr()">
                             <el-radio v-model="form.is_platform_work" label="1">是</el-radio>
                             <el-radio v-model="form.is_platform_work" label="0">否</el-radio>
                         </div>
+						<div class="certification" v-else>你还不是供稿人，现在<span @click="goZP">立即认证</span>，享受你的作品收益</div>
                     </el-card>
                 </el-col>
             </el-row>
@@ -201,7 +202,10 @@ export default {
 				autoHeightEnabled: false,
 				initialFrameHeight: 500,
 				initialFrameWidth: '100%',
-				UEDITOR_HOME_URL: '/UEditor/'
+				UEDITOR_HOME_URL: '/UEditor/',
+				elementPathEnabled: false,
+				wordCount: false,
+				toolbars: [ ['undo', 'redo', '|', 'fontsize', 'paragraph', 'link', 'justifyleft', 'justifycenter', 'justifyright'] ]
 			},			
 			isshowd:false,
 			upList:[
@@ -322,6 +326,9 @@ export default {
 		this.getUserDetail();
 	}, 
 	methods: {
+		goZP() {
+			this.$router.push({ path: '/setRz' })
+		},
         checkValue(type) {
             if (type == 'title') {
                 if (this.form.work_name == '') this.nameNull = true
@@ -957,6 +964,10 @@ export default {
     color: #f56c6c;
     text-align: right;
 }
+.notice img{
+	vertical-align: middle;
+	margin-right: 8px;
+}
 .btBlue{
     display: inline-block;
     vertical-align: middle;
@@ -1145,6 +1156,14 @@ export default {
 .description{
     font-size: 12px;
     color: #999;
+}
+.certification{
+	color: #999;
+	font-size: 14px;
+}
+.certification span{
+	color: #33B3FF;
+	cursor: pointer;
 }
 .handleContainer{
     margin: 30px 0;
