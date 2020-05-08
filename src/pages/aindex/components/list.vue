@@ -2,7 +2,8 @@
 	<ul class="boxd">
 		<li v-for="(el,index) in List" :key="index">
 			<slot name="todo" v-bind:todo="el"></slot>			
-		</li>		
+		</li>
+		<img class="boxdn_01" src="/imge/app/noData.png">
 		<span v-if="total>List.length" @click="addMo" class="btns">查看更多</span>
 	</ul>
 </template>
@@ -79,5 +80,10 @@ export default {
     font-size: .7rem;
     line-height: 1.8rem;
     text-align: center;
+}
+.boxdn_01{
+	width: 3rem;
+	display: block;
+    margin: 8rem auto;
 }
 </style>

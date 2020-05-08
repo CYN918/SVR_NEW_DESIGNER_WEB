@@ -1,48 +1,31 @@
 <template>
 	<header class="header">
 		<img @click="goIndex" class="log" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg" alt="">		
-		<!-- <span @click="shar" class="fxbtn">分享</span> -->
+		<span @click="shar" class="fxbtn">分享</span>
+		
+		<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
 	</header>
 </template>
 
 <script>
+import sharDom from './sharDom';
 export default {
+	components:{sharDom},
 	name: 'home',	 
 	data(){	
-		return{}		
+		return{
+			tanc:{}
+		}		
 	},
 	methods:{
 		goIndex(){
 			this.$router.push({path: '/index'});
 		},
 		shar(){
-			var nativeShare = new NativeShare()
-			var shareData = {
-			    title: window.document.title,
-			    desc: document.querySelector('meta[name="description"]').content,
-			    link: window.location.href,
-				icon: 'https://shiquaner.zookingsoft.com/imge/new/header/logo.svg',
-			    success: function() {
-			        alert('success')
-			    },
-			    fail: function() {
-			        alert('fail')
-			    }
-			}
-			nativeShare.setShareData(shareData)
-			function call(command) {
-			    try {
-			        nativeShare.call(command)
-			    } catch (err) {
-			        alert(err.message)
-			    }
-			}
-			function setTitle(title) {
-			    nativeShare.setShareData({
-			        title: title,
-			    })
-			}
-			    
+			this.tanc = {
+				zj:'sharDom'
+			};
+			
 		}
 		
 	},
