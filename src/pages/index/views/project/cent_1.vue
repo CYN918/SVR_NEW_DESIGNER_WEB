@@ -141,7 +141,7 @@ export default {
 		},
 		openCent(){
 			if(this.el.special_url){
-				window.open(this.el.special_url);			
+				window.open(this.el.special_url + '?id=' + this.el.id);			
 				return
 			}
 			if(this.el.id){
