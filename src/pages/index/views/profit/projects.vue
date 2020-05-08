@@ -21,16 +21,16 @@ export default {
 					{n:'验收价格',clfn:(da)=>{if(da.acceptance_price == '0.00'){return '-'}else{return '￥'+this.mJs.money_deiv(da.acceptance_price)} }},
 					// {n:'额外奖金',clfn:(da)=>{ return '￥'+this.mJs.money_deiv(da.extra_reward)}},
 					// {n:'延时交稿扣减',clfn:(da)=>{ return '-￥'+this.mJs.money_deiv(da.deduction_price)}},
-					{n:'收益加成',clfn:(da)=>{
-						if(da.deal_type == '1'){
-							return '￥'+this.mJs.money_deiv(da.gain_share_price)+'（' + '+' +da.gain_share_rate+'%）'
-						}else if(da.deal_type == '2'){
-							return '+' + da.gain_share_rate + '%'
-						}else if(da.deal_type == '3'){
-							return '+' + da.gain_share_rate + '%'
-						}
+					// {n:'收益加成',clfn:(da)=>{
+					// 	if(da.deal_type == '1'){
+					// 		return '￥'+this.mJs.money_deiv(da.gain_share_price)+'（' + '+' +da.gain_share_rate+'%）'
+					// 	}else if(da.deal_type == '2'){
+					// 		return '+' + da.gain_share_rate + '%'
+					// 	}else if(da.deal_type == '3'){
+					// 		return '+' + da.gain_share_rate + '%'
+					// 	}
 						
-					}},
+					// }},
 					{n:'结算收益',temp:{cls:'pend',clfn:(d)=>{
 						if(d.deal_type == '2'){
 							return '永久分成'
@@ -65,7 +65,7 @@ export default {
 					{label:'全部记录',value:0},
 					{label:'近一周',value:7},
 					{label:'近一个月',value:30},
-					{label:'近一半年',value:183},
+					{label:'近半年',value:183},
 					{label:'近一年',value:365}
 				],
 				v2:30

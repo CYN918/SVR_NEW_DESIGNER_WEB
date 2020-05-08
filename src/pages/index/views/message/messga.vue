@@ -28,12 +28,12 @@ export default {
 			navDta:[
 				{n:'通知'},
 				{n:'评论/回复'},
-				{n:'私信'},	
+				// {n:'私信'},	
 			],
 			pz:{
 				notify:{nOn:0},				
 				comment:{nOn:1},
-				chat:{nOn:2},
+				// chat:{nOn:2},
 			}
 			
 		}	

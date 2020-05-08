@@ -30,10 +30,7 @@
 						<div class="debox_01">
 							<div v-for="(el,index) in navcoms.decorates" :class="playT==1?'setop':''">
 								<span v-for="(el2,index2) in el">
-									<div
-									
-									v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime"
-									>
+									<div v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime">
 										<setDevs :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
 									</div>					
 								</span>
@@ -41,7 +38,6 @@
 							</div>
 						</div>
 						<div v-if="isld && vdcc2==1" class="show_00x_1" :style="'zoom:'+zoomd">
-							
 							<img width="100%" height="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/qd.png" alt="">
 						</div>
 						<div v-if="isld && vdcc2==0" class="show_00x_1" :style="'zoom:'+zoomd">
@@ -539,6 +535,26 @@
 				len = len+sdas;				
 				return len;													
 			},
+			getLenTime(){
+				// let lenTime = this.$refs.gdbox.offsetWidth/210*this.fdjb;
+				// let mvtime = 
+				
+				
+				// let onsd = this.preview.maxTime;
+				// if(onsd<120){
+				// 	onsd =
+				// }
+				// let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				// let len1 = this.$refs.qyBox.offsetWidth;
+				// let pd = maxd / len;
+				
+				// let sdas = this.tdjl * pd;
+				
+				
+				// let len = this.$refs.gund_01x.offsetWidth;
+				// return (sdas+len)/this.wdk*this.bl;
+				
+			},
 			playPreview(a){
 			
 				if(this.navcoms.media.length==0){
@@ -740,7 +756,7 @@
 				
 				
 			},			
-			/*暂停播放*/
+			
 			kdClick(e){
 				this.puandFn()
 				e.preventDefault();			
@@ -748,7 +764,14 @@
 				this.drmOn()
 			},	
 			getMousTime(e){		
-				let dd =(e.x-120)/ (this.wdk / this.bl);				
+				/*已拖动距离*/
+				
+				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let len = this.$refs.gund_01x.offsetWidth;
+				let pd = maxd / len;
+				
+				
+				let dd =((e.x+this.tdjl * pd)-120)/ (this.wdk / this.bl);				
 				if(dd<0){dd=0}
 				return dd;
 			},		
@@ -1006,6 +1029,11 @@
 				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len2 = this.$refs.gund_01x.offsetWidth;
 				this.drmBg();	
+				let endtims = this.getLenTime();
+				console.log(len23);
+				let cdTime = len23/210*this.fdjb;
+			
+				console.log(cdTime);
 				this.valObj = setInterval(() => {
 					
 					this.checkAdio();
@@ -1739,7 +1767,10 @@
 				
 				this.checkOn.list.push(doms);
 				let end = this.getEndTiem();
-				let onend = this.backTim(doms)/this.bl*this.wdk;
+				let lasteln = this.backTim(doms);
+				let tdtim = this.getTdtim();
+				
+				this.settimfj();
 				if(onend>end){
 					let mvt = onend-end;
 					
@@ -1883,7 +1914,20 @@
 			csy() {
 				
 			},
-			
+			getTdtim(){
+				let maxdxx = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let len2xx = this.$refs.gund_01x.offsetWidth;
+				let pd = maxdxx / len2xx;
+				let sdas = this.tdjl * pd;
+				return this.backto(sdas/210*this.fdjb);
+			},
+		
+			settimfj(t){
+				let maxdxx = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let len2xx = this.$refs.gund_01x.offsetWidth;
+				let pd = maxdxx / len2xx;
+				this.tdjl = t/this.fdjb*210/pd;
+			},
 			LinePlay(){
 			
 				clearTimeout(this.valObj);
@@ -1895,6 +1939,12 @@
 				let maxLen = this.preview.maxTime/this.bl*this.wdk;
 				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len2 = this.$refs.gund_01x.offsetWidth;
+				
+				
+				let cdTime = this.backto(len23/210*this.fdjb);
+				let gunTime = this.getTdtim();
+				
+				
 				this.valObj = window.setInterval(() => {
 					
 					if(this.preview.previewObj.type!='video'){
@@ -1915,19 +1965,23 @@
 					
 					onT = onT?onT:0;				
 					
-					
-					let onend = this.preview.onTime/this.bl*this.wdk;
-					if(onend>endx){
-						let mv = 0;
-						let pd = maxd / len2;
-						if(maxLen-endx>len23){
-							mv = len23/pd;
-						}else{
-							mv = (len23-(maxLen-endx))/pd;
+					if(this.preview.onTime>gunTime+cdTime){
+						
+						let t = this.preview.onTime;
+						let sytm = this.preview.maxTime-this.preview.onTime;
+						
+						if(sytm<cdTime){
+							let onsd = cdTime-sytm;
+							t = t-onsd+1;
 						}
-						this.tdjl = this.tdjl+mv;
-						endx = this.getEndTiem();
+						
+						this.settimfj(t)
+						
+						gunTime = this.getTdtim();
+						
 					}
+					 
+					
 					if (this.preview.onTime >= endt) {
 						clearTimeout(this.valObj);
 						
@@ -2299,7 +2353,7 @@
 		position: relative;
 		display: block;
 		margin: 0 auto;
-		overflow: hidden;
+	
 	}
 
 	.videoBox1 {

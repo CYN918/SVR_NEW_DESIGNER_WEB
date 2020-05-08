@@ -42,7 +42,7 @@ export default {
 		},	
 		setTop(e){				
 			let t = this.mJs.getTop();
-
+			this.topOn = t+this.$refs.topBoxd.getBoundingClientRect().top;	
 			if(t>=this.topOn && !this.isTop){
 				this.isTop='p_isTop';
 				return

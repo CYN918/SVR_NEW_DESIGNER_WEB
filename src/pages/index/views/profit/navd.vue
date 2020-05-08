@@ -14,7 +14,7 @@
 						clearable>
 					</el-input>
 				</div> -->
-				<div>
+				<div v-if="ison == '/profit'">
 					筛选：
 					<el-select @change="sxFn2" v-model="v2" placeholder="请选择">
 						<el-option 

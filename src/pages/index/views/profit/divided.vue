@@ -19,7 +19,7 @@ export default {
 					{n:'项目名称',temp:{cFn:'goWork',poprs:'name',cls:'pend',clfn:(d)=>{
 						return '<span class="ficSp1">'+d.name+'</span>';
 					}}},
-					{n:'收益加成',clfn:(da)=>{return '￥'+this.mJs.money_deiv(da.profit_fee)+'（' + '+' +da.gain_share_rate+'%）'}},
+					// {n:'收益加成',clfn:(da)=>{return '￥'+this.mJs.money_deiv(da.profit_fee)+'（' + '+' +da.gain_share_rate+'%）'}},
 					{n:'收益',t:'1',temp:{cFn:'',clfn:(da)=>{if(da.deal_type == '3'){return '￥'+this.mJs.money_deiv(da.balance_fee)+'（已付预付金）' + '<img class="pbx_n_img" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg" alt=""/>'}else if(da.deal_type == '2'){return '<span class="sy">' + '￥'+this.mJs.money_deiv(da.balance_fee) + '</span>'}else{return}}}},
 				],
 					
@@ -36,10 +36,10 @@ export default {
 					{label:'全部记录',value:0},
 					{label:'近一周',value:7},
 					{label:'近一个月',value:30},
-					{label:'近一半年',value:183},
+					{label:'近半年',value:183},
 					{label:'近一年',value:365}
 				],
-				v2:30
+				v2:0
 			},
 			timed:30,
 			typed:1,
@@ -51,7 +51,7 @@ export default {
 	},	
 	methods: {
 		init(){			  	
-			this.config.pr.time = parseInt(new Date().getTime()/1000)-(30*60*60*24);
+			// this.config.pr.time = parseInt(new Date().getTime()/1000)-(30*60*60*24);
 		},
 
 		goWork(d){
