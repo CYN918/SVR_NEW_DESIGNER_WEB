@@ -4,7 +4,7 @@
 		<div class="ac_v1-1">
 			<img class="ac_v1-2" :src="imgPath+'ac_v4/ban.jpg'"/>
 		
-			<img v-if="infoData.status==1 && infoData.setting_type!=1" @click="showZp()" class="ac_v1-2-x" :src="imgPath+'ac_v1/banBT.png'"/>
+			<img v-if="infoData.status==1 && infoData.setting_type!=1" @click="showZp()" class="ac_v1-2-x" :src="imgPath+'ac_v4/banBT.png'"/>
 			
 			<div class="ac_v1-4" v-if="arr.length>1">
 				<pTop class="isflo_01" :cn="topCn">
@@ -16,10 +16,7 @@
 				</pTop>
 				
 			</div>
-			
-			
 			<div class="ac_v1-5">
-				
 				<div v-if="navOn==1" class="ac_v1-5-1">
 					<img  :src="imgPath+'ac_v4/01.jpg'">
 					<div class="btnsa">
@@ -34,6 +31,7 @@
 				</div>
 				<div v-if="navOn==3" class="ac_v1-5-2">
 					<div class="ac-01">
+						<img src="" alt="">
 						<div class="ac-02">
 							<div class="ac-01-1">
 								全部作品<span>{{total}}</span>
@@ -156,14 +154,10 @@ export default{
 			
 			this.navOn = el.p;
 			var top = this.mJs.getTop();
-
 			if(top<600){
 				return
-			}
-			
+			}			
 			this.mJs.scTop(680);
-			
-			
 		},
 		ckl(){
 			if(!this.$route.query.id){
@@ -175,9 +169,7 @@ export default{
 			this.a_getInfo();
 			
 		},
-		scrllC(){
-			
-		},
+
 		shaFn(n){
 			window.open(this[n]);
 		},
@@ -316,7 +308,7 @@ export default{
 .ac_v1-4x{
 	margin: 0 auto;
 	width: 1300px;
-	text-align: left;
+	text-align: center;
 }
 .ac_v1-4x>span{
 	cursor: pointer;
@@ -354,8 +346,7 @@ export default{
 
 .ac-01{
 	margin-bottom: 40px;
-	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/ac_v1/05.png) 0 0/40% no-repeat,url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/ac_v1/06.png) 100% 70%/40% no-repeat;
-	
+	background: none;
 }
 
 .ac-04{

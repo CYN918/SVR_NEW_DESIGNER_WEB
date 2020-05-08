@@ -535,6 +535,26 @@
 				len = len+sdas;				
 				return len;													
 			},
+			getLenTime(){
+				// let lenTime = this.$refs.gdbox.offsetWidth/210*this.fdjb;
+				// let mvtime = 
+				
+				
+				// let onsd = this.preview.maxTime;
+				// if(onsd<120){
+				// 	onsd =
+				// }
+				// let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				// let len1 = this.$refs.qyBox.offsetWidth;
+				// let pd = maxd / len;
+				
+				// let sdas = this.tdjl * pd;
+				
+				
+				// let len = this.$refs.gund_01x.offsetWidth;
+				// return (sdas+len)/this.wdk*this.bl;
+				
+			},
 			playPreview(a){
 			
 				if(this.navcoms.media.length==0){
@@ -1009,6 +1029,11 @@
 				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len2 = this.$refs.gund_01x.offsetWidth;
 				this.drmBg();	
+				let endtims = this.getLenTime();
+				console.log(len23);
+				let cdTime = len23/210*this.fdjb;
+			
+				console.log(cdTime);
 				this.valObj = setInterval(() => {
 					
 					this.checkAdio();
@@ -1741,15 +1766,10 @@
 				doms.ischeck = '';
 				
 				this.checkOn.list.push(doms);
-				let end = this.getEndTiem();
-				let onend = this.backTim(doms)/this.bl*this.wdk;
-				if(onend>end){
-					let mvt = onend-end;
-					
-					this.tdjl = this.tdjl+mvt;
-					
-					
-				}
+				let lasteln = this.backTim(doms);
+				
+				this.setTdjl(lasteln);
+				
 				if(this.playT==1 || this.playT==2){
 					this.puandFn()
 				}
@@ -1886,7 +1906,35 @@
 			csy() {
 				
 			},
+			getTdtim(){
+				let maxdxx = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let len2xx = this.$refs.gund_01x.offsetWidth;
+				let pd = maxdxx / len2xx;
+				let sdas = this.tdjl * pd;
+				return this.backto(sdas/210*this.fdjb);
+			},
+			setTdjl(t){
+				let widtime = this.backto(this.getBur(this.$refs.gdbox).width/210*this.fdjb);
+				let tdTim = this.getTdtim();
+				if(t>widtime+tdTim){
+					
+					let sytm = this.preview.maxTime-t;
+					if(sytm<widtime){
+						let onsd = widtime-sytm;
+						t = t-onsd+2;
+					}
+					this.settimfj(t)
+				}
+			},
 			
+			
+			settimfj(t){
+				let maxdxx = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let len2xx = this.$refs.gund_01x.offsetWidth;
+				let pd = maxdxx / len2xx;
+				this.tdjl = t/this.fdjb*210/pd;
+				
+			},
 			LinePlay(){
 			
 				clearTimeout(this.valObj);
@@ -1899,7 +1947,9 @@
 				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len2 = this.$refs.gund_01x.offsetWidth;
 				
-				console.log(len23);
+				
+				let cdTime = this.backto(len23/210*this.fdjb);
+				let gunTime = this.getTdtim();
 				
 				
 				this.valObj = window.setInterval(() => {
@@ -1922,21 +1972,23 @@
 					
 					onT = onT?onT:0;				
 					
-					
-					let onend = this.preview.onTime/this.bl*this.wdk;
-					
-					if(onend>endx){
-						let mv = 0;
-						let pd = maxd / len2;
-
-						if(maxLen-endx>len23){
-							mv = len23/pd;
-						}else{
-							mv = (len23-(maxLen-endx))/pd;
+					if(this.preview.onTime>gunTime+cdTime){
+						
+						let t = this.preview.onTime;
+						let sytm = this.preview.maxTime-this.preview.onTime;
+						
+						if(sytm<cdTime){
+							let onsd = cdTime-sytm;
+							t = t-onsd+1;
 						}
-						this.tdjl = this.tdjl+mv;
-						endx = this.getEndTiem();
+						
+						this.settimfj(t)
+						
+						gunTime = this.getTdtim();
+						
 					}
+					 
+					
 					if (this.preview.onTime >= endt) {
 						clearTimeout(this.valObj);
 						
