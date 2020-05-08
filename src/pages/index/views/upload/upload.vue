@@ -1,149 +1,173 @@
 <template>
-	<div>
-		<div class="topNavComBox">
-			<div class="topNavComBox1">
-				<div class="topNavComBox2">上传作品</div>
-				<a :class="['pend',chekin?'onchekd':'']" @click="setChekin(true)">编辑作品内容</a>
-				<a :class="['pend',!chekin?'onchekd':'']" @click="setChekin(false,'其他信息设置')">其他信息设置</a>
-			</div>
-		</div>
-		<div v-show="chekin" class="upBoxd">
-			<div class="upBoxd1">
-				<div class="upBoxd1_1">
-					<Input class="userBoxdC" v-model="form.work_name" :valued="csz"  :oType="'max'" :max="50"   :type="'text'" :placeholder="'请输入作品标题…'"></Input>
-				</div>
-				<div class="upBoxd1_2" ref="asdsss">
-					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content" ></vue-ueditor-wrap>
-				</div>
-			</div>
-			<div class="upBoxd2">
-				
-				<div @click="showUp(0,'上传图片')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
-				<div @click="showUp(1,'上传视频')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
-				
-			</div>
+    <div>
+        <div class="uploadContainer">
+            <el-row>
+                <el-col :span="24">
+                    <el-card class="commonCard">
+                        <div slot="header">
+                            <span>上传作品</span>
+                        </div>
+                        <el-form>
+                            <el-form-item>
+                                <el-row>
+                                    <el-col :span="19">
+                                        <el-input v-model="form.work_name" placeholder="请输入作品标题" maxlength="50" show-word-limit @blur="checkValue('title')"></el-input>
+                                        <span class="btBlue"></span>
+                                    </el-col>
+                                    <el-col v-show="nameNull" :span="5" class="notice">请输入作品标题</el-col>
+                                </el-row>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-row>
+                                    <el-col :span="5">
+                                        <el-cascader 
+                                            :options="page2.classify"
+                                            v-model="selectedOptions"
+                                            placeholder="选择作品类型"
+                                            style="width: 100%"
+                                            @blur="checkValue('type')"
+                                        >
+                                        </el-cascader>
+                                        <span class="btBlue"></span>
+                                    </el-col>
+                                    <el-col :offset="2" :span="10">
+                                        <el-select v-model="form.copyright" style="width: 100%">
+                                            <el-option
+                                                v-for="item in bqList"
+                                                :key="item.label"
+                                                :label="item.label"
+                                                :value="item.label"
+                                            >
+                                            </el-option>
+                                        </el-select>
+                                    </el-col>
+                                    <el-col v-show="typeNull" :offset="2" :span="5" class="notice">请选择作品类型</el-col>
+                                </el-row>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-row>
+                                    <el-col :span="24" ref="asdsss">
+                                        <vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content" ></vue-ueditor-wrap>
+                                        <div class="uploadBtn">
+                                            <span @click="showUp(0,'上传图片')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_sctp.svg" alt="" />上传图片</span>
+                                            <span @click="showUp(1,'上传视频')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_scsp.svg" alt="" />上传视频</span>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                            </el-form-item>
+                        </el-form>
+                    </el-card>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="8">
+                    <el-card class="commonCard">
+                        <div slot="header">
+                            <span>上传作品封面</span>
+                        </div>
+                        <div class="page2_1_2">
+                            <img v-if="form.face_pic" :src="form.face_pic" alt="">
+                            <div @click="showupFm"><div>+</div>上传封面</div>					
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="8">
+                    <el-card class="commonCard">
+                        <div slot="header">
+                            <span>添加作品标签</span>
+                        </div>
+                        <div class="tagWrapper">
+                            <el-input
+                                class="input-new-tag"
+                                v-if="inputVisible"
+                                v-model="tags"
+                                ref="saveTagInput"
+                                size="small"
+                                @keyup.enter.native="keydown"
+                                @blur="keydown"
+                            >
+                            </el-input>
+                            <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 标签</el-button>
+                            <div class="leftTagNum">还可添加{{5-form.labels.length}}个标签</div>
+                            <div class="tagContainer">
+                                <el-tag
+                                    v-for="(el,index) in form.labels" :key="index"
+                                    closable @close="deletTage(index)">{{el}}
+                                </el-tag>
+                            </div>
+                        </div>
+                        <!-- <div class="page2_2_1_2">
+                            <div>
+                                <Input class="userBoxd2" v-model="tags" :keyup="keydown" :oType="'max'" :max="10" :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>
+                                <span @click="keydown" :class="['tagBtn',isTageok?'istageok':'']">添加标签</span>还可添加{{5-form.labels.length}}个标签
+                            </div>
+                            <div class="page2_2_1_2x">
+                                <span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
+                            </div>
+                        </div> -->
+                    </el-card>
+                </el-col>
+                <el-col :span="8">
+                    <el-card class="commonCard">
+                        <div slot="header">
+                            <span>上传附件 <span class="description">ZIP，1G以内</span></span>
+                        </div>
+                        <div :class="['page2_1_4',isUpd?'isUpd':'']">
+                            <div class="page2Tbnd1">{{fjtext}}</div>
+                            <input v-if="!isUpd" @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
+                        </div>
+                        <div v-if="upfjData.type" class="page2_1_5">{{upfjData.type}}<span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span>{{upfjData.bf+'%'}}</div>
+                        <div class="page2_1_6" v-if="upfjData.type">
+                            
+                            <span class="iconfont" :title="upfjData.file_name">&#xe621;{{upfjData.file_name?upfjData.file_name.substring(0,10):''}}<span @click="qxclosd(fileUpfj)" class="iconfont pend">&#xe619;</span></span>
+                            
+                        </div>
+                        <el-radio v-model="form.attachment_visible" label="0">仅自己可见</el-radio>
+                        <el-radio v-model="form.attachment_visible" label="1">所有人可见</el-radio>
+                    </el-card>
+                    <el-card class="commonCard" v-if="checkisptggr()">
+                        <div slot="header">
+                            <span>设为投稿作品 <span class="description">若作品符合需求，平台会联系你沟通收录细节</span></span>
+                        </div>
+                        <div class="page2_1_7_r">
+                            <el-radio v-model="form.is_platform_work" label="1">是</el-radio>
+                            <el-radio v-model="form.is_platform_work" label="0">否</el-radio>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
 
-		</div>
-		<div v-show="!chekin" class="upBoxd">
-			<div class="page2_1">
-				<div class="page2_1_1">封面图<span class="btRed"></span></div>
-				<div class="page2_1_2">
-					<img v-if="form.face_pic" :src="form.face_pic" alt="">
-					<div @click="showupFm"><div>+</div>上传封面</div>					
-				</div>
-				<div class="page2_1_3">上传附件<span>ZIP，1G以内</span></div>
-				<div :class="['page2_1_4',isUpd?'isUpd':'']">
-					<div class="page2Tbnd1">{{fjtext}}</div>
-					<input v-if="!isUpd" @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
-				</div>
-				<div v-if="upfjData.type" class="page2_1_5">{{upfjData.type}}<span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span>{{upfjData.bf+'%'}}</div>
-				<div class="page2_1_6" v-if="upfjData.type">
-					
-					<span class="iconfont" :title="upfjData.file_name">&#xe621;{{upfjData.file_name?upfjData.file_name.substring(0,10):''}}<span @click="qxclosd(fileUpfj)" class="iconfont pend">&#xe619;</span></span>
-					
-				</div>
-				<div class="page2_1_7">
-					<div>附件内容</div>
-					<div class="page2_1_7_r">
-						<label>
-							<div><div :class="form.attachment_visible==1?'chekdOn':''"></div>
-							<input class="page2_1_4file" type="radio" v-model="form.attachment_visible" value="1" name="isme" ></div>
-							所有人可见
-						</label>
-						<label>
-							<div><div :class="form.attachment_visible==0?'chekdOn':''"></div>
-							<input class="page2_1_4file" type="radio" v-model="form.attachment_visible" value="0" name="isme" ></div>
-							仅自己可见
-						</label>
-					</div>
-				</div>
-			</div>
-			<div class="page2_2">
-				<div class="page2_2_1">
-					<div class="page2_2_1_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
-					<div class="page2_2_1_2">
-						<div>
-							<Input class="userBoxd2" v-model="tags" :keyup="keydown" :oType="'max'" :max="10" :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>
-							<span @click="keydown" :class="['tagBtn',isTageok?'istageok':'']">添加标签</span>还可添加{{5-form.labels.length}}个标签
-						</div>
-						<div class="page2_2_1_2x">
-							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
-						</div>
-					</div>
-				</div>
-				<div class="page2_2_2">
-					<div class="page2_2_2_1">
-						<div class="page2_2_2_1_1">作品类型<span class="btRed"></span></div>
-						<div class="page2_2_2_1_2">
-							<el-cascader 
-							:options="page2.classify"
-							v-model="selectedOptions"
-							>
-							</el-cascader>
-						</div>
-					</div>
-					<div class="page2_2_2_2">
-						<div class="page2_2_2_2_1">版权说明<span class="btRed"></span></div>
-						<div class="page2_2_2_2_2">
-							<el-select v-model="form.copyright" placeholder="请选择">
-								<el-option
-								v-for="item in bqList"
-								:key="item.label"
-								:label="item.label"
-								:value="item.label">
-								</el-option>
-							</el-select>
-							
-						</div>
-					</div>
-				</div>
-				<div v-if="checkisptggr()" class="page2_2_3">
-					<div class="page2_2_3_1">是否设为平台投稿作品<span class="btRed"></span><span>设置后，若该作品符合平台需求，则平台客服会联系创作者进行商业洽谈</span></div>
-					<div class="page2_1_7_r">
-						<label>
-							<div :class="form.is_platform_work==1?'chekdOn':''"><div></div>
-							<input class="page2_1_4file" v-model="form.is_platform_work" value="1" type="radio" name="isme" ></div>是
-						</label>
-						<label>
-							<div :class="form.is_platform_work==0?'chekdOn':''"><div></div>
-							<input class="page2_1_4file" v-model="form.is_platform_work" value="0" type="radio" name="isme" ></div>否
-						</label>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="UpBtn1">
-			<div class="UpBtn1_1" v-if="!chekin" @click="setChekin(true,'上一步')">上一步</div><div @click="userSave" class="UpBtn1_1">保存</div><div v-if="chekin" :class="['UpBtn1_2',ck2]" @click="setChekin(false,'下一步')">下一步</div>
-			<div class="UpBtn1_1" @click="seeCg" v-if="!chekin">预览</div><div @click="savZp" :class="['UpBtn1_2',ck3]" v-if="!chekin">提交发布</div>
-		</div>
-		
-				<!-- <upoloadcaver @close="close" ref="upoloadcaver" :InputValue="form.work_name" :type="selectedOptions"></upoloadcaver> -->
-		
-			
-		<TcBox :config="outc" ref="tcBox">
+            <div class="handleContainer">
+                <el-button @click="userSave">保存</el-button>
+                <el-button @click="seeCg">预览</el-button>
+                <el-button @click="savZp" type="primary" :disabled="!ck3">提交发布</el-button>
+            </div>
+        </div>
+        <TcBox :config="outc" ref="tcBox">
 			<template v-slot:todo="{ todo }">
 				<component v-bind:is="tcZj"  :datad="tcData"></component>
 			</template>
 		</TcBox>
-		
-		
-		<component v-bind:is="tanData.zj" :configData="upConfig" v-model="tanData"></component>
-	</div>
+        <UplodImg v-if="isshowd" :configData="upConfig"></UplodImg>
+    </div>
 </template>
 
 <script>
 import VueUeditorWrap from 'vue-ueditor-wrap'
 import UplodImg from './uploadImag'
-import Input from '../../components/input'
+// import Input from '../../components/input'
 import uploadFm from './uploadFm';
 import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 import TcBox from '../../components/TcBox'
 export default {
 	name: 'index',
-	components:{VueUeditorWrap,UplodImg,Input,uploadFm,TcBox},
+	components:{VueUeditorWrap,UplodImg,uploadFm,TcBox},
 	data(){
 		return{
+            inputVisible: false,
+            nameNull: false,
+            typeNull: false,
 			tanData:{},
 			outc: {
 				title: '上传封面',
@@ -242,7 +266,9 @@ export default {
 	},
 	watch: {	
 		'form.work_name'() {				
-			this.checkPage1();			
+			this.checkPage1();
+            if (this.form.work_name) this.nameNull = false
+            else this.nameNull = true			
 		},
 		'form.content'() {
 			this.checkPage1();
@@ -253,8 +279,10 @@ export default {
 		},
 		'selectedOptions'() {
 			if(this.selectedOptions.length==0){
+                this.typeNull = true
 				return
-			}
+            }
+            this.typeNull = false
 			this.form.classify_1 = this.selectedOptions[0];
 			this.form.classify_2 = this.selectedOptions[1];
 			this.form.classify_3 = this.selectedOptions[2];
@@ -294,7 +322,24 @@ export default {
 		this.getUserDetail();
 	}, 
 	methods: {
+        checkValue(type) {
+            if (type == 'title') {
+                if (this.form.work_name == '') this.nameNull = true
+                else this.nameNull = false
+            }
+            if (type == 'type') {
+                if (this.selectedOptions.length == 0) this.typeNull = true
+                else this.typeNull = false
+            }
+        },
+        showInput() {
+            this.inputVisible = true;
+            this.$nextTick(_ => {
+                this.$refs.saveTagInput.$refs.input.focus();
+            });
+        },
 		showTc() {
+            console.log(123)
 			this.$refs.tcBox.show();
 		},
 		closeTc() {
@@ -338,22 +383,27 @@ export default {
 		},
 		keydown(){
 			if(!this.isTageok){
+                this.inputVisible = false;
 				return
 			}
 			if(!this.tags){
+                this.inputVisible = false;
 				return
 			}
 			if(this.form.labels.indexOf(this.tags)!=-1){
-				Message({message: '该标签已添加'});
+                Message({message: '该标签已添加'});
+                this.inputVisible = false;
 				return
 			}
 			if(this.form.labels.length===5){
-				Message({message: '最多填写5个标签'});
+                Message({message: '最多填写5个标签'});
+                this.inputVisible = false;
 				return
 			}
-			this.form.labels.push(this.tags);
+            this.form.labels.push(this.tags);
+            this.inputVisible = false;
 			this.tags = '';
-			this.$refs.tageds.clearValue();
+			// this.$refs.tageds.clearValue();
 		},
 		
 		deletTage(on){
@@ -487,47 +537,47 @@ export default {
 		saved(){
 			this.saveData(0,'保存成功');			
 		},
-		setChekin(type,b){
-			let p = '上传作品-编辑作品类容';
-			if(this.chekin==false){
-				p = '上传作品-其他信息设置';
-			}
-			if(b){
-				this.bdtj(p,b,'--');
-			}
+		// setChekin(type,b){
+		// 	let p = '上传作品-编辑作品类容';
+		// 	if(this.chekin==false){
+		// 		p = '上传作品-其他信息设置';
+		// 	}
+		// 	if(b){
+		// 		this.bdtj(p,b,'--');
+		// 	}
 			
-			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){
+		// 	if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){
 			
-				if(b){
-					this.bdtj(p,b+'失败','--');
-				}
-				Message({message: '请先填写标题'});
-				return
-			}
-			if(!this.form.content || this.ifBjType==0){
-				if(b){
-					this.bdtj(p,b+'失败','--');
-				}
-				Message({message: '请先填写内容'});
-				return
-			}
+		// 		if(b){
+		// 			this.bdtj(p,b+'失败','--');
+		// 		}
+		// 		Message({message: '请先填写标题'});
+		// 		return
+		// 	}
+		// 	if(!this.form.content || this.ifBjType==0){
+		// 		if(b){
+		// 			this.bdtj(p,b+'失败','--');
+		// 		}
+		// 		Message({message: '请先填写内容'});
+		// 		return
+		// 	}
 			
-			if(b && b!='其他信息设置'){
-				this.bdtj(p,b+'成功','--');
-			}
-			this.chekin = type;
-			document.documentElement.scrollTop =1;
-			document.body.scrollTop =1;
-			let regex = /<img.*?src="(.*?)"/;
+		// 	if(b && b!='其他信息设置'){
+		// 		this.bdtj(p,b+'成功','--');
+		// 	}
+		// 	this.chekin = type;
+		// 	document.documentElement.scrollTop =1;
+		// 	document.body.scrollTop =1;
+		// 	let regex = /<img.*?src="(.*?)"/;
 			
-			let src = regex.exec(this.form.content);
-			if(!src){
-				return
-			}
-			src = src[1];			
+		// 	let src = regex.exec(this.form.content);
+		// 	if(!src){
+		// 		return
+		// 	}
+		// 	src = src[1];			
 			
 			
-		},
+		// },
 		ready (editorInstance) {
 			this.loading.close();
 			this.uD = editorInstance;
@@ -548,7 +598,7 @@ export default {
 		closed(cr){
 			
 			this.tanData = {};
-			// this.isshowd=false;
+			this.isshowd=false;
 			if(cr){
 				return
 			}
@@ -565,7 +615,7 @@ export default {
 				zj:'UplodImg'
 			};
 			
-			// this.isshowd = true;
+			this.isshowd = true;
 			if(this.ifBjType == 0){
 				this.ifBjType = 1;
 				this.form.content = '';
@@ -680,9 +730,9 @@ export default {
 		},
 		userSave(){
 			let p = '上传作品-编辑作品类容';
-			if(this.chekin==false){
-				p = '上传作品-其他信息设置';
-			}
+			// if(this.chekin==false){
+			// 	p = '上传作品-其他信息设置';
+			// }
 			this.bdtj(p,'保存','--');
 			if(this.saveTyped==1){
 				Message({message: '正在记录请稍后再试'});
@@ -891,229 +941,58 @@ export default {
 }
 </script>
 <style>
-.topNavComBox{
-	min-width: 1300px;
-	height: 80px;
-	background: #FFFFFF;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);	
-	margin-bottom: 20px;
+.uploadContainer{
+    text-align: left;
+    width: 1300px;
+    margin: 0 auto;
 }
-.topNavComBox1{
-	width: 1300px;
-	margin: 0 auto;
-	text-align: left;
-	
+.uploadContainer .commonCard{
+    margin-top: 20px;
 }
-.topNavComBox2{
-	display: inline-block;
-	font-size: 24px;
-	color: #1E1E1E;
-	line-height: 80px;
-	margin-right: 124px;
+.uploadContainer .el-col{
+    position: relative;
+    padding: 0 15px;
 }
-.topNavComBox1>a{
-	display: inline-block;
-	position: relative;
-	font-size: 16px;
-	line-height: 74px;
-	
-	color: #999999;
-	margin-right: 59px;
+.notice{
+    color: #f56c6c;
+    text-align: right;
 }
-.topNavComBox1>a:after{
-	content: "";
-	position: absolute;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 58px;
-	height: 2px;
+.btBlue{
+    display: inline-block;
+    vertical-align: middle;
+    width: 4px;height: 4px;
+    background: #1989fa;
+    border-radius: 50%;
+    position: absolute;
+    right: -5px;top: 50%;
+    margin-top: -2px;
 }
-.topNavComBox1>a.onchekd{
-	color: #1E1E1E;
+.uploadBtn{
+    position: absolute;
+    right: 30px;top: 0;
+    z-index: 9998;
 }
-.topNavComBox1 .nubMax{
-	font-weight: 200;
+.uploadBtn span:hover{
+    opacity: .7;
 }
-.onchekd:after{
-	background: #33B3FF;
+.uploadBtn span{
+    margin-left: 20px;
+    cursor: pointer;
 }
-.upBoxd>div{
-	display: inline-block;
-}
-.upBoxd1{
-	
-}
-.upBoxd2,.upBoxd1_1{
-	background: #FFFFFF;
-	
-	border-radius: 5px;
-}
-.upBoxd1_2>.edui-default{
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	border: none;
-}
-.edui-default .edui-editor{
-	border: none !important;
-}
-.edui-default .edui-editor-bottomContainer{
-	display: none;
-}
-.upBoxd1_1{
-	width: 1080px;
-	height: 80px;
-	margin-bottom: 17px;
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	box-sizing: border-box;
-    padding: 24px 30px;
-	font-size: 24px;
-
-}
-.upBoxd1_1 .myInput{
-	border: none;
-}
-.upBoxd1_1 input{
-	font-size: 24px;
-}
-.upBoxd2{
-	margin-left: 20px;
-	width: 200px;
-	padding-bottom: 30px;
-	vertical-align: top;
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-}
-.upBoxd2{
-	font-size: 24px;
-	color: #1E1E1E;
-}
-.upBoxd2>div{
-	display: inline-block;
-	text-align: center;
-	margin-top: 30px;
-	line-height: 30px;
-	cursor: pointer;
-}
-.upBoxd2>div:hover{
-	opacity: .7;
-}
-.upBoxd2>div>span{
-	font-size: 24px;
-	color: #1E1E1E;
-	margin-right: 20px;
-}
-.upBoxd1_2{
-	width: 1080px;
-	min-height: 440px;
-	max-height: 600px;
-	padding: 1px;
-	overflow: hidden;
-	margin-bottom: 60px;
-	-webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-    border-radius: 5px;
-}
-.edui-default .edui-editor-toolbarboxouter{
-	border: none !important;
-	background: none !important;
-	text-align: left;
-	padding-left: 21.2px;
-}
-.edui-editor-toolbarboxinner>div{
-	margin: 20px 0;
-}
-.upBoxd{
-	min-width: 1305px;
-	height: 756px;
-}
-.UpBtn1{display: block !important;margin-bottom: 60px;}
-.UpBtn1>div{
-	display: inline-block;
-	border: 1px solid #999999;
-	border-radius: 5px;
-	width: 138px;
-	height: 38px;
-	text-align: center;
-	line-height: 38px;
-	font-size: 16px;
-	color: #999;
-	cursor: pointer;
-	margin-right: 20px;
-}
-.UpBtn1>div:hover{
-	opacity: .7;
-}
-.UpBtn1>.UpBtn1_2{
-	
-	border-color:#666;
-	background: #666;
-	color: #fff;
-}
-.UpBtn1>div:last-child{
-	margin-right: 0;
-}
-.UpBtn1_2.onck2 {
-    background: #33B3FF;
-    border-color: #33B3FF;
-}
-.page2_1{
-	box-sizing: border-box;
-	vertical-align: top;
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	margin-right: 20px;
-	width: 310px;
-
-	padding: 30px;
-}
-.page2_2{
-	width: 960px;
-}
-.page2_2>div{
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	margin-bottom: 20px;
-	width: 100%;
-}
-.page2_2_1{
-	height: 177px;
-}
-.page2_2_2{
-	height: 137px;
-}
-.page2_2_3{
-	height: 110px;
-}
-.page2_1_1{
-	font-size: 14px;
-	color: #333333;
-	text-align: left;
-	margin-bottom: 17px;
-}
-.btRed{
-	display: inline-block;
-	vertical-align: middle;
-	width: 4px;
-	height: 4px;
-	background: red;
-	border-radius: 50%;
-	margin-left: 10px;
+.uploadBtn img{
+    vertical-align: middle;
+    margin-right: 8px;
 }
 .page2_1_2{
 	position: relative;
 	background: #E6E6E6;
 	border-radius: 5px;
-	margin:  0 auto 57px;
+	margin-bottom: 57px;
 	overflow: hidden;
 	width: 260px;
 	height: 195px;
 	cursor: pointer;
+    text-align: center;
 }
 .page2_1_2:hover{
 	opacity: .7;
@@ -1159,33 +1038,10 @@ export default {
 	height: 100%;
 	
 }
-.page2_1_3{
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-	margin-bottom: 12px;
-}
-.page2_1_3>span{
-	color: #999999;
-	margin-left: 30px;
-}
-.page2Tbnd1{
-	display: inline-block;
-	box-sizing: border-box;
-	border: 1px solid #979797;
-	border-radius: 15px;
-	width: 90px;
-	height: 30px;
-	text-align: center;
-	line-height: 30px;
-	font-size: 14px;
-	color: #333333;
-	cursor: pointer;
-}
 .page2_1_4{
 	text-align: left;
 	position: relative;
-	margin-bottom: 27px;
+	margin-bottom: 18px;
 }
 .page2_1_4file{
 	cursor: pointer;
@@ -1225,41 +1081,6 @@ export default {
 	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
 }
-.page2_1_6{
-	text-align: left;
-	position: relative;
-	margin-bottom: 27px;
-}
-.page2_1_6>div{
-	position: relative;
-	display: inline-block;
-	margin-right: 32px;
-}
-.page2_1_6>div:hover{
-	opacity: .7;
-}
-.page2_1_6>span{
-	font-size: 14px;
-	color: #333333;
-}
-.page2_1_6>span>span{
-	vertical-align: middle;
-	margin-left: 9px;
-	color: #999;
-}
-.page2_1_7>div{
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-}
-.page2_1_7>div:first-child{
-	margin-bottom: 9px;
-}
-.page2_1_7_r>label>div{
-	display: inline-block;
-	position: relative;
-	margin-right: 10px;
-}
 
 
 
@@ -1277,247 +1098,59 @@ export default {
     border-color: #999;
 	cursor: context-menu;
 }
-.page2_1_7_r>label>div>div.chekdOn{
-	border-color: #33B3FF;
-	background: #33B3FF;
-}
-.page2_1_7_r>label{
-	cursor: pointer;
-}
-.page2_1_7_r>label:hover{
-	opacity: .7;
-}
-.page2_1_7_r>label:first-child{
-	margin-right: 34px;
-}
-.page2_2>div{
-	box-sizing: border-box;
-	padding: 30px;
-}
-.page2_2_1_1{
-	text-align: left;
-	font-size: 12px;
-	color: #333333;
-	margin-bottom: 17px;
-}
-.page2_2_1_1>span{
-	margin-left: 29px;
-	color: #999;
-}
-.page2_2_1_2{
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-}
-.page2_2_1_2 .inptud{
+.page2Tbnd1{
 	display: inline-block;
-	width: 311px;
-	margin-right: 10px;
-	vertical-align: middle;
-	margin-bottom: 0;
-	
-}
-.inptud{
-	height: 47px!important;
-}
-.page2_2_1_2 .myInput{
 	box-sizing: border-box;
-    border: 1px solid #dcdfe6;
-    border-radius: 5px;
-    
-    height: 40px;
-    padding: 1px 10px;
-}
-.page2_2_1_2 .inptud{
-	height: 40px !important;
-}
-.page2_2_1_2 .myInput input{
-	height: 38px;
-	line-height: 38px;
-}
-.page2_2_1_2x>span{
-	box-sizing: border-box;
-	display: inline-block;
-	background: #e6e6e6;
-	border-radius: 5px;
-	padding: 0 10px;
-	height: 27px;
-    line-height: 27px;
-	font-size: 14px;
-	color: #666;
-	margin-right: 20px;
-}
-.page2_2_1_2x>span>span{
-	font-size: 12px;
-	text-align: center;
-	margin-left: 12px;
-}
-.page2_2_1_2>div{
-	margin-bottom: 12px;
-}
-.page2_2_2{
-	text-align: left;
-}
-.page2_2_2>div{
-	display: inline-block;
-	font-size: 14px;
-	color: #333333;
-	vertical-align: middle;
-}
-.xzInput{
-	position: relative;
 	border: 1px solid #979797;
-	border-radius: 5px;
-	box-sizing: border-box;
-	width: 100%;
-	height: 40px;
-	padding: 10px;
-	cursor: pointer;
-}
-
-.xzInput:after{
-    content: "";
-    position: absolute;
-    top: 15px;
-    right: 16px;
-    width: 0;
-    height: 0;
-    border-width: 7px;
-    border-style: solid;
-    border-color: #999 transparent transparent transparent;
-    border-radius: 4px;
-}
-.xzInput>div{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	background: #FFFFFF;
-	box-shadow: 0 3px 6px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	-webkit-transform: translateY(117%);
-	transform: translateY(101%);
-	overflow: hidden;
-	width: 100%;
-}
-.xzInput2>div{
-	
-	width: 50%;
-}
-.xzInput2>div:nth-child(2){
-	transform: translate(100%,101%);
-}
-.xzInput2>div:nth-child(3){
-	transform: translate(200%,101%);
-}
-.xzInput3>div>div{
-	width: 100%;
+    border-radius: 15px;
+	width: 90px;
 	height: 30px;
-	font-size: 14px;
+    text-align: center;
 	line-height: 30px;
-	text-align: left;
 	font-size: 14px;
 	color: #333333;
-	text-indent: 20px;
-}
-.xzInput2>div>div{
-	width: 100%;
-	height: 30px;
-	font-size: 14px;
-	line-height: 30px;
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-	text-indent: 20px;
-}
-/* .xzInput>div>div{
-	text-indent: 20px;
-	overflow: hidden;
-} */
-.sertcheck{
-	color: #666666;
-	background: #999999;
-	opacity: .3;
+    cursor: pointer;
 }
 
-.page2_2_2_1{
-	width: 150px;
-	margin-right: 221px;
+.isUpd>.page2Tbnd1{
+	color: #999;
+    border-color: #999;
+	cursor: context-menu;
 }
-.page2_2_2_1_1,.page2_2_2_2_1{
-	margin-bottom: 17px;
+.tagWrapper{
+    min-height: 252px;
 }
-.page2_2_2_2{
-	width: 357px;
+.button-new-tag {
+    height: 32px;
+    line-height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
 }
-.page2_2_3_1{
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-	margin-bottom: 13px;
+.input-new-tag {
+    width: 90px;
+    margin-left: 10px;
+    vertical-align: bottom;
 }
-.page2_2_3_1>span:last-child{
-	font-size: 12px;
-	color: #999999;
-	margin-left: 30px;
-	
+.tagContainer{
+    margin: 20px 0;
 }
-
-.page2_2_3 .page2_1_7_r{
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
+.tagContainer .el-tag{
+    margin-right: 15px;
 }
-.page2_1_7_r .chekdOn>div{
-	background: #33B3FF;
-	border-color: #33B3FF;
+.leftTagNum{
+    font-size: 12px;
+    color: #999;
+    margin: 20px 0;
 }
-.el-select{width: 100%}
-.upBoxd1_2 iframe{
-	padding: 20px 22px;
-	box-sizing: border-box;
+.description{
+    font-size: 12px;
+    color: #999;
 }
-.el-cascader .el-input.is-focus .el-input__inner{
-	border-color: #33B3FF !important;
+.handleContainer{
+    margin: 30px 0;
+    text-align: center;
 }
-.el-input.is-active .el-input__inner, .el-input__inner:focus{
-	border-color: #33B3FF !important;
-}
-.edui-default .edui-editor-toolbarbox{
-	position: relative !important; 
-	background: #fff;
-	z-index: 9999;
-}
-.page2_2_2_2_2 .el-input.is-active .el-input__inner, .el-input__inner:focus{
-	border-color: #C0C4CC !important;
-}
-.svgImg1{
-	display: inline-block;
-	width: 28px;
-	vertical-align: text-bottom;
-    margin-right: 12px;
-}
-.tagBtn{
-	cursor: pointer;
-	display: inline-block;
-	vertical-align: middle;
-	text-align: center;
-	width:100px;
-	height:40px;
-	background:rgba(153,153,153,1);
-	border-radius:5px;
-	font-size:14px;
-	font-weight:400;
-	color:rgba(255,255,255,1);
-	line-height:40px;
-	margin-right: 10px;
-}
-.istageok{
-	background: #33B3FF;
-}
-#edui1>div:first-child{
-	height: 0 !important;
-}
-#edui1>div#edui1_toolbarbox{
-	height: 116px !important;
+.handleContainer .el-button{
+    min-width: 120px;
 }
 </style>

@@ -49,7 +49,9 @@ export default {
 				}
 			
 		},
-		isDjs:String
+		isDjs:String,
+		//过滤函数，根据需求，自定义过滤请求结果--张春宇
+		filterDataFunc: Function
 		
 	},
 	data(){
@@ -147,8 +149,13 @@ export default {
 					return
 				}
 				
-				
-				this.List = da.data;
+				//新增过滤函数--张春宇
+				if (typeof this.filterDataFunc == 'function') {
+					this.List = this.filterDataFunc(da.data)
+				} else {
+					this.List = da.data
+				}
+				// this.List = da.data;
 				this.total = da.total;
 				
 				if(this.isDjs){

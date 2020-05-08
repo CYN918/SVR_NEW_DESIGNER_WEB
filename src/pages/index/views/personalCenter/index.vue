@@ -28,7 +28,7 @@
 				<router-link v-if="userTped==1" class="u_top3_4_1" to="/upload">上传作品</router-link>
 				<div class="u_top3_4_2" v-else>
 					<span @click="gzclick" :class="userMessage.follow_flag>0?'qgz':''">{{userMessage.follow_flag | followType}}</span>
-					<span @click="gsxd">私信</span>
+					<!-- <span @click="gsxd">私信</span> -->
 				</div>
 				
 			</div>

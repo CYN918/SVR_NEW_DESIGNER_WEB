@@ -19,7 +19,7 @@ export default {
 					{n:'项目名称',temp:{cFn:'goWork',poprs:'name',cls:'pend',clfn:(d)=>{
 						return '<span class="ficSp1">'+d.name+'</span>';
 					}}},
-					{n:'收益加成',clfn:(da)=>{return '￥'+this.mJs.money_deiv(da.profit_fee)+'（' + '+' +da.gain_share_rate+'%）'}},
+					// {n:'收益加成',clfn:(da)=>{return '￥'+this.mJs.money_deiv(da.profit_fee)+'（' + '+' +da.gain_share_rate+'%）'}},
 					{n:'收益',t:'1',temp:{cFn:'',clfn:(da)=>{if(da.deal_type == '3'){return '￥'+this.mJs.money_deiv(da.balance_fee)+'（已付预付金）' + '<img class="pbx_n_img" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg" alt=""/>'}else if(da.deal_type == '2'){return '<span class="sy">' + '￥'+this.mJs.money_deiv(da.balance_fee) + '</span>'}else{return}}}},
 				],
 					

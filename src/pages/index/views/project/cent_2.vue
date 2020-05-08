@@ -474,7 +474,7 @@ export default {
 }
 .pr_cent2_5{
 	cursor: pointer;
-	width:65%;
+	width:66%;
 	float: left;
 
 }
@@ -605,7 +605,7 @@ export default {
 	margin-right: 10px;
 }
 .pr_cent2_9{
-	width: 35%;
+	width: 34%;
 	float: right;
 }
 .pr_cent2_11{
