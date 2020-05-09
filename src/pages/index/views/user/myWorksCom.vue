@@ -48,7 +48,7 @@
 							<el-dropdown trigger="click" placement="bottom-end">
 								<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg" class="bt-Img">
 								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
-									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" v-if="todo.like_num < 5" @click.native="updata(todo)">编辑</el-dropdown-item>
+									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" v-if="todo.is_selected != 1 && todo.like_num < 5" @click.native="updata(todo)">编辑</el-dropdown-item>
 									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" v-else @click.native="showissetDatasXX(todo.work_id,todo.status)">修改设置</el-dropdown-item>
 									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" @click.native="showTopc('delet',todo)">删除</el-dropdown-item>
 								</el-dropdown-menu>

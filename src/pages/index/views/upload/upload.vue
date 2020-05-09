@@ -205,7 +205,7 @@ export default {
 				UEDITOR_HOME_URL: '/UEditor/',
 				elementPathEnabled: false,
 				wordCount: false,
-				toolbars: [ ['undo', 'redo', '|', 'fontsize', 'paragraph', 'link', 'justifyleft', 'justifycenter', 'justifyright'] ]
+				toolbars: [ ['undo', 'redo', '|', 'combox', 'link', 'justifyleft', 'justifycenter', 'justifyright'] ]
 			},			
 			isshowd:false,
 			upList:[
@@ -1171,5 +1171,37 @@ export default {
 }
 .handleContainer .el-button{
     min-width: 120px;
+}
+
+/* 编辑器样式 */
+.edui-default .edui-editor-toolbarboxouter{
+	background: #fff!important;
+}
+div.edui-box{
+	vertical-align: middle!important;
+}
+.edui-default .edui-list .edui-state-hover{
+	border: none!important;
+	background: none!important;
+	color: #33B3FF!important;
+	padding: 1px!important;
+}
+.edui-default .edui-toolbar .edui-combox .edui-combox-body{
+	border: none!important;
+}
+.edui-default .edui-toolbar .edui-state-hover .edui-combox-body{
+	background-color: #fff!important;
+}
+.edui-default .edui-toolbar .edui-button, .edui-default .edui-toolbar .edui-splitbutton, .edui-default .edui-toolbar .edui-menubutton, .edui-default .edui-toolbar .edui-combox{
+	margin: 0 8px!important;
+}
+.edui-default .edui-toolbar .edui-combox-body .edui-splitborder{
+	display: none!important;
+}
+.edui-default .edui-toolbar .edui-combox-body .edui-arrow{
+	border: none!important;
+}
+.edui-default .edui-toolbar .edui-combox-body .edui-button-body{
+	width: 40px!important;
 }
 </style>
