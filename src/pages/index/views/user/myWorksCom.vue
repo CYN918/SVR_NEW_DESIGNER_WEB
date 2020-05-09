@@ -1,11 +1,11 @@
 <template>
 	<div>
 		<tophead :con="navData"></tophead>
-		<div class="draftboxd">
+		<div class="draftboxd" v-if="isMyAll()">
 			<div class="draftbox">
 				<!-- <span class="draftBtn" @click="goZP">草稿箱{{draftNum}}</span> -->
 				<span class="iconfont  messgeH1">
-					<span class="pend" @click="goZP">
+					<span class="pend" style="color: rgba(187,187,187,1);font-size:14px;" @click="goZP">
 						草稿箱
 						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_wdcz_cgx.svg"/>
 						<div @click="goZP" v-if="draftNum && draftNum>0" :class="['messgeH2','customMess',draftNum>9?'messgeH2x':'']">
@@ -19,7 +19,7 @@
 		<div class="csBox opodd">
 			<list :config="data" ref="listDom" :filter-data-func="filterDataFunc">
 				<template v-slot:todo="{ todo }">
-					<div class="mylists">
+					<div class="mylists" @mouseover="addClass($event, this)">
 						<div @click="openxq(todo)" class="myListBox_1">
 							<div class="mywus_n1" :style="backFm(todo.face_pic)"></div>
 							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
@@ -173,7 +173,7 @@ export default {
 				closeFn:'closeqd'
 			},
 			navData:{
-				title:'我的创作',
+				title: this.isMyAll() ? '我的创作' : '草稿箱',
 				// list:[
 				// 	{a:'/myAll',b:'全部'},
 				// 	{a:'/myExamine',b:'待审核'},
@@ -181,7 +181,7 @@ export default {
 				// 	{a:'/myNotPass',b:'未通过'},					
 				// 	{a:'/myDraft',b:'草稿'}
 				// ],
-				bdtj:'我的创作'				
+				bdtj: this.isMyAll() ? '我的创作' : '草稿箱'				
 			},
 			form:{labels:[]},
 			selectedOptions:[],
@@ -238,7 +238,24 @@ export default {
 			this.$refs.listDom.getData();
 		},
 	},
+	mounted() {
+		document.body.addEventListener('click', function(e) {
+			let needHandle = e.path.filter(ele => ele.className == 'mylists')
+			if (needHandle.length) return
+			document.querySelectorAll('.mylists').forEach(ele => {
+				let target = ele.querySelector('.myListBox_5')
+				let index = target.className.indexOf('_hover')
+				if (index > -1) target.className = 'myListBox_5'
+			})
+		})
+	},
 	methods: {
+		addClass(e) {
+			let target = e.path.filter(ele => ele.className == 'mylists')
+			if (target && target.length) {
+				target[0].querySelector('.myListBox_5').className = 'myListBox_5 _hover'
+			}
+		},
 		isMyAll() {
 			return this.$route.name == 'myAll'
 		},
@@ -263,6 +280,10 @@ export default {
 		init(){
 			// this.data.pr.status =  this.isTypeList[this.$route.name];
 			this.data.pr.status =  'all';
+			this.navData = {
+				title: this.isMyAll() ? '我的创作' : '草稿箱',
+				bdtj: this.isMyAll() ? '我的创作' : '草稿箱'
+			}
 		},
 		backFm(ur){
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
@@ -720,7 +741,7 @@ export default {
 	right: 10px;top: 10px;
 	display: none;
 }
-.mylists:hover .myListBox_5{
+.myListBox_5._hover{
 	display: block;
 }
 .myListBox_5 .comonbtn{
