@@ -600,7 +600,6 @@ export default {
 					this.ifBjType=0;
 				}	
 			});
-
 		},
 		closed(cr){
 			
