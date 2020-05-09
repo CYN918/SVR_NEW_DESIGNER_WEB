@@ -1,6 +1,7 @@
 <template>
 	<header class="header">
 		<img @click="goIndex" class="log" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg" alt="">		
+		<span @click="qh()">切换</span>
 		<span @click="shar" class="fxbtn">分享</span>
 		
 		<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
@@ -26,6 +27,10 @@ export default {
 				zj:'sharDom'
 			};
 			
+		},
+		qh(){
+			sessionStorage.setItem('isqh',1);
+			window.location = location.origin;
 		}
 		
 	},

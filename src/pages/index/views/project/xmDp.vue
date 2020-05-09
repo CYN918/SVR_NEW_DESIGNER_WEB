@@ -90,7 +90,6 @@ export default {
 	},
 	mounted: function(){
 		this.init();
-		console.log(this.obj.status)
 	}, 
 	methods: {
 

@@ -53,7 +53,7 @@ export default {
 		},
 		go(el,id,a){
 			if(el.special_url){
-				window.open(el.special_url);			
+				window.open(el.special_url + '?id=' + id);			
 				return
 			}
 			
