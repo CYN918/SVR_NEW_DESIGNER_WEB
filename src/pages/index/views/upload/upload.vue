@@ -49,8 +49,14 @@
                                     <el-col :span="24" ref="asdsss">
                                         <vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content" ></vue-ueditor-wrap>
                                         <div class="uploadBtn">
-                                            <span @click="showUp(0,'上传图片')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_sctp.svg" alt="" />上传图片</span>
-                                            <span @click="showUp(1,'上传视频')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_scsp.svg" alt="" />上传视频</span>
+                                            <span>
+												<img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_sctp.svg" alt="" />上传图片
+												<input @change="(file) => showUp(0,'上传图片', file)" class="uploadBoxd2_2_2_1" ref="upnfile" :accept="upList[0].typexz"  multiple="multiple" type="file" />
+											</span>
+                                            <span>
+												<img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_scsp.svg" alt="" />上传视频
+												<input @change="(file) => showUp(1,'上传视频', file)" class="uploadBoxd2_2_2_2" ref="upnfile" :accept="upList[1].typexz"  multiple="multiple" type="file" />
+											</span>
                                         </div>
                                     </el-col>
                                 </el-row>
@@ -161,11 +167,13 @@ import uploadFm from './uploadFm';
 import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 import TcBox from '../../components/TcBox'
+import UploadImagMixin from './uploadImag'
 export default {
-	name: 'index',
-	components:{VueUeditorWrap,UplodImg,uploadFm,TcBox},
-	data(){
-		return{
+    name: 'index',
+	components: { VueUeditorWrap,  UplodImg, uploadFm, TcBox},
+	mixins: [UploadImagMixin],
+    data(){
+        return {
             inputVisible: false,
             nameNull: false,
             typeNull: false,
@@ -205,7 +213,7 @@ export default {
 				UEDITOR_HOME_URL: '/UEditor/',
 				elementPathEnabled: false,
 				wordCount: false,
-				autoFloatEnabled: false,
+				// autoFloatEnabled: false,
 				toolbars: [ ['undo', 'redo', '|', 'combox', 'link', 'justifyleft', 'justifycenter', 'justifyright'] ]
 			},			
 			isshowd:false,
@@ -601,6 +609,7 @@ export default {
 					this.ifBjType=0;
 				}	
 			});
+			
 		},
 		closed(cr){
 			
@@ -614,9 +623,19 @@ export default {
 				this.ifBjType=0;
 			}
 		},
-		showUp(on,a){
-			this.bdtj('上传作品-编辑作品类容',a,'--');
-			this.upConfig = this.upList[on];
+		showUp(on,a,file){
+			// this.bdtj('上传作品-编辑作品类容',a,'--');
+			
+			this.configData = this.upList[on];
+			// this.initUploadConfig()
+			// console.log(this.typexz)
+			if(this.ifBjType == 0){
+				this.ifBjType = 1;
+				this.form.content = '';
+			}
+			this.fileUp(file)
+
+			return
 			
 			this.tanData = {
 				zj:'UplodImg'
@@ -630,9 +649,8 @@ export default {
 			
 		},
 		inImg(list,ids){
-		
 			let str = '';
-			if(this.upConfig.type[0]=='image/gif'){
+			if(this.configData.type[0]=='image/gif'){
 				list.map((el,index)=>{
 					str+='<p style="max-width:100%;height:auto;"><img zk_workid="'+ids[index]+'" style="max-width:100%;height:auto" src="'+el+'"/></p>';
 				});								
@@ -642,7 +660,7 @@ export default {
 				
 			}
 			
-			if(this.upConfig.type[0]=='video/mp4'){
+			if(this.configData.type[0]=='video/mp4'){
 				list.map((el,index)=>{
 					str+='<p style="display:none">1</p><p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
 				});
@@ -652,7 +670,7 @@ export default {
 				
 				return
 			}
-			if(this.upConfig.type[0]=='audio/ogg'){
+			if(this.configData.type[0]=='audio/ogg'){
 				list.map((el,index)=>{					
 					str+='<p style="display:none">1</p><p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio zk_workid="'+ids[index]+'" style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
 				});
@@ -981,7 +999,7 @@ export default {
 .uploadBtn{
     position: absolute;
     right: 30px;top: 0;
-    z-index: 9998;
+    z-index: 9997;
 }
 .uploadBtn span:hover{
     opacity: .7;
@@ -993,6 +1011,21 @@ export default {
 .uploadBtn img{
     vertical-align: middle;
     margin-right: 8px;
+}
+.uploadBtn input {
+	position: absolute;
+    width: 86px;
+    height: 16px;
+    opacity: 0;
+    top: 50%;
+    margin-top: -8px;
+	z-index: 9998;
+}
+.uploadBoxd2_2_2_1{
+	left: 20px;
+}
+.uploadBoxd2_2_2_2{
+	right: 0px;
 }
 .page2_1_2{
 	position: relative;
