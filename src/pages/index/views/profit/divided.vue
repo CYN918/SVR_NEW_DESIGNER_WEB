@@ -31,7 +31,7 @@ export default {
 			},
 			dataList:[1,2,3,4,5,6,7],
 			sxConfig:{
-				
+				options:[],
 				list2:[
 					{label:'全部记录',value:0},
 					{label:'近一周',value:7},
@@ -43,6 +43,9 @@ export default {
 			},
 			timed:30,
 			typed:1,
+			page:1,
+			limit:40,
+			total:0,
 
 		}
 	},
@@ -52,6 +55,20 @@ export default {
 	methods: {
 		init(){			  	
 			// this.config.pr.time = parseInt(new Date().getTime()/1000)-(30*60*60*24);
+			let params = {
+				page:this.page,
+				limit:this.limit
+			};
+			
+			params =  Object.assign(params,this.config.pr);	
+			this.api[this.config.ajax.url](params).then((da)=>{
+				if(da=='error'){
+					return
+				}				
+				this.sxConfig.options = da.data;	
+			}).catch(()=>{
+				
+			})
 		},
 
 		goWork(d){
@@ -72,10 +89,10 @@ export default {
 			this.config.pr.time =  parseInt(new Date().getTime()/1000)-(this.timed*60*60*24);
 			this.$refs.tabds.sxfn();
 		},
-		// setTim1(o){
-		// 	this.config.pr.name =  o;
-		// 	this.$refs.tabds.sxfn();
-		// }
+		setTim1(o){
+			this.config.pr.name =  o;
+			this.$refs.tabds.sxfn();
+		}
 	}
 }
 </script>
