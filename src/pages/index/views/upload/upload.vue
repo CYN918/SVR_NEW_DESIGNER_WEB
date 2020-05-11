@@ -213,7 +213,7 @@ export default {
 				UEDITOR_HOME_URL: '/UEditor/',
 				elementPathEnabled: false,
 				wordCount: false,
-				// autoFloatEnabled: false,
+				autoFloatEnabled: false,
 				toolbars: [ ['undo', 'redo', '|', 'combox', 'link', 'justifyleft', 'justifycenter', 'justifyright'] ]
 			},			
 			isshowd:false,

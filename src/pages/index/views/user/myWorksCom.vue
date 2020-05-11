@@ -22,7 +22,7 @@
 					<div class="mylists" @mouseover="addClass($event, this)">
 						<div @click="openxq(todo)" class="myListBox_1">
 							<div class="mywus_n1" :style="backFm(todo.face_pic)"></div>
-							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
+							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':todo.status==0?'org':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
 						</div>
 						<div @click="openxq(todo)" class="myListBox_2">
 							<span class="myListBox_2_1" :title="todo.work_name">{{todo.work_name}}</span>
@@ -647,8 +647,8 @@ export default {
 .myListBox_1>.myListBox_1_2{
 	cursor: pointer;
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: 15px;
+	left: 15px;
 	border-radius: 0 5.08px 0 5.08px;
 	width: 99.6px;
 	height: 39.6px;
@@ -657,6 +657,10 @@ export default {
 }
 .myListBox_1>.balck{
 	background: rgba(0,0,0,.5);
+	color: #fff;
+}
+.myListBox_1>.org{
+	background: #FF9200;
 	color: #fff;
 }
 .myListBox_1>.wtg{
