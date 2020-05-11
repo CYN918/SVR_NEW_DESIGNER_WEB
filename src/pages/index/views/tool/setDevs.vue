@@ -3,7 +3,7 @@
 		<img :src="value.file_url" class="setDvs_01" ref="imgs"/>
 		<div class="hind_012">
 			<div  :style="backIm()"  class="setDvs_02x" ref="posd">
-				<img :src="value.file_url" class="setDvs_01x"/>				
+				<img :style="cjD()" :src="value.file_url" class="setDvs_01x"/>				
 			</div>	
 		</div>
 		
@@ -70,7 +70,11 @@ export default{
 			
 		},
 	
-	
+		cjD(){
+			let str = '';
+			console.log(this.value);
+			return str;
+		},
 		backIm(){
 			
 			return 'width:'+this.value.zsw+'px;height:'+this.value.zsh+'px;transform: translate('+this.value.zsx+'px,'+this.value.zsy+'px);';
@@ -157,6 +161,7 @@ export default{
 				document.onmousemove = document.onmouseup = null;
 			}
 		},
+		
 	}
 }
 </script>
