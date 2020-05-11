@@ -476,9 +476,7 @@
 					}
 					this.checkOn.list[this.checkOn.on].ischeck='';
 					this.checkOn = {};
-				}
-				
-				
+				}	
 			},
 			checkBf(){
 				let len1 = this.navcoms.media.length;
@@ -535,28 +533,7 @@
 				len = len+sdas;				
 				return len;													
 			},
-			getLenTime(){
-				// let lenTime = this.$refs.gdbox.offsetWidth/210*this.fdjb;
-				// let mvtime = 
-				
-				
-				// let onsd = this.preview.maxTime;
-				// if(onsd<120){
-				// 	onsd =
-				// }
-				// let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
-				// let len1 = this.$refs.qyBox.offsetWidth;
-				// let pd = maxd / len;
-				
-				// let sdas = this.tdjl * pd;
-				
-				
-				// let len = this.$refs.gund_01x.offsetWidth;
-				// return (sdas+len)/this.wdk*this.bl;
-				
-			},
 			playPreview(a){
-			
 				if(this.navcoms.media.length==0){
 					this.tipMr('请先添加内容');
 					return
@@ -708,14 +685,7 @@
 				this.checkOn = obj;
 				this.checkOn.list[this.checkOn.on].ischeck=1;
 			},
-			settoll(e){
-				e.preventDefault();
-				e.currentTarget.className = 'setToll setToll_active'
-			},
-			settoll1(e){
-				e.preventDefault();
-				e.currentTarget.className = 'setToll'
-			},
+	
 			drmvideo(a){
 				this.drmBg();
 				this.cans.drawImage(this.$refs.vids,a.sx,a.sy,a.sw,a.sh,a.x,a.y,a.w,a.h);
@@ -795,102 +765,17 @@
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
-			newPlay(){
-				if(this.navcoms.media.length==0){
-					this.$message({
-						message:'请先添加内容'
-					})
-					return
-				}
-				if(this.$refs.setAdios){
-					this.$refs.setAdios.pause();
-				}
-				
-				if(this.$refs.vid && this.$refs.vid.setRun){
-					this.$refs.vid.setRun();
-				}
-				this.bfMax = this.getSc();
-				this.puandFn();
-				this.preview.onTime = 0;
-				this.playT = 0;
-				this.playVideo();
-			},
+			
 			stopDr(){
 				clearInterval(this.valObj);
 			},			
 			/*播放相关*/								
-			backPlayVideo(){
-				let pd = this.navcoms.media;
-				let on=0;			
-				let len = pd.length;
-				let obj = {type:'null',end:this.bfMax};
-				if(len==0){
-					return obj;
-				}
-				var fn = ()=>{
-					let end = this.backTim(pd[on]);
-					
-					if(this.preview.onTime>=pd[on].start && this.preview.onTime<end){
-						obj = pd[on];
-						return 
-					}
-					
-					
-					on++;
-					if(!pd[on]){						 
-						return ;
-					}
-					if(this.preview.onTime<pd[on].start){
-						obj = {type:'null',end:pd[on].start};
-						return
-					}
-					fn();			
-				}
-				fn();
-				return obj;
-			},		
-			/*播放视频*/
-			playVideo(){
-				let len = this.navcoms.media.length;
-				if(len==0){
-					this.puandFn();
-					this.drmBg();					
-					this.playT = 0;
-					return;
-				}
-				this.bfObj = this.backPlayVideo();
 			
-				if(!this.bfObj){
-					return
-				}
-				this.playT = 1;
-				if(this.bfObj.type=='null'){
-					this.drmNull(this.bfObj);
-					return
-				}
-				if(this.bfObj.type=='pic'){
-					this.drmImg(this.bfObj);
-					return
-				}				
-				if(!this.$refs.vids){
-					return
-				}
-				if(this.$refs.vids.src!=this.bfObj.file_url){
-					this.$refs.vids.src=this.bfObj.file_url;	
-				}
-				this.$refs.vids.currentTime = (this.preview.onTime - this.bfObj.start)+this.bfObj.cut_start;
-				
-				this.$refs.vids.play();
-			},
 			drmNull(onBj){
 				if(!onBj){return}
 				let ontim = this.preview.onTime;
 				let vtime = 0;
-				let endx = this.getEndTiem();
-				let len23 = this.getBur(this.$refs.gdbox).width;
-				let maxLen = this.preview.maxTime/this.bl*this.wdk;
-				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
-				let len2 = this.$refs.gund_01x.offsetWidth;
+				
 				this.videoPn();
 				this.drmBg();	
 				this.valObj = setInterval(() => {
@@ -898,20 +783,7 @@
 					vtime+=.05;
 																					
 					this.preview.onTime = ontim+vtime;
-					
-					
-					let onend = this.preview.onTime/this.bl*this.wdk;
-					if(onend>endx){
-						let mv = 0;
-						let pd = maxd / len2;
-						if(maxLen-endx>len23){
-							mv = len23/pd;
-						}else{
-							mv = (len23-(maxLen-endx))/pd;
-						}
-						this.tdjl = this.tdjl+mv;
-						endx = this.getEndTiem();
-					}
+					this.checkPlayJd();
 					
 					if (this.preview.onTime >= onBj.end) {
 						this.preview.onTime = onBj.end;
@@ -933,11 +805,7 @@
 				vtime = 0;
 				a.src = onBj.file_url;	
 				let end = this.backTim(onBj);
-				let endx = this.getEndTiem();
-				let len23 = this.getBur(this.$refs.gdbox).width;
-				let maxLen = this.preview.maxTime/this.bl*this.wdk;
-				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
-				let len2 = this.$refs.gund_01x.offsetWidth;
+				
 				a.onload = () => {
 					this.drmBg();
 					this.cans.drawImage(a,onBj.sx,onBj.sy,onBj.sw,onBj.sh,onBj.x,onBj.y,onBj.w,onBj.h);
@@ -945,18 +813,7 @@
 						vtime = vtime + .05;			
 						this.preview.onTime = ontim+vtime;
 						
-						let onend = this.preview.onTime/this.bl*this.wdk;
-						if(onend>endx){
-							let mv = 0;
-							let pd = maxd / len2;
-							if(maxLen-endx>len23){
-								mv = len23/pd;
-							}else{
-								mv = (len23-(maxLen-endx))/pd;
-							}
-							this.tdjl = this.tdjl+mv;
-							endx = this.getEndTiem();
-						}
+						this.checkPlayJd();
 						this.checkAdio();
 						if (this.preview.onTime>=end){
 							clearTimeout(this.valObj);	
@@ -1018,76 +875,9 @@
 				}
 				this.setPreviewState(0);				
 			},
-			playSc(){
-				let ontim = this.preview.onTime;
-				let vtime = 0;
-				this.puandFn();
-				this.playT=1;
-				let endx = this.getEndTiem();
-				let len23 = this.getBur(this.$refs.gdbox).width;
-				let maxLen = this.preview.maxTime/this.bl*this.wdk;
-				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
-				let len2 = this.$refs.gund_01x.offsetWidth;
-				this.drmBg();	
-				let endtims = this.getLenTime();
-				console.log(len23);
-				let cdTime = len23/210*this.fdjb;
 			
-				console.log(cdTime);
-				this.valObj = setInterval(() => {
-					
-					this.checkAdio();
-					vtime+=.05;
-					this.preview.onTime = ontim+vtime;
-					
-					let onend = this.preview.onTime/this.bl*this.wdk;
-					if(onend>endx){
-						let mv = 0;
-						let pd = maxd / len2;
-						if(maxLen-endx>len23){
-							mv = len23/pd;
-						}else{
-							mv = (len23-(maxLen-endx))/pd;
-						}
-						this.tdjl = this.tdjl+mv;
-						endx = this.getEndTiem();
-					}
-					
-					if (this.preview.onTime >= this.bfMax) {
-						this.preview.onTime = this.bfMax;
-							clearTimeout(this.valObj);					
-							this.endeds();					
-						}
-				}, 50);				
-			},
-			getSc(){
-				let len1 = this.navcoms.media.length;
-				let maxTime =0;
-				if(len1>0){
-					maxTime = this.backTim(this.navcoms.media[len1-1]);
-				}
-				for(let i=0,n=this.navcoms.decorates.length;i<n;i++){
-					let ob = this.navcoms.decorates[i];
-					for(let i2=0,n2=ob.length;i2<n2;i2++){
-						let maxd =  this.backTim(ob[i2]);
-						if(maxd>maxTime){
-							maxTime = maxd;
-						}
-					}
-					
-				}
-				
-				return maxTime;
-			},
 			timeupdatevideo() {
 				this.checkAdio();
-				// let onT = this.$refs.vids.currentTime;						
-				// onT = onT?onT:0;
-				
-				// if (onT >= this.preview.previewObj.cut_end) {
-				// 	this.endeds();
-					
-				// }
 			},
 			timeupdatevideo2(){
 				let objd = this.navcoms.audio[0],
@@ -1768,12 +1558,14 @@
 				this.checkOn.list.push(doms);
 				let lasteln = this.backTim(doms);
 				
-				this.setTdjl(lasteln);
+				
 				
 				if(this.playT==1 || this.playT==2){
 					this.puandFn()
 				}
 				this.setPreviewTimes('','del',1);
+				
+				this.setTdjl(lasteln);
 				this.drmOn();
 			},
 			cats() {
@@ -1913,20 +1705,51 @@
 				let sdas = this.tdjl * pd;
 				return this.backto(sdas/210*this.fdjb);
 			},
-			setTdjl(t){
-				let widtime = this.backto(this.getBur(this.$refs.gdbox).width/210*this.fdjb);
-				let tdTim = this.getTdtim();
-				if(t>widtime+tdTim){
-					
-					let sytm = this.preview.maxTime-t;
-					if(sytm<widtime){
-						let onsd = widtime-sytm;
-						t = t-onsd+2;
+			
+			getOneWidthTime(){
+				return this.backto(this.getBur(this.$refs.gdbox).width/210*this.fdjb);				
+			},
+			getJdtTime(){
+				let len2xx = this.$refs.gund_01x.offsetWidth;
+				let pd = this.tdjl/len2xx;
+				return pd*this.preview.maxTime;
+				
+			},
+			setJdtX(t){
+				let len2xx = this.$refs.gund_01x.offsetWidth;
+				this.tdjl = t/this.preview.maxTime*len2xx;
+	
+			},
+			setTdjl(t){				
+				/*一屏时间*/
+				let widtime = this.getOneWidthTime();
+				let tdTim = this.getJdtTime();
+				let onlast = tdTim+widtime;
+				let pt = onlast -t;		
+				if(pt>0){
+					return
+				}				
+				this.setJdtX(tdTim-pt);
+			},
+			checkPlayJd(){
+				let widtime = this.getOneWidthTime();
+				let tdTim = this.getJdtTime();
+				let onlast = tdTim+widtime;
+				
+				if(this.preview.onTime>onlast){
+					console.log(widtime);
+					console.log(tdTim);
+					let ttt = 0;
+					let syt = this.preview.maxTime-this.preview.onTime;
+					if(syt>=widtime){
+						ttt = tdTim+widtime;
+					}else{
+						ttt = tdTim+(widtime-syt);
 					}
-					this.settimfj(t)
+					this.setJdtX(ttt);
+					
 				}
 			},
-			
 			
 			settimfj(t){
 				let maxdxx = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
@@ -1941,15 +1764,7 @@
 				let ontime = this.preview.onTime;
 				let toTim = 0;
 				let endt = this.backTim(this.preview.previewObj);
-				let endx = this.getEndTiem();
-				let len23 = this.getBur(this.$refs.gdbox).width;
-				let maxLen = this.preview.maxTime/this.bl*this.wdk;
-				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
-				let len2 = this.$refs.gund_01x.offsetWidth;
 				
-				
-				let cdTime = this.backto(len23/210*this.fdjb);
-				let gunTime = this.getTdtim();
 				
 				
 				this.valObj = window.setInterval(() => {
@@ -1972,21 +1787,7 @@
 					
 					onT = onT?onT:0;				
 					
-					if(this.preview.onTime>gunTime+cdTime){
-						
-						let t = this.preview.onTime;
-						let sytm = this.preview.maxTime-this.preview.onTime;
-						
-						if(sytm<cdTime){
-							let onsd = cdTime-sytm;
-							t = t-onsd+1;
-						}
-						
-						this.settimfj(t)
-						
-						gunTime = this.getTdtim();
-						
-					}
+					this.checkPlayJd();
 					 
 					
 					if (this.preview.onTime >= endt) {

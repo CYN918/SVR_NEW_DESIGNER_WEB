@@ -179,7 +179,7 @@
 		<RPT ref="report"></RPT>
 		<unfollow @sussFn="unfollowSu" @suUnFn="showUnfoolow" ref="unfollow"></unfollow>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
-		<TcBox :config="outc"  @qFn="delComment" ref="tcBox"></TcBox>
+		<TcBox :config="outcx"  @qFn="delComment" ref="tcBox"></TcBox>
 		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 </template>
@@ -205,7 +205,7 @@ export default {
 			isYl:'',
 			
 			new_c_3focus:'',
-			outc:{
+			outcx:{
 				title:'删除评论',
 				scroll:1,
 				cent:'确定删除该条评论?',
