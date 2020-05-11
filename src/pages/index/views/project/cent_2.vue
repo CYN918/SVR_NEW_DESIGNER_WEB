@@ -1,29 +1,4 @@
 <template>
-	<!-- <div class="pr_cent2_1">
-		<div @click="openCent()" class="pr_cent2_2">
-			<img  class="pr_cent2_3" :src="deta.banner"/>
-			<div class="pr_cent2_rs" v-if="deta.status==1 || deta.status==2">{{deta.sign_up_num}}人已报名</div>
-			<div class="pr_cent2_r2" v-html="tips"></div>
-		</div>
-		<div class="pr_cent2_4">
-			<div @click="openCent()" class="pr_cent2_5">
-				<div class="pr_cent2_6">{{deta.name}}</div>
-				<div class="pr_cent2_7">项目类型：{{deta.classify_name}}</div>
-				<div class="pr_cent2_8">领域范围：<span v-for="(ed,index) in deta.fields">{{ed}}</span></div>	
-			</div>
-			<div class="pr_cent2_9">
-				<div class="pr_cent2_10" v-html="tip"></div>				
-				<div class="pr_cent2_11">
-					<div v-for="(els,index) in btns" @click="ckd(els.fn)" :class="['btns pend',els.cls]">{{els.n}}</div>
-				</div>				
-			</div>
-		</div>
-		
-		<div class="sjxd" v-if="deta.extra_reward && deta.extra_reward!='0.00'">
-			额外奖金¥{{deta.extra_reward}}
-		</div>
-		<component v-bind:is="tcZj"  :datad="tcData"></component>
-	</div> -->
 	<div class="pr_cent2_1">
 		<div @click="openCent()" class="pr_cent2_2">
 			<img  class="pr_cent2_3" :src="deta.banner"/>
@@ -264,6 +239,7 @@ export default {
 			return n<10?'0'+n:n;		
 		},
 		openCent(){
+			console.log(this.deta);
 			if(this.deta.id){
 				window.open('/#/prcent?id='+this.deta.id)
 			}
