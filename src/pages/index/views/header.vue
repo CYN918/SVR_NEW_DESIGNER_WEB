@@ -776,7 +776,7 @@ export default {
 	position: absolute;
 	top: 7px;
 	left: 7px;
-	background: #F4523B;
+	background: #FF9200;
 	min-width: 18px;
 	height: 18px;
 	line-height: 18px;

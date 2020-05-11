@@ -22,7 +22,7 @@
 					<div class="mylists" @mouseover="addClass($event, this)">
 						<div @click="openxq(todo)" class="myListBox_1">
 							<div class="mywus_n1" :style="backFm(todo.face_pic)"></div>
-							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
+							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':todo.status==0?'org':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
 						</div>
 						<div @click="openxq(todo)" class="myListBox_2">
 							<span class="myListBox_2_1" :title="todo.work_name">{{todo.work_name}}</span>
@@ -240,20 +240,24 @@ export default {
 	},
 	mounted() {
 		document.body.addEventListener('click', function(e) {
-			let needHandle = e.path.filter(ele => ele.className == 'mylists')
-			if (needHandle.length) return
-			document.querySelectorAll('.mylists').forEach(ele => {
-				let target = ele.querySelector('.myListBox_5')
-				let index = target.className.indexOf('_hover')
-				if (index > -1) target.className = 'myListBox_5'
+			let event = e || window.event;
+			let target = event.target || event.srcElement;
+			if (target.tagName == 'IMG' && target.src == 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg') return
+			document.querySelectorAll('.myListBox_5').forEach(item => {
+				item.classList.remove('_hover')
 			})
 		})
 	},
 	methods: {
 		addClass(e) {
-			let target = e.path.filter(ele => ele.className == 'mylists')
-			if (target && target.length) {
-				target[0].querySelector('.myListBox_5').className = 'myListBox_5 _hover'
+			let event = e || window.event;
+			let target = event.target || event.srcElement;
+			if (target && target.className == 'mywus_n1') {
+				let children = target.parentElement.parentElement.children, addTar;
+				for (let i in children) {
+					if (children[i].className == 'myListBox_5') addTar = children[i]
+				}
+				if (addTar) addTar.className = 'myListBox_5 _hover'
 			}
 		},
 		isMyAll() {
@@ -647,8 +651,8 @@ export default {
 .myListBox_1>.myListBox_1_2{
 	cursor: pointer;
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: 15px;
+	left: 15px;
 	border-radius: 0 5.08px 0 5.08px;
 	width: 99.6px;
 	height: 39.6px;
@@ -657,6 +661,10 @@ export default {
 }
 .myListBox_1>.balck{
 	background: rgba(0,0,0,.5);
+	color: #fff;
+}
+.myListBox_1>.org{
+	background: #FF9200;
 	color: #fff;
 }
 .myListBox_1>.wtg{
@@ -739,10 +747,10 @@ export default {
 .myListBox_5{
 	position: absolute;
 	right: 10px;top: 10px;
-	display: none;
+	visibility: hidden;
 }
 .myListBox_5._hover{
-	display: block;
+	visibility: visible;
 }
 .myListBox_5 .comonbtn{
 	width:124px;
