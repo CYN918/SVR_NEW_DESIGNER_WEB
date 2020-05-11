@@ -1,13 +1,13 @@
 <template>
 	<div>
 		<tophead :con="navData"></tophead>
-		<div class="draftboxd">
+		<div class="draftboxd" v-if="isMyAll()">
 			<div class="draftbox">
 				<!-- <span class="draftBtn" @click="goZP">草稿箱{{draftNum}}</span> -->
 				<span class="iconfont  messgeH1">
-					<span class="pend" @click="goZP">
+					<span class="pend" style="color: rgba(187,187,187,1);font-size:14px;" @click="goZP">
 						草稿箱
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/head/top2.svg"/>
+						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_wdcz_cgx.svg"/>
 						<div @click="goZP" v-if="draftNum && draftNum>0" :class="['messgeH2','customMess',draftNum>9?'messgeH2x':'']">
 							{{backXXnUM(draftNum)}}
 						</div>
@@ -19,7 +19,7 @@
 		<div class="csBox opodd">
 			<list :config="data" ref="listDom" :filter-data-func="filterDataFunc">
 				<template v-slot:todo="{ todo }">
-					<div class="mylists">
+					<div class="mylists" @mouseover="addClass($event, this)">
 						<div @click="openxq(todo)" class="myListBox_1">
 							<div class="mywus_n1" :style="backFm(todo.face_pic)"></div>
 							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
@@ -33,17 +33,27 @@
 							<span class="myListBox_3_1">{{todo.classify_1_name+'-'+todo.classify_2_name}}</span>
 							<span class="myListBox_3_2">{{backtime(todo.create_time)}}</span>
 						</div>
-						<div class="myListBox_4">
+						<div class="myListBox_4" v-if="!isMyAll()">
 							<span>最后修改日期:{{backtime(todo.create_time)}}</span>
 							<div class="handle-container">
 									<el-button @click="showTopc('delet',todo)">删除作品</el-button>
-									<el-button type="primary" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">编辑作品</el-button>
+									<el-button type="primary" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</el-button>
 									<el-button type="primary" @click="updata(todo)" v-else-if="todo.status!=0">编辑作品</el-button>
 							</div>
 							<!-- <span class="myListBox_4_1" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</span>
 							<span @click="updata(todo)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>					
 							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span> -->
-						</div>			
+						</div>
+						<div class="myListBox_5" v-if="isMyAll()">
+							<el-dropdown trigger="click" placement="bottom-end">
+								<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg" class="bt-Img">
+								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
+									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" v-if="todo.is_selected != 1 && todo.like_num < 5" @click.native="updata(todo)">编辑</el-dropdown-item>
+									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" v-else @click.native="showissetDatasXX(todo.work_id,todo.status)">修改设置</el-dropdown-item>
+									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" @click.native="showTopc('delet',todo)">删除</el-dropdown-item>
+								</el-dropdown-menu>
+							</el-dropdown>	
+						</div>		
 					</div>
 				</template>			
 			</list>
@@ -163,7 +173,7 @@ export default {
 				closeFn:'closeqd'
 			},
 			navData:{
-				title:'我的创作',
+				title: this.isMyAll() ? '我的创作' : '草稿箱',
 				// list:[
 				// 	{a:'/myAll',b:'全部'},
 				// 	{a:'/myExamine',b:'待审核'},
@@ -171,7 +181,7 @@ export default {
 				// 	{a:'/myNotPass',b:'未通过'},					
 				// 	{a:'/myDraft',b:'草稿'}
 				// ],
-				bdtj:'我的创作'				
+				bdtj: this.isMyAll() ? '我的创作' : '草稿箱'				
 			},
 			form:{labels:[]},
 			selectedOptions:[],
@@ -228,7 +238,27 @@ export default {
 			this.$refs.listDom.getData();
 		},
 	},
+	mounted() {
+		document.body.addEventListener('click', function(e) {
+			let needHandle = e.path.filter(ele => ele.className == 'mylists')
+			if (needHandle.length) return
+			document.querySelectorAll('.mylists').forEach(ele => {
+				let target = ele.querySelector('.myListBox_5')
+				let index = target.className.indexOf('_hover')
+				if (index > -1) target.className = 'myListBox_5'
+			})
+		})
+	},
 	methods: {
+		addClass(e) {
+			let target = e.path.filter(ele => ele.className == 'mylists')
+			if (target && target.length) {
+				target[0].querySelector('.myListBox_5').className = 'myListBox_5 _hover'
+			}
+		},
+		isMyAll() {
+			return this.$route.name == 'myAll'
+		},
 		backXXnUM(n) {
 			if (n > 999) return 999
 			return n
@@ -250,6 +280,10 @@ export default {
 		init(){
 			// this.data.pr.status =  this.isTypeList[this.$route.name];
 			this.data.pr.status =  'all';
+			this.navData = {
+				title: this.isMyAll() ? '我的创作' : '草稿箱',
+				bdtj: this.isMyAll() ? '我的创作' : '草稿箱'
+			}
 		},
 		backFm(ur){
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
@@ -701,6 +735,23 @@ export default {
 .myListBox_4>span:hover{
 	color: #33B3FF;
 } */
+
+.myListBox_5{
+	position: absolute;
+	right: 10px;top: 10px;
+	display: none;
+}
+.myListBox_5._hover{
+	display: block;
+}
+.myListBox_5 .comonbtn{
+	width:124px;
+	height:32px;
+	margin:0;
+	line-height:32px;
+	text-align: right;
+	padding-right: 10px;
+}
 
 .myListBox_6{
 	position: fixed;

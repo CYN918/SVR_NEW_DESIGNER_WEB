@@ -5,7 +5,7 @@
                 <el-col :span="24">
                     <el-card class="commonCard">
                         <div slot="header">
-                            <span>上传作品</span>
+                            <span>作品信息</span>
                         </div>
                         <el-form>
                             <el-form-item>
@@ -14,7 +14,7 @@
                                         <el-input v-model="form.work_name" placeholder="请输入作品标题" maxlength="50" show-word-limit @blur="checkValue('title')"></el-input>
                                         <span class="btBlue"></span>
                                     </el-col>
-                                    <el-col v-show="nameNull" :span="5" class="notice">请输入作品标题</el-col>
+                                    <el-col v-show="nameNull" :span="5" class="notice"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/warning-circle.svg" alt="" />请输入作品标题</el-col>
                                 </el-row>
                             </el-form-item>
                             <el-form-item>
@@ -41,7 +41,7 @@
                                             </el-option>
                                         </el-select>
                                     </el-col>
-                                    <el-col v-show="typeNull" :offset="2" :span="5" class="notice">请选择作品类型</el-col>
+                                    <el-col v-show="typeNull" :offset="2" :span="5" class="notice"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/warning-circle.svg" alt="" />请选择作品类型</el-col>
                                 </el-row>
                             </el-form-item>
                             <el-form-item>
@@ -49,8 +49,14 @@
                                     <el-col :span="24" ref="asdsss">
                                         <vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content" ></vue-ueditor-wrap>
                                         <div class="uploadBtn">
-                                            <span @click="showUp(0,'上传图片')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_sctp.svg" alt="" />上传图片</span>
-                                            <span @click="showUp(1,'上传视频')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_scsp.svg" alt="" />上传视频</span>
+                                            <span>
+												<img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_sctp.svg" alt="" />上传图片
+												<input @change="(file) => showUp(0,'上传图片', file)" class="uploadBoxd2_2_2_1" ref="upnfile" :accept="upList[0].typexz"  multiple="multiple" type="file" />
+											</span>
+                                            <span>
+												<img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_scsp.svg" alt="" />上传视频
+												<input @change="(file) => showUp(1,'上传视频', file)" class="uploadBoxd2_2_2_2" ref="upnfile" :accept="upList[1].typexz"  multiple="multiple" type="file" />
+											</span>
                                         </div>
                                     </el-col>
                                 </el-row>
@@ -125,14 +131,15 @@
                         <el-radio v-model="form.attachment_visible" label="0">仅自己可见</el-radio>
                         <el-radio v-model="form.attachment_visible" label="1">所有人可见</el-radio>
                     </el-card>
-                    <el-card class="commonCard" v-if="checkisptggr()">
+                    <el-card class="commonCard">
                         <div slot="header">
                             <span>设为投稿作品 <span class="description">若作品符合需求，平台会联系你沟通收录细节</span></span>
                         </div>
-                        <div class="page2_1_7_r">
+                        <div class="page2_1_7_r" v-if="checkisptggr()">
                             <el-radio v-model="form.is_platform_work" label="1">是</el-radio>
                             <el-radio v-model="form.is_platform_work" label="0">否</el-radio>
                         </div>
+						<div class="certification" v-else>你还不是供稿人，现在<span @click="goZP">立即认证</span>，享受你的作品收益</div>
                     </el-card>
                 </el-col>
             </el-row>
@@ -160,11 +167,13 @@ import uploadFm from './uploadFm';
 import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 import TcBox from '../../components/TcBox'
+import UploadImagMixin from './uploadImag'
 export default {
-	name: 'index',
-	components:{VueUeditorWrap,UplodImg,uploadFm,TcBox},
-	data(){
-		return{
+    name: 'index',
+	components: { VueUeditorWrap,  UplodImg, uploadFm, TcBox},
+	mixins: [UploadImagMixin],
+    data(){
+        return {
             inputVisible: false,
             nameNull: false,
             typeNull: false,
@@ -201,7 +210,11 @@ export default {
 				autoHeightEnabled: false,
 				initialFrameHeight: 500,
 				initialFrameWidth: '100%',
-				UEDITOR_HOME_URL: '/UEditor/'
+				UEDITOR_HOME_URL: '/UEditor/',
+				elementPathEnabled: false,
+				wordCount: false,
+				// autoFloatEnabled: false,
+				toolbars: [ ['undo', 'redo', '|', 'combox', 'link', 'justifyleft', 'justifycenter', 'justifyright'] ]
 			},			
 			isshowd:false,
 			upList:[
@@ -322,6 +335,9 @@ export default {
 		this.getUserDetail();
 	}, 
 	methods: {
+		goZP() {
+			this.$router.push({ path: '/setRz' })
+		},
         checkValue(type) {
             if (type == 'title') {
                 if (this.form.work_name == '') this.nameNull = true
@@ -593,7 +609,7 @@ export default {
 					this.ifBjType=0;
 				}	
 			});
-
+			
 		},
 		closed(cr){
 			
@@ -607,9 +623,19 @@ export default {
 				this.ifBjType=0;
 			}
 		},
-		showUp(on,a){
-			this.bdtj('上传作品-编辑作品类容',a,'--');
-			this.upConfig = this.upList[on];
+		showUp(on,a,file){
+			// this.bdtj('上传作品-编辑作品类容',a,'--');
+			
+			this.configData = this.upList[on];
+			// this.initUploadConfig()
+			// console.log(this.typexz)
+			if(this.ifBjType == 0){
+				this.ifBjType = 1;
+				this.form.content = '';
+			}
+			this.fileUp(file)
+
+			return
 			
 			this.tanData = {
 				zj:'UplodImg'
@@ -623,9 +649,8 @@ export default {
 			
 		},
 		inImg(list,ids){
-		
 			let str = '';
-			if(this.upConfig.type[0]=='image/gif'){
+			if(this.configData.type[0]=='image/gif'){
 				list.map((el,index)=>{
 					str+='<p style="max-width:100%;height:auto;"><img zk_workid="'+ids[index]+'" style="max-width:100%;height:auto" src="'+el+'"/></p>';
 				});								
@@ -635,7 +660,7 @@ export default {
 				
 			}
 			
-			if(this.upConfig.type[0]=='video/mp4'){
+			if(this.configData.type[0]=='video/mp4'){
 				list.map((el,index)=>{
 					str+='<p style="display:none">1</p><p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
 				});
@@ -645,7 +670,7 @@ export default {
 				
 				return
 			}
-			if(this.upConfig.type[0]=='audio/ogg'){
+			if(this.configData.type[0]=='audio/ogg'){
 				list.map((el,index)=>{					
 					str+='<p style="display:none">1</p><p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio zk_workid="'+ids[index]+'" style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
 				});
@@ -957,6 +982,10 @@ export default {
     color: #f56c6c;
     text-align: right;
 }
+.notice img{
+	vertical-align: middle;
+	margin-right: 8px;
+}
 .btBlue{
     display: inline-block;
     vertical-align: middle;
@@ -970,7 +999,7 @@ export default {
 .uploadBtn{
     position: absolute;
     right: 30px;top: 0;
-    z-index: 9998;
+    z-index: 9997;
 }
 .uploadBtn span:hover{
     opacity: .7;
@@ -982,6 +1011,21 @@ export default {
 .uploadBtn img{
     vertical-align: middle;
     margin-right: 8px;
+}
+.uploadBtn input {
+	position: absolute;
+    width: 86px;
+    height: 16px;
+    opacity: 0;
+    top: 50%;
+    margin-top: -8px;
+	z-index: 9998;
+}
+.uploadBoxd2_2_2_1{
+	left: 20px;
+}
+.uploadBoxd2_2_2_2{
+	right: 0px;
 }
 .page2_1_2{
 	position: relative;
@@ -1146,11 +1190,51 @@ export default {
     font-size: 12px;
     color: #999;
 }
+.certification{
+	color: #999;
+	font-size: 14px;
+}
+.certification span{
+	color: #33B3FF;
+	cursor: pointer;
+}
 .handleContainer{
     margin: 30px 0;
     text-align: center;
 }
 .handleContainer .el-button{
     min-width: 120px;
+}
+
+/* 编辑器样式 */
+.edui-default .edui-editor-toolbarboxouter{
+	background: #fff!important;
+}
+div.edui-box{
+	vertical-align: middle!important;
+}
+.edui-default .edui-list .edui-state-hover{
+	border: none!important;
+	background: none!important;
+	color: #33B3FF!important;
+	padding: 1px!important;
+}
+.edui-default .edui-toolbar .edui-combox .edui-combox-body{
+	border: none!important;
+}
+.edui-default .edui-toolbar .edui-state-hover .edui-combox-body{
+	background-color: #fff!important;
+}
+.edui-default .edui-toolbar .edui-button, .edui-default .edui-toolbar .edui-splitbutton, .edui-default .edui-toolbar .edui-menubutton, .edui-default .edui-toolbar .edui-combox{
+	margin: 0 8px!important;
+}
+.edui-default .edui-toolbar .edui-combox-body .edui-splitborder{
+	display: none!important;
+}
+.edui-default .edui-toolbar .edui-combox-body .edui-arrow{
+	border: none!important;
+}
+.edui-default .edui-toolbar .edui-combox-body .edui-button-body{
+	width: 40px!important;
 }
 </style>

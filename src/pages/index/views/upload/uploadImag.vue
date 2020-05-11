@@ -195,7 +195,7 @@ export default {
 			this.deletOn.splice(lend,1);
 		},
 		getList(){
-			if(this.configData){
+			if(this.configData && this.configData.length){
 				for(let i=0,n=this.configData.length;i<n;i++){
 					this.typexz+=','+this.configData.type;
 				}

@@ -324,6 +324,7 @@ export default {
 			this.addComment(b,c,d);
 		},
 		addLikeNe(a,b,c,d){
+			console.log(a,b,c,d)
 			if(this.isYl){return}
 			this.bdtj('详情页',a,'--')
 			this.addLike(b,c,d);
