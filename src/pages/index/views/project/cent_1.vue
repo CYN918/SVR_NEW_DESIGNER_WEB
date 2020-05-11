@@ -1,56 +1,4 @@
 <template>
-	<!-- <div class="pr_list_01" @click="openCent">
-		<div class="pr_list_02" :style="'background-image: url('+backBan(el.banner)+')'"></div>
-		<div class="pr_list_02x">
-			<div class="pr_list_03 pp_wnz" 
-			 
-			:style="setTil(el.name)" 
-			v-html="bakci(el.name,iscre)"></div>
-			
-			<div class="pr_list_04">
-				项目类型：<span>{{el.classify_name}}</span><i></i>制作周期：<span>13天</span> 
-			</div>
-			<div class="pr_list_05">
-				<span v-for="ed in el.fields">{{ed}}</span>
-			</div>
-			<div class="pr_list_06">
-				<img :src="imgPath+'project/03.svg'"/>预计收益
-			</div>
-			<div class="pr_list_07">
-				<span class="pr_list_07_1">
-					{{el.expected_profit}}
-				</span>
-				<span  class="pr_list_07_2" v-if="el.extra_reward && el.extra_reward!='0.00'">
-					<img :src="imgPath+'new/project/icon_ewjj.svg'"/> + ¥{{el.extra_reward}}
-					
-					<div class="tip_ew">
-						有额外奖金的项目，通常为交稿时间较急、或难度较大，也可能会是平台福利项目，额外奖金将在正常项目验收后计入最终成交价格内。
-					</div>
-				</span>
-			</div>			
-			<div class="pr_list_08">
-				<span>
-					<span class="pr_list_06">
-						<img :src="imgPath+'project/10.svg'"/>已报名人数
-					</span>
-					<div class="pr_list_08_1">{{el.sign_up_num}}<span>人</span></div>
-				</span>
-				<i></i>
-				<span >
-					<span class="pr_list_06">
-						<img  :src="imgPath+'project/01.svg'"/>报名时间
-					</span>
-					
-					<span>
-						<div class="pr_cent_2_9" v-html="djtime"></div>
-					</span>					
-				</span>
-			</div>
-		</div>
-		
-		
-		
-	</div>	 -->
 	<div class="pr_list_01" @click="openCent">
 		<div class="pr_list_02" :style="'background-image: url('+backBan(el.banner)+')'"></div>
 		<div class="pr_list_02" v-if="el.banner == ''" :style="'background-image: url('+imgSig+'toltImg/Zoocreators_logo.svg'+')'"></div>
@@ -141,7 +89,8 @@ export default {
 		},
 		openCent(){
 			if(this.el.special_url){
-				window.open(this.el.special_url + '?id=' + this.el.id);			
+				let rul = this.el.special_url.split('?')[0];
+				window.open(rul+'?id='+this.el.id);					
 				return
 			}
 			if(this.el.id){
