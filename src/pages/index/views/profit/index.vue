@@ -333,9 +333,10 @@ export default {
     text-align: right;
 }
 .pbx_n_01>div{
-	display: inline-block;
+	/* display: inline-block; */
+	float: left;
 	vertical-align: top;
-	width: 275px;
+	width: 415px;
 	height: 175px;
 	border-right: 1px solid rgba(244,246,249,1);
 }
