@@ -727,7 +727,7 @@
 					
 					
 					a.onload = () => {
-						console.log(obd);
+						
 						this.drmBg();
 						this.cans.drawImage(a,obd.sx,obd.sy,obd.sw,obd.sh,obd.x,obd.y,obd.w,obd.h);
 					}
@@ -1747,8 +1747,7 @@
 				let onlast = tdTim+widtime;
 				
 				if(this.preview.onTime>onlast){
-					console.log(widtime);
-					console.log(tdTim);
+					
 					let ttt = 0;
 					let syt = this.preview.maxTime-this.preview.onTime;
 					if(syt>=widtime){
@@ -1814,14 +1813,9 @@
 			setVwh(){
 				
 				let domd = this.$refs.vidobox.getBoundingClientRect();
-											console.log(domd);
 				this.boxH = parseInt(domd.height);
 				this.boxW = parseInt((domd.height/16)*9);
 				this.zoomd = this.boxW/391;
-<<<<<<< HEAD
-=======
-				
->>>>>>> myWork
 			},
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
@@ -1831,16 +1825,11 @@
 				
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false);
-<<<<<<< HEAD
-				window.addEventListener('click',this.clickfns,false);				
-				this.zoomd = this.boxW/391;				
-				this.$refs.cavs.width = 191;
-				this.$refs.cavs.height = 340;
-=======
+
 				window.addEventListener('click',this.clickfns,false);
 				this.$refs.cavs.width = this.boxW;
 				this.$refs.cavs.height = this.boxH;
->>>>>>> myWork
+
 				this.cans = this.$refs.cavs.getContext("2d");
 				this.cans.fillStyle = "#000";
 				this.cans.fillRect(0, 0, this.boxW, this.boxH);
