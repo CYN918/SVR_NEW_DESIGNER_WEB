@@ -5,9 +5,9 @@
 			<div class="draftbox">
 				<!-- <span class="draftBtn" @click="goZP">草稿箱{{draftNum}}</span> -->
 				<span class="iconfont  messgeH1">
-					<span class="pend" style="color: rgba(187,187,187,1);font-size:14px;" @click="goZP">
+					<span class="pend" style="color: #bbb;font-size:14px;" @click="goZP">
 						草稿箱
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_wdcz_cgx.svg"/>
+						<img style="margin-left:10px;width:23px;height:16px;" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_wdcz_cgx.svg"/>
 						<div @click="goZP" v-if="draftNum && draftNum>0" :class="['messgeH2','customMess',draftNum>9?'messgeH2x':'']">
 							{{backXXnUM(draftNum)}}
 						</div>
@@ -17,14 +17,32 @@
 			</div>
 		</div>
 		<div class="csBox opodd">
-			<list :config="data" ref="listDom" :filter-data-func="filterDataFunc">
+			<list :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
 					<div class="mylists" @mouseover="addClass($event, this)">
 						<div @click="openxq(todo)" class="myListBox_1">
 							<div class="mywus_n1" :style="backFm(todo.face_pic)"></div>
 							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':todo.status==0?'org':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
 						</div>
-						<div @click="openxq(todo)" class="myListBox_2">
+						<div class="wk_a_2 custom_wk_a_2">
+							<div class="wk_a_2_1">
+							
+								<span class="hft">{{todo.work_name}}</span>
+								<img v-if="todo.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg" />
+							</div>
+							<div class="wk_a_2_2">
+								<span>{{todo.classify_1_name}}</span>{{todo.classify_2_name+'-'+todo.classify_3_name}}
+								<i v-if="!isMyAll()" style="float:right">{{backtime(todo.create_time)}}</i>
+							</div>
+							<div v-if="isMyAll()" class="wk_a_2_3">
+								<span v-for="(eld,index) in icons" :key="index" class="pend"><img :src="eld.i">{{todo[eld.n]}}</span>
+
+							</div>
+						</div>
+						<div v-if="isMyAll()" class="wk_a_2_4">
+							<span>{{backtime(todo.create_time)}}</span>
+						</div>
+						<!-- <div @click="openxq(todo)" class="myListBox_2">
 							<span class="myListBox_2_1" :title="todo.work_name">{{todo.work_name}}</span>
 							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg">
 						</div>
@@ -32,7 +50,7 @@
 						<div @click="openxq(todo)" class="myListBox_3">
 							<span class="myListBox_3_1">{{todo.classify_1_name+'-'+todo.classify_2_name}}</span>
 							<span class="myListBox_3_2">{{backtime(todo.create_time)}}</span>
-						</div>
+						</div> -->
 						<div class="myListBox_4" v-if="!isMyAll()">
 							<span>最后修改日期:{{backtime(todo.create_time)}}</span>
 							<div class="handle-container">
@@ -45,14 +63,20 @@
 							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span> -->
 						</div>
 						<div class="myListBox_5" v-if="isMyAll()">
-							<el-dropdown trigger="click" placement="bottom-end">
+							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg" class="bt-Img">
+							<div class="moreHandleContainer">
+								<div v-if="todo.is_selected != 1 && todo.like_num < 5" @click.native="updata(todo)">编辑</div>
+								<div v-else @click.native="showissetDatasXX(todo.work_id,todo.status)">修改设置</div>
+								<div @click.native="showTopc('delet',todo)">删除</div>
+							</div>
+							<!-- <el-dropdown trigger="click" placement="bottom-end">
 								<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg" class="bt-Img">
 								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
 									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" v-if="todo.is_selected != 1 && todo.like_num < 5" @click.native="updata(todo)">编辑</el-dropdown-item>
 									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" v-else @click.native="showissetDatasXX(todo.work_id,todo.status)">修改设置</el-dropdown-item>
 									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" @click.native="showTopc('delet',todo)">删除</el-dropdown-item>
 								</el-dropdown-menu>
-							</el-dropdown>	
+							</el-dropdown>	 -->
 						</div>		
 					</div>
 				</template>			
@@ -162,6 +186,12 @@ export default {
 	name: 'myAll',
 	data(){
 		return {
+			icons:[
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_gk.svg',n:'view_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_dz.svg',n:'like_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_xx.svg',n:'comment_num'},
+				
+			],
 			config:{
 				title:'作品修改设置：音乐测试',
 			},
@@ -212,11 +242,11 @@ export default {
 			},
 			upType:'',			
 			isTypeList:{
-				myAll:'all',
-				myExamine:'0',
-				myNotPass:'-2',
-				myPass:'2',
-				myDraft:'-1'
+				myAll:[0, 2],
+				// myExamine:'0',
+				// myNotPass:'-2',
+				// myPass:'2',
+				myDraft:[-1, -2]
 			},
 			draftNum: 0
 		}
@@ -242,13 +272,29 @@ export default {
 		document.body.addEventListener('click', function(e) {
 			let event = e || window.event;
 			let target = event.target || event.srcElement;
-			if (target.tagName == 'IMG' && target.src == 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg') return
+			if (target.tagName == 'IMG' && target.src == 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg') {
+				target.parentElement.querySelector('.moreHandleContainer').classList.add('trigger')
+				return
+			}
 			document.querySelectorAll('.myListBox_5').forEach(item => {
 				item.classList.remove('_hover')
+			})
+			document.querySelectorAll('.trigger').forEach(item => {
+				item.classList.remove('trigger')
 			})
 		})
 	},
 	methods: {
+		// bakci(sr,ck){
+			
+		// 	let on = sr.indexOf(ck);
+		// 	if(on==-1){
+		// 		return sr;
+		// 	}
+			
+		// 	var re =new RegExp(ck);
+		// 	return sr.replace(re,"<span>"+ck+"</span>")
+		// },
 		addClass(e) {
 			let event = e || window.event;
 			let target = event.target || event.srcElement;
@@ -270,24 +316,36 @@ export default {
 		goZP() {
 			this.$router.push({ path: '/myDraft' })
 		},
-		filterDataFunc(data) {
-			const statusOptions = this.$route.name == 'myAll' ? ['0', '2'] : ['-1', '-2']
-			this.draftNum = data.filter(item => item.status == '-1' || item.status == '-2').length
-			return data.filter(item => statusOptions.indexOf(item.status) > -1)
-		},
+		// filterDataFunc(data) {
+		// 	const statusOptions = this.$route.name == 'myAll' ? ['0', '2'] : ['-1', '-2']
+		// 	this.draftNum = data.filter(item => item.status == '-1' || item.status == '-2').length
+		// 	return data.filter(item => statusOptions.indexOf(item.status) > -1)
+		// },
 		show(){
 			this.$refs.tcBox.show();
 		},
 		close(){
 			this.$refs.tcBox.close();
 		},
+		loadUnreadNum() {
+			this.api['getUnreadNum']({}).then(res => {
+				this.draftNum = res.num
+				console.log(this.draftNum)
+			})
+		},
+		draftUnread() {
+			this.api['draftUnread']({}).then(res => {
+			})
+		},
 		init(){
-			// this.data.pr.status =  this.isTypeList[this.$route.name];
-			this.data.pr.status =  'all';
+			this.data.pr.status =  this.isTypeList[this.$route.name].join(',');
+			// this.data.pr.status =  'all';
 			this.navData = {
 				title: this.isMyAll() ? '我的创作' : '草稿箱',
 				bdtj: this.isMyAll() ? '我的创作' : '草稿箱'
 			}
+			this.loadUnreadNum()
+			if (this.$route.name == 'myDraft') this.draftUnread()
 		},
 		backFm(ur){
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
@@ -513,6 +571,19 @@ export default {
 </script>
 
 <style scoped="scoped">
+.custom_wk_a_2{
+	border-bottom: 1px solid #F4F6F9;
+}
+.wk_a_2_2 i{
+	font-style: normal;
+}
+.wk_a_2_4{
+	font-size: 12px;
+	color: #bbb;
+	height: 45px;
+	line-height: 45px;
+	margin: 0 15px;
+}
 .draftboxd{
 	position: relative;
 	width: 1300px;
@@ -529,7 +600,9 @@ export default {
 	cursor: pointer;
 }
 .customMess{
-	top: -10px;left: 60px;
+	top: -10px;left: 66px;
+	height: 16px;
+	min-width: 16px;
 }
 .mylists{
 	margin: 0 20px 20px 0;
@@ -628,6 +701,7 @@ export default {
 	width: 308px;
 	height: 231.6px;
 	overflow: hidden;
+	margin-bottom: 10px;
 }
 .myListBox_1>.myListBox_1_1{	
 	position: absolute;
@@ -653,10 +727,11 @@ export default {
 	position: absolute;
 	top: 15px;
 	left: 15px;
-	border-radius: 0 5.08px 0 5.08px;
-	width: 99.6px;
-	height: 39.6px;
-	line-height: 39.6px;
+	border-radius: 3px;
+	width: 52px;
+	height: 22px;
+	font-size: 12px;
+	line-height: 22px;
 	text-align: center;
 }
 .myListBox_1>.balck{
@@ -670,7 +745,7 @@ export default {
 .myListBox_1>.wtg{
 	
 	color: #fff;
-	background: rgba(255,0,0,.7);
+	background: #FF3B30;
 }
 .myListBox_2{
 	text-align: left;
@@ -710,16 +785,17 @@ export default {
 }
 .myListBox_4{
 	width: 100%;
-	height: 72px;
+	height: 80px;
 	/* margin: 0 10px 0; */
 	text-align: center;
 	position: absolute;
-	bottom: -72px;
+	bottom: -80px;
 	background: #fff;
 	transition: bottom 0.3s;
 	font-size: 12.19px;
     color: #878787;
     line-height: 17px;
+	padding-top: 13px;
 }
 .myListBox_4 .handle-container{
 	margin: 10px 0;
@@ -746,20 +822,44 @@ export default {
 
 .myListBox_5{
 	position: absolute;
-	right: 10px;top: 10px;
+	right: 0;top: 0;
 	visibility: hidden;
 }
 .myListBox_5._hover{
 	visibility: visible;
 }
-.myListBox_5 .comonbtn{
+.myListBox_5 .moreHandleContainer{
+	visibility: hidden;
+	width: 68px;
+	padding: 5px 0;
+	text-align: center;
+	font-size: 14px;
+	color: #333;
+	border-radius: 5px;
+	position: absolute;
+	right: 16px;top: 33px;
+	background: #fff;
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+}
+.myListBox_5 .moreHandleContainer.trigger{
+	visibility: visible;
+}
+.myListBox_5 .moreHandleContainer div{
+	height: 44px;
+	line-height: 44px;
+	background: #fff;
+}
+.myListBox_5 .moreHandleContainer div:hover{
+	background: #F2F2F2;
+}
+/* .myListBox_5 .comonbtn{
 	width:124px;
 	height:32px;
 	margin:0;
 	line-height:32px;
 	text-align: right;
 	padding-right: 10px;
-}
+} */
 
 .myListBox_6{
 	position: fixed;

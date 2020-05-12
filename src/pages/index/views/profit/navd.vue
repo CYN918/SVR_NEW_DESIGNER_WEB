@@ -6,7 +6,7 @@
 			<a :class="['pend',ison=='/qtsy'?'router-link-active':'']" @click="goZP('/qtsy','其他收益')">其他收益</a>
 			<a :class="['last pend',ison=='/money'?'router-link-active':'']" @click="goZP('/money','提现记录')">提现记录</a>
 			<div class="pr_seBox">
-				<!-- <div v-if="ison == '/divided'">
+				<div v-if="ison == '/divided'">
 					<el-select @change="change1" v-model="work_id" placeholder="请选择" class="t-select">
 						<el-option
 						v-for="(item,index) in config.options"
@@ -15,7 +15,7 @@
 						:value="item.name">
 						</el-option>
 					</el-select>
-				</div> -->
+				</div>
 				<div v-if="ison == '/profit'">
 					筛选：
 					<el-select @change="sxFn2" v-model="v2" placeholder="请选择">

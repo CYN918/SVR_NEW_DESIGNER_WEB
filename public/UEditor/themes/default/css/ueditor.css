@@ -432,11 +432,46 @@ div.edui-box {
     width: 9px;
 }
 .edui-default .edui-toolbar .edui-combox-body .edui-arrow{
-	background: url(../images/arrowdown.png) no-repeat 0 2px;
+	background: url(../images/arrowdown.png) no-repeat 0 0;
     height: 20px;
     width: 18px;
 }
-
+.edui-default .edui-for-justifyleft .edui-icon{
+    background: url(../images/left_justify.png) no-repeat 100% 100%!important;
+    background-size: cover!important;
+}
+.edui-default .edui-for-justifyleft .edui-state-checked .edui-icon{
+    background: url(../images/left_justify_hover.png) no-repeat 100% 100%!important;
+    background-size: cover!important;
+}
+.edui-default .edui-for-justifyleft .edui-state-hover .edui-icon{
+    background: url(../images/left_justify_hover.png) no-repeat 100% 100%!important;
+    background-size: cover!important;
+}
+.edui-default .edui-for-justifycenter .edui-icon{
+    background: url(../images/center_justify.png) no-repeat 100% 100%!important;
+    background-size: cover!important;
+}
+.edui-default .edui-for-justifycenter .edui-state-checked .edui-icon{
+    background: url(../images/center_justify_hover.png) no-repeat 100% 100%!important;
+    background-size: cover!important;
+}
+.edui-default .edui-for-justifycenter .edui-state-hover .edui-icon{
+    background: url(../images/center_justify_hover.png) no-repeat 100% 100%!important;
+    background-size: cover!important;
+}
+.edui-default .edui-for-justifyright .edui-icon{
+    background: url(../images/right_justify.png) no-repeat 100% 100%!important;
+    background-size: cover!important;
+}
+.edui-default .edui-for-justifyright .edui-state-checked .edui-icon{
+    background: url(../images/right_justify_hover.png) no-repeat 100% 100%!important;
+    background-size: cover!important;
+}
+.edui-default .edui-for-justifyright .edui-state-hover .edui-icon{
+    background: url(../images/right_justify_hover.png) no-repeat 100% 100%!important;
+    background-size: cover!important;
+}
 .edui-default .edui-toolbar .edui-combox .edui-combox-body {
     border: 1px solid #CCC;
     background-color: white;
@@ -496,11 +531,11 @@ div.edui-box {
     position: relative;
 }
 
-.edui-default .edui-toolbar .edui-button .edui-state-hover .edui-button-wrap {
+/* .edui-default .edui-toolbar .edui-button .edui-state-hover .edui-button-wrap {
     background-color: #fff5d4;
     padding: 0;
     border: 1px solid #dcac6c;
-}
+} */
 
 .edui-default .edui-toolbar .edui-button .edui-state-checked .edui-button-wrap {
     background-color: #ffe69f;
