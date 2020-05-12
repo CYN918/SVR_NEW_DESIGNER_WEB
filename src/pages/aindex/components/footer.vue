@@ -34,7 +34,7 @@ export default {
 	text-align: center;
 	color: #fff;
 	box-sizing: border-box;
-    background: url(/imge/svg/bottom_bg.svg) no-repeat 0/100%;
+    background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/bottom_bg.svg) no-repeat 0/100%;
 }
 .footerlog{	
 	display: inline-block;

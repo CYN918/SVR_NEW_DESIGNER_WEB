@@ -15,6 +15,9 @@
 <script>
 export default {
     name: 'nav_right',
+	props:{
+		deta:Object,
+	},
     data(){
         return {
             isShow:false,
@@ -86,7 +89,7 @@ export default {
             this.$parent.sharc();
         },
         upload(){
-            window.open("http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes");
+			window.open("http://wpa.qq.com/msgrd?v=3&uin="+ this.deta.qq + "&site=qq&menu=yes");
         },
         go_weibo(){
             this.$router.push({path:'/help?on=4-02'});

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="ntob">
-			
+			<!--header-->
 			<div class="ntob_head">
 				<div @click="backs()" class="noto_back">
 					<i class="icon_jt_left"></i>返回
@@ -19,14 +19,20 @@
 				</div>
 			</div>
 			
-			
+			<!--center-->
 			<div class="ntob_cent">
 				<div class="ntob_cent_l" >
 					<div class="ntob_cent_lxbo" ref="vidobox">
 					<div class="videoBox" :style="'width:'+boxW+'px;height:'+boxH+'px'">
 						<canvas class="videoBox1" ref="cavs"></canvas>
-						<video @timeupdate="timeupdatevideo" muted @ended="cksd()" @loadeddata="csy" id="boxf" class="ntob_cent_l_1"
-						 :src="video" ref="vids"></video>
+						<video 
+						@timeupdate="timeupdatevideo" 
+						muted 
+						@ended="cksd()" 
+						@loadeddata="csy" 
+						id="boxf" 
+						class="ntob_cent_l_1"
+						ref="vids"></video>
 						<div class="debox_01">
 							<div v-for="(el,index) in navcoms.decorates" :class="playT==1?'setop':''">
 								<span v-for="(el2,index2) in el">
@@ -92,6 +98,7 @@
 			</div>
 		</div>
 			
+		<!--footer-->
 		<div class="ntob_footer">
 			<div class="ntob_footer_1">
 				<div class="ntob_footer_1_1"></div>
@@ -717,7 +724,10 @@
 					this.drmBg();
 					let a = document.createElement('img');
 					a.src = obd.file_url;
+					
+					
 					a.onload = () => {
+						console.log(obd);
 						this.drmBg();
 						this.cans.drawImage(a,obd.sx,obd.sy,obd.sw,obd.sh,obd.x,obd.y,obd.w,obd.h);
 					}
@@ -1807,7 +1817,6 @@
 				this.boxH = parseInt(domd.height);
 				this.boxW = parseInt((domd.height/16)*9);
 				this.zoomd = this.boxW/391;
-			
 			},
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
@@ -1817,12 +1826,10 @@
 				
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false);
-				window.addEventListener('click',this.clickfns,false);
-				
-				this.zoomd = this.boxW/391;
-				
-				this.$refs.cavs.width = this.boxW;
-				this.$refs.cavs.height = this.boxH;
+				window.addEventListener('click',this.clickfns,false);				
+				this.zoomd = this.boxW/391;				
+				this.$refs.cavs.width = 191;
+				this.$refs.cavs.height = 340;
 				this.cans = this.$refs.cavs.getContext("2d");
 				this.cans.fillStyle = "#000";
 				this.cans.fillRect(0, 0, this.boxW, this.boxH);
