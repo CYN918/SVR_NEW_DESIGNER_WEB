@@ -511,7 +511,7 @@ export default{
 			this.sh_audioUrl(pd.m_id);
 		},
 		setRun(){
-			if(this.$refs.chean[0]){
+			if(this.$refs.chean && this.$refs.chean[0]){
 				this.$refs.chean[0].stop();
 			}
 			this.bRunning = false;

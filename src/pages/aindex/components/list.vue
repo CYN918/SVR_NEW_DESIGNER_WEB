@@ -3,7 +3,7 @@
 		<li v-for="(el,index) in List" :key="index">
 			<slot name="todo" v-bind:todo="el"></slot>			
 		</li>
-		<img v-if="isNodaa" class="boxdn_01" src="/imge/app/noData.png">
+		<img v-if="isNodaa" class="boxdn_01" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/app/noData.png">
 		<span v-if="total>List.length" @click="addMo" class="btns">查看更多</span>
 	</ul>
 </template>

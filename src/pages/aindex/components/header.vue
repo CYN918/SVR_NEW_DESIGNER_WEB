@@ -3,7 +3,7 @@
 		<img @click="goIndex" class="log" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg" alt="">		
 		
 		<span v-if="['/activvity','/index'].indexOf($route.path)==-1" @click="shar" class="fxbtn">分享</span>
-		<span v-else @click="qh()" class="qh_pc"><img src="/imge/app/icon_web_h5.svg"/>电脑端</span>
+		<span v-else @click="qh()" class="qh_pc"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/app/icon_web_h5.svg"/>电脑端</span>
 		<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
 	</header>
 </template>

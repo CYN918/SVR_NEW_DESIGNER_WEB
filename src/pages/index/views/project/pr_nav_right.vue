@@ -14,6 +14,9 @@
 </template>
 <script>
 export default {
+    props:{
+		deta:Object,
+	},
     name: 'nav_right',
     data(){
         return {
@@ -24,7 +27,7 @@ export default {
         }
     },
     mounted: function(){
-		window.addEventListener('scroll',this.scrollToTop);
+        window.addEventListener('scroll',this.scrollToTop);
     }, 
     destroyed(){
         window.removeEventListener('scroll',this.scrollToTop);
@@ -86,7 +89,7 @@ export default {
             this.$parent.sharc();
         },
         upload(){
-            window.open("http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes");
+            window.open("http://wpa.qq.com/msgrd?v=3&uin="+ this.deta.qq + "&site=qq&menu=yes");
         },
         go_weibo(){
             this.$router.push({path:'/help?on=4-02'});

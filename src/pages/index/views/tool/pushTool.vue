@@ -31,7 +31,7 @@
 							<div v-for="(el,index) in navcoms.decorates" :class="playT==1?'setop':''">
 								<span v-for="(el2,index2) in el">
 									<div v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime">
-										<setDevs :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
+										<setDevs :style="'zoom:'+zoomd" :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
 									</div>					
 								</span>
 								
@@ -220,7 +220,7 @@
 				</div>
 			</div>
 			<div :style="csad" class="setToll4_2">
-				<span v-if="checkOn.type=='media'" @click="cats()">裁剪</span>
+				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="cats()">裁剪</span>
 				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="pastes()">复制</span>
 				<span @click="delt()">删除</span>
 			</div>
@@ -1800,10 +1800,14 @@
 			
 
 			},
+			
 			setVwh(){
+				
 				let domd = this.$refs.vidobox.getBoundingClientRect();							
 				this.boxH = parseInt(domd.height);
 				this.boxW = parseInt((domd.height/16)*9);
+				this.zoomd = this.boxW/391;
+			
 			},
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
@@ -1968,15 +1972,13 @@
 				}
 				if(this.checkOn.list){
 					this.checkOn.list[this.checkOn.on].ischeck = '';
-				}
-				
+				}				
 				let pr = {
 					title: this.form.title,
 					json: {
 						media: this.navcoms.media,
 						audio: this.navcoms.audio,						
-					},
-					
+					},					
 				};
 				let sd = this.cldevs(this.navcoms.decorates);
 				if (sd.length > 0) {
