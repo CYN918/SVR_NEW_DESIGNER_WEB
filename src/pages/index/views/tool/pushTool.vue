@@ -220,7 +220,7 @@
 				</div>
 			</div>
 			<div :style="csad" class="setToll4_2">
-				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="cats()">裁剪</span>
+				<span v-if="checkOn.type=='media' " @click="cats()">裁剪</span>
 				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="pastes()">复制</span>
 				<span @click="delt()">删除</span>
 			</div>
@@ -1809,6 +1809,7 @@
 				this.boxW = parseInt((domd.height/16)*9);
 				this.zoomd = this.boxW/391;
 				
+				
 			},
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
@@ -1819,8 +1820,8 @@
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false);
 				window.addEventListener('click',this.clickfns,false);
-				this.$refs.cavs.width = this.boxW;
-				this.$refs.cavs.height = this.boxH;
+				this.$refs.cavs.width = 191;
+				this.$refs.cavs.height = 340;
 				this.cans = this.$refs.cavs.getContext("2d");
 				this.cans.fillStyle = "#000";
 				this.cans.fillRect(0, 0, this.boxW, this.boxH);
@@ -2947,11 +2948,9 @@
 		width: 18px;
 		margin-right: 8px;
 	}
-
 	.con-right-iocn-text {
 		height: 100%;
 	}
-
 	.con-right-iocn-img>.icon {
 		position: relative;
 		left: 0;
@@ -2961,11 +2960,9 @@
 		filter: drop-shadow(95px 0);
 		border-right: 34px solid transparent;
 	}
-
 	.ckin>div {
 		transform: translateX(-95px);
 	}
-
 	.mx_dsj {
 		width: 0;
 		height: 0;
@@ -2977,7 +2974,6 @@
 		right: 9px;
 		border-radius: 2px;
 	}
-
 	.ntob_cent_l_2_1x {
 		display: inline-block;
 		vertical-align: top;
@@ -3012,14 +3008,12 @@
 		font-size: 14px;
 		color: rgba(187,187,187,1);
 	}
-	.ntob_cent_lxbo{
-		
+	.ntob_cent_lxbo{		
 		position: absolute;
 	    top: 0;
 	    left: 0;
 	    right: 0;
 	    bottom: 75px;
-
 	}
 	.gdAm{
 		transition: transform .5s;

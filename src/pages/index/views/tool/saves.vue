@@ -70,7 +70,7 @@ export default{
 	methods:{
 		init(){
 			document.body.style = "overflow: hidden;";
-			this.bfmax = this.backto(this.$parent.getSc());
+			this.bfmax = this.backto(this.$parent.preview.maxTime);
 			if(this.value.tag){
 				for(let i=0,n=this.value.tag.length;i<n;i++){
 					let pod = this.value.tag[i];
@@ -159,26 +159,29 @@ export default{
 			for(let i=0,n=on.length;i<n;i++){
 				let ar = on[i];
 				for(let i2=0,n2=ar.length;i2<n2;i2++){
-					ar[i2].ond = i;
-					ar[i2].end = this.backto(ar[i2].start+(ar[i2].cut_end-ar[i2].cut_start));					
+					let pd = ar[i2];
+					pd.ond = i;
+					pd.end = this.backto(pd.start+(pd.cut_end-pd.cut_start));					
 					
-					if(ar[i2].zsx){
-						ar[i2].x = this.backto(ar[i2].zsx * wdb);
+					if(pd.zsx){
+						pd.x = this.backto(pd.zsx * wdb);
 					}
-					if(this.backto(ar[i2].zsy * hy)){
-						ar[i2].y = this.backto(ar[i2].zsy * hy);
+					if(this.backto(pd.zsy * hy)){
+						pd.y = this.backto(pd.zsy * hy);
 					}
-					
-					if(ar[i2].zsw){
-						ar[i2].zsw = ar[i2].zsw?ar[i2].zsw:0;
-						ar[i2].zsh = ar[i2].zsh?ar[i2].zsh:0;
+					if(pd.sw!=pd.yw || pd.sh!=pd.yh || pd.sx!=0 || pd.sy!=0){
+						pd.crop = this.backto(pd.sw)+':'+this.backto(pd.sh)+':'+this.backto(pd.sx)+':'+this.backto(pd.sy);
+					}
+					if(pd.zsw){
+						pd.zsw = pd.zsw?pd.zsw:0;
+						pd.zsh = pd.zsh?pd.zsh:0;
 						wdb = wdb?wdb:0;
 						hy = hy?hy:0;
-						let x =  this.backto(ar[i2].zsw*wdb);
-						let y = this.backto(ar[i2].zsh*hy);
-						ar[i2].resize =x+':'+y;						
+						let x =  this.backto(pd.zsw*wdb);
+						let y = this.backto(pd.zsh*hy);
+						pd.resize =x+':'+y;						
 					}
-					arr.push(ar[i2]);
+					arr.push(pd);
 				}	
 			}
 			return arr;
