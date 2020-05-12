@@ -69,6 +69,21 @@
 			<div class="cents_box">
 				<img class="cens_02_1_img" v-if="deta.detail_banner" :src="deta.detail_banner" alt="">
 				<img class="cens_02_1_img" v-else :src="deta.banner" alt="">
+				<div class="sto_01" v-if="deta.status>=3" style="right: 70px;">
+					<img :src="imgPath+'ac_v2/xl.png'"/>
+					<div class="sto_02">
+						<div v-if="deta.status==3" @click="showTc('Stop')">终止项目</div>
+						<div v-if="islog" @click="showTc('Log')">交稿记录</div>
+						<div v-if="deta.contract_file && deta.contract_file.length>0" class="worksBox_2_3">
+							下载合同 
+							<span class="js_0013"></span>
+							<div class="worksBox_2_4">
+								<div v-for="el in deta.contract_file" @click="dowun(el)">{{el.file_name}}</div>						
+							</div>
+						</div>
+						
+					</div>
+				</div>
 				<div class="cents_box_status">
 					<div class="cenDjs_5" v-if="deta.status == '1'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
@@ -136,17 +151,6 @@
 						<p v-if="deta.settlement == '0'">{{deta.expected_profit}}<i style="font-style: normal;color:#282828;font-size:24px;margin-left:5px;margin-right:5px;">或</i>永久分成</p>
 						<p v-if="deta.settlement == '1'">{{deta.expected_profit}}</p>
 						<p v-if="deta.settlement == '2'">永久分成</p>
-					</div>
-					<div v-if="deta.status>=3 && deta.status != 4 && deta.status != 5 " class="worksBox_2 tg_iocn_2 tg_iocn_2x">
-						<div class="worksBox_2_1x">
-							<div v-if="deta.status==3" @click="showTc('Stop')">终止项目</div>
-							<div v-if="islog" @click="showTc('Log')">交稿记录</div>
-							<div v-if="deta.contract_file && deta.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
-								<div class="worksBox_2_4">
-									<div v-for="(el,index) in deta.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
-								</div>
-							</div>
-						</div>
 					</div>
 					
 				</div>
@@ -313,6 +317,22 @@ export default {
 			
 								
 			this.getData();			
+		},
+		dowun(u){
+			fetch(u.file_url).then(res => res.blob()).then(blob => {
+				const a = document.createElement('a');
+				document.body.appendChild(a)
+				a.style.display = 'none'
+				// 使用获取到的blob对象创建的url
+				const url = window.URL.createObjectURL(blob);
+				a.href = url;
+				// 指定下载的文件名
+				a.download = u.file_name;
+				a.click();
+				document.body.removeChild(a)
+				// 移除blob对象的url
+				window.URL.revokeObjectURL(url);
+			});
 		},
 		autoS(){
 			let t = document.documentElement.scrollTop||document.body.scrollTop;

@@ -27,19 +27,9 @@
 		
 		<div v-if="da.t" :class="['sjxdpo',da.t.cl]">
 			{{da.t.n}}
-		</div>
+		</div> -->
 
-		<div v-if="obj.status>=3 " class="worksBox_2 tg_iocn_2 tg_iocn_2x">
-			<div class="worksBox_2_1x">
-				<div v-if="obj.status==3" @click="showTc('Stop')">终止项目</div>
-				<div v-if="islog" @click="showTc('Log')">交稿记录</div>
-				<div v-if="obj.contract_file && obj.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
-					<div class="worksBox_2_4">
-						<div v-for="(el,index) in obj.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
-					</div>
-				</div>
-			</div>
-		</div>		 -->
+				
 		
 		<div class="yu_o9">
 			
@@ -409,10 +399,10 @@ export default {
 }
 
 
-/* .worksBox_2:after{
+.worksBox_2:after{
 	position: absolute;
-	top: 22px;
-	right: 21px;
+	top: -495px;
+    right: -70px;
 	content: "";
     display: inline-block;
     width: 5px;
@@ -423,15 +413,14 @@ export default {
 	margin-left: 8px;
     transform: rotate(-135deg);
 
-} */
+}
 .worksBox_2:hover>.worksBox_2_1x{
 	display: block;
 }
 .worksBox_2_1x{
-	display: none;
 	position: absolute;
-	top: 35px;
-	right: -17px;
+	top: -480px;
+    right: -160px;
 	z-index: 99;
 	background: #FFFFFF;
 	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);

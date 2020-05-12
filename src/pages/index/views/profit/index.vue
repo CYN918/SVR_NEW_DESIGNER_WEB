@@ -30,7 +30,7 @@
 						</div>
 						
 					</div>
-					<div>
+					<!-- <div>
 						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/profit/qxt.svg">
 						<div class="pbx_n_02">收益加成<img  @mouseout="mod()" @mouseover="modx($event,1)" class="pbx_n_06" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg" alt=""></div>
 						<div class="pbx_1_1">
@@ -67,7 +67,7 @@
 							</div>							
 						</div>
 						
-					</div>
+					</div> -->
 				</div>
 				
 			</div>
@@ -333,9 +333,10 @@ export default {
     text-align: right;
 }
 .pbx_n_01>div{
-	display: inline-block;
+	/* display: inline-block; */
+	float: left;
 	vertical-align: top;
-	width: 275px;
+	width: 415px;
 	height: 175px;
 	border-right: 1px solid rgba(244,246,249,1);
 }

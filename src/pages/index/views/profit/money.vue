@@ -116,7 +116,7 @@ export default {
 	},	
 	methods: {
 		init(){			  	
-			this.config.pr.time = parseInt(new Date().getTime()/1000)-(30*60*60*24);
+			// this.config.pr.time = parseInt(new Date().getTime()/1000)-(30*60*60*24);
 		},
 		addGetData(){
 			this.config.pr.time =  parseInt(new Date().getTime()/1000)-(this.timed*60*60*24);

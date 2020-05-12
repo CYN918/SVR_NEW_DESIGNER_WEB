@@ -104,7 +104,7 @@ export default {
 		},
 		chekdeal_type(o){
 			this.postData.deal_type = o;
-			
+			console.log(o);
 		},
 		checkZp(o){
 			let ond = this.postData.work_ids.indexOf(o);
@@ -200,7 +200,12 @@ export default {
 	height: 28px;
 	margin-top: 15px;
 }
-.bmXm_01_1 > ul > li>p{
+.bmXm_01_1  ul li{
+	display: inline-block;
+	vertical-align: top;
+}
+.bmXm_01_1  ul li p{
+	
 	width: 80px;
 	height: 28px;
 	text-align: center;

@@ -58,8 +58,9 @@
 						<img :class="navType=='notify'?'onds_01':''" :src="backnav('notify',1)"/></span>
 						<span @click="getNotice('comment')" :class="[messgNum.unread_comment_num>0?'onckf':'']">
 						<img :class="navType=='comment'?'onds_01':''" :src="backnav('comment',2)"/></span>
-						<span @click="getNotice('chat')" :class="[messgNum.unread_chat_num>0?'onckf':'']">
-						<img :class="navType=='chat'?'onds_01':''" :src="backnav('chat',3)"/></span></div>
+						<!-- <span @click="getNotice('chat')" :class="[messgNum.unread_chat_num>0?'onckf':'']">
+						<img :class="navType=='chat'?'onds_01':''" :src="backnav('chat',3)"/></span> -->
+					</div>
 					<div class="messgeH3_2">
 						<div class="messgeH3_2_x1">
 							<ul class="xxBox_1">
@@ -775,7 +776,7 @@ export default {
 	position: absolute;
 	top: 7px;
 	left: 7px;
-	background: #F4523B;
+	background: #FF9200;
 	min-width: 18px;
 	height: 18px;
 	line-height: 18px;
@@ -820,7 +821,7 @@ export default {
 	position: relative;
 	margin-top: 16px;
 	display: inline-block;
-	width: 88px;
+	width: 133.5px;
 	height: 28px;
 	border-right:1px solid rgba(0, 0, 0, 0.05);
 }

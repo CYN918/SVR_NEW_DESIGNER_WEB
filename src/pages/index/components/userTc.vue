@@ -16,7 +16,8 @@
 				</span>
 			</div>
 			<div v-if="isme()==false" class="usertc_5">
-				<span class="csys pend" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span><span @click="goChat" class="btns pend">私信</span>
+				<span class="csys pend" @click="gzFn(tcData.user_info.follow_flag)">{{backtype(tcData.user_info.follow_flag)}}</span>
+				<!-- <span @click="goChat" class="btns pend">私信</span> -->
 			</div>
 			<div v-else class="usertc_5">
 				<span class="csys pend" @click="goR('/works')">进入主页</span>

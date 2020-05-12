@@ -153,7 +153,7 @@
 								<div v-else>
 									<span @click="showUnfoolxow" v-if="contDat.user_info.follow_flag>0">已关注</span>
 									<span class="jsBtn" @click="Follow_add()" v-else>关注</span>
-									<span class="lastsedd_1 pend" @click="gosx(contDat.user_info)">私信</span>
+									<!-- <span class="lastsedd_1 pend" @click="gosx(contDat.user_info)">私信</span> -->
 								</div>
 								
 								
@@ -179,7 +179,7 @@
 		<RPT ref="report"></RPT>
 		<unfollow @sussFn="unfollowSu" @suUnFn="showUnfoolow" ref="unfollow"></unfollow>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
-		<TcBox :config="outc"  @qFn="delComment" ref="tcBox"></TcBox>
+		<TcBox :config="outcx"  @qFn="delComment" ref="tcBox"></TcBox>
 		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 </template>
@@ -205,7 +205,7 @@ export default {
 			isYl:'',
 			
 			new_c_3focus:'',
-			outc:{
+			outcx:{
 				title:'删除评论',
 				scroll:1,
 				cent:'确定删除该条评论?',
@@ -324,6 +324,7 @@ export default {
 			this.addComment(b,c,d);
 		},
 		addLikeNe(a,b,c,d){
+			console.log(a,b,c,d)
 			if(this.isYl){return}
 			this.bdtj('详情页',a,'--')
 			this.addLike(b,c,d);

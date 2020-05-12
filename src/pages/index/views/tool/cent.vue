@@ -3,6 +3,8 @@
 		<div @mouseenter="btnchange" @mouseleave="btnchange1" class="ldx_l_1fd2" @mouseover="ybf($event)" @mouseout="stopbf($event)">
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
 			
+			<canvas v-if="el.status==0" class="videoBox1" ref="cavs"></canvas>
+			
 			<video @timeupdate="timeupdate" @canplay="setTime()" loop="loop" v-if="el.file_url" class="bof" ref="video" :src="el.file_url"></video>
 			<div 
 			@mouseover="showT()" @mouseout="hinT()"
@@ -70,6 +72,7 @@
 		<div class="ldx_l_1x_3">
 			{{backtims(el)}}
 		</div>
+		<video v-if="el.status==0" muted @ended="cksd()" class="ntob_cent_l_1"  ref="vids"></video>
 	</div>
 	
 </template>
@@ -85,6 +88,8 @@ export default{
 	},
 	data(){
 		return{
+			boxW:193,
+			boxH:343,
 			yu_tle:'',
 			top_btn:false,
 			Isbtn:false,
@@ -102,7 +107,7 @@ export default{
 		}
 		
 	},
-	
+
 	methods:{
 		showT(e){
 			this.showTil = 1;
@@ -185,7 +190,6 @@ export default{
 			}catch(e){
 				//TODO handle the exception
 			}
-			
 		},
 		backtims(el){
 			if(this.pr.sort){
