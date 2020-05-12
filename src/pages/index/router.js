@@ -92,14 +92,8 @@ let wb = [
 	{path: '/404',name: 'erro2',component: Errors},	
 	{path: '/Ac_v',name: 'Ac_v',component: Ac_v1},	
 	{path: '/Ac_v2',name: 'Ac_v2',component: Ac_v2},	
-<<<<<<< HEAD
-	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},	
-	{path: '/Ac_v4',name: 'Ac_v4',component: Ac_v4},	
-
-=======
 	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
 	{path: '/Ac_v4',name: 'Ac_v4',component: Ac_v4},
->>>>>>> myWork
 	{path: '/pushTool',name:'pushTool',component: pushTool},
 	
 	{

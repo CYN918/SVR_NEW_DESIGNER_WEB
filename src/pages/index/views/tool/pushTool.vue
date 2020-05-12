@@ -224,11 +224,9 @@
 				</div>
 			</div>
 			<div :style="csad" class="setToll4_2">
-<<<<<<< HEAD
-				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="cats()">裁剪</span>
-=======
+
 				<span v-if="checkOn.type=='media' " @click="cats()">裁剪</span>
->>>>>>> myWork
+
 				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="pastes()">复制</span>
 				<span @click="delt()">删除</span>
 			</div>
@@ -1713,8 +1711,52 @@
 				let sdas = this.tdjl * pd;
 				return this.backto(sdas/210*this.fdjb);
 			},
-<<<<<<< HEAD
-			
+
+			getOneWidthTime(){
+				return this.backto(this.getBur(this.$refs.gdbox).width/210*this.fdjb);				
+			},
+			getJdtTime(){
+				let len2xx = this.$refs.gund_01x.offsetWidth;
+				let pd = this.tdjl/len2xx;
+				return pd*this.preview.maxTime;
+				
+			},
+			setJdtX(t){
+				let len2xx = this.$refs.gund_01x.offsetWidth;
+				this.tdjl = t/this.preview.maxTime*len2xx;
+	
+			},
+			setTdjl(t){				
+				/*一屏时间*/
+				let widtime = this.getOneWidthTime();
+				let tdTim = this.getJdtTime();
+				let onlast = tdTim+widtime;
+				let pt = onlast -t;		
+				if(pt>0){
+					return
+				}				
+				this.setJdtX(tdTim-pt);
+			},
+			checkPlayJd(){
+				let widtime = this.getOneWidthTime();
+				let tdTim = this.getJdtTime();
+				let onlast = tdTim+widtime;
+				
+				if(this.preview.onTime>onlast){
+					console.log(widtime);
+					console.log(tdTim);
+					let ttt = 0;
+					let syt = this.preview.maxTime-this.preview.onTime;
+					if(syt>=widtime){
+						ttt = tdTim+widtime;
+					}else{
+						ttt = tdTim+(widtime-syt);
+					}
+					this.setJdtX(ttt);
+					
+				}
+			},
+
 			getOneWidthTime(){
 				return this.backto(this.getBur(this.$refs.gdbox).width/210*this.fdjb);				
 			},
@@ -1760,54 +1802,7 @@
 				}
 			},
 			
-=======
-			
-			getOneWidthTime(){
-				return this.backto(this.getBur(this.$refs.gdbox).width/210*this.fdjb);				
-			},
-			getJdtTime(){
-				let len2xx = this.$refs.gund_01x.offsetWidth;
-				let pd = this.tdjl/len2xx;
-				return pd*this.preview.maxTime;
-				
-			},
-			setJdtX(t){
-				let len2xx = this.$refs.gund_01x.offsetWidth;
-				this.tdjl = t/this.preview.maxTime*len2xx;
-	
-			},
-			setTdjl(t){				
-				/*一屏时间*/
-				let widtime = this.getOneWidthTime();
-				let tdTim = this.getJdtTime();
-				let onlast = tdTim+widtime;
-				let pt = onlast -t;		
-				if(pt>0){
-					return
-				}				
-				this.setJdtX(tdTim-pt);
-			},
-			checkPlayJd(){
-				let widtime = this.getOneWidthTime();
-				let tdTim = this.getJdtTime();
-				let onlast = tdTim+widtime;
-				
-				if(this.preview.onTime>onlast){
-					console.log(widtime);
-					console.log(tdTim);
-					let ttt = 0;
-					let syt = this.preview.maxTime-this.preview.onTime;
-					if(syt>=widtime){
-						ttt = tdTim+widtime;
-					}else{
-						ttt = tdTim+(widtime-syt);
-					}
-					this.setJdtX(ttt);
-					
-				}
-			},
-			
->>>>>>> myWork
+
 			settimfj(t){
 				let maxdxx = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len2xx = this.$refs.gund_01x.offsetWidth;
