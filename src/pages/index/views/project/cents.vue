@@ -249,7 +249,7 @@
 			<topGd v-if="topTyped==1 && deta.status==1" :obj="pzTop" ref="topGd"></topGd>
 			<tipd  :tipCent="csff" :style="sfas" ref="csdf"></tipd>
 		    <component v-bind:is="tcZj"  :datad="tcData" :expected_profit="deta.expected_profit" :settlement="deta.settlement"></component>
-			<prnavright></prnavright>
+			<prnavright v-bind:deta="deta"></prnavright>
 
 		</div>
 	</div>
