@@ -50,4 +50,8 @@ export default{
     line-height: 1.6rem;
     font-size: .8rem;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> myWork

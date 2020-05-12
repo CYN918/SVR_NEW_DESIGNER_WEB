@@ -125,6 +125,7 @@
 <script>
 import spck from './fospan'
 import spck2 from './fospan2'
+import { Loading } from 'element-ui';
 export default{
 	components:{
 		spck,
@@ -640,8 +641,10 @@ export default{
 			}
 			
 		
+			this.loading = Loading.service({target:'.mp3_04', fullscreen: true,background:'rgba(244,246,249,.4)' });
 			
 			this.api[this.type](pr).then((da)=>{
+				this.loading.close()
 				if(da=='error'){
 					return	
 				}
@@ -662,9 +665,8 @@ export default{
 						this.$refs.chean[0].play();
 					}
 				},250)
-				
-				
-				
+			}).catch(()=>{
+				this.loading.close()
 			})
 		},
 		close(){
@@ -1009,6 +1011,7 @@ export default{
 	position: relative;
 	top: 0;
 }
+
 .mp3_04_01s:hover{
     background: rgba(187,187,187,.3);	
 }

@@ -99,4 +99,8 @@ export default {
 	display: block;
     margin: 8rem auto;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> myWork

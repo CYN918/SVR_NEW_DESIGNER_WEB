@@ -80,4 +80,8 @@ export default {
 	vertical-align: top;
 	width: 2rem;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> myWork
