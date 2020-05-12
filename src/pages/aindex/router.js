@@ -1,5 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Index from './views/index.vue'
+import Home from './views/home/index.vue'
+import HomeIn from './views/home/home.vue'
+import Act from './views/home/activvity.vue'
+import Cont from './views/cont.vue'
+import Conta from './views/conta.vue'
+import Uinde from './views/user/index.vue'
+import Uwor from './views/user/works.vue'
+import Uinfo from './views/user/info.vue'
+
 Vue.use(Router)
 const router = new Router({
   routes:[] 
@@ -9,49 +19,49 @@ let wb = [
 		path: '/',
 		redirect: '/index',
 		name: 'index',
-		component: () => import('./views/index.vue'),
+		component: Index,
 		children:[
 			{
 				path: '/index',
 				name: 'home',
-				component: () => import('./views/home/index.vue'),
+				component: Home,
 				children:[
 					{
 						path: '/index',
 						name: 'home',
-						component: () => import('./views/home/home.vue'),
+						component:HomeIn,
 					},
 					{
 						path: '/activvity',
 						name: 'activvity',
-						component: () => import('./views/home/activvity.vue'),
+						component: Act,
 					}
 				]
 			},
 			{
 				path: '/cont',
 				name: 'cont',
-				component: () => import('./views/cont.vue'),
+				component:Cont,
 			},
 			{
 				path: '/conta',
 				name: 'conta',
-				component: () => import('./views/conta.vue'),
+				component:Conta,
 			},
 			{
 				path: '/user',
 				name: 'user',
-				component: () => import('./views/user/index.vue'),
+				component:Uinde,
 				children:[
 					{
 						path: '/user',
 						name: 'user',
-						component: () => import('./views/user/works.vue'),
+						component:Uwor,
 					},
 					{
 						path: '/info',
 						name: 'info',
-						component: () => import('./views/user/info.vue'),
+						component:Uinfo,
 					},
 					
 				]
