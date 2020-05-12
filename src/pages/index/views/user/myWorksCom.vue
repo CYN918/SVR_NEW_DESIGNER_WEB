@@ -240,20 +240,24 @@ export default {
 	},
 	mounted() {
 		document.body.addEventListener('click', function(e) {
-			let needHandle = e.path.filter(ele => ele.className == 'mylists')
-			if (needHandle.length) return
-			document.querySelectorAll('.mylists').forEach(ele => {
-				let target = ele.querySelector('.myListBox_5')
-				let index = target.className.indexOf('_hover')
-				if (index > -1) target.className = 'myListBox_5'
+			let event = e || window.event;
+			let target = event.target || event.srcElement;
+			if (target.tagName == 'IMG' && target.src == 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg') return
+			document.querySelectorAll('.myListBox_5').forEach(item => {
+				item.classList.remove('_hover')
 			})
 		})
 	},
 	methods: {
 		addClass(e) {
-			let target = e.path.filter(ele => ele.className == 'mylists')
-			if (target && target.length) {
-				target[0].querySelector('.myListBox_5').className = 'myListBox_5 _hover'
+			let event = e || window.event;
+			let target = event.target || event.srcElement;
+			if (target && target.className == 'mywus_n1') {
+				let children = target.parentElement.parentElement.children, addTar;
+				for (let i in children) {
+					if (children[i].className == 'myListBox_5') addTar = children[i]
+				}
+				if (addTar) addTar.className = 'myListBox_5 _hover'
 			}
 		},
 		isMyAll() {
@@ -743,10 +747,10 @@ export default {
 .myListBox_5{
 	position: absolute;
 	right: 10px;top: 10px;
-	display: none;
+	visibility: hidden;
 }
 .myListBox_5._hover{
-	display: block;
+	visibility: visible;
 }
 .myListBox_5 .comonbtn{
 	width:124px;
