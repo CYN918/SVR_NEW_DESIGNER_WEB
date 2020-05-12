@@ -1317,5 +1317,14 @@ div.edui-box{
 }
 .edui-default .edui-toolbar .edui-combox-body .edui-button-body{
 	width: 40px!important;
+	line-height: 20px!important;
+}
+.edui-default .edui-toolbar .edui-button .edui-state-checked .edui-button-wrap{
+	background-color: rgba(55, 104, 133, 0.1)!important;
+	border: none!important;
+	padding: 8px!important;
+}
+div.edui-box{
+	line-height: 1!important;
 }
 </style>

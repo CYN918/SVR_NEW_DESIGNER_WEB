@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<div class="csBox opodd">
-			<list :config="data" ref="listDom" :filter-data-func="filterDataFunc">
+			<list :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
 					<div class="mylists" @mouseover="addClass($event, this)">
 						<div @click="openxq(todo)" class="myListBox_1">
@@ -242,11 +242,11 @@ export default {
 			},
 			upType:'',			
 			isTypeList:{
-				myAll:'all',
-				myExamine:'0',
-				myNotPass:'-2',
-				myPass:'2',
-				myDraft:'-1'
+				myAll:[0, 2],
+				// myExamine:'0',
+				// myNotPass:'-2',
+				// myPass:'2',
+				myDraft:[-1, -2]
 			},
 			draftNum: 0
 		}
@@ -285,16 +285,16 @@ export default {
 		})
 	},
 	methods: {
-		bakci(sr,ck){
+		// bakci(sr,ck){
 			
-			let on = sr.indexOf(ck);
-			if(on==-1){
-				return sr;
-			}
+		// 	let on = sr.indexOf(ck);
+		// 	if(on==-1){
+		// 		return sr;
+		// 	}
 			
-			var re =new RegExp(ck);
-			return sr.replace(re,"<span>"+ck+"</span>")
-		},
+		// 	var re =new RegExp(ck);
+		// 	return sr.replace(re,"<span>"+ck+"</span>")
+		// },
 		addClass(e) {
 			let event = e || window.event;
 			let target = event.target || event.srcElement;
@@ -316,24 +316,36 @@ export default {
 		goZP() {
 			this.$router.push({ path: '/myDraft' })
 		},
-		filterDataFunc(data) {
-			const statusOptions = this.$route.name == 'myAll' ? ['0', '2'] : ['-1', '-2']
-			this.draftNum = data.filter(item => item.status == '-1' || item.status == '-2').length
-			return data.filter(item => statusOptions.indexOf(item.status) > -1)
-		},
+		// filterDataFunc(data) {
+		// 	const statusOptions = this.$route.name == 'myAll' ? ['0', '2'] : ['-1', '-2']
+		// 	this.draftNum = data.filter(item => item.status == '-1' || item.status == '-2').length
+		// 	return data.filter(item => statusOptions.indexOf(item.status) > -1)
+		// },
 		show(){
 			this.$refs.tcBox.show();
 		},
 		close(){
 			this.$refs.tcBox.close();
 		},
+		loadUnreadNum() {
+			this.api['getUnreadNum']({}).then(res => {
+				this.draftNum = res.num
+				console.log(this.draftNum)
+			})
+		},
+		draftUnread() {
+			this.api['draftUnread']({}).then(res => {
+			})
+		},
 		init(){
-			// this.data.pr.status =  this.isTypeList[this.$route.name];
-			this.data.pr.status =  'all';
+			this.data.pr.status =  this.isTypeList[this.$route.name].join(',');
+			// this.data.pr.status =  'all';
 			this.navData = {
 				title: this.isMyAll() ? '我的创作' : '草稿箱',
 				bdtj: this.isMyAll() ? '我的创作' : '草稿箱'
 			}
+			this.loadUnreadNum()
+			if (this.$route.name == 'myDraft') this.draftUnread()
 		},
 		backFm(ur){
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
@@ -733,7 +745,7 @@ export default {
 .myListBox_1>.wtg{
 	
 	color: #fff;
-	background: rgba(255,0,0,.7);
+	background: #FF3B30;
 }
 .myListBox_2{
 	text-align: left;

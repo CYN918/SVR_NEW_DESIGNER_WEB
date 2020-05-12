@@ -159,6 +159,12 @@ export default {
 	getSelfWorkList:{
 		url:'/Api/Work/selfWorkList',method:'post',baseURL:0,
 	},
+	getUnreadNum:{
+		url:'/Api/Work/draftNoticeNum',method:'post',baseURL:0,
+	},
+	draftUnread:{
+		url:'/Api/Work/draftNoticeRead',method:'post',baseURL:0
+	},
 	delWork:{
 		url:'/Api/Work/del',method:'post',baseURL:0,
 	},
