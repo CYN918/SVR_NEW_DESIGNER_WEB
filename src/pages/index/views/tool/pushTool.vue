@@ -31,7 +31,7 @@
 							<div v-for="(el,index) in navcoms.decorates" :class="playT==1?'setop':''">
 								<span v-for="(el2,index2) in el">
 									<div v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime">
-										<setDevs :style="'zoom:'+zoomd" :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
+										<setDevs  :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
 									</div>					
 								</span>
 								
@@ -1803,11 +1803,12 @@
 			
 			setVwh(){
 				
-				let domd = this.$refs.vidobox.getBoundingClientRect();							
+				let domd = this.$refs.vidobox.getBoundingClientRect();
+											console.log(domd);
 				this.boxH = parseInt(domd.height);
 				this.boxW = parseInt((domd.height/16)*9);
 				this.zoomd = this.boxW/391;
-			
+				
 			},
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
@@ -1818,9 +1819,6 @@
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false);
 				window.addEventListener('click',this.clickfns,false);
-				
-				this.zoomd = this.boxW/391;
-				
 				this.$refs.cavs.width = this.boxW;
 				this.$refs.cavs.height = this.boxH;
 				this.cans = this.$refs.cavs.getContext("2d");
