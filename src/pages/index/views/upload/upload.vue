@@ -71,10 +71,12 @@
                         <div slot="header">
                             <span>上传作品封面</span>
                         </div>
-                        <div class="page2_1_2">
+                        <div :class="['page2_1_2', !form.face_pic?'noUp':'']">
                             <img v-if="form.face_pic" :src="form.face_pic" alt="">
-                            <div @click="showupFm"><div>+</div>上传封面</div>					
+                            <div @click="showupFm" v-if="!form.face_pic" class="page2_1_2_1"><div>+</div>上传封面</div>
+							<div @click="showupFm" v-else class="page2_1_2_2">替换封面</div>
                         </div>
+						<span class="btBlue" style="top: 130px;left: 310px;"></span>
                     </el-card>
                 </el-col>
                 <el-col :span="8">
@@ -89,16 +91,18 @@
                                 v-model="tags"
                                 ref="saveTagInput"
                                 size="small"
+								placeholder="请输入文字，enter结束输入"
                                 @keyup.enter.native="keydown"
                                 @blur="keydown"
                             >
+								<i slot="prefix" class="el-input__icon el-icon-plus" style="color:#33B3FF"></i>
                             </el-input>
                             <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 标签</el-button>
                             <div class="leftTagNum">还可添加{{5-form.labels.length}}个标签</div>
                             <div class="tagContainer">
                                 <el-tag
                                     v-for="(el,index) in form.labels" :key="index"
-                                    closable @close="deletTage(index)">{{el}}
+                                    closable @close="deletTage(index)" effect="dark">{{el}}
                                 </el-tag>
                             </div>
                         </div>
@@ -121,19 +125,21 @@
                         <div :class="['page2_1_4',isUpd?'isUpd':'']">
                             <div class="page2Tbnd1">{{fjtext}}</div>
                             <input v-if="!isUpd" @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
-                        </div>
-                        <div v-if="upfjData.type" class="page2_1_5">{{upfjData.type}}<span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span>{{upfjData.bf+'%'}}</div>
-                        <div class="page2_1_6" v-if="upfjData.type">
-                            
-                            <span class="iconfont" :title="upfjData.file_name">&#xe621;{{upfjData.file_name?upfjData.file_name.substring(0,10):''}}<span @click="qxclosd(fileUpfj)" class="iconfont pend">&#xe619;</span></span>
-                            
+							<div class="page2_1_6" v-if="upfjData.type">
+								
+								<span class="iconfont" :title="upfjData.file_name">&#xe621;<span style="padding-left: 10px">{{upfjData.file_name?upfjData.file_name.substring(0,10):''}}</span></span>
+								<span @click="qxclosd(fileUpfj)" class="iconfont pend" style="float: right;">&#xe619;</span>
+								
+							</div>
+							<div v-if="upfjData.type" class="page2_1_5"><span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span></div>
                         </div>
                         <el-radio v-model="form.attachment_visible" label="0">仅自己可见</el-radio>
                         <el-radio v-model="form.attachment_visible" label="1">所有人可见</el-radio>
                     </el-card>
                     <el-card class="commonCard">
-                        <div slot="header">
-                            <span>设为投稿作品 <span class="description">若作品符合需求，平台会联系你沟通收录细节</span></span>
+                        <div slot="header" style="position: relative">
+                            <span>设为投稿作品 <span class="description" style="margin-left:10px">若作品符合需求，平台会联系你沟通收录细节</span></span>
+							<span class="btBlue" style="left: 100px"></span>
                         </div>
                         <div class="page2_1_7_r" v-if="checkisptggr()">
                             <el-radio v-model="form.is_platform_work" label="1">是</el-radio>
@@ -150,6 +156,10 @@
                 <el-button @click="savZp" type="primary" :disabled="!ck3">提交发布</el-button>
             </div>
         </div>
+		<div class="top_to_down">
+			<div class="el-icon-arrow-up toTop"  @click="scrollToTop"></div>
+			<div class="el-icon-arrow-down toDown" @click="scrollToBottom"></div>
+		</div>
         <TcBox :config="outc" ref="tcBox">
 			<template v-slot:todo="{ todo }">
 				<component v-bind:is="tcZj"  :datad="tcData"></component>
@@ -207,7 +217,7 @@ export default {
 			uD:{},
 			upConfig:'',
 			myConfig: {
-				autoHeightEnabled: false,
+				autoHeightEnabled: true,
 				initialFrameHeight: 500,
 				initialFrameWidth: '100%',
 				UEDITOR_HOME_URL: '/UEditor/',
@@ -335,6 +345,18 @@ export default {
 		this.getUserDetail();
 	}, 
 	methods: {
+		scrollToTop() {
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth'
+			})
+		},
+		scrollToBottom() {
+			window.scrollTo({
+				top: document.body.scrollHeight,
+				behavior: 'smooth'
+			})
+		},
 		goZP() {
 			this.$router.push({ path: '/setRz' })
 		},
@@ -847,7 +869,8 @@ export default {
 			}		
 			let fld = flie.target.files[0];			
             if(['application/x-zip-compressed','application/zip'].indexOf(fld.type)==-1){
-                Message({message: '格式不正确'});
+				Message({message: '格式不正确，请上传压缩包格式文件'});
+				this.$refs.upnfile2.value = ''
 				return
 			}
 			if(fld.size>1024*1024*1024){
@@ -966,10 +989,48 @@ export default {
 }
 </script>
 <style>
+.top_to_down{
+	width: 48px;
+	position: fixed;
+	right: 50px;bottom: 80px;
+	z-index: 99;
+}
+.top_to_down>div{
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	margin-top: 40px;
+	background: #666;
+	color: #fff;
+	font-size: 24px;
+	line-height: 48px;
+	cursor: pointer;
+}
+.top_to_down>div:hover{
+	opacity: .7;
+}
+.el-input--suffix .el-input__inner{
+	padding-left: 10px;
+}
+.page2_1_6,.page2_1_5{
+	position: absolute;
+	right: 0;top: 0;
+	width: 250px;
+}
+.page2_1_5{
+	top: 18px;
+}
+.page2_1_6 .iconfont{
+	font-size: 14px;
+	color: #666;
+}
 .uploadContainer{
     text-align: left;
     width: 1300px;
     margin: 0 auto;
+}
+.uploadContainer .el-card__body{
+	padding: 37px 20px;
 }
 .uploadContainer .commonCard{
     margin-top: 20px;
@@ -998,7 +1059,7 @@ export default {
 }
 .uploadBtn{
     position: absolute;
-    right: 30px;top: 0;
+    right: 30px;top: 5px;
     z-index: 9997;
 }
 .uploadBtn span:hover{
@@ -1027,9 +1088,25 @@ export default {
 .uploadBoxd2_2_2_2{
 	right: 0px;
 }
+.page2_1_2_2{
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 14px;
+	color: #666;
+	text-align: center;
+	background: #fff;
+	position: absolute;
+	top: 50%;left: 50%;
+	margin-top: -20px;
+	margin-left: -50px;
+	border-radius:5px;
+	border:1px solid rgba(187,187,187,1);
+	visibility: hidden;
+}
 .page2_1_2{
 	position: relative;
-	background: #E6E6E6;
+	background: #F4F6F9;
 	border-radius: 5px;
 	margin-bottom: 57px;
 	overflow: hidden;
@@ -1038,12 +1115,15 @@ export default {
 	cursor: pointer;
     text-align: center;
 }
-.page2_1_2:hover{
+.page2_1_2.noUp:hover{
 	opacity: .7;
 }
-.page2_1_2:hover>img{
-	opacity: 0.2;
+.page2_1_2:hover .page2_1_2_2{
+	visibility: visible;
 }
+/* .page2_1_2:hover>img{
+	opacity: 0.2;
+} */
 .page2_1_2>img{
 	position: absolute;
 	top: 0;
@@ -1054,15 +1134,15 @@ export default {
 	pointer-events: none;
 	background:#E6E6E6 ;
 }
-.page2_1_2>div{	
-	background: #E6E6E6;
+.page2_1_2 .page2_1_2_1{	
+	background: #F4F6F9;
 	border-radius: 5px;
 	width: 100%;
 	height: 100%;
 	font-size: 14px;
 	color: #333333;
 }
-.page2_1_2>div>div{
+.page2_1_2 .page2_1_2_1>div{
 	width: 22.9px;
 	height: 22.9px;
 	border-radius: 50%;
@@ -1085,7 +1165,7 @@ export default {
 .page2_1_4{
 	text-align: left;
 	position: relative;
-	margin-bottom: 18px;
+	margin-bottom: 30px;
 }
 .page2_1_4file{
 	cursor: pointer;
@@ -1108,7 +1188,7 @@ export default {
     background: #D8D8D8;
     border-radius: 4px;
     margin: 0 8px 0 20px;
-    width: 127px;
+    width: 90%;
     height: 4px;
 	vertical-align: middle;
 	overflow: hidden;
@@ -1171,7 +1251,7 @@ export default {
     padding-bottom: 0;
 }
 .input-new-tag {
-    width: 90px;
+    width: 220px;
     margin-left: 10px;
     vertical-align: bottom;
 }
@@ -1180,6 +1260,7 @@ export default {
 }
 .tagContainer .el-tag{
     margin-right: 15px;
+	margin-top: 10px;
 }
 .leftTagNum{
     font-size: 12px;
