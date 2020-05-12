@@ -46,17 +46,23 @@ export default{
 					return
 				}
 				let op = this.$refs.imgs.getBoundingClientRect();
+				console.log(op);
 				let posd = this.$refs.boxs.getBoundingClientRect();
 				let xs = op.x-posd.x;
 				let ys = op.y-posd.y;
 				let ws = op.width;
 				let hs = op.height;
+				
+				console.log(this.$parent.boxH);
 				if(hs<this.$parent.boxH){
 					ys = (this.$parent.boxH-hs)/2+ys;
 				}
 				if(ws<this.$parent.boxW){
 					xs = (this.$parent.boxW-ws)/2+xs;
-				}				
+				}	
+							
+							
+				
 				if(!this.value.zskb){
 					this.$set(this.value,'zsx',xs);
 					this.$set(this.value,'zsy',ys);
@@ -64,19 +70,17 @@ export default{
 					this.$set(this.value,'zsw',op.width);
 					this.$set(this.value,'zskb',op.width/op.height)
 				}
-				
-			
+
 			}
 			
 		},
 	
 		cjD(){
-			let str = '';
-			console.log(this.value);
-			return str;
+			// let str = 'width:'+this.value.zsw+'px;height:'+this.value.zsh+'px;';
+			// str+='transform: translate('+(-this.value.sx)+'px,'+(-this.value.sy)+'px);';
+			// return str;
 		},
 		backIm(){
-			
 			return 'width:'+this.value.zsw+'px;height:'+this.value.zsh+'px;transform: translate('+this.value.zsx+'px,'+this.value.zsy+'px);';
 		},
 	
@@ -180,6 +184,7 @@ export default{
 }
 .setDvs_02x{
 	position: absolute;
+	overflow: hidden;
 }
 .setDvs_02x11{
 	z-index: 99;
