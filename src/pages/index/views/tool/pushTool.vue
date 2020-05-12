@@ -31,11 +31,7 @@
 							<div v-for="(el,index) in navcoms.decorates" :class="playT==1?'setop':''">
 								<span v-for="(el2,index2) in el">
 									<div v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime">
-<<<<<<< HEAD
-										<setDevs :style="'zoom:'+zoomd" :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
-=======
 										<setDevs  :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
->>>>>>> myWork
 									</div>					
 								</span>
 								
@@ -224,9 +220,7 @@
 				</div>
 			</div>
 			<div :style="csad" class="setToll4_2">
-
 				<span v-if="checkOn.type=='media' " @click="cats()">裁剪</span>
-
 				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="pastes()">复制</span>
 				<span @click="delt()">删除</span>
 			</div>
@@ -1711,52 +1705,7 @@
 				let sdas = this.tdjl * pd;
 				return this.backto(sdas/210*this.fdjb);
 			},
-
-			getOneWidthTime(){
-				return this.backto(this.getBur(this.$refs.gdbox).width/210*this.fdjb);				
-			},
-			getJdtTime(){
-				let len2xx = this.$refs.gund_01x.offsetWidth;
-				let pd = this.tdjl/len2xx;
-				return pd*this.preview.maxTime;
-				
-			},
-			setJdtX(t){
-				let len2xx = this.$refs.gund_01x.offsetWidth;
-				this.tdjl = t/this.preview.maxTime*len2xx;
-	
-			},
-			setTdjl(t){				
-				/*一屏时间*/
-				let widtime = this.getOneWidthTime();
-				let tdTim = this.getJdtTime();
-				let onlast = tdTim+widtime;
-				let pt = onlast -t;		
-				if(pt>0){
-					return
-				}				
-				this.setJdtX(tdTim-pt);
-			},
-			checkPlayJd(){
-				let widtime = this.getOneWidthTime();
-				let tdTim = this.getJdtTime();
-				let onlast = tdTim+widtime;
-				
-				if(this.preview.onTime>onlast){
-					console.log(widtime);
-					console.log(tdTim);
-					let ttt = 0;
-					let syt = this.preview.maxTime-this.preview.onTime;
-					if(syt>=widtime){
-						ttt = tdTim+widtime;
-					}else{
-						ttt = tdTim+(widtime-syt);
-					}
-					this.setJdtX(ttt);
-					
-				}
-			},
-
+			
 			getOneWidthTime(){
 				return this.backto(this.getBur(this.$refs.gdbox).width/210*this.fdjb);				
 			},
@@ -1802,7 +1751,6 @@
 				}
 			},
 			
-
 			settimfj(t){
 				let maxdxx = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len2xx = this.$refs.gund_01x.offsetWidth;
@@ -1855,13 +1803,6 @@
 			
 			setVwh(){
 				
-<<<<<<< HEAD
-				let domd = this.$refs.vidobox.getBoundingClientRect();							
-				this.boxH = parseInt(domd.height);
-				this.boxW = parseInt((domd.height/16)*9);
-				this.zoomd = this.boxW/391;
-			
-=======
 				let domd = this.$refs.vidobox.getBoundingClientRect();
 											console.log(domd);
 				this.boxH = parseInt(domd.height);
@@ -1869,7 +1810,6 @@
 				this.zoomd = this.boxW/391;
 				
 				
->>>>>>> myWork
 			},
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){

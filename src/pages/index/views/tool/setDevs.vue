@@ -75,15 +75,14 @@ export default{
 		},
 	
 		cjD(){
-<<<<<<< HEAD
+
 			let str = '';
-			console.log(this.value);
-=======
+
 			let x = this.value.zsw/this.value.yw*this.value.sx;
 			let y = this.value.zsh/this.value.yh*this.value.sy;		
-			let str = 'width:'+this.value.zsw+'px;height:'+this.value.zsh+'px;';
+			str = 'width:'+this.value.zsw+'px;height:'+this.value.zsh+'px;';
 			str+='transform: translate('+(-x)+'px,'+(-y)+'px);';
->>>>>>> myWork
+
 			return str;
 		},
 		backIm(){
@@ -257,8 +256,7 @@ export default{
     height: 100%;
     overflow: hidden;
 }
-<<<<<<< HEAD
+
 </style>
-=======
-</style>
->>>>>>> myWork
+
+
