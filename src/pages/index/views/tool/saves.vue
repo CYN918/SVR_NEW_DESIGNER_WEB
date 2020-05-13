@@ -177,9 +177,13 @@ export default{
 						pd.zsh = pd.zsh?pd.zsh:0;
 						wdb = wdb?wdb:0;
 						hy = hy?hy:0;
-						let x =  this.backto(pd.zsw*wdb);
-						let y = this.backto(pd.zsh*hy);
-						pd.resize =x+':'+y;						
+						// let x =  this.backto(pd.zsw*wdb);
+						// let y = this.backto(pd.zsh*hy);
+						
+						let w = this.backto(pd.sw/pd.yw*pd.zsw*wdb);
+						let h = this.backto(pd.sh/pd.yh*pd.zsh*hy);
+						
+						pd.resize =w+':'+h;						
 					}
 					arr.push(pd);
 				}	
@@ -213,7 +217,9 @@ export default{
 			if(sd.length>0){
 				pr.json.decoration = sd;
 			}
-			
+			if(pr.json.media[0] && pr.json.media[0].start==0){
+				pr.img = pr.json.media[0].cover_img;
+			}
 			pr.json = JSON.stringify(pr.json);
 			
 			pr.submit = 1;

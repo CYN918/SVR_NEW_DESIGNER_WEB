@@ -103,9 +103,9 @@ let wb = [
 		component: Index,
 		children:[
 			
-			{path: '/tolt',name:'tolt',component: toltIndex,children:[
+			{path: '/tolt',redirect:{name:'tolt'},component: toltIndex,children:[
 				{path: '/tolt',name:'tolt',component: tolt},
-				{path: '/toluser',name:'tolt',component: toluser},
+				{path: '/toluser',name:'toluser',component: toluser},
 			]},
 			
 			
@@ -188,7 +188,9 @@ let wb = [
 			
 			{
 				path: '/profit',
-				name: 'profit',
+				redirect: {
+				    name: 'profit'
+				},
 				component:pt_index,
 				children:[
 					// {path: '/profit',name: 'profit',component:pt_works},
@@ -220,7 +222,9 @@ let wb = [
 	/*login_*/	
 	{
 		path: '/login',
-		name: 'login',
+		redirect: {
+		    name: 'login'
+		},
 		component:lg_index,
 		children:[
 			{path: '/login',name: 'login',component:lg_login},

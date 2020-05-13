@@ -146,22 +146,15 @@ export default{
 						brdr = 'border-color:rgba(51,179,255,1)';
 					}	
 				}
-				dom.style.cssText = str+'left:'+(x+10)+'px;top:'+y+'px;'+brdr;
-				
+				dom.style.cssText = str+'left:'+(x+10)+'px;top:'+y+'px;'+brdr;				
 			}			 
-			document.onmouseup =  (e)=>{
-		
+			document.onmouseup =  (e)=>{		
 				if(this.$parent.Mos){
 					if(this.$parent.Mos.n=='decorates'){
-						// this.setDecorates(el,e.x+10);
-						this.setDecorates(el);
-						
+						this.setDecorates(el,e.x+10);						
 					}else{
-	
 						this.checkV(el,e.x+10);
-						// this.checkV(el);
-					}
-					
+					}					
 				}
 				document.body.removeChild(dom);
 				document.onmousemove = document.onmouseup = null;
@@ -196,12 +189,48 @@ export default{
 			if(ond){
 				pr.start = +ond.start+(ond.cut_end-ond.cut_start);	
 				
-			}		
+			}	
+			let pn;
 			if(x){
 				let time = this.$parent.setDomStar(x);
 				pr.start = time;
-			
+				let on=0,
+				obj =  this.value.decorates[this.$parent.Mos.on],
+				end = this.backEnd(pr),
+				len = obj.length-1,
+				backFn = ()=>{
+					if(!obj[on]){
+						pn = {t:'min',on:on};
+						return
+					}
+					let st = obj[on].start,
+					et = this.backEnd(obj[on]);
+					if(pr.start>=et){
+						if(on<len){
+							on++;
+							backFn();
+							return
+						}						
+						pn = {t:'max',on:on};
+						return
+					}					
+					if(pr.start<st){
+						if(end>st){
+							pr.cut_end =pr.cut_end-(end-st);
+						}
+						pn = {t:'min',on:on};						
+						return
+					}	
+					pr.start = 	et;	
+					on=0;				
+					end = this.backEnd(pr);
+					backFn();
+									
+				};
+				backFn();
 			}
+			console.log(pn);
+			
 				var a = document.createElement('img');
 				a.src=el.url;
 				a.onload = ()=>{
@@ -232,11 +261,20 @@ export default{
 						}
 						
 						
-					}		
-					this.value.decorates[this.$parent.Mos.on].push(pr);
+					}
+					let obj = this.value.decorates[this.$parent.Mos.on];
+					if(pn && obj.length>0){
+						if(pn.t == 'min'){
+							obj.splice(pn.on,1,pr,obj[pn.on])
+							
+						}
+						if(pn.t == 'max'){
+							obj.splice(pn.on,1,obj[pn.on],pr)
+						}
+					}else{
+						obj.push(pr);	
+					}	
 					this.$parent.setPreviewTimes(pr,'decorates',1);
-				
-					// this.$parent.showDevs(this.$parent.Mos.on,this.value.decorates[this.$parent.Mos.on].length-1);
 				};
 		},
 		backtio(t){
@@ -316,56 +354,46 @@ export default{
 			if(ond){
 				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
 			}	
-			// let onds;	
+			// let onds;
+			let pn;
 			if(x){
-				// let time = this.$parent.setDomStar(x);
-				// pr.start = time;
-				// onds = -1;
-				
-				// for(let i=0,n=this.value.media.length;i<n;i++){
-				// 	let ob = this.value.media[i];
-				// 	let end = this.backEnd(ob);
-				// 	let end2 = this.backEnd(pr);
-					
-				// 	if(pr.start>=ob.start && end>=pr.start){
-				// 		pr.start = end;
-				// 		onds = i;
-				// 		continue
-				// 	}
-				// 	if(pr.start<end && end2>ob.start){
-				// 		pr.cut_end = ob.start+pr.cut_start-pr.start;
-				// 		break
-				// 	}
-				// }
-				
-			}
-			
-			
-			
-			
-			
-			
-			var sumTime = (obj)=>{
-				return obj.start+(obj.cut_end-obj.cut_start);
-			};
-			
-			
-			
-			
-			var fn = (obj)=>{
-				let n = obj.length;
-				if(n==0){
-					return
-				}
-				for(let i=0;i<n;i++){
-					let end = sumTime(obj[i]);
-					let star = obj[i].start;
-					if(pr.start<end){
-						break
+				let time = this.$parent.setDomStar(x);
+				pr.start = time;
+				let on=0,
+				obj =  this.value.media,
+				end = this.backEnd(pr),
+				len = obj.length-1,
+				backFn = ()=>{
+					if(!obj[on]){
+						pn = {t:'min',on:on};
+						return
 					}
-				}
-				
-			};
+					let st = obj[on].start,
+					et = this.backEnd(obj[on]);
+					if(pr.start>=et){
+						if(on<len){
+							on++;
+							backFn();
+							return
+						}						
+						pn = {t:'max',on:on};
+						return
+					}					
+					if(pr.start<st){
+						if(end>st){
+							pr.cut_end =pr.cut_end-(end-st);
+						}						
+						pn = {t:'min',on:on};						
+						return
+					}	
+					pr.start = 	et;	
+					on=0;				
+					end = this.backEnd(pr);
+					backFn();
+									
+				};
+				backFn();
+			}
 			if(el.file_type=='image'){
 				var a = document.createElement('img');
 				a.src=el.url;
@@ -384,10 +412,8 @@ export default{
 						pr.x = 0;
 					}else{
 						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;
-						
-						if(pr.w>this.$parent.boxW){
-							
+						pr.w = (this.$parent.boxH/hd)*wd;						
+						if(pr.w>this.$parent.boxW){							
 							pr.w = this.$parent.boxW;
 							pr.h = (this.$parent.boxW/wd)*hd;
 							pr.y = (this.$parent.boxH-pr.h)/2;
@@ -396,10 +422,20 @@ export default{
 							pr.x = (this.$parent.boxW-pr.w)/2;
 							pr.y = 0;
 						}
+					}			
+					if(pn && this.value.media.length>0){
+						if(pn.t == 'min'){
+							this.value.media.splice(pn.on,1,pr,this.value.media[pn.on])
+							console.log(this.value.media)
+						}
+						if(pn.t == 'max'){
+							this.value.media.splice(pn.on,1,this.value.media[pn.on],pr)
+						}
+					}else{
+						this.value.media.push(pr);	
+					}	
 						
-						
-					}				
-					this.value.media.push(pr);	
+					
 					
 					this.$parent.setPreviewTimes(pr,'media',1);	
 					this.$parent.drmOn();								
@@ -438,7 +474,17 @@ export default{
 						
 						
 					}		
-					this.value.media.push(pr);	
+					if(pn && this.value.media.length>0){
+						if(pn.t == 'min'){
+							this.value.media.splice(pn.on,1,pr,this.value.media[pn.on])
+							console.log(this.value.media)
+						}
+						if(pn.t == 'max'){
+							this.value.media.splice(pn.on,1,this.value.media[pn.on],pr)
+						}
+					}else{
+						this.value.media.push(pr);	
+					}	
 					this.$parent.setPreviewTimes(pr,'media',1);
 					this.$parent.drmOn();
 				}
@@ -537,8 +583,8 @@ export default{
 			})
 			return
 		},
-		backEnd(ob){			
-			return  +ob.start+ob.cut_end-ob.cut_start;
+		backEnd(ob){		
+			return  +ob.start+(ob.cut_end-ob.cut_start);
 		},
 		push(){
 			this.$refs.upnfile.click();

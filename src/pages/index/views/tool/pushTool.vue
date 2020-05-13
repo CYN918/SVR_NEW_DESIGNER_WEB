@@ -220,7 +220,7 @@
 				</div>
 			</div>
 			<div :style="csad" class="setToll4_2">
-				<span v-if="checkOn.type=='media' " @click="cats()">裁剪</span>
+				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="cats()">裁剪</span>
 				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="pastes()">复制</span>
 				<span @click="delt()">删除</span>
 			</div>
@@ -1985,10 +1985,17 @@
 				}				
 				this.cl_video(pr);
 				this.cl_audio(pr);
+				if(pr.json.media[0] && pr.json.media[0].start==0){
+					pr.img = pr.json.media[0].cover_img;
+				}
+				
 				pr.json = JSON.stringify(pr.json);
 				if (this.form.id) {
 					pr.id = this.form.id;
 				}
+				
+				
+				
 				this.ajaxType = 1;
 				this.api.sh_save(pr).then((da) => {
 					this.ajaxType = '';
