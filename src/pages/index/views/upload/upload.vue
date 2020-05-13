@@ -188,7 +188,7 @@ export default {
 					max:10*1024*1024,
 					type:['image/gif','image/jpeg','image/png'],
 					getType:'image',
-					typexz:'image/gif,image/jpeg,image/png'
+					typexz:'image/*,image/jpeg,image/png,image/gif'
 				},
 				{
 					title:'我的视频素材',

@@ -319,16 +319,19 @@ function setTitle(t){
 router.beforeEach((to, from, next) => {
 //	window.removeEventListener('mousewheel',window.dwzFn);
 	document.body.style = "";
+	let isqh = sessionStorage.getItem('isqh');
+	
 	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-
-		if(to.path== "/prcent"){
-			window.location.href = location.origin+"/aindex.html#/conta?id="+to.query.id;
+		if(!isqh || isqh==null){
+			if(to.path== "/prcent"){
+				window.location.href = location.origin+"/aindex.html#/conta?id="+to.query.id;
+				return
+			}
+			window.location.href = location.origin+"/aindex.html#/";
 			return
 		}
 		
-		window.location.href = location.origin+"/aindex.html#/";
-		return
-	}
+	} 	
 	// var ishttps = 'https:' == document.location.protocol ? true : false;
 
 	// if (!ishttps) {
