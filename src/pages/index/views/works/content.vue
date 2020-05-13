@@ -111,7 +111,7 @@
 											<div class="hfN_02">
 												<span class="iconfont pend hfN_02_2" @click="showReport(el2.open_id,el2.comment_id,'comment')">&#xe664;<span>举报</span></span>											
 												<span class="iconfont pend hfN_02_1">
-													<img @click="addLikeNe('点赞回复','comment',el2.comment_id,el2)" :src="isLick(el2.liked)">{{el.like_num}}											
+													<img @click="addLikeNe('点赞回复','comment',el2.comment_id,el2)" :src="isLick(el2.liked)">{{el2.like_num}}											
 												</span>
 											</div>
 											<div class="hfBox hfBoxd hfBoxd2" v-if="el2.isshowfh==1">
