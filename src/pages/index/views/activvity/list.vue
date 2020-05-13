@@ -53,7 +53,8 @@ export default {
 		},
 		go(el,id,a){
 			if(el.special_url){
-				window.open(el.special_url);			
+				let rul = el.special_url.split('?')[0];
+				window.open(rul+'?id='+id);			
 				return
 			}
 			
