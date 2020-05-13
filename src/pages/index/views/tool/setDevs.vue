@@ -46,14 +46,13 @@ export default{
 					return
 				}
 				let op = this.$refs.imgs.getBoundingClientRect();
-				console.log(op);
+			
 				let posd = this.$refs.boxs.getBoundingClientRect();
 				let xs = op.x-posd.x;
 				let ys = op.y-posd.y;
 				let ws = op.width;
 				let hs = op.height;
 				
-				console.log(this.$parent.boxH);
 				if(hs<this.$parent.boxH){
 					ys = (this.$parent.boxH-hs)/2+ys;
 				}
@@ -76,12 +75,16 @@ export default{
 		},
 	
 		cjD(){
-			// let str = 'width:'+this.value.zsw+'px;height:'+this.value.zsh+'px;';
-			// str+='transform: translate('+(-this.value.sx)+'px,'+(-this.value.sy)+'px);';
-			// return str;
+			let x = this.value.zsw/this.value.yw*this.value.sx;
+			let y = this.value.zsh/this.value.yh*this.value.sy;		
+			let str = 'width:'+this.value.zsw+'px;height:'+this.value.zsh+'px;';
+			str+='transform: translate('+(-x)+'px,'+(-y)+'px);';
+			return str;
 		},
 		backIm(){
-			return 'width:'+this.value.zsw+'px;height:'+this.value.zsh+'px;transform: translate('+this.value.zsx+'px,'+this.value.zsy+'px);';
+			let w = this.value.sw/this.value.yw*this.value.zsw;
+			let h = this.value.sh/this.value.yh*this.value.zsh;
+			return 'width:'+w+'px;height:'+h+'px;transform: translate('+this.value.zsx+'px,'+this.value.zsy+'px);';
 		},
 	
 		td_01(e,tp){
