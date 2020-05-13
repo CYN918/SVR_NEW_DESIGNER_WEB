@@ -1798,14 +1798,10 @@
 			},
 			
 			setVwh(){
-				
 				let domd = this.$refs.vidobox.getBoundingClientRect();
-											console.log(domd);
 				this.boxH = parseInt(domd.height);
 				this.boxW = parseInt((domd.height/16)*9);
 				this.zoomd = this.boxW/391;
-				
-				
 			},
 			init() {
 				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
@@ -1816,8 +1812,8 @@
 				this.setVwh();
 				window.addEventListener('resize',this.setVwh,false);
 				window.addEventListener('click',this.clickfns,false);
-				this.$refs.cavs.width = 191;
-				this.$refs.cavs.height = 340;
+				this.$refs.cavs.width = this.boxW;
+				this.$refs.cavs.height = this.boxH;
 				this.cans = this.$refs.cavs.getContext("2d");
 				this.cans.fillStyle = "#000";
 				this.cans.fillRect(0, 0, this.boxW, this.boxH);
