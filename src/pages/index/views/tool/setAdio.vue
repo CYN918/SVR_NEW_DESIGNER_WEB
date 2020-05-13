@@ -1,6 +1,5 @@
 <template>
 	<div class="box_p_01">
-		
 		<div class="mp3_03" ref="nsdf">
 			<div class="mp3_03_0" ref="spnds">
 				<spck
@@ -9,7 +8,6 @@
 				:List="navs"
 				:keys="'v'"
 				:v="'n'"
-				
 				></spck>
 				<div class="mp3_03_2">
 					<img class="mp3_03_2_img1" @click="ss()" :src="imgPath+'tools/ss.png'"/>
@@ -18,16 +16,13 @@
 				</div>
 			</div>				
 			<spck2 
-			
 			v-if="type=='sh_List' && !isshs"
 			v-model="clas"
 			class="mp3_03_3"
 			:List="showNav"
 			:keys="'classify_name'"
 			:v="'classify_name'"
-			
 			></spck2>
-			
 		</div>
 		<div v-if="isNOdata" class="mp3_04 mp3_04nod">
 			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/empty_nodata.svg">
@@ -622,7 +617,6 @@ export default{
 			if(this.name){
 				pr.name = this.name;
 			}
-		
 			if(!a){
 				if(this.clas && this.clas != "全部"){
 					pr.classify_name = this.clas;
@@ -630,8 +624,6 @@ export default{
 					this.clas = '全部';
 				}
 			}
-			
-				
 			if(window.source){
 				window.isStop=1;
 				setTimeout(()=>{
@@ -639,28 +631,21 @@ export default{
 				},50)
 				window.source();
 			}
-			
-		
+			if(this.loading){
+				this.loading.close();
+			}
 			this.loading = Loading.service({target:'.box_p_01', fullscreen: true,background:'rgba(244,246,249,.4)' });
-			
 			this.api[this.type](pr).then((da)=>{
-				console.log(11111111111)
 				this.loading.close()
 				if(da=='error'){
 					return	
 				}
-				try{
-					this.datas = da.data;
-					
-				}catch(e){
-					
-				}
+				try{this.datas = da.data;}catch(){}
 				if(this.datas.length==0){
 					this.isNOdata = 1;
 				}else{
 					this.isNOdata = '';
 				}
-				
 				setTimeout(()=>{
 					if(this.bRunning && this.$refs.chean[0]){
 						this.$refs.chean[0].play();
