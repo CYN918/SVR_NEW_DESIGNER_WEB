@@ -1351,7 +1351,6 @@
 				document.onmouseup = (e) => {
 					e.preventDefault();
 					document.onmousemove = document.onmouseup = null;
-					
 					if(n=='media' && (zby ||zby==0)){
 						let ony = tdStarY-e.pageY;
 						list[onc].zpY = 0;
@@ -1380,9 +1379,6 @@
 							return
 						}
 					}
-					
-					
-					
 					
 					let xs = tdStar - e.pageX;
 					if(xs<20 && xs>-20){

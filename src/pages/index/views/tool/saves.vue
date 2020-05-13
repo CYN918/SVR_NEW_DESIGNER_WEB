@@ -220,10 +220,9 @@ export default{
 			if(pr.json.media[0] && pr.json.media[0].start==0){
 				pr.img = pr.json.media[0].cover_img;
 			}
-			pr.json = JSON.stringify(pr.json);
 			
-			pr.submit = 1;
-		
+			pr.json = JSON.stringify(pr.json);			
+			pr.submit = 1;		
 			this.ajaxType = 1;
 			this.api.sh_save(pr).then((da)=>{				
 				this.ajaxType = '';
