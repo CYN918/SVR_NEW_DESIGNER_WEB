@@ -33,7 +33,7 @@
 			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/empty_nodata.svg">
 			<div>哎呀，没找到音乐</div>
 		</div>
-		<div v-else class="mp3_04" ref='mp3_04'>
+		<div v-else class="mp3_04 mp3_04ff" ref='mp3_04'>
 			<div class="mp3_04_01"><span></span><span>歌曲</span><span>歌手</span><span>时长</span><span></span></div>
 			<div 
 			@dblclick="bf(el, index)"
@@ -641,9 +641,10 @@ export default{
 			}
 			
 		
-			this.loading = Loading.service({target:'.mp3_04', fullscreen: true,background:'rgba(244,246,249,.4)' });
+			this.loading = Loading.service({target:'.box_p_01', fullscreen: true,background:'rgba(244,246,249,.4)' });
 			
 			this.api[this.type](pr).then((da)=>{
+				console.log(11111111111)
 				this.loading.close()
 				if(da=='error'){
 					return	

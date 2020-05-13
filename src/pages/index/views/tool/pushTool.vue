@@ -10,8 +10,8 @@
 					<input
 					 @focus="titlon(1)"
 					 @blur="titlon('')"
-					 v-model="form.title" type="text" placeholder="请输入来电秀名称">
-					<span v-if="istitle" class="noto_t1">{{form.title.length}}/20</span>
+					 v-model="navcoms.title" type="text" placeholder="请输入来电秀名称">
+					<span v-if="istitle" class="noto_t1">{{navcoms.title.length}}/20</span>
 					<img v-else :src="setImgU('new/tools/n/icon_bj.svg')" />
 				</div>
 				<div class="noto_btns">
@@ -28,7 +28,7 @@
 						<video @timeupdate="timeupdatevideo" muted @ended="cksd()" @loadeddata="csy" id="boxf" class="ntob_cent_l_1"
 						 :src="video" ref="vids"></video>
 						<div class="debox_01">
-							<div v-for="(el,index) in navcoms.decorates" :class="playT==1?'setop':''">
+							<div v-for="(el,index) in navcoms.decorates">
 								<span v-for="(el2,index2) in el">
 									<div v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime">
 										<setDevs  :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
@@ -94,7 +94,10 @@
 			
 		<div class="ntob_footer">
 			<div class="ntob_footer_1">
-				<div class="ntob_footer_1_1"></div>
+				<div class="ntob_footer_1_1">
+					<span @click="history_pr()" :class="['sjsziconfont',history.on>0?'misto':'']">&#xe504;</span>
+					<span @click="history_nx()" :class="['sjsziconfont',history.list.length-1>history.on?'misto':'']">&#xe503;</span>
+				</div>
 				<div class="ntob_footer_1_2" ref="gd_02">
 					<div 
 						@click="showZs($event,index)" 
@@ -277,22 +280,22 @@
 		},
 		data() {
 			return {
+				history:{
+					list:[
+						'{"zj":"setMt","title":"","id":"","media":[],"audio":[],"imgs":[],"maxTime":0,"bflist":[],"decorates":[[]]}',
+					],
+					on:0
+				},
 				zsys:'',
 				zoomd:1,
 				boxW:0,
 				boxH:0,
-				spgd: 0,
 				istype: '',
 				zsOn:0,
 				isbf:'',
-				cun: [{
-						n: '9:16',
-						x: 0
-					},
-					{
-						n: '6:13',
-						x: 48
-					}
+				cun:[
+					{n:'9:16',x:0},
+					{n:'6:13',x:48}
 				],
 				cun2: [
 					'来电预览',
@@ -311,44 +314,33 @@
 				},
 				csad: '',
 				video: '',
-				form: {
-					title:''
-				},
 				navson: 0,
-				navs: [{
-						n: '媒体',
-						icon: 'nav_sp_ac.svg',
-						zj: 'setMt'
-					},
-					{
-						n: '音乐',
-						icon: 'nav_yy.svg',
-						zj: 'mp3List'
-					}
+				navs: [
+					{n:'媒体',icon:'nav_sp_ac.svg',zj:'setMt'},
+					{n:'音乐',icon:'nav_yy.svg',zj:'mp3List'}
 				],
 				navcoms: {
-					zj: 'setMt',
+					zj:'setMt',
 					title: '',
-					media: [],
-					audio: [],
-					imgs: [],
-					maxTime: 0,
-					bflist: [],
-					decorates: [
-						[],
-					]
+					id:'',
+					media:[],
+					audio:[],
+					imgs:[],
+					maxTime:0,
+					bflist:[],
+					decorates:[[]]
 				},
-				checkOn: {},
+				checkOn:{},
 				crtc:{},
-				kd: [1],
-				fd_lave: 0,
-				cans: '',
-				isinit: 0,
-				po: '',
-				sfjb: 10,
-				bof: 0,
-				page: 1,
-				wdk: 21,
+				kd:[1],
+				fd_lave:0,
+				cans:'',
+				isinit:0,
+				po:'',
+				sfjb:10,
+				bof:0,
+				page:1,
+				wdk:21,
 				formData: {
 					title: '',
 					media: [],
@@ -363,32 +355,15 @@
 				},		
 				isCc2: '',
 				tdjl: 0,
-				fd: [{
-						s: 1,
-						jg: .1
-					},
-					{
-						s: 2,
-						jg: .2
-					},
-					{
-						s: 10,
-						jg: 1
-					},
-					{
-						s: 60,
-						jg: 60
-					},
-					{
-						s: 120,
-						jg: 120
-					},
+				fd: [
+					{s:1,jg:.1},
+					{s:2,jg:.2},
+					{s:10,jg:1},
+					{s:60,jg:60},
+					{s:120,jg:120},
 				],
-				fdjb: 10,
-				tipszb: {
-					x: 0,
-					y: 0
-				},
+				fdjb:10,
+				tipszb:{x: 0,y: 0},
 				bl: 1,
 				ht: '',
 				isdra: '',
@@ -399,8 +374,7 @@
 				bfTime: 0,
 				isgdon: 0,
 				imgPftime:0,
-				istitle:'',
-				
+				istitle:'',				
 				playT:0,
 				adiT:0,
 				isk:0,
@@ -410,10 +384,7 @@
 				psd:'',
 				IsShowStyle:false,
 				indexstyle:0,
-				bfMax:0,
-				
-				previewSatae:0,
-				/*预览对象*/
+				bfMax:0,				
 				preview:{
 					/*state 0停止；1播放中；2暂停*/
 					state:0,
@@ -442,11 +413,11 @@
 		},
 		watch: {
 			fdjb() {
-				this.bl = this.fdjb / 10;
+				this.bl = this.fdjb/10;
 			},
-			'form.title'(a){
+			'navcoms.title'(a){
 				if(a.length>20){
-					this.form.title = a.substring(0,20);				
+					this.navcoms.title = a.substring(0,20);				
 				}
 			},
 			bfTime(a){
@@ -455,19 +426,38 @@
 				}
 			},
 			'preview.state'(newD,oldeD){
-			
 				switch(newD) {
-				     case 1:
+				    case 1:
 						this.playPreview();
 						break;
-				     case 2:
+				    case 2:
 				        this.puandFn();
 						break;
-				} 
-				
+				} 				
 			},
 		},
 		methods: {
+			history_set(){
+				let ob = this.history;
+				ob.list.splice(ob.on+1,ob.list.length-ob.on,JSON.stringify(this.navcoms));				
+				this.history.on = this.history.list.length-1;		
+			},
+			history_pr(){	
+				if(this.history.on==0){
+					return
+				}
+				this.history.on--;			
+				this.navcoms = JSON.parse(this.history.list[this.history.on]);
+				this.drmOn();
+			},
+			history_nx(){
+				if(this.history.on==this.history.list.length-1){
+					return
+				}
+				this.history.on++;					
+				this.navcoms = JSON.parse(this.history.list[this.history.on]);
+				this.drmOn();
+			},
 			clickfns(e){
 				if(this.checkOn.list){
 					if(!this.checkOn.ison){
@@ -492,8 +482,7 @@
 			},
 			setHidmg(el){
 				return "width:" + (el.long / this.bl) * this.wdk + "px;transform:translateX(" + -((el.cut_start /
-					this.bl) * this.wdk) + "px);";
-				 
+					this.bl) * this.wdk) + "px);";				 
 			},
 			setPreviewState(n){
 				this.preview.state = n;
@@ -1528,9 +1517,9 @@
 			zzwc() {
 				this.istype = '';
 				this.tanc.zj = 'saves';
-				this.tanc.title = this.form.title;
-				if (this.form.id) {
-					this.tanc.id = this.form.id;
+				this.tanc.title = this.navcoms.title;
+				if (this.navcoms.id) {
+					this.tanc.id = this.navcoms.id;
 				}
 				this.tanc.json = {
 					media: this.navcoms.media,
@@ -1760,9 +1749,6 @@
 				let ontime = this.preview.onTime;
 				let toTim = 0;
 				let endt = this.backTim(this.preview.previewObj);
-				
-				
-				
 				this.valObj = window.setInterval(() => {
 					
 					if(this.preview.previewObj.type!='video'){
@@ -1823,7 +1809,7 @@
 						this.$router.push({path: '/'})	
 						return
 					}					
-					this.form.title = op.title;
+					this.navcoms.title = op.title;
 					if(op.json){
 						let json = JSON.parse(op.json);
 						let arr = [];
@@ -1853,7 +1839,8 @@
 							this.sh_audioUrld(this.navcoms.audio[0]);
 						}
 					}
-					this.form.id = op.id;
+					this.navcoms.id = op.id;
+					this.history.list[0] = JSON.stringify(this.navcoms);
 					this.setPreviewTimes('','del',1);
 					this.drmOn();
 				}
@@ -1940,7 +1927,7 @@
 				return Math.round(num * 100) / 100
 			},
 			tijF(a) {
-				if(!this.form.title){
+				if(!this.navcoms.title){
 					this.$message({
 						message: '请填写来电秀名称',
 					})
@@ -1965,7 +1952,7 @@
 					this.checkOn.list[this.checkOn.on].ischeck = '';
 				}				
 				let pr = {
-					title: this.form.title,
+					title: this.navcoms.title,
 					json: {
 						media: this.navcoms.media,
 						audio: this.navcoms.audio,						
@@ -1982,8 +1969,8 @@
 				}
 				
 				pr.json = JSON.stringify(pr.json);
-				if (this.form.id) {
-					pr.id = this.form.id;
+				if (this.navcoms.id) {
+					pr.id = this.navcoms.id;
 				}
 				
 				
@@ -1994,7 +1981,7 @@
 					if (da == 'error') {
 						return
 					}
-					this.form.id = da.id;
+					this.navcoms.id = da.id;
 					pr.id = da.id;
 					localStorage.setItem('ldxData', JSON.stringify(pr))
 					this.$router.push({
@@ -3034,5 +3021,18 @@
 	.setToll0xs{
 		background-repeat: no-repeat !important; 
 		background-size: 100% 100% !important;
+	}
+	.ntob_footer_1_1>span{
+		
+		display: inline-block;
+		vertical-align: top;
+		width: 22px;
+		height: 17px;
+		margin:17.5px 14px;
+		color: #BCBCBC;
+	}
+	.ntob_footer_1_1>span.misto{
+		cursor: pointer;
+		color: #000;
 	}
 </style>
