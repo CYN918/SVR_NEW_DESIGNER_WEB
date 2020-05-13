@@ -640,7 +640,7 @@ export default{
 				if(da=='error'){
 					return	
 				}
-				try{this.datas = da.data;}catch(){}
+				try{this.datas = da.data;}catch{}
 				if(this.datas.length==0){
 					this.isNOdata = 1;
 				}else{
