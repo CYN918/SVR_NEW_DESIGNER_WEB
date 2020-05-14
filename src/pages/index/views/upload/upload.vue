@@ -85,19 +85,17 @@
                             <span>添加作品标签</span>
                         </div>
                         <div class="tagWrapper">
-                            <el-input
-                                class="input-new-tag"
-                                v-if="inputVisible"
-                                v-model="tags"
-                                ref="saveTagInput"
-                                size="small"
-								placeholder="请输入文字，enter结束输入"
-                                @keyup.enter.native="keydown"
-                                @blur="keydown"
-                            >
-								<i slot="prefix" class="el-input__icon el-icon-plus" style="color:#33B3FF"></i>
-                            </el-input>
-                            <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 标签</el-button>
+							<div class="input-tag-container" v-if="inputVisible">
+								<input
+									class="input-new-tag" type="text"
+									placeholder="请输入文字，enter结束输入"
+									v-if="inputVisible" v-model="tags"
+									ref="saveTagInput"
+									@keyup.enter="keydown"
+									@blur="keydown">
+								<i class="el-icon-plus" style="color:#33B3FF"></i>
+							</div>
+                            <el-button type="primary" plain v-else class="button-new-tag" size="small" @click="showInput">+ 标签</el-button>
                             <div class="leftTagNum">还可添加{{5-form.labels.length}}个标签</div>
                             <div class="tagContainer">
                                 <el-tag
@@ -106,15 +104,6 @@
                                 </el-tag>
                             </div>
                         </div>
-                        <!-- <div class="page2_2_1_2">
-                            <div>
-                                <Input class="userBoxd2" v-model="tags" :keyup="keydown" :oType="'max'" :max="10" :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>
-                                <span @click="keydown" :class="['tagBtn',isTageok?'istageok':'']">添加标签</span>还可添加{{5-form.labels.length}}个标签
-                            </div>
-                            <div class="page2_2_1_2x">
-                                <span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
-                            </div>
-                        </div> -->
                     </el-card>
                 </el-col>
                 <el-col :span="8">
@@ -133,18 +122,40 @@
 							</div>
 							<div v-if="upfjData.type" class="page2_1_5"><span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span></div>
                         </div>
-                        <el-radio v-model="form.attachment_visible" label="0">仅自己可见</el-radio>
-                        <el-radio v-model="form.attachment_visible" label="1">所有人可见</el-radio>
+						<div class="radio-group">
+							<label for="attachment1">
+								<span :class="[form.attachment_visible=='0'?'_chosed':'']">
+									<i class="el-icon-check"></i>
+								</span>
+								<input id="attachment1" type="radio" value="0" v-model="form.attachment_visible">仅自己可见
+							</label>
+							<label for="attachment2">
+								<span :class="[form.attachment_visible=='1'?'_chosed':'']">
+									<i class="el-icon-check"></i>
+								</span>
+								<input id="attachment2" type="radio" value="1" v-model="form.attachment_visible">所有人可见
+							</label>
+						</div>
                     </el-card>
                     <el-card class="commonCard">
                         <div slot="header" style="position: relative">
                             <span>设为投稿作品 <span class="description" style="margin-left:10px">若作品符合需求，平台会联系你沟通收录细节</span></span>
 							<span class="btBlue" style="left: 100px"></span>
                         </div>
-                        <div class="page2_1_7_r" v-if="checkisptggr()">
-                            <el-radio v-model="form.is_platform_work" label="1">是</el-radio>
-                            <el-radio v-model="form.is_platform_work" label="0">否</el-radio>
-                        </div>
+						<div class="radio-group" v-if="checkisptggr()">
+							<label for="platform1">
+								<span :class="[form.is_platform_work=='1'?'_chosed':'']">
+									<i class="el-icon-check"></i>
+								</span>
+								<input id="platform1" type="radio" value="1" v-model="form.is_platform_work">是
+							</label>
+							<label for="platform2">
+								<span :class="[form.is_platform_work=='0'?'_chosed':'']">
+									<i class="el-icon-check"></i>
+								</span>
+								<input id="platform2" type="radio" value="0" v-model="form.is_platform_work">否
+							</label>
+						</div>
 						<div class="certification" v-else>你还不是供稿人，现在<span @click="goZP">立即认证</span>，享受你的作品收益</div>
                     </el-card>
                 </el-col>
@@ -373,7 +384,7 @@ export default {
         showInput() {
             this.inputVisible = true;
             this.$nextTick(_ => {
-                this.$refs.saveTagInput.$refs.input.focus();
+                this.$refs.saveTagInput.focus();
             });
         },
 		showTc() {
@@ -989,18 +1000,49 @@ export default {
 }
 </script>
 <style>
+.radio-group label{
+	margin-right: 24px;
+}
+.radio-group input[type='radio']{
+	display: none;
+}
+.radio-group span{
+	display: inline-block;
+	width: 14px;height: 14px;
+	line-height: 14px;
+	border: 1px solid #999;
+	vertical-align: text-bottom;
+	margin-right: 8px;
+	border-radius: 3px;
+	text-align: center;
+}
+.radio-group span i{
+	color: #fff;
+	position: relative;
+	font-size: 12px;
+}
+.radio-group span._chosed{
+	border: 1px solid #33B3FF;
+	background: #33B3FF;
+}
 .top_to_down{
 	width: 48px;
 	position: fixed;
 	right: 50px;bottom: 80px;
 	z-index: 99;
 }
+.toTop{
+	background: #DDDEE1;
+}
+.toDown{
+	background: #AAABAD;
+}
 .top_to_down>div{
 	width: 48px;
 	height: 48px;
 	border-radius: 50%;
 	margin-top: 40px;
-	background: #666;
+	/* background: #666; */
 	color: #fff;
 	font-size: 24px;
 	line-height: 48px;
@@ -1030,7 +1072,7 @@ export default {
     margin: 0 auto;
 }
 .uploadContainer .el-card__body{
-	padding: 37px 20px;
+	padding: 35.5px 20px;
 }
 .uploadContainer .commonCard{
     margin-top: 20px;
@@ -1250,10 +1292,32 @@ export default {
     padding-top: 0;
     padding-bottom: 0;
 }
+.input-tag-container{
+	position: relative;
+	width: 220px;
+	margin-left: 10px;
+}
+.input-tag-container i{
+	position: absolute;
+	top: 8px;left: 8px;
+}
 .input-new-tag {
-    width: 220px;
-    margin-left: 10px;
     vertical-align: bottom;
+	background-color: #fff;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #33B3FF;
+    box-sizing: border-box;
+    color: #606266;
+    display: inline-block;
+    font-size: inherit;
+    height: 32px;
+    line-height: 32px;
+    outline: none;
+    padding: 0 15px;
+	padding-left: 30px;
+	font-size: 14px;
+	
 }
 .tagContainer{
     margin: 20px 0;
@@ -1274,6 +1338,7 @@ export default {
 .certification{
 	color: #999;
 	font-size: 14px;
+	line-height: 20px;
 }
 .certification span{
 	color: #33B3FF;
