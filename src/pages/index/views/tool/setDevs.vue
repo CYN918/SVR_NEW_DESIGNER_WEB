@@ -206,6 +206,7 @@ export default{
 	left: 0;
 	width: 100%;
 	height: 100%;
+	box-sizing: border-box;
 	border:1px solid #33B3FF;
 }
 .setDvs_02x1>div{
@@ -230,12 +231,12 @@ export default{
 	right: 0;
 }
 .setDvs_05{	
-	top: 0;
-	right: 0;
+	top: -1px;
+	right: -1px;
 }
 .setDvs_06{	
-	bottom: 0;
-	right: 0;
+	bottom: -1px;
+	right: -1px;
 }
 .setDvs_07{	
 	bottom: 0;

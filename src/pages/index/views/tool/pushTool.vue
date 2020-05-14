@@ -381,7 +381,6 @@
 				valTime:0,
 				bfObj:'',
 				psd:'',
-				IsShowStyle:false,
 				indexstyle:0,
 				bfMax:0,				
 				preview:{
@@ -1289,14 +1288,21 @@
 				}
 
 			},
+			getMousOnTime(x){
+				let ont = (x-120)/this.wdk*this.bl;
+				ont = ont<0?0:ont;
+				return ont;			
+			},
 			jl3(e, el, onc, list, n) {
 				e.preventDefault();
-				this.IsShowStyle = true;
+				let doms = e.path[2];
+				doms.style.pointerEvents='none';
 				this.setCheckOn({
 					type: n,
 					on: onc,
 					list:list,
-				})				
+				})
+				let Msond = this.Mos.on;
 				let tdStar = e.pageX;
 				let tdStarY = e.pageY;
 				let cs = el.start;
@@ -1316,57 +1322,77 @@
 					nxEnd = +nxd.start + (nxd.cut_end - nxd.cut_start);
 					nxStar = nxd.start;
 				}
+				let onlen = this.navcoms.decorates.length;
+				let isHg = false;
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
 					let on = -(tdStar - e.pageX) / (this.wdk / this.bl);
+					this.getMousOnTime(e.pageX);
 					let dd = +cs + on;					
-					if (prd && dd < prEnd) {
+					if (!isHg && prd && dd < prEnd) {
 						dd = prEnd;
 					}
-					if (nxd && (dd + tms) > nxStar) {
+					if (!isHg && nxd && (dd + tms) > nxStar) {
 						dd = nxStar - tms;
 					}
 					if (dd < 0) {
 						dd = 0;
 					}
 					el.start = dd;
-					if(n=='media' && (zby ||zby==0)){
-						let ony = tdStarY-e.pageY;
-						el.zpY = zby-ony;
+					if(zby || zby==0){
+						if(n=='media'){
+							if(this.Mos.n=='decorates'){
+								isHg = true;
+								el.zpY = -75*(onlen-this.Mos.on);
+								return
+							}
+							if(this.Mos.n=='media'){
+								isHg = false;
+								el.zpY = 0;
+								return
+							}
+							return
+						}
+						if(n=='decorates'){
+							if(this.Mos.n=='decorates'){
+								if(Msond==this.Mos.on){
+									isHg = false;
+									el.zpY = 0;
+									return
+								}
+								isHg = true;
+								el.zpY = -75*(Msond-this.Mos.on);
+								return
+							}
+							if(this.Mos.n=='media'){
+								isHg = true;
+								el.zpY = 75*(onlen-Msond);
+								return
+							}
+							return
+						}	
 					}
 					
 				}
 				document.onmouseup = (e) => {
 					e.preventDefault();
+					doms.style.pointerEvents='';
 					document.onmousemove = document.onmouseup = null;
-					if(n=='media' && (zby ||zby==0)){
-						let ony = tdStarY-e.pageY;
+					if(isHg){
 						list[onc].zpY = 0;
-						if(ony>50 && ony<160){
-							let ond1 = 0;
-							if(ony>80){
-								ond1 = 1;
-							}
-							let opb = this.navcoms.decorates[ond1];
-							let ond;
-							if(opb){
-								ond = opb[opb.length-1];
-							}
-							
-							if(ond){
-								list[onc].start = +ond.start+(ond.cut_end-ond.cut_start);	
-							}else{
-								list[onc].start = 0;
-							}	
-							list[onc].ischeck = '';
-							this.navcoms.decorates[ond1].push(list[onc]);
-							
+						list[onc].ischeck = '';
+						this.checkOn ={};
+						if(this.Mos.n=='media'){
+							this.setV(this.navcoms.media,this.clTim(this.navcoms.media,el),el);
 							list.splice(onc,1)
-							this.checkOn ={};
-							this.history_set();
-							return
 						}
+						if(this.Mos.n=='decorates'){
+							this.setV(this.navcoms.decorates[this.Mos.on],this.clTim(this.navcoms.decorates[this.Mos.on],el),el);
+							list.splice(onc,1)
+						}						
+						this.history_set();
+						return
 					}
 					
 					let xs = tdStar - e.pageX;
@@ -1397,8 +1423,7 @@
 					this.puandFn();
 					this.setPreviewTimes('','del');				
 					this.drmOn();
-					this.history_set();
-					this.IsShowStyle = false;					
+					this.history_set();				
 				}
 			},
 			jl2(e, el, index, list, n) {
@@ -1445,6 +1470,60 @@
 			},
 			setDomStar(x){							
 				return ((x-120)/this.wdk)*this.bl;				
+			},			
+			clTim(obj,data){
+				let on = 0,
+				end = this.backEnd(data),
+				len = obj.length-1,
+				pn,
+				backFn = ()=>{
+					if(!obj[on]){
+						pn = {t:'min',on:on};
+						return
+					}
+					let st = obj[on].start,
+					et = this.backEnd(obj[on]);
+					if(data.start>=et){
+						if(on<len){
+							on++;
+							backFn();
+							return
+						}						
+						pn = {t:'max',on:on};
+						return
+					}					
+					if(data.start<st){
+						if(end>st){
+							data.cut_end =data.cut_end-(end-st);
+						}
+						pn = {t:'min',on:on};						
+						return
+					}	
+					data.start = 	et;	
+					on=0;				
+					end = this.backEnd(data);
+					backFn();
+									
+				};
+				backFn();
+				return pn;
+			},
+			setV(obj,pn,pr){
+				if(pn && obj.length>0){
+					if(pn.t == 'min'){
+						obj.splice(pn.on,1,pr,obj[pn.on])
+						return
+					}
+					if(pn.t == 'max'){
+						obj.splice(pn.on,1,obj[pn.on],pr)
+						return
+					}
+					return
+				}
+				obj.push(pr);					
+			},
+			backEnd(ob){
+				return  +ob.start+(ob.cut_end-ob.cut_start);
 			},
 			zzyz() {
 			

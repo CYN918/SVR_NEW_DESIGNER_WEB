@@ -159,7 +159,7 @@ export default{
 				document.body.removeChild(dom);
 				document.onmousemove = document.onmouseup = null;
 			}
-		},
+		},		
 		setDecorates(el,x){
 			if(el.file_type!='image'){
 				return
@@ -172,7 +172,8 @@ export default{
 				file_name:el.file_name,
 				cut_start: 0,
 				ischeck:'',
-				start:0,				
+				start:0,
+				zpY:0
 			};
 			var pd = {
 					type: "pic",
@@ -193,41 +194,8 @@ export default{
 			let pn;
 			if(x){
 				let time = this.$parent.setDomStar(x);
-				pr.start = time;
-				let on=0,
-				obj =  this.value.decorates[this.$parent.Mos.on],
-				end = this.backEnd(pr),
-				len = obj.length-1,
-				backFn = ()=>{
-					if(!obj[on]){
-						pn = {t:'min',on:on};
-						return
-					}
-					let st = obj[on].start,
-					et = this.backEnd(obj[on]);
-					if(pr.start>=et){
-						if(on<len){
-							on++;
-							backFn();
-							return
-						}						
-						pn = {t:'max',on:on};
-						return
-					}					
-					if(pr.start<st){
-						if(end>st){
-							pr.cut_end =pr.cut_end-(end-st);
-						}
-						pn = {t:'min',on:on};						
-						return
-					}	
-					pr.start = 	et;	
-					on=0;				
-					end = this.backEnd(pr);
-					backFn();
-									
-				};
-				backFn();
+				pr.start = time;				
+				pn = this.$parent.clTim(this.value.decorates[this.$parent.Mos.on],pr);				
 			}
 			var a = document.createElement('img');
 				a.src=el.url;
@@ -260,18 +228,7 @@ export default{
 						
 						
 					}
-					let obj = this.value.decorates[this.$parent.Mos.on];					
-					if(pn && obj.length>0){
-						if(pn.t == 'min'){
-							obj.splice(pn.on,1,pr,obj[pn.on])
-							
-						}
-						if(pn.t == 'max'){
-							obj.splice(pn.on,1,obj[pn.on],pr)
-						}
-					}else{
-						obj.push(pr);	
-					}
+					this.$parent.setV(this.value.decorates[this.$parent.Mos.on],pn,pr);					
 					this.$parent.history_set();
 					this.$parent.setPreviewTimes(pr,'decorates',1);
 					
@@ -359,40 +316,7 @@ export default{
 			if(x){
 				let time = this.$parent.setDomStar(x);
 				pr.start = time;
-				let on=0,
-				obj =  this.value.media,
-				end = this.backEnd(pr),
-				len = obj.length-1,
-				backFn = ()=>{
-					if(!obj[on]){
-						pn = {t:'min',on:on};
-						return
-					}
-					let st = obj[on].start,
-					et = this.backEnd(obj[on]);
-					if(pr.start>=et){
-						if(on<len){
-							on++;
-							backFn();
-							return
-						}						
-						pn = {t:'max',on:on};
-						return
-					}					
-					if(pr.start<st){
-						if(end>st){
-							pr.cut_end =pr.cut_end-(end-st);
-						}						
-						pn = {t:'min',on:on};						
-						return
-					}	
-					pr.start = 	et;	
-					on=0;				
-					end = this.backEnd(pr);
-					backFn();
-									
-				};
-				backFn();
+				pn = this.$parent.clTim(this.value.media,pr);				
 			}
 			if(el.file_type=='image'){
 				var a = document.createElement('img');
@@ -424,16 +348,8 @@ export default{
 						}
 					}	
 					
-					if(pn && this.value.media.length>0){
-						if(pn.t == 'min'){
-							this.value.media.splice(pn.on,1,pr,this.value.media[pn.on])
-						}
-						if(pn.t == 'max'){
-							this.value.media.splice(pn.on,1,this.value.media[pn.on],pr)
-						}
-					}else{
-						this.value.media.push(pr);	
-					}	
+					this.$parent.setV(this.value.media,pn,pr)
+					
 					this.$parent.history_set();	
 					this.$parent.setPreviewTimes(pr,'media',1);	
 					this.$parent.drmOn();								
@@ -458,9 +374,7 @@ export default{
 					}else{
 						pr.h = this.$parent.boxH;
 						pr.w = (this.$parent.boxH/hd)*wd;
-						
 						if(pr.w>this.$parent.boxW){
-							
 							pr.w = this.$parent.boxW;
 							pr.h = (this.$parent.boxW/wd)*hd;
 							pr.y = (this.$parent.boxH-pr.h)/2;
@@ -469,19 +383,8 @@ export default{
 							pr.x = (this.$parent.boxW-pr.w)/2;
 							pr.y = 0;
 						}
-						
-						
 					}						
-					if(pn && this.value.media.length>0){
-						if(pn.t == 'min'){
-							this.value.media.splice(pn.on,1,pr,this.value.media[pn.on])							
-						}
-						if(pn.t == 'max'){
-							this.value.media.splice(pn.on,1,this.value.media[pn.on],pr)
-						}
-					}else{
-						this.value.media.push(pr);	
-					}	
+					this.$parent.setV(this.value.media,pn,pr)	
 					this.$parent.history_set();
 					this.$parent.setPreviewTimes(pr,'media',1);
 					this.$parent.drmOn();
@@ -498,8 +401,6 @@ export default{
 			
 			let el = this.istype.data;
 			let index = this.istype.on;
-		
-			
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
 				1001,
@@ -518,25 +419,17 @@ export default{
 			.then((da)=>{
 				this.deldetType=0;
 				if(da.data.result==0){
-					this.$message({
-						message:'删除成功'
-					})
+					this.tipMr('删除成功')
 					this.list.splice(index,1);
 					this.fileTotalSummary();
 					this.close();
-					return
-				
+					return				
 				}
-				this.$message({
-					message:'删除失败'
-				})
-			
+				this.tipMr('删除失败')			
 			})
 			.catch(()=>{	
 				this.deldetType=0;
-				this.$message({
-					message:'删除失败'
-				})
+				this.tipMr('删除失败')
 			});
 		},
 		clPic(fld,on){
@@ -618,8 +511,7 @@ export default{
 				fps:'',
 				play_time:'',
 				fid:'',
-				timestamp:new Date().getTime(),
-				
+				timestamp:new Date().getTime(),				
 			};
 			if(fld.type=='video/mp4'){
 				formData.append('fps_pic',1);
@@ -693,8 +585,9 @@ export default{
 		},
 		
 		getList(){
-		
-			
+			if(!window.userInfo){
+				return
+			}
 			this.fileTotalSummary();
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',
 			times = (Date.parse(new Date())/1000),
@@ -709,7 +602,6 @@ export default{
 				sign:this.MD5(encodeURIComponent(arr.sort())),
 				user:window.userInfo.open_id,
 				timestamp:times,
-				// file_type:'',
 				relation_type:'mobile_show',
 				limit:40,
 				page:this.page,
