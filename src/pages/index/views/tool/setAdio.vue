@@ -355,7 +355,7 @@ export default{
 				this.$message({
 					message:"选用成功"
 				})
-				
+				this.$parent.history_set();
 			}).catch(()=>{
 				this.aaa='';
 			})

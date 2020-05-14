@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<div class="ntob">
-			
 			<div class="ntob_head">
 				<div @click="backs()" class="noto_back">
 					<i class="icon_jt_left"></i>返回
@@ -1277,6 +1276,7 @@
 					this.puandFn();
 					this.setPreviewTimes('','del');				
 					this.drmOn();
+					this.history_set();
 				}
 			},
 			setHm(on, el, list) {
@@ -1343,7 +1343,6 @@
 					if(n=='media' && (zby ||zby==0)){
 						let ony = tdStarY-e.pageY;
 						list[onc].zpY = 0;
-						
 						if(ony>50 && ony<160){
 							let ond1 = 0;
 							if(ony>80){
@@ -1365,6 +1364,7 @@
 							
 							list.splice(onc,1)
 							this.checkOn ={};
+							this.history_set();
 							return
 						}
 					}
@@ -1397,6 +1397,7 @@
 					this.puandFn();
 					this.setPreviewTimes('','del');				
 					this.drmOn();
+					this.history_set();
 					this.IsShowStyle = false;					
 				}
 			},
@@ -1438,7 +1439,8 @@
 					document.onmousemove = document.onmouseup = null;
 					this.puandFn();
 					this.setPreviewTimes('','del');					
-					this.drmOn();				
+					this.drmOn();	
+					this.history_set();
 				}
 			},
 			setDomStar(x){							
