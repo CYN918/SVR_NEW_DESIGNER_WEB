@@ -678,26 +678,24 @@
 				this.cans.drawImage(this.$refs.vids,a.sx,a.sy,a.sw,a.sh,a.x,a.y,a.w,a.h);
 			},
 			drmOn(){
-				this.setPreviewObj();
-			
+				this.setPreviewObj();			
 				let obd = this.preview.previewObj;
-			
 				if(!obd || obd.type=='null'){
 					this.drmBg();
 					return
 				}
-				if(obd.type=='video'){
-					
-					clearTimeout(this.valObj);
-					this.$refs.vids.src=obd.file_url;	
-					this.$refs.vids.currentTime = this.backto((this.preview.onTime - obd.start)+obd.cut_start);
 				
+				if(obd.type=='video'){
+					clearTimeout(this.valObj);
+					this.$refs.vids.src=obd.file_url;
+					let t = this.backto((this.preview.onTime - obd.start)+obd.cut_start);
+					t = t==0?0.01:t;
+					this.$refs.vids.currentTime = t;
 					let fns = ()=>{
 						this.drmvideo(obd);
 						removeEventListener('loadeddata',fns);
 					};
 					this.$refs.vids.addEventListener('loadeddata',fns);
-				
 					return
 				}
 				if(obd.type=='pic'){
@@ -710,8 +708,6 @@
 					}
 					return
 				}
-				
-				
 			},			
 			
 			kdClick(e){
