@@ -1,6 +1,5 @@
 <template>
 	<div class="box_p_01">
-		
 		<div class="mp3_03" ref="nsdf">
 			<div class="mp3_03_0" ref="spnds">
 				<spck
@@ -9,7 +8,6 @@
 				:List="navs"
 				:keys="'v'"
 				:v="'n'"
-				
 				></spck>
 				<div class="mp3_03_2">
 					<img class="mp3_03_2_img1" @click="ss()" :src="imgPath+'tools/ss.png'"/>
@@ -18,22 +16,19 @@
 				</div>
 			</div>				
 			<spck2 
-			
 			v-if="type=='sh_List' && !isshs"
 			v-model="clas"
 			class="mp3_03_3"
 			:List="showNav"
 			:keys="'classify_name'"
 			:v="'classify_name'"
-			
 			></spck2>
-			
 		</div>
 		<div v-if="isNOdata" class="mp3_04 mp3_04nod">
 			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/empty_nodata.svg">
 			<div>哎呀，没找到音乐</div>
 		</div>
-		<div v-else class="mp3_04" ref='mp3_04'>
+		<div v-else class="mp3_04 mp3_04ff" ref='mp3_04'>
 			<div class="mp3_04_01"><span></span><span>歌曲</span><span>歌手</span><span>时长</span><span></span></div>
 			<div 
 			@dblclick="bf(el, index)"
@@ -125,6 +120,7 @@
 <script>
 import spck from './fospan'
 import spck2 from './fospan2'
+import { Loading } from 'element-ui';
 export default{
 	components:{
 		spck,
@@ -359,7 +355,7 @@ export default{
 				this.$message({
 					message:"选用成功"
 				})
-				
+				this.$parent.history_set();
 			}).catch(()=>{
 				this.aaa='';
 			})
@@ -621,7 +617,6 @@ export default{
 			if(this.name){
 				pr.name = this.name;
 			}
-		
 			if(!a){
 				if(this.clas && this.clas != "全部"){
 					pr.classify_name = this.clas;
@@ -629,8 +624,6 @@ export default{
 					this.clas = '全部';
 				}
 			}
-			
-				
 			if(window.source){
 				window.isStop=1;
 				setTimeout(()=>{
@@ -638,33 +631,28 @@ export default{
 				},50)
 				window.source();
 			}
-			
-		
-			
+			if(this.loading){
+				this.loading.close();
+			}
+			this.loading = Loading.service({target:'.box_p_01', fullscreen: true,background:'rgba(244,246,249,.4)' });
 			this.api[this.type](pr).then((da)=>{
+				this.loading.close()
 				if(da=='error'){
 					return	
 				}
-				try{
-					this.datas = da.data;
-					
-				}catch(e){
-					
-				}
+				try{this.datas = da.data;}catch{}
 				if(this.datas.length==0){
 					this.isNOdata = 1;
 				}else{
 					this.isNOdata = '';
 				}
-				
 				setTimeout(()=>{
 					if(this.bRunning && this.$refs.chean[0]){
 						this.$refs.chean[0].play();
 					}
 				},250)
-				
-				
-				
+			}).catch(()=>{
+				this.loading.close()
 			})
 		},
 		close(){
@@ -1009,6 +997,7 @@ export default{
 	position: relative;
 	top: 0;
 }
+
 .mp3_04_01s:hover{
     background: rgba(187,187,187,.3);	
 }

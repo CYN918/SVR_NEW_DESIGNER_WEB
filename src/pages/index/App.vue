@@ -112,6 +112,24 @@ img{
 	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.ttf') format('truetype'),
 	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.svg#iconfont') format('svg');
 }
+
+
+@font-face {
+  font-family: 'sjsziconfont';
+  src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.eot');
+  src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.eot?#iefix') format('embedded-opentype'),
+      url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.woff2') format('woff2'),
+      url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.woff') format('woff'),
+      url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.ttf') format('truetype'),
+      url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.svg#iconfont') format('svg');
+}
+.sjsziconfont {
+  font-family: "sjsziconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 /*布局样式*/
 .b_con_01{
 	padding: 40px 0 60px;

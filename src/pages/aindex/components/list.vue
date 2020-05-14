@@ -99,4 +99,6 @@ export default {
 	display: block;
     margin: 8rem auto;
 }
+
 </style>
+

@@ -28,7 +28,7 @@
 							<div class="hfBox xxbox_c" v-if="el.isshowfh" >
 								
 								<Input :mblur="xsfn" class="userBoxd2" v-model="plon[index]" :oType="'max'" :max="140" :type="'text'" :ref="'myOn'+index"  :placeholder="hfnc"></Input>	
-								<span :class="chekcont()==true?'iscsbtn':''" @click="addfu2(index,el.work.work_id,el.comment.comment_id,el.comment.username,el.comment.feed_id)">回复</span>
+								<span :class="chekcont(plon[index])==true?'iscsbtn':''" @click="addfu2(index,el.work.work_id,el.comment.comment_id,el.comment.username,el.comment.feed_id)">回复</span>
 							
 							</div>
 							<div v-if="el.op_cname=='回复' && el.isshowsub" class="comment_2_9">
@@ -109,8 +109,9 @@ export default {
 		backTj(n){
 			return  n>999?999:n;
 		},
-		chekcont(){
-			return this.zkMyFun.checkWz(this.pl2);
+		chekcont(n){
+			let str = n?n:'';
+			return this.zkMyFun.checkWz(str);
 		},
 		handleSizeChange(val) {
 			document.documentElement.scrollTop =1;

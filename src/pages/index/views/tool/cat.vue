@@ -113,8 +113,9 @@ export default{
 			this.setcs('sw',sw);
 			this.setcs('sh',sh);			
 			this.$parent.puandFn();			
-			this.close();
+			this.close();	
 			this.$parent.drmOn();
+			this.$parent.history_set();
 		},
 		setcs(n,v){
 			this.$set(this.value.data,n,v)

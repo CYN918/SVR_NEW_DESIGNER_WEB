@@ -92,9 +92,8 @@ let wb = [
 	{path: '/404',name: 'erro2',component: Errors},	
 	{path: '/Ac_v',name: 'Ac_v',component: Ac_v1},	
 	{path: '/Ac_v2',name: 'Ac_v2',component: Ac_v2},	
-	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},	
-	{path: '/Ac_v4',name: 'Ac_v4',component: Ac_v4},	
-
+	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
+	{path: '/Ac_v4',name: 'Ac_v4',component: Ac_v4},
 	{path: '/pushTool',name:'pushTool',component: pushTool},
 	
 	{
@@ -104,9 +103,9 @@ let wb = [
 		component: Index,
 		children:[
 			
-			{path: '/tolt',name:'tolt',component: toltIndex,children:[
+			{path: '/tolt',redirect:{name:'tolt'},component: toltIndex,children:[
 				{path: '/tolt',name:'tolt',component: tolt},
-				{path: '/toluser',name:'tolt',component: toluser},
+				{path: '/toluser',name:'toluser',component: toluser},
 			]},
 			
 			
@@ -189,7 +188,9 @@ let wb = [
 			
 			{
 				path: '/profit',
-				name: 'profit',
+				redirect: {
+				    name: 'profit'
+				},
 				component:pt_index,
 				children:[
 					// {path: '/profit',name: 'profit',component:pt_works},
@@ -221,7 +222,9 @@ let wb = [
 	/*login_*/	
 	{
 		path: '/login',
-		name: 'login',
+		redirect: {
+		    name: 'login'
+		},
 		component:lg_index,
 		children:[
 			{path: '/login',name: 'login',component:lg_login},
