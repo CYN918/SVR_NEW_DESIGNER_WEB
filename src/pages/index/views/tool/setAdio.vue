@@ -174,10 +174,12 @@ export default{
 	},
 	watch:{
 		'clas'(){
+			this.page=1;
 			this.getList();
 		},
 		'type'(){
 			if(!this.clas){
+				this.page=1;
 				this.getList();
 			}
 			this.clas = '';			
@@ -228,7 +230,7 @@ export default{
 	},
 	methods:{	
 		scrollMo(){
-			if(this.total<=this.limit || this.total>= this.datas.length){
+			if(this.total<=this.limit || this.datas.length>=this.total){
 				this.isMo=false;
 				return
 			}
@@ -660,7 +662,7 @@ export default{
 					return	
 				}
 				this.total = da.total;
-				if(this.total<=this.limit || this.total>= this.datas.length){
+				if(this.total<=this.limit || this.datas.length>=this.total){
 					this.isMo=false;
 				}
 				this.datas = this.page!=1?this.datas.concat(da.data):da.data;
