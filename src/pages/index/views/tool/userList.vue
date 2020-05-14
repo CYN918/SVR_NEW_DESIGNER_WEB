@@ -3,7 +3,7 @@
 		<div class="tolu_01">
 			<span>我的来电秀工程</span>
 			<span style="float: right;">
-				<a href="http://dev-web-ndesigner.idatachain.cn/#/cont?id=158651598326">如何通过制作来电秀获得收益？</a>
+				<a href="https://shiquaner.zookingsoft.com/#/cont?id=158936954964">如何通过制作来电秀获得收益？</a>
 				<span style="padding-left: 64px;font-size:14px;" @click="hoverb">{{ timerulec }} <i :class="['el-icon-arrow-down',timerule?'selicon':'seliconc']"></i></span>
 				<div class="timetoast" v-if="timerule">
 					<div :class="['timetoast_1',timerulec == '修改时间'?'timetoast_1_c':'']" @click="settimerule('修改时间')">修改时间</div>
