@@ -4,11 +4,10 @@
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
 			
 			<canvas v-if="el.status==0" class="videoBox1" ref="cavs"></canvas>
-			
 			<video @timeupdate="timeupdate" @canplay="setTime()" loop="loop" v-if="el.file_url" class="bof" ref="video" :src="el.file_url"></video>
 			<div 
 			@mouseover="showT()" @mouseout="hinT()"
-			v-if="[2,1,0,-1].indexOf(+el.status)!=-1"
+			v-if="[2,1,0,-1].indexOf(+el.status)!=-1 && isaduio()"
 			class="ldxwc_yy">
 				<img :class="['ant',Isbf?'paused':'']" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/Upload_icon_music_24.svg" alt="">
 				<div :class="['gdwz_001',showTil?'showTil':'']"><span :style="yu_tle">{{backdr()}}</span></div>
@@ -121,6 +120,9 @@ export default{
 				return this.$refs.tiles.getBoundingClientRect().width>1?'tian_01':'';
 			}
 			
+		},
+		isaduio(){
+			return this.jsons.audio && this.jsons.audio[0];
 		},
 		backdr(){
 			if(this.jsons.audio && this.jsons.audio[0] && this.jsons.audio[0].author){

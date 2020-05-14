@@ -381,7 +381,6 @@
 				valTime:0,
 				bfObj:'',
 				psd:'',
-				IsShowStyle:false,
 				indexstyle:0,
 				bfMax:0,				
 				preview:{
@@ -679,26 +678,24 @@
 				this.cans.drawImage(this.$refs.vids,a.sx,a.sy,a.sw,a.sh,a.x,a.y,a.w,a.h);
 			},
 			drmOn(){
-				this.setPreviewObj();
-			
+				this.setPreviewObj();			
 				let obd = this.preview.previewObj;
-			
 				if(!obd || obd.type=='null'){
 					this.drmBg();
 					return
 				}
-				if(obd.type=='video'){
-					
-					clearTimeout(this.valObj);
-					this.$refs.vids.src=obd.file_url;	
-					this.$refs.vids.currentTime = this.backto((this.preview.onTime - obd.start)+obd.cut_start);
 				
+				if(obd.type=='video'){
+					clearTimeout(this.valObj);
+					this.$refs.vids.src=obd.file_url;
+					let t = this.backto((this.preview.onTime - obd.start)+obd.cut_start);
+					t = t==0?0.01:t;
+					this.$refs.vids.currentTime = t;
 					let fns = ()=>{
 						this.drmvideo(obd);
 						removeEventListener('loadeddata',fns);
 					};
 					this.$refs.vids.addEventListener('loadeddata',fns);
-				
 					return
 				}
 				if(obd.type=='pic'){
@@ -711,8 +708,6 @@
 					}
 					return
 				}
-				
-				
 			},			
 			
 			kdClick(e){
@@ -1289,84 +1284,157 @@
 				}
 
 			},
-			jl3(e, el, onc, list, n) {
+			getMousOnTime(x){
+				let ont = (x-120)/this.wdk*this.bl;
+				ont = ont<0?0:ont;
+				return ont;			
+			},
+			getPNData(list=[],on=0){
+				let len = list.length-1,
+				obj = {};
+				if(on>0){
+					let pns = list[on-1];
+					obj.pr = {
+						start:pns.start,
+						end:this.backTim(pns)
+					};
+				}
+				if(on<len){
+					let pns = list[on+1];
+					obj.nx = {
+						start:pns.start,
+						end:this.backTim(pns)
+					};
+				}
+				return obj				
+			},
+			jl3(e, el, index, list, n) {
 				e.preventDefault();
-				this.IsShowStyle = true;
-				this.setCheckOn({
-					type: n,
-					on: onc,
-					list:list,
-				})				
-				let tdStar = e.pageX;
-				let tdStarY = e.pageY;
-				let cs = el.start;
-				let zby = el.zpY;
-				let wid = el.long * this.wdk;
-				let ond = onc - 1;
-				let ondn = onc + 1;
-				let tms = el.cut_end - el.cut_start;				
-				let prEnd, prStar, nxEnd, nxStar;
-				let prd = list[ond];
-				if (prd) {
-					prEnd = +prd.start + (prd.cut_end - prd.cut_start);
-					prStar = prd.start;
-				}
-				let nxd = list[ondn];
-				if (nxd) {
-					nxEnd = +nxd.start + (nxd.cut_end - nxd.cut_start);
-					nxStar = nxd.start;
-				}
+				this.setCheckOn({type:n,on:index,list:list})
+				let cDom = e.path[2],
+				Msond = this.Mos.on,
+				tdStar = e.pageX,
+				mousT = el.start,
+				zby = el.zpY,
+				onc = index,
+				tms = el.cut_end - el.cut_start,
+				pN = this.getPNData(list,onc),
+				onlen = this.navcoms.decorates.length,
+				isHg = false,
+				onDom = el,
+				init = (on,el,ex)=>{
+					tdStar = ex;
+					Msond = this.Mos.on;	
+					mousT = el.start;
+					zby = el.zpY;
+					onc = on;
+					tms = el.cut_end - el.cut_start;
+					pN = this.getPNData(list,onc);
+					onlen = this.navcoms.decorates.length;
+					isHg = false;
+					onDom = el;
+				},
+				upSetQ = (ont,ex)=>{
+					if(pN.pr){
+						let ond = onc-1;
+						if (ont <= (pN.pr.start+(pN.pr.end-pN.pr.start)/2)) {
+							onDom.start = list[ond].start;
+							list[ond].start = this.backTim(onDom);
+							list.splice(ond,2,onDom,list[ond]);
+							this.checkOn.on = ond;
+							// onc = ond;
+							init(ond,onDom,ex)
+						}
+						
+					}
+					if(pN.nx){
+						let ond = onc+1;
+						if (ont >= pN.nx.start+((pN.nx.end-pN.nx.start)/2)) {
+							list[ond].start = onDom.start;
+							onDom.start = this.backTim(list[ond]);
+							list.splice(onc, 2, list[ond],onDom);						
+							this.checkOn.on = ond;
+							// onc = ond;
+							init(ond,onDom,ex)
+						}	
+						
+					}
+				};
+				
+				cDom.style.pointerEvents='none';								
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
 					let on = -(tdStar - e.pageX) / (this.wdk / this.bl);
-					let dd = +cs + on;					
-					if (prd && dd < prEnd) {
-						dd = prEnd;
+					this.getMousOnTime(e.pageX);
+					let dd = +mousT + on;					
+					if (!isHg && pN.pr && dd < pN.pr.end) {
+						dd = pN.pr.end;
 					}
-					if (nxd && (dd + tms) > nxStar) {
-						dd = nxStar - tms;
+					if (!isHg && pN.nx && (dd + tms) > pN.nx.start) {
+						dd = pN.nx.start - tms;
 					}
 					if (dd < 0) {
 						dd = 0;
 					}
-					el.start = dd;
-					if(n=='media' && (zby ||zby==0)){
-						let ony = tdStarY-e.pageY;
-						el.zpY = zby-ony;
+					onDom.start = dd;
+					let ont = this.getMousTime(e);
+					upSetQ(ont,e.pageX);
+					if(zby || zby==0){
+						if(n=='media'){
+							if(this.Mos.n=='decorates'){
+								isHg = true;
+								onDom.zpY = -75*(onlen-this.Mos.on);
+								return
+							}
+							if(this.Mos.n=='media'){
+								isHg = false;
+								onDom.zpY = 0;
+								return
+							}
+							return
+						}
+						if(n=='decorates'){
+							if(this.Mos.n=='decorates'){
+								if(Msond==this.Mos.on){
+									isHg = false;
+									onDom.zpY = 0;
+									return
+								}
+								isHg = true;
+								onDom.zpY = -75*(Msond-this.Mos.on);
+								return
+							}
+							if(this.Mos.n=='media'){
+								isHg = true;
+								onDom.zpY = 75*(onlen-Msond);
+								return
+							}
+							return
+						}	
 					}
+					
+					
 					
 				}
 				document.onmouseup = (e) => {
 					e.preventDefault();
+					cDom.style.pointerEvents='';
 					document.onmousemove = document.onmouseup = null;
-					if(n=='media' && (zby ||zby==0)){
-						let ony = tdStarY-e.pageY;
-						list[onc].zpY = 0;
-						if(ony>50 && ony<160){
-							let ond1 = 0;
-							if(ony>80){
-								ond1 = 1;
-							}
-							let opb = this.navcoms.decorates[ond1];
-							let ond;
-							if(opb){
-								ond = opb[opb.length-1];
-							}
-							
-							if(ond){
-								list[onc].start = +ond.start+(ond.cut_end-ond.cut_start);	
-							}else{
-								list[onc].start = 0;
-							}	
-							list[onc].ischeck = '';
-							this.navcoms.decorates[ond1].push(list[onc]);
-							
+					if(isHg){
+						onDom.zpY = 0;
+						onDom.ischeck = '';
+						this.checkOn ={};
+						if(this.Mos.n=='media'){
+							this.setV(this.navcoms.media,this.clTim(this.navcoms.media,onDom),onDom);
 							list.splice(onc,1)
-							this.checkOn ={};
-							this.history_set();
-							return
 						}
+						if(this.Mos.n=='decorates'){
+							this.setV(this.navcoms.decorates[this.Mos.on],this.clTim(this.navcoms.decorates[this.Mos.on],onDom),onDom);
+							list.splice(onc,1)
+						}						
+						this.history_set();
+						return
 					}
 					
 					let xs = tdStar - e.pageX;
@@ -1374,32 +1442,12 @@
 						return
 					}
 					
-					this.checkOn.list[this.checkOn.on].ischeck = '';
-					let ont = this.getMousTime(e);
-	
-					if (prStar || prStar == 0) {
-						if (ont <= (prStar+(prEnd-prStar)/2)) {
-							list[onc].start = list[ond].start;
-							list[ond].start = this.backTim(list[onc]);
-							list.splice(ond,2,list[onc], list[ond]);
-							this.checkOn.on = ond;
-						}
-					}
-					if (nxStar || nxStar == 0) {
-						if (ont >= nxStar+((nxEnd-nxStar)/2)) {
-							list[ondn].start = list[onc].start;
-							list[onc].start = this.backTim(list[ondn]);
-							list.splice(onc, 2, list[ondn], list[onc]);						
-							this.checkOn.on = ondn;							
-						}						
-					}					
-					this.checkOn.list[this.checkOn.on].ischeck = 1;
 					this.puandFn();
 					this.setPreviewTimes('','del');				
 					this.drmOn();
-					this.history_set();
-					this.IsShowStyle = false;					
-				}
+					this.history_set();				
+				};
+				
 			},
 			jl2(e, el, index, list, n) {
 				e.preventDefault();
@@ -1445,6 +1493,60 @@
 			},
 			setDomStar(x){							
 				return ((x-120)/this.wdk)*this.bl;				
+			},			
+			clTim(obj,data){
+				let on = 0,
+				end = this.backEnd(data),
+				len = obj.length-1,
+				pn,
+				backFn = ()=>{
+					if(!obj[on]){
+						pn = {t:'min',on:on};
+						return
+					}
+					let st = obj[on].start,
+					et = this.backEnd(obj[on]);
+					if(data.start>=et){
+						if(on<len){
+							on++;
+							backFn();
+							return
+						}						
+						pn = {t:'max',on:on};
+						return
+					}					
+					if(data.start<st){
+						if(end>st){
+							data.cut_end =data.cut_end-(end-st);
+						}
+						pn = {t:'min',on:on};						
+						return
+					}	
+					data.start = 	et;	
+					on=0;				
+					end = this.backEnd(data);
+					backFn();
+									
+				};
+				backFn();
+				return pn;
+			},
+			setV(obj,pn,pr){
+				if(pn && obj.length>0){
+					if(pn.t == 'min'){
+						obj.splice(pn.on,1,pr,obj[pn.on])
+						return
+					}
+					if(pn.t == 'max'){
+						obj.splice(pn.on,1,obj[pn.on],pr)
+						return
+					}
+					return
+				}
+				obj.push(pr);					
+			},
+			backEnd(ob){
+				return  +ob.start+(ob.cut_end-ob.cut_start);
 			},
 			zzyz() {
 			
@@ -1722,10 +1824,7 @@
 				let widtime = this.getOneWidthTime();
 				let tdTim = this.getJdtTime();
 				let onlast = tdTim+widtime;
-				
 				if(this.preview.onTime>onlast){
-					console.log(widtime);
-					console.log(tdTim);
 					let ttt = 0;
 					let syt = this.preview.maxTime-this.preview.onTime;
 					if(syt>=widtime){
@@ -3002,6 +3101,7 @@
 	    left: 0;
 	    right: 0;
 	    bottom: 75px;
+		overflow: hidden;
 	}
 	.gdAm{
 		transition: transform .5s;
