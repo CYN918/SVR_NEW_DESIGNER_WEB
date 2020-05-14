@@ -1312,59 +1312,88 @@
 				}
 				return obj				
 			},
-			jl3(e, el, onc, list, n) {
+			jl3(e, el, index, list, n) {
 				e.preventDefault();
-				let doms = e.path[2];
-				doms.style.pointerEvents='none';
-				this.setCheckOn({type: n,on: onc,list:list})
-				let Msond = this.Mos.on;
-				let tdStar = e.pageX;
-				let mousT = el.start;				
-				let zby = el.zpY;
-				let ond = onc - 1;
-				let ondn = onc + 1;
-				let tms = el.cut_end - el.cut_start;				
-				let prEnd, prStar, nxEnd, nxStar;
-				let pN = this.getPNData(list,onc);
-				console.log(pN);
-				let prd = list[ond];
-				if (prd) {
-					prEnd = +prd.start + (prd.cut_end - prd.cut_start);
-					prStar = prd.start;
-				}
-				let nxd = list[ondn];
-				if (nxd) {
-					nxEnd = +nxd.start + (nxd.cut_end - nxd.cut_start);
-					nxStar = nxd.start;
-				}
-				let onlen = this.navcoms.decorates.length;
-				let isHg = false;
+				this.setCheckOn({type:n,on:index,list:list})
+				let cDom = e.path[2],
+				Msond = this.Mos.on,
+				tdStar = e.pageX,
+				mousT = el.start,
+				zby = el.zpY,
+				onc = index,
+				tms = el.cut_end - el.cut_start,
+				pN = this.getPNData(list,onc),
+				onlen = this.navcoms.decorates.length,
+				isHg = false,
+				onDom = el,
+				init = (on,el,ex)=>{
+					tdStar = ex;
+					Msond = this.Mos.on;	
+					mousT = el.start;
+					zby = el.zpY;
+					onc = on;
+					tms = el.cut_end - el.cut_start;
+					pN = this.getPNData(list,onc);
+					onlen = this.navcoms.decorates.length;
+					isHg = false;
+					onDom = el;
+				},
+				upSetQ = (ont,ex)=>{
+					if(pN.pr){
+						let ond = onc-1;
+						if (ont <= (pN.pr.start+(pN.pr.end-pN.pr.start)/2)) {
+							onDom.start = list[ond].start;
+							list[ond].start = this.backTim(onDom);
+							list.splice(ond,2,onDom,list[ond]);
+							this.checkOn.on = ond;
+							// onc = ond;
+							init(ond,onDom,ex)
+						}
+						
+					}
+					if(pN.nx){
+						let ond = onc+1;
+						if (ont >= pN.nx.start+((pN.nx.end-pN.nx.start)/2)) {
+							list[ond].start = onDom.start;
+							onDom.start = this.backTim(list[ond]);
+							list.splice(onc, 2, list[ond],onDom);						
+							this.checkOn.on = ond;
+							// onc = ond;
+							init(ond,onDom,ex)
+						}	
+						
+					}
+				};
+				
+				cDom.style.pointerEvents='none';								
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
 					let on = -(tdStar - e.pageX) / (this.wdk / this.bl);
 					this.getMousOnTime(e.pageX);
 					let dd = +mousT + on;					
-					if (!isHg && prd && dd < prEnd) {
-						dd = prEnd;
+					if (!isHg && pN.pr && dd < pN.pr.end) {
+						dd = pN.pr.end;
 					}
-					if (!isHg && nxd && (dd + tms) > nxStar) {
-						dd = nxStar - tms;
+					if (!isHg && pN.nx && (dd + tms) > pN.nx.start) {
+						dd = pN.nx.start - tms;
 					}
 					if (dd < 0) {
 						dd = 0;
 					}
-					el.start = dd;
+					onDom.start = dd;
+					let ont = this.getMousTime(e);
+					upSetQ(ont,e.pageX);
 					if(zby || zby==0){
 						if(n=='media'){
 							if(this.Mos.n=='decorates'){
 								isHg = true;
-								el.zpY = -75*(onlen-this.Mos.on);
+								onDom.zpY = -75*(onlen-this.Mos.on);
 								return
 							}
 							if(this.Mos.n=='media'){
 								isHg = false;
-								el.zpY = 0;
+								onDom.zpY = 0;
 								return
 							}
 							return
@@ -1373,37 +1402,39 @@
 							if(this.Mos.n=='decorates'){
 								if(Msond==this.Mos.on){
 									isHg = false;
-									el.zpY = 0;
+									onDom.zpY = 0;
 									return
 								}
 								isHg = true;
-								el.zpY = -75*(Msond-this.Mos.on);
+								onDom.zpY = -75*(Msond-this.Mos.on);
 								return
 							}
 							if(this.Mos.n=='media'){
 								isHg = true;
-								el.zpY = 75*(onlen-Msond);
+								onDom.zpY = 75*(onlen-Msond);
 								return
 							}
 							return
 						}	
 					}
 					
+					
+					
 				}
 				document.onmouseup = (e) => {
 					e.preventDefault();
-					doms.style.pointerEvents='';
+					cDom.style.pointerEvents='';
 					document.onmousemove = document.onmouseup = null;
 					if(isHg){
-						list[onc].zpY = 0;
-						list[onc].ischeck = '';
+						onDom.zpY = 0;
+						onDom.ischeck = '';
 						this.checkOn ={};
 						if(this.Mos.n=='media'){
-							this.setV(this.navcoms.media,this.clTim(this.navcoms.media,el),el);
+							this.setV(this.navcoms.media,this.clTim(this.navcoms.media,onDom),onDom);
 							list.splice(onc,1)
 						}
 						if(this.Mos.n=='decorates'){
-							this.setV(this.navcoms.decorates[this.Mos.on],this.clTim(this.navcoms.decorates[this.Mos.on],el),el);
+							this.setV(this.navcoms.decorates[this.Mos.on],this.clTim(this.navcoms.decorates[this.Mos.on],onDom),onDom);
 							list.splice(onc,1)
 						}						
 						this.history_set();
@@ -1415,31 +1446,12 @@
 						return
 					}
 					
-					this.checkOn.list[this.checkOn.on].ischeck = '';
-					let ont = this.getMousTime(e);
-	
-					if (prStar || prStar == 0) {
-						if (ont <= (prStar+(prEnd-prStar)/2)) {
-							list[onc].start = list[ond].start;
-							list[ond].start = this.backTim(list[onc]);
-							list.splice(ond,2,list[onc], list[ond]);
-							this.checkOn.on = ond;
-						}
-					}
-					if (nxStar || nxStar == 0) {
-						if (ont >= nxStar+((nxEnd-nxStar)/2)) {
-							list[ondn].start = list[onc].start;
-							list[onc].start = this.backTim(list[ondn]);
-							list.splice(onc, 2, list[ondn], list[onc]);						
-							this.checkOn.on = ondn;							
-						}						
-					}					
-					this.checkOn.list[this.checkOn.on].ischeck = 1;
 					this.puandFn();
 					this.setPreviewTimes('','del');				
 					this.drmOn();
 					this.history_set();				
-				}
+				};
+				
 			},
 			jl2(e, el, index, list, n) {
 				e.preventDefault();
@@ -1816,10 +1828,7 @@
 				let widtime = this.getOneWidthTime();
 				let tdTim = this.getJdtTime();
 				let onlast = tdTim+widtime;
-				
 				if(this.preview.onTime>onlast){
-					console.log(widtime);
-					console.log(tdTim);
 					let ttt = 0;
 					let syt = this.preview.maxTime-this.preview.onTime;
 					if(syt>=widtime){
