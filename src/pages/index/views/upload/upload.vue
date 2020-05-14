@@ -51,11 +51,11 @@
                                         <div class="uploadBtn">
                                             <span>
 												<img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_sctp.svg" alt="" />上传图片
-												<input @change="(file) => showUp(0,'上传图片', file)" class="uploadBoxd2_2_2_1" ref="upnfile" :accept="upList[0].typexz"  multiple="multiple" type="file" />
+												<input @change="(file) => showUp(0,'上传图片', file, 'upnfileimg')" class="uploadBoxd2_2_2_1" ref="upnfileimg" :accept="upList[0].typexz"  multiple="multiple" type="file" />
 											</span>
                                             <span>
 												<img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_scsp.svg" alt="" />上传视频
-												<input @change="(file) => showUp(1,'上传视频', file)" class="uploadBoxd2_2_2_2" ref="upnfile" :accept="upList[1].typexz"  multiple="multiple" type="file" />
+												<input @change="(file) => showUp(1,'上传视频', file, 'upnfilevdo')" class="uploadBoxd2_2_2_2" ref="upnfilevdo" :accept="upList[1].typexz"  multiple="multiple" type="file" />
 											</span>
                                         </div>
                                     </el-col>
@@ -89,19 +89,16 @@
 								<input
 									class="input-new-tag" type="text"
 									placeholder="请输入文字，enter结束输入"
-									v-if="inputVisible" v-model="tags"
+									v-model="tags"
 									ref="saveTagInput"
 									@keyup.enter="keydown"
 									@blur="keydown">
 								<i class="el-icon-plus" style="color:#33B3FF"></i>
 							</div>
-                            <el-button type="primary" plain v-else class="button-new-tag" size="small" @click="showInput">+ 标签</el-button>
+                            <span v-else class="button-new-tag" @click="showInput">+ 标签</span>
                             <div class="leftTagNum">还可添加{{5-form.labels.length}}个标签</div>
                             <div class="tagContainer">
-                                <el-tag
-                                    v-for="(el,index) in form.labels" :key="index"
-                                    closable @close="deletTage(index)" effect="dark">{{el}}
-                                </el-tag>
+								<span class="custom_tag" v-for="(el, index) in form.labels" :key="index">{{el}}<i @click="deletTage(index)">x</i></span>
                             </div>
                         </div>
                     </el-card>
@@ -109,7 +106,7 @@
                 <el-col :span="8">
                     <el-card class="commonCard">
                         <div slot="header">
-                            <span>上传附件 <span class="description">ZIP，1G以内</span></span>
+                            <span>上传附件 <span class="description">1GB以内</span></span>
                         </div>
                         <div :class="['page2_1_4',isUpd?'isUpd':'']">
                             <div class="page2Tbnd1">{{fjtext}}</div>
@@ -354,6 +351,8 @@ export default {
 	},
 	mounted: function () {	
 		this.getUserDetail();
+		let right = (document.body.clientWidth - 1300) / 2 - 50
+		document.querySelector('.top_to_down').style.right = right + 'px'
 	}, 
 	methods: {
 		scrollToTop() {
@@ -441,12 +440,14 @@ export default {
 			}
 			if(this.form.labels.indexOf(this.tags)!=-1){
                 Message({message: '该标签已添加'});
-                this.inputVisible = false;
+				this.inputVisible = false;
+				this.tags = ''
 				return
 			}
 			if(this.form.labels.length===5){
                 Message({message: '最多填写5个标签'});
-                this.inputVisible = false;
+				this.inputVisible = false;
+				this.tags = ''
 				return
 			}
             this.form.labels.push(this.tags);
@@ -656,7 +657,7 @@ export default {
 				this.ifBjType=0;
 			}
 		},
-		showUp(on,a,file){
+		showUp(on,a,file,ref){
 			// this.bdtj('上传作品-编辑作品类容',a,'--');
 			
 			this.configData = this.upList[on];
@@ -666,7 +667,7 @@ export default {
 				this.ifBjType = 1;
 				this.form.content = '';
 			}
-			this.fileUp(file)
+			this.fileUp(file, ref)
 
 			return
 			
@@ -1000,6 +1001,42 @@ export default {
 }
 </script>
 <style>
+.edui-default iframe .view{
+	background: #EAF7FF;
+}
+.custom_tag{
+	display: inline-block;
+	padding: 5px 16px;
+	border-radius: 5px;
+	border: 1px solid #BBBBBB;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	padding-right: 40px;
+	position: relative;
+	color: #666666;
+}
+.custom_tag i{
+	width: 14px;
+	height: 14px;
+	line-height: 12px;
+	display: block;
+	font-style: normal;
+	position: absolute;
+	right: 5px;top: 50%;
+	margin-top: -7px;
+	font-size: 14px;
+	color: #E9E9E9;
+	cursor: pointer;
+	border-radius: 50%;
+}
+.custom_tag:hover {
+	background: #33B3FF;
+	color: #fff;
+	border: 1px solid transparent;
+}
+.custom_tag:hover i{
+	color: #fff;
+}
 .radio-group label{
 	margin-right: 24px;
 }
@@ -1031,17 +1068,12 @@ export default {
 	right: 50px;bottom: 80px;
 	z-index: 99;
 }
-.toTop{
-	background: #DDDEE1;
-}
-.toDown{
-	background: #AAABAD;
-}
 .top_to_down>div{
 	width: 48px;
 	height: 48px;
 	border-radius: 50%;
 	margin-top: 40px;
+	background: #AAABAD;
 	/* background: #666; */
 	color: #fff;
 	font-size: 24px;
@@ -1287,15 +1319,22 @@ export default {
     min-height: 252px;
 }
 .button-new-tag {
+	display: inline-block;
+	width: 78px;
     height: 32px;
-    line-height: 30px;
+    line-height: 32px;
     padding-top: 0;
     padding-bottom: 0;
+	border: 1px solid #33B3FF;
+	color: #33B3FF;
+	text-align: center;
+	cursor: pointer;
+	box-sizing: border-box;
+	border-radius: 5px;
 }
 .input-tag-container{
 	position: relative;
 	width: 220px;
-	margin-left: 10px;
 }
 .input-tag-container i{
 	position: absolute;
