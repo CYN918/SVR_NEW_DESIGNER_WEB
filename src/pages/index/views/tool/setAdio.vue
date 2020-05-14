@@ -28,7 +28,7 @@
 			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/empty_nodata.svg">
 			<div>哎呀，没找到音乐</div>
 		</div>
-		<div v-else class="mp3_04 mp3_04ff" ref='mp3_04'>
+		<div v-else class="mp3_04 mp3_04ff" ref='mp3_04' @scroll="scrollMo()">
 			<div class="mp3_04_01"><span></span><span>歌曲</span><span>歌手</span><span>时长</span><span></span></div>
 			<div 
 			@dblclick="bf(el, index)"
@@ -56,11 +56,11 @@
 					
 					<span @click="checkDom(el)" class="setAdio_02 pend">
 						<img v-if="el.m_id==aaa" class="setAdio_02x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/oclod.svg">
-						<span v-else>选用</span>
-						
+						<span v-else>选用</span>						
 					</span>
 				</span>
 			</div>
+			<div class="nomors" ref="addmor"><span v-if="!isMo">没有更多了~~</span></div>
 		</div>
 		
 		<div class="mp3_05" v-if="Isfirst" ref="mp3_05_1" >
@@ -158,13 +158,18 @@ export default{
 				onTime:0,				
 			},
 			bRunning:false,
-			isNOdata:'',
+			isNOdata:false,
 			Isfirst:false,
 			showNav:[],
 			aaa:'',
 			ym:0,
 			mvX:0,
 			chek:'',
+			isMo:true,
+			page:1,
+			limit:100,
+			total:0,
+			isgetList:false,
 		}
 	},
 	watch:{
@@ -222,6 +227,18 @@ export default{
 		}
 	},
 	methods:{	
+		scrollMo(){
+			if(this.total<=this.limit || this.total>= this.datas.length){
+				this.isMo=false;
+				return
+			}
+			let data = this.$refs.addmor.getBoundingClientRect();
+		
+			if(data.top<800 && !this.isgetList){
+				this.page++;				
+				this.getList();
+			}
+		},
 		ischeckd(id){
 			return this.bfData.m_id==id;
 		},
@@ -611,8 +628,8 @@ export default{
 		},
 		getList(a){
 			let pr = {
-				page:1,
-				limit:100,
+				page:this.page,
+				limit:this.limit,
 			};
 			if(this.name){
 				pr.name = this.name;
@@ -634,18 +651,20 @@ export default{
 			if(this.loading){
 				this.loading.close();
 			}
+			this.isgetList = true;
 			this.loading = Loading.service({target:'.box_p_01', fullscreen: true,background:'rgba(244,246,249,.4)' });
 			this.api[this.type](pr).then((da)=>{
 				this.loading.close()
+				this.isgetList = false;
 				if(da=='error'){
 					return	
 				}
-				try{this.datas = da.data;}catch{}
-				if(this.datas.length==0){
-					this.isNOdata = 1;
-				}else{
-					this.isNOdata = '';
+				this.total = da.total;
+				if(this.total<=this.limit || this.total>= this.datas.length){
+					this.isMo=false;
 				}
+				this.datas = this.page!=1?this.datas.concat(da.data):da.data;
+				this.isNOdata = this.datas.length==0?true:false;
 				setTimeout(()=>{
 					if(this.bRunning && this.$refs.chean[0]){
 						this.$refs.chean[0].play();
@@ -653,6 +672,7 @@ export default{
 				},250)
 			}).catch(()=>{
 				this.loading.close()
+				this.isgetList = false;
 			})
 		},
 		close(){
@@ -1199,5 +1219,10 @@ img.mp3_04_01_sc {
     color: rgba(102,102,102,1);
     line-height: 18px;
     text-align: center;
+}
+.nomors{
+	text-align: center;
+    line-height: 60px;
+    color: #979797;
 }
 </style>
