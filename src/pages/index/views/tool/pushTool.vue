@@ -1293,25 +1293,40 @@
 				ont = ont<0?0:ont;
 				return ont;			
 			},
+			getPNData(list=[],on=0){
+				let len = list.length-1,
+				obj = {};
+				if(on>0){
+					let pns = list[on-1];
+					obj.pr = {
+						start:pns.start,
+						end:this.backTim(pns)
+					};
+				}
+				if(on<len){
+					let pns = list[on+1];
+					obj.nx = {
+						start:pns.start,
+						end:this.backTim(pns)
+					};
+				}
+				return obj				
+			},
 			jl3(e, el, onc, list, n) {
 				e.preventDefault();
 				let doms = e.path[2];
 				doms.style.pointerEvents='none';
-				this.setCheckOn({
-					type: n,
-					on: onc,
-					list:list,
-				})
+				this.setCheckOn({type: n,on: onc,list:list})
 				let Msond = this.Mos.on;
 				let tdStar = e.pageX;
-				let tdStarY = e.pageY;
-				let cs = el.start;
+				let mousT = el.start;				
 				let zby = el.zpY;
-				let wid = el.long * this.wdk;
 				let ond = onc - 1;
 				let ondn = onc + 1;
 				let tms = el.cut_end - el.cut_start;				
 				let prEnd, prStar, nxEnd, nxStar;
+				let pN = this.getPNData(list,onc);
+				console.log(pN);
 				let prd = list[ond];
 				if (prd) {
 					prEnd = +prd.start + (prd.cut_end - prd.cut_start);
@@ -1329,7 +1344,7 @@
 					e.preventDefault();
 					let on = -(tdStar - e.pageX) / (this.wdk / this.bl);
 					this.getMousOnTime(e.pageX);
-					let dd = +cs + on;					
+					let dd = +mousT + on;					
 					if (!isHg && prd && dd < prEnd) {
 						dd = prEnd;
 					}
@@ -3081,6 +3096,7 @@
 	    left: 0;
 	    right: 0;
 	    bottom: 75px;
+		overflow: hidden;
 	}
 	.gdAm{
 		transition: transform .5s;

@@ -269,7 +269,7 @@ export default{
 					if(oyw>zd){
 						zd = oyw;
 					}
-					let wd = y_w-zd;
+					let wd = y_w+zd;
 					if(wd>max_w){
 						wd = max_w;
 					}
