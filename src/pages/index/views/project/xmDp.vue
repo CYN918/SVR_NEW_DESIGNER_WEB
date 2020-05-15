@@ -102,8 +102,8 @@ export default {
 
 			this.da = this.xmType[this.xmTypeOn];	
 			if(this.obj.is_evaluated==1){
-				this.xmType[4].btns[0].n = '已评价';
-				this.xmType[4].btns[0].tcFn = 'ypj';
+				this.xmType[4].btns[1].n = '已评价';
+				this.xmType[4].btns[1].tcFn = 'ypj';
 			}
 			
 			if(this.obj.left_time &&  this.obj.status==1){
