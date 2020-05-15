@@ -67,7 +67,7 @@
             </el-row>
             <el-row>
                 <el-col :span="8">
-                    <el-card class="commonCard">
+                    <el-card class="commonCard" style="height: 380px">
                         <div slot="header">
                             <span>上传作品封面</span>
                         </div>
@@ -80,7 +80,7 @@
                     </el-card>
                 </el-col>
                 <el-col :span="8">
-                    <el-card class="commonCard">
+                    <el-card class="commonCard" style="height: 380px">
                         <div slot="header">
                             <span>添加作品标签</span>
                         </div>
@@ -104,7 +104,7 @@
                     </el-card>
                 </el-col>
                 <el-col :span="8">
-                    <el-card class="commonCard">
+                    <el-card class="commonCard" style="height: 210px">
                         <div slot="header">
                             <span>上传附件 <span class="description">1GB以内</span></span>
                         </div>
@@ -117,7 +117,7 @@
 								<span @click="qxclosd(fileUpfj)" class="iconfont pend" style="float: right;">&#xe619;</span>
 								
 							</div>
-							<div v-if="upfjData.type" class="page2_1_5"><span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span></div>
+							<div v-if="upfjData.type && isUpd" class="page2_1_5"><span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span></div>
                         </div>
 						<div class="radio-group">
 							<label for="attachment1">
@@ -134,7 +134,7 @@
 							</label>
 						</div>
                     </el-card>
-                    <el-card class="commonCard">
+                    <el-card class="commonCard" style="height: 148px">
                         <div slot="header" style="position: relative">
                             <span>设为投稿作品 <span class="description" style="margin-left:10px">若作品符合需求，平台会联系你沟通收录细节</span></span>
 							<span class="btBlue" style="left: 100px"></span>
@@ -683,7 +683,14 @@ export default {
 			
 		},
 		inImg(list,ids){
-			let str = '';
+			let range = this.uD.selection.getRange().cloneContents();
+			let htmls = range && range.children, str = '';
+			if (htmls && htmls.length) {
+				for (let i in htmls) {
+					if (Object.prototype.toString.call(htmls[i]).indexOf('HTML') > -1)
+					str += htmls[i].outerHTML
+				}
+			}
 			if(this.configData.type[0]=='image/gif'){
 				list.map((el,index)=>{
 					str+='<p style="max-width:100%;height:auto;"><img zk_workid="'+ids[index]+'" style="max-width:100%;height:auto" src="'+el+'"/></p>';
@@ -768,6 +775,7 @@ export default {
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
 			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}
+			if(!this.form.is_platform_work){Message({message: '请勾选是否为投稿作品'});return}
 			clearTimeout(this.autoSave.obj);
 			let str = this.form.content;
 			var matchReg = /zk_workid=".*?(?=")/gi;
@@ -865,6 +873,9 @@ export default {
 				return false
 			}
 			if(!this.form.classify_1){
+				return false
+			}
+			if(!this.form.is_platform_work){
 				return false
 			}
 			this.ck3 = "onck2";
@@ -1065,7 +1076,7 @@ export default {
 .top_to_down{
 	width: 48px;
 	position: fixed;
-	right: 50px;bottom: 80px;
+	right: 50px;bottom: 180px;
 	z-index: 99;
 }
 .top_to_down>div{
