@@ -20,7 +20,7 @@ export default {
 			} 
 			return fileSize;
 		},
-        clPic(fld,on){
+        clPic(fld,on,ref){
             this.uploadSourceLoading = Loading.service({
                 target: document.body,
                 fullscreen: true,
@@ -32,6 +32,7 @@ export default {
     //			}
             if(fld.size>this.configData.max){
                 Message({message: '文件过大'});
+                this.$refs[ref].value = ''
                 return
             }
             let fileSize = this.backSize(fld.size);
@@ -87,7 +88,7 @@ export default {
                     if(da.cover_img){
                         this.$set(p,'cover_img',da.cover_img);
                     }
-                    this.$refs.upnfile.value ='';			
+                    this.$refs[ref].value = ''
                     Message({message: '文件上传成功'});
                     this.inImg(this.list.map(source => source.url), [p.fid]);
                     this.list = []
@@ -98,13 +99,13 @@ export default {
             let uploadFailed = ()=>{
                 // delete p;
                 p.type="none";
-                this.$refs.upnfile.value ='';
+                this.$refs[ref].value = ''
                 Message({message: '文件上传失败请稍后重试'});
                 
             };
             let uploadCanceled = ()=>{
                 p.type="none";
-                this.$refs.upnfile.value ='';
+                this.$refs[ref].value = ''
                 Message({message: '取消成功'});
                 
             };
@@ -115,10 +116,10 @@ export default {
             xhr.open("POST", window.basrul+"/File/File/insert");
             xhr.send(formData);
         },
-        fileUp(flie){
+        fileUp(flie, ref){
 			this.bdtj(this.configData.title,this.configData.btn,'--');
 			for(let i=0,n=flie.target.files.length;i<n;i++){
-				this.clPic(flie.target.files[i],i);
+				this.clPic(flie.target.files[i],i,ref);
 			}
       		
       	},
