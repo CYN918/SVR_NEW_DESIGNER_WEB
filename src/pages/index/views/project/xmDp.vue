@@ -239,6 +239,13 @@ export default {
 }
 	
 </script>
+<style scoped>
+.router-link-active{
+	color:#FFFFFF !important;
+	background:#33B3FF !important;
+	border-color: #33B3FF !important;
+}
+</style>
 
 <style>
 .cenDjs{
@@ -301,11 +308,7 @@ export default {
 	color:rgba(255,255,255,1);
 	background:#33B3FF;
 }
-.router-link-active{
-	color:#FFFFFF !important;
-	background:#33B3FF !important;
-	border-color: #33B3FF !important;
-}
+
 .cenDjs_5{
 	margin-bottom: 40px;
 	font-size:14px;
