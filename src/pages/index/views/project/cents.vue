@@ -69,7 +69,7 @@
 			<div class="cents_box">
 				<img class="cens_02_1_img" v-if="deta.detail_banner" :src="deta.detail_banner" alt="">
 				<img class="cens_02_1_img" v-else :src="deta.banner" alt="">
-				<div class="sto_01" v-if="deta.status>=3" style="right: 70px;">
+				<div class="sto_01" v-if="deta.status>=3 && (deta.contract_file && deta.contract_file.length>0)" style="right: 70px;">
 					<img :src="imgPath+'ac_v2/xl.png'"/>
 					<div class="sto_02">
 						<div v-if="deta.status==3" @click="showTc('Stop')">终止项目</div>

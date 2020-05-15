@@ -35,7 +35,7 @@
 			
 			
 			<div class="cenDjs_4">
-				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.cl]" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
+				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.tcFncs=='Log'?'router-link-active':'']" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
 			</div>
 			<loginDialog ref="logindialog" :config="outc"></loginDialog>
 			
@@ -71,7 +71,7 @@ export default {
 					]
 				},
 				{t:{n:'已验收',cl:'c_zmq4',icon:'md'},n:'最终成交价格',cl:'cenDjs_x_2',btn_tip:'项目验收完成，感谢与你本次的合作',Zj:'qxGj',btns:[
-						
+						{n:'交稿记录',tcFn:'showTc',tcFncs:'Log'},
 						{n:'项目评价',tcFn:'showTc',tcFncs:'question'},
 						{n:'验收报告',tcFn:'goyans',tcFncs:'presentation'},
 					],
@@ -90,6 +90,7 @@ export default {
 	},
 	mounted: function(){
 		this.init();
+		console.log(this.da.btns)
 	}, 
 	methods: {
 
@@ -101,8 +102,8 @@ export default {
 
 			this.da = this.xmType[this.xmTypeOn];	
 			if(this.obj.is_evaluated==1){
-				this.xmType[4].btns[0].n = '已评价';
-				this.xmType[4].btns[0].tcFn = 'ypj';
+				this.xmType[4].btns[1].n = '已评价';
+				this.xmType[4].btns[1].tcFn = 'ypj';
 			}
 			
 			if(this.obj.left_time &&  this.obj.status==1){
@@ -238,6 +239,13 @@ export default {
 }
 	
 </script>
+<style scoped>
+.router-link-active{
+	color:#FFFFFF !important;
+	background:#33B3FF !important;
+	border-color: #33B3FF !important;
+}
+</style>
 
 <style>
 .cenDjs{
@@ -300,6 +308,7 @@ export default {
 	color:rgba(255,255,255,1);
 	background:#33B3FF;
 }
+
 .cenDjs_5{
 	margin-bottom: 40px;
 	font-size:14px;
