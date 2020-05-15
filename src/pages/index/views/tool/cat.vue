@@ -144,9 +144,7 @@ export default{
 				});	
 			}
 		},
-		stopEvenpro(){
-			
-		},
+
 		td_01(e,tp){
 			if(e && e.stopPropagation()) {
 				e.stopPropagation();
@@ -282,7 +280,7 @@ export default{
 				}
 				if(tp=='b_r'){
 					let zd = ydx;
-					let oyw = ydy/16*9;
+					let oyw = -ydy/16*9;
 					if(oyw>zd){
 						zd = oyw;
 					}
