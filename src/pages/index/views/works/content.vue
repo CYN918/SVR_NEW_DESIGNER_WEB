@@ -666,8 +666,10 @@ export default {
 		},
 		addComment(pl,on,on2){
 			if(this.isYl){return}
-			if(this.checkLogin()==false){
-				return;
+			if(!window.userInfo){
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+				return
 			}
 			if(this.plType==1){
 				Message({message: '正在上传评论请稍后'});
