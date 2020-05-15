@@ -89,6 +89,7 @@ export default {
 	},
 	methods: {	
 		ckd(a){
+			console.log(a)
 			if(a=='ypj'){this.$message({message:'你已经评价过了'});}
 			if(a=='presentation'){
 				this.$router.push({path:'/presentation',query:{id:this.deta.id}})	

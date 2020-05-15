@@ -71,7 +71,7 @@ export default {
 					]
 				},
 				{t:{n:'已验收',cl:'c_zmq4',icon:'md'},n:'最终成交价格',cl:'cenDjs_x_2',btn_tip:'项目验收完成，感谢与你本次的合作',Zj:'qxGj',btns:[
-						
+						{n:'交稿记录',tcFn:'showTc',tcFncs:'Log'},
 						{n:'项目评价',tcFn:'showTc',tcFncs:'question'},
 						{n:'验收报告',tcFn:'goyans',tcFncs:'presentation'},
 					],
@@ -90,6 +90,7 @@ export default {
 	},
 	mounted: function(){
 		this.init();
+		console.log(this.da.btns)
 	}, 
 	methods: {
 
