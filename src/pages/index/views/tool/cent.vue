@@ -116,7 +116,6 @@ export default{
 		},
 		backyo(){
 			if(this.$refs.tiles){
-				
 				return this.$refs.tiles.getBoundingClientRect().width>1?'tian_01':'';
 			}
 			
@@ -165,7 +164,12 @@ export default{
 			this.isBFdjs = setTimeout(()=>{
 				if(this.$refs.video){
 					this.$refs.video.currentTime = 0;
-					this.$refs.video.play();
+					try{
+						this.$refs.video.play();
+					}catch(e){
+						
+					}
+					
 					this.Isbf = false;
 				}
 			},200)			
