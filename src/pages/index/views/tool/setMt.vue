@@ -168,7 +168,8 @@ export default{
 				ischeck:'',
 				start:0,
 				zpY:0,
-				pageZoomW:this.$parent.boxW,
+				pageZoomW:this.$parent.csW,
+				pageZoomH:this.$parent.csH,
 			};
 			var pd = {
 					type: "pic",
@@ -202,22 +203,22 @@ export default{
 					pr.sw = wd;					
 					pr.sh = hd;
 					if(wd>hd){
-						pr.w = this.$parent.boxW;
-						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.w = this.$parent.csW;
+						pr.h = (this.$parent.csW/wd)*hd;
+						pr.y = (this.$parent.csH-pr.h)/2;
 						pr.x = 0;
 					}else{
-						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;
+						pr.h = this.$parent.csH;
+						pr.w = (this.$parent.csH/hd)*wd;
 						
-						if(pr.w>this.$parent.boxW){
+						if(pr.w>this.$parent.csW){
 							
-							pr.w = this.$parent.boxW;
-							pr.h = (this.$parent.boxW/wd)*hd;
-							pr.y = (this.$parent.boxH-pr.h)/2;
+							pr.w = this.$parent.csW;
+							pr.h = (this.$parent.csW/wd)*hd;
+							pr.y = (this.$parent.csH-pr.h)/2;
 							pr.x = 0;
 						}else{
-							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.x = (this.$parent.csW-pr.w)/2;
 							pr.y = 0;
 						}
 						
@@ -277,7 +278,8 @@ export default{
 				cut_start: 0,
 				ischeck:'',
 				start:0,
-				pageZoomW:this.$parent.boxW,
+				pageZoomW:this.$parent.csW,
+				pageZoomH:this.$parent.csH,
 			};
 			if(el.file_type=='image'){
 				var pd = {
@@ -326,20 +328,20 @@ export default{
 					pr.sh = hd;
 					pr.zpY=0;
 					if(wd>hd){
-						pr.w = this.$parent.boxW;
-						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.w = this.$parent.csW;
+						pr.h = (this.$parent.csW/wd)*hd;
+						pr.y = (this.$parent.csH-pr.h)/2;
 						pr.x = 0;
 					}else{
-						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;						
-						if(pr.w>this.$parent.boxW){							
-							pr.w = this.$parent.boxW;
-							pr.h = (this.$parent.boxW/wd)*hd;
-							pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.h = this.$parent.csH;
+						pr.w = (this.$parent.csH/hd)*wd;						
+						if(pr.w>this.$parent.csW){							
+							pr.w = this.$parent.csW;
+							pr.h = (this.$parent.csW/wd)*hd;
+							pr.y = (this.$parent.csH-pr.h)/2;
 							pr.x = 0;
 						}else{
-							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.x = (this.$parent.csW-pr.w)/2;
 							pr.y = 0;
 						}
 					}	
@@ -361,23 +363,22 @@ export default{
 					pr.yw = wd;
 					pr.yh =  hd;
 					pr.sw = wd;					
-					pr.sh = hd;
-					
+					pr.sh = hd;					
 					if(wd>hd){
-						pr.w = this.$parent.boxW;
-						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.w = this.$parent.csW;
+						pr.h = (this.$parent.csW/wd)*hd;
+						pr.y = (this.$parent.csH-pr.h)/2;
 						pr.x = 0;
 					}else{
-						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;
-						if(pr.w>this.$parent.boxW){
-							pr.w = this.$parent.boxW;
-							pr.h = (this.$parent.boxW/wd)*hd;
-							pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.h = this.$parent.csH;
+						pr.w = (this.$parent.csH/hd)*wd;
+						if(pr.w>this.$parent.csW){
+							pr.w = this.$parent.csW;
+							pr.h = (this.$parent.csW/wd)*hd;
+							pr.y = (this.$parent.csH-pr.h)/2;
 							pr.x = 0;
 						}else{
-							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.x = (this.$parent.csW-pr.w)/2;
 							pr.y = 0;
 						}
 					}

@@ -398,6 +398,8 @@
 				ispart: '',
 				mh: 100,
 				mhq: 0,
+				csW:0,
+				csH:0,
 			}
 		},
 		mounted: function() {
@@ -878,7 +880,7 @@
 			/*绘制黑色背景*/
 			drmBg() {
 				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, this.boxW, this.boxH);
+				this.cans.fillRect(0, 0, this.csW, this.csH);
 			},
 
 			endeds() {
@@ -1935,11 +1937,11 @@
 					// 	on = this.mh / 100;
 					// }
 					this.drmvideo(ob, on);
-					let po = this.cun[this.vdcc].x;
-					if (po) {
-						this.cans.fillRect(0, 0, po, this.boxH);
-						this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
-					}
+					// let po = this.cun[this.vdcc].x;
+					// if (po) {
+					// 	this.cans.fillRect(0, 0, po, this.boxH);
+					// 	this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
+					// }
 					this.preview.onTime = ontime + toTim;
 
 
@@ -1961,6 +1963,7 @@
 				this.boxH = parseInt(domd.height);
 				this.boxW = parseInt((domd.height / 16) * 9);
 				this.zoomd = this.boxW / 391;
+				
 			},
 			init() {
 				if (!window.userInfo || window.userInfo.contributor_format_status != 2) {
@@ -1969,15 +1972,19 @@
 					})
 					return
 				}
-
+				
 				this.setVwh();
 				window.addEventListener('resize', this.setVwh, false);
 				window.addEventListener('click', this.clickfns, false);
 				this.$refs.cavs.width = this.boxW;
 				this.$refs.cavs.height = this.boxH;
+				this.csW = this.boxW;
+				this.csH = this.boxH;
+				
+				
 				this.cans = this.$refs.cavs.getContext("2d");
 				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, this.boxW, this.boxH);
+				this.cans.fillRect(0, 0, this.csW, this.csH);
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
 					if (!op) {
@@ -1996,6 +2003,12 @@
 							}
 						}
 						this.navcoms.media = arr;
+						if(arr[0] && arr[0].pageZoomW){
+							this.csW = arr[0].pageZoomW;
+							this.csH = arr[0].pageZoomH;
+							this.$refs.cavs.width = this.csW;
+							this.$refs.cavs.height = this.csH;
+						}
 						let len = json.audio.length;
 						if (len > 1) {
 							json.audio = [json.audio[len - 1]];
@@ -2030,6 +2043,9 @@
 				if (this.navcoms.media[0]) {
 					this.setvideo(this.navcoms.media[0].file_url);
 				}
+				
+				
+				
 			},
 			cksd() {
 
