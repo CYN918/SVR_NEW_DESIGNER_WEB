@@ -42,28 +42,20 @@
 			</div>
 		</div>
 		<component v-bind:is="tcZj"  :datad="tcData"></component>
-	</div>
-	
+	</div>	
 </template>
-
 <script>
-
-
 import pushGj from './pushGj';
 import qxGj from './qxGj';
-
 import question from './question';
 import Log from './log';
 import presentation from './presentation';
-
 export default {
 	components:{pushGj,qxGj,question,presentation,Log},
 	props:{
 		elm:{
 			type:Object,
-			default:{}
-		},	
-	
+		},		
 	},
 	data(){
 		return{
@@ -79,8 +71,7 @@ export default {
 	},
 	mounted: function(){
 		this.init();
-		this.backtims();
-		
+		this.backtims();		
 	}, 
 	watch: {		
 		'elm': function() {
@@ -276,145 +267,6 @@ export default {
 </script>
 
 <style>
-/* .pr_cent2_1{
-	position: relative;
-	width:600px;
-	height:212px;
-	padding: 20px;
-	background:rgba(255,255,255,1);
-	border-radius:5px;
-}
-.pr_cent2_2{
-	cursor: pointer;
-	position: relative;
-	display: inline-block;
-	vertical-align: top;
-	margin-right: 20px;
-	overflow: hidden;
-	width:283px;
-	height:212px;
-	box-shadow:0px 5px 15px 0px rgba(0,0,0,0.1);
-	border-radius:5px 5px 5px 5px;
-}
-.pr_cent2_3{
-	display: block;
-	width: 100%;
-	height: 100%;
-}
-.pr_cent2_4{
-	display: inline-block;
-	vertical-align: top;
-	width:290px;
-}
-.pr_cent2_5{
-	cursor: pointer;
-	width:290px;
-	border-bottom: 1px solid rgba(216,216,216,.3);
-
-}
-.pr_cent2_6{
-	font-size:16px;
-	color:rgba(40,40,40,1);
-	line-height:22px;
-	margin-bottom: 10px;
-	width: 220px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-.pr_cent2_7,.pr_cent2_8{
-	font-size:12px;
-	color:rgba(187,187,187,1);
-	
-}
-.pr_cent2_7{
-	margin-bottom: 4px;
-	line-height:18px;
-}
-.pr_cent2_8{margin-bottom: 20px;line-height:22px;}
-.pr_cent2_8>span{
-	display: inline-block;vertical-align: top;
-	margin-right: 5px;
-	margin-bottom: 5px;
-	padding: 0 8px;
-	height: 22px;
-	background:rgba(244,246,249,1);
-	border-radius:5px;
-}
-.pr_cent2_rs{
-	position: absolute;
-    right: 5px;
-    top: 5px;
-    padding: 1px 8px;
-	background:rgba(0,0,0,.5);
-	border-radius:3px;
-	font-size:12px;
-	color:rgba(255,255,255,1);
-	line-height:20px;
-}
-.pr_cent2_r2{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height:32px;
-	
-	
-}
-.pr_cent2_r2>div{
-	border-radius:0px 0px 5px 5px;
-	text-align: center;	
-	line-height:32px;
-	height: 100%;
-	width: 100%;
-}
-
-.backdse{
-	background:rgba(0,0,0,.7);
-}
-.pr_cent2_r2_1{		
-	font-size:12px;
-	color:rgba(255,255,255,.7);		
-}
-.pr_cent2_r2_1>span{
-	margin-right: 4px;
-}
-.pr_cent2_r2_1>span>span{
-	font-family: PingFang SC Medium;
-	font-size: 16px;
-	margin:0 1px;
-	color:rgba(255,255,255,1);
-}
-.pr_cent2_r2_2{
-	font-size:14px;
-	color:rgba(255,255,255,1);
-}
-.pr_cent2_js{
-	position: absolute;
-    bottom: 80px;
-    right: 5px;
-    width: 98px;
-	
-}
-.pr_cent2_10{
-	margin: 14px 0 20px;
-	height:18px;
-	font-size:12px;
-	color:rgba(187,187,187,1);
-	line-height:22px;
-}
-.pr_cent2_10>span{
-	font-size:14px;
-	color:rgba(51,51,51,1);
-}
-.pr_cent2_10>span.csyaswz_01{
-	font-size:16px;
-	color: #33B3FF;
-}
-.pr_cent2_11>div{
-	margin: 0;
-	margin-right: 10px;
-} */
 .pr_cent2_1{
 	position: relative;
 	width:640px;

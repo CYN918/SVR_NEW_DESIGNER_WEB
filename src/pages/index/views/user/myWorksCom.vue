@@ -65,9 +65,9 @@
 						<div class="myListBox_5" v-if="isMyAll()">
 							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg" class="bt-Img">
 							<div class="moreHandleContainer">
-								<div v-if="todo.is_selected != 1 && todo.like_num < 5" @click.native="updata(todo)">编辑</div>
-								<div v-else @click.native="showissetDatasXX(todo.work_id,todo.status)">修改设置</div>
-								<div @click.native="showTopc('delet',todo)">删除</div>
+								<div v-if="todo.is_selected != 1 && todo.like_num < 5" @click="updata(todo)">编辑</div>
+								<div v-else @click="showissetDatasXX(todo.work_id,todo.status)">修改设置</div>
+								<div @click="showTopc('delet',todo)">删除</div>
 							</div>
 							<!-- <el-dropdown trigger="click" placement="bottom-end">
 								<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg" class="bt-Img">
@@ -269,7 +269,7 @@ export default {
 		},
 	},
 	mounted() {
-		document.body.addEventListener('click', function(e) {
+		document.body.addEventListener('click', (e) => {
 			let event = e || window.event;
 			let target = event.target || event.srcElement;
 			if (target.tagName == 'IMG' && target.src == 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg') {

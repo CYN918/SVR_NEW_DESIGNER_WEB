@@ -224,7 +224,11 @@ window.getTimes =function(ont) {
 			return parseInt(pt/h) + "小时前";
 		}
 		if(pt>m){
+<<<<<<< HEAD
 			return parseInt(pt/m) + "1111分前";
+=======
+			return parseInt(pt/m) + "分钟前";
+>>>>>>> c80464238989a81be2674b6c6b706dd9696f28fc
 		}
 		return '刚刚';				
 };
