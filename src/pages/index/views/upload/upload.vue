@@ -631,6 +631,7 @@ export default {
 		ready (editorInstance) {
 			this.loading.close();
 			this.uD = editorInstance;
+			
 			editorInstance.addListener('focus',()=>{				
 					if(this.ifBjType==0){
 						this.form.content = '';
@@ -690,6 +691,7 @@ export default {
 				});								
 				this.uD.execCommand('insertHtml', str);	
 				this.uD.execCommand( 'insertparagraph' )
+				// this.uD.focus()
 				return
 				
 			}

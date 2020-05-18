@@ -321,17 +321,14 @@ function setTitle(t){
 	}
 }
 router.beforeEach((to, from, next) => {
-//	window.removeEventListener('mousewheel',window.dwzFn);
 	document.body.style = "";
-	let isqh = sessionStorage.getItem('isqh');
-	
+	let isqh = sessionStorage.getItem('isqh');	
 	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
 		if(!isqh || isqh==null){
-			if(to.path== "/prcent"){
+			if(to.path== "/prcent" && !to.query.type){				
 				window.location.href = location.origin+"/aindex.html#/conta?id="+to.query.id;
 				return
-			}
-			
+			}			
 			window.location.href = location.origin+"/aindex.html#/";
 			return
 		}

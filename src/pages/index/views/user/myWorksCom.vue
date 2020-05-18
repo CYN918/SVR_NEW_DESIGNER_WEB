@@ -551,7 +551,6 @@ export default {
 			this.$router.push({path: '/works',query:{id:on.user_info.open_id}})	
 		},
 		backtime(time){
-		
 			return	window.getTimes(time);
 		},	
 		opend(ur){

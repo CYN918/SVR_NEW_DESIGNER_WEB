@@ -393,6 +393,8 @@
 				},
 				xstd:'',
 				ispart:'',
+				mh:100,
+				mhq:0,
 			}
 		},
 		mounted: function() {
@@ -673,8 +675,12 @@
 				this.checkOn.list[this.checkOn.on].ischeck=1;
 			},
 	
-			drmvideo(a){
+			drmvideo(a,af){			
+				this.cans.globalAlpha = 1;
 				this.drmBg();
+				if(af || af==0){
+					this.cans.globalAlpha = af;
+				}				
 				this.cans.drawImage(this.$refs.vids,a.sx,a.sy,a.sw,a.sh,a.x,a.y,a.w,a.h);
 			},
 			drmOn(){
@@ -1729,7 +1735,8 @@
 							
 				if(jq){
 					this.preview.maxTime = maxt;
-				}			
+				}
+			
 			},
 			backTim(ob) {
 				return (ob.cut_end - ob.cut_start) + ob.start;
@@ -1850,25 +1857,44 @@
 				let ontime = this.preview.onTime;
 				let toTim = 0;
 				let endt = this.backTim(this.preview.previewObj);
+				
+				
 				this.valObj = window.setInterval(() => {
 					
 					if(this.preview.previewObj.type!='video'){
 						window.clearInterval(this.valObj);
 					}	
 					this.checkAdio();
-					toTim+=.05;		
+					toTim+=.05;	
+						
+					
 					let ob = this.preview.previewObj;
-					this.drmvideo(ob);
+					
+					let on=1;
+					
+					if(this.preview.onTime-ob.start<.5){
+						if(this.mhq==100){
+							this.mhq=0;
+						}
+						this.mhq+=10;
+						on = this.mhq/100;
+					}
+					if(endt-this.preview.onTime<.5){
+						if(this.mh==0){
+							this.mh=100;
+						}
+						this.mh-=10;
+						on = this.mh/100;
+					}
+					this.drmvideo(ob,on);
 					let po = this.cun[this.vdcc].x;
+					
 					if (po) {
 						this.cans.fillRect(0, 0, po, this.boxH);
 						this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
 					}
 					this.preview.onTime = ontime + toTim;
 						
-					let onT = this.$refs.vids.currentTime;
-					
-					onT = onT?onT:0;				
 					
 					this.checkPlayJd();
 					 
@@ -1880,7 +1906,6 @@
 					}	
 						
 				}, 50);
-			
 
 			},
 			

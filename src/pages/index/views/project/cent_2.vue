@@ -178,12 +178,10 @@ export default {
 						this.tips = '<div class="backdse pr_cent2_r2_4">你的稿件未通过，请重新提交</div>';
 					}else{
 						var d2 = new Date();
-						var d1 = new Date(Date.parse(this.deta.delivery_deadline));
-						 
+						var d1 = new Date(Date.parse(this.deta.delivery_deadline));						 
 						if(d1 > d2){
 							let otim = this.bckdtimed(this.deta.delivery_deadline);
-			
-					        this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
+							this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
 							
 						}else{
 							var d3 = d2 - d1;
@@ -239,17 +237,13 @@ export default {
 			return n<10?'0'+n:n;		
 		},
 		openCent(){
-			console.log(this.deta);
 			if(this.deta.id){
-				window.open('/#/prcent?id='+this.deta.id)
-			}
-			
+				window.open('/#/prcent?id='+this.deta.id+'&type=prj')
+			}			
 		},
-		backtims(){
-			
+		backtims(){			
 			let a = this.deta.left_time;
 			if(!a || a.length==0){return}
-			let str = '';
 			if(a.s>0){
 				a.s--;				
 			}else
