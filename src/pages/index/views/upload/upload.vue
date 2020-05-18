@@ -334,6 +334,7 @@ export default {
 			this.setAutoSave();
 		},
 		'form.is_platform_work'() {
+			this.checkPage2();
 			this.setAutoSave();
 		},
 		'tags'(){
