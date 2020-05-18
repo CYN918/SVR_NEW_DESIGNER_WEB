@@ -90,8 +90,7 @@ export default {
                     }
                     this.$refs[ref].value = ''
                     Message({message: '文件上传成功'});
-                    this.inImg(this.list.map(source => source.url), [p.fid]);
-                    this.list = []
+                    this.inImg([p.url], [p.fid]);
                     this.uploadSourceLoading.close()
                 }
                 
@@ -117,6 +116,7 @@ export default {
             xhr.send(formData);
         },
         fileUp(flie, ref){
+            this.list = [];
 			this.bdtj(this.configData.title,this.configData.btn,'--');
 			for(let i=0,n=flie.target.files.length;i<n;i++){
 				this.clPic(flie.target.files[i],i,ref);

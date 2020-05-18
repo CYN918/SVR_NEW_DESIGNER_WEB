@@ -65,7 +65,7 @@
 						<div class="myListBox_5" v-if="isMyAll()">
 							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg" class="bt-Img">
 							<div class="moreHandleContainer">
-								<div v-if="todo.is_selected != 1 && todo.like_num < 5" @click="updata(todo)">编辑</div>
+								<div v-if="todo.is_selected != 1 && todo.like_num < 5 && todo.status != '0'" @click="updata(todo)">编辑</div>
 								<div v-else @click="showissetDatasXX(todo.work_id,todo.status)">修改设置</div>
 								<div @click="showTopc('delet',todo)">删除</div>
 							</div>
