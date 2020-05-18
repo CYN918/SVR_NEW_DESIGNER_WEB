@@ -37,9 +37,11 @@ export default {
 	props:{
 		config:{
 			type:Object,
-			default:{
-				list1:[],
-				list2:[],
+			default:()=>{
+				return{
+					list1:[],
+					list2:[],
+				}				
 			}
 		}
 	},
@@ -66,14 +68,12 @@ export default {
 		},
 		change1(){
 			this.$parent.setTim1(this.work_id);
-
 		},
 		sxFn1(){
 			this.$parent.setType(this.v1);
 		},
 		sxFn2(){
-			this.$parent.setTim(this.v2);
-			
+			this.$parent.setTim(this.v2);			
 		},
 		goZP(a,b){
 			this.bdtj('我的收益','tab_'+b,'--');

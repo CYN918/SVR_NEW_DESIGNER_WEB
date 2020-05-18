@@ -79,10 +79,7 @@
 <script>
 export default{
 	props:{
-		el:{
-			type:Object,
-			default:{},
-		},
+		el:Object,
 		pr:Object,
 	},
 	data(){
@@ -103,22 +100,19 @@ export default{
 			cumime:0,
 			Isbf:true,
 			showTil:'',
-		}
-		
+		}		
 	},
-
 	methods:{
-		showT(e){
+		showT(){
 			this.showTil = 1;
 		},
-		hinT(e){
+		hinT(){
 			this.showTil = '';
 		},
 		backyo(){
 			if(this.$refs.tiles){
 				return this.$refs.tiles.getBoundingClientRect().width>1?'tian_01':'';
-			}
-			
+			}			
 		},
 		isaduio(){
 			return this.jsons.audio && this.jsons.audio[0];
@@ -139,7 +133,6 @@ export default{
 			this.times = this.$refs.video.duration;
 		},
 		setTimed(t){
-			
 			var f='00',s;
 			if(t>60){
 				f = Math.round(t/60);
@@ -153,7 +146,7 @@ export default{
 			}
 			return f+':'+s;
 		},
-		ybf(e){
+		ybf(){
 			if(!this.$refs.video){
 				return
 			}
@@ -164,17 +157,12 @@ export default{
 			this.isBFdjs = setTimeout(()=>{
 				if(this.$refs.video){
 					this.$refs.video.currentTime = 0;
-					try{
-						this.$refs.video.play();
-					}catch(e){
-						
-					}
-					
+					try{this.$refs.video.play()}catch(e){}					
 					this.Isbf = false;
 				}
 			},200)			
 		},
-		stopbf(e){
+		stopbf(){
 			if(!this.$refs.video){
 				return
 			}
@@ -203,17 +191,17 @@ export default{
 			}
 			
 		},
-		btnchange(e){
+		btnchange(){
 			this.Isbtn = true;
 		},
-		btnchange1(e){
+		btnchange1(){
 			this.Isbtn = false;
 			this.Ischeck = false
 		},
 		del(id){
 			this.api.mobileshowdel({
 				id:id
-			}).then(da=>{
+			}).then(()=>{
 				this.$parent.getData();	
 				this.changebtn();
 			})

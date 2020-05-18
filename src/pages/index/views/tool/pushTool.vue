@@ -1912,21 +1912,14 @@
 				let ontime = this.preview.onTime;
 				let toTim = 0;
 				let endt = this.backTim(this.preview.previewObj);
-
-
 				this.valObj = window.setInterval(() => {
-
 					if (this.preview.previewObj.type != 'video') {
 						window.clearInterval(this.valObj);
 					}
 					this.checkAdio();
 					toTim += .05;
-
-
 					let ob = this.preview.previewObj;
-
 					let on = 1;
-
 					// if (this.preview.onTime - ob.start < .5) {
 					// 	if (this.mhq == 100) {
 					// 		this.mhq = 0;
@@ -1943,7 +1936,6 @@
 					// }
 					this.drmvideo(ob, on);
 					let po = this.cun[this.vdcc].x;
-
 					if (po) {
 						this.cans.fillRect(0, 0, po, this.boxH);
 						this.cans.fillRect(this.boxW - po, 0, po, this.boxH);

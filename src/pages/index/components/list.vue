@@ -28,8 +28,8 @@ export default {
 	props:{
 		config:{
 			type:Object,
-			default:{
-				pr:{},
+			default:()=>{
+				return{pr:{}}
 			},
 			noData:String,
 		},
@@ -39,15 +39,13 @@ export default {
 		},
 		page:{
 			type:Object,
-			default:
-				()=>{
-					return{
-						limit:40,
-						page:1,
-						size:[40, 80, 120, 160],
-					}
+			default:()=>{
+				return{
+					limit:40,
+					page:1,
+					size:[40, 80, 120, 160],
 				}
-			
+			}			
 		},
 		isDjs:String,
 		
@@ -65,23 +63,19 @@ export default {
 		}
 	},
 	created(){
-		
 		let apid = sessionStorage.getItem('currentApi');
 		if(apid==this.config.ajax.url){
 			let currentpage = sessionStorage.getItem('currentpage'),
 			currentlimit = sessionStorage.getItem('currentlimit');
 			if(currentpage != null){
 				this.page.page = Number(currentpage);
-			};
+			}
 			if(currentlimit != null){
 				this.page.limit = Number(currentlimit);
-			};
-		}
-		
-					
+			}
+		}			
 	},
-	mounted: function () {	
-		
+	mounted: function () {			
 		let currentpage = null,
 		currentlimit = null;
 		let apid = sessionStorage.getItem('currentApi');
@@ -105,14 +99,11 @@ export default {
 		'isNodeat'(){
 			if(this.$parent.kfn){
 				this.$parent.kfn(this.isNodeat);
-			}
-			
+			}			
 		},
 	},
 	methods: {
 		removeSession(){
-			
-			
 			sessionStorage.removeItem('currentpage')
 		    sessionStorage.removeItem('currentlimit')
 		},
@@ -124,14 +115,11 @@ export default {
 			pr =  Object.assign(pr,this.config.pr);
 			return pr;
 		},
-		
-		
 		sxfn(){
 			this.page.page=1;
 			this.page.limit=this.page.size[0];
 			this.getData();			
 		},
-		
 		getData(){	
 			let params = this.paramCl();	
 			this.isNodeat='';
@@ -145,11 +133,9 @@ export default {
 						this.isNodeat=1;
 					}	
 					return
-				}
-				
+				}				
 				this.List = da.data;
-				this.total = da.total;
-				
+				this.total = da.total;				
 				if(this.isDjs){
 					this.$parent.stardjs();
 				}
@@ -173,8 +159,7 @@ export default {
 			})
 		},
 		handleSizeChange(val) {
-			if(this.config.bdtj){
-			
+			if(this.config.bdtj){			
 				this.bdtj(this.config.bdtj[1][0],this.config.bdtj[1][1],'--');
 			}
 			this.goTop=1;
@@ -183,8 +168,7 @@ export default {
 			sessionStorage.setItem('currentlimit', val);
 			this.page.page=1;
 			this.total=0;
-			this.getData();
-			
+			this.getData();			
 		},
 		handleCurrentChange(val) {	
 			if(this.config.bdtj){

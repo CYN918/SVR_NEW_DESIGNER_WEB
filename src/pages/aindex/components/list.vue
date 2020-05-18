@@ -10,10 +10,7 @@
 <script>
 export default {
 	props:{
-		config:{
-			type:Object,
-			default:{}
-		}
+		config:Object
 	},
 	data(){
 		return{
@@ -57,14 +54,12 @@ export default {
 				this.total = da.total;
 				if(this.List.length==0 && da.data.length==0){
 					this.isNodaa = 1;
-				}
-				
+				}				
 				if(this.List.length>0){
 					this.List = this.List.concat(da.data);
 					return
 				}
-				this.List = da.data;	
-				
+				this.List = da.data;					
 			}).catch(()=>{
 				if(this.List.length==0){
 					this.isNodaa = 1;

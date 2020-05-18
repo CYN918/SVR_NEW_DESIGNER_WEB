@@ -229,6 +229,17 @@ export default{
 		}
 	},
 	methods:{	
+		pushDD(a,b,c){
+			let sr = 'https://shiquaner-api.zookingsoft.com/dot.txt?';
+			sr+='dot_type='+a;
+			sr+='&audio_id='+b;
+			sr+='&audio_name='+c;
+			sr+='&evn='+window.ddian;
+			this.$ajax({
+				type:'get',
+				url:sr
+			})
+		},
 		scrollMo(){
 			if(this.total<=this.limit || this.datas.length>=this.total){
 				this.isMo=false;
@@ -292,7 +303,9 @@ export default{
 			if(url){
 				pr.url = url;
 			}
-			this.$parent.playAdio(pr)	
+			this.$parent.playAdio(pr)
+
+			
 		},
 		puandFn(t){
 			
@@ -353,7 +366,8 @@ export default{
 				m_id:el.m_id
 			}).then((da)=>{
 				this.aaa='';
-				if(da=='error'){return}			
+				if(da=='error'){return}	
+				this.pushDD('audio_choose',el.m_id,el.name)
 				let pr = {
 						type: "audio",
 						file_url: da.file_url,
@@ -437,7 +451,6 @@ export default{
 			}
 			let el = this.chek;
 			if(el){
-				
 				this.aaa=el.m_id;
 				this.sh_audioUrld(el);
 				return
@@ -541,12 +554,12 @@ export default{
 					logo:el.logo,
 					name:el.name,
 					author:el.author?el.author:'无歌手',
-					onTime:0,
-			
+					onTime:0,			
 					duration:el.duration,
 					is_collect:el.is_collect,
 					face_pic:el.face_pic
 				};
+				this.pushDD('audio_play',this.bfData.m_id,this.bfData.name);
 				this.sh_audioUrl(el.m_id);
 				return
 			}
@@ -558,6 +571,7 @@ export default{
 				this.bRunning = false;
 				this.puandFn()
 			} else {
+				this.pushDD('audio_play',this.bfData.m_id,this.bfData.name);
 				this.playFn();		
 				
 			}
