@@ -191,11 +191,8 @@ export default{
 				mw = this.pic.w-(this.cjk.x-this.pic.x);
 				mh = this.cjk.y-this.pic.y+this.cjk.h;				
 			}			
-			if(tp=='b_r' || tp=='b_l'){
-				
+			if(tp=='b_r' || tp=='b_l'){				
 				mh = this.pic.h-(this.cjk.y - this.pic.y);
-				
-				
 			}
 			
 			var hg = mw/9*16;
@@ -221,15 +218,11 @@ export default{
 				var y = ydy+disH;
 				if(tp=='t_l'){				
 					let zd = ydx;
-					
 					let oyw = ydy/16*9;
 					if(oyw>zd){
 						zd = oyw;
 					}
-					
 					let wd = y_w-zd;
-					
-					
 					if(wd>max_w){
 						wd = max_w;
 					}
@@ -288,9 +281,14 @@ export default{
 					if(wd>max_w){
 						wd = max_w;
 					}
+					if(wd<5){
+						wd = 5;
+					}
 					this.cjk.w = wd;
 					this.cjk.h = wd/9*16;
+					
 					this.cjk.x = disW-(wd-y_w);	
+					// console.log(this.cjk.x);
 					return					
 				}								
 				if(tp=='m'){
