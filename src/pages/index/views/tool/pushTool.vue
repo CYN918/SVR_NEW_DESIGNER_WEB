@@ -689,7 +689,11 @@
 				if (af || af == 0) {
 					this.cans.globalAlpha = af;
 				}
-				this.cans.drawImage(this.$refs.vids, a.sx, a.sy, a.sw, a.sh, a.x, a.y, a.w, a.h);
+				let bl = 1;
+				if(!a.pageZoomW){
+					bl = parseInt((this.boxW/a.pageZoomW)*100)/100;
+				}
+				this.cans.drawImage(this.$refs.vids, a.sx, a.sy, a.sw, a.sh, a.x*bl, a.y*bl, a.w*bl, a.h*bl);
 			},
 			drmOn() {
 				this.setPreviewObj();
@@ -698,7 +702,8 @@
 					this.drmBg();
 					return
 				}
-
+				
+				
 				if (obd.type == 'video') {
 					clearTimeout(this.valObj);
 					this.$refs.vids.src = obd.file_url;
@@ -718,7 +723,11 @@
 					a.src = obd.file_url;
 					a.onload = () => {
 						this.drmBg();
-						this.cans.drawImage(a, obd.sx, obd.sy, obd.sw, obd.sh, obd.x, obd.y, obd.w, obd.h);
+						let bl = 1;
+						if(!obd.pageZoomW){
+							bl = parseInt((this.boxW/obd.pageZoomW)*100)/100;
+						}
+						this.cans.drawImage(a, obd.sx, obd.sy, obd.sw, obd.sh, obd.x*bl, obd.y*bl, obd.w*bl, obd.h*bl);
 					}
 					return
 				}
@@ -808,10 +817,13 @@
 					vtime = 0;
 				a.src = onBj.file_url;
 				let end = this.backTim(onBj);
-
+				let bl = 1;
+				if(!onBj.pageZoomW){
+					bl = parseInt((this.boxW/onBj.pageZoomW)*100)/100;
+				}
 				a.onload = () => {
 					this.drmBg();
-					this.cans.drawImage(a, onBj.sx, onBj.sy, onBj.sw, onBj.sh, onBj.x, onBj.y, onBj.w, onBj.h);
+					this.cans.drawImage(a, onBj.sx, onBj.sy, onBj.sw, onBj.sh, onBj.x*bl, onBj.y*bl, onBj.w*bl, onBj.h*bl);
 					this.valObj = setInterval(() => {
 						vtime = vtime + .05;
 						this.preview.onTime = ontim + vtime;
@@ -1915,20 +1927,20 @@
 
 					let on = 1;
 
-					if (this.preview.onTime - ob.start < .5) {
-						if (this.mhq == 100) {
-							this.mhq = 0;
-						}
-						this.mhq += 10;
-						on = this.mhq / 100;
-					}
-					if (endt - this.preview.onTime < .5) {
-						if (this.mh == 0) {
-							this.mh = 100;
-						}
-						this.mh -= 10;
-						on = this.mh / 100;
-					}
+					// if (this.preview.onTime - ob.start < .5) {
+					// 	if (this.mhq == 100) {
+					// 		this.mhq = 0;
+					// 	}
+					// 	this.mhq += 10;
+					// 	on = this.mhq / 100;
+					// }
+					// if (endt - this.preview.onTime < .5) {
+					// 	if (this.mh == 0) {
+					// 		this.mh = 100;
+					// 	}
+					// 	this.mh -= 10;
+					// 	on = this.mh / 100;
+					// }
 					this.drmvideo(ob, on);
 					let po = this.cun[this.vdcc].x;
 

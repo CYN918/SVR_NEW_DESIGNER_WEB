@@ -18,8 +18,7 @@
 						<div class="jdt_002">
 							<el-progress :width="48" :stroke-width="2"  type="circle" :percentage="el.bf"></el-progress>
 							<span class="jdt_002x">正在上传</span>
-						</div>
-						
+						</div>						
 					</div>
 					<div @mousedown="starD($event,el)" @mouseover="ybf(index,el)" class="setMt_03_01" v-else>
 						<img :src="el.cover_img?el.cover_img:el.url">
@@ -28,11 +27,9 @@
 						<span class="tim_014" v-if="IsSelect(el.fid)">
 							<img width="19px" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_mt_usemt.png" alt="">
 						</span>
-					</div>
-					
+					</div>					
 					<div @click="checkV(el)" class="tim_xz"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_add_small.png" alt=""></div>
-					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/sc_icon_delete.png"/></div>
-					
+					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/sc_icon_delete.png"/></div>					
 				</li>
 			</span>
 		</ul>
@@ -52,7 +49,6 @@
 		</div>
 	</div>
 </template>
-
 <script>
 import t_qr from '../../components/t_qr';
 export default{
@@ -77,15 +73,13 @@ export default{
 		}
 	},
 	mounted: function () {
-		this.getList();
-		
-	}, 		
+		this.getList();		
+	},
 	methods:{
 		backto(num){
 			return parseInt(num*100)/100
 		},
 		zGys(){
-			
 			if(this.maxwj<1024){
 				return this.backto(this.maxwj)+'KB';
 			}
@@ -173,7 +167,8 @@ export default{
 				cut_start: 0,
 				ischeck:'',
 				start:0,
-				zpY:0
+				zpY:0,
+				pageZoomW:this.$parent.boxW,
 			};
 			var pd = {
 					type: "pic",
@@ -281,7 +276,8 @@ export default{
 				file_name:el.file_name,
 				cut_start: 0,
 				ischeck:'',
-				start:0,				
+				start:0,
+				pageZoomW:this.$parent.boxW,
 			};
 			if(el.file_type=='image'){
 				var pd = {
@@ -366,6 +362,7 @@ export default{
 					pr.yh =  hd;
 					pr.sw = wd;					
 					pr.sh = hd;
+					
 					if(wd>hd){
 						pr.w = this.$parent.boxW;
 						pr.h = (this.$parent.boxW/wd)*hd;
@@ -383,7 +380,8 @@ export default{
 							pr.x = (this.$parent.boxW-pr.w)/2;
 							pr.y = 0;
 						}
-					}						
+					}
+					
 					this.$parent.setV(this.value.media,pn,pr)	
 					this.$parent.history_set();
 					this.$parent.setPreviewTimes(pr,'media',1);
