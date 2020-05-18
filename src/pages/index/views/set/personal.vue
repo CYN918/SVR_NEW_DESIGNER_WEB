@@ -291,7 +291,7 @@ export default {
 					}			
 					return true; 
 				}	
-				if(!(/^1[2345789]\d{9}$/.test(val))){ 
+				if(!(/^1[23456789]\d{9}$/.test(val))){ 
 					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
 				} 
 				return true;
@@ -303,7 +303,7 @@ export default {
 					}			
 					return true; 
 				}	
-				if(!(/^1[2345789]\d{9}$/.test(val))){ 
+				if(!(/^1[23456789]\d{9}$/.test(val))){ 
 					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
 				} 
 				return true;
@@ -510,7 +510,7 @@ export default {
 			if(this.checkBankno(this.postData.bank_card_no)==false){
 				return
 			}
-			if(!(/^1[2345789]\d{9}$/.test(this.postData.reserve_phone))){
+			if(!(/^1[23456789]\d{9}$/.test(this.postData.reserve_phone))){
 				return	
 			} 
 			if(!this.postData.branch_bank){
@@ -527,7 +527,7 @@ export default {
 			this.isPostky = true;
 		},
 		postCheck(){
-			if(!(/^1[2345789]\d{9}$/.test(this.postData.reserve_phone))){
+			if(!(/^1[23456789]\d{9}$/.test(this.postData.reserve_phone))){
 				Message({message: '请输入正确的银行预留手机号'}); 	
 				return false;
 			} 
@@ -613,7 +613,7 @@ export default {
 					return 					
 				}			
 			}else{
-				if(!(/^1[2345789]\d{9}$/.test(pd))){ 
+				if(!(/^1[23456789]\d{9}$/.test(pd))){ 
 					Message({message: '请输入正确的手机号码'});
 					return
 				} 
@@ -642,7 +642,7 @@ export default {
 					return 					
 				}			
 			}else{
-				if(!(/^1[2345789]\d{9}$/.test(pd))){ 
+				if(!(/^1[23456789]\d{9}$/.test(pd))){ 
 					Message({message: '请输入正确的手机号码'});
 					return
 				} 
