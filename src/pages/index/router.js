@@ -323,7 +323,7 @@ router.beforeEach((to, from, next) => {
 	
 	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
 		if(!isqh || isqh==null){
-			if(to.path== "/prcent"){
+			if(to.path== "/prcent" && !to.query.type){
 				window.location.href = location.origin+"/aindex.html#/conta?id="+to.query.id;
 				return
 			}

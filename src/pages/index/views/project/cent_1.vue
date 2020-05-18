@@ -90,11 +90,11 @@ export default {
 		openCent(){
 			if(this.el.special_url){
 				let rul = this.el.special_url.split('?')[0];
-				window.open(rul+'?id='+this.el.id);					
+				window.open(rul+'?id='+this.el.id+'&type=prj');					
 				return
 			}
 			if(this.el.id){
-				window.open('/#/prcent?id='+this.el.id)
+				window.open('/#/prcent?id='+this.el.id+'&type=prj')
 			}
 			
 		},
