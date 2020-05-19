@@ -18,6 +18,9 @@ export default {
 		deta:Object,
 	},
     name: 'nav_right',
+	props:{
+		deta:Object,
+	},
     data(){
         return {
             isShow:false,

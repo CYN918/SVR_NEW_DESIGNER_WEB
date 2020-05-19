@@ -1472,7 +1472,9 @@
 						if (this.Mos.n == 'media') {
 							this.setV(this.navcoms.media, this.clTim(this.navcoms.media, onDom), onDom);
 							list.splice(onc, 1)
+
 						}
+
 						if (this.Mos.n == 'decorates') {
 							this.setV(this.navcoms.decorates[this.Mos.on], this.clTim(this.navcoms.decorates[this.Mos.on], onDom), onDom);
 							list.splice(onc, 1)

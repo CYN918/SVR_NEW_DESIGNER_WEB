@@ -91,8 +91,7 @@ export default {
 		close(){
 			this.tcZj = '';
 		},
-		setStaus(on){
-			
+		setStaus(on){			
 			this.deta.status = on;
 			this.clsfn();
 		},
@@ -138,9 +137,7 @@ export default {
 						this.tip1 = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.income+'</span>';
 					}
 				}
-			}
-			
-			
+			}						
 			if(this.deta.status==1){
 				this.tips = '<div class="pr_cent2_r2_1 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
 				return
@@ -150,20 +147,16 @@ export default {
 				return
 			}
 			if(this.deta.status==3){
-
 				let be = [{n:'提交稿件',fn:'pushGj',cls:'btns_js'}];
 				if(this.deta.is_rejected==1){
 					be[0].n = "重新交稿";
 					be[1] = {n:'交稿记录',fn:'Log'};
 				}
 				this.btns = be;
-				
-				
 				if(this.deta.is_de){
 					this.tips = '<div class="backdse pr_cent2_r2_4">你已延期'+this.deta.delay_time.d+'天'+this.deta.delay_time.h+'小时，请尽快完成</div>';
 					return
 				}
-		
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
 					if(this.deta.is_rejected==1){
 						this.tips = '<div class="backdse pr_cent2_r2_4">你的稿件未通过，请重新提交</div>';
@@ -171,22 +164,16 @@ export default {
 						var d2 = new Date();
 						var d1 = new Date(Date.parse(this.deta.delivery_deadline));						 
 						if(d1 > d2){
-							let otim = this.bckdtimed(this.deta.delivery_deadline);
-							this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
-							
+							let otim = this.bckdtimed(this.deta.delivery_deadline);			
+					        this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
 						}else{
 							var d3 = d2 - d1;
 							var days = Math.floor(d3/(24*3600*1000));
 							var leave1 = d3%(24*3600*1000);
-                            var hours = Math.floor(leave1/(3600*1000));
-							
+                            var hours = Math.floor(leave1/(3600*1000));							
                             this.tips = '<div class="backdse pr_cent2_r2_4">你已延期<span>'+days+'天'+hours+'小时</span>，请尽快完成</div>';
 						}  
-						
-
 					}
-					
-				
 				}
 				return
 			}
@@ -215,7 +202,6 @@ export default {
 				
 		},
 		bckdtimed(t){
-		
 			let times =new Date(t.replace(/-/g,'/')),
 			Y = times.getFullYear(),
 			M = times.getMonth()+1,
@@ -238,7 +224,6 @@ export default {
 			if(a.s>0){
 				a.s--;				
 			}else
-			
 			if(a.m>0){
 				a.s = 59;
 				a.m--;
@@ -253,19 +238,16 @@ export default {
 				a.s = 59;
 				a.m = 59;
 				a.h = 23;
-				a.d--;
-				
+				a.d--;				
 			}else{
 				this.$parent.getData();
 				return
 			}
-			this.djtime = '<span><span class="pr_hs">'+a.d+'</span>d<span class="pr_hs">'+(a.h>9?a.h:'0'+a.h)+'</span>h<span class="pr_hs">'+(a.m>9?a.m:'0'+a.m)+'</span>m<span class="pr_hs">'+(a.s>9?a.s:'0'+a.s)+'</span>s</span>';	
-		
+			this.djtime = '<span><span class="pr_hs">'+a.d+'</span>d<span class="pr_hs">'+(a.h>9?a.h:'0'+a.h)+'</span>h<span class="pr_hs">'+(a.m>9?a.m:'0'+a.m)+'</span>m<span class="pr_hs">'+(a.s>9?a.s:'0'+a.s)+'</span>s</span>';			
 		}
 	}
 }
 </script>
-
 <style>
 .pr_cent2_1{
 	position: relative;

@@ -95,7 +95,7 @@ export default {
 			}
 			if(this.el.id){
 				window.open('/#/prcent?id='+this.el.id+'&type=prj')
-			}			
+			}
 		},
 		setTil(str){
 			if(!str){return}
