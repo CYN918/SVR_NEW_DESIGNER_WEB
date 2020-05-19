@@ -53,7 +53,7 @@
 					
 					<Input class="tc_sucd_2_1" v-model="tancData.oldMoble" @setYzm="setYzmOld" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入旧的手机号码'"  ></Input>
 					<Input class="tc_sucd_2_1" v-model="tancData.newMoble" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne2" :placeholder="'请输入新的手机号码'"  ></Input>
-					<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(tancData.newMoble,tancData.mobile_zone)" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入新手机号的6位短信验证码'"  ref="verify"></Input>
+					<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(tancData.newMoble,tancData.mobile_zone,'register')" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入新手机号的6位短信验证码'"  ref="verify"></Input>
 		
 					<div class="tc_sucd_1_2">
 						<div @click="closeTc1" class="btns pend">取消</div>
@@ -102,7 +102,7 @@
 					<div class="tc_spasswodr_1_1" v-if="isyazfs==1">
 						<div class="tc_sucd_1_2">
 							<InputO v-model="tancData.mobile" @setYzm="setYzm" :type="'text'" :oType="'phone'" :chekFn="chekPhpne" :placeholder="'请输入手机号'" :dataMobile="mJs.phone_encryption(form.mobile)" :dataMobilezone="form.mobile_zone" ></InputO>
-							<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(form.mobile,tancData.mobile_zone)" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
+							<Input v-model="tancData.verify_code"  @ajaxYzm="ajaxYzm(form.mobile,tancData.mobile_zone,'login')" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
 							<Input v-model="tancData.password"  :oType="'password'" :chekFn="chekPssword" :type="'password'" :placeholder="'新密码，6-16位'"></Input>			
 							<Input v-model="tancData.password_repass" :oType="'password'" :chekFn="vp_r" :type="'password'" :placeholder="'确认新密码，6-16位'"></Input>
 							<div class="tc_sucd_1_2">
@@ -441,7 +441,7 @@ export default {
 		setYzmOld(val){
 			this.tancData.old_mobile_zone = val;
 		},
-		ajaxYzm(p,m){
+		ajaxYzm(p,m,t){
 			let pd = p;
 			// if(m!='86'){
 			// 	if(!(typeof pd === 'number' && pd%1 === 0)){
@@ -459,7 +459,7 @@ export default {
 			let params = {
 				mobile:p,
 				mobile_zone:m,
-				type:'login',
+				type:t,
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error'){
