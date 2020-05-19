@@ -4,11 +4,10 @@
 			<div class="ldx_l_1_1" :style="'background-image: url('+el.img+');'"></div>
 			
 			<canvas v-if="el.status==0" class="videoBox1" ref="cavs"></canvas>
-			
 			<video @timeupdate="timeupdate" @canplay="setTime()" loop="loop" v-if="el.file_url" class="bof" ref="video" :src="el.file_url"></video>
 			<div 
 			@mouseover="showT()" @mouseout="hinT()"
-			v-if="[2,1,0,-1].indexOf(+el.status)!=-1"
+			v-if="[2,1,0,-1].indexOf(+el.status)!=-1 && isaduio()"
 			class="ldxwc_yy">
 				<img :class="['ant',Isbf?'paused':'']" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/Upload_icon_music_24.svg" alt="">
 				<div :class="['gdwz_001',showTil?'showTil':'']"><span :style="yu_tle">{{backdr()}}</span></div>
@@ -80,10 +79,7 @@
 <script>
 export default{
 	props:{
-		el:{
-			type:Object,
-			default:{},
-		},
+		el:Object,
 		pr:Object,
 	},
 	data(){
@@ -104,23 +100,22 @@ export default{
 			cumime:0,
 			Isbf:true,
 			showTil:'',
-		}
-		
+		}		
 	},
-
 	methods:{
-		showT(e){
+		showT(){
 			this.showTil = 1;
 		},
-		hinT(e){
+		hinT(){
 			this.showTil = '';
 		},
 		backyo(){
 			if(this.$refs.tiles){
-				
 				return this.$refs.tiles.getBoundingClientRect().width>1?'tian_01':'';
-			}
-			
+			}			
+		},
+		isaduio(){
+			return this.jsons.audio && this.jsons.audio[0];
 		},
 		backdr(){
 			if(this.jsons.audio && this.jsons.audio[0] && this.jsons.audio[0].author){
@@ -138,7 +133,6 @@ export default{
 			this.times = this.$refs.video.duration;
 		},
 		setTimed(t){
-			
 			var f='00',s;
 			if(t>60){
 				f = Math.round(t/60);
@@ -152,7 +146,7 @@ export default{
 			}
 			return f+':'+s;
 		},
-		ybf(e){
+		ybf(){
 			if(!this.$refs.video){
 				return
 			}
@@ -163,12 +157,12 @@ export default{
 			this.isBFdjs = setTimeout(()=>{
 				if(this.$refs.video){
 					this.$refs.video.currentTime = 0;
-					this.$refs.video.play();
+					try{this.$refs.video.play()}catch(e){}					
 					this.Isbf = false;
 				}
 			},200)			
 		},
-		stopbf(e){
+		stopbf(){
 			if(!this.$refs.video){
 				return
 			}
@@ -197,17 +191,17 @@ export default{
 			}
 			
 		},
-		btnchange(e){
+		btnchange(){
 			this.Isbtn = true;
 		},
-		btnchange1(e){
+		btnchange1(){
 			this.Isbtn = false;
 			this.Ischeck = false
 		},
 		del(id){
 			this.api.mobileshowdel({
 				id:id
-			}).then(da=>{
+			}).then(()=>{
 				this.$parent.getData();	
 				this.changebtn();
 			})

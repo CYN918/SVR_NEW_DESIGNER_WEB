@@ -1,6 +1,5 @@
 <template>
 	<div class="box_p_01">
-		
 		<div class="mp3_03" ref="nsdf">
 			<div class="mp3_03_0" ref="spnds">
 				<spck
@@ -9,7 +8,6 @@
 				:List="navs"
 				:keys="'v'"
 				:v="'n'"
-				
 				></spck>
 				<div class="mp3_03_2">
 					<img class="mp3_03_2_img1" @click="ss()" :src="imgPath+'tools/ss.png'"/>
@@ -18,22 +16,19 @@
 				</div>
 			</div>				
 			<spck2 
-			
 			v-if="type=='sh_List' && !isshs"
 			v-model="clas"
 			class="mp3_03_3"
 			:List="showNav"
 			:keys="'classify_name'"
 			:v="'classify_name'"
-			
 			></spck2>
-			
 		</div>
 		<div v-if="isNOdata" class="mp3_04 mp3_04nod">
 			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/empty_nodata.svg">
 			<div>哎呀，没找到音乐</div>
 		</div>
-		<div v-else class="mp3_04" ref='mp3_04'>
+		<div v-else class="mp3_04 mp3_04ff" ref='mp3_04' @scroll="scrollMo()">
 			<div class="mp3_04_01"><span></span><span>歌曲</span><span>歌手</span><span>时长</span><span></span></div>
 			<div 
 			@dblclick="bf(el, index)"
@@ -61,11 +56,11 @@
 					
 					<span @click="checkDom(el)" class="setAdio_02 pend">
 						<img v-if="el.m_id==aaa" class="setAdio_02x" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/oclod.svg">
-						<span v-else>选用</span>
-						
+						<span v-else>选用</span>						
 					</span>
 				</span>
 			</div>
+			<div class="nomors" ref="addmor"><span v-if="!isMo">没有更多了~~</span></div>
 		</div>
 		
 		<div class="mp3_05" v-if="Isfirst" ref="mp3_05_1" >
@@ -125,6 +120,7 @@
 <script>
 import spck from './fospan'
 import spck2 from './fospan2'
+import { Loading } from 'element-ui';
 export default{
 	components:{
 		spck,
@@ -162,21 +158,28 @@ export default{
 				onTime:0,				
 			},
 			bRunning:false,
-			isNOdata:'',
+			isNOdata:false,
 			Isfirst:false,
 			showNav:[],
 			aaa:'',
 			ym:0,
 			mvX:0,
 			chek:'',
+			isMo:true,
+			page:1,
+			limit:100,
+			total:0,
+			isgetList:false,
 		}
 	},
 	watch:{
 		'clas'(){
+			this.page=1;
 			this.getList();
 		},
 		'type'(){
 			if(!this.clas){
+				this.page=1;
 				this.getList();
 			}
 			this.clas = '';			
@@ -226,6 +229,29 @@ export default{
 		}
 	},
 	methods:{	
+		pushDD(a,b,c){
+			let sr = 'https://shiquaner-api.zookingsoft.com/dot.txt?';
+			sr+='dot_type='+a;
+			sr+='&audio_id='+b;
+			sr+='&audio_name='+c;
+			sr+='&evn='+window.ddian;
+			this.$ajax({
+				type:'get',
+				url:sr
+			})
+		},
+		scrollMo(){
+			if(this.total<=this.limit || this.datas.length>=this.total){
+				this.isMo=false;
+				return
+			}
+			let data = this.$refs.addmor.getBoundingClientRect();
+		
+			if(data.top<800 && !this.isgetList){
+				this.page++;				
+				this.getList();
+			}
+		},
 		ischeckd(id){
 			return this.bfData.m_id==id;
 		},
@@ -277,7 +303,9 @@ export default{
 			if(url){
 				pr.url = url;
 			}
-			this.$parent.playAdio(pr)	
+			this.$parent.playAdio(pr)
+
+			
 		},
 		puandFn(t){
 			
@@ -338,7 +366,8 @@ export default{
 				m_id:el.m_id
 			}).then((da)=>{
 				this.aaa='';
-				if(da=='error'){return}			
+				if(da=='error'){return}	
+				this.pushDD('audio_choose',el.m_id,el.name)
 				let pr = {
 						type: "audio",
 						file_url: da.file_url,
@@ -359,7 +388,7 @@ export default{
 				this.$message({
 					message:"选用成功"
 				})
-				
+				this.$parent.history_set();
 			}).catch(()=>{
 				this.aaa='';
 			})
@@ -422,7 +451,6 @@ export default{
 			}
 			let el = this.chek;
 			if(el){
-				
 				this.aaa=el.m_id;
 				this.sh_audioUrld(el);
 				return
@@ -526,12 +554,12 @@ export default{
 					logo:el.logo,
 					name:el.name,
 					author:el.author?el.author:'无歌手',
-					onTime:0,
-			
+					onTime:0,			
 					duration:el.duration,
 					is_collect:el.is_collect,
 					face_pic:el.face_pic
 				};
+				this.pushDD('audio_play',this.bfData.m_id,this.bfData.name);
 				this.sh_audioUrl(el.m_id);
 				return
 			}
@@ -543,6 +571,7 @@ export default{
 				this.bRunning = false;
 				this.puandFn()
 			} else {
+				this.pushDD('audio_play',this.bfData.m_id,this.bfData.name);
 				this.playFn();		
 				
 			}
@@ -615,13 +644,12 @@ export default{
 		},
 		getList(a){
 			let pr = {
-				page:1,
-				limit:100,
+				page:this.page,
+				limit:this.limit,
 			};
 			if(this.name){
 				pr.name = this.name;
 			}
-		
 			if(!a){
 				if(this.clas && this.clas != "全部"){
 					pr.classify_name = this.clas;
@@ -629,8 +657,6 @@ export default{
 					this.clas = '全部';
 				}
 			}
-			
-				
 			if(window.source){
 				window.isStop=1;
 				setTimeout(()=>{
@@ -638,33 +664,31 @@ export default{
 				},50)
 				window.source();
 			}
-			
-		
-			
+			if(this.loading){
+				this.loading.close();
+			}
+			this.isgetList = true;
+			this.loading = Loading.service({target:'.box_p_01', fullscreen: true,background:'rgba(244,246,249,.4)' });
 			this.api[this.type](pr).then((da)=>{
+				this.loading.close()
+				this.isgetList = false;
 				if(da=='error'){
 					return	
 				}
-				try{
-					this.datas = da.data;
-					
-				}catch(e){
-					
+				this.total = da.total;
+				if(this.total<=this.limit || this.datas.length>=this.total){
+					this.isMo=false;
 				}
-				if(this.datas.length==0){
-					this.isNOdata = 1;
-				}else{
-					this.isNOdata = '';
-				}
-				
+				this.datas = this.page!=1?this.datas.concat(da.data):da.data;
+				this.isNOdata = this.datas.length==0?true:false;
 				setTimeout(()=>{
 					if(this.bRunning && this.$refs.chean[0]){
 						this.$refs.chean[0].play();
 					}
 				},250)
-				
-				
-				
+			}).catch(()=>{
+				this.loading.close()
+				this.isgetList = false;
 			})
 		},
 		close(){
@@ -1009,6 +1033,7 @@ export default{
 	position: relative;
 	top: 0;
 }
+
 .mp3_04_01s:hover{
     background: rgba(187,187,187,.3);	
 }
@@ -1210,5 +1235,10 @@ img.mp3_04_01_sc {
     color: rgba(102,102,102,1);
     line-height: 18px;
     text-align: center;
+}
+.nomors{
+	text-align: center;
+    line-height: 60px;
+    color: #979797;
 }
 </style>

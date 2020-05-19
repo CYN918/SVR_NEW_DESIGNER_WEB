@@ -13,10 +13,6 @@
 									
 					<div class="tzk_01">
 						<div @mousedown="td_01($event,'m')" class="tzk_02"></div>
-						<!-- <div @mousedown="td_01($event,'l')" class="tzk_03"></div> -->
-						<!-- <div @mousedown="td_01($event,'t')" class="tzk_04"></div> -->
-						<!-- <div @mousedown="td_01($event,'r')" class="tzk_05"></div> -->
-						<!-- <div @mousedown="td_01($event,'b')" class="tzk_06"></div> -->
 						<div @mousedown="td_01($event,'t_l')" class="tzk_07"></div>
 						<div @mousedown="td_01($event,'t_r')" class="tzk_08"></div>
 						<div @mousedown="td_01($event,'b_l')" class="tzk_09"></div>
@@ -113,26 +109,24 @@ export default{
 			this.setcs('sw',sw);
 			this.setcs('sh',sh);			
 			this.$parent.puandFn();			
-			this.close();
+			this.close();	
 			this.$parent.drmOn();
+			this.$parent.history_set();
 		},
 		setcs(n,v){
 			this.$set(this.value.data,n,v)
 		},
-		cz(){
-			
+		cz(){			
 			let maxw = 640;
 			let maxy = 360;
 			let onw = 0;
 			let onh = 0;
 			let img = document.createElement('img');
 			img.src=this.value.data.cover_img;
-			img.onload = ()=>{
-			
+			img.onload = ()=>{			
 				let w = img.naturalWidth;
 				let y = img.naturalHeight;
-				let bl = w/y;
-			
+				let bl = w/y;			
 				onh = 360;
 				onw = bl*onh;
 				if(onw>640){
@@ -149,14 +143,12 @@ export default{
 					height:onh
 				});	
 			}
-			
-			
-			
-		},		
+		},
+
 		td_01(e,tp){
 			if(e && e.stopPropagation()) {
 				e.stopPropagation();
-			} else {
+			}else{
 				e.cancelBubble = false;
 			}
 			let ev = e || window.event,
@@ -199,11 +191,8 @@ export default{
 				mw = this.pic.w-(this.cjk.x-this.pic.x);
 				mh = this.cjk.y-this.pic.y+this.cjk.h;				
 			}			
-			if(tp=='b_r' || tp=='b_l'){
-				
+			if(tp=='b_r' || tp=='b_l'){				
 				mh = this.pic.h-(this.cjk.y - this.pic.y);
-				
-				
 			}
 			
 			var hg = mw/9*16;
@@ -220,16 +209,19 @@ export default{
 				var ev = ev || window.event;
 				if(ev && ev.stopPropagation()) {
 					ev.stopPropagation();
-				} else {
+				}else{
 					ev.cancelBubble = false;
 				}
 				var ydx = ev.clientX - disX;
 				var ydy = ev.clientY - disY;
 				var x = ydx+disW;
 				var y = ydy+disH;
-				
 				if(tp=='t_l'){				
 					let zd = ydx;
+					let oyw = ydy/16*9;
+					if(oyw>zd){
+						zd = oyw;
+					}
 					let wd = y_w-zd;
 					if(wd>max_w){
 						wd = max_w;
@@ -245,6 +237,10 @@ export default{
 				}
 				if(tp=='t_r'){
 					let zd = ydx;
+					let oyw = ydy/16*9;
+					if(oyw>zd){
+						zd = -oyw;
+					}
 					let wd = y_w+zd;
 					if(wd>max_w){
 						wd = max_w;
@@ -252,14 +248,18 @@ export default{
 					if(wd<5){
 						wd = 5;
 					}
+					
 					this.cjk.w = wd;
 					this.cjk.h = wd/9*16;
 					this.cjk.y = disH+(y_h-this.cjk.h);
 					return
 				}
 				if(tp=='b_l'){
-				
 					let zd = ydx;
+					let oyw = ydy/16*9;
+					if(oyw>zd){
+						zd = oyw;
+					}
 					let wd = y_w+zd;
 					if(wd>max_w){
 						wd = max_w;
@@ -267,41 +267,35 @@ export default{
 					if(wd<5){
 						wd = 5;
 					}
-		
 					this.cjk.w = wd;
 					this.cjk.h = wd/9*16;
-					
 					return
 				}
 				if(tp=='b_r'){
 					let zd = ydx;
+					let oyw = -ydy/16*9;
+					if(oyw>zd){
+						zd = oyw;
+					}
 					let wd = y_w-zd;
 					if(wd>max_w){
 						wd = max_w;
 					}
+					if(wd<5){
+						wd = 5;
+					}
 					this.cjk.w = wd;
 					this.cjk.h = wd/9*16;
-					this.cjk.x = disW-(wd-y_w);	
-					return
 					
-				}
-				if(x>max_x){
-					x=max_x;
-				}
-				if(y>max_y){
-					y=max_y;
-				}				
-				if(x<min_x){
-					x = min_x;
-				}
-				if(y<min_y){
-					y = min_y;
-				}	
+					this.cjk.x = disW-(wd-y_w);	
+					// console.log(this.cjk.x);
+					return					
+				}								
 				if(tp=='m'){
-					this.cjk.x = x;
-					this.cjk.y = y;
-				}
-				
+					this.cjk.x = x>max_x?max_x:x<min_x?min_x:x;
+					this.cjk.y = y>max_y?max_y:y<min_y?min_y:y;
+					return
+				}				
 			}			 
 			document.onmouseup =  ()=>{
 				document.onmousemove = document.onmouseup = null;
@@ -533,14 +527,12 @@ export default{
 .pcat_bt>label>span{
 	display: inline-block;
 	position: relative;
-	vertical-align: top;
-	
+	vertical-align: top;	
 	width:16px;
 	height:16px;
 	border-radius: 50%;
 	background:rgba(255,255,255,1);
 	margin-right: 8px;
-	
 	box-sizing: border-box;
 }
 .pcat_bt>label>span:after{

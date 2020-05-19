@@ -219,7 +219,7 @@
 						}
 						return true;
 					}
-					if(!(/^1[2345789]\d{9}$/.test(val))) {
+					if(!(/^1[23456789]\d{9}$/.test(val))) {
 						return {
 							type: false,
 							text: '请输入正确的手机号码',
@@ -239,7 +239,7 @@
 						}
 						return true;
 					}
-					if(!(/^1[2345789]\d{9}$/.test(val))) {
+					if(!(/^1[23456789]\d{9}$/.test(val))) {
 						return {
 							type: false,
 							text: '请输入正确的手机号码',
@@ -374,7 +374,7 @@
 						return
 					}
 				} else {
-					if(!(/^1[2345789]\d{9}$/.test(pd))) {
+					if(!(/^1[23456789]\d{9}$/.test(pd))) {
 						Message({
 							message: '请输入正确的手机号码'
 						});

@@ -18,8 +18,7 @@
 						<div class="jdt_002">
 							<el-progress :width="48" :stroke-width="2"  type="circle" :percentage="el.bf"></el-progress>
 							<span class="jdt_002x">正在上传</span>
-						</div>
-						
+						</div>						
 					</div>
 					<div @mousedown="starD($event,el)" @mouseover="ybf(index,el)" class="setMt_03_01" v-else>
 						<img :src="el.cover_img?el.cover_img:el.url">
@@ -28,11 +27,9 @@
 						<span class="tim_014" v-if="IsSelect(el.fid)">
 							<img width="19px" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_mt_usemt.png" alt="">
 						</span>
-					</div>
-					
+					</div>					
 					<div @click="checkV(el)" class="tim_xz"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_add_small.png" alt=""></div>
-					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/sc_icon_delete.png"/></div>
-					
+					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/sc_icon_delete.png"/></div>					
 				</li>
 			</span>
 		</ul>
@@ -52,7 +49,6 @@
 		</div>
 	</div>
 </template>
-
 <script>
 import t_qr from '../../components/t_qr';
 export default{
@@ -77,15 +73,13 @@ export default{
 		}
 	},
 	mounted: function () {
-		this.getList();
-		
-	}, 		
+		this.getList();		
+	},
 	methods:{
 		backto(num){
 			return parseInt(num*100)/100
 		},
 		zGys(){
-			
 			if(this.maxwj<1024){
 				return this.backto(this.maxwj)+'KB';
 			}
@@ -146,27 +140,20 @@ export default{
 						brdr = 'border-color:rgba(51,179,255,1)';
 					}	
 				}
-				dom.style.cssText = str+'left:'+(x+10)+'px;top:'+y+'px;'+brdr;
-				
+				dom.style.cssText = str+'left:'+(x+10)+'px;top:'+y+'px;'+brdr;				
 			}			 
-			document.onmouseup =  (e)=>{
-		
+			document.onmouseup =  (e)=>{		
 				if(this.$parent.Mos){
 					if(this.$parent.Mos.n=='decorates'){
-						// this.setDecorates(el,e.x+10);
-						this.setDecorates(el);
-						
+						this.setDecorates(el,e.x+10);						
 					}else{
-	
 						this.checkV(el,e.x+10);
-						// this.checkV(el);
-					}
-					
+					}					
 				}
 				document.body.removeChild(dom);
 				document.onmousemove = document.onmouseup = null;
 			}
-		},
+		},		
 		setDecorates(el,x){
 			if(el.file_type!='image'){
 				return
@@ -179,7 +166,10 @@ export default{
 				file_name:el.file_name,
 				cut_start: 0,
 				ischeck:'',
-				start:0,				
+				start:0,
+				zpY:0,
+				pageZoomW:this.$parent.csW,
+				pageZoomH:this.$parent.csH,
 			};
 			var pd = {
 					type: "pic",
@@ -196,13 +186,14 @@ export default{
 			if(ond){
 				pr.start = +ond.start+(ond.cut_end-ond.cut_start);	
 				
-			}		
+			}	
+			let pn;
 			if(x){
 				let time = this.$parent.setDomStar(x);
-				pr.start = time;
-			
+				pr.start = time;				
+				pn = this.$parent.clTim(this.value.decorates[this.$parent.Mos.on],pr);				
 			}
-				var a = document.createElement('img');
+			var a = document.createElement('img');
 				a.src=el.url;
 				a.onload = ()=>{
 					let wd = a.width,
@@ -212,31 +203,31 @@ export default{
 					pr.sw = wd;					
 					pr.sh = hd;
 					if(wd>hd){
-						pr.w = this.$parent.boxW;
-						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.w = this.$parent.csW;
+						pr.h = (this.$parent.csW/wd)*hd;
+						pr.y = (this.$parent.csH-pr.h)/2;
 						pr.x = 0;
 					}else{
-						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;
+						pr.h = this.$parent.csH;
+						pr.w = (this.$parent.csH/hd)*wd;
 						
-						if(pr.w>this.$parent.boxW){
+						if(pr.w>this.$parent.csW){
 							
-							pr.w = this.$parent.boxW;
-							pr.h = (this.$parent.boxW/wd)*hd;
-							pr.y = (this.$parent.boxH-pr.h)/2;
+							pr.w = this.$parent.csW;
+							pr.h = (this.$parent.csW/wd)*hd;
+							pr.y = (this.$parent.csH-pr.h)/2;
 							pr.x = 0;
 						}else{
-							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.x = (this.$parent.csW-pr.w)/2;
 							pr.y = 0;
 						}
 						
 						
-					}		
-					this.value.decorates[this.$parent.Mos.on].push(pr);
+					}
+					this.$parent.setV(this.value.decorates[this.$parent.Mos.on],pn,pr);					
+					this.$parent.history_set();
 					this.$parent.setPreviewTimes(pr,'decorates',1);
-				
-					// this.$parent.showDevs(this.$parent.Mos.on,this.value.decorates[this.$parent.Mos.on].length-1);
+					
 				};
 		},
 		backtio(t){
@@ -286,7 +277,9 @@ export default{
 				file_name:el.file_name,
 				cut_start: 0,
 				ischeck:'',
-				start:0,				
+				start:0,
+				pageZoomW:this.$parent.csW,
+				pageZoomH:this.$parent.csH,
 			};
 			if(el.file_type=='image'){
 				var pd = {
@@ -316,56 +309,13 @@ export default{
 			if(ond){
 				pr.start = +ond.start+(ond.cut_end-ond.cut_start);					
 			}	
-			// let onds;	
+			// let onds;
+			let pn;
 			if(x){
-				// let time = this.$parent.setDomStar(x);
-				// pr.start = time;
-				// onds = -1;
-				
-				// for(let i=0,n=this.value.media.length;i<n;i++){
-				// 	let ob = this.value.media[i];
-				// 	let end = this.backEnd(ob);
-				// 	let end2 = this.backEnd(pr);
-					
-				// 	if(pr.start>=ob.start && end>=pr.start){
-				// 		pr.start = end;
-				// 		onds = i;
-				// 		continue
-				// 	}
-				// 	if(pr.start<end && end2>ob.start){
-				// 		pr.cut_end = ob.start+pr.cut_start-pr.start;
-				// 		break
-				// 	}
-				// }
-				
+				let time = this.$parent.setDomStar(x);
+				pr.start = time;
+				pn = this.$parent.clTim(this.value.media,pr);				
 			}
-			
-			
-			
-			
-			
-			
-			var sumTime = (obj)=>{
-				return obj.start+(obj.cut_end-obj.cut_start);
-			};
-			
-			
-			
-			
-			var fn = (obj)=>{
-				let n = obj.length;
-				if(n==0){
-					return
-				}
-				for(let i=0;i<n;i++){
-					let end = sumTime(obj[i]);
-					let star = obj[i].start;
-					if(pr.start<end){
-						break
-					}
-				}
-				
-			};
 			if(el.file_type=='image'){
 				var a = document.createElement('img');
 				a.src=el.url;
@@ -378,29 +328,27 @@ export default{
 					pr.sh = hd;
 					pr.zpY=0;
 					if(wd>hd){
-						pr.w = this.$parent.boxW;
-						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.w = this.$parent.csW;
+						pr.h = (this.$parent.csW/wd)*hd;
+						pr.y = (this.$parent.csH-pr.h)/2;
 						pr.x = 0;
 					}else{
-						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;
-						
-						if(pr.w>this.$parent.boxW){
-							
-							pr.w = this.$parent.boxW;
-							pr.h = (this.$parent.boxW/wd)*hd;
-							pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.h = this.$parent.csH;
+						pr.w = (this.$parent.csH/hd)*wd;						
+						if(pr.w>this.$parent.csW){							
+							pr.w = this.$parent.csW;
+							pr.h = (this.$parent.csW/wd)*hd;
+							pr.y = (this.$parent.csH-pr.h)/2;
 							pr.x = 0;
 						}else{
-							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.x = (this.$parent.csW-pr.w)/2;
 							pr.y = 0;
 						}
-						
-						
-					}				
-					this.value.media.push(pr);	
+					}	
 					
+					this.$parent.setV(this.value.media,pn,pr)
+					
+					this.$parent.history_set();	
 					this.$parent.setPreviewTimes(pr,'media',1);	
 					this.$parent.drmOn();								
 				};
@@ -415,30 +363,28 @@ export default{
 					pr.yw = wd;
 					pr.yh =  hd;
 					pr.sw = wd;					
-					pr.sh = hd;
+					pr.sh = hd;					
 					if(wd>hd){
-						pr.w = this.$parent.boxW;
-						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.w = this.$parent.csW;
+						pr.h = (this.$parent.csW/wd)*hd;
+						pr.y = (this.$parent.csH-pr.h)/2;
 						pr.x = 0;
 					}else{
-						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;
-						
-						if(pr.w>this.$parent.boxW){
-							
-							pr.w = this.$parent.boxW;
-							pr.h = (this.$parent.boxW/wd)*hd;
-							pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.h = this.$parent.csH;
+						pr.w = (this.$parent.csH/hd)*wd;
+						if(pr.w>this.$parent.csW){
+							pr.w = this.$parent.csW;
+							pr.h = (this.$parent.csW/wd)*hd;
+							pr.y = (this.$parent.csH-pr.h)/2;
 							pr.x = 0;
 						}else{
-							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.x = (this.$parent.csW-pr.w)/2;
 							pr.y = 0;
 						}
-						
-						
-					}		
-					this.value.media.push(pr);	
+					}
+					
+					this.$parent.setV(this.value.media,pn,pr)	
+					this.$parent.history_set();
 					this.$parent.setPreviewTimes(pr,'media',1);
 					this.$parent.drmOn();
 				}
@@ -454,8 +400,6 @@ export default{
 			
 			let el = this.istype.data;
 			let index = this.istype.on;
-		
-			
 			let times = (Date.parse(new Date())/1000);
 			let arr = [
 				1001,
@@ -474,25 +418,17 @@ export default{
 			.then((da)=>{
 				this.deldetType=0;
 				if(da.data.result==0){
-					this.$message({
-						message:'删除成功'
-					})
+					this.tipMr('删除成功')
 					this.list.splice(index,1);
 					this.fileTotalSummary();
 					this.close();
-					return
-				
+					return				
 				}
-				this.$message({
-					message:'删除失败'
-				})
-			
+				this.tipMr('删除失败')			
 			})
 			.catch(()=>{	
 				this.deldetType=0;
-				this.$message({
-					message:'删除失败'
-				})
+				this.tipMr('删除失败')
 			});
 		},
 		clPic(fld,on){
@@ -537,8 +473,8 @@ export default{
 			})
 			return
 		},
-		backEnd(ob){			
-			return  +ob.start+ob.cut_end-ob.cut_start;
+		backEnd(ob){		
+			return  +ob.start+(ob.cut_end-ob.cut_start);
 		},
 		push(){
 			this.$refs.upnfile.click();
@@ -574,8 +510,7 @@ export default{
 				fps:'',
 				play_time:'',
 				fid:'',
-				timestamp:new Date().getTime(),
-				
+				timestamp:new Date().getTime(),				
 			};
 			if(fld.type=='video/mp4'){
 				formData.append('fps_pic',1);
@@ -649,8 +584,9 @@ export default{
 		},
 		
 		getList(){
-		
-			
+			if(!window.userInfo){
+				return
+			}
 			this.fileTotalSummary();
 			let app_secret = '6iu9AtSJgGSRidOuF9lUQr7cKkW9NGrY',
 			times = (Date.parse(new Date())/1000),
@@ -665,7 +601,6 @@ export default{
 				sign:this.MD5(encodeURIComponent(arr.sort())),
 				user:window.userInfo.open_id,
 				timestamp:times,
-				// file_type:'',
 				relation_type:'mobile_show',
 				limit:40,
 				page:this.page,
