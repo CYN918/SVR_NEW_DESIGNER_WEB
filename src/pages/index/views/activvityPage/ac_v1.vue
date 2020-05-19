@@ -87,6 +87,7 @@
 		</div>
 		<img class="hctip" :src="imgPath+'ac_v1/01.png'">
 		<img class="hctip" :src="imgPath+'ac_v1/07.png'">
+		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 </template>
 
@@ -98,8 +99,9 @@ import com_wp from '../activvity/com_wp';
 import bm_01 from '../activvity/tan_c';
 import QRCode from 'qrcodejs2'
 import Header from '../header';
+import loginDialog from '../../components/loginDialog'
 export default{
-	components:{list,box_a,com_wp,bm_01,QRCode,pTop,Header},
+	components:{list,box_a,com_wp,bm_01,QRCode,pTop,Header,loginDialog},
 	data(){
 		return{
 			topCn:{
@@ -123,7 +125,11 @@ export default{
 			fxUrl2:'',
 			tanData:{},
 			isfl:'',
-			isnv_02:''
+			isnv_02:'',
+			outc: {
+				num:'',
+				scroll:2,
+			}
 		}
 	},
 	mounted: function(){
@@ -265,6 +271,11 @@ export default{
 			});
 		},	
 		showZp(){
+			if (!window.userInfo) {
+				this.$refs.logindialog.show()
+				this.outc.num = 1;
+				return
+			}
 			this.tanData = {
 				zj:'bm_01'
 			};
