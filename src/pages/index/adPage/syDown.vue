@@ -1,7 +1,7 @@
 <template>
 	<div class="adpage_syD">
 		<img class="adpage_syD_0" :src="setImgU('adPage/sy_01.png')"/>
-		<img class="adpage_syD_01" src=""/>
+		<img class="adpage_syD_01" :src="setImgU('adPage/sy_02.png')"/>
 		<p class="adpage_syD_1">
 			<span class="adpage_syD_2">
 				<a class="adpage_syD_3" href="https://shiquaner.zookingsoft.com/#/cont?id=158936954964">什么是来电秀?</a>
@@ -12,7 +12,7 @@
 				</span>
 			</span>
 			<span class="adpage_syD_2 adpage_syD_2x">
-				<img class="adpage_syD_5" src=""/>
+				<img class="adpage_syD_5" :src="setImgU('adPage/sy_02.png')"/>
 				<span class="adpage_syD_6">扫码下载 <span>狮映APP</span></span>
 			</span>
 			
@@ -44,7 +44,6 @@
 	top: 0;
 	right: 35%;
 	width: 8.33%;
-	height: 100px;
 	padding-top: 20%;
 
 }

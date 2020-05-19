@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<div class="activBan" :style="setImg(da.banner)"></div>
+		<img class="activBan2" :src="da.banner"/>
+		<!-- <div class="activBan" :style="setImg()"></div> -->
 		<div class="ac_1" v-if="da">
 			<div class="ac_1_1">{{da.activity_name}}</div>
 			<div class="ac_1_2">
@@ -39,14 +40,17 @@ export default {
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{	
 				if(da=='error'){return}
+				
+				da.info = da.info.replace(/\d*px/ig,(m)=>{
+					m.split('px')[0];
+					return window.hotcss.px2rem(m.split('px')[0],320)+'rem';
+				})
+				this.contDat = da;	
 				this.da = da;
 				
 			});
 		},		
 	},
-	
-	
-	
 }	
 </script>
 <style lang="scss">
@@ -56,6 +60,10 @@ export default {
     background-position: center;
 	width: 100%;
 	height: px2rem(211);
+}
+.activBan2{
+	display: block;
+	width: 100%;
 }
 .ac_1{
 	border-bottom: 2px solid #e6e6e6;

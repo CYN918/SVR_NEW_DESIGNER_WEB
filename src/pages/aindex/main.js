@@ -198,8 +198,9 @@ Vue.prototype.MD5 = function(string){
 }
 window.getTimes =function(ont) {
 	// alert(1);
-
-		
+	if(!ont){
+		return
+	}
 		let times =new Date(ont.replace(/-/g,'/')).getTime(),
 		nowt = new Date().getTime(),
 		pt = nowt-times,

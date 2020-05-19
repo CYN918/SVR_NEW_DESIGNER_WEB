@@ -123,7 +123,12 @@ export default {
 					window.close();
 					return
 				}
-				da.labels = JSON.parse(da.labels)
+				da.labels = JSON.parse(da.labels);
+				
+				da.content = da.content.replace(/\d*px/ig,(m)=>{
+					m.split('px')[0];
+					return window.hotcss.px2rem(m.split('px')[0],320)+'rem';
+				})
 				this.contDat = da;			
 			});			
 		},
