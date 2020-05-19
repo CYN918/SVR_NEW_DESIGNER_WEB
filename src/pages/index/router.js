@@ -79,7 +79,7 @@ import tolt from './views/tool/home.vue'
 import toltIndex from './views/tool/index.vue'
 import pushTool from './views/tool/pushTool.vue'
 
-
+import syPage from './adPage/syDown.vue'
 import toluser from './views/tool/user.vue'
 
 Vue.use(Router)
@@ -95,22 +95,18 @@ let wb = [
 	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
 	{path: '/Ac_v4',name: 'Ac_v4',component: Ac_v4},
 	{path: '/pushTool',name:'pushTool',component: pushTool},
-	
+	{path: '/syPage',name:'syPage',component: syPage},
+	{path: '/tolt',name:'tolt',component: toltIndex,children:[
+		{path: '/tolt',name:'tolt',component: tolt},
+		{path: '/toluser',name:'tolt',component: toluser},
+	]},
 	{
 		path: '/',
 		redirect: '/index',
 		name: 'index',
 		component: Index,
 		children:[
-			
-			{path: '/tolt',redirect:{name:'tolt'},component: toltIndex,children:[
-				{path: '/tolt',name:'tolt',component: tolt},
-				{path: '/toluser',name:'toluser',component: toluser},
-			]},
-			
-			
-			// 
-			
+
 			{path: '/img_list',name: 'img_list',component: img_list},
 			{path: '/email',name: 'email',component: email},	
 		
@@ -322,6 +318,7 @@ function setTitle(t){
 }
 router.beforeEach((to, from, next) => {
 	document.body.style = "";
+
 	let isqh = sessionStorage.getItem('isqh');	
 	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
 		if(!isqh || isqh==null){
@@ -332,8 +329,7 @@ router.beforeEach((to, from, next) => {
 			window.location.href = location.origin+"/aindex.html#/";
 			return
 		}
-		
-	}
+	} 	
 	// var ishttps = 'https:' == document.location.protocol ? true : false;
 
 	// if (!ishttps) {
