@@ -385,7 +385,7 @@
 				let params = {
 					mobile: this.tancData.newMoble,
 					mobile_zone: this.tancData.mobile_zone,
-					type:'login',
+					type:'register',
 				};
 				this.api.sendVerifyCode(params).then((da) => {
 					if(da == 'error') {
