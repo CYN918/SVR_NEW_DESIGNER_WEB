@@ -40,6 +40,12 @@ export default {
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{	
 				if(da=='error'){return}
+				
+				da.info = da.info.replace(/\d*px/ig,(m)=>{
+					m.split('px')[0];
+					return window.hotcss.px2rem(m.split('px')[0],320)+'rem';
+				})
+				this.contDat = da;	
 				this.da = da;
 				
 			});
