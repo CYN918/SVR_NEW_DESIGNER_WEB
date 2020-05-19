@@ -1980,8 +1980,6 @@
 				this.$refs.cavs.height = this.boxH;
 				this.csW = this.boxW;
 				this.csH = this.boxH;
-				
-				
 				this.cans = this.$refs.cavs.getContext("2d");
 				this.cans.fillStyle = "#000";
 				this.cans.fillRect(0, 0, this.csW, this.csH);
