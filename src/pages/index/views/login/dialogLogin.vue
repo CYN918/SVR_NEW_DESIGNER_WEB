@@ -250,6 +250,7 @@ export default {
 }
 .lgoin_s4{
 	width: 85%;
+	margin-top: 15px;
 }
 .lgoin_s5{
 	padding:0px 30px 0px 30px;
