@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<div class="activBan" :style="setImg(da.banner)"></div>
+		<img class="activBan2" :src="da.banner"/>
+		<!-- <div class="activBan" :style="setImg()"></div> -->
 		<div class="ac_1" v-if="da">
 			<div class="ac_1_1">{{da.activity_name}}</div>
 			<div class="ac_1_2">
@@ -44,9 +45,6 @@ export default {
 			});
 		},		
 	},
-	
-	
-	
 }	
 </script>
 <style lang="scss">
@@ -56,6 +54,10 @@ export default {
     background-position: center;
 	width: 100%;
 	height: px2rem(211);
+}
+.activBan2{
+	display: block;
+	width: 100%;
 }
 .ac_1{
 	border-bottom: 2px solid #e6e6e6;
