@@ -81,11 +81,11 @@
 				<div @click="shaFn('fxUrl1')" class="ac_v1-3-3"></div>
 				
 			</div>
-			<component v-bind:is="tanData.zj" v-model="tanData"></component>	
+			<component v-bind:is="tanData.zj" v-model="tanData"></component>
+			<loginDialog ref="logindialog" :config="outc"></loginDialog>	
 		</div>
 		<img class="hctip" :src="imgPath+'ac_v4/01.jpg'">
 		<img class="hctip" :src="imgPath+'ac_v4/08.jpg'">
-		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 </template>
 
@@ -263,9 +263,10 @@ export default{
 			});
 		},	
 		showZp(){
+			console.log(window.userInfo)
 			if (!window.userInfo) {
-				this.$refs.logindialog.show()
 				this.outc.num = 1;
+				this.$refs.logindialog.show()
 				return
 			}
 			this.tanData = {

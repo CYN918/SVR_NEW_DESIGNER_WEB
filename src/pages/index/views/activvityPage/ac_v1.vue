@@ -84,10 +84,10 @@
 				
 			</div>
 			<component v-bind:is="tanData.zj" v-model="tanData"></component>	
+			<loginDialog ref="logindialog" :config="outc"></loginDialog>
 		</div>
 		<img class="hctip" :src="imgPath+'ac_v1/01.png'">
 		<img class="hctip" :src="imgPath+'ac_v1/07.png'">
-		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 </template>
 
@@ -272,8 +272,8 @@ export default{
 		},	
 		showZp(){
 			if (!window.userInfo) {
-				this.$refs.logindialog.show()
 				this.outc.num = 1;
+				this.$refs.logindialog.show()
 				return
 			}
 			this.tanData = {
