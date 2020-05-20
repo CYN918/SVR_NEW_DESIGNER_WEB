@@ -120,20 +120,7 @@ let wb = [
 			{path: '/recommend',name: 'pe_recommend',component: personalCenter},
 			{path: '/follow',name: 'pe_follow',component: personalCenter},
 			{path: '/followFans',name: 'pe_fans',component: personalCenter},
-			{path: '/info',name: 'pe_info',component: personalCenter},
-//			
-//			{
-//				path: '/userd',
-//				name: 'userd',
-//				component:userCom,
-//				children:[
-//					{path: '/works',name: 'works',component: works},
-//					{path: '/recommend',name: 'recommend',component:recommend},
-//					{path: '/follow',name: 'follow',component:follow},
-//					{path: '/followFans',name: 'followFans',component:followFans},
-//					{path: '/info',name: 'info',component:info},
-//				],
-//			},		
+			{path: '/info',name: 'pe_info',component: personalCenter},		
 			{path: '/myAll',name: 'myAll',component:myWorksCom},
 			{path: '/myExamine',name: 'myExamine',component:myWorksCom},
 			{path: '/myNotPass',name: 'myNotPass',component:myWorksCom},

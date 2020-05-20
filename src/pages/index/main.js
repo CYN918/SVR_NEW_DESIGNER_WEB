@@ -19,7 +19,7 @@ Vue.prototype.imgSig = 'http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/';
 Vue.prototype.setImgU = (u)=>{
 	return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/'+u;
 }
-Vue.prototype.numInt = (n,s=0)=>{
+Vue.prototype.numInt = (n,s=2)=>{
 	let bs = Math.pow(10,s);	
 	return parseInt(n*bs)/bs
 };

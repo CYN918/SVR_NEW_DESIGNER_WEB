@@ -76,17 +76,14 @@ export default{
 		this.getList();		
 	},
 	methods:{
-		backto(num){
-			return parseInt(num*100)/100
-		},
 		zGys(){
 			if(this.maxwj<1024){
-				return this.backto(this.maxwj)+'KB';
+				return this.numInt(this.maxwj)+'KB';
 			}
 			if(this.maxwj<1024*1024){
-				return this.backto(this.maxwj/1024)+'MB';
+				return this.numInt(this.maxwj/1024)+'MB';
 			}
-			return this.backto(this.maxwj/1024/1024)+'G';
+			return this.numInt(this.maxwj/1024/1024)+'G';
 		},
 		IsSelect(el){
 			let id = false;
@@ -434,24 +431,18 @@ export default{
 		clPic(fld,on){
 			let max = 5*1024*1024*1024;	
 			if(this.maxwj>=max){
-				this.$message({
-					message:'媒体素材储存量已满（5G）'
-				})
+				this.tipMr('媒体素材储存量已满（5G）')
 				this.$refs.upnfile.value = '';
 				return
 			}
 			if((+fld.size+this.maxwj)>max){
-				this.$message({
-					message:'视频过大媒体素材储存超过上限（5G）'
-				})
+				this.tipMr('视频过大媒体素材储存超过上限（5G）')
 				this.$refs.upnfile.value = '';
 				return
 			}			
 			if(fld.type=='video/mp4'){
 				if(fld.size>104857600){
-					this.$message({
-						message:'视频文件请小于100M上传'
-					})
+					this.tipMr('视频文件请小于100M上传')
 					this.$refs.upnfile.value = '';
 					return
 				}
@@ -460,17 +451,13 @@ export default{
 			}			
 			if(['image/gif','image/jpeg','image/png'].indexOf(fld.type)!=-1){
 				if(fld.size>10485760){
-					this.$message({
-						message:'图片过大请小于10M上传'
-					})
+					this.tipMr('图片过大请小于10M上传')
 					return
 				}
 				this.pushFile(fld);
 				return
 			}
-			this.$message({
-				message:'请上传正确格式的媒体'
-			})
+			this.tipMr('请上传正确格式的媒体')
 			return
 		},
 		backEnd(ob){		
@@ -560,20 +547,18 @@ export default{
 					}	
 					this.$refs.upnfile.value ='';
 					this.fileTotalSummary();
-					this.$message({message: '文件上传成功'});
+					this.tipMr('文件上传成功')
 				}				
 			};
 			let uploadFailed = ()=>{
 				this.$refs.upnfile.value ='';
 				deletFn();
-				this.$message({message: '文件上传失败请稍后重试'});
-				
+				this.tipMr('文件上传失败请稍后重试')
 			};
 			let uploadCanceled = ()=>{
 				this.$refs.upnfile.value ='';
 				deletFn();
-				this.$message({message: '取消成功'});
-				
+				this.tipMr('取消成功')
 			};
 			xhr.upload.addEventListener("progress",uploadProgress, false);
 			xhr.addEventListener("load",uploadComplete, false);
