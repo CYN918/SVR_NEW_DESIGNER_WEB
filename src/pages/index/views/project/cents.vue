@@ -12,7 +12,7 @@
 						<div v-if="deta.contract_file && deta.contract_file.length>0" class="worksBox_2_3">
 							下载合同 
 							<span class="js_0013"></span>
-							<div class="worksBox_2_4">
+							<div class="worksBox_2_4" style="width: max-content">
 								<div v-for="el in deta.contract_file" @click="dowun(el)">{{el.file_name}}</div>						
 							</div>
 						</div>
