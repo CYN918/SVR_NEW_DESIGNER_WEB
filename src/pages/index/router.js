@@ -77,10 +77,10 @@ import personalCenter from './views/personalCenter/index.vue'
 
 import tolt from './views/tool/home.vue'
 import toltIndex from './views/tool/index.vue'
-import pushTool from './views/tool/pushTool.vue'
+import pushTool from './views/tool/tool/pushTool.vue'
 
 import syPage from './adPage/syDown.vue'
-import toluser from './views/tool/user.vue'
+import toluser from './views/tool/user/user.vue'
 
 Vue.use(Router)
 const router = new Router({

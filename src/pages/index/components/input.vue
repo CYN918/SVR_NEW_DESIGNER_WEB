@@ -201,8 +201,7 @@ export default {
 		},
 		clearValue(){
 			this.numd = 0;
-			this.input="";
-			
+			this.input="";			
 		},
    		setErr(cls,text){
 			this.passqd=cls;
@@ -212,12 +211,6 @@ export default {
 			this[data] = this[data]=='password'?'text':'password';
 		},
    		focus(){
-			
-// 			let p = this.chekFn(this.input);
-//	    	if(p){	    		
-//	    		this.setErr(p.cls,p.text);
-//	    		return
-//	    	}
 	    	this.setErr('onIn','');
 			if(this.mfocus){
 				this.mfocus();
@@ -261,14 +254,9 @@ export default {
 			this.setimed = setTimeout(()=>{
 				num--;
 				this.runTimer(num);
-			},1000)
-			
+			},1000)			
 		}
    	},
-   	
-   	
-   	
-   	
 }	
 </script>
 

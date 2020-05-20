@@ -3,11 +3,7 @@ import axios from 'axios'
 import api from '../../api/index'
 import App from './App.vue'
 import router from './router'
-
 import mJs from '../../assets/comm.js'
-
-
-
 
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
@@ -23,6 +19,10 @@ Vue.prototype.imgSig = 'http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/';
 Vue.prototype.setImgU = (u)=>{
 	return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/'+u;
 }
+Vue.prototype.numInt = (n,s=0)=>{
+	let bs = Math.pow(10,s);	
+	return parseInt(n*bs)/bs
+};
 //定义全局过滤器
 Vue.filter('followType', (val)=>{
 	if(val == 1){return '已关注'}
@@ -287,8 +287,6 @@ Vue.component(FormItem.name, FormItem)
 Vue.component(Message.name, Message)
 Vue.component(Checkbox.name, Checkbox)
 Vue.component(Switch.name, Switch)
-
-
 Vue.prototype.$message = Message;
 Vue.prototype.tipMr = (n)=>{
 	Message({

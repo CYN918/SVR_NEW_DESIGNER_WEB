@@ -7,9 +7,10 @@
 		<div class="hotCent">
 			<div class="hotCent2">
 				<ul>
-					<li id="nav_tolt"><img class="hotBaner" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_upload" @click="go_to('/project')">去挑选项目</button></li>
-					<li id="nav_upload" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-cjxm.svg'"><button class="go_upload" @click="goOn('/upload')">上传原创作品</button></li>
-					<li id="nav_logo" class="t"><img class="hotBaner" :src="imgSig+'toltImg/zq-dsp.svg'"><button class="go_upload" @click="goOn('/toluser')">前往制作来电秀</button></li>
+					<li v-for="el in list">
+						<img class="hotBaner" :src="imgSig+el.img">
+						<button class="go_upload" @click="goOn(el.path)">{{el.n}}</button>
+					</li>
 				</ul>					
 			</div>
 		</div>
@@ -22,7 +23,12 @@ export default{
 	components:{loginDialog},
 	data(){
 		return {
-			status:'',
+			status:0,
+			list:[
+				{path:'/project',n:'去挑选项目',img:'toltImg/zq-zptg.svg'},
+				{path:'/upload',n:'上传原创作品',img:'toltImg/zq-cjxm.svg'},
+				{path:'/toluser',n:'前往制作来电秀',img:'toltImg/zq-dsp.svg'}
+			],
 			outc:{
 				num:'',
 				scroll:2,
@@ -30,42 +36,34 @@ export default{
 		}	
 	},
 	mounted: function () {	
-		this.initHead()
+		this.init()
 	},
 	methods:{
-		initHead(){	
-			this.api.getSelfInfo({}).then((da)=>{
-				if(da=='error'){return}		
-				this.status = da.contributor_format_status;
-			});			
+		init(){
+			if(window.userInfo && window.userInfo.contributor_format_status){
+				this.status = window.userInfo.contributor_format_status;
+				return
+			}
+			this.status = 0;
 		},
 		gocis(){
 			if(this.status==1){
 				return
 			}
 			this.goOn('/setPersonal');
-		},
-		checkLogin(){
+		},	
+		goOn(url){
 			if(!window.userInfo){
 				this.$refs.logindialog.show();
 				this.outc.num = 1;	
 				return false
 			}
-			return true
-		},		
-		goOn(url){
-			if(!this.checkLogin()){return}
-			this.go_to(url)
-		},
-		go_to(url){
-			this.$router.push({path:url});	
+			this.goFn(url);
 		},
 	}
 }
 </script>
-
 <style scoped="scoped">
-
 .hot_topbox{
 	position: relative;
 	margin-bottom: 0px;
@@ -170,8 +168,11 @@ export default{
 .hotCent2 > ul > li:hover{
 	box-shadow:0px 16px 32px 0px rgba(0,0,0,0.1);
 }
-.hotCent2 > ul .t{
+.hotCent2 > ul >li{
 	margin-left: 20px;
+}
+.hotCent2 > ul >li:nth-child(1){
+	margin-left:0;
 }
 
 </style>
