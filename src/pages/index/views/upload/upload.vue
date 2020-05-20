@@ -159,8 +159,8 @@
             </el-row>
 
             <div class="handleContainer">
-                <el-button @click="userSave">保存</el-button>
-                <el-button @click="seeCg">预览</el-button>
+                <el-button v-if="form.status != 2" @click="userSave">保存</el-button>
+                <el-button v-if="form.status != 2" @click="seeCg">预览</el-button>
                 <el-button @click="savZp" type="primary" :disabled="!ck3">提交发布</el-button>
             </div>
         </div>
@@ -353,7 +353,8 @@ export default {
 	mounted: function () {	
 		this.getUserDetail();
 		let right = (document.body.clientWidth - 1300) / 2 - 50
-		document.querySelector('.top_to_down').style.right = right + 'px'
+		let dom = document.querySelector('.top_to_down')
+		if (dom) dom.style.right = right + 'px'
 	}, 
 	methods: {
 		scrollToTop() {
@@ -529,6 +530,7 @@ export default {
 			this[on] = false;
 		},
 		setAutoSave(){
+			if (this.form.status == 2) return
 			clearTimeout(this.autoSave.obj);
 			this.autoSave.obj = setTimeout(()=>{				
 				this.checkAutoSave();
