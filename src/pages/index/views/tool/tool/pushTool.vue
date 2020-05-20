@@ -6,7 +6,7 @@
 					<i class="icon_jt_left"></i>返回
 				</div>
 				<div class="noto_title">
-					<input @focus="titlon(1)" @blur="titlon('')" v-model="navcoms.title" type="text" placeholder="请输入来电秀名称" />
+					<input @focus="titlon(true)" @blur="titlon(false)" v-model="navcoms.title" type="text" placeholder="请输入来电秀名称" />
 					<span v-if="istitle" class="noto_t1">{{navcoms.title.length}}/20</span>
 					<img v-else :src="setImgU('new/tools/n/icon_bj.svg')" />
 				</div>
@@ -14,7 +14,6 @@
 					<span @click="tijF()">保存</span><span @click="zzyz()" class="noto_bys">制作完成</span>
 				</div>
 			</div>
-
 
 			<div class="ntob_cent">
 				<div class="ntob_cent_l">
@@ -377,7 +376,7 @@
 				bfTime: 0,
 				isgdon: 0,
 				imgPftime: 0,
-				istitle: '',
+				istitle: false,
 				playT: 0,
 				adiT: 0,
 				isk: 0,

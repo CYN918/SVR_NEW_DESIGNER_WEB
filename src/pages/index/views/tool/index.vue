@@ -3,49 +3,24 @@
 		<Header></Header>
 		<router-view/>
 		<Footer></Footer>
-		<p v-if="isAd" class="tfbox">
-			<img @click="goFn('/syPage')" class="tfbox_bn" src="/imge/tools/tip_banner.jpg"/>
-			<img @click="checkAd()" class="tfbox_cl" src="/imge/tools/Toast_closed.svg"/>
-		</p>
-		
+		<!-- <component v-bind:is="compData.zj" v-model="compData"></component>			 -->
 	</div>
 </template>
-
 <script>
 import Header from '../header';
-import Footer from '../footer2';
+// import Footer from '../footer2';
+import Footer from '../footer';
+import syFlot from '../../adPage/syDownFooterFlot';
 export default {
-	components:{Header,Footer},
+	components:{Header,Footer,syFlot},
 	data(){
 		return{
-			isAd:true,
+			compData:{
+				zj:'syFlot',
+			},
 		}
 	},
-	methods:{
-		checkAd(){
-			this.isAd = false;
-		},
-	}
 }
 </script>
 <style>
-.tfbox{
-	cursor: pointer;
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	display: block;
-	width: 100%;
-}
-.tfbox_bn{
-	display: block;
-	width: 100%;
-}
-.tfbox_cl{
-	
-    position: absolute;
-    right: 14%;
-    top: 16px;
-}
-
 </style>

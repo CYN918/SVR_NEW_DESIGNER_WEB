@@ -8,7 +8,7 @@
 		<ul class="setMt_03">
 			<li ref="dwyd" @click="push" class="rsc_002">
 				<span  class="setMtUp">
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/tools/n/up.svg">
+					<img :src="setImgU('new/tools/n/up.svg')">
 					上传视频/图片
 				</span>				
 			</li>
@@ -16,7 +16,7 @@
 				<li  v-if="el.type!='erro'">
 					<div v-if="el.type=='up'">
 						<div class="jdt_002">
-							<el-progress :width="48" :stroke-width="2"  type="circle" :percentage="el.bf"></el-progress>
+							<el-progress :width="48" :stroke-width="2" type="circle" :percentage="el.bf"></el-progress>
 							<span class="jdt_002x">正在上传</span>
 						</div>						
 					</div>
@@ -25,11 +25,11 @@
 						<video muted class="video" ref="video" :src="el.url"></video>
 						<span class="tim_013" v-if="el.play_time">{{backtio(el.play_time)}}</span>
 						<span class="tim_014" v-if="IsSelect(el.fid)">
-							<img width="19px" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_mt_usemt.png" alt="">
+							<img width="19px" :src="setImgU('tools/icon_mt_usemt.png')"/>
 						</span>
 					</div>					
-					<div @click="checkV(el)" class="tim_xz"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_add_small.png" alt=""></div>
-					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/sc_icon_delete.png"/></div>					
+					<div @click="checkV(el)" class="tim_xz"><img width="100%" :src="setImgU('tools/icon_add_small.png')"/></div>
+					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" :src="setImgU('tools/sc_icon_delete.png')"/></div>					
 				</li>
 			</span>
 		</ul>
@@ -50,7 +50,7 @@
 	</div>
 </template>
 <script>
-import t_qr from '../../components/t_qr';
+import t_qr from '../../../components/t_qr';
 export default{
 	components:{t_qr},
 	props:{

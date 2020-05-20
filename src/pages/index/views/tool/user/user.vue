@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<component v-if="coms.zj" v-bind:is="coms.zj" v-model="coms" ref="vid"></component>
+		<component v-bind:is="compData.zj" v-model="compData"></component>
 	</div>	
 </template>
 <script>
@@ -10,7 +10,7 @@ export default{
 	components:{noDshow,userList},
 	data(){
 		return{
-			coms:{
+			compData:{
 				zj:'noDshow',
 				type:0,
 			},			
@@ -22,16 +22,14 @@ export default{
 	methods:{
 		init(){
 			if(!window.userInfo){
-				this.$router.push({path:'/login'});	
+				this.goFn('/login');	
 			}
 			if(window.userInfo.contributor_format_status==2){
-				this.coms.zj = 'userList';
+				this.compData.zj = 'userList';
 			}
 		},	
 	}
 }
 </script>
-
 <style>
-
 </style>

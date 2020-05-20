@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import inputMax from '../../components/inputMax'
-import checks from '../../components/checks'
+import inputMax from '../../../components/inputMax'
+import checks from '../../../components/checks'
 export default{
 	components:{inputMax,checks},
 	props:{

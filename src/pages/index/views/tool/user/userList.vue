@@ -10,10 +10,15 @@
 					<div :class="['timetoast_1',timerulec == '创建时间'?'timetoast_1_c':'']" @click="settimerule('创建时间')">创建时间</div>
 				</div>
 			</span>			
-		</div>
+		</div>		
 		<div>
 			<ul class="listbg">
-				<li v-for="(item,index) in statelist" :class="['statelist',statelistindex == index?'statelist-active':'']" @click="statechange(index,item.state)">{{item.title}}</li>
+				<li 
+				v-for="(item,index) in statelist" 
+				:class="['statelist',statelistindex == index?'statelist-active':'']" 
+				@click="statechange(index,item.state)">
+					{{item.title}}
+				</li>
 			</ul>
 			<div class="listbgline"></div>
 		</div>
@@ -21,7 +26,10 @@
 			<div  class="tolu_06">				
 				<list :config="conf" ref="sfafa">					
 					<template v-slot:todo="{ todo }">				
-						<div v-if="todo.on==0 && statelistindex != 1" @click="addShow()" class="tolu_06_x1 pend" >
+						<div 
+						v-if="todo.on==0 && statelistindex != 1" 
+						@click="addShow()" 
+						class="tolu_06_x1 pend">
 							<img :src="imgPath+'new/tools/icon_add_small.svg'">
 							<div>新建项目</div>
 						</div>
@@ -31,7 +39,7 @@
 				<div v-if="isnodata">
 					<div class="tolu_05">{{btn_a[btn_on].t}}</div>
 					<div class="btn_n4">
-						<span @click="go(btn_a[btn_on].p)" class="btn_n btn_n3">{{btn_a[btn_on].n}}</span>
+						<span @click="goFn(btn_a[btn_on].p)" class="btn_n btn_n3">{{btn_a[btn_on].n}}</span>
 					</div>
 				</div>
 			</div>			
@@ -58,16 +66,15 @@
 	</div>
 </template>
 <script>
-import inputMax from '../../components/inputMax'
-import list from '../../components/list2';
+import inputMax from '../../../components/inputMax'
+import list from '../../../components/list2';
 import cent from './cent';
 export default{
 	components:{list,cent,inputMax},
 	data(){
 		return{
-			istype:'',
+			istype:false,
 			title:'',
-			isRz:'',
 			btn_a:[
 				{t:'来电秀工程为空，快去开启你的设计之路吧！',n:'开始制作',p:'/pushTool'},
 				{t:'认证供稿人后，即可开始制作',n:'立即认证',p:'/setPersonal'},
@@ -84,18 +91,11 @@ export default{
 				},	
 				noData:'1',
 			},	
-			showK:'',
 			isnodata:'',
-			ajaxType:'',
+			ajaxType:false,
 			statelist:[
-				{
-					title:"进行中",
-					state:"doing"
-				},
-				{
-					title:"已完成",
-					state:"finish"
-				}
+				{title:"进行中",state:"doing"},
+				{title:"已完成",state:"finish"}
 			],
 			statelistindex:0,
 			timerule:false,
@@ -104,24 +104,23 @@ export default{
 	},
 	methods:{
 		close(){
-			this.istype = '';
+			this.istype = false;
 		},
 		addShow(){
-			this.istype = 1;
+			this.title = '';
+			this.istype = true;			
 		},
 		qdFn(){
 			if (this.ajaxType) {
-				this.$message({
-					message: '正在处理请稍后',
-				})
+				this.tipMr('正在处理请稍后');
 				return
 			}		
 			let pr = {
 				title: this.title,				
 			};			
-			this.ajaxType = 1;
+			this.ajaxType = true;
 			this.api.sh_save(pr).then((da) => {
-				this.ajaxType = '';
+				this.ajaxType = false;
 				if (da == 'error') {
 					this.tipMr('处理失败请稍后重试');
 					return
@@ -134,8 +133,7 @@ export default{
 					},
 					id:da.id
 				};
-				obj.json = JSON.stringify(obj.json);
-				
+				obj.json = JSON.stringify(obj.json);				
 				localStorage.setItem('ldxData', JSON.stringify(obj))
 				this.$router.push({
 					path: '/pushTool',
@@ -145,11 +143,8 @@ export default{
 				});
 			}).catch(() => {
 				this.tipMr('处理失败请稍后重试');
-				this.ajaxType = '';
+				this.ajaxType = false;
 			})
-		},
-		go(to){
-			this.$router.push({path:to});	
 		},
 		kfn(on){
 			this.isnodata = on;			
@@ -175,7 +170,6 @@ export default{
 	}
 }
 </script>
-
 <style>
 .tolu_01{
 	position: relative;
@@ -231,7 +225,6 @@ export default{
 }
 .btn_n4 {
 	text-align: center;
-	/*padding-bottom: 20px;*/
 }
 .listbg{
 	overflow: hidden;

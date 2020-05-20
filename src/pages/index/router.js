@@ -77,14 +77,13 @@ import personalCenter from './views/personalCenter/index.vue'
 
 import tolt from './views/tool/home.vue'
 import toltIndex from './views/tool/index.vue'
-import pushTool from './views/tool/pushTool.vue'
+import pushTool from './views/tool/tool/pushTool.vue'
 
 import syPage from './adPage/syDown.vue'
-import toluser from './views/tool/user.vue'
+import toluser from './views/tool/user/user.vue'
 
 Vue.use(Router)
 const router = new Router({
-
   routes:[] 
 })
 let wb = [
@@ -95,7 +94,7 @@ let wb = [
 	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
 	{path: '/Ac_v4',name: 'Ac_v4',component: Ac_v4},
 	{path: '/pushTool',name:'pushTool',component: pushTool},
-	{path: '/syPage',name:'syPage',component: syPage},
+	// {path: '/syPage',name:'syPage',component: syPage},
 	{path: '/toluser',redirect: {name:'toluser'},component: toltIndex,children:[
 		{path: '/toluser',name:'toluser',component: toluser},
 	]},

@@ -11,7 +11,7 @@
 						<span @click="showtx()" class="btndf  pend pbx_1_1_1">提现</span>
 					</div>
 					
-					<div class="pbx_1_2 pbx_1x_2x">每月10日-25日汇款上月10号至当月10号的提现申请</div>
+					<div class="pbx_1_2 pbx_1x_2x">每月1日-15日汇款上月1日-当月1日前的提现申请</div>
 				</div>
 				<div class="pbx_n_01">
 					<div>
