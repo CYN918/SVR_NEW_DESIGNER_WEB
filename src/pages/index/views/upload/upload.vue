@@ -747,7 +747,7 @@ export default {
 					this.form = da;		
 					this.csz = da.work_name;				
 					try{this.form.labels = JSON.parse(this.form.labels);}catch(e){console.log(1)}
-					this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
+					this.selectedOptions = [+this.form.classify_1,+this.form.classify_2,+this.form.classify_3];
 					if(this.form.attachment){
 						this.upfjData.fid=this.form.attachment_id;
 						this.upfjData.type='上传成功';
@@ -757,6 +757,7 @@ export default {
 						this.upfjData.file_name = this.form.attachment.file_name;
 					}
 					this.ifBjType=1;
+					this.checkPage2()
 				}
 			})
 		},
