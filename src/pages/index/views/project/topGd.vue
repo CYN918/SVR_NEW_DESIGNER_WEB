@@ -42,7 +42,7 @@ export default {
 		},
 		bm(o){
 			this.api.pr_check({}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.is_complete==true && da.is_contributor==true && da.work_num==3){
 					this.$parent.showTc('bmXm',{project_id:this.$parent.deta.id});
 					return

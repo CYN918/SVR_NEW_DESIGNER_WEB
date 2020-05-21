@@ -145,7 +145,7 @@ export default {
 			this.api.pr_deliveryList({
 				project_id:this.obj.id,
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.length>0){
 					this.islog = 1;
 				}
@@ -160,7 +160,7 @@ export default {
 		},
 		showTc1(o){
 			this.api.pr_check({}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.is_complete!=true || da.is_contributor!=true || da.work_num<3){
 					this.$parent.showTc(o,da);	
 					return

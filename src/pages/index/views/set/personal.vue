@@ -382,7 +382,7 @@ export default {
 	methods: {
 		gxZl(){
 			this.api.getSelfInfo({}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				da.access_token = window.userInfo.access_token;
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));
@@ -625,7 +625,7 @@ export default {
 				type:'login',	
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				Message({message: '验证码已发送'});
@@ -654,7 +654,7 @@ export default {
 				type:'register',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				Message({message: '验证码已发送'});
@@ -673,7 +673,7 @@ export default {
 				
 			};
 			this.api.Bindbind(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.nogxzl = 1;
@@ -711,7 +711,7 @@ export default {
 				
 			};
 			this.api.Bindbind(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.form.mobile = pr.mobile;
@@ -904,7 +904,7 @@ export default {
 				email:this.emailD
 			};
 			this.api.identifyAuth(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.bdtj('个人认证页面','申请成为供稿人失败','--');
 					return
 				}
@@ -947,7 +947,7 @@ export default {
 				contribute_type:1
 			};
 			this.api.contributorInfo(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				let navd=0;

@@ -36,7 +36,7 @@ export default {
 				project_id:this.datad.id,
 			}).then((da)=>{
 				this.qxType='';
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(this.$parent.setStaus){
 					this.$parent.setStaus('3');
 				}

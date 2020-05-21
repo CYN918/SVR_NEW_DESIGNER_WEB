@@ -266,7 +266,7 @@ export default {
 			}
 			this.ajaxVerifysType = 1;
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.ajaxVerifysType = '';
 					return
 				}

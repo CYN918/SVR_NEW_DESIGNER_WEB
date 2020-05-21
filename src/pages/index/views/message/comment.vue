@@ -177,7 +177,7 @@ export default {
 				
 				this.isftype= '';
 				this.plType=0;
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.$refs['myOn'+on][0].monfocus();
 					return
 				}
@@ -227,7 +227,7 @@ export default {
 			
 			
 			this.api[apiname](pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.addLink=0;
 					return
 				}
@@ -277,7 +277,7 @@ export default {
 				type:'comment',
 			};
 			this.api.Messageread(op).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 			})
@@ -306,7 +306,7 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.getCounter(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.messgNum = da;
@@ -328,7 +328,7 @@ export default {
 			this.loading = Loading.service({target:'.jloadBox', fullscreen: true,background:'rgba(0,0,0,0)' });
 			this.api.getMessgList(pr).then((da)=>{
 				this.loading.close();
-				if(da=='error'){this.setNoData(this.listData);return}
+				if(da=='error' || da=='104'){this.setNoData(this.listData);return}
 				this.setNoData(da.data);
 				this.listData = da.data;
 				this.total = da.total;

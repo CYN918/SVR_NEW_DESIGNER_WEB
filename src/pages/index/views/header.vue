@@ -1,7 +1,6 @@
 <template>
 	<header class="header">
-		<img class="header_1 pend" :src="imgPath+'new/header/logo.svg'" @click="jump">
-		
+		<img class="header_1 pend" :src="imgPath+'new/header/logo.svg'" @click="jump">		
 		<div class="header_2">
 			<a 
 			v-for="(el,index) in topNData" 
@@ -103,20 +102,18 @@
 				<a class="pend" @click="logTo(1)">登录</a><span>|</span><a class="pend" @click="logTo(2)">注册</a></span>
 		</div>
 		<out ref="out"></out>
-		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</header>
 </template>
 <script>
 import out from '../components/out';
-import loginDialog from '../components/loginDialog'
 export default {
-	components:{out,loginDialog},
-	name: 'home',	 
+	components:{out},
+	name: 'home',
+	inject:['login'],	 
 	data(){	
 		return{
 			userMssge:'',
 			isshowd:'',
-			
 			searchType:false,
 			searcCont:'',
 
@@ -136,21 +133,13 @@ export default {
 			topNData:[
 				{path:'/index',n:'首页'},
 				{path:'/project',n:'项目'},
-				// {path:'/Work_i',n:'作品'},
 				{path:'/activvity',n:'活动'},
-				{path:'/tolt',n:'赚钱',t:'NEW'},
-				// {path:'/pushTool',n:'新工具'},
-				
+				{path:'/tolt',n:'赚钱',t:'NEW'},			
 			],
-			outc:{
-				num:'',
-				scroll:2,
-			} 
 		}		
 	},
 	mounted: function () {	
-		this.initHead()
-		
+		this.initHead()		
 	}, 
 	methods:{
 		close(){
@@ -334,30 +323,18 @@ export default {
 			if(is==1){
 				this.bdtj('通用模块','顶部栏点击_退出','--');
 			}
-			this.$refs.out.show();
-			
+			this.$refs.out.show();		
 		},
 		logTo(num){
-			if(num==1){
-				// this.bdtj('通用模块','顶部栏点击_登陆','--');
-				this.$refs.logindialog.show();
-				this.outc.num = num;
-			}
-			if(num==2){
-				// this.bdtj('通用模块','顶部栏点击_登陆','--');
-				this.$refs.logindialog.show();
-				this.outc.num = num;
-			}
-			
-
-		},
-		
+			// this.bdtj('通用模块','顶部栏点击_登陆','--');
+			this.login(num);
+		},		
 		getMessgNumber(){
 			if(!window.userInfo){
 				return
 			}
 			this.api.getCounter().then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.userMssge = '';
 					return
 				}
@@ -375,7 +352,7 @@ export default {
 				type:this.navType,
 			};
 			this.api.getNotice(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 
 				this.mData= da;
 				this.getMessgNumber();
@@ -396,7 +373,7 @@ export default {
 					read_ids:ids,
 				};
 				this.api.Messageread(op).then((da)=>{
-					if(da=='error'){
+					if(da=='error' || da=='104'){
 						return
 					}
 				})
@@ -424,7 +401,7 @@ export default {
 				query:n
 			};
 			this.api.Searchsug(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				if(!this.searcCont||this.searcCont.split(" ").join("").length == 0){

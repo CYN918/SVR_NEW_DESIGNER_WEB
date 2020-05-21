@@ -79,7 +79,7 @@ export default {
 				project_id:this.datad.id,
 				result:JSON.stringify(this.postData)
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.$message({message:'项目评价完成，感谢你的评价'});
 				this.$parent.getData();
 				this.close();
@@ -88,7 +88,7 @@ export default {
 		pushBm(){
 		
 			this.api.pr_signup(this.postData).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.$message({message: '报名成功'});
 				this.close();
 				this.$parent.setBm(1);
@@ -98,7 +98,7 @@ export default {
 		},
 		pr_question(){			
 			this.api.pr_question({}).then((da)=>{				
-				if(da=='error'){					
+				if(da=='error' || da=='104'){					
 					return
 				}		
 				for(let i=0,n=da.length;i<n;i++){

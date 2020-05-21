@@ -428,7 +428,7 @@ export default {
 			}
 			let pr = this.form;
 			this.api.Income_applyCash(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				Message({message: '申请成功请耐心等待审核'});
 				this.$parent.txcg(pr.cash_money);	
 				this.$parent.getData();		
@@ -451,7 +451,7 @@ export default {
 				type:'login',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				Message({message: '验证码已发送'});

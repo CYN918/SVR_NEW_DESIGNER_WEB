@@ -4,6 +4,8 @@ import api from '../../api/index'
 import App from './App.vue'
 import router from './router'
 import mJs from '../../assets/comm.js'
+// import LoginDom from './allCom/login/'
+// Vue.use(LoginDom);
 
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
@@ -297,7 +299,7 @@ Vue.prototype.tipMr = (n)=>{
 Vue.config.productionTip = false
 Vue.prototype.checkLo = function(o){
 	api[o.api](o.pr).then((da)=>{
-		if(da=='error'){if(o.er2){o.er2()} return}
+		if(da=='error' || da=='104'){if(o.er2){o.er2()} return}
 		if(da=='islogin'){			
 			let passIN = localStorage.getItem('pass');
 			if(passIN){

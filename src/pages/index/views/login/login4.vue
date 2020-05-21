@@ -69,7 +69,7 @@ export default {
 			};
 			this.api.sendVerifyCode(params).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return	
 				}
 				this.$refs.verify.runTimer(60);

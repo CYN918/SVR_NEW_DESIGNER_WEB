@@ -50,6 +50,7 @@ export default {
 		isDjs:String,
 		
 	},
+	inject:['login'],	
 	data(){
 		return{
 			List:[],
@@ -128,7 +129,11 @@ export default {
 			this.api[this.config.ajax.url](params).then((da)=>{
 				this.loading.close();
 				this.islod ='';
-				if(da=='error'){					
+				if(da=='error' || da=='104'){	
+					
+					if(da=='104'){
+						this.login(1)
+					}
 					if(this.List.length==0){
 						this.isNodeat=1;
 					}	

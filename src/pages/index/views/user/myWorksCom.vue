@@ -3,13 +3,12 @@
 		<tophead :con="navData"></tophead>
 		<div class="draftboxd" v-if="isMyAll()">
 			<div class="draftbox">
-				<!-- <span class="draftBtn" @click="goZP">草稿箱{{draftNum}}</span> -->
-				<span class="iconfont  messgeH1">
-					<span class="pend" style="color: #bbb;font-size:14px;" @click="goZP">
+				<span class="iconfont messgeH1">
+					<span class="pend" style="color: #bbb;font-size:14px;" @click="goZP()">
 						草稿箱
-						<img style="margin-left:10px;width:23px;height:16px;" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_wdcz_cgx.svg"/>
-						<div @click="goZP" v-if="draftNum && draftNum>0" :class="['messgeH2','customMess',draftNum>9?'messgeH2x':'']">
-							{{backXXnUM(draftNum)}}
+						<img style="margin-left:10px;width:23px;height:16px;" :src="setImgU('svg/icon_wdcz_cgx.svg')"/>
+						<div @click="goZP()" v-if="draftNum && draftNum>0" :class="['messgeH2','customMess',draftNum>9?'messgeH2x':'']">
+							{{backMaxNum(draftNum)}}
 						</div>
 					</span>
 					
@@ -19,7 +18,7 @@
 		<div class="csBox opodd">
 			<list :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
-					<div class="mylists" @mouseover="addClass($event, this)">
+					<div class="mylists" @mouseover="addClass(todo)">
 						<div @click="openxq(todo)" class="myListBox_1">
 							<div class="mywus_n1" :style="backFm(todo.face_pic)"></div>
 							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':todo.status==0?'org':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
@@ -42,15 +41,6 @@
 						<div v-if="isMyAll()" class="wk_a_2_4">
 							<span>{{backtime(todo.create_time)}}</span>
 						</div>
-						<!-- <div @click="openxq(todo)" class="myListBox_2">
-							<span class="myListBox_2_1" :title="todo.work_name">{{todo.work_name}}</span>
-							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg">
-						</div>
-						
-						<div @click="openxq(todo)" class="myListBox_3">
-							<span class="myListBox_3_1">{{todo.classify_1_name+'-'+todo.classify_2_name}}</span>
-							<span class="myListBox_3_2">{{backtime(todo.create_time)}}</span>
-						</div> -->
 						<div class="myListBox_4" v-if="!isMyAll()">
 							<span>最后修改日期:{{backtime(todo.create_time)}}</span>
 							<div class="handle-container">
@@ -58,25 +48,14 @@
 									<el-button type="primary" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</el-button>
 									<el-button type="primary" @click="updata(todo)" v-else-if="todo.status!=0">编辑作品</el-button>
 							</div>
-							<!-- <span class="myListBox_4_1" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</span>
-							<span @click="updata(todo)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>					
-							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span> -->
 						</div>
-						<div class="myListBox_5" v-if="isMyAll()">
-							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg" class="bt-Img">
+						<div class="myListBox_5" v-if="isMyAll() && todo.isdel">
+							<img :src="setImgU('svg/icon_more.svg')" class="bt-Img">
 							<div class="moreHandleContainer">
 								<div v-if="todo.is_selected != 1 && todo.like_num < 5 && todo.status != '0'" @click="updata(todo)">编辑</div>
 								<div v-else-if="todo.status != '0'" @click="showissetDatasXX(todo.work_id,todo.status)">修改设置</div>
 								<div @click="showTopc('delet',todo)">删除</div>
 							</div>
-							<!-- <el-dropdown trigger="click" placement="bottom-end">
-								<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg" class="bt-Img">
-								<el-dropdown-menu class="sel-tooltip" slot="dropdown">
-									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" v-if="todo.is_selected != 1 && todo.like_num < 5" @click.native="updata(todo)">编辑</el-dropdown-item>
-									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" v-else @click.native="showissetDatasXX(todo.work_id,todo.status)">修改设置</el-dropdown-item>
-									<el-dropdown-item class="comonbtn" style="width:80px;height:32px;margin:0;line-height:32px;text-align: center;padding:0;" @click.native="showTopc('delet',todo)">删除</el-dropdown-item>
-								</el-dropdown-menu>
-							</el-dropdown>	 -->
 						</div>		
 					</div>
 				</template>			
@@ -130,8 +109,7 @@
 								:label="item.label"
 								:value="item.label">
 								</el-option>
-							</el-select>
-							
+							</el-select>							
 						</div>
 					</div>
 				</div>
@@ -147,30 +125,22 @@
 							<input class="page2_1_4file" v-model="form.is_platform_work" value="0" type="radio" name="isme" ></div>否
 						</label>
 					</div>
+				</div>				
 				</div>
-				
-				</div>
-				
-				
 				<div class="setDatasXX_7">
 					<span @click="hindissetDatasXX">取消</span><span @click="upDataSet">确定</span>
-				</div>
-				
+				</div>				
 			</template>			
-		</TcBox>		
-				
-				
+		</TcBox>			
 		<div v-show="issetDatasXX" class="setDatasXX">
 			<div class="setDatasXX_1">
-				
 				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" alt="">
 				<div class="ydbbdf">
-				<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
-				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
-				
-			</div></div>
-		</div>
-		
+					<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
+					<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
+				</div>
+			</div>
+		</div>		
 	</div>
 </template>
 <script>
@@ -184,6 +154,7 @@ export default {
 	props:['isType'],
 	components:{tophead,mInput,list,TcBox,TcBoxQr},
 	name: 'myAll',
+	inject:['login'],	
 	data(){
 		return {
 			icons:[
@@ -204,13 +175,6 @@ export default {
 			},
 			navData:{
 				title: this.isMyAll() ? '我的创作' : '草稿箱',
-				// list:[
-				// 	{a:'/myAll',b:'全部'},
-				// 	{a:'/myExamine',b:'待审核'},
-				// 	{a:'/myPass',b:'已通过'},
-				// 	{a:'/myNotPass',b:'未通过'},					
-				// 	{a:'/myDraft',b:'草稿'}
-				// ],
 				bdtj: this.isMyAll() ? '我的创作' : '草稿箱'				
 			},
 			form:{labels:[]},
@@ -248,7 +212,7 @@ export default {
 				// myPass:'2',
 				myDraft:[-1, -2]
 			},
-			draftNum: 0
+			draftNum: 0,
 		}
 	},
 	created(){
@@ -284,43 +248,21 @@ export default {
 			})
 		})
 	},
+	computed:{
+		backMaxNum(n){
+			return n>999?999:n
+		}
+	},
 	methods: {
-		// bakci(sr,ck){
-			
-		// 	let on = sr.indexOf(ck);
-		// 	if(on==-1){
-		// 		return sr;
-		// 	}
-			
-		// 	var re =new RegExp(ck);
-		// 	return sr.replace(re,"<span>"+ck+"</span>")
-		// },
-		addClass(e) {
-			let event = e || window.event;
-			let target = event.target || event.srcElement;
-			if (target && target.className == 'mywus_n1') {
-				let children = target.parentElement.parentElement.children, addTar;
-				for (let i in children) {
-					if (children[i].className == 'myListBox_5') addTar = children[i]
-				}
-				if (addTar) addTar.className = 'myListBox_5 _hover'
-			}
+		addClass(el) {
+			this.$set(el,'isdel',true);
 		},
 		isMyAll() {
 			return this.$route.name == 'myAll'
 		},
-		backXXnUM(n) {
-			if (n > 999) return 999
-			return n
-		},
 		goZP() {
-			this.$router.push({ path: '/myDraft' })
+			this.goFn('/myDraft');
 		},
-		// filterDataFunc(data) {
-		// 	const statusOptions = this.$route.name == 'myAll' ? ['0', '2'] : ['-1', '-2']
-		// 	this.draftNum = data.filter(item => item.status == '-1' || item.status == '-2').length
-		// 	return data.filter(item => statusOptions.indexOf(item.status) > -1)
-		// },
 		show(){
 			this.$refs.tcBox.show();
 		},
@@ -330,7 +272,6 @@ export default {
 		loadUnreadNum() {
 			this.api['getUnreadNum']({}).then(res => {
 				this.draftNum = res.num
-				console.log(this.draftNum)
 			})
 		},
 		draftUnread() {
@@ -355,13 +296,12 @@ export default {
 			
 		},
 		upDataSet(){	
-			
-			if(this.upType==1){
-				Message({message: '正在提交请稍后'});
+			if(this.upType){
+				this.tipMr('正在提交请稍后')		
 				return
 			}
 			if(!window.userInfo){
-				Message({message: '登录过期请先登录'});
+				this.tipMr('登录过期请先登录')
 				setTimeout(()=>{
 					this.$router.push({path:'/login'})
 				},1000);
@@ -389,25 +329,30 @@ export default {
 			this.upType=1;
 			this.api.saveWorks(pr).then((da)=>{
 				this.upType='';
-				if(da=='error'){
+				if(da=='error' || da=='104'){
+					if(da=='104'){
+						this.login(1)
+					}
 					return
 				}
 				this.hindissetDatasXX();	
 				this.$refs.listDom.getData();
-				Message({message:'修改成功'});							
+				this.tipMr('修改成功')						
 			}).catch(()=>{
 				this.upType='';
 			});		
 		},
 		showissetDatasXX(id){
 			let pr = {
-				access_token:window.userInfo.access_token,
 				work_id:id,
 				is_draft:0
 			};
 			this.bdtj('我的创作','已通过-修改设置','--');
 			this.api.getWorkDetail(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
+					if(da=='104'){
+						this.login(1)
+					}
 					return
 				}
 				this.config.title = '作品修改设置：'+da.work_name;
@@ -460,21 +405,12 @@ export default {
 			this.tags = '';
 			this.$refs.tageds.clearValue();
 		},
-		getClassify(){
-			
-			if(!window.userInfo){
-				Message({message: '登录过期请先登录'});
-				setTimeout(()=>{
-					this.$router.push({path:'/login'})
-				},1000);
-				return
-			}
-			let pr ={
-				access_token:window.userInfo.access_token,
-			};
-			
-			this.api.getClassify(pr).then((da)=>{
-				if(da=='error'){
+		getClassify(){		
+			this.api.getClassify({}).then((da)=>{
+				if(da=='error' || da=='104'){
+					if(da=='104'){
+						this.login(1)
+					}
 					return
 				}
 				let p = JSON.stringify(da);
@@ -520,10 +456,9 @@ export default {
 			this.deletWorkon = '';
 			this.istopc = false;
 		},
-
 		delWork(){
 			if(this.delWorkType==1){
-				Message({message: '正在删除请稍候'});
+				this.tipMr('正在删除请稍候')
 				return
 			}
 			this.delWorkType=1;
@@ -533,15 +468,14 @@ export default {
 			};
 			this.api.delWork(pr).then((da)=>{
 				this.delWorkType = 0;
-				
-				if(da=='error'){					
+				if(da=='error' || da=='104'){	
+					if(da=='104'){
+						this.login(1)
+					}
 					return
 				}
-				
 				this.$refs.listDom.getData();
-				
-				Message({message: '删除成功'});
-	
+				this.tipMr('删除成功')
 				this.$refs.tcBox2.close();
 			}).catch(()=>{
 				this.delWorkType = 0;		
@@ -822,7 +756,6 @@ export default {
 .myListBox_5{
 	position: absolute;
 	right: 0;top: 0;
-	visibility: hidden;
 }
 .myListBox_5._hover{
 	visibility: visible;

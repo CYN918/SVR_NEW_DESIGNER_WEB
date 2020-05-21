@@ -163,7 +163,7 @@ export default {
 			this.loading = Loading.service({ fullscreen: true });
 			this.api[this.cg.ajax.url](params).then((da)=>{
 				this.loading.close();
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}				
 				this.List = da.data;

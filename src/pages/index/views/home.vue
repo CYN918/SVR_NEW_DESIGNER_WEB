@@ -96,7 +96,7 @@ export default {
 
 		getClass(){
 			this.api.getClassify().then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				let arr1 = [{label:'全部分类',value:''}],arr2=[];

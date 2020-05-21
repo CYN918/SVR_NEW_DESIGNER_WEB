@@ -215,7 +215,7 @@ export default{
 				pr['sort'] = this.px;
 			}
 			this.api.a_getWork(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				
@@ -236,7 +236,7 @@ export default{
 		},
 		a_getInfo(){
 			this.api.a_getInfo({activity_id:this.ids}).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.$router.push({path: '/404'});
 					return
 				}

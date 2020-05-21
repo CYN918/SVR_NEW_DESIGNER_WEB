@@ -361,7 +361,7 @@ export default{
 		},
 		getcls(){
 			this.api.sh_class({}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.cls = da;				
 				this.showNav = this.cls;
 			})			
@@ -371,7 +371,7 @@ export default{
 				m_id:el.m_id
 			}).then((da)=>{
 				this.aaa='';
-				if(da=='error'){return}	
+				if(da=='error' || da=='104'){return}	
 				this.pushDD('audio_choose',el.m_id,el.name)
 				let pr = {
 						type: "audio",
@@ -585,7 +585,7 @@ export default{
 			this.api.sh_audioUrl({
 				m_id:id
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.playFn(da.file_url);
 			})
 		},
@@ -677,7 +677,7 @@ export default{
 			this.api[this.type](pr).then((da)=>{
 				this.loading.close()
 				this.isgetList = false;
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return	
 				}
 				this.total = da.total;

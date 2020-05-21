@@ -91,7 +91,7 @@ export default {
 			window.open(ur);
 		},
 		setUrl(da){
-			if(da=='error'){return}
+			if(da=='error' || da=='104'){return}
 			let ulrd = encodeURIComponent(da.url);
 			this.config.value = da.url;
 			this.config.title=da.titlec;

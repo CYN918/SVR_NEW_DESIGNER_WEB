@@ -8,10 +8,10 @@
 	</TcBox>
 </template>
 <script>
-import TcBox from './TcBox1';
-import Login from '../../index/views/login/dialogLogin';
-import Register from '../../index/views/login/dialogRegister';
-import ModifyPassword from '../../index/views/login/dialogModifyPassword';
+import TcBox from '../../components/TcBox1';
+import Login from '../../views/login/dialogLogin';
+import Register from '../../views/login/dialogRegister';
+import ModifyPassword from '../../views/login/dialogModifyPassword';
 export default {
 	components:{TcBox,Login,Register,ModifyPassword},
 	props:{
@@ -32,7 +32,7 @@ export default {
 		logout(){
 			if(!window.userInfo){return}			
 			this.api.logout({}).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.close();

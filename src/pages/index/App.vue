@@ -1,16 +1,18 @@
 <template>
 	<div  id="app">
-		<router-view v-if="isRouterAlive"/>		
+		<router-view v-if="isRouterAlive"/>	
+		<p><loginDialog ref="logindialog" :config="outc"></loginDialog></p>
 	</div>
-
 </template>
 <script>
 import loginDialog from './components/loginDialog'
     export default {
+		components:{loginDialog},
         name: 'App',
         provide () {                                            
             return {
-                reload: this.reload                                              
+                reload: this.reload,
+				login:this.login,
             }
         },
         data() {
@@ -23,6 +25,10 @@ import loginDialog from './components/loginDialog'
             }
         },
         methods: {
+			login(num){
+				this.outc.num = num?num:'';
+				this.$refs.logindialog.show();
+			},
             reload () {
                 this.isRouterAlive = false;
                 this.$nextTick(function () {

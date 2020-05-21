@@ -133,7 +133,7 @@ export default {
 			
 			this.ajaxType=1;
 			this.api.modifyPassword(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.bdtj('重置密码页','重置密码失败','--');
 					return;
 				}

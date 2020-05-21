@@ -70,7 +70,7 @@ export default {
 		getCl(){
 			this.mJs.scTop(1);		
 			this.api.pr_classifyInfo().then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}				
 				this.prLn = da;

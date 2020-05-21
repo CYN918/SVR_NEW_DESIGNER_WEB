@@ -228,7 +228,7 @@ export default {
 				};
 			}
 			this.api.pr_delivery(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(this.$parent.setStaus){
 					this.$parent.setStaus('4');
 				}

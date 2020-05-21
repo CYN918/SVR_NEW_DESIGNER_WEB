@@ -101,7 +101,7 @@ export default {
 				data.from = window.login_froms;
 			}			
 			this.api.login(data).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.bdtj('登录页','登录失败','--');
 					if(ispass){
 						localStorage.setItem('pass','');
@@ -137,7 +137,7 @@ export default {
 				
 				
 				this.api.getSelfInfo(pr).then((da)=>{
-					if(da=='error'){return}		
+					if(da=='error' || da=='104'){return}		
 					let userData = window.userInfo.access_token;
 					window.userInfo = da;		
 					window.userInfo.access_token = userData;

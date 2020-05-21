@@ -46,7 +46,7 @@ export default {
 				follow_id:this.value.id
 			}).then((da)=>{
 				this.atype=0;
-				if(da=='error'){					
+				if(da=='error' || da=='104'){					
 					return
 				}
 				this.$emit('suFn',da);

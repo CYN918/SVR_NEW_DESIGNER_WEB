@@ -420,7 +420,7 @@ export default {
 			};
 			
 			this.api[apiname](pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.addLink=0;
 					return
 				}
@@ -444,7 +444,7 @@ export default {
 				follow_id:this.contDat.user_info.open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.follwTyle=0;
 					return
 				}
@@ -473,7 +473,7 @@ export default {
 				follow_id:this.contDat.user_info.open_id
 			};
 			this.api.Follow_add(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.follwTyle=0;
 					return
 				}
@@ -596,7 +596,7 @@ export default {
 				pr.access_token =this.page.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.length==0){
 					Message({message: '该作品已删除'});	
 					
@@ -654,7 +654,7 @@ export default {
 				pr.access_token = this.page.access_token;
 			}
 			this.api.getCommentList(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.data.length==0){
 					this.ishavepl=1;
 					this.ishavepltip='没有更多评论了!';
@@ -701,7 +701,7 @@ export default {
 			this.plType=1;
 			this.api.addComment(pr).then((da)=>{
 				this.plType=0;
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				Message({message: '评论成功'});	
 				
 				if(on || on==0){

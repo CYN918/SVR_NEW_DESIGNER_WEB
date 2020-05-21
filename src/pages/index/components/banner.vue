@@ -67,7 +67,7 @@ export default {
 		},
 		getBanner(){
 			this.api.getBanner().then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.list = da;	
 				this.setAn();
 			});			
