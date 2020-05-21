@@ -575,7 +575,7 @@ export default {
 }
 .searUr{
 	padding-top: 20px;
-	margin-bottom: 40px;
+	margin-bottom: 140px;
 }
 .searUr .emptyData{
 	margin: 0 auto;

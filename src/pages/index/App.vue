@@ -419,7 +419,7 @@ img{
 	border: none;
 	outline: none;
 	box-sizing: border-box;
-    padding-left: 0 ;
+    padding-left: 2px;
 	font-size: 14px;
     height: 40px;
     flex: 1;

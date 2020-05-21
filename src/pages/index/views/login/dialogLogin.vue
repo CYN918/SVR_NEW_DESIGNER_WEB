@@ -132,6 +132,9 @@ export default {
 			window.location.href=window.basrul+'/Passport/user/thirdLogin?type='+type;
 		},
 		loginUp(){
+			if(!this.$refs.loginFrom){
+				return
+			}
 			let params = this.$refs.loginFrom.pushData();
 			if(!params){
 				return

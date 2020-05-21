@@ -618,10 +618,10 @@ export default{
 			}
 			
 		},
-		backT(t){			
+		backT(t){	
 			let ond = t%60;
 			let fzz = '00';
-			if(t>60){
+			if(t>=60){
 				fzz = parseInt(t/60);
 				if(fzz<10){
 					fzz = '0'+fzz;

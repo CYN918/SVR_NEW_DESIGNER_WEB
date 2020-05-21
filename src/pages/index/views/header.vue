@@ -177,8 +177,7 @@ export default {
 		},
 		goMssg(on){
 			if(!window.userInfo){
-				this.$refs.logindialog.show();
-				this.outc.num = 1;	
+				this.logTo(1);	
 				return
 			}
 			setTimeout(()=>{
@@ -306,8 +305,7 @@ export default {
 			if(!this.userMssge){
 				// this.$router.push({path:'/login'}); 
 				// return
-				this.$refs.logindialog.show();
-				this.outc.num = 1;
+				this.logTo(1);
 			}else{
 				this.$router.push({path:'/upload'})		
 
