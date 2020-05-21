@@ -130,7 +130,7 @@ export default {
 				return parseInt(pt/h) + "小时前";
 			}
 			if(pt>m){
-				return parseInt(pt/m) + "分11钟前";
+				return parseInt(pt/m) + "分钟前";
 			}
 			return '刚刚';				
 	},

@@ -210,7 +210,7 @@ export default {
 
 .md_class input{
 	border: none;
-	
+	text-align: right;
 	font-size: 14px;
 	background: initial;
 	color: #999999;

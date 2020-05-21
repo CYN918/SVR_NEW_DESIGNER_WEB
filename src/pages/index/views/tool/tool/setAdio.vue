@@ -234,10 +234,16 @@ export default{
 			sr+='dot_type='+a;
 			sr+='&audio_id='+b;
 			sr+='&audio_name='+c;
-			sr+='&env='+window.ddian;			
-			let xhr = new XMLHttpRequest();		
-			xhr.open("get",sr);
-			xhr.send();	
+			sr+='&env='+window.ddian;
+			// window.open(sr)
+			let doms = document.createElement('iframe');
+			doms.className="hind_012xx";
+			doms.src=sr;
+			document.body.appendChild(doms);
+			setTimeout(()=>{
+				document.body.removeChild(doms)
+			},2000)
+			
 		},
 		scrollMo(){
 			if(this.total<=this.limit || this.datas.length>=this.total){
@@ -1239,5 +1245,8 @@ img.mp3_04_01_sc {
 	text-align: center;
     line-height: 60px;
     color: #979797;
+}
+.hind_012xx{
+	display: none;
 }
 </style>

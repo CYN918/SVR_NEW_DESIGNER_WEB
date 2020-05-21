@@ -219,12 +219,13 @@ export default {
 	position: absolute;
 	right: 0;
 	top: 17px;
-	width: 90px;
+	width: 100px;
+	
 }
 
 .md_class input{
 	border: none;
-	
+	text-align: right !important;
 	font-size: 14px;
 	background: initial;
 	color: #999999;
