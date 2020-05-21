@@ -303,7 +303,8 @@ function setTitle(t){
 }
 router.beforeEach((to, from, next) => {
 	document.body.style = "";
-
+	console.log(Vue)
+	console.log(Vue.pageRefresh)
 	let isqh = sessionStorage.getItem('isqh');	
 	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
 		if(!isqh || isqh==null){

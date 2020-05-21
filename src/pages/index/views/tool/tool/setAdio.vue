@@ -230,15 +230,14 @@ export default{
 	},
 	methods:{	
 		pushDD(a,b,c){
-			let sr = 'https://shiquaner-api.zookingsoft.com/dot.txt?';
+			let sr = 'https://shiquaner-api.zookingsoft.com/dot.txt';
 			sr+='dot_type='+a;
 			sr+='&audio_id='+b;
 			sr+='&audio_name='+c;
-			sr+='&evn='+window.ddian;
-			this.$ajax({
-				type:'get',
-				url:sr
-			})
+			sr+='&env='+window.ddian;			
+			let xhr = new XMLHttpRequest();		
+			xhr.open("get",sr);
+			xhr.send();	
 		},
 		scrollMo(){
 			if(this.total<=this.limit || this.datas.length>=this.total){

@@ -67,7 +67,10 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 	if(!url){return}		
 	let instance = createApiInstance(config,on,Type,isType)
 	instance.interceptors.response.use(response => {
-		let {result, msg, data} = response.data;		
+		
+		let {result, msg, data} = response.data;	
+			
+			
 		if(result==0){
 			if(isType.suktip){
 				Message({message: '操作成功',type: 'success'});

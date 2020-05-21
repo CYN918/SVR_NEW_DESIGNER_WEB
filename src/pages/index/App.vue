@@ -13,9 +13,22 @@
         },
         data() {
             return{
-                isRouterAlive: true
+                isRouterAlive: true,
+				// pageRefresh1:1,
             }
         },
+		// computed:{
+		// 	'pageRefresh'(){
+		// 		return this.pageRefresh;	
+		// 	}
+		// },
+		// watch:{
+		//     pageRefresh:function(old,newd){
+		//        this.pageRefresh1 = newd;
+		// 	   console.log(this.pageRefresh1);
+		     
+		//     }
+		// },
         methods: {
             reload () {
                 this.isRouterAlive = false;

@@ -146,10 +146,10 @@ export default {
 			this.getData();
 			this.getUserDetail();
 		},
-		mod(e){
+		mod(){
 			this.sfas = '';
 		},
-		modx(e,on){
+		modx(){
 			this.sfas = 1;
 		},
 	

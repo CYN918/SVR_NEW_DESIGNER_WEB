@@ -41,7 +41,7 @@
 								</div>
 							</div>
 							<div class="mo_01box">
-								<box_a v-for="el in workList"  :el="el"></box_a>
+								<box_a v-for="(el,index) in workList" :key="index"  :el="el"></box_a>
 							</div>
 							
 							<div v-if="total>workList.length" class="ac-01-3">
