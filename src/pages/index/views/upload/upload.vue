@@ -881,7 +881,7 @@ export default {
 			if(!this.form.classify_1){
 				return false
 			}
-			if(!this.form.is_platform_work){
+			if(!this.form.is_platform_work && this.form.is_platform_work != 0){
 				return false
 			}
 			this.ck3 = "onck2";
