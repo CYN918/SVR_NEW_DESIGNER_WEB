@@ -230,7 +230,7 @@ export default{
 	},
 	methods:{	
 		pushDD(a,b,c){
-			let sr = 'https://shiquaner-api.zookingsoft.com/dot.txt';
+			let sr = 'https://shiquaner-api.zookingsoft.com/dot.txt?';
 			sr+='dot_type='+a;
 			sr+='&audio_id='+b;
 			sr+='&audio_name='+c;
@@ -272,7 +272,7 @@ export default{
 		},
 		pauseAll(){
 			this.puandFn(0)
-			this.$parent.puandFn2();			
+			this.$parent.puandFn();			
 		},
 		setBf(e){
 			e.preventDefault();

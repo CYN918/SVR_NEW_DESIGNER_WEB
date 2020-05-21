@@ -5,9 +5,6 @@ import App from './App.vue'
 import router from './router'
 import mJs from '../../assets/comm.js'
 
-
-Vue.prototype.pageRefresh = true;
-
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
 Vue.prototype.mJs = mJs

@@ -1,9 +1,11 @@
 <template>
-	<div id="app">
-		<router-view v-if="isRouterAlive"/>
+	<div  id="app">
+		<router-view v-if="isRouterAlive"/>		
 	</div>
+
 </template>
 <script>
+import loginDialog from './components/loginDialog'
     export default {
         name: 'App',
         provide () {                                            
@@ -14,21 +16,12 @@
         data() {
             return{
                 isRouterAlive: true,
-				// pageRefresh1:1,
+				outc:{
+					num:'',
+					scroll:2,
+				} 
             }
         },
-		// computed:{
-		// 	'pageRefresh'(){
-		// 		return this.pageRefresh;	
-		// 	}
-		// },
-		// watch:{
-		//     pageRefresh:function(old,newd){
-		//        this.pageRefresh1 = newd;
-		// 	   console.log(this.pageRefresh1);
-		     
-		//     }
-		// },
         methods: {
             reload () {
                 this.isRouterAlive = false;
