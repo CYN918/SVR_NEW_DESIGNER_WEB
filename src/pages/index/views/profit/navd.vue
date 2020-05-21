@@ -136,7 +136,7 @@ export default {
 	border: none;
 }
 .pr_seBox .el-select{
-	width: 85px;
+	width: 100px;
 }
 .pr_seBox .t-select{
 	width: 185px;
