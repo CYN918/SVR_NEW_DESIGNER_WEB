@@ -278,6 +278,7 @@ export default {
 
 		},
         jump(){
+
 			this.bdtj('通用模块','顶部栏-点击logo','--');
             this.$router.push({
                 path:'/index'
