@@ -230,11 +230,16 @@ export default {
 
 	methods: {
 		oninput(e){
+			if(e.target.value.indexOf('0') == 0) {
+				this.form.cash_money = ''
+				return
+			}
 			if(e.target.value>+this.meny){
 				this.form.cash_money = this.meny;
 				return
 			}
-			let onm = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null			
+			let onm = (e.target.value.match(/^\d+/g)[0]) || null			
+			// let onm = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null			
 			this.form.cash_money = onm;
 			
 		},
