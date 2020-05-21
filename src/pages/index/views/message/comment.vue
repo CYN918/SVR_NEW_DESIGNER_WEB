@@ -35,7 +35,7 @@
 								<img class="comment_1" :src="mJs.Cavars(el.to_comment.avatar)"/>
 								<div class="comment_2">
 									<div class="comment_2_1">{{el.to_comment.username}}<span class="comment_2_2">{{backtime(el.to_comment.create_time)}}</span></div>
-									<div class="comment_2_5">{{backcont(el.to_comment.content)}}</div>
+									<div class="comment_2_5 comment_2_5Max">{{backcont(el.to_comment.content)}}</div>
 								</div>							
 							</div>
 						</div>
@@ -368,5 +368,8 @@ export default {
 .cmmm_1{
 	padding:40px 0 0;
     margin: 0;
+}
+.comment_2_5Max{
+	max-height: none;
 }
 </style>
