@@ -781,7 +781,7 @@ export default {
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
 			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}
-			if(!this.form.is_platform_work){Message({message: '请勾选是否为投稿作品'});return}
+			if(!this.form.is_platform_work && this.form.is_platform_work != 0){Message({message: '请勾选是否为投稿作品'});return}
 			clearTimeout(this.autoSave.obj);
 			let str = this.form.content;
 			var matchReg = /zk_workid=".*?(?=")/gi;
@@ -881,7 +881,7 @@ export default {
 			if(!this.form.classify_1){
 				return false
 			}
-			if(!this.form.is_platform_work){
+			if(!this.form.is_platform_work && this.form.is_platform_work != 0){
 				return false
 			}
 			this.ck3 = "onck2";
