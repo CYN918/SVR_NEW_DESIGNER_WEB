@@ -125,7 +125,7 @@ export default {
 			this.api.pr_deliveryList({
 				project_id:this.$parent.deta.id,
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.List = da;
 			}).catch(()=>{
 				

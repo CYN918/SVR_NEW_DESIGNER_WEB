@@ -226,7 +226,7 @@ export default{
 			this.ajaxType = 1;
 			this.api.sh_save(pr).then((da)=>{				
 				this.ajaxType = '';
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.$message({

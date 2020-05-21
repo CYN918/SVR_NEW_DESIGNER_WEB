@@ -225,7 +225,7 @@ export default {
 			this.getType=1;
 			this.api.getFList(params).then((da)=>{
 				this.getType='';
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 

@@ -44,7 +44,7 @@ export default {
 			}
 			this.api[this.config.ajaxUrl](params).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					if(this.List.length==0){
 						this.isNodaa = 1;
 					}

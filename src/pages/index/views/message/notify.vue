@@ -130,7 +130,7 @@ export default {
 				type:'notify',
 			};
 			this.api.Messageread(op).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 			})
@@ -151,7 +151,7 @@ export default {
 			};
 			this.api.getCounter(pr).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.messgNum = da;
@@ -175,7 +175,7 @@ export default {
 			}).then((da)=>{
 				this.getType = '';
 				this.loading.close();
-				if(da=='error'){this.setNoData(this.listData);return}
+				if(da=='error' || da=='104'){this.setNoData(this.listData);return}
 				
 				this.setNoData(da.data);
 				this.total = da.total;

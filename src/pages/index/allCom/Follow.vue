@@ -29,7 +29,7 @@ export default {
 			};
 			this.api.Follow_del(pr).then((da)=>{
 				this.follwTyle=0;
-				if(da=='error'){					
+				if(da=='error' || da=='104'){					
 					return
 				}
 				this.$emit('sussFn');

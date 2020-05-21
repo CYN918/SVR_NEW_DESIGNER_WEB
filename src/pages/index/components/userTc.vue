@@ -104,7 +104,7 @@ export default {
 			this.api.Follow_add(pr).then((da)=>{
 				
 				this.follwTyle=0;
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.$set(this.tcData.user_info,'follow_flag',1);
 			
 				Message({message: '关注成功'});
@@ -126,7 +126,7 @@ export default {
 			};
 			this.api.Follow_del(pr).then((da)=>{
 				this.follwTyle=0;
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				Message({message: '取消关注成功'});
 				this.$set(this.tcData.user_info,'follow_flag',0);
 				

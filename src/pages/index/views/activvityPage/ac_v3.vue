@@ -178,7 +178,7 @@ export default{
 			this.api.pr_deliveryList({
 				project_id:this.ids,
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.length>0){
 					this.islog = 1;
 				}
@@ -229,7 +229,7 @@ export default{
 		},
 		bm(){
 			this.api.pr_check({}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.is_complete!=true || da.is_contributor!=true || da.work_num<3){
 
 					this.tanDatazj = 'pr_rz';
@@ -314,7 +314,7 @@ export default{
 				pr['sort'] = this.px;
 			}
 			this.api.a_getWork(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				
@@ -335,7 +335,7 @@ export default{
 			this.api.pr_detail({
 				id:this.ids
 			}).then((da)=>{
-				if(da=='error'){this.$router.push({path: '/404'});return}			
+				if(da=='error' || da=='104'){this.$router.push({path: '/404'});return}			
 				this.shar({
 					titlec:'项目分享',
 					url:window.location.href,

@@ -248,7 +248,7 @@ export default {
 				user_open_id:this.$route.query.id
 			};
 			this.api.getUserDetail(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.userMessage = da;
@@ -342,7 +342,7 @@ export default {
 							access_token:window.userInfo.access_token
 						};
 						this.api.changeUserCenterBanner(pr).then((da)=>{
-							if(da=='error'){
+							if(da=='error' || da=='104'){
 						
 								this.opType=0;
 								return

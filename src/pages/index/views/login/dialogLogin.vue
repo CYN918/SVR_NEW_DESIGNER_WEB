@@ -132,6 +132,9 @@ export default {
 			window.location.href=window.basrul+'/Passport/user/thirdLogin?type='+type;
 		},
 		loginUp(){
+			if(!this.$refs.loginFrom){
+				return
+			}
 			let params = this.$refs.loginFrom.pushData();
 			if(!params){
 				return
@@ -155,7 +158,7 @@ export default {
 				data.from = window.login_froms;
 			}			
 			this.api.login(data).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.tip = '用户密码错误';
 					this.bdtj('登录页','登录失败','--');
 					if(ispass){
@@ -192,7 +195,7 @@ export default {
 				
 				
 				this.api.getSelfInfo(pr).then((da)=>{
-					if(da=='error'){return}		
+					if(da=='error' || da=='104'){return}		
 					this.$parent.$parent.close()
 				
 					this.reload();

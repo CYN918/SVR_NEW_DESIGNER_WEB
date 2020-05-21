@@ -402,7 +402,7 @@ export default {
 			}	
 			let pr={};
 			this.api.getSelfInfo(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 			
 				let userData = window.userInfo.access_token;
 				window.userInfo = da;
@@ -838,7 +838,7 @@ export default {
 			this.saveTyped=1
 			pr.labels = JSON.stringify(pr.labels);
 			this.api.saveWorks(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					if(fn2){
 						fn2();
 					}
@@ -1003,7 +1003,7 @@ export default {
 				return
 			}
 			this.api.getClassify({}).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				let p = JSON.stringify(da);

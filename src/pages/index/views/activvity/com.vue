@@ -252,7 +252,7 @@ export default {
 				return
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.$router.push({path: '/404'});
 					return
 				}
@@ -310,7 +310,7 @@ export default {
 			};
 			this.api.getPersonalWorkList(pr).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 			
@@ -338,7 +338,7 @@ export default {
 				limit:this.limit
 			}
 			this.api.getHList(params).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.zpList = da.data;
@@ -365,7 +365,7 @@ export default {
 				append_infos: JSON.stringify(this.array),
 			};
 			this.api.a_AttendActivity(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.bindType=0;	
 					return
 				}

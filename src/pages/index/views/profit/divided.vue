@@ -62,7 +62,7 @@ export default {
 			
 			params =  Object.assign(params,this.config.pr);	
 			this.api[this.config.ajax.url](params).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}				
 				this.sxConfig.options = da.data;	

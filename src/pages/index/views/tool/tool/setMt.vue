@@ -245,7 +245,7 @@ export default{
 			this.api.fileTotalSummary({
 				relation_type:'mobile_show'
 			}).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.maxwj = da.total_file_size?da.total_file_size:0;
@@ -592,7 +592,7 @@ export default{
 			};
 			
 			this.api.fileList(params).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				

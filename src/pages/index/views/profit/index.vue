@@ -157,7 +157,7 @@ export default {
 			let pr = {};
 			this.api.Income_info(pr).then((da)=>{
 				
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 		
 				this.basDa = da;
 				this.num1 = da.account_balance;
@@ -224,7 +224,7 @@ export default {
 				contribute_type:window.userInfo.contributor_type
 			};
 			this.api.contributorInfo(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.txData.account_name = da.account_name?da.account_name:da.company_name;
 				this.txData.bank_card_id = da.bank_card_no;
 				this.txData.bank_name = da.bank_name;				

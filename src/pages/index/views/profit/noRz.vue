@@ -40,7 +40,7 @@ export default {
 			let pr={};
 			this.api.getSelfInfo(pr).then((da)=>{
 				
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				let userData = window.userInfo.access_token;
 				window.userInfo = da;
 				window.userInfo.access_token = userData;

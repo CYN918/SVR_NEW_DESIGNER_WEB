@@ -39,7 +39,7 @@ export default {
 				return
 			}
 			this.api.a_getInfo({activity_id:this.$route.query.id}).then((da)=>{	
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				
 				da.info = da.info.replace(/\d*px/ig,(m)=>{
 					m.split('px')[0];

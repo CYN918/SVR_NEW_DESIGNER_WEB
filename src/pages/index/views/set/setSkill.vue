@@ -187,7 +187,7 @@ export default {
 		
 		getCl(){
 			this.api.pr_classify().then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				da.splice(0,1);
@@ -286,7 +286,7 @@ export default {
 			
 			
 			this.api.saveSkill(this.form).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 

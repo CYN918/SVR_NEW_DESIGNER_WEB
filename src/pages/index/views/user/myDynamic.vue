@@ -2,7 +2,7 @@
 	<div>
 		<tophead></tophead>
 		<div class="dysxboxd">
-			<div class="dysxbox">
+			<div class="dysxbox dysxboxpad">
 				<el-select @change="sxFn" v-model="value" placeholder="请选择">
 					<el-option 
 					  v-for="item in options"
@@ -89,6 +89,10 @@ export default {
 	width: 120px;
 	font-size: 14px;
 	color: #999999;
+	
+}
+.dysxboxpad input{
+	padding-right: 0 !important;
 }
 .mygzBox .i_listd{
 	min-height: 507px;

@@ -104,7 +104,7 @@ export default {
 			this.api[this.config.ajax.url](params).then((da)=>{
 				this.loading.close();
 				this.islod ='';
-				if(da=='error'){					
+				if(da=='error' || da=='104'){					
 					if(this.List.length==0){
 						this.isNodeat=1;
 					}	

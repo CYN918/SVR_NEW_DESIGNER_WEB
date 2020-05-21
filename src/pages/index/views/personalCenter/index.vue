@@ -220,7 +220,7 @@ export default {
 				user_open_id:this.$route.query.id
 			};
 			this.api.getUserDetail(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(!da.user_center_banner_pic || da.user_center_banner_pic==null){
 					da.user_center_banner_pic = this.userBg;
 				}

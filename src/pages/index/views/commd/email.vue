@@ -48,7 +48,7 @@ export default {
 	methods: {
 		init(){
 			this.api.getSelfInfo({}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				da.access_token = window.userInfo.access_token;
 
 				window.userInfo = da;
