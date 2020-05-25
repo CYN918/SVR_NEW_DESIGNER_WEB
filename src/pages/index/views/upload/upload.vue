@@ -219,7 +219,7 @@ export default {
 				attachment_visible:1,
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
-				is_platform_work:null,
+				is_platform_work:0,	
 				content:'<p style="color:#999">从这里开始编辑作品内容...</p>'
 			},
 			uD:{},
