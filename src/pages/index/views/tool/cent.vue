@@ -29,7 +29,6 @@
 				<div class="ldx_l_1_btn" v-if="el.status==0 && Isbtn">
 					<span @click="bjfn(el.id)" class="pendno">编辑</span>
 				</div>
-	
 				<div class="ldx_l_1_btn2" v-if="el.status==10">
 					<span>合成中</span>
 				</div>

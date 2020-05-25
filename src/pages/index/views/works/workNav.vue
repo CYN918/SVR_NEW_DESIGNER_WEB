@@ -1,6 +1,6 @@
 <template>
 	<div class="md_nav_01">		
-		<span @click="ckezt(el.id)" :class="on==el.id?'checks':''" v-for="(el,index) in navs" :key="el.id">{{el.name}}</span>
+		<span @click="ckezt(el.id,index)" :class="on==el.id?'checks':''" v-for="(el,index) in navs" :key="el.id">{{el.name}}</span>
 	</div>
 </template>
 <script>
@@ -18,9 +18,11 @@ export default {
 		init(){
 			this.getsubject();
 		},
-		ckezt(id){
+		ckezt(id,index){
+			this.bdtj("首页",this.navs[index].name,"--");
 			this.on = id;
 			this.$parent.$parent.qhZt(this.on);
+			this.$parent.$parent.specialname = this.navs[index].name;
 		},
 		getsubject(){
 			this.api.subject().then((da)=>{

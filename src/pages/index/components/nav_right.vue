@@ -98,6 +98,7 @@ export default {
             },16);
         },
         scrollToTop(){
+			this.bdtj("首页","TOP（置顶）","--")
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
             this.scrollTop = scrollTop;
             if(this.scrollTop > 980){
@@ -153,12 +154,15 @@ export default {
             }  
         },
         go_tolt(){
+			this.bdtj("首页","去赚钱","--")
             this.$router.push({path:'/tolt'});
         },
         upload(){
+			this.bdtj("首页","上传作品","--")
             this.$router.push({path:'/upload'});
         },
         go_weibo(){
+			this.bdtj("首页","官方微博","--")
             window.open('https://weibo.com/shiquanerzk?is_all=1','_blank')
         },
     }  

@@ -10,7 +10,7 @@
 						v-for="(el,index) in prLn" 
 						:key="index"
 						:class="['pr_02_2 pend',type==index?'pr_02_2On':'']"
-						@click="qhNav(index,todo)"
+						@click="qhNav(index,todo,el.classify_name)"
 						>{{el.classify_name+'（'+el.project_num+'）'}}</span>
 						<span @click="goOn('/help',{on:'4-01'})" class="pr_02_3 pend">项目承接指南</span>
 					</div>
@@ -90,7 +90,7 @@ export default {
 			clearInterval(this.djsOb);
 			this.$refs.sfafa.getData();
 		},
-		qhNav(on,c){
+		qhNav(on,c,n){
 			if(on==this.type){return}
 			if(c){
 				this.mJs.scTop(284);

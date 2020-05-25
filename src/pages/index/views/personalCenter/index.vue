@@ -169,6 +169,7 @@ export default {
 				this.outc.num = 1;
 				return
 			}
+			this.bdtj("个人主页",this.userMessage.username,"点击[私信]")
 			this.$router.push({path:'/chat',query:{
 				open_id:this.userMessage.open_id,
 				avatar:this.userMessage.avatar,
@@ -189,9 +190,11 @@ export default {
 		},
 		gzclick(){			
 			if(this.userMessage.follow_flag>0){
+				this.bdtj("个人主页",this.userMessage.username,"取消关注")
 				this.Follow_un(this.userMessage.open_id);	
 				return
 			}
+			this.bdtj("个人主页",this.userMessage.username,"添加关注")
 			this.Follow_add(this.userMessage.open_id)					
 		},
 		Follow_un(id){

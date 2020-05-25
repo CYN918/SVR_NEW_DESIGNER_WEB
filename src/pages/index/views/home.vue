@@ -123,7 +123,7 @@ export default {
 			adFn:'',
 			options:[],
 			value:'',
-			
+			specialname:""
 			// Ds_01:[
 			// 	{n:'UI图标',t:'UI Icon',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/1.svg'},
 			// 	{n:'摄影',t:'Photography',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/2.svg'},
@@ -168,7 +168,8 @@ export default {
 				};
 			}
 			this.mJs.scTop(702);
-			this.$refs.sfafa.sxfn();	
+			this.$refs.sfafa.sxfn();
+			this.bdtj("首页",this.data.pr.classify_name,"--");
 		},
 		qhZt(id){
 			this.data.pr.type = id;
