@@ -3,13 +3,13 @@
 		<Header></Header>
 		<router-view/>
 		<Footer></Footer>
-		<!-- <component v-bind:is="compData.zj" v-model="compData"></component>			 -->
+		<component v-bind:is="compData.zj" v-model="compData"></component>			
 	</div>
 </template>
 <script>
 import Header from '../header';
-// import Footer from '../footer2';
-import Footer from '../footer';
+import Footer from '../footer2';
+// import Footer from '../footer';
 import syFlot from '../../adPage/syDownFooterFlot';
 export default {
 	components:{Header,Footer,syFlot},

@@ -110,7 +110,7 @@ export default {
 	methods: {
 		fileCy(data){
 			this.isShow = true;
-			this.datad = data;
+			this.datad = {id:data.project_id};
 		},
 		closepick(){
 			this.ylt = '';
