@@ -3,10 +3,9 @@ import axios from 'axios'
 import api from '../../api/index'
 import App from './App.vue'
 import router from './router'
-
 import mJs from '../../assets/comm.js'
-
-
+// import LoginDom from './allCom/login/'
+// Vue.use(LoginDom);
 
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
@@ -19,34 +18,19 @@ Vue.prototype.goFn = (n)=>{
 
 Vue.prototype.imgPath = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/';
 Vue.prototype.imgSig = 'http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/';
-
-let s = window.screen.width / 1920;
-document.body.style.zoom = s;
+Vue.prototype.setImgU = (u)=>{
+	return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/'+u;
+}
+Vue.prototype.numInt = (n,s=2)=>{
+	let bs = Math.pow(10,s);	
+	return parseInt(n*bs)/bs
+};
 //定义全局过滤器
 Vue.filter('followType', (val)=>{
 	if(val == 1){return '已关注'}
 	if(val == 2){return '互相关注'}
 	return '关注';
 })
-
-// function getWindowSize(){	
-// 	document.body.style.zoom = window.screen.width/1920;
-// }
-// getWindowSize();
-// window.onresize = function(){
-// 	getWindowSize();
-// }
-
-Vue.prototype.isLogin=function(){
-	if(!window.userInfo){
-		// this.$router.push({path: '/login'})
-		// return false;
-	}
-	return true;
-}
-
-
-
 Vue.prototype.MD5 = function(string){ 
     function RotateLeft(lValue, iShiftBits) {
         return (lValue<<iShiftBits) | (lValue>>>(32-iShiftBits));
@@ -278,8 +262,15 @@ Vue.prototype.go = (a,b,c)=>{
 	_hmt.push(['_trackEvent',a,b,c]);
 };
 import VueCropper from 'vue-cropper' 
-import { Button,Switch, Select,Steps,Step,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination,Dialog,Progress} from 'element-ui'
+import { Dropdown, DropdownMenu, DropdownItem, Col, Row, Card, Tag, Button,Switch, Select,Steps,Step,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination,Dialog,Progress} from 'element-ui'
 Vue.use(VueCropper)
+Vue.component(Dropdown.name, Dropdown)
+Vue.component(DropdownMenu.name, DropdownMenu)
+Vue.component(DropdownItem.name, DropdownItem)
+Vue.component(Col.name, Col)
+Vue.component(Row.name, Row)
+Vue.component(Card.name, Card)
+Vue.component(Tag.name, Tag)
 Vue.component(Input.name, Input)
 Vue.component(Button.name, Button)
 Vue.component(Steps.name, Steps)
@@ -298,13 +289,17 @@ Vue.component(FormItem.name, FormItem)
 Vue.component(Message.name, Message)
 Vue.component(Checkbox.name, Checkbox)
 Vue.component(Switch.name, Switch)
-
-
 Vue.prototype.$message = Message;
+Vue.prototype.tipMr = (n)=>{
+	Message({
+		message:n
+	})
+};
+
 Vue.config.productionTip = false
 Vue.prototype.checkLo = function(o){
 	api[o.api](o.pr).then((da)=>{
-		if(da=='error'){if(o.er2){o.er2()} return}
+		if(da=='error' || da=='104'){if(o.er2){o.er2()} return}
 		if(da=='islogin'){			
 			let passIN = localStorage.getItem('pass');
 			if(passIN){
@@ -340,26 +335,6 @@ Vue.prototype.checkLo = function(o){
 router.afterEach((to,from,next) => {
     window.scrollTo(0,0);
 });
-
-// Vue.prototype.miss = function(o){
-// 	Message({message:o});
-// };
-
-// Vue.prototype.scrollFns = [];
-// document.addEventListener("scroll",()=>{
-	
-// 	for(let i=0,n=Vue.prototype.scrollFns.length;i<n;i++){
-// 		console.log(Vue.prototype.scrollFns[i])
-// 		if(Vue.prototype.scrollFns[i]){
-// 			Vue.prototype.scrollFns[i]();
-// 		}else{
-// 			Vue.prototype.scrollFns.splice(i,1);
-// 		}
-// 	}
-	
-// });
-
-
 new Vue({
   router,
   render: h => h(App)

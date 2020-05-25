@@ -1,29 +1,4 @@
 <template>
-	<!-- <div class="pr_cent2_1">
-		<div @click="openCent()" class="pr_cent2_2">
-			<img  class="pr_cent2_3" :src="deta.banner"/>
-			<div class="pr_cent2_rs" v-if="deta.status==1 || deta.status==2">{{deta.sign_up_num}}人已报名</div>
-			<div class="pr_cent2_r2" v-html="tips"></div>
-		</div>
-		<div class="pr_cent2_4">
-			<div @click="openCent()" class="pr_cent2_5">
-				<div class="pr_cent2_6">{{deta.name}}</div>
-				<div class="pr_cent2_7">项目类型：{{deta.classify_name}}</div>
-				<div class="pr_cent2_8">领域范围：<span v-for="(ed,index) in deta.fields">{{ed}}</span></div>	
-			</div>
-			<div class="pr_cent2_9">
-				<div class="pr_cent2_10" v-html="tip"></div>				
-				<div class="pr_cent2_11">
-					<div v-for="(els,index) in btns" @click="ckd(els.fn)" :class="['btns pend',els.cls]">{{els.n}}</div>
-				</div>				
-			</div>
-		</div>
-		
-		<div class="sjxd" v-if="deta.extra_reward && deta.extra_reward!='0.00'">
-			额外奖金¥{{deta.extra_reward}}
-		</div>
-		<component v-bind:is="tcZj"  :datad="tcData"></component>
-	</div> -->
 	<div class="pr_cent2_1">
 		<div @click="openCent()" class="pr_cent2_2">
 			<img  class="pr_cent2_3" :src="deta.banner"/>
@@ -43,8 +18,10 @@
 		<div class="pr_cent2_4">
 			<div @click="openCent()" class="pr_cent2_5">
 				<div class="pr_cent2_6">{{deta.name}}</div>
-				<div class="pr_cent2_7">项目类型：{{deta.classify_name}}<i></i>制作周期：<span>{{deta.production_cycle_d}}天{{deta.production_cycle_h}}时</span></div>
-				<div class="pr_cent2_10" v-html="tip"></div>
+				<div class="pr_cent2_7" v-if="deta.deal_type == '3'">项目类型：{{deta.classify_name}}<i></i>制作周期：<span>{{deta.production_cycle_d}}天{{deta.production_cycle_h}}时</span><i></i>预付金：<span style="color:rgba(255,147,0,1);">￥{{deta.money.advance_payment}}</span></div>
+				<div class="pr_cent2_7" v-else>项目类型：{{deta.classify_name}}<i></i>制作周期：<span>{{deta.production_cycle_d}}天{{deta.production_cycle_h}}时</span></div>
+				<div class="pr_cent2_10" v-html="tip1" v-if="this.$route.path == '/projectYs'"></div>
+				<div class="pr_cent2_10" v-html="tip" v-else></div>
 				<!-- <div class="pr_cent2_8">领域范围：<span v-for="(ed,index) in deta.fields">{{ed}}</span></div>	 -->
 			</div>
 			<div class="pr_cent2_9">
@@ -65,28 +42,20 @@
 			</div>
 		</div>
 		<component v-bind:is="tcZj"  :datad="tcData"></component>
-	</div>
-	
+	</div>	
 </template>
-
 <script>
-
-
 import pushGj from './pushGj';
 import qxGj from './qxGj';
-
 import question from './question';
 import Log from './log';
 import presentation from './presentation';
-
 export default {
 	components:{pushGj,qxGj,question,presentation,Log},
 	props:{
 		elm:{
 			type:Object,
-			default:{}
-		},	
-	
+		},		
 	},
 	data(){
 		return{
@@ -95,14 +64,14 @@ export default {
 			djtime:'',
 			tips:'',
 			tip:'',
+			tip1:'',
 			btns:'',
 			deta:{},
 		}
 	},
 	mounted: function(){
 		this.init();
-		this.backtims();
-		// console.log(this.$route.path)
+		this.backtims();		
 	}, 
 	watch: {		
 		'elm': function() {
@@ -122,8 +91,7 @@ export default {
 		close(){
 			this.tcZj = '';
 		},
-		setStaus(on){
-			
+		setStaus(on){			
 			this.deta.status = on;
 			this.clsfn();
 		},
@@ -148,18 +116,28 @@ export default {
 				}
 			}
 			if(this.$route.path == '/projectYs'){
-				if(this.deta.money != ''){
-					if(this.deta.money.advance_payment != '0.00'){
-						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>'+ '<span style="color:rgba(187,187,187,1);font-size:12px;">' + '('+'￥'+this.deta.money.advance_payment+'预付金'+')' + '</span>';
+				if(this.deta.deal_type == '1'){
+					if(this.deta.money.length == '0'){
+						this.tip1 = '成交价格：暂无成交价格';	
 					}else{
-						this.tip = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.advance_payment_total_income+'</span>';
+						this.tip1 = '成交价格：<span class="csyaswz_01">'+'￥'+this.deta.money.income+'</span>';	
 					}
-				}else{
-					this.tip = '累计分成收益：暂无分成收益';
 				}
-			}
-			
-			
+				if(this.deta.deal_type == '2'){
+					if(this.deta.money.length == '0'){
+						this.tip1 = '累计分成收益：暂无累计分成收益';
+					}else{
+						this.tip1 = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.income+'</span>';
+					}		
+				}
+				if(this.deta.deal_type == '3'){
+					if(this.deta.money.length == '0'){
+						this.tip1 = '累计分成收益：暂无累计分成收益';
+					}else{
+						this.tip1 = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.income+'</span>';
+					}
+				}
+			}						
 			if(this.deta.status==1){
 				this.tips = '<div class="pr_cent2_r2_1 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
 				return
@@ -169,45 +147,33 @@ export default {
 				return
 			}
 			if(this.deta.status==3){
-
 				let be = [{n:'提交稿件',fn:'pushGj',cls:'btns_js'}];
 				if(this.deta.is_rejected==1){
 					be[0].n = "重新交稿";
 					be[1] = {n:'交稿记录',fn:'Log'};
 				}
 				this.btns = be;
-				
-				
 				if(this.deta.is_de){
 					this.tips = '<div class="backdse pr_cent2_r2_4">你已延期'+this.deta.delay_time.d+'天'+this.deta.delay_time.h+'小时，请尽快完成</div>';
 					return
 				}
-		
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
 					if(this.deta.is_rejected==1){
 						this.tips = '<div class="backdse pr_cent2_r2_4">你的稿件未通过，请重新提交</div>';
 					}else{
 						var d2 = new Date();
-						var d1 = new Date(Date.parse(this.deta.delivery_deadline));
-						 
+						var d1 = new Date(Date.parse(this.deta.delivery_deadline));						 
 						if(d1 > d2){
-							let otim = this.bckdtimed(this.deta.delivery_deadline);
-			
+							let otim = this.bckdtimed(this.deta.delivery_deadline);			
 					        this.tips = '<div class="pr_cent2_r2_1 backdse"><span>截稿时间：<span>'+otim[0]+'</span></span><span><span>'+otim[1]+'前</span></span></div>';
-							
 						}else{
 							var d3 = d2 - d1;
 							var days = Math.floor(d3/(24*3600*1000));
 							var leave1 = d3%(24*3600*1000);
-                            var hours = Math.floor(leave1/(3600*1000));
-							
+                            var hours = Math.floor(leave1/(3600*1000));							
                             this.tips = '<div class="backdse pr_cent2_r2_4">你已延期<span>'+days+'天'+hours+'小时</span>，请尽快完成</div>';
 						}  
-						
-
 					}
-					
-				
 				}
 				return
 			}
@@ -236,7 +202,6 @@ export default {
 				
 		},
 		bckdtimed(t){
-		
 			let times =new Date(t.replace(/-/g,'/')),
 			Y = times.getFullYear(),
 			M = times.getMonth()+1,
@@ -250,19 +215,15 @@ export default {
 		},
 		openCent(){
 			if(this.deta.id){
-				window.open('/#/prcent?id='+this.deta.id)
-			}
-			
+				window.open('/#/prcent?id='+this.deta.id+'&type=prj')
+			}			
 		},
-		backtims(){
-			
+		backtims(){			
 			let a = this.deta.left_time;
 			if(!a || a.length==0){return}
-			let str = '';
 			if(a.s>0){
 				a.s--;				
 			}else
-			
 			if(a.m>0){
 				a.s = 59;
 				a.m--;
@@ -277,159 +238,17 @@ export default {
 				a.s = 59;
 				a.m = 59;
 				a.h = 23;
-				a.d--;
-				
+				a.d--;				
 			}else{
 				this.$parent.getData();
 				return
 			}
-			this.djtime = '<span><span class="pr_hs">'+a.d+'</span>d<span class="pr_hs">'+(a.h>9?a.h:'0'+a.h)+'</span>h<span class="pr_hs">'+(a.m>9?a.m:'0'+a.m)+'</span>m<span class="pr_hs">'+(a.s>9?a.s:'0'+a.s)+'</span>s</span>';	
-		
+			this.djtime = '<span><span class="pr_hs">'+a.d+'</span>d<span class="pr_hs">'+(a.h>9?a.h:'0'+a.h)+'</span>h<span class="pr_hs">'+(a.m>9?a.m:'0'+a.m)+'</span>m<span class="pr_hs">'+(a.s>9?a.s:'0'+a.s)+'</span>s</span>';			
 		}
 	}
 }
 </script>
-
 <style>
-/* .pr_cent2_1{
-	position: relative;
-	width:600px;
-	height:212px;
-	padding: 20px;
-	background:rgba(255,255,255,1);
-	border-radius:5px;
-}
-.pr_cent2_2{
-	cursor: pointer;
-	position: relative;
-	display: inline-block;
-	vertical-align: top;
-	margin-right: 20px;
-	overflow: hidden;
-	width:283px;
-	height:212px;
-	box-shadow:0px 5px 15px 0px rgba(0,0,0,0.1);
-	border-radius:5px 5px 5px 5px;
-}
-.pr_cent2_3{
-	display: block;
-	width: 100%;
-	height: 100%;
-}
-.pr_cent2_4{
-	display: inline-block;
-	vertical-align: top;
-	width:290px;
-}
-.pr_cent2_5{
-	cursor: pointer;
-	width:290px;
-	border-bottom: 1px solid rgba(216,216,216,.3);
-
-}
-.pr_cent2_6{
-	font-size:16px;
-	color:rgba(40,40,40,1);
-	line-height:22px;
-	margin-bottom: 10px;
-	width: 220px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-.pr_cent2_7,.pr_cent2_8{
-	font-size:12px;
-	color:rgba(187,187,187,1);
-	
-}
-.pr_cent2_7{
-	margin-bottom: 4px;
-	line-height:18px;
-}
-.pr_cent2_8{margin-bottom: 20px;line-height:22px;}
-.pr_cent2_8>span{
-	display: inline-block;vertical-align: top;
-	margin-right: 5px;
-	margin-bottom: 5px;
-	padding: 0 8px;
-	height: 22px;
-	background:rgba(244,246,249,1);
-	border-radius:5px;
-}
-.pr_cent2_rs{
-	position: absolute;
-    right: 5px;
-    top: 5px;
-    padding: 1px 8px;
-	background:rgba(0,0,0,.5);
-	border-radius:3px;
-	font-size:12px;
-	color:rgba(255,255,255,1);
-	line-height:20px;
-}
-.pr_cent2_r2{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height:32px;
-	
-	
-}
-.pr_cent2_r2>div{
-	border-radius:0px 0px 5px 5px;
-	text-align: center;	
-	line-height:32px;
-	height: 100%;
-	width: 100%;
-}
-
-.backdse{
-	background:rgba(0,0,0,.7);
-}
-.pr_cent2_r2_1{		
-	font-size:12px;
-	color:rgba(255,255,255,.7);		
-}
-.pr_cent2_r2_1>span{
-	margin-right: 4px;
-}
-.pr_cent2_r2_1>span>span{
-	font-family: PingFang SC Medium;
-	font-size: 16px;
-	margin:0 1px;
-	color:rgba(255,255,255,1);
-}
-.pr_cent2_r2_2{
-	font-size:14px;
-	color:rgba(255,255,255,1);
-}
-.pr_cent2_js{
-	position: absolute;
-    bottom: 80px;
-    right: 5px;
-    width: 98px;
-	
-}
-.pr_cent2_10{
-	margin: 14px 0 20px;
-	height:18px;
-	font-size:12px;
-	color:rgba(187,187,187,1);
-	line-height:22px;
-}
-.pr_cent2_10>span{
-	font-size:14px;
-	color:rgba(51,51,51,1);
-}
-.pr_cent2_10>span.csyaswz_01{
-	font-size:16px;
-	color: #33B3FF;
-}
-.pr_cent2_11>div{
-	margin: 0;
-	margin-right: 10px;
-} */
 .pr_cent2_1{
 	position: relative;
 	width:640px;
@@ -459,7 +278,7 @@ export default {
 }
 .pr_cent2_5{
 	cursor: pointer;
-	width:60%;
+	width:66%;
 	float: left;
 
 }
@@ -590,7 +409,7 @@ export default {
 	margin-right: 10px;
 }
 .pr_cent2_9{
-	width: 40%;
+	width: 34%;
 	float: right;
 }
 .pr_cent2_11{
@@ -624,7 +443,7 @@ export default {
 }
 .pr_cent2_11 > ul > li{
 	float: right;
-	width: 100px;
+	width: 85px;
 }
 .pr_cent2_status{
 	position: absolute;

@@ -28,7 +28,7 @@ export default {
 			this.api.pr_cancelSignup({
 				project_id:this.datad.id,
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.$parent.setBm(0);
 				this.$parent.getData();
 				this.$parent.close();

@@ -28,14 +28,14 @@
 							<div class="hfBox xxbox_c" v-if="el.isshowfh" >
 								
 								<Input :mblur="xsfn" class="userBoxd2" v-model="plon[index]" :oType="'max'" :max="140" :type="'text'" :ref="'myOn'+index"  :placeholder="hfnc"></Input>	
-								<span :class="chekcont()==true?'iscsbtn':''" @click="addfu2(index,el.work.work_id,el.comment.comment_id,el.comment.username,el.comment.feed_id)">回复</span>
+								<span :class="chekcont(plon[index])==true?'iscsbtn':''" @click="addfu2(index,el.work.work_id,el.comment.comment_id,el.comment.username,el.comment.feed_id)">回复</span>
 							
 							</div>
 							<div v-if="el.op_cname=='回复' && el.isshowsub" class="comment_2_9">
 								<img class="comment_1" :src="mJs.Cavars(el.to_comment.avatar)"/>
 								<div class="comment_2">
 									<div class="comment_2_1">{{el.to_comment.username}}<span class="comment_2_2">{{backtime(el.to_comment.create_time)}}</span></div>
-									<div class="comment_2_5">{{backcont(el.to_comment.content)}}</div>
+									<div class="comment_2_5 comment_2_5Max">{{backcont(el.to_comment.content)}}</div>
 								</div>							
 							</div>
 						</div>
@@ -109,8 +109,9 @@ export default {
 		backTj(n){
 			return  n>999?999:n;
 		},
-		chekcont(){
-			return this.zkMyFun.checkWz(this.pl2);
+		chekcont(n){
+			let str = n?n:'';
+			return this.zkMyFun.checkWz(str);
 		},
 		handleSizeChange(val) {
 			document.documentElement.scrollTop =1;
@@ -176,7 +177,7 @@ export default {
 				
 				this.isftype= '';
 				this.plType=0;
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.$refs['myOn'+on][0].monfocus();
 					return
 				}
@@ -226,7 +227,7 @@ export default {
 			
 			
 			this.api[apiname](pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.addLink=0;
 					return
 				}
@@ -276,7 +277,7 @@ export default {
 				type:'comment',
 			};
 			this.api.Messageread(op).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 			})
@@ -305,7 +306,7 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.getCounter(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.messgNum = da;
@@ -327,7 +328,7 @@ export default {
 			this.loading = Loading.service({target:'.jloadBox', fullscreen: true,background:'rgba(0,0,0,0)' });
 			this.api.getMessgList(pr).then((da)=>{
 				this.loading.close();
-				if(da=='error'){this.setNoData(this.listData);return}
+				if(da=='error' || da=='104'){this.setNoData(this.listData);return}
 				this.setNoData(da.data);
 				this.listData = da.data;
 				this.total = da.total;
@@ -367,5 +368,8 @@ export default {
 .cmmm_1{
 	padding:40px 0 0;
     margin: 0;
+}
+.comment_2_5Max{
+	max-height: none;
 }
 </style>

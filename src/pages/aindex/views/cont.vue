@@ -13,9 +13,9 @@
 				<div class="centbox_x_2">{{contDat.work_name}}</div>
 				<div class="centbox_x_3">{{backtime(contDat.create_time)}}
 					<span class="centbox_x_3_1">
-						<span><img src="/imge/svg/see/zs_icon_gk.svg">{{contDat.view_num}}</span>
-						<span><img src="/imge/svg/see/zs_icon_dz.svg">{{contDat.like_num}}</span>
-						<span><img src="/imge/svg/see/zs_icon_xx.svg">{{contDat.comment_num}}</span>
+						<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_gk.svg">{{contDat.view_num}}</span>
+						<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_dz.svg">{{contDat.like_num}}</span>
+						<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_xx.svg">{{contDat.comment_num}}</span>
 					</span>
 				</div>
 			</div>
@@ -117,13 +117,18 @@ export default {
 				pr.access_token =window.userInfo.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.length==0){
 					alert('该作品已删除');	
 					window.close();
 					return
 				}
-				da.labels = JSON.parse(da.labels)
+				da.labels = JSON.parse(da.labels);
+				
+				da.content = da.content.replace(/\d*px/ig,(m)=>{
+					m.split('px')[0];
+					return window.hotcss.px2rem(m.split('px')[0],320)+'rem';
+				})
 				this.contDat = da;			
 			});			
 		},
@@ -137,14 +142,14 @@ export default {
 				pr.access_token = window.userInfo.access_token;
 			}
 			this.api.getCommentList(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.hfnum = da.total;
 				this.hfData = this.hfData.concat(da.data);
 				
 		    });
 		},
 		backtime(time){
-			console.log(22222);
+			
 			return	window.getTimes(time);
 		},	
 		showWorks(){

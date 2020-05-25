@@ -6,8 +6,17 @@
 			<a :class="['pend',ison=='/qtsy'?'router-link-active':'']" @click="goZP('/qtsy','其他收益')">其他收益</a>
 			<a :class="['last pend',ison=='/money'?'router-link-active':'']" @click="goZP('/money','提现记录')">提现记录</a>
 			<div class="pr_seBox">
-				
-				<div>
+				<div v-if="ison == '/divided'">
+					<el-select @change="change1" v-model="work_id" placeholder="请选择" class="t-select">
+						<el-option
+						v-for="(item,index) in config.options"
+						:key="index"
+						:label="item.name"
+						:value="item.name">
+						</el-option>
+					</el-select>
+				</div>
+				<div v-if="ison == '/profit'">
 					筛选：
 					<el-select @change="sxFn2" v-model="v2" placeholder="请选择">
 						<el-option 
@@ -28,9 +37,11 @@ export default {
 	props:{
 		config:{
 			type:Object,
-			default:{
-				list1:[],
-				list2:[],
+			default:()=>{
+				return{
+					list1:[],
+					list2:[],
+				}				
 			}
 		}
 	},
@@ -38,7 +49,8 @@ export default {
 		return {
 			v1:'',
 			v2:'',
-			ison:'profit'
+			ison:'profit',
+			work_id:''
 		}
 	},
 	mounted: function(){
@@ -54,12 +66,14 @@ export default {
 			}
 			this.ison = this.$route.fullPath;
 		},
+		change1(){
+			this.$parent.setTim1(this.work_id);
+		},
 		sxFn1(){
 			this.$parent.setType(this.v1);
 		},
 		sxFn2(){
-			this.$parent.setTim(this.v2);
-			
+			this.$parent.setTim(this.v2);			
 		},
 		goZP(a,b){
 			this.bdtj('我的收益','tab_'+b,'--');
@@ -122,6 +136,9 @@ export default {
 	border: none;
 }
 .pr_seBox .el-select{
-	width: 85px;
+	width: 100px;
+}
+.pr_seBox .t-select{
+	width: 185px;
 }
 </style>

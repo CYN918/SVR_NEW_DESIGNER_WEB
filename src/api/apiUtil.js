@@ -1,15 +1,15 @@
 import axios from 'axios'
-
 import {Message} from 'element-ui'
 let basrurl = 'http://139.129.221.123';
+window.ddian = 'test';
 if(window.location.host=='shiquaner.zookingsoft.com'){
 	basrurl = 'https://shiquaner-api.zookingsoft.com';
+	window.ddian = 'Online';
 }
-
-
 if(window.location.host=='120.27.22.130:8080'){
 	basrurl = 'http://120.27.22.130:8081';
 	window.login_froms = 'new_designer_pre';
+	window.ddian = 'Online_pre';
 }
 window.basrul = basrurl;
 const generateApiMap = (map) => {
@@ -67,7 +67,10 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 	if(!url){return}		
 	let instance = createApiInstance(config,on,Type,isType)
 	instance.interceptors.response.use(response => {
-		let {result, msg, data} = response.data;		
+		
+		let {result, msg, data} = response.data;	
+			
+			
 		if(result==0){
 			if(isType.suktip){
 				Message({message: '操作成功',type: 'success'});
@@ -82,13 +85,14 @@ const sendApiInstance = (method, url, params, config = {},isType={},on,Type) => 
 				localStorage.setItem('userT','');
 				window.userInfo='';				
 				// window.location.href = '#/login';		
-				return 'error';
+				return '104';
 			}
 			Message({dangerouslyUseHTMLString:true,message: data});
 			return 'error';
 		}
 	},error => {	 
 		if(window.isStop){
+			window.isStop = '';
 			return
 		}
 		Message({message: '服务器故障',type: 'warning'});

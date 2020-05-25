@@ -15,8 +15,8 @@ export default {
 		return {
 			config:{
 				title:[
-					{n:'收益类型',poprs:'task_name'},
-					{n:'备注信息',html:'task_desc'},
+					{n:'收益类型',clfn:(da)=>{if(da.work_type == 2){return '其他收益'}}},
+					{n:'备注信息',clfn:(da)=>{if(da.desc_reason == ''){return '暂无备注信息'}else{return da.desc_reason}}},
 					{n:'收益发放时间',poprs:'hire_time'},
 					{n:'收益金额',poprs:'income'},
 				],
@@ -34,7 +34,7 @@ export default {
 					{label:'全部记录',value:0},
 					{label:'近一周',value:7},
 					{label:'近一个月',value:30},
-					{label:'近一半年',value:183},
+					{label:'近半年',value:183},
 					{label:'近一年',value:365}
 				],
 				v2:30
@@ -49,7 +49,7 @@ export default {
 	},	
 	methods: {
 		init(){			  	
-			this.config.pr.time = parseInt(new Date().getTime()/1000)-(30*60*60*24);
+			// this.config.pr.time = parseInt(new Date().getTime()/1000)-(30*60*60*24);
 		},
 
 		goWork(d){

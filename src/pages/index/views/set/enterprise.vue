@@ -219,7 +219,7 @@ export default {
 					}			
 					return true; 
 				}	
-				if(!(/^1[345789]\d{9}$/.test(val))){ 
+				if(!(/^1[23456789]\d{9}$/.test(val))){ 
 					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
 				} 
 				return true;
@@ -231,7 +231,7 @@ export default {
 					}			
 					return true; 
 				}	
-				if(!(/^1[345789]\d{9}$/.test(val))){ 
+				if(!(/^1[23456789]\d{9}$/.test(val))){ 
 					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
 				} 
 				return true;
@@ -294,7 +294,7 @@ export default {
 	methods: {
 		gxZl(){
 			this.api.getSelfInfo({}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				da.access_token = window.userInfo.access_token;
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));
@@ -432,6 +432,9 @@ export default {
 			this.tancData.old_mobile_zone = val;
 		},
 		ajaxYzmZd(){
+			if(this.form.mobile!=window.userInfo.mobile){
+				this.form.mobile = window.userInfo.mobile;
+			}
 			this.bdtj('企业认证页面','获取验证码','--');
 			let pd = this.form.mobile;
 			if(this.form.mobile_zone!='86'){
@@ -441,7 +444,7 @@ export default {
 				}			
 			}else{
 				
-				if(!(/^1[345789]\d{9}$/.test(pd))){ 
+				if(!(/^1[23456789]\d{9}$/.test(pd))){ 
 					Message({message: '请输入正确的手机号码'});
 					return
 				} 
@@ -453,7 +456,7 @@ export default {
 				type:'login',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				Message({message: '验证码已发送'});
@@ -463,6 +466,7 @@ export default {
 			});
 		},
 		ajaxYzm(){
+			
 			let pd = this.tancData.newMoble;
 			if(this.tancData.mobile_zone!='86'){
 				if(!(typeof pd === 'number' && pd%1 === 0)){
@@ -470,7 +474,7 @@ export default {
 					return 					
 				}			
 			}else{
-				if(!(/^1[345789]\d{9}$/.test(pd))){ 
+				if(!(/^1[23456789]\d{9}$/.test(pd))){ 
 					Message({message: '请输入正确的手机号码'});
 					return
 				} 
@@ -479,10 +483,10 @@ export default {
 			let params = {
 				mobile:this.tancData.newMoble,
 				mobile_zone:this.tancData.mobile_zone,
-				type:'login',
+				type:'register',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				Message({message: '验证码已发送'});
@@ -501,7 +505,7 @@ export default {
 				
 			};
 			this.api.Bindbind(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.nogxzl = 1;
@@ -527,10 +531,11 @@ export default {
 				
 			};
 			this.api.Bindbind(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
-				this.form.mobile = this.tancData.newMoble;
+				this.form.mobile = pr.mobile;
+				this.form.mobile_zone = pr.mobile_zone;
 				this.tancData.mobile_zone = '86';
 				this.tancData.newMoble = '';
 				this.tancData.oldMoble = '';
@@ -538,6 +543,9 @@ export default {
 				this.tancData.verify_code = '';			
 				this.tAncType=0;
 				this.closeTc1();
+				window.userInfo.mobile = this.form.mobile;
+				window.userInfo.mobile_zone = this.form.mobile_zone;
+				localStorage.setItem('userT', JSON.stringify(window.userInfo));
 				Message({message: '修改成功'});
 				
 				
@@ -648,7 +656,7 @@ export default {
 				
 			};
 			this.api.identifyAuth(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.bdtj('企业认证页面','申请成为供稿人失败','--');
 					return
 				}
@@ -692,10 +700,11 @@ export default {
 			};
 			
 			this.api.contributorInfo(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				let navd = 0;
+			
 				if(da.check_status==0){
 					this.check_type = 1;
 					da.tax_rate_type = "1";

@@ -198,8 +198,9 @@ Vue.prototype.MD5 = function(string){
 }
 window.getTimes =function(ont) {
 	// alert(1);
-
-		
+	if(!ont){
+		return
+	}
 		let times =new Date(ont.replace(/-/g,'/')).getTime(),
 		nowt = new Date().getTime(),
 		pt = nowt-times,
@@ -224,7 +225,7 @@ window.getTimes =function(ont) {
 			return parseInt(pt/h) + "小时前";
 		}
 		if(pt>m){
-			return parseInt(pt/m) + "分前";
+			return parseInt(pt/m) + "分钟前";
 		}
 		return '刚刚';				
 };

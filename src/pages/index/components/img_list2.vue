@@ -17,7 +17,7 @@
 										<div class="igL_up_L_2">
 											<div class="igL_up_L_2N_1">
 												<span class="hft">{{el.work_name}}</span>
-												<img v-if="el.is_recommend==1" src="/imge/new/works/icon_r.svg" />
+												<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg" />
 											</div>
 											<div class="igL_up_L_2N_2">
 												<span>{{el.classify_1_name}}</span>{{el.classify_2_name}}-{{el.classify_3_name}}
@@ -38,7 +38,7 @@
 					<div class="igL_r_1 mxImgbg closeX_1Hv" @click="cs2(index)" v-for="(el,index) in list2" :key="index">
 						<div :style="Imgbj(list[el].face_pic)"></div>
 						<p class="closeX_1">
-							<img src="/imge/svg/new/close1.svg"/>
+							<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/close1.svg"/>
 						</p>
 					</div>
 				</div>
@@ -94,7 +94,7 @@ export default {
 					break;
 				case 'video': p+=b;
 					break;
-				case 'audio': p+='/imge/m.jpg';
+				case 'audio': p+='https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/m.jpg';
 					break;	
 			}
 			return p+");";
@@ -125,7 +125,7 @@ export default {
 				this.postData.work_ids.push(this.list[this.list2[i]].work_id);
 			}
 			this.api.pr_signup(this.postData).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.$message({message: '报名成功'});
 				this.close();
 				this.$parent.setBm(1);
@@ -147,7 +147,7 @@ export default {
 			
 			this.api.getSelfWorkList(pr).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					if(this.List.length==0){
 						this.isnoData=1;
 					}
@@ -173,7 +173,7 @@ export default {
 				page:this.page,
 				limit:40,
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				// if(da.data.length==0){
 				// 	this.noGd=1;
 				// }

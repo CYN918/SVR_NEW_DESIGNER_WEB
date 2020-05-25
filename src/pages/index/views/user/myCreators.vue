@@ -18,7 +18,7 @@
 						<div class="btns_foll">
 							<span @click="showFpllwodel(todo)" v-if="todo.follow_flag==2">互相关注</span>
 							<span @click="showFpllwodel(todo)" v-else-if="todo.follow_flag==1">已关注</span>
-							<span @click="gosx(todo)">私信</span>
+							<!-- <span @click="gosx(todo)">私信</span> -->
 						</div>
 					</div>
 					<div class="lunbox">

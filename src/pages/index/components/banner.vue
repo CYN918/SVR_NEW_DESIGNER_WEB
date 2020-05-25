@@ -67,7 +67,7 @@ export default {
 		},
 		getBanner(){
 			this.api.getBanner().then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.list = da;	
 				this.setAn();
 			});			
@@ -118,7 +118,7 @@ export default {
 				return
 			}
 			this.bdtj('首页','开始制作来电秀','--');
-			this.$router.push({path:'/tolt/toluser'});
+			this.$router.push({path:'/toluser'});
 			// if(window.userInfo.contributor_format_status == 2){
 			// 	
 			// 	return

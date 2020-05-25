@@ -3,14 +3,18 @@
 		<template v-slot:todo="{ todo }">
 			<div class="bmXm_00">
 				<div class="bmXm_01">
-					请选择项目收益结算方式：
+					{{settlement==0?'请选择项目收益结算方式：':'项目收益结算方式：'}}
 					<div class="bmXm_01_1">
-						<ul v-if="settlement == '0'">
-							<li @click="chekdeal_type(el.k)" v-for="(el,index) in deal_types" :key="index" :class="el.k==postData.deal_type?'chekdOn':''">{{el.n}}</li>
+						<ul>
+							<li 
+							@click="chekdeal_type(el.k)" 
+							v-for="(el,index) in deal_types" 
+							:key="index" 
+							>
+							<p :class="el.k==postData.deal_type?'chekdOn':''" v-if="settlement==0 || settlement==el.k">{{el.n}}</p>
+							</li>
 						</ul>
-						<ul v-else>
-							<li v-for="(el,index) in deal_types" :key="index" :class="el.k==postData.deal_type?'chekdOn':''">{{el.n}}</li>
-						</ul>			
+					
 					</div>
 					<div class="buyout" v-show="postData.deal_type == '1'">
 						<p style="margin: 5px 0px 5px 15px;color:#FF3B30;">{{expected_profit}}</p>
@@ -67,10 +71,11 @@ export default {
 				{n:'买断式',k:1},
 				{n:'分成式',k:2},
 			],
+			chekdeal_type_list:'',
 			List:[],
 			isnoData:'',
 			postData:{
-				deal_type:1,
+				deal_type:this.settlement,
 				work_ids:[],
 			},
 			getType:'',
@@ -81,9 +86,9 @@ export default {
 	
 	mounted: function(){
 		this.init();
-		if(this.settlement == '0'){
-			this.postData.deal_type = 1;
-		}
+
+		this.postData.deal_type = (this.settlement && this.settlement!=0)?this.settlement:1;
+	
 	},
 	methods: {	
 		goOn(on,cs){
@@ -99,7 +104,7 @@ export default {
 		},
 		chekdeal_type(o){
 			this.postData.deal_type = o;
-			
+			console.log(o);
 		},
 		checkZp(o){
 			let ond = this.postData.work_ids.indexOf(o);
@@ -131,7 +136,7 @@ export default {
 				return 
 			}
 			this.api.pr_signup(this.postData).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.$message({message: '报名成功'});
 				this.close();
 				this.$parent.setBm(1);
@@ -153,7 +158,7 @@ export default {
 			
 			this.api.getSelfWorkList(pr).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					if(this.List.length==0){
 						this.isnoData=1;
 					}
@@ -179,6 +184,7 @@ export default {
 <style>
 .bmXm_00{
 	padding: 30px 40px 0 40px;
+	background: #F4F6F9;
 }
 .bmXm_01{
 	font-size:14px;
@@ -189,8 +195,30 @@ export default {
 	margin-bottom: 30px;
 }
 .bmXm_01_1{
-	margin-left: 10px;
+	margin-left: 0px;
+    display: block;
+	height: 28px;
+	margin-top: 15px;
+}
+.bmXm_01_1  ul li{
 	display: inline-block;
+	vertical-align: top;
+}
+.bmXm_01_1  ul li p{
+	
+	width: 80px;
+	height: 28px;
+	text-align: center;
+	line-height: 28px;
+	background: #FFFFFF;
+	color: #333333;
+	font-size: 14px;
+	float: left;
+	cursor: pointer;
+}
+.bmXm_01_1 > ul .chekdOn{
+	background: #33B3FF;
+	color: #FFFFFF;
 }
 .bmXm_01_1 span{
 	position: relative;
@@ -239,7 +267,7 @@ export default {
 .bmXm_03_box{
 
 	width: 922px;
-	height: 396px;
+	height: 328px;
 	overflow: hidden;
 	overflow-y: auto;
 	text-align: left;
@@ -317,5 +345,26 @@ export default {
 	border-top: 1px solid rgba(244,246,249,1);
 	height: 79px;
 	line-height: 79px;
+}
+.buyout{
+	width: 922px;
+	height: 83px;
+	border: 1px solid #33B3FF;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	background: #FFFFFF;
+}
+.detail-js{
+	width: 84px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	position: absolute;
+	right: 45px;
+    top: 125px;
+	color: #33B3FF;
+	font-size: 14px;
+	cursor: pointer;
 }
 </style>

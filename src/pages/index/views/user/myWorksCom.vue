@@ -1,29 +1,62 @@
 <template>
 	<div>
 		<tophead :con="navData"></tophead>
+		<div class="draftboxd" v-if="isMyAll()">
+			<div class="draftbox">
+				<span class="iconfont messgeH1">
+					<span class="pend" style="color: #bbb;font-size:14px;" @click="goZP()">
+						草稿箱
+						<img style="margin-left:10px;width:23px;height:16px;" :src="setImgU('svg/icon_wdcz_cgx.svg')"/>
+						<div @click="goZP()" v-if="draftNum && draftNum>0" :class="['messgeH2','customMess',draftNum>9?'messgeH2x':'']">
+							{{backMaxNum(draftNum)}}
+						</div>
+					</span>
+					
+				</span>
+			</div>
+		</div>
 		<div class="csBox opodd">
 			<list :config="data" ref="listDom">
 				<template v-slot:todo="{ todo }">
-					<div class="mylists">
+					<div class="mylists" @mouseover="addClass(todo)">
 						<div @click="openxq(todo)" class="myListBox_1">
 							<div class="mywus_n1" :style="backFm(todo.face_pic)"></div>
-							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
+							<div v-if="todo.status!=2" :class="['myListBox_1_2',todo.status==-2?'wtg':todo.status==0?'org':'balck']">{{todo.status==0?'待审核':todo.status==-2?'未通过':'草稿'}}</div>
 						</div>
-						<div @click="openxq(todo)" class="myListBox_2">
-							<span class="myListBox_2_1" :title="todo.work_name">{{todo.work_name}}</span>
-							<img v-if="todo.is_recommend==1" class="myListBox_2_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg">
+						<div class="wk_a_2 custom_wk_a_2">
+							<div class="wk_a_2_1">
+							
+								<span class="hft">{{todo.work_name}}</span>
+								<img v-if="todo.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg" />
+							</div>
+							<div class="wk_a_2_2">
+								<span>{{todo.classify_1_name}}</span>{{todo.classify_2_name+'-'+todo.classify_3_name}}
+								<i v-if="!isMyAll()" style="float:right">{{backtime(todo.create_time)}}</i>
+							</div>
+							<div v-if="isMyAll()" class="wk_a_2_3">
+								<span v-for="(eld,index) in icons" :key="index" class="pend"><img :src="eld.i">{{todo[eld.n]}}</span>
+
+							</div>
 						</div>
-						
-						<div @click="openxq(todo)" class="myListBox_3">
-							<span class="myListBox_3_1">{{todo.classify_1_name+'-'+todo.classify_2_name}}</span>
-							<span class="myListBox_3_2">{{backtime(todo.create_time)}}</span>
+						<div v-if="isMyAll()" class="wk_a_2_4">
+							<span>{{backtime(todo.create_time)}}</span>
 						</div>
-						<div class="myListBox_4">
-						
-							<span class="myListBox_4_1" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</span>
-							<span @click="updata(todo)" class="myListBox_4_1" v-else-if="todo.status!=0">编辑</span>					
-							<span class="myListBox_4_2" @click="showTopc('delet',todo)">删除</span>
-						</div>			
+						<div class="myListBox_4" v-if="!isMyAll()">
+							<span>最后修改日期:{{backtime(todo.create_time)}}</span>
+							<div class="handle-container">
+									<el-button @click="showTopc('delet',todo)">删除作品</el-button>
+									<el-button type="primary" @click="showissetDatasXX(todo.work_id,todo.status)" v-if="todo.status==2">修改设置</el-button>
+									<el-button type="primary" @click="updata(todo)" v-else-if="todo.status!=0">编辑作品</el-button>
+							</div>
+						</div>
+						<div class="myListBox_5" v-if="isMyAll() && todo.isdel">
+							<img :src="setImgU('svg/icon_more.svg')" class="bt-Img">
+							<div class="moreHandleContainer">
+								<div v-if="todo.is_selected != 1 && todo.like_num < 5 && todo.status != '0'" @click="updata(todo)">编辑</div>
+								<div v-else-if="todo.status != '0'" @click="showissetDatasXX(todo.work_id,todo.status)">修改设置</div>
+								<div @click="showTopc('delet',todo)">删除</div>
+							</div>
+						</div>		
 					</div>
 				</template>			
 			</list>
@@ -76,8 +109,7 @@
 								:label="item.label"
 								:value="item.label">
 								</el-option>
-							</el-select>
-							
+							</el-select>							
 						</div>
 					</div>
 				</div>
@@ -93,30 +125,22 @@
 							<input class="page2_1_4file" v-model="form.is_platform_work" value="0" type="radio" name="isme" ></div>否
 						</label>
 					</div>
+				</div>				
 				</div>
-				
-				</div>
-				
-				
 				<div class="setDatasXX_7">
 					<span @click="hindissetDatasXX">取消</span><span @click="upDataSet">确定</span>
-				</div>
-				
+				</div>				
 			</template>			
-		</TcBox>		
-				
-				
+		</TcBox>			
 		<div v-show="issetDatasXX" class="setDatasXX">
 			<div class="setDatasXX_1">
-				
 				<img  @click="hindissetDatasXX" class="myListBox_6_2" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/cj_00.png" alt="">
 				<div class="ydbbdf">
-				<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
-				<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
-				
-			</div></div>
-		</div>
-		
+					<div class="setDatasXX_3 dywd">作品修改设置：{{form.work_name}}</div>
+					<div class="setDatasXX_3">作品修改设置：{{form.work_name}}</div>
+				</div>
+			</div>
+		</div>		
 	</div>
 </template>
 <script>
@@ -130,8 +154,15 @@ export default {
 	props:['isType'],
 	components:{tophead,mInput,list,TcBox,TcBoxQr},
 	name: 'myAll',
+	inject:['login'],	
 	data(){
 		return {
+			icons:[
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_gk.svg',n:'view_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_dz.svg',n:'like_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_xx.svg',n:'comment_num'},
+				
+			],
 			config:{
 				title:'作品修改设置：音乐测试',
 			},
@@ -143,15 +174,8 @@ export default {
 				closeFn:'closeqd'
 			},
 			navData:{
-				title:'我的创作',
-				list:[
-					{a:'/myAll',b:'全部'},
-					{a:'/myExamine',b:'待审核'},
-					{a:'/myPass',b:'已通过'},
-					{a:'/myNotPass',b:'未通过'},					
-					{a:'/myDraft',b:'草稿'}
-				],
-				bdtj:'我的创作'				
+				title: this.isMyAll() ? '我的创作' : '草稿箱',
+				bdtj: this.isMyAll() ? '我的创作' : '草稿箱'				
 			},
 			form:{labels:[]},
 			selectedOptions:[],
@@ -182,13 +206,13 @@ export default {
 			},
 			upType:'',			
 			isTypeList:{
-				myAll:'all',
-				myExamine:'0',
-				myNotPass:'-2',
-				myPass:'2',
-				myDraft:'-1'
+				myAll:[0, 2],
+				// myExamine:'0',
+				// myNotPass:'-2',
+				// myPass:'2',
+				myDraft:[-1, -2]
 			},
-			
+			draftNum: 0,
 		}
 	},
 	created(){
@@ -208,15 +232,61 @@ export default {
 			this.$refs.listDom.getData();
 		},
 	},
+	mounted() {
+		document.body.addEventListener('click', (e) => {
+			let event = e || window.event;
+			let target = event.target || event.srcElement;
+			if (target.tagName == 'IMG' && target.src == 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/icon_more.svg') {
+				target.parentElement.querySelector('.moreHandleContainer').classList.add('trigger')
+				return
+			}
+			document.querySelectorAll('.myListBox_5').forEach(item => {
+				item.classList.remove('_hover')
+			})
+			document.querySelectorAll('.trigger').forEach(item => {
+				item.classList.remove('trigger')
+			})
+		})
+	},
+	computed:{
+		backMaxNum(n){
+			return n>999?999:n
+		}
+	},
 	methods: {
+		addClass(el) {
+			this.$set(el,'isdel',true);
+		},
+		isMyAll() {
+			return this.$route.name == 'myAll'
+		},
+		goZP() {
+			this.goFn('/myDraft');
+		},
 		show(){
 			this.$refs.tcBox.show();
 		},
 		close(){
 			this.$refs.tcBox.close();
 		},
+		loadUnreadNum() {
+			this.api['getUnreadNum']({}).then(res => {
+				this.draftNum = res.num
+			})
+		},
+		draftUnread() {
+			this.api['draftUnread']({}).then(res => {
+			})
+		},
 		init(){
-			this.data.pr.status =  this.isTypeList[this.$route.name];
+			this.data.pr.status =  this.isTypeList[this.$route.name].join(',');
+			// this.data.pr.status =  'all';
+			this.navData = {
+				title: this.isMyAll() ? '我的创作' : '草稿箱',
+				bdtj: this.isMyAll() ? '我的创作' : '草稿箱'
+			}
+			this.loadUnreadNum()
+			if (this.$route.name == 'myDraft') this.draftUnread()
 		},
 		backFm(ur){
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
@@ -226,13 +296,12 @@ export default {
 			
 		},
 		upDataSet(){	
-			
-			if(this.upType==1){
-				Message({message: '正在提交请稍后'});
+			if(this.upType){
+				this.tipMr('正在提交请稍后')		
 				return
 			}
 			if(!window.userInfo){
-				Message({message: '登录过期请先登录'});
+				this.tipMr('登录过期请先登录')
 				setTimeout(()=>{
 					this.$router.push({path:'/login'})
 				},1000);
@@ -260,25 +329,30 @@ export default {
 			this.upType=1;
 			this.api.saveWorks(pr).then((da)=>{
 				this.upType='';
-				if(da=='error'){
+				if(da=='error' || da=='104'){
+					if(da=='104'){
+						this.login(1)
+					}
 					return
 				}
 				this.hindissetDatasXX();	
 				this.$refs.listDom.getData();
-				Message({message:'修改成功'});							
+				this.tipMr('修改成功')						
 			}).catch(()=>{
 				this.upType='';
 			});		
 		},
 		showissetDatasXX(id){
 			let pr = {
-				access_token:window.userInfo.access_token,
 				work_id:id,
 				is_draft:0
 			};
 			this.bdtj('我的创作','已通过-修改设置','--');
 			this.api.getWorkDetail(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
+					if(da=='104'){
+						this.login(1)
+					}
 					return
 				}
 				this.config.title = '作品修改设置：'+da.work_name;
@@ -287,7 +361,7 @@ export default {
 				this.show();
 				try{
 					this.form.labels = JSON.parse(this.form.labels);					
-				}catch(e){console.log(1)}
+				}catch(e){}
 				
 				this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
 				if(this.page2.classify.length>0){
@@ -331,21 +405,12 @@ export default {
 			this.tags = '';
 			this.$refs.tageds.clearValue();
 		},
-		getClassify(){
-			
-			if(!window.userInfo){
-				Message({message: '登录过期请先登录'});
-				setTimeout(()=>{
-					this.$router.push({path:'/login'})
-				},1000);
-				return
-			}
-			let pr ={
-				access_token:window.userInfo.access_token,
-			};
-			
-			this.api.getClassify(pr).then((da)=>{
-				if(da=='error'){
+		getClassify(){		
+			this.api.getClassify({}).then((da)=>{
+				if(da=='error' || da=='104'){
+					if(da=='104'){
+						this.login(1)
+					}
 					return
 				}
 				let p = JSON.stringify(da);
@@ -391,10 +456,9 @@ export default {
 			this.deletWorkon = '';
 			this.istopc = false;
 		},
-
 		delWork(){
 			if(this.delWorkType==1){
-				Message({message: '正在删除请稍候'});
+				this.tipMr('正在删除请稍候')
 				return
 			}
 			this.delWorkType=1;
@@ -404,15 +468,14 @@ export default {
 			};
 			this.api.delWork(pr).then((da)=>{
 				this.delWorkType = 0;
-				
-				if(da=='error'){					
+				if(da=='error' || da=='104'){	
+					if(da=='104'){
+						this.login(1)
+					}
 					return
 				}
-				
 				this.$refs.listDom.getData();
-				
-				Message({message: '删除成功'});
-	
+				this.tipMr('删除成功')
 				this.$refs.tcBox2.close();
 			}).catch(()=>{
 				this.delWorkType = 0;		
@@ -422,7 +485,6 @@ export default {
 			this.$router.push({path: '/works',query:{id:on.user_info.open_id}})	
 		},
 		backtime(time){
-		
 			return	window.getTimes(time);
 		},	
 		opend(ur){
@@ -442,12 +504,47 @@ export default {
 </script>
 
 <style scoped="scoped">
+.custom_wk_a_2{
+	border-bottom: 1px solid #F4F6F9;
+}
+.wk_a_2_2 i{
+	font-style: normal;
+}
+.wk_a_2_4{
+	font-size: 12px;
+	color: #bbb;
+	height: 45px;
+	line-height: 45px;
+	margin: 0 15px;
+}
+.draftboxd{
+	position: relative;
+	width: 1300px;
+	margin: 0 auto;
+}
+.draftbox{
+	position: absolute;
+	top: -50px;
+	right: 1px;
+}
+.draftBtn{
+	font-size: 14px;
+	color: #999;
+	cursor: pointer;
+}
+.customMess{
+	top: -10px;left: 66px;
+	height: 16px;
+	min-width: 16px;
+}
 .mylists{
 	margin: 0 20px 20px 0;
     background: #fff;
     border-radius: 5px;
     box-sizing: border-box;
     border: 1px solid #f6f6f6;
+	position: relative;
+	overflow: hidden;
 }
 .opodd{
 	padding-top: 20px;
@@ -537,6 +634,7 @@ export default {
 	width: 308px;
 	height: 231.6px;
 	overflow: hidden;
+	margin-bottom: 10px;
 }
 .myListBox_1>.myListBox_1_1{	
 	position: absolute;
@@ -560,26 +658,31 @@ export default {
 .myListBox_1>.myListBox_1_2{
 	cursor: pointer;
 	position: absolute;
-	top: 0;
-	right: 0;
-	border-radius: 0 5.08px 0 5.08px;
-	width: 99.6px;
-	height: 39.6px;
-	line-height: 39.6px;
+	top: 15px;
+	left: 15px;
+	border-radius: 3px;
+	width: 52px;
+	height: 22px;
+	font-size: 12px;
+	line-height: 22px;
 	text-align: center;
 }
 .myListBox_1>.balck{
 	background: rgba(0,0,0,.5);
 	color: #fff;
 }
+.myListBox_1>.org{
+	background: #FF9200;
+	color: #fff;
+}
 .myListBox_1>.wtg{
 	
 	color: #fff;
-	background: rgba(255,0,0,.7);
+	background: #FF3B30;
 }
 .myListBox_2{
 	text-align: left;
-	margin: 6.4px 10px 3.1px;
+	margin: 10px 10px 8px;
 }
 .myListBox_2>.myListBox_2_1{
 	cursor: pointer;
@@ -601,7 +704,7 @@ export default {
 	
 }
 .myListBox_3{
-	margin: 0 10px 14.9px;
+	margin: 0 10px 18px;
 	font-size: 12.19px;
 	color: #878787;
 	line-height: 17px;
@@ -610,11 +713,30 @@ export default {
 .myListBox_3_2{
 	float: right;
 }
-.myListBox_4{
-	margin: 0 10px 0;
-	text-align: left;
+.mylists:hover .myListBox_4{
+	bottom: 0;
 }
-.myListBox_4>span{
+.myListBox_4{
+	width: 100%;
+	height: 80px;
+	/* margin: 0 10px 0; */
+	text-align: center;
+	position: absolute;
+	bottom: -80px;
+	background: #fff;
+	transition: bottom 0.3s;
+	font-size: 12.19px;
+    color: #878787;
+    line-height: 17px;
+	padding-top: 13px;
+}
+.myListBox_4 .handle-container{
+	margin: 10px 0;
+}
+.myListBox_4 .el-button{
+	padding: 8px 30px;
+}
+/* .myListBox_4>span{
 	cursor: pointer;
 	display: inline-block;
 	margin-right: 16.3px;
@@ -629,7 +751,47 @@ export default {
 }
 .myListBox_4>span:hover{
 	color: #33B3FF;
+} */
+
+.myListBox_5{
+	position: absolute;
+	right: 0;top: 0;
 }
+.myListBox_5._hover{
+	visibility: visible;
+}
+.myListBox_5 .moreHandleContainer{
+	visibility: hidden;
+	width: 68px;
+	padding: 5px 0;
+	text-align: center;
+	font-size: 14px;
+	color: #333;
+	border-radius: 5px;
+	position: absolute;
+	right: 16px;top: 33px;
+	background: #fff;
+	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
+}
+.myListBox_5 .moreHandleContainer.trigger{
+	visibility: visible;
+}
+.myListBox_5 .moreHandleContainer div{
+	height: 44px;
+	line-height: 44px;
+	background: #fff;
+}
+.myListBox_5 .moreHandleContainer div:hover{
+	background: #F2F2F2;
+}
+/* .myListBox_5 .comonbtn{
+	width:124px;
+	height:32px;
+	margin:0;
+	line-height:32px;
+	text-align: right;
+	padding-right: 10px;
+} */
 
 .myListBox_6{
 	position: fixed;

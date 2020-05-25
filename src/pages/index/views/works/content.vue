@@ -111,7 +111,7 @@
 											<div class="hfN_02">
 												<span class="iconfont pend hfN_02_2" @click="showReport(el2.open_id,el2.comment_id,'comment')">&#xe664;<span>举报</span></span>											
 												<span class="iconfont pend hfN_02_1">
-													<img @click="addLikeNe('点赞回复','comment',el2.comment_id,el2)" :src="isLick(el2.liked)">{{el.like_num}}											
+													<img @click="addLikeNe('点赞回复','comment',el2.comment_id,el2)" :src="isLick(el2.liked)">{{el2.like_num}}											
 												</span>
 											</div>
 											<div class="hfBox hfBoxd hfBoxd2" v-if="el2.isshowfh==1">
@@ -153,7 +153,7 @@
 								<div v-else>
 									<span @click="showUnfoolxow" v-if="contDat.user_info.follow_flag>0">已关注</span>
 									<span class="jsBtn" @click="Follow_add()" v-else>关注</span>
-									<span class="lastsedd_1 pend" @click="gosx(contDat.user_info)">私信</span>
+									<!-- <span class="lastsedd_1 pend" @click="gosx(contDat.user_info)">私信</span> -->
 								</div>
 								
 								
@@ -179,7 +179,7 @@
 		<RPT ref="report"></RPT>
 		<unfollow @sussFn="unfollowSu" @suUnFn="showUnfoolow" ref="unfollow"></unfollow>
 		<fxd :shareData="shareData" ref="fxd"></fxd>
-		<TcBox :config="outc"  @qFn="delComment" ref="tcBox"></TcBox>
+		<TcBox :config="outcx"  @qFn="delComment" ref="tcBox"></TcBox>
 		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 </template>
@@ -205,7 +205,7 @@ export default {
 			isYl:'',
 			
 			new_c_3focus:'',
-			outc:{
+			outcx:{
 				title:'删除评论',
 				scroll:1,
 				cent:'确定删除该条评论?',
@@ -324,6 +324,7 @@ export default {
 			this.addComment(b,c,d);
 		},
 		addLikeNe(a,b,c,d){
+			console.log(a,b,c,d)
 			if(this.isYl){return}
 			this.bdtj('详情页',a,'--')
 			this.addLike(b,c,d);
@@ -419,7 +420,7 @@ export default {
 			};
 			
 			this.api[apiname](pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.addLink=0;
 					return
 				}
@@ -443,7 +444,7 @@ export default {
 				follow_id:this.contDat.user_info.open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.follwTyle=0;
 					return
 				}
@@ -472,7 +473,7 @@ export default {
 				follow_id:this.contDat.user_info.open_id
 			};
 			this.api.Follow_add(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.follwTyle=0;
 					return
 				}
@@ -595,7 +596,7 @@ export default {
 				pr.access_token =this.page.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.length==0){
 					Message({message: '该作品已删除'});	
 					
@@ -604,7 +605,16 @@ export default {
 					return
 				}
 				da.labels = JSON.parse(da.labels);
-				
+			
+				da.content = da.content.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi, function (match, capture) {
+					let str = capture.split('?')[0];
+					let reg2 = /^(\s|\S)+(.jpeg|.JPEG|.jpg|.png|.JPG|.PNG)$/;			
+					if (reg2.test(str)) {
+					  str+='?x-oss-process=image/resize,w_870';					  
+					  match = match.replace(/(src="=?).+(?=")/i,'src="'+str);
+					}
+				  return match;
+				});
 				this.contDat = da;
 			
 				this.shareData = {
@@ -644,7 +654,7 @@ export default {
 				pr.access_token = this.page.access_token;
 			}
 			this.api.getCommentList(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.data.length==0){
 					this.ishavepl=1;
 					this.ishavepltip='没有更多评论了!';
@@ -656,8 +666,10 @@ export default {
 		},
 		addComment(pl,on,on2){
 			if(this.isYl){return}
-			if(this.checkLogin()==false){
-				return;
+			if(!window.userInfo){
+				this.$refs.logindialog.show();
+				this.outc.num = 1;
+				return
 			}
 			if(this.plType==1){
 				Message({message: '正在上传评论请稍后'});
@@ -689,7 +701,7 @@ export default {
 			this.plType=1;
 			this.api.addComment(pr).then((da)=>{
 				this.plType=0;
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				Message({message: '评论成功'});	
 				
 				if(on || on==0){

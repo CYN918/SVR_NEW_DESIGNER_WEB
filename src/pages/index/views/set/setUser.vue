@@ -219,7 +219,7 @@
 						}
 						return true;
 					}
-					if(!(/^1[345789]\d{9}$/.test(val))) {
+					if(!(/^1[23456789]\d{9}$/.test(val))) {
 						return {
 							type: false,
 							text: '请输入正确的手机号码',
@@ -239,7 +239,7 @@
 						}
 						return true;
 					}
-					if(!(/^1[345789]\d{9}$/.test(val))) {
+					if(!(/^1[23456789]\d{9}$/.test(val))) {
 						return {
 							type: false,
 							text: '请输入正确的手机号码',
@@ -374,7 +374,7 @@
 						return
 					}
 				} else {
-					if(!(/^1[345789]\d{9}$/.test(pd))) {
+					if(!(/^1[23456789]\d{9}$/.test(pd))) {
 						Message({
 							message: '请输入正确的手机号码'
 						});
@@ -385,7 +385,7 @@
 				let params = {
 					mobile: this.tancData.newMoble,
 					mobile_zone: this.tancData.mobile_zone,
-					type:'login',
+					type:'register',
 				};
 				this.api.sendVerifyCode(params).then((da) => {
 					if(da == 'error') {
@@ -450,8 +450,8 @@
 						this.bdtj('帐号设置', '基本信息-修改手机号弹窗-修改失败', '--');
 						return
 					}
-					this.form.mobile = this.tancData.newMoble;
-					this.form.mobile_zone = this.tancData.mobile_zone;
+					this.form.mobile = pr.mobile;
+					this.form.mobile_zone = pr.mobile_zone;
 					this.tancData.mobile_zone = '86';
 					this.tancData.newMoble = '';
 					this.tancData.oldMoble = '';
@@ -459,7 +459,7 @@
 					this.tancData.verify_code = '';
 					this.closeTc1();
 					this.tAncType = 0;
-					window.userInfo.mobile = this.form.newMoble;
+					window.userInfo.mobile = this.form.mobile;
 					window.userInfo.mobile_zone = this.form.mobile_zone;
 					localStorage.setItem('userT', JSON.stringify(window.userInfo));
 					this.bdtj('帐号设置', '基本信息-修改手机号弹窗-修改成功', '--');

@@ -63,7 +63,7 @@ export default {
 					}			
 					return true; 
 				}	
-				if(!(/^1[345789]\d{9}$/.test(val))){ 
+				if(!(/^1[23456789]\d{9}$/.test(val))){ 
 					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
 				} 
 				return true;
@@ -133,7 +133,7 @@ export default {
 			
 			this.ajaxType=1;
 			this.api.modifyPassword(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.bdtj('重置密码页','重置密码失败','--');
 					return;
 				}

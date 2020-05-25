@@ -28,8 +28,8 @@ export default {
 	props:{
 		config:{
 			type:Object,
-			default:{
-				pr:{},
+			default:()=>{
+				return{pr:{}}
 			},
 			noData:String,
 		},
@@ -39,19 +39,18 @@ export default {
 		},
 		page:{
 			type:Object,
-			default:
-				()=>{
-					return{
-						limit:40,
-						page:1,
-						size:[40, 80, 120, 160],
-					}
+			default:()=>{
+				return{
+					limit:40,
+					page:1,
+					size:[40, 80, 120, 160],
 				}
-			
+			}			
 		},
-		isDjs:String
+		isDjs:String,
 		
 	},
+	inject:['login'],	
 	data(){
 		return{
 			List:[],
@@ -65,19 +64,26 @@ export default {
 		}
 	},
 	created(){
-		let currentpage = sessionStorage.getItem('currentpage');
-		let currentlimit = sessionStorage.getItem('currentlimit');
-		if(currentpage != null){
-			this.page.page = Number(currentpage);
-		};
-		if(currentlimit != null){
-			this.page.limit = Number(currentlimit);
-		};
-					
+		let apid = sessionStorage.getItem('currentApi');
+		if(apid==this.config.ajax.url){
+			let currentpage = sessionStorage.getItem('currentpage'),
+			currentlimit = sessionStorage.getItem('currentlimit');
+			if(currentpage != null){
+				this.page.page = Number(currentpage);
+			}
+			if(currentlimit != null){
+				this.page.limit = Number(currentlimit);
+			}
+		}			
 	},
 	mounted: function () {			
-		let currentpage = sessionStorage.getItem('currentpage');
-		let currentlimit = sessionStorage.getItem('currentlimit');
+		let currentpage = null,
+		currentlimit = null;
+		let apid = sessionStorage.getItem('currentApi');
+		if(apid==this.config.ajax.url){
+			currentpage = sessionStorage.getItem('currentpage');
+			currentlimit = sessionStorage.getItem('currentlimit');
+		}
 		if(this.$route.path){
 			if(currentpage == null && currentlimit == null){
 				this.page.page = 1;
@@ -94,8 +100,7 @@ export default {
 		'isNodeat'(){
 			if(this.$parent.kfn){
 				this.$parent.kfn(this.isNodeat);
-			}
-			
+			}			
 		},
 	},
 	methods: {
@@ -111,14 +116,11 @@ export default {
 			pr =  Object.assign(pr,this.config.pr);
 			return pr;
 		},
-		
-		
 		sxfn(){
 			this.page.page=1;
 			this.page.limit=this.page.size[0];
 			this.getData();			
 		},
-		
 		getData(){	
 			let params = this.paramCl();	
 			this.isNodeat='';
@@ -127,17 +129,18 @@ export default {
 			this.api[this.config.ajax.url](params).then((da)=>{
 				this.loading.close();
 				this.islod ='';
-				if(da=='error'){					
+				if(da=='error' || da=='104'){	
+					
+					if(da=='104'){
+						this.login(1)
+					}
 					if(this.List.length==0){
 						this.isNodeat=1;
 					}	
 					return
-				}
-				
-				
+				}				
 				this.List = da.data;
-				this.total = da.total;
-				
+				this.total = da.total;				
 				if(this.isDjs){
 					this.$parent.stardjs();
 				}
@@ -161,17 +164,16 @@ export default {
 			})
 		},
 		handleSizeChange(val) {
-			if(this.config.bdtj){
-			
+			if(this.config.bdtj){			
 				this.bdtj(this.config.bdtj[1][0],this.config.bdtj[1][1],'--');
 			}
 			this.goTop=1;
 			this.page.limit = val;
+			sessionStorage.setItem('currentApi', this.config.ajax.url);
 			sessionStorage.setItem('currentlimit', val);
 			this.page.page=1;
 			this.total=0;
-			this.getData();
-			
+			this.getData();			
 		},
 		handleCurrentChange(val) {	
 			if(this.config.bdtj){
@@ -180,6 +182,7 @@ export default {
 			this.goTop=1;
 			this.total=0;
 			this.page.page = val;
+			sessionStorage.setItem('currentApi', this.config.ajax.url);
 			sessionStorage.setItem('currentpage', val);
 			this.getData();
 		},

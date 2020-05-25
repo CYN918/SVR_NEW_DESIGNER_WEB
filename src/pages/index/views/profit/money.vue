@@ -63,7 +63,21 @@ export default {
 					{n:'审核时间',poprs:'check_time'},
 					{n:'操作',temp:{cFn:'chtj',clfn:(da)=>{
 							if(da.check_status==0){
-								return '<span class="pend">撤回</span>';
+								let time = da.apply_time;
+								let timearr = time.replace(" ", ":").replace(/\:/g, "-").split("-");
+								let timestr = timearr[0] + "年" + timearr[1].split("")[1] + "月" + timearr[2] + "日\t" + timearr[3] + ":" + timearr[4] + ":" + timearr[5] + "";
+								let month = timearr[1];
+								let month2 = parseInt(month) + 1;
+								if(month2 == 13){
+									month2 = 1;
+								}
+								if(month2 < 10) {
+									month2 = '0' + month2;
+								}
+								let endtime = timearr[0] + '-' + month2 + '-' + 10 + '\t' + timearr[3] + ":" + timearr[4] + ":" + timearr[5] + "";
+								if(new Date() < new Date(Date.parse(endtime))){
+									return '<span class="pend">撤回</span>';
+								}
 							}
 							return '<span>--</span>';
 						}}
@@ -102,7 +116,7 @@ export default {
 	},	
 	methods: {
 		init(){			  	
-			this.config.pr.time = parseInt(new Date().getTime()/1000)-(30*60*60*24);
+			// this.config.pr.time = parseInt(new Date().getTime()/1000)-(30*60*60*24);
 		},
 		addGetData(){
 			this.config.pr.time =  parseInt(new Date().getTime()/1000)-(this.timed*60*60*24);
@@ -120,7 +134,7 @@ export default {
 					
 			this.api.Income_applyCancel(pr).then((da)=>{
 				this.cxType=0;
-				if(da=='error'){return}	
+				if(da=='error' || da=='104'){return}	
 				this.$parent.basDa.account_balance = ((this.$parent.basDa.account_balance*100)+(this.je*100))/100;
 				this.$parent.num1 = '￥ '+this.$parent.basDa.account_balance;
 				this.close();

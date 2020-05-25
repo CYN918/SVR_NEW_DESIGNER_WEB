@@ -112,7 +112,7 @@ export default {
 					break;
 				case 'video': p+=b;
 					break;
-				case 'audio': p+='/imge/m.jpg';
+				case 'audio': p+='https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/m.jpg';
 					break;	
 			}
 			return p+");";
@@ -195,7 +195,7 @@ export default {
 			this.deletOn.splice(lend,1);
 		},
 		getList(){
-			if(this.configData){
+			if(this.configData && this.configData.length){
 				for(let i=0,n=this.configData.length;i<n;i++){
 					this.typexz+=','+this.configData.type;
 				}
@@ -225,7 +225,7 @@ export default {
 			this.getType=1;
 			this.api.getFList(params).then((da)=>{
 				this.getType='';
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 
@@ -349,8 +349,7 @@ export default {
 			let uploadCanceled = ()=>{
 				p.type="none";
 				this.$refs.upnfile.value ='';
-				Message({message: '取消成功'});
-				
+				Message({message: '取消成功'});				
 			};
 			xhr.upload.addEventListener("progress",uploadProgress, false);
 			xhr.addEventListener("load",uploadComplete, false);
@@ -373,7 +372,6 @@ export default {
 			for(let i=0,n=flie.target.files.length;i<n;i++){
 				this.clPic(flie.target.files[i],i);
 			}
-      		
       	},
     }
 }
@@ -635,7 +633,7 @@ export default {
 
 
 .circleProgress_wrapper{
-   	width: 60px;
+	width: 60px;
     height: 60px;
     margin: 0 auto;
     position: absolute;

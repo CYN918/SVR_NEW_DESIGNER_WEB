@@ -26,7 +26,7 @@ export default {
 		},
 		getsubject(){
 			this.api.subject().then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				da.unshift({

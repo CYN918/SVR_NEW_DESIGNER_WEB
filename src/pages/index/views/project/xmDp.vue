@@ -27,25 +27,15 @@
 		
 		<div v-if="da.t" :class="['sjxdpo',da.t.cl]">
 			{{da.t.n}}
-		</div>
+		</div> -->
 
-		<div v-if="obj.status>=3 " class="worksBox_2 tg_iocn_2 tg_iocn_2x">
-			<div class="worksBox_2_1x">
-				<div v-if="obj.status==3" @click="showTc('Stop')">终止项目</div>
-				<div v-if="islog" @click="showTc('Log')">交稿记录</div>
-				<div v-if="obj.contract_file && obj.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
-					<div class="worksBox_2_4">
-						<div v-for="(el,index) in obj.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
-					</div>
-				</div>
-			</div>
-		</div>		 -->
+				
 		
 		<div class="yu_o9">
 			
 			
 			<div class="cenDjs_4">
-				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.cl]" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
+				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.tcFncs=='Log'?'router-link-active':'']" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
 			</div>
 			<loginDialog ref="logindialog" :config="outc"></loginDialog>
 			
@@ -81,7 +71,7 @@ export default {
 					]
 				},
 				{t:{n:'已验收',cl:'c_zmq4',icon:'md'},n:'最终成交价格',cl:'cenDjs_x_2',btn_tip:'项目验收完成，感谢与你本次的合作',Zj:'qxGj',btns:[
-						
+						{n:'交稿记录',tcFn:'showTc',tcFncs:'Log'},
 						{n:'项目评价',tcFn:'showTc',tcFncs:'question'},
 						{n:'验收报告',tcFn:'goyans',tcFncs:'presentation'},
 					],
@@ -94,12 +84,13 @@ export default {
 			outc:{
 				num:'',
 				scroll:2,
-			}
+			},
+			djsfo:''
 		}
 	},
 	mounted: function(){
 		this.init();
-		console.log(this.obj.status)
+		console.log(this.da.btns)
 	}, 
 	methods: {
 
@@ -111,8 +102,8 @@ export default {
 
 			this.da = this.xmType[this.xmTypeOn];	
 			if(this.obj.is_evaluated==1){
-				this.xmType[4].btns[0].n = '已评价';
-				this.xmType[4].btns[0].tcFn = 'ypj';
+				this.xmType[4].btns[1].n = '已评价';
+				this.xmType[4].btns[1].tcFn = 'ypj';
 			}
 			
 			if(this.obj.left_time &&  this.obj.status==1){
@@ -154,7 +145,7 @@ export default {
 			this.api.pr_deliveryList({
 				project_id:this.obj.id,
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.length>0){
 					this.islog = 1;
 				}
@@ -169,7 +160,7 @@ export default {
 		},
 		showTc1(o){
 			this.api.pr_check({}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.is_complete!=true || da.is_contributor!=true || da.work_num<3){
 					this.$parent.showTc(o,da);	
 					return
@@ -185,16 +176,19 @@ export default {
 		showTc(o,data){		
 			this.$parent.showTc(o,data);
 		},
-		djsfn(da){			
+		djsfn(da){		
+			
 			if(da.d==0 && da.h==0 && da.m==0 && da.s==0){
 				this.djsshow.s = '00';
 				this.xmTypeOn++;
 				this.djsshow = '';
 				this.da = this.xmType[this.xmTypeOn];	
 				this.$parent.timeF(this.djsshow);
+				
 				return
 			}	
-			setTimeout(()=>{
+			clearTimeout(this.djsfo);
+			this.djsfo = setTimeout(()=>{
 				this.djsfn(da);
 			},1000);
 			let p ={};
@@ -245,6 +239,13 @@ export default {
 }
 	
 </script>
+<style scoped>
+.router-link-active{
+	color:#FFFFFF !important;
+	background:#33B3FF !important;
+	border-color: #33B3FF !important;
+}
+</style>
 
 <style>
 .cenDjs{
@@ -307,6 +308,7 @@ export default {
 	color:rgba(255,255,255,1);
 	background:#33B3FF;
 }
+
 .cenDjs_5{
 	margin-bottom: 40px;
 	font-size:14px;
@@ -406,10 +408,10 @@ export default {
 }
 
 
-/* .worksBox_2:after{
+.worksBox_2:after{
 	position: absolute;
-	top: 22px;
-	right: 21px;
+	top: -495px;
+    right: -70px;
 	content: "";
     display: inline-block;
     width: 5px;
@@ -420,15 +422,14 @@ export default {
 	margin-left: 8px;
     transform: rotate(-135deg);
 
-} */
+}
 .worksBox_2:hover>.worksBox_2_1x{
 	display: block;
 }
 .worksBox_2_1x{
-	display: none;
 	position: absolute;
-	top: 35px;
-	right: -17px;
+	top: -480px;
+    right: -160px;
 	z-index: 99;
 	background: #FFFFFF;
 	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);

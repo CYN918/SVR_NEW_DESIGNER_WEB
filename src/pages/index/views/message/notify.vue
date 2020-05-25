@@ -4,7 +4,7 @@
 			
 			<div class="ms_r_3" v-if="listData.length>0">
 				<div v-for="(el,index) in listData" :key="index">
-						<img class="comment_1" @click="goUserIn(index)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/GFMRTX.svg" alt="">
+						<img class="comment_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/GFMRTX.svg" alt="">
 						<div class="comment_2 comment_2xss">
 							<div class="comment_2_1" @click="goUserIn(index)">{{(el.op==3 || el.op==4)?el.user_info.username:el.title}}<span class="comment_2_2">{{backtime(el.create_time)}}</span></div>
 							<div class="comment_2_5" v-html="backCom(el.content)"></div>
@@ -130,7 +130,7 @@ export default {
 				type:'notify',
 			};
 			this.api.Messageread(op).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 			})
@@ -151,7 +151,7 @@ export default {
 			};
 			this.api.getCounter(pr).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.messgNum = da;
@@ -175,7 +175,7 @@ export default {
 			}).then((da)=>{
 				this.getType = '';
 				this.loading.close();
-				if(da=='error'){this.setNoData(this.listData);return}
+				if(da=='error' || da=='104'){this.setNoData(this.listData);return}
 				
 				this.setNoData(da.data);
 				this.total = da.total;

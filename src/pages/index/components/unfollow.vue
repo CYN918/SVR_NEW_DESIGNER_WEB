@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<TcBox :config="outc"  @qFn="Follow_del" ref="tcBox"></TcBox>
+		<TcBox :config="outc2"  @qFn="Follow_del" ref="tcBox"></TcBox>
 	    <loginDialog ref="logindialog" :config="outc"></loginDialog>	
 	</div>
 </template>
@@ -11,7 +11,7 @@ export default {
 	components:{TcBox,loginDialog},
 	data(){
 		return{
-			outc:{
+			outc2:{
 				title:'取消关注确认',
 				scroll:1,
 				cent:'是否取消关注?',
@@ -42,7 +42,7 @@ export default {
 			};
 			this.api.Follow_del(pr).then((da)=>{
 				this.follwTyle=0;
-				if(da=='error'){					
+				if(da=='error' || da=='104'){					
 					return
 				}
 				this.$emit('suUnFn');
@@ -67,7 +67,7 @@ export default {
 			};
 			this.api.Follow_add(pr).then((da)=>{
 				this.follwTyle=0;
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.$emit('suAdFn',da);

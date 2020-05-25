@@ -20,7 +20,7 @@
 							<span @click="showFpllwodel(index)" v-if="el.follow_flag==2">互相关注</span>
 							<span @click="showFpllwodel(index)" v-else-if="el.follow_flag==1">已关注</span>
 							<span class="jsBtn" @click="Follow_add(index)" v-else>关注</span>
-							<span @click="gosx(index)">私信</span>
+							<!-- <span @click="gosx(index)">私信</span> -->
 						</div>
 					</div>
 					<div class="lunbox">
@@ -176,7 +176,7 @@ export default {
 				follow_id:this.List[this.openOns].open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.follwTyle=0;
 					return
 				}
@@ -205,7 +205,7 @@ export default {
 				follow_id:this.List[on].open_id
 			};
 			this.api.Follow_add(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.follwTyle=0;
 					return
 				}
@@ -249,7 +249,7 @@ export default {
 			this.loading = Loading.service({  fullscreen: true,background:'rgba(0,0,0,0)' });
 			this.api.Searchsearch(pr).then((da)=>{
 				this.loading.close();
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				
@@ -575,7 +575,7 @@ export default {
 }
 .searUr{
 	padding-top: 20px;
-	margin-bottom: 40px;
+	margin-bottom: 140px;
 }
 .searUr .emptyData{
 	margin: 0 auto;

@@ -1,74 +1,24 @@
-<template>
-	<!-- <div class="cengg">
-		<div class="cens_01">
-			<div class="cens_02">
-				<div class="cens_02_1 oijdiv">				
-					<img class="cens_02_1_img" :src="deta.banner" alt="">
-					<div v-if="deta.extra_reward && deta.extra_reward!='0.00'" class="sjxd" @mouseout="mod()" @mouseover="modx($event,0)">
-						额外奖金¥{{deta.extra_reward}}
-					</div>
-					<div class="cens_02_1_cent">
-						<div class="cens_x0">
-							<div class="cens_x1">{{deta.name}}</div>
-							<div class="cens_x2">项目类型：{{deta.classify_name}}</div>
-							<div class="cens_x3">领域范围：<span v-for="(el,index) in deta.fields" :key="index">{{el}}</span></div>
-						</div>
-						<div>
-							<div class="cens_x4">
-								<div class="icon_ff_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/04.svg"/>预计收益</div>
-								<div class="cens_x4_1 f_a">{{deta.expected_profit}}<img @mouseout="mod()" @mouseover="modx($event,1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg" ></div>
-							</div>
-							<div class="cens_x5">
-								<div class="icon_ff_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/08.svg"/>制作周期</div>
-								<div  class="cens_x4_1 cens_x4_1_x1" v-html="backZq(deta.production_cycle_d,deta.production_cycle_h)">
-									
-								</div>
-								
-							</div>
-							
-						</div>
-						<div v-if="deta.status==1 || deta.status==2">
-							<div class="icon_ff_1"><img class="icon_ff_1_x1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/05.svg"><span class="f_a">{{deta.sign_up_num}}</span>人已报名</div>
-						</div>
-					</div>
-			
-					<div v-if="deta.template_file_url" @click="dowloadmb(deta)" class="pend pr_down_mb">
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/project/icon_download.svg"/>下载附件 ({{deta.template_file_size}})
-					</div>
-				</div>
-				
-				<div v-for="(el,index) in deta.desc" :key="index" class="cens_02_2 oijdiv">
-					<div class="cens_02_2hd">{{el.module_title}}</div>
-					<div class="cens_02_2ce" v-html="el.module_content"></div>
-				</div>
-			</div>
-			<div class="cens_03 oijdiv">
-				<xmDp v-if="deta.status" :obj="deta" ref="xmDp"></xmDp>
-				<div class="centShar botx_01">
-					<span class="movfx_01">
-						<div @click="sharc" class="centShar_1"></div>						
-						分享项目
-					</span>
-					<span class="movfx_02">
-						<a  class="centShar_2" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes"></a>
-						项目顾问
-					</span>
-				</div>
-				<liucen></liucen>
-			</div>
-		</div>
-		
-		<tipd  :tipCent="csff" :style="sfas" ref="csdf"></tipd>
-		<component v-bind:is="tcZj"  :datad="tcData" :expected_profit="deta.expected_profit" :settlement="deta.settlement"></component>
-		
-		
-		<topGd v-if="topTyped==1 && deta.status==1" :obj="pzTop" ref="topGd"></topGd>
-	</div> -->
+<template>	
 	<div class="cengg">
 		<div class="cens_01">
 			<div class="cents_box">
 				<img class="cens_02_1_img" v-if="deta.detail_banner" :src="deta.detail_banner" alt="">
 				<img class="cens_02_1_img" v-else :src="deta.banner" alt="">
+				<div class="sto_01" v-if="deta.status>=3" style="right: 70px;">
+					<img :src="imgPath+'ac_v2/xl.png'"/>
+					<div class="sto_02">
+						<div v-if="deta.status==3" @click="showTc('Stop')">终止项目</div>
+						<div v-if="islog" @click="showTc('Log')">交稿记录</div>
+						<div v-if="deta.contract_file && deta.contract_file.length>0" class="worksBox_2_3">
+							下载合同 
+							<span class="js_0013"></span>
+							<div class="worksBox_2_4" style="width: max-content">
+								<div v-for="el in deta.contract_file" @click="dowun(el)">{{el.file_name}}</div>						
+							</div>
+						</div>
+						
+					</div>
+				</div>
 				<div class="cents_box_status">
 					<div class="cenDjs_5" v-if="deta.status == '1'">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
@@ -119,22 +69,23 @@
 						<p><img :src="imgSig+'prcent/xm_icon_num.svg'"/><i>报名人数</i></p>
 						<p>{{deta.sign_up_num}}</p>
 					</div>
-					<div class="yj_sy">
+					<div class="yj_sy2" v-if="deta.status==5">
+						<p v-if="deta.deal_type == '1'"><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>成交价格</i></p>
+						<p v-if="deta.deal_type == '2'"><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>累计分成收益</i></p>
+						<p v-if="deta.deal_type == '3'"><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>预付金</i></p>
+						<p v-if="deta.deal_type == '1'">￥{{deta.income}}</p>
+						<p v-if="deta.deal_type == '2'">￥{{deta.income}}</p>
+						<p v-if="deta.deal_type == '3'">￥{{deta.advance_payment}}</p>
+					</div>
+					<div class="jz_time" v-if="deta.status==5 && deta.deal_type == '3'">
+						<p><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>累计分成收益</i></p>
+						<p>￥{{deta.income}}</p>
+					</div>
+					<div class="yj_sy" v-if="deta.status!=5">
 						<p><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>预计收益</i></p>
 						<p v-if="deta.settlement == '0'">{{deta.expected_profit}}<i style="font-style: normal;color:#282828;font-size:24px;margin-left:5px;margin-right:5px;">或</i>永久分成</p>
 						<p v-if="deta.settlement == '1'">{{deta.expected_profit}}</p>
 						<p v-if="deta.settlement == '2'">永久分成</p>
-					</div>
-					<div v-if="deta.status>=3 && deta.status != 4 && deta.status != 5 " class="worksBox_2 tg_iocn_2 tg_iocn_2x">
-						<div class="worksBox_2_1x">
-							<div v-if="deta.status==3" @click="showTc('Stop')">终止项目</div>
-							<div v-if="islog" @click="showTc('Log')">交稿记录</div>
-							<div v-if="deta.contract_file && deta.contract_file.length>0" class="worksBox_2_3">下载合同 <span class="js_0013"></span>
-								<div class="worksBox_2_4">
-									<div v-for="(el,index) in deta.contract_file" :key="index" @click="dowun(el.file_url)">{{el.file_name}}</div>						
-								</div>
-							</div>
-						</div>
 					</div>
 					
 				</div>
@@ -233,7 +184,7 @@
 			<topGd v-if="topTyped==1 && deta.status==1" :obj="pzTop" ref="topGd"></topGd>
 			<tipd  :tipCent="csff" :style="sfas" ref="csdf"></tipd>
 		    <component v-bind:is="tcZj"  :datad="tcData" :expected_profit="deta.expected_profit" :settlement="deta.settlement"></component>
-			<prnavright></prnavright>
+			<prnavright v-bind:deta="deta"></prnavright>
 
 		</div>
 	</div>
@@ -302,6 +253,22 @@ export default {
 								
 			this.getData();			
 		},
+		dowun(u){
+			fetch(u.file_url).then(res => res.blob()).then(blob => {
+				const a = document.createElement('a');
+				document.body.appendChild(a)
+				a.style.display = 'none'
+				// 使用获取到的blob对象创建的url
+				const url = window.URL.createObjectURL(blob);
+				a.href = url;
+				// 指定下载的文件名
+				a.download = u.file_name;
+				a.click();
+				document.body.removeChild(a)
+				// 移除blob对象的url
+				window.URL.revokeObjectURL(url);
+			});
+		},
 		autoS(){
 			let t = document.documentElement.scrollTop||document.body.scrollTop;
 			if(t==0){
@@ -322,6 +289,7 @@ export default {
 			window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
 		backZq(a,b){
+			
 			let str = '';
 			if(a){
 				str+='<span class="f_a">'+a+'</span>天';
@@ -370,6 +338,7 @@ export default {
 			this.$refs.xmDp.setStuts(on);
 		},
 		timeF(time){
+		
 			this.djstimd = time;
 			if(this.$refs.topGd){
 				this.$refs.topGd.setTim(time);
@@ -379,20 +348,17 @@ export default {
 			}
 			
 		},
-		getData(){
-			
+		getData(){		
 			let pr = {
 				id : this.$route.query.id
 			};
 			this.api.pr_detail(pr).then((da)=>{
-				if(da=='error'){this.$router.push({path: '/404'});return}
+				if(da=='error' || da=='104'){this.$router.push({path: '/404'});return}
 				
 				if(da.special_url){
 					this.$router.push({path: '/Ac_v2',query:{id:da.id}});
 					return
 				}
-				
-				
 				document.removeEventListener('scroll',this.autoS);	
 				if(da.status==1 && da.is_sign_up==0){
 					document.addEventListener('scroll',this.autoS,false);	
@@ -404,6 +370,13 @@ export default {
 					id:da.id,
 				};
 				this.deta = da;
+				
+				setTimeout(()=>{
+					if(this.$refs.xmDp){
+						this.$refs.xmDp.init();
+					}
+				},200)
+			
 				document.title=this.deta.name+'-狮圈儿（Zoocreators）';
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
 					var d2 = new Date();
@@ -447,7 +420,8 @@ export default {
 		bNus(n){ 
 			return n<10?'0'+n:n;		
 		},
-		djsfn(da){			
+		djsfn(da){	
+			
 			if(da.d==0 && da.h==0 && da.m==0 && da.s==0){
 				this.djsshow.s = '00';
 				this.xmTypeOn++;
@@ -990,11 +964,27 @@ export default {
 	border-radius:10px;
 	margin-left: 20px;
 }
+.yj_sy2{
+	padding: 0 20px;
+	width:auto;
+	background:rgba(255,255,255,1);
+	box-shadow:0px 16px 32px 0px rgba(0,0,0,0.2);
+	border-radius:10px;
+	margin-left: 20px;	
+}
 .bm_dp > p:nth-child(2){
 	font-size:24px;
 	font-family:PingFangSC-Medium,PingFang SC;
 	font-weight:500;
 	color:rgba(40,40,40,1);
+}
+.yj_sy2> p:nth-child(2){
+	font-size:24px;
+	font-family:PingFangSC-Medium,PingFang SC;
+	font-weight:500;
+	color:rgba(255,146,0,1);
+	height: 35px;
+	overflow: hidden;
 }
 .yj_sy > p:nth-child(2){
 	font-size:24px;

@@ -8,6 +8,11 @@ export default {
 	thirdLogin:{
 		url:'/Passport/user/thirdLogin',method:'get',baseURL:0
 	},
+
+	dividedList:{
+		url: '/Api/Appshow/AdvancePayment',method:'post',baseURL:0
+
+	},
 	
 
 	logout:{
@@ -153,6 +158,12 @@ export default {
 	},
 	getSelfWorkList:{
 		url:'/Api/Work/selfWorkList',method:'post',baseURL:0,
+	},
+	getUnreadNum:{
+		url:'/Api/Work/draftNoticeNum',method:'post',baseURL:0,
+	},
+	draftUnread:{
+		url:'/Api/Work/draftNoticeRead',method:'post',baseURL:0
 	},
 	delWork:{
 		url:'/Api/Work/del',method:'post',baseURL:0,

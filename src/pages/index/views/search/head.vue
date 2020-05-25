@@ -76,7 +76,7 @@ export default {
 			this.$router.push({path:ud,query:{cont:this.secont}});
 		},
 		handleChange(value) {
-				console.log(this.setcti)
+			
 			this.$parent.sreond(this.setcti);
 		}
 	},	

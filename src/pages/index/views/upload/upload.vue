@@ -1,149 +1,200 @@
 <template>
-	<div>
-		<div class="topNavComBox">
-			<div class="topNavComBox1">
-				<div class="topNavComBox2">上传作品</div>
-				<a :class="['pend',chekin?'onchekd':'']" @click="setChekin(true)">编辑作品内容</a>
-				<a :class="['pend',!chekin?'onchekd':'']" @click="setChekin(false,'其他信息设置')">其他信息设置</a>
-			</div>
-		</div>
-		<div v-show="chekin" class="upBoxd">
-			<div class="upBoxd1">
-				<div class="upBoxd1_1">
-					<Input class="userBoxdC" v-model="form.work_name" :valued="csz"  :oType="'max'" :max="50"   :type="'text'" :placeholder="'请输入作品标题…'"></Input>
-				</div>
-				<div class="upBoxd1_2" ref="asdsss">
-					<vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content" ></vue-ueditor-wrap>
-				</div>
-			</div>
-			<div class="upBoxd2">
-				
-				<div @click="showUp(0,'上传图片')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_sctp.svg" alt="" />上传图片</div>
-				<div @click="showUp(1,'上传视频')"><img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_scsp.svg" alt="" />上传视频</div>
-				
-			</div>
+    <div>
+        <div class="uploadContainer">
+            <el-row>
+                <el-col :span="24">
+                    <el-card class="commonCard">
+                        <div slot="header">
+                            <span>作品信息</span>
+                        </div>
+                        <el-form>
+                            <el-form-item>
+                                <el-row>
+                                    <el-col :span="19">
+                                        <el-input v-model="form.work_name" placeholder="请输入作品标题" maxlength="50" show-word-limit @blur="checkValue('title')"></el-input>
+                                        <span class="btBlue"></span>
+                                    </el-col>
+                                    <el-col v-show="nameNull" :span="5" class="notice"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/warning-circle.svg" alt="" />请输入作品标题</el-col>
+                                </el-row>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-row>
+                                    <el-col :span="5">
+                                        <el-cascader 
+                                            :options="page2.classify"
+                                            v-model="selectedOptions"
+                                            placeholder="选择作品类型"
+                                            style="width: 100%"
+                                            @blur="checkValue('type')"
+                                        >
+                                        </el-cascader>
+                                        <span class="btBlue"></span>
+                                    </el-col>
+                                    <el-col :offset="2" :span="10">
+                                        <el-select v-model="form.copyright" style="width: 100%">
+                                            <el-option
+                                                v-for="item in bqList"
+                                                :key="item.label"
+                                                :label="item.label"
+                                                :value="item.label"
+                                            >
+                                            </el-option>
+                                        </el-select>
+                                    </el-col>
+                                    <el-col v-show="typeNull" :offset="2" :span="5" class="notice"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/warning-circle.svg" alt="" />请选择作品类型</el-col>
+                                </el-row>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-row>
+                                    <el-col :span="24" ref="asdsss">
+                                        <vue-ueditor-wrap :config="myConfig" @ready="ready" v-model="form.content" ></vue-ueditor-wrap>
+                                        <div class="uploadBtn">
+                                            <span>
+												<img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_sctp.svg" alt="" />上传图片
+												<input @change="(file) => showUp(0,'上传图片', file, 'upnfileimg')" class="uploadBoxd2_2_2_1" ref="upnfileimg" :accept="upList[0].typexz"  multiple="multiple" type="file" />
+											</span>
+                                            <span>
+												<img class="svgImg1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/sc_icon_scsp.svg" alt="" />上传视频
+												<input @change="(file) => showUp(1,'上传视频', file, 'upnfilevdo')" class="uploadBoxd2_2_2_2" ref="upnfilevdo" :accept="upList[1].typexz"  multiple="multiple" type="file" />
+											</span>
+                                        </div>
+                                    </el-col>
+                                </el-row>
+                            </el-form-item>
+                        </el-form>
+                    </el-card>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="8">
+                    <el-card class="commonCard" style="height: 380px">
+                        <div slot="header">
+                            <span>上传作品封面</span>
+                        </div>
+                        <div :class="['page2_1_2', !form.face_pic?'noUp':'']">
+                            <img v-if="form.face_pic" :src="form.face_pic" alt="">
+                            <div @click="showupFm" v-if="!form.face_pic" class="page2_1_2_1"><div>+</div>上传封面</div>
+							<div @click="showupFm" v-else class="page2_1_2_2">替换封面</div>
+                        </div>
+						<span class="btBlue" style="top: 130px;left: 310px;"></span>
+                    </el-card>
+                </el-col>
+                <el-col :span="8">
+                    <el-card class="commonCard" style="height: 380px">
+                        <div slot="header">
+                            <span>添加作品标签</span>
+                        </div>
+                        <div class="tagWrapper">
+							<div class="input-tag-container" v-if="inputVisible">
+								<input
+									class="input-new-tag" type="text"
+									placeholder="请输入文字，enter结束输入"
+									v-model="tags"
+									ref="saveTagInput"
+									@keyup.enter="keydown"
+									@blur="keydown">
+								<i class="el-icon-plus" style="color:#33B3FF"></i>
+							</div>
+                            <span v-else class="button-new-tag" @click="showInput">+ 标签</span>
+                            <div class="leftTagNum">还可添加{{5-form.labels.length}}个标签</div>
+                            <div class="tagContainer">
+								<span class="custom_tag" v-for="(el, index) in form.labels" :key="index">{{el}}<i @click="deletTage(index)">x</i></span>
+                            </div>
+                        </div>
+                    </el-card>
+                </el-col>
+                <el-col :span="8">
+                    <el-card class="commonCard" style="height: 210px">
+                        <div slot="header">
+                            <span>上传附件 <span class="description">1GB以内</span></span>
+                        </div>
+                        <div :class="['page2_1_4',isUpd?'isUpd':'']">
+                            <div class="page2Tbnd1">{{fjtext}}</div>
+                            <input v-if="!isUpd" @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
+							<div class="page2_1_6" v-if="upfjData.type">
+								
+								<span class="iconfont" :title="upfjData.file_name">&#xe621;<span style="padding-left: 10px">{{upfjData.file_name?upfjData.file_name.substring(0,10):''}}</span></span>
+								<span @click="qxclosd(fileUpfj)" class="iconfont pend" style="float: right;">&#xe619;</span>
+								
+							</div>
+							<div v-if="upfjData.type && isUpd" class="page2_1_5"><span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span></div>
+                        </div>
+						<div class="radio-group">
+							<label for="attachment1">
+								<span :class="[form.attachment_visible=='0'?'_chosed':'']">
+									<i class="el-icon-check"></i>
+								</span>
+								<input id="attachment1" type="radio" value="0" v-model="form.attachment_visible">仅自己可见
+							</label>
+							<label for="attachment2">
+								<span :class="[form.attachment_visible=='1'?'_chosed':'']">
+									<i class="el-icon-check"></i>
+								</span>
+								<input id="attachment2" type="radio" value="1" v-model="form.attachment_visible">所有人可见
+							</label>
+						</div>
+                    </el-card>
+                    <el-card class="commonCard" style="height: 148px">
+                        <div slot="header" style="position: relative">
+                            <span>设为投稿作品 <span class="description" style="margin-left:10px">若作品符合需求，平台会联系你沟通收录细节</span></span>
+							<span class="btBlue" style="left: 100px"></span>
+                        </div>
+						<div class="radio-group" v-if="checkisptggr()">
+							<label for="platform1">
+								<span :class="[form.is_platform_work=='1'?'_chosed':'']">
+									<i class="el-icon-check"></i>
+								</span>
+								<input id="platform1" type="radio" value="1" v-model="form.is_platform_work">是
+							</label>
+							<label for="platform2">
+								<span :class="[form.is_platform_work=='0'?'_chosed':'']">
+									<i class="el-icon-check"></i>
+								</span>
+								<input id="platform2" type="radio" value="0" v-model="form.is_platform_work">否
+							</label>
+						</div>
+						<div class="certification" v-else>你还不是供稿人，现在<span @click="goZP">立即认证</span>，享受你的作品收益</div>
+                    </el-card>
+                </el-col>
+            </el-row>
 
+            <div class="handleContainer">
+                <el-button v-if="form.status != 2" @click="userSave">保存</el-button>
+                <el-button v-if="form.status != 2" @click="seeCg">预览</el-button>
+                <el-button @click="savZp" type="primary" :disabled="!ck3">提交发布</el-button>
+            </div>
+        </div>
+		<div class="top_to_down">
+			<div class="el-icon-arrow-up toTop"  @click="scrollToTop"></div>
+			<div class="el-icon-arrow-down toDown" @click="scrollToBottom"></div>
 		</div>
-		<div v-show="!chekin" class="upBoxd">
-			<div class="page2_1">
-				<div class="page2_1_1">封面图<span class="btRed"></span></div>
-				<div class="page2_1_2">
-					<img v-if="form.face_pic" :src="form.face_pic" alt="">
-					<div @click="showupFm"><div>+</div>上传封面</div>					
-				</div>
-				<div class="page2_1_3">上传附件<span>ZIP，1G以内</span></div>
-				<div :class="['page2_1_4',isUpd?'isUpd':'']">
-					<div class="page2Tbnd1">{{fjtext}}</div>
-					<input v-if="!isUpd" @change="fileUpfj" class="page2_1_4file" ref="upnfile2" type="file">
-				</div>
-				<div v-if="upfjData.type" class="page2_1_5">{{upfjData.type}}<span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span>{{upfjData.bf+'%'}}</div>
-				<div class="page2_1_6" v-if="upfjData.type">
-					
-					<span class="iconfont" :title="upfjData.file_name">&#xe621;{{upfjData.file_name?upfjData.file_name.substring(0,10):''}}<span @click="qxclosd(fileUpfj)" class="iconfont pend">&#xe619;</span></span>
-					
-				</div>
-				<div class="page2_1_7">
-					<div>附件内容</div>
-					<div class="page2_1_7_r">
-						<label>
-							<div><div :class="form.attachment_visible==1?'chekdOn':''"></div>
-							<input class="page2_1_4file" type="radio" v-model="form.attachment_visible" value="1" name="isme" ></div>
-							所有人可见
-						</label>
-						<label>
-							<div><div :class="form.attachment_visible==0?'chekdOn':''"></div>
-							<input class="page2_1_4file" type="radio" v-model="form.attachment_visible" value="0" name="isme" ></div>
-							仅自己可见
-						</label>
-					</div>
-				</div>
-			</div>
-			<div class="page2_2">
-				<div class="page2_2_1">
-					<div class="page2_2_1_1">作品标签<span>标签可以将作品自动推荐给可能感兴趣的人</span></div>
-					<div class="page2_2_1_2">
-						<div>
-							<Input class="userBoxd2" v-model="tags" :keyup="keydown" :oType="'max'" :max="10" :type="'text'" :placeholder="'输入标签，回车添加标签'" ref="tageds"></Input>
-							<span @click="keydown" :class="['tagBtn',isTageok?'istageok':'']">添加标签</span>还可添加{{5-form.labels.length}}个标签
-						</div>
-						<div class="page2_2_1_2x">
-							<span v-for="(el,index) in form.labels" :key="index">{{el}}<span @click="deletTage(index)" class="iconfont pend">&#xe619;</span></span>
-						</div>
-					</div>
-				</div>
-				<div class="page2_2_2">
-					<div class="page2_2_2_1">
-						<div class="page2_2_2_1_1">作品类型<span class="btRed"></span></div>
-						<div class="page2_2_2_1_2">
-							<el-cascader 
-							:options="page2.classify"
-							v-model="selectedOptions"
-							>
-							</el-cascader>
-						</div>
-					</div>
-					<div class="page2_2_2_2">
-						<div class="page2_2_2_2_1">版权说明<span class="btRed"></span></div>
-						<div class="page2_2_2_2_2">
-							<el-select v-model="form.copyright" placeholder="请选择">
-								<el-option
-								v-for="item in bqList"
-								:key="item.label"
-								:label="item.label"
-								:value="item.label">
-								</el-option>
-							</el-select>
-							
-						</div>
-					</div>
-				</div>
-				<div v-if="checkisptggr()" class="page2_2_3">
-					<div class="page2_2_3_1">是否设为平台投稿作品<span class="btRed"></span><span>设置后，若该作品符合平台需求，则平台客服会联系创作者进行商业洽谈</span></div>
-					<div class="page2_1_7_r">
-						<label>
-							<div :class="form.is_platform_work==1?'chekdOn':''"><div></div>
-							<input class="page2_1_4file" v-model="form.is_platform_work" value="1" type="radio" name="isme" ></div>是
-						</label>
-						<label>
-							<div :class="form.is_platform_work==0?'chekdOn':''"><div></div>
-							<input class="page2_1_4file" v-model="form.is_platform_work" value="0" type="radio" name="isme" ></div>否
-						</label>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="UpBtn1">
-			<div class="UpBtn1_1" v-if="!chekin" @click="setChekin(true,'上一步')">上一步</div><div @click="userSave" class="UpBtn1_1">保存</div><div v-if="chekin" :class="['UpBtn1_2',ck2]" @click="setChekin(false,'下一步')">下一步</div>
-			<div class="UpBtn1_1" @click="seeCg" v-if="!chekin">预览</div><div @click="savZp" :class="['UpBtn1_2',ck3]" v-if="!chekin">提交发布</div>
-		</div>
-		
-				<!-- <upoloadcaver @close="close" ref="upoloadcaver" :InputValue="form.work_name" :type="selectedOptions"></upoloadcaver> -->
-		
-			
-		<TcBox :config="outc" ref="tcBox">
+        <TcBox :config="outc" ref="tcBox">
 			<template v-slot:todo="{ todo }">
 				<component v-bind:is="tcZj"  :datad="tcData"></component>
 			</template>
 		</TcBox>
-		
-		
-		<component v-bind:is="tanData.zj" :configData="upConfig" v-model="tanData"></component>
-	</div>
+        <UplodImg v-if="isshowd" :configData="upConfig"></UplodImg>
+    </div>
 </template>
 
 <script>
 import VueUeditorWrap from 'vue-ueditor-wrap'
 import UplodImg from './uploadImag'
-import Input from '../../components/input'
+// import Input from '../../components/input'
 import uploadFm from './uploadFm';
 import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 import TcBox from '../../components/TcBox'
+import UploadImagMixin from './uploadImag'
 export default {
-	name: 'index',
-	components:{VueUeditorWrap,UplodImg,Input,uploadFm,TcBox},
-	data(){
-		return{
+    name: 'index',
+	components: { VueUeditorWrap,  UplodImg, uploadFm, TcBox},
+	mixins: [UploadImagMixin],
+    data(){
+        return {
+            inputVisible: false,
+            nameNull: false,
+            typeNull: false,
 			tanData:{},
 			outc: {
 				title: '上传封面',
@@ -168,16 +219,20 @@ export default {
 				attachment_visible:1,
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
-				is_platform_work:0,
+				is_platform_work:0,	
 				content:'<p style="color:#999">从这里开始编辑作品内容...</p>'
 			},
 			uD:{},
 			upConfig:'',
 			myConfig: {
-				autoHeightEnabled: false,
+				autoHeightEnabled: true,
 				initialFrameHeight: 500,
 				initialFrameWidth: '100%',
-				UEDITOR_HOME_URL: '/UEditor/'
+				UEDITOR_HOME_URL: '/UEditor/',
+				elementPathEnabled: false,
+				wordCount: false,
+				autoFloatEnabled: false,
+				toolbars: [ ['undo', 'redo', '|', 'combox', 'link', 'justifyleft', 'justifycenter', 'justifyright'] ]
 			},			
 			isshowd:false,
 			upList:[
@@ -188,7 +243,7 @@ export default {
 					max:10*1024*1024,
 					type:['image/gif','image/jpeg','image/png'],
 					getType:'image',
-					typexz:'image/gif,image/jpeg,image/png'
+					typexz:'image/*,image/jpeg,image/png,image/gif'
 				},
 				{
 					title:'我的视频素材',
@@ -242,7 +297,9 @@ export default {
 	},
 	watch: {	
 		'form.work_name'() {				
-			this.checkPage1();			
+			this.checkPage1();
+            if (this.form.work_name) this.nameNull = false
+            else this.nameNull = true			
 		},
 		'form.content'() {
 			this.checkPage1();
@@ -253,8 +310,10 @@ export default {
 		},
 		'selectedOptions'() {
 			if(this.selectedOptions.length==0){
+                this.typeNull = true
 				return
-			}
+            }
+            this.typeNull = false
 			this.form.classify_1 = this.selectedOptions[0];
 			this.form.classify_2 = this.selectedOptions[1];
 			this.form.classify_3 = this.selectedOptions[2];
@@ -275,6 +334,7 @@ export default {
 			this.setAutoSave();
 		},
 		'form.is_platform_work'() {
+			this.checkPage2();
 			this.setAutoSave();
 		},
 		'tags'(){
@@ -292,9 +352,44 @@ export default {
 	},
 	mounted: function () {	
 		this.getUserDetail();
+		let right = (document.body.clientWidth - 1300) / 2 - 50
+		let dom = document.querySelector('.top_to_down')
+		if (dom) dom.style.right = right + 'px'
 	}, 
 	methods: {
+		scrollToTop() {
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth'
+			})
+		},
+		scrollToBottom() {
+			window.scrollTo({
+				top: document.body.scrollHeight,
+				behavior: 'smooth'
+			})
+		},
+		goZP() {
+			this.$router.push({ path: '/setRz' })
+		},
+        checkValue(type) {
+            if (type == 'title') {
+                if (this.form.work_name == '') this.nameNull = true
+                else this.nameNull = false
+            }
+            if (type == 'type') {
+                if (this.selectedOptions.length == 0) this.typeNull = true
+                else this.typeNull = false
+            }
+        },
+        showInput() {
+            this.inputVisible = true;
+            this.$nextTick(_ => {
+                this.$refs.saveTagInput.focus();
+            });
+        },
 		showTc() {
+            console.log(123)
 			this.$refs.tcBox.show();
 		},
 		closeTc() {
@@ -307,7 +402,7 @@ export default {
 			}	
 			let pr={};
 			this.api.getSelfInfo(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 			
 				let userData = window.userInfo.access_token;
 				window.userInfo = da;
@@ -338,22 +433,29 @@ export default {
 		},
 		keydown(){
 			if(!this.isTageok){
+                this.inputVisible = false;
 				return
 			}
 			if(!this.tags){
+                this.inputVisible = false;
 				return
 			}
 			if(this.form.labels.indexOf(this.tags)!=-1){
-				Message({message: '该标签已添加'});
+                Message({message: '该标签已添加'});
+				this.inputVisible = false;
+				this.tags = ''
 				return
 			}
 			if(this.form.labels.length===5){
-				Message({message: '最多填写5个标签'});
+                Message({message: '最多填写5个标签'});
+				this.inputVisible = false;
+				this.tags = ''
 				return
 			}
-			this.form.labels.push(this.tags);
+            this.form.labels.push(this.tags);
+            this.inputVisible = false;
 			this.tags = '';
-			this.$refs.tageds.clearValue();
+			// this.$refs.tageds.clearValue();
 		},
 		
 		deletTage(on){
@@ -417,7 +519,7 @@ export default {
 				this.$set(this.form,'face_pic',img)
 
 			}	
-			console.log(this.form.face_pic);
+			
 			this.zk_wrokids[0] = fmid;	
 		},
 		showTd(on){
@@ -428,6 +530,7 @@ export default {
 			this[on] = false;
 		},
 		setAutoSave(){
+			if (this.form.status == 2) return
 			clearTimeout(this.autoSave.obj);
 			this.autoSave.obj = setTimeout(()=>{				
 				this.checkAutoSave();
@@ -487,50 +590,51 @@ export default {
 		saved(){
 			this.saveData(0,'保存成功');			
 		},
-		setChekin(type,b){
-			let p = '上传作品-编辑作品类容';
-			if(this.chekin==false){
-				p = '上传作品-其他信息设置';
-			}
-			if(b){
-				this.bdtj(p,b,'--');
-			}
+		// setChekin(type,b){
+		// 	let p = '上传作品-编辑作品类容';
+		// 	if(this.chekin==false){
+		// 		p = '上传作品-其他信息设置';
+		// 	}
+		// 	if(b){
+		// 		this.bdtj(p,b,'--');
+		// 	}
 			
-			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){
+		// 	if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){
 			
-				if(b){
-					this.bdtj(p,b+'失败','--');
-				}
-				Message({message: '请先填写标题'});
-				return
-			}
-			if(!this.form.content || this.ifBjType==0){
-				if(b){
-					this.bdtj(p,b+'失败','--');
-				}
-				Message({message: '请先填写内容'});
-				return
-			}
+		// 		if(b){
+		// 			this.bdtj(p,b+'失败','--');
+		// 		}
+		// 		Message({message: '请先填写标题'});
+		// 		return
+		// 	}
+		// 	if(!this.form.content || this.ifBjType==0){
+		// 		if(b){
+		// 			this.bdtj(p,b+'失败','--');
+		// 		}
+		// 		Message({message: '请先填写内容'});
+		// 		return
+		// 	}
 			
-			if(b && b!='其他信息设置'){
-				this.bdtj(p,b+'成功','--');
-			}
-			this.chekin = type;
-			document.documentElement.scrollTop =1;
-			document.body.scrollTop =1;
-			let regex = /<img.*?src="(.*?)"/;
+		// 	if(b && b!='其他信息设置'){
+		// 		this.bdtj(p,b+'成功','--');
+		// 	}
+		// 	this.chekin = type;
+		// 	document.documentElement.scrollTop =1;
+		// 	document.body.scrollTop =1;
+		// 	let regex = /<img.*?src="(.*?)"/;
 			
-			let src = regex.exec(this.form.content);
-			if(!src){
-				return
-			}
-			src = src[1];			
+		// 	let src = regex.exec(this.form.content);
+		// 	if(!src){
+		// 		return
+		// 	}
+		// 	src = src[1];			
 			
 			
-		},
+		// },
 		ready (editorInstance) {
 			this.loading.close();
 			this.uD = editorInstance;
+			
 			editorInstance.addListener('focus',()=>{				
 					if(this.ifBjType==0){
 						this.form.content = '';
@@ -543,12 +647,12 @@ export default {
 					this.ifBjType=0;
 				}	
 			});
-
+			
 		},
 		closed(cr){
 			
 			this.tanData = {};
-			// this.isshowd=false;
+			this.isshowd=false;
 			if(cr){
 				return
 			}
@@ -557,15 +661,25 @@ export default {
 				this.ifBjType=0;
 			}
 		},
-		showUp(on,a){
-			this.bdtj('上传作品-编辑作品类容',a,'--');
-			this.upConfig = this.upList[on];
+		showUp(on,a,file,ref){
+			// this.bdtj('上传作品-编辑作品类容',a,'--');
+			
+			this.configData = this.upList[on];
+			// this.initUploadConfig()
+			// console.log(this.typexz)
+			if(this.ifBjType == 0){
+				this.ifBjType = 1;
+				this.form.content = '';
+			}
+			this.fileUp(file, ref)
+
+			return
 			
 			this.tanData = {
 				zj:'UplodImg'
 			};
 			
-			// this.isshowd = true;
+			this.isshowd = true;
 			if(this.ifBjType == 0){
 				this.ifBjType = 1;
 				this.form.content = '';
@@ -573,19 +687,26 @@ export default {
 			
 		},
 		inImg(list,ids){
-		
-			let str = '';
-			if(this.upConfig.type[0]=='image/gif'){
+			let range = this.uD.selection.getRange().cloneContents();
+			let htmls = range && range.children, str = '';
+			if (htmls && htmls.length) {
+				for (let i in htmls) {
+					if (Object.prototype.toString.call(htmls[i]).indexOf('HTML') > -1)
+					str += htmls[i].outerHTML
+				}
+			}
+			if(this.configData.type[0]=='image/gif'){
 				list.map((el,index)=>{
 					str+='<p style="max-width:100%;height:auto;"><img zk_workid="'+ids[index]+'" style="max-width:100%;height:auto" src="'+el+'"/></p>';
 				});								
 				this.uD.execCommand('insertHtml', str);	
 				this.uD.execCommand( 'insertparagraph' )
+				// this.uD.focus()
 				return
 				
 			}
 			
-			if(this.upConfig.type[0]=='video/mp4'){
+			if(this.configData.type[0]=='video/mp4'){
 				list.map((el,index)=>{
 					str+='<p style="display:none">1</p><p style="box-shadow: 0 5px 10px 0 rgba(0,0,0,0.10);border-radius: 12.55px;overflow: hidden;margin: 40px auto;width: 600px;height: 338px;"><video zk_workid="'+ids[index]+'" style="width: 100%;height:100%" controls="controls" src="'+el+'"></video></p>';					
 				});
@@ -595,7 +716,7 @@ export default {
 				
 				return
 			}
-			if(this.upConfig.type[0]=='audio/ogg'){
+			if(this.configData.type[0]=='audio/ogg'){
 				list.map((el,index)=>{					
 					str+='<p style="display:none">1</p><p style="background: #FFFFFF;box-shadow: 0 2px 6px 0 rgba(0,0,0,0.10);border-radius: 5px;margin: 40px auto;width: 600px;height:90px;" ><audio zk_workid="'+ids[index]+'" style="width: 86%;margin: 18px;" id="xx" src="'+el+'" controls="controls"></audio></p>';
 				});
@@ -626,7 +747,7 @@ export default {
 					this.form = da;		
 					this.csz = da.work_name;				
 					try{this.form.labels = JSON.parse(this.form.labels);}catch(e){console.log(1)}
-					this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
+					this.selectedOptions = [+this.form.classify_1,+this.form.classify_2,+this.form.classify_3];
 					if(this.form.attachment){
 						this.upfjData.fid=this.form.attachment_id;
 						this.upfjData.type='上传成功';
@@ -636,6 +757,7 @@ export default {
 						this.upfjData.file_name = this.form.attachment.file_name;
 					}
 					this.ifBjType=1;
+					this.checkPage2()
 				}
 			})
 		},
@@ -659,6 +781,7 @@ export default {
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
 			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}
+			if(!this.form.is_platform_work && this.form.is_platform_work != 0){Message({message: '请勾选是否为投稿作品'});return}
 			clearTimeout(this.autoSave.obj);
 			let str = this.form.content;
 			var matchReg = /zk_workid=".*?(?=")/gi;
@@ -680,9 +803,9 @@ export default {
 		},
 		userSave(){
 			let p = '上传作品-编辑作品类容';
-			if(this.chekin==false){
-				p = '上传作品-其他信息设置';
-			}
+			// if(this.chekin==false){
+			// 	p = '上传作品-其他信息设置';
+			// }
 			this.bdtj(p,'保存','--');
 			if(this.saveTyped==1){
 				Message({message: '正在记录请稍后再试'});
@@ -715,7 +838,7 @@ export default {
 			this.saveTyped=1
 			pr.labels = JSON.stringify(pr.labels);
 			this.api.saveWorks(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					if(fn2){
 						fn2();
 					}
@@ -758,6 +881,9 @@ export default {
 			if(!this.form.classify_1){
 				return false
 			}
+			if(!this.form.is_platform_work && this.form.is_platform_work != 0){
+				return false
+			}
 			this.ck3 = "onck2";
 			return true
 		},
@@ -772,7 +898,8 @@ export default {
 			}		
 			let fld = flie.target.files[0];			
             if(['application/x-zip-compressed','application/zip'].indexOf(fld.type)==-1){
-                Message({message: '格式不正确'});
+				Message({message: '格式不正确，请上传压缩包格式文件'});
+				this.$refs.upnfile2.value = ''
 				return
 			}
 			if(fld.size>1024*1024*1024){
@@ -876,7 +1003,7 @@ export default {
 				return
 			}
 			this.api.getClassify({}).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				let p = JSON.stringify(da);
@@ -891,236 +1018,203 @@ export default {
 }
 </script>
 <style>
-.topNavComBox{
-	min-width: 1300px;
-	height: 80px;
-	background: #FFFFFF;
-	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);	
-	margin-bottom: 20px;
+.edui-default iframe .view{
+	background: #EAF7FF;
 }
-.topNavComBox1{
-	width: 1300px;
-	margin: 0 auto;
-	text-align: left;
-	
-}
-.topNavComBox2{
+.custom_tag{
 	display: inline-block;
-	font-size: 24px;
-	color: #1E1E1E;
-	line-height: 80px;
-	margin-right: 124px;
-}
-.topNavComBox1>a{
-	display: inline-block;
+	padding: 5px 16px;
+	border-radius: 5px;
+	border: 1px solid #BBBBBB;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	padding-right: 40px;
 	position: relative;
-	font-size: 16px;
-	line-height: 74px;
-	
-	color: #999999;
-	margin-right: 59px;
+	color: #666666;
 }
-.topNavComBox1>a:after{
-	content: "";
+.custom_tag i{
+	width: 14px;
+	height: 14px;
+	line-height: 12px;
+	display: block;
+	font-style: normal;
 	position: absolute;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 58px;
-	height: 2px;
+	right: 5px;top: 50%;
+	margin-top: -7px;
+	font-size: 14px;
+	color: #E9E9E9;
+	cursor: pointer;
+	border-radius: 50%;
 }
-.topNavComBox1>a.onchekd{
-	color: #1E1E1E;
-}
-.topNavComBox1 .nubMax{
-	font-weight: 200;
-}
-.onchekd:after{
+.custom_tag:hover {
 	background: #33B3FF;
+	color: #fff;
+	border: 1px solid transparent;
 }
-.upBoxd>div{
-	display: inline-block;
-}
-.upBoxd1{
-	
-}
-.upBoxd2,.upBoxd1_1{
-	background: #FFFFFF;
-	
-	border-radius: 5px;
-}
-.upBoxd1_2>.edui-default{
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	border: none;
-}
-.edui-default .edui-editor{
-	border: none !important;
-}
-.edui-default .edui-editor-bottomContainer{
-	display: none;
-}
-.upBoxd1_1{
-	width: 1080px;
-	height: 80px;
-	margin-bottom: 17px;
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	box-sizing: border-box;
-    padding: 24px 30px;
-	font-size: 24px;
-
-}
-.upBoxd1_1 .myInput{
-	border: none;
-}
-.upBoxd1_1 input{
-	font-size: 24px;
-}
-.upBoxd2{
-	margin-left: 20px;
-	width: 200px;
-	padding-bottom: 30px;
-	vertical-align: top;
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-}
-.upBoxd2{
-	font-size: 24px;
-	color: #1E1E1E;
-}
-.upBoxd2>div{
-	display: inline-block;
-	text-align: center;
-	margin-top: 30px;
-	line-height: 30px;
-	cursor: pointer;
-}
-.upBoxd2>div:hover{
-	opacity: .7;
-}
-.upBoxd2>div>span{
-	font-size: 24px;
-	color: #1E1E1E;
-	margin-right: 20px;
-}
-.upBoxd1_2{
-	width: 1080px;
-	min-height: 440px;
-	max-height: 600px;
-	padding: 1px;
-	overflow: hidden;
-	margin-bottom: 60px;
-	-webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-    border-radius: 5px;
-}
-.edui-default .edui-editor-toolbarboxouter{
-	border: none !important;
-	background: none !important;
-	text-align: left;
-	padding-left: 21.2px;
-}
-.edui-editor-toolbarboxinner>div{
-	margin: 20px 0;
-}
-.upBoxd{
-	min-width: 1305px;
-	height: 756px;
-}
-.UpBtn1{display: block !important;margin-bottom: 60px;}
-.UpBtn1>div{
-	display: inline-block;
-	border: 1px solid #999999;
-	border-radius: 5px;
-	width: 138px;
-	height: 38px;
-	text-align: center;
-	line-height: 38px;
-	font-size: 16px;
-	color: #999;
-	cursor: pointer;
-	margin-right: 20px;
-}
-.UpBtn1>div:hover{
-	opacity: .7;
-}
-.UpBtn1>.UpBtn1_2{
-	
-	border-color:#666;
-	background: #666;
+.custom_tag:hover i{
 	color: #fff;
 }
-.UpBtn1>div:last-child{
-	margin-right: 0;
+.radio-group label{
+	margin-right: 24px;
 }
-.UpBtn1_2.onck2 {
-    background: #33B3FF;
-    border-color: #33B3FF;
+.radio-group input[type='radio']{
+	display: none;
 }
-.page2_1{
-	box-sizing: border-box;
-	vertical-align: top;
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	margin-right: 20px;
-	width: 310px;
-
-	padding: 30px;
-}
-.page2_2{
-	width: 960px;
-}
-.page2_2>div{
-	background: #FFFFFF;
-	box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	margin-bottom: 20px;
-	width: 100%;
-}
-.page2_2_1{
-	height: 177px;
-}
-.page2_2_2{
-	height: 137px;
-}
-.page2_2_3{
-	height: 110px;
-}
-.page2_1_1{
-	font-size: 14px;
-	color: #333333;
-	text-align: left;
-	margin-bottom: 17px;
-}
-.btRed{
+.radio-group span{
 	display: inline-block;
-	vertical-align: middle;
-	width: 4px;
-	height: 4px;
-	background: red;
+	width: 14px;height: 14px;
+	line-height: 14px;
+	border: 1px solid #999;
+	vertical-align: text-bottom;
+	margin-right: 8px;
+	border-radius: 3px;
+	text-align: center;
+}
+.radio-group span i{
+	color: #fff;
+	position: relative;
+	font-size: 12px;
+}
+.radio-group span._chosed{
+	border: 1px solid #33B3FF;
+	background: #33B3FF;
+}
+.top_to_down{
+	width: 48px;
+	position: fixed;
+	right: 50px;bottom: 180px;
+	z-index: 99;
+}
+.top_to_down>div{
+	width: 48px;
+	height: 48px;
 	border-radius: 50%;
-	margin-left: 10px;
+	margin-top: 40px;
+	background: #AAABAD;
+	/* background: #666; */
+	color: #fff;
+	font-size: 24px;
+	line-height: 48px;
+	cursor: pointer;
+}
+.top_to_down>div:hover{
+	opacity: .7;
+}
+.el-input--suffix .el-input__inner{
+	padding-left: 10px;
+}
+.page2_1_6,.page2_1_5{
+	position: absolute;
+	right: 0;top: 0;
+	width: 250px;
+}
+.page2_1_5{
+	top: 18px;
+}
+.page2_1_6 .iconfont{
+	font-size: 14px;
+	color: #666;
+}
+.uploadContainer{
+    text-align: left;
+    width: 1300px;
+    margin: 0 auto;
+}
+.uploadContainer .el-card__body{
+	padding: 35.5px 20px;
+}
+.uploadContainer .commonCard{
+    margin-top: 20px;
+}
+.uploadContainer .el-col{
+    position: relative;
+    padding: 0 15px;
+}
+.notice{
+    color: #f56c6c;
+    text-align: right;
+}
+.notice img{
+	vertical-align: middle;
+	margin-right: 8px;
+}
+.btBlue{
+    display: inline-block;
+    vertical-align: middle;
+    width: 4px;height: 4px;
+    background: #1989fa;
+    border-radius: 50%;
+    position: absolute;
+    right: -5px;top: 50%;
+    margin-top: -2px;
+}
+.uploadBtn{
+    position: absolute;
+    right: 30px;top: 5px;
+    z-index: 9997;
+}
+.uploadBtn span:hover{
+    opacity: .7;
+}
+.uploadBtn span{
+    margin-left: 20px;
+    cursor: pointer;
+}
+.uploadBtn img{
+    vertical-align: middle;
+    margin-right: 8px;
+}
+.uploadBtn input {
+	position: absolute;
+    width: 86px;
+    height: 16px;
+    opacity: 0;
+    top: 50%;
+    margin-top: -8px;
+	z-index: 9998;
+}
+.uploadBoxd2_2_2_1{
+	left: 20px;
+}
+.uploadBoxd2_2_2_2{
+	right: 0px;
+}
+.page2_1_2_2{
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 14px;
+	color: #666;
+	text-align: center;
+	background: #fff;
+	position: absolute;
+	top: 50%;left: 50%;
+	margin-top: -20px;
+	margin-left: -50px;
+	border-radius:5px;
+	border:1px solid rgba(187,187,187,1);
+	visibility: hidden;
 }
 .page2_1_2{
 	position: relative;
-	background: #E6E6E6;
+	background: #F4F6F9;
 	border-radius: 5px;
-	margin:  0 auto 57px;
+	margin-bottom: 57px;
 	overflow: hidden;
 	width: 260px;
 	height: 195px;
 	cursor: pointer;
+    text-align: center;
 }
-.page2_1_2:hover{
+.page2_1_2.noUp:hover{
 	opacity: .7;
 }
-.page2_1_2:hover>img{
-	opacity: 0.2;
+.page2_1_2:hover .page2_1_2_2{
+	visibility: visible;
 }
+/* .page2_1_2:hover>img{
+	opacity: 0.2;
+} */
 .page2_1_2>img{
 	position: absolute;
 	top: 0;
@@ -1131,15 +1225,15 @@ export default {
 	pointer-events: none;
 	background:#E6E6E6 ;
 }
-.page2_1_2>div{	
-	background: #E6E6E6;
+.page2_1_2 .page2_1_2_1{	
+	background: #F4F6F9;
 	border-radius: 5px;
 	width: 100%;
 	height: 100%;
 	font-size: 14px;
 	color: #333333;
 }
-.page2_1_2>div>div{
+.page2_1_2 .page2_1_2_1>div{
 	width: 22.9px;
 	height: 22.9px;
 	border-radius: 50%;
@@ -1159,33 +1253,10 @@ export default {
 	height: 100%;
 	
 }
-.page2_1_3{
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-	margin-bottom: 12px;
-}
-.page2_1_3>span{
-	color: #999999;
-	margin-left: 30px;
-}
-.page2Tbnd1{
-	display: inline-block;
-	box-sizing: border-box;
-	border: 1px solid #979797;
-	border-radius: 15px;
-	width: 90px;
-	height: 30px;
-	text-align: center;
-	line-height: 30px;
-	font-size: 14px;
-	color: #333333;
-	cursor: pointer;
-}
 .page2_1_4{
 	text-align: left;
 	position: relative;
-	margin-bottom: 27px;
+	margin-bottom: 30px;
 }
 .page2_1_4file{
 	cursor: pointer;
@@ -1208,7 +1279,7 @@ export default {
     background: #D8D8D8;
     border-radius: 4px;
     margin: 0 8px 0 20px;
-    width: 127px;
+    width: 90%;
     height: 4px;
 	vertical-align: middle;
 	overflow: hidden;
@@ -1224,41 +1295,6 @@ export default {
 	background: #33B3FF;
 	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
-}
-.page2_1_6{
-	text-align: left;
-	position: relative;
-	margin-bottom: 27px;
-}
-.page2_1_6>div{
-	position: relative;
-	display: inline-block;
-	margin-right: 32px;
-}
-.page2_1_6>div:hover{
-	opacity: .7;
-}
-.page2_1_6>span{
-	font-size: 14px;
-	color: #333333;
-}
-.page2_1_6>span>span{
-	vertical-align: middle;
-	margin-left: 9px;
-	color: #999;
-}
-.page2_1_7>div{
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-}
-.page2_1_7>div:first-child{
-	margin-bottom: 9px;
-}
-.page2_1_7_r>label>div{
-	display: inline-block;
-	position: relative;
-	margin-right: 10px;
 }
 
 
@@ -1277,247 +1313,139 @@ export default {
     border-color: #999;
 	cursor: context-menu;
 }
-.page2_1_7_r>label>div>div.chekdOn{
-	border-color: #33B3FF;
-	background: #33B3FF;
-}
-.page2_1_7_r>label{
-	cursor: pointer;
-}
-.page2_1_7_r>label:hover{
-	opacity: .7;
-}
-.page2_1_7_r>label:first-child{
-	margin-right: 34px;
-}
-.page2_2>div{
-	box-sizing: border-box;
-	padding: 30px;
-}
-.page2_2_1_1{
-	text-align: left;
-	font-size: 12px;
-	color: #333333;
-	margin-bottom: 17px;
-}
-.page2_2_1_1>span{
-	margin-left: 29px;
-	color: #999;
-}
-.page2_2_1_2{
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-}
-.page2_2_1_2 .inptud{
+.page2Tbnd1{
 	display: inline-block;
-	width: 311px;
-	margin-right: 10px;
-	vertical-align: middle;
-	margin-bottom: 0;
-	
-}
-.inptud{
-	height: 47px!important;
-}
-.page2_2_1_2 .myInput{
 	box-sizing: border-box;
-    border: 1px solid #dcdfe6;
-    border-radius: 5px;
-    
-    height: 40px;
-    padding: 1px 10px;
-}
-.page2_2_1_2 .inptud{
-	height: 40px !important;
-}
-.page2_2_1_2 .myInput input{
-	height: 38px;
-	line-height: 38px;
-}
-.page2_2_1_2x>span{
-	box-sizing: border-box;
-	display: inline-block;
-	background: #e6e6e6;
-	border-radius: 5px;
-	padding: 0 10px;
-	height: 27px;
-    line-height: 27px;
-	font-size: 14px;
-	color: #666;
-	margin-right: 20px;
-}
-.page2_2_1_2x>span>span{
-	font-size: 12px;
-	text-align: center;
-	margin-left: 12px;
-}
-.page2_2_1_2>div{
-	margin-bottom: 12px;
-}
-.page2_2_2{
-	text-align: left;
-}
-.page2_2_2>div{
-	display: inline-block;
-	font-size: 14px;
-	color: #333333;
-	vertical-align: middle;
-}
-.xzInput{
-	position: relative;
 	border: 1px solid #979797;
-	border-radius: 5px;
-	box-sizing: border-box;
-	width: 100%;
-	height: 40px;
-	padding: 10px;
-	cursor: pointer;
-}
-
-.xzInput:after{
-    content: "";
-    position: absolute;
-    top: 15px;
-    right: 16px;
-    width: 0;
-    height: 0;
-    border-width: 7px;
-    border-style: solid;
-    border-color: #999 transparent transparent transparent;
-    border-radius: 4px;
-}
-.xzInput>div{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	background: #FFFFFF;
-	box-shadow: 0 3px 6px 0 rgba(0,0,0,0.10);
-	border-radius: 5px;
-	-webkit-transform: translateY(117%);
-	transform: translateY(101%);
-	overflow: hidden;
-	width: 100%;
-}
-.xzInput2>div{
-	
-	width: 50%;
-}
-.xzInput2>div:nth-child(2){
-	transform: translate(100%,101%);
-}
-.xzInput2>div:nth-child(3){
-	transform: translate(200%,101%);
-}
-.xzInput3>div>div{
-	width: 100%;
+    border-radius: 15px;
+	width: 90px;
 	height: 30px;
-	font-size: 14px;
+    text-align: center;
 	line-height: 30px;
-	text-align: left;
 	font-size: 14px;
 	color: #333333;
-	text-indent: 20px;
-}
-.xzInput2>div>div{
-	width: 100%;
-	height: 30px;
-	font-size: 14px;
-	line-height: 30px;
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-	text-indent: 20px;
-}
-/* .xzInput>div>div{
-	text-indent: 20px;
-	overflow: hidden;
-} */
-.sertcheck{
-	color: #666666;
-	background: #999999;
-	opacity: .3;
+    cursor: pointer;
 }
 
-.page2_2_2_1{
-	width: 150px;
-	margin-right: 221px;
+.isUpd>.page2Tbnd1{
+	color: #999;
+    border-color: #999;
+	cursor: context-menu;
 }
-.page2_2_2_1_1,.page2_2_2_2_1{
-	margin-bottom: 17px;
+.tagWrapper{
+    min-height: 252px;
 }
-.page2_2_2_2{
-	width: 357px;
-}
-.page2_2_3_1{
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-	margin-bottom: 13px;
-}
-.page2_2_3_1>span:last-child{
-	font-size: 12px;
-	color: #999999;
-	margin-left: 30px;
-	
-}
-
-.page2_2_3 .page2_1_7_r{
-	text-align: left;
-	font-size: 14px;
-	color: #333333;
-}
-.page2_1_7_r .chekdOn>div{
-	background: #33B3FF;
-	border-color: #33B3FF;
-}
-.el-select{width: 100%}
-.upBoxd1_2 iframe{
-	padding: 20px 22px;
-	box-sizing: border-box;
-}
-.el-cascader .el-input.is-focus .el-input__inner{
-	border-color: #33B3FF !important;
-}
-.el-input.is-active .el-input__inner, .el-input__inner:focus{
-	border-color: #33B3FF !important;
-}
-.edui-default .edui-editor-toolbarbox{
-	position: relative !important; 
-	background: #fff;
-	z-index: 9999;
-}
-.page2_2_2_2_2 .el-input.is-active .el-input__inner, .el-input__inner:focus{
-	border-color: #C0C4CC !important;
-}
-.svgImg1{
+.button-new-tag {
 	display: inline-block;
-	width: 28px;
-	vertical-align: text-bottom;
-    margin-right: 12px;
-}
-.tagBtn{
-	cursor: pointer;
-	display: inline-block;
-	vertical-align: middle;
+	width: 78px;
+    height: 32px;
+    line-height: 32px;
+    padding-top: 0;
+    padding-bottom: 0;
+	border: 1px solid #33B3FF;
+	color: #33B3FF;
 	text-align: center;
-	width:100px;
-	height:40px;
-	background:rgba(153,153,153,1);
-	border-radius:5px;
-	font-size:14px;
-	font-weight:400;
-	color:rgba(255,255,255,1);
-	line-height:40px;
-	margin-right: 10px;
+	cursor: pointer;
+	box-sizing: border-box;
+	border-radius: 5px;
 }
-.istageok{
-	background: #33B3FF;
+.input-tag-container{
+	position: relative;
+	width: 220px;
 }
-#edui1>div:first-child{
-	height: 0 !important;
+.input-tag-container i{
+	position: absolute;
+	top: 8px;left: 8px;
 }
-#edui1>div#edui1_toolbarbox{
-	height: 116px !important;
+.input-new-tag {
+    vertical-align: bottom;
+	background-color: #fff;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #33B3FF;
+    box-sizing: border-box;
+    color: #606266;
+    display: inline-block;
+    font-size: inherit;
+    height: 32px;
+    line-height: 32px;
+    outline: none;
+    padding: 0 15px;
+	padding-left: 30px;
+	font-size: 14px;
+	
+}
+.tagContainer{
+    margin: 20px 0;
+}
+.tagContainer .el-tag{
+    margin-right: 15px;
+	margin-top: 10px;
+}
+.leftTagNum{
+    font-size: 12px;
+    color: #999;
+    margin: 20px 0;
+}
+.description{
+    font-size: 12px;
+    color: #999;
+}
+.certification{
+	color: #999;
+	font-size: 14px;
+	line-height: 20px;
+}
+.certification span{
+	color: #33B3FF;
+	cursor: pointer;
+}
+.handleContainer{
+    margin: 30px 0;
+    text-align: center;
+}
+.handleContainer .el-button{
+    min-width: 120px;
+}
+
+/* 编辑器样式 */
+.edui-default .edui-editor-toolbarboxouter{
+	background: #fff!important;
+}
+div.edui-box{
+	vertical-align: middle!important;
+}
+.edui-default .edui-list .edui-state-hover{
+	border: none!important;
+	background: none!important;
+	color: #33B3FF!important;
+	padding: 1px!important;
+}
+.edui-default .edui-toolbar .edui-combox .edui-combox-body{
+	border: none!important;
+}
+.edui-default .edui-toolbar .edui-state-hover .edui-combox-body{
+	background-color: #fff!important;
+}
+.edui-default .edui-toolbar .edui-button, .edui-default .edui-toolbar .edui-splitbutton, .edui-default .edui-toolbar .edui-menubutton, .edui-default .edui-toolbar .edui-combox{
+	margin: 0 8px!important;
+}
+.edui-default .edui-toolbar .edui-combox-body .edui-splitborder{
+	display: none!important;
+}
+.edui-default .edui-toolbar .edui-combox-body .edui-arrow{
+	border: none!important;
+}
+.edui-default .edui-toolbar .edui-combox-body .edui-button-body{
+	width: 40px!important;
+	line-height: 20px!important;
+}
+.edui-default .edui-toolbar .edui-button .edui-state-checked .edui-button-wrap{
+	background-color: rgba(55, 104, 133, 0.1)!important;
+	border: none!important;
+	padding: 8px!important;
+}
+div.edui-box{
+	line-height: 1!important;
 }
 </style>

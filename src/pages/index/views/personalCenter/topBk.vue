@@ -160,7 +160,7 @@ export default {
 							access_token:window.userInfo.access_token
 						};
 						this.api.changeUserCenterBanner(pr).then((da2)=>{
-							console.log(da2);
+						
 							this.opType=0;
 							if(da2=='error'){return}
 							this.miss('保存成功');						

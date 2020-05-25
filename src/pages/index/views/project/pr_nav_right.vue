@@ -2,19 +2,25 @@
     <div class="nav_rig">
         <ul>
             <li class="nav_logo" @mouseenter="mouseover('e')" @mouseleave="mouseLeave('e')"><img :src="imgSig+'newHome/ip_pr.svg'" alt=""/></li>
-            <li class="nav_upload" v-if="uploadShow" @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'prcent/icon_qq.svg'" alt=""/><p>项目顾问</p></li>
-            <li class="nav_upload" v-else @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'prcent/bar_icon_qq.svg'" alt=""/><p>项目顾问</p></li>
-            <li class="nav_tolt" v-if="totalShow"  @click="go_tolt()" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'prcent/px_share.svg'" alt=""/><p>分享项目</p></li>
-            <li class="nav_tolt" v-else @click="go_tolt()" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'prcent/bar_px_share.svg'" alt=""/><p>分享项目</p></li>
-            <li class="nav_weixin" v-if="xmxq" @click="go_weibo()" @mouseenter="mouseover('f')" @mouseleave="mouseLeave('f')"><img :src="imgSig+'prcent/xmxq_icon_zn.svg'" alt=""/><p>项目指南</p></li>
-            <li class="nav_weixin" v-else @click="go_weibo()" @mouseenter="mouseover('f')" @mouseleave="mouseLeave('f')"><img :src="imgSig+'prcent/bar_xmxq_icon_zn.svg'" alt=""/><p>项目指南</p></li>
+            <li class="nav_upload" v-if="uploadShow" @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'prcent/icon_qq.svg'" alt=""/><p>顾问</p></li>
+            <li class="nav_upload" v-else @click="upload()" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')"><img class="nav_upload_img" :src="imgSig+'prcent/bar_icon_qq.svg'" alt=""/><p>顾问</p></li>
+            <li class="nav_tolt" v-if="totalShow"  @click="go_tolt()" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'prcent/px_share.svg'" alt=""/><p>分享</p></li>
+            <li class="nav_tolt" v-else @click="go_tolt()" @mouseenter="mouseover('d')" @mouseleave="mouseLeave('d')"><img :src="imgSig+'prcent/bar_px_share.svg'" alt=""/><p>分享</p></li>
+            <li class="nav_weixin" v-if="xmxq" @click="go_weibo()" @mouseenter="mouseover('f')" @mouseleave="mouseLeave('f')"><img :src="imgSig+'prcent/xmxq_icon_zn.svg'" alt=""/><p>指南</p></li>
+            <li class="nav_weixin" v-else @click="go_weibo()" @mouseenter="mouseover('f')" @mouseleave="mouseLeave('f')"><img :src="imgSig+'prcent/bar_xmxq_icon_zn.svg'" alt=""/><p>指南</p></li>
             <li class="nav_top" @click="go_top()" v-if="isShow">TOP</li>
         </ul>
     </div>
 </template>
 <script>
 export default {
+    props:{
+		deta:Object,
+	},
     name: 'nav_right',
+	props:{
+		deta:Object,
+	},
     data(){
         return {
             isShow:false,
@@ -24,20 +30,14 @@ export default {
         }
     },
     mounted: function(){
-		window.addEventListener('scroll',this.scrollToTop);
+        window.addEventListener('scroll',this.scrollToTop);
     }, 
     destroyed(){
         window.removeEventListener('scroll',this.scrollToTop);
     },
     methods: {
         go_top(){
-            let timer = setInterval(() => {
-                let ispeed = Math.floor(-this.scrollTop / 5);
-                document.documentElement.scrollTop = document.body.scrollTop = this.scrollTop + ispeed;
-                if(this.scrollTop === 0){
-                    clearInterval(timer);
-                }
-            },16);
+            this.mJs.scTop(0);
         },
         scrollToTop(){
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
@@ -92,7 +92,7 @@ export default {
             this.$parent.sharc();
         },
         upload(){
-            window.open("http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes");
+            window.open("http://wpa.qq.com/msgrd?v=3&uin="+ this.deta.qq + "&site=qq&menu=yes");
         },
         go_weibo(){
             this.$router.push({path:'/help?on=4-02'});

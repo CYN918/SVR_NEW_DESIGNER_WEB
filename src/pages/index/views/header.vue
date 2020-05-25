@@ -1,7 +1,6 @@
 <template>
 	<header class="header">
-		<img class="header_1 pend" :src="imgPath+'new/header/logo.svg'" @click="jump">
-		
+		<img class="header_1 pend" :src="imgPath+'new/header/logo.svg'" @click="jump">		
 		<div class="header_2">
 			<a 
 			v-for="(el,index) in topNData" 
@@ -58,8 +57,9 @@
 						<img :class="navType=='notify'?'onds_01':''" :src="backnav('notify',1)"/></span>
 						<span @click="getNotice('comment')" :class="[messgNum.unread_comment_num>0?'onckf':'']">
 						<img :class="navType=='comment'?'onds_01':''" :src="backnav('comment',2)"/></span>
-						<span @click="getNotice('chat')" :class="[messgNum.unread_chat_num>0?'onckf':'']">
-						<img :class="navType=='chat'?'onds_01':''" :src="backnav('chat',3)"/></span></div>
+						<!-- <span @click="getNotice('chat')" :class="[messgNum.unread_chat_num>0?'onckf':'']">
+						<img :class="navType=='chat'?'onds_01':''" :src="backnav('chat',3)"/></span> -->
+					</div>
 					<div class="messgeH3_2">
 						<div class="messgeH3_2_x1">
 							<ul class="xxBox_1">
@@ -102,20 +102,18 @@
 				<a class="pend" @click="logTo(1)">登录</a><span>|</span><a class="pend" @click="logTo(2)">注册</a></span>
 		</div>
 		<out ref="out"></out>
-		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</header>
 </template>
 <script>
 import out from '../components/out';
-import loginDialog from '../components/loginDialog'
 export default {
-	components:{out,loginDialog},
-	name: 'home',	 
+	components:{out},
+	name: 'home',
+	inject:['login'],	 
 	data(){	
 		return{
 			userMssge:'',
 			isshowd:'',
-			
 			searchType:false,
 			searcCont:'',
 
@@ -135,21 +133,13 @@ export default {
 			topNData:[
 				{path:'/index',n:'首页'},
 				{path:'/project',n:'项目'},
-				// {path:'/Work_i',n:'作品'},
 				{path:'/activvity',n:'活动'},
-				{path:'/tolt',n:'赚钱',t:'NEW'},
-				// {path:'/pushTool',n:'新工具'},
-				
+				{path:'/tolt',n:'赚钱',t:'NEW'},			
 			],
-			outc:{
-				num:'',
-				scroll:2,
-			} 
 		}		
 	},
 	mounted: function () {	
-		this.initHead()
-		
+		this.initHead()		
 	}, 
 	methods:{
 		close(){
@@ -187,8 +177,7 @@ export default {
 		},
 		goMssg(on){
 			if(!window.userInfo){
-				this.$refs.logindialog.show();
-				this.outc.num = 1;	
+				this.logTo(1);	
 				return
 			}
 			setTimeout(()=>{
@@ -277,6 +266,7 @@ export default {
 
 		},
         jump(){
+
 			this.bdtj('通用模块','顶部栏-点击logo','--');
             this.$router.push({
                 path:'/index'
@@ -315,8 +305,7 @@ export default {
 			if(!this.userMssge){
 				// this.$router.push({path:'/login'}); 
 				// return
-				this.$refs.logindialog.show();
-				this.outc.num = 1;
+				this.logTo(1);
 			}else{
 				this.$router.push({path:'/upload'})		
 
@@ -332,30 +321,18 @@ export default {
 			if(is==1){
 				this.bdtj('通用模块','顶部栏点击_退出','--');
 			}
-			this.$refs.out.show();
-			
+			this.$refs.out.show();		
 		},
 		logTo(num){
-			if(num==1){
-				// this.bdtj('通用模块','顶部栏点击_登陆','--');
-				this.$refs.logindialog.show();
-				this.outc.num = num;
-			}
-			if(num==2){
-				// this.bdtj('通用模块','顶部栏点击_登陆','--');
-				this.$refs.logindialog.show();
-				this.outc.num = num;
-			}
-			
-
-		},
-		
+			// this.bdtj('通用模块','顶部栏点击_登陆','--');
+			this.login(num);
+		},		
 		getMessgNumber(){
 			if(!window.userInfo){
 				return
 			}
 			this.api.getCounter().then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.userMssge = '';
 					return
 				}
@@ -373,7 +350,7 @@ export default {
 				type:this.navType,
 			};
 			this.api.getNotice(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 
 				this.mData= da;
 				this.getMessgNumber();
@@ -394,7 +371,7 @@ export default {
 					read_ids:ids,
 				};
 				this.api.Messageread(op).then((da)=>{
-					if(da=='error'){
+					if(da=='error' || da=='104'){
 						return
 					}
 				})
@@ -422,7 +399,7 @@ export default {
 				query:n
 			};
 			this.api.Searchsug(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				if(!this.searcCont||this.searcCont.split(" ").join("").length == 0){
@@ -775,7 +752,7 @@ export default {
 	position: absolute;
 	top: 7px;
 	left: 7px;
-	background: #F4523B;
+	background: #FF9200;
 	min-width: 18px;
 	height: 18px;
 	line-height: 18px;
@@ -820,7 +797,7 @@ export default {
 	position: relative;
 	margin-top: 16px;
 	display: inline-block;
-	width: 88px;
+	width: 133.5px;
 	height: 28px;
 	border-right:1px solid rgba(0, 0, 0, 0.05);
 }

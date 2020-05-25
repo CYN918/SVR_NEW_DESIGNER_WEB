@@ -2,7 +2,7 @@
 	<div  class="pr_tc_01">
 		<div class="pr_tc_02">			
 			<div class="pr_tc_04">
-				活动报名<img @click="close" class="pr_tc_03 pend" src="/imge/project/cj_00.svg" alt="">
+				活动报名<img @click="close" class="pr_tc_03 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg" alt="">
 			</div>
 			<div v-if="isLc" class="detailtitle">
 				<div class="employment">
@@ -45,7 +45,7 @@
 								<div v-else class="hoverBtn">
 									<div class="deleteBtn" @click="deletex(index)">删除</div>
 									<div class="btnsd" @click="newUp(index)">重新上传</div>
-									<img @click="bfsp(item.upData.file,item.limittype)" class="bfbtn" src="/imge/videoPlay.png">
+									<img @click="bfsp(item.upData.file,item.limittype)" class="bfbtn" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/videoPlay.png">
 								</div>
 							</div>
 							
@@ -61,12 +61,12 @@
 							</div>
 							<div v-if="flieList[index]" class="fileShow">
 								<div class="fileIcon">
-									<img src="/imge/Project_content_toast_icon.png" alt="">
+									<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/Project_content_toast_icon.png" alt="">
 								</div>
 							</div>
 							<div class="fileContent">
 								{{flieList[index]}}
-								<img @click="deleteFile(index)" class="detelImage" src="/imge/delete_icon.png" alt="">
+								<img @click="deleteFile(index)" class="detelImage" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/delete_icon.png" alt="">
 							</div>
 							<el-progress :text-inside="true" :stroke-width="2" :percentage="progress" :id="'isShowfile'+index"></el-progress>
 						</div>				
@@ -90,7 +90,7 @@
 					<img class="zp_box_1" :src="el.face_pic">
 					<div class="zp_box_2">
 						{{el.work_name.slice(0,10)}}
-						<img v-if="el.is_recommend==1" src="/imge/new/works/icon_r.svg" alt="">
+						<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg" alt="">
 					</div>
 					<div class="zp_box_3">
 						{{el.classify_1_name+'-'+el.classify_2_name}}
@@ -108,7 +108,8 @@
 				<div ref="botmm"></div>
 				<div v-if="isnoData">
 					<img  class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
-					<div class="noDatawan">找不到数据了o(╥﹏╥)o</div>
+					<!-- <div class="noDatawan">找不到数据了o(╥﹏╥)o</div> -->
+					<div class="noDatawan">你还没有可参与的作品o(╥﹏╥)o</div>
 				</div>
 				
 			</ul>
@@ -514,7 +515,7 @@ export default {
 			this.api.getPersonalInfo({
 				activity_id:this.$route.query.id
 			}).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				if(da==null){
@@ -578,7 +579,7 @@ export default {
 			};
 			this.api.getPersonalWorkList(pr).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 			
@@ -619,7 +620,7 @@ export default {
 				append_infos: JSON.stringify(this.array),
 			};
 			this.api.a_AttendActivity(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.bindType=0;	
 					return
 				}

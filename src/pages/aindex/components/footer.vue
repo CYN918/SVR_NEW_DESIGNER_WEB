@@ -1,7 +1,7 @@
 <template>
 	<footer class="footerBox">
 		<div @click="goTop" class="backTop"></div>
-		<img class="footerlog" src="/imge/new/header/logo.svg"/>
+		<img class="footerlog" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/header/logo.svg"/>
 		<div class="footer_1">让创意更有价值，让生活更加自在</div>
 		<div class="footer_2">Copyright @2019 SHIQUANER</div>
 		<div class="footer_3">PC登录狮圈儿，寻找更多好作品</div>
@@ -34,7 +34,7 @@ export default {
 	text-align: center;
 	color: #fff;
 	box-sizing: border-box;
-    background: url(/imge/svg/bottom_bg.svg) no-repeat 0/100%;
+    background:url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/bottom_bg.svg) no-repeat 0/100%;
 }
 .footerlog{	
 	display: inline-block;

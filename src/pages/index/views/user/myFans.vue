@@ -26,7 +26,7 @@
 						<span  @click="goFans('/works',todo.open_id)"><span>创作</span>{{todo.work_num}}</span>
 					</div>
 					<div>
-						<span class="btns pend" @click="gosx(todo)">私信</span>
+						<!-- <span class="btns pend" @click="gosx(todo)">私信</span> -->
 						<span class="btns pend" @click="showFpllwodel(todo)" v-if="todo.follow_flag==2">互相关注</span>
 						<span class="btns pend" @click="showFpllwodel(todo)" v-else-if="todo.follow_flag==1">已关注</span>
 						<span class="btns btns_js pend" @click="Follow_add(todo)" v-else>关注</span>						
@@ -142,7 +142,7 @@ export default {
 				follow_id:this.openOns.open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.follwTyle=0;
 					return
 				}
@@ -172,7 +172,7 @@ export default {
 				
 			};
 			this.api.Follow_add(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.follwTyle=0;
 					return
 				}

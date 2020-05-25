@@ -36,6 +36,7 @@ export default {
 			this.$router.push({path: a})			
 		},
 		setNav(on){
+		
 			this.navOn=on;
 		}
 	

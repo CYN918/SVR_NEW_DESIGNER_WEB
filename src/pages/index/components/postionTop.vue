@@ -29,7 +29,7 @@ export default {
 		},		
 		setTop(e){				
 			let t = this.mJs.getTop();
-			// console.log(t);
+			
 			if(t>=this.cn.min && !this.isTop){
 				this.isTop='p_isTop';
 				return

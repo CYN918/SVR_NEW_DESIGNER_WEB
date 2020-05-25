@@ -87,7 +87,7 @@ export default {
 					break;
 				case 'video': p+=b;
 					break;
-				case 'audio': p+='/imge/m.jpg';
+				case 'audio': p+='https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/m.jpg';
 					break;	
 			}
 			return p+");";
@@ -119,10 +119,10 @@ export default {
 				limit:40,
 				page:this.page,
 			};
-			console.log(params);
+			
 			this.api.getFList(params).then((da)=>{
 				this.getType='';
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 		

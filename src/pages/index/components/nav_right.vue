@@ -40,8 +40,8 @@
                 <p>微信公众号</p>
             </div>
         </div>
-        <div class="nav_rig_1" v-if="visualWidth_1" @mouseenter="mouseover('g')">
-            <ul>
+        <div class="nav_rig_1" v-if="visualWidth_1">
+            <ul @mouseenter="mouseover('g')">
                 <li class="nav_logo_1"><img :src="imgSig+'newHome/ip.svg'" alt=""/></li>
             </ul>
         </div>
@@ -86,16 +86,17 @@ export default {
                 this.visualWidth_1 = false;
                 this.visualWidth_2 = true;
             }
-            // console.log(winWidth);
+         
         },
         go_top(){
-            let timer = setInterval(() => {
-                let ispeed = Math.floor(-this.scrollTop / 5);
-                document.documentElement.scrollTop = document.body.scrollTop = this.scrollTop + ispeed;
-                if(this.scrollTop === 0){
-                    clearInterval(timer);
-                }
-            },16);
+            // let timer = setInterval(() => {
+            //     let ispeed = Math.floor(-this.scrollTop / 5);
+            //     document.documentElement.scrollTop = document.body.scrollTop = this.scrollTop + ispeed;
+            //     if(this.scrollTop === 0){
+            //         clearInterval(timer);
+            //     }
+            // },16);
+            this.mJs.scTop(0);
         },
         scrollToTop(){
 			this.bdtj("首页","TOP（置顶）","--")

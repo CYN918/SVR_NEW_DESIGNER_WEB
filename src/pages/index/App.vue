@@ -1,40 +1,44 @@
 <template>
-	<div id="app">
-		<router-view v-if="isRouterAlive"/>
+	<div  id="app">
+		<router-view v-if="isRouterAlive"/>	
+		<p><loginDialog ref="logindialog" :config="outc"></loginDialog></p>
 	</div>
 </template>
 <script>
+import loginDialog from './components/loginDialog'
     export default {
+		components:{loginDialog},
         name: 'App',
-        provide () {    //父组件中通过provide来提供变量，在子组件中通过inject来注入变量。                                             
+        provide () {                                            
             return {
-                reload: this.reload                                              
+                reload: this.reload,
+				login:this.login,
             }
         },
         data() {
             return{
-                isRouterAlive: true                    //控制视图是否显示的变量
+                isRouterAlive: true,
+				outc:{
+					num:'',
+					scroll:2,
+				} 
             }
         },
         methods: {
+			login(num){
+				this.outc.num = num?num:'';
+				this.$refs.logindialog.show();
+			},
             reload () {
-                this.isRouterAlive = false;            //先关闭，
+                this.isRouterAlive = false;
                 this.$nextTick(function () {
-                    this.isRouterAlive = true;         //再打开
+                    this.isRouterAlive = true;
                 }) 
             }
         }
     }
 </script>
 <style lang="scss">
-// html{
-//   -webkit-filter: grayscale(100%);
-//   -moz-filter: grayscale(100%);
-//   -ms-filter: grayscale(100%);
-//   -o-filter: grayscale(100%);
-//   filter: grayscale(100%);
-//   filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
-// }
 html,body,div,img,p,ul,li{
 	margin: 0;
 	padding: 0;
@@ -119,6 +123,24 @@ img{
 	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.woff') format('woff'),
 	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.ttf') format('truetype'),
 	url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/font/iconfont.svg#iconfont') format('svg');
+}
+
+
+@font-face {
+  font-family: 'sjsziconfont';
+  src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.eot');
+  src: url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.eot?#iefix') format('embedded-opentype'),
+      url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.woff2') format('woff2'),
+      url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.woff') format('woff'),
+      url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.ttf') format('truetype'),
+      url('https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/sjszfont/iconfont.svg#iconfont') format('svg');
+}
+.sjsziconfont {
+  font-family: "sjsziconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 /*布局样式*/
 .b_con_01{
@@ -397,7 +419,7 @@ img{
 	border: none;
 	outline: none;
 	box-sizing: border-box;
-    padding-left: 0 ;
+    padding-left: 2px;
 	font-size: 14px;
     height: 40px;
     flex: 1;

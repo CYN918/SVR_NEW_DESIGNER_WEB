@@ -204,7 +204,7 @@ export default {
 					}			
 					return true; 
 				}	
-				if(!(/^1[345789]\d{9}$/.test(val))){ 
+				if(!(/^1[23456789]\d{9}$/.test(val))){ 
 					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
 				} 
 				return true;
@@ -230,11 +230,16 @@ export default {
 
 	methods: {
 		oninput(e){
+			if(e.target.value.indexOf('0') == 0) {
+				this.form.cash_money = ''
+				return
+			}
 			if(e.target.value>+this.meny){
 				this.form.cash_money = this.meny;
 				return
 			}
-			let onm = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null			
+			let onm = (e.target.value.match(/^\d+/g)[0]) || null			
+			// let onm = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null			
 			this.form.cash_money = onm;
 			
 		},
@@ -428,9 +433,10 @@ export default {
 			}
 			let pr = this.form;
 			this.api.Income_applyCash(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				Message({message: '申请成功请耐心等待审核'});
-				this.$parent.txcg(pr.cash_money);			
+				this.$parent.txcg(pr.cash_money);	
+				this.$parent.getData();		
 			});	
 		},
 		editPhone(){
@@ -450,7 +456,7 @@ export default {
 				type:'login',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				Message({message: '验证码已发送'});

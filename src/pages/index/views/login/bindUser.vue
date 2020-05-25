@@ -39,7 +39,7 @@ export default {
 				access_token:window.userInfo.access_token
 			};
 			this.api.logout(p).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}			
 				localStorage.setItem('pass','');			
@@ -70,7 +70,7 @@ export default {
 				password:this.MD5(this.form.password),
 			}
 			this.api.bindExist(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.bdtj('第3方注册完善页面绑定已有帐号','进入首页失败','--');
 					return
 				}

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="hp_cbo">
 		<headNav :config="navData" class="cenct_n2" ref="xtop"></headNav>
 		<headNav v-if="topTyped" class="cenct_n2 dbxfyS btomShow" :config="navData" ref="xtop"></headNav>
 		<div v-if="isJD" class="content">
@@ -74,19 +74,19 @@ export default {
 		
 	}, 
 	methods: {
-		goAnchor(a) {
-			let anchor = this.$el.querySelector(a);
+		goAnchor(a) {		
+			let anchor = document.querySelector(a);		
 			if(!anchor){
 				setTimeout(()=>{
 					this.goAnchor(a);
 				},100)
 				return
 			}
-			let ghh = anchor.offsetTop - 80;
+			let ghh = anchor.offsetTop - 160;			
 			this.mJs.scTop(ghh);
 		},
 		setNavd(on){
-			this.navdOn = on;
+			this.navdOn = on;		
 			this.goAnchor(this.navDta[on].h);
 		},		
 		pzData(){
@@ -184,7 +184,7 @@ export default {
 				user_open_id:'system_admin'
 			};
 			this.api.getUserDetail(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				window.xsmData= da;				
@@ -289,5 +289,8 @@ export default {
 	left: 0;
 	width: 100%;
 	text-align: center;
+}
+.hp_cbo{
+	overflow: hidden;
 }
 </style>

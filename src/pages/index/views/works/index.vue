@@ -93,7 +93,7 @@ export default {
 
 		getClass(){
 			this.api.getClassify().then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				let arr1 = [{label:'全部分类',value:''}],arr2=[];
@@ -210,7 +210,7 @@ export default {
 
 .md_class input{
 	border: none;
-	
+	text-align: right;
 	font-size: 14px;
 	background: initial;
 	color: #999999;

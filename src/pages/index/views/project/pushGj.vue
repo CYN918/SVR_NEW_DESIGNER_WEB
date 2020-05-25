@@ -2,10 +2,10 @@
 	<tanC :title="'交付稿件'">
 		<template v-slot:todo="{ todo }">	
 			<div class="pushGj_01_n1">
-			<div class="pushGjNa">
+			<!-- <div class="pushGjNa">
 				<span @click="qhType(1)" :class="type==1?'pushOx':''">本地上传</span>
 				<span @click="qhType(2)" :class="type==2?'pushOx':''">网盘链接</span>
-			</div>
+			</div> -->
 			
 			<div v-if="type==1" class="pushGj_01">
 				
@@ -25,8 +25,8 @@
 					</div>
 				</div>
 				<div class="pushGj_02">
-					<div class="pushGj_03_1">稿件上传<span class="pushGj_iop">文件大小为1GB内，建议压缩后上传</span><span class="pushGj_ts">稿件太大？用网盘传吧</span></div>
-					<el-upload
+					<div class="pushGj_03_1">稿件上传<span class="pushGj_iop">文件大小为1GB内，建议压缩后上传</span><span @click="qhType(2)" class="pushGj_ts pend">稿件太大？用网盘传吧</span></div>
+					<!-- <el-upload
 					  class="upload-demo"
 					  drag
 					  http-request="myup"
@@ -36,6 +36,18 @@
 					  :http-request="uploadFile"
 					  :show-file-list='true'
 					  accept='.zip,.tar'
+					  action="customize"
+					  
+					  > -->
+					  <el-upload
+					  class="upload-demo"
+					  drag
+					  http-request="myup"
+					  :file-list="filelist"
+					  :limit="1" 
+					  :auto-upload="true" 
+					  :http-request="uploadFile"
+					  :show-file-list='true'
 					  action="customize"
 					  
 					  >
@@ -216,7 +228,7 @@ export default {
 				};
 			}
 			this.api.pr_delivery(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(this.$parent.setStaus){
 					this.$parent.setStaus('4');
 				}
@@ -277,6 +289,8 @@ export default {
 					
 					if(opd.result!=0){
 						this.$message({message: opd.data});
+						this.fileList3.pop();
+				        this.filelist.pop();
 						return
 					}
 					let da = opd.data;

@@ -89,7 +89,7 @@ export default {
 	methods: {
 		init(){
 			this.api.getSelfInfo({}).then((da)=>{
-				if(da=='error'){return}		
+				if(da=='error' || da=='104'){return}		
 				let userData = window.userInfo.access_token;
 				window.userInfo = da;	
 				window.userInfo.access_token = userData;
@@ -97,7 +97,7 @@ export default {
 		},
 		goOut(){
 			this.api.logout({}).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}			
 				localStorage.setItem('pass','');			
@@ -135,7 +135,7 @@ export default {
 				city:this.form.citye[2],
 			}
 			this.api.addSelfInfo(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.init();

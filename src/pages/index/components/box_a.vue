@@ -10,7 +10,7 @@
 					
 				</span>
 				<span v-else class="hft">{{el.work_name}}</span>
-				<img v-if="el.is_recommend==1" src="/imge/new/works/icon_r.svg" />
+				<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg" />
 			</div>
 			<div class="wk_a_2_2">
 				<span>{{el.classify_1_name}}</span>{{el.classify_2_name+'-'+el.classify_3_name}}
@@ -56,9 +56,9 @@ export default {
 		return{
 			shareData:{},
 			icons:[
-				{i:'/imge/svg/see/zs_icon_gk.svg',n:'view_num'},
-				{i:'/imge/svg/see/zs_icon_dz.svg',n:'like_num'},
-				{i:'/imge/svg/see/zs_icon_xx.svg',n:'comment_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_gk.svg',n:'view_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_dz.svg',n:'like_num'},
+				{i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/see/zs_icon_xx.svg',n:'comment_num'},
 				
 			],
 			showtIP:'',

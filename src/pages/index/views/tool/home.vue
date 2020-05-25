@@ -1,135 +1,69 @@
 <template>
-	
 	<div class="box">
 		<div class="hot_topbox">
 			<img class="hotBaner" :src="imgSig+'toltImg/ZQ-banner.svg'">
-			<button @click="godd" v-if="userMssge.contributor_format_status == 0 || userMssge == '' || userMssge.contributor_format_status == -1">立即加入</button>
-			<button v-if="userMssge.contributor_format_status == 1">审核中</button>
-			
+			<button v-if="status!=2" @click="gocis()">{{status == 1?'审核中':'立即加入'}}</button>			
 		</div>
 		<div class="hotCent">
 			<div class="hotCent2">
 				<ul>
-					<li id="nav_tolt"><img class="hotBaner" @mouseenter="mouseover('a')" @mouseleave="mouseLeave('a')" :src="imgSig+'toltImg/zq-zptg.svg'"><button class="go_upload" @click="go_project()">去挑选项目</button></li>
-					<li id="nav_upload" class="t"><img class="hotBaner" @mouseenter="mouseover('b')" @mouseleave="mouseLeave('b')" :src="imgSig+'toltImg/zq-cjxm.svg'"><button class="go_upload" @click="go_upload()">上传原创作品</button></li>
-					<li id="nav_logo" class="t"><img class="hotBaner" @mouseenter="mouseover('c')" @mouseleave="mouseLeave('c')" :src="imgSig+'toltImg/zq-dsp.svg'"><button class="go_upload" @click="go_show()">前往制作来电秀</button></li>
-				</ul>
-					
+					<li v-for="el in list">
+						<img class="hotBaner" :src="imgSig+el.img">
+						<button class="go_upload" @click="goOn(el.path)">{{el.n}}</button>
+					</li>
+				</ul>					
 			</div>
 		</div>
 		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 	</div>
 </template>
-
 <script>
 import loginDialog from '../../components/loginDialog'
 export default{
 	components:{loginDialog},
 	data(){
 		return {
-			userMssge:'',
+			status:0,
+			list:[
+				{path:'/project',n:'去挑选项目',img:'toltImg/zq-zptg.svg'},
+				{path:'/upload',n:'上传原创作品',img:'toltImg/zq-cjxm.svg'},
+				{path:'/toluser',n:'前往制作来电秀',img:'toltImg/zq-dsp.svg'}
+			],
 			outc:{
 				num:'',
 				scroll:2,
-			}
+			} 
 		}	
 	},
 	mounted: function () {	
-		this.initHead()
-		console.log(this.userMssge.contributor_format_status)
+		this.init()
 	},
 	methods:{
-		// got(){
-		// 	if(!window.userInfo){
-		// 		this.$router.push({path:'/login'});	
-		// 		return
-		// 	}
-		// 	this.$router.push({path:'/tolt/toluser'});	
-		// },
-		initHead(){	
-			if(window.userInfo){
-				this.userMssge = window.userInfo;
-			}
-			
-		},
-		mouseover(type){
-            if(type == 'a'){
-                document.getElementById('nav_tolt').style.top = '-19px'
-            }
-            if(type == 'b'){
-                document.getElementById('nav_upload').style.top = '-19px'
-            }  
-            if(type == 'c'){
-                document.getElementById('nav_logo').style.top = '-19px'
-            }
-		},
-		mouseLeave(type){
-            if(type == 'a'){
-                document.getElementById('nav_tolt').style.top = '0px'
-            } 
-            if(type == 'b'){
-                document.getElementById('nav_upload').style.top = '0px'
-            } 
-            if(type == 'c'){
-                document.getElementById('nav_logo').style.top = '0px'
-            }
-        },
-		godd(){
-			
-			if(!window.userInfo){
-				this.$refs.logindialog.show();
-				this.outc.num = 1;
-			}else{
-				this.$router.push({path: '/setPersonal'});
-
-			}
-			
-		},
-		go_project(){
-			this.$router.push({path: '/project'});
-		},
-		go_upload(){
-			if(!window.userInfo){
-				this.$refs.logindialog.show();
-				this.outc.num = 1;
-			}else{
-				this.$router.push({path: '/upload'});
-
-			}
-			
-		},
-		go_show(){
-			if(!window.userInfo){
-				this.$refs.logindialog.show();
-				this.outc.num = 1;
+		init(){
+			if(window.userInfo && window.userInfo.contributor_format_status){
+				this.status = window.userInfo.contributor_format_status;
 				return
 			}
-			
-			// if(!window.userInfo){
-			// 	this.$refs.logindialog.show();
-			// 	this.outc.num = 1;
-			// 	return
-			// }
-			this.$router.push({path:'/tolt/toluser'});
-			// if(window.userInfo.contributor_format_status == 2){
-			// 	this.$router.push({path:'/tolt/toluser'});
-			// 	return
-			// }
-			// this.$message({
-			// 	message:'请先认证'
-			// })
-			// setTimeout(()=>{
-			// 	this.$router.push({path: '/setPersonal'})
-			// }, 1000);
-			
-			
-		}
+			this.status = 0;
+		},
+		gocis(){
+			if(this.status==1){
+				return
+			}
+			this.goOn('/setPersonal');
+		},	
+		goOn(url){
+			if(!window.userInfo){
+				this.$refs.logindialog.show();
+				this.outc.num = 1;	
+				return false
+			}
+			this.goFn(url);
+		},
 	}
 }
 </script>
-
 <style scoped="scoped">
-
 .hot_topbox{
 	position: relative;
 	margin-bottom: 0px;
@@ -208,6 +142,9 @@ export default{
 	text-align: center;
 	top: 0px;
 }
+.hotCent2 > ul > li:hover{
+	top: -19px;
+}
 .hotCent2 > ul > li > button{
 	position: relative;
 	bottom: 65px;
@@ -231,8 +168,11 @@ export default{
 .hotCent2 > ul > li:hover{
 	box-shadow:0px 16px 32px 0px rgba(0,0,0,0.1);
 }
-.hotCent2 > ul .t{
+.hotCent2 > ul >li{
 	margin-left: 20px;
+}
+.hotCent2 > ul >li:nth-child(1){
+	margin-left:0;
 }
 
 </style>

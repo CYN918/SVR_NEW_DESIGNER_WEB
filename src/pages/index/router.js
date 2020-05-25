@@ -8,6 +8,7 @@ import Tip from './views/activvityPage/tip.vue'
 import Ac_v1 from './views/activvityPage/ac_v1.vue'
 import Ac_v2 from './views/activvityPage/ac_v2.vue'
 import Ac_v3 from './views/activvityPage/ac_v3.vue'
+import Ac_v4 from './views/activvityPage/ac_v4.vue'
 import upload from './views/upload/upload.vue'
 
 import myWorksCom from './views/user/myWorksCom.vue'
@@ -76,16 +77,13 @@ import personalCenter from './views/personalCenter/index.vue'
 
 import tolt from './views/tool/home.vue'
 import toltIndex from './views/tool/index.vue'
-import pushTool from './views/tool/pushTool.vue'
-import videoSet from './views/tool/videoSet.vue'
+import pushTool from './views/tool/tool/pushTool.vue'
 
-
-import toluser from './views/tool/user.vue'
-
+import syPage from './adPage/syDown.vue'
+import toluser from './views/tool/user/user.vue'
 
 Vue.use(Router)
 const router = new Router({
-
   routes:[] 
 })
 let wb = [
@@ -94,25 +92,19 @@ let wb = [
 	{path: '/Ac_v',name: 'Ac_v',component: Ac_v1},	
 	{path: '/Ac_v2',name: 'Ac_v2',component: Ac_v2},	
 	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
-
-	{path: '/pushTool',name:'tolt',component: pushTool},
-	
-	
+	{path: '/Ac_v4',name: 'Ac_v4',component: Ac_v4},
+	{path: '/pushTool',name:'pushTool',component: pushTool},
+	{path: '/syPage',name:'syPage',component: syPage},
+	{path: '/toluser',redirect: {name:'toluser'},component: toltIndex,children:[
+		{path: '/toluser',name:'toluser',component: toluser},
+	]},
 	{
 		path: '/',
 		redirect: '/index',
 		name: 'index',
 		component: Index,
 		children:[
-			
-			{path: '/tolt',name:'tolt',component: toltIndex,children:[
-				{path: '/tolt',name:'tolt',component: tolt},
-				{path: 'toluser',name:'tolt',component: toluser},
-			]},
-			
-			
-			// 
-			
+			{path: '/tolt',name:'tolt',component: tolt},
 			{path: '/img_list',name: 'img_list',component: img_list},
 			{path: '/email',name: 'email',component: email},	
 		
@@ -128,20 +120,7 @@ let wb = [
 			{path: '/recommend',name: 'pe_recommend',component: personalCenter},
 			{path: '/follow',name: 'pe_follow',component: personalCenter},
 			{path: '/followFans',name: 'pe_fans',component: personalCenter},
-			{path: '/info',name: 'pe_info',component: personalCenter},
-//			
-//			{
-//				path: '/userd',
-//				name: 'userd',
-//				component:userCom,
-//				children:[
-//					{path: '/works',name: 'works',component: works},
-//					{path: '/recommend',name: 'recommend',component:recommend},
-//					{path: '/follow',name: 'follow',component:follow},
-//					{path: '/followFans',name: 'followFans',component:followFans},
-//					{path: '/info',name: 'info',component:info},
-//				],
-//			},		
+			{path: '/info',name: 'pe_info',component: personalCenter},		
 			{path: '/myAll',name: 'myAll',component:myWorksCom},
 			{path: '/myExamine',name: 'myExamine',component:myWorksCom},
 			{path: '/myNotPass',name: 'myNotPass',component:myWorksCom},
@@ -190,7 +169,9 @@ let wb = [
 			
 			{
 				path: '/profit',
-				name: 'profit',
+				redirect: {
+				    name: 'profit'
+				},
 				component:pt_index,
 				children:[
 					// {path: '/profit',name: 'profit',component:pt_works},
@@ -222,7 +203,9 @@ let wb = [
 	/*login_*/	
 	{
 		path: '/login',
-		name: 'login',
+		redirect: {
+		    name: 'login'
+		},
 		component:lg_index,
 		children:[
 			{path: '/login',name: 'login',component:lg_login},
@@ -319,18 +302,18 @@ function setTitle(t){
 	}
 }
 router.beforeEach((to, from, next) => {
-//	window.removeEventListener('mousewheel',window.dwzFn);
 	document.body.style = "";
+	let isqh = sessionStorage.getItem('isqh');	
 	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-
-		if(to.path== "/prcent"){
-			window.location.href = location.origin+"/aindex.html#/conta?id="+to.query.id;
+		if(!isqh || isqh==null){
+			if(to.path== "/prcent" && !to.query.type){				
+				window.location.href = location.origin+"/aindex.html#/conta?id="+to.query.id;
+				return
+			}			
+			window.location.href = location.origin+"/aindex.html#/";
 			return
 		}
-		
-		window.location.href = location.origin+"/aindex.html#/";
-		return
-	}
+	} 	
 	// var ishttps = 'https:' == document.location.protocol ? true : false;
 
 	// if (!ishttps) {

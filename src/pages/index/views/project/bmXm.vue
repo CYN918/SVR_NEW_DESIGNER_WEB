@@ -3,14 +3,18 @@
 		<template v-slot:todo="{ todo }">
 			<div class="bmXm_00">
 				<div class="bmXm_01">
-					请选择项目收益结算方式：
+					{{settlement==0?'请选择项目收益结算方式：':'项目收益结算方式：'}}
 					<div class="bmXm_01_1">
-						<ul v-if="settlement == '0'">
-							<li @click="chekdeal_type(el.k)" v-for="(el,index) in deal_types" :key="index" :class="el.k==postData.deal_type?'chekdOn':''">{{el.n}}</li>
+						<ul>
+							<li 
+							@click="chekdeal_type(el.k)" 
+							v-for="(el,index) in deal_types" 
+							:key="index" 
+							>
+							<p :class="el.k==postData.deal_type?'chekdOn':''" v-if="settlement==0 || settlement==el.k">{{el.n}}</p>
+							</li>
 						</ul>
-						<ul v-else>
-							<li v-for="(el,index) in deal_types" :key="index" :class="el.k==postData.deal_type?'chekdOn':''">{{el.n}}</li>
-						</ul>			
+					
 					</div>
 					<div class="buyout" v-show="postData.deal_type == '1'">
 						<p style="margin: 5px 0px 5px 15px;color:#FF3B30;">{{expected_profit}}</p>
@@ -82,9 +86,9 @@ export default {
 	
 	mounted: function(){
 		this.init();
-		if(this.settlement == '0'){
-			this.postData.deal_type = 1;
-		}
+
+		this.postData.deal_type = (this.settlement && this.settlement!=0)?this.settlement:1;
+	
 	},
 	methods: {	
 		goOn(on,cs){
@@ -100,7 +104,7 @@ export default {
 		},
 		chekdeal_type(o){
 			this.postData.deal_type = o;
-			
+			console.log(o);
 		},
 		checkZp(o){
 			let ond = this.postData.work_ids.indexOf(o);
@@ -132,7 +136,7 @@ export default {
 				return 
 			}
 			this.api.pr_signup(this.postData).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.$message({message: '报名成功'});
 				this.close();
 				this.$parent.setBm(1);
@@ -154,7 +158,7 @@ export default {
 			
 			this.api.getSelfWorkList(pr).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					if(this.List.length==0){
 						this.isnoData=1;
 					}
@@ -196,7 +200,12 @@ export default {
 	height: 28px;
 	margin-top: 15px;
 }
-.bmXm_01_1 > ul > li{
+.bmXm_01_1  ul li{
+	display: inline-block;
+	vertical-align: top;
+}
+.bmXm_01_1  ul li p{
+	
 	width: 80px;
 	height: 28px;
 	text-align: center;

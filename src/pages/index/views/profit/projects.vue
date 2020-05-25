@@ -21,9 +21,24 @@ export default {
 					{n:'验收价格',clfn:(da)=>{if(da.acceptance_price == '0.00'){return '-'}else{return '￥'+this.mJs.money_deiv(da.acceptance_price)} }},
 					// {n:'额外奖金',clfn:(da)=>{ return '￥'+this.mJs.money_deiv(da.extra_reward)}},
 					// {n:'延时交稿扣减',clfn:(da)=>{ return '-￥'+this.mJs.money_deiv(da.deduction_price)}},
-					{n:'收益加成',clfn:(da)=>{return '￥'+this.mJs.money_deiv(da.gain_share_price)+'('+da.gain_share_rate+'%)'}},
-					{n:'成交价格',temp:{cls:'pend',clfn:(d)=>{
-						if(d.deal_type == '2'){return '永久分成'}else{return '<span class="font_cf">￥'+this.mJs.money_deiv(d.deal_price)+'</span>'};
+					// {n:'收益加成',clfn:(da)=>{
+					// 	if(da.deal_type == '1'){
+					// 		return '￥'+this.mJs.money_deiv(da.gain_share_price)+'（' + '+' +da.gain_share_rate+'%）'
+					// 	}else if(da.deal_type == '2'){
+					// 		return '+' + da.gain_share_rate + '%'
+					// 	}else if(da.deal_type == '3'){
+					// 		return '+' + da.gain_share_rate + '%'
+					// 	}
+						
+					// }},
+					{n:'结算收益',temp:{cls:'pend',clfn:(d)=>{
+						if(d.deal_type == '2'){
+							return '永久分成'
+						}else if(d.deal_type == '3'){
+							return '￥'+this.mJs.money_deiv(d.income)+'（' + '￥'+this.mJs.money_deiv(d.advance_payment) + '预付金+永久分成）'
+						}else if(d.deal_type == '1'){
+							return '<span class="font_cf">￥'+this.mJs.money_deiv(d.income)+'</span>'
+						};
 					}}},
 			
 					{n:'验收时间',clfn:(da)=>{ return this.mJs.backTime(da.deal_time,'/')}},
@@ -50,7 +65,7 @@ export default {
 					{label:'全部记录',value:0},
 					{label:'近一周',value:7},
 					{label:'近一个月',value:30},
-					{label:'近一半年',value:183},
+					{label:'近半年',value:183},
 					{label:'近一年',value:365}
 				],
 				v2:30
@@ -83,7 +98,12 @@ export default {
 		},
 		setTim(o){
 			this.timed = o;
-			this.config.pr.time =  parseInt(new Date().getTime()/1000)-(this.timed*60*60*24);
+			if(o != '0'){
+				this.config.pr.time =  parseInt(new Date().getTime()/1000)-(this.timed*60*60*24);
+			}else{
+				this.config.pr.time =  '';
+
+			}	
 			this.$refs.tabds.sxfn();
 		}
 	}
