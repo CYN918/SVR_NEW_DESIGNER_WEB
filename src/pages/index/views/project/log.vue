@@ -43,7 +43,7 @@
 						<div @click="fileCy(el)" class="log_tipbox" v-if="el.check_status != -2 && el.check_status != -1">撤回</div>
 						
 					</div>
-					<qxGj v-if="isShow" :datad="datad"></qxGj>
+					<qxGj class="logqxgj" v-if="isShow" :datad="datad"></qxGj>
 		
 					
 
@@ -68,7 +68,7 @@ import tanC from '../../components/tanC';
 import qxGj from './qxGj';
 
 export default {
-	components:{tanC,qxGj},
+	components:{tanC,qxGj},	
 	data(){
 		return{
 			List:[],
@@ -293,5 +293,8 @@ export default {
 }
 .log_hid_00_01{
 	height: 58px;
+}
+.logqxgj{
+	background: none;
 }
 </style>

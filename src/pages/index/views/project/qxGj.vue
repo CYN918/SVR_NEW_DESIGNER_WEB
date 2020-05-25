@@ -14,6 +14,7 @@
 import tanC from '../../components/tanC';
 export default {
 	components:{tanC},
+	inject:['reload'],
 	props:{
 		datad:Object
 	},
@@ -41,6 +42,7 @@ export default {
 					this.$parent.setStaus('3');
 				}
 				this.$message({message:"撤回稿件成功"});
+				this.reload();
 				if(this.$parent.getData){
 					this.$parent.getData();
 				}
