@@ -36,7 +36,7 @@
 				</div>			
 				<div class="pr_cent2_11">
 					<ul>
-						<li v-for="(els,index) in btns" @click="ckd(els.fn)" :class="['btns pend',els.cls]">{{els.n}}</li>
+						<li v-for="(els,index) in btns" @click="ckd(els.fn,els.n)" :class="['btns pend',els.cls]">{{els.n}}</li>
 					</ul>
 				</div>				
 			</div>
@@ -79,7 +79,8 @@ export default {
 		},
 	},
 	methods: {	
-		ckd(a){
+		ckd(a,n){
+			this.bdtj('我的项目',n,'--')
 			if(a=='ypj'){this.$message({message:'你已经评价过了'});}
 			if(a=='presentation'){
 				this.$router.push({path:'/presentation',query:{id:this.deta.id}})	
@@ -215,6 +216,7 @@ export default {
 		},
 		openCent(){
 			if(this.deta.id){
+				this.bdtj('我的项目','点击进入详情','--')
 				window.open('/#/prcent?id='+this.deta.id+'&type=prj')
 			}			
 		},

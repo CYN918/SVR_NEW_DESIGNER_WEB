@@ -65,6 +65,7 @@ export default {
 	}, 
 	methods: {
 		goOn(on,cs){
+			this.bdtj('项目列表','点击[项目承接指南]','--')
 			this.$router.push({path:on,query:cs})	
 		},
 		getCl(){

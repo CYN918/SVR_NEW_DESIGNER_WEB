@@ -33,23 +33,23 @@
 			<div class="ldx_l_1_top" v-if="[0,-10,-1].indexOf(+el.status)!=-1">
 				<div class="ldx_l_1_top_btn" @click="changebtn()">···</div>
 				<div class="ldx_l_1_top_btn1" v-if="top_btn">
-					<div class="ldx_l_1_btn1_1" @click.stop="del(el.id)">
+					<div class="ldx_l_1_btn1_1" @click.stop="del(el.id,el.title)">
 						删除
 					</div>
 				</div>
 			</div>
 			<div class="ldx_l_1_btn">
 				<div class="ldx_l_1_btn" v-if="el.status==0 && Isbtn">
-					<span @click="bjfn(el.id)" class="pendno">编辑</span>
+					<span @click="bjfn(el.id,el.title)" class="pendno">编辑</span>
 				</div>
 				<div class="ldx_l_1_btn2" v-if="el.status==10">
 					<span>合成中</span>
 				</div>
 				<div class="ldx_l_1_btn2" v-if="el.status==2 && Isbtn">
-					<span @click="gojg(el.project_id)" class="ldx_l_1_btn2_a">项目结果</span>
+					<span @click="gojg(el.project_id,el.title)" class="ldx_l_1_btn2_a">项目结果</span>
 				</div>
 				<div class="ldx_l_1_btn3" v-if="el.status==-1 && Isbtn">
-					<span class="pendno" @click="bjfn(el.id)">重新编辑</span>
+					<span class="pendno" @click="bjfn(el.id,el.title)">重新编辑</span>
 					<span class="pendno ldx_l_1_btn3x" @click="getrejectInfo(el.project_id)">
 						查看驳回原因 
 						<div class="ldx_l_1_btn3xt" v-if="Ischeck">
@@ -201,7 +201,8 @@ export default{
 			this.Isbtn = false;
 			this.Ischeck = false
 		},
-		del(id){
+		del(id,n){
+			this.bdtj('来电秀工具-列表页',n,'删除')
 			this.api.mobileshowdel({
 				id:id
 			}).then(()=>{
@@ -212,13 +213,14 @@ export default{
 		changebtn(){
 			this.top_btn=!this.top_btn;
 		},
-		bjfn(id){
+		bjfn(id,n){
+			this.bdtj('来电秀工具-列表页',n,'编辑')
 			localStorage.setItem('ldxData',JSON.stringify(this.el));
 			this.$router.push({path:'/pushTool',query:{id:id}});
 	
 		},
-		gojg(id){
-			
+		gojg(id,n){
+			this.bdtj('来电秀工具-列表页',n,'项目结果')
 			this.$router.push({path:'/prcent',query:{id:id}});
 		},
 		getrejectInfo(id){
