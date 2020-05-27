@@ -71,10 +71,11 @@ export default {
 								if(month2 == 13){
 									month2 = 1;
 								}
-								if(month2 < 1) {
+								if(month2 < 10) {
 									month2 = '0' + month2;
 								}
-								let endtime = timearr[0] + '-' + month2 + '-' + 10 + '\t' + timearr[3] + ":" + timearr[4] + ":" + timearr[5] + "";
+								// let endtime = timearr[0] + '-' + month2 + '-' + 1 + '\t' + timearr[3] + ":" + timearr[4] + ":" + timearr[5] + "";
+								let endtime = timearr[0] + '-' + month2 + '-' + 1 + '\t' + '00' + ":" + '00' + ":" + '00' + "";
 								if(new Date() < new Date(Date.parse(endtime))){
 									return '<span class="pend">撤回</span>';
 								}
