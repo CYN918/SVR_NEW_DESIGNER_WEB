@@ -247,6 +247,7 @@ export default {
 	components:{Input,Citys,uploadFile,jdt,TcBox},
 	data(){
 		return {
+			tjType:false,
 			outc:{
 				title:'',
 				scroll:1,
@@ -870,6 +871,10 @@ export default {
 			
 		},
 		Userupdate(){
+			if(this.tjType){
+				this.tipMr('正在处理请稍后');
+				return
+			}
 			this.bdtj('个人认证页面','申请成为供稿人','--');
 			if(this.postCheck()==false){
 				this.bdtj('个人认证页面','申请成为供稿人失败','--');
@@ -903,7 +908,9 @@ export default {
 				check_type:this.check_type,
 				email:this.emailD
 			};
+			this.tjType = true;
 			this.api.identifyAuth(pr).then((da)=>{
+				this.tjType = false;
 				if(da=='error' || da=='104'){
 					this.bdtj('个人认证页面','申请成为供稿人失败','--');
 					return
@@ -916,6 +923,8 @@ export default {
 				setTimeout(()=>{
 					this.$router.push({path:'/profit'})
 				},2000);
+			}).catch(()=>{
+				this.tjType = false;
 			});
 			
 		},
