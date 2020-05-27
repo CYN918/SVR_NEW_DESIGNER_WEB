@@ -86,6 +86,11 @@ export default {
 	methods: {	
 		
 		ckd(a,n){
+			if(n=='稿件撤回' && this.deta.check_steps==1){
+				this.tipMr('项目已在审核中，请勿撤回')				
+				return
+			}
+			
 			this.bdtj('我的项目',n,'--')
 			if(a=='ypj'){this.$message({message:'你已经评价过了'});}
 			if(a=='presentation'){

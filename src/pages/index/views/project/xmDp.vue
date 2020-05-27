@@ -1,36 +1,5 @@
 <template>
 	<div :class="['cenDjs',da.cl]">
-		<!-- <div class="cenDjs_1"></div>
-		<div class="yu_o9">
-			<div class="yu_o9_1bx">
-				<div v-if="djsshow.h" class="cenDjs_2">
-					<span class="f_a" v-if="djsshow.d>0">{{djsshow.d}}<span class="cenDjs_2_dy_01">天</span></span><span class="f_a">{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
-				</div>
-				<div v-if="obj.delivery_deadline_format && obj.status==3 && obj.is_delay!=1" class="cenDjs_2">
-					<span>{{obj.delivery_deadline_format.m}}</span>月<span>{{obj.delivery_deadline_format.d}}</span>号<span>{{obj.delivery_deadline_format.H}}</span>点
-				</div>
-				
-				<div v-if="obj.is_delay" class="cenDjs_2_yq">
-					<div class="is_seldf">项目已延期交稿</div>
-					<span>{{obj.delay_time.d}}</span>天<span>{{obj.delay_time.h}}</span>时
-				</div>
-				<div v-else class="cenDjs_3">{{da.n}}<div v-if="obj.status==5" class="cenDjs_zzf">{{'￥'+obj.deal_price}}</div> </div>
-				
-			</div>
-			
-			<div class="cenDjs_4">
-				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.cl]" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
-			</div>
-			<loginDialog ref="logindialog" :config="outc"></loginDialog>
-			<div class="cenDjs_5">{{da.btn_tip}}</div>
-		</div>
-		
-		<div v-if="da.t" :class="['sjxdpo',da.t.cl]">
-			{{da.t.n}}
-		</div> -->
-
-				
-		
 		<div class="yu_o9">
 			
 			
@@ -136,51 +105,16 @@ export default {
 			this.$message({message:'你已经评价过了'});
 		},
 		clickFn(n,b){
-			
+			if(b=='qxGj' && this.$parent.deta.check_steps==1){				
+				this.tipMr('项目已在审核中，请勿撤回')		
+				return
+			}
 			if(!window.userInfo){
 				this.$refs.logindialog.show();
 				this.outc.num = 1;
 			}
 			if(n){
 				let state = '--';
-				
-				// <div class="cenDjs_5" v-if="deta.status == '1'">
-				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-				// 	<p>招募期</p>
-				// </div>
-				// <div class="cenDjs_5" v-if="deta.status == '0'">
-				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-				// 	<p>待发布</p>
-				// </div>
-				// <div class="cenDjs_5" v-if="deta.status == '2'">
-				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-				// 	<p>选标期</p>
-				// </div>
-				// <div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) >= new Date()">
-				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-				// 	<p>制作期</p>
-				// </div>
-				// <div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) < new Date()">
-				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-				// 	<p>已延期</p>
-				// </div>
-				// <div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected == '1'">
-				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-				// 	<p style="color:rgba(255,59,48,1);">未通过</p>
-				// </div>
-				// <div class="cenDjs_5" v-if="deta.status == '4'">
-				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-				// 	<p>待审核</p>
-				// </div>
-				// <div class="cenDjs_5" v-if="deta.status == '5'">
-				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-				// 	<p>已验收</p>
-				// </div>
-				// <div class="cenDjs_5" v-if="deta.status == '-1'">
-				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-				// 	<p>已终止</p>
-				// </div>
-				
 				if(this.$parent.deta.status == '1'){
 					state = '招募期'
 				} else if(this.$parent.deta.status == '0'){

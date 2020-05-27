@@ -108,17 +108,17 @@ export default {
 		this.init();
 	},
 	methods: {
-		checkCh(el){
-			if(el.check_status != -2 && el.check_status != -1){
-				return true
-			}
-			
-			if(el.status<5){
+		checkCh(el){	
+			if(el.status==4 && el.check_steps!=1 && [-2,-1,1].indexOf(+el.check_status)==-1){
 				return true;
 			}
 			return false;
 		},
 		fileCy(data){
+			if(data.check_steps==1){
+				this.tipMr('项目已在审核中，请勿撤回')				
+				return
+			}
 			this.isShow = true;
 			this.datad = {id:data.project_id};
 		},
