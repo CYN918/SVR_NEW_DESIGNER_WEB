@@ -1,7 +1,7 @@
 <template>
 	<div class="adpage_syD">
 		<img class="adpage_syD_0" :src="setImgU('adPage/sy_01.png')"/>
-		<img class="adpage_syD_01" :src="setImgU('adPage/sy_02.png?a=1')"/>
+		<img class="adpage_syD_01" :src="setImgU('adPage/sy_02.png?a=2')"/>
 		<p class="adpage_syD_1">
 			<span class="adpage_syD_2">
 				<a class="adpage_syD_3" href="https://shiquaner.zookingsoft.com/#/cont?id=158936954964">什么是来电秀?</a>

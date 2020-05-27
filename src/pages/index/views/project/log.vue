@@ -40,7 +40,7 @@
 					</div>
 					<div>
 						<div @click="showPic(el.preview_pic)" class="log_tipbox" v-if="el.preview_pic">预览</div>
-						<div @click="fileCy(el)" class="log_tipbox" v-if="el.check_status != -2 && el.check_status != -1">撤回</div>
+						<div @click="fileCy(el)" class="log_tipbox" v-if="checkCh(el)">撤回</div>
 						
 					</div>
 					<qxGj class="logqxgj" v-if="isShow" :datad="datad"></qxGj>
@@ -108,6 +108,16 @@ export default {
 		this.init();
 	},
 	methods: {
+		checkCh(el){
+			if(el.check_status != -2 && el.check_status != -1){
+				return true
+			}
+			
+			if(el.status<5){
+				return true;
+			}
+			return false;
+		},
 		fileCy(data){
 			this.isShow = true;
 			this.datad = {id:data.project_id};

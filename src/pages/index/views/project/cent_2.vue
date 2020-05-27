@@ -18,8 +18,8 @@
 		<div class="pr_cent2_4">
 			<div @click="openCent()" class="pr_cent2_5">
 				<div class="pr_cent2_6">{{deta.name}}</div>
-				<div class="pr_cent2_7" v-if="deta.deal_type == '3'">项目类型：{{deta.classify_name}}<i></i>制作周期：<span>{{deta.production_cycle_d}}天{{deta.production_cycle_h}}时</span><i></i>预付金：<span style="color:rgba(255,147,0,1);">￥{{deta.money.advance_payment}}</span></div>
-				<div class="pr_cent2_7" v-else>项目类型：{{deta.classify_name}}<i></i>制作周期：<span>{{deta.production_cycle_d}}天{{deta.production_cycle_h}}时</span></div>
+				<div class="pr_cent2_7" v-if="deta.deal_type == '3'">项目类型：{{deta.classify_name}}<i></i>制作周期：<span>{{deta.production_cycle_d | NumbUnd}}天{{deta.production_cycle_h | NumbUnd}}时</span><i></i>预付金：<span style="color:rgba(255,147,0,1);">￥{{deta.money.advance_payment}}</span></div>
+				<div class="pr_cent2_7" v-else>项目类型：{{deta.classify_name}}<i></i>制作周期：<span>{{deta.production_cycle_d }}天{{deta.production_cycle_h}}时</span></div>
 				<div class="pr_cent2_10" v-html="tip1" v-if="this.$route.path == '/projectYs'"></div>
 				<div class="pr_cent2_10" v-html="tip" v-else></div>
 				<!-- <div class="pr_cent2_8">领域范围：<span v-for="(ed,index) in deta.fields">{{ed}}</span></div>	 -->
@@ -69,6 +69,11 @@ export default {
 			deta:{},
 		}
 	},
+	filters: {
+		NumbUnd: function (n) {
+		  return n?n:0;
+		},
+	},
 	mounted: function(){
 		this.init();
 		this.backtims();		
@@ -79,6 +84,7 @@ export default {
 		},
 	},
 	methods: {	
+		
 		ckd(a,n){
 			this.bdtj('我的项目',n,'--')
 			if(a=='ypj'){this.$message({message:'你已经评价过了'});}
@@ -147,6 +153,7 @@ export default {
 				this.tips = '<div class="backdse pr_cent2_r2_2">报名已截止，等待平台选标</div>';
 				return
 			}
+
 			if(this.deta.status==3){
 				let be = [{n:'提交稿件',fn:'pushGj',cls:'btns_js'}];
 				if(this.deta.is_rejected==1){
@@ -180,8 +187,9 @@ export default {
 			}
 			
 			if(this.deta.status==4){
-				this.btns = [
-					{n:'稿件撤回',fn:'qxGj'}
+				this.btns = [					
+					{n:'稿件撤回',fn:'qxGj'},
+					{n:'交稿记录',fn:'Log'},					
 				];
 				this.tips = '<div class="backdse pr_cent2_r2_3">稿件已提交，请等待验收审核</div>';
 				return
