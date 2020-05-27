@@ -71,7 +71,7 @@ export default {
 								if(month2 == 13){
 									month2 = 1;
 								}
-								if(month2 < 10) {
+								if(month2 < 1) {
 									month2 = '0' + month2;
 								}
 								let endtime = timearr[0] + '-' + month2 + '-' + 10 + '\t' + timearr[3] + ":" + timearr[4] + ":" + timearr[5] + "";
