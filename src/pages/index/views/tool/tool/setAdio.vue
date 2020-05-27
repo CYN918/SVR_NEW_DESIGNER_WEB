@@ -97,7 +97,6 @@
 					<img @click="favor()" class="mp3_04_01_sc pend" style="margin-top: 33px;" :src="bfData.is_collect==0?'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/music_icon_list_like_def.svg' :'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/music_icon_list_like.svg'"/>
 					<span @click="checkDom()" class="pend mp3_05_2_4_1">选用</span>
 				</div>
-				
 			</div>
 		</div>
 		<audio ref="aido" @ended="ended"></audio>

@@ -1,7 +1,7 @@
 <template>
 	<div class="wk_a" >
 		<div class="wk_a_1" @mouseover="tipStar" @mousemove="setZb" @mouseout="tipClser">
-			<div @click="openxq()" class="wk_a_1_1" :style="backBn(el.face_pic)"></div>
+			<div @click="openxq(el.work_name)" class="wk_a_1_1" :style="backBn(el.face_pic)"></div>
 		</div>
 		<div class="wk_a_2">
 			<div class="wk_a_2_1">
@@ -24,10 +24,10 @@
 			<div class="wk_a_3_1">
 				<img
 				class="pend"
-				 @click="goUser()" 
+				 @click="goUser(el)" 
 				 :src="mJs.Cavars(el.user_info.avatar)"/>
 				<span 
-				@click="goUser()" 
+				@click="goUser(el)" 
 				class="pend hft">{{el.user_info.username}}</span>
 				<div class="wk_a_3_2">{{mJs.getTimes(el.create_time)}}</div>
 				<userTc v-if="el.work_id" :tcData="el" :tjData="tjData"></userTc>
@@ -95,16 +95,19 @@ export default {
 			this.showtIP = '';
 		},
 		goUser(on){
-			if(this.tjData && this.tjData[1]){
-				this.tongj(this.tjData[1]);
-			}
+			// if(this.tjData && this.tjData[1]){
+			// 	this.tongj(this.tjData[1]);
+			// }
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
+			console.log("首页",on.work_name,on.user_info.username)
+			this.bdtj("首页",on.work_name,on.user_info.username)
 			this.$router.push({path: '/works',query:{id:this.el.user_info.open_id}})
 			
 		},
 		tongj(a){
 			if(!a){return}
+			console.log(a)
 			this.bdtj(a[0],a[1],'--');
 		},
 		backtime(time){		
@@ -117,11 +120,11 @@ export default {
 			}
 			return a;
 		},
-		openxq(){
+		openxq(n){
 			if(this.tjData && this.tjData[0]){
 				this.tongj(this.tjData[0]);
 			}
-			
+			this.bdtj("首页",this.$parent.$parent.specialname,n);
 			window.open('#/cont?id='+this.el.work_id)
 		},
 		backBn(ur){			

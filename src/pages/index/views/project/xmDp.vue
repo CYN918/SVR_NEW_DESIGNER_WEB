@@ -136,11 +136,72 @@ export default {
 			this.$message({message:'你已经评价过了'});
 		},
 		clickFn(n,b){
+			
 			if(!window.userInfo){
 				this.$refs.logindialog.show();
 				this.outc.num = 1;
 			}
 			if(n){
+				let state = '--';
+				
+				// <div class="cenDjs_5" v-if="deta.status == '1'">
+				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+				// 	<p>招募期</p>
+				// </div>
+				// <div class="cenDjs_5" v-if="deta.status == '0'">
+				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+				// 	<p>待发布</p>
+				// </div>
+				// <div class="cenDjs_5" v-if="deta.status == '2'">
+				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+				// 	<p>选标期</p>
+				// </div>
+				// <div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) >= new Date()">
+				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+				// 	<p>制作期</p>
+				// </div>
+				// <div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) < new Date()">
+				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+				// 	<p>已延期</p>
+				// </div>
+				// <div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected == '1'">
+				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+				// 	<p style="color:rgba(255,59,48,1);">未通过</p>
+				// </div>
+				// <div class="cenDjs_5" v-if="deta.status == '4'">
+				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+				// 	<p>待审核</p>
+				// </div>
+				// <div class="cenDjs_5" v-if="deta.status == '5'">
+				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+				// 	<p>已验收</p>
+				// </div>
+				// <div class="cenDjs_5" v-if="deta.status == '-1'">
+				// 	<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
+				// 	<p>已终止</p>
+				// </div>
+				
+				if(this.$parent.deta.status == '1'){
+					state = '招募期'
+				} else if(this.$parent.deta.status == '0'){
+					state = '待发布'
+				} else if(this.$parent.deta.status == '2'){
+					state = '选标期'
+				} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) >= new Date()){
+					state = '制作期'
+				} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) < new Date()){
+					state = '已延期'
+				} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected == '1'){
+					state = '未通过'
+				} else if(this.$parent.deta.status == '4'){
+					state = '待审核'
+				}else if(this.$parent.deta.status == '5'){
+					state = '已验收'
+				}else if(this.$parent.deta.status == '-1'){
+					state = '已终止'
+				}
+				
+				this.bdtj("项目详情页",state,"[报名项目]");
 				this[n](b);
 			}
 		

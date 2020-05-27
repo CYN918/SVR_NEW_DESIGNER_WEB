@@ -18,7 +18,7 @@
 						</div>
 					</div>
 					<div class="log_tipbox log_tipbox2">
-						<div class="log_hid">{{el.type==2?el.access_code:el.file_size}}</div>
+						<div class="log_hid log_hid_00_01">{{el.type==2?el.access_code:el.file_size}}</div>
 						
 						<div v-if="(el.type==2&&el.access_code.length>12) || el.file_size.length>12" class="log_tip">
 							{{ el.type==2?el.access_code:el.file_size}}
@@ -43,7 +43,7 @@
 						<div @click="fileCy(el)" class="log_tipbox" v-if="el.check_status != -2 && el.check_status != -1">撤回</div>
 						
 					</div>
-					<qxGj v-if="isShow" :datad="datad"></qxGj>
+					<qxGj class="logqxgj" v-if="isShow" :datad="datad"></qxGj>
 		
 					
 
@@ -68,7 +68,7 @@ import tanC from '../../components/tanC';
 import qxGj from './qxGj';
 
 export default {
-	components:{tanC,qxGj},
+	components:{tanC,qxGj},	
 	data(){
 		return{
 			List:[],
@@ -110,7 +110,7 @@ export default {
 	methods: {
 		fileCy(data){
 			this.isShow = true;
-			this.datad = data;
+			this.datad = {id:data.project_id};
 		},
 		closepick(){
 			this.ylt = '';
@@ -290,5 +290,11 @@ export default {
 	position: absolute;
     top: 10px;
     right: 10px;
+}
+.log_hid_00_01{
+	height: 58px;
+}
+.logqxgj{
+	background: none;
 }
 </style>
