@@ -6,13 +6,19 @@
 			<a :class="['pend',ison=='/qtsy'?'router-link-active':'']" @click="goZP('/qtsy','其他收益')">其他收益</a>
 			<a :class="['last pend',ison=='/money'?'router-link-active':'']" @click="goZP('/money','提现记录')">提现记录</a>
 			<div class="pr_seBox">
-				<div v-if="ison == '/divided'">
-					<el-select @change="change1" v-model="work_id" placeholder="请选择" class="t-select">
+				<div v-if="ison == '/divided'" id="divided_pro">
+					<el-select filterable @change="change1" v-model="work_id" placeholder="请选择" class="t-select">
 						<el-option
 						v-for="(item,index) in config.options"
 						:key="index"
 						:label="item.name"
 						:value="item.name">
+						<div class="pro_divided_search">
+							<el-row>
+								<el-col :span="8"><img :src="item.banner" alt="" style="width: 100%;height: 100%;vertical-align: middel;"></el-col>
+								<el-col :span="16" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-left: 15px;">{{item.name}}</el-col>
+							</el-row>
+						</div>
 						</el-option>
 					</el-select>
 				</div>
@@ -83,6 +89,12 @@ export default {
 }
 </script>
 <style>
+.el-scrollbar{
+	max-width: 350px;
+}
+.el-select-dropdown__item{
+	margin-bottom: 10px;
+}
 .proNav2{
 	padding-top: 7px;
 	border-bottom: 2px solid #E6E6E6;
