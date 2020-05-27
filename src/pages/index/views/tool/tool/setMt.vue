@@ -8,7 +8,7 @@
 		<ul class="setMt_03">
 			<li ref="dwyd" @click="push" class="rsc_002">
 				<span  class="setMtUp">
-					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/tools/n/up.svg">
+					<img :src="setImgU('new/tools/n/up.svg')">
 					上传视频/图片
 				</span>				
 			</li>
@@ -16,23 +16,20 @@
 				<li  v-if="el.type!='erro'">
 					<div v-if="el.type=='up'">
 						<div class="jdt_002">
-							<el-progress :width="48" :stroke-width="2"  type="circle" :percentage="el.bf"></el-progress>
+							<el-progress :width="48" :stroke-width="2" type="circle" :percentage="el.bf"></el-progress>
 							<span class="jdt_002x">正在上传</span>
-						</div>
-						
+						</div>						
 					</div>
 					<div @mousedown="starD($event,el)" @mouseover="ybf(index,el)" class="setMt_03_01" v-else>
 						<img :src="el.cover_img?el.cover_img:el.url">
 						<video muted class="video" ref="video" :src="el.url"></video>
 						<span class="tim_013" v-if="el.play_time">{{backtio(el.play_time)}}</span>
 						<span class="tim_014" v-if="IsSelect(el.fid)">
-							<img width="19px" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_mt_usemt.png" alt="">
+							<img width="19px" :src="setImgU('tools/icon_mt_usemt.png')"/>
 						</span>
-					</div>
-					
-					<div @click="checkV(el)" class="tim_xz"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_add_small.png" alt=""></div>
-					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/sc_icon_delete.png"/></div>
-					
+					</div>					
+					<div @click="checkV(el)" class="tim_xz"><img width="100%" :src="setImgU('tools/icon_add_small.png')"/></div>
+					<div @click="delt(el,index)" class="tim_xzsx"><img width="100%" :src="setImgU('tools/sc_icon_delete.png')"/></div>					
 				</li>
 			</span>
 		</ul>
@@ -52,9 +49,8 @@
 		</div>
 	</div>
 </template>
-
 <script>
-import t_qr from '../../components/t_qr';
+import t_qr from '../../../components/t_qr';
 export default{
 	components:{t_qr},
 	props:{
@@ -77,22 +73,17 @@ export default{
 		}
 	},
 	mounted: function () {
-		this.getList();
-		
-	}, 		
+		this.getList();		
+	},
 	methods:{
-		backto(num){
-			return parseInt(num*100)/100
-		},
 		zGys(){
-			
 			if(this.maxwj<1024){
-				return this.backto(this.maxwj)+'KB';
+				return this.numInt(this.maxwj)+'KB';
 			}
 			if(this.maxwj<1024*1024){
-				return this.backto(this.maxwj/1024)+'MB';
+				return this.numInt(this.maxwj/1024)+'MB';
 			}
-			return this.backto(this.maxwj/1024/1024)+'G';
+			return this.numInt(this.maxwj/1024/1024)+'G';
 		},
 		IsSelect(el){
 			let id = false;
@@ -173,7 +164,9 @@ export default{
 				cut_start: 0,
 				ischeck:'',
 				start:0,
-				zpY:0
+				zpY:0,
+				pageZoomW:this.$parent.csW,
+				pageZoomH:this.$parent.csH,
 			};
 			var pd = {
 					type: "pic",
@@ -207,22 +200,22 @@ export default{
 					pr.sw = wd;					
 					pr.sh = hd;
 					if(wd>hd){
-						pr.w = this.$parent.boxW;
-						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.w = this.$parent.csW;
+						pr.h = (this.$parent.csW/wd)*hd;
+						pr.y = (this.$parent.csH-pr.h)/2;
 						pr.x = 0;
 					}else{
-						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;
+						pr.h = this.$parent.csH;
+						pr.w = (this.$parent.csH/hd)*wd;
 						
-						if(pr.w>this.$parent.boxW){
+						if(pr.w>this.$parent.csW){
 							
-							pr.w = this.$parent.boxW;
-							pr.h = (this.$parent.boxW/wd)*hd;
-							pr.y = (this.$parent.boxH-pr.h)/2;
+							pr.w = this.$parent.csW;
+							pr.h = (this.$parent.csW/wd)*hd;
+							pr.y = (this.$parent.csH-pr.h)/2;
 							pr.x = 0;
 						}else{
-							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.x = (this.$parent.csW-pr.w)/2;
 							pr.y = 0;
 						}
 						
@@ -252,7 +245,7 @@ export default{
 			this.api.fileTotalSummary({
 				relation_type:'mobile_show'
 			}).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.maxwj = da.total_file_size?da.total_file_size:0;
@@ -281,7 +274,9 @@ export default{
 				file_name:el.file_name,
 				cut_start: 0,
 				ischeck:'',
-				start:0,				
+				start:0,
+				pageZoomW:this.$parent.csW,
+				pageZoomH:this.$parent.csH,
 			};
 			if(el.file_type=='image'){
 				var pd = {
@@ -330,20 +325,20 @@ export default{
 					pr.sh = hd;
 					pr.zpY=0;
 					if(wd>hd){
-						pr.w = this.$parent.boxW;
-						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.w = this.$parent.csW;
+						pr.h = (this.$parent.csW/wd)*hd;
+						pr.y = (this.$parent.csH-pr.h)/2;
 						pr.x = 0;
 					}else{
-						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;						
-						if(pr.w>this.$parent.boxW){							
-							pr.w = this.$parent.boxW;
-							pr.h = (this.$parent.boxW/wd)*hd;
-							pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.h = this.$parent.csH;
+						pr.w = (this.$parent.csH/hd)*wd;						
+						if(pr.w>this.$parent.csW){							
+							pr.w = this.$parent.csW;
+							pr.h = (this.$parent.csW/wd)*hd;
+							pr.y = (this.$parent.csH-pr.h)/2;
 							pr.x = 0;
 						}else{
-							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.x = (this.$parent.csW-pr.w)/2;
 							pr.y = 0;
 						}
 					}	
@@ -365,25 +360,26 @@ export default{
 					pr.yw = wd;
 					pr.yh =  hd;
 					pr.sw = wd;					
-					pr.sh = hd;
+					pr.sh = hd;					
 					if(wd>hd){
-						pr.w = this.$parent.boxW;
-						pr.h = (this.$parent.boxW/wd)*hd;
-						pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.w = this.$parent.csW;
+						pr.h = (this.$parent.csW/wd)*hd;
+						pr.y = (this.$parent.csH-pr.h)/2;
 						pr.x = 0;
 					}else{
-						pr.h = this.$parent.boxH;
-						pr.w = (this.$parent.boxH/hd)*wd;
-						if(pr.w>this.$parent.boxW){
-							pr.w = this.$parent.boxW;
-							pr.h = (this.$parent.boxW/wd)*hd;
-							pr.y = (this.$parent.boxH-pr.h)/2;
+						pr.h = this.$parent.csH;
+						pr.w = (this.$parent.csH/hd)*wd;
+						if(pr.w>this.$parent.csW){
+							pr.w = this.$parent.csW;
+							pr.h = (this.$parent.csW/wd)*hd;
+							pr.y = (this.$parent.csH-pr.h)/2;
 							pr.x = 0;
 						}else{
-							pr.x = (this.$parent.boxW-pr.w)/2;
+							pr.x = (this.$parent.csW-pr.w)/2;
 							pr.y = 0;
 						}
-					}						
+					}
+					
 					this.$parent.setV(this.value.media,pn,pr)	
 					this.$parent.history_set();
 					this.$parent.setPreviewTimes(pr,'media',1);
@@ -435,24 +431,18 @@ export default{
 		clPic(fld,on){
 			let max = 5*1024*1024*1024;	
 			if(this.maxwj>=max){
-				this.$message({
-					message:'媒体素材储存量已满（5G）'
-				})
+				this.tipMr('媒体素材储存量已满（5G）')
 				this.$refs.upnfile.value = '';
 				return
 			}
 			if((+fld.size+this.maxwj)>max){
-				this.$message({
-					message:'视频过大媒体素材储存超过上限（5G）'
-				})
+				this.tipMr('视频过大媒体素材储存超过上限（5G）')
 				this.$refs.upnfile.value = '';
 				return
 			}			
 			if(fld.type=='video/mp4'){
 				if(fld.size>104857600){
-					this.$message({
-						message:'视频文件请小于100M上传'
-					})
+					this.tipMr('视频文件请小于100M上传')
 					this.$refs.upnfile.value = '';
 					return
 				}
@@ -461,17 +451,13 @@ export default{
 			}			
 			if(['image/gif','image/jpeg','image/png'].indexOf(fld.type)!=-1){
 				if(fld.size>10485760){
-					this.$message({
-						message:'图片过大请小于10M上传'
-					})
+					this.tipMr('图片过大请小于10M上传')
 					return
 				}
 				this.pushFile(fld);
 				return
 			}
-			this.$message({
-				message:'请上传正确格式的媒体'
-			})
+			this.tipMr('请上传正确格式的媒体')
 			return
 		},
 		backEnd(ob){		
@@ -561,20 +547,18 @@ export default{
 					}	
 					this.$refs.upnfile.value ='';
 					this.fileTotalSummary();
-					this.$message({message: '文件上传成功'});
+					this.tipMr('文件上传成功')
 				}				
 			};
 			let uploadFailed = ()=>{
 				this.$refs.upnfile.value ='';
 				deletFn();
-				this.$message({message: '文件上传失败请稍后重试'});
-				
+				this.tipMr('文件上传失败请稍后重试')
 			};
 			let uploadCanceled = ()=>{
 				this.$refs.upnfile.value ='';
 				deletFn();
-				this.$message({message: '取消成功'});
-				
+				this.tipMr('取消成功')
 			};
 			xhr.upload.addEventListener("progress",uploadProgress, false);
 			xhr.addEventListener("load",uploadComplete, false);
@@ -608,7 +592,7 @@ export default{
 			};
 			
 			this.api.fileList(params).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				

@@ -79,7 +79,7 @@ export default {
 		},
 		getClassify(){
 			this.api.pr_classify().then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				let arr = [{label:'全部',value:''}];

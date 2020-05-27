@@ -3,11 +3,9 @@ import axios from 'axios'
 import api from '../../api/index'
 import App from './App.vue'
 import router from './router'
-
 import mJs from '../../assets/comm.js'
-
-
-
+// import LoginDom from './allCom/login/'
+// Vue.use(LoginDom);
 
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
@@ -23,6 +21,10 @@ Vue.prototype.imgSig = 'http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/';
 Vue.prototype.setImgU = (u)=>{
 	return 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/'+u;
 }
+Vue.prototype.numInt = (n,s=2)=>{
+	let bs = Math.pow(10,s);	
+	return parseInt(n*bs)/bs
+};
 //定义全局过滤器
 Vue.filter('followType', (val)=>{
 	if(val == 1){return '已关注'}
@@ -287,8 +289,6 @@ Vue.component(FormItem.name, FormItem)
 Vue.component(Message.name, Message)
 Vue.component(Checkbox.name, Checkbox)
 Vue.component(Switch.name, Switch)
-
-
 Vue.prototype.$message = Message;
 Vue.prototype.tipMr = (n)=>{
 	Message({
@@ -299,7 +299,7 @@ Vue.prototype.tipMr = (n)=>{
 Vue.config.productionTip = false
 Vue.prototype.checkLo = function(o){
 	api[o.api](o.pr).then((da)=>{
-		if(da=='error'){if(o.er2){o.er2()} return}
+		if(da=='error' || da=='104'){if(o.er2){o.er2()} return}
 		if(da=='islogin'){			
 			let passIN = localStorage.getItem('pass');
 			if(passIN){

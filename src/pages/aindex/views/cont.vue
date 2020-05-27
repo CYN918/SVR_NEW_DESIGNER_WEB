@@ -117,13 +117,18 @@ export default {
 				pr.access_token =window.userInfo.access_token;
 			}
 			this.api.getWorkDetail(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.length==0){
 					alert('该作品已删除');	
 					window.close();
 					return
 				}
-				da.labels = JSON.parse(da.labels)
+				da.labels = JSON.parse(da.labels);
+				
+				da.content = da.content.replace(/\d*px/ig,(m)=>{
+					m.split('px')[0];
+					return window.hotcss.px2rem(m.split('px')[0],320)+'rem';
+				})
 				this.contDat = da;			
 			});			
 		},
@@ -137,7 +142,7 @@ export default {
 				pr.access_token = window.userInfo.access_token;
 			}
 			this.api.getCommentList(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.hfnum = da.total;
 				this.hfData = this.hfData.concat(da.data);
 				

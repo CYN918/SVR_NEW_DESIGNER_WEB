@@ -14,6 +14,7 @@
 import tanC from '../../components/tanC';
 export default {
 	components:{tanC},
+	inject:['reload'],
 	props:{
 		datad:Object
 	},
@@ -27,6 +28,12 @@ export default {
 			this.is='';
 		},
 		pr_revokeDelivery(){
+			if(this.datad.check_steps==1){
+				this.tipMr('项目已在审核中，请勿撤回')
+				this.close();
+				return
+			}
+			
 			if(this.qxType){
 				this.$message({message:"正在撤回请稍后"});
 				return
@@ -36,14 +43,12 @@ export default {
 				project_id:this.datad.id,
 			}).then((da)=>{
 				this.qxType='';
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(this.$parent.setStaus){
 					this.$parent.setStaus('3');
 				}
 				this.$message({message:"撤回稿件成功"});
-				if(this.$parent.getData){
-					this.$parent.getData();
-				}
+				this.reload();				
 				this.close();
 			}).catch(()=>{
 				this.qxType='';

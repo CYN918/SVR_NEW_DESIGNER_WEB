@@ -32,7 +32,7 @@ export default {
 		logout(){
 			if(!window.userInfo){return}			
 			this.api.logout({}).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.close();

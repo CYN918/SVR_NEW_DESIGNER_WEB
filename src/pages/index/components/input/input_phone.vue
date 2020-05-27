@@ -158,7 +158,7 @@ export default {
 					return				
 				}			
 			}	
-			if(!(/^1[2345789]\d{9}$/.test(this.input))){ 
+			if(!(/^1[23456789]\d{9}$/.test(this.input))){ 
 				this.checkBack(false);
 				this.setErro('pherr','请输入正确的手机号码');
 				return ; 
@@ -266,7 +266,7 @@ export default {
 			}
 			this.ajaxVerifysType = 1;
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.ajaxVerifysType = '';
 					return
 				}

@@ -52,7 +52,7 @@ export default {
 				project_id:this.$parent.deta.id,
 				reason:this.reason
 			}).then((da)=>{
-				if(da=='error'){return}				
+				if(da=='error' || da=='104'){return}				
 				this.$message({message:"项目已终止"});
 				this.$parent.close();				
 				this.$router.push({path: '/index'})	

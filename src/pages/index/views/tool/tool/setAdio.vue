@@ -97,7 +97,6 @@
 					<img @click="favor()" class="mp3_04_01_sc pend" style="margin-top: 33px;" :src="bfData.is_collect==0?'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/music_icon_list_like_def.svg' :'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/music_icon_list_like.svg'"/>
 					<span @click="checkDom()" class="pend mp3_05_2_4_1">选用</span>
 				</div>
-				
 			</div>
 		</div>
 		<audio ref="aido" @ended="ended"></audio>
@@ -229,6 +228,22 @@ export default{
 		}
 	},
 	methods:{	
+		pushDD(a,b,c){
+			let sr = 'https://shiquaner-api.zookingsoft.com/dot.txt?';
+			sr+='dot_type='+a;
+			sr+='&audio_id='+b;
+			sr+='&audio_name='+c;
+			sr+='&env='+window.ddian;
+			// window.open(sr)
+			let doms = document.createElement('iframe');
+			doms.className="hind_012xx";
+			doms.src=sr;
+			document.body.appendChild(doms);
+			setTimeout(()=>{
+				document.body.removeChild(doms)
+			},2000)
+			
+		},
 		scrollMo(){
 			if(this.total<=this.limit || this.datas.length>=this.total){
 				this.isMo=false;
@@ -262,7 +277,7 @@ export default{
 		},
 		pauseAll(){
 			this.puandFn(0)
-			this.$parent.puandFn2();			
+			this.$parent.puandFn();			
 		},
 		setBf(e){
 			e.preventDefault();
@@ -292,7 +307,9 @@ export default{
 			if(url){
 				pr.url = url;
 			}
-			this.$parent.playAdio(pr)	
+			this.$parent.playAdio(pr)
+
+			
 		},
 		puandFn(t){
 			
@@ -343,7 +360,7 @@ export default{
 		},
 		getcls(){
 			this.api.sh_class({}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.cls = da;				
 				this.showNav = this.cls;
 			})			
@@ -353,7 +370,8 @@ export default{
 				m_id:el.m_id
 			}).then((da)=>{
 				this.aaa='';
-				if(da=='error'){return}			
+				if(da=='error' || da=='104'){return}	
+				this.pushDD('audio_choose',el.m_id,el.name)
 				let pr = {
 						type: "audio",
 						file_url: da.file_url,
@@ -437,7 +455,6 @@ export default{
 			}
 			let el = this.chek;
 			if(el){
-				
 				this.aaa=el.m_id;
 				this.sh_audioUrld(el);
 				return
@@ -541,12 +558,12 @@ export default{
 					logo:el.logo,
 					name:el.name,
 					author:el.author?el.author:'无歌手',
-					onTime:0,
-			
+					onTime:0,			
 					duration:el.duration,
 					is_collect:el.is_collect,
 					face_pic:el.face_pic
 				};
+				this.pushDD('audio_play',this.bfData.m_id,this.bfData.name);
 				this.sh_audioUrl(el.m_id);
 				return
 			}
@@ -558,6 +575,7 @@ export default{
 				this.bRunning = false;
 				this.puandFn()
 			} else {
+				this.pushDD('audio_play',this.bfData.m_id,this.bfData.name);
 				this.playFn();		
 				
 			}
@@ -566,7 +584,7 @@ export default{
 			this.api.sh_audioUrl({
 				m_id:id
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.playFn(da.file_url);
 			})
 		},
@@ -599,10 +617,10 @@ export default{
 			}
 			
 		},
-		backT(t){			
+		backT(t){	
 			let ond = t%60;
 			let fzz = '00';
-			if(t>60){
+			if(t>=60){
 				fzz = parseInt(t/60);
 				if(fzz<10){
 					fzz = '0'+fzz;
@@ -658,7 +676,7 @@ export default{
 			this.api[this.type](pr).then((da)=>{
 				this.loading.close()
 				this.isgetList = false;
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return	
 				}
 				this.total = da.total;
@@ -1226,5 +1244,8 @@ img.mp3_04_01_sc {
 	text-align: center;
     line-height: 60px;
     color: #979797;
+}
+.hind_012xx{
+	display: none;
 }
 </style>

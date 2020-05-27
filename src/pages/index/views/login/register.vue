@@ -63,7 +63,7 @@ export default {
 					}			
 					return true; 
 				}	
-				if(!(/^1[2345789]\d{9}$/.test(val))){ 
+				if(!(/^1[23456789]\d{9}$/.test(val))){ 
 					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
 				} 
 				return true;
@@ -126,7 +126,7 @@ export default {
 				type:'register',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return	
 				}
 				this.$refs.verify.runTimer(60);		
@@ -163,7 +163,7 @@ export default {
 			this.ajaxType=1;
 			this.api.register(params).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.bdtj('注册页','注册失败','--');
 					this.ajaxType=0;
 					return
@@ -178,7 +178,7 @@ export default {
 				};
 				this.api.login(pr).then((da)=>{	
 					
-					if(da=='error'){
+					if(da=='error' || da=='104'){
 						return
 					}
 					this.ajaxType=0;

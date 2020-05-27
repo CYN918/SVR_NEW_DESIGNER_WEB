@@ -131,12 +131,14 @@ export default {
 			}
 		},
 		pushBm(){
+			
 			if(this.postData.work_ids.length==0){
 				this.$message({message:'请先选择作品'})
 				return 
 			}
+			this.bdtj('项目详情','招募期','确认报名项目')
 			this.api.pr_signup(this.postData).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.$message({message: '报名成功'});
 				this.close();
 				this.$parent.setBm(1);
@@ -158,7 +160,7 @@ export default {
 			
 			this.api.getSelfWorkList(pr).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					if(this.List.length==0){
 						this.isnoData=1;
 					}

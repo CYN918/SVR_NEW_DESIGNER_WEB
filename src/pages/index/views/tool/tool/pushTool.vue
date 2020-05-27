@@ -6,10 +6,7 @@
 					<i class="icon_jt_left"></i>返回
 				</div>
 				<div class="noto_title">
-					<input
-					 @focus="titlon(1)"
-					 @blur="titlon('')"
-					 v-model="navcoms.title" type="text" placeholder="请输入来电秀名称">
+					<input @focus="titlon(true)" @blur="titlon(false)" v-model="navcoms.title" type="text" placeholder="请输入来电秀名称" />
 					<span v-if="istitle" class="noto_t1">{{navcoms.title.length}}/20</span>
 					<img v-else :src="setImgU('new/tools/n/icon_bj.svg')" />
 				</div>
@@ -17,169 +14,149 @@
 					<span @click="tijF()">保存</span><span @click="zzyz()" class="noto_bys">制作完成</span>
 				</div>
 			</div>
-			
-			
+
 			<div class="ntob_cent">
-				<div class="ntob_cent_l" >
+				<div class="ntob_cent_l">
 					<div class="ntob_cent_lxbo" ref="vidobox">
-					<div class="videoBox" :style="'width:'+boxW+'px;height:'+boxH+'px'">
-						<canvas class="videoBox1" ref="cavs"></canvas>
-						<video @timeupdate="timeupdatevideo" muted @ended="cksd()" @loadeddata="csy" id="boxf" class="ntob_cent_l_1"
-						 :src="video" ref="vids"></video>
-						<div class="debox_01">
-							<div v-for="(el,index) in navcoms.decorates">
-								<span v-for="(el2,index2) in el">
-									<div v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime">
-										<setDevs  :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
-									</div>					
-								</span>
-								
+						<div class="videoBox" :style="'width:'+boxW+'px;height:'+boxH+'px'">
+							<canvas class="videoBox1" ref="cavs"></canvas>
+							<video @timeupdate="timeupdatevideo" muted @ended="cksd()" @loadeddata="csy" id="boxf" class="ntob_cent_l_1"
+							 :src="video" ref="vids"></video>
+							<div class="debox_01">
+								<div v-for="(el,index) in navcoms.decorates">
+									<span v-for="(el2,index2) in el">
+										<div v-if="el2.start<=preview.onTime && backTim(el2)>=preview.onTime">
+											<setDevs :class="preview.state==1?'isnobhd':''" v-model="navcoms.decorates[index][index2]"></setDevs>
+										</div>
+									</span>
+
+								</div>
+							</div>
+							<div v-if="isld && vdcc2==1" class="show_00x_1" :style="'zoom:'+zoomd">
+								<img width="100%" height="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/qd.png"
+								 alt="">
+							</div>
+							<div v-if="isld && vdcc2==0" class="show_00x_1" :style="'zoom:'+zoomd">
+								<img width="100%" height="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/ld.png"
+								 alt="">
 							</div>
 						</div>
-						<div v-if="isld && vdcc2==1" class="show_00x_1" :style="'zoom:'+zoomd">
-							<img width="100%" height="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/qd.png" alt="">
+						<audio class="ntob_cent_l_1" @timeupdate="timeupdatevideo2" ref="aido"></audio>
+
+					</div>
+					<div class="ntob_cent_l_2">
+						<div class="ntob_cent_l_2_1">
+							<img class="ntob_cent_l_2_1x" :src="setImgU('tools/v_size.svg')">预览比例<span class="bl_000" @click="showCc">
+								{{cun[vdcc].n}}
+							</span>
 						</div>
-						<div v-if="isld && vdcc2==0" class="show_00x_1" :style="'zoom:'+zoomd">
-							<img width="100%" height="100%" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/ld.png" alt="">
+						<div class="ntob_cent_l_2_2">
+							<span @click="newplayPreview()" class="an_sx_01">
+								<img :src="setImgU('tools/v_sx.svg')" />
+							</span><span @click="playd()" class="an_bf_01">
+								<img :src="setImgU('tools/'+(preview.state==1?'icon_view_stop_def':'v_play')+'.svg')" />
+							</span>
+							<span>{{bckti(parseInt(preview.onTime))}}</span> / <span class="tme_091">{{bckti(parseInt(preview.maxTime))}}</span>
+						</div>
+						<div class="ntob_cent_l_2_3">
+							<span @click="showCc2" class="bl_000">
+								{{cun2[vdcc2]}}
+								<div class="mx_dsj"></div>
+								<div v-if="isCc2" class="bl_001">
+									<span @click="qhcc2(index)" v-for="(el,index) in cun2" :class="['cds',index==vdcc2?'cek':'']">{{el}}</span>
+								</div>
+							</span>
+							<el-switch v-model="isld" active-value="1"></el-switch>
 						</div>
 					</div>
-					<audio class="ntob_cent_l_1" @timeupdate="timeupdatevideo2" ref="aido"></audio>
-					
 				</div>
-				<div class="ntob_cent_l_2">
-					<div class="ntob_cent_l_2_1">
-						<img class="ntob_cent_l_2_1x" :src="setImgU('tools/v_size.svg')">预览比例<span class="bl_000" @click="showCc">
-							{{cun[vdcc].n}}
-						</span>
-					</div>
-					<div class="ntob_cent_l_2_2">
-						<span @click="newplayPreview()" class="an_sx_01">
-							<img :src="setImgU('tools/v_sx.svg')" />
-						</span><span @click="playd()" class="an_bf_01">
-							<img :src="setImgU('tools/'+(preview.state==1?'icon_view_stop_def':'v_play')+'.svg')" />
-						</span>
-						<span>{{bckti(parseInt(preview.onTime))}}</span> / <span class="tme_091">{{bckti(parseInt(preview.maxTime))}}</span>
-					</div>
-					<div class="ntob_cent_l_2_3">
-						<span @click="showCc2" class="bl_000">
-							{{cun2[vdcc2]}}
-							<div class="mx_dsj"></div>
-							<div v-if="isCc2" class="bl_001">
-								<span @click="qhcc2(index)" v-for="(el,index) in cun2" :class="['cds',index==vdcc2?'cek':'']">{{el}}</span>
+
+				<div class="ntob_cent_r">
+					<div class="ntob_cent_r_1">
+						<span @click="qhNav(index,el.zj)" v-for="(el,index) in navs" :class="navson==index?'ckin':''">
+							<div class="con-right-iocn-img">
+								<img class="icon con-right-iocn-img" :src="setImgU('tools/'+el.icon)" />
 							</div>
+							{{el.n}}
 						</span>
-						<el-switch v-model="isld" active-value="1"></el-switch>
+					</div>
+
+					<div class="ntob_cent_r_2">
+						<keep-alive>
+							<component v-bind:is="navcoms.zj" v-model="navcoms" ref="vid"></component>
+						</keep-alive>
 					</div>
 				</div>
 			</div>
-			
-			<div class="ntob_cent_r">
-				<div class="ntob_cent_r_1">
-					<span @click="qhNav(index,el.zj)" v-for="(el,index) in navs" :class="navson==index?'ckin':''">
-						<div class="con-right-iocn-img">
-							<img class="icon con-right-iocn-img" :src="setImgU('tools/'+el.icon)"/>
-						</div>
-						{{el.n}}
-					</span>
-				</div>
-					
-				<div class="ntob_cent_r_2">
-					<keep-alive>
-						<component v-bind:is="navcoms.zj" v-model="navcoms" ref="vid"></component>
-					</keep-alive>
-				</div>
-			</div>
-		</div>
-			
-		<div class="ntob_footer">
-			<div class="ntob_footer_1">
-				<div class="ntob_footer_1_1">
-					<span @click="history_pr()" :class="['sjsziconfont',history.on>0?'misto':'']">&#xe504;</span>
-					<span @click="history_nx()" :class="['sjsziconfont',history.list.length-1>history.on?'misto':'']">&#xe503;</span>
-				</div>
-				<div class="ntob_footer_1_2" ref="gd_02">
-					<div 
-						@click="showZs($event,index)" 
-						class="nl_ti1" 
-						v-for="(el,index) in navcoms.decorates"
-						><img :src="setImgU('tools/t_zs.svg')" />装饰</div>						
-					<div class="nl_ti2"><img :src="setImgU('tools/t_sp.svg')"/> 媒体</div>
-					<div class="nl_ti3"><img :src="setImgU('tools/t_yy.svg')"/>音频</div>
-				</div>
-			</div>
-			
-			<div class="ntob_footer_2" ref="gdbox">
-				<div :style="bal()" class="tlo_box" ref="qyBox">
-					<div class="ntob_footer_2_1">
-						<div @click="kdClick($event)" v-html="backd()" class="kdut"></div>
+
+			<div class="ntob_footer">
+				<div class="ntob_footer_1">
+					<div class="ntob_footer_1_1">
+						<span @click="history_pr()" :class="['sjsziconfont',history.on>0?'misto':'']">&#xe504;</span>
+						<span @click="history_nx()" :class="['sjsziconfont',history.list.length-1>history.on?'misto':'']">&#xe503;</span>
 					</div>
-					
-					<div class="necBox" @scroll="gdfn($event)" ref="gd_01">
-						<div class="tlo_04" 
-							v-for="(el,index) in navcoms.decorates"
-							@mouseover="setMos({on:index,n:'decorates'},$event)"
-							@mouseout="setMos('')"
-						>
-							<div 
-								:style="backtop(el2,index2)" 
-								@contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" 
-								class="imgd" 
-								@click="setCheckOn({type:'decorates',list:navcoms.decorates[index],on:index2})"
-								v-for="(el2,index2) in el"
-							>
-								<div :style="bgtf(el2)" class="setToll0"></div>
-								<div class="minzss">{{el2.file_name}}</div>
-								<div :class="['setToll',el2.ischeck?'setToll_active':'']">
-									<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
-									<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2">
-										<div class="setToll2_1"><i></i><i></i><i></i></div>
-									</div>
-									<div @mousedown="jl($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll3">
-										<div class="setToll3_1"><i></i><i></i><i></i></div>
-									</div>
-									<div @click="showcj($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="setToll4">
-										<i></i><i></i><i></i>
-									</div>
-								</div>										
-							</div>
-						</div>
-						
-						<div class="tlo_02" @mouseover="setMos({on:0,n:'media'},$event)" @mouseout="setMos('')">
-							<div 
-								:style="backtop(el,index)" 
-								@contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})" 
-								@click="setCheckOn({type:'media',list:navcoms.media,on:index})"
-								class="imgd" 
-								v-for="(el,index) in navcoms.media"
-							>
-								<div :style="bgtf(el)" class="setToll0"></div>
-								<div class="minzss">{{el.file_name}}</div>
-								<div :class="['setToll',el.ischeck?'setToll_active':'']">
-									<div @mousedown="jl3($event,el,index,navcoms.media,'media')" class="setToll1"></div>
-									<div @mousedown="jl2($event,el,index,navcoms.media,'media')" class="setToll2">
-										<div class="setToll2_1"><i></i><i></i><i></i></div>
-									</div>
-									<div @mousedown="jl($event,el,index,navcoms.media,'media')" class="setToll3">
-										<div class="setToll3_1"><i></i><i></i><i></i></div>
-									</div>
-									<div @click="showcj($event,{type:'media',on:index,list:navcoms.media})" class="setToll4">
-										<i></i><i></i><i></i>
-									</div>
-								</div>								
-							</div>
+					<div class="ntob_footer_1_2" ref="gd_02">
+						<div @click="showZs($event,index)" class="nl_ti1" v-for="(el,index) in navcoms.decorates"><img :src="setImgU('tools/t_zs.svg')" />装饰</div>
+						<div class="nl_ti2"><img :src="setImgU('tools/t_sp.svg')" /> 媒体</div>
+						<div class="nl_ti3"><img :src="setImgU('tools/t_yy.svg')" />音频</div>
+					</div>
+				</div>
+
+				<div class="ntob_footer_2" ref="gdbox">
+					<div :style="bal()" class="tlo_box" ref="qyBox">
+						<div class="ntob_footer_2_1">
+							<div @click="kdClick($event)" v-html="backd()" class="kdut"></div>
 						</div>
 
+						<div class="necBox" @scroll="gdfn($event)" ref="gd_01">
+							<div class="tlo_04" v-for="(el,index) in navcoms.decorates" @mouseover="setMos({on:index,n:'decorates'},$event)"
+							 @mouseout="setMos('')">
+								<div :style="backtop(el2,index2)" @contextmenu="contexMs($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})"
+								 class="imgd" @click="setCheckOn({type:'decorates',list:navcoms.decorates[index],on:index2})" v-for="(el2,index2) in el">
+									<div :style="bgtf(el2)" class="setToll0"></div>
+									<div class="minzss">{{el2.file_name}}</div>
+									<div :class="['setToll',el2.ischeck?'setToll_active':'']">
+										<div @mousedown="jl3($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll1"></div>
+										<div @mousedown="jl2($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll2">
+											<div class="setToll2_1"><i></i><i></i><i></i></div>
+										</div>
+										<div @mousedown="jl($event,el2,index2,navcoms.decorates[index],'decorates')" class="setToll3">
+											<div class="setToll3_1"><i></i><i></i><i></i></div>
+										</div>
+										<div @click="showcj($event,{type:'decorates',on:index2,list:navcoms.decorates[index]})" class="setToll4">
+											<i></i><i></i><i></i>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="tlo_02" @mouseover="setMos({on:0,n:'media'},$event)" @mouseout="setMos('')">
+								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'media',on:index,list:navcoms.media})"
+								 @click="setCheckOn({type:'media',list:navcoms.media,on:index})" class="imgd" v-for="(el,index) in navcoms.media">
+									<div :style="bgtf(el)" class="setToll0"></div>
+									<div class="minzss">{{el.file_name}}</div>
+									<div :class="['setToll',el.ischeck?'setToll_active':'']">
+										<div @mousedown="jl3($event,el,index,navcoms.media,'media')" class="setToll1"></div>
+										<div @mousedown="jl2($event,el,index,navcoms.media,'media')" class="setToll2">
+											<div class="setToll2_1"><i></i><i></i><i></i></div>
+										</div>
+										<div @mousedown="jl($event,el,index,navcoms.media,'media')" class="setToll3">
+											<div class="setToll3_1"><i></i><i></i><i></i></div>
+										</div>
+										<div @click="showcj($event,{type:'media',on:index,list:navcoms.media})" class="setToll4">
+											<i></i><i></i><i></i>
+										</div>
+									</div>
+								</div>
+							</div>
+
 							<div class="tlo_03">
-								<div 
-								:style="backtop(el,index)" 
-								@contextmenu="contexMs($event,{type:'audio',on:index,list:navcoms.audio})" 
-								@click="setCheckOn({type:'audio',list:navcoms.audio,on:index})"
-								class="imgd" 
-								v-for="(el,index) in navcoms.audio">
+								<div :style="backtop(el,index)" @contextmenu="contexMs($event,{type:'audio',on:index,list:navcoms.audio})"
+								 @click="setCheckOn({type:'audio',list:navcoms.audio,on:index})" class="imgd" v-for="(el,index) in navcoms.audio">
 									<div class="se10hid">
 										<img :style="setHidmg(el)" :src="el.type == 'pic' ? el.file_url : el.fps_pic">
 									</div>
-									
+
 									<div class="minzss">{{el.file_name}}</div>
 									<div :class="['setToll',el.ischeck?'setToll_active':'']">
 										<div @mousedown="jl3($event,el,index,navcoms.audio,'audio')" class="setToll1"></div>
@@ -187,7 +164,7 @@
 											<div class="setToll2_1" style="top:6px;height: 14px;">
 												<i></i><i></i>
 											</div>
-											
+
 										</div>
 										<div @mousedown="jl($event,el,index,navcoms.audio,'audio')" class="setToll3">
 											<div class="setToll3_1" style="top:6px;height: 14px;">
@@ -198,16 +175,16 @@
 											<i></i><i></i><i></i>
 										</div>
 									</div>
-									
+
 								</div>
 							</div>
 							<div @mousedown="todTime($event)" :class="['bf_o1',isbf?'gdAm':'']" :style="backbft()">
 								<div class="bf_o1_1"></div>
-								<img :src="setImgU('tools/GD_icon_sjz.svg')"/>
+								<img :src="setImgU('tools/GD_icon_sjz.svg')" />
 							</div>
-						</div>						
+						</div>
 					</div>
-					
+
 					<div class="gund_01" ref="gund_01x">
 						<div @mousedown="jlx($event)" :style="tdfn()" class="gund_02"></div>
 					</div>
@@ -217,7 +194,7 @@
 							<div @mousedown="jlx2($event)" :style="baclsf()" class="fdsx_06"></div>
 						</span>
 						<span @click="addms()" class="fdsx_02">+</span>
-					
+
 					</div>
 				</div>
 			</div>
@@ -226,25 +203,25 @@
 				<span v-if="checkOn.type=='media' || checkOn.type=='decorates'" @click="pastes()">复制</span>
 				<span @click="delt()">删除</span>
 			</div>
-			
+
 			<div :style="zsys" class="zs_box">
 				<span @click="adddevd()">
-					<span class="zs_box1"><img :src="setImgU('tools/icon_gd_smile.svg')"/></span><span>添加装饰轨</span>					
+					<span class="zs_box1"><img :src="setImgU('tools/icon_gd_smile.svg')" /></span><span>添加装饰轨</span>
 				</span>
 				<span v-if="zsOn!=navcoms.decorates.length-1" @click="delevd()">
-					<span class="zs_box1"><img :src="setImgU('tools/gd_toast_icon_delete.svg')"/></span><span>删除装饰轨</span>
+					<span class="zs_box1"><img :src="setImgU('tools/gd_toast_icon_delete.svg')" /></span><span>删除装饰轨</span>
 				</span>
 			</div>
 			<div v-if="istype" class="pr_tc_01">
 				<div class="pr_tc_02">
 					<div class="pr_tc_04">
-						{{istype.t}}<img @click="close" class="pr_tc_03 pend" :src="setImgU('project/cj_00.svg')"/>
+						{{istype.t}}<img @click="close" class="pr_tc_03 pend" :src="setImgU('project/cj_00.svg')" />
 					</div>
 					<div class="newds_012">
 						{{istype.c1}}
 						<div class="newds_013">{{istype.c2}}</div>
 					</div>
-			
+
 					<div class="qxBm_btns">
 						<div @click="close" class="btns pend">取消</div>
 						<div @click="clickfn(istype.btnfn)" class="btns btns_js pend">{{istype.btnn}}</div>
@@ -252,12 +229,7 @@
 				</div>
 			</div>
 			<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
-			<audio 
-			class="ntob_cent_l_1" 
-			@timeupdate="setAdioLad" 
-			@ended="setendAudio()" 
-			ref="setAdios"
-			></audio>			
+			<audio class="ntob_cent_l_1" @timeupdate="setAdioLad" @ended="setendAudio()" ref="setAdios"></audio>
 		</div>
 	</div>
 </template>
@@ -279,22 +251,27 @@
 		},
 		data() {
 			return {
-				history:{
-					list:[
+				history: {
+					list: [
 						'{"zj":"setMt","title":"","id":"","media":[],"audio":[],"imgs":[],"maxTime":0,"bflist":[],"decorates":[[]]}',
 					],
-					on:0
+					on: 0
 				},
-				zsys:'',
-				zoomd:1,
-				boxW:0,
-				boxH:0,
+				zsys: '',
+				zoomd: 1,
+				boxW: 0,
+				boxH: 0,
 				istype: '',
-				zsOn:0,
-				isbf:'',
-				cun:[
-					{n:'9:16',x:0},
-					{n:'6:13',x:48}
+				zsOn: 0,
+				isbf: '',
+				cun: [{
+						n: '9:16',
+						x: 0
+					},
+					{
+						n: '6:13',
+						x: 48
+					}
 				],
 				cun2: [
 					'来电预览',
@@ -302,7 +279,7 @@
 				],
 				sczz: '',
 				isld: '',
-				issuspend:'',
+				issuspend: '',
 				vdcc: 0,
 				vdcc2: 0,
 				isCc: '',
@@ -314,32 +291,41 @@
 				csad: '',
 				video: '',
 				navson: 0,
-				navs: [
-					{n:'媒体',icon:'nav_sp_ac.svg',zj:'setMt'},
-					{n:'音乐',icon:'nav_yy.svg',zj:'mp3List'}
+				navs: [{
+						n: '媒体',
+						icon: 'nav_sp_ac.svg',
+						zj: 'setMt'
+					},
+					{
+						n: '音乐',
+						icon: 'nav_yy.svg',
+						zj: 'mp3List'
+					}
 				],
 				navcoms: {
-					zj:'setMt',
+					zj: 'setMt',
 					title: '',
-					id:'',
-					media:[],
-					audio:[],
-					imgs:[],
-					maxTime:0,
-					bflist:[],
-					decorates:[[]]
+					id: '',
+					media: [],
+					audio: [],
+					imgs: [],
+					maxTime: 0,
+					bflist: [],
+					decorates: [
+						[]
+					]
 				},
-				checkOn:{},
-				crtc:{},
-				kd:[1],
-				fd_lave:0,
-				cans:'',
-				isinit:0,
-				po:'',
-				sfjb:10,
-				bof:0,
-				page:1,
-				wdk:21,
+				checkOn: {},
+				crtc: {},
+				kd: [1],
+				fd_lave: 0,
+				cans: '',
+				isinit: 0,
+				po: '',
+				sfjb: 10,
+				bof: 0,
+				page: 1,
+				wdk: 21,
 				formData: {
 					title: '',
 					media: [],
@@ -351,18 +337,35 @@
 					y: 0,
 					w: 391,
 					h: 695,
-				},		
+				},
 				isCc2: '',
 				tdjl: 0,
-				fd: [
-					{s:1,jg:.1},
-					{s:2,jg:.2},
-					{s:10,jg:1},
-					{s:60,jg:60},
-					{s:120,jg:120},
+				fd: [{
+						s: 1,
+						jg: .1
+					},
+					{
+						s: 2,
+						jg: .2
+					},
+					{
+						s: 10,
+						jg: 1
+					},
+					{
+						s: 60,
+						jg: 60
+					},
+					{
+						s: 120,
+						jg: 120
+					},
 				],
-				fdjb:10,
-				tipszb:{x: 0,y: 0},
+				fdjb: 10,
+				tipszb: {
+					x: 0,
+					y: 0
+				},
 				bl: 1,
 				ht: '',
 				isdra: '',
@@ -372,362 +375,385 @@
 				zsgd: {},
 				bfTime: 0,
 				isgdon: 0,
-				imgPftime:0,
-				istitle:'',				
-				playT:0,
-				adiT:0,
-				isk:0,
-				valObj:'',
-				valTime:0,
-				bfObj:'',
-				psd:'',
-				indexstyle:0,
-				bfMax:0,				
-				preview:{
-					/*state 0停止；1播放中；2暂停*/
-					state:0,
-					previewObj:{},
-					maxTime:0,
-					onTime:0,
-					duration:0,
+				imgPftime: 0,
+				istitle: false,
+				playT: 0,
+				adiT: 0,
+				isk: 0,
+				valObj: '',
+				valTime: 0,
+				bfObj: '',
+				psd: '',
+				indexstyle: 0,
+				bfMax: 0,
+				preview: {
+					state: 0,
+					previewObj: {},
+					maxTime: 0,
+					onTime: 0,
+					duration: 0,
 				},
-				xstd:'',
-				ispart:'',
+				xstd: '',
+				ispart: '',
+				mh: 100,
+				mhq: 0,
+				csW:0,
+				csH:0,
 			}
 		},
 		mounted: function() {
 			this.init();
 		},
-		beforeDestroy:function(){
+		beforeDestroy: function() {
 			/*清除事件监听*/
-			window.removeEventListener('resize',this.setVwh);			
-			document.removeEventListener('keydown',this.LineKey);
-			window.removeEventListener('click',this.clickfns);		
-			this.$refs.gdbox.removeEventListener('mousewheel',this.LineWheel);
-			this.$refs.vids.removeEventListener('play',this.LinePlay);
-			this.$refs.vids.removeEventListener('pause',this.LineClerDrm);
-			this.$refs.vids.removeEventListener('ended',this.LineClerDrm);
+			window.removeEventListener('resize', this.setVwh);
+			document.removeEventListener('keydown', this.LineKey);
+			window.removeEventListener('click', this.clickfns);
+			this.$refs.gdbox.removeEventListener('mousewheel', this.LineWheel);
+			this.$refs.vids.removeEventListener('play', this.LinePlay);
+			this.$refs.vids.removeEventListener('pause', this.LineClerDrm);
+			this.$refs.vids.removeEventListener('ended', this.LineClerDrm);
 			this.puandFn();
 		},
 		watch: {
 			fdjb() {
-				this.bl = this.fdjb/10;
+				this.bl = this.fdjb / 10;
 			},
-			'navcoms.title'(a){
-				if(a.length>20){
-					this.navcoms.title = a.substring(0,20);				
+			'navcoms.title'(a) {
+				if (a.length > 20) {
+					this.navcoms.title = a.substring(0, 20);
 				}
 			},
-			bfTime(a){
-				if(a<0){
+			bfTime(a) {
+				if (a < 0) {
 					this.preview.onTime = 0;
 				}
 			},
-			'preview.state'(newD,oldeD){
-				switch(newD) {
-				    case 1:
+			'preview.state'(newD, oldeD) {
+				switch (newD) {
+					case 1:
 						this.playPreview();
 						break;
-				    case 2:
-				        this.puandFn();
+					case 2:
+						this.puandFn();
 						break;
-				} 				
+				}
 			},
 		},
 		methods: {
-			history_set(){
+			history_set() {
 				let ob = this.history;
-				ob.list.splice(ob.on+1,ob.list.length-ob.on,JSON.stringify(this.navcoms));				
-				this.history.on = this.history.list.length-1;		
+				ob.list.splice(ob.on + 1, ob.list.length - ob.on, JSON.stringify(this.navcoms));
+				this.history.on = this.history.list.length - 1;
 			},
-			history_pr(){	
-				if(this.history.on==0){
+			history_pr() {
+				if (this.history.on == 0) {
 					return
 				}
-				this.history.on--;			
+				this.history.on--;
 				this.navcoms = JSON.parse(this.history.list[this.history.on]);
 				this.drmOn();
 			},
-			history_nx(){
-				if(this.history.on==this.history.list.length-1){
+			history_nx() {
+				if (this.history.on == this.history.list.length - 1) {
 					return
 				}
-				this.history.on++;					
+				this.history.on++;
 				this.navcoms = JSON.parse(this.history.list[this.history.on]);
 				this.drmOn();
 			},
-			clickfns(e){
-				if(this.checkOn.list){
-					if(!this.checkOn.ison){
+			clickfns(e) {
+				if (this.checkOn.list) {
+					if (!this.checkOn.ison) {
 						this.checkOn.ison = 1;
 						return
 					}
-					this.checkOn.list[this.checkOn.on].ischeck='';
+					this.checkOn.list[this.checkOn.on].ischeck = '';
 					this.checkOn = {};
-				}	
+				}
 			},
-			checkBf(){
+			checkBf() {
 				let len1 = this.navcoms.media.length;
 				let len2 = 0;
-				for(let i=0,n=this.navcoms.decorates.length;i<n;i++){
+				for (let i = 0, n = this.navcoms.decorates.length; i < n; i++) {
 					let led = this.navcoms.decorates[i].length;
-					len2 = led>0?led:0;					
+					len2 = led > 0 ? led : 0;
 				}
-				if(len1>0 || len2>0){
+				if (len1 > 0 || len2 > 0) {
 					return true
 				}
 				return false
 			},
-			setHidmg(el){
+			setHidmg(el) {
 				return "width:" + (el.long / this.bl) * this.wdk + "px;transform:translateX(" + -((el.cut_start /
-					this.bl) * this.wdk) + "px);";				 
+					this.bl) * this.wdk) + "px);";
 			},
-			setPreviewState(n){
+			setPreviewState(n) {
 				this.preview.state = n;
 			},
-			setPreviewData(n,v){
+			setPreviewData(n, v) {
 				this.preview[n] = v;
 			},
-			newplayPreview(){
+			newplayPreview() {
 				this.preview.onTime = 0;
 				this.preview.state = 2;
-				setTimeout(()=>{
+				setTimeout(() => {
 					this.preview.state = 1;
 					this.ispart = 1;
-				},20)
+				}, 20)
 			},
-			playd(){
-				if(!this.checkBf()){
+			playd() {
+				if (!this.checkBf()) {
 					this.tipMr('请先添加内容');
 					return
 				}
-				if(this.preview.state==0 && this.preview.onTime>=this.preview.maxTime){
+				if (this.preview.state == 0 && this.preview.onTime >= this.preview.maxTime) {
 					this.preview.onTime = 0;
 				}
-				if(this.preview.state==1){
+				if (this.preview.state == 1) {
 					this.preview.state = 2;
-				}else{
+				} else {
 					this.preview.state = 1;
 					this.ispart = 1;
 				}
 			},
-			getEndTiem(){
+			getEndTiem() {
 				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len2 = this.$refs.gund_01x.offsetWidth;
 				let pd = maxd / len2;
 				let sdas = this.tdjl * pd;
 				let len = this.getBur(this.$refs.gdbox).width;
-				len = len+sdas;				
-				return len;													
+				len = len + sdas;
+				return len;
 			},
-			playPreview(a){
-				if(this.navcoms.media.length==0){
+			playPreview(a) {
+				if (this.navcoms.media.length == 0) {
 					this.tipMr('请先添加内容');
 					return
 				}
-				if(this.$refs.setAdios){
+				if (this.$refs.setAdios) {
 					this.$refs.setAdios.pause();
 				}
-				
-				if(this.$refs.vid && this.$refs.vid.setRun){
+
+				if (this.$refs.vid && this.$refs.vid.setRun) {
 					this.$refs.vid.setRun();
 				}
-				
-				if(a){
+
+				if (a) {
 					this.preview.state = 2;
 					this.puandFn();
-					return 
+					return
 				}
 				this.preview.state = 1;
 				this.setPreviewObj();
 				let bfObj = this.preview.previewObj;
-				this.preview.state=1;
-							
-				if(bfObj.type=='null'){
+				this.preview.state = 1;
+
+				if (bfObj.type == 'null') {
 					this.drmNull(bfObj);
 					return
 				}
-				if(bfObj.type=='pic'){
+				if (bfObj.type == 'pic') {
 					this.drmImg(bfObj);
 					return
-				}				
-				if(!this.$refs.vids){
+				}
+				if (!this.$refs.vids) {
 					return
 				}
-			
-				if(this.$refs.vids.src!=bfObj.file_url){
-					
-					this.$refs.vids.src=bfObj.file_url;	
+
+				if (this.$refs.vids.src != bfObj.file_url) {
+
+					this.$refs.vids.src = bfObj.file_url;
 				}
-				
-				let onto = (this.preview.onTime - bfObj.start)+bfObj.cut_start;
-				
-				if(this.$refs.vids.currentTime!=onto){
-				
+
+				let onto = (this.preview.onTime - bfObj.start) + bfObj.cut_start;
+			if (this.$refs.vids.currentTime != onto) {
 					this.$refs.vids.currentTime = onto;
 				}
 				this.$refs.vids.pause();
-				setTimeout(()=>{
+				setTimeout(() => {
 					this.$refs.vids.play();
-				},10)		
+				}, 10)
 			},
-			puandFn(){
-				if(this.preview.state==1){
-					this.preview.state=2;
+			puandFn() {
+				if (this.preview.state == 1) {
+					this.preview.state = 2;
 					return
 				}
 				this.stopDr();
 				this.stopMeat(this.$refs.vids)
 				this.stopMeat(this.$refs.aido)
 			},
-			stopMeat(obj){
-				if(obj && !obj.paused){
+			stopMeat(obj) {
+				if (obj && !obj.paused) {
 					obj.pause()
 				}
 			},
-			setPreviewTimes(el,type,isdur){
-				if(this.preview.state==1){
+			setPreviewTimes(el, type, isdur) {
+				if (this.preview.state == 1) {
 					this.setPreviewState(2);
-				}			
-				let maxt = 0;
-				if(el){
-					maxt = this.backTim(el);
-					if(maxt>this.preview.maxTime){
-						if(type!='audio'){
-							this.preview.maxTime = maxt;
-						}												
-					}
-					if(isdur && maxt>this.preview.duration){
-						this.preview.duration = maxt;
-					}					
-					return
 				}
-				let time = 0;				
-				if(type=='media' || type=='del'){
-					let mediaArry = this.navcoms.media,
-					len1 = mediaArry.length;
-					if(len1>0){
-						time = this.backTim(mediaArry[len1-1]);
+				let maxt = 0;
+				if (el) {
+					maxt = this.backTim(el);
+					if (type != 'audio' && maxt > this.preview.maxTime) {
+						this.setMaxTime(el);
 					}
 					
+					if (isdur && maxt > this.preview.duration) {
+						this.preview.duration = maxt;
+					}
+					return
 				}
-				if(type=='decorates' || type=='del'){
+				let time = 0;
+				if (type == 'media' || type == 'del') {
+					let mediaArry = this.navcoms.media,
+						len1 = mediaArry.length;
+					if (len1 > 0) {
+						time = this.backTim(mediaArry[len1 - 1]);
+					}
+
+				}
+				if (type == 'decorates' || type == 'del') {
 					let decoratesArry = this.navcoms.decorates;
-					for(let i =0,n=decoratesArry.length;i<n;i++){
+					for (let i = 0, n = decoratesArry.length; i < n; i++) {
 						let nd = decoratesArry[i];
-						for(let i2=0,n2=nd.length;i2<n2;i2++){
+						for (let i2 = 0, n2 = nd.length; i2 < n2; i2++) {
 							let tim = this.backTim(nd[i2]);
-							if(tim>time){
+							if (tim > time) {
 								time = tim;
 							}
 						}
-					}					
+					}
 				}
 				this.preview.maxTime = time;
-				if((type=='audio' || type=='del') && isdur){
-				
+				if ((type == 'audio' || type == 'del') && isdur) {
+
 					let audioArry = this.navcoms.audio,
-					len2 = audioArry.length;
-					if(len2>0){
-						let tim = this.backTim(audioArry[len2-1]);
-						if(tim>time){
+						len2 = audioArry.length;
+					if (len2 > 0) {
+						let tim = this.backTim(audioArry[len2 - 1]);
+						if (tim > time) {
 							time = tim;
 						}
-					}					
+					}
 				}
-				if(isdur){
+				if (isdur) {
 					this.preview.duration = time;
 				}
-				
-			},			
-			setPreviewObj(){
-				
-				let pd = this.navcoms.media,on=0,len = pd.length,	
-				obj = {};
-				var fn = ()=>{
+
+			},
+			setPreviewObj() {
+
+				let pd = this.navcoms.media,
+					on = 0,
+					len = pd.length,
+					obj = {};
+				var fn = () => {
 					let onT = this.preview.onTime;
-					if(!pd[on]){
-						obj = {type:'null',end:this.preview.maxTime};
+					if (!pd[on]) {
+						obj = {
+							type: 'null',
+							end: this.preview.maxTime
+						};
 						return
 					}
-					if(onT<pd[on].start){
-						obj = {type:'null',end:pd[on].start};
+					if (onT < pd[on].start) {
+						obj = {
+							type: 'null',
+							end: pd[on].start
+						};
 						return
 					}
 					let end = this.backTim(pd[on]);
-					if(this.preview.onTime<end){
+					if (this.preview.onTime < end) {
 						obj = pd[on];
-						return 
+						return
 					}
 					on++;
-					fn();			
+					fn();
 				}
 				fn();
-				this.preview.previewObj = obj;		
-			},			
-			setCheckOn(obj){
-				if(this.checkOn.list){
-					this.checkOn.list[this.checkOn.on].ischeck='';
+				this.preview.previewObj = obj;
+			},
+			setCheckOn(obj) {
+				if (this.checkOn.list) {
+					this.checkOn.list[this.checkOn.on].ischeck = '';
 				}
 				this.checkOn = obj;
-				this.checkOn.list[this.checkOn.on].ischeck=1;
+				this.checkOn.list[this.checkOn.on].ischeck = 1;
 			},
-	
-			drmvideo(a){
+
+			drmvideo(a, af) {
+				this.cans.globalAlpha = 1;
 				this.drmBg();
-				this.cans.drawImage(this.$refs.vids,a.sx,a.sy,a.sw,a.sh,a.x,a.y,a.w,a.h);
+				if (af || af == 0) {
+					this.cans.globalAlpha = af;
+				}
+				let bl = 1;
+				if(!a.pageZoomW){
+					bl = parseInt((this.boxW/a.pageZoomW)*100)/100;
+				}
+				this.cans.drawImage(this.$refs.vids, a.sx, a.sy, a.sw, a.sh, a.x*bl, a.y*bl, a.w*bl, a.h*bl);
 			},
-			drmOn(){
-				this.setPreviewObj();			
+			drmOn() {
+				this.setPreviewObj();
 				let obd = this.preview.previewObj;
-				if(!obd || obd.type=='null'){
+				if (!obd || obd.type == 'null') {
 					this.drmBg();
 					return
 				}
 				
-				if(obd.type=='video'){
+				
+				if (obd.type == 'video') {
 					clearTimeout(this.valObj);
-					this.$refs.vids.src=obd.file_url;
-					let t = this.backto((this.preview.onTime - obd.start)+obd.cut_start);
-					t = t==0?0.01:t;
+					this.$refs.vids.src = obd.file_url;
+					let t = this.backto((this.preview.onTime - obd.start) + obd.cut_start);
+					t = t == 0 ? 0.01 : t;
 					this.$refs.vids.currentTime = t;
-					let fns = ()=>{
+					let fns = () => {
 						this.drmvideo(obd);
-						removeEventListener('loadeddata',fns);
+						removeEventListener('loadeddata', fns);
 					};
-					this.$refs.vids.addEventListener('loadeddata',fns);
+					this.$refs.vids.addEventListener('loadeddata', fns);
 					return
 				}
-				if(obd.type=='pic'){
+				if (obd.type == 'pic') {
 					this.drmBg();
 					let a = document.createElement('img');
 					a.src = obd.file_url;
 					a.onload = () => {
 						this.drmBg();
-						this.cans.drawImage(a,obd.sx,obd.sy,obd.sw,obd.sh,obd.x,obd.y,obd.w,obd.h);
+						let bl = 1;
+						if(!obd.pageZoomW){
+							bl = parseInt((this.boxW/obd.pageZoomW)*100)/100;
+						}
+						this.cans.drawImage(a, obd.sx, obd.sy, obd.sw, obd.sh, obd.x*bl, obd.y*bl, obd.w*bl, obd.h*bl);
 					}
 					return
 				}
-			},			
-			
-			kdClick(e){
+			},
+
+			kdClick(e) {
 				this.puandFn()
-				e.preventDefault();			
+				e.preventDefault();
 				this.preview.onTime = this.getMousTime(e);
 				this.drmOn()
-			},	
-			getMousTime(e){		
+			},
+			getMousTime(e) {
 				/*已拖动距离*/
-				
+
 				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len = this.$refs.gund_01x.offsetWidth;
 				let pd = maxd / len;
-				
-				
-				let dd =((e.x+this.tdjl * pd)-120)/ (this.wdk / this.bl);				
-				if(dd<0){dd=0}
+
+
+				let dd = ((e.x + this.tdjl * pd) - 120) / (this.wdk / this.bl);
+				if (dd < 0) {
+					dd = 0
+				}
 				return dd;
-			},		
+			},
 			todTime(e) {
 				e.preventDefault();
 				let tdStar = e.pageX;
@@ -736,11 +762,13 @@
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
-					let on = -(tdStar - e.pageX) / (this.wdk / this.bl);			
+					let on = -(tdStar - e.pageX) / (this.wdk / this.bl);
 					let dd = +cs + on;
-					if(dd<0){dd=0}
+					if (dd < 0) {
+						dd = 0
+					}
 					this.preview.onTime = dd;
-					
+
 				}
 				document.onmouseup = (e) => {
 					e.preventDefault();
@@ -748,198 +776,203 @@
 					document.onmousemove = document.onmouseup = null;
 				}
 			},
-			
-			stopDr(){
+
+			stopDr() {
 				clearInterval(this.valObj);
-			},			
-			/*播放相关*/								
-			
-			drmNull(onBj){
-				if(!onBj){return}
+			},
+			/*播放相关*/
+
+			drmNull(onBj) {
+				if (!onBj) {
+					return
+				}
 				let ontim = this.preview.onTime;
 				let vtime = 0;
-				
+
 				this.videoPn();
-				this.drmBg();	
+				this.drmBg();
 				this.valObj = setInterval(() => {
 					this.checkAdio();
-					vtime+=.05;
-																					
-					this.preview.onTime = ontim+vtime;
+					vtime += .05;
+
+					this.preview.onTime = ontim + vtime;
 					this.checkPlayJd();
-					
+
 					if (this.preview.onTime >= onBj.end) {
 						this.preview.onTime = onBj.end;
-							clearTimeout(this.valObj);					
-							this.endeds();					
-						}
+						clearTimeout(this.valObj);
+						this.endeds();
+					}
 				}, 50);
 			},
-			videoPn(){
+			videoPn() {
 				clearInterval(this.valObj);
-				if(this.$refs.vids){
+				if (this.$refs.vids) {
 					this.$refs.vids.pause();
 				}
 			},
 			/*检测是否是图片*/
 			drmImg(onBj) {
-				let a = document.createElement('img'),			
-				ontim = this.preview.onTime,
-				vtime = 0;
-				a.src = onBj.file_url;	
+				let a = document.createElement('img'),
+					ontim = this.preview.onTime,
+					vtime = 0;
+				a.src = onBj.file_url;
 				let end = this.backTim(onBj);
-				
+				let bl = 1;
+				if(!onBj.pageZoomW){
+					bl = parseInt((this.boxW/onBj.pageZoomW)*100)/100;
+				}
 				a.onload = () => {
 					this.drmBg();
-					this.cans.drawImage(a,onBj.sx,onBj.sy,onBj.sw,onBj.sh,onBj.x,onBj.y,onBj.w,onBj.h);
-					this.valObj = setInterval(() => {					
-						vtime = vtime + .05;			
-						this.preview.onTime = ontim+vtime;
-						
+					this.cans.drawImage(a, onBj.sx, onBj.sy, onBj.sw, onBj.sh, onBj.x*bl, onBj.y*bl, onBj.w*bl, onBj.h*bl);
+					this.valObj = setInterval(() => {
+						vtime = vtime + .05;
+						this.preview.onTime = ontim + vtime;
+
 						this.checkPlayJd();
 						this.checkAdio();
-						if (this.preview.onTime>=end){
-							clearTimeout(this.valObj);	
+						if (this.preview.onTime >= end) {
+							clearTimeout(this.valObj);
 							this.preview.onTime = end;
-							this.endeds();						
+							this.endeds();
 						}
 					}, 50);
 				}
 			},
-			
-			playAdio_d(){
+
+			playAdio_d() {
 				let onBj = this.navcoms.audio[0];
-				if(!onBj){
-					return
-				}		
-				if(!this.$refs.aido){
+				if (!onBj) {
 					return
 				}
-				if(this.$refs.aido.src!=onBj.file_url){
-					this.$refs.aido.src=onBj.file_url;
-				}
-				if(!this.$refs.aido.paused){
+				if (!this.$refs.aido) {
 					return
-				}	
-				
-				this.$refs.aido.currentTime =this.preview.onTime-onBj.start+onBj.cut_start;
+				}
+				if (this.$refs.aido.src != onBj.file_url) {
+					this.$refs.aido.src = onBj.file_url;
+				}
+				if (!this.$refs.aido.paused) {
+					return
+				}
+
+				this.$refs.aido.currentTime = this.preview.onTime - onBj.start + onBj.cut_start;
 				this.$refs.aido.play();
 			},
 			/*检测是否播放音乐*/
-			checkAdio(){
-				if(this.preview.state!=1){
+			checkAdio() {
+				if (this.preview.state != 1) {
 					return
 				}
 				let ado = this.navcoms.audio[0];
-				if(!ado){
+				if (!ado) {
 					return
 				}
 				let end = this.backTim(ado);
-				
-				if(this.preview.onTime<ado.start || this.preview.onTime>end){
+
+				if (this.preview.onTime < ado.start || this.preview.onTime > end) {
 					return
 				}
-			
-				this.playAdio_d();						
+
+				this.playAdio_d();
 			},
-	
+
 			/*绘制黑色背景*/
-			drmBg(){
+			drmBg() {
 				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0,0,this.boxW,this.boxH);						
+				this.cans.fillRect(0, 0, this.csW, this.csH);
 			},
-			
+
 			endeds() {
-				
-				if(this.preview.onTime<this.preview.maxTime){
-					
+
+				if (this.preview.onTime < this.preview.maxTime) {
+
 					this.playPreview();
 					return
 				}
-				this.setPreviewState(0);				
+				this.setPreviewState(0);
 			},
-			
+
 			timeupdatevideo() {
 				this.checkAdio();
 			},
-			timeupdatevideo2(){
+			timeupdatevideo2() {
 				let objd = this.navcoms.audio[0],
-				adioTim = this.backTim(objd),
-				ontime = this.$refs.aido.currentTime;				
-				let sjTim = ontime - objd.cut_start+objd.start;
-				if(ontime>=objd.cut_end){
+					adioTim = this.backTim(objd),
+					ontime = this.$refs.aido.currentTime;
+				let sjTim = ontime - objd.cut_start + objd.start;
+				if (ontime >= objd.cut_end) {
 					this.$refs.aido.pause();
 					return
-				}				
-				if (sjTim >= this.preview.maxTime){
-					this.$refs.aido.pause();					
+				}
+				if (sjTim >= this.preview.maxTime) {
+					this.$refs.aido.pause();
 				}
 			},
 
-			playAdio(t){
-				if(t.url){
+			playAdio(t) {
+				if (t.url) {
 					this.$refs.setAdios.src = t.url;
 				}
-				if(!this.$refs.setAdios.src){
+				if (!this.$refs.setAdios.src) {
 					return
 				}
-				if(t.time){
+				if (t.time) {
 					this.$refs.setAdios.currentTime = t.time;
 				}
-				
-				
+
+
 				this[t.type](this.$refs.setAdios)
 			},
-			
-			playFn(obj){
-				if(this.preview.state==1){
+
+			playFn(obj) {
+				if (this.preview.state == 1) {
 					this.setPreviewState(2);
 				}
-				if(obj){
-					obj.play();					
+				if (obj) {
+					obj.play();
 				}
-				
-				
+
+
 			},
-			pauseFn(obj){
-				if(obj){
+			pauseFn(obj) {
+				if (obj) {
 					obj.pause();
 				}
-				
-				if(this.$refs.vid && this.$refs.vid.setRun){
+
+				if (this.$refs.vid && this.$refs.vid.setRun) {
 					this.$refs.vid.setRun();
 				}
-				
+
 			},
-			setcurrentTime(t){
+			setcurrentTime(t) {
 				this.$refs.setAdios.currentTime = t;
 			},
-			setAdioLad(){
-				if(this.$refs.vid && this.$refs.vid.setTime){
+			setAdioLad() {
+				if (this.$refs.vid && this.$refs.vid.setTime) {
 					this.$refs.vid.setTime(this.$refs.setAdios.currentTime);
 				}
 			},
-			setendAudio(){
-				if(this.$refs.vid && this.$refs.vid.ended){
+			setendAudio() {
+				if (this.$refs.vid && this.$refs.vid.ended) {
 					this.$refs.vid.ended();
 				}
 			},
-			backbft(){
-				return 'transform: translateX('+((this.preview.onTime/this.bl) * this.wdk)+'px);';
+			backbft() {
+				return 'transform: translateX(' + ((this.preview.onTime / this.bl) * this.wdk) + 'px);';
 			},
-			LineKey(e){
+			LineKey(e) {
 				let ctrlKey = e.ctrlKey || e.metaKey,
-				shiftKey = e.shiftKey;				
-				if(ctrlKey && e.keyCode==67){
-					e.preventDefault();						
-				}			
-				if(ctrlKey && e.keyCode==86){
+					shiftKey = e.shiftKey;
+				if (ctrlKey && e.keyCode == 67) {
 					e.preventDefault();
 				}
-				if(this.checkOn.list && e.keyCode === 8) {
+				if (ctrlKey && e.keyCode == 86) {
+					e.preventDefault();
+				}
+				if (this.checkOn.list && e.keyCode === 8) {
 					e.preventDefault();
 					this.delt()
-				
+
 					return
 				}
 				if (e.keyCode == 32) {
@@ -948,14 +981,14 @@
 					return
 				}
 			},
-			LineWheel(e){
+			LineWheel(e) {
 				e = e || window.event;
 				let ctrlKey = e.ctrlKey || e.metaKey,
-				shiftKey = e.shiftKey;
-				if(!ctrlKey && !shiftKey){
+					shiftKey = e.shiftKey;
+				if (!ctrlKey && !shiftKey) {
 					return
 				}
-				e.preventDefault();								
+				e.preventDefault();
 				let pd = 0;
 				let maxd = this.$refs.qyBox.offsetWidth;
 				let len = this.$refs.gund_01x.offsetWidth;
@@ -963,36 +996,36 @@
 				pd = (maxd - len) * bl;
 				this.puandFn();
 				var kd = e.wheelDelta ? e.wheelDelta : e.detail;
-				if (kd > 0) {	
-					if (ctrlKey && this.fdjb > 1) {													
-						this.fdjb--;						
+				if (kd > 0) {
+					if (ctrlKey && this.fdjb > 1) {
+						this.fdjb--;
 					}
 					if (shiftKey) {
-						let ond = this.tdjl-30;				
-						this.tdjl = ond<0?0:ond;					
+						let ond = this.tdjl - 30;
+						this.tdjl = ond < 0 ? 0 : ond;
 					}
 				}
 				if (kd < 0) {
 					if (ctrlKey && this.fdjb < 120) {
-						this.fdjb++;						
+						this.fdjb++;
 					}
-					if (shiftKey) {		
-						let ond = this.tdjl+30;												
-						if(ond>pd){
+					if (shiftKey) {
+						let ond = this.tdjl + 30;
+						if (ond > pd) {
 							ond = pd;
 						}
-						this.tdjl = ond;						
+						this.tdjl = ond;
 					}
 				}
 			},
-			
-			LineClerDrm(){
+
+			LineClerDrm() {
 				window.clearInterval(this.po);
 			},
-			titlon(on){
+			titlon(on) {
 				this.istitle = on;
 			},
-			
+
 			gdfn(ev) {
 				this.$refs.gd_02.scrollTop = ev.target.scrollTop;
 			},
@@ -1014,14 +1047,14 @@
 			showDevs(on, on1) {
 				this.zsgd = this.navcoms.decorates[on][on1];
 			},
-			delevd(){
-				if(this.navcoms.decorates.length==1){
+			delevd() {
+				if (this.navcoms.decorates.length == 1) {
 					return
-				}				
-				this.zsgd = this.navcoms.decorates.splice(this.zsOn,1);
+				}
+				this.zsgd = this.navcoms.decorates.splice(this.zsOn, 1);
 			},
 			adddevd() {
-				this.navcoms.decorates.push([]);		
+				this.navcoms.decorates.push([]);
 			},
 			savsout() {
 				return
@@ -1034,7 +1067,7 @@
 					this.savsout();
 				}, 60000);
 			},
-			showZs(e,b){
+			showZs(e, b) {
 				let dom = e.target.getBoundingClientRect();
 				this.zsys = 'display:block;top:' + (e.y - 5) + 'px;left:' + (e.x - 22) + 'px';
 				this.zsOn = b;
@@ -1049,7 +1082,7 @@
 				if (e.button == "2") {
 					e.preventDefault();
 					if (b) {
-						this.setCheckOn(b)						
+						this.setCheckOn(b)
 					}
 					this.csad = 'display:block;top:' + (e.y - 5) + 'px;left:' + (e.x - 22) + 'px';
 					let fn = () => {
@@ -1060,12 +1093,12 @@
 					this.clerClick(fn)
 				}
 			},
-			setMos(on,e) {
-				
-				if(e){
+			setMos(on, e) {
+
+				if (e) {
 					on.y = e.target.getBoundingClientRect().y;
-				}				
-				this.Mos = on;				
+				}
+				this.Mos = on;
 			},
 			tochs() {
 				this.isdra = 1;
@@ -1078,16 +1111,16 @@
 					path: '/toluser'
 				});
 			},
-			bgtf(el,a) {
+			bgtf(el, a) {
 				if (!el) {
 					return
 				}
 				let url = el.type == 'pic' ? el.file_url : el.fps_pic;
-				let xd = -(el.cut_start/this.bl*this.wdk);
-				
-				
-				return "background:url(" + url + ") "+xd+"px 0/auto 100% repeat-x";
-				
+				let xd = -(el.cut_start / this.bl * this.wdk);
+
+
+				return "background:url(" + url + ") " + xd + "px 0/auto 100% repeat-x";
+
 			},
 			baclsf() {
 				let max = 64;
@@ -1108,7 +1141,7 @@
 					this.fdjb--;
 				}
 			},
-			getBur(obj){
+			getBur(obj) {
 				return obj.getBoundingClientRect();
 			},
 			tdfn() {
@@ -1117,9 +1150,9 @@
 				}
 				let maxd = Math.ceil(this.preview.maxTime / this.bl) * this.wdk;
 				let prw = this.getBur(this.$refs.gdbox).width;
-				let prt = prw/this.wdk*this.bl;
-				if(prw>maxd){
-					maxd = prw;					
+				let prt = prw / this.wdk * this.bl;
+				if (prw > maxd) {
+					maxd = prw;
 				}
 				let pd = prw / maxd;
 				if (pd > 1) {
@@ -1135,8 +1168,20 @@
 				let maxd = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len = this.$refs.gund_01x.offsetWidth;
 				let pd = maxd / len;
-
+				let ond = this.tdjl/pd*len;
+				let onds = this.getMaxScrll_x();
+				if(this.tdjl>onds){
+					this.tdjl = onds;
+				}
 				return "transform: translateX(" + -(this.tdjl * pd) + "px);";
+			},
+			getMaxScrll_x(){
+				let scrllW = this.$refs.gund_01x.offsetWidth;
+				let boxW = this.$refs.gdbox.offsetWidth;
+				let centW = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
+				let maxw = centW-boxW;
+				let bl = scrllW/centW;
+				return (maxw<0?0:maxw)*bl;
 			},
 			qhcc2(on) {
 				this.vdcc2 = on;
@@ -1184,7 +1229,7 @@
 			close() {
 				this.istype = '';
 			},
-			
+
 			jlx2(e) {
 				e.preventDefault();
 				this.puandFn();
@@ -1209,13 +1254,12 @@
 			},
 			jlx(e, el, index, list) {
 				e.preventDefault();
-				
 				if (!this.$refs.gund_01x) {
 					return
 				}
 				this.puandFn();
 				let maxd = Math.ceil(this.preview.maxTime / this.bl) * this.wdk;
-				let tdStar = e.pageX;	
+				let tdStar = e.pageX;
 				let len = this.getBur(this.$refs.gund_01x).width;
 				let bl = len / maxd;
 				let pd = (maxd - len) * bl;
@@ -1223,7 +1267,6 @@
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
-					
 					let on = Math.round((e.pageX - tdStar) * 100) / 100 + mv;
 					if (on > pd) {
 						on = pd;
@@ -1240,17 +1283,15 @@
 
 			jl(e, el, index, list, n) {
 				e.preventDefault();
-
 				this.setCheckOn({
 					type: n,
 					on: index,
-					list:list,
+					list: list,
 				})
-					
 				let startX = e.pageX,
-				oldCut_end = el.cut_end,
-				max = el.type == 'pic'?999999:el.long,
-				min = el.cut_start + .1;	
+					oldCut_end = el.cut_end,
+					max = el.type == 'pic' ? 999999 : el.long,
+					min = el.cut_start + .1;
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
@@ -1269,7 +1310,7 @@
 				document.onmouseup = () => {
 					document.onmousemove = document.onmouseup = null;
 					this.puandFn();
-					this.setPreviewTimes('','del');				
+					this.setPreviewTimes('', 'del');
 					this.drmOn();
 					this.history_set();
 				}
@@ -1277,97 +1318,99 @@
 			setHm(on, el, list) {
 				for (let i = on, n = list.length; i < n; i++) {
 					let ond = this.backTim(list[i]);
-					if (list[i+1] && list[i+1].start<ond) {
-						list[i+1].start = ond;
+					if (list[i + 1] && list[i + 1].start < ond) {
+						list[i + 1].start = ond;
 					}
-
 				}
-
 			},
-			getMousOnTime(x){
-				let ont = (x-120)/this.wdk*this.bl;
-				ont = ont<0?0:ont;
-				return ont;			
+			getMousOnTime(x) {
+				let ont = (x - 120) / this.wdk * this.bl;
+				ont = ont < 0 ? 0 : ont;
+				return ont;
 			},
-			getPNData(list=[],on=0){
-				let len = list.length-1,
-				obj = {};
-				if(on>0){
-					let pns = list[on-1];
+			getPNData(list = [], on = 0) {
+				let len = list.length - 1,
+					obj = {};
+				if (on > 0) {
+					let pns = list[on - 1];
 					obj.pr = {
-						start:pns.start,
-						end:this.backTim(pns)
+						start: pns.start,
+						end: this.backTim(pns)
 					};
 				}
-				if(on<len){
-					let pns = list[on+1];
+				if (on < len) {
+					let pns = list[on + 1];
 					obj.nx = {
-						start:pns.start,
-						end:this.backTim(pns)
+						start: pns.start,
+						end: this.backTim(pns)
 					};
 				}
-				return obj				
+				return obj
 			},
 			jl3(e, el, index, list, n) {
 				e.preventDefault();
-				this.setCheckOn({type:n,on:index,list:list})
+				this.setCheckOn({
+					type: n,
+					on: index,
+					list: list
+				})
 				let cDom = e.path[2],
-				Msond = this.Mos.on,
-				tdStar = e.pageX,
-				mousT = el.start,
-				zby = el.zpY,
-				onc = index,
-				tms = el.cut_end - el.cut_start,
-				pN = this.getPNData(list,onc),
-				onlen = this.navcoms.decorates.length,
-				isHg = false,
-				onDom = el,
-				init = (on,el,ex)=>{
-					tdStar = ex;
-					Msond = this.Mos.on;	
-					mousT = el.start;
-					zby = el.zpY;
-					onc = on;
-					tms = el.cut_end - el.cut_start;
-					pN = this.getPNData(list,onc);
-					onlen = this.navcoms.decorates.length;
-					isHg = false;
-					onDom = el;
-				},
-				upSetQ = (ont,ex)=>{
-					if(pN.pr){
-						let ond = onc-1;
-						if (ont <= (pN.pr.start+(pN.pr.end-pN.pr.start)/2)) {
-							onDom.start = list[ond].start;
-							list[ond].start = this.backTim(onDom);
-							list.splice(ond,2,onDom,list[ond]);
-							this.checkOn.on = ond;
-							// onc = ond;
-							init(ond,onDom,ex)
+					Msond = this.Mos.on,
+					tdStar = e.pageX,
+					mousT = el.start,
+					zby = el.zpY,
+					onc = index,
+					tms = el.cut_end - el.cut_start,
+					pN = this.getPNData(list, onc),
+					onlen = this.navcoms.decorates.length,
+					isHg = false,
+					onDom = el,
+					init = (on, el, ex) => {
+						tdStar = ex;
+						Msond = this.Mos.on;
+						mousT = el.start;
+						zby = el.zpY;
+						onc = on;
+						tms = el.cut_end - el.cut_start;
+						pN = this.getPNData(list, onc);
+						onlen = this.navcoms.decorates.length;
+						isHg = false;
+						onDom = el;
+					},
+					upSetQ = (ont, ex) => {
+						if (pN.pr) {
+							let ond = onc - 1;
+							if (ont <= (pN.pr.start + (pN.pr.end - pN.pr.start) / 2)) {
+								onDom.start = list[ond].start;
+								list[ond].start = this.backTim(onDom);
+								list.splice(ond, 2, onDom, list[ond]);
+								this.checkOn.on = ond;
+								// onc = ond;
+								init(ond, onDom, ex)
+							}
+
 						}
-						
-					}
-					if(pN.nx){
-						let ond = onc+1;
-						if (ont >= pN.nx.start+((pN.nx.end-pN.nx.start)/2)) {
-							list[ond].start = onDom.start;
-							onDom.start = this.backTim(list[ond]);
-							list.splice(onc, 2, list[ond],onDom);						
-							this.checkOn.on = ond;
-							// onc = ond;
-							init(ond,onDom,ex)
-						}	
-						
-					}
-				};
-				
-				cDom.style.pointerEvents='none';								
+						if (pN.nx) {
+							let ond = onc + 1;
+							if (ont >= pN.nx.start + ((pN.nx.end - pN.nx.start) / 2)) {
+								list[ond].start = onDom.start;
+								onDom.start = this.backTim(list[ond]);
+								list.splice(onc, 2, list[ond], onDom);
+								this.checkOn.on = ond;
+								// onc = ond;
+								init(ond, onDom, ex)
+							}
+
+						}
+					};
+
+				cDom.style.pointerEvents = 'none';
 				document.onmousemove = document.onmouseup = null;
 				document.onmousemove = (e) => {
 					e.preventDefault();
 					let on = -(tdStar - e.pageX) / (this.wdk / this.bl);
 					this.getMousOnTime(e.pageX);
-					let dd = +mousT + on;					
+					let dd = +mousT + on;
 					if (!isHg && pN.pr && dd < pN.pr.end) {
 						dd = pN.pr.end;
 					}
@@ -1379,93 +1422,95 @@
 					}
 					onDom.start = dd;
 					let ont = this.getMousTime(e);
-					upSetQ(ont,e.pageX);
-					if(zby || zby==0){
-						if(n=='media'){
-							if(this.Mos.n=='decorates'){
+					upSetQ(ont, e.pageX);
+					if (zby || zby == 0) {
+						if (n == 'media') {
+							if (this.Mos.n == 'decorates') {
 								isHg = true;
-								onDom.zpY = -75*(onlen-this.Mos.on);
+								onDom.zpY = -75 * (onlen - this.Mos.on);
 								return
 							}
-							if(this.Mos.n=='media'){
+							if (this.Mos.n == 'media') {
 								isHg = false;
 								onDom.zpY = 0;
 								return
 							}
 							return
 						}
-						if(n=='decorates'){
-							if(this.Mos.n=='decorates'){
-								if(Msond==this.Mos.on){
+						if (n == 'decorates') {
+							if (this.Mos.n == 'decorates') {
+								if (Msond == this.Mos.on) {
 									isHg = false;
 									onDom.zpY = 0;
 									return
 								}
 								isHg = true;
-								onDom.zpY = -75*(Msond-this.Mos.on);
+								onDom.zpY = -75 * (Msond - this.Mos.on);
 								return
 							}
-							if(this.Mos.n=='media'){
+							if (this.Mos.n == 'media') {
 								isHg = true;
-								onDom.zpY = 75*(onlen-Msond);
+								onDom.zpY = 75 * (onlen - Msond);
 								return
 							}
 							return
-						}	
+						}
 					}
-					
-					
-					
+
+
+
 				}
 				document.onmouseup = (e) => {
 					e.preventDefault();
-					cDom.style.pointerEvents='';
+					cDom.style.pointerEvents = '';
 					document.onmousemove = document.onmouseup = null;
-					if(isHg){
+					if (isHg) {
 						onDom.zpY = 0;
 						onDom.ischeck = '';
-						this.checkOn ={};
-						if(this.Mos.n=='media'){
-							this.setV(this.navcoms.media,this.clTim(this.navcoms.media,onDom),onDom);
-							list.splice(onc,1)
+						this.checkOn = {};
+						if (this.Mos.n == 'media') {
+							this.setV(this.navcoms.media, this.clTim(this.navcoms.media, onDom), onDom);
+							list.splice(onc, 1)
+
 						}
-						if(this.Mos.n=='decorates'){
-							this.setV(this.navcoms.decorates[this.Mos.on],this.clTim(this.navcoms.decorates[this.Mos.on],onDom),onDom);
-							list.splice(onc,1)
-						}						
+
+						if (this.Mos.n == 'decorates') {
+							this.setV(this.navcoms.decorates[this.Mos.on], this.clTim(this.navcoms.decorates[this.Mos.on], onDom), onDom);
+							list.splice(onc, 1)
+						}
 						this.history_set();
 						return
 					}
-					
+
 					let xs = tdStar - e.pageX;
-					if(xs<20 && xs>-20){
+					if (xs < 20 && xs > -20) {
 						return
 					}
-					
+
 					this.puandFn();
-					this.setPreviewTimes('','del');				
+					this.setPreviewTimes('', 'del');
 					this.drmOn();
-					this.history_set();				
+					this.history_set();
 				};
-				
+
 			},
 			jl2(e, el, index, list, n) {
 				e.preventDefault();
 				this.setCheckOn({
 					type: n,
 					on: index,
-					list:list,
-				})			
+					list: list,
+				})
 				let startX = e.pageX,
-				oldStart = el.start,
-				oldCut_start = el.cut_start,
-				max = el.cut_end-.1,
-				min = 0;	
-				if(list[index-1]){
-					let po2 =  this.backTim(list[index-1]); 
-					let po3 = oldStart-po2;
-					if(po3<oldCut_start){
-						min = oldCut_start-po3;
+					oldStart = el.start,
+					oldCut_start = el.cut_start,
+					max = el.cut_end - .1,
+					min = 0;
+				if (list[index - 1]) {
+					let po2 = this.backTim(list[index - 1]);
+					let po3 = oldStart - po2;
+					if (po3 < oldCut_start) {
+						min = oldCut_start - po3;
 					}
 				}
 				document.onmousemove = document.onmouseup = null;
@@ -1481,75 +1526,84 @@
 					}
 
 					el.cut_start = pn;
-					el.start = oldStart + (pn-oldCut_start);
+					el.start = oldStart + (pn - oldCut_start);
 				}
 				document.onmouseup = () => {
 					document.onmousemove = document.onmouseup = null;
 					this.puandFn();
-					this.setPreviewTimes('','del');					
-					this.drmOn();	
+					this.setPreviewTimes('', 'del');
+					this.drmOn();
 					this.history_set();
 				}
 			},
-			setDomStar(x){							
-				return ((x-120)/this.wdk)*this.bl;				
-			},			
-			clTim(obj,data){
+			setDomStar(x) {
+				return ((x - 120) / this.wdk) * this.bl;
+			},
+			clTim(obj, data) {
 				let on = 0,
-				end = this.backEnd(data),
-				len = obj.length-1,
-				pn,
-				backFn = ()=>{
-					if(!obj[on]){
-						pn = {t:'min',on:on};
-						return
-					}
-					let st = obj[on].start,
-					et = this.backEnd(obj[on]);
-					if(data.start>=et){
-						if(on<len){
-							on++;
-							backFn();
+					end = this.backEnd(data),
+					len = obj.length - 1,
+					pn,
+					backFn = () => {
+						if (!obj[on]) {
+							pn = {
+								t: 'min',
+								on: on
+							};
 							return
-						}						
-						pn = {t:'max',on:on};
-						return
-					}					
-					if(data.start<st){
-						if(end>st){
-							data.cut_end =data.cut_end-(end-st);
 						}
-						pn = {t:'min',on:on};						
-						return
-					}	
-					data.start = 	et;	
-					on=0;				
-					end = this.backEnd(data);
-					backFn();
-									
-				};
+						let st = obj[on].start,
+							et = this.backEnd(obj[on]);
+						if (data.start >= et) {
+							if (on < len) {
+								on++;
+								backFn();
+								return
+							}
+							pn = {
+								t: 'max',
+								on: on
+							};
+							return
+						}
+						if (data.start < st) {
+							if (end > st) {
+								data.cut_end = data.cut_end - (end - st);
+							}
+							pn = {
+								t: 'min',
+								on: on
+							};
+							return
+						}
+						data.start = et;
+						on = 0;
+						end = this.backEnd(data);
+						backFn();
+
+					};
 				backFn();
 				return pn;
 			},
-			setV(obj,pn,pr){
-				if(pn && obj.length>0){
-					if(pn.t == 'min'){
-						obj.splice(pn.on,1,pr,obj[pn.on])
+			setV(obj, pn, pr) {
+				if (pn && obj.length > 0) {
+					if (pn.t == 'min') {
+						obj.splice(pn.on, 1, pr, obj[pn.on])
 						return
 					}
-					if(pn.t == 'max'){
-						obj.splice(pn.on,1,obj[pn.on],pr)
+					if (pn.t == 'max') {
+						obj.splice(pn.on, 1, obj[pn.on], pr)
 						return
 					}
 					return
 				}
-				obj.push(pr);					
+				obj.push(pr);
 			},
-			backEnd(ob){
-				return  +ob.start+(ob.cut_end-ob.cut_start);
+			backEnd(ob) {
+				return +ob.start + (ob.cut_end - ob.cut_start);
 			},
 			zzyz() {
-			
+
 				if (this.navcoms.media.length == 0) {
 					this.$message({
 						message: '请先上传并添加媒体素材至轨道'
@@ -1572,31 +1626,31 @@
 					})
 					return
 				}
-				
+
 				let len1 = this.navcoms.media.length;
 				let len2 = this.navcoms.decorates.length;
-				let maxTime =0;
-				if(len1>0){
-					maxTime = this.backTim(this.navcoms.media[len1-1]);
+				let maxTime = 0;
+				if (len1 > 0) {
+					maxTime = this.backTim(this.navcoms.media[len1 - 1]);
 				}
-				if(len2>0){
-					let len3 = this.navcoms.decorates[len2-1].length;
-					let onbj = this.navcoms.decorates[len2-1][len3-1];
-					if(onbj){
-						let zst = this.backTim(onbj);						
-						maxTime = zst>maxTime?zst:maxTime;
-					}	
+				if (len2 > 0) {
+					let len3 = this.navcoms.decorates[len2 - 1].length;
+					let onbj = this.navcoms.decorates[len2 - 1][len3 - 1];
+					if (onbj) {
+						let zst = this.backTim(onbj);
+						maxTime = zst > maxTime ? zst : maxTime;
+					}
 				}
-				if(maxTime>120){
+				if (maxTime > 120) {
 					this.$message({
-						message:"来电秀内容的媒体剪辑时长不得超过120秒"
+						message: "来电秀内容的媒体剪辑时长不得超过120秒"
 					})
 					return;
 				}
-				
+
 				let ant = this.navcoms.audio[this.navcoms.audio.length - 1];
 				let ant_t = +ant.start + (+ant.cut_end - ant.cut_start);
-					
+
 				if (ent != ant_t) {
 					this.istype = {
 						t: '提示',
@@ -1608,13 +1662,13 @@
 
 					return
 				}
-				
-				
-				
-				if(this.checkOn.list){
-					this.checkOn.list[this.checkOn.on].ischeck='';
+
+
+
+				if (this.checkOn.list) {
+					this.checkOn.list[this.checkOn.on].ischeck = '';
 				}
-				
+
 				this.checkOn = {};
 				this.zzwc();
 			},
@@ -1634,26 +1688,26 @@
 				this.tanc.maxTime = this.preview.maxTime;
 			},
 			pastes() {
-				if(!this.checkOn.list){
+				if (!this.checkOn.list) {
 					return
-				}		
-				
+				}
+
 				let doms = JSON.parse(JSON.stringify(this.checkOn.list[this.checkOn.on]));
 				let ends = this.checkOn.list[this.checkOn.list.length - 1];
 				let sta = +ends.start + (ends.cut_end - ends.cut_start);
 				doms.start = sta;
 				doms.ischeck = '';
-				
+
 				this.checkOn.list.push(doms);
 				let lasteln = this.backTim(doms);
-				
-				
-				
-				if(this.playT==1 || this.playT==2){
+
+
+
+				if (this.playT == 1 || this.playT == 2) {
 					this.puandFn()
 				}
-				this.setPreviewTimes('','del',1);
-				
+				this.setPreviewTimes('', 'del', 1);
+
 				this.setTdjl(lasteln);
 				this.drmOn();
 			},
@@ -1669,67 +1723,78 @@
 				};
 			},
 			delt() {
-			
-				if(this.tanc.zj == 'saves'){
+
+				if (this.tanc.zj == 'saves') {
 					return
 				}
-				
+
 				if (!this.checkOn.list) {
 					return
-				}	
+				}
 				let onsd = this.checkOn.list[this.checkOn.on];
-				if(!onsd){
+				if (!onsd) {
 					return
 				}
 				this.puandFn();
 				let maxt = this.backTim(onsd);
-				if(this.preview.onTime>=onsd.start && this.preview.onTime<maxt){
+				if (this.preview.onTime >= onsd.start && this.preview.onTime < maxt) {
 					this.drmBg();
-				}			
-				this.checkOn.list.splice(this.checkOn.on,1);				
-				this.checkOn = {};	
-				this.setPreviewTimes('','del',1);
-				if(this.navcoms.media.length==0){
+				}
+				this.checkOn.list.splice(this.checkOn.on, 1);
+				this.checkOn = {};
+				this.setPreviewTimes('', 'del', 1);
+				if (this.navcoms.media.length == 0) {
 					this.preview.onTime = 0;
 				}
 			},
 			setMaxTime(el,jq) {
-				let maxt = 0;
-				let times = 0;
-				if(el){
+				let maxt = 0,times = 0,
+				maxNew = this.getTdMaxTime();
+				if (el) {
 					maxt = this.backTim(el);
-				}else{
+				} else {
 					let len1 = this.navcoms.media.length,
-					len2 = this.navcoms.audio.length,
-					len3 = this.navcoms.decorates.length;
-					
-					if(len1>0){
-						times = this.backTim(this.navcoms.media[len1-1]);
+						len2 = this.navcoms.audio.length,
+						len3 = this.navcoms.decorates.length;
+
+					if (len1 > 0) {
+						times = this.backTim(this.navcoms.media[len1 - 1]);
 					}
-					if(len2>0){
-						let tim = this.backTim(this.navcoms.audio[len2-1]);
-						times = tim>times?tim:times;
+					if (len2 > 0) {
+						let tim = this.backTim(this.navcoms.audio[len2 - 1]);
+						times = tim > times ? tim : times;
 					}
-					if(len3>0){
-						for(let i=0;i<len3;i++){
+					if (len3 > 0) {
+						for (let i = 0; i < len3; i++) {
 							let obj = this.navcoms.decorates[i];
-							for(let i2=0,n=obj.length;i2<n;i2++){
+							for (let i2 = 0, n = obj.length; i2 < n; i2++) {
 								let tim = this.backTim(obj[i2]);
-								times = tim>times?tim:times;
-							}							
+								times = tim > times ? tim : times;
+							}
 						}
-						
+
 					}
 				}
-				maxt = times>maxt?times:maxt;
+				maxt = times > maxt ? times : maxt;
 				
-				if(maxt>this.preview.maxTime){
+				if(maxt > this.preview.maxTime){
 					this.preview.maxTime = maxt;
-				}	
-							
+				}
+
 				if(jq){
 					this.preview.maxTime = maxt;
-				}			
+				}
+				
+				
+				// if(this.tdjl>maxNew){
+				// 	this.tdjl = maxNew;
+				// }
+			},
+			getTdMaxTime(){
+				let maxd = Math.ceil(this.preview.maxTime / this.bl) * this.wdk,
+				len = this.getBur(this.$refs.gund_01x).width,
+				bl = len / maxd;
+				return (maxd - len) * bl;
 			},
 			backTim(ob) {
 				return (ob.cut_end - ob.cut_start) + ob.start;
@@ -1740,8 +1805,8 @@
 				if (tins < 120) {
 					tins = 120;
 				}
-				let nd = Math.ceil(tins / this.fdjb)+1;
-				if(nd<13){
+				let nd = Math.ceil(tins / this.fdjb) + 1;
+				if (nd < 13) {
 					nd = 13;
 				}
 				for (let i = 0, n = nd; i < n; i++) {
@@ -1773,9 +1838,9 @@
 				return n > 9 ? n : '0' + n;
 			},
 			backtop(el) {
-				
+
 				let str = "width:" + ((el.cut_end - el.cut_start) / this.bl) * this.wdk + "px;transform:translate(" + ((el.start /
-					this.bl) * this.wdk) + "px,"+(el.zpY?el.zpY:0)+"px);";
+					this.bl) * this.wdk) + "px," + (el.zpY ? el.zpY : 0) + "px);";
 				if (el.ischeck) {
 					str += 'z-index:2;';
 				}
@@ -1785,147 +1850,170 @@
 				this.$refs.vids.src = fi;
 			},
 			csy() {
-				
+
 			},
-			getTdtim(){
+			getTdtim() {
 				let maxdxx = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len2xx = this.$refs.gund_01x.offsetWidth;
 				let pd = maxdxx / len2xx;
 				let sdas = this.tdjl * pd;
-				return this.backto(sdas/210*this.fdjb);
+				return this.backto(sdas / 210 * this.fdjb);
 			},
-			
-			getOneWidthTime(){
-				return this.backto(this.getBur(this.$refs.gdbox).width/210*this.fdjb);				
+
+			getOneWidthTime() {
+				return this.backto(this.getBur(this.$refs.gdbox).width / 210 * this.fdjb);
 			},
-			getJdtTime(){
+			getJdtTime() {
 				let len2xx = this.$refs.gund_01x.offsetWidth;
-				let pd = this.tdjl/len2xx;
-				return pd*this.preview.maxTime;
-				
+				let pd = this.tdjl / len2xx;
+				return pd * this.preview.maxTime;
+
 			},
-			setJdtX(t){
+			setJdtX(t) {
 				let len2xx = this.$refs.gund_01x.offsetWidth;
-				this.tdjl = t/this.preview.maxTime*len2xx;
-	
+				this.tdjl = t / this.preview.maxTime * len2xx;
+
 			},
-			setTdjl(t){				
+			setTdjl(t) {
 				/*一屏时间*/
 				let widtime = this.getOneWidthTime();
 				let tdTim = this.getJdtTime();
-				let onlast = tdTim+widtime;
-				let pt = onlast -t;		
-				if(pt>0){
+				let onlast = tdTim + widtime;
+				let pt = onlast - t;
+				if (pt > 0) {
 					return
-				}				
-				this.setJdtX(tdTim-pt);
+				}
+				this.setJdtX(tdTim - pt);
 			},
-			checkPlayJd(){
+			checkPlayJd() {
 				let widtime = this.getOneWidthTime();
 				let tdTim = this.getJdtTime();
-				let onlast = tdTim+widtime;
-				if(this.preview.onTime>onlast){
+				let onlast = tdTim + widtime;
+				if (this.preview.onTime > onlast) {
 					let ttt = 0;
-					let syt = this.preview.maxTime-this.preview.onTime;
-					if(syt>=widtime){
-						ttt = tdTim+widtime;
-					}else{
-						ttt = tdTim+(widtime-syt);
+					let syt = this.preview.maxTime - this.preview.onTime;
+					if (syt >= widtime) {
+						ttt = tdTim + widtime;
+					} else {
+						ttt = tdTim + (widtime - syt);
 					}
 					this.setJdtX(ttt);
-					
+
 				}
 			},
-			
-			settimfj(t){
+
+			settimfj(t) {
 				let maxdxx = Math.ceil(this.preview.maxTime / this.fdjb) * 210;
 				let len2xx = this.$refs.gund_01x.offsetWidth;
 				let pd = maxdxx / len2xx;
-				this.tdjl = t/this.fdjb*210/pd;
-				
+				this.tdjl = t / this.fdjb * 210 / pd;
+
 			},
-			LinePlay(){
-			
+			LinePlay() {
+
 				clearTimeout(this.valObj);
 				let ontime = this.preview.onTime;
 				let toTim = 0;
 				let endt = this.backTim(this.preview.previewObj);
 				this.valObj = window.setInterval(() => {
-					
-					if(this.preview.previewObj.type!='video'){
+					if (this.preview.previewObj.type != 'video') {
 						window.clearInterval(this.valObj);
-					}	
-					this.checkAdio();
-					toTim+=.05;		
-					let ob = this.preview.previewObj;
-					this.drmvideo(ob);
-					let po = this.cun[this.vdcc].x;
-					if (po) {
-						this.cans.fillRect(0, 0, po, this.boxH);
-						this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
 					}
+					this.checkAdio();
+					toTim += .05;
+					let ob = this.preview.previewObj;
+					let on = 1;
+					// if (this.preview.onTime - ob.start < .5) {
+					// 	if (this.mhq == 100) {
+					// 		this.mhq = 0;
+					// 	}
+					// 	this.mhq += 10;
+					// 	on = this.mhq / 100;
+					// }
+					// if (endt - this.preview.onTime < .5) {
+					// 	if (this.mh == 0) {
+					// 		this.mh = 100;
+					// 	}
+					// 	this.mh -= 10;
+					// 	on = this.mh / 100;
+					// }
+					this.drmvideo(ob, on);
+					// let po = this.cun[this.vdcc].x;
+					// if (po) {
+					// 	this.cans.fillRect(0, 0, po, this.boxH);
+					// 	this.cans.fillRect(this.boxW - po, 0, po, this.boxH);
+					// }
 					this.preview.onTime = ontime + toTim;
-						
-					let onT = this.$refs.vids.currentTime;
-					
-					onT = onT?onT:0;				
-					
+
+
 					this.checkPlayJd();
-					 
-					
+
+
 					if (this.preview.onTime >= endt) {
 						clearTimeout(this.valObj);
-						
+
 						this.endeds()
-					}	
-						
+					}
+
 				}, 50);
-			
 
 			},
-			
-			setVwh(){
+
+			setVwh() {
 				let domd = this.$refs.vidobox.getBoundingClientRect();
 				this.boxH = parseInt(domd.height);
-				this.boxW = parseInt((domd.height/16)*9);
-				this.zoomd = this.boxW/391;
+				this.boxW = parseInt((domd.height / 16) * 9);
+				this.zoomd = this.boxW / 391;
+				
 			},
 			init() {
-				if(!window.userInfo || window.userInfo.contributor_format_status != 2){
-					this.$router.push({path: '/'})					
+				if (!window.userInfo || window.userInfo.contributor_format_status != 2) {
+					this.$router.push({
+						path: '/'
+					})
 					return
 				}
 				
 				this.setVwh();
-				window.addEventListener('resize',this.setVwh,false);
-				window.addEventListener('click',this.clickfns,false);
+				window.addEventListener('resize', this.setVwh, false);
+				window.addEventListener('click', this.clickfns, false);
 				this.$refs.cavs.width = this.boxW;
 				this.$refs.cavs.height = this.boxH;
+				this.csW = this.boxW;
+				this.csH = this.boxH;
 				this.cans = this.$refs.cavs.getContext("2d");
 				this.cans.fillStyle = "#000";
-				this.cans.fillRect(0, 0, this.boxW, this.boxH);
+				this.cans.fillRect(0, 0, this.csW, this.csH);
 				if (this.$route.query.id) {
 					let op = JSON.parse(localStorage.getItem('ldxData'));
-					if(!op){
-						this.$router.push({path: '/'})	
+					if (!op) {
+						this.$router.push({
+							path: '/'
+						})
 						return
-					}					
+					}
 					this.navcoms.title = op.title;
-					if(op.json){
+					if (op.json) {
 						let json = JSON.parse(op.json);
 						let arr = [];
-						for(let i =0,n=json.media.length;i<n;i++){
-							if(json.media[i].type!="blank"){
+						for (let i = 0, n = json.media.length; i < n; i++) {
+							if (json.media[i].type != "blank") {
 								arr.push(json.media[i])
 							}
 						}
 						this.navcoms.media = arr;
+						if(arr[0] && arr[0].pageZoomW){
+							this.csW = arr[0].pageZoomW;
+							this.csH = arr[0].pageZoomH;
+							this.$refs.cavs.width = this.csW;
+							this.$refs.cavs.height = this.csH;
+						}
 						let len = json.audio.length;
-						if(len>1){
-							json.audio = [json.audio[len-1]];
+						if (len > 1) {
+							json.audio = [json.audio[len - 1]];
 						}
 						this.navcoms.audio = json.audio;
-						if(json.decoration && json.decoration.length > 0) {
+						if (json.decoration && json.decoration.length > 0) {
 							let arr1 = [];
 							for (let i = 0, n = json.decoration.length; i < n; i++) {
 								if (!arr1[json.decoration[i].ond]) {
@@ -1935,28 +2023,31 @@
 							}
 							this.navcoms.decorates = arr1;
 						}
-						
-						if(this.navcoms.audio.length>0){
+
+						if (this.navcoms.audio.length > 0) {
 							this.sh_audioUrld(this.navcoms.audio[0]);
 						}
 					}
 					this.navcoms.id = op.id;
 					this.history.list[0] = JSON.stringify(this.navcoms);
-					this.setPreviewTimes('','del',1);
+					this.setPreviewTimes('', 'del', 1);
 					this.drmOn();
 				}
-				this.savsout();				
-				document.addEventListener('keydown',this.LineKey, false);
-				this.$refs.gdbox.addEventListener('mousewheel', this.LineWheel, false)				
-				this.$refs.vids.addEventListener('play',this.LinePlay, false);
-				this.$refs.vids.addEventListener('pause',this.LineClerDrm, false);
-				this.$refs.vids.addEventListener('ended',this.LineClerDrm, false);
+				this.savsout();
+				document.addEventListener('keydown', this.LineKey, false);
+				this.$refs.gdbox.addEventListener('mousewheel', this.LineWheel, false)
+				this.$refs.vids.addEventListener('play', this.LinePlay, false);
+				this.$refs.vids.addEventListener('pause', this.LineClerDrm, false);
+				this.$refs.vids.addEventListener('ended', this.LineClerDrm, false);
 				if (this.navcoms.media[0]) {
 					this.setvideo(this.navcoms.media[0].file_url);
 				}
+				
+				
+				
 			},
-			cksd(){
-			
+			cksd() {
+
 			},
 			qhNav(o, zj) {
 				if (this.navson == o) {
@@ -1965,12 +2056,12 @@
 				this.navson = o;
 				this.navcoms.zj = zj;
 			},
-			showcj(e,b) {
+			showcj(e, b) {
 				if (b) {
 					this.checkOn = b;
-					this.checkOn.list[this.checkOn.on].ischeck=1;
+					this.checkOn.list[this.checkOn.on].ischeck = 1;
 				}
-		
+
 				this.csad = 'display:block;top:' + (e.y - 5) + 'px;left:' + (e.x - 22) + 'px';
 				let fn = () => {
 					setTimeout(() => {
@@ -1991,13 +2082,15 @@
 				}, 50)
 
 			},
-			sh_audioUrld(el){
+			sh_audioUrld(el) {
 				this.api.sh_audioUrl({
-					m_id:el.fid
-				}).then((da)=>{
-					this.aaa='';
-					if(da=='error'){return}			
-					el.file_url = da.file_url;				
+					m_id: el.fid
+				}).then((da) => {
+					this.aaa = '';
+					if (da == 'error') {
+						return
+					}
+					el.file_url = da.file_url;
 				})
 			},
 			cldevs(on) {
@@ -2010,14 +2103,14 @@
 					for (let i2 = 0, n2 = ar.length; i2 < n2; i2++) {
 						ar[i2].ond = i;
 						ar[i2].end = ar[i2].start + (ar[i2].cut_end - ar[i2].cut_start);
-						if(ar[i2].zsx){
+						if (ar[i2].zsx) {
 							ar[i2].x = this.backto(ar[i2].zsx * wdb);
 						}
-						if(this.backto(ar[i2].zsy * hy)){
+						if (this.backto(ar[i2].zsy * hy)) {
 							ar[i2].y = this.backto(ar[i2].zsy * hy);
 						}
-						
-						
+
+
 						ar[i2].resize = this.backto(ar[i2].zsw * wdb) + ':' + this.backto(ar[i2].zsh * hy);
 						arr.push(ar[i2]);
 					}
@@ -2028,13 +2121,13 @@
 				return Math.round(num * 100) / 100
 			},
 			tijF(a) {
-				if(!this.navcoms.title){
+				if (!this.navcoms.title) {
 					this.$message({
 						message: '请填写来电秀名称',
 					})
 					return
 				}
-				if (this.preview.maxTime==0) {
+				if (this.preview.maxTime == 0) {
 					if (a) {
 						return
 					}
@@ -2049,33 +2142,33 @@
 					})
 					return
 				}
-				if(this.checkOn.list){
+				if (this.checkOn.list) {
 					this.checkOn.list[this.checkOn.on].ischeck = '';
-				}				
+				}
 				let pr = {
 					title: this.navcoms.title,
 					json: {
 						media: this.navcoms.media,
-						audio: this.navcoms.audio,						
-					},					
+						audio: this.navcoms.audio,
+					},
 				};
 				let sd = this.cldevs(this.navcoms.decorates);
 				if (sd.length > 0) {
 					pr.json.decoration = sd;
-				}				
+				}
 				this.cl_video(pr);
 				this.cl_audio(pr);
-				if(pr.json.media[0] && pr.json.media[0].start==0){
+				if (pr.json.media[0] && pr.json.media[0].start == 0) {
 					pr.img = pr.json.media[0].cover_img;
 				}
-				
+
 				pr.json = JSON.stringify(pr.json);
 				if (this.navcoms.id) {
 					pr.id = this.navcoms.id;
 				}
-				
-				
-				
+
+
+
 				this.ajaxType = 1;
 				this.api.sh_save(pr).then((da) => {
 					this.ajaxType = '';
@@ -2091,7 +2184,9 @@
 							id: da.id
 						}
 					});
-					if(a){return}
+					if (a) {
+						return
+					}
 					this.$message({
 						message: '保存成功',
 					})
@@ -2168,12 +2263,15 @@
 		height: 100%;
 
 	}
-	.ntob_cent>div.ntob_cent_l{
+
+	.ntob_cent>div.ntob_cent_l {
 		width: 50.5%;
 	}
-	.ntob_cent>div.ntob_cent_r{
+
+	.ntob_cent>div.ntob_cent_r {
 		width: 49.5%;
 	}
+
 	.noto_back {
 		text-align: left;
 		cursor: pointer;
@@ -2249,7 +2347,7 @@
 		position: relative;
 		display: block;
 		margin: 0 auto;
-	
+
 	}
 
 	.videoBox1 {
@@ -2336,7 +2434,7 @@
 		min-width: 1300px;
 		width: 100%;
 		height: 264px;
-		
+
 	}
 
 	.ntob_footer_1 {
@@ -2537,28 +2635,33 @@
 		background-size: auto 100%;
 
 	}
-	.imgd:hover .setToll{
+
+	.imgd:hover .setToll {
 		border-color: rgba(51, 179, 255, 1);
 		background-color: rgba(0, 0, 0, 0.3);
 	}
-	.imgd:hover .setToll2_1{
+
+	.imgd:hover .setToll2_1 {
 		visibility: visible;
 	}
-	.imgd:hover .setToll3_1{
+
+	.imgd:hover .setToll3_1 {
 		visibility: visible;
 	}
 
 	.setToll0>img {
 		display: block;
 		height: 100%;
-		
+
 	}
-	.se10hid{
+
+	.se10hid {
 		position: relative;
 		width: 100%;
 		overflow: hidden;
 		height: 100%;
 	}
+
 	.se10hid>img {
 		position: absolute;
 		top: 0;
@@ -2566,6 +2669,7 @@
 		display: block;
 		height: 100%;
 	}
+
 	.setTollxx2 {
 		cursor: pointer;
 		position: absolute;
@@ -2578,17 +2682,19 @@
 	.setToll0 {
 		width: 100%;
 		height: 100%;
-	
+
 	}
-.icon_jt_left{
-	margin: 10px 0 0 16px;
-	position: relative;
-	display: inline-block;
-	vertical-align: top;
-	overflow: hidden;
-	width: 24px;
-	height: 24px;
-}
+
+	.icon_jt_left {
+		margin: 10px 0 0 16px;
+		position: relative;
+		display: inline-block;
+		vertical-align: top;
+		overflow: hidden;
+		width: 24px;
+		height: 24px;
+	}
+
 	.setToll {
 		position: absolute;
 		top: 0;
@@ -2615,20 +2721,20 @@
 	.setToll:hover .setToll2_1 {
 		visibility: visible;
 	} */
-	
-	.setToll_active{
+
+	.setToll_active {
 		border-color: rgba(51, 179, 255, 1);
 		background-color: rgba(0, 0, 0, 0.3);
 	}
-	
+
 	.setToll_active .setToll4 {
 		display: block;
 	}
-	
+
 	.setToll_active .setToll3_1 {
 		visibility: visible;
 	}
-	
+
 	.setToll_active .setToll2_1 {
 		visibility: visible;
 	}
@@ -2832,62 +2938,71 @@
 		text-align: center;
 		font-size: 14px;
 	}
-	.zs_box{
+
+	.zs_box {
 		display: none;
 		position: fixed;
 		top: 0;
 		left: 0;
 		z-index: 99;
-		width:124px;
-		height:72px;
-		background:rgba(255,255,255,1);
-		box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);
-		border-radius:5px;
+		width: 124px;
+		height: 72px;
+		background: rgba(255, 255, 255, 1);
+		box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+		border-radius: 5px;
 		padding: 8px 0;
 	}
-	.zs_box>span{
+
+	.zs_box>span {
 		cursor: pointer;
 		display: block;
 		text-align: center;
-		font-size:14px;
-		color:rgba(51,51,51,1);
-		line-height:36px;
+		font-size: 14px;
+		color: rgba(51, 51, 51, 1);
+		line-height: 36px;
 		overflow: hidden;
 	}
-	.zs_box>span:hover{
+
+	.zs_box>span:hover {
 		color: #33B3FF;
-		background: rgba(51,179,255,.1);;
+		background: rgba(51, 179, 255, .1);
+		;
 	}
-	.zs_box>span:hover>span{
+
+	.zs_box>span:hover>span {
 		-webkit-transform: translateX(-120px);
 		transform: translateX(-120px);
 	}
-	
-	.zs_box>span>span>img{
+
+	.zs_box>span>span>img {
 		display: inline-block;
 		vertical-align: top;
 		margin: 10px 6px 0 0;
 	}
-	.zs_box>span:hover>span>img{
-	    position: relative;
-	    left: 0;
-	    color: rgba(51, 179, 255, 1);
-	    -webkit-filter: drop-shadow(95px 0);
-	    filter: drop-shadow(120px 0);
-	    border-right: 34px solid transparent;
+
+	.zs_box>span:hover>span>img {
+		position: relative;
+		left: 0;
+		color: rgba(51, 179, 255, 1);
+		-webkit-filter: drop-shadow(95px 0);
+		filter: drop-shadow(120px 0);
+		border-right: 34px solid transparent;
 	}
-	.zs_box1{
+
+	.zs_box1 {
 		display: inline-block;
 		vertical-align: top;
 		height: 100%;
-		
+
 		width: 16px;
 		margin-right: 6px;
 
 	}
-	.setop .setDvs_02x1{
+
+	.setop .setDvs_02x1 {
 		display: none;
 	}
+
 	.setToll4_2>span:hover {
 		background-color: #f5f7fa;
 	}
@@ -2950,17 +3065,19 @@
 		position: absolute;
 		top: 52px;
 		left: 0;
-		width:2px;
-		height:214px;
+		width: 2px;
+		height: 214px;
 		background: #33B3FF;
 	}
-	.bf_o1>img{
+
+	.bf_o1>img {
 		position: absolute;
 		top: -20px;
 		left: 50%;
 		width: 20px;
 		transform: translateX(-50%);
 	}
+
 	.newds_012 {
 		margin: 28px 84px;
 		font-size: 14px;
@@ -2979,8 +3096,8 @@
 		line-height: 18px
 	}
 
-	
-	
+
+
 
 	.ntob_footer_1_2::-webkit-scrollbar {
 		width: 0;
@@ -3005,7 +3122,8 @@
 		width: 18px;
 	}
 
-	.ntob_footer_1_2>div.nl_ti2,.ntob_footer_1_2>div.nl_ti1{
+	.ntob_footer_1_2>div.nl_ti2,
+	.ntob_footer_1_2>div.nl_ti1 {
 		line-height: 72px;
 
 	}
@@ -3014,7 +3132,7 @@
 		margin-top: 27px;
 	}
 
-	.ntob_footer_1_2>div.nl_ti3{
+	.ntob_footer_1_2>div.nl_ti3 {
 		line-height: 32px;
 	}
 
@@ -3026,18 +3144,22 @@
 	.ntob_footer_1_2>div.nl_ti1>img {
 		margin-top: 27px;
 	}
+
 	.ntob_footer_1_2>div.nl_ti3>img {
 		margin-top: 7px;
 	}
+
 	.con-right-iocn-img {
 		display: inline-block;
 		vertical-align: initial;
 		width: 18px;
 		margin-right: 8px;
 	}
+
 	.con-right-iocn-text {
 		height: 100%;
 	}
+
 	.con-right-iocn-img>.icon {
 		position: relative;
 		left: 0;
@@ -3047,9 +3169,11 @@
 		filter: drop-shadow(95px 0);
 		border-right: 34px solid transparent;
 	}
+
 	.ckin>div {
 		transform: translateX(-95px);
 	}
+
 	.mx_dsj {
 		width: 0;
 		height: 0;
@@ -3061,27 +3185,32 @@
 		right: 9px;
 		border-radius: 2px;
 	}
+
 	.ntob_cent_l_2_1x {
 		display: inline-block;
 		vertical-align: top;
 		margin: 2px 2px 0 0;
 		width: 16px;
 	}
-	.show_00x_1{
+
+	.show_00x_1 {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
 	}
+
 	.necBox {
 		overflow: hidden;
 		overflow-y: auto;
 		height: 187px;
 	}
+
 	.necBox::-webkit-scrollbar {
 		width: 0;
 	}
+
 	.debox_01 {
 		position: absolute;
 		top: 0;
@@ -3089,24 +3218,28 @@
 		width: 100%;
 		height: 100%;
 	}
-	.noto_t1{
+
+	.noto_t1 {
 		margin-left: 10px;
 		line-height: 22px;
 		font-size: 14px;
-		color: rgba(187,187,187,1);
+		color: rgba(187, 187, 187, 1);
 	}
-	.ntob_cent_lxbo{		
+
+	.ntob_cent_lxbo {
 		position: absolute;
-	    top: 0;
-	    left: 0;
-	    right: 0;
-	    bottom: 75px;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 75px;
 		overflow: hidden;
 	}
-	.gdAm{
+
+	.gdAm {
 		transition: transform .5s;
 	}
-	.minzss{
+
+	.minzss {
 		pointer-events: none;
 		position: absolute;
 		max-width: 90%;
@@ -3120,20 +3253,23 @@
 		transform: translateY(-50%);
 		font-size: 12px;
 	}
-	.setToll0xs{
-		background-repeat: no-repeat !important; 
+
+	.setToll0xs {
+		background-repeat: no-repeat !important;
 		background-size: 100% 100% !important;
 	}
-	.ntob_footer_1_1>span{
-		
+
+	.ntob_footer_1_1>span {
+
 		display: inline-block;
 		vertical-align: top;
 		width: 22px;
 		height: 17px;
-		margin:17.5px 14px;
+		margin: 17.5px 14px;
 		color: #BCBCBC;
 	}
-	.ntob_footer_1_1>span.misto{
+
+	.ntob_footer_1_1>span.misto {
 		cursor: pointer;
 		color: #000;
 	}

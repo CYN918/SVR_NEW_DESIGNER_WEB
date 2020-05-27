@@ -11,7 +11,7 @@
 						<span @click="showtx()" class="btndf  pend pbx_1_1_1">提现</span>
 					</div>
 					
-					<div class="pbx_1_2 pbx_1x_2x">每月10日-25日汇款上月10号至当月10号的提现申请</div>
+					<div class="pbx_1_2 pbx_1x_2x">每月1日-15日汇款上月1日-当月1日前的提现申请</div>
 				</div>
 				<div class="pbx_n_01">
 					<div>
@@ -146,10 +146,10 @@ export default {
 			this.getData();
 			this.getUserDetail();
 		},
-		mod(e){
+		mod(){
 			this.sfas = '';
 		},
-		modx(e,on){
+		modx(){
 			this.sfas = 1;
 		},
 	
@@ -157,7 +157,7 @@ export default {
 			let pr = {};
 			this.api.Income_info(pr).then((da)=>{
 				
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 		
 				this.basDa = da;
 				this.num1 = da.account_balance;
@@ -224,7 +224,7 @@ export default {
 				contribute_type:window.userInfo.contributor_type
 			};
 			this.api.contributorInfo(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.txData.account_name = da.account_name?da.account_name:da.company_name;
 				this.txData.bank_card_id = da.bank_card_no;
 				this.txData.bank_name = da.bank_name;				

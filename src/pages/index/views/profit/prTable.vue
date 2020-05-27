@@ -160,10 +160,13 @@ export default {
 			};
 			
 			params =  Object.assign(params,this.cg.pr);	
-			this.loading = Loading.service({ fullscreen: true });
+			if(this.loading){
+				this.loading.close();
+			}
+			this.loading = Loading.service({target:'.emptyData',fullscreen: true });
 			this.api[this.cg.ajax.url](params).then((da)=>{
 				this.loading.close();
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}				
 				this.List = da.data;

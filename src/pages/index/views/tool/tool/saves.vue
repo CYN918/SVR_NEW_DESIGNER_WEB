@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import inputMax from '../../components/inputMax'
-import checks from '../../components/checks'
+import inputMax from '../../../components/inputMax'
+import checks from '../../../components/checks'
 export default{
 	components:{inputMax,checks},
 	props:{
@@ -191,7 +191,7 @@ export default{
 			return arr;
 		},
 		tijF(){
-
+		
 			if(this.ajaxType){
 				this.$message({
 					message:'正在处理请稍后',
@@ -224,9 +224,10 @@ export default{
 			pr.json = JSON.stringify(pr.json);			
 			pr.submit = 1;		
 			this.ajaxType = 1;
+			this.bdtj('来电秀详情',this.value.title,'立即交稿')
 			this.api.sh_save(pr).then((da)=>{				
 				this.ajaxType = '';
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.$message({

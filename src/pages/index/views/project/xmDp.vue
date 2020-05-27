@@ -1,41 +1,10 @@
 <template>
 	<div :class="['cenDjs',da.cl]">
-		<!-- <div class="cenDjs_1"></div>
-		<div class="yu_o9">
-			<div class="yu_o9_1bx">
-				<div v-if="djsshow.h" class="cenDjs_2">
-					<span class="f_a" v-if="djsshow.d>0">{{djsshow.d}}<span class="cenDjs_2_dy_01">天</span></span><span class="f_a">{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}</span>
-				</div>
-				<div v-if="obj.delivery_deadline_format && obj.status==3 && obj.is_delay!=1" class="cenDjs_2">
-					<span>{{obj.delivery_deadline_format.m}}</span>月<span>{{obj.delivery_deadline_format.d}}</span>号<span>{{obj.delivery_deadline_format.H}}</span>点
-				</div>
-				
-				<div v-if="obj.is_delay" class="cenDjs_2_yq">
-					<div class="is_seldf">项目已延期交稿</div>
-					<span>{{obj.delay_time.d}}</span>天<span>{{obj.delay_time.h}}</span>时
-				</div>
-				<div v-else class="cenDjs_3">{{da.n}}<div v-if="obj.status==5" class="cenDjs_zzf">{{'￥'+obj.deal_price}}</div> </div>
-				
-			</div>
-			
-			<div class="cenDjs_4">
-				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.cl]" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
-			</div>
-			<loginDialog ref="logindialog" :config="outc"></loginDialog>
-			<div class="cenDjs_5">{{da.btn_tip}}</div>
-		</div>
-		
-		<div v-if="da.t" :class="['sjxdpo',da.t.cl]">
-			{{da.t.n}}
-		</div> -->
-
-				
-		
 		<div class="yu_o9">
 			
 			
 			<div class="cenDjs_4">
-				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.tcFncs=='Log'?'router-link-active':'']" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
+				<div v-for="(el,index) in da.btns" :key="index" :class="calcClass(el)" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
 			</div>
 			<loginDialog ref="logindialog" :config="outc"></loginDialog>
 			
@@ -93,7 +62,12 @@ export default {
 		console.log(this.da.btns)
 	}, 
 	methods: {
-
+		calcClass(el) {
+			if (this.obj.status == 4) return 'pend'
+			if (this.obj.status == 3) return 'pend router-link-active'
+			if (el.tcFncs == 'Log') return 'pend router-link-active'
+			return 'pend'
+		},
 		init(){
 			this.xmTypeOn = this.obj.status-1;
 			if(this.obj.is_sign_up==1){
@@ -131,11 +105,37 @@ export default {
 			this.$message({message:'你已经评价过了'});
 		},
 		clickFn(n,b){
+			if(b=='qxGj' && this.$parent.deta.check_steps==1){				
+				this.tipMr('项目已在审核中，请勿撤回')		
+				return
+			}
 			if(!window.userInfo){
 				this.$refs.logindialog.show();
 				this.outc.num = 1;
 			}
 			if(n){
+				let state = '--';
+				if(this.$parent.deta.status == '1'){
+					state = '招募期'
+				} else if(this.$parent.deta.status == '0'){
+					state = '待发布'
+				} else if(this.$parent.deta.status == '2'){
+					state = '选标期'
+				} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) >= new Date()){
+					state = '制作期'
+				} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) < new Date()){
+					state = '已延期'
+				} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected == '1'){
+					state = '未通过'
+				} else if(this.$parent.deta.status == '4'){
+					state = '待审核'
+				}else if(this.$parent.deta.status == '5'){
+					state = '已验收'
+				}else if(this.$parent.deta.status == '-1'){
+					state = '已终止'
+				}
+				
+				this.bdtj("项目详情页",state,"[报名项目]");
 				this[n](b);
 			}
 		
@@ -145,7 +145,7 @@ export default {
 			this.api.pr_deliveryList({
 				project_id:this.obj.id,
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.length>0){
 					this.islog = 1;
 				}
@@ -160,7 +160,7 @@ export default {
 		},
 		showTc1(o){
 			this.api.pr_check({}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				if(da.is_complete!=true || da.is_contributor!=true || da.work_num<3){
 					this.$parent.showTc(o,da);	
 					return

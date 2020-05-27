@@ -515,7 +515,7 @@ export default {
 			this.api.getPersonalInfo({
 				activity_id:this.$route.query.id
 			}).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				if(da==null){
@@ -579,7 +579,7 @@ export default {
 			};
 			this.api.getPersonalWorkList(pr).then((da)=>{
 				
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 			
@@ -620,7 +620,7 @@ export default {
 				append_infos: JSON.stringify(this.array),
 			};
 			this.api.a_AttendActivity(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.bindType=0;	
 					return
 				}

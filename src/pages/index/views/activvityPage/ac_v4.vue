@@ -41,7 +41,7 @@
 								</div>
 							</div>
 							<div class="mo_01box">
-								<box_a v-for="el in workList"  :el="el"></box_a>
+								<box_a v-for="(el,index) in workList" :key="index"  :el="el"></box_a>
 							</div>
 							
 							<div v-if="total>workList.length" class="ac-01-3">
@@ -81,7 +81,8 @@
 				<div @click="shaFn('fxUrl1')" class="ac_v1-3-3"></div>
 				
 			</div>
-			<component v-bind:is="tanData.zj" v-model="tanData"></component>	
+			<component v-bind:is="tanData.zj" v-model="tanData"></component>
+			<loginDialog ref="logindialog" :config="outc"></loginDialog>	
 		</div>
 		<img class="hctip" :src="imgPath+'ac_v4/01.jpg'">
 		<img class="hctip" :src="imgPath+'ac_v4/08.jpg'">
@@ -96,8 +97,9 @@ import com_wp from '../activvity/com_wp';
 import bm_01 from '../activvity/tan_c';
 import QRCode from 'qrcodejs2'
 import Header from '../header';
+import loginDialog from '../../components/loginDialog'
 export default{
-	components:{list,box_a,com_wp,bm_01,QRCode,pTop,Header},
+	components:{list,box_a,com_wp,bm_01,QRCode,pTop,Header,loginDialog},
 	data(){
 		return{
 			topCn:{
@@ -121,7 +123,11 @@ export default{
 			fxUrl2:'',
 			tanData:{},
 			isfl:'',
-			isnv_02:''
+			isnv_02:'',
+			outc: {
+				num:'',
+				scroll:2,
+			}
 		}
 	},
 	mounted: function(){
@@ -209,7 +215,7 @@ export default{
 				pr['sort'] = this.px;
 			}
 			this.api.a_getWork(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				
@@ -230,7 +236,7 @@ export default{
 		},
 		a_getInfo(){
 			this.api.a_getInfo({activity_id:this.ids}).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.$router.push({path: '/404'});
 					return
 				}
@@ -257,6 +263,12 @@ export default{
 			});
 		},	
 		showZp(){
+			console.log(window.userInfo)
+			if (!window.userInfo) {
+				this.outc.num = 1;
+				this.$refs.logindialog.show()
+				return
+			}
 			this.tanData = {
 				zj:'bm_01'
 			};

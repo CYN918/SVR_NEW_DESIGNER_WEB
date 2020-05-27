@@ -184,7 +184,7 @@ export default {
 				user_open_id:'system_admin'
 			};
 			this.api.getUserDetail(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				window.xsmData= da;				

@@ -1,7 +1,7 @@
 <template>
 	<div v-if="tip" class="inptud errd" >
 		<div  :class="['myInput',inputType]">
-			<el-select :style="{width:'90px'}" class="lgoin_s1" v-if="oType=='phone'" v-model="form.mobile_zone">
+			<el-select :style="{width:'200px'}" class="lgoin_s1" v-if="oType=='phone'" v-model="form.mobile_zone">
 				<el-option
 				v-for="item in xnData"
 				:key="item.label"
@@ -24,7 +24,7 @@
 	</div>
 	<div v-else :class="['inptud',passqd]" >
 		<div  :class="['myInput',inputType]">
-			<el-select :style="{width:'90px'}" class="lgoin_s1" v-if="oType=='phone'" v-model="form.mobile_zone">
+			<el-select :style="{width:'200px'}" class="lgoin_s1" v-if="oType=='phone'" v-model="form.mobile_zone">
 				<el-option
 				v-for="item in xnData"
 				:key="item.label"
@@ -201,8 +201,7 @@ export default {
 		},
 		clearValue(){
 			this.numd = 0;
-			this.input="";
-			
+			this.input="";			
 		},
    		setErr(cls,text){
 			this.passqd=cls;
@@ -212,12 +211,6 @@ export default {
 			this[data] = this[data]=='password'?'text':'password';
 		},
    		focus(){
-			
-// 			let p = this.chekFn(this.input);
-//	    	if(p){	    		
-//	    		this.setErr(p.cls,p.text);
-//	    		return
-//	    	}
 	    	this.setErr('onIn','');
 			if(this.mfocus){
 				this.mfocus();
@@ -261,19 +254,15 @@ export default {
 			this.setimed = setTimeout(()=>{
 				num--;
 				this.runTimer(num);
-			},1000)
-			
+			},1000)			
 		}
    	},
-   	
-   	
-   	
-   	
 }	
 </script>
 
 <style>
 .lgoin_s2xx{
-	margin-right: 19px;
+	margin-right: 19px!important;
+	margin-left: 10px!important;
 }
 </style>

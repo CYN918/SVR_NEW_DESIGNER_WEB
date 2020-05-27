@@ -67,7 +67,7 @@
             </el-row>
             <el-row>
                 <el-col :span="8">
-                    <el-card class="commonCard">
+                    <el-card class="commonCard" style="height: 380px">
                         <div slot="header">
                             <span>上传作品封面</span>
                         </div>
@@ -80,7 +80,7 @@
                     </el-card>
                 </el-col>
                 <el-col :span="8">
-                    <el-card class="commonCard">
+                    <el-card class="commonCard" style="height: 380px">
                         <div slot="header">
                             <span>添加作品标签</span>
                         </div>
@@ -104,7 +104,7 @@
                     </el-card>
                 </el-col>
                 <el-col :span="8">
-                    <el-card class="commonCard">
+                    <el-card class="commonCard" style="height: 210px">
                         <div slot="header">
                             <span>上传附件 <span class="description">1GB以内</span></span>
                         </div>
@@ -117,7 +117,7 @@
 								<span @click="qxclosd(fileUpfj)" class="iconfont pend" style="float: right;">&#xe619;</span>
 								
 							</div>
-							<div v-if="upfjData.type" class="page2_1_5"><span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span></div>
+							<div v-if="upfjData.type && isUpd" class="page2_1_5"><span><span :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></span></span></div>
                         </div>
 						<div class="radio-group">
 							<label for="attachment1">
@@ -134,7 +134,7 @@
 							</label>
 						</div>
                     </el-card>
-                    <el-card class="commonCard">
+                    <el-card class="commonCard" style="height: 148px">
                         <div slot="header" style="position: relative">
                             <span>设为投稿作品 <span class="description" style="margin-left:10px">若作品符合需求，平台会联系你沟通收录细节</span></span>
 							<span class="btBlue" style="left: 100px"></span>
@@ -159,8 +159,8 @@
             </el-row>
 
             <div class="handleContainer">
-                <el-button @click="userSave">保存</el-button>
-                <el-button @click="seeCg">预览</el-button>
+                <el-button v-if="form.status != 2" @click="userSave">保存</el-button>
+                <el-button v-if="form.status != 2" @click="seeCg">预览</el-button>
                 <el-button @click="savZp" type="primary" :disabled="!ck3">提交发布</el-button>
             </div>
         </div>
@@ -219,7 +219,7 @@ export default {
 				attachment_visible:1,
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
-				is_platform_work:null,
+				is_platform_work:0,	
 				content:'<p style="color:#999">从这里开始编辑作品内容...</p>'
 			},
 			uD:{},
@@ -231,7 +231,7 @@ export default {
 				UEDITOR_HOME_URL: '/UEditor/',
 				elementPathEnabled: false,
 				wordCount: false,
-				autoFloatEnabled: false,
+				autoFloatEnabled: true,
 				toolbars: [ ['undo', 'redo', '|', 'combox', 'link', 'justifyleft', 'justifycenter', 'justifyright'] ]
 			},			
 			isshowd:false,
@@ -243,7 +243,7 @@ export default {
 					max:10*1024*1024,
 					type:['image/gif','image/jpeg','image/png'],
 					getType:'image',
-					typexz:'image/gif,image/jpeg,image/png'
+					typexz:'image/*,image/jpeg,image/png,image/gif'
 				},
 				{
 					title:'我的视频素材',
@@ -334,6 +334,7 @@ export default {
 			this.setAutoSave();
 		},
 		'form.is_platform_work'() {
+			this.checkPage2();
 			this.setAutoSave();
 		},
 		'tags'(){
@@ -352,7 +353,8 @@ export default {
 	mounted: function () {	
 		this.getUserDetail();
 		let right = (document.body.clientWidth - 1300) / 2 - 50
-		document.querySelector('.top_to_down').style.right = right + 'px'
+		let dom = document.querySelector('.top_to_down')
+		if (dom) dom.style.right = right + 'px'
 	}, 
 	methods: {
 		scrollToTop() {
@@ -400,7 +402,7 @@ export default {
 			}	
 			let pr={};
 			this.api.getSelfInfo(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 			
 				let userData = window.userInfo.access_token;
 				window.userInfo = da;
@@ -528,6 +530,7 @@ export default {
 			this[on] = false;
 		},
 		setAutoSave(){
+			if (this.form.status == 2) return
 			clearTimeout(this.autoSave.obj);
 			this.autoSave.obj = setTimeout(()=>{				
 				this.checkAutoSave();
@@ -631,6 +634,7 @@ export default {
 		ready (editorInstance) {
 			this.loading.close();
 			this.uD = editorInstance;
+			
 			editorInstance.addListener('focus',()=>{				
 					if(this.ifBjType==0){
 						this.form.content = '';
@@ -683,13 +687,21 @@ export default {
 			
 		},
 		inImg(list,ids){
-			let str = '';
+			let range = this.uD.selection.getRange().cloneContents();
+			let htmls = range && range.children, str = '';
+			if (htmls && htmls.length) {
+				for (let i in htmls) {
+					if (Object.prototype.toString.call(htmls[i]).indexOf('HTML') > -1)
+					str += htmls[i].outerHTML
+				}
+			}
 			if(this.configData.type[0]=='image/gif'){
 				list.map((el,index)=>{
 					str+='<p style="max-width:100%;height:auto;"><img zk_workid="'+ids[index]+'" style="max-width:100%;height:auto" src="'+el+'"/></p>';
 				});								
 				this.uD.execCommand('insertHtml', str);	
 				this.uD.execCommand( 'insertparagraph' )
+				// this.uD.focus()
 				return
 				
 			}
@@ -735,7 +747,7 @@ export default {
 					this.form = da;		
 					this.csz = da.work_name;				
 					try{this.form.labels = JSON.parse(this.form.labels);}catch(e){console.log(1)}
-					this.selectedOptions = [this.form.classify_1,this.form.classify_2,this.form.classify_3];
+					this.selectedOptions = [+this.form.classify_1,+this.form.classify_2,+this.form.classify_3];
 					if(this.form.attachment){
 						this.upfjData.fid=this.form.attachment_id;
 						this.upfjData.type='上传成功';
@@ -745,6 +757,7 @@ export default {
 						this.upfjData.file_name = this.form.attachment.file_name;
 					}
 					this.ifBjType=1;
+					this.checkPage2()
 				}
 			})
 		},
@@ -768,6 +781,7 @@ export default {
 			if(!this.form.content){Message({message: '请先填内容'});return}
 			if(!this.form.face_pic){Message({message: '请先上传封面'});return}
 			if(!this.form.classify_1){Message({message: '请先选择作品类型'});return}
+			if(!this.form.is_platform_work && this.form.is_platform_work != 0){Message({message: '请勾选是否为投稿作品'});return}
 			clearTimeout(this.autoSave.obj);
 			let str = this.form.content;
 			var matchReg = /zk_workid=".*?(?=")/gi;
@@ -824,7 +838,7 @@ export default {
 			this.saveTyped=1
 			pr.labels = JSON.stringify(pr.labels);
 			this.api.saveWorks(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					if(fn2){
 						fn2();
 					}
@@ -865,6 +879,9 @@ export default {
 				return false
 			}
 			if(!this.form.classify_1){
+				return false
+			}
+			if(!this.form.is_platform_work && this.form.is_platform_work != 0){
 				return false
 			}
 			this.ck3 = "onck2";
@@ -986,7 +1003,7 @@ export default {
 				return
 			}
 			this.api.getClassify({}).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				let p = JSON.stringify(da);
@@ -1065,7 +1082,7 @@ export default {
 .top_to_down{
 	width: 48px;
 	position: fixed;
-	right: 50px;bottom: 80px;
+	right: 50px;bottom: 180px;
 	z-index: 99;
 }
 .top_to_down>div{

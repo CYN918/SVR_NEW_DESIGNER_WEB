@@ -39,7 +39,7 @@ export default {
 		init(){
 
 			this.api.pr_recommend().then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				

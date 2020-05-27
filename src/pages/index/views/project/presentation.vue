@@ -124,7 +124,7 @@ export default {
 			let pr = {};
 			this.api.Income_info(pr).then((da)=>{
 				
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 		
 				this.syNum = da.gain_share_rate;
 				this.num2 = da.total_income;				
@@ -171,7 +171,7 @@ export default {
 			this.api.pr_gtreport({
 				project_id:this.$route.query.id,
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.das = da;
 				
 			}).catch(()=>{

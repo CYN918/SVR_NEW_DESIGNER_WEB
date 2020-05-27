@@ -176,6 +176,7 @@ export default {
 	components:{Input,Citys,uploadFile,jdt,TcBox},
 	data(){
 		return {
+			tjType:false,
 			outc:{
 				title:'',
 				scroll:1,
@@ -219,7 +220,7 @@ export default {
 					}			
 					return true; 
 				}	
-				if(!(/^1[2345789]\d{9}$/.test(val))){ 
+				if(!(/^1[23456789]\d{9}$/.test(val))){ 
 					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
 				} 
 				return true;
@@ -231,7 +232,7 @@ export default {
 					}			
 					return true; 
 				}	
-				if(!(/^1[2345789]\d{9}$/.test(val))){ 
+				if(!(/^1[23456789]\d{9}$/.test(val))){ 
 					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
 				} 
 				return true;
@@ -294,7 +295,7 @@ export default {
 	methods: {
 		gxZl(){
 			this.api.getSelfInfo({}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				da.access_token = window.userInfo.access_token;
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));
@@ -444,7 +445,7 @@ export default {
 				}			
 			}else{
 				
-				if(!(/^1[2345789]\d{9}$/.test(pd))){ 
+				if(!(/^1[23456789]\d{9}$/.test(pd))){ 
 					Message({message: '请输入正确的手机号码'});
 					return
 				} 
@@ -456,7 +457,7 @@ export default {
 				type:'login',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				Message({message: '验证码已发送'});
@@ -474,7 +475,7 @@ export default {
 					return 					
 				}			
 			}else{
-				if(!(/^1[2345789]\d{9}$/.test(pd))){ 
+				if(!(/^1[23456789]\d{9}$/.test(pd))){ 
 					Message({message: '请输入正确的手机号码'});
 					return
 				} 
@@ -483,10 +484,10 @@ export default {
 			let params = {
 				mobile:this.tancData.newMoble,
 				mobile_zone:this.tancData.mobile_zone,
-				type:'login',
+				type:'register',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				Message({message: '验证码已发送'});
@@ -505,7 +506,7 @@ export default {
 				
 			};
 			this.api.Bindbind(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.nogxzl = 1;
@@ -531,7 +532,7 @@ export default {
 				
 			};
 			this.api.Bindbind(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				this.form.mobile = pr.mobile;
@@ -630,6 +631,10 @@ export default {
 			
 		},
 		Userupdate(){
+			if(this.tjType){
+				this.tipMr('正在处理请稍后');
+				return
+			}
 			this.bdtj('企业认证页面','申请成为供稿人','--');
 			if(!this.isPostky){
 				this.bdtj('企业认证页面','申请成为供稿人失败','--');
@@ -655,8 +660,10 @@ export default {
 				email:this.emailD,
 				
 			};
+			this.tjType = true;
 			this.api.identifyAuth(pr).then((da)=>{
-				if(da=='error'){
+				this.tjType = false;
+				if(da=='error' || da=='104'){
 					this.bdtj('企业认证页面','申请成为供稿人失败','--');
 					return
 				}
@@ -668,6 +675,8 @@ export default {
 				setTimeout(()=>{
 					this.$router.push({path:'/profit'})
 				},2000);
+			}).catch(()=>{
+				this.tjType = false;
 			});
 			
 		},
@@ -700,7 +709,7 @@ export default {
 			};
 			
 			this.api.contributorInfo(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				let navd = 0;

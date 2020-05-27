@@ -1,9 +1,9 @@
 <template>
 	<div class="newTanc">
-		<div class="newTanc_1">	
+		<div class="newTanc_1 newTanc_1clys">	
 
 		<div class="pr_ntc_1">提现</div>
-		<div class="pr_ntc_2">
+		<div class="pr_ntc_2 pr_ntc_2dycl">
 			<div :class="['jdt_n','jdtOn'+typedon]">
 				<div style="width: 47%;" class="jdt_n_jdt"><span :style="setJdt2()"></span></div>
 				<span v-for="(el,index) in ldList2" :key="index" :class="index==typedon?'jdt_n_on':''">
@@ -165,7 +165,7 @@
 				</div>
 				
 				
-				<div class="pr_xx_btns botnbox">
+				<div class="pr_xx_btns botnbox pr_xx_btnsdycl">
 					<span v-if="typedon>0" @click="next_x(-1)">上一步</span>
 					<span v-if="typedon==0" @click="goUpsuer()">修改银行信息</span>
 					<span v-if="backisnext()" @click="next_x(1)" class="btn_n3">下一步</span>
@@ -204,7 +204,7 @@ export default {
 					}			
 					return true; 
 				}	
-				if(!(/^1[2345789]\d{9}$/.test(val))){ 
+				if(!(/^1[23456789]\d{9}$/.test(val))){ 
 					return {type:false,text:'请输入正确的手机号码',cls:'errd5'}; 
 				} 
 				return true;
@@ -230,12 +230,23 @@ export default {
 
 	methods: {
 		oninput(e){
+			
+			if(e.target.value.indexOf('0') == 0) {
+				this.form.cash_money = ''
+				return
+			}
 			if(e.target.value>+this.meny){
 				this.form.cash_money = this.meny;
 				return
 			}
-			let onm = (e.target.value.match(/^\d*(\.?\d{0,2})/g)[0]) || null			
-			this.form.cash_money = onm;
+			if(!e.target.value.match(/^[\+\-]?\d*?\.?\d*?$/)){
+				e.target.value = this.form.cash_money;
+				return
+			}
+				
+			this.form.cash_money = e.target.value;
+					
+			
 			
 		},
 		backisnext(){
@@ -309,14 +320,16 @@ export default {
 			this.typedon = p;
 		},
 			qxclosd(obj){
+			if(this.upfjData && this.upfjData.type=='上传成功'){
+				this.upfjData = {};
+				this.form.invoice = '';
+				this.form.attachment_id='';
+			}
 			if(obj){
 				obj.abort();			
 				return
 			}
-			
-			this.form.invoice = '';
-			this.form.attachment_id='';
-			this.upfjData = {};
+
 		},
 		goUpsuer(){
 			this.bdtj('我的收益','修改账户信息','--');
@@ -339,7 +352,11 @@ export default {
 		setJdt(){		
 			return 'transform: translateX('+(this.typedon*33.33-100)+'%);';
 		},
-		fileUpfj(flie){			
+		fileUpfj(flie){		
+			if(this.upfjData && this.upfjData.type=='上传成功'){
+				this.upfjData = {};
+			}
+			
 			if(this.upfjData && this.upfjData.type){
 				Message({message: '正在上传中请稍后'});
 				return
@@ -428,7 +445,7 @@ export default {
 			}
 			let pr = this.form;
 			this.api.Income_applyCash(pr).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				Message({message: '申请成功请耐心等待审核'});
 				this.$parent.txcg(pr.cash_money);	
 				this.$parent.getData();		
@@ -451,7 +468,7 @@ export default {
 				type:'login',
 			};
 			this.api.sendVerifyCode(params).then((da)=>{	
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				Message({message: '验证码已发送'});
@@ -547,6 +564,9 @@ export default {
 	padding: 104px 30px 70px;
 	width: 620px;
 	min-height: 249px;
+}
+.pr_ntc_2dycl{
+	padding-bottom: 40px;
 }
 .jdt_n{
 	position: relative;
@@ -914,5 +934,13 @@ export default {
 }
 .botnbox>span.btn_n3{
 	border-color: #33B3FF;
+}
+.newTanc_1clys{
+	max-height: 90%;
+	overflow-y: auto;
+}
+.pr_xx_btnsdycl{
+	position: relative;
+	bottom: 0;
 }
 </style>

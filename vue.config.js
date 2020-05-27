@@ -6,7 +6,10 @@ const CompressionPlugin = require('compression-webpack-plugin');
 //var seller = appData
 var apiRoutes = express.Router();
 app.use('/api',apiRoutes)
-
+const path = require('path');//引入path模块
+function resolve(dir){
+    return path.join(__dirname,dir)//path.join(__dirname)设置绝对路径
+}
 module.exports = {		
 	pages: {
         index: {            
@@ -35,9 +38,10 @@ module.exports = {
     // webpack配置
     // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
     chainWebpack: config => {
-        // config
-        //     .plugin('webpack-bundle-analyzer')
-        //     .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+       config.resolve.alias
+       .set('@',resolve('./src'))
+       .set('components',resolve('./src/components'))
+	    //set第一个参数：设置的别名，第二个参数：设置的路径
    	},
  	configureWebpack: {
         externals: {           

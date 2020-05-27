@@ -42,7 +42,7 @@ export default {
 		},
 		setUrl(da){
 			
-			if(da=='error'){
+			if(da=='error' || da=='104'){
 				return
 			}
 			this.fxUrl1 = 'http://service.weibo.com/share/share.php?url='+da.url+'&title='+da.title+'&ralateUid=1733083617&appkey=163310332&pic='+da.pic+'#_loginLayer_1557135339222';

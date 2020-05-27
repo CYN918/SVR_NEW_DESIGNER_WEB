@@ -176,7 +176,7 @@ export default {
 				follow_id:this.List[this.openOns].open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.follwTyle=0;
 					return
 				}
@@ -205,7 +205,7 @@ export default {
 				follow_id:this.List[on].open_id
 			};
 			this.api.Follow_add(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.follwTyle=0;
 					return
 				}
@@ -249,7 +249,7 @@ export default {
 			this.loading = Loading.service({  fullscreen: true,background:'rgba(0,0,0,0)' });
 			this.api.Searchsearch(pr).then((da)=>{
 				this.loading.close();
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				
@@ -575,7 +575,7 @@ export default {
 }
 .searUr{
 	padding-top: 20px;
-	margin-bottom: 40px;
+	margin-bottom: 140px;
 }
 .searUr .emptyData{
 	margin: 0 auto;

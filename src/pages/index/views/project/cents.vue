@@ -1,75 +1,10 @@
-<template>
-	<!-- <div class="cengg">
-		<div class="cens_01">
-			<div class="cens_02">
-				<div class="cens_02_1 oijdiv">				
-					<img class="cens_02_1_img" :src="deta.banner" alt="">
-					<div v-if="deta.extra_reward && deta.extra_reward!='0.00'" class="sjxd" @mouseout="mod()" @mouseover="modx($event,0)">
-						额外奖金¥{{deta.extra_reward}}
-					</div>
-					<div class="cens_02_1_cent">
-						<div class="cens_x0">
-							<div class="cens_x1">{{deta.name}}</div>
-							<div class="cens_x2">项目类型：{{deta.classify_name}}</div>
-							<div class="cens_x3">领域范围：<span v-for="(el,index) in deta.fields" :key="index">{{el}}</span></div>
-						</div>
-						<div>
-							<div class="cens_x4">
-								<div class="icon_ff_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/04.svg"/>预计收益</div>
-								<div class="cens_x4_1 f_a">{{deta.expected_profit}}<img @mouseout="mod()" @mouseover="modx($event,1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg" ></div>
-							</div>
-							<div class="cens_x5">
-								<div class="icon_ff_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/08.svg"/>制作周期</div>
-								<div  class="cens_x4_1 cens_x4_1_x1" v-html="backZq(deta.production_cycle_d,deta.production_cycle_h)">
-									
-								</div>
-								
-							</div>
-							
-						</div>
-						<div v-if="deta.status==1 || deta.status==2">
-							<div class="icon_ff_1"><img class="icon_ff_1_x1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/05.svg"><span class="f_a">{{deta.sign_up_num}}</span>人已报名</div>
-						</div>
-					</div>
-			
-					<div v-if="deta.template_file_url" @click="dowloadmb(deta)" class="pend pr_down_mb">
-						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/project/icon_download.svg"/>下载附件 ({{deta.template_file_size}})
-					</div>
-				</div>
-				
-				<div v-for="(el,index) in deta.desc" :key="index" class="cens_02_2 oijdiv">
-					<div class="cens_02_2hd">{{el.module_title}}</div>
-					<div class="cens_02_2ce" v-html="el.module_content"></div>
-				</div>
-			</div>
-			<div class="cens_03 oijdiv">
-				<xmDp v-if="deta.status" :obj="deta" ref="xmDp"></xmDp>
-				<div class="centShar botx_01">
-					<span class="movfx_01">
-						<div @click="sharc" class="centShar_1"></div>						
-						分享项目
-					</span>
-					<span class="movfx_02">
-						<a  class="centShar_2" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes"></a>
-						项目顾问
-					</span>
-				</div>
-				<liucen></liucen>
-			</div>
-		</div>
-		
-		<tipd  :tipCent="csff" :style="sfas" ref="csdf"></tipd>
-		<component v-bind:is="tcZj"  :datad="tcData" :expected_profit="deta.expected_profit" :settlement="deta.settlement"></component>
-		
-		
-		<topGd v-if="topTyped==1 && deta.status==1" :obj="pzTop" ref="topGd"></topGd>
-	</div> -->
+<template>	
 	<div class="cengg">
 		<div class="cens_01">
 			<div class="cents_box">
 				<img class="cens_02_1_img" v-if="deta.detail_banner" :src="deta.detail_banner" alt="">
 				<img class="cens_02_1_img" v-else :src="deta.banner" alt="">
-				<div class="sto_01" v-if="deta.status>=3 && (deta.contract_file && deta.contract_file.length>0)" style="right: 70px;">
+				<div class="sto_01" v-if="deta.status>=3" style="right: 70px;">
 					<img :src="imgPath+'ac_v2/xl.png'"/>
 					<div class="sto_02">
 						<div v-if="deta.status==3" @click="showTc('Stop')">终止项目</div>
@@ -77,7 +12,7 @@
 						<div v-if="deta.contract_file && deta.contract_file.length>0" class="worksBox_2_3">
 							下载合同 
 							<span class="js_0013"></span>
-							<div class="worksBox_2_4">
+							<div class="worksBox_2_4" style="width: max-content">
 								<div v-for="el in deta.contract_file" @click="dowun(el)">{{el.file_name}}</div>						
 							</div>
 						</div>
@@ -351,6 +286,29 @@ export default {
 			}
 		},
 		dowloadmb(obj){
+			let state = '--';
+			
+			if(this.$parent.deta.status == '1'){
+				state = '招募期'
+			} else if(this.$parent.deta.status == '0'){
+				state = '待发布'
+			} else if(this.$parent.deta.status == '2'){
+				state = '选标期'
+			} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) >= new Date()){
+				state = '制作期'
+			} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) < new Date()){
+				state = '已延期'
+			} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected == '1'){
+				state = '未通过'
+			} else if(this.$parent.deta.status == '4'){
+				state = '待审核'
+			}else if(this.$parent.deta.status == '5'){
+				state = '已验收'
+			}else if(this.$parent.deta.status == '-1'){
+				state = '已终止'
+			}
+			
+			this.bdtj("项目详情页",state,"[下载附件]");
 			window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
 		backZq(a,b){
@@ -418,7 +376,7 @@ export default {
 				id : this.$route.query.id
 			};
 			this.api.pr_detail(pr).then((da)=>{
-				if(da=='error'){this.$router.push({path: '/404'});return}
+				if(da=='error' || da=='104'){this.$router.push({path: '/404'});return}
 				
 				if(da.special_url){
 					this.$router.push({path: '/Ac_v2',query:{id:da.id}});
@@ -952,7 +910,7 @@ export default {
 .cents_box_status{
 	position: absolute;
 	height: 98px;
-	width: 875px;
+	width: auto;
 	bottom: 48px;
     left: 148px;
 	text-align: center;
@@ -1009,7 +967,7 @@ export default {
 	border-radius:10px;
 }
 .jz_time{
-	width:222px;
+	width:auto;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 16px 32px 0px rgba(0,0,0,0.2);
 	border-radius:10px;

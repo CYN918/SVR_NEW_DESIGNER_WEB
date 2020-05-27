@@ -70,7 +70,7 @@ export default {
 				follow_id:el.open_id
 			};
 			this.api.Follow_del(pr).then((da)=>{
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					this.follwTyle=0;
 					return
 				}
@@ -95,7 +95,7 @@ export default {
 			};
 			this.api.Follow_add(pr).then((da)=>{
 				this.follwTyle=0;
-				if(da=='error'){
+				if(da=='error' || da=='104'){
 					return
 				}
 				el.follow_flag = da.follow_flag;

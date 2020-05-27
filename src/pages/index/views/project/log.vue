@@ -18,7 +18,7 @@
 						</div>
 					</div>
 					<div class="log_tipbox log_tipbox2">
-						<div class="log_hid">{{el.type==2?el.access_code:el.file_size}}</div>
+						<div class="log_hid log_hid_00_01">{{el.type==2?el.access_code:el.file_size}}</div>
 						
 						<div v-if="(el.type==2&&el.access_code.length>12) || el.file_size.length>12" class="log_tip">
 							{{ el.type==2?el.access_code:el.file_size}}
@@ -40,10 +40,10 @@
 					</div>
 					<div>
 						<div @click="showPic(el.preview_pic)" class="log_tipbox" v-if="el.preview_pic">预览</div>
-						<div @click="fileCy(el)" class="log_tipbox" v-if="el.check_status != -2 && el.check_status != -1">撤回</div>
+						<div @click="fileCy(el)" class="log_tipbox" v-if="checkCh(el)">撤回</div>
 						
 					</div>
-					<qxGj v-if="isShow" :datad="datad"></qxGj>
+					<qxGj class="logqxgj" v-if="isShow" :datad="datad"></qxGj>
 		
 					
 
@@ -68,7 +68,7 @@ import tanC from '../../components/tanC';
 import qxGj from './qxGj';
 
 export default {
-	components:{tanC,qxGj},
+	components:{tanC,qxGj},	
 	data(){
 		return{
 			List:[],
@@ -108,9 +108,19 @@ export default {
 		this.init();
 	},
 	methods: {
+		checkCh(el){	
+			if(el.status==4 && el.check_steps!=1 && [-2,-1,1].indexOf(+el.check_status)==-1){
+				return true;
+			}
+			return false;
+		},
 		fileCy(data){
+			if(data.check_steps==1){
+				this.tipMr('项目已在审核中，请勿撤回')				
+				return
+			}
 			this.isShow = true;
-			this.datad = data;
+			this.datad = {id:data.project_id};
 		},
 		closepick(){
 			this.ylt = '';
@@ -125,7 +135,7 @@ export default {
 			this.api.pr_deliveryList({
 				project_id:this.$parent.deta.id,
 			}).then((da)=>{
-				if(da=='error'){return}
+				if(da=='error' || da=='104'){return}
 				this.List = da;
 			}).catch(()=>{
 				
@@ -290,5 +300,11 @@ export default {
 	position: absolute;
     top: 10px;
     right: 10px;
+}
+.log_hid_00_01{
+	height: 58px;
+}
+.logqxgj{
+	background: none;
 }
 </style>

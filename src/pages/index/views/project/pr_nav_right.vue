@@ -18,6 +18,9 @@ export default {
 		deta:Object,
 	},
     name: 'nav_right',
+	props:{
+		deta:Object,
+	},
     data(){
         return {
             isShow:false,
@@ -86,9 +89,11 @@ export default {
             }  
         },
         go_tolt(){
+			this.bdtj("项目详情","分享项目",'--');
             this.$parent.sharc();
         },
         upload(){
+			this.bdtj("项目详情","顾问",'--');
             window.open("http://wpa.qq.com/msgrd?v=3&uin="+ this.deta.qq + "&site=qq&menu=yes");
         },
         go_weibo(){
