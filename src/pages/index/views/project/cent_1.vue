@@ -94,6 +94,7 @@ export default {
 				return
 			}
 			if(this.el.id){
+				this.bdtj("项目列表",this.el.name,"--")
 				window.open('/#/prcent?id='+this.el.id+'&type=prj')
 			}
 		},

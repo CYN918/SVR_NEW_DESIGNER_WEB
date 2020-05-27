@@ -63,7 +63,18 @@ export default {
 			adFn:'',
 			options:[],
 			value:'',
-
+			specialname:""
+			// Ds_01:[
+			// 	{n:'UI图标',t:'UI Icon',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/1.svg'},
+			// 	{n:'摄影',t:'Photography',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/2.svg'},
+			// 	{n:'视觉设计',t:'Visual Design',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/3.svg'},
+			// 	{n:'动效制作',t:'Animation production',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/4.svg'},
+			// 	{n:'脚本制作',t:'Script production',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/5.svg'},
+			// 	{n:'插画',t:'Illustration',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/6.svg'}
+			// ],
+			// List:[],
+			// fls:[],
+			// cOn:'全部',
 		}
 	},
 	mounted: function(){
@@ -84,7 +95,8 @@ export default {
 				};
 			}
 			this.mJs.scTop(702);
-			this.$refs.sfafa.sxfn();	
+			this.$refs.sfafa.sxfn();
+			this.bdtj("首页",this.data.pr.classify_name,"--");
 		},
 		qhZt(id){
 			this.data.pr.type = id;
