@@ -910,7 +910,7 @@ export default {
 .cents_box_status{
 	position: absolute;
 	height: 98px;
-	width: 875px;
+	width: auto;
 	bottom: 48px;
     left: 148px;
 	text-align: center;
@@ -967,7 +967,7 @@ export default {
 	border-radius:10px;
 }
 .jz_time{
-	width:222px;
+	width:auto;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 16px 32px 0px rgba(0,0,0,0.2);
 	border-radius:10px;

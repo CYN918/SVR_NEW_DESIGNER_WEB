@@ -262,6 +262,7 @@ export default {
 
 <style>
 .lgoin_s2xx{
-	margin-right: 19px;
+	margin-right: 19px!important;
+	margin-left: 10px!important;
 }
 </style>
