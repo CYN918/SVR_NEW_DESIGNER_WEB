@@ -279,6 +279,9 @@ export default {
 			})
 		},
 		init(){
+			if (!window.userInfo) {
+				this.login(1);
+			}
 			this.data.pr.status =  this.isTypeList[this.$route.name].join(',');
 			// this.data.pr.status =  'all';
 			this.navData = {

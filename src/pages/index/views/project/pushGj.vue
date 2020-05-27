@@ -49,7 +49,7 @@
 					  :http-request="uploadFile"
 					  :show-file-list='true'
 					  action="customize"
-					  
+					  :on-exceed="fileChange"
 					  >
 					  <i class="el-icon-upload"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/pus.svg?v=1"></i>
 					  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -142,6 +142,12 @@ export default {
 		this.init();
 	},
 	methods: {
+		fileChange(file, fl) {
+			let originRenderFile = this.fileList3[0];
+			originRenderFile.xhr.abort();
+			this.fileList3 = [];
+			this.uploadFile({file: file[0]});
+		},
 		setJdt1(on){
 			
 			this.isJdt1=1;
@@ -242,7 +248,6 @@ export default {
 
 		},
 		uploadFile(params) {
-			
 			const _file = params.file;
 			const isLt2M = _file.size / 1024 / 1024/1024 < 1;
 			if (!isLt2M) {
