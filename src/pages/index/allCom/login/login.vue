@@ -1,59 +1,47 @@
 <template>
-	<TcBox :config="config" ref="tcBox">
-		<template v-slot:todo="{ todo }">
-			<Login v-if="config.num == 1" @funcRegister="getData"></Login>
-			<Register v-if="config.num == 2" @func="getMsgFormSon"></Register>
-			<ModifyPassword v-if="config.num == 3" @func="getMsgFormSon"></ModifyPassword>
-		</template>			
-	</TcBox>
+  <el-table
+    :data="tableData"
+    stripe
+    style="width: 100%">
+    <el-table-column
+      prop="date"
+      label="日期"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="name"
+      label="姓名"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="address"
+      label="地址">
+    </el-table-column>
+  </el-table>
 </template>
-<script>
-import TcBox from '../../components/TcBox1';
-import Login from '../../views/login/dialogLogin';
-import Register from '../../views/login/dialogRegister';
-import ModifyPassword from '../../views/login/dialogModifyPassword';
-export default {
-	components:{TcBox,Login,Register,ModifyPassword},
-	props:{
-		config:Object,
-	},
-	data(){
-		return{
-			
-		}
-	},
-	methods: {
-		getMsgFormSon(data){
-			this.config.num = data.num;
-		},
-		getData(data){
-			this.config.num = data.num;
-		},	
-		logout(){
-			if(!window.userInfo){return}			
-			this.api.logout({}).then((da)=>{
-				if(da=='error' || da=='104'){
-					return
-				}
-				this.close();
-				localStorage.setItem('pass','');			
-				localStorage.setItem('userT','');
-				window.userInfo='';
-				window.passIn = '';			
-				this.$router.push({path: '/login'})	
-			});
-		},
-		show(){
 
-			this.$refs.tcBox.show();
-		},
-		close(){
-			this.$refs.tcBox.close();
-		},
-		
-	}
-}		
-	
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }]
+      }
+    }
+  }
 </script>
-<style>
-</style>

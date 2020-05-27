@@ -94,7 +94,7 @@ let wb = [
 	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
 	{path: '/Ac_v4',name: 'Ac_v4',component: Ac_v4},
 	{path: '/pushTool',name:'pushTool',component: pushTool},
-	{path: '/syPage',name:'syPage',component: syPage},
+	// {path: '/syPage',name:'syPage',component: syPage},
 	{path: '/toluser',redirect: {name:'toluser'},component: toltIndex,children:[
 		{path: '/toluser',name:'toluser',component: toluser},
 	]},
