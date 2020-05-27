@@ -35,7 +35,7 @@
 			
 			
 			<div class="cenDjs_4">
-				<div v-for="(el,index) in da.btns" :key="index" :class="['pend',el.tcFncs=='Log'?'router-link-active':'']" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
+				<div v-for="(el,index) in da.btns" :key="index" :class="calcClass(el)" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
 			</div>
 			<loginDialog ref="logindialog" :config="outc"></loginDialog>
 			
@@ -93,7 +93,12 @@ export default {
 		console.log(this.da.btns)
 	}, 
 	methods: {
-
+		calcClass(el) {
+			if (this.obj.status == 4) return 'pend'
+			if (this.obj.status == 3) return 'pend router-link-active'
+			if (el.tcFncs == 'Log') return 'pend router-link-active'
+			return 'pend'
+		},
 		init(){
 			this.xmTypeOn = this.obj.status-1;
 			if(this.obj.is_sign_up==1){
