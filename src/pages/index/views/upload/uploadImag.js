@@ -69,6 +69,7 @@ export default {
                 
             };
             let uploadComplete = (data)=>{
+                p.bf = 100;
                 if(data.currentTarget.response){
                     let daaa = JSON.parse(data.currentTarget.response);
                 
@@ -90,9 +91,10 @@ export default {
                     }
                     this.$refs[ref].value = ''
                     Message({message: '文件上传成功'});
+                    this.uploadSourceLoading.close();
                     this.inImg([p.url], [p.fid]);
-                    this.uploadSourceLoading.close()
                 }
+                this.uploadSourceLoading.close();
                 
             };
             let uploadFailed = ()=>{

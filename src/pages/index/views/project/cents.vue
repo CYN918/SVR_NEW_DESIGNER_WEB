@@ -8,7 +8,7 @@
 					<img :src="imgPath+'ac_v2/xl.png'"/>
 					<div class="sto_02">
 						<div v-if="deta.status==3" @click="showTc('Stop')">终止项目</div>
-						<div v-if="islog" @click="showTc('Log')">交稿记录</div>
+						<div v-if="deta.have_delivery==1" @click="showTc('Log')">交稿记录</div>
 						<div v-if="deta.contract_file && deta.contract_file.length>0" class="worksBox_2_3">
 							下载合同 
 							<span class="js_0013"></span>
