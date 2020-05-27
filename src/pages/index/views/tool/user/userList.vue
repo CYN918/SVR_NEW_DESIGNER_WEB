@@ -112,6 +112,10 @@ export default{
 			this.istype = true;			
 		},
 		qdFn(){
+			if(!this.title){
+				this.tipMr('请输入来电秀名称')
+				return
+			}
 			if (this.ajaxType) {
 				this.tipMr('正在处理请稍后');
 				return
