@@ -15,7 +15,7 @@
 								{{el.op_cname}}  你的作品 
 								<span class="comment_2_4" @click="goWork(el.work.work_id)">{{el.work.work_name}}</span>
 							</div>
-							<div class="comment_2_5">{{backcont(el.comment.content)}}</div>
+							<div class="comment_2_5 comment_2_5Max">{{backcont(el.comment.content)}}</div>
 							<div>
 								<span class="iconfont pend hfdZ_23">
 									<span @click="addLike('comment',el.comment.comment_id,el)" :class="['iconfont',el.comment.liked?'likeis':'']">
