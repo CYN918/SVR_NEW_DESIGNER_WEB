@@ -4,7 +4,7 @@
 		<img class="adpage_syD_01" :src="setImgU('adPage/sy_02.png?a=2')"/>
 		<p class="adpage_syD_1">
 			<span class="adpage_syD_2">
-				<a class="adpage_syD_3" href="https://shiquaner.zookingsoft.com/#/cont?id=158936954964">什么是来电秀?</a>
+				<a class="adpage_syD_3" href="https://shiquaner.zookingsoft.com/#/cont?id=159038746021">什么是来电秀?</a>
 				<span class="adpage_syD_4">
 					<a href="http://www.zookingsoft.com/">© 2015-2019 深圳掌酷软件有限公司</a><i></i>
 					<a href="http://beian.miit.gov.cn">粤ICP备15039011号</a><i></i>

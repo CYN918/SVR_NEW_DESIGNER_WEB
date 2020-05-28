@@ -32,30 +32,12 @@
 					<span>账户余额</span><span>{{meny}}</span>
 				</div>
 				<div class="pr_xx_1_c">
-					<span>提现金额</span><span><input @input="oninput" class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
+					<span>提现金额</span><span><input  class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
 					<div class="xf11l">
 						当月到账金额=当月提现总额-税费
-						<span class="iconfont">
+						<span @mouseover="jffs($event)" @mouseout="jffs2($event)" class="iconfont">
 							&#xe65c;
-							<div class="txtipgr">
-								<div class="titledsx">税费计算</div>
-								<div class="conddf">
-									<span>劳动报酬 X</span>
-									<span>X≤800</span>
-									<span>800＜X≤4000</span>
-									<span>4000＜X≤25000</span>
-									<span>25000＜X≤62500</span>
-									<span>62500＜X</span>
-								</div>
-								<div class="conddf conddf2">
-									<span>个税</span>
-									<span>0</span>
-									<span>(X-800)*20%</span>
-									<span>X*80%*20%</span>
-									<span>X*800*30%-2000</span>
-									<span>X*80%*40%-7000</span>
-								</div>
-							</div>
+							
 						</span>
 					</div>
 				</div>
@@ -66,30 +48,11 @@
 					<span>账户余额</span><span>{{meny}}</span>
 				</div>
 				<div class="pr_xx_1_c">
-					<span>提现金额</span><span><input @input="oninput" class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
+					<span>提现金额</span><span><input class="txje" placeholder="请输入金额，最少不小于300元" v-model="form.cash_money" type="text">元</span>
 					<div class="xf11l">
 						当月到账金额=当月提现总额-税费
-						<span class="iconfont">
-							&#xe65c;
-							<div class="txtipgr">
-								<div class="titledsx">税费计算</div>
-								<div class="conddf">
-									<span>劳动报酬 X</span>
-									<span>X≤800</span>
-									<span>800＜X≤4000</span>
-									<span>4000＜X≤25000</span>
-									<span>25000＜X≤62500</span>
-									<span>62500＜X</span>
-								</div>
-								<div class="conddf conddf2">
-									<span>个税</span>
-									<span>0</span>
-									<span>(X-800)*20%</span>
-									<span>X*80%*20%</span>
-									<span>X*800*30%-2000</span>
-									<span>X*80%*40%-7000</span>
-								</div>
-							</div>
+						<span @mouseover="jffs($event)" @mouseout="jffs2($event)" class="iconfont">
+							&#xe65c;							
 						</span>
 					</div>
 				</div>
@@ -175,7 +138,28 @@
 	
 					
 				<img @click="close" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg" class="newTanc_2">
-			</div>		
+			</div>	
+				
+				
+			<div class="txtipgr" ref="gsBOx">
+				<div class="titledsx">税费计算</div>
+				<div class="conddf">
+					<span>劳动报酬 X</span>
+					<span>X≤800</span>
+					<span>800＜X≤4000</span>
+					<span>4000＜X≤25000</span>
+					<span>25000＜X≤62500</span>
+					<span>62500＜X</span>
+				</div>
+				<div class="conddf conddf2">
+					<span>个税</span>
+					<span>0</span>
+					<span>(X-800)*20%</span>
+					<span>X*80%*20%</span>
+					<span>X*800*30%-2000</span>
+					<span>X*80%*40%-7000</span>
+				</div>
+			</div>
 		</div>
 
 </template>
@@ -227,27 +211,33 @@ export default {
 	mounted: function () {			
 		this.init();		
 	},
-
+	watch:{
+		'form.cash_money'(newD,old){
+			if(!newD){
+				return
+			}
+			newD+='';
+			if(newD.match(/^[\+\-]?\d*?\.?\d*?$/)){
+				let mg = newD;
+				if(mg.split('.')[1]){
+					mg = parseInt(mg*100)/100;
+				}
+				if(mg>+this.meny){
+					mg = this.meny;					
+				}				
+				this.form.cash_money = mg;
+				return
+			}	
+			this.form.cash_money = 	old;
+		}
+	},
 	methods: {
-		oninput(e){
-			
-			if(e.target.value.indexOf('0') == 0) {
-				this.form.cash_money = ''
-				return
-			}
-			if(e.target.value>+this.meny){
-				this.form.cash_money = this.meny;
-				return
-			}
-			if(!e.target.value.match(/^[\+\-]?\d*?\.?\d*?$/)){
-				e.target.value = this.form.cash_money;
-				return
-			}
-				
-			this.form.cash_money = e.target.value;
-					
-			
-			
+		jffs(e){
+			let on = e.target.getBoundingClientRect();
+			this.$refs.gsBOx.style.cssText= 'display:block;top:'+(on.y+30)+'px;left:'+on.x+'px;'
+		},
+		jffs2(e){
+			this.$refs.gsBOx.style='';
 		},
 		backisnext(){
 			if(this.user.type==1 && this.typedon<2){
@@ -834,14 +824,13 @@ export default {
 .xf11l>span:hover{
 	cursor: pointer;
 }
-.xf11l>span:hover>.txtipgr{
-	display: block;
-}
+
 .txtipgr{
 	display: none;
 	position: absolute;
-	top: 30px;
-	left: -500px;
+	top: 0;
+	left: 0;
+	transform: translateX(-50%);
 	z-index: 9;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 2px 8px 0px rgba(0,0,0,0.1);

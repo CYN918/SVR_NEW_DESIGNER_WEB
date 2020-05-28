@@ -24,7 +24,7 @@ export default{
 			return window.userInfo.contributor_format_status==1
 		},
 		goxn(){
-			window.location.href= 'https://shiquaner.zookingsoft.com/#/cont?id=158936954964';
+			window.location.href= 'https://shiquaner.zookingsoft.com/#/cont?id=159038746021';
 
 		}
 	}
