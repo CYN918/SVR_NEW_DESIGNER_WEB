@@ -178,14 +178,17 @@ export default {
 					localStorage.setItem('pass',JSON.stringify(data));
 				}
 				if(da.is_detail==0){
+					this.reload();
 					this.$router.push({path: '/userme'})	
 					return
 				}				
 				if(window.frompath){
+					this.reload();
 					this.$router.push({path: window.frompath})	
 					return
 				}
 				if(window.frompath2 && window.frompath2!=window.location.href){
+					this.reload();
 					window.location.href = window.frompath2;
 					return;
 				}
