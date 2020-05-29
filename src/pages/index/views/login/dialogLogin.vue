@@ -35,7 +35,7 @@ import password from './login3'
 import {Message} from 'element-ui'
 import verify_code from './login4'
 export default {
-	inject:['reload'],
+	inject:['reload','closeLogin'],
 	components:{password,verify_code},
 	name: 'login',	 
 	data(){				
@@ -178,17 +178,19 @@ export default {
 					localStorage.setItem('pass',JSON.stringify(data));
 				}
 				if(da.is_detail==0){
-					this.reload();
+					
+					this.closeLogin();
+				
 					this.$router.push({path: '/userme'})	
 					return
 				}				
 				if(window.frompath){
-					this.reload();
+					this.closeLogin();
 					this.$router.push({path: window.frompath})	
 					return
 				}
 				if(window.frompath2 && window.frompath2!=window.location.href){
-					this.reload();
+					this.closeLogin();
 					window.location.href = window.frompath2;
 					return;
 				}
