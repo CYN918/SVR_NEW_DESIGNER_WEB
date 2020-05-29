@@ -62,12 +62,25 @@ export default {
 					},
 					{n:'审核时间',poprs:'check_time'},
 					{n:'操作',temp:{cFn:'chtj',clfn:(da)=>{
-						let onTime = new Date().getTime();
-						let nexTime = new Date(Math.ceil(new Date(da.apply_time).getTime()/3600000)*3600000).getTime();
-						if(da.check_status==0 && onTime<nexTime){
+						let onTime = new Date(),
+						onYear = onTime.getFullYear(),
+						onMu = onTime.getMonth(),
+						odlTime = new Date(da.apply_time),
+						oldYear = odlTime.getFullYear(),
+						oldMu = odlTime.getMonth();
+						if(onYear==oldYear && oldMu==onMu){
 							return '<span class="pend">撤回</span>';
 						}
 						return '<span>--</span>';
+						
+						// let onTime = new Date().getTime();
+						// let nexTime = new Date(Math.ceil(new Date(da.apply_time).getTime()/3600000)*3600000).getTime();
+						// if(da.check_status==0 && onTime<nexTime){
+						// 	return '<span class="pend">撤回</span>';
+						// }
+						// return '<span>--</span>';
+						
+						
 					}}}
 				],
 				
@@ -141,13 +154,29 @@ export default {
 			if(d.check_status!=0){
 				return
 			}
-			let onTime = new Date().getTime();
-			let nexTime = new Date(Math.ceil(new Date(d.apply_time).getTime()/3600000)*3600000).getTime();
-			if(onTime>=nexTime){
+			
+			
+			// let onTime = new Date().getTime();
+			// let nexTime = new Date(Math.ceil(new Date(d.apply_time).getTime()/3600000)*3600000).getTime();
+			// if(onTime>=nexTime){
+			// 	this.tipMr('处于结算状态无法撤回');
+			// 	this.$refs.tabds.sxfn();
+			// 	return
+			// }
+			
+			let onTime = new Date(),
+			onYear = onTime.getFullYear(),
+			onMu = onTime.getMonth(),
+			odlTime = new Date(da.apply_time),
+			oldYear = odlTime.getFullYear(),
+			oldMu = odlTime.getMonth();
+			
+			if(onYear!=oldYear || oldMu!=onMu){
 				this.tipMr('处于结算状态无法撤回');
-				this.$refs.tabds.sxfn();
-				return
+				return 
 			}
+			
+			
 			this.isCh = 1;
 			this.chid = d.apply_id;
 			this.je = d.cash_money;
