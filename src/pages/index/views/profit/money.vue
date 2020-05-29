@@ -63,7 +63,7 @@ export default {
 					{n:'审核时间',poprs:'check_time'},
 					{n:'操作',temp:{cFn:'chtj',clfn:(da)=>{
 						let onTime = new Date().getTime();
-						let nexTime = new Date(Math.ceil(new Date(da.apply_time).getTime()/3600000)*3600000);
+						let nexTime = new Date(Math.ceil(new Date(da.apply_time).getTime()/3600000)*3600000).getTime();
 						if(da.check_status==0 && onTime<nexTime){
 							return '<span class="pend">撤回</span>';
 						}
@@ -142,7 +142,7 @@ export default {
 				return
 			}
 			let onTime = new Date().getTime();
-			let nexTime = new Date(Math.ceil(new Date(d.apply_time).getTime()/3600000)*3600000);
+			let nexTime = new Date(Math.ceil(new Date(d.apply_time).getTime()/3600000)*3600000).getTime();
 			if(onTime>=nexTime){
 				this.tipMr('处于结算状态无法撤回');
 				this.$refs.tabds.sxfn();
