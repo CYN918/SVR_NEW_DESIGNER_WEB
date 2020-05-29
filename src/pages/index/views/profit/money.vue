@@ -74,11 +74,13 @@ export default {
 								if(month2 < 10) {
 									month2 = '0' + month2;
 								}
-								// let endtime = timearr[0] + '-' + month2 + '-' + 1 + '\t' + timearr[3] + ":" + timearr[4] + ":" + timearr[5] + "";
-								let endtime = timearr[0] + '-' + month2 + '-' + 1 + '\t' + '00' + ":" + '00' + ":" + '00' + "";
-								if(new Date() < new Date(Date.parse(endtime))){
-									return '<span class="pend">撤回</span>';
+							
+								let onTime = new Date().getTime();
+								let nexTime = new Date(Math.ceil(new Date(da.apply_time).getTime()/3600000)*3600000);
+								if(onTime>=nexTime){
+									return
 								}
+								return '<span class="pend">撤回</span>';
 							}
 							return '<span>--</span>';
 						}}
