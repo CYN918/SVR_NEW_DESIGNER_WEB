@@ -123,7 +123,7 @@ export default {
 			if(this.tjData && this.tjData[0]){
 				this.tongj(this.tjData[0]);
 			}
-			if(this.$parent.$parent) {
+			if(this.$parent.$parent && this.$parent.$parent.specialname) {
 				this.bdtj("首页",this.$parent.$parent.specialname,n);
 			}
 			window.open('#/cont?id='+this.el.work_id)
