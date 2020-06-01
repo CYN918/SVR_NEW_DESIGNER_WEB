@@ -68,7 +68,10 @@ export default {
 						odlTime = new Date(da.apply_time),
 						oldYear = odlTime.getFullYear(),
 						oldMu = odlTime.getMonth();
-						if(onYear==oldYear && oldMu==onMu){
+						// if(onYear==oldYear && oldMu==onMu){
+						// 	return '<span class="pend">撤回</span>';
+						// }
+						if (da.check_status == 0) {
 							return '<span class="pend">撤回</span>';
 						}
 						return '<span>--</span>';
@@ -167,7 +170,7 @@ export default {
 			let onTime = new Date(),
 			onYear = onTime.getFullYear(),
 			onMu = onTime.getMonth(),
-			odlTime = new Date(da.apply_time),
+			odlTime = new Date(d.apply_time),
 			oldYear = odlTime.getFullYear(),
 			oldMu = odlTime.getMonth();
 			

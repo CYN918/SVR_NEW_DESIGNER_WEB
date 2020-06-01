@@ -74,7 +74,6 @@ export default {
 			if(on==-1){
 				return sr;
 			}
-			
 			var re =new RegExp(ck);
 			return sr.replace(re,"<span>"+ck+"</span>")
 		},
@@ -124,8 +123,14 @@ export default {
 			if(this.tjData && this.tjData[0]){
 				this.tongj(this.tjData[0]);
 			}
+<<<<<<< HEAD
 		
 			this.bdtj("首页",this.$parent.$parent.specialname,n);
+=======
+			if(this.$parent.$parent && this.$parent.$parent.specialname) {
+				this.bdtj("首页",this.$parent.$parent.specialname,n);
+			}
+>>>>>>> 4f42c8118753d40c004d03227506688e84577078
 			window.open('#/cont?id='+this.el.work_id)
 
 		},
