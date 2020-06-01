@@ -62,27 +62,26 @@ export default {
 					},
 					{n:'审核时间',poprs:'check_time'},
 					{n:'操作',temp:{cFn:'chtj',clfn:(da)=>{
-							if(da.check_status==0){
-								let time = da.apply_time;
-								let timearr = time.replace(" ", ":").replace(/\:/g, "-").split("-");
-								let timestr = timearr[0] + "年" + timearr[1].split("")[1] + "月" + timearr[2] + "日\t" + timearr[3] + ":" + timearr[4] + ":" + timearr[5] + "";
-								let month = timearr[1];
-								let month2 = parseInt(month) + 1;
-								if(month2 == 13){
-									month2 = 1;
-								}
-								if(month2 < 10) {
-									month2 = '0' + month2;
-								}
-								// let endtime = timearr[0] + '-' + month2 + '-' + 1 + '\t' + timearr[3] + ":" + timearr[4] + ":" + timearr[5] + "";
-								let endtime = timearr[0] + '-' + month2 + '-' + 1 + '\t' + '00' + ":" + '00' + ":" + '00' + "";
-								if(new Date() < new Date(Date.parse(endtime))){
-									return '<span class="pend">撤回</span>';
-								}
-							}
-							return '<span>--</span>';
-						}}
-					}
+						let onTime = new Date(),
+						onYear = onTime.getFullYear(),
+						onMu = onTime.getMonth(),
+						odlTime = new Date(da.apply_time),
+						oldYear = odlTime.getFullYear(),
+						oldMu = odlTime.getMonth();
+						if(onYear==oldYear && oldMu==onMu){
+							return '<span class="pend">撤回</span>';
+						}
+						return '<span>--</span>';
+						
+						// let onTime = new Date().getTime();
+						// let nexTime = new Date(Math.ceil(new Date(da.apply_time).getTime()/3600000)*3600000).getTime();
+						// if(da.check_status==0 && onTime<nexTime){
+						// 	return '<span class="pend">撤回</span>';
+						// }
+						// return '<span>--</span>';
+						
+						
+					}}}
 				],
 				
 				ajax:{
@@ -149,9 +148,35 @@ export default {
 			});
 		},
 		chtj(d){
+			
+			
+			
 			if(d.check_status!=0){
 				return
 			}
+			
+			
+			// let onTime = new Date().getTime();
+			// let nexTime = new Date(Math.ceil(new Date(d.apply_time).getTime()/3600000)*3600000).getTime();
+			// if(onTime>=nexTime){
+			// 	this.tipMr('处于结算状态无法撤回');
+			// 	this.$refs.tabds.sxfn();
+			// 	return
+			// }
+			
+			let onTime = new Date(),
+			onYear = onTime.getFullYear(),
+			onMu = onTime.getMonth(),
+			odlTime = new Date(da.apply_time),
+			oldYear = odlTime.getFullYear(),
+			oldMu = odlTime.getMonth();
+			
+			if(onYear!=oldYear || oldMu!=onMu){
+				this.tipMr('处于结算状态无法撤回');
+				return 
+			}
+			
+			
 			this.isCh = 1;
 			this.chid = d.apply_id;
 			this.je = d.cash_money;

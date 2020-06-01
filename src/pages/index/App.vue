@@ -13,6 +13,7 @@ import loginDialog from './components/loginDialog'
             return {
                 reload: this.reload,
 				login:this.login,
+				closeLogin:this.closeLogin,
             }
         },
         data() {
@@ -25,6 +26,9 @@ import loginDialog from './components/loginDialog'
             }
         },
         methods: {
+			closeLogin(){
+				this.$refs.logindialog.close();
+			},
 			login(num){
 				this.outc.num = num?num:'';
 				this.$refs.logindialog.show();
