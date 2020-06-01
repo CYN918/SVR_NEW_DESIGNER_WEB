@@ -124,8 +124,10 @@ export default {
 			if(this.tjData && this.tjData[0]){
 				this.tongj(this.tjData[0]);
 			}
+		
 			this.bdtj("首页",this.$parent.$parent.specialname,n);
 			window.open('#/cont?id='+this.el.work_id)
+
 		},
 		backBn(ur){			
 			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){

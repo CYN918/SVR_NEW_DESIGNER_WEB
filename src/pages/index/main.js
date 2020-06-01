@@ -254,7 +254,7 @@ Vue.prototype.setScll = function(top) {
 	}
 },
 
-Vue.prototype.bdtj = (a,b,c)=>{
+Vue.prototype.bdtj = (a='--',b='--',c='--')=>{
 	_hmt.push(['_trackEvent',a,b,c]);
 };
 Vue.prototype.go = (a,b,c)=>{
