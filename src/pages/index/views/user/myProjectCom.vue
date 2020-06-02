@@ -2,9 +2,9 @@
 	<div class="opfi">
 		<tophead class="xm_u_01" :con="navData"></tophead>
 		<div class="csBox opfi2">
-			<list :config="data" class="iopdlf_01" ref="listDom">
-				<template v-slot:todo="{ todo }">
-					<cent :elm="todo"></cent>
+			<list :config="data" class="pr_ml_0" ref="listDom">
+				<template class="cs" v-slot:todo="{ todo }">
+					<cent  :elm="todo"></cent>
 				</template>			
 			</list>
 			
@@ -15,7 +15,7 @@
 import tophead from './myHead';
 
 import list from '../../components/list';
-import cent from '../project/cent_2';
+import cent from '../project/cent_3';
 export default {
 	components:{tophead,list,cent},
 	name: 'myAll',
@@ -98,5 +98,11 @@ export default {
 }
 .xm_u_01 .myWorks_4>a{
 	font-size: 14px;
+}
+.pr_ml_0>li{
+	display: block !important;
+}
+.csBox .pr_ml_0>li:nth-child(4n+4)>div {
+    margin-right: auto !important;
 }
 </style>
