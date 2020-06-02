@@ -6,7 +6,7 @@
 		</div>
 		<div class="pr_ml_5">
 			<div class="pr_ml_6">
-				<span v-if="deta.settlement" class="pr_ml_6_1">{{setDeal_type}}</span>
+				<span v-html="setDeal_type"></span>				
 				<span class="pr_ml_6_2">{{deta.name}}</span>
 			</div>
 			<div class="pr_ml_7">
@@ -64,12 +64,34 @@ export default {
 			return "background-image: url("+str+");";
 	    },
 		setDeal_type(){
+			let str = '<span class="pr_ml_6_1';
 			let deal_type = {
 				1:'买断',
 				2:'分成',
 				3:'预付金+分成'
 			};
-			return  deal_type[this.deta.deal_type];
+			let settlement = {
+				0:'买断/分成',
+				1:'买断',
+				2:'分成'
+			}
+			if(this.deta.deal_type){
+				if(this.deta.deal_type==2){
+					str +=" pr_ml_6_1x";
+				}
+				str +='">';
+				str +=deal_type[this.deta.deal_type];
+			}else if(this.deta.settlement || this.deta.settlement==0){
+				if(this.deta.settlement==2){
+					str +=" pr_ml_6_1x";
+				}
+				str +='">';
+				str +=settlement[this.deta.settlement];
+			}else{
+				str +='">';
+			}
+			str+='</span>';
+			return  str;
 		}
 	},
 	methods: {	
@@ -316,13 +338,14 @@ export default {
 .pr_ml_6_1{
 	display: inline-block;
 	vertical-align: top;
-	width:74px;
+	min-width:74px;
 	height:26px;
 	background:rgba(77,198,0,0.1);
 	border-radius:4px;
 	border:1px solid rgba(77,198,0,1);
 	font-size:14px;
 	text-align: center;
+	padding: 0 6px;
 	line-height:26px;
 	color:rgba(77,198,0,1);
 }
@@ -362,5 +385,10 @@ export default {
 	font-size:14px;
 	font-weight:500;
 	line-height:22px;
+}
+.pr_ml_6_1x{
+	color: #33B3FF;
+	background:rgba(51,179,255,0.1);
+	border-color: rgba(51,179,255,1);
 }
 </style>
