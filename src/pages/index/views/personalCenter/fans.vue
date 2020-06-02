@@ -22,7 +22,7 @@
 							<span @click="goFans('/works',todo.open_id)"><span>创作</span>{{todo.work_num}}</span>
 						</div>
 						<div class="follwfs_5" v-if="!isMe(todo.open_id)">
-							<span @click="gosx(todo,'私信')">私信</span>
+							<!-- <span @click="gosx(todo,'私信')">私信</span> -->
 							<span @click="FollowClick(todo)">{{todo.follow_flag | followType}}</span>										
 						</div>
 						<div class="follwfs_5" v-else>

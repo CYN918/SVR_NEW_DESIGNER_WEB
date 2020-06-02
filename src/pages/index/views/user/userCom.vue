@@ -72,7 +72,7 @@
 				<router-link v-if="isMe()" class="u_top3_4_1" to="/upload">上传作品</router-link>
 				<div class="u_top3_4_2" v-else>
 					<span @click="gzclick" :class="userMessage.follow_flag==1||userMessage.follow_flag==2?'qgz':''">{{userMessage.follow_flag==1||userMessage.follow_flag==2?'已关注':'关注'}}</span>
-					<span @click="gsxd">私信</span>
+					<!-- <span @click="gsxd">私信</span> -->
 				</div>
 				
 			</div>

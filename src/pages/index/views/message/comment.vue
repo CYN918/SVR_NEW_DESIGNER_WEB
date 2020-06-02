@@ -75,7 +75,7 @@ export default {
 			navDta:[
 				{n:'通知',l:''},
 				{n:'评论/回复',l:''},
-				{n:'私信',l:''},	
+				// {n:'私信',l:''},	
 			],
 			topTyped:false,
 			navdOn:1,

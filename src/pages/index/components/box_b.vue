@@ -14,7 +14,7 @@
 				<span @click="showFpllwodel(el)" v-if="el.follow_flag==2">互相关注</span>
 				<span @click="showFpllwodel(el)" v-else-if="el.follow_flag==1">已关注</span>
 				<span class="jsBtn" @click="Follow_add(el)" v-else>关注</span>
-				<span @click="gosx(el)">私信</span>
+				<!-- <span @click="gosx(el)">私信</span> -->
 			</div>
 		</div>
 		<div class="lunbox">			

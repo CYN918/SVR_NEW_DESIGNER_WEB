@@ -29,7 +29,7 @@
 								</span>
 								
 								
-								<span @click="gosx(todo,'私信')">私信</span>
+								<!-- <span @click="gosx(todo,'私信')">私信</span> -->
 							</div>
 						</div>
 						<div class="lunbox">
