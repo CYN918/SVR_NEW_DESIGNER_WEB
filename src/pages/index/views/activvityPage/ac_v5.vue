@@ -492,7 +492,7 @@ export default{
     position: absolute;
     top: 0;
     left: 50%;
-    padding-top: 39%;
+    padding-top: 44%;
     width: 13%;
     transform: translateX(-50%);
 }
