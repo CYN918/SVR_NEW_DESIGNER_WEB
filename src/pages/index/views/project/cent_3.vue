@@ -102,9 +102,6 @@ export default {
 		}
 	},
 	methods: {	
-		bmtime(){
-			
-		},
 		ckd(a,n){
 			if(n=='稿件撤回' && this.deta.check_steps==1){
 				this.tipMr('项目已在审核中，请勿撤回')				
