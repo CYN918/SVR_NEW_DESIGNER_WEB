@@ -216,15 +216,10 @@ export default {
 	},
 	watch:{
 		'form.cash_money'(newD,old){
-			if(!newD){
-				return
-			}
+			if(!newD){return}
 			newD+='';
-			if(newD.match(/^[\+\-]?\d*?\.?\d*?$/)){
+			if(newD.match(/^[\+\-]?\d*?\.?\d{0,2}$/)){				
 				let mg = newD;
-				if(mg.split('.')[1]){
-					mg = parseInt(mg*100)/100;
-				}
 				if(mg>+this.meny){
 					mg = this.meny;					
 				}				
