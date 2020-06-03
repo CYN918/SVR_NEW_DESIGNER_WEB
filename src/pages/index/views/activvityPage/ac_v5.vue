@@ -2,7 +2,7 @@
 	<div>
 		<Header ref="topZj"></Header>
 		<div class="ac_v1-1">
-			<img class="ac_v1-2" :src="imgPath+'ac_v5/ban.jpg'"/>
+			<img class="ac_v1-2" :src="imgPath+'ac_v5/ban.jpg?a=1'"/>
 		
 			<img v-if="infoData.status==1 && infoData.setting_type!=1" @click="showZp()" class="ac_v1-2-x" :src="imgPath+'ac_v5/banBT.png'"/>
 			<div class="ac_v1-4" v-if="arr.length>1">
@@ -72,7 +72,7 @@
 			</div>
 			
 			<div class="ac_v1-3">
-				<img :src="imgPath+'ac_v5/fx.png'"/>
+				<img :src="imgPath+'ac_v5/fx.png?a=1'"/>
 				<div class="ac_v1-3-1fx1">
 					<div class="ac_v1-3-1fx" id="qrcode"></div>
 				</div>
@@ -83,7 +83,7 @@
 			<component v-bind:is="tanData.zj" v-model="tanData"></component>
 			<loginDialog ref="logindialog" :config="outc"></loginDialog>	
 		</div>
-		<img class="hctip" :src="imgPath+'ac_v5/01.jpg'">
+		<img class="hctip" :src="imgPath+'ac_v5/01.jpg?a=1'">
 		<img class="hctip" :src="imgPath+'ac_v5/03.jpg'">
 	</div>
 </template>
