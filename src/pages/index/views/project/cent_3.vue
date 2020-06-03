@@ -10,10 +10,14 @@
 				<span class="pr_ml_6_2">{{deta.name}}</span>
 			</div>
 			<div class="pr_ml_7">
-				项目类型：{{deta.classify_name}}<i></i>制作周期：{{deta.production_cycle_d | NumbUnd}}天<i></i>预付金：<span v-if="deta.money && deta.money.advance_payment" class="fontcl">￥{{deta.money.advance_payment}}</span>
+				<span>项目类型：{{deta.classify_name}}</span>
+				<span><i></i>制作周期：{{deta.production_cycle_d | NumbUnd}}天</span>
+				<span v-if="deta.money && deta.money.advance_payment">
+					<i></i>预付金：<span class="fontcl">￥{{deta.money.advance_payment}}</span>
+				</span>
 			</div>
 			<div class="pr_ml_8">
-				预计收益：<span class="fontcl">100 ~ 200 RMB/张</span>
+				预计收益：<span class="fontcl">{{deta.expected_profit}}</span>
 			</div>
 		</div>
 	</div>
@@ -60,12 +64,15 @@ export default {
 	},
 	computed: {
 	    setBg: function () {
-			let str = this.deta.banner?this.deta.banner:(this.imgSig+'toltImg/Zoocreators_logo.svg');
-			return "background-image: url("+str+");";
+			return "background-image: url("+(this.deta.banner?this.deta.banner:(this.imgSig+'toltImg/Zoocreators_logo.svg'))+");";
 	    },
 		setDeal_type(){
+			if((!this.deta.deal_type || this.deta.deal_type==0) && !this.deta.settlement){
+				return '';
+			}
 			let str = '<span class="pr_ml_6_1';
 			let deal_type = {
+				0:'',
 				1:'买断',
 				2:'分成',
 				3:'预付金+分成'
@@ -75,7 +82,7 @@ export default {
 				1:'买断',
 				2:'分成'
 			}
-			if(this.deta.deal_type){
+			if(this.deta.deal_type && this.deta.deal_type!=0){
 				if(this.deta.deal_type==2){
 					str +=" pr_ml_6_1x";
 				}
@@ -164,7 +171,7 @@ export default {
 				}
 			}						
 			if(this.deta.status==1){
-				this.tips = '<div class="pr_cent2_r2_1 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
+				this.tips = '<div class="pr_ml_8 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
 				return
 			}
 			if(this.deta.status==2){
@@ -365,7 +372,7 @@ export default {
 	margin-bottom: 8px;
 }
 
-.pr_ml_7>i{
+.pr_ml_7>span>i{
 	display: inline-block;
 	vertical-align: top;
 	margin: 5px 20px;
@@ -385,6 +392,7 @@ export default {
 	font-size:14px;
 	font-weight:500;
 	line-height:22px;
+	color: #fff;
 }
 .pr_ml_6_1x{
 	color: #33B3FF;
