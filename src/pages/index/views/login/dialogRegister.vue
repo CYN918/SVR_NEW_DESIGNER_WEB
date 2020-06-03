@@ -97,7 +97,6 @@ export default {
 				scroll:2,
 			},
 			ck_box:true,
-			keyDown:''
 		}
 	},
 	beforeDestroy:function(){
@@ -109,7 +108,7 @@ export default {
 	
 	methods: {
 		init(){
-			let referrer_id = this.$route.query.uid;		
+			let referrer_id = this.$route.query.referrer_id;		
 			if(referrer_id){
 				localStorage.setItem('referrer_id',referrer_id);
 			}
