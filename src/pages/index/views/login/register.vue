@@ -85,32 +85,35 @@ export default {
 			},
 			timer:'获取验证码',
 			ajaxType:0,
+			listen:'',
 		}
+		
 	},
 	mounted: function () {	
 		this.init();
 	}, 
+	beforeDestroy:function(){
+		document.removeEventListener('keydown',this.keyDown);
+	},
 	methods: {
-		init(){
-			
-			document.addEventListener('keydown',(e)=>{
-				if(e.keyCode==13){				
-				if(this.$route.fullPath=='/register'){
-					this.submitForm('myform');
-				}
-				}					
-			});
+		init(){	
+			let referrer_id = this.$route.query.uid;		
+			if(referrer_id){
+				localStorage.setItem('referrer_id',referrer_id);
+			}
+			document.addEventListener('keydown',this.keyDown);
+		},
+		keyDown(e){
+			if(e.keyCode==13){
+				this.submitForm('myform');
+			}	
 		},
 		god(d){
 			this.bdtj('注册页','已有账号','--')
-			this.$router.push({
-			    path:d
-			})
+			this.$router.push({path:d})
 		},
         jump(){
-            this.$router.push({
-                path:'/index'
-            })
+            this.$router.push({path:'/index'})
         },
 		ajaxYzm(){
 			this.bdtj('注册页','获取验证码','--');
@@ -158,6 +161,10 @@ export default {
 				password: this.form.password,
 				password_repass:this.form.password_repass
 			};
+			let referrer_id = localStorage.getItem('referrer_id');
+			if(referrer_id){
+				params.referrer_id = referrer_id;
+			}			
 			params.password = this.MD5(params.password);
 			params.password_repass = this.MD5(params.password_repass);
 			this.ajaxType=1;

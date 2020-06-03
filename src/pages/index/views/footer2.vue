@@ -15,9 +15,9 @@
 			<feedback ref="feedback"></feedback>
 			
 			<div @click="goFn('/syPage')" class="tfpifbox">
-				<img class="tfpifbox1" src="/imge/tools/ip.svg">
+				<img class="tfpifbox1" :src="setImgU('tools/ip.svg')">
 				<div class="tfpifbox2">
-					<img class="tfpifbox2_1" src="/imge/tools/icon_download.svg"/>
+					<img class="tfpifbox2_1" :src="setImgU('tools/icon_download.svg')"/>
 					<span class="tfpifbox2_2">下载手机端</span>
 				</div>
 			</div>

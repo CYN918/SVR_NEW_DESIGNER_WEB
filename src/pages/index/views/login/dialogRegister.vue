@@ -97,21 +97,28 @@ export default {
 				scroll:2,
 			},
 			ck_box:true,
+			keyDown:''
 		}
+	},
+	beforeDestroy:function(){
+		document.removeEventListener('keydown',this.keyDown);
 	},
 	mounted: function () {	
 		this.init();
 	}, 
+	
 	methods: {
 		init(){
-			
-			document.addEventListener('keydown',(e)=>{
-				if(e.keyCode==13){				
-				if(this.$route.fullPath=='/register'){
-					this.submitForm('myform');
-				}
-				}					
-			});
+			let referrer_id = this.$route.query.uid;		
+			if(referrer_id){
+				localStorage.setItem('referrer_id',referrer_id);
+			}
+			document.addEventListener('keydown',this.keyDown);
+		},
+		keyDown(e){
+			if(e.keyCode==13){
+				this.submitForm('myform');
+			}	
 		},
 		thirdLogin(type){
 			this.bdtj('登录页','第三方登录_'+type,'--');
@@ -186,6 +193,10 @@ export default {
 				password: this.form.password,
 				password_repass:this.form.password_repass
 			};
+			let referrer_id = localStorage.getItem('referrer_id');
+			if(referrer_id){
+				params.referrer_id = referrer_id;
+			}
 			params.password = this.MD5(params.password);
 			params.password_repass = this.MD5(params.password_repass);
 			this.ajaxType=1;
