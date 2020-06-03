@@ -97,9 +97,13 @@ export default {
 	},
 	methods: {
 		init(){	
-			let referrer_id = this.$route.query.referrer_id;		
+			let referrer_id = this.$route.query.referrer_id;
 			if(referrer_id){
-				localStorage.setItem('referrer_id',referrer_id);
+				let pr = {
+					referrer_id:referrer_id,
+					time:(new Date()).getTime()
+				};
+				localStorage.setItem('referrer_id',JSON.stringify(pr));
 			}
 			document.addEventListener('keydown',this.keyDown);
 		},
@@ -161,10 +165,16 @@ export default {
 				password: this.form.password,
 				password_repass:this.form.password_repass
 			};
-			let referrer_id = localStorage.getItem('referrer_id');
-			if(referrer_id){
-				params.referrer_id = referrer_id;
-			}			
+			let prreferrer = localStorage.getItem('referrer_id');
+			if(prreferrer){
+				prreferrer = JSON.parse(prreferrer);
+				let ontime = (new Date()).getTime();
+				if(ontime-prreferrer.time>60*1000*60*24){
+					localStorage.setItem('referrer_id','');
+				}else{
+					params.referrer_id = prreferrer.referrer_id;
+				}
+			}		
 			params.password = this.MD5(params.password);
 			params.password_repass = this.MD5(params.password_repass);
 			this.ajaxType=1;
