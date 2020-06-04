@@ -134,30 +134,30 @@
 							</label>
 						</div>
                     </el-card>
-                    <el-card class="commonCard" style="height: 148px">
-                        <div slot="header" style="position: relative">
-                            <span>设为投稿作品 <span class="description" style="margin-left:10px">若作品符合需求，平台会联系你沟通收录细节</span></span>
-							<span class="btBlue" style="left: 100px"></span>
-                        </div>
-						<div class="radio-group" v-if="checkisptggr()">
-							<label for="platform1">
-								<span :class="[form.is_platform_work=='1'?'_chosed':'']">
-									<i class="el-icon-check"></i>
-								</span>
-								<input id="platform1" type="radio" value="1" v-model="form.is_platform_work">是
-							</label>
-							<label for="platform2">
-								<span :class="[form.is_platform_work=='0'?'_chosed':'']">
-									<i class="el-icon-check"></i>
-								</span>
-								<input id="platform2" type="radio" value="0" v-model="form.is_platform_work">否
-							</label>
-						</div>
-						<div class="certification" v-else>你还不是供稿人，现在<span @click="goZP">立即认证</span>，享受你的作品收益</div>
-                    </el-card>
                 </el-col>
             </el-row>
-
+			<el-row>
+				<el-col>
+			        <el-card class="commonCard" style="height: 148px">
+			            <div slot="header" style="position: relative">
+			                <span>设为投稿作品 <span class="description" style="margin-left:10px">设置后，一经验收即可每月获得平台收益分成</span></span>
+							<span class="btBlue" style="left: 100px"></span>
+			            </div>
+						<div>
+							<ridobtn v-model="form.is_platform_work" :option="tgDat"></ridobtn>
+							<span class="up_zp_02 pend">投稿必读</span>
+						</div>
+						<div>
+							<ridobtn v-model="form.is_platform_work" :option="tgDat"></ridobtn>
+							<span class="up_zp_02 pend">投稿必读</span>
+						</div>
+						<div>
+							<ridobtn v-model="form.is_platform_work" :option="tgDat"></ridobtn>
+							<span class="up_zp_02 pend">投稿必读</span>
+						</div>
+					</el-card>
+			    </el-col>
+			</el-row>
             <div class="handleContainer">
                 <el-button v-if="form.status != 2" @click="userSave">保存</el-button>
                 <el-button v-if="form.status != 2" @click="seeCg">预览</el-button>
@@ -186,12 +186,17 @@ import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 import TcBox from '../../components/TcBox'
 import UploadImagMixin from './uploadImag'
+import ridobtn from './ridobtn'
 export default {
     name: 'index',
-	components: { VueUeditorWrap,  UplodImg, uploadFm, TcBox},
+	components: { VueUeditorWrap,  UplodImg, uploadFm, TcBox,ridobtn},
 	mixins: [UploadImagMixin],
     data(){
         return {
+			tgDat:[
+				{k:'是',v:'1'},
+				{k:'否',v:'0'}
+			],
             inputVisible: false,
             nameNull: false,
             typeNull: false,
@@ -219,7 +224,7 @@ export default {
 				attachment_visible:1,
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
-				is_platform_work:0,	
+				is_platform_work:'0',	
 				content:'<p style="color:#999">从这里开始编辑作品内容...</p>'
 			},
 			uD:{},
@@ -1448,4 +1453,14 @@ div.edui-box{
 div.edui-box{
 	line-height: 1!important;
 }
+
+.up_zp_02{
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 20px;
+	font-size:14px;
+	color:rgba(51,179,255,1);
+	line-height:24px;
+}
+
 </style>

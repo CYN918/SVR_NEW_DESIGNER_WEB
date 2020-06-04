@@ -262,7 +262,9 @@ Vue.prototype.go = (a,b,c)=>{
 	_hmt.push(['_trackEvent',a,b,c]);
 };
 import VueCropper from 'vue-cropper' 
-import { Tooltip, Dropdown, DropdownMenu, DropdownItem, Col, Row, Card, Tag, Button,Switch, Select,Steps,Step,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,Cascader,upload,pagination,Dialog,Progress} from 'element-ui'
+import { Tooltip, Dropdown,DropdownMenu, DropdownItem, Col, Row, Card, Tag, Button,Switch, 
+Select,Steps,Step,Input,Option,InputNumber,Radio,Form,FormItem,Message,Checkbox,
+Cascader,upload,pagination,Dialog,Progress} from 'element-ui'
 Vue.use(VueCropper)
 Vue.component(Tooltip.name, Tooltip)
 Vue.component(Dropdown.name, Dropdown)
