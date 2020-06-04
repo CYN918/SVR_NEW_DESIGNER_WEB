@@ -17,7 +17,7 @@
 			</div>
 			<div class="ac_v1-5">
 				<div v-if="navOn==1" class="ac_v1-5-1">
-					<img  :src="imgPath+'ac_v5/01.jpg'">
+					<img  :src="imgPath+'ac_v5/01.jpg?a=1'">
 					<div class="btnsa">
 						<div @click="navCl({p:2})"></div>
 						<div @click="goun"></div>
@@ -26,7 +26,7 @@
 				</div>
 				
 				<div v-if="navOn==2" class="ac_v1-5-1">
-					<img :src="imgPath+'ac_v5/03.jpg'">
+					<img :src="imgPath+'ac_v5/03.jpg?a=1'">
 				</div>
 				<div v-if="navOn==3" class="ac_v1-5-2">
 					<div class="ac-01">

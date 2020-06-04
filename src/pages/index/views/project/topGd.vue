@@ -104,6 +104,7 @@ export default {
 	color:rgba(102,102,102,1);
 	line-height:43px;
 	margin-bottom: 17px;
+	white-space: nowrap;
 }
 .topGd_04_1>span{
 	display: inline-block;
