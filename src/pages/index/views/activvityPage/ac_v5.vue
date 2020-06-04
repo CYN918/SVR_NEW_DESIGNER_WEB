@@ -347,7 +347,7 @@ export default{
 	width: 100%;
 }
 .ac_v1-5-2{
-	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/ac_v5/02.jpg?a=1) 0 0/100% auto no-repeat;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/ac_v5/02.jpg?a=2) 0 0/100% auto no-repeat;
 	padding: 80px 0 0 0;
 	
 }
