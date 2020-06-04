@@ -138,7 +138,7 @@
             </el-row>
 			<el-row>
 				<el-col>
-			        <el-card class="commonCard">
+			        <el-card class="commonCard  up_tg_01x">
 			            <div slot="header" style="position: relative">
 			                <span>设为投稿作品 <span class="description" style="margin-left:10px">设置后，一经验收即可每月获得平台收益分成</span></span>
 							<span class="btBlue" style="left: 100px"></span>
@@ -149,10 +149,16 @@
 						</div>
 						<div class="up_tg_01 up_tg_02">
 							<div class="up_tg_04">
-								2
+								<div class="up_tg_04_1">作品源文件<span>建议压缩后上传，1GB以内</span></div>
+								
 							</div>
 							<div class="up_tg_05">
-								1
+								<div class="up_tg_04_1">备注说明</div>
+								<div class="up_tg_05_1">
+									<textarea placeholder="请输入备注说明…" v-model="eell" ></textarea>
+									<div class="tipm01">{{eell.length}}/140</div>
+								</div>
+								
 							</div>
 						</div>
 						
@@ -201,10 +207,11 @@ export default {
             inputVisible: false,
             nameNull: false,
             typeNull: false,
-			tanData:{},
+			eell:'',
 			outc: {
 				title: '上传封面',
 			},
+			tGData:{},
 			tcZj:'',
 			tcData:{},
 			isUpd:'',
@@ -301,7 +308,13 @@ export default {
 		}
 		
 	},
-	watch: {	
+	watch: {
+		'eell'(a,b){
+			if(a.length>140){
+				this.eell = b;
+				return
+			}		
+		},
 		'form.work_name'() {				
 			this.checkPage1();
             if (this.form.work_name) this.nameNull = false
@@ -1132,6 +1145,10 @@ export default {
 .uploadContainer .commonCard{
     margin-top: 20px;
 }
+.uploadContainer .up_tg_01x .el-card__body{
+	padding: 0 20px;
+}
+
 .uploadContainer .el-col{
     position: relative;
     padding: 0 15px;
@@ -1464,6 +1481,7 @@ div.edui-box{
 	line-height:24px;
 }
 .up_tg_03{
+	padding-top: 30px;
 	width: 386px;
 }
 .up_tg_01{
@@ -1473,13 +1491,43 @@ div.edui-box{
 .up_tg_02>div{
 	display: inline-block;
 	vertical-align: top;
+	padding: 30px 0 0 39px;
 }
 .up_tg_04{
 	display: inline-block;
 	vertical-align: top;
-	width: 396px;
-	height: 187px;
+	width: 357px;
+	height: 157px;
 	border-left: 1px solid #E5E5E5;
 	border-right: 1px solid #E5E5E5;
+}
+.up_tg_04_1{
+	font-size:14px;
+	color:rgba(30,30,30,1);
+	line-height:20px;
+	margin-bottom: 20px;
+}
+.up_tg_04_1>span{
+	margin-left: 8px;
+	font-size:12px;
+	color:rgba(187,187,187,1);
+}
+.up_tg_05_1{
+	position: relative;
+}
+.up_tg_05_1>textarea{
+	padding: 10px;
+	width:360px;
+	height:68px;
+	border-radius:5px;
+	border:1px solid rgba(0,0,0,0.15);
+}
+.up_tg_05_1>div.tipm01{
+	position: absolute;
+	right: 14px;
+	bottom: 10px;
+	font-size:14px;
+	color:rgba(187,187,187,1);
+	line-height:20px;
 }
 </style>
