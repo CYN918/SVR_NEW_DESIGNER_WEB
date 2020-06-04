@@ -24,7 +24,6 @@ export default {
 			navData:{
 				title:'我的项目',
 				list:[
-					// {a:'/projectAll',b:'全部'},
 					{a:'/projectBm',b:'已报名'},
 					{a:'/projectZz',b:'制作中'},
 					{a:'/projectYs',b:'已验收'},									
@@ -32,48 +31,37 @@ export default {
 				bdtj:'我的项目'				
 			},
 			isTypeList:{
-				// projectAll:'',
 				projectBm:'1',
 				projectZz:'2',
 				projectYs:'3',
-			},
-			
+			},			
 			data:{
 				ajax:{
 					url:'pr_personalList',
-				
 				},
 				pr:{},
 				isDjs:1,
-
 			},
-		
-			
 		}
 	},
 	created(){
-		this.init();
-	
+		this.init();	
 	},	
-	watch: {
-		
+	watch: {		
 		'$route': function() {
 			this.init();
 			this.$refs.listDom.getData();
 		},
 	},
-	methods: {
-		
+	methods: {		
 		init(){
 			this.data.pr = {};
 			if(this.$route.name=='projectAll'){return}			
 			this.data.pr.type =  this.isTypeList[this.$route.name];
-		},
-		
+		},		
 	}
 }
 </script>
-
 <style>
 .opfi{
 	background: #f4f6f9;

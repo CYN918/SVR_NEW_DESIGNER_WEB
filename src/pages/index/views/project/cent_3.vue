@@ -16,10 +16,12 @@
 					<i></i>预付金：<span class="fontcl">￥{{deta.money.advance_payment}}</span>
 				</span>
 			</div>
-			<div class="pr_ml_8">
-				预计收益：<span class="fontcl">{{deta.expected_profit}}</span>
+			<div class="pr_ml_8" v-html="tip"></div>
+			<div class="pr_ml_9">
+				<span :class="el.cls" @click="ckd(el.fn,el.n)" v-for="el in btns">{{el.n}}</span>
 			</div>
 		</div>
+		<component v-bind:is="tcZj"  :datad="tcData"></component>
 	</div>
 </template>
 <script>
@@ -45,7 +47,6 @@ export default {
 			tip1:'',
 			btns:'',
 			deta:{},
-			
 		}
 	},
 	filters: {
@@ -107,7 +108,6 @@ export default {
 				this.tipMr('项目已在审核中，请勿撤回')				
 				return
 			}
-			
 			this.bdtj('我的项目',n,'--')
 			if(a=='ypj'){this.$message({message:'你已经评价过了'});}
 			if(a=='presentation'){
@@ -147,28 +147,28 @@ export default {
 			if(this.$route.path == '/projectYs'){
 				if(this.deta.deal_type == '1'){
 					if(this.deta.money.length == '0'){
-						this.tip1 = '成交价格：暂无成交价格';	
+						this.tip = '成交价格：<span>暂无成交价格</span>';	
 					}else{
-						this.tip1 = '成交价格：<span class="csyaswz_01">'+'￥'+this.deta.money.income+'</span>';	
+						this.tip = '成交价格：<span>'+'￥'+this.deta.money.income+'</span>';	
 					}
 				}
 				if(this.deta.deal_type == '2'){
 					if(this.deta.money.length == '0'){
-						this.tip1 = '累计分成收益：暂无累计分成收益';
+						this.tip = '累计分成收益：<span>暂无累计分成收益</span>';
 					}else{
-						this.tip1 = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.income+'</span>';
+						this.tip = '累计分成收益：<span>'+'￥'+this.deta.money.income+'</span>';
 					}		
 				}
 				if(this.deta.deal_type == '3'){
 					if(this.deta.money.length == '0'){
-						this.tip1 = '累计分成收益：暂无累计分成收益';
+						this.tip = '累计分成收益：<span>暂无累计分成收益</span>';
 					}else{
-						this.tip1 = '累计分成收益：<span class="csyaswz_01">'+'￥'+this.deta.money.income+'</span>';
+						this.tip = '累计分成收益：<span>'+'￥'+this.deta.money.income+'</span>';
 					}
 				}
 			}						
 			if(this.deta.status==1){
-				this.tips = '<div class="pr_ml_8 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
+				this.tips = '<div class="pr_ml_4 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
 				return
 			}
 			if(this.deta.status==2){
@@ -177,7 +177,7 @@ export default {
 			}
 
 			if(this.deta.status==3){
-				let be = [{n:'提交稿件',fn:'pushGj',cls:'btns_js'}];
+				let be = [{n:'提交稿件',fn:'pushGj',cls:'isls'}];
 				if(this.deta.is_rejected==1){
 					be[0].n = "重新交稿";
 					be[1] = {n:'交稿记录',fn:'Log'};
@@ -327,13 +327,14 @@ export default {
 .pr_ml_4>span{
 	font-size:16px;
 	font-weight:500;
-	color:rgba(255,255,255,1);
-	
+	color:rgba(255,255,255,1);	
 }
 .pr_ml_5{
+	position: relative;
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 20px;
+	height: 100%;
 }
 .pr_ml_6{
 	margin: 3px 0 9px;
@@ -377,6 +378,11 @@ export default {
 	height:8px;
 	background:rgba(187,187,187,1);
 }
+.pr_ml_7>span>span{
+	font-size:16px;
+	font-weight:500;
+	color:rgba(255,255,255,1);
+}
 .fontcl{
 	color: #FF9300;
 }
@@ -389,11 +395,39 @@ export default {
 	font-size:14px;
 	font-weight:500;
 	line-height:22px;
-	color: #fff;
+	color: #FF9300;
 }
 .pr_ml_6_1x{
 	color: #33B3FF;
 	background:rgba(51,179,255,0.1);
 	border-color: rgba(51,179,255,1);
+}
+.pr_ml_9{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+.pr_ml_9>span{
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: top;
+	width:98px;
+	height:38px;
+	background:rgba(255,255,255,0.1);
+	border-radius:5px;
+	border:1px solid rgba(216,216,216,1);
+	font-size:14px;
+	color:rgba(102,102,102,1);
+	line-height:38px;
+	text-align: center;
+	margin-right: 20px;
+}
+.pr_ml_9>span:hover{
+	opacity: .7;
+}
+.pr_ml_9>span.isls{
+	background: #33B3FF;
+	border-color: #33B3FF;
+	color: #fff;
 }
 </style>
