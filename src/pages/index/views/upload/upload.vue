@@ -138,23 +138,24 @@
             </el-row>
 			<el-row>
 				<el-col>
-			        <el-card class="commonCard" style="height: 148px">
+			        <el-card class="commonCard">
 			            <div slot="header" style="position: relative">
 			                <span>设为投稿作品 <span class="description" style="margin-left:10px">设置后，一经验收即可每月获得平台收益分成</span></span>
 							<span class="btBlue" style="left: 100px"></span>
 			            </div>
-						<div>
+						<div class="up_tg_01 up_tg_03">
 							<ridobtn v-model="form.is_platform_work" :option="tgDat"></ridobtn>
 							<span class="up_zp_02 pend">投稿必读</span>
 						</div>
-						<div>
-							<ridobtn v-model="form.is_platform_work" :option="tgDat"></ridobtn>
-							<span class="up_zp_02 pend">投稿必读</span>
+						<div class="up_tg_01 up_tg_02">
+							<div class="up_tg_04">
+								2
+							</div>
+							<div class="up_tg_05">
+								1
+							</div>
 						</div>
-						<div>
-							<ridobtn v-model="form.is_platform_work" :option="tgDat"></ridobtn>
-							<span class="up_zp_02 pend">投稿必读</span>
-						</div>
+						
 					</el-card>
 			    </el-col>
 			</el-row>
@@ -1462,5 +1463,23 @@ div.edui-box{
 	color:rgba(51,179,255,1);
 	line-height:24px;
 }
-
+.up_tg_03{
+	width: 386px;
+}
+.up_tg_01{
+	display: inline-block;
+	vertical-align: top;
+}
+.up_tg_02>div{
+	display: inline-block;
+	vertical-align: top;
+}
+.up_tg_04{
+	display: inline-block;
+	vertical-align: top;
+	width: 396px;
+	height: 187px;
+	border-left: 1px solid #E5E5E5;
+	border-right: 1px solid #E5E5E5;
+}
 </style>
