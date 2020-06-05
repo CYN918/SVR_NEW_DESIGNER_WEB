@@ -10,15 +10,15 @@
 			</div>
 			<div>
 				<span class="dqys_1">用户名</span>
-				<div class="xgnamed">{{form.username}}<span @click="openTc1(1)">修改</span></div>
+				<div class="xgnamed">{{form.username}}<span @click="openTc1(1,'修改用户名','点击[修改]')">修改</span></div>
 			</div>
 			<div>
 				<span class="dqys_1">手机号</span>
-				<div class="xgnamed dqys_1">{{phoneDm(form.mobile)}}<span @click="openTc1(2)">修改</span></div>
+				<div class="xgnamed dqys_1">{{phoneDm(form.mobile)}}<span @click="openTc1(2,'修改手机号','点击[修改]')">修改</span></div>
 			</div>
 			<div>
 				<span class="dqys_1">邮箱</span>
-				<div v-if="form.email" class="xgnamed dqys_1">{{emailDm(form.email)}}<span @click="openTc1(3)">修改</span></div>
+				<div v-if="form.email" class="xgnamed dqys_1">{{emailDm(form.email)}}<span @click="openTc1(3,'修改邮箱','点击[修改]')">修改</span></div>
 				<div v-else @click="openTc1(3)" class="bindEamil dqys_1">绑定邮箱</div>
 
 			</div>
@@ -336,6 +336,7 @@
 				this.$refs.tcBox.close();
 			},
 			qrFn() {
+				console.log(this.qrFnName);
 				this[this.qrFnName]();
 			},
 			phoneDm(p) {
@@ -422,7 +423,7 @@
 					this.tancData.email = '';
 					this.tancData.pic_verify = '';
 					this.tAncType = 4;
-
+					this.bdtj('账号设置','修改邮箱','[确定]并完成修改')
 				}).catch(()=>{
 					this.upType='';
 				});
@@ -466,7 +467,7 @@
 					Message({
 						message: '修改成功'
 					});
-
+					this.bdtj('账号设置','修改手机号','[确定]并完成修改')
 				}).catch(()=>{
 					this.upType='';
 				});
@@ -494,6 +495,7 @@
 					Message({
 						message: '修改成功'
 					});
+					this.bdtj('账号设置','修改用户名','[确定]并完成修改');
 				}).catch(()=>{
 					this.upType='';
 				});
@@ -510,9 +512,9 @@
 				this.close2();
 				this.tAncType = 0;
 			},
-			openTc1(on) {
+			openTc1(on,a,b) {
 
-				this.bdtj('帐号设置', '基本信息-' + this.tjList[on - 1].a, '--');
+				this.bdtj('帐号设置', a, b);
 				this.outc.title = this.tjList[on - 1].a;
 				if(on == 3) {
 					this.Verifycodeget();
@@ -546,7 +548,7 @@
 			},
 	
 			Userupdate() {
-				this.bdtj('帐号设置', '基本信息-保存资料', '--');
+				this.bdtj('帐号设置', '[保存资料]', '--');
 				let postData = {
 					access_token: window.userInfo.access_token,
 					username: this.form.username,
@@ -628,6 +630,7 @@
 				})
 			},
 			showisPhto() {
+				this.bdtj('账号设置','修改头像','点击[修改头像]')
 				this.$refs.myCaver.show(this.form.avatar);
 			},
 		},

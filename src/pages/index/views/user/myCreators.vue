@@ -67,7 +67,7 @@ export default {
 			this.data.pr.user_open_id = window.userInfo.open_id;
 		},
 		gosx(el){	
-			this.bdtj('我的关注','创作者-私信','--');
+			//this.bdtj('我的关注','创作者列表','--');
 			this.$router.push({path:'/chat',query:{
 				open_id:el.open_id,
 				avatar:el.avatar,
@@ -77,11 +77,14 @@ export default {
 			}});
 		},
 		goFans(d,id){
+			if(d == '/works') {
+				this.bdtj('我的关注','创作者列表','进入Ta的主页');
+			}
 			this.$router.push({path:d,query:{id:id}});
 		},
 		showFpllwodel(on){
 		
-			this.bdtj('我的关注','创作者-取消关注','--');
+			this.bdtj('我的关注','创作者列表','取消关注');
 			this.tanData = {
 				zj:'follow_new',
 				type:'del',	
@@ -102,7 +105,8 @@ export default {
 			return	window.getTimes(time);
 		},	
 	
-		openxq(on){			
+		openxq(on){		
+			this.bdtj('我的关注','创作者列表','点击作品');
 			window.open('#/cont?id='+on)
 		},
 		

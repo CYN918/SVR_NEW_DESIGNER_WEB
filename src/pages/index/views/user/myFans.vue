@@ -157,7 +157,7 @@ export default {
 			});
 		},
 		Follow_add(on){
-			this.bdtj('我的关注','粉丝-关注','--');
+			this.bdtj('我的关注','粉丝列表','关注');
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 				return
@@ -179,6 +179,7 @@ export default {
 				on.follow_flag = da.follow_flag;
 				this.follwTyle=0;
 				Message({message: '关注成功'});
+				this.bdtj('我的关注','粉丝列表','成功取消关注');
 			}).catch(()=>{
 				this.follwTyle = 0;		
 			});
@@ -192,7 +193,7 @@ export default {
 	
 		goUser(on,a){
 			if(a){
-				this.bdtj('我的关注','粉丝-'+a,'--');
+				this.bdtj('我的关注','粉丝列表','进入Ta的主页');
 			}
 			this.$router.push({path: '/works',query:{id:on.open_id}})	
 		},
