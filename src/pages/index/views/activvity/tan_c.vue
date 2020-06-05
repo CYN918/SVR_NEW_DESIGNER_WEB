@@ -598,6 +598,7 @@ export default {
 			})
 		},
 		gopushzp(){
+			this.bdtj('活动详情页','[上传作品]','[发布新作品]')
 			this.$router.push({path:'/upload'});
 		},
 
@@ -605,6 +606,7 @@ export default {
 			return	window.getTimes(time);
 		},
 		pushOk(){		
+			this.bdtj('活动详情页','[上传作品]','[立即报名]')
 			if(this.bindType==1){
 				Message({message: '正在上传中'});
 				return

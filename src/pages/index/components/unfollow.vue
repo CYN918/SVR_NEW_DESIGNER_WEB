@@ -47,7 +47,6 @@ export default {
 				}
 				this.$emit('suUnFn');
 				this.$message({message:'取消关注成功'});
-				
 				this.close();				
 			}).catch(()=>{
 				this.follwTyle = 0;		
@@ -81,6 +80,7 @@ export default {
 				this.$message({message:'数据错误请稍后重试'});
 				return
 			}
+			this.bdtj('作品详情页','创作者信息','成功取消关注')
 			this.follwId = a;
 			this.show();
 		},

@@ -59,7 +59,7 @@ export default {
 			return '';
 		},
 		opend(url,on){
-			this.bdtj('首页','banner'+(on+1),'--');
+			this.bdtj('首页','点击Banner',(on+1));
 			if(!url){
 				return
 			}
@@ -108,7 +108,7 @@ export default {
 			this.on = 0;
 		},
 		go_p(){
-			this.bdtj('首页','承接项目','--');
+			this.bdtj('首页','[承接项目]','--');
 			this.$router.push({path:'/project'});	
 		},
 		go_show(){
@@ -117,7 +117,7 @@ export default {
 				this.outc.num = 1;
 				return
 			}
-			this.bdtj('首页','开始制作来电秀','--');
+			this.bdtj('首页','[开始制作来电秀]','--');
 			this.$router.push({path:'/toluser'});
 			// if(window.userInfo.contributor_format_status == 2){
 			// 	

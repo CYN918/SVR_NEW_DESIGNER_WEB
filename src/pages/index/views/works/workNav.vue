@@ -19,7 +19,7 @@ export default {
 			this.getsubject();
 		},
 		ckezt(id,index){
-			this.bdtj("首页",this.navs[index].name,"--");
+			this.bdtj("首页","点击专题Tab",this.navs[index].name);
 			this.on = id;
 			this.$parent.$parent.qhZt(this.on);
 			this.$parent.$parent.specialname = this.navs[index].name;

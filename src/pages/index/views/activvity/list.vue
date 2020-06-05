@@ -44,7 +44,7 @@ export default {
 	
 	methods:{	
 		bdtjCom(a){
-			this.bdtj('活动','活动列表-'+a,'--');
+			this.bdtj('活动列表','进入活动',a);
 		},
 		init(){
 		
@@ -59,7 +59,7 @@ export default {
 			}
 			
 			
-			this.bdtjCom(a);
+			this.bdtjCom(id);
 			window.open('/#/detailed?id='+id)
 			
 		},

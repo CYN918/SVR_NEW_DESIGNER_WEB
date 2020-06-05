@@ -28,7 +28,7 @@
 						<div class="wk_c_1_1_r">
 							<div @click="fxclick" class="btns pend">
 								<img class="is_icon1 isshow" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/share.svg"/>分享
-							</div><div @click="addLikeNe('顶部栏-推荐','work',contDat.work_id,contDat)" :class="['btns pend',contDat.liked?'':'btns_js']">
+							</div><div @click="addLikeNe('[推荐]','work',contDat.work_id,contDat)" :class="['btns pend',contDat.liked?'':'btns_js']">
 								<img class="is_icon2 isshow" 
 								
 								:src="imgPath+(contDat.liked?'new/works/dz.svg':'new/works/sc_icon_dz-white.svg')"/>{{(contDat.liked?'已推荐':'推荐')}}
@@ -46,7 +46,7 @@
 					<div class="wk_c2_l1_2">
 						标签：<span v-for="(el,index) in contDat.labels" :key="index">{{el}}</span>
 						<div class="wk_c2_l1_2_1">
-							<div class="iconfont pend" @click="showReport(contDat.user_info.open_id,contDat.work_id,'work')">&#xe73c; 举报</div>
+							<div class="iconfont pend" @click="showReport(contDat.user_info.open_id,contDat.work_id,'点击[举报]作品')">&#xe73c; 举报</div>
 							<div v-if="contDat.attachment_id" @click="downFile(contDat.attachment.url)" class="wk_c2_l1_2_1x pend">下载附件（{{contDat.attachment.file_size_format}}）</div>
 						</div>
 					</div>
@@ -84,16 +84,16 @@
 										<span v-if="el.sub_comment && el.sub_comment.length>0" :class="['pend',el.isshowsub?'ishowfud':'','hfdZ_4']" @click="showFhd(index)">{{el.isshowsubWZ?el.isshowsubWZ:el.sub_comment.length+'条回复'}}</span>
 										
 										<div class="hfN_02">
-											<span class="iconfont pend hfN_02_2" @click="showReport(el.open_id,el.comment_id,'comment')">&#xe664;<span>举报</span></span>											
+											<span class="iconfont pend hfN_02_2" @click="showReport(el.open_id,el.comment_id,'点击[举报]回复')">&#xe664;<span>举报</span></span>											
 											<span class="iconfont pend hfN_02_1">
-												<img @click="addLikeNe('点赞评论','comment',el.comment_id,el)" :src="isLick(el.liked)">{{el.like_num}}											
+												<img @click="addLikeNe('[点赞]评论','comment',el.comment_id,el)" :src="isLick(el.liked)">{{el.like_num}}											
 											</span>
 										</div>
 										
 									
 										<div  class="hfBox hfBoxd" v-if="el.isshowfh">
 											<Input :mblur="xsfn" class="userBoxd2xd" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
-											<span  :class="chekcont(pl2)==true?'iscsbtn':''" @click="addCommentNe('评论下发布回复',pl2,index)">回复</span>
+											<span  :class="chekcont(pl2)==true?'iscsbtn':''" @click="addCommentNe('成功提交[评论]',pl2,index)">回复</span>
 											<div class="plyh"></div>
 										</div>
 									</div>
@@ -109,14 +109,14 @@
 										<div class="yasfh hfN_01">
 											<span class="hfdZ_3" @click="showFhks(el2,'回复点击-回复')">回复</span>
 											<div class="hfN_02">
-												<span class="iconfont pend hfN_02_2" @click="showReport(el2.open_id,el2.comment_id,'comment')">&#xe664;<span>举报</span></span>											
+												<span class="iconfont pend hfN_02_2" @click="showReport(el2.open_id,el2.comment_id,'点击[举报]回复')">&#xe664;<span>举报</span></span>											
 												<span class="iconfont pend hfN_02_1">
-													<img @click="addLikeNe('点赞回复','comment',el2.comment_id,el2)" :src="isLick(el2.liked)">{{el2.like_num}}											
+													<img @click="addLikeNe('[点赞]回复','comment',el2.comment_id,el2)" :src="isLick(el2.liked)">{{el2.like_num}}											
 												</span>
 											</div>
 											<div class="hfBox hfBoxd hfBoxd2" v-if="el2.isshowfh==1">
 												<Input :mblur="xsfn" class="userBoxd2xd" v-model="pl2" :oType="'max'" :max="140" :type="'text'" :placeholder="hfnc" ref="tageds1"></Input>	
-												<span :class="chekcont(pl2)==true?'iscsbtn':''" @click="addCommentNe('评论下发布回复',pl2,index,index2)">回复</span>
+												<span :class="chekcont(pl2)==true?'iscsbtn':''" @click="addCommentNe('提交[回复]',pl2,index,index2)">回复</span>
 												<div class="plyh"></div>
 											</div>
 										</div>								
@@ -134,9 +134,9 @@
 					<div :class="['seed2_2','seed2_2xxxx']">
 						<div class="seed2_1_1" v-if="contDat.user_info">
 							<div class="seed2_1_1_1">
-								<img @click="goUser(contDat.user_info.open_id,'创作者信息-头像')" class="contavatar pend" :src="mJs.Cavars(contDat.user_info.avatar)" alt="">
+								<img @click="goUser(contDat.user_info.open_id,'进入个人主页')" class="contavatar pend" :src="mJs.Cavars(contDat.user_info.avatar)" alt="">
 								<div>
-									<div class="pend hft" @click="goUser(contDat.user_info.open_id,'创作者信息-昵称')">{{contDat.user_info.username}}</div>
+									<div class="pend hft" @click="goUser(contDat.user_info.open_id,'进入个人主页')">{{contDat.user_info.username}}</div>
 									<div> {{contDat.user_info.vocation}} | {{contDat.user_info.province}} {{contDat.user_info.city}}</div>
 									<div><span v-if="contDat.user_info.is_platform_work"></span></div>
 								</div>
@@ -306,7 +306,7 @@ export default {
 		},
 		showUnfoolxow(){
 			if(this.isYl){return}
-			this.bdtj('作品详情','他人视角-取消关注','--');
+			this.bdtj('作品详情页','创作者信息','点击[关注]');
 			this.$refs.unfollow.setFollowId(this.contDat.user_info.open_id);
 		},
 		showUnfoolow(){
@@ -320,28 +320,29 @@ export default {
 
 		addCommentNe(a,b,c,d){
 			if(this.isYl){return}
-			this.bdtj('详情页',a,'--');
+			this.bdtj('作品详情页',a,'--');
 			this.addComment(b,c,d);
 		},
 		addLikeNe(a,b,c,d){
 			console.log(a,b,c,d)
 			if(this.isYl){return}
-			this.bdtj('详情页',a,'--')
+			this.bdtj('作品详情页',a,'--')
 			this.addLike(b,c,d);
 		},
 		goOpen(ud){
+			this.bdtj('作品详情页','创作者信息','[TA的更多作品]');
 			if(this.isYl){return}
 			window.open(ud);
 		},
 		gopl(){		
 			if(this.isYl){return}
-			this.bdtj('作品详情','顶部栏-评论icon','--');
+			this.bdtj('作品详情页','顶部栏-评论icon','--');
 			document.documentElement.scrollTop =this.$refs.firstAnchor.offsetTop;
 			document.body.scrollTop =this.$refs.firstAnchor.offsetTop;
 		},
 		goUserzy(){
 			if(this.isYl){return}
-			this.bdtj('作品详情','自己视角-进入主页','--');
+			this.bdtj('作品详情页','自己视角-进入主页','--');
 			this.$router.push({path: '/works',query:{id:window.userInfo.open_id}})
 		},
 		gosx(el){
@@ -351,7 +352,7 @@ export default {
 				this.outc.num = 1;
 				return
 			}
-			this.bdtj('作品详情','他人视角-私信','--');
+			this.bdtj('作品详情页','他人视角-私信','--');
 			let pr = {
 				open_id:el.open_id,
 				avatar:el.avatar,
@@ -364,26 +365,26 @@ export default {
 		goFans(d,id,a){
 			if(this.isYl){return}
 			if(a){
-				this.bdtj('作品详情',a,'--');
+				this.bdtj('作品详情页',a,'--');
 			}
 			this.$router.push({path:d,query:{id:id}});
 		},
 		fxclick(){
 			if(this.isYl){return}
-			this.bdtj('详情页','分享','--');
+			this.bdtj('作品详情页','[分享]','--');
 			this.$refs.fxd.showShare(true);
 		},
 		goUser(id,a){
 			if(this.isYl){return}
 			if(a){
-				this.bdtj('详情页',a,'--');
+				this.bdtj('作品详情页','创作者信息',a);
 			}
 		
 			this.$router.push({path: '/works',query:{id:id}})	
 		},
 		showReport(id,lid,ad){
 			if(this.isYl){return}
-			this.bdtj('详情页','举报'+ad,'--');
+			this.bdtj('作品详情页','举报',ad);
 			this.$refs.report.showReport(id,lid,ad);
 		},
 		addLike(type,id,obj,wz){
@@ -458,7 +459,7 @@ export default {
 		},
 		Follow_add(){
 			if(this.isYl){return}
-			this.bdtj('作品详情','他人视角-关注','--');
+			this.bdtj('作品详情','创作者信息','点击[关注]');
 			if(!window.userInfo){
 				this.$refs.logindialog.show();
 				this.outc.num = 1;
@@ -764,10 +765,10 @@ export default {
 			if(!this.hfData[on].isshowsub){
 				this.$set(this.hfData[on],'isshowsub',1);
 				this.$set(this.hfData[on],'isshowsubWZ','收起回复');
-				this.bdtj('详情页','收起回复','--');
+				
 				return
 			}
-			this.bdtj('详情页','展开回复','--');
+			this.bdtj('作品详情页','回复','展开回复');
 			this.$set(this.hfData[on],'isshowsub','');
 			this.$set(this.hfData[on],'isshowsubWZ',this.hfData[on].sub_comment.length+'条回复');						
 		},

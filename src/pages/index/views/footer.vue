@@ -13,9 +13,6 @@
 				<span>© 2015-{{new Date().getFullYear()}} 深圳掌酷软件有限公司</span><a target="_blank" @click="banh" href="http://beian.miit.gov.cn">粤ICP备15039011号</a><a target="_blank" href="http://www.beian.gov.cn"><img class="footer_ga" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/footer_ga.png">粤公网安备 44030502004296号</a>
 			</div>
 			<feedback ref="feedback"></feedback>
-			
-			
-			
 		</footer>
 </template>
 <script>
@@ -29,16 +26,16 @@ export default {
 		},
 		methods:{
 			banh(){
-				this.bdtj('通用模块','底部栏点击_备案号','--');
+				this.bdtj('底部栏','底部栏点击_备案号','--');
 			},
 			goPu(ud,b){
 				
-				this.bdtj('通用模块','底部栏点击_'+b,'--');
+				this.bdtj('底部栏','['+ b +']','--');
 				if(!ud){return}
 				this.$router.push({path:ud})
 			},
 	        showFdb(){
-				this.bdtj('通用模块','底部栏点击_意见反馈','--');
+				this.bdtj('底部栏','意见反馈','--');
 				if(!window.userInfo || !window.userInfo.access_token){
 					this.$message({
 						message:'请先登录'

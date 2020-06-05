@@ -93,6 +93,7 @@ export default {
 	},
 	methods:{
 		show(){
+			this.bdtj('底部栏','意见反馈','点击[意见反馈]');
 			this.getType();
 			this.$refs.tcBox.show();
 		},
@@ -112,20 +113,20 @@ export default {
 
 	    addFdb(){
 
-			this.bdtj('意见反馈弹窗','提交意见','--');
+			this.bdtj('底部栏','意见反馈','[提交]意见反馈');
 	        if(!this.detail){
-				this.bdtj('意见反馈弹窗','提交意见失败','--');
+				//this.bdtj('意见反馈弹窗','提交意见失败','--');
 				this.$message({message:'请输入问题描述'})
 	 
 	            return
 	        }
 	        if(this.imgList.length==0){
-				this.bdtj('意见反馈弹窗','提交意见失败','--');
+				//this.bdtj('意见反馈弹窗','提交意见失败','--');
 				this.$message({message:'请上传截图'})
 	            return
 	        }
 	        if(!this.link){
-				this.bdtj('意见反馈弹窗','提交意见失败','--');
+				//this.bdtj('意见反馈弹窗','提交意见失败','--');
 				this.$message({message:'联系方式不能为空'})
 	            return
 	        }
@@ -138,8 +139,8 @@ export default {
 	        	link:this.link
 	        };
 	        this.api.Feedback_add(params).then((res)=>{
-				if(!res){this.bdtj('意见反馈弹窗','提交意见失败','--');return}
-				this.bdtj('意见反馈弹窗','提交意见成功','--');
+				//if(!res){this.bdtj('意见反馈弹窗','提交意见失败','--');return}
+				//this.bdtj('意见反馈弹窗','提交意见成功','--');
 				this.$message({message:'提交成功'})
 				this.close();
 	        })

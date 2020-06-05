@@ -186,7 +186,9 @@ export default {
 			if(on || on==0){				
 				this.$router.push({path:this.navType,query:{id:this.mData[on].chat_id}})	
 				return
-			}			
+			}	
+					
+			this.bdtj('顶部栏','消息','查看[全部消息]');
 			this.$router.push({path:this.navType})	
 		},
 		keydown(){
@@ -232,7 +234,7 @@ export default {
 			},200);
 		},
 		showsearch(){
-			this.bdtj('通用模块','顶部栏点击_搜索','--');
+			this.bdtj('顶部栏','搜索','点击[搜索]');
 			if(this.searchType==true){
 				if(!this.searcCont){
 					return
@@ -257,7 +259,7 @@ export default {
 			return str;
 		},
 		showisXXNav(){
-			this.bdtj('通用模块','顶部栏点击_消息','--');
+			this.bdtj('顶部栏','消息','点击[消息]');
 			this.isXXNav = true;
 			this.getNotice();
 		},
@@ -267,13 +269,13 @@ export default {
 		},
         jump(){
 
-			this.bdtj('通用模块','顶部栏-点击logo','--');
+			this.bdtj('顶部栏','logo','--');
             this.$router.push({
                 path:'/index'
             })
         },
 		goZP(a,b){
-			this.bdtj('通用模块','顶部栏点击_'+b,'--');
+			this.bdtj('顶部栏','个人消息','点击['+ b +']');
 			this.$router.push({path: a})			
 		},
 		
@@ -307,13 +309,14 @@ export default {
 				// return
 				this.logTo(1);
 			}else{
+				this.bdtj('顶部栏','上传作品','--');
 				this.$router.push({path:'/upload'})		
 
 			}
 				
 		},
 		goUser(a){
-			this.bdtj('通用模块','顶部栏点击_'+a,'--');
+			
 			this.$router.push({path: '/works',query:{id:window.userInfo.open_id}})	
 		},
 		
@@ -325,6 +328,11 @@ export default {
 		},
 		logTo(num){
 			// this.bdtj('通用模块','顶部栏点击_登陆','--');
+			let bd='登陆';
+			if(num == 2){
+				bd='注册'
+			}
+			this.bdtj('顶部栏',bd,'--');
 			this.login(num);
 		},		
 		getMessgNumber(){
