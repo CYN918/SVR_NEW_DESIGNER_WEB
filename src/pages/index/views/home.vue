@@ -83,6 +83,14 @@ export default {
 	}, 
 	methods: {
 		init(){
+			let referrer_id = this.$route.query.referrer_id;
+			if(referrer_id){
+				let pr = {
+					referrer_id:referrer_id,
+					time:(new Date()).getTime()
+				};
+				localStorage.setItem('referrer_id',JSON.stringify(pr));
+			}
 			this.mJs.scTop(1);
 			this.getClass();
 		},

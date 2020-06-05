@@ -3,7 +3,7 @@
 		<div class="upFm_box">
 			<div class="upFm_l">
 				<div class="upFm_l_1">封面预览</div>
-				<workDom class="upFm_l_2" v-if="moData.work_name" :el="moData"></workDom>
+				<workDom class="upFm_l_2" :el="moData"></workDom>
 				<div class="fm_dmoBg">
 					<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/log.svg"/>
 				</div>

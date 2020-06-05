@@ -17,7 +17,7 @@
 			</div>
 			<div class="ac_v1-5">
 				<div v-if="navOn==1" class="ac_v1-5-1">
-					<img  :src="imgPath+'ac_v5/01.jpg'">
+					<img  :src="imgPath+'ac_v5/01.jpg?a=2'">
 					<div class="btnsa">
 						<div @click="navCl({p:2})"></div>
 						<div @click="goun"></div>
@@ -26,11 +26,10 @@
 				</div>
 				
 				<div v-if="navOn==2" class="ac_v1-5-1">
-					<img :src="imgPath+'ac_v5/03.jpg'">
+					<img :src="imgPath+'ac_v5/03.jpg?a=1'">
 				</div>
 				<div v-if="navOn==3" class="ac_v1-5-2">
 					<div class="ac-01">
-						<img src="" alt="">
 						<div class="ac-02">
 							<div class="ac-01-1">
 								全部作品<span>{{total}}</span>
@@ -65,9 +64,7 @@
 					
 					
 				</div>
-				<div v-if="navOn==5" class="ac_v1-5-1">
-					<img :src="imgPath+'ac_v5/03.jpg'">
-				</div>
+
 				
 			</div>
 			
@@ -350,7 +347,7 @@ export default{
 	width: 100%;
 }
 .ac_v1-5-2{
-	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/ac_v5/02.jpg) 0 0/100% auto no-repeat;
+	background: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/ac_v5/02.jpg?a=2) 0 0/100% auto no-repeat;
 	padding: 80px 0 0 0;
 	
 }
