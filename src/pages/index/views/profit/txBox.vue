@@ -63,7 +63,7 @@
 				
 			
 			
-			<div v-if="typedon==2 && user.type==2" class="pr_xx_1">
+			<div v-if="typedon==2 && user.type==1" class="pr_xx_1">
 				<div class="phodegg">
 					<div class="hm_n1">
 						<span class="hm_n1_1">手机 +86</span>
@@ -76,7 +76,7 @@
 				</div>
 			</div>
 				
-			<div v-if="typedon==2 && user.type==1" class="txTbox">
+			<div v-if="typedon==2 && user.type==2" class="txTbox">
 				<div class="txTbox_t">发票说明</div>
 				<div class="txTbox_c">
 					<div class="txTbox_c_fp_1">
@@ -289,21 +289,21 @@ export default {
 				return;
 			}
 			
-			if(this.user.type==2 && p==3){
-				if(!this.form.invoice){
-					Message({message: '请先上传照片'});
-					return;
-				}					  
-				if(!this.form.express_company){
-					Message({message: '请先填写物流公司名称'});
-					return;
-				}
-				if(!this.form.express_id){
-					Message({message: '请先填写物流单号'});
-					return;
-				}
+			// if(this.user.type==2 && p==3){
+			// 	if(!this.form.invoice){
+			// 		Message({message: '请先上传照片'});
+			// 		return;
+			// 	}					  
+			// 	if(!this.form.express_company){
+			// 		Message({message: '请先填写物流公司名称'});
+			// 		return;
+			// 	}
+			// 	if(!this.form.express_id){
+			// 		Message({message: '请先填写物流单号'});
+			// 		return;
+			// 	}
 				
-			}
+			// }
 			this.typedon = p;
 		},
 			qxclosd(obj){
