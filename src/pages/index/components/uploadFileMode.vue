@@ -1,30 +1,13 @@
 <template>
-	<input type="file" @change="fileUp" class="myFileBtn"  :accept="cg.accept"  :multiple="cg.multiple" ref="fileDom"/>	
+	<input type="file" @change="fileUp" class="myFileBtn"  :accept="value.accept"  :multiple="value.multiple" ref="fileDom"/>	
 </template>
 <script>
 import {Message} from 'element-ui'
 export default{
 	name:'upFile',
 	props:{
-		cg:{
-			type:Object,
-			default:{
-				multiple:'',
-				accept:'',
-				type:[],
-				max:'',
-				isAarr:'',
-				userType:'user_info',
-			}
-		},
-		sussFn:{
-			type:Function,
-			default:(da)=>{}
-		},
-		setJdt:{
-			type:Function,
-			default:(da)=>{}
-		},		
+		value:Object,	
+		sucss:Function,
 	},
 	data(){
 		return{
@@ -37,17 +20,23 @@ export default{
 		qxclosd(on){
 			this.fO[on].abort();
 		},
+		setBfb(n){
+			this.value.bfb = n;
+		},
+		setState(n){
+			this.value.state = n;
+		},
 		clPic(fld,on){
 			if(!window.userInfo){
 				return
 			}
-			if(this.cg.type && this.cg.type.indexOf(fld.type)==-1){
+			if(this.value.type && this.value.type.indexOf(fld.type)==-1){
 				this.$refs.fileDom.value = '';
 				this.upType = '';
 				Message({message: '文件格式不正确'});
 				return
 			}
-			if(this.cg.max && fld.size>this.cg.max){
+			if(this.value.max && fld.size>this.value.max){
 				this.$refs.fileDom.value = '';
 				this.upType = '';
 				Message({message: '文件过大'});
@@ -65,12 +54,12 @@ export default{
 			formData.append('sign',this.MD5(encodeURIComponent(arr.sort())))
 			formData.append('user',window.userInfo.open_id)
 			formData.append('file',fld)
-			formData.append('relation_type',this.cg.userType)
+			formData.append('relation_type',this.value.userType)
 			formData.append('timestamp',times)
 			formData.append('is_callback',1)
 			let xhr = new XMLHttpRequest();
 			
-			
+			this.value.file_name = fld.name;
 			this.objs.push({
 				xhr:xhr,
 				bfb:0,
@@ -84,16 +73,17 @@ export default{
 				if(evt.lengthComputable) {
 					let pn = Math.floor(Math.round(evt.loaded * 100 / evt.total));
 					if(pn==100){return}
-					this.setJdt(pn);
+					this.setBfb(pn)
 				}
 			};
 			let uploadComplete = (data)=>{
 				this.upType=0;
-				this.setJdt(100);
+				this.setBfb(100)
 				if(data.currentTarget.response){
 					let da = JSON.parse(data.currentTarget.response).data;				
-					this.sussFn(da);				
+					this.setState(2)				
 					this.$refs.fileDom.value ='';
+					this.sucss(da);
 					if(JSON.parse(data.currentTarget.response).result == '0'){
 						Message({message: JSON.parse(data.currentTarget.response).msg});
 					}else{
@@ -104,12 +94,14 @@ export default{
 			let uploadFailed = ()=>{
 				this.upType=0;
 				this.$refs.fileDom.value ='';
+				this.setState(0)		
 				Message({message: '文件上传失败请稍后重试'});
 				
 			};
 			let uploadCanceled = ()=>{
 				this.upType=0;
 				this.$refs.fileDom.value ='';
+				this.setState(0)
 				Message({message: '取消成功'});
 				
 			};
@@ -131,11 +123,12 @@ export default{
 			return (Math.round(fileSize)/100).toString()+sr;
 		},	
 		fileUp(flie){
-			if(!this.cg.isAarr && this.upType==1){
+			if(!this.value.isAarr && this.upType==1){
 				Message({message: '正在上传请稍后'});
 				return
 			}
 			this.upType=1;
+			this.setState(1)
 			for(let i=0,n=flie.target.files.length;i<n;i++){
 				this.clPic(flie.target.files[i],i);
 			}

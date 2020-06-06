@@ -104,7 +104,7 @@
                     </el-card>
                 </el-col>
                 <el-col :span="8">
-                    <el-card class="commonCard" style="height: 210px">
+                    <el-card class="commonCard" style="height: 380px">
                         <div slot="header">
                             <span>上传附件 <span class="description">1GB以内</span></span>
                         </div>
@@ -136,7 +136,7 @@
                     </el-card>
                 </el-col>
             </el-row>
-			<el-row>
+			<!-- <el-row>
 				<el-col>
 			        <el-card class="commonCard  up_tg_01x">
 			            <div slot="header" style="position: relative">
@@ -150,7 +150,7 @@
 						<div class="up_tg_01 up_tg_02">
 							<div class="up_tg_04">
 								<div class="up_tg_04_1">作品源文件<span>建议压缩后上传，1GB以内</span></div>
-								
+								<uploadfle v-model="tgFile" :confg="tgConfg"></uploadfle>
 							</div>
 							<div class="up_tg_05">
 								<div class="up_tg_04_1">备注说明</div>
@@ -164,7 +164,7 @@
 						
 					</el-card>
 			    </el-col>
-			</el-row>
+			</el-row> -->
             <div class="handleContainer">
                 <el-button v-if="form.status != 2" @click="userSave">保存</el-button>
                 <el-button v-if="form.status != 2" @click="seeCg">预览</el-button>
@@ -194,12 +194,20 @@ import { Loading } from 'element-ui';
 import TcBox from '../../components/TcBox'
 import UploadImagMixin from './uploadImag'
 import ridobtn from './ridobtn'
+import uploadfle from './uploadfle'
 export default {
     name: 'index',
-	components: { VueUeditorWrap,  UplodImg, uploadFm, TcBox,ridobtn},
+	components: { VueUeditorWrap,  UplodImg, uploadFm, TcBox,ridobtn,uploadfle},
 	mixins: [UploadImagMixin],
     data(){
         return {
+			tgFile:{},
+			tgConfg:{
+				max:1*1024*1024,
+				type:['image/jpeg','image/png','image/gif'],
+				userType:'user_info',
+				btnName:'请选择文件'
+			},			
 			tgDat:[
 				{k:'是',v:'1'},
 				{k:'否',v:'0'}
@@ -376,6 +384,7 @@ export default {
 		if (dom) dom.style.right = right + 'px'
 	}, 
 	methods: {
+
 		scrollToTop() {
 			window.scrollTo({
 				top: 0,
