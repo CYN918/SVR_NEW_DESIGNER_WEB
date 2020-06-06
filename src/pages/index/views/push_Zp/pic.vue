@@ -20,18 +20,23 @@
 		</div>
 		<div class="ps_zb_box">
 			<div class="ps_zp_05">
-				<span class="ps_zp_06 ps_zp_06x">作品预览图</span><span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
+				<span class="ps_zp_06"><i class="ps_zp_06x"></i>作品预览图</span><span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
 			</div>	
 			<div class="ps_zp_07 ps_zp_pic_4">
-				<div>
+				<div v-if="value.imgs.length<3">
 					<span class="add_x01">
 						<span class="pend">+</span>
 						上传图片
 					</span>
-					<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
-					<jdt v-if="isJdt1" ref="jdt1"></jdt>
+					<uploadFile v-model="value.imgs" :cg="fileConfig" ref="upfile"></uploadFile>
+					
 				</div>
-				<div v-for="el in imgs">
+				<div v-for="(el,index) in value.imgs" :style="setBg(el.url)">
+					<jdt v-if="el.state==1" v-model="el.bfb"></jdt>
+					<div class="ps_zp_pic_4_1">
+						<div @click="upImg(index)" class="ps_zp_pic_4_3">替换图片</div>
+						<img @click="delet(index)" class="ps_zp_pic_4_2" src="/imge/push_Zp/zptg_image_icon_close.svg">
+					</div>
 					
 				</div>
 			</div>			
@@ -42,8 +47,8 @@
 <script>
 import inputMax from '../../components/inputMax';
 import textarMax from '../../components/textarMax';
-import uploadFile from '../../components/uploadFile'
-import jdt from '../../components/jdt'
+import uploadFile from '../../components/uploadFileArr'
+import jdt from '../../components/jdtN'
 export default{
 	components: {inputMax,textarMax,uploadFile,jdt},
 	props:{
@@ -54,16 +59,28 @@ export default{
 			isTite:false,
 			fileConfig:{
 				type:['image/jpeg','image/png','image/gif'],
-				max:1*1024*1024,
+				max:1*1024*1024*1024,
 				userType:'user_info',
 				isAarr:true,
 				arrayMax:3,
 			},
 			isJdt1:'',	
-			imgs:[],
+
 		}
 	},
 	methods:{
+		setBg(el){
+			if(!el){
+				return 
+			}
+			return "background-image: url("+el+");";
+		},
+		delet(on){
+			this.$refs.upfile.deletfile(on);
+		},
+		upImg(on){
+			this.$refs.upfile.upfile(on)			
+		},
 		focus(){
 			this.isTite = false;
 		},
@@ -129,6 +146,12 @@ export default{
 	height:195px;
 	background:rgba(244,246,249,1);
 	border-radius:5px;
+	margin-right: 20px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius:5px;
+	
 }
 .add_x01{
 	position: relative;
@@ -151,5 +174,41 @@ export default{
     background: #33B3FF;
     color: #fff;
     margin: 84px auto 11px;
+}
+
+.ps_zp_pic_4_1{
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,.5);
+	width: 100%;
+	height: 100%;
+}
+.ps_zp_pic_4>div:hover .ps_zp_pic_4_1{
+	display: block;
+}
+.ps_zp_pic_4_2{
+	position: absolute;
+	top: 7px;
+	right: 12px;
+	cursor: pointer;
+	width: 24px;
+}
+.ps_zp_pic_4_3{
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width:98px;
+	height:38px;
+	background:rgba(255,255,255,1);
+	border-radius:5px;
+	border:1px solid rgba(187,187,187,1);
+	font-size:14px;
+	text-align: center;
+	color:rgba(102,102,102,1);
+	line-height:38px;
 }
 </style>

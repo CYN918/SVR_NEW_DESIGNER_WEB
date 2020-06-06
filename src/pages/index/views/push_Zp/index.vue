@@ -4,7 +4,7 @@
 			<div class="ps_zp_02">
 				作品投稿<span>一经验收，永久分成</span>
 				<div class="ps_zp_03">
-					<span class="check_d">使用预览图提交</span><span>使用预览图提交</span>
+					<span v-for="el in navs" @click="qhfn(el.v)" :class="tanc.zj==el.v?'check_d':''">{{el.n}}</span>
 				</div>			
 			</div>			
 		</div>
@@ -14,23 +14,109 @@
 				<span class="ps_zp_06"><i class="ps_zp_06x"></i>源文件上传</span><span class="ps_zp_08">建议压缩后上传，1GB以内</span>
 			</div>	
 			<div class="ps_zp_07">
-				
+				<upFj v-model="tanc.filse"></upFj>	
 			</div>
 			
 		</div>
+		
+		<div class="btns_ps_zb">
+			<span @click="subpush()" class="btn_ps_1 pend">提交</span><span @click="showTac({zj:'tips'})" class="pend">投稿必读</span>
+		</div>
+		<component v-bind:is="tanc2.zj" v-model="tanc2" ref="tanbox"></component>
 	</div>
 </template>
 
 <script>
 import pic from './pic';
+import work from './work';
+import upFj from './upFj';
+import tips from './tips';
 export default{
-	components: {pic},
+	components: {pic,work,upFj,tips},
 	data(){
 		return{
+			navs:[
+				{n:'使用预览图提交',v:'pic'},
+				{n:'使用预览图提交',v:'work'}
+			],
 			tanc:{
-				zj:'pic'
-			}
+				zj:'work',
+				imgs:[],
+				filse:[],
+			},
+			tanc2:{
+				zj:''
+			},
+			filed:{},
+			ajx:false,
+
 		}
+	},
+	methods:{
+		qhfn(n){
+			this.tanc.zj = n;
+		},
+		showTac(obj){
+			this.tanc2 = obj;
+		},
+		subpush(){
+			if(this.ajx){
+				this.tipMr('正在交稿请稍后')
+				return
+			}
+			let pr = {};
+			if(this.tanc.zj=='pic'){
+				if(!this.tanc.name){
+					this.tipMr('请填写投稿标题')
+					return
+				}
+				pr.name = this.tanc.name;
+				if(this.tanc.remark){
+					pr.remark = this.tanc.remark
+				}
+				pr.type = 1;
+			}else{
+				pr.type = 2;
+				pr.online_disk_url = online_disk_url;
+				pr.access_code = access_code;
+			}
+			if(this.tanc.imgs.length==0){
+				this.tipMr('请上传预览图')
+				return
+			}
+			let arr = [];
+			for(let i=0,n=this.tanc.imgs.length;i<n;i++){
+				if(this.tanc.imgs[i].bfb!=100){
+					this.tipMr('预览图正在上传请稍后提交')
+					return
+				}
+				arr.push(this.tanc.imgs[i].url)
+			}
+			pr.preview_pic = JSON.stringify(arr);
+			if(this.tanc.filse.length==0){
+				this.tipMr('请上传源文件')
+				return
+			}
+			if(this.tanc.filse[0].bfb!=100){
+				this.tipMr('源文件正在上传请稍后提交')
+				return
+			}
+			pr.file_size = this.tanc.filse[0].allInfo.file_size;
+			pr.file_name = this.tanc.filse[0].allInfo.file_name;
+			pr.file_url = this.tanc.filse[0].allInfo.url;
+			pr.file_info = JSON.stringify(this.tanc.filse[0].allInfo);
+			this.ajx = true;
+			this.api.pr_delivery(pr).then((da)=>{
+				this.ajx = false;
+				if(da=='error' || da=='104'){return}
+				this.tipMr("交稿成功，请耐心等待验收");
+				
+			}).catch(()=>{
+				this.ajx = false;
+			});
+		
+		},
+		
 	}
 }
 </script>
@@ -124,5 +210,23 @@ export default{
 	width:6px;
 	height:6px;
 	background:rgba(255,59,48,1);
+}
+.btns_ps_zb{
+	margin:  60px auto;
+	text-align: center;
+	font-size:14px;
+	color:rgba(30,30,30,1);
+	line-height:40px;
+}
+.btn_ps_1{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 24px;
+	width:100px;
+	height:40px;
+	background:rgba(51,179,255,1);
+	border-radius:5px;
+	color:rgba(255,255,255,1);
+	text-align: center;
 }
 </style>
