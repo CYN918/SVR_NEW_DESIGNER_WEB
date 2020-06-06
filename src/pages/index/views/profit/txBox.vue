@@ -63,7 +63,7 @@
 				
 			
 			
-			<div v-if="typedon==2 && user.type==1" class="pr_xx_1">
+			<div v-if="typedon==2" class="pr_xx_1">
 				<div class="phodegg">
 					<div class="hm_n1">
 						<span class="hm_n1_1">手机 +86</span>
@@ -76,59 +76,6 @@
 				</div>
 			</div>
 				
-			<div v-if="typedon==2 && user.type==2" class="txTbox">
-				<div class="txTbox_t">发票说明</div>
-				<div class="txTbox_c">
-					<div class="txTbox_c_fp_1">
-						请将提现金额等额的发票寄出给我们，并提供寄出信息<br/>若提供的是3%税率的发票，则平台将另代替扣除3%税费<br/> 
-						<span class="hszt">如:提现1000元，实际汇款为970元</span>
-					</div>
-				</div>
-				<div class="txTbox_t">平台开票信息</div>
-					<div class="txTbox_c zyfb">
-						<div><span>公司名称</span><span>深圳掌酷软件有限公司</span></div>							
-						<div><span>开户银行</span><span>中国银行深圳科技园支行</span></div>
-						<div><span>企业银行账号</span><span>749763916542</span></div>
-						<div><span>税号</span><span>9144030031 1975518G</span></div>
-						<div><span>联系地址</span><span>广东省深圳市南山区高新南区科苑南路3176号彩讯科创中心9楼</span></div>
-					</div>
-					<!-- <div class="txTbox_t">寄送信息</div>
-					<div class="txTbox_c zyfb">
-						<div class="up_fp">
-							<span>发票拍照</span>
-							<div class="botnbox">
-								<span class="up_fp_1 up_file">上传照片<input @change="fileUpfj" ref="upnfile2" type="file"></span>
-								<div class="up_fp_2" v-if="upfjData.bf">
-									<div class="up_fp_3">
-										<div class="jdtBox">
-											<div :style="{transform:'translateX(-'+(100-upfjData.bf)+'%)'}"></div>										
-										</div>
-									</div>
-									<div>{{upfjData.bf?upfjData.bf+'%':''}}</div>
-									<div @click="qxclosd(fileUpfjd)" class="up_fp_4 iconfont pend">&#xe619;</div>
-								</div>
-								<div v-if="upfjData.bf" class="up_fp_5 iconfont" :title="upfjData.file_name">
-									&#xe621; {{upfjData.file_name?upfjData.file_name.substring(0,10):'xxxxxx'}}
-									<span @click="qxclosd(fileUpfjd)" class="cldo iconfont pend">&#xe619;</span>
-								</div>
-							</div>
-						</div>
-						<div><span>物流公司名称</span><span><input class="txje" placeholder="请输入物流公司名称" v-model="form.express_company" type="text"></span></div>
-						<div><span>寄送物流单号</span><span><input class="txje" placeholder="请输入物流单号" v-model="form.express_id" type="text"></span></div>					
-					</div>	 -->				
-				</div>
-				<div v-if="typedon==3" class="pr_xx_1">
-					<div class="phodegg">
-						<div class="hm_n1">
-							<span class="hm_n1_1">手机 +86</span>
-							<span class="hm_n1_2"></span>
-							<span class="hm_n1_3">{{backPhone2()}}</span>
-							<span class="uphodefbt pend" @click="editPhone()">修改手机号</span>
-						</div>
-						<Input v-model="form.verify_code"  @ajaxYzm="ajaxYzm" :type="'text'" :oType="'yzm'" :chekFn="chekverify" :placeholder="'输入 6 位短信验证码'"  ref="verify"></Input>
-						
-					</div>
-				</div>
 				
 				
 				<div class="pr_xx_btns botnbox pr_xx_btnsdycl">
@@ -238,24 +185,16 @@ export default {
 			this.$refs.gsBOx.style='';
 		},
 		backisnext(){
-			if(this.user.type==1 && this.typedon<2){
-				return 1;
-				
+			if(this.typedon<2){
+				return 1;				
 			}
-			if(this.user.type==2 && this.typedon<3){
-				return 1;
-			}
-			return '';
+			return 0;
 		},
 		backPusbtn(){
-			if(this.user.type==1 && this.typedon==2){
-				return 1;
-				
+			if(this.typedon==2){
+				return 1;				
 			}
-			if(this.user.type==2 && this.typedon==3){
-				return 1;
-			}
-			return '';
+			return 0;
 		},
 		init(){	
 			this.$set(this.form,'account_name',this.user.account_name?this.user.account_name:this.user.company_name);
@@ -270,7 +209,6 @@ export default {
 				return
 			}
 			this.form.id_card = this.user.id_card;
-			
 		},
 		close(){
 			this.$parent.close();
@@ -304,6 +242,7 @@ export default {
 			// 	}
 				
 			// }
+		
 			this.typedon = p;
 		},
 			qxclosd(obj){
