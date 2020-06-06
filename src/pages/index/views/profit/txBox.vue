@@ -319,7 +319,7 @@ export default {
 
 		},
 		goUpsuer(){
-			this.bdtj('我的收益','修改账户信息','--');
+			this.bdtj('我的收益','提现','[修改银行信息]');
 			if(!window.userInfo){
 				this.$router.push({path:'/login'})
 				return

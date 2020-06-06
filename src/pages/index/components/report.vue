@@ -96,14 +96,17 @@ export default {
                 })
             },
             AddReport(){
-				this.bdtj('举报弹窗','提交举报','--');
+				if(this.$parent.pagename){
+					this.bdtj(this.$parent.pagename,'举报',this.position);
+				}
+				
                 if(!this.detail){
-					this.bdtj('举报弹窗','提交举报失败','--');
+					//this.bdtj('举报弹窗','提交举报失败','--');
                     this.$message({message:'举报原因不能为空'});
                     return
                 }
 				if(this.ajaxType==1){
-					this.bdtj('举报弹窗','提交举报失败','--');
+					//this.bdtj('举报弹窗','提交举报失败','--');
 					this.$message({message:'正在提交请稍后'});
 					return;
 				}
@@ -119,12 +122,13 @@ export default {
 				this.ajaxType=1;
                 this.api.Report_addReport(pr).then((res)=>{
 					this.ajaxType=0;
-					if(!res){this.bdtj('举报弹窗','提交举报失败','--');return}
-					this.bdtj('举报弹窗','提交举报成功','--');
+					if(!res){return}
+					//this.bdtj('举报弹窗','提交举报成功','--');
+					
                     this.$message({message:'提交成功'});
 					this.close();	
                 }).catch(()=>{
-					this.bdtj('举报弹窗','提交举报失败','--');
+					//this.bdtj('举报弹窗','提交举报失败','--');
 					this.ajaxType=0;
 				});
             },

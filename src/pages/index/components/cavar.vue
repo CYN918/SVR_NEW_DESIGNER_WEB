@@ -140,7 +140,7 @@ export default {
 					if(response.data.result==0){
 						_this.$parent.closeCavar(response.data.data.url);	
 						_this.close();
-						
+						_this.bdtj('账号设置','修改头像','[确定]并完成修改')
 					}else{
 						_this.$message({message: response.data.data});
 					}

@@ -43,6 +43,7 @@ export default {
 				{value:2,label:'关注人推荐的'}
 			],
 			value:1,
+			pagename:'我的关注'
 		}
 	},
 	methods: {

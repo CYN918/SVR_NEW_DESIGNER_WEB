@@ -28,7 +28,6 @@
 						<div class="pbx_1_1">
 							<span>{{basDa.total_hirework}}</span>					
 						</div>
-						
 					</div>
 					<!-- <div>
 						<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/profit/qxt.svg">
@@ -167,7 +166,6 @@ export default {
 			})
 		},
 		showtx(){
-			this.bdtj('我的收益','提现','--');
 			if(this.basDa.account_balance<300){
 				Message({message: '账户余额不足300'});
 				return

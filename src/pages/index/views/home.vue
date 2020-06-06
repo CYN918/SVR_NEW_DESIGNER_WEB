@@ -45,6 +45,7 @@ export default {
 	name: 'home',
 	data(){
 		return {
+			pagename:"首页",
 			data:{
 				ajax:{
 					url:'work_worklist',
@@ -104,7 +105,7 @@ export default {
 			}
 			this.mJs.scTop(702);
 			this.$refs.sfafa.sxfn();
-			this.bdtj("首页",this.data.pr.classify_name,"--");
+			this.bdtj("首页","点击作品分类",this.data.pr.classify_name);
 		},
 		qhZt(id){
 			this.data.pr.type = id;

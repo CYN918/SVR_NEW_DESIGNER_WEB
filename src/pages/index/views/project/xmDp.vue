@@ -114,32 +114,32 @@ export default {
 				this.outc.num = 1;
 			}
 			if(n){
-				let state = '--';
-				if(this.$parent.deta.status == '1'){
-					state = '招募期'
-				} else if(this.$parent.deta.status == '0'){
-					state = '待发布'
-				} else if(this.$parent.deta.status == '2'){
-					state = '选标期'
-				} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) >= new Date()){
-					state = '制作期'
-				} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) < new Date()){
-					state = '已延期'
-				} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected == '1'){
-					state = '未通过'
-				} else if(this.$parent.deta.status == '4'){
-					state = '待审核'
-				}else if(this.$parent.deta.status == '5'){
-					state = '已验收'
-				}else if(this.$parent.deta.status == '-1'){
-					state = '已终止'
-				}
-				
-				this.bdtj("项目详情页",state,"[报名项目]");
+				console.log(n,b)
 				this[n](b);
 			}
-		
-			
+		},
+		getstate(){
+			let state = '--';
+			if(this.$parent.deta.status == '1'){
+				state = '招募期'
+			} else if(this.$parent.deta.status == '0'){
+				state = '待发布'
+			} else if(this.$parent.deta.status == '2'){
+				state = '选标期'
+			} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) >= new Date()){
+				state = '制作期'
+			} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) < new Date()){
+				state = '已延期'
+			} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected == '1'){
+				state = '未通过'
+			} else if(this.$parent.deta.status == '4'){
+				state = '待审核'
+			}else if(this.$parent.deta.status == '5'){
+				state = '已验收'
+			}else if(this.$parent.deta.status == '-1'){
+				state = '已终止'
+			}
+			return state;
 		},
 		pr_deliveryList(){
 			this.api.pr_deliveryList({
@@ -159,12 +159,32 @@ export default {
 			this.$router.push({path:on})	
 		},
 		showTc1(o){
+			if(o == 'pr_rz'){
+				this.bdtj("项目详情页",this.getstate(),"[报名项目]");
+			} else {
+				// this.bdtj("项目详情页",this.getstate(),"点击[取消报名]");
+			}
+			
+			if(o=='pushGj'){
+				this.bdtj("项目详情页",this.getstate(),"点击[交稿]");
+			}
+			
+			if(o=='Log'){
+				this.bdtj("项目详情页",this.getstate(),"[交稿记录]");
+			}
+			
+			if(o=='qxGj'){
+				this.bdtj("项目详情页",this.getstate(),"[稿件撤回]");
+			}
+			
 			this.api.pr_check({}).then((da)=>{
 				if(da=='error' || da=='104'){return}
 				if(da.is_complete!=true || da.is_contributor!=true || da.work_num<3){
+					console.log(o,da);
 					this.$parent.showTc(o,da);	
 					return
 				}
+				//console.log(o,da);
 				this.$parent.showTc('bmXm',{project_id:this.$parent.deta.id});	
 							
 			}).catch(()=>{

@@ -37,6 +37,7 @@ export default {
 			this.ison = this.$route.fullPath;
 		},	
 		goZP(el){
+			console.log(el)
 			if(this.con.bdtj){
 				this.bdtj(this.con.bdtj,'tab_'+el.b,'--');
 			}			

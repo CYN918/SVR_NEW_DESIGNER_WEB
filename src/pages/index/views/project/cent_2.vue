@@ -91,7 +91,7 @@ export default {
 				return
 			}
 			
-			this.bdtj('我的项目',n,'--')
+			this.bdtj('我的项目','['+ n +']','--')
 			if(a=='ypj'){this.$message({message:'你已经评价过了'});}
 			if(a=='presentation'){
 				this.$router.push({path:'/presentation',query:{id:this.deta.id}})	

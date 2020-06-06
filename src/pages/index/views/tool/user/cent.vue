@@ -202,7 +202,7 @@ export default{
 			this.Ischeck = false
 		},
 		del(id,n){
-			this.bdtj('来电秀工具-列表页',n,'删除')
+			this.bdtj('来电秀工具-列表页','[删除]','--')
 			this.api.mobileshowdel({
 				id:id
 			}).then(()=>{
@@ -214,13 +214,13 @@ export default{
 			this.top_btn=!this.top_btn;
 		},
 		bjfn(id,n){
-			this.bdtj('来电秀工具-列表页',n,'编辑')
+			this.bdtj('来电秀工具-列表页','[编辑]','--')
 			localStorage.setItem('ldxData',JSON.stringify(this.el));
 			this.$router.push({path:'/pushTool',query:{id:id}});
 	
 		},
 		gojg(id,n){
-			this.bdtj('来电秀工具-列表页',n,'项目结果')
+			this.bdtj('来电秀工具-列表页','[项目结果]','--')
 			this.$router.push({path:'/prcent',query:{id:id}});
 		},
 		getrejectInfo(id){

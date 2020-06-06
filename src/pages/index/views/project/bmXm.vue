@@ -130,13 +130,36 @@ export default {
 				this.getSelfWorkList();
 			}
 		},
+		getstate(){
+			let state = '--';
+			if(this.$parent.deta.status == '1'){
+				state = '招募期'
+			} else if(this.$parent.deta.status == '0'){
+				state = '待发布'
+			} else if(this.$parent.deta.status == '2'){
+				state = '选标期'
+			} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) >= new Date()){
+				state = '制作期'
+			} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) < new Date()){
+				state = '已延期'
+			} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected == '1'){
+				state = '未通过'
+			} else if(this.$parent.deta.status == '4'){
+				state = '待审核'
+			}else if(this.$parent.deta.status == '5'){
+				state = '已验收'
+			}else if(this.$parent.deta.status == '-1'){
+				state = '已终止'
+			}
+			return state;
+		},
 		pushBm(){
 			
 			if(this.postData.work_ids.length==0){
 				this.$message({message:'请先选择作品'})
 				return 
 			}
-			this.bdtj('项目详情','招募期','确认报名项目')
+			//this.bdtj('项目详情页',this.getstate(),'确认报名项目')
 			this.api.pr_signup(this.postData).then((da)=>{
 				if(da=='error' || da=='104'){return}
 				this.$message({message: '报名成功'});

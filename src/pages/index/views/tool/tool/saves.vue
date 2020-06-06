@@ -224,7 +224,7 @@ export default{
 			pr.json = JSON.stringify(pr.json);			
 			pr.submit = 1;		
 			this.ajaxType = 1;
-			this.bdtj('来电秀详情',this.value.title,'立即交稿')
+			this.bdtj('来电秀工具-制作页','[立即交稿]','--')
 			this.api.sh_save(pr).then((da)=>{				
 				this.ajaxType = '';
 				if(da=='error' || da=='104'){

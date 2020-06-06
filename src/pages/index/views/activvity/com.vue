@@ -191,7 +191,7 @@ export default {
 			}
 		},
 		fxclick(){
-			this.bdtjCom('分享')
+			this.bdtjCom('[分享]','--')
 			this.$refs.fxd.showShare(true);
 		},
 		backtimed(timed){
@@ -206,6 +206,7 @@ export default {
 			this.zpList = [];
 		},
 		showZp(){
+			this.bdtjCom('[上传作品]','--');
 			if(!window.userInfo){
 				// Message({message: '未登陆，请先登陆!'});
 				// this.$router.push({path:'/login'})
@@ -288,8 +289,8 @@ export default {
 			this.wpdz = '';
 			this.ishowWp = '';
 		},
-		bdtjCom(a){
-			this.bdtj('活动',a,'--');
+		bdtjCom(a,b){
+			this.bdtj('活动详情页',a,b);
 		},
 		downMoble(url){
 			this.bdtjCom('下载模版')

@@ -444,11 +444,11 @@ export default {
 			if(!id){
 				return
 			}
-			this.bdtj('我的创作',this.backType(o.status)+'-编辑','--');
+			this.bdtj('我的创作页','点击[编辑]','--');
 			this.$router.push({path: '/upload',query:{id:id}});	
 		},
 		showTopc(type,on){
-			this.bdtj('我的创作',this.backType(on.status)+'-删除','--');
+			this.bdtj('我的创作','[确认]删除作品','--');
 			this.$refs.tcBox2.show();
 			this.deletWorkon = on.work_id;
 			this.topcType = type;
@@ -495,7 +495,7 @@ export default {
 			window.open(ur);
 		},
 		openxq(on){
-			this.bdtj('我的创作','点击作品','--');
+			this.bdtj('我的创作页','点击作品','--');
 			if(on.status==2){
 				window.open('#/cont?id='+on.work_id);
 				return

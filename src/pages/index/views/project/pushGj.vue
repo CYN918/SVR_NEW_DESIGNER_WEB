@@ -191,6 +191,7 @@ export default {
 			this.filelist.splice(on,1);
 		},
 		pushfiled(){
+			
 			let pr = {};
 			if(!this.preview_pic){
 				this.$message({message: '请先上传预览图'});
@@ -238,7 +239,7 @@ export default {
 				if(this.$parent.setStaus){
 					this.$parent.setStaus('4');
 				}
-				
+				this.bdtj('项目详情页',this.$parent.getstate(),'成功[提交]交稿')
 				this.$message({message:"交稿成功，请耐心等待验收"});
 				this.$parent.getData();
 				this.close();

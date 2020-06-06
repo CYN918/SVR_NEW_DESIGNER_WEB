@@ -9,7 +9,7 @@
 				<ul>
 					<li v-for="el in list">
 						<img class="hotBaner" :src="imgSig+el.img">
-						<button class="go_upload" @click="goOn(el.path)">{{el.n}}</button>
+						<button class="go_upload" @click="goOn(el.path,el.n)">{{el.n}}</button>
 					</li>
 				</ul>					
 			</div>
@@ -50,15 +50,17 @@ export default{
 			if(this.status==1){
 				return
 			}
+			this.bdtj('赚钱页','[供稿人[立即加入]]','--')
 			this.goOn('/setPersonal');
 		},	
-		goOn(url){
+		goOn(url,name){
+			this.bdtj('赚钱页','['+ name +']','--')
 			if(!window.userInfo){
 				this.$refs.logindialog.show();
 				this.outc.num = 1;	
 				return false
 			}
-			this.goFn(url);
+			this.goFn(url,name);
 		},
 	}
 }

@@ -131,6 +131,10 @@ export default{
 			return (Math.round(fileSize)/100).toString()+sr;
 		},	
 		fileUp(flie){
+			if(this.cg.arrayMax && this.objs.length == this.cg.arrayMax){
+				
+			}
+			
 			if(!this.cg.isAarr && this.upType==1){
 				Message({message: '正在上传请稍后'});
 				return

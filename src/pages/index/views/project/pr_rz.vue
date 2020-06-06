@@ -56,6 +56,15 @@ export default {
 			this.$parent.close();
 		},
 		goTo(p){
+			let ps ='';
+			if(p == '/setPersonal'){
+				ps = '[立即认证]'
+			} else if  (p == '/upload') {
+				ps = '[立即上传]'
+			} else if (p == '/setSkill'){
+				ps = '[去完善]'
+			}
+			this.bdtj('项目详情页',this.$parent.getstate(),ps)
 			this.$router.push({path: p})	
 		}
 	}

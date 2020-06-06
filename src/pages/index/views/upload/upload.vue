@@ -662,7 +662,7 @@ export default {
 			}
 		},
 		showUp(on,a,file,ref){
-			// this.bdtj('上传作品-编辑作品类容',a,'--');
+			this.bdtj('作品上传页','['+ a +']','--');
 			
 			this.configData = this.upList[on];
 			// this.initUploadConfig()
@@ -762,7 +762,7 @@ export default {
 			})
 		},
 		seeCg(){
-			this.bdtj('上传作品-其他信息设置','预览','--');
+			this.bdtj('作品上传页','预览','--');
 			
 			if(!this.form.work_name||this.form.work_name.split(" ").join("").length == 0){Message({message: '请先填写标题'});return}
 			if(!this.form.content){Message({message: '请先填内容'});return}
@@ -773,6 +773,7 @@ export default {
 				
 		},
 		savZp(){
+			this.bdtj('作品上传页','提交发布','--')
 			if(this.saveTyped==1){
 				Message({message: '正在记录请稍后再试'});
 				return
@@ -806,7 +807,7 @@ export default {
 			// if(this.chekin==false){
 			// 	p = '上传作品-其他信息设置';
 			// }
-			this.bdtj(p,'保存','--');
+			this.bdtj('作品上传页','保存','--');
 			if(this.saveTyped==1){
 				Message({message: '正在记录请稍后再试'});
 				return

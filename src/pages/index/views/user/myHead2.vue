@@ -42,7 +42,7 @@ export default {
 			this.ison = this.$route.fullPath;
 		},	
 		goZP(a,b){
-			this.bdtj('我的关注','tab_'+b,'--');
+			this.bdtj('我的关注','切换Tab',b);
 			this.$router.push({path: a})			
 		},
 	

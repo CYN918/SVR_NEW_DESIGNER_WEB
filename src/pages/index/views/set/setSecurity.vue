@@ -13,19 +13,19 @@
 						</div>
 						<div class="suc_1_3">
 							<span>登录密码</span><div class="userSZ_1">密码要求至少包含字母，符号或数字中的两项且长度超过6位</div>
-							<div class="userSZ_2"><span @click="openTc1(4)">修改</span></div>
+							<div class="userSZ_2"><span @click="openTc1(4,'登陆密码','修改')">修改</span></div>
 						</div>						
 					</div>
 					<div class="scBox suc_1 suc_2">
 						<div class="suc_title">第三方账号绑定</div>
 						<div class="suc_1_4">
-							<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/wx.svg" alt="">微信</span><div class="bindwxd_1 bindwxd_1n">{{form.weixin_name?form.weixin_name:'未绑定'}}</div><div class="bindwxd_2"><span class="btns pend" @click="openTc1(5,'weixin','del')" v-if="form.weixin_name">解绑</span><span v-else class="btns pend btns_js" @click="bindXg('weixin','add')">立即绑定</span></div>							
+							<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/wx.svg" alt="">微信</span><div class="bindwxd_1 bindwxd_1n">{{form.weixin_name?form.weixin_name:'未绑定'}}</div><div class="bindwxd_2"><span class="btns pend" @click="openTc1(5,'weixin','del','微信[解绑]')" v-if="form.weixin_name">解绑</span><span v-else class="btns pend btns_js" @click="bindXg('weixin','add','微信[立即绑定]')">立即绑定</span></div>							
 						</div>
 						<div class="suc_1_4">
-							<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/qq.svg" alt="">QQ</span><div class="bindwxd_1 bindwxd_1n">{{form.qq_name?form.qq_name:'未绑定'}}</div><div class="bindwxd_2"><span class="btns pend" @click="openTc1(5,'qq','del')" v-if="form.qq_name">解绑</span><span v-else class="btns pend btns_js" @click="bindXg('qq','add')">立即绑定</span></div>							
+							<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/qq.svg" alt="">QQ</span><div class="bindwxd_1 bindwxd_1n">{{form.qq_name?form.qq_name:'未绑定'}}</div><div class="bindwxd_2"><span class="btns pend" @click="openTc1(5,'qq','del','QQ[解绑]')" v-if="form.qq_name">解绑</span><span v-else class="btns pend btns_js" @click="bindXg('qq','add','QQ[立即绑定]')">立即绑定</span></div>							
 						</div>
 						<div class="suc_1_4">
-							<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/wb.svg" alt="">微博</span><div class="bindwxd_1 bindwxd_1n" >{{form.weibo_name?form.weibo_name:'未绑定'}}</div><div class="bindwxd_2"><span class="btns pend" @click="openTc1(5,'weibo','del')" v-if="form.weibo_name">解绑</span><span class="btns pend btns_js" v-else @click="bindXg('weibo','add')">立即绑定</span></div>							
+							<span><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/wb.svg" alt="">微博</span><div class="bindwxd_1 bindwxd_1n" >{{form.weibo_name?form.weibo_name:'未绑定'}}</div><div class="bindwxd_2"><span class="btns pend" @click="openTc1(5,'weibo','del','微博[解绑]')" v-if="form.weibo_name">解绑</span><span class="btns pend btns_js" v-else @click="bindXg('weibo','add','微博[立即绑定]')">立即绑定</span></div>							
 						</div>
 					</div>
 					<div class="scBox suc_1 suc_3">
@@ -321,8 +321,8 @@ export default {
 			}
 			this.bindXg(this.jbnData.type,this.jbnData.type2);
 		},
-		bindXg(type,type2){
-			this.bdtj('帐号设置','帐号安全-'+type+'-'+type2,'--');
+		bindXg(type,type2,n){
+			this.bdtj('帐号设置','第三方账号绑定',n);
 			let pr = {
 				access_token:window.userInfo.access_token,
 				third_part:type,
@@ -584,7 +584,7 @@ export default {
 				this.outc.title="修改登陆密码";
 			}
 			if(t2){
-				this.bdtj('帐号设置','帐号安全-'+t+'-'+t2,'--');
+				this.bdtj('帐号设置','修改'+t+'-'+t2,'点击[修改]');
 			}
 			if(on==5){
 				this.outc.title="解除绑定确认";
