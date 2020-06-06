@@ -64,7 +64,10 @@ export default {
 			} else if (p == '/setSkill'){
 				ps = '[去完善]'
 			}
-			this.bdtj('项目详情页',this.$parent.getstate(),ps)
+			if(this.$parent.getstate){
+				this.bdtj('项目详情页',this.$parent.getstate(),ps)
+			}
+			
 			this.$router.push({path: p})	
 		}
 	}

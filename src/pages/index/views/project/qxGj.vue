@@ -39,7 +39,10 @@ export default {
 				return
 			}
 			this.qxType=1;
-			this.bdtj("项目详情页",this.$parent.getstate(),"确定[稿件撤回]");
+			if(this.$parent.getstate){
+				this.bdtj("项目详情页",this.$parent.getstate(),"确定[稿件撤回]");
+			}
+			
 			this.api.pr_revokeDelivery({
 				project_id:this.datad.id,
 			}).then((da)=>{

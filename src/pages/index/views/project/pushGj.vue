@@ -239,7 +239,10 @@ export default {
 				if(this.$parent.setStaus){
 					this.$parent.setStaus('4');
 				}
-				this.bdtj('项目详情页',this.$parent.getstate(),'成功[提交]交稿')
+				if(this.$parent.getstate){
+					this.bdtj('项目详情页',this.$parent.getstate(),'成功[提交]交稿')
+				}
+				
 				this.$message({message:"交稿成功，请耐心等待验收"});
 				this.$parent.getData();
 				this.close();
