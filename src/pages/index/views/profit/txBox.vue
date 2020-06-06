@@ -63,7 +63,7 @@
 				
 			
 			
-			<div v-if="typedon==2 && user.type==1" class="pr_xx_1">
+			<div v-if="typedon==2 && user.type==2" class="pr_xx_1">
 				<div class="phodegg">
 					<div class="hm_n1">
 						<span class="hm_n1_1">手机 +86</span>
@@ -76,7 +76,7 @@
 				</div>
 			</div>
 				
-			<div v-if="typedon==2 && user.type==2" class="txTbox">
+			<div v-if="typedon==2 && user.type==1" class="txTbox">
 				<div class="txTbox_t">发票说明</div>
 				<div class="txTbox_c">
 					<div class="txTbox_c_fp_1">
@@ -92,7 +92,7 @@
 						<div><span>税号</span><span>9144030031 1975518G</span></div>
 						<div><span>联系地址</span><span>广东省深圳市南山区高新南区科苑南路3176号彩讯科创中心9楼</span></div>
 					</div>
-					<div class="txTbox_t">寄送信息</div>
+					<!-- <div class="txTbox_t">寄送信息</div>
 					<div class="txTbox_c zyfb">
 						<div class="up_fp">
 							<span>发票拍照</span>
@@ -115,7 +115,7 @@
 						</div>
 						<div><span>物流公司名称</span><span><input class="txje" placeholder="请输入物流公司名称" v-model="form.express_company" type="text"></span></div>
 						<div><span>寄送物流单号</span><span><input class="txje" placeholder="请输入物流单号" v-model="form.express_id" type="text"></span></div>					
-					</div>					
+					</div>	 -->				
 				</div>
 				<div v-if="typedon==3" class="pr_xx_1">
 					<div class="phodegg">
