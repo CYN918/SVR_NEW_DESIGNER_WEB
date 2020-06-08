@@ -192,7 +192,7 @@ export default {
 				let be = [{n:'提交稿件',fn:'pushGj',cls:'isls'}];
 				if(this.deta.is_rejected==1){
 					be[0].n = "重新交稿";
-					be[1] = {n:'交稿记录',fn:'Log'};
+					// be[1] = {n:'交稿记录',fn:'Log'};
 				}
 				this.btns = be;
 				if(this.deta.is_de){
@@ -223,7 +223,7 @@ export default {
 			if(this.deta.status==4){
 				this.btns = [					
 					{n:'稿件撤回',fn:'qxGj'},
-					{n:'交稿记录',fn:'Log'},					
+					// {n:'交稿记录',fn:'Log'},					
 				];
 				this.tips = '<div class="backdse_02 pr_cent2_r2_3">稿件已提交，请等待验收审核</div>';
 				return
