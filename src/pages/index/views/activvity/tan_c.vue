@@ -87,7 +87,8 @@
 			<ul class="zp_box" @scroll="test">
 				
 				<li @click="checkZp(el.work_id)" :class="(work_id.indexOf(el.work_id)!=-1 || el.is_attend==1)?'chekonzp':''" v-for="(el,index) in zpList" :key="index">
-					<img class="zp_box_1" :src="el.face_pic">
+					<img class="zp_box_1" v-if="el.face_pic != ''" :src="el.face_pic">
+					<img class="zp_box_1" v-if="el.face_pic == ''" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/com/no_img.svg">
 					<div class="zp_box_2">
 						{{el.work_name.slice(0,10)}}
 						<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/works/icon_r.svg" alt="">
@@ -791,6 +792,14 @@ export default {
 	position: absolute;
 	background: none;
 	display: block;
+	left: 0;
+    right: 0;
+	top:0;
+	bottom:0;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:auto;
+	margin-bottom:auto;
 }
 
 .deleteBtn{
