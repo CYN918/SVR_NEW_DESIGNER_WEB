@@ -12,15 +12,19 @@
 		</div>
 		<div class="banner_propaganda">
 			<ul>
+				<li @click="showTg()">
+					<img :src="setImgU('home/home_rk_tg.jpg')"/>
+					<button class="making2">前往投稿</button>
+				</li>
 				<li @click="go_p()">
-					<img :src="imgSig+'newHome/project_rukou.svg'" alt=""/>
+					<img :src="setImgU('home/home_rk_xm.jpg')"/>
 					<button class="undertake">承接项目</button>
 				</li>
 				<li class="banner_propaganda_t"  @click="go_show()">
-					<img :src="imgSig+'newHome/show_laidian.svg'" alt=""/>
+					<img :src="setImgU('home/home_rk_ldx.jpg')"/>
 					<button class="making">开始制作来电秀</button>
 				</li>
-			</ul>
+			</ul>	
 		</div>
 		<loginDialog ref="logindialog" :config="outc"></loginDialog>
 		<component v-bind:is="tancD.zj" v-model="tancD" ref="tanbox"></component>
@@ -32,10 +36,10 @@ import home_tc from './home_tc';
 export default {
 	components:{loginDialog,home_tc},
 	name: 'banner',
+	inject:['login'],	 
 	data(){
 		return {
 			tancD:{
-				// zj:'home_tc'
 				zj:''
 			},
 			list:[],
@@ -54,6 +58,13 @@ export default {
 		this.getBanner();		
 	}, 
 	methods: {
+		showTg(){
+			if(!window.userInfo){
+				this.login(1);
+				return
+			}
+			this.tancD.zj='home_tc';
+		},
 		backcls(inx){
 			if(inx==this.on){
 				return 'action'
@@ -256,41 +267,40 @@ export default {
 	margin-top: 20px;
 }
 .banner_propaganda > ul > li{
-	width: 640px;
-	height: 234px;
+	width: 420px;
+	height: 160px;
 	float: left;
 	position: relative;
+	margin-right: 20px;
 }
-.banner_propaganda > ul .banner_propaganda_t{
-	margin-left: 20px;
+.banner_propaganda > ul > li:last-child{
+	margin-right: 0;
 }
+
 .banner_propaganda > ul > li > button{
 	outline: none;
 	border: none;
 	position: absolute;
-	left: 24px;
-	top: 172px;
+	left: 16px;
+	top: 118px;
 	cursor: pointer;
+	
+	padding: 0 10px;
+	height:26px;
+	border-radius:3px;
+	font-size:12px;
+	font-weight:500;
+	color:rgba(255,255,255,1);
+	line-height:26px;
 }
 .banner_propaganda > ul > li .undertake{
-	width: 88px;
-	height: 38px;
-	text-align: center;
-	line-height: 38px;
 	background: #A53030;
-	color: #FFFFFF;
-	font-size: 14px;
-	border-radius: 5px;
 }
 .banner_propaganda > ul > li .making{
-	width: 130px;
-	height: 38px;
-	text-align: center;
-	line-height: 38px;
 	background: #1950b2;
-	color: #FFFFFF;
-	font-size: 14px;
-	border-radius: 5px;
+}
+.banner_propaganda > ul > li .making2{
+	background: #003E43;
 }
 @-webkit-keyframes jxd{
 	from {opacity: 0}

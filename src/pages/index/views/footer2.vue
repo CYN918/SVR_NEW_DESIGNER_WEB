@@ -15,15 +15,9 @@
 			<feedback ref="feedback"></feedback>
 			
 			<div @click="goFn('/syPage')" class="tfpifbox">
-<<<<<<< HEAD
 				<img class="tfpifbox1" :src="setImgU('tools/ip.svg')">
 				<div class="tfpifbox2">
 					<img class="tfpifbox2_1" :src="setImgU('tools/icon_download.svg')"/>
-=======
-				<img class="tfpifbox1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/ip.svg">
-				<div class="tfpifbox2">
-					<img class="tfpifbox2_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_download.svg"/>
->>>>>>> xmapp
 					<span class="tfpifbox2_2">下载手机端</span>
 				</div>
 			</div>
