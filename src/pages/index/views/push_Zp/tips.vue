@@ -76,7 +76,7 @@ export default{
 }
 </script>
 
-<style>
+<style scoped="scoped">
 .ps_tip_01{
 	position: fixed;
 	z-index: 10;

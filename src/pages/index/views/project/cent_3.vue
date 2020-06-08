@@ -1,11 +1,11 @@
 <template>
 	<div class="pr_ml_1">
-		<div class="pr_ml_2" :style="setBg">
+		<div @click="openCent()" class="pr_ml_2" :style="setBg">
 			<span v-if="deta.status==1 || deta.status==2" class="pr_ml_3">已报名</span>
 			<div class="pr_ml_4" v-html="tips"></div>
 		</div>
 		<div class="pr_ml_5">
-			<div class="pr_ml_6">
+			<div @click="openCent()" class="pr_ml_6">
 				<span v-html="setDeal_type"></span>				
 				<span class="pr_ml_6_2">{{deta.name}}</span>
 			</div>

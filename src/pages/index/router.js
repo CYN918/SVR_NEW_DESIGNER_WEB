@@ -9,7 +9,6 @@ import Ac_v1 from './views/activvityPage/ac_v1.vue'
 import Ac_v2 from './views/activvityPage/ac_v2.vue'
 import Ac_v3 from './views/activvityPage/ac_v3.vue'
 import Ac_v4 from './views/activvityPage/ac_v4.vue'
-import Ac_v5 from './views/activvityPage/ac_v5.vue'
 import upload from './views/upload/upload.vue'
 
 import myWorksCom from './views/user/myWorksCom.vue'
@@ -83,6 +82,7 @@ import pushTool from './views/tool/tool/pushTool.vue'
 import syPage from './adPage/syDown.vue'
 import toluser from './views/tool/user/user.vue'
 import pushZp from './views/push_Zp/index.vue'
+import dcpushZp from './views/dcpush_Zp/index.vue'
 
 Vue.use(Router)
 const router = new Router({
@@ -95,7 +95,6 @@ let wb = [
 	{path: '/Ac_v2',name: 'Ac_v2',component: Ac_v2},	
 	{path: '/Ac_v3',name: 'Ac_v3',component: Ac_v3},		
 	{path: '/Ac_v4',name: 'Ac_v4',component: Ac_v4},
-	{path: '/Ac_v5',name: 'Ac_v5',component: Ac_v5},
 	{path: '/pushTool',name:'pushTool',component: pushTool},
 	{path: '/syPage',name:'syPage',component: syPage},
 	{path: '/toluser',redirect: {name:'toluser'},component: toltIndex,children:[
@@ -116,7 +115,7 @@ let wb = [
 			{path: '/index',name: 'home',component: Home},
 			{path: '/tip',name: 'tip',component: Tip},	
 			{path: '/pushZp',name: 'pushZp',component: pushZp},		
-				
+			{path: '/dcpushZp',name: 'dcpushZp',component: dcpushZp},			
 			{path: '/upload',name: 'upload',component: upload},
 			
 			{path: '/works',name: 'pe_works',component: personalCenter},

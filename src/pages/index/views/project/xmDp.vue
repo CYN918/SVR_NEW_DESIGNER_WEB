@@ -1,8 +1,6 @@
 <template>
 	<div :class="['cenDjs',da.cl]">
 		<div class="yu_o9">
-			
-			
 			<div class="cenDjs_4">
 				<div v-for="(el,index) in da.btns" :key="index" :class="calcClass(el)" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
 			</div>
@@ -68,10 +66,18 @@ export default {
 			if (el.tcFncs == 'Log') return 'pend router-link-active'
 			return 'pend'
 		},
+		toFn(){
+			this.goFn('/dcpushZp');
+		},
 		init(){
 			this.xmTypeOn = this.obj.status-1;
 			if(this.obj.is_sign_up==1){
-				this.xmType[0].btns = [{n:'取消报名',tcFn:'showTc',tcFncs:'qxBm'}];	
+				if(this.obj.signup_accept==1){
+					this.xmType[0].btns = [{n:'再次交稿',tcFn:'toFn',tcFncs:'toFn'}];	
+				}else{
+					this.xmType[0].btns = [{n:'取消报名',tcFn:'showTc',tcFncs:'qxBm'}];	
+				}
+				
 			}
 
 			this.da = this.xmType[this.xmTypeOn];	
@@ -114,7 +120,6 @@ export default {
 				this.outc.num = 1;
 			}
 			if(n){
-				console.log(n,b)
 				this[n](b);
 			}
 		},

@@ -422,5 +422,9 @@ export default {
 		url:'/Api/User/fileTotalSummary',method:'post',baseURL:0,isType:{cancelToken:1}
 	},
 	
+	personalLongList:{
+		url:'/api/project/personalLongList',method:'post',baseURL:0,isType:{cancelToken:1}
+	},
+	
 	
 }
