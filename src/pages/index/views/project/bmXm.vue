@@ -30,7 +30,8 @@
 					<ul class="bmXm_03">
 						
 						<li @click="checkZp(el.work_id)" :class="postData.work_ids.indexOf(el.work_id)!=-1?'chekonzp':''" v-for="(el,index) in List" :key="index">
-							<img class="bmXm_03_1" :src="el.face_pic">
+							<img class="bmXm_03_1" v-if="el.face_pic != ''" :src="el.face_pic">
+							<img class="bmXm_03_1" v-if="el.face_pic == ''" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/com/no_img.svg">
 							<div class="bmXm_03_2">
 								{{el.work_name.slice(0,10)}}
 								<img v-if="el.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/icon_r.svg" alt="">
