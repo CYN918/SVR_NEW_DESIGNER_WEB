@@ -31,24 +31,13 @@ import tanC from '../../components/tanC';
 export default {
 	components:{tanC},
 	props:{
-		datad:Object,
-		expected_profit:String,
-		settlement:String,
+		value:Object,
 	},
 	data(){
 		return{
 			page2:1,
-			deal_types:[
-				{n:'买断式',k:1},
-				{n:'分成式',k:2},
-			],
-			chekdeal_type_list:'',
 			List:[],
 			isnoData:'',
-			postData:{
-				deal_type:this.settlement,
-				work_ids:[],
-			},
 			getType:'',
 			noGd:'',
 			total:0,
@@ -60,19 +49,15 @@ export default {
 	},
 	methods: {	
 		chekcfN(obj){
+			this.value.obj = obj;
 			console.log(obj);
-		},
-	
+			this.close();
+		},	
 		init(){
-
 			this.getSelfWorkList();
 		},
 		close(){	
-			this.$emit('input',{
-				zj:'',
-				imgs:this.value.imgs
-			})
-		
+			this.value.zj = '';			
 		},
 		test(){
 			let data = this.$refs.botmm.getBoundingClientRect();
@@ -80,8 +65,7 @@ export default {
 				if(this.total<40){
 					this.noGd=1;
 					return
-				}
-				
+				}				
 				this.page2++;
 				this.getSelfWorkList();
 			}

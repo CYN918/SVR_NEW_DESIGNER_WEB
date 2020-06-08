@@ -35,7 +35,7 @@
 					<jdt v-if="el.state==1" v-model="el.bfb"></jdt>
 					<div class="ps_zp_pic_4_1">
 						<div @click="upImg(index)" class="ps_zp_pic_4_3">替换图片</div>
-						<img @click="delet(index)" class="ps_zp_pic_4_2" src="/imge/push_Zp/zptg_image_icon_close.svg">
+						<img @click="delet(index)" class="ps_zp_pic_4_2" :src="setImgU('push_Zp/zptg_image_icon_close.svg')">
 					</div>
 					
 				</div>

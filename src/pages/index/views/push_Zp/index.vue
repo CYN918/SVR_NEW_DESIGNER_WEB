@@ -31,8 +31,9 @@ import pic from './pic';
 import work from './work';
 import upFj from './upFj';
 import tips from './tips';
+import sucsses from './sucsses';
 export default{
-	components: {pic,work,upFj,tips},
+	components: {pic,work,upFj,tips,sucsses},
 	data(){
 		return{
 			navs:[
@@ -40,7 +41,7 @@ export default{
 				{n:'使用预览图提交',v:'work'}
 			],
 			tanc:{
-				zj:'work',
+				zj:'pic',
 				imgs:[],
 				filse:[],
 			},
@@ -52,7 +53,15 @@ export default{
 
 		}
 	},
+	mounted: function(){
+		this.init();
+	},
 	methods:{
+		init(){
+			if(!window.userInfo){
+				this.goFn('/index');
+			}
+		},
 		qhfn(n){
 			this.tanc.zj = n;
 		},
@@ -64,24 +73,23 @@ export default{
 				this.tipMr('正在交稿请稍后')
 				return
 			}
-			let pr = {};
-			if(this.tanc.zj=='pic'){
-				if(!this.tanc.name){
-					this.tipMr('请填写投稿标题')
-					return
-				}
-				pr.name = this.tanc.name;
-				if(this.tanc.remark){
-					pr.remark = this.tanc.remark
-				}
-				pr.type = 1;
-			}else{
-				pr.type = 2;
-				pr.online_disk_url = online_disk_url;
-				pr.access_code = access_code;
+			let pr = {
+				type:1,
+			};
+			let tips = {
+				pic:['请填写投稿标题','请上传预览图'],
+				work:['请选择投稿作品','请选择投稿作品']
+			};
+			if(!this.tanc.name){
+				this.tipMr(tips[this.tanc.zj][0])
+				return
+			}
+			pr.name = this.tanc.name;
+			if(this.tanc.remark){
+				pr.remark = this.tanc.remark
 			}
 			if(this.tanc.imgs.length==0){
-				this.tipMr('请上传预览图')
+				this.tipMr(tips[this.tanc.zj][1])
 				return
 			}
 			let arr = [];
@@ -109,7 +117,9 @@ export default{
 			this.api.pr_delivery(pr).then((da)=>{
 				this.ajx = false;
 				if(da=='error' || da=='104'){return}
+				
 				this.tipMr("交稿成功，请耐心等待验收");
+				this.tanc2.zj = 'sucsses';
 				
 			}).catch(()=>{
 				this.ajx = false;

@@ -7,7 +7,7 @@
 		</div>
 		<div class="ps_tip_03 ">
 			<div>
-				<img src="/imge/push_Zp/1.svg">
+				<img :src="setImgU('push_Zp/1.svg')">
 				<div class="ps_tip_04">作品投稿要求</div>
 				<div class="ps_tip_05">投稿作品必须是原创作品</div>
 				<div class="ps_tip_06">
@@ -20,7 +20,7 @@
 				<div class="ps_tip_06">需保证作品源文件（首选psd文件）图层结构清晰、元素命名清楚。</div>
 			</div>
 			<div>
-				<img src="/imge/push_Zp/2.svg">
+				<img :src="setImgU('push_Zp/2.svg')">
 				<div class="ps_tip_04">收益计算规则</div>
 				<div class="ps_tip_05">一经验收 永久分成</div>
 				<div class="ps_tip_06">
@@ -38,7 +38,7 @@
 				</div>
 			</div>
 			<div>
-				<img src="/imge/push_Zp/3.svg">
+				<img :src="setImgU('push_Zp/3.svg')">
 				<div class="ps_tip_04">其他须知</div>
 				<div class="ps_tip_05">作品授权</div>
 				<div class="ps_tip_06">

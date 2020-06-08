@@ -7,6 +7,19 @@
 			<div class="ps_zp_07">
 				<div class="ps_wk_01">
 					<span @click="showzp" class="pend">选择作品</span>选择可投稿的原创作品
+					<ul v-if="tanc.obj.face_pic" class="bmXm_03 px_wk_x1">
+						<li>
+							<img class="bmXm_03_1" :src="tanc.obj.face_pic">
+							<div class="bmXm_03_2">
+								{{tanc.obj.work_name.slice(0,10)}}
+								<img v-if="tanc.obj.is_recommend==1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/imge/new/works/icon_r.svg" alt="">
+							</div>
+							<div class="bmXm_03_3">
+								<span>{{tanc.obj.classify_1_name}}</span>
+								{{tanc.obj.classify_2_name+'-'+tanc.obj.classify_3_name}}								
+							</div>							
+						</li>
+					</ul>
 				</div>
 				<div class="ps_zp_pic_3">
 					<textarMax :placeholder="'请输入投稿说明'" :max="140" v-model="value.remark" ></textarMax>
@@ -27,9 +40,15 @@ export default{
 		return{
 			tanc:{
 				zj:'',
-				imgs:[],
+				obj:{},
 			}
 		}
+	},
+	watch:{
+		'tanc.obj'(n,b){
+			this.value.name = this.tanc.obj.work_name;
+			this.value.imgs[0] = {url:this.tanc.obj.face_pic,bfb:100};
+		},
 	},
 	methods:{
 		showzp(){
@@ -60,5 +79,8 @@ export default{
 	color:rgba(255,255,255,1);
 	margin-right: 16px;
 
+}
+.px_wk_x1{
+	margin-top: 20px;
 }
 </style>

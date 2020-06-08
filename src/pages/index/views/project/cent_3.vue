@@ -21,6 +21,7 @@
 				<span :class="el.cls" @click="ckd(el.fn,el.n)" v-for="el in btns">{{el.n}}</span>
 			</div>
 		</div>
+		<div @click="ckd('Log','交稿记录')" class="pr_ml_pic pend" :style="setBg2(deta.preview_pic)"></div>
 		<component v-bind:is="tcZj"  :datad="tcData"></component>
 	</div>
 </template>
@@ -64,9 +65,10 @@ export default {
 		},
 	},
 	computed: {
-	    setBg: function () {
+	    setBg:function(){
 			return "background-image: url("+(this.deta.banner?this.deta.banner:(this.imgSig+'toltImg/Zoocreators_logo.svg'))+");";
 	    },
+		
 		setDeal_type(){
 			if((!this.deta.deal_type || this.deta.deal_type==0) && !this.deta.settlement){
 				return '';
@@ -103,6 +105,16 @@ export default {
 		}
 	},
 	methods: {	
+		setBg2(img){
+			if(!img){return}
+			let str = img;
+			try{
+				str = JSON.parse(img)[0]
+			}catch(e){
+				//TODO handle the exception
+			}
+			return "background-image: url("+str+");";	   
+		},
 		ckd(a,n){
 			if(n=='稿件撤回' && this.deta.check_steps==1){
 				this.tipMr('项目已在审核中，请勿撤回')				
@@ -184,12 +196,12 @@ export default {
 				}
 				this.btns = be;
 				if(this.deta.is_de){
-					this.tips = '<div class="backdse pr_cent2_r2_4">你已延期'+this.deta.delay_time.d+'天'+this.deta.delay_time.h+'小时，请尽快完成</div>';
+					this.tips = '<div class="backdse_01 pr_cent2_r2_4">你已延期'+this.deta.delay_time.d+'天'+this.deta.delay_time.h+'小时，请尽快完成</div>';
 					return
 				}
 				if(this.deta.delivery_deadline && !(this.deta.delivery_deadline instanceof Array)){
 					if(this.deta.is_rejected==1){
-						this.tips = '<div class="backdse pr_cent2_r2_4">你的稿件未通过，请重新提交</div>';
+						this.tips = '<div class="backdse_01 pr_cent2_r2_4">你的稿件未通过，请重新提交</div>';
 					}else{
 						var d2 = new Date();
 						var d1 = new Date(Date.parse(this.deta.delivery_deadline));						 
@@ -201,7 +213,7 @@ export default {
 							var days = Math.floor(d3/(24*3600*1000));
 							var leave1 = d3%(24*3600*1000);
                             var hours = Math.floor(leave1/(3600*1000));							
-                            this.tips = '<div class="backdse pr_cent2_r2_4">你已延期<span>'+days+'天'+hours+'小时</span>，请尽快完成</div>';
+                            this.tips = '<div class="backdse_01 pr_cent2_r2_4">你已延期<span>'+days+'天'+hours+'小时</span>，请尽快完成</div>';
 						}  
 					}
 				}
@@ -213,7 +225,7 @@ export default {
 					{n:'稿件撤回',fn:'qxGj'},
 					{n:'交稿记录',fn:'Log'},					
 				];
-				this.tips = '<div class="backdse pr_cent2_r2_3">稿件已提交，请等待验收审核</div>';
+				this.tips = '<div class="backdse_02 pr_cent2_r2_3">稿件已提交，请等待验收审核</div>';
 				return
 			}
 			if(this.deta.status==5){
@@ -282,6 +294,7 @@ export default {
 </script>
 <style>
 .pr_ml_1{
+	position: relative;
 	margin: 0 auto 20px;
 	width:1130px;
 	height:170px;
@@ -299,6 +312,7 @@ export default {
 	background-repeat: no-repeat;
 	background-size: cover;
 	border-radius:5px;
+	overflow: hidden;
 }
 .pr_ml_3{
 	position: absolute;
@@ -324,7 +338,7 @@ export default {
 	font-weight: 400;
 	text-align: center;
 }
-.pr_ml_4>span{
+.pr_ml_4>span>span{
 	font-size:16px;
 	font-weight:500;
 	color:rgba(255,255,255,1);	
@@ -429,5 +443,30 @@ export default {
 	background: #33B3FF;
 	border-color: #33B3FF;
 	color: #fff;
+}
+.pr_ml_4 .pr_cent2_r2_1 span{
+	margin-right: 2px;
+}
+.pr_ml_4 .pr_cent2_r2_1 span>span{
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(255,255,255,1);
+}
+.backdse_01{
+	background: #FF3B30;
+}
+.backdse_02{
+	background: #FF9200;
+}
+.pr_ml_pic{
+	position: absolute;
+	right: 30px;
+	bottom: 20px;
+	width: 80px;
+	height: 60px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius:4px;
 }
 </style>
