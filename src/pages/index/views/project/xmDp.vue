@@ -59,7 +59,7 @@ export default {
 	},
 	mounted: function(){
 		this.init();
-		console.log(this.da.btns)
+
 	}, 
 	methods: {
 		calcClass(el) {

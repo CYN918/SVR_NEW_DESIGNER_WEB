@@ -18,48 +18,37 @@
 						</div>
 					</div>
 				</div>
-				<div class="pr_bg_03_2" v-if="das.deal_type == '1'">
-					<div class="pr_bg_03_2_1">最终成交价格</div>
-					<div class="pr_bg_03_2_2">¥ {{mJs.money_deiv(das.deal_price)}}</div>
-					<div class="pr_bg_03_2_3">感谢您本次的项目合作，如有疑问可前往 <router-link to="/help">帮助中心</router-link> 了解更多</div>
+				<div class="pr_bg_03_2">
+					<div class="pr_bg_03_2_1">{{das.deal_type==1?'最终成交价格':'累积收益'}}</div>
+					<div class="pr_bg_03_2_2">
+						¥ {{mJs.money_deiv(das.income)}}
+						<div v-if="das.deal_type==3" class="pr_bg_03_2_4">(¥ {{das.advance_payment}} 预约金)</div>
+					</div>
+					
+					<div class="pr_bg_03_2_3">
+						感谢您本次的项目合作<span v-if="das.deal_type==3">，</span><span v-else><br/></span>如有疑问可前往 <router-link to="/help">帮助中心</router-link> 了解更多
+					</div>
 				</div>
 			</div>
 			
-			<div class="pr_bg_04">
+			<div class="pr_bg_04 pr_bg_04fic">
+				<div class="pr_bg_04fic_1">验收稿件</div>
+				<video @click="playcideo" class="pr_bg_04fic_2" v-if="das.file_url" :src="das.file_url" ref="opvideo"></video>
+				<div v-else>
+					<span v-for="el in das.imgs_a" :style="setBg(el)"></span>
+				</div>
+				
+			</div>
+			
+			<div class="pr_bg_04" v-if="das.deal_type!=1">
 				<div class="pr_bg_04_1">价格计算详情</div>
-				<!-- <div class="pr_bg_04_2">成交价格=验收价格+额外奖金-延期交稿+收益加成<br/>¥ 1,284.00 = ¥ 1,140.00 + ¥ 500.00 - ¥ 228.00</div> -->
 				<div class="pr_bg_04_2" v-if="das.deal_type == '1'">成交价格=验收价格+收益加成<br/>¥ 1,640.00 = ¥ 1,140.00 + ¥ 500.00</div>
-				<!-- <div class="pr_bg_04_2" v-if="das.deal_type == '2' || das.deal_type == '3'">分成收益=渠道曝光数量*渠道分成单价*(100%+收益加成比%)<br/>每个月内出上个月收益结果,因各渠道方结算周期不固定,请耐心等待</div> -->
 				<div class="pr_bg_04_2" v-if="das.deal_type == '2' || das.deal_type == '3'">分成收益=渠道曝光数量*渠道分成单价<br/>每个月内出上个月收益结果,因各渠道方结算周期不固定,请耐心等待</div>
-				<div class="pr_bg_04_3" v-if="das.deal_type == '1'">
-					<!-- <div>
-						<div class="pr_bg_04_3_1">验收价格</div>
-						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.acceptance_price)}}</div>
-					</div><div v-if="das.extra_reward && das.extra_reward!='0.00'">
-						<div class="pr_bg_04_3_1">额外奖金</div>
-						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.extra_reward)}}</div>
-					</div><div v-if="das.deduction_price && das.deduction_price!='0.00'">
-						<div class="pr_bg_04_3_1">{{das.delay_day}}天 延期交稿</div>
-						<div class="pr_bg_04_3_2 pr_bg_04_3_3">- ¥ {{mJs.money_deiv(das.deduction_price)}}</div>
-						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,0)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg">
-					</div><div v-if="das.gain_share_price && das.gain_share_price!='0.00'">
-						<div class="pr_bg_04_3_1">{{das.gain_share_rate}} 收益加成</div>
-						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.gain_share_price)}}</div>
-						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg">
-					</div> -->
+				<div class="pr_bg_04_3" v-if="das.deal_type == '1'">					
 					<div>
 						<div class="pr_bg_04_3_1">验收价格</div>
 						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.acceptance_price)}}</div>
 					</div>
-					
-					<!-- <div v-if="das.gain_share_price && das.gain_share_price!='0.00'">
-						<div class="pr_bg_04_3_1">{{das.gain_share_rate}} 收益加成</div>
-						<div class="pr_bg_04_3_2">+ ¥ {{mJs.money_deiv(das.gain_share_price)}}</div>
-						<img class="pr_bg_04_3_4" @mouseout="mod()" @mouseover="modx($event,1)" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/09.svg">
-					</div> -->
-					
-					
-					
 				</div>
 				<div class="pr_bg_04_3" v-if="das.deal_type == '2' || das.deal_type == '3'">
 					<button class="proportion" @click="go_profit()">查看分成收益明细</button>	
@@ -70,14 +59,12 @@
 				</div>
 			</div>
 		</div>
-		<tipd :class="tipOn==1?'newd2':'newd'" :tipCent="csff" :style="sfas" ref="csdf"></tipd>
+		
 	</div>
 		
 </template>
 <script>
-import tipd from './cenTip';
 export default {
-	components:{tipd},
 	data(){
 		return{
 			sfas:'',
@@ -87,14 +74,24 @@ export default {
 			num2:0,
 			syNum:'0%',
 			tipOn:0,
+
 		}
 	},
 	mounted: function(){
 		this.init();
 	}, 
 	methods: {	
+		setBg: function (url) {
+			return "background-image: url("+(url?url:(this.imgSig+'toltImg/Zoocreators_logo.svg'))+");";
+		},
 		go_profit(){
 			this.$router.push({path:'/divided'})
+		},
+		playcideo(){
+			if(this.$refs.opvideo.paused){
+				this.$refs.opvideo.play();
+			}
+			
 		},
 		backf(on){
 			if(on == 1){
@@ -172,7 +169,23 @@ export default {
 				project_id:this.$route.query.id,
 			}).then((da)=>{
 				if(da=='error' || da=='104'){return}
+				da.imgs_a = [];
+				if(da.preview_pic.substring(0,1)=='['){
+					try{
+						let op = JSON.parse(da.preview_pic);
+						da.imgs_a = op;
+					}catch(e){
+						//TODO handle the exception
+					
+					}
+					
+				}else{
+					da.imgs_a[0] = da.preview_pic;
+				}
+			
 				this.das = da;
+				
+				
 				
 			}).catch(()=>{
 				
@@ -320,7 +333,7 @@ export default {
 	font-weight:600;
 	color:#FBB026;
 	line-height:34px;
-	margin-bottom: 57px;
+	margin-bottom: 10px;
 }
 .pr_bg_03_2_3{
 	font-size:14px;
@@ -337,7 +350,7 @@ export default {
 	font-weight:400;
 	color:rgba(51,51,51,1);
 	line-height:33px;
-	margin: 50px auto 20px;
+	margin: 0 auto 20px;
 }
 .pr_bg_04_2{
 	font-size:12px;
@@ -416,5 +429,33 @@ export default {
 	font-size: 14px;
 	border-radius: 5px;
 	cursor: pointer;
+}
+.pr_bg_04fic_1{
+	font-size:16px;
+	color:rgba(40,40,40,1);
+	line-height:22px;
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+.pr_bg_04fic>div>span{
+	display: inline-block;
+	vertical-align: top;
+	width:160px;
+	height:120px;
+	border-radius:5px 5px 5px 5px;
+	margin:0 20px 30px 0;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.pr_bg_03_2_4{
+	font-size:14px;
+	color:#666666;
+	line-height:20px;
+}
+.pr_bg_04fic_2{
+	width:68px;
+	height:120px;
+	border-radius:5px 5px 5px 5px;
 }
 </style>

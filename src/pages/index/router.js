@@ -82,6 +82,7 @@ import pushTool from './views/tool/tool/pushTool.vue'
 
 import syPage from './adPage/syDown.vue'
 import toluser from './views/tool/user/user.vue'
+import pushZp from './views/push_Zp/index.vue'
 
 Vue.use(Router)
 const router = new Router({
@@ -114,7 +115,7 @@ let wb = [
 			{path: '/special_first',name: 'special_first',component: special_first},						
 			{path: '/index',name: 'home',component: Home},
 			{path: '/tip',name: 'tip',component: Tip},	
-				
+			{path: '/pushZp',name: 'pushZp',component: pushZp},		
 				
 			{path: '/upload',name: 'upload',component: upload},
 			

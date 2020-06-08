@@ -23,6 +23,7 @@ export default {
 		return str[0].substring(0, 1) + '****' + str[0].substr(-1, 1) + '@' + str[1];
 	},		
 	money_deiv:function(val){
+		if(!val){return '0.00'}
 		let str = ''+val;
 		return  str.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	},

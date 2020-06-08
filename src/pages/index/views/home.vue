@@ -30,7 +30,8 @@
 				</template>			
 			</list>
 		</div>
-		<navRight></navRight>		
+		<navRight></navRight>	
+		
 	</div>
 </template>
 <script>
@@ -40,6 +41,7 @@ import list from '../components/list';
 import box_a from '../components/box_a';
 import pTop from '../components/postionTop';
 import navRight from '../components/nav_right';
+
 export default {
 	components:{baner,list,box_a,pTop,workNav,navRight},
 	name: 'home',
@@ -47,6 +49,7 @@ export default {
 		return {
 			pagename:"首页",
 			data:{
+				
 				ajax:{
 					url:'work_worklist',
 				},
@@ -65,17 +68,6 @@ export default {
 			options:[],
 			value:'',
 			specialname:""
-			// Ds_01:[
-			// 	{n:'UI图标',t:'UI Icon',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/1.svg'},
-			// 	{n:'摄影',t:'Photography',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/2.svg'},
-			// 	{n:'视觉设计',t:'Visual Design',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/3.svg'},
-			// 	{n:'动效制作',t:'Animation production',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/4.svg'},
-			// 	{n:'脚本制作',t:'Script production',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/5.svg'},
-			// 	{n:'插画',t:'Illustration',u:'/#/project',i:'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/home/6.svg'}
-			// ],
-			// List:[],
-			// fls:[],
-			// cOn:'全部',
 		}
 	},
 	mounted: function(){

@@ -23,16 +23,21 @@
 			</ul>
 		</div>
 		<loginDialog ref="logindialog" :config="outc"></loginDialog>
-		
+		<component v-bind:is="tancD.zj" v-model="tancD" ref="tanbox"></component>
 	</div>
 </template>
 <script>
 import loginDialog from '../components/loginDialog'
+import home_tc from './home_tc';
 export default {
-	components:{loginDialog},
+	components:{loginDialog,home_tc},
 	name: 'banner',
 	data(){
 		return {
+			tancD:{
+				// zj:'home_tc'
+				zj:''
+			},
 			list:[],
 			on:0,
 			jsan:'',
