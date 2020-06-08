@@ -1,7 +1,30 @@
 <template>
 	<tanC :title="'交稿记录'">
 		<template v-slot:todo="{ todo }">
-			<div class="jglogbox">
+			<div class="newLog_01" >
+				<div class="newLog_02" v-for="el in List">
+					<div class="newLog_03">
+						<div class="newLog_04"  :style="setBg(el)"></div>
+						<div class="newLog_05">
+							<div class="newLog_06">
+								<span class="newLog_07"></span>
+								<span class="newLog_08">文件名称文件名称文件名称文件名称文件….zip</span>
+							</div>
+							<div class="newLog_09">
+								文件大小：100M
+							</div>
+							<div class="newLog_09">交稿时间：2019-09-09 09:00</div>
+							<div class="newLog_09 newLog_10">验收时间：2019-09-09 09:00</div>
+						</div>
+					</div>
+					<div class="newLog_12">
+						交稿说明交稿说明交稿说明交稿说明交稿说明交稿说明交稿说明交稿说明交稿说明交稿
+					</div>
+					<div class="newLog_13"></div>					
+				</div>
+				
+			</div>
+		<!-- 	<div class="jglogbox">
 				<div class="jgbix jgtitle">
 					<div>交稿文件/网盘链接</div>
 					<div>文件大小/提取密码</div>
@@ -59,7 +82,7 @@
 					<img @click="closepick()" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg"class="ylt_03 pend">
 				</div>
 				
-			</div>
+			</div> -->
 		</template>			
 	</tanC>
 </template>
@@ -104,10 +127,21 @@ export default {
 		}
 	 
 	},
+
 	mounted: function(){
 		this.init();
 	},
 	methods: {
+		setBg(el){
+			let str = el.preview_pic;
+			try{
+				str = JSON.parse(el.preview_pic)[0]
+			}catch(e){
+				
+			}
+		
+			return "background-image: url("+str+");";
+		},
 		checkCh(el){	
 			if(el.status==4 && el.check_steps!=1 && [-2,-1,1].indexOf(+el.check_status)==-1){
 				return true;
@@ -151,160 +185,73 @@ export default {
 </script>
 
 <style>
-
-.jglogbox{
-	text-align: left;
-	padding: 20px 60px;
+.newLog_01{
+	width: 720px;
+	padding: 40px 0;
+	max-height: 600px;
 	overflow: hidden;
 	overflow-y: auto;
-	width: 944px;
-	height: 553px;
 }
-
-
-.jgtitle{
-
-	background:rgba(242,242,242,.5);
-	font-size:14px;
-	font-weight:400;
-	color:rgba(51,51,51,1);
-	line-height:38px;
+.newLog_02{
+	padding: 20px;
+	margin: 0 auto 20px;
+	width:530px;
+	background:rgba(255,255,255,1);
+	border-radius:5px;
+	border:1px solid rgba(0,0,0,0.15);
 }
-.jgbix>div{
+.newLog_03{
+	
+}
+.newLog_04{
 	display: inline-block;
 	vertical-align: top;
+	width:136px;
+	height:102px;
+	border-radius:5px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 	margin-right: 20px;
-	text-align: left;
-
 }
-.log_hid{
-	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-.jgbix>div:nth-child(1){
-	padding-left:20px;
-	width: 245px;
-	height: 58px;
-
-}
-.jgbix>div:nth-child(2){
-	width: 116px;
-}
-.jgbix>div:nth-child(3){
-	width: 105px; 
-}
-.jgbix>div:nth-child(4){
-	width: 104px;
-}
-.jgbix>div:nth-child(5){
-	width: 104px;
-}
-.jgbix>div:nth-child(6){
-	min-width: 28px;
-	max-width: 198px;
-}
-.jgcent{
-
-	font-size:14px;
-	font-weight:400;
-	color:rgba(102,102,102,1);
-	line-height: 53px;
-	border-bottom:1px solid rgba(244,246,249,1);
-	float: left;
-}
-.log_tipbox{
-	cursor: pointer;
-	position: relative;
-	color: #33B3FF;
-	float: left;
-	margin-left: 5px;
-}
-.log_tipbox2{
-	color: #666;
-}
-.log_tipbox2 .log_tip{
-	width: auto;
-	left: 0;
-}
-.log_tipbox2 .log_tip:after{
-	left: 30px;
-}
-.log_tipbox:hover>.log_tip{
+.newLog_05{
 	display: inline-block;
+	vertical-align: top;
 }
-.log_tip{
-	display: none;
-	z-index: 1;
-	position: absolute;
-	top: 50px;
-    width: 232px;
-    right: -85px;  
-    background: #fff;
-    -webkit-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
-   	box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.1);
-   	box-sizing: border-box;
-	word-wrap:break-word;
-    padding: 20px 16px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #666;
-    line-height: 20px;
-    text-align: left;
+.newLog_06{
+	margin-bottom: 8px;
 }
-.log_tip1{
-	display: block;
-	margin-bottom: 10px;
+.newLog_07{
+	display: inline-block;
+	vertical-align: top;
+	width:62px;
+	height:22px;
+	background:rgba(255,146,0,0.1);
+	border-radius:4px;
+	border:1px solid rgba(255,146,0,1);
+	margin-right: 10px;
 }
-.log_tip:after{
-	content: "";
-    position: absolute;
-    left: 50%;
-    top: -3px;
-    width: 15px;
-    height: 15px;
-    background: #fff;
-    -webkit-transform: rotate(45deg) translateX(-50%);
-    transform: rotate(45deg) translateX(-50%);
-    border: 1px solid rgba(152, 144, 144, 0.1);
-    border-right: 0;
-    border-bottom: 0;
+.newLog_08{
+	font-size:14px;
+	color:rgba(51,51,51,1);
+	line-height:24px;
+	margin-bottom: 8px;
 }
-.nogd{
-	height: 200px;
+.newLog_09{
+	font-size:12px;
+	color:rgba(187,187,187,1);
+	line-height:18px;
+	margin-bottom: 8px;
 }
-.ylt{position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 100004;
-	background: rgba(0, 0, 0, 0.4);
-	width: 100%;
-	height: 100%;
+.newLog_10{
+	margin-bottom: 0;
 }
-.ylt>div{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	background: #fff;
-	padding: 30px;
-	border-radius: 5px;
-	-webkit-transform: translate(-50%,-50%);
-	transform: translate(-50%,-50%);
-}
-.ylt>div>img.ippic{
-	display: block;
-	max-width: 1300px;
-	max-height: 600px;
-}
-.ylt_03{
-	position: absolute;
-    top: 10px;
-    right: 10px;
-}
-.log_hid_00_01{
-	height: 58px;
-}
-.logqxgj{
-	background: none;
+.newLog_12{
+	margin-top: 10px;
+	padding: 10px 0;
+	border-top:1px solid rgba(244,246,249,1);
+	font-size:14px;
+	color:rgba(102,102,102,1);
+	line-height:20px;
 }
 </style>
