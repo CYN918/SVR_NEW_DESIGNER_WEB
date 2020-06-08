@@ -284,14 +284,14 @@ export default{
 		
 		handleSizeChange(val) {
 		
-			this.page.limit = val;
-			this.page.page=1;
+			this.limit = val;
+			this.page=1;
 			this.a_getWork();
 			
 		},
 		handleCurrentChange(val) {	
 			this.goTop=1;	
-			this.page.page = val;
+			this.page = val;
 			this.a_getWork();
 		},
 	}
