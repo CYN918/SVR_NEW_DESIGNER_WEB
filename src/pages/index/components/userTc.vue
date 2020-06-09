@@ -86,7 +86,7 @@ export default {
 			this.Follow_del();
 		},
 		Follow_add(on){
-			this.bdtj('首页','作品-创作者hover','点击[关注]');
+			this.bdtj(this.tjData[1][0],this.tjData[1][1],'点击[关注]');
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 				return
@@ -129,7 +129,7 @@ export default {
 				this.follwTyle=0;
 				if(da=='error' || da=='104'){return}
 				Message({message: '取消关注成功'});
-				this.bdtj('首页','作品-创作者hover','成功取消关注')
+				this.bdtj(this.tjData[1][0],this.tjData[1][1],'成功取消关注');
 				this.$set(this.tcData.user_info,'follow_flag',0);
 				
 			}).catch(()=>{

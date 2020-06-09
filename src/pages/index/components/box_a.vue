@@ -109,8 +109,13 @@ export default {
 		},
 		tongj(a){
 			if(!a){return}
-			console.log(a)
-			this.bdtj(a[0],a[1],'--');
+			
+			if(!a[2]){
+				this.bdtj(a[0],a[1],'--');
+			} else {
+				this.bdtj(a[0],a[1],a[2]);
+			}
+			
 		},
 		backtime(time){		
 			return	window.getTimes(time);

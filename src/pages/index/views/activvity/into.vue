@@ -24,11 +24,11 @@ export default {
 					type:1,
 				},
 				
-				bdtj:[['活动','Tag-入围作品-翻页'],['活动','Tag-入围作品-更改单页显示数']]
+				bdtj:[['活动详情页','Tag-入围作品-翻页'],['活动','Tag-入围作品-更改单页显示数']]
 			},	
 			nodTip:'还没有入围作品，敬请期待',
 			pagename:"活动详情页",
-			bdtjdata:[['活动','Tag-入围作品-作品'],['活动','Tag-入围作品-创作者']],
+			bdtjdata:[['活动详情页','点击展示作品',''],['活动详情页','作品-创作者hover','进入个人主页']],
 		}		
 	}, 
 	created(){
@@ -41,6 +41,7 @@ export default {
 				return false
 			}	
 			this.data.pr.activity_id = this.$route.query.id;
+			this.bdtjdata[0][2]=this.$route.query.id;
 		}
 	}
 }
