@@ -109,7 +109,7 @@ export default {
 		},
 		tongj(a){
 			if(!a){return}
-			
+			console.log(a);
 			if(!a[2]){
 				this.bdtj(a[0],a[1],'--');
 			} else {
@@ -131,7 +131,7 @@ export default {
 			if(this.tjData && this.tjData[0]){
 				this.tongj(this.tjData[0]);
 			}
-			this.bdtj("首页",this.$parent.$parent.specialname,n);
+			//this.bdtj("首页",this.$parent.$parent.specialname,n);
 
 			window.open('#/cont?id='+this.el.work_id)
 

@@ -327,7 +327,7 @@ export default {
 		
 		showHb(is){
 			if(is==1){
-				this.bdtj('顶部栏','[退出登录]','--');
+				this.bdtj('顶部栏','个人信息','[退出登录]');
 			}
 			this.$refs.out.show();		
 		},

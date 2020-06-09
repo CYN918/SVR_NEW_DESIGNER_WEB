@@ -57,7 +57,8 @@ export default {
 		},		
 		goZP(a,b){
 			if(b){
-				this.bdtj(b[0],b[1],'--');
+				console.log(b);
+				this.bdtj(b[0],b[1],b[2]);
 			}			
 			this.$router.push({path: a})			
 		},	
