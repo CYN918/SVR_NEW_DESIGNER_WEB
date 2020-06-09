@@ -79,7 +79,7 @@
 					<img class="tAncType4_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/email01.png" alt="">
 					<div class="tAncType4_2">
 						激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/>
-						请及时登录邮箱，点击邮件中的链接激活帐户。
+						请及时登录邮箱，点击邮件中的链接激活账户。
 					</div>
 				</div>
 				
@@ -308,7 +308,7 @@ export default {
 			this.$refs.tcBox.close();
 		},
 		gosetPersonal(a){
-			this.bdtj('帐号设置','帐号安全-'+a,'--');
+			this.bdtj('账号设置','账号安全-'+a,'--');
 			if(this.form.contributor_type==2){
 				this.$router.push({path: '/setEnterprise'})
 				return
@@ -322,7 +322,7 @@ export default {
 			this.bindXg(this.jbnData.type,this.jbnData.type2);
 		},
 		bindXg(type,type2,n){
-			this.bdtj('帐号设置','第三方账号绑定',n);
+			this.bdtj('账号设置','第三方账号绑定',n);
 			let pr = {
 				access_token:window.userInfo.access_token,
 				third_part:type,
@@ -373,6 +373,7 @@ export default {
 				this.close2();
 				this.tAncType=0;
 				Message({message: '密码修改成功'});
+				this.bdtj('账号设置','修改登录密码','[确定]并完成修改');
 			})
 		},
 		qdTc5(){
@@ -415,6 +416,7 @@ export default {
 				this.close2();
 				this.tAncType=0;
 				Message({message: '密码修改成功'});
+				this.bdtj('账号设置','修改登录密码','[确定]并完成修改');
 			})
 		},
 		checkPwor(on){
@@ -584,7 +586,7 @@ export default {
 				this.outc.title="修改登陆密码";
 			}
 			if(t2){
-				this.bdtj('帐号设置','修改'+t+'-'+t2,'点击[修改]');
+				this.bdtj('账号设置','修改'+t2,'点击[修改]');
 			}
 			if(on==5){
 				this.outc.title="解除绑定确认";
@@ -605,7 +607,7 @@ export default {
 
 		Userupdate(){
 			
-			this.bdtj('帐号设置','帐号安全-保存资料','--');
+			this.bdtj('账号设置','账号安全-保存资料','--');
 			let postData = {
 				access_token:window.userInfo.access_token,
 				username:this.form.username,

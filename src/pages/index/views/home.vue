@@ -58,7 +58,7 @@ export default {
 			topCn:{
 				min:670,
 			},
-			bdtjdata:[['首页','作品'],['首页','创作者']],
+			bdtjdata:[['首页','作品'],['首页','作品-创作者hover','进入个人主页']],
 			type:'rec',
 			isTop:'',
 			adFn:'',
@@ -98,14 +98,15 @@ export default {
 			
 			if(this.value){
 				this.data.pr.classify_name = this.value;
+				this.bdtj("首页","点击作品分类",this.data.pr.classify_name);
 			}else{
 				this.data.pr = {
 					type:this.data.pr.type
 				};
+				this.bdtj("首页","点击作品分类","全部");
 			}
 			this.mJs.scTop(702);
 			this.$refs.sfafa.sxfn();
-			this.bdtj("首页","点击作品分类",this.data.pr.classify_name);
 		},
 		qhZt(id){
 			this.data.pr.type = id;

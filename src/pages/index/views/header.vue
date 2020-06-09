@@ -6,7 +6,7 @@
 			v-for="(el,index) in topNData" 
 			:key="index" 
 			:class="['pend',ison==el.path?'router-link-active':'']"
-			@click="goZP(el.path,el.n)"
+			@click="goZP(el.path,el.n,'0')"
 			>{{el.n}}
 			
 			<img v-if="el.t=='NEW'" class="hed_new" :src="imgPath+'new/tools/02.svg'" />
@@ -274,8 +274,13 @@ export default {
                 path:'/index'
             })
         },
-		goZP(a,b){
-			this.bdtj('顶部栏','个人消息','点击['+ b +']');
+		goZP(a,b,c){
+			if(!c){
+				this.bdtj('顶部栏','个人消息','点击['+ b +']');
+			} else {
+				this.bdtj('顶部栏',b);
+			}
+			
 			this.$router.push({path: a})			
 		},
 		
@@ -322,7 +327,7 @@ export default {
 		
 		showHb(is){
 			if(is==1){
-				this.bdtj('通用模块','顶部栏点击_退出','--');
+				this.bdtj('顶部栏','[退出登录]','--');
 			}
 			this.$refs.out.show();		
 		},

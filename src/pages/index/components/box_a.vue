@@ -100,9 +100,9 @@ export default {
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
 			//console.log("首页",on.work_name,on.user_info.username)
-			if(this.$parent.pagename){
-				this.bdtj(this.$parent.pagename,'作品-创作者hover','进入个人主页')
-			}
+			// if(this.$parent.pagename){
+			// 	this.bdtj(this.$parent.pagename,'作品-创作者hover','进入个人主页')
+			// }
 			
 			this.$router.push({path: '/works',query:{id:this.el.user_info.open_id}})
 			

@@ -62,7 +62,7 @@ export default {
 		goR(d){	
 			
 			if(this.tjData){
-				this.bdtj(this.tjData[1][0],this.tjData[1][1],'--');
+				this.bdtj(this.tjData[1][0],this.tjData[1][1],this.tjData[1][2]);
 			}
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
