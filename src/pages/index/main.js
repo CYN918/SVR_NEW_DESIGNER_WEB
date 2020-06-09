@@ -4,12 +4,14 @@ import api from '../../api/index'
 import App from './App.vue'
 import router from './router'
 import mJs from '../../assets/comm.js'
+import comState from '../../assets/state.js'
 // import LoginDom from './allCom/login/'
 // Vue.use(LoginDom);
 
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
 Vue.prototype.mJs = mJs
+Vue.prototype.comState = comState
 Vue.prototype.imU = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/'
 Vue.prototype.api.mcommjs = window.mycomJs;
 Vue.prototype.goFn = (n)=>{

@@ -99,7 +99,7 @@
 		
 		
 		<div class="btns_ps_zb">
-			<span @click="subpush()" class="btn_ps_1 pend">提交</span><span class="pend">今日可交稿次数10次</span>
+			<span @click="subpush()" class="btn_ps_1 pend">提交</span><!-- <span class="pend">今日可交稿次数10次</span> -->
 		</div>
 		<component v-bind:is="tanc2.zj" v-model="tanc2" ref="tanbox"></component>
 	</div>
