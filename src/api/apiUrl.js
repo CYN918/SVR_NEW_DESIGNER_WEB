@@ -414,16 +414,16 @@ export default {
 	rejectInfo:{
 		url:'/api/mobileshow/rejectInfo',method:'post',baseURL:0,isType:{cancelToken:1}
 	},
-	
-	
-	
-	
 	fileList:{
 		url:'/Api/User/fileList',method:'post',baseURL:0,isType:{cancelToken:1}
 	},
 	
 	fileTotalSummary:{
 		url:'/Api/User/fileTotalSummary',method:'post',baseURL:0,isType:{cancelToken:1}
+	},
+	
+	personalLongList:{
+		url:'/api/project/personalLongList',method:'post',baseURL:0,isType:{cancelToken:1}
 	},
 	
 	

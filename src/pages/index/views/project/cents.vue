@@ -20,46 +20,18 @@
 					</div>
 				</div>
 				<div class="cents_box_status">
-					<div class="cenDjs_5" v-if="deta.status == '1'">
+					
+					<div class="cenDjs_5">
 						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-						<p>招募期</p>
+						<p :style="(deta.status == '3' && deta.is_rejected == '1')?'color:rgba(255,59,48,1);':''">{{stateType}}</p>
 					</div>
-					<div class="cenDjs_5" v-if="deta.status == '0'">
-						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-						<p>待发布</p>
-					</div>
-					<div class="cenDjs_5" v-if="deta.status == '2'">
-						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-						<p>选标期</p>
-					</div>
-					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) >= new Date()">
-						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-						<p>制作期</p>
-					</div>
-					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected != '1' && new Date(Date.parse(deta.delivery_deadline)) < new Date()">
-						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-						<p>已延期</p>
-					</div>
-					<div class="cenDjs_5" v-if="deta.status == '3' && deta.is_rejected == '1'">
-						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-						<p style="color:rgba(255,59,48,1);">未通过</p>
-					</div>
-					<div class="cenDjs_5" v-if="deta.status == '4'">
-						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-						<p>待审核</p>
-					</div>
-					<div class="cenDjs_5" v-if="deta.status == '5'">
-						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-						<p>已验收</p>
-					</div>
-					<div class="cenDjs_5" v-if="deta.status == '-1'">
-						<p><img :src="imgSig+'prcent/xm_icon_state.svg'"/><i>当前状态</i></p>
-						<p>已终止</p>
-					</div>
-					<div class="jz_time" v-if="djsshow.h || deta.status==1">
+					
+
+					<div  class="jz_time" v-if="deta.project_type!=1 && (djsshow.h || deta.status==1)">
 						<p><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止报名时间</i></p>
 						<detailGd :obj="pzTop" ref="topGd1"></detailGd>
 					</div>
+					
 					<div class="jz_time" v-if="deta.status==4 || deta.status==3">
 						<p v-if="isShow"><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>截止交稿时间</i></p>
 						<p v-else><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>项目已延期交稿</i></p>
@@ -238,6 +210,31 @@ export default {
 			islog:'',
 		}
 	},
+	computed: {
+	    stateType:function(){
+			if(this.deta.project_type==1){
+				return '长期招募';
+			}
+			let map = {
+				'0':'待发布',
+				'1':'招募期',
+				'2':'选标期',
+				'3':'制作期',
+				'4':'待审核',
+				'5':'已验收',
+				'-1':'已终止',
+			}
+			let str = map[this.deta.status];
+			if(this.deta.status==3){
+				if(this.deta.is_rejected==1){
+					return '未通过';
+				}
+			
+				str = new Date(Date.parse(this.deta.delivery_deadline))<new Date()?'已延期':'制作期';
+			}
+			return str;
+		},
+	},
 	mounted: function(){
 		this.init();
 
@@ -407,7 +404,7 @@ export default {
 					id:da.id,
 				};
 				this.deta = da;
-				
+				console.log(111111111);
 				setTimeout(()=>{
 					if(this.$refs.xmDp){
 						this.$refs.xmDp.init();
@@ -986,6 +983,7 @@ export default {
 	box-shadow:0px 16px 32px 0px rgba(0,0,0,0.2);
 	border-radius:10px;
 	margin-left: 20px;
+	padding: 0 10px;
 }
 .bm_dp{
 	width:116px;

@@ -11,7 +11,28 @@
 				
 				<div class="pushGj_03 ">
 					<div class="pushGj_03_1">内容预览图<span class="pushGj_iop">1M以内，JPG/PNG/GIF</span></div>
-					<div class="pugjFm_01 closeX_1Hv">
+					
+					<div class="ps_zp_07 ps_zp_pic_4 phs_po">
+						<div v-if="imgs.length<3">
+							<span class="add_x01">
+								<span class="pend">+</span>
+								上传图片
+							</span>
+							<uploadFileArr v-model="imgs" :cg="fileConfig" ref="upfile"></uploadFileArr>			
+						</div>
+						<div v-for="(el,index) in imgs" :style="setBg(el.url)">
+							<jdt v-if="el.state==1" v-model="el.bfb"></jdt>
+							<div class="ps_zp_pic_4_1">
+								<div @click="upImg(index)" class="ps_zp_pic_4_3">替换图片</div>
+								<img @click="delet(index)" class="ps_zp_pic_4_2" :src="setImgU('push_Zp/zptg_image_icon_close.svg')">
+							</div>					
+						</div>
+					</div>			
+					
+					
+					
+					
+					<!-- <div class="pugjFm_01 closeX_1Hv">
 						<div class="cd_d pend" v-if="!preview_pic && !isJdt1">
 							<div>+</div>
 						</div>
@@ -22,7 +43,7 @@
 						<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
 						<jdt v-if="isJdt1" ref="jdt1"></jdt>
 						
-					</div>
+					</div> -->
 				</div>
 				<div class="pushGj_02">
 					<div class="pushGj_03_1">稿件上传<span class="pushGj_iop">文件大小为1GB内，建议压缩后上传</span><span @click="qhType(2)" class="pushGj_ts pend">稿件太大？用网盘传吧</span></div>
@@ -113,14 +134,15 @@
 import tanC from '../../components/tanC';
 import uploadFile from '../../components/uploadFile'
 import jdt from '../../components/jdt'
+import uploadFileArr from '../../components/uploadFileArr'
 export default {
-	components:{tanC,uploadFile,jdt},
+	components:{tanC,uploadFile,uploadFileArr,jdt},
 	props:{
 		datad:Object
 	},
 	data(){
 		return{
-
+			imgs:[],
 			eell:'',
 			customize:'',
 			fileList3:[],
@@ -193,10 +215,19 @@ export default {
 		pushfiled(){
 			
 			let pr = {};
-			if(!this.preview_pic){
+			if(this.imgs.length==0){
 				this.$message({message: '请先上传预览图'});
-				return
 			}
+			let arr = [];
+			for(let i=0,n=this.imgs.length;i<n;i++){
+				if(this.imgs[i].bfb!=100){
+					this.tipMr('预览图正在上传请稍后提交')
+					return
+				}
+				arr.push(this.imgs[i].url)
+			}
+			
+			pr.preview_pic = JSON.stringify(arr);
 			if(this.type==1){
 				
 				if(!this.fileList3[0]){
@@ -591,5 +622,8 @@ export default {
 	color: #33B3FFFF;
 	margin-left: 5px;
 	cursor: pointer;
+}
+.phs_po{
+	text-align: left;
 }
 </style>

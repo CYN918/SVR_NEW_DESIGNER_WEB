@@ -2,9 +2,9 @@
 	<div class="opfi">
 		<tophead class="xm_u_01" :con="navData"></tophead>
 		<div class="csBox opfi2">
-			<list :config="data" class="iopdlf_01" ref="listDom">
-				<template v-slot:todo="{ todo }">
-					<cent :elm="todo"></cent>
+			<list :config="data" class="pr_ml_0" ref="listDom">
+				<template class="cs" v-slot:todo="{ todo }">
+					<cent  :elm="todo"></cent>
 				</template>			
 			</list>
 			
@@ -15,7 +15,7 @@
 import tophead from './myHead';
 
 import list from '../../components/list';
-import cent from '../project/cent_2';
+import cent from '../project/cent_3';
 export default {
 	components:{tophead,list,cent},
 	name: 'myAll',
@@ -24,7 +24,6 @@ export default {
 			navData:{
 				title:'我的项目',
 				list:[
-					// {a:'/projectAll',b:'全部'},
 					{a:'/projectBm',b:'已报名'},
 					{a:'/projectZz',b:'制作中'},
 					{a:'/projectYs',b:'已验收'},									
@@ -32,48 +31,37 @@ export default {
 				bdtj:'我的项目'				
 			},
 			isTypeList:{
-				// projectAll:'',
 				projectBm:'1',
 				projectZz:'2',
 				projectYs:'3',
-			},
-			
+			},			
 			data:{
 				ajax:{
 					url:'pr_personalList',
-				
 				},
 				pr:{},
 				isDjs:1,
-
 			},
-		
-			
 		}
 	},
 	created(){
-		this.init();
-	
+		this.init();	
 	},	
-	watch: {
-		
+	watch: {		
 		'$route': function() {
 			this.init();
 			this.$refs.listDom.getData();
 		},
 	},
-	methods: {
-		
+	methods: {		
 		init(){
 			this.data.pr = {};
 			if(this.$route.name=='projectAll'){return}			
 			this.data.pr.type =  this.isTypeList[this.$route.name];
-		},
-		
+		},		
 	}
 }
 </script>
-
 <style>
 .opfi{
 	background: #f4f6f9;
@@ -98,5 +86,11 @@ export default {
 }
 .xm_u_01 .myWorks_4>a{
 	font-size: 14px;
+}
+.pr_ml_0>li{
+	display: block !important;
+}
+.csBox .pr_ml_0>li:nth-child(4n+4)>div {
+    margin-right: auto !important;
 }
 </style>

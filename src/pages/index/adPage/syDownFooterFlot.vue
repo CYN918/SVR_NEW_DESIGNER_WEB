@@ -1,7 +1,7 @@
 <template>
 	<p class="tfbox">
-		<img @click="goFn('/syPage')" class="tfbox_bn" :src="imgPath+'tools/tip_banner.jpg'"/>
-		<img @click="checkAd()" class="tfbox_cl" :src="imgPath+'tools/Toast_closed.svg'"/>
+		<img @click="goFn('/syPage')" class="tfbox_bn" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/tip_banner.jpg"/>
+		<img @click="checkAd()" class="tfbox_cl" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/Toast_closed.svg"/>
 	</p>
 </template>
 <script>

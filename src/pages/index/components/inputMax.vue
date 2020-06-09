@@ -1,6 +1,6 @@
 <template>
 	<div class="input_max">
-		<input :placeholder="placeholder" type="text" v-model="input" name="" id="">
+		<input @focus="focus" @blur="blur" :placeholder="placeholder" type="text" v-model="input" name="" id="">
 		<span>{{input.length}}/{{max}}</span>
 	</div>
 </template>
@@ -44,7 +44,13 @@ export default{
 	methods:{
 		init(){
 			this.input = this.value;
-		}
+		},
+		focus(){
+			 this.$emit('focus');
+		},
+		blur(){
+			 this.$emit('blur');
+		},
 	}
 }	
 </script>

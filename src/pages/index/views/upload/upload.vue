@@ -104,7 +104,7 @@
                     </el-card>
                 </el-col>
                 <el-col :span="8">
-                    <el-card class="commonCard" style="height: 210px">
+                    <el-card class="commonCard" style="height: 380px">
                         <div slot="header">
                             <span>上传附件 <span class="description">1GB以内</span></span>
                         </div>
@@ -134,30 +134,37 @@
 							</label>
 						</div>
                     </el-card>
-                    <el-card class="commonCard" style="height: 148px">
-                        <div slot="header" style="position: relative">
-                            <span>设为投稿作品 <span class="description" style="margin-left:10px">若作品符合需求，平台会联系你沟通收录细节</span></span>
-							<span class="btBlue" style="left: 100px"></span>
-                        </div>
-						<div class="radio-group" v-if="checkisptggr()">
-							<label for="platform1">
-								<span :class="[form.is_platform_work=='1'?'_chosed':'']">
-									<i class="el-icon-check"></i>
-								</span>
-								<input id="platform1" type="radio" value="1" v-model="form.is_platform_work">是
-							</label>
-							<label for="platform2">
-								<span :class="[form.is_platform_work=='0'?'_chosed':'']">
-									<i class="el-icon-check"></i>
-								</span>
-								<input id="platform2" type="radio" value="0" v-model="form.is_platform_work">否
-							</label>
-						</div>
-						<div class="certification" v-else>你还不是供稿人，现在<span @click="goZP">立即认证</span>，享受你的作品收益</div>
-                    </el-card>
                 </el-col>
             </el-row>
-
+			<!-- <el-row>
+				<el-col>
+			        <el-card class="commonCard  up_tg_01x">
+			            <div slot="header" style="position: relative">
+			                <span>设为投稿作品 <span class="description" style="margin-left:10px">设置后，一经验收即可每月获得平台收益分成</span></span>
+							<span class="btBlue" style="left: 100px"></span>
+			            </div>
+						<div class="up_tg_01 up_tg_03">
+							<ridobtn v-model="form.is_platform_work" :option="tgDat"></ridobtn>
+							<span class="up_zp_02 pend">投稿必读</span>
+						</div>
+						<div class="up_tg_01 up_tg_02">
+							<div class="up_tg_04">
+								<div class="up_tg_04_1">作品源文件<span>建议压缩后上传，1GB以内</span></div>
+								<uploadfle v-model="tgFile" :confg="tgConfg"></uploadfle>
+							</div>
+							<div class="up_tg_05">
+								<div class="up_tg_04_1">备注说明</div>
+								<div class="up_tg_05_1">
+									<textarea placeholder="请输入备注说明…" v-model="eell" ></textarea>
+									<div class="tipm01">{{eell.length}}/140</div>
+								</div>
+								
+							</div>
+						</div>
+						
+					</el-card>
+			    </el-col>
+			</el-row> -->
             <div class="handleContainer">
                 <el-button v-if="form.status != 2" @click="userSave">保存</el-button>
                 <el-button v-if="form.status != 2" @click="seeCg">预览</el-button>
@@ -186,19 +193,33 @@ import {Message} from 'element-ui'
 import { Loading } from 'element-ui';
 import TcBox from '../../components/TcBox'
 import UploadImagMixin from './uploadImag'
+import ridobtn from './ridobtn'
+import uploadfle from './uploadfle'
 export default {
     name: 'index',
-	components: { VueUeditorWrap,  UplodImg, uploadFm, TcBox},
+	components: { VueUeditorWrap,  UplodImg, uploadFm, TcBox,ridobtn,uploadfle},
 	mixins: [UploadImagMixin],
     data(){
         return {
+			tgFile:{},
+			tgConfg:{
+				max:1*1024*1024,
+				type:['image/jpeg','image/png','image/gif'],
+				userType:'user_info',
+				btnName:'请选择文件'
+			},			
+			tgDat:[
+				{k:'是',v:'1'},
+				{k:'否',v:'0'}
+			],
             inputVisible: false,
             nameNull: false,
             typeNull: false,
-			tanData:{},
+			eell:'',
 			outc: {
 				title: '上传封面',
 			},
+			tGData:{},
 			tcZj:'',
 			tcData:{},
 			isUpd:'',
@@ -219,7 +240,7 @@ export default {
 				attachment_visible:1,
 				labels:[],
 				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
-				is_platform_work:0,	
+				is_platform_work:'0',	
 				content:'<p style="color:#999">从这里开始编辑作品内容...</p>'
 			},
 			uD:{},
@@ -295,7 +316,13 @@ export default {
 		}
 		
 	},
-	watch: {	
+	watch: {
+		'eell'(a,b){
+			if(a.length>140){
+				this.eell = b;
+				return
+			}		
+		},
 		'form.work_name'() {				
 			this.checkPage1();
             if (this.form.work_name) this.nameNull = false
@@ -357,6 +384,7 @@ export default {
 		if (dom) dom.style.right = right + 'px'
 	}, 
 	methods: {
+
 		scrollToTop() {
 			window.scrollTo({
 				top: 0,
@@ -1127,6 +1155,10 @@ export default {
 .uploadContainer .commonCard{
     margin-top: 20px;
 }
+.uploadContainer .up_tg_01x .el-card__body{
+	padding: 0 20px;
+}
+
 .uploadContainer .el-col{
     position: relative;
     padding: 0 15px;
@@ -1448,5 +1480,64 @@ div.edui-box{
 }
 div.edui-box{
 	line-height: 1!important;
+}
+
+.up_zp_02{
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 20px;
+	font-size:14px;
+	color:rgba(51,179,255,1);
+	line-height:24px;
+}
+.up_tg_03{
+	padding-top: 30px;
+	width: 386px;
+}
+.up_tg_01{
+	display: inline-block;
+	vertical-align: top;
+}
+.up_tg_02>div{
+	display: inline-block;
+	vertical-align: top;
+	padding: 30px 0 0 39px;
+}
+.up_tg_04{
+	display: inline-block;
+	vertical-align: top;
+	width: 357px;
+	height: 157px;
+	border-left: 1px solid #E5E5E5;
+	border-right: 1px solid #E5E5E5;
+}
+.up_tg_04_1{
+	font-size:14px;
+	color:rgba(30,30,30,1);
+	line-height:20px;
+	margin-bottom: 20px;
+}
+.up_tg_04_1>span{
+	margin-left: 8px;
+	font-size:12px;
+	color:rgba(187,187,187,1);
+}
+.up_tg_05_1{
+	position: relative;
+}
+.up_tg_05_1>textarea{
+	padding: 10px;
+	width:360px;
+	height:68px;
+	border-radius:5px;
+	border:1px solid rgba(0,0,0,0.15);
+}
+.up_tg_05_1>div.tipm01{
+	position: absolute;
+	right: 14px;
+	bottom: 10px;
+	font-size:14px;
+	color:rgba(187,187,187,1);
+	line-height:20px;
 }
 </style>
