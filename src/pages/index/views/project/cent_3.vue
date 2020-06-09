@@ -420,6 +420,7 @@ export default {
 	position: absolute;
 	left: 0;
 	bottom: 0;
+	width: 240px;
 }
 .pr_ml_9>span{
 	cursor: pointer;
