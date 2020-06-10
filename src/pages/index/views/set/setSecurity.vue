@@ -34,10 +34,10 @@
 							<span>认证状态</span><div class="rzzt_1">
 							{{form.is_contributor==1?'已认证':form.contributor_format_status==1?'认证中':'未认证'}}
 							</div>
-							<div v-if="form.contributor_format_status==0" class="btns pend btns_js" @click="gosetPersonal('认证')">
+							<div v-if="form.contributor_format_status==0" class="btns pend btns_js" @click="gosetPersonal('[立即认证]')">
 								立即认证
 							</div>
-							<div v-else-if="form.contributor_format_status!=1" class="btns pend " @click="gosetPersonal('修改')">
+							<div v-else-if="form.contributor_format_status!=1" class="btns pend " @click="gosetPersonal('已认证[修改]')">
 								修改
 							</div>
 						
@@ -308,7 +308,7 @@ export default {
 			this.$refs.tcBox.close();
 		},
 		gosetPersonal(a){
-			this.bdtj('账号设置','账号安全-'+a,'--');
+			this.bdtj('账号设置','平台供稿人',a);
 			if(this.form.contributor_type==2){
 				this.$router.push({path: '/setEnterprise'})
 				return

@@ -1,6 +1,6 @@
 <template>
 	<p class="tfbox">
-		<img @click="goFn('/syPage')" class="tfbox_bn" :src="imgPath+'tools/tip_banner.jpg'"/>
+		<img @click="goFn('/syPage',['来电秀工具-列表页','[点击]app底部','--'])" class="tfbox_bn" :src="imgPath+'tools/tip_banner.jpg'"/>
 		<img @click="checkAd()" class="tfbox_cl" :src="imgPath+'tools/Toast_closed.svg'"/>
 	</p>
 </template>
@@ -11,6 +11,7 @@ export default{
 	},
 	methods:{
 		checkAd(){
+			this.bdtj('来电秀工具-列表页','[关闭]app底部栏','--')
 			this.$emit('input',{})
 		}
 	}

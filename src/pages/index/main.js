@@ -12,7 +12,10 @@ Vue.prototype.api = api
 Vue.prototype.mJs = mJs
 Vue.prototype.imU = 'https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/'
 Vue.prototype.api.mcommjs = window.mycomJs;
-Vue.prototype.goFn = (n)=>{
+Vue.prototype.goFn = (n,s)=>{
+	if(s){
+		Vue.prototype.bdtj(s[0],s[1],s[2])
+	}
 	router.push({path: n})
 }
 

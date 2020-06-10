@@ -504,7 +504,7 @@ export default {
 		},
 		downFile(flid){
 			if(this.isYl){return}
-			this.bdtj('详情页','下载附件','--');
+			this.bdtj('作品详情页','[下载附件]','--');
 			window.open(flid);
 		},
 		delComment(){
