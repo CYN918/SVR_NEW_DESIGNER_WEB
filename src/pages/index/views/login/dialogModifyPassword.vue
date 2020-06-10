@@ -98,6 +98,7 @@ export default {
 			this.$emit('func',this.outc)
 		},
 		ajaxYzm(){
+			this.bdtj('登录页','忘记密码','[获取验证码]')
 			let pd = this.chekPhpne(this.form.mobile);
 			if(pd!=true && pd.type!=true){
 				Message({message: '请先填写手机号码'});
@@ -138,17 +139,16 @@ export default {
 			this.ajaxType=1;
 			this.api.modifyPassword(params).then((da)=>{	
 				if(da=='error' || da=='104'){
-					this.bdtj('重置密码页','重置密码失败','--');
+					this.bdtj('登录页','忘记密码','[完成]但提示错误');
 					return;
 				}
 				this.ajaxType=0;
-				this.bdtj('重置密码页','重置密码成功','--');
+				this.bdtj('登录页','忘记密码','[完成]并设置成功');
 				Message({message: '修改成功'});
 				setTimeout(()=>{
 					this.$router.push({path: '/login'});
 				},1000)
 			}).catch(()=>{		
-				this.bdtj('重置密码页','重置密码失败','--');
 				this.ajaxType=0;
 			});	
 		},

@@ -55,7 +55,7 @@ export default {
 			return '';
 		},
 		ajaxYzm(){
-			this.bdtj('登录页','发送验证码','--');
+			this.bdtj('登录页','手机号登录','[获取验证码]');
 			if(!this.chekPhpne(this.form.mobile)){
 				Message({message: '请先填写手机号码'});
 				return

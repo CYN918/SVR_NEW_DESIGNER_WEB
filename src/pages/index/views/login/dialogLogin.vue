@@ -14,9 +14,9 @@
 			<!-- <div class="lgoin_s6x"></div> -->
 			<div class="tip_t"><p class="p_t"></p><p class="p_text">第三方快捷登陆</p><p class="p_h"></p></div>
 			<div class="lgoin_s6">
-				<span @click="thirdLogin('qq')" class="dsf_qq"></span>
-				<span @click="thirdLogin('weixin')" class="dsf_wx"></span>
-				<span @click="thirdLogin('weibo')" class="dsf_wb"></span>
+				<span @click="thirdLogin('qq','QQ登录')" class="dsf_qq"></span>
+				<span @click="thirdLogin('weixin','微信登录')" class="dsf_wx"></span>
+				<span @click="thirdLogin('weibo','微博登录')" class="dsf_wb"></span>
 			</div>
 		</div>
 		<div v-show="isShow_dn" class="isShow_dn">
@@ -72,7 +72,7 @@ export default {
 			})
 		},
 		goTj(){
-			// this.bdtj('登录页','忘记密码','--');
+			this.bdtj('登录页','账户密码登录','[忘记密码]');
 			// this.$router.push({path:d})
 			// this.$parent.$parent.getRetrieve(this.outc)
 			this.init({num:3,scroll:2})
@@ -109,7 +109,7 @@ export default {
 			},false)
 		},
 		gotj(){
-			// this.bdtj('登录页','没有帐号去注册','--');
+			this.bdtj('登录页','[注册]','--');
 			// this.$router.push({
 			// 	path:d
 			// })
@@ -120,14 +120,14 @@ export default {
 				path:'/index'
 			})
 		},
-		cheackLogin(on){	
-			this.bdtj('登录页','tag_'+on,'--')
+		cheackLogin(on){
+			//this.bdtj('登录页','tag_'+on,'--')
 			if(on==this.btnType){return}
 			this.btnType = on;
 			this.btnType2 = '';
 		},
-		thirdLogin(type){
-			this.bdtj('登录页','第三方登录_'+type,'--');
+		thirdLogin(type,n){
+			this.bdtj('登录页','第三方账号登录',n);
 			if(!type){return}
 			window.location.href=window.basrul+'/Passport/user/thirdLogin?type='+type;
 		},
@@ -156,7 +156,9 @@ export default {
 		loginPost(data,ispass){		
 			if(window.login_froms){
 				data.from = window.login_froms;
-			}			
+			}	
+					
+					
 			this.api.login(data).then((da)=>{	
 				if(da=='error' || da=='104'){
 					this.tip = '用户密码错误';
@@ -169,7 +171,11 @@ export default {
 				}
 				
 				
-				this.bdtj('登录页','登录成功','--');
+				if(this.btnType == 'password'){
+					this.bdtj('登录页','账户密码登录','完成[登录]')
+				} else {
+					this.bdtj('登录页','手机号登录','完成[登录]')
+				}
 				this.ajaxType=0;
 				window.userInfo = da;
 				localStorage.setItem('userT',JSON.stringify(da));	

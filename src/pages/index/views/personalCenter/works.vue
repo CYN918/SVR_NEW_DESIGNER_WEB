@@ -36,7 +36,7 @@ export default {
 					sort:'create_time',
 				},
 			},	
-			bdtjdata:[],
+			bdtjdata:[['个人主页','作品Tab页','点击作品']],
 			sxtj:0,
 			sxData:[
 				{name:'时间最新',key:'create_time'},

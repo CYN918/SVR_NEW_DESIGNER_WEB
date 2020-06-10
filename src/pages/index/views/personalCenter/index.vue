@@ -25,7 +25,7 @@
 				<span class="pend" @click="goFans('/works',userMessage.open_id,'创作')">创作<span>{{userMessage.work_num}}</span></span>
 			</div>
 			<div class="u_top3_4">
-				<router-link v-if="userTped==1" class="u_top3_4_1" to="/upload">上传作品</router-link>
+				<router-link v-if="userTped==1" class="u_top3_4_1" to="/upload" @click="bdtjCom1('[上传作品]')">上传作品</router-link>
 				<div class="u_top3_4_2" v-else>
 					<span @click="gzclick" :class="userMessage.follow_flag>0?'qgz':''">{{userMessage.follow_flag | followType}}</span>
 					<!-- <span @click="gsxd">私信</span> -->
@@ -116,6 +116,7 @@ export default {
 	
 	methods: {	
 		clickFn(n){
+			console.log(n)
 			this[n]();
 		},
 			
@@ -123,7 +124,8 @@ export default {
 			if(c){
 				this.mJs.scTop(400);
 			}
-			this.bdtjCom('tag_'+b);
+			//this.bdtjCom1(b);
+			this.bdtj('个人主页','Tab切换',b)
 			this.$router.push({path: a,query:{id:this.qurId}})			
 		},
 		backnAM(str){
@@ -179,8 +181,12 @@ export default {
 			}});			
 		},
 		bdtjCom(a){
-			let b = this.userTped?'自己视角-':'他人视角-';		
+			let b = this.userTped?'自己视角-':'他人主页视角-';		
 			this.bdtj('个人主页',b+a,'--');
+		},
+		bdtjCom1(a){
+			let b = this.userTped?'自己主页视角':'他人主页视角-';		
+			this.bdtj('个人主页',a,b);
 		},
 		goFans(d,id,c){
 			if(c){
@@ -207,7 +213,7 @@ export default {
 			if(this.$refs.tcZjs.getData){
 				this.$refs.tcZjs.getData();
 			}
-			
+			this.bdtj('个人主页','关注Tab页','成功取消关注')
 			this.getUserDetail();
 
 		},
@@ -269,7 +275,8 @@ export default {
 			return this.$route.query.id ==  window.userInfo.open_id;
 		},
 		showTopBk(){
-			this.bdtjCom('设置背景图');		
+			//this.bdtjCom('设置背景图');	
+			this.bdtj('个人主页','主页背景图','点击[设置背景图]')
 			this.isUpbg=true;
 			
 			this.topCn = {

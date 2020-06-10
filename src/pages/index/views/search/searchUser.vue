@@ -5,9 +5,9 @@
 		
 			<ul v-if="List.length>0" class="i_listd2" >
 				<li v-for="(el,index) in List" :key="index">
-					<img @click="goFans('/works',el.open_id,'点头像')" :src="mJs.Cavars(el.avatar)">
+					<img @click="goFans('/works',el.open_id,'进入个人主页')" :src="mJs.Cavars(el.avatar)">
 					<div class="i_listd2_1">
-						<div @click="goFans('/works',el.open_id,'点名字')" class="pp_wnz" v-html="bcksd(el.username)"></div>
+						<div @click="goFans('/works',el.open_id,'进入个人主页')" class="pp_wnz" v-html="bcksd(el.username)"></div>
 						
 						<div>{{el.province}} | {{el.city}}</div>
 						<div class="i_listd2_d">
@@ -128,7 +128,7 @@ export default {
 		},
 		goFans(d,id,a){
 			if(a){
-				this.bdtj('搜索页',a,'--');
+				this.bdtj('搜索页','创作者搜索结果',a);
 			}
 			
 			this.$router.push({path:d,query:{id:id}});
@@ -158,7 +158,7 @@ export default {
 			this.followList();
 		},
 		showFpllwodel(on){
-			this.bdtj('搜索页','点取消关注','--');
+			this.bdtj('搜索页','创作者搜索结果','成功取消关注');
 			this.isshowd2 = true;
 			this.openOns = on;
 		},
@@ -183,6 +183,7 @@ export default {
 				this.follwTyle=0;
 				this.hindHb2();
 				Message({message: '取消关注成功'});
+				this.bdtj('搜索页','创作者搜索结果','成功取消关注');
 				this.List[this.openOns].follow_flag=0;
 			
 
@@ -191,7 +192,7 @@ export default {
 			});
 		},
 		Follow_add(on){
-			this.bdtj('搜索页','点关注','--');
+			this.bdtj('搜索页','创作者搜索结果','点击[关注]');
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 				return
@@ -227,7 +228,8 @@ export default {
 			return	window.getTimes(time);
 		},	
 	
-		openxq(on){			
+		openxq(on){		
+			this.bdtj('搜索页','创作者搜索结果','点击作品');
 			window.open('#/cont?id='+on)
 		},
 		

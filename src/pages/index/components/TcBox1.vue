@@ -37,6 +37,7 @@ export default {
 		close(){
 			document.body.style = "";
 			this.is = '';
+			this.bdtj('登录页','[返回首页]','--')
 			// if(!this.config.closeFn){
 			// 	return	
 			// }

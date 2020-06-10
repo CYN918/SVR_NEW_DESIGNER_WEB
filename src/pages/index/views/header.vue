@@ -24,11 +24,11 @@
 					<div v-if="!searcCont||searcCont.split(' ').join('').length == 0">
 						<div class="searcBox5_3" v-if="data1.length>0">
 							<div class="searcBox5_1">最近搜索</div>
-							<div class="searcBox5_2" @click="gosearch(el)" v-for="(el,index) in data1">{{el}}</div>
+							<div class="searcBox5_2" @click="gosearch(el,'点击最近搜索词',index+1)" v-for="(el,index) in data1">{{el}}</div>
 						</div>
 						<div v-if="data2.length>0">
 							<div class="searcBox5_1">热门搜索</div>
-							<div class="searcBox5_2" @click="gosearch(el)" v-for="(el,index) in data2">{{el.words}}</div>
+							<div class="searcBox5_2" @click="gosearch(el,'点击热门搜索词',index+1)" v-for="(el,index) in data2">{{el.words}}</div>
 						</div>
 					</div>
 					<div v-else>
@@ -198,8 +198,23 @@ export default {
 		gouser(id){
 			this.$router.push({path: '/works',query:{id:id}})	
 		},
-		gosearch(name){
-			this.bdtj('通用模块','顶部栏—输入后搜索','--');
+		gosearch(name,a,i){
+			console.log(name)
+			if(this.$route.name == 'searchWorks'){
+				if(a == '点击最近搜索词'){
+					this.bdtj('搜索页',a,name);
+				} else {
+					this.bdtj('搜索页',a,i+name.work_name);
+				}
+			} else {
+				if(a == '点击最近搜索词'){
+					this.bdtj('顶部栏',a,name);
+				} else {
+					this.bdtj('顶部栏',a,i+name.work_name);
+				}
+			}
+			
+			
 			let na = name.words || name.work_name || name.username || name;
 			let hotc = localStorage.getItem("scrllhot");
 			let on = -1;
@@ -235,6 +250,7 @@ export default {
 		},
 		showsearch(){
 			this.bdtj('顶部栏','搜索','点击[搜索]');
+			//console.log(this.$route);
 			if(this.searchType==true){
 				if(!this.searcCont){
 					return

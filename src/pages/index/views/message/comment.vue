@@ -129,6 +129,7 @@ export default {
 			this.$set(this.listData[on],'isshowsub',this.listData[on].isshowsub?false:true);
 		},
 		showHF(on){
+			this.bdtj('消息','评论/回复','点击[回复]');
 			this.plOnd = on;
 			this.$set(this.listData[on],'isshowfh',this.listData[on].isshowfh?false:true);
 			setTimeout(()=>{				
@@ -186,7 +187,8 @@ export default {
 
 				
 				
-				Message({message: '回复成功'});							
+				Message({message: '回复成功'});	
+				this.bdtj('消息','评论/回复','完成[回复]提交')						
 				this.$refs['myOn'+on].value = '';
 				this.plon[on] = '';
 			}).catch((err)=>{
@@ -197,7 +199,7 @@ export default {
 			});	
 		},
 		addLike(type,id,obj){
-			
+			this.bdtj('消息','评论/回复','点赞');
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 				return
@@ -259,6 +261,7 @@ export default {
 			return time.getFullYear()+'-'+ym+'-'+dm;
 		},
 		goWork(id){
+			this.bdtj('消息','评论/回复','点击进入作品');
 			window.open('/#/cont?id='+id);
 		
 		},

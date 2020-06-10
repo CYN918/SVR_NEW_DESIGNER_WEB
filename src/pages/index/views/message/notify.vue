@@ -74,6 +74,7 @@ export default {
 			return  n>999?999:n;
 		},
 		goUserIn(on){
+			this.bdtj('消息','通知','点击引导跳转');
 			this.$router.push({path: '/works',query:{id:this.listData[on].user_info.open_id}})	
 		},
 		addL(){

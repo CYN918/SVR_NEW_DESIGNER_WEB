@@ -15,9 +15,9 @@
 		</el-form>
 		<div class="tip_t"><p class="p_t"></p><p class="p_text">第三方快捷登陆</p><p class="p_h"></p></div>
 		<div class="lgoin_s6">
-			<span @click="thirdLogin('qq')" class="dsf_qq"></span>
-			<span @click="thirdLogin('weixin')" class="dsf_wx"></span>
-			<span @click="thirdLogin('weibo')" class="dsf_wb"></span>
+			<span @click="thirdLogin('qq','QQ登录')" class="dsf_qq"></span>
+			<span @click="thirdLogin('weixin','微信登录')" class="dsf_wx"></span>
+			<span @click="thirdLogin('weibo','微博登录')" class="dsf_wb"></span>
 		</div>
 	</div>
 </template>
@@ -123,13 +123,13 @@ export default {
 				this.submitForm('myform');
 			}	
 		},
-		thirdLogin(type){
-			this.bdtj('登录页','第三方登录_'+type,'--');
+		thirdLogin(type,n){
+			this.bdtj('登录页','第三方账号登录',n);
 			if(!type){return}
 			window.location.href=window.basrul+'/Passport/user/thirdLogin?type='+type;
 		},
 		god(){
-			// this.bdtj('注册页','已有账号','--')
+		    this.bdtj('注册页','已有账号？[登录]','--')
 			// this.$router.push({
 			//     path:d
 			// })
@@ -147,7 +147,7 @@ export default {
             })
 		},
 		ajaxYzm(){
-			this.bdtj('注册页','获取验证码','--');
+			this.bdtj('注册页','[获取验证码]','--');
 			let pd = this.chekPhpne(this.form.mobile);
 			if(pd!=true && pd.type!=true){
 				Message({message: '请先填写手机号码'});
@@ -175,7 +175,7 @@ export default {
 			this[data] = this[data]=='password'?'text':'password';
 		},
 		submitForm(formName){
-			this.bdtj('注册页','注册按钮','点击');
+			//this.bdtj('注册页','注册按钮','点击');
 			if(!this.btnType){
 				return
 			}
@@ -217,7 +217,7 @@ export default {
 					this.ajaxType=0;
 					return
 				}
-				this.bdtj('注册页','注册成功','--');
+				this.bdtj('注册页','完成[注册]','--');
 				Message({message: '注册成功'});
 				localStorage.setItem('referrer_id','');
 				let pr = {			
