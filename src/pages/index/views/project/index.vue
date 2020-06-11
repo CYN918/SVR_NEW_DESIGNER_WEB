@@ -20,7 +20,7 @@
 		<div class="pr_02">
 			<list :isDjs="'1'" :page="setPage" :config="data" class="iopdlf_01" ref="sfafa">
 				<template v-slot:todo="{ todo }">
-					<cent :djs="djson"  :el="todo"></cent>
+					<cent :djs="djson" :bdtjdata='bdtjdata' :el="todo"></cent>
 				</template>			
 			</list>
 		</div>
