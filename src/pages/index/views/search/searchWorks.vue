@@ -4,7 +4,7 @@
 		
 		<list class="seccWr" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
-				<box_a :bdtj="bdtjdata" :iscre="iscre" :el="todo"></box_a>
+				<box_a :tjData="bdtjdata" :iscre="iscre" :el="todo"></box_a>
 			</template>			
 		</list>
 	</div>

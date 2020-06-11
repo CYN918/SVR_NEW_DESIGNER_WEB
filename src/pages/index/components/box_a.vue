@@ -129,6 +129,7 @@ export default {
 			// 	this.tongj(this.tjData[0]);
 			// }
 			//this.bdtj("首页",this.$parent.$parent.specialname,n);
+			console.log(this.tjData)
 			if(this.tjData && this.tjData[0]){
 				//this.tongj(this.tjData[1]);
 				this.bdtj(this.tjData[0][0],this.tjData[0][1],'点击作品')
