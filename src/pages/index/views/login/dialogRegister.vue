@@ -219,6 +219,7 @@ export default {
 				}
 				this.bdtj('注册页','完成[注册]','--');
 				Message({message: '注册成功'});
+				this.$parent.close();
 				localStorage.setItem('referrer_id','');
 				let pr = {			
 					mobile_zone:params.mobile_zone,
