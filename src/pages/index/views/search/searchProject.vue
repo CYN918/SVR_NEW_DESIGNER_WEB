@@ -37,7 +37,7 @@ export default {
 			pr_con:{
 				t_show:'',
 			},
-			bdtjdata:[['搜索页','项目搜索结果'],['搜索页','创作者']],
+			bdtjdata:[['搜索页','项目搜索结果'],['搜索页','项目搜索结果']],
 			querys:'',
 			clasd:[],
 			djson:0,

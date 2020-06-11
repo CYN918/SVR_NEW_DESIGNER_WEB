@@ -101,6 +101,7 @@ export default {
 				{label:"教育工作者",value:"教育工作者"},
 			],
 			onType:'followList',
+			bdtjdata:[['搜索页','创作者搜索结果','点击作品'],['搜索页','创作者搜索结果'],['搜索页','创作者搜索结果']],
 			follwTyle:0,
 			openOns:'',
 			classd:'',

@@ -8,8 +8,8 @@
 						<div>
 							基本信息设置 
 							<div class="yhtop2Box">
-								<span @click="chekNav(0)" :class="['pend',navOn==0?'router-link-active':'']">完善资料</span>
-								<span @click="chekNav(1)" :class="['pend',navOn==1?'router-link-active':'']">绑定已有帐号</span>
+								<span @click="chekNav(0,'Tab[完善资料]')" :class="['pend',navOn==0?'router-link-active':'']">完善资料</span>
+								<span @click="chekNav(1,'Tab[绑定已有账号]')" :class="['pend',navOn==1?'router-link-active':'']">绑定已有帐号</span>
 							</div>
 						</div>
 					</template>		
@@ -37,7 +37,8 @@ export default {
 	},
 	mounted: function () {}, 
 	methods: {
-		chekNav(on){
+		chekNav(on,n){
+			this.bdtj('用户完善资料',n,'--')
 			this.navOn = on;
 		}
 		

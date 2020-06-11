@@ -204,13 +204,13 @@ export default {
 				if(a == '点击最近搜索词'){
 					this.bdtj('搜索页',a,name);
 				} else {
-					this.bdtj('搜索页',a,i+name.work_name);
+					this.bdtj('搜索页',a,i+'_'+name.words);
 				}
 			} else {
 				if(a == '点击最近搜索词'){
 					this.bdtj('顶部栏',a,name);
 				} else {
-					this.bdtj('顶部栏',a,i+name.work_name);
+					this.bdtj('顶部栏',a,i+name.words);
 				}
 			}
 			

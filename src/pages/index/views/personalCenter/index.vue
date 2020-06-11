@@ -181,11 +181,11 @@ export default {
 			}});			
 		},
 		bdtjCom(a){
-			let b = this.userTped?'自己视角-':'他人主页视角-';		
+			let b = this.userTped?'自己主页视角':'他人主页视角';		
 			this.bdtj('个人主页',b+a,'--');
 		},
 		bdtjCom1(a){
-			let b = this.userTped?'自己主页视角':'他人主页视角-';		
+			let b = this.userTped?'自己主页视角':'他人主页视角';		
 			this.bdtj('个人主页',a,b);
 		},
 		goFans(d,id,c){
@@ -196,11 +196,12 @@ export default {
 		},
 		gzclick(){			
 			if(this.userMessage.follow_flag>0){
-				this.bdtj("个人主页",this.userMessage.username,"取消关注")
+				//console.log(this.userMessage.username)
+				//this.bdtj("个人主页",this.userMessage.username,"取消关注")
 				this.Follow_un(this.userMessage.open_id);	
 				return
 			}
-			this.bdtj("个人主页",this.userMessage.username,"添加关注")
+			this.bdtj("个人主页",'[关注]',(this.userTped?'自己主页视角':'他人主页视角'))
 			this.Follow_add(this.userMessage.open_id)					
 		},
 		Follow_un(id){

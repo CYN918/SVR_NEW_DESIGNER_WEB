@@ -49,7 +49,7 @@ export default {
 			type:Object,
 			default:{}
 		},
-		tjData:Array,
+		tjData:Object,
 		iscre:String
 	},
 	data(){
@@ -94,9 +94,11 @@ export default {
 			this.showtIP = '';
 		},
 		goUser(on){
+			console.log(this.tjData)
 			if(this.tjData && this.tjData[0]){
 				//this.tongj(this.tjData[1]);
-				this.bdtj(this.tjData[0][0],this.tjData[0][1],'进入个人主页');
+				console.log(this.tjData)
+				this.bdtj(this.tjData[0][0],this.tjData[0][1],'点击作品');
 			}
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;

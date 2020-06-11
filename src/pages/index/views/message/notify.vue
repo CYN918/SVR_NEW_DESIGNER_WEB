@@ -65,6 +65,7 @@ export default {
 	}, 
 	methods: {
 		backCom(str){
+			console.log(str)
 			str = str.replace(/color:#ff5121/, "color:#33B3FF");	
 					
 			return	str.replace(/color:red/, "color:#33B3FF");		
@@ -74,7 +75,6 @@ export default {
 			return  n>999?999:n;
 		},
 		goUserIn(on){
-			this.bdtj('消息','通知','点击引导跳转');
 			this.$router.push({path: '/works',query:{id:this.listData[on].user_info.open_id}})	
 		},
 		addL(){
