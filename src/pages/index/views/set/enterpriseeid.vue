@@ -700,7 +700,7 @@ export default {
 				return
 			}
 			if(window.userInfo.contributor_type==1){
-				this.$router.push({path:'/setPersonal'})
+				this.$router.push({path:'/setPersonaleid'})
 				return
 			}
 			let pr = {

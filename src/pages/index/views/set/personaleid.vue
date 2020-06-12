@@ -948,7 +948,7 @@ export default {
 				return
 			}
 			if(window.userInfo.contributor_type==2){
-				this.$router.push({path:'/setEnterprise'})
+				this.$router.push({path:'/setEnterpriseeid'})
 				return
 			}
 			let pr = {
