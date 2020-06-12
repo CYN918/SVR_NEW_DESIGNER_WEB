@@ -70,7 +70,6 @@ export default{
 	position: relative;
 	margin-bottom: 0px;
 	text-align: center;
-	height: 420px;
 }
 .hot_topbox > button{
 	position: relative;
