@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import {Message} from 'element-ui'
 import Index from './views/index.vue'
 import special_first from './views/special/first.vue'
 import Home from './views/home.vue'
@@ -35,6 +35,8 @@ import setIndex from './views/set/setIndex.vue'
 import set_rzCom from './views/set/rzCom.vue'
 import set_personal from './views/set/personal.vue'
 import set_enterprise from './views/set/enterprise.vue'
+import set_personaleid from './views/set/personaleid.vue'
+import set_enterpriseeid from './views/set/enterpriseeid.vue'
 
 import messgeCl from './views/messgeCl/index.vue'
 
@@ -163,7 +165,10 @@ let wb = [
 				component:set_rzCom,
 				children:[
 					{path: '/setPersonal',name: 'setPersonal',component:set_personal},
-					{path: '/setEnterprise',name: 'setEnterprise',component:set_enterprise},					
+					{path: '/setEnterprise',name: 'setEnterprise',component:set_enterprise},
+					{path: '/setPersonaleid',name: 'setPersonal',component:set_personaleid},
+					{path: '/setEnterpriseeid',name: 'setEnterprise',component:set_enterpriseeid},					
+										
 				]
 			},
 	
@@ -316,16 +321,17 @@ router.beforeEach((to, from, next) => {
 			return
 		}
 	} 	
-	// var ishttps = 'https:' == document.location.protocol ? true : false;
-
-	// if (!ishttps) {
-	// 	if(window.location.host=='shiquaner.zookingsoft.com')
-	// 	window.location.href = 'https://'+window.location.host+window.location.pathname;
-	// }
-
 	setTitle(to.path)
-
 	/*是否填写信息*/
+	if(window.userInfo && (to.fullPath=='/setEnterprise' || to.fullPath=='/setPersonal')){
+		if(window.userInfo.contributor_format_status!=1 && window.userInfo.contributor_format_status!=0){
+			Message({message: '你已经是平台供稿人'});
+			next('/index');
+			return
+		}
+		next();
+	}
+	
 	if(window.userInfo && window.userInfo.is_detail==0){		
 		if(!window.userInfo.mobile || window.userInfo.mobile=='null'){
 			if(to.fullPath!='/userme2'){
@@ -339,6 +345,9 @@ router.beforeEach((to, from, next) => {
 			next('/userme');
 			return
 		}
+		
+		
+		
 		next();
 		return
 	}	
