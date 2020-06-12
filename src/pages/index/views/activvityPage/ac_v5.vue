@@ -274,7 +274,11 @@ export default{
 		handleSizeChange(val) {
 		
 			this.limit = val;
+<<<<<<< HEAD
 			this.page = 1;
+=======
+			this.page=1;
+>>>>>>> app
 			this.a_getWork();
 			
 		},
