@@ -94,11 +94,11 @@ export default {
 			this.showtIP = '';
 		},
 		goUser(on){
-			console.log(this.tjData)
-			if(this.tjData && this.tjData[0]){
+			//console.log(this.tjData)
+			if(this.tjData){
 				//this.tongj(this.tjData[1]);
-				console.log(this.tjData)
-				this.bdtj(this.tjData[0][0],this.tjData[0][1],'点击作品');
+				console.log(this.tjData[0][0],this.tjData[0][1],'进入个人主页')
+				this.bdtj(this.tjData[0][0],this.tjData[0][1],'进入个人主页');
 			}
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
@@ -131,7 +131,7 @@ export default {
 			// 	this.tongj(this.tjData[0]);
 			// }
 			//this.bdtj("首页",this.$parent.$parent.specialname,n);
-			console.log(this.tjData)
+			console.log(this.tjData[0][0],this.tjData[0][1],'点击作品')
 			if(this.tjData && this.tjData[0]){
 				//this.tongj(this.tjData[1]);
 				this.bdtj(this.tjData[0][0],this.tjData[0][1],'点击作品')

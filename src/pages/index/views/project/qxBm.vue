@@ -24,7 +24,8 @@ export default {
 			this.is='';
 		},
 		pr_cancelSignup(){
-		
+			console.log(this.$parent.pagename,this.$parent.getstate(),'确认[取消报名]')
+			this.bdtj(this.$parent.pagename,this.$parent.getstate(),'确认[取消报名]')
 			this.api.pr_cancelSignup({
 				project_id:this.datad.id,
 			}).then((da)=>{

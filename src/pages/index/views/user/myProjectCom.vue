@@ -21,6 +21,7 @@ export default {
 	name: 'myAll',
 	data(){
 		return {
+			pagename:'我的项目页',
 			navData:{
 				title:'我的项目',
 				list:[

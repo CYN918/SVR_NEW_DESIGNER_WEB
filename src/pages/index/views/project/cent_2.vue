@@ -67,6 +67,7 @@ export default {
 			tip1:'',
 			btns:'',
 			deta:{},
+			pagename:"我的项目页"
 		}
 	},
 	filters: {
@@ -84,14 +85,38 @@ export default {
 		},
 	},
 	methods: {	
-		
+		getstate(){
+			return '列表按钮入口';
+		},
 		ckd(a,n){
+			
+			if(a=='pushGj'){
+				this.bdtj("我的项目页",'列表按钮入口',"点击[交稿]");
+			}
+			
+			if(a=='Log'){
+				this.bdtj("我的项目页",'列表按钮入口',"[交稿记录]");
+			}
+			
+			if(a=='qxGj'){
+				this.bdtj("我的项目页",'列表按钮入口',"[稿件撤回]");
+			}
+			
+			if(a=='question'){
+				this.bdtj("我的项目页",'列表按钮入口',"[项目评价]");
+			}
+			
+			if(a=='presentation'){
+				this.bdtj("我的项目页",'列表按钮入口',"[验收报告]");
+			}
+			
+			console.log(a);
 			if(n=='稿件撤回' && this.deta.check_steps==1){
 				this.tipMr('项目已在审核中，请勿撤回')				
 				return
 			}
 			
-			this.bdtj('我的项目','['+ n +']','--')
+			//this.bdtj('我的项目页','['+ n +']','--')
 			if(a=='ypj'){this.$message({message:'你已经评价过了'});}
 			if(a=='presentation'){
 				this.$router.push({path:'/presentation',query:{id:this.deta.id}})	
@@ -229,7 +254,7 @@ export default {
 		},
 		openCent(){
 			if(this.deta.id){
-				this.bdtj('我的项目','点击进入详情','--')
+				this.bdtj('我的项目页','点击进入详情','--')
 				window.open('/#/prcent?id='+this.deta.id+'&type=prj')
 			}			
 		},

@@ -240,7 +240,8 @@ export default {
 					this.$parent.setStaus('4');
 				}
 				if(this.$parent.getstate){
-					this.bdtj('项目详情页',this.$parent.getstate(),'成功[提交]交稿')
+					//console.log(this.$parent.getstate())
+					this.bdtj(this.$parent.pagename,this.$parent.getstate(),'成功[提交]交稿')
 				}
 				
 				this.$message({message:"交稿成功，请耐心等待验收"});

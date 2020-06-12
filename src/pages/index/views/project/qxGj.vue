@@ -28,6 +28,8 @@ export default {
 			this.is='';
 		},
 		pr_revokeDelivery(){
+			console.log(this.$parent.pagename,this.$parent.getstate(),'[确定]撤回稿件')
+			this.bdtj(this.$parent.pagename,this.$parent.getstate(),'[确定]撤回稿件')
 			if(this.datad.check_steps==1){
 				this.tipMr('项目已在审核中，请勿撤回')
 				this.close();
@@ -39,10 +41,6 @@ export default {
 				return
 			}
 			this.qxType=1;
-			if(this.$parent.getstate){
-				this.bdtj("项目详情页",this.$parent.getstate(),"确定[稿件撤回]");
-			}
-			
 			this.api.pr_revokeDelivery({
 				project_id:this.datad.id,
 			}).then((da)=>{

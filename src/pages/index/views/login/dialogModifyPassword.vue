@@ -29,6 +29,7 @@ export default {
 					return {type:false,text:'请确认密码',cls:'errd'}
 				}
 				if(this.$parent.$parent.form.password != val){
+					this.bdtj('登录页','忘记密码','[完成]但提示错误');
 					return {type:false,text:'两次密码不一致',cls:'errd'}
 				}
 				return true

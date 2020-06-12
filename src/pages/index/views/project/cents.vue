@@ -213,6 +213,7 @@ export default {
 	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm,shareD,pushGj,qxGj,Log,Stop,question,presentation,topGd,prnavright,detailGd},
 	data(){
 		return{
+			pagename:'项目详情页',
 			tcZj:'',
 			tcData:'',
 			shareData:{},
@@ -252,6 +253,7 @@ export default {
 			this.getData();			
 		},
 		dowun(u){
+			this.bdtj('项目详情页','制作期','成功[下载补充合同]')
 			fetch(u.file_url).then(res => res.blob()).then(blob => {
 				const a = document.createElement('a');
 				document.body.appendChild(a)
@@ -290,16 +292,19 @@ export default {
 			window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
 		getstate(){
-			let maps = {
-				'0':'待发布',
-				'1':'招募期',
-				'2':'选标期',
-				'3':'制作期',
-				'4':'待审核',
-				'5':'已验收',
-				'-1':'已终止',
-			};
-			return  maps[this.deta.status];
+			let state = '--';
+			if(this.deta.status == '1'){
+				state = '招募期'
+			} else if(this.deta.status == '2'){
+				state = '选标期'
+			} else if(this.deta.status == '3'){
+				state = '制作期'
+			}  else if(this.deta.status == '4'){
+				state = '待验收'
+			}else if(this.deta.status == '5'){
+				state = '已验收'
+			}
+			return  state;
 			// let maps = {
 			// 	'0':'待发布',
 			// 	'1':'招募期',
@@ -348,8 +353,11 @@ export default {
 			this.tcZj = '';
 		},
 		showTc(a,b){
+			if(a=='Log'){
+				this.bdtj('项目详情页',this.getstate(),'[交稿记录]')
+			}
 			this.tcZj = a;
-
+			console.log(this.tcZj,this.tcData)
 			if(b){
 				this.tcData = b;
 				return
