@@ -37,10 +37,12 @@ export default {
 	props:{
 		el:{
 			type:Object,
-			default:{}
+			default:{},
+			
 		},	
 		djs:Number,
-		iscre:String
+		iscre:String,
+		bdtjdata:Array
 	},
 	data(){
 		return{
@@ -94,7 +96,7 @@ export default {
 				return
 			}
 			if(this.el.id){
-				this.bdtj("项目列表",'点击项目',this.el.name)
+				this.bdtj(this.bdtjdata[0][0],this.bdtjdata[0][1],'点击项目')
 				window.open('/#/prcent?id='+this.el.id+'&type=prj')
 			}
 		},

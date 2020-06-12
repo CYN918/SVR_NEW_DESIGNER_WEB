@@ -13,7 +13,6 @@
 				<div :class="['gdwz_001',showTil?'showTil':'']"><span :style="yu_tle">{{backdr()}}</span></div>
 			</div>	
 			
-			
 			<div class="ldxdsh_01" v-if="el.status==1">审核中</div>
 			<div class="hcsb" v-if="el.status==-10">
 				<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/LDXGC_icon_sb.svg">
@@ -28,7 +27,6 @@
 				<div class="foll"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/tools/icon_video_caller lis.svg" alt=""></div>
 				<div class="fol">{{setTimed(times-cumime)}}</div>
 			</div>
-			
 			
 			<div class="ldx_l_1_top" v-if="[0,-10,-1].indexOf(+el.status)!=-1">
 				<div class="ldx_l_1_top_btn" @click="changebtn()">···</div>
@@ -75,15 +73,20 @@
 			{{backtims(el)}}
 		</div>
 		<video v-if="el.status==0" muted @ended="cksd()" class="ntob_cent_l_1"  ref="vids"></video>
+		<TcBoxQr :config="config2" ref="tcBox2"></TcBoxQr>
 	</div>
 	
 </template>
 
 <script>
+import TcBoxQr from '../../../components/TcBoxQr.vue'
 export default{
 	props:{
 		el:Object,
 		pr:Object,
+	},
+	components:{
+		TcBoxQr
 	},
 	data(){
 		return{
@@ -103,9 +106,18 @@ export default{
 			cumime:0,
 			Isbf:true,
 			showTil:'',
+			config2:{
+				title:'删除确认',
+				cent:'确定删除该工程？',
+				closeFnd:'closeqd',
+				qFn:'delWork',
+				closeFn:'closeqd'
+			},
+			objectid:''
 		}		
 	},
 	methods:{
+		
 		showT(){
 			this.showTil = 1;
 		},
@@ -201,14 +213,23 @@ export default{
 			this.Isbtn = false;
 			this.Ischeck = false
 		},
-		del(id,n){
-			this.bdtj('来电秀工具-列表页','[删除]','--')
+		delWork(){
+			this.bdtj('来电秀工具-列表页','[删除]','确认[删除]');
 			this.api.mobileshowdel({
-				id:id
+				id:this.objectid
 			}).then(()=>{
 				this.$parent.getData();	
-				this.changebtn();
+				this.$refs.tcBox2.close();
 			})
+		},
+		closeqd(){
+			
+		},
+		del(id,n){
+			this.objectid = id;
+			this.bdtj('来电秀工具-列表页','[删除]','点击[删除]');
+			this.$refs.tcBox2.show();
+			this.changebtn();
 		},
 		changebtn(){
 			this.top_btn=!this.top_btn;

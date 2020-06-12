@@ -94,23 +94,27 @@ export default {
 			this.showtIP = '';
 		},
 		goUser(on){
-			// if(this.tjData && this.tjData[1]){
-			// 	this.tongj(this.tjData[1]);
-			// }
+			console.log(this.tjData)
+			if(this.tjData && this.tjData[0]){
+				//this.tongj(this.tjData[1]);
+				console.log(this.tjData)
+				this.bdtj(this.tjData[0][0],this.tjData[0][1],'点击作品');
+			}
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
-			//console.log("首页",on.work_name,on.user_info.username)
-			if(this.$parent.pagename){
-				this.bdtj(this.$parent.pagename,'作品-创作者hover','进入个人主页')
-			}
 			
 			this.$router.push({path: '/works',query:{id:this.el.user_info.open_id}})
 			
 		},
 		tongj(a){
 			if(!a){return}
-			console.log(a)
-			this.bdtj(a[0],a[1],'--');
+			console.log(a);
+			if(!a[2]){
+				this.bdtj(a[0],a[1],'--');
+			} else {
+				this.bdtj(a[0],a[1],a[2]);
+			}
+			
 		},
 		backtime(time){		
 			return	window.getTimes(time);
@@ -123,11 +127,16 @@ export default {
 			return a;
 		},
 		openxq(n){
+			// if(this.tjData && this.tjData[0]){
+			// 	this.tongj(this.tjData[0]);
+			// }
+			//this.bdtj("首页",this.$parent.$parent.specialname,n);
+			console.log(this.tjData)
 			if(this.tjData && this.tjData[0]){
-				this.tongj(this.tjData[0]);
+				//this.tongj(this.tjData[1]);
+				this.bdtj(this.tjData[0][0],this.tjData[0][1],'点击作品')
 			}
-			this.bdtj("首页",this.$parent.$parent.specialname,n);
-
+			
 			window.open('#/cont?id='+this.el.work_id)
 
 		},

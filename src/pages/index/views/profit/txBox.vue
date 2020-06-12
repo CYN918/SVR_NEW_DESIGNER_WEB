@@ -364,7 +364,7 @@ export default {
 			
 		},
 		pushData(){
-			this.bdtj('我的收益','完成提现提交','--');
+			this.bdtj('我的收益','提现','[完成]提现申请');
 			if(this.chekverify(this.form.verify_code)!=true){
 				Message({message: '请填写正确的验证码'});
 				return
@@ -378,7 +378,7 @@ export default {
 			});	
 		},
 		editPhone(){
-			this.bdtj('我的收益','更换手机号','--');
+			this.bdtj('我的收益','提现','[修改手机号]');
 			this.$router.push({path: '/setUser'});
 		},
 		setYzm(val){
@@ -393,6 +393,7 @@ export default {
 				mobile_zone:window.userInfo.mobile_zone,
 				type:'login',
 			};
+			this.bdtj('我的收益','提现','[获取验证码]');
 			this.api.sendVerifyCode(params).then((da)=>{	
 				if(da=='error' || da=='104'){
 					return

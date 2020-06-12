@@ -21,7 +21,7 @@
 				<pTop :cn="topCn">
 					<template v-slot:todo="{ todo }">
 						<div class="sea_n_1">
-							<span v-for="(el,index) in navData" :class="['sea_2 pend',onNav==index?'sea_on':'']" :key="index" @click="goto(el.a)">{{el.b}}</span>
+							<span v-for="(el,index) in navData" :class="['sea_2 pend',onNav==index?'sea_on':'']" :key="index" @click="goto(el.a,el.b)">{{el.b}}</span>
 						</div>
 					</template>		
 				</pTop>		
@@ -52,9 +52,9 @@ export default {
 	},
 	methods: {
 
-		goto(on){
+		goto(on,b){
 			this.mJs.scTop(1)
-			this.bdtj('搜索页','tab_'+on);
+			this.bdtj('搜索页','切换Tab',b);
 			this.$router.push({path:on,query:{cont:this.secont}})	
 		},
 		setCont(cd){

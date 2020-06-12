@@ -39,7 +39,7 @@
 				<div v-if="isnodata">
 					<div class="tolu_05">{{btn_a[btn_on].t}}</div>
 					<div class="btn_n4">
-						<span @click="goFn(btn_a[btn_on].p)" class="btn_n btn_n3">{{btn_a[btn_on].n}}</span>
+						<span @click="goFn(btn_a[btn_on].p,btn_a[btn_on].s)" class="btn_n btn_n3">{{btn_a[btn_on].n}}</span>
 					</div>
 				</div>
 			</div>			
@@ -76,9 +76,9 @@ export default{
 			istype:false,
 			title:'',
 			btn_a:[
-				{t:'来电秀工程为空，快去开启你的设计之路吧！',n:'开始制作',p:'/pushTool'},
-				{t:'认证供稿人后，即可开始制作',n:'立即认证',p:'/setPersonal'},
-				{t:'认证供稿人后，即可开始制作',n:'立即认证',p:'/setPersonal'},
+				{t:'来电秀工程为空，快去开启你的设计之路吧！',n:'开始制作',p:'/pushTool',s:['来电秀工具-列表页','列表为空[开始制作]','--']},
+				{t:'认证供稿人后，即可开始制作',n:'立即认证',p:'/setPersonal',s:['来电秀工具-列表页','不是供稿人[立即认证]','--']},
+				{t:'认证供稿人后，即可开始制作',n:'立即认证',p:'/setPersonal',s:['来电秀工具-列表页','不是供稿人[立即认证]','--']},
 			],
 			btn_on:0,
 			conf:{

@@ -20,7 +20,7 @@
 		<div class="pr_02">
 			<list :isDjs="'1'" :page="setPage" :config="data" class="iopdlf_01" ref="sfafa">
 				<template v-slot:todo="{ todo }">
-					<cent :djs="djson"  :el="todo"></cent>
+					<cent :djs="djson" :bdtjdata='bdtjdata' :el="todo"></cent>
 				</template>			
 			</list>
 		</div>
@@ -65,7 +65,7 @@ export default {
 	}, 
 	methods: {
 		goOn(on,cs){
-			this.bdtj('项目列表','点击[项目承接指南]','--')
+			this.bdtj('项目列表','[项目承接指南]','--')
 			this.$router.push({path:on,query:cs})	
 		},
 		getCl(){

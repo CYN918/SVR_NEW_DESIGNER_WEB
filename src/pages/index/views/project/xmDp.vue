@@ -127,8 +127,6 @@ export default {
 			let state = '--';
 			if(this.$parent.deta.status == '1'){
 				state = '招募期'
-			} else if(this.$parent.deta.status == '0'){
-				state = '待发布'
 			} else if(this.$parent.deta.status == '2'){
 				state = '选标期'
 			} else if(this.$parent.deta.status == '3' && this.$parent.deta.is_rejected != '1' && new Date(Date.parse(this.$parent.deta.delivery_deadline)) >= new Date()){
@@ -141,8 +139,6 @@ export default {
 				state = '待审核'
 			}else if(this.$parent.deta.status == '5'){
 				state = '已验收'
-			}else if(this.$parent.deta.status == '-1'){
-				state = '已终止'
 			}
 			return state;
 		},
@@ -165,23 +161,23 @@ export default {
 		},
 		showTc1(o){
 			if(o == 'pr_rz'){
-				this.bdtj("项目详情页",this.getstate(),"[报名项目]");
+				this.bdtj("项目详情页",this.$parent.getstate(),"[报名项目]");
 			} else {
 				// this.bdtj("项目详情页",this.getstate(),"点击[取消报名]");
 			}
 			
 			if(o=='pushGj'){
-				this.bdtj("项目详情页",this.getstate(),"点击[交稿]");
+				this.bdtj("项目详情页",this.$parent.getstate(),"点击[交稿]");
 			}
 			
 			if(o=='Log'){
-				this.bdtj("项目详情页",this.getstate(),"[交稿记录]");
+				this.bdtj("项目详情页",this.$parent.getstate(),"[交稿记录]");
 			}
 			
 			if(o=='qxGj'){
-				this.bdtj("项目详情页",this.getstate(),"[稿件撤回]");
+				this.bdtj("项目详情页",this.$parent.getstate(),"[稿件撤回]");
 			}
-			
+			console.log(this.$parent.getstate(),o)
 			this.api.pr_check({}).then((da)=>{
 				if(da=='error' || da=='104'){return}
 				if(da.is_complete!=true || da.is_contributor!=true || da.work_num<3){

@@ -65,6 +65,7 @@ export default {
 	}, 
 	methods: {
 		backCom(str){
+			console.log(str)
 			str = str.replace(/color:#ff5121/, "color:#33B3FF");	
 					
 			return	str.replace(/color:red/, "color:#33B3FF");		

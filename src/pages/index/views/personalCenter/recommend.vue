@@ -13,7 +13,7 @@
 		</div>
 		<list :config="data" ref="listDom">
 			<template v-slot:todo="{ todo }">
-				<box_a :el="todo"></box_a>
+				<box_a :el="todo" :tjData="bdtjdata"></box_a>
 			</template>			
 		</list>	
 		
@@ -44,6 +44,7 @@ export default {
 			],
 			sort:'create_time',
 			total:0,
+			bdtjdata:[['个人主页','推荐Tab页','点击作品']],
 			
 		}
 	},

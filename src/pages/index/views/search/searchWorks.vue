@@ -4,7 +4,7 @@
 		
 		<list class="seccWr" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
-				<box_a :bdtj="bdtjdata" :iscre="iscre" :el="todo"></box_a>
+				<box_a :tjData="bdtjdata" :iscre="iscre" :el="todo"></box_a>
 			</template>			
 		</list>
 	</div>
@@ -31,7 +31,7 @@ export default {
 				
 			},
 			iscre:'',
-			bdtjdata:[['搜索页','作品'],['搜索页','创作者']],
+			bdtjdata:[['搜索页','作品搜索结果','点击作品'],['搜索页','作品搜索结果'],['搜索页','作品搜索结果']],
 			querys:'',
 			clasd:[],
 			

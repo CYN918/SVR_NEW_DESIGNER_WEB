@@ -14,7 +14,7 @@
 			</div>
 			<feedback ref="feedback"></feedback>
 			
-			<div @click="goFn('/syPage')" class="tfpifbox">
+			<div @click="goFn('/syPage',['来电秀工具-列表页','侧浮栏[下载app]','--'])" class="tfpifbox">
 				<img class="tfpifbox1" :src="setImgU('tools/ip.svg')">
 				<div class="tfpifbox2">
 					<img class="tfpifbox2_1" :src="setImgU('tools/icon_download.svg')"/>
@@ -35,16 +35,16 @@ export default {
 		},
 		methods:{
 			banh(){
-				this.bdtj('通用模块','底部栏点击_备案号','--');
+				this.bdtj('底部栏','底部栏点击_备案号','--');
 			},
 			goPu(ud,b){
 				
-				this.bdtj('通用模块','底部栏点击_'+b,'--');
+				this.bdtj('底部栏','['+ b +']','--');
 				if(!ud){return}
 				this.$router.push({path:ud})
 			},
 	        showFdb(){
-				this.bdtj('通用模块','底部栏点击_意见反馈','--');
+				this.bdtj('底部栏','意见反馈','--');
 				if(!window.userInfo || !window.userInfo.access_token){
 					this.$message({
 						message:'请先登录'

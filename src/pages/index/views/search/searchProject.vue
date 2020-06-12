@@ -4,7 +4,7 @@
 		
 		<list class="seccPr" :isDjs="'1'" :config="data" ref="sfafa">
 			<template v-slot:todo="{ todo }">
-				<cent :djs="djson" :iscre="iscre" :conf="pr_con" :el="todo"></cent>
+				<cent :djs="djson" :iscre="iscre" :conf="pr_con" :el="todo" :bdtjdata='bdtjdata'></cent>
 			</template>			
 		</list>
 	</div>
@@ -37,7 +37,7 @@ export default {
 			pr_con:{
 				t_show:'',
 			},
-			bdtjdata:[['搜索页','作品'],['搜索页','创作者']],
+			bdtjdata:[['搜索页','项目搜索结果'],['搜索页','项目搜索结果']],
 			querys:'',
 			clasd:[],
 			djson:0,

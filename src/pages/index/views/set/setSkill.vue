@@ -282,7 +282,7 @@ export default {
 				Message({message: '请选择设计经验'});
 				return
 			}
-			this.bdtj('帐号设置','完善资料-保存资料','--');
+			this.bdtj('账号设置','完善资料-保存资料','--');
 			
 			
 			this.api.saveSkill(this.form).then((da)=>{

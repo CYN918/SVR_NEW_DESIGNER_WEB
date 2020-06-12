@@ -77,14 +77,11 @@ export default {
 			}});
 		},
 		goFans(d,id){
-			if(d == '/works') {
-				this.bdtj('我的关注','创作者列表','进入Ta的主页');
-			}
 			this.$router.push({path:d,query:{id:id}});
 		},
 		showFpllwodel(on){
 		
-			this.bdtj('我的关注','创作者列表','取消关注');
+			this.bdtj('我的关注','创作者列表','成功取消关注');
 			this.tanData = {
 				zj:'follow_new',
 				type:'del',	
@@ -97,7 +94,7 @@ export default {
 
 		goUser(on,a){
 			if(a){
-				this.bdtj('我的关注','创作者-'+a,'--');
+				this.bdtj('我的关注','创作者列表','进入Ta的主页');
 			}
 			this.$router.push({path: '/works',query:{id:on.open_id}})	
 		},
@@ -105,7 +102,7 @@ export default {
 			return	window.getTimes(time);
 		},	
 	
-		openxq(on){		
+		openxq(on){
 			this.bdtj('我的关注','创作者列表','点击作品');
 			window.open('#/cont?id='+on)
 		},

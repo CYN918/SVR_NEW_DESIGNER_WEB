@@ -448,7 +448,7 @@ export default {
 			this.$router.push({path: '/upload',query:{id:id}});	
 		},
 		showTopc(type,on){
-			this.bdtj('我的创作','[确认]删除作品','--');
+			this.bdtj('我的创作页','[确认]删除作品','--');
 			this.$refs.tcBox2.show();
 			this.deletWorkon = on.work_id;
 			this.topcType = type;

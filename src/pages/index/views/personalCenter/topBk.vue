@@ -90,7 +90,7 @@ export default {
 		},
 		uploadImg(e){
 		
-			this.bdtjCom('设置封面图-上传图片');
+			//this.bdtjCom('设置封面图-上传图片');
 			let file = e.target.files[0];
 			if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)||e.target.files.length==0) {
 				this.miss('图片格式不正确');
@@ -108,6 +108,7 @@ export default {
 					data = window.URL.createObjectURL(new Blob([e.target.result]))
 				} 					
 				this.option.img = data;
+				this.bdtj('个人主页','主页背景图','成功[上传图片]');
 			}
 			reader.readAsArrayBuffer(file);
 		},
@@ -163,7 +164,8 @@ export default {
 						
 							this.opType=0;
 							if(da2=='error'){return}
-							this.miss('保存成功');						
+							this.miss('保存成功');	
+							this.bdtj('个人主页','主页背景图','成功[保存]背景图');
 							this.$emit('setSuss',pr.user_center_banner_pic);
 
 						}).catch(()=>{

@@ -90,7 +90,7 @@
 				<div v-if="tAncType==4" class="tc_sucd_1">
 					<img class="tAncType4_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/email01.png" alt="">
 					<div class="tAncType4_2">
-						激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/> 请及时登录邮箱，点击邮件中的链接激活帐户。
+						激活邮件已发送到你的邮箱中，邮件有效期为24小时。<br/> 请及时登录邮箱，点击邮件中的链接激活账户。
 					</div>
 				</div>
 				<div v-if="tAncType!=4" class="tc_sucd_1_2">
@@ -365,7 +365,7 @@
 				this.tancData.old_mobile_zone = val;
 			},
 			ajaxYzm() {
-				this.bdtj('帐号设置', '基本信息-修改手机号弹窗-发送验证码', '--');
+				this.bdtj('账号设置', '基本信息-修改手机号弹窗-发送验证码', '--');
 				let pd = this.tancData.newMoble;
 				if(this.tancData.mobile_zone != '86') {
 					if(!(typeof pd === 'number' && pd % 1 === 0)) {
@@ -448,7 +448,7 @@
 				this.api.Bindbind(pr).then((da) => {
 					this.upType='';
 					if(da == 'error') {
-						this.bdtj('帐号设置', '基本信息-修改手机号弹窗-修改失败', '--');
+						this.bdtj('账号设置', '基本信息-修改手机号弹窗-修改失败', '--');
 						return
 					}
 					this.form.mobile = pr.mobile;
@@ -463,7 +463,7 @@
 					window.userInfo.mobile = this.form.mobile;
 					window.userInfo.mobile_zone = this.form.mobile_zone;
 					localStorage.setItem('userT', JSON.stringify(window.userInfo));
-					this.bdtj('帐号设置', '基本信息-修改手机号弹窗-修改成功', '--');
+					this.bdtj('账号设置', '基本信息-修改手机号弹窗-修改成功', '--');
 					Message({
 						message: '修改成功'
 					});
@@ -507,14 +507,14 @@
 				};
 			},
 			closeTc1() {			
-				this.bdtj('帐号设置', '基本信息-' + this.tjList[this.tAncType - 1].b, '--');
+				this.bdtj('账号设置', '基本信息-' + this.tjList[this.tAncType - 1].b, '--');
 				this.closeCler();
 				this.close2();
 				this.tAncType = 0;
 			},
 			openTc1(on,a,b) {
 
-				this.bdtj('帐号设置', a, b);
+				this.bdtj('账号设置', a, b);
 				this.outc.title = this.tjList[on - 1].a;
 				if(on == 3) {
 					this.Verifycodeget();
@@ -548,7 +548,7 @@
 			},
 	
 			Userupdate() {
-				this.bdtj('帐号设置', '[保存资料]', '--');
+				this.bdtj('账号设置', '[保存资料]', '--');
 				let postData = {
 					access_token: window.userInfo.access_token,
 					username: this.form.username,

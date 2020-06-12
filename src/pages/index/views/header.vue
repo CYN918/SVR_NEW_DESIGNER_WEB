@@ -6,7 +6,7 @@
 			v-for="(el,index) in topNData" 
 			:key="index" 
 			:class="['pend',ison==el.path?'router-link-active':'']"
-			@click="goZP(el.path,el.n)"
+			@click="goZP(el.path,el.n,'0')"
 			>{{el.n}}
 			
 			<img v-if="el.t=='NEW'" class="hed_new" :src="imgPath+'new/tools/02.svg'" />
@@ -24,11 +24,11 @@
 					<div v-if="!searcCont||searcCont.split(' ').join('').length == 0">
 						<div class="searcBox5_3" v-if="data1.length>0">
 							<div class="searcBox5_1">最近搜索</div>
-							<div class="searcBox5_2" @click="gosearch(el)" v-for="(el,index) in data1">{{el}}</div>
+							<div class="searcBox5_2" @click="gosearch(el,'点击最近搜索词',index+1)" v-for="(el,index) in data1">{{el}}</div>
 						</div>
 						<div v-if="data2.length>0">
 							<div class="searcBox5_1">热门搜索</div>
-							<div class="searcBox5_2" @click="gosearch(el)" v-for="(el,index) in data2">{{el.words}}</div>
+							<div class="searcBox5_2" @click="gosearch(el,'点击热门搜索词',index+1)" v-for="(el,index) in data2">{{el.words}}</div>
 						</div>
 					</div>
 					<div v-else>
@@ -198,8 +198,23 @@ export default {
 		gouser(id){
 			this.$router.push({path: '/works',query:{id:id}})	
 		},
-		gosearch(name){
-			this.bdtj('通用模块','顶部栏—输入后搜索','--');
+		gosearch(name,a,i){
+			console.log(name)
+			if(this.$route.name == 'searchWorks'){
+				if(a == '点击最近搜索词'){
+					this.bdtj('搜索页',a,name);
+				} else {
+					this.bdtj('搜索页',a,i+'_'+name.words);
+				}
+			} else {
+				if(a == '点击最近搜索词'){
+					this.bdtj('顶部栏',a,name);
+				} else {
+					this.bdtj('顶部栏',a,i+name.words);
+				}
+			}
+			
+			
 			let na = name.words || name.work_name || name.username || name;
 			let hotc = localStorage.getItem("scrllhot");
 			let on = -1;
@@ -235,6 +250,7 @@ export default {
 		},
 		showsearch(){
 			this.bdtj('顶部栏','搜索','点击[搜索]');
+			//console.log(this.$route);
 			if(this.searchType==true){
 				if(!this.searcCont){
 					return
@@ -274,8 +290,13 @@ export default {
                 path:'/index'
             })
         },
-		goZP(a,b){
-			this.bdtj('顶部栏','个人消息','点击['+ b +']');
+		goZP(a,b,c){
+			if(!c){
+				this.bdtj('顶部栏','个人消息','点击['+ b +']');
+			} else {
+				this.bdtj('顶部栏',b);
+			}
+			
 			this.$router.push({path: a})			
 		},
 		
@@ -321,9 +342,10 @@ export default {
 		},
 		
 		showHb(is){
-			if(is==1){
-				this.bdtj('通用模块','顶部栏点击_退出','--');
-			}
+			// if(is==1){
+				
+			// }
+			this.bdtj('顶部栏','个人信息','[退出登录]');
 			this.$refs.out.show();		
 		},
 		logTo(num){

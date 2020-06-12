@@ -64,8 +64,8 @@ export default {
 			} else if (p == '/setSkill'){
 				ps = '[去完善]'
 			}
-			if(this.$parent.getstate){
-				this.bdtj('项目详情页',this.$parent.getstate(),ps)
+			if(this.$parent.getstate()){
+				this.bdtj('项目详情页',"未达到报名资格",ps)
 			}
 			
 			this.$router.push({path: p})	

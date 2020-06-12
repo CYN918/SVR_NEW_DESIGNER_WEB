@@ -18,12 +18,14 @@ export default{
 	},
 	methods:{
 		go(p){
+			this.bdtj('来电秀工具-列表页','不是供稿人[立即认证]','--');
 			this.$router.push({path:p});	
 		},
 		pdn(){
 			return window.userInfo.contributor_format_status==1
 		},
 		goxn(){
+			this.bdtj('来电秀工具-列表页','不是供稿人[了解详情]','--')
 			window.location.href= 'https://shiquaner.zookingsoft.com/#/cont?id=159038746021';
 
 		}

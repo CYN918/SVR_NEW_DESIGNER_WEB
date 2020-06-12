@@ -155,12 +155,13 @@ export default {
 		},
 		FollowClick(on){
 			if(on.follow_flag==0){
-				this.bdtjCom('关注');
+				//this.bdtjCom('关注');
+				this.bdtj('个人主页','关注Tab页','点击[关注]')
 				this.$parent.Follow_add(on.open_id);
 				return
 			}
 			
-			this.bdtjCom('已关注');
+			//this.bdtjCom('已关注');
 			this.$parent.Follow_un(on.open_id);
 		},
 
@@ -171,7 +172,8 @@ export default {
 			this.$router.push({path:'/followFans',query:{id:this.$route.query.id}})							
 		},
 		goUser(on,a){
-			this.bdtjCom(a);
+			//this.bdtjCom(a);
+			this.bdtj('个人主页','关注Tab页','进入个人主页')
 			this.$router.push({path: '/works',query:{id:on}})	
 		},
 		backtime(time){		

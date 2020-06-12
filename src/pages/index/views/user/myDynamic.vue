@@ -37,7 +37,7 @@ export default {
 				},
 				pr:{type:1}
 			},	
-			bdtjdata:[['我的关注','动态列表作品'],['我的关注','动态列表创作者']],
+			bdtjdata:[['我的关注','动态列表','点击作品'],['我的关注','动态列表创作者']],
 			options:[
 				{value:1,label:'关注人发布的'},
 				{value:2,label:'关注人推荐的'}

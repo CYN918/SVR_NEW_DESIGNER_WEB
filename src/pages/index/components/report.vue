@@ -96,8 +96,9 @@ export default {
                 })
             },
             AddReport(){
-				if(this.$parent.pagename){
-					this.bdtj(this.$parent.pagename,'举报',this.position);
+				if(this.$parent.bdtjdta){
+					console.log(this.$parent.bdtjdta,'[提交]举报'+this.position)
+					this.bdtj(this.$parent.bdtjdta[0][0],'举报','[提交]举报'+this.position);
 				}
 				
                 if(!this.detail){
