@@ -42,7 +42,7 @@ export default {
 		},	
 		djs:Number,
 		iscre:String,
-		bdtjdata:Object
+		bdtjdata:Array
 	},
 	data(){
 		return{

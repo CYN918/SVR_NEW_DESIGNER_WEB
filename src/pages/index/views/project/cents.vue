@@ -284,31 +284,12 @@ export default {
 			}
 		},
 		dowloadmb(obj){
+			//console.log(this.getstate());
 			this.bdtj("项目详情页",this.getstate(),"[下载附件]");
+			//console.log(obj.template_file_url,obj.template_file_name)
 			window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
 		getstate(){
-			let state = '--';
-			if(this.deta.status == '1'){
-				state = '招募期'
-			} else if(this.deta.status == '0'){
-				state = '待发布'
-			} else if(this.deta.status == '2'){
-				state = '选标期'
-			} else if(this.deta.status == '3' && this.deta.is_rejected != '1' && new Date(Date.parse(this.deta.delivery_deadline)) >= new Date()){
-				state = '制作期'
-			} else if(this.deta.status == '3' && this.deta.is_rejected != '1' && new Date(Date.parse(this.deta.delivery_deadline)) < new Date()){
-				state = '已延期'
-			} else if(this.deta.status == '3' && this.deta.is_rejected == '1'){
-				state = '未通过'
-			} else if(this.deta.status == '4'){
-				state = '待审核'
-			}else if(this.deta.status == '5'){
-				state = '已验收'
-			}else if(this.deta.status == '-1'){
-				state = '已终止'
-			}
-			return state;
 			let maps = {
 				'0':'待发布',
 				'1':'招募期',
@@ -318,12 +299,22 @@ export default {
 				'5':'已验收',
 				'-1':'已终止',
 			};
-			state = maps[obj.status];
-			if(obj.status == 3){
-				state = obj.is_rejected == '1'?'未通过':new Date(Date.parse(obj.delivery_deadline)) < new Date()?'已延期':'制作期';
-			}
-			this.bdtj("项目详情页",state,"[下载附件]");
-			window.downloadFiles(obj.template_file_url,obj.template_file_name);
+			return  maps[this.deta.status];
+			// let maps = {
+			// 	'0':'待发布',
+			// 	'1':'招募期',
+			// 	'2':'选标期',
+			// 	'3':'制作期',
+			// 	'4':'待审核',
+			// 	'5':'已验收',
+			// 	'-1':'已终止',
+			// };
+			// state = maps[obj.status];
+			// if(obj.status == 3){
+			// 	state = obj.is_rejected == '1'?'未通过':new Date(Date.parse(obj.delivery_deadline)) < new Date()?'已延期':'制作期';
+			// }
+			// this.bdtj("项目详情页",state,"[下载附件]");
+			// window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
 		backZq(a,b){
 			

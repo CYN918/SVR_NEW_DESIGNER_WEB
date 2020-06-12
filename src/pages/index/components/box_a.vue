@@ -49,7 +49,7 @@ export default {
 			type:Object,
 			default:{}
 		},
-		tjData:Object,
+		tjData:Array,
 		iscre:String
 	},
 	data(){
