@@ -324,7 +324,7 @@ router.beforeEach((to, from, next) => {
 	setTitle(to.path)
 	/*是否填写信息*/
 	if(window.userInfo && (to.fullPath=='/setEnterprise' || to.fullPath=='/setPersonal')){
-		console.log(window.userInfo.is_contributor);
+	
 		if(window.userInfo.is_contributor==1){
 			Message({message: '你已经是平台供稿人'});
 			next('/index');
