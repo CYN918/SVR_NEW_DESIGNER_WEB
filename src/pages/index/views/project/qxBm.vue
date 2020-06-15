@@ -19,7 +19,7 @@ export default {
 	data(){
 		return{}
 	},
-	methods: {	
+	methods: {
 		gorz(){
 			this.is='';
 		},

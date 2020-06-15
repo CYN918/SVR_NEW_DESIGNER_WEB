@@ -40,7 +40,7 @@
 					</div>
 					<div>
 						<div @click="showPic(el.preview_pic)" class="log_tipbox" v-if="el.preview_pic">预览</div>
-						<div @click="fileCy(el)" class="log_tipbox" v-if="checkCh(el)">撤回</div>
+						<div @click="fileCy(el)" class="log_tipbox" v-if="checkCh(el,index)">撤回</div>
 						
 					</div>
 					<qxGj class="logqxgj" v-if="isShow" :datad="datad"></qxGj>
@@ -76,7 +76,9 @@ export default {
 			sfas:'display:none',
 			ylt:'',
 			isShow:false,
-			datad:{}
+			datad:{},
+			index:0,
+			pagename:"项目详情页"
 		}
 	},
 	filters: {
@@ -108,7 +110,8 @@ export default {
 		this.init();
 	},
 	methods: {
-		checkCh(el){	
+		checkCh(el,index){
+			this.index = index;
 			if(el.status==4 && el.check_steps!=1 && [-2,-1,1].indexOf(+el.check_status)==-1){
 				return true;
 			}
@@ -124,6 +127,21 @@ export default {
 		},
 		closepick(){
 			this.ylt = '';
+		},
+		getstate(){
+			let state = '--';
+			if(this.List[this.index].status == '1'){
+				state = '招募期'
+			} else if(this.List[this.index].status == '2'){
+				state = '选标期'
+			} else if(this.List[this.index].status == '3'){
+				state = '制作期'
+			}  else if(this.List[this.index].status == '4'){
+				state = '待验收'
+			}else if(this.List[this.index].status == '5'){
+				state = '已验收'
+			}
+			return state;
 		},
 		showPic(i){
 			this.ylt = i;
