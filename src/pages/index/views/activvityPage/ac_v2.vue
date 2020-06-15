@@ -165,6 +165,7 @@ export default{
 				'4-15',
 			],
 			islog:'',
+			pagename:'项目详情页'
 		}
 	},
 	mounted: function(){
@@ -181,6 +182,9 @@ export default{
 				}
 		
 			})
+		},
+		getstate(){
+			return this.xmType[this.xmTypeOn].t;
 		},
 		navCl(el){
 			if(el.p==this.navOn){

@@ -254,7 +254,17 @@ export default {
 		},
 		openCent(){
 			if(this.deta.id){
-				this.bdtj('我的项目页','点击进入详情','--')
+				console.log(this.$route.name);
+				let n = '';
+				if(this.$route.name == 'projectBm'){
+					n = '已报名Tab页';
+				} else if (this.$route.name == 'projectZz'){
+					n = '制作中Tab页';
+				} else if(this.$route.name == 'projectYs'){
+					n = '已验收Tab页';
+				}
+				console.log('我的项目页',n,'点击进入详情');
+				this.bdtj('我的项目页',n,'点击进入详情');
 				window.open('/#/prcent?id='+this.deta.id+'&type=prj')
 			}			
 		},
