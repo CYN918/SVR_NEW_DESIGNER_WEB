@@ -29,13 +29,13 @@ export default {
 		},
 		pr_revokeDelivery(){
 			
-			if(this.$parent.$parent.getstate){
-				this.bdtj(this.$parent.$parent.pagename,this.$parent.$parent.getstate(),'[确定]撤回稿件')
-			} 
+			// if(this.$parent.$parent.getstate){
+			// 	this.bdtj(this.$parent.$parent.pagename,this.$parent.$parent.getstate(),'[确定]撤回稿件')
+			// } 
 			
-			if(this.$parent.getstate){
-				this.bdtj(this.$parent.pagename,this.$parent.$parent.getstate(),'[确定]撤回稿件')
-			} 
+			// if(this.$parent.getstate){
+			// 	this.bdtj(this.$parent.pagename,this.$parent.$parent.getstate(),'[确定]撤回稿件')
+			// } 
 			
 			//console.log(this.$parent.pagename,this.$parent.$parent.getstate(),'[确定]撤回稿件')
 			
