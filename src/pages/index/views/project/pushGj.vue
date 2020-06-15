@@ -191,7 +191,7 @@ export default {
 			this.filelist.splice(on,1);
 		},
 		pushfiled(){
-			
+			console.log(this.$parent.pagename,this.$parent.getstate(),'成功[提交]交稿')
 			let pr = {};
 			if(!this.preview_pic){
 				this.$message({message: '请先上传预览图'});
@@ -240,7 +240,7 @@ export default {
 					this.$parent.setStaus('4');
 				}
 				if(this.$parent.getstate){
-					//console.log(this.$parent.getstate())
+					
 					this.bdtj(this.$parent.pagename,this.$parent.getstate(),'成功[提交]交稿')
 				}
 				

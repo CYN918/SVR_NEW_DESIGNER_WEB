@@ -30,7 +30,7 @@ export default {
 					{a:'/projectZz',b:'制作中'},
 					{a:'/projectYs',b:'已验收'},									
 				],
-				bdtj:'我的项目'				
+				bdtj:'我的项目页'				
 			},
 			isTypeList:{
 				// projectAll:'',

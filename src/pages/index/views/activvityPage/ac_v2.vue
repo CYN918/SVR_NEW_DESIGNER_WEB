@@ -210,6 +210,7 @@ export default{
 			
 		},
 		dowun(u){
+			
 			window.open(u);
 		},
 		ckl(){
@@ -224,6 +225,8 @@ export default{
 			
 		},
 		dowloadmb(obj){
+			console.log('项目详情页',this.xmType[this.xmTypeOn].t,'[下载附件]')
+			this.bdtj('项目详情页',this.xmType[this.xmTypeOn].t,'[下载附件]')
 			window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
 		bm(){

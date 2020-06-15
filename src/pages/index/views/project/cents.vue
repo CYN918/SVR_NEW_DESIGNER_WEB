@@ -354,6 +354,7 @@ export default {
 		},
 		showTc(a,b){
 			if(a=='Log'){
+				console.log('项目详情页',this.getstate(),'[交稿记录]');
 				this.bdtj('项目详情页',this.getstate(),'[交稿记录]')
 			}
 			this.tcZj = a;

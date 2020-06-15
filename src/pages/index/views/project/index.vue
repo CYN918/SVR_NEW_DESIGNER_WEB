@@ -1,7 +1,5 @@
 <template>
 	<div class="pr_box">
-		
-		
 		<div class="pr_02_1Box">
 			<pTop class="" :cn="topCn">
 				<template v-slot:todo="{ todo }">

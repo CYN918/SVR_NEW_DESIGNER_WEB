@@ -174,6 +174,7 @@ export default {
 		
 
 		showTc(o,data){
+			console.log(this.$parent.getstate())
 			if(o=='pushGj'){
 				this.bdtj("项目详情页",this.$parent.getstate(),"点击[交稿]");
 			}
