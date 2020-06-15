@@ -12,7 +12,7 @@
 						下载合同 
 						<span class="js_0013"></span>
 						<div class="worksBox_2_4">
-							<div v-for="el in deta.contract_file" @click="dowun(el.file_url)">{{el.file_name}}</div>						
+							<div v-for="el in deta.contract_file" @click="dowun(el)">{{el.file_name}}</div>						
 						</div>
 					</div>
 					
@@ -214,8 +214,23 @@ export default{
 			
 		},
 		dowun(u){
+			this.bdtj('项目详情页',this.xmType[this.xmTypeOn].t,'成功[下载补充合同]')
+			//window.open(u);
 			
-			window.open(u);
+			fetch(u.file_url).then(res => res.blob()).then(blob => {
+				const a = document.createElement('a');
+				document.body.appendChild(a)
+				a.style.display = 'none'
+				// 使用获取到的blob对象创建的url
+				const url = window.URL.createObjectURL(blob);
+				a.href = url;
+				// 指定下载的文件名
+				a.download = u.file_name;
+				a.click();
+				document.body.removeChild(a)
+				// 移除blob对象的url
+				window.URL.revokeObjectURL(url);
+			});
 		},
 		ckl(){
 			if(!this.$route.query.id){
