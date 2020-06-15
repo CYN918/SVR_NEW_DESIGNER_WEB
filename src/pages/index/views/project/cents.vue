@@ -65,10 +65,10 @@
 						<p v-else><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>项目已延期交稿</i></p>
 						<p v-html="timeTips"></p>
 					</div>
-					<div v-if="deta.status==1 || deta.status==2" class="bm_dp">
+					<!-- <div v-if="deta.status==1 || deta.status==2" class="bm_dp">
 						<p><img :src="imgSig+'prcent/xm_icon_num.svg'"/><i>报名人数</i></p>
 						<p>{{deta.sign_up_num}}</p>
-					</div>
+					</div> -->
 					<div class="yj_sy2" v-if="deta.status==5">
 						<p v-if="deta.deal_type == '1'"><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>成交价格</i></p>
 						<p v-if="deta.deal_type == '2'"><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>累计分成收益</i></p>
@@ -926,8 +926,11 @@ export default {
 	height: 98px;
 	width: auto;
 	bottom: 48px;
-    left: 148px;
+    left:50%;
 	text-align: center;
+	white-space: nowrap;
+    text-align: center;
+    transform: translateX(-50%);
 }
 .cents_box_status > div{
 	height: 98px;
