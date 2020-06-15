@@ -64,7 +64,6 @@ export default {
 		},
 	},
 	methods: {
-		
 		init(){
 			this.data.pr = {};
 			if(this.$route.name=='projectAll'){return}			
