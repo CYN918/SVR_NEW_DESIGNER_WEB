@@ -26,7 +26,7 @@ export default {
 							for(let i=0;i<len-1;i++){
 								xx+='*';
 							}
-							return xx+str;
+							return str+xx;
 						},
 					},
 					{n:'帐号主体',clfn:(da)=>{ 
