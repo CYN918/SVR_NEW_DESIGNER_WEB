@@ -325,15 +325,20 @@ router.beforeEach((to, from, next) => {
 	/*是否填写信息*/
 	if(window.userInfo && (to.fullPath=='/setEnterprise' || to.fullPath=='/setPersonal')){
 	
-		if(window.userInfo.is_contributor==1){
+		if(window.userInfo.contributor_format_status==1){
 			Message({message: '你已经是平台供稿人'});
 			next('/index');
 			return 
 		}
 		
-		if(window.userInfo.contributor_type  && window.userInfo.contributor_format_status==0){
+		if(window.userInfo.contributor_format_status==1){
 			Message({message: '你的供稿人认证正在审核请耐心等待'});
 			next('/index');
+			return
+		}
+		if(window.userInfo.contributor_format_status==-1){
+			Message({message: '你的供稿人认证正被驳回请前往修改'});
+			next('/setPersonaleid');
 			return
 		}
 		next();
