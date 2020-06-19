@@ -54,11 +54,7 @@ export default {
 			this.$refs.listDom.getData();
 		},
 	},
-<<<<<<< HEAD
 	methods: {		
-=======
-	methods: {
->>>>>>> app
 		init(){
 			this.data.pr = {};
 			if(this.$route.name=='projectAll'){return}			

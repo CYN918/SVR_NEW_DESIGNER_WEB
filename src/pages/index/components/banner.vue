@@ -159,7 +159,7 @@ export default {
 	overflow: hidden;
 	/* padding-bottom: 31.25%; */
 	width: 100%;
-	height: 719px;
+	padding-bottom: 90px;
 }
 .bannerBtn{
 	position: absolute;
@@ -261,7 +261,7 @@ export default {
 }
 .banner_propaganda{
 	width: 1300px;
-	height: 234px;
+
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 20px;

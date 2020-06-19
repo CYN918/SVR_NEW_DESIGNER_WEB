@@ -115,17 +115,9 @@ export default {
 			ylt:'',
 			isShow:false,
 			datad:{},
-<<<<<<< HEAD
-			cg:{
-				'0':{name:''},
-				'1':{name:''},
-				'-2':{name:''},
-				'-1':{name:''},
-			}
-=======
 			index:0,
 			pagename:"项目详情页"
->>>>>>> app
+
 		}
 	},
 	filters: {
@@ -160,7 +152,6 @@ export default {
 		this.init();
 	},
 	methods: {
-<<<<<<< HEAD
 		picP(el){
 			if(!el.picOn || el.picOn==0){
 				return
@@ -187,8 +178,6 @@ export default {
 		tc_N2(el){
 			return el.type==2?`网盘密码：${el.access_code}`:`文件大小：${el.file_size}`
 		},
-		
-		
 		comtn(el){
 			let str = `<div class="newLog_06">
 				<span class="newLog_07 newLog_07_${el.check_status}">${this.comState.check_status[el.check_status?el.check_status:0]}</span>
@@ -203,12 +192,6 @@ export default {
 			str+='</div>';
 			str+=`<div class="newLog_09">交稿时间：2019-09-09 09:00</div>`;
 			str+=`<div class="newLog_09 newLog_10">验收时间：2019-09-09 09:00</div>`;
-				
-				
-				
-			
-			
-			
 			return str;
 		},
 		setBg(el){
@@ -224,11 +207,9 @@ export default {
 			el.pics = str;
 			return "background-image: url("+str+");";
 		},
-		checkCh(el){	
-=======
 		checkCh(el,index){
 			this.index = index;
->>>>>>> app
+
 			if(el.status==4 && el.check_steps!=1 && [-2,-1,1].indexOf(+el.check_status)==-1){
 				return true;
 			}

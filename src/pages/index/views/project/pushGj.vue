@@ -213,7 +213,7 @@ export default {
 			this.filelist.splice(on,1);
 		},
 		pushfiled(){
-			console.log(this.$parent.pagename,this.$parent.getstate(),'成功[提交]交稿')
+			
 			let pr = {};
 			if(this.imgs.length==0){
 				this.$message({message: '请先上传预览图'});
@@ -226,8 +226,6 @@ export default {
 				}
 				arr.push(this.imgs[i].url)
 			}
-			
-			pr.preview_pic = JSON.stringify(arr);
 			if(this.type==1){
 				
 				if(!this.fileList3[0]){
@@ -241,7 +239,7 @@ export default {
 				pr = {
 					project_id:this.datad.id,
 					type:this.type,
-					preview_pic:this.preview_pic,
+					preview_pic:JSON.stringify(arr),
 					file_name:this.fileList3[0].file_name,
 					file_url:this.fileList3[0].url,
 					file_size:this.fileList3[0].size,
@@ -260,7 +258,7 @@ export default {
 					project_id:this.datad.id,
 					type:this.type,
 					remark:this.eell,
-					preview_pic:this.preview_pic,
+					preview_pic:JSON.stringify(arr),
 					online_disk_url:this.online_disk_url,
 					access_code:this.access_code,
 				};
@@ -283,6 +281,11 @@ export default {
 			});
 
 		},
+		setBg(str){
+	
+			return "background-image: url("+str+");";
+		},
+		
 		uploadFile(params) {
 			const _file = params.file;
 			const isLt2M = _file.size / 1024 / 1024/1024 < 1;
