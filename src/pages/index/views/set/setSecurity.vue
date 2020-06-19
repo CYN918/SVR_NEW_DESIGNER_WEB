@@ -309,11 +309,11 @@ export default {
 		},
 		gosetPersonal(a){
 			this.bdtj('账号设置','平台供稿人',a);
-			if(this.form.contributor_type==2){
-				this.$router.push({path: '/setEnterprise'})
-				return
+			let str = this.form.contributor_type==2?'/setEnterprise':'/setPersonal';
+			if(a=='已认证[修改]'){
+				str = this.form.contributor_type==2?'/setEnterpriseeid':'/setPersonaleid';
 			}
-			this.$router.push({path: '/setPersonal'})
+			this.$router.push({path:str })
 		},
 		qdTc6(){
 			if(!this.jbnData.type){

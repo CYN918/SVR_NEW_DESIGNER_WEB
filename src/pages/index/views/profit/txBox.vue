@@ -128,6 +128,7 @@ export default {
 		return{
 			form:{},
 			upfjData:{},
+			ajx:false,
 			typedon:0,
 			ldList:['信息确认','提现金额','发票寄送','身份验证'],
 			ldList2:['信息确认','提现金额','身份验证'],
@@ -364,17 +365,25 @@ export default {
 			
 		},
 		pushData(){
+			if(this.ajx){
+				this.tipMr('正在处理请稍后')
+				return
+			}
 			this.bdtj('我的收益','提现','[完成]提现申请');
 			if(this.chekverify(this.form.verify_code)!=true){
 				Message({message: '请填写正确的验证码'});
 				return
 			}
 			let pr = this.form;
+			this.ajx = true;
 			this.api.Income_applyCash(pr).then((da)=>{
+				this.ajx = false;
 				if(da=='error' || da=='104'){return}
 				Message({message: '申请成功请耐心等待审核'});
 				this.$parent.txcg(pr.cash_money);	
 				this.$parent.getData();		
+			}).catch(()=>{
+				this.ajx = false;
 			});	
 		},
 		editPhone(){

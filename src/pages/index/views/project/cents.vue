@@ -37,10 +37,10 @@
 						<p v-else><img :src="imgSig+'prcent/xm_icon_time.svg'"/><i>项目已延期交稿</i></p>
 						<p v-html="timeTips"></p>
 					</div>
-					<div v-if="deta.status==1 || deta.status==2" class="bm_dp">
+					<!-- <div v-if="deta.status==1 || deta.status==2" class="bm_dp">
 						<p><img :src="imgSig+'prcent/xm_icon_num.svg'"/><i>报名人数</i></p>
 						<p>{{deta.sign_up_num}}</p>
-					</div>
+					</div> -->
 					<div class="yj_sy2" v-if="deta.status==5">
 						<p v-if="deta.deal_type == '1'"><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>成交价格</i></p>
 						<p v-if="deta.deal_type == '2'"><img :src="imgSig+'prcent/xm_icon_sy.svg'"/><i>累计分成收益</i></p>
@@ -185,6 +185,7 @@ export default {
 	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm,shareD,pushGj,qxGj,Log,Stop,question,presentation,topGd,prnavright,detailGd},
 	data(){
 		return{
+			pagename:'项目详情页',
 			tcZj:'',
 			tcData:'',
 			shareData:{},
@@ -249,6 +250,7 @@ export default {
 			this.getData();			
 		},
 		dowun(u){
+			this.bdtj('项目详情页','制作期','成功[下载补充合同]')
 			fetch(u.file_url).then(res => res.blob()).then(blob => {
 				const a = document.createElement('a');
 				document.body.appendChild(a)
@@ -287,16 +289,19 @@ export default {
 			window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
 		getstate(){
-			let maps = {
-				'0':'待发布',
-				'1':'招募期',
-				'2':'选标期',
-				'3':'制作期',
-				'4':'待审核',
-				'5':'已验收',
-				'-1':'已终止',
-			};
-			return  maps[this.deta.status];
+			let state = '--';
+			if(this.deta.status == '1'){
+				state = '招募期'
+			} else if(this.deta.status == '2'){
+				state = '选标期'
+			} else if(this.deta.status == '3'){
+				state = '制作期'
+			}  else if(this.deta.status == '4'){
+				state = '待验收'
+			}else if(this.deta.status == '5'){
+				state = '已验收'
+			}
+			return  state;
 			// let maps = {
 			// 	'0':'待发布',
 			// 	'1':'招募期',
@@ -345,12 +350,17 @@ export default {
 			this.tcZj = '';
 		},
 		showTc(a,b){
+			if(a=='Log'){
+				//console.log('项目详情页',this.getstate(),'[交稿记录]');
+				this.bdtj('项目详情页',this.getstate(),'[交稿记录]')
+			}
 			this.tcZj = a;
-
+			//console.log(this.tcZj,this.tcData)
 			if(b){
 				this.tcData = b;
 				return
 			}
+			console.log(a,b);
 			this.tcData = this.deta;
 			
 		},
@@ -914,8 +924,11 @@ export default {
 	height: 98px;
 	width: auto;
 	bottom: 48px;
-    left: 148px;
+    left:50%;
 	text-align: center;
+	white-space: nowrap;
+    text-align: center;
+    transform: translateX(-50%);
 }
 .cents_box_status > div{
 	height: 98px;

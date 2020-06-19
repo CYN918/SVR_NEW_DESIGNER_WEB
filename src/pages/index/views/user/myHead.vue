@@ -37,9 +37,10 @@ export default {
 			this.ison = this.$route.fullPath;
 		},	
 		goZP(el){
-			console.log(el)
+			//console.log(el)
 			if(this.con.bdtj){
-				this.bdtj(this.con.bdtj,'tab_'+el.b,'--');
+				//console.log(this.con.bdtj)
+				this.bdtj(this.con.bdtj,el.b+'Tab页','点击进入详情');
 			}			
 			this.$router.push({path:el.a})			
 		},	

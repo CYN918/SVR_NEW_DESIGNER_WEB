@@ -292,7 +292,7 @@ export default {
         },
 		goZP(a,b,c){
 			if(!c){
-				this.bdtj('顶部栏','个人消息','点击['+ b +']');
+				this.bdtj('顶部栏','个人信息','['+ b +']');
 			} else {
 				this.bdtj('顶部栏',b);
 			}

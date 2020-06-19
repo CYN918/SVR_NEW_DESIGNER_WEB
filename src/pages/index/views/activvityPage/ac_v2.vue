@@ -12,7 +12,7 @@
 						下载合同 
 						<span class="js_0013"></span>
 						<div class="worksBox_2_4">
-							<div v-for="el in deta.contract_file" @click="dowun(el.file_url)">{{el.file_name}}</div>						
+							<div v-for="el in deta.contract_file" @click="dowun(el)">{{el.file_name}}</div>						
 						</div>
 					</div>
 					
@@ -165,6 +165,7 @@ export default{
 				'4-15',
 			],
 			islog:'',
+			pagename:'项目详情页'
 		}
 	},
 	mounted: function(){
@@ -181,6 +182,9 @@ export default{
 				}
 		
 			})
+		},
+		getstate(){
+			return this.xmType[this.xmTypeOn].t;
 		},
 		navCl(el){
 			if(el.p==this.navOn){
@@ -210,7 +214,23 @@ export default{
 			
 		},
 		dowun(u){
-			window.open(u);
+			this.bdtj('项目详情页',this.xmType[this.xmTypeOn].t,'成功[下载补充合同]')
+			//window.open(u);
+			
+			fetch(u.file_url).then(res => res.blob()).then(blob => {
+				const a = document.createElement('a');
+				document.body.appendChild(a)
+				a.style.display = 'none'
+				// 使用获取到的blob对象创建的url
+				const url = window.URL.createObjectURL(blob);
+				a.href = url;
+				// 指定下载的文件名
+				a.download = u.file_name;
+				a.click();
+				document.body.removeChild(a)
+				// 移除blob对象的url
+				window.URL.revokeObjectURL(url);
+			});
 		},
 		ckl(){
 			if(!this.$route.query.id){
@@ -224,6 +244,8 @@ export default{
 			
 		},
 		dowloadmb(obj){
+			console.log('项目详情页',this.xmType[this.xmTypeOn].t,'[下载附件]')
+			this.bdtj('项目详情页',this.xmType[this.xmTypeOn].t,'[下载附件]')
 			window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
 		bm(){

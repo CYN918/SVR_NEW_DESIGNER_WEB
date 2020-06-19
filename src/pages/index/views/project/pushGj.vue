@@ -213,7 +213,7 @@ export default {
 			this.filelist.splice(on,1);
 		},
 		pushfiled(){
-			
+			console.log(this.$parent.pagename,this.$parent.getstate(),'成功[提交]交稿')
 			let pr = {};
 			if(this.imgs.length==0){
 				this.$message({message: '请先上传预览图'});
@@ -271,7 +271,8 @@ export default {
 					this.$parent.setStaus('4');
 				}
 				if(this.$parent.getstate){
-					this.bdtj('项目详情页',this.$parent.getstate(),'成功[提交]交稿')
+					
+					this.bdtj(this.$parent.pagename,this.$parent.getstate(),'成功[提交]交稿')
 				}
 				
 				this.$message({message:"交稿成功，请耐心等待验收"});

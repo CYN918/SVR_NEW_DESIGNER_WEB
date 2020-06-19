@@ -25,7 +25,7 @@
 				<span class="pend" @click="goFans('/works',userMessage.open_id,'创作')">创作<span>{{userMessage.work_num}}</span></span>
 			</div>
 			<div class="u_top3_4">
-				<router-link v-if="userTped==1" class="u_top3_4_1" to="/upload" @click="bdtjCom1('[上传作品]')">上传作品</router-link>
+				<span v-if="userTped==1" class="u_top3_4_1" @click="bdtjCom1('[上传作品]')">上传作品</span>
 				<div class="u_top3_4_2" v-else>
 					<span @click="gzclick" :class="userMessage.follow_flag>0?'qgz':''">{{userMessage.follow_flag | followType}}</span>
 					<!-- <span @click="gsxd">私信</span> -->
@@ -185,8 +185,13 @@ export default {
 			this.bdtj('个人主页',b+a,'--');
 		},
 		bdtjCom1(a){
+			
 			let b = this.userTped?'自己主页视角':'他人主页视角';		
 			this.bdtj('个人主页',a,b);
+			console.log('个人主页',a,b)
+			this.$router.push({
+				path:'/upload'
+			})
 		},
 		goFans(d,id,c){
 			if(c){

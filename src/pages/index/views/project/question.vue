@@ -64,6 +64,7 @@ export default {
 			this.$parent.close();
 		},
 		pushd(){
+			this.bdtj(this.$parent.pagename,this.$parent.getstate(),"[提交]项目评价");
 			let ond = 0;
 			for(let i=0,n=this.lisr.length;i<n;i++){
 				if(!this.postData[this.lisr[i]] && this.List[i].type==1){

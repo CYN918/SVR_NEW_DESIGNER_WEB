@@ -68,7 +68,7 @@ export default {
 				pd='自己视角-作品Tag-';
 			}
 			this.data.bdtj = [['个人主页',pd+'翻页'],['个人主页',pd+'更改单页显示数']];
-			this.bdtjdata = [['个人主页',pd+'作品'],['个人主页',pd+'创作者']];
+			//this.bdtjdata = [['个人主页',pd+'作品'],['个人主页',pd+'创作者']];
 			this.data.pr.user_open_id = this.$route.query.id;
 		},
 		sxFn(on){

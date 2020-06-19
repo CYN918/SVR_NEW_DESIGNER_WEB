@@ -21,6 +21,7 @@ export default {
 	name: 'myAll',
 	data(){
 		return {
+			pagename:'我的项目页',
 			navData:{
 				title:'我的项目',
 				list:[
@@ -28,7 +29,7 @@ export default {
 					{a:'/projectZz',b:'制作中'},
 					{a:'/projectYs',b:'已验收'},									
 				],
-				bdtj:'我的项目'				
+				bdtj:'我的项目页'				
 			},
 			isTypeList:{
 				projectBm:'1',
@@ -53,7 +54,11 @@ export default {
 			this.$refs.listDom.getData();
 		},
 	},
+<<<<<<< HEAD
 	methods: {		
+=======
+	methods: {
+>>>>>>> app
 		init(){
 			this.data.pr = {};
 			if(this.$route.name=='projectAll'){return}			
