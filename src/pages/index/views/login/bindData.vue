@@ -247,5 +247,8 @@ export default {
 </script>
 
 <style>
+.newUserme2 .el-input__inner{
+	padding-right: 0;
+}	
 
 </style>
