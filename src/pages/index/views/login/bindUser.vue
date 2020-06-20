@@ -120,4 +120,7 @@ export default {
 	width: 100%;
 	text-align: center;
 }
+.newUsxf2 .el-input__inner{
+	padding-right: 0;
+}
 </style>
