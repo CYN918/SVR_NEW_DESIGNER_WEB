@@ -89,8 +89,9 @@ export default {
 			this.Follow_del();
 		},
 		Follow_add(on){
-			console.log(this.tjData)
-			this.bdtj(this.tjData[1][0],this.tjData[1][1],'点击[关注]');
+			if(this.tjData){
+				this.bdtj(this.tjData[1][0],this.tjData[1][1],'点击[关注]');			
+			}
 			if(!window.userInfo){
 				this.$router.push({path: '/login'})
 				return
