@@ -20,7 +20,7 @@
 					<img class="box-detele_n8" src="http://zk-img.oss-cn-qingdao.aliyuncs.com/h5/cyn/prcent/detele.svg"  @click="modseout(index)"/>
 					<div class="box-sytc_1">
 						<div class="box-sytc_1_n1">累计已付预付金</div>
-						<div class="box-sytc_1_n2"><i style="color:rgba(51,179,255,1);font-style: normal;">￥{{formatMoney(dqpayment)}}</i>/￥{{formatMoney(paymentObj.advance_payment_total_income)}}</div>
+						<div class="box-sytc_1_n2"><i style="color:rgba(51,179,255,1);font-style: normal;">￥{{formatMoney(dqpayment)}}</i>/￥{{formatMoney(paymentObj)}}</div>
 						<div class="box-time_n3">
 							<li v-for="(item,index) in paymentData" :class="[on==index?'action':'']">
 								{{item.year}}年
@@ -72,7 +72,6 @@
 		</el-pagination>
 		<div v-if="List.length == 0" class="emptyData">
 			<img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg" alt="">
-			<!-- <div class="noDatawan">找不到数据了o(╥﹏╥)o</div> -->
 			<div class="noDatawan">这里还什么都没有呢~</div>
 		</div>
 		
@@ -199,9 +198,12 @@ export default {
 			let pr = {
 				project_id : id
 			};
-			this.api.dividedList(pr).then((da)=>{
-				this.paymentObj = da;
+			this.api.AdvancePayment(pr).then((da)=>{
+				console.log(da);
+				this.paymentObj = da.advance_payment_total_income;
 				this.paymentData = da.data;
+				// this.paymentObj = da;
+				// this.paymentData = da.data;
 				this.dateList = date.split('-');
 				this.paymentData.forEach((element,index) => {
 					if(this.dateList[0] == element.year){

@@ -427,4 +427,9 @@ export default {
 	},
 	
 	
+	AdvancePayment:{
+		url:'/Api/Appshow/AdvancePayment',method:'post',baseURL:0,isType:{cancelToken:1}
+	},
+	
+	
 }

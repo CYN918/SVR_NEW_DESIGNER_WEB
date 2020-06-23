@@ -134,7 +134,9 @@ export default {
 				this.follwTyle=0;
 				if(da=='error' || da=='104'){return}
 				Message({message: '取消关注成功'});
-				this.bdtj(this.tjData[1][0],this.tjData[1][1],'成功取消关注');
+				if(this.tjData){
+					this.bdtj(this.tjData[1][0],this.tjData[1][1],'成功取消关注');
+				}
 				this.$set(this.tcData.user_info,'follow_flag',0);
 				
 			}).catch(()=>{
