@@ -64,8 +64,10 @@ export default {
 			if(!window.userInfo){
 				this.login(1);
 				return
+			// 已是供稿人提示
 			}else if(window.userInfo.contributor_format_status==2) {
-				this.tancD.zj='home_tc';	
+				this.tancD.zj='home_tc';
+			// 非供稿人引导认证	
 			}else{
 				this.tancD.zj='home_tolt'
 			}
