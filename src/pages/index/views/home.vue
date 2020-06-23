@@ -58,7 +58,7 @@ export default {
 			topCn:{
 				min:670,
 			},
-			bdtjdata:[['首页','作品'],['首页','作品-创作者hover','进入个人主页']],
+			bdtjdata:[['首页','点击作品'],['首页','作品-创作者hover','进入个人主页']],
 			type:'rec',
 			isTop:'',
 			adFn:'',

@@ -134,7 +134,12 @@ export default {
 			// console.log(this.tjData[0][0],this.tjData[0][1],'点击作品')
 			if(this.tjData && this.tjData[0]){
 				//this.tongj(this.tjData[1]);
-				this.bdtj(this.tjData[0][0],this.tjData[0][1],'点击作品')
+				if(this.tjData[0][0] == '首页'){
+					this.bdtj(this.tjData[0][0],'点击作品',n)
+				} else{
+					this.bdtj(this.tjData[0][0],this.tjData[0][1],'点击作品')
+				}
+				
 			}
 			
 			window.open('#/cont?id='+this.el.work_id)
