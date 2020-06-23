@@ -25,13 +25,14 @@
 <script>
 import tanC from '../components/tanC';
 export default {
+	props:{value:Object},
 	components:{tanC},
 	methods: {	
 		close(){
-			this.$emit('input',{});
+			this.value.zj = '';
 		},
 		goFncl(p){
-			this.$emit('input',{});
+			this.value.zj = '';
 			this.goFn(p)
 		}
 	}

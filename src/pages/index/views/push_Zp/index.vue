@@ -38,7 +38,7 @@ export default{
 		return{
 			navs:[
 				{n:'使用预览图提交',v:'pic'},
-				{n:'使用预览图提交',v:'work'}
+				{n:'投稿已上传的原创作品',v:'work'}
 			],
 			tanc:{
 				zj:'pic',

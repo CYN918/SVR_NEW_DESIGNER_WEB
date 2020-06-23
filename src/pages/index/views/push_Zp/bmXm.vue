@@ -18,8 +18,13 @@
 							</div>
 							<span @click="chekcfN(el)" class="ps_wk_xzxm">选择投稿</span>
 						</li>
-						<div ref="botmm"></div>						
-						<img v-if="isnoData" class="upImnoData" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/k/empty_nodata@3x.png"/>
+						<div ref="botmm"></div>	
+											
+						<div v-if="isnoData">
+							<img class="tgndat_1" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/img/svg/empty_nodata.svg"/>
+							<div class="tgndat_2">没有可投稿的原创作品，你可以在上传原创作品时选择直接投稿</div>
+							<div @click="goFn('/upload')" class="tgndat_3 pend">上传原创作品</div>
+						</div>
 					</ul>
 				
 			</div>
@@ -134,5 +139,28 @@ export default {
 }
 .bmXm_03>li:hover .ps_wk_xzxm{
 	display: block;
+}
+.tgndat_1{
+    width: 960px;
+    margin-top: 52px;
+}
+.tgndat_2{
+    font-size: 14px;
+    font-family: PingFangSC-Regular,PingFang SC;
+    font-weight: 400;
+    color: rgba(187,187,187,1);
+    line-height: 20px;
+    text-align: center;
+}
+.tgndat_3{
+	width: 120px;
+    height: 40px;
+    background: rgba(51,179,255,1);
+    border-radius: 5px;
+    text-align: center;
+    line-height: 40px;
+    margin: 20px auto 0;
+    color: #fff;
+    font-size: 14px;
 }
 </style>

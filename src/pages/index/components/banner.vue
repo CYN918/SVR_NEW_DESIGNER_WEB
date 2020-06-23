@@ -63,6 +63,7 @@ export default {
 				this.login(1);
 				return
 			}
+			console.log(1111111111111111);
 			this.tancD.zj='home_tc';
 		},
 		backcls(inx){
