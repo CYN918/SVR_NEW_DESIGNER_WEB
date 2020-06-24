@@ -1,11 +1,10 @@
 <template>
 	<tanC :title="'稿件撤回'">
 		<template v-slot:todo="{ todo }">
-			<div class="qxBm_btns_1">撤回后该项目将终止，需重新投稿作品，<br/>确认撤回稿件？</div>	
+			<div class="qxBm_btns_1">撤回后该项目将终止，需重新投稿作品，确认撤回稿件？</div>	
 			<div class="qxBm_btns">
-				<div @click="pr_revokeDelivery" class="btns  pend">确定</div>
-				<div @click="close" class="btns btns_js pend">取消</div>
-				
+				<div @click="close" class="btns pend">取消</div>
+				<div @click="pr_revokeDelivery" class="btns btns_js  pend">确定</div>
 			</div>
 		</template>			
 	</tanC>
