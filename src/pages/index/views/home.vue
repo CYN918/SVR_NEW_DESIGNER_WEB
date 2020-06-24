@@ -61,7 +61,7 @@ export default {
 			topCn:{
 				min:670,
 			},
-			bdtjdata:[['首页','点击作品'],['首页','作品-创作者hover','进入个人主页']],
+			bdtjdata:[['首页','点击作品','--','1'],['首页','作品-创作者hover','进入个人主页']],
 			type:'rec',
 			isTop:'',
 			adFn:'',
@@ -90,6 +90,7 @@ export default {
 			
 			if(this.value){
 				this.data.pr.classify_name = this.value;
+				this.bdtjdata=[['首页','点击作品',this.data.pr.classify_name,'1'],['首页','作品-创作者hover','进入个人主页']];
 				this.bdtj("首页","点击作品分类",this.data.pr.classify_name);
 			}else{
 				this.data.pr = {
