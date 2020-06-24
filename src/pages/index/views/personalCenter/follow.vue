@@ -33,7 +33,6 @@
 							</div>
 						</div>
 						<div class="lunbox">
-							
 							<ul v-if="todo.works.length>0">
 								<li v-if="index2<3" v-for="(el2,index2) in todo.works" :key="index2"><img @click="openxq(el2.work_id)" :src="el2.face_pic"></li>							
 							</ul>
@@ -154,6 +153,7 @@ export default {
 			return id==window.userInfo.open_id;
 		},
 		FollowClick(on){
+			
 			if(on.follow_flag==0){
 				//this.bdtjCom('关注');
 				this.bdtj('个人主页','关注Tab页','点击[关注]')

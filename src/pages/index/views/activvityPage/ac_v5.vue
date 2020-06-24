@@ -98,7 +98,7 @@ export default{
 	components:{list,box_a,com_wp,bm_01,QRCode,pTop,Header,loginDialog},
 	data(){
 		return{
-			bdtjdata:[['活动详情页','作品-创作者hover'],['活动详情页','作品-创作者hover']],
+			bdtjdata:[],
 			topCn:{
 				min:680,
 			},
@@ -168,7 +168,11 @@ export default{
 				return
 			}
 			
-			this.ids = this.$route.query.id
+			this.ids = this.$route.query.id;
+			this.bdtjdata = [
+				['活动详情页','点击展示作品',this.$route.query.id,'1'],
+				['活动详情页','作品-创作者hover']		
+			];
 			this.a_getInfo();
 			
 		},

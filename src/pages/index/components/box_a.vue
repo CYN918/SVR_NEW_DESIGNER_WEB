@@ -123,9 +123,10 @@ export default {
 		},
 		openxq(n){
 			if(this.tjData && this.tjData[0]){
-				if(this.tjData[0][0] == '首页'){
-					this.bdtj(this.tjData[0][0],'点击作品',n)
-				} else{
+				if(this.tjData[0][3]){
+					this.bdtj(this.tjData[0][0],this.tjData[0][1],this.tjData[0][2])
+				} 
+				else{
 					this.bdtj(this.tjData[0][0],this.tjData[0][1],'点击作品')
 				}
 				
