@@ -39,7 +39,7 @@
 								</div>
 							</div>
 							<div class="mo_01box">
-								<box_a v-for="(el,index) in workList" :key="index"  :el="el"></box_a>
+								<box_a :tjData="bdtjdata" v-for="(el,index) in workList" :key="index"  :el="el"></box_a>
 							</div>
 							
 							<div v-if="total>workList.length" class="ac-01-3">
@@ -98,6 +98,7 @@ export default{
 	components:{list,box_a,com_wp,bm_01,QRCode,pTop,Header,loginDialog},
 	data(){
 		return{
+			bdtjdata:[['活动详情页','作品-创作者hover'],['活动详情页','作品-创作者hover']],
 			topCn:{
 				min:680,
 			},
@@ -173,6 +174,7 @@ export default{
 		},
 
 		shaFn(n){
+			this.bdtj('活动详情页','分享');
 			window.open(this[n]);
 		},
 		shar(da){

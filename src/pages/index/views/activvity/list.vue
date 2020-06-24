@@ -51,15 +51,13 @@ export default {
 			document.documentElement.scrollTop =1;
 			document.body.scrollTop =1;
 		},
-		go(el,id,a){
+		go(el,id,a){			
+			this.bdtjCom(id);		
 			if(el.special_url){
 				let rul = el.special_url.split('?')[0];
 				window.open(rul+'?id='+id);			
 				return
 			}
-			
-			
-			this.bdtjCom(id);
 			window.open('/#/detailed?id='+id)
 			
 		},

@@ -244,7 +244,6 @@ export default{
 			
 		},
 		dowloadmb(obj){
-			console.log('项目详情页',this.xmType[this.xmTypeOn].t,'[下载附件]')
 			this.bdtj('项目详情页',this.xmType[this.xmTypeOn].t,'[下载附件]')
 			window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
@@ -295,7 +294,7 @@ export default{
 			this.tanData = this.deta;
 		},
 		shaFn(n){
-			
+			this.bdtj('活动详情页','分享');
 			
 			window.open('http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes');
 		},

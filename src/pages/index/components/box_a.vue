@@ -78,12 +78,10 @@ export default {
 			return sr.replace(re,"<span>"+ck+"</span>")
 		},
 		setZb(e){
-		
 			this.tipY = e.offsetY;
 			this.tipX = e.offsetX;
 		},
 		tipStar(e){
-	
 			clearTimeout(this.showtIPOb);
 			this.showtIPOb = setTimeout(()=>{
 				this.showtIP = 'display: block;top: '+(this.tipY-20)+'px;left: '+this.tipX+'px;';
@@ -94,10 +92,7 @@ export default {
 			this.showtIP = '';
 		},
 		goUser(on){
-			//console.log(this.tjData)
 			if(this.tjData){
-				//this.tongj(this.tjData[1]);
-				console.log(this.tjData[0][0],this.tjData[0][1],'进入个人主页')
 				this.bdtj(this.tjData[0][0],this.tjData[0][1],'进入个人主页');
 			}
 			document.documentElement.scrollTop =1;
@@ -127,13 +122,7 @@ export default {
 			return a;
 		},
 		openxq(n){
-			// if(this.tjData && this.tjData[0]){
-			// 	this.tongj(this.tjData[0]);
-			// }
-			//this.bdtj("首页",this.$parent.$parent.specialname,n);
-			// console.log(this.tjData[0][0],this.tjData[0][1],'点击作品')
 			if(this.tjData && this.tjData[0]){
-				//this.tongj(this.tjData[1]);
 				if(this.tjData[0][0] == '首页'){
 					this.bdtj(this.tjData[0][0],'点击作品',n)
 				} else{
