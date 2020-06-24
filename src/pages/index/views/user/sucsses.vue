@@ -4,15 +4,15 @@
 			<div class="ps_suc_01">
 				<div>
 					<img :src="setImgU('push_Zp/wdxm.svg')">
-					<div>投稿作品的项目已创建，可在<a class="pend" @click="goFn('/projectBm')">[我的项目]</a>内内查看验收审核进度</div>		
-					<span @click="goFn('/projectBm')" class="pend">查看项目</span>
+					<div>投稿作品的项目已创建，可在<a class="pend" @click="goPage('/projectBm')">[我的项目]</a>内内查看验收审核进度</div>		
+					<span @click="goPage('/projectBm')" class="pend">查看项目</span>
 				</div>
 				<div>
 					<img :src="setImgU('push_Zp/wdsy.svg')">
 					<div>
-						该项目收益最快次月开始计算，可在<a class="pend" @click="goFn('/profit')">[我的收益]</a>分成收益列表查看
+						该项目收益最快次月开始计算，可在<a class="pend" @click="goPage('/profit')">[我的收益]</a>分成收益列表查看
 					</div>
-					<span @click="goFn('/profit')" class="pend">收益中心</span>
+					<span @click="goPage('/profit')" class="pend">收益中心</span>
 				</div>
 			</div>
 		</template>			
@@ -21,10 +21,15 @@
 <script>
 import tanC from '../../components/tanC';
 export default {
+	props: {
+		value: Object
+	},
 	components:{tanC},
 	methods: {	
-		close(){
-			this.goFn('/projectBm');
+		goPage(path){
+			this.$router.push(path);
+			// 移除组件
+			this.value.zj = '';
 		}
 	}
 }		

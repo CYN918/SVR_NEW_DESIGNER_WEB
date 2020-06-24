@@ -31,9 +31,9 @@ import pic from './pic';
 import work from './work';
 import upFj from './upFj';
 import tips from './tips';
-import sucsses from './sucsses';
+
 export default{
-	components: {pic,work,upFj,tips,sucsses},
+	components: {pic,work,upFj,tips},
 	data(){
 		return{
 			navs:[
@@ -119,8 +119,10 @@ export default{
 				if(da=='error' || da=='104'){return}
 				
 				this.tipMr("交稿成功，请耐心等待验收");
-				this.tanc2.zj = 'sucsses';
-				
+
+				setTimeout(() => {
+					this.$router.push({name: 'projectZz', params: {from: 'pushZp'}})
+				}, 1000)
 			}).catch(()=>{
 				this.ajx = false;
 			});

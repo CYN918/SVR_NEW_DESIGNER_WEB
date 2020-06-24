@@ -9,6 +9,8 @@
 			</list>
 			
 		</div>
+
+		<component v-bind:is="tanc2.zj" v-model="tanc2" ref="tanbox"></component>
 	</div>
 </template>
 <script>
@@ -16,8 +18,10 @@ import tophead from './myHead';
 
 import list from '../../components/list';
 import cent from '../project/cent_3';
+import sucsses from './sucsses';
+
 export default {
-	components:{tophead,list,cent},
+	components:{tophead,list,cent, sucsses},
 	name: 'myAll',
 	data(){
 		return {
@@ -43,10 +47,13 @@ export default {
 				pr:{},
 				isDjs:1,
 			},
+			tanc2:{
+				zj:''
+			},
 		}
 	},
 	created(){
-		this.init();	
+		this.init();
 	},	
 	watch: {		
 		'$route': function() {
@@ -56,6 +63,13 @@ export default {
 	},
 	methods: {		
 		init(){
+			let params = this.$route.params || {};
+			if( params.from === 'pushZp') {
+				setTimeout(() => {
+					this.tanc2.zj = 'sucsses';
+				}, 1000)
+			}
+
 			this.data.pr = {};
 			if(this.$route.name=='projectAll'){return}			
 			this.data.pr.type =  this.isTypeList[this.$route.name];
