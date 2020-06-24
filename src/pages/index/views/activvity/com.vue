@@ -206,7 +206,7 @@ export default {
 			this.zpList = [];
 		},
 		showZp(){
-			console.log(this.infoData.id)
+	
 			this.bdtjCom('[上传作品]',this.infoData.id);
 			if(!window.userInfo){
 				// Message({message: '未登陆，请先登陆!'});

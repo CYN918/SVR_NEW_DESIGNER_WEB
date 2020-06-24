@@ -1,7 +1,5 @@
 <template>
-	<div class="contf" v-html="dataD.info">
-		
-	</div>
+	<div class="contf" v-html="dataD.info"></div>
 </template>
 
 <script>

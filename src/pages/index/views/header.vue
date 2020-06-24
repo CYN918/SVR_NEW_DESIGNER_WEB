@@ -337,7 +337,7 @@ export default {
 				
 		},
 		goUser(a){
-			
+			this.bdtj('顶部栏','个人信息','进入[主页]');
 			this.$router.push({path: '/works',query:{id:window.userInfo.open_id}})	
 		},
 		

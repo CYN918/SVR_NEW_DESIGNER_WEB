@@ -275,7 +275,7 @@ export default{
 		},
 		shaFn(n){
 			
-			
+			this.bdtj('活动详情页','分享');
 			window.open('http://wpa.qq.com/msgrd?v=3&uin=363741945&site=qq&menu=yes');
 		},
 		gfx(n){
