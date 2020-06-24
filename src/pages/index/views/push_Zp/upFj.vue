@@ -37,6 +37,7 @@ export default{
 		delet(){
 			this.$refs.upfile.deletfile(0);
 		}
+
 	}
 }
 </script>

@@ -14,9 +14,6 @@
 </template>
 <script>
 export default {
-    props:{
-		deta:Object,
-	},
     name: 'nav_right',
 	props:{
 		deta:Object,
