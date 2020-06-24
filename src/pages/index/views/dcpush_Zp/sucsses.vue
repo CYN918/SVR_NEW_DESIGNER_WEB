@@ -37,7 +37,7 @@ export default {
 .ps_suc_01>div{
 	display: inline-block;
 	vertical-align: top;
-	margin: 40px 41px;
+	margin: 40px 41px 0;
 	width: 190px;
 
 	font-size:12px;

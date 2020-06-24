@@ -30,6 +30,7 @@
 import list from '../../components/list';
 import pTop from '../../components/postionTop';
 import cent from './cent_1';
+
 export default {
 	components:{list,cent,pTop},
 	name: 'home',
@@ -58,8 +59,7 @@ export default {
 		}
 	},
 	mounted: function(){
-		this.getCl();
-		
+		this.getCl();		
 	}, 
 	methods: {
 		goOn(on,cs){

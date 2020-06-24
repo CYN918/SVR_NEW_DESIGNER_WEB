@@ -28,38 +28,9 @@
 							</div>					
 						</div>
 					</div>			
-					
-					
-					
-					
-					<!-- <div class="pugjFm_01 closeX_1Hv">
-						<div class="cd_d pend" v-if="!preview_pic && !isJdt1">
-							<div>+</div>
-						</div>
-						<div class="cd_d_2" v-else>
-							<img :src="preview_pic"/>
-							<p class="closeX_1"><img src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/svg/new/close1.svg"></p>
-						</div>
-						<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
-						<jdt v-if="isJdt1" ref="jdt1"></jdt>
-						
-					</div> -->
 				</div>
 				<div class="pushGj_02">
 					<div class="pushGj_03_1">稿件上传<span class="pushGj_iop">文件大小为1GB内，建议压缩后上传</span><span @click="qhType(2)" class="pushGj_ts pend">稿件太大？用网盘传吧</span></div>
-					<!-- <el-upload
-					  class="upload-demo"
-					  drag
-					  http-request="myup"
-					  :file-list="filelist"
-					  :limit="1" 
-					  :auto-upload="true" 
-					  :http-request="uploadFile"
-					  :show-file-list='true'
-					  accept='.zip,.tar'
-					  action="customize"
-					  
-					  > -->
 					  <el-upload
 					  class="upload-demo"
 					  drag
@@ -138,6 +109,7 @@ import uploadFileArr from '../../components/uploadFileArr'
 export default {
 	components:{tanC,uploadFile,uploadFileArr,jdt},
 	props:{
+		value:Object,
 		datad:Object
 	},
 	data(){
@@ -262,6 +234,10 @@ export default {
 					online_disk_url:this.online_disk_url,
 					access_code:this.access_code,
 				};
+			}
+			
+			if(this.value.a){
+				this.bdtj(this.value.a,this.value.b,this.value.c);
 			}
 			this.api.pr_delivery(pr).then((da)=>{
 				if(da=='error' || da=='104'){return}

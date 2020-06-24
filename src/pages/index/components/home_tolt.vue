@@ -1,10 +1,6 @@
 <template>
 	<tanC :title="'投稿作品'">
 		<template v-slot:todo="{ todo }">
-			<!-- <div class="home_tolt">
-				你还不是供稿人，现在立即认证，获得作品变现收益
-				<span class="pend" @click="goFn('/setPersonal')">前往认证</span>
-			</div> -->
 			<div class="home_tolt home_tolt_1">
 				<div>
 					<img :src="setImgU('home/tgzp.svg')">
@@ -22,9 +18,11 @@ export default {
 	components:{tanC},
 	methods: {	
 		close(){
+			this.bdtj('作品投稿页','不是供稿人提示框','点击[关闭]');
 			this.value.zj = '';
 		},
 		goFncl(p){
+			this.bdtj('作品投稿页','不是供稿人提示框','点击[前往认证]');
 			this.value.zj = '';
 			this.goFn(p)
 		}

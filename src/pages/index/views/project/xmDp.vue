@@ -8,20 +8,28 @@
 			
 		</div>
 		
-		
+		<TcBoxQr :config="config2" ref="tcBox2"></TcBoxQr>
 		
 	</div>
 </template>
 
 <script>
 import loginDialog from '../../components/loginDialog'
+import TcBoxQr from '../../components/TcBoxQr'
 export default {
-	components:{loginDialog},
+	components:{TcBoxQr,loginDialog},
 	props:{
 		obj:Object,		
 	},
 	data(){
 		return{
+			config2:{
+				title:'再次交稿确认',
+				cent:'你之前已制作过该项目，是否再次交稿？',
+				closeFnd:'closeZc',
+				qFn:'goZc',
+				closeFn:'closeZc'
+			},
 			da:{},			
 			djsshow:{},
 			xmType:[
@@ -67,12 +75,24 @@ export default {
 			return 'pend'
 		},
 		toFn(){
+			this.bdtj('项目详情页','长期项目-招募期','[再次交稿]');
+			this.$refs.tcBox2.show();			
+		},
+		goZc(){
+			this.bdtj('项目详情页','长期项目-招募期','确定[再次交稿]');
+			this.$refs.tcBox2.close();
 			this.goFn('/dcpushZp');
+		},
+		closeZc(){
+			this.bdtj('项目详情页','长期项目-招募期','取消[再次交稿]');
+			this.$refs.tcBox2.close();
 		},
 		init(){
 			this.xmTypeOn = this.obj.status-1;
 			if(this.obj.is_sign_up==1){
 				if(this.obj.signup_accept==1){
+					
+					
 					this.xmType[0].btns = [{n:'再次交稿',tcFn:'toFn',tcFncs:'toFn'}];	
 				}else{
 					this.xmType[0].btns = [{n:'取消报名',tcFn:'showTc',tcFncs:'qxBm'}];	
@@ -156,36 +176,27 @@ export default {
 		gofn(on){
 			this.$router.push({path:on})	
 		},
-		showTc1(o){
-			if(o == 'pr_rz'){
-				this.bdtj("项目详情页",this.$parent.getstate(),"[报名项目]");
-			} 
-			
-			console.log(this.$parent.getstate(),o)
+		showTc1(o){			
+			let str = this.obj.project_type==0?'招标':'长期';
+			this.bdtj('项目详情页',str+'项目-招募期','[报名项目]');
 			this.api.pr_check({}).then((da)=>{
 				if(da=='error' || da=='104'){return}
 				if(da.is_complete!=true || da.is_contributor!=true || da.work_num<3){
-					console.log(o,da);
 					this.$parent.showTc(o,da);	
 					return
 				}
-				//console.log(o,da);
-				this.$parent.showTc('bmXm',{project_id:this.$parent.deta.id});	
-							
-			}).catch(()=>{
-				
-			})
+			
+				this.$parent.showTc('bmXm',{project_id:this.$parent.deta.id,project_type:this.obj.project_type});								
+			}).catch(()=>{})
 		},
-		
-
 		showTc(o,data){
-			console.log(this.$parent.getstate())
 			if(o=='pushGj'){
 				this.bdtj("项目详情页",this.$parent.getstate(),"点击[交稿]");
 			}
 			
 			if(o=='qxBm'){
-				this.bdtj("项目详情页",this.getstate(),"点击[取消报名]");
+				let str = this.obj.project_type==0?'招标':'长期';
+				this.bdtj('项目详情页',str+'项目-招募期','点击[取消报名]');
 			}
 			
 			if(o=='Log'){

@@ -9,18 +9,23 @@
 			</list>
 			
 		</div>
+		<component v-bind:is="tanc.zj" v-model="tanc"></component>		
 	</div>
 </template>
 <script>
 import tophead from './myHead';
-
 import list from '../../components/list';
 import cent from '../project/cent_3';
+import sucsses from '../push_Zp/sucsses';
 export default {
-	components:{tophead,list,cent},
+	components:{tophead,list,cent,sucsses},
 	name: 'myAll',
 	data(){
 		return {
+			tanc:{
+				zj:'',
+				type:''
+			},
 			pagename:'我的项目页',
 			navData:{
 				title:'我的项目',
@@ -56,6 +61,13 @@ export default {
 	},
 	methods: {		
 		init(){
+			
+			if(this.$route.query.type){
+				this.tanc = {
+					zj:'sucsses',
+					type:this.$route.query.type
+				};
+			}
 			this.data.pr = {};
 			if(this.$route.name=='projectAll'){return}			
 			this.data.pr.type =  this.isTypeList[this.$route.name];

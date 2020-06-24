@@ -17,24 +17,32 @@ export default {
 		datad:Object
 	},
 	data(){
-		return{}
+		return{
+			ajtype:false,
+		}
 	},
 	methods: {
 		gorz(){
 			this.is='';
 		},
 		pr_cancelSignup(){
-			console.log(this.$parent.pagename,this.$parent.getstate(),'确认[取消报名]')
-			this.bdtj(this.$parent.pagename,this.$parent.getstate(),'确认[取消报名]')
+			if(this.ajtype){
+				this.tipMr('正在处理请稍后')
+				return
+			}
+			this.ajtype = true;
+			let str = this.datad.project_type==0?'招标':'长期';
+			this.bdtj('项目详情页',str+'项目-招募期','确认[取消报名]');			
 			this.api.pr_cancelSignup({
 				project_id:this.datad.id,
 			}).then((da)=>{
+				this.ajtype = false;
 				if(da=='error' || da=='104'){return}
 				this.$parent.setBm(0);
 				this.$parent.getData();
 				this.$parent.close();
 			}).catch(()=>{
-				
+				this.ajtype = false;
 			});
 		},
 		close(){

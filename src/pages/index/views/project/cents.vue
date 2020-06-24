@@ -155,7 +155,7 @@
 			</div>
 			<topGd v-if="topTyped==1 && deta.status==1" :obj="pzTop" ref="topGd"></topGd>
 			<tipd  :tipCent="csff" :style="sfas" ref="csdf"></tipd>
-		    <component v-bind:is="tcZj"  :datad="tcData" :expected_profit="deta.expected_profit" :settlement="deta.settlement"></component>
+		    <component v-bind:is="tcZj" v-model="comData"  :datad="tcData" :expected_profit="deta.expected_profit" :settlement="deta.settlement"></component>
 			<prnavright v-bind:deta="deta"></prnavright>
 
 		</div>
@@ -185,6 +185,7 @@ export default {
 	components:{liucen,tipd,xmDp,pr_rz,qxBm,bmXm,shareD,pushGj,qxGj,Log,Stop,question,presentation,topGd,prnavright,detailGd},
 	data(){
 		return{
+			comData:{},
 			pagename:'项目详情页',
 			tcZj:'',
 			tcData:'',
@@ -283,9 +284,8 @@ export default {
 			}
 		},
 		dowloadmb(obj){
-			//console.log(this.getstate());
-			this.bdtj("项目详情页",this.getstate(),"[下载附件]");
-			//console.log(obj.template_file_url,obj.template_file_name)
+			let str = this.deta.project_type==0?'招标':'长期';
+			this.bdtj('项目详情页',str+'项目-招募期','[下载附件]');		
 			window.downloadFiles(obj.template_file_url,obj.template_file_name);
 		},
 		getstate(){
@@ -307,16 +307,11 @@ export default {
 			// 	'1':'招募期',
 			// 	'2':'选标期',
 			// 	'3':'制作期',
-			// 	'4':'待审核',
+			// 	'4':'待验收',
 			// 	'5':'已验收',
 			// 	'-1':'已终止',
 			// };
-			// state = maps[obj.status];
-			// if(obj.status == 3){
-			// 	state = obj.is_rejected == '1'?'未通过':new Date(Date.parse(obj.delivery_deadline)) < new Date()?'已延期':'制作期';
-			// }
-			// this.bdtj("项目详情页",state,"[下载附件]");
-			// window.downloadFiles(obj.template_file_url,obj.template_file_name);
+
 		},
 		backZq(a,b){
 			
@@ -351,7 +346,6 @@ export default {
 		},
 		showTc(a,b){
 			if(a=='Log'){
-				//console.log('项目详情页',this.getstate(),'[交稿记录]');
 				this.bdtj('项目详情页',this.getstate(),'[交稿记录]')
 			}
 			this.tcZj = a;
@@ -405,7 +399,6 @@ export default {
 					id:da.id,
 				};
 				this.deta = da;
-				console.log(111111111);
 				setTimeout(()=>{
 					if(this.$refs.xmDp){
 						this.$refs.xmDp.init();

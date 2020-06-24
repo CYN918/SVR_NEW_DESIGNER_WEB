@@ -22,7 +22,7 @@
 			</div>
 		</div>
 		<div @click="ckd('Log','交稿记录')" class="pr_ml_pic pend" :style="setBg2(deta.preview_pic)"></div>
-		<component v-bind:is="tcZj"  :datad="tcData"></component>
+		<component v-bind:is="tcZj"  v-model="tacData" :datad="tcData"></component>
 	</div>
 </template>
 <script>
@@ -40,6 +40,7 @@ export default {
 	},
 	data(){
 		return{
+			tacData:{},
 			tcZj:'',
 			tcData:{},
 			djtime:'',
@@ -116,13 +117,36 @@ export default {
 			return "background-image: url("+str+");";	   
 		},
 		ckd(a,n){
-			if(n=='稿件撤回' && this.deta.check_steps==1){
-				this.tipMr('项目已在审核中，请勿撤回')				
-				return
+
+			if(a=='pushGj' ){
+				this.tacData = {
+					a:'我的项目页',
+					b:'列表按钮入口',
+					c:'成功[提交]交稿'					
+				};
+				this.bdtj('我的项目页','列表按钮入口','点击[交稿]');
 			}
-			this.bdtj('我的项目',n,'--')
-			if(a=='ypj'){this.$message({message:'你已经评价过了'});}
+			if(a=='qxGj' ){
+				if(this.deta.check_steps==1){
+					this.tipMr('项目已在审核中，请勿撤回')	
+					return
+				}
+				this.tacData = {
+					a:'我的项目页',
+					b:'列表按钮入口',
+					c:'[确定]撤回稿件'					
+				};
+				this.bdtj('我的项目页','列表按钮入口','[稿件撤回]');
+			}
+			if(a=='question' ){
+				this.bdtj('我的项目页','列表按钮入口','[项目评价]');
+			}
+			if(a=='Log'){
+				this.bdtj('我的项目页','列表按钮入口','[交稿记录]');
+			}
+			if(a=='ypj'){this.tipMr('你已经评价过了');}
 			if(a=='presentation'){
+				this.bdtj('我的项目页','列表按钮入口','[验收报告]');
 				this.$router.push({path:'/presentation',query:{id:this.deta.id}})	
 				return
 			}

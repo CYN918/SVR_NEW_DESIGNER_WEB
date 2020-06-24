@@ -13,7 +13,7 @@
 			<div class="ps_dc_02">
 				<div class="ps_zp_pic_2">
 					<i class="ps_zp_06x"></i>
-					<el-select class="ps_dc_03 dc_xm_02" v-model="form.project_id" placeholder="请选择">
+					<el-select class="ps_dc_03 dc_xm_02" v-model="form.project_id" placeholder="请选择" ref="slf">
 					    <el-option
 					      v-for="item in options"
 					      :key="item.project_id"
@@ -188,6 +188,8 @@ export default{
 			this.tanc2 = obj;
 		},
 		subpush(){
+			
+
 			if(this.ajx){
 				this.tipMr('正在交稿请稍后')
 				return
@@ -246,6 +248,7 @@ export default{
 				
 			}
 			this.ajx = true;
+			this.bdtj('项目多次交稿页','[提交]',this.$refs.slf.selectedLabel)
 			this.api.pr_delivery(pr).then((da)=>{
 				this.ajx = false;
 				if(da=='error' || da=='104'){return}

@@ -4,16 +4,20 @@
 			<div class="ps_suc_01">
 				<div>
 					<img :src="setImgU('push_Zp/wdxm.svg')">
-					<div>投稿作品的项目已创建，可在<a class="pend" @click="goFn('/projectBm')">[我的项目]</a>内内查看验收审核进度</div>		
-					<span @click="goFn('/projectBm')" class="pend">查看项目</span>
+					<div>投稿作品的项目已创建，可在<a class="pend" @click="gof('/projectZz')">[我的项目]</a>内内查看验收审核进度</div>		
+					
 				</div>
 				<div>
 					<img :src="setImgU('push_Zp/wdsy.svg')">
 					<div>
-						该项目收益最快次月开始计算，可在<a class="pend" @click="goFn('/profit')">[我的收益]</a>分成收益列表查看
+						该项目收益最快次月开始计算，可在<a class="pend" @click="gof('/profit')">[我的收益]</a>分成收益列表查看
 					</div>
-					<span @click="goFn('/profit')" class="pend">收益中心</span>
+					
 				</div>
+				<p class="ps_suc_01_1">
+					<span @click="close2()" class="pend">我知道了</span>
+				</p>
+				
 			</div>
 		</template>			
 	</tanC>
@@ -21,10 +25,22 @@
 <script>
 import tanC from '../../components/tanC';
 export default {
-	components:{tanC},
+	components:{tanC},	
 	methods: {	
+		gof(p){
+			let map = {
+				'/projectZz':'点击[我的项目]',
+				'/profit':'点击[我的收益]'
+			};
+			this.bdtj('作品投稿页','提交后-作品投稿提示框',map[p]);
+			this.goFn(p);
+		},
 		close(){
-			this.goFn('/projectBm');
+			this.$emit('input',{});
+		},
+		close2(){
+			this.bdtj('作品投稿页','提交后-作品投稿提示框','[我知道了]');
+			this.$emit('input',{});
 		}
 	}
 }		
@@ -37,9 +53,8 @@ export default {
 .ps_suc_01>div{
 	display: inline-block;
 	vertical-align: top;
-	margin: 40px 41px;
+	margin: 40px 41px 0;
 	width: 190px;
-
 	font-size:12px;
 	color:rgba(153,153,153,1);
 	line-height:17px;
@@ -55,7 +70,11 @@ export default {
 	width: 100%;
 	margin-bottom: 20px;
 }
-.ps_suc_01>div>span{
+.ps_suc_01_1{
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+.ps_suc_01_1>span{
 	display: inline-block;
 	width:120px;
 	height:40px;

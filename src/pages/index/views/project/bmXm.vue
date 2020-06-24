@@ -132,31 +132,24 @@ export default {
 			}
 		},
 		getstate(){
-			let state = '--';
-			if(this.$parent.deta.status == '1'){
-				state = '招募期'
-			} else if(this.$parent.deta.status == '0'){
-				state = '待发布'
-			} else if(this.$parent.deta.status == '2'){
-				state = '选标期'
-			} else if(this.$parent.deta.status == '3'){
-				state = '制作期'
-			}  else if(this.$parent.deta.status == '4'){
-				state = '待验收'
-			}else if(this.$parent.deta.status == '5'){
-				state = '已验收'
-			}else if(this.$parent.deta.status == '-1'){
-				state = '已终止'
-			}
-			return state;
+			let maps = {
+				'-1':'已终止',
+				'0':'待发布',
+				'1':'招募期',
+				'2':'选标期',
+				'3':'制作期',
+				'4':'待验收',
+				'5':'已验收'				
+			};			
+			return maps[this.$parent.deta.status]?maps[this.$parent.deta.status]:'--';
 		},
 		pushBm(){
-			
 			if(this.postData.work_ids.length==0){
 				this.$message({message:'请先选择作品'})
 				return 
 			}
-			//this.bdtj('项目详情页',this.getstate(),'确认报名项目')
+			let str = this.datad.project_type==0?'招标':'长期';
+			this.bdtj('项目详情页',str+'项目-招募期','[报名项目提交]');
 			this.api.pr_signup(this.postData).then((da)=>{
 				if(da=='error' || da=='104'){return}
 				this.$message({message: '报名成功'});

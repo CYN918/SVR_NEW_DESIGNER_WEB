@@ -16,7 +16,8 @@ export default {
 	components:{tanC},
 	inject:['reload'],
 	props:{
-		datad:Object
+		datad:Object,
+		value:Object
 	},
 	data(){
 		return{
@@ -29,14 +30,6 @@ export default {
 		},
 		pr_revokeDelivery(){
 			
-			if(this.$parent.$parent.getstate){
-				this.bdtj(this.$parent.$parent.pagename,this.$parent.$parent.getstate(),'[确定]撤回稿件')
-			} 
-			if(this.$parent.getstate){
-				console.log(this.$parent.pagename,this.$parent.getstate(),'[确定]撤回稿件',"《《《《《《《")
-				this.bdtj(this.$parent.pagename,this.$parent.getstate(),'[确定]撤回稿件')
-			} 
-			
 			if(this.datad.check_steps==1){
 				this.tipMr('项目已在审核中，请勿撤回')
 				this.close();
@@ -46,6 +39,10 @@ export default {
 			if(this.qxType){
 				this.$message({message:"正在撤回请稍后"});
 				return
+			}	
+			
+			if(this.value.a){
+				this.bdtj(this.value.a,this.value.b,this.value.c);
 			}
 			this.qxType=1;
 			this.api.pr_revokeDelivery({

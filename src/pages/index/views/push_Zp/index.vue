@@ -31,9 +31,9 @@ import pic from './pic';
 import work from './work';
 import upFj from './upFj';
 import tips from './tips';
-import sucsses from './sucsses';
+
 export default{
-	components: {pic,work,upFj,tips,sucsses},
+	components: {pic,work,upFj,tips},
 	data(){
 		return{
 			navs:[
@@ -63,12 +63,15 @@ export default{
 			}
 		},
 		qhfn(n){
+			this.bdtj('作品投稿页',n)
 			this.tanc.zj = n;
 		},
 		showTac(obj){
 			this.tanc2 = obj;
 		},
 		subpush(){
+			let strd = this.tanc.zj=='pic'?'预览图提交':'原创作品提交';
+			this.bdtj('作品投稿页',['提交'],strd)
 			if(this.ajx){
 				this.tipMr('正在交稿请稍后')
 				return
@@ -119,8 +122,10 @@ export default{
 				if(da=='error' || da=='104'){return}
 				
 				this.tipMr("交稿成功，请耐心等待验收");
-				this.tanc2.zj = 'sucsses';
 				
+				this.$router.push({path:'/projectZz',query:{
+					type:this.tanc.zj,					
+				}})	
 			}).catch(()=>{
 				this.ajx = false;
 			});
