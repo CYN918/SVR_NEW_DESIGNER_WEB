@@ -37,7 +37,7 @@
 						</span>
 					</div>					
 				</div>
-				
+				<qxGj class="logqxgj" v-if="isShow" :datad="datad"></qxGj>
 			</div>
 		<!-- 	<div class="jglogbox">
 				<div class="jgbix jgtitle">
