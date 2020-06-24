@@ -10,7 +10,7 @@
 			<div v-if="type==1" class="pushGj_01">
 				
 				<div class="pushGj_03 ">
-					<div class="pushGj_03_1">内容预览图<span class="pushGj_iop">1M以内，JPG/PNG/GIF，3张以内</span></div>
+					<div class="pushGj_03_1">内容预览图<span class="pushGj_iop">单张1M以内；最多3张；JPG/PNG/GIF</span></div>
 					
 					<div class="ps_zp_pic_4 phs_po">
 						<div v-if="imgs.length<3">
@@ -176,6 +176,12 @@ export default {
 			if(this.$refs.jdt1){
 				this.$refs.jdt1.bfb = on;
 			}		
+		},
+		delet(on){
+			this.$refs.upfile.deletfile(on);
+		},
+		upImg(on){
+			this.$refs.upfile.upfile(on)			
 		},
 		uploadSC1(da){
 			this.isJdt1='';
