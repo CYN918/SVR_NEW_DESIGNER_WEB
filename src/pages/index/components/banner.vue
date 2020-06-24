@@ -53,20 +53,38 @@ export default {
 			outc:{
 				num:'',
 				scroll:2,
-			}
+			},
+			personalLongList: []
 		}
 	},
-	mounted: function () {	
-		this.getBanner();		
-	}, 
+	mounted () {
+		this.init();	
+	},
 	methods: {
+		init() {
+			this.getBanner();
+			this.getPersonalLongList();
+		},
+		// 获取长期项目列表
+		getPersonalLongList() {
+			this.api.personalLongList({}).then((data)=>{
+				if(data=='error' || data=='402'){
+					return
+				}
+				this.personalLongList = data;
+			})
+		},
 		showTg(){
 			if(!window.userInfo){
 				this.login(1);
 				return
 			// 已是供稿人提示
 			}else if(window.userInfo.contributor_format_status==2) {
-				this.tancD.zj='home_tc';
+				if(this.showMore) {
+					this.tancD.zj='home_tc';
+				}else {
+					this.$router.push('/pushZp')
+				}
 			// 非供稿人引导认证	
 			}else{
 				this.tancD.zj='home_tolt'
@@ -156,6 +174,12 @@ export default {
 				
 		}
 		
+	},
+	computed: {
+		// 是否显示多选对话框
+		showMore() {
+			return this.personalLongList.length && window.userInfo.contributor_format_status == 2;
+		}
 	}
 }
 </script>

@@ -11,7 +11,7 @@
 					<div class="home_tc_2">原创作品投稿，一经验收，永久分成</div>
 					<div @click="goFncl('/pushZp')" class="lBtbn">投稿作品</div>
 				</div>
-				<div v-if="showMore">
+				<div>
 					<img :src="setImgU('home/dctg.svg')">
 					<div class="home_tc_2">
 						项目只做一次没做够？来这里多次交稿，交多少收多少！
@@ -28,9 +28,7 @@ export default {
 	props:{value:Object},
 	components:{tanC},
 	data() {
-		return {
-			personalLongList: []
-		}
+		return {}
 	},
 	methods: {	
 		close(){
@@ -39,27 +37,7 @@ export default {
 		goFncl(p){
 			this.value.zj = '';
 			this.goFn(p)
-		},
-		init() {
-			this.getPersonalLongList();
-		},
-		// 获取长期项目列表
-		getPersonalLongList() {
-			this.api.personalLongList({}).then((data)=>{
-				if(data=='error' || data=='402'){
-					return
-				}
-				this.personalLongList = data;
-			})
 		}
-	},
-	computed: {
-		showMore() {
-			return this.personalLongList.length && window.userInfo.contributor_format_status == 2;
-		}
-	},
-	created() {
-		this.init();
 	}
 }		
 </script>
