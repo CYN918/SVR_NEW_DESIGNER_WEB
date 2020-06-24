@@ -12,7 +12,7 @@
 				<div class="ps_tip_05">投稿作品必须是原创作品</div>
 				<div class="ps_tip_06">
 					作品必须为上传者100%完全独立拥有版权的原创作品，抄袭、非原创作品投稿产生的后果损失，按照
-					<a>《供稿人协议》</a>由上传者承担一切责任。
+					<a href="/#/authorization">《供稿人协议》</a>由上传者承担一切责任。
 				</div>
 				<div class="ps_tip_05">
 					作品源文件
@@ -28,8 +28,8 @@
 				</div>
 				<div class="ps_tip_05">项目与收益的关系</div>
 				<div class="ps_tip_06">
-					投稿作品审核通过后，会在 <a href="">[我的项目]</a>生成你的已验收项目记录，你可以通过该项目在
-					<a href="">[我的收益]</a>内查询收益记录。详细操作请<a href="">点此查看</a>
+					投稿作品审核通过后，会在 <a href="/#/projectBm">[我的项目]</a>生成你的已验收项目记录，你可以通过该项目在
+					<a href="/#/profit">[我的收益]</a>内查询收益记录。详细操作请<a href="/#/divided">点此查看</a>
 				</div>
 				<div class="ps_tip_05">收益的不确定性</div>
 				<div class="ps_tip_06">
@@ -46,7 +46,7 @@
 				</div>
 				<div class="ps_tip_05">审核时长：约1周</div>
 				<div class="ps_tip_06">
-					由于作品投稿数量较多，同时也需要评审多个投放渠道适配度，隐私需1周左右时间审核，敬请见谅。更多疑问请点击联系<a href="">平台运营QQ</a>
+					由于作品投稿数量较多，同时也需要评审多个投放渠道适配度，隐私需1周左右时间审核，敬请见谅。更多疑问请点击联系<a target="_blank" :href="contactQQ">平台运营QQ</a>
 				</div>
 			</div>
 		</div>
@@ -58,9 +58,14 @@ export default{
 	props:{
 		value:Object
 	},
+	data() {
+		return {
+			qq: '3177059443'
+		}
+	},
 	mounted: function(){
 		this.init();
-	},
+	},		
 	beforeDestroy:function(){
 		document.body.style = "";
 	},
@@ -71,7 +76,11 @@ export default{
 		close(){
 			this.$emit('input',{});
 		},
-
+	},
+	computed: {
+		contactQQ() {
+			return "http://wpa.qq.com/msgrd?v=3&uin="+ this.qq + "&site=qq&menu=yes";
+		}
 	}
 }
 </script>

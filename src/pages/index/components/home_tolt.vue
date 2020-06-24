@@ -1,22 +1,15 @@
 <template>
 	<tanC :title="'投稿作品'">
 		<template v-slot:todo="{ todo }">
-			<!-- <div class="home_tc_0">
+			<!-- <div class="home_tolt">
 				你还不是供稿人，现在立即认证，获得作品变现收益
 				<span class="pend" @click="goFn('/setPersonal')">前往认证</span>
 			</div> -->
-			<div class="home_tc_0 home_tc_1">
+			<div class="home_tolt home_tolt_1">
 				<div>
 					<img :src="setImgU('home/tgzp.svg')">
-					<div class="home_tc_2">原创作品投稿，一经验收，永久分成</div>
-					<div @click="goFncl('/pushZp')" class="lBtbn">投稿作品</div>
-				</div>
-				<div v-if="showMore">
-					<img :src="setImgU('home/dctg.svg')">
-					<div class="home_tc_2">
-						项目只做一次没做够？来这里多次交稿，交多少收多少！
-					</div>
-					<div @click="goFncl('/dcpushZp')" class="lBtbn">项目多次交稿</div>
+					<div class="home_tolt_2">你还不是供稿人，现在立即认证，获得作品变现收益</div>
+					<div @click="goFncl('/tolt')" class="lBtbn">前往认证</div>
 				</div>
 			</div>
 		</template>			
@@ -27,11 +20,6 @@ import tanC from '../components/tanC';
 export default {
 	props:{value:Object},
 	components:{tanC},
-	data() {
-		return {
-			personalLongList: []
-		}
-	},
 	methods: {	
 		close(){
 			this.value.zj = '';
@@ -39,37 +27,17 @@ export default {
 		goFncl(p){
 			this.value.zj = '';
 			this.goFn(p)
-		},
-		init() {
-			this.getPersonalLongList();
-		},
-		// 获取长期项目列表
-		getPersonalLongList() {
-			this.api.personalLongList({}).then((data)=>{
-				if(data=='error' || data=='402'){
-					return
-				}
-				this.personalLongList = data;
-			})
 		}
-	},
-	computed: {
-		showMore() {
-			return this.personalLongList.length && window.userInfo.contributor_format_status == 2;
-		}
-	},
-	created() {
-		this.init();
 	}
 }		
 </script>
 <style>
 
-.home_tc_0{
-	max-width: 670px;
+.home_tolt{
+	width: 470px;
 	padding: 40px 0;
 }
-.home_tc_0>span{
+.home_tolt>span{
 	margin: 20px auto 0;
 	display: block;
 	width:120px;
@@ -81,11 +49,10 @@ export default {
 	color:rgba(255,255,255,1);
 	line-height:40px;
 }
-.home_tc_1>div{
+.home_tolt_1>div{
 	display: inline-block;
 	vertical-align: top;
 	margin:0 20px;
-	width: 192px;
 }
 .lBtbn{
 	cursor: pointer;
@@ -102,7 +69,7 @@ export default {
 .lBtbn:hover{
 	opacity: .7;
 }
-.home_tc_2{
+.home_tolt_2{
 	font-size:12px;
 	color:rgba(102,102,102,1);
 	line-height:17px;

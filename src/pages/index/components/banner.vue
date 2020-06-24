@@ -33,8 +33,10 @@
 <script>
 import loginDialog from '../components/loginDialog'
 import home_tc from './home_tc';
+import home_tolt from './home_tolt'
+
 export default {
-	components:{loginDialog,home_tc},
+	components:{loginDialog, home_tc, home_tolt},
 	name: 'banner',
 	inject:['login'],	 
 	data(){
@@ -62,9 +64,14 @@ export default {
 			if(!window.userInfo){
 				this.login(1);
 				return
+			// 已是供稿人提示
+			}else if(window.userInfo.contributor_format_status==2) {
+				this.tancD.zj='home_tc';
+			// 非供稿人引导认证	
+			}else{
+				this.tancD.zj='home_tolt'
 			}
-			console.log(1111111111111111);
-			this.tancD.zj='home_tc';
+			
 		},
 		backcls(inx){
 			if(inx==this.on){
