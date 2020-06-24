@@ -28,7 +28,10 @@ export default {
 	methods: {	
 		goPage(path){
 			this.$router.push(path);
-			// 移除组件
+			this.close();
+		},
+		// 移除组件
+		close() {
 			this.value.zj = '';
 		}
 	}
