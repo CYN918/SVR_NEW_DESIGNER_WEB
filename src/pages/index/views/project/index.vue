@@ -152,6 +152,7 @@ export default {
 
 }
 .pr_02_1{
+	position: relative;
 	text-align: left;
 	margin: 0 auto;
 	width: 1300px;
@@ -166,8 +167,9 @@ export default {
 	color:#33B3FF;
 }
 .pr_02_3{
+	right: 0;
 	display: inline-block;
-	float: right;
+	position: absolute;
 	background:#33B3FF;
 	border-radius:5px;
 	margin-top: 20px;
