@@ -7,8 +7,13 @@
 						<div class="newLog_04">
 						
 								<!-- <span @click="picP(el)"></span> -->
-								<div class="newLog_04" :style="setBg(el)"></div>
+								<!-- <div class="newLog_04" :style="setBg(el)"></div> -->
 								<!-- <span @click="picN(el)"></span> -->
+							<Carousel :interval="5000" height="102px" indicator-position="none" arrow="always">
+								<CarouselItem v-for="pic in JSON.parse(el.preview_pic)" :key="pic">
+									<img class="newLog_preview_pic" :src="pic">
+								</CarouselItem>
+							</Carousel>
 					
 						</div>						
 						<div class="newLog_05">
@@ -37,7 +42,7 @@
 						</span>
 					</div>					
 				</div>
-				
+				<qxGj class="logqxgj" v-if="isShow" :datad="datad"></qxGj>
 			</div>
 		<!-- 	<div class="jglogbox">
 				<div class="jgbix jgtitle">
@@ -104,9 +109,10 @@
 <script>
 import tanC from '../../components/tanC';
 import qxGj from './qxGj';
+import { Carousel, CarouselItem } from 'element-ui'
 
 export default {
-	components:{tanC,qxGj},	
+	components:{tanC,qxGj, Carousel, CarouselItem },	
 	data(){
 		return{
 			List:[],
@@ -415,5 +421,9 @@ export default {
 .newLog_04>span{
 	position: absolute;
 	top: ;
+}
+.newLog_preview_pic{
+	width: 136px;
+	height: 102px;
 }
 </style>

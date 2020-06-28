@@ -48,10 +48,13 @@ export default {
 				pr:{},
 				isDjs:1,
 			},
+			tanc2:{
+				zj:''
+			},
 		}
 	},
 	created(){
-		this.init();	
+		this.init();
 	},	
 	watch: {		
 		'$route': function() {

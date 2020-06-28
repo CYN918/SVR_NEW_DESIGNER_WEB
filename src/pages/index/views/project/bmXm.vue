@@ -2,7 +2,7 @@
 	<tanC :title="'报名项目'">
 		<template v-slot:todo="{ todo }">
 			<div class="bmXm_00">
-				<div class="bmXm_01">
+				<div class="bmXm_01" v-if="settlement == 0">
 					{{settlement==0?'请选择项目收益结算方式：':'项目收益结算方式：'}}
 					<div class="bmXm_01_1">
 						<ul>
@@ -86,6 +86,7 @@ export default {
 	},
 	
 	mounted: function(){
+		console.log(this.settlement)
 		this.init();
 
 		this.postData.deal_type = (this.settlement && this.settlement!=0)?this.settlement:1;
