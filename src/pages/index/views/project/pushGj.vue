@@ -20,7 +20,7 @@
 							</span>
 							<uploadFileArr v-model="imgs" :cg="fileConfig" ref="upfile"></uploadFileArr>			
 						</div>
-						<div v-for="(el,index) in imgs" :style="setBg(el.url)">
+						<div v-for="(el,index) in imgs" :style="setBg(el.url)" :key="index">
 							<jdt v-if="el.state==1" v-model="el.bfb"></jdt>
 							<div class="ps_zp_pic_4_1">
 								<div @click="upImg(index)" class="ps_zp_pic_4_3">替换图片</div>
@@ -64,8 +64,8 @@
 			</div>
 			<div v-else class="pushGj_0x1">
 				<div class="pushGj_03 ">
-					<div class="pushGj_03_1">内容预览图<span class="pushGj_iop">1M以内，JPG/PNG/GIF</span></div>
-					<div class="pugjFm_01 closeX_1Hv">
+					<div class="pushGj_03_1">内容预览图<span class="pushGj_iop">单张1M以内；最多3张；JPG/PNG/GIF</span></div>
+					<!-- <div class="pugjFm_01 closeX_1Hv">
 						<div class="cd_d pend" v-if="!preview_pic && !isJdt1">
 							<div>+</div>
 						</div>
@@ -77,6 +77,23 @@
 						<uploadFile :setJdt="setJdt1" :sussFn="uploadSC1" :cg="fileConfig"></uploadFile>
 						<jdt v-if="isJdt1" ref="jdt1"></jdt>
 						
+					</div> -->
+
+					<div class="ps_zp_pic_4 phs_po">
+						<div v-if="imgs.length<3">
+							<span class="add_x01">
+								<span class="pend">+</span>
+								上传图片
+							</span>
+							<uploadFileArr v-model="imgs" :cg="fileConfig" ref="upfile"></uploadFileArr>			
+						</div>
+						<div v-for="(el,index) in imgs" :style="setBg(el.url)" :key="index">
+							<jdt v-if="el.state==1" v-model="el.bfb"></jdt>
+							<div class="ps_zp_pic_4_1">
+								<div @click="upImg(index)" class="ps_zp_pic_4_3">替换图片</div>
+								<img @click="delet(index)" class="ps_zp_pic_4_2" :src="setImgU('push_Zp/zptg_image_icon_close.svg')">
+							</div>					
+						</div>
 					</div>
 				</div>
 				<div>
@@ -174,8 +191,7 @@ export default {
 			this.access_code = '';
 			this.preview_pic = '';
 			this.isJdt1 = '';
-			
-			
+			this.imgs = [];
 		},
 		close(){			
 			this.$parent.close();
@@ -493,7 +509,6 @@ export default {
 }
 .pushGj_0x1{
 	padding: 30px 100px;
-	width: 500px;
 }
 .pushGj_0x1 input{
 	display: block;
