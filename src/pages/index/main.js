@@ -340,6 +340,13 @@ Vue.prototype.checkLo = function(o){
 	});
 }
 
+// 监听退出登录
+window.addEventListener("storage", function (e) {
+    if(e.key === 'pass' || e.key === 'userT') {
+        location.reload()
+    }
+});
+
 router.afterEach((to,from,next) => {
     window.scrollTo(0,0);
 });
