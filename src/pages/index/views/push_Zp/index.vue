@@ -123,8 +123,8 @@ export default{
 				
 				this.tipMr("交稿成功，请耐心等待验收");
 				
-				this.$router.push({path:'/projectZz',query:{
-					type:this.tanc.zj,					
+				this.$router.push({name:'projectZz', params:{
+					from: 'pushZp',					
 				}})	
 			}).catch(()=>{
 				this.ajx = false;

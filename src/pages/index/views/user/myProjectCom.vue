@@ -64,11 +64,12 @@ export default {
 	},
 	methods: {		
 		init(){
-			
-			if(this.$route.query.type){
+			let params = this.$route.params || {}
+
+			if(params.from === 'pushZp'){
 				this.tanc = {
 					zj:'sucsses',
-					type:this.$route.query.type
+					// type:this.$route.query.type
 				};
 			}
 			this.data.pr = {};

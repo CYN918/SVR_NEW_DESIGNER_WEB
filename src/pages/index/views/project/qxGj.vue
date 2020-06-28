@@ -53,8 +53,9 @@ export default {
 					this.$parent.setStaus('3');
 				}
 				this.$message({message:"撤回稿件成功"});
-				this.reload();				
+				// this.reload();				
 				this.close();
+				location.reload()
 			}).catch(()=>{
 				this.qxType='';
 			});
