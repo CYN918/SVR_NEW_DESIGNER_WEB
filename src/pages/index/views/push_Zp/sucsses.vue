@@ -15,7 +15,7 @@
 					
 				</div>
 				<p class="ps_suc_01_1">
-					<span @click="close2()" class="pend">我知道了</span>
+					<span @click="iKnowClick" class="pend">我知道了</span>
 				</p>
 				
 			</div>
@@ -25,22 +25,31 @@
 <script>
 import tanC from '../../components/tanC';
 export default {
-	components:{tanC},	
+	components:{tanC},
+	props: {
+		value: Object
+	},
 	methods: {	
-		gof(p){
+		iKnowClick(){
+			this.bdtj('作品投稿页','提交后-作品投稿提示框','[我知道了]');
+			this.close()
+		},
+		gof(path){
 			let map = {
 				'/projectZz':'点击[我的项目]',
 				'/profit':'点击[我的收益]'
 			};
-			this.bdtj('作品投稿页','提交后-作品投稿提示框',map[p]);
-			this.goFn(p);
+			this.bdtj('作品投稿页','提交后-作品投稿提示框',map[path]);
+
+			let { href } = this.$router.resolve({
+				path
+			});
+
+			window.open(href, "_blank")
 		},
-		close(){
-			this.$emit('input',{});
-		},
-		close2(){
-			this.bdtj('作品投稿页','提交后-作品投稿提示框','[我知道了]');
-			this.$emit('input',{});
+		// 移除当前对话框
+		close() {
+			this.value.zj = '';
 		}
 	}
 }		
