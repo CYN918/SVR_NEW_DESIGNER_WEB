@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<span @click="upFn()" class="ps_zp_09 pend">{{(value[0] && value[0].bfb==100)?'选择文件':'重新选择'}}</span>
+		<span @click="upFn()" class="ps_zp_09 pend">{{(value[0] && value[0].bfb==100)?'重新选择':'选择文件'}}</span>
 		<div class="ps_zp_10" v-if="value[0]">
 			<div class="upfj_01">
 				<span class="iconfont upfj_02">&#xe621;</span>
