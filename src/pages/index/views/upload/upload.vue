@@ -190,6 +190,7 @@ export default {
     name: 'index',
 	components: { VueUeditorWrap,  UplodImg, uploadFm, TcBox},
 	mixins: [UploadImagMixin],
+	inject:['reload'],	
     data(){
         return {
             inputVisible: false,
@@ -290,10 +291,8 @@ export default {
 		}  
 	},
 	beforeDestroy:function(){
-		if(this.loading){
-			this.loading.close();
-		}
-		
+		clearTimeout(this.autoSave.obj);
+		if(this.loading){this.loading.close();}	
 	},
 	watch: {	
 		'form.work_name'() {				
@@ -344,9 +343,20 @@ export default {
 			}else{
 				this.isTageok = '';
 			}
-		}
+		},
+		'$route'() {
+			this.reload();
+		},
 	},
 	created:function(){
+		this.form = {
+				work_name:'',				
+				attachment_visible:1,
+				labels:[],
+				copyright:'禁止匿名转载；禁止商业使用；禁止个人使用。',
+				is_platform_work:0,	
+				content:'<p style="color:#999">从这里开始编辑作品内容...</p>'
+			};
 		this.init();
 		this.getClassify();
 	},
@@ -537,6 +547,7 @@ export default {
 			},30000);
 		},
 		checkAutoSave(){
+			console.log(this.form)
 			if(!this.form.work_name){
 				return
 			}
@@ -988,14 +999,11 @@ export default {
 			this.fjtext = '选择附件';
 			this.form.attachment_id='';
 			if(this.upfjData.xhr){
-				this.upfjData.xhr.abort();				
-			
-			}		
-			
+				this.upfjData.xhr.abort();							
+			}					
 			this.upfjData = {};
 		},
 		getClassify(){
-			
 			if(!window.userInfo){
 				Message({message: '登录过期请先登录'});
 				setTimeout(()=>{
