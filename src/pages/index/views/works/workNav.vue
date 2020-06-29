@@ -24,8 +24,9 @@ export default {
 		ckezt(id,index){
 			this.bdtj("首页","点击专题Tab",this.navs[index].name);
 			this.on = id;
-			this.$parent.$parent.qhZt(this.on);
 			this.value.classify_name = this.navs[index].name;
+			this.$parent.$parent.qhZt(this.on);
+	
 			this.$parent.$parent.specialname = this.navs[index].name;
 		},
 		getsubject(){

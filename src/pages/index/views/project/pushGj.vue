@@ -236,12 +236,13 @@ export default {
 			}
 			this.api.pr_delivery(pr).then((da)=>{
 				if(da=='error' || da=='104'){return}
+				if(this.$parent.getstate){
+					this.bdtj(this.$parent.pagename,this.$parent.getstate(),'成功[提交]交稿')
+				}
 				if(this.$parent.setStaus){
 					this.$parent.setStaus('4');
 				}
-				if(this.$parent.getstate){					
-					this.bdtj(this.$parent.pagename,this.$parent.getstate(),'成功[提交]交稿')
-				}
+				
 				
 				this.$message({message:"交稿成功，请耐心等待验收"});
 				this.$parent.getData();
