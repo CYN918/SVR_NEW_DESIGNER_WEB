@@ -1,7 +1,7 @@
 <template>
 	<div class="wk_a" >
 		<div class="wk_a_1" @mouseover="tipStar" @mousemove="setZb" @mouseout="tipClser">
-			<div @click="openxq(el.work_name)" class="wk_a_1_1" :style="backBn(el.face_pic)"></div>
+			<div @click="openxq(el.work_name)" class="wk_a_1_1" :style="backBns"></div>
 		</div>
 		<div class="wk_a_2">
 			<div class="wk_a_2_1">
@@ -65,6 +65,15 @@ export default {
 			showtIPOb:'',
 			tipX:0,
 			tipY:0,
+		}
+	},
+	computed:{
+		backBns(){
+			let ur = this.el.face_pic;
+			if(!ur || ur==null || ur==undefined || ur=='null' || ur=='undefined'){
+				return 'background-image: url(https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/new/com/no_img.svg);background-size:70%;';
+			}
+			return 'background-image: url('+ur+');';
 		}
 	},
 	methods: {	

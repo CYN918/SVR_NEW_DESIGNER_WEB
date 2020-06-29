@@ -8,7 +8,7 @@
 						<div class="homghhd">
 							<div class="md_titie"><img :src="imgSig+'newHome/home_icon_tj.svg'" alt="" style="margin-right: 8px;"/>作品推荐</div>
 							<div class="md_zt">
-								<workNav></workNav>
+								<workNav v-model="zjData"></workNav>
 							</div>
 							<div v-if="data.pr.type==1" class="md_class">
 								<el-select @change="setFL" v-model="value" placeholder="全部类型">
@@ -45,6 +45,9 @@ export default {
 	name: 'home',
 	data(){
 		return {
+			zjData:{
+				classify_name:''
+			},
 			pagename:"首页",
 			data:{
 				ajax:{
@@ -91,6 +94,9 @@ export default {
 				};
 				localStorage.setItem('referrer_id',JSON.stringify(pr));
 			}
+			
+			this.bdtjdata=[['首页','点击作品',this.zjData.classify_name,'1'],['首页','作品-创作者hover','进入个人主页']];
+			
 			this.mJs.scTop(1);
 			this.getClass();
 		},
@@ -98,7 +104,7 @@ export default {
 			
 			if(this.value){
 				this.data.pr.classify_name = this.value;
-				this.bdtjdata=[['首页','点击作品',this.data.pr.classify_name,'1'],['首页','作品-创作者hover','进入个人主页']];
+				this.bdtjdata=[['首页','点击作品',this.zjData.classify_name,'1'],['首页','作品-创作者hover','进入个人主页']];
 				this.bdtj("首页","点击作品分类",this.data.pr.classify_name);
 			}else{
 				this.data.pr = {
@@ -138,7 +144,8 @@ export default {
 					}
 					return arr;
 				}
-				this.options = arr1;   
+				this.options = arr1;  
+
 			})
 		}		
 	}

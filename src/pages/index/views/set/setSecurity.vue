@@ -586,7 +586,7 @@ export default {
 				this.outc.title="修改登陆密码";
 			}
 			if(t2){
-				this.bdtj('账号设置','修改'+t2,'点击[修改]');
+				this.bdtj('账号设置','修改'+t,'点击[修改]');
 			}
 			if(on==5){
 				this.outc.title="解除绑定确认";
