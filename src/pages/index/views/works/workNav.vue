@@ -5,10 +5,12 @@
 </template>
 <script>
 export default {
+	props:{value:Object},
 	data(){
 		return {
 			navs:[],
 			on:1,
+			mr:'精选推荐'
 		}
 	},
 	mounted: function(){
@@ -16,12 +18,14 @@ export default {
 	}, 
 	methods: {
 		init(){
+			this.value.classify_name = this.mr;
 			this.getsubject();
 		},
 		ckezt(id,index){
 			this.bdtj("首页","点击专题Tab",this.navs[index].name);
 			this.on = id;
 			this.$parent.$parent.qhZt(this.on);
+			this.value.classify_name = this.navs[index].name;
 			this.$parent.$parent.specialname = this.navs[index].name;
 		},
 		getsubject(){
@@ -31,7 +35,7 @@ export default {
 				}
 				da.unshift({
 					id:1,
-					name:'精选推荐',
+					name:this.mr,
 				})
 				this.navs = da;
 			})

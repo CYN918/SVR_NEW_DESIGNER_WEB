@@ -99,10 +99,14 @@ export default {
             this.mJs.scTop(0);
         },
         scrollToTop(){
-			this.bdtj("首页","侧浮栏-TOP（置顶）","--")
+			
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
             this.scrollTop = scrollTop;
             if(this.scrollTop > 980){
+				if(this.isShow == false){
+					this.bdtj("首页","侧浮栏-TOP（置顶）","--")
+				}
+				
                 this.isShow = true;
             }else{
                 this.isShow = false;

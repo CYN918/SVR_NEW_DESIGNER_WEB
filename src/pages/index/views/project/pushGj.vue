@@ -266,8 +266,7 @@ export default {
 				if(this.$parent.setStaus){
 					this.$parent.setStaus('4');
 				}
-				if(this.$parent.getstate){
-					
+				if(this.$parent.getstate){					
 					this.bdtj(this.$parent.pagename,this.$parent.getstate(),'成功[提交]交稿')
 				}
 				
