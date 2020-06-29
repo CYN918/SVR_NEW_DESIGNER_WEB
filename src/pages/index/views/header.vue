@@ -281,7 +281,7 @@ export default {
 		},
 		hidisXXNav(){
 			this.isXXNav = false;
-
+			this.getMessgNumber();
 		},
         jump(){
 
