@@ -20,7 +20,8 @@
 					<div class="pr_list_08" style="padding-top: 13px;">
 						<span >
 							<span>
-								<div class="pr_cent_2_9" v-html="djtime"></div>
+								<div v-if="el.project_type == 1" class="pr_long_solicitation_tag">长期征集</div>
+								<div v-else class="pr_cent_2_9" v-html="djtime"></div>
 							</span>					
 						</span>
 					</div>
@@ -502,5 +503,14 @@ export default {
 	font-size: 24px;
 	padding: 5px;
 	margin: 5px;
+}
+.pr_long_solicitation_tag{
+	font-size: 18px;
+	color: #FF9300;
+	position: absolute;
+	bottom: 10px;
+	right: 16px;
+	padding: 7px 16px;
+	border: 1px solid #D9D9D9 ; 
 }
 </style>

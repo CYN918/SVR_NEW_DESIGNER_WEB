@@ -215,7 +215,7 @@ export default {
 	computed: {
 	    stateType:function(){
 			if(this.deta.project_type==1){
-				return '长期招募';
+				return '长期征集';
 			}
 			let map = {
 				'0':'待发布',
