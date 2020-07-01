@@ -8,12 +8,12 @@
 		</div>
 		<div class="ps_zb_box">
 			<div class="ps_zp_05">
-				<span class="ps_zp_06"><i class="ps_zp_06x"></i>项目信息</span>
+				<span class="ps_zp_06">项目信息</span>
 			</div>	
 			<div class="ps_dc_02">
 				<div class="ps_zp_pic_2">
 					<i class="ps_zp_06x"></i>
-					<el-select class="ps_dc_03 dc_xm_02" v-model="form.project_id" placeholder="请选择" ref="slf">
+					<el-select class="ps_dc_03 dc_xm_02" v-model="form.project_id" placeholder="请选择再次交稿项目" ref="slf">
 					    <el-option
 					      v-for="item in options"
 					      :key="item.project_id"
@@ -36,7 +36,7 @@
 					</span>
 				</div>
 				<div class="ps_zp_pic_3">
-					<textarMax :placeholder="'请输入投稿说明'" :max="140" v-model="form.remark" ></textarMax>
+					<textarMax :placeholder="'请输入项目说明'" :max="140" v-model="form.remark" ></textarMax>
 				</div>
 			</div>
 			
@@ -47,7 +47,7 @@
 		
 		<div class="ps_zb_box">
 			<div class="ps_zp_05">
-				<span class="ps_zp_06"><i class="ps_zp_06x"></i>作品预览图</span><span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
+				<span class="ps_zp_06"><i class="ps_zp_06x"></i>项目预览图</span><span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
 			</div>	
 			<div class="ps_zp_07 ps_zp_pic_4">
 				<div v-if="form.imgs.length<3">
