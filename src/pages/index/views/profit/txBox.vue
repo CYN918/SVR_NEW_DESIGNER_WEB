@@ -106,7 +106,7 @@
 					<span>0</span>
 					<span>(X-800)*20%</span>
 					<span>X*80%*20%</span>
-					<span>X*800*30%-2000</span>
+					<span>X*80%*30%-2000</span>
 					<span>X*80%*40%-7000</span>
 				</div>
 			</div>
