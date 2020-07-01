@@ -5,12 +5,15 @@
 				<div class="topGd_03_1">{{obj.name}}</div>				
 			</div>
 			<div class="topGd_04">
-				<div v-if="djsshow.d" class="topGd_04_1">
-					<span v-if="djsshow.d>0">
-						{{djsshow.d}}<span>天</span>
-					</span><span>
-						{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}
-					</span>
+				<!-- 长期项目不显示截至时间 -->
+				<div v-if="obj.project_id == 0">
+					<div v-if="djsshow.d" class="topGd_04_1">
+						<span v-if="djsshow.d>0">
+							{{djsshow.d}}<span>天</span>
+						</span><span>
+							{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}
+						</span>
+					</div>
 				</div>
 				<div @click="bm('pr_rz')" class="topGd_04_2 topGd_04_2x btns btns_js pend">
 					报名项目

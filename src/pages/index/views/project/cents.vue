@@ -392,11 +392,13 @@ export default {
 				if(da.status==1 && da.is_sign_up==0){
 					document.addEventListener('scroll',this.autoS,false);	
 				}
+
 				this.pzTop = {
 					name:da.name,
 					classify_name:da.classify_name,
 					fields:da.fields,		
 					id:da.id,
+					project_type: da.project_type
 				};
 				this.deta = da;
 				setTimeout(()=>{
