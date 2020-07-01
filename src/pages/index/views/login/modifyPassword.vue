@@ -140,6 +140,8 @@ export default {
 				this.ajaxType=0;
 				this.bdtj('重置密码页','重置密码成功','--');
 				Message({message: '修改成功'});
+				
+				this.$parent.close();
 				setTimeout(()=>{
 					this.$router.push({path: '/login'});
 				},1000)
