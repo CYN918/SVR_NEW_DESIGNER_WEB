@@ -99,7 +99,7 @@
 		
 		
 		<div class="btns_ps_zb">
-			<span @click="subpush()" class="btn_ps_1 pend">提交</span><!-- <span class="pend">今日可交稿次数10次</span> -->
+			<span @click="subpush()" class="btn_ps_1 pend">提交</span><span class="pend">今日可交稿次数{{ leftTimes }}次</span>
 		</div>
 		<component v-bind:is="tanc2.zj" v-model="tanc2" ref="tanbox"></component>
 	</div>
@@ -147,7 +147,8 @@ export default{
 				zj:''
 			},
 			ajx:false,
-
+			// 剩余交稿次数
+			leftTimes: ''
 		}
 	},
 	beforeDestroy:function(){
@@ -182,6 +183,7 @@ export default{
 			let query = this.$route.query || {};
 			this.$set(this.form, 'project_id', query.project_id)
 			this.getOpt();
+			this.getDeliveryLeftTime();
 		},
 		qhfn(n){
 			this.tanc.zj = n;
@@ -300,7 +302,16 @@ export default{
 				this.$refs.jdt1.bfb = on;
 			}		
 		},
-		
+		// 获取今日交稿剩余次数
+		async getDeliveryLeftTime() {
+			let data = await this.api.getDeliveryLeftTime()
+
+			if(data == 'error' || data == '402') {
+				return
+			}else {
+				this.leftTimes = data.left_times
+			}
+		}
 	}
 }
 </script>

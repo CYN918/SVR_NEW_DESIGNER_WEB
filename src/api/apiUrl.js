@@ -430,6 +430,11 @@ export default {
 	AdvancePayment:{
 		url:'/Api/Appshow/AdvancePayment',method:'post',baseURL:0,isType:{cancelToken:1}
 	},
-	
-	
+	// 获取今日投稿次数
+	getDeliveryLeftTime:{
+		url: '/Api/Project/deliveryLeftTimes',
+		method: 'post',
+		baseURL: 0,
+		isType: {cancelToken:1}
+	},
 }
