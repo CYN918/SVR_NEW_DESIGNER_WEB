@@ -254,7 +254,9 @@ export default{
 				if(da=='error' || da=='104'){return}
 				
 				this.tipMr("交稿成功，请耐心等待验收");
-				this.tanc2.zj = 'sucsses';
+				this.$router.push({name:'projectZz', params:{
+					from: 'dcpushZp',					
+				}})
 				
 			}).catch(()=>{
 				this.ajx = false;

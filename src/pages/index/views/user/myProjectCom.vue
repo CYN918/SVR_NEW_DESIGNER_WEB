@@ -66,7 +66,7 @@ export default {
 		init(){
 			let params = this.$route.params || {}
 
-			if(params.from === 'pushZp'){
+			if(params.from === 'pushZp' || params.from === 'dcpushZp'){
 				this.tanc = {
 					zj:'sucsses',
 					// type:this.$route.query.type
