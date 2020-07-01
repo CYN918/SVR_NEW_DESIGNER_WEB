@@ -83,7 +83,7 @@
 			
 				<div class="ps_zp_pic_2">
 					<i class="ps_zp_06x"></i>
-					<inputMax class="ps_zp_pic_0" :placeholder="'请将稿件上传至网盘后，提供稿件的网盘地址'" v-model="form.online_disk_url" @focus="focus2" @blur="blur2" :max="10"></inputMax>
+					<inputMax class="ps_zp_pic_0" :placeholder="'请将稿件上传至网盘后，提供稿件的网盘地址'" v-model="form.online_disk_url" @focus="focus2" @blur="blur2" :max="1000"></inputMax>
 					<span v-if="isonline_disk_url" class="ps_zp_pic_1 ps_dc_08">
 						<img :src="setImgU('svg/warning-circle.svg')">
 						请输入网盘链接
