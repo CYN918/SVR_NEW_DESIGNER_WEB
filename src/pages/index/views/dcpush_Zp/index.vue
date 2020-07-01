@@ -244,6 +244,7 @@ export default{
 				
 				if(!this.form.online_disk_url){
 					this.tipMr('请提供稿件的网盘地址')
+					return
 				}
 				pr.online_disk_url = this.form.online_disk_url;
 				pr.access_code = this.form.access_code?this.form.access_code:'';
