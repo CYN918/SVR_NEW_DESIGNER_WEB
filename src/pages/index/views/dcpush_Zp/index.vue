@@ -179,6 +179,8 @@ export default{
 			if(!window.userInfo){
 				this.goFn('/index');
 			}
+			let query = this.$route.query || {};
+			this.$set(this.form, 'project_id', query.project_id)
 			this.getOpt();
 		},
 		qhfn(n){

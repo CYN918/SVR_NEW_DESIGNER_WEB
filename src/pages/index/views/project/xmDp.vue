@@ -26,9 +26,7 @@ export default {
 			config2:{
 				title:'再次交稿确认',
 				cent:'你之前已制作过该项目，是否再次交稿？',
-				closeFnd:'closeZc',
-				qFn:'goZc',
-				closeFn:'closeZc'
+				qFn:'goZc'
 			},
 			da:{},			
 			djsshow:{},
@@ -78,10 +76,10 @@ export default {
 			this.bdtj('项目详情页','长期项目-招募期','[再次交稿]');
 			this.$refs.tcBox2.show();			
 		},
-		goZc(){
+		goZc() {
 			this.bdtj('项目详情页','长期项目-招募期','确定[再次交稿]');
 			this.$refs.tcBox2.close();
-			this.goFn('/dcpushZp');
+			this.$router.push({path: '/dcpushZp', query: { project_id: this.obj.id }})
 		},
 		closeZc(){
 			this.bdtj('项目详情页','长期项目-招募期','取消[再次交稿]');
