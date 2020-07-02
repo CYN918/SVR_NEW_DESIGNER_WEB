@@ -80,10 +80,11 @@ export default {
 			if(this.getType==1){return}
 			if(!window.userInfo){return}
 			let pr = {
-				status:2,
-				page:this.page2,
-				limit:40,
-				classify_1:1,
+				status: 2,
+				page: this.page2,
+				limit: 40,
+				classify_1: 1,
+				is_project_delivery: 0
 			};
 			this.getType=1;
 			
