@@ -145,7 +145,8 @@ export default {
 				
 				
 				this.chid='';	
-			}).catch(()=>{				
+			}).catch(()=>{		
+				this.close();		
 				this.cxType=0;
 			});
 		},
