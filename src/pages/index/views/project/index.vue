@@ -184,7 +184,6 @@ export default {
 .iopdlf_01>li{
 	display: inline-block;
 	margin-bottom: 20px;
-	margin-right: 20px;
 }
 .iopdlf_01>li:nth-child(2n+2){
 	margin-right: 0;

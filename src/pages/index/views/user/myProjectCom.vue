@@ -89,7 +89,7 @@ export default {
 .iopdlf_01>li{
 	display: inline-block;
 	margin-bottom: 40px;
-	margin-right: 20px;
+	width: 100%;
 }
 .iopdlf_01>li:nth-child(2n+2){
 	margin-right: 0;
