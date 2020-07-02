@@ -4,7 +4,12 @@
 			<div class="ps_zp_02">
 				作品投稿<span>一经验收，永久分成</span>
 				<div class="ps_zp_03">
-					<span v-for="el in navs" @click="qhfn(el.v)" :class="tanc.zj==el.v?'check_d':''">{{el.n}}</span>
+					<span 
+						v-for="(el, idx) in navs"
+						@click="qhfn(el.v, idx)"
+						:key="idx"
+						:class="tanc.zj == el.v ? 'check_d' : ''"
+					>{{el.n}}</span>
 				</div>			
 			</div>			
 		</div>
@@ -50,7 +55,7 @@ export default{
 			},
 			filed:{},
 			ajx:false,
-
+			currentNavIdx: 0
 		}
 	},
 	mounted: function(){
@@ -62,7 +67,8 @@ export default{
 				this.goFn('/index');
 			}
 		},
-		qhfn(n){
+		qhfn(n, idx){
+			this.currentNavIdx = idx
 			this.bdtj('作品投稿页',n)
 			this.tanc.zj = n;
 		},
@@ -117,6 +123,12 @@ export default{
 			pr.file_url = this.tanc.filse[0].allInfo.url;
 			pr.file_info = JSON.stringify(this.tanc.filse[0].allInfo);
 			this.ajx = true;
+
+			// 选项卡选择到“投稿已上传的原创作品”
+			if(this.currentNavIdx == 1) {
+				pr.work_id = this.tanc.work_id
+			}
+
 			this.api.pr_delivery(pr).then((da)=>{
 				this.ajx = false;
 				if(da=='error' || da=='104'){return}

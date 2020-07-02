@@ -46,8 +46,11 @@ export default{
 	},
 	watch:{
 		'tanc.obj'(n,b){
-			this.value.name = this.tanc.obj.work_name;
-			this.value.imgs[0] = {url:this.tanc.obj.face_pic,bfb:100};
+			let { work_name, work_id } = this.tanc.obj
+
+			this.value.name = work_name
+			this.value.work_id = work_id
+			this.value.imgs[0] = { url: this.tanc.obj.face_pic, bfb: 100 };
 		},
 	},
 	methods:{
