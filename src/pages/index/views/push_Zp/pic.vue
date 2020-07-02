@@ -23,7 +23,7 @@
 				<span class="ps_zp_06"><i class="ps_zp_06x"></i>作品预览图</span><span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
 			</div>	
 			<div class="ps_zp_07 ps_zp_pic_4">
-				<div v-if="value.imgs.length<3">
+				<div v-show="value.imgs.length<3">
 					<span class="add_x01">
 						<span class="pend">+</span>
 						上传图片

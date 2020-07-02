@@ -80,7 +80,7 @@
 					</div> -->
 
 					<div class="ps_zp_pic_4 phs_po">
-						<div v-if="imgs.length<3">
+						<div v-show="imgs.length<3">
 							<span class="add_x01">
 								<span class="pend">+</span>
 								上传图片
