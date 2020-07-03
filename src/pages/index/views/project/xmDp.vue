@@ -2,7 +2,11 @@
 	<div :class="['cenDjs',da.cl]">
 		<div class="yu_o9">
 			<div class="cenDjs_4">
-				<div v-for="(el,index) in da.btns" :key="index" :class="calcClass(el)" @click="clickFn(el.tcFn,el.tcFncs)">{{el.n}}</div>
+				<div v-for="(el,index) in da.btns"
+					:key="index"
+					:class="calcClass(el)"
+					@click="clickFn(el.tcFn,el.tcFncs)"
+				>{{el.n}}</div>
 			</div>
 			<loginDialog ref="logindialog" :config="outc"></loginDialog>
 			
@@ -67,6 +71,9 @@ export default {
 	}, 
 	methods: {
 		calcClass(el) {
+			if(this.obj.is_sign_up == 0) {
+				return 'pend btns_js'
+			}
 			if (this.obj.status == 4) return 'pend'
 			if (this.obj.status == 3) return 'pend router-link-active'
 			if (el.tcFncs == 'Log') return 'pend router-link-active'
@@ -285,7 +292,7 @@ export default {
 }
 </style>
 
-<style>
+<style scoped>
 .cenDjs{
 	position: relative;
 }
@@ -332,7 +339,6 @@ export default {
 	margin-right: 20px;
 	font-size:14px;
 	font-weight:400;
-	color:#666;
 	line-height:38px;
 	text-align: center;
 	width:98px;
@@ -565,6 +571,12 @@ export default {
 }
 .worksBox_2_4>div:hover{
 	background: #E6E6E6;
+}
+
+.btns_js{
+	background: #33B3FF;
+    border-color: #33B3FF !important;
+    color: #fff;
 }
 
 </style>
