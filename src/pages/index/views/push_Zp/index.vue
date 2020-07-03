@@ -11,7 +11,8 @@
 						:class="tanc.zj == el.v ? 'check_d' : ''"
 					>{{el.n}}</span>
 				</div>			
-			</div>			
+				<span @click="showTac({zj:'tips'})" class="ps_zp_must_read">投稿必读</span>	
+			</div>
 		</div>
 		<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
 		<div class="ps_zb_box">
@@ -25,7 +26,7 @@
 		</div>
 		
 		<div class="btns_ps_zb">
-			<span @click="subpush()" class="btn_ps_1 pend">提交</span><span @click="showTac({zj:'tips'})" class="pend">投稿必读</span>
+			<span @click="subpush()" class="btn_ps_1 pend">提交</span>
 		</div>
 		<component v-bind:is="tanc2.zj" v-model="tanc2" ref="tanbox"></component>
 	</div>
@@ -42,7 +43,7 @@ export default{
 	data(){
 		return{
 			navs:[
-				{n:'使用预览图提交',v:'pic'},
+				{n:'本地上传提交',v:'pic'},
 				{n:'投稿已上传的原创作品',v:'work'}
 			],
 			tanc:{
@@ -255,5 +256,11 @@ export default{
 	border-radius:5px;
 	color:rgba(255,255,255,1);
 	text-align: center;
+}
+.ps_zp_02 > .ps_zp_must_read{
+	position: absolute;
+	right: 16px;
+	cursor: pointer;
+	color: #33B3FF;
 }
 </style>

@@ -214,6 +214,7 @@ export default {
 
 			if(this.deta.status==3){
 				let be = [{n:'提交稿件',fn:'pushGj',cls:'isls'}];
+				console.log(this.deta)
 				if(this.deta.is_rejected==1){
 					be[0].n = "重新交稿";
 					// be[1] = {n:'交稿记录',fn:'Log'};

@@ -7,14 +7,14 @@
 			<div class="ps_zp_07">
 				<div class="ps_zp_pic_2">
 					<i class="ps_zp_06x"></i>
-					<inputMax class="ps_zp_pic_0" :placeholder="'请输入投稿标题'" v-model="value.name" @focus="focus" @blur="blur" :max="10"></inputMax>
+					<inputMax class="ps_zp_pic_0" placeholder="请输入投稿作品名称" v-model="value.name" @focus="focus" @blur="blur" :max="10"></inputMax>
 					<span v-if="isTite" class="ps_zp_pic_1">
 						<img :src="setImgU('svg/warning-circle.svg')">
 						请输入投稿标题
 					</span>
 				</div>
 				<div class="ps_zp_pic_3">
-					<textarMax :placeholder="'请输入投稿说明'" :max="140" v-model="value.remark" ></textarMax>
+					<textarMax :placeholder="'请输入作品的备注说明'" :max="140" v-model="value.remark" ></textarMax>
 				</div>
 			</div>			
 		</div>

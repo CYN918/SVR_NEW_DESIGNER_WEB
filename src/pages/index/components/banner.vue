@@ -14,7 +14,7 @@
 			<ul>
 				<li @click="showTg()">
 					<img :src="setImgU('home/home_rk_tg.jpg')"/>
-					<button class="making2">前往投稿</button>
+					<button class="making2">马上供稿</button>
 				</li>
 				<li @click="go_p()">
 					<img :src="setImgU('home/home_rk_xm.jpg')"/>
@@ -22,7 +22,7 @@
 				</li>
 				<li class="banner_propaganda_t"  @click="go_show()">
 					<img :src="setImgU('home/home_rk_ldx.jpg')"/>
-					<button class="making">开始制作来电秀</button>
+					<button class="making">开始来电秀制作</button>
 				</li>
 			</ul>	
 		</div>

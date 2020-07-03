@@ -1,43 +1,36 @@
 <template>
 	<div class="ps_tip_01">
 		<div class="ps_tip_02">
-			<div class="ps_tip_02_1">多次交稿 注意事项</div>
+			<div class="ps_tip_02_1">多次投稿注意事项</div>
 			<img @click="close()" class="ps_tip_02_3 pend" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg">
 		</div>
 		<div class="ps_tip_03 ">
 			<div>
-				<img :src="setImgU('push_Dc/1.svg')">
-				<div class="ps_tip_04">功能使用场景</div>
+				<div class="ps_tip_04">关于项目多次交稿</div>
 				<div class="ps_tip_06">
-					多次交稿功能，主要是针对已经被平台分派过项目的设计师，如果同一个项目需求你有多个可交稿的作品稿件，即可在这里完成交稿。
+					对于已经在狮圈儿平台完成某一设计项目交付，并再次或持续有同一设计项目交稿需求的设计师，可以通过此交稿通道快速提交稿件，免去重新报名审核的流程。
 				</div>
 			</div>
 			<div>
-				<img :src="setImgU('push_Dc/2.svg')">
-				<div class="ps_tip_04">交稿的项目选择</div>
+				<div class="ps_tip_04">交稿项目选择</div>
 				<div class="ps_tip_06">
-					多次交稿，仅支持选择已报名通过的未下架长期项目进行交稿；新的项目需求请先从[项目列表]处报名，等待平台运营确认能力后分派项目。
+					目前，多次交稿仅支持已完成上次作品交付，且仍处于征集期的设计项目；新项目投稿请从<a href="/#/project" target="_blank">[项目列表]</a>处报名，并等待确认设计能力后分派项目。
 				</div>
 				
 			</div>
 			<div>
-				<img :src="setImgU('push_Dc/3.svg')">
-				<div class="ps_tip_04">收益结算</div>
+				<div class="ps_tip_04">项目收益</div>
 				<div class="ps_tip_06">
-					交稿提交后，你可以在[我的项目]内查看到此次投稿生成的“待审核”项目，结算方式（买断或永久分成）与首次投稿的项目规则一致。
-				</div>	
-				<div class="ps_tip_06">
-					验收通过后，你可以在[收益中心]内查询到该项目收益情况。
+					多次交稿项目的结算方式（买断或永久分成）与首次投稿的项目一致；提交稿件后，可以在<a href="/#/projectZz" target="_blank">[我的项目]</a>中查看此稿件的审核状态。完成审核后，可以在<a href="/#/profit" target="_blank">[收益中心]</a>查询到该项目的收益情况。
 				</div>	
 			</div>
 			<div>
-				<img :src="setImgU('push_Dc/3.svg')">
-				<div class="ps_tip_04">多次交稿的次数限制</div>
+				<div class="ps_tip_04">次数限制</div>
 				<div class="ps_tip_06">
-					项目多次交稿，默认每日限10次。
+					项目多次交稿，每日默认限制次数为10次。
 				</div>
 				<div class="ps_tip_06">
-					长期合作设计师、狮圈儿合作方，或其他特殊情况，若有多个数量作品的交稿需求，请点击联系平台运营QQ单独申请。
+					如有狮圈儿合作方、长期合作设计师或其他特殊情况需要更多提交作品的次数，请点击联系<a :href="contactQQ" target="_blank">平台运营</a>处理。
 				</div>
 			</div>
 		</div>
@@ -48,6 +41,11 @@
 export default{
 	props:{
 		value:Object
+	},
+	data() {
+		return {
+			qq: '3177059443'
+		}
 	},
 	mounted: function(){
 		this.init();
@@ -61,8 +59,12 @@ export default{
 		},
 		close(){
 			this.$emit('input',{});
-		},
-
+		}
+	},
+	computed: {
+		contactQQ() {
+			return "http://wpa.qq.com/msgrd?v=3&uin="+ this.qq + "&site=qq&menu=yes";
+		}
 	}
 }
 </script>
@@ -74,7 +76,6 @@ export default{
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	height:460px;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 8px 32px 0px rgba(0,0,0,0.08);
 	border-radius:8px;
@@ -107,9 +108,7 @@ line-height:60px;
     width: 12px;
 }
 .ps_tip_03{
-	
 	width: 100%;
-	height: 490px;
 	overflow: hidden;
 	overflow-y: auto;
 }
@@ -145,7 +144,7 @@ line-height:60px;
 .ps_tip_06{
 	font-size:14px;
 	color:rgba(102,102,102,1);
-	line-height:20px;
+	line-height:24px;
 	margin-bottom: 20px;
 }
 .ps_tip_06>a{

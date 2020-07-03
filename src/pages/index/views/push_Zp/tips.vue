@@ -7,46 +7,42 @@
 		</div>
 		<div class="ps_tip_03 ">
 			<div>
-				<img :src="setImgU('push_Zp/1.svg')">
-				<div class="ps_tip_04">作品投稿要求</div>
-				<div class="ps_tip_05">投稿作品必须是原创作品</div>
+				<div class="ps_tip_04">作品供稿须知</div>
+				<div class="ps_tip_05">作品要求</div>
 				<div class="ps_tip_06">
-					作品必须为上传者100%完全独立拥有版权的原创作品，抄袭、非原创作品投稿产生的后果损失，按照
-					<a href="/#/authorization">《供稿人协议》</a>由上传者承担一切责任。
+					我们接收插画、图标、动效、短视频、摄影、字体和矢量图形等供稿作品，提交作品时请同时提交作品源文件（首选PSD文件），文件请注意图层结构清晰、元素命名清楚。
 				</div>
 				<div class="ps_tip_05">
-					作品源文件
+					供稿作品必须为原创作品
 				</div>
-				<div class="ps_tip_06">需保证作品源文件（首选psd文件）图层结构清晰、元素命名清楚。</div>
+				<div class="ps_tip_06">作品必须为上传者100%拥有完整独立版权的原创作品，如涉及抄袭、临摹和盗取他人作品的行为，需按照<a href="/#/authorization" target="_blank">《狮圈儿平台供稿人协议》</a>承担因非原创稿件产生的一切不良后果。</div>
 			</div>
 			<div>
-				<img :src="setImgU('push_Zp/2.svg')">
-				<div class="ps_tip_04">收益计算规则</div>
-				<div class="ps_tip_05">一经验收 永久分成</div>
+				<div class="ps_tip_04">作品收益规则</div>
+				<div class="ps_tip_05">一经录用，开启作品分成收益</div>
 				<div class="ps_tip_06">
-					验收作品素材会应用到多个与狮圈儿合作的投放渠道，产生的收益与作者按照《供稿人协议》规则进行分成结算（月结）。
+					狮圈儿与众多一线移动终端企业密切合作，被录用的作品素材将会分发至多个投放渠道并产生收益，作者可根据<a href="/#/authorization">《供稿人协议》</a>规则获得收益分成（按月结算）。
 				</div>
-				<div class="ps_tip_05">项目与收益的关系</div>
+				<div class="ps_tip_05">作品收益记录</div>
 				<div class="ps_tip_06">
-					投稿作品审核通过后，会在 <a href="/#/projectBm">[我的项目]</a>生成你的已验收项目记录，你可以通过该项目在
-					<a href="/#/profit">[我的收益]</a>内查询收益记录。详细操作请<a href="/#/divided">点此查看</a>
+					供稿作品被录用后，将会在<a href="/#/projectYs" target="_blank">[我的项目]</a>中生成一个已验收项目记录，该作品项目所产生的具体收益记录可以在<a href="/#/profit" target="_blank">[我的收益]</a>中查询。详细操作请点此查看
 				</div>
-				<div class="ps_tip_05">收益的不确定性</div>
+				<div class="ps_tip_05">上传更有竞争力的作品</div>
 				<div class="ps_tip_06">
-					除了作品本身质量和水准外，与投稿渠道的适配度，市场效果等因素都会对最终收益产生影响。
-					狮圈儿无法承诺作者每月获得的收益金额，但会尽可能的为作者争取最大收益。
+					由于分发渠道的特殊性，适用于手机终端商业使用的作品往往会有更高的录用率和收益金额，请注意观察手机终端渠道的用图需求。请避免上传随意创作的低质量作品。
+狮圈儿无法承诺供稿人每月获得的收益金额，但尽可能会为创作者争取最大利益。
 				</div>
 			</div>
 			<div>
-				<img :src="setImgU('push_Zp/3.svg')">
 				<div class="ps_tip_04">其他须知</div>
 				<div class="ps_tip_05">作品授权</div>
 				<div class="ps_tip_06">
-					投稿作品验收后，平台将正式获得作者授权，拥有该作品知识产权的商业使用权利，投稿作品的著作权仍归作者所有。
+					作者上传作品即视为同意将该作品的使用权授予平台，狮圈儿将在全球范围内拥有作品的商业使用权力，作品著作所有权仍归属于作者所有。
 				</div>
-				<div class="ps_tip_05">审核时长：约1周</div>
+				<div class="ps_tip_05">作品审核</div>
 				<div class="ps_tip_06">
-					由于作品投稿数量较多，同时也需要评审多个投放渠道适配度，隐私需1周左右时间审核，敬请见谅。更多疑问请点击联系<a target="_blank" :href="contactQQ">平台运营QQ</a>
+					作品审核周期：一般为5至10个工作日；
+					<p>由于供稿作品数量较多，同时需要结合不同投放渠道需求的匹配度进行审核，所以请谅解。我们将会收到稿件后尽快进行审核~如有更多疑问请联系<a :href="contactQQ" target="_blank">平台客服</a>。</p>
 				</div>
 			</div>
 		</div>
@@ -92,7 +88,6 @@ export default{
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	height:560px;
 	background:rgba(255,255,255,1);
 	box-shadow:0px 8px 32px 0px rgba(0,0,0,0.08);
 	border-radius:8px;
@@ -128,7 +123,6 @@ line-height:22px;
 .ps_tip_03{
 	
 	width: 100%;
-	height: 490px;
 	overflow: hidden;
 	overflow-y: auto;
 }
@@ -164,10 +158,10 @@ line-height:22px;
 .ps_tip_06{
 	font-size:14px;
 	color:rgba(102,102,102,1);
-	line-height:20px;
+	line-height:24px;
 	margin-bottom: 20px;
 }
-.ps_tip_06>a{
+.ps_tip_06 a{
 	color: #33B3FF;
 }
 </style>
