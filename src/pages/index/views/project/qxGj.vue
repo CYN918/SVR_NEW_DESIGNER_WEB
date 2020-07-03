@@ -1,7 +1,10 @@
 <template>
 	<tanC :title="'稿件撤回'">
 		<template v-slot:todo="{ todo }">
-			<div class="qxBm_btns_1">撤回后该项目将终止，需重新投稿作品，确认撤回稿件？</div>	
+			<div class="qxBm_btns_1">
+				<span v-if="datad.project_type == 3">撤回后该项目将终止，需重新投稿作品，确认撤回稿件？</span>
+				<span v-else>项目运营可能正在浏览你的稿件，确定要撤回？</span>
+			</div>	
 			<div class="qxBm_btns">
 				<div @click="close" class="btns pend">取消</div>
 				<div @click="pr_revokeDelivery" class="btns btns_js  pend">确定</div>
@@ -53,7 +56,10 @@ export default {
 					this.$parent.setStaus('3');
 				}
 				this.$message({message:"撤回稿件成功"});
-				// this.reload();				
+				
+				if(this.$route.path === '/prcent') {
+					this.$router.push('/projectZz')
+				}
 				this.close();
 				location.reload()
 			}).catch(()=>{
