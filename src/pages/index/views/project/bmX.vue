@@ -266,9 +266,8 @@ export default {
 	font-size: 15px;
 }
 .bmXm_03_box{
-
 	width: 922px;
-	height: 328px;
+	max-height: 400px;
 	overflow: hidden;
 	overflow-y: auto;
 	text-align: left;

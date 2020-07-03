@@ -79,7 +79,6 @@ export default {
 	border-radius:5px;
 	background: #fff;
 	min-width: 480px;
-	max-height: 700px;
 }
 .pr_tc_04{
 	position: relative;
