@@ -5,12 +5,8 @@
 				<div class="newLog_02" v-for="el in List">
 					<div class="newLog_03">
 						<div class="newLog_04">
-						
-								<!-- <span @click="picP(el)"></span> -->
-								<!-- <div class="newLog_04" :style="setBg(el)"></div> -->
-								<!-- <span @click="picN(el)"></span> -->
 							<Carousel :interval="5000" height="102px" indicator-position="none" arrow="always">
-								<CarouselItem v-for="pic in JSON.parse(el.preview_pic)" :key="pic">
+								<CarouselItem v-for="pic in el.preview_pic" :key="pic">
 									<img class="newLog_preview_pic" :src="pic">
 								</CarouselItem>
 							</Carousel>
@@ -44,65 +40,6 @@
 				</div>
 				<qxGj class="logqxgj" v-if="isShow" :datad="datad"></qxGj>
 			</div>
-		<!-- 	<div class="jglogbox">
-				<div class="jgbix jgtitle">
-					<div>交稿文件/网盘链接</div>
-					<div>文件大小/提取密码</div>
-					<div>交稿时间</div>
-					<div>验收结果</div>
-					<div>验收反馈时间</div>
-					<div>操作</div>				
-				</div>
-				<div v-for="(el,index) in List" :key="index" class="jgbix jgcent">
-					<div class="log_tipbox log_tipbox2">
-						<div class="log_hid">{{(el.type==2?el.online_disk_url:el.file_name)}}</div>
-						<div v-if="(el.type==2&&el.online_disk_url.length>12) || el.file_name.length>12" class="log_tip">
-							{{el.type==2?el.online_disk_url:el.file_name}}
-						</div>
-					</div>
-					<div class="log_tipbox log_tipbox2">
-						<div class="log_hid log_hid_00_01">{{el.type==2?el.access_code:el.file_size}}</div>
-						
-						<div v-if="(el.type==2&&el.access_code.length>12) || el.file_size.length>12" class="log_tip">
-							{{ el.type==2?el.access_code:el.file_size}}
-						</div>
-					</div>
-					<div>{{el.created_at | logtime}}</div>
-					<div>{{el.check_status | typsuu}}</div>
-					<div style="margin-right:6px;">{{el.updated_at | logtime}}</div>
-					<div v-if="el.check_status==-1">
-						<div class="log_tipbox">
-							驳回理由
-							<div class="log_tip">
-								<span class="log_tip1">{{el.check_reason}}</span>
-								{{el.check_comment}}
-							</div>		
-						</div>
-						
-										
-					</div>
-					<div>
-						<div @click="showPic(el.preview_pic)" class="log_tipbox" v-if="el.preview_pic">预览</div>
-						<div @click="fileCy(el)" class="log_tipbox" v-if="checkCh(el,index)">撤回</div>
-						
-					</div>
-					<qxGj class="logqxgj" v-if="isShow" :datad="datad"></qxGj>
-		
-					
-
-					
-					
-				</div>	
-			</div>
-			
-			
-			<div class="ylt" v-if="ylt">
-				<div>
-					<img class="ippic" :src="ylt"/>
-					<img @click="closepick()" src="https://static.zookingsoft.com/SVR_NEW_DESIGNER_WEB/New/imge/project/cj_00.svg"class="ylt_03 pend">
-				</div>
-				
-			</div> -->
 		</template>			
 	</tanC>
 </template>
@@ -200,18 +137,16 @@ export default {
 			str+=`<div class="newLog_09 newLog_10">验收时间：2019-09-09 09:00</div>`;
 			return str;
 		},
-		setBg(el){
-			if(!el.picOn){
-				this.$set(el,'picOn',0);
+		// 格式化预览图数据
+		formatPreviewPic(picsStr) {
+			let pics = []
+
+			try {
+				pics = JSON.parse(picsStr)
+			} catch (error) {
+				pics = [picsStr]
 			}
-			let str = el.preview_pic;
-			try{
-				str = JSON.parse(el.preview_pic)[el.picOn]
-			}catch(e){
-				
-			}
-			el.pics = str;
-			return "background-image: url("+str+");";
+			return pics
 		},
 		checkCh(el,index){
 			this.index = index;
@@ -258,6 +193,10 @@ export default {
 				project_id:this.$parent.deta.id,
 			}).then((da)=>{
 				if(da=='error' || da=='104'){return}
+
+				da.forEach(item => {
+					item.preview_pic = this.formatPreviewPic(item.preview_pic)
+				})
 				this.List = da;
 			}).catch(()=>{
 				

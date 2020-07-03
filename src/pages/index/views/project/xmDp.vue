@@ -89,8 +89,6 @@ export default {
 			this.xmTypeOn = this.obj.status-1;
 			if(this.obj.is_sign_up==1){
 				if(this.obj.signup_accept==1){
-					
-					
 					this.xmType[0].btns = [{n:'再次交稿',tcFn:'toFn',tcFncs:'toFn'}];	
 				}else{
 					this.xmType[0].btns = [{n:'取消报名',tcFn:'showTc',tcFncs:'qxBm'}];	
@@ -111,6 +109,12 @@ export default {
 			if(this.obj.is_rejected==1){
 				this.xmType[2].btns[0].n="重新提交";
 				this.xmType[2].btns[1] = {n:'交稿记录',tcFn:'showTc',tcFncs:'Log'};
+			}
+
+			if(this.obj.project_type == 4) {
+				this.xmType[3].btns = [
+					{n:'交稿记录',tcFn:'showTc',tcFncs:'Log'},
+				]
 			}
 				
 		},
@@ -164,7 +168,6 @@ export default {
 				if(da.length>0){
 					this.islog = 1;
 				}
-		
 			})
 		},
 		goyans(on){

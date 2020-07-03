@@ -354,7 +354,6 @@ export default {
 				this.tcData = b;
 				return
 			}
-			console.log(a,b);
 			this.tcData = this.deta;
 			
 		},
