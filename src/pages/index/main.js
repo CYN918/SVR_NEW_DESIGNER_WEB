@@ -5,8 +5,7 @@ import App from './App.vue'
 import router from './router'
 import mJs from '../../assets/comm.js'
 import comState from '../../assets/state.js'
-// import LoginDom from './allCom/login/'
-// Vue.use(LoginDom);
+import "styles/index.scss"
 
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api

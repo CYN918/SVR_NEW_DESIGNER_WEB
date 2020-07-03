@@ -98,7 +98,10 @@
 				</div>
 				<div>
 					<div class="pushGj_05_1">网盘交稿仅支持大文件，小于1G的文件请使用<span @click="qhType(1)" :class="type==1?'pushOx':''">本地上传交稿</span></div>
-					<div class="pushGj_03_1">请将稿件上传至网盘后，提供稿件的网盘地址</div>
+					<div class="pushGj_03_1">
+						<span class="p-text">请将稿件上传至网盘后，提供稿件的网盘地址</span>
+						<el-button type="primary" @click="qhType(1)">本地上传交稿</el-button>
+					</div>
 					<input placeholder="如：https://pan.baidu.com/s/xxxx_xxxx_xx" v-model="online_disk_url" type="text">
 				</div>
 				<div>
@@ -370,7 +373,7 @@ export default {
 	
 </script>
 
-<style>
+<style lang="scss">
 .pushGj_01_n1{
 	max-height:504px;
 	overflow: hidden;
@@ -423,6 +426,11 @@ export default {
 	color:rgba(51,51,51,1);
 	line-height:20px;
 	margin-bottom: 10px;
+	display: flex;
+	.p-text{
+		flex: 1;
+		line-height: 42px;
+	}
 }
 .pushGj_03_2{
 	width:458px;
