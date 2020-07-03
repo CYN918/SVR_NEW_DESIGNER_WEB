@@ -153,7 +153,8 @@
 				<div class="cens_02_2hd">{{el.module_title}}</div>
 				<div class="cens_02_2ce" v-html="el.module_content"></div>
 			</div>
-			<topGd v-if="topTyped==1 && deta.status==1" :obj="pzTop" ref="topGd"></topGd>
+
+			<topGd v-if="topTyped==1 && deta.status==1 && !deta.is_sign_up" :obj="pzTop" ref="topGd"></topGd>
 			<tipd  :tipCent="csff" :style="sfas" ref="csdf"></tipd>
 		    <component v-bind:is="tcZj" v-model="comData"  :datad="tcData" :expected_profit="deta.expected_profit" :settlement="deta.settlement"></component>
 			<prnavright v-bind:deta="deta"></prnavright>
