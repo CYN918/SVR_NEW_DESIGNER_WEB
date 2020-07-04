@@ -204,7 +204,11 @@ export default {
 				}
 			}						
 			if(this.deta.status==1){
-				this.tips = '<div class="pr_ml_4 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
+				if(this.deta.project_type == '0') {
+					this.tips = '<div class="pr_ml_4 backdse"><span><span>'+this.deta.left_time.d+'</span>天<span>'+this.deta.left_time.h+'</span>时<span>'+this.deta.left_time.m+'</span>分<span>'+this.deta.left_time.s+'</span>秒</span>后截止报名</div>';
+				}else {
+					this.tips = ''
+				}
 				return
 			}
 			if(this.deta.status==2){
