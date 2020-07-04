@@ -13,7 +13,7 @@
 					<div class="pushGj_03_1">内容预览图<span class="pushGj_iop">单张1M以内；最多3张；JPG/PNG/GIF</span></div>
 					
 					<div class="ps_zp_pic_4 phs_po">
-						<div v-if="imgs.length<3">
+						<div v-show="imgs.length<3">
 							<span class="add_x01">
 								<span class="pend">+</span>
 								上传图片
@@ -388,6 +388,7 @@ export default {
 }
 .pushGj_02 .upload-demo{
 	margin-bottom: 22px;
+	text-align: left;
 }
 .pushGj_02 .el-upload-dragger{
 	width:500px;
