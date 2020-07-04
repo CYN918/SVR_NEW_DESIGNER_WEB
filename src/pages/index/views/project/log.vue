@@ -7,7 +7,9 @@
 						<div class="newLog_04">
 							<Carousel :interval="5000" height="102px" indicator-position="none" arrow="always">
 								<CarouselItem v-for="pic in el.preview_pic" :key="pic">
-									<img class="newLog_preview_pic" :src="pic">
+									<div class="newLog_preview_pic">
+										<img  :src="pic">
+									</div>
 								</CarouselItem>
 							</Carousel>
 					
@@ -211,7 +213,9 @@ export default {
 	
 </script>
 
-<style>
+<style lang="scss">
+@import "~styles/define.scss";
+
 .newLog_01{
 	width: 720px;
 	padding: 40px 0;
@@ -356,13 +360,20 @@ export default {
 }
 .newLog_04{
 	position: relative;
+	@include border;
 }
 .newLog_04>span{
 	position: absolute;
-	top: ;
 }
 .newLog_preview_pic{
 	width: 136px;
 	height: 102px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	>img{
+		max-width: 100%;
+		max-height: 100%;
+	}
 }
 </style>
