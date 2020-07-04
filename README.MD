@@ -50,6 +50,7 @@ Vue代码编写勿必遵循[Vue规范指南](https://cn.vuejs.org/v2/style-guide
 │   └── styles        
 │       ├── define.scss     # 应用样式定义
 │       ├── global.scss     # 全局样式
+│       ├── mixin.scss      # 混入
 │       ├── index.scss      # 导出样式
 │       └── reset-element-ui.scss   # 自定义饿了吗样式
 ├── common
