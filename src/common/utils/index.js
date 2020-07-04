@@ -1,5 +1,4 @@
-export * as md5 from './md5'
-export * as formatDate from './formatDate'
+import md5 from './md5'
+import formatDate from './formatDate'
 
-
-export { }
+export { md5, formatDate }
