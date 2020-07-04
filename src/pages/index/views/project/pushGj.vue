@@ -453,6 +453,9 @@ export default {
 	height: 79px;
 	line-height: 79px;
 }
+.lid{
+	width: 25%;
+}
 .lid>li{
 	margin-bottom: 40px;
 }
