@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueCropper from 'vue-cropper'
-import "styles/index.scss"
-import './app.global'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css';
+import "styles/index.scss"
 import './app.filters'
+import './app.directives'
+import './app.global'
 
 export default function init (cb) {
     // 注册图片裁剪

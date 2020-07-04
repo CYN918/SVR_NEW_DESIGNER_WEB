@@ -1,19 +1,39 @@
-.clear{
-    &::after {
-        content: "";
-        visibility: hidden;
-        display: block;
-        font-size: 0;
-        clear: both;
-        height: 0;
-    }
-}
+// 字号
+$xs: 12px; // 提示性文字
+$s: 14px; // 正文
+$m: 16px; // 副主标题
+$l: 24px; // 主标题
+$xl: 28px; // 突出标题
 
-// 文本移除隐藏
-@mixin textOverflow($line: 1) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: $line;
-    -webkit-box-orient: vertical;
-}
+// 主色
+$primary: #33B3FF;
+$primary-text: #FF9200; // 突出文本颜色
+
+// 辅助色
+$success: #4DC600;  // 成功
+$warning: #FEAF00;  // 黄色及警告(warn)
+$danger: #F72522;    
+$plan: #008DFF;
+$make: #732CD4;
+$disable: #DFDFDF;  // 禁用背景色
+
+// 基础颜色
+$base-white: white;
+$base-black: black;
+
+// 灰度
+$bg-color: #F4F6F9; // 灰色背景
+$border-color: #F4F6F9; // 灰色边框
+
+// 文字
+$t-primary: #282828; // 主要文字颜色
+$t-title: #333; // 标题文字颜色
+$t-normal: #666666;   // 正文文字颜色
+// $t-description: #BBBBBB; // 描述文字
+$t-placeholder: #BBBBBB; // 提示文字
+
+// 过渡时间
+$transition-time: .2s;
+
+// 圆角
+$border-radius: 5px;

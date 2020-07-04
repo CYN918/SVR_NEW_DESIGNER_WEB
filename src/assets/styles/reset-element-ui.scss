@@ -1,5 +1,30 @@
 /* 改变主题色变量 */
-$--color-primary: #33B3FF;
+// 主色
+$--color-primary: $primary;
+// 成功颜色
+$--color-success: $success;
+// 警告颜色
+$--color-warning: $warning;
+// 危险颜色
+$--color-danger: $danger;
+// 信息颜色
+$--color-info: #909399;
+
+// 基础白色
+$--color-white: $base-white;
+// 基础黑色
+$--color-black: $base-black;
+
+// 主要文字颜色
+$--color-text-primary: $t-primary;
+// 常规文字颜色
+// $--color-text-regular: #606266;
+// 次要文字颜色
+// $--color-text-secondary: #909399;
+// 占位文字颜色
+$--color-text-placeholder: $t-placeholder;
+// 一级边框颜色
+$--border-color-base: $border-color;
 
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
