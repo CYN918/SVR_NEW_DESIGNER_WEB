@@ -28,6 +28,7 @@
     "vue-ueditor-wrap": "^2.4.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-export-namespace-from": "^7.10.4",
     "@vue/cli-plugin-babel": "^3.0.0",
     "@vue/cli-plugin-eslint": "^3.0.0",
     "@vue/cli-service": "^3.8.4",

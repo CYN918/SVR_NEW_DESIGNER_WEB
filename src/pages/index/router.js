@@ -366,4 +366,16 @@ router.beforeEach((to, from, next) => {
 	next();	
 	return	
 })
+
+router.afterEach((to, from, next) => {
+	window.scrollTo(0, 0);
+});
+
+Vue.prototype.goFn = (n, s) => {
+    if (s) {
+        Vue.prototype.bdtj(s[0], s[1], s[2])
+    }
+    router.push({ path: n })
+}
+
 export default router
