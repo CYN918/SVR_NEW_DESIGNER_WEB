@@ -495,10 +495,10 @@ export default {
     color: rgba(255,255,255,1);
 }
 .backdse_01{
-	background: #FF3B30;
+	background: rgba($color: #FF3B30, $alpha: 0.8);
 }
 .backdse_02{
-	background: #FF9200;
+	background: rgba($color: #FF9200, $alpha: 0.8);
 }
 .pr_ml_pic{
 	position: absolute;
