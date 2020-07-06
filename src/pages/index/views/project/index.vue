@@ -4,13 +4,15 @@
 			<pTop class="" :cn="topCn">
 				<template v-slot:todo="{ todo }">
 					<div class="pr_02_1">
-						<span 
-						v-for="(el,index) in prLn" 
-						:key="index"
-						:class="['pr_02_2 pend',type==index?'pr_02_2On':'']"
-						@click="qhNav(index,todo,el.classify_name)"
-						>{{el.classify_name+'（'+el.project_num+'）'}}</span>
-						<span @click="goOn('/help',{on:'4-01'})" class="pr_02_3 pend">项目承接指南</span>
+						<div class="p-project-class">
+							<span 
+							v-for="(el,index) in prLn" 
+							:key="index"
+							:class="['pr_02_2 pend',type==index?'pr_02_2On':'']"
+							@click="qhNav(index,todo,el.classify_name)"
+							>{{el.classify_name+'（'+el.project_num+'）'}}</span>
+						</div>
+						<div @click="goOn('/help',{on:'4-01'})" class="p-project-guide">项目承接指南</div>
 					</div>
 				</template>		
 			</pTop>
@@ -108,7 +110,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "~styles/define.scss";
+
 .pr_box{
 	background:rgba(244,246,249,1);
 }
@@ -156,6 +160,25 @@ export default {
 	text-align: left;
 	margin: 0 auto;
 	width: 1300px;
+	display: flex;
+	align-items: center;
+	.p-project-class{
+		flex: 1;
+		line-height: 28px;
+		height: 80px;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	.p-project-guide{
+		@include border(left, #D9D9D9);
+		width: 120px;
+		text-align: center;
+		cursor: pointer;
+		height: 28px;
+		line-height: normal;
+		color: #333;
+	}
 }
 .pr_02_2{
 	
@@ -199,4 +222,5 @@ export default {
 	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
 	box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
 }
+
 </style>
