@@ -2,7 +2,7 @@
 	<tanC :title="'交稿记录'">
 		<template v-slot:todo="{ todo }">
 			<div class="newLog_01" >
-				<div class="newLog_02" v-for="el in List">
+				<div class="newLog_02" v-for="(el, idx) in List" :key="idx">
 					<div class="newLog_03">
 						<div class="newLog_04">
 							<Carousel :interval="5000" height="102px" indicator-position="none" arrow="always">
@@ -40,7 +40,7 @@
 						</span>
 					</div>					
 				</div>
-				<qxGj class="logqxgj" v-if="isShow" :datad="datad"></qxGj>
+				<qxGj class="logqxgj" v-if="isShow" :datad="data"></qxGj>
 			</div>
 		</template>			
 	</tanC>
@@ -51,7 +51,10 @@ import qxGj from './qxGj';
 import { Carousel, CarouselItem } from 'element-ui'
 
 export default {
-	components:{tanC,qxGj, Carousel, CarouselItem },	
+	components:{tanC,qxGj, Carousel, CarouselItem },
+	props: {
+		datad: Object
+	}	,
 	data(){
 		return{
 			List:[],
@@ -59,7 +62,7 @@ export default {
 			sfas:'display:none',
 			ylt:'',
 			isShow:false,
-			datad:{},
+			data:{},
 			index:0,
 			pagename:"项目详情页"
 
@@ -152,8 +155,9 @@ export default {
 		},
 		checkCh(el,index){
 			this.index = index;
-
-			if(el.status==4 && el.check_steps!=1 && [-2,-1,1].indexOf(+el.check_status)==-1){
+			if(this.datad.project_type == 4) {
+				return false;
+			}else if(el.status==4 && el.check_steps!=1 && [-2,-1,1].indexOf(+el.check_status)==-1){
 				return true;
 			}
 			return false;
@@ -164,7 +168,7 @@ export default {
 				return
 			}
 			this.isShow = true;
-			this.datad = {id:data.project_id};
+			this.data = {id:data.project_id};
 		},
 		closepick(){
 			this.ylt = '';

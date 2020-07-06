@@ -43,7 +43,7 @@ export default {
 				return
 			}	
 			
-			if(this.value.a){
+			if(this.value && this.value.a){
 				this.bdtj(this.value.a,this.value.b,this.value.c);
 			}
 			this.qxType=1;

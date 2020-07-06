@@ -168,6 +168,10 @@ export default{
 					return
 				}
 				this.options = da;
+				if(!this.options.length) {
+					this.tipMr('暂无交稿项目，请交一次稿')
+					this.$router.back()
+				}
 			})
 		},
 		focus(){

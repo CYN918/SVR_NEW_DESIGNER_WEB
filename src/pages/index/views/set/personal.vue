@@ -1005,5 +1005,8 @@ export default {
 	color: #33B3FF;		
 }
 
+.setUserBoxs_cent .suc_1_9_1{
+	width: 40% !important;
+}
 
 </style>
