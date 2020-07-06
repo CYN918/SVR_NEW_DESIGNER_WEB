@@ -1,7 +1,7 @@
 <template>
 	<div class="newCI">		
 		<baner></baner>
-		<div class="csBox">		
+		<div class="csBoxnews">		
 			<div class="in_d1">
 				<pTop class="in_d3" :cn="topCn">
 					<template v-slot:todo="{ todo }">
@@ -26,7 +26,7 @@
 			</div>	
 			<list class="uiinop" :config="data" ref="sfafa">
 				<template v-slot:todo="{ todo }">
-					<box_a :tjData="bdtjdata" :el="todo"></box_a>
+					<box_c :tjData="bdtjdata" :el="todo"></box_c>
 				</template>			
 			</list>
 		</div>
@@ -38,12 +38,12 @@
 import baner from '../components/banner';
 import workNav from '../views/works/workNav';
 import list from '../components/list';
-import box_a from '../components/box_a';
+import box_c from '../components/box_c';
 import pTop from '../components/postionTop';
 import navRight from '../components/nav_right';
 
 export default {
-	components:{baner,list,box_a,pTop,workNav,navRight},
+	components:{baner,list,box_c,pTop,workNav,navRight},
 	name: 'home',
 	data(){
 		return {
@@ -189,7 +189,7 @@ export default {
 .homghhd{
 	position: relative;
 	margin: 0 auto ;
-	width: 1300px;
+	width: 1170px;
 	padding: 27px 0 ;
 	text-align: center;
 }
@@ -207,16 +207,7 @@ export default {
 	color: #33B3FF;
 }
 .in_d1 .p_isTop{
-	/* z-index: 9999;
-	position: relative !important;
-	top: -76px !important;
-	left: 0;
 
-	width: 100%;
-	-webkit-animation: none !important;
-	animation: none !important;
-	-webkit-box-shadow: none !important;
-	box-shadow: none !important; */
 	z-index: 9999;
 	position: fixed;
 	top: 0;
@@ -253,198 +244,10 @@ export default {
 	color: #999999;
 }
 .uiinop{
+	width: 1170px;
 	margin-bottom: 140px !important;
 	margin-top: -50px !important;
 }
 
-/* .newCI{
-	background: #F4F6F9;
-}	
-.home_0x1{
-	padding: 60px 0;
-	text-align: center;
-}
-.home_0x2{
-	margin-bottom: 15px;
-	font-size:32px;
-	font-family:PingFangSC-Regular,PingFang SC;
-	color:rgba(64,64,64,1);
-	line-height:45px;
-	
-}
-.home_0x3{
-	margin: 0 auto 40px;
-	width: 592px;
-	text-align: center;
 
-	font-size:16px;
-	font-family:PingFangSC-Regular,PingFang SC;
-
-	color:rgba(102,102,102,1);
-	line-height:24px;
-	
-}
-.home_0x4{
-	margin: 0 auto;
-	width: 1300px;
-}
-.home_0x4>a{
-	display: inline-block;
-	margin:  0 240px 40px 0;
-	width: 166px;
-}
-
-.home_0x4>a:nth-child(3n+3){
-	margin-right: 0;
-}
-.home_0x4_1{
-	position: relative;
-	margin-bottom: 16px;
-	border-radius: 50%;
-	background:#fff;
-	width:166px;
-	height:166px;	
-}
-
-.home_0x4_1>img{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%,-50%);
-	transform: translate(-50%,-50%);
-	
-}
-.home_0x4>a:nth-child(1)>div>img{
-	width: 152px;
-}
-.home_0x4>a:nth-child(2)>div>img{
-	width: 137px;
-}
-.home_0x4>a:nth-child(3)>div>img{
-	width: 123px;
-    top: 60%;
-    left: 58%;
-}
-.home_0x4>a:nth-child(4)>div>img{
-	width: 147px;
-    left: 54%;
-}
-.home_0x4>a:nth-child(5)>div>img{
-	width: 130px;
-}
-.home_0x4>a:nth-child(6)>div>img{
-	width: 160px;
-}
-.home_0x4_2{
-	margin-bottom: 4px;
-	font-size:20px;
-	font-weight:500;
-	color:rgba(64,64,64,1);
-	line-height:28px;
-}
-.home_0x4_3{
-	font-size:14px;
-	font-family:Helvetica;
-	color:rgba(64,64,64,1);
-	line-height:22px;
-}
-.home_0x5{
-	min-width: 1360px;
-	padding: 60px 0;
-	background: #fff;
-}
-.home_0x5>div{
-	margin:0 auto 30px;
-}
-.home_0x5_1>div{
-	padding-top: 112px;
-	margin-bottom: 14px;
-	
-	
-	font-size:32px;
-	color:rgba(40,40,40,1);
-	line-height:40px;
-	
-}
-.home_0x5_1{
-	width: 456px;
-	display: inline-block;
-	vertical-align: top;
-	text-align: left;
-	margin: 0 63px 0 85px;
-	color:rgba(102,102,102,1);	
-	font-size:16px;
-	line-height:24px;		
-}
-.home_0x5_2{
-	display: inline-block;
-	vertical-align: top;
-	width: 532px;
-}
-.home_0x5_bt{
-	margin-top:40px;
-	width:224px;
-	height:56px;
-	border-radius:7px;
-	font-size:20px;
-	line-height:56px;
-}
-.home_0x6{
-	margin: 0 auto;
-	padding: 60px 0;
-	width: 1300px;
-
-}
-.home_0x7{
-	text-align: left;
-	margin-bottom: 20px;
-}
-.home_0x7_1{
-	display: inline-block;
-	font-size:16px;
-	color:rgba(40,40,40,1);
-	line-height:22px;
-}
-.home_0x7_2{
-	float: right;
-}
-.home_0x7_2>a{
-	display: inline-block;
-	font-size:14px;
-	color:rgba(51,51,51,1);
-	line-height:22px;
-}
-.home_0x8{
-	height: 393px;
-}
-
-.home_0x8>div:last-child{
-	margin-right: 0;
-}
-.home_0x7_2>span{
-	display: inline-block;
-	vertical-align: top;
-	margin: 0 20px;
-	font-size:14px;
-	color:rgba(51,51,51,1);
-	line-height:20px;
-}
-.hovs>span{
-	cursor: pointer;
-}
-.hovs>span:hover{
-	color: #33B3FF;
-}
-.hovs>span.check{
-	color: #33B3FF;
-}
-.fgx_01{
-	display: inline-block;
-	vertical-align: top;
-	
-	width:1px;
-	height:16px;
-	background:rgba(187,187,187,1);
-	margin: 2px 20px 0 ;
-} */
 </style>

@@ -1,10 +1,6 @@
 <template>
+		<div>
 
-		<div class="ps_zb_box">
-			<div class="ps_zp_05">
-				<span class="ps_zp_06">投稿信息</span>
-			</div>	
-			<div class="ps_zp_07">
 				<div class="ps_wk_01">
 					<span @click="showzp" class="pend">选择作品</span>选择可投稿的原创作品
 					<ul v-if="tanc.obj.face_pic" class="bmXm_03 px_wk_x1">
@@ -21,20 +17,15 @@
 						</li>
 					</ul>
 				</div>
-				<div class="ps_zp_pic_3">
-					<textarMax :placeholder="'请输入投稿说明'" :max="140" v-model="value.remark" ></textarMax>
-				</div>
-			</div>
+
 			<component v-bind:is="tanc.zj" v-model="tanc"></component>
 		</div>
-
 </template>
 
 <script>
-import textarMax from '../../components/textarMax';
 import bmXm from './bmXm';
 export default{
-	components: {textarMax,bmXm},
+	components: {bmXm},
 	props:{value:Object},
 	data(){
 		return{
@@ -47,7 +38,6 @@ export default{
 	watch:{
 		'tanc.obj'(n,b){
 			let { work_name, work_id } = this.tanc.obj
-
 			this.value.name = work_name
 			this.value.work_id = work_id
 			this.value.imgs[0] = { url: this.tanc.obj.face_pic, bfb: 100 };

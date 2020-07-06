@@ -199,7 +199,7 @@ export default {
 	left: 50%;
 	-webkit-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
-	width: 1300px;
+	width: 1170px;
 	height: 0;
 }
 .banner_jt{
@@ -260,7 +260,7 @@ export default {
 
 .banner1{
 	position: relative;
-	width: 1300px;
+	width: 1170px;
 	height: 356px;
 	margin-left: auto;
 	margin-right: auto;
@@ -292,7 +292,7 @@ export default {
 	display: block;
 }
 .banner_propaganda{
-	width: 1300px;
+	width: 1170px;
 
 	margin-left: auto;
 	margin-right: auto;
@@ -306,7 +306,7 @@ export default {
 	margin-right: 20px;
 }
 .banner_propaganda > ul > li:last-child{
-	margin-right: 0;
+	margin-right: -1px;
 }
 
 .banner_propaganda > ul > li > button{

@@ -2689,4 +2689,22 @@ content: "";
 .popper__arrow:after{
 	    border-color: transparent;
 }
+
+
+
+.csBoxnews .listBox>li:nth-child(5n+5)>.wk_a{
+	margin-right: 0;
+}
+
+.csBoxnews .el-pagination__editor.el-input .el-input__inner{
+	height: 40px !important;
+}
+.csBoxnews .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next, .el-pagination.is-background .el-pager li{
+	background-color: #fff !important;
+	border-color: #fff;
+}
+
+.csBoxnews .el-pagination.is-background .el-pager li:not(.disabled).active{
+	background-color: #33B3FF !important;
+}
 </style>

@@ -147,6 +147,7 @@ export default {
 </script>
 
 <style>
+
 .usertc_0{
 	display: none;
     position: absolute;
@@ -159,6 +160,10 @@ export default {
 	padding: 20px 0;
     width: 310px;
 
+}
+.csBoxnews .usertc_0{
+	z-index: 10;
+	left: -11px;
 }
 .usertc_0:after{
     content: "";
