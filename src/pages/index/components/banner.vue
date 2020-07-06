@@ -13,18 +13,15 @@
 		<div class="banner_propaganda">
 			<ul>
 				<li @click="showTg()">
-					<!-- <img :src="setImgU('home/home_rk_tg.jpg')"/> -->
-					<img src="/imge/home/1.png" alt="">
+					<img :src="setImgU('home/1.png')"/>
 					<button class="making2">马上供稿</button>
 				</li>
 				<li @click="go_p()">
-					<img src="/imge/home/2.png" alt="">
-					<!-- <img :src="setImgU('home/home_rk_xm.jpg')"/> -->
+					<img :src="setImgU('home/2.png')"/>
 					<button class="undertake">承接项目</button>
 				</li>
 				<li class="banner_propaganda_t"  @click="go_show()">
-					<img src="/imge/home/3.png" alt="">
-					<!-- <img :src="setImgU('home/home_rk_ldx.jpg')"/> -->
+					<img :src="setImgU('home/3.png')"/>
 					<button class="making">开始来电秀制作</button>
 				</li>
 			</ul>	
