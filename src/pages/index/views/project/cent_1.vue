@@ -22,7 +22,7 @@
 						项目类型：<span>{{el.classify_name}}</span><i></i>制作周期：<span>{{el.production_cycle_d}}天{{el.production_cycle_h}}时</span> 
 					</div>
 					<div class="pr_list_04">
-						预计收益：<span class="pr_profit">{{el.expected_profit}} RMB/张</span> 
+						预计收益：<span class="pr_profit">{{el.expected_profit}}</span> 
 					</div>
 				</div>
 				<div style="width:50%;float:left;">
