@@ -2424,7 +2424,6 @@ content: "";
 	color: #666;
     width: 100%;
     font-size: 16px;
-    padding: 10px 0;
 }
 
 /*comt*/
