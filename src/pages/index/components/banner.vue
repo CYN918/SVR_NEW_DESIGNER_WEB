@@ -13,15 +13,18 @@
 		<div class="banner_propaganda">
 			<ul>
 				<li @click="showTg()">
-					<img :src="setImgU('home/home_rk_tg.jpg')"/>
+					<!-- <img :src="setImgU('home/home_rk_tg.jpg')"/> -->
+					<img src="/imge/home/1.png" alt="">
 					<button class="making2">马上供稿</button>
 				</li>
 				<li @click="go_p()">
-					<img :src="setImgU('home/home_rk_xm.jpg')"/>
+					<img src="/imge/home/2.png" alt="">
+					<!-- <img :src="setImgU('home/home_rk_xm.jpg')"/> -->
 					<button class="undertake">承接项目</button>
 				</li>
 				<li class="banner_propaganda_t"  @click="go_show()">
-					<img :src="setImgU('home/home_rk_ldx.jpg')"/>
+					<img src="/imge/home/3.png" alt="">
+					<!-- <img :src="setImgU('home/home_rk_ldx.jpg')"/> -->
 					<button class="making">开始来电秀制作</button>
 				</li>
 			</ul>	
@@ -299,7 +302,7 @@ export default {
 	margin-top: 20px;
 }
 .banner_propaganda > ul > li{
-	width: 420px;
+	width: 377px;
 	height: 160px;
 	float: left;
 	position: relative;
@@ -310,29 +313,50 @@ export default {
 }
 
 .banner_propaganda > ul > li > button{
-	outline: none;
-	border: none;
-	position: absolute;
-	left: 16px;
-	top: 118px;
-	cursor: pointer;
 	
-	padding: 0 10px;
-	height:26px;
-	border-radius:3px;
+	cursor: pointer;
 	font-size:12px;
 	font-weight:500;
-	color:rgba(255,255,255,1);
-	line-height:26px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 112px;
+	width: 98px;
+	height: 30px;
+	background: #FF746C;
+	border: 1px solid #491E1C;
+	border-radius: 2.74px;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+}
+.banner_propaganda > ul > li>img{
+	display: block;
+	width: 100%;
 }
 .banner_propaganda > ul > li .undertake{
-	background: #A53030;
+
+	background: #7C3D3C;
+	border-color: #2F0807;
+}
+.banner_propaganda > ul > li .undertake:after{
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #7c3d3c;
 }
 .banner_propaganda > ul > li .making{
-	background: #1950b2;
+	width: 138px;
+	background: #FFD029;
+	color: #421011;
+	box-shadow: -4px 4px 0 0 rgba(0,0,0,0.10), inset -2px -2px 2px 0 rgba(138,108,0,0.50), inset 2px 2px 2px 0 rgba(255,255,255,0.50);
 }
 .banner_propaganda > ul > li .making2{
-	background: #003E43;
+	box-shadow: 4px 4px 0 0 rgba(0,0,0,0.10), inset -2px -2px 2px 0 #D1281E, inset 2px 2px 2px 0 rgba(255,255,255,0.50);
+	background: #FF746C;
 }
 @-webkit-keyframes jxd{
 	from {opacity: 0}
