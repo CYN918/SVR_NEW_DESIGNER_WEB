@@ -7,7 +7,9 @@
 		<div class="pr_ml_5">
 			<div @click="openCent()" class="pr_ml_6">
 				<span v-html="setDeal_type"></span>				
-				<span class="pr_ml_6_2">{{deta.name}}</span>
+				<div class="pr_ml_6_2">
+					<span class="p-text" :title="deta.name">{{deta.name}}</span>
+				</div>
 			</div>
 			<div class="pr_ml_7">
 				<span>项目类型：{{deta.classify_name}}</span>
@@ -324,7 +326,9 @@ export default {
 	}
 }
 </script>
-<style>
+<style lang="scss">
+@import "~styles/define.scss";
+
 .pr_ml_1{
 	position: relative;
 	margin: 0 auto 20px;
@@ -407,7 +411,11 @@ export default {
 	font-size:18px;
 	font-weight:500;
 	line-height:28px;
-	color:rgba(40,40,40,1);	
+	color:rgba(40,40,40,1);
+	width: 740px;
+	.p-text{
+		@include textOverflow;
+	}
 }
 .pr_ml_7{
 	font-size:12px;
@@ -453,6 +461,7 @@ export default {
 	left: 0;
 	bottom: 0;
 	width: 240px;
+	white-space: nowrap;
 }
 .pr_ml_9>span{
 	cursor: pointer;
