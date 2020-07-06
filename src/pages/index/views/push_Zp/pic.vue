@@ -1,56 +1,44 @@
 <template>
 	<div>
-		<div class="ps_zb_box">
-			<div class="ps_zp_05">
-				<span class="ps_zp_06">投稿信息</span>
-			</div>	
-			<div class="ps_zp_07">
+		<div class="ps_zp_pic_2T">交稿项目</div>
 				<div class="ps_zp_pic_2">
-					<i class="ps_zp_06x"></i>
 					<inputMax class="ps_zp_pic_0" placeholder="请输入投稿作品名称" v-model="value.name" @focus="focus" @blur="blur" :max="10"></inputMax>
 					<span v-if="isTite" class="ps_zp_pic_1">
 						<img :src="setImgU('svg/warning-circle.svg')">
 						请输入投稿标题
 					</span>
 				</div>
-				<div class="ps_zp_pic_3">
-					<textarMax :placeholder="'请输入作品的备注说明'" :max="140" v-model="value.remark" ></textarMax>
-				</div>
-			</div>			
-		</div>
-		<div class="ps_zb_box">
-			<div class="ps_zp_05">
-				<span class="ps_zp_06"><i class="ps_zp_06x"></i>作品预览图</span><span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
-			</div>	
-			<div class="ps_zp_07 ps_zp_pic_4">
-				<div v-show="value.imgs.length<3">
-					<span class="add_x01">
-						<span class="pend">+</span>
-						上传图片
-					</span>
-					<uploadFile v-model="value.imgs" :cg="fileConfig" ref="upfile"></uploadFile>
-					
-				</div>
-				<div v-for="(el,index) in value.imgs" :style="setBg(el.url)">
-					<jdt v-if="el.state==1" v-model="el.bfb"></jdt>
-					<div class="ps_zp_pic_4_1">
-						<div @click="upImg(index)" class="ps_zp_pic_4_3">替换图片</div>
-						<img @click="delet(index)" class="ps_zp_pic_4_2" :src="setImgU('push_Zp/zptg_image_icon_close.svg')">
+				
+				<div class="ps_zp_pic_2T">作品预览图<span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
+				</div>		
+				<div class="ps_zp_pic_4 ps_zp_pic_4x">
+					<div v-show="value.imgs.length<3">
+						<span class="add_x01">
+							<span class="pend">+</span>
+							上传图片
+						</span>
+						<uploadFile v-model="value.imgs" :cg="fileConfig" ref="upfile"></uploadFile>
+						
 					</div>
-					
-				</div>
-			</div>			
-		</div>
+					<div v-for="(el,index) in value.imgs" :style="setBg(el.url)">
+						<jdt v-if="el.state==1" v-model="el.bfb"></jdt>
+						<div class="ps_zp_pic_4_1">
+							<div @click="upImg(index)" class="ps_zp_pic_4_3">替换图片</div>
+							<img @click="delet(index)" class="ps_zp_pic_4_2" :src="setImgU('push_Zp/zptg_image_icon_close.svg')">
+						</div>
+						
+					</div>
+				</div>	
+	
 	</div>
 </template>
 
 <script>
 import inputMax from '../../components/inputMax';
-import textarMax from '../../components/textarMax';
 import uploadFile from '../../components/uploadFileArr'
 import jdt from '../../components/jdtN'
 export default{
-	components: {inputMax,textarMax,uploadFile,jdt},
+	components: {inputMax,uploadFile,jdt},
 	props:{
 		value:Object,
 	},
@@ -210,5 +198,8 @@ export default{
 	text-align: center;
 	color:rgba(102,102,102,1);
 	line-height:38px;
+}
+.ps_zp_pic_4x{
+	padding-top: 0;
 }
 </style>

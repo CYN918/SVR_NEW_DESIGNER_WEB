@@ -13,14 +13,29 @@
 				</div>			
 				<span @click="showTac({zj:'tips'})" class="ps_zp_must_read">投稿必读</span>	
 			</div>
-		</div>
-		<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
+		</div>		
 		<div class="ps_zb_box">
 			<div class="ps_zp_05">
-				<span class="ps_zp_06"><i class="ps_zp_06x"></i>源文件上传</span><span class="ps_zp_08">建议压缩后上传，1GB以内</span>
+				<span class="ps_zp_06"><i class="ps_zp_06x"></i>投稿信息</span>
 			</div>	
 			<div class="ps_zp_07">
-				<upFj v-model="tanc.filse"></upFj>	
+				<component v-bind:is="tanc.zj" v-model="tanc" ref="tanbox"></component>
+				
+				<div class="ps_zp_pic_2T">源文件上传<span class="ps_zp_08">建议压缩后上传，1GB以内</span></div>
+				<div>
+					<upFj v-model="tanc.filse"></upFj>	
+				</div>
+					
+			</div>		
+		</div>
+		<div class="ps_zb_box">
+			<div class="ps_zp_05">
+				<span class="ps_zp_06">交稿备注</span><span class="ps_zp_08">非必填</span>
+			</div>
+			<div class="ps_zp_07">
+				<div class="ps_zp_pic_3 ">
+					<textarMax :placeholder="'请输入作品的备注说明'" :max="140" v-model="tanc.remark" ></textarMax>
+				</div>	
 			</div>
 			
 		</div>
@@ -37,9 +52,9 @@ import pic from './pic';
 import work from './work';
 import upFj from './upFj';
 import tips from './tips';
-
+import textarMax from '../../components/textarMax';
 export default{
-	components: {pic,work,upFj,tips},
+	components: {pic,work,upFj,tips,textarMax},
 	data(){
 		return{
 			navs:[
@@ -222,6 +237,7 @@ export default{
 	vertical-align: top;
 }
 .ps_zp_07{
+	box-sizing: border-box;
 	padding: 30px;
 }
 .ps_zp_08{
@@ -262,5 +278,12 @@ export default{
 	right: 16px;
 	cursor: pointer;
 	color: #33B3FF;
+}
+.ps_zp_pic_2T{
+	font-family: PingFangSC-Regular;
+	font-size: 14px;
+	color: #333333;
+	line-height: 20px;
+	margin-bottom: 12px;
 }
 </style>

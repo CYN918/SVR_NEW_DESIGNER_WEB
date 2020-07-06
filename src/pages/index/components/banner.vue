@@ -13,18 +13,15 @@
 		<div class="banner_propaganda">
 			<ul>
 				<li @click="showTg()">
-					<!-- <img :src="setImgU('home/home_rk_tg.jpg')"/> -->
-					<img src="/imge/home/1.png" alt="">
+					<img :src="setImgU('home/1.png')"/>
 					<button class="making2">马上供稿</button>
 				</li>
 				<li @click="go_p()">
-					<img src="/imge/home/2.png" alt="">
-					<!-- <img :src="setImgU('home/home_rk_xm.jpg')"/> -->
+					<img :src="setImgU('home/2.png')"/>
 					<button class="undertake">承接项目</button>
 				</li>
 				<li class="banner_propaganda_t"  @click="go_show()">
-					<img src="/imge/home/3.png" alt="">
-					<!-- <img :src="setImgU('home/home_rk_ldx.jpg')"/> -->
+					<img :src="setImgU('home/3.png')"/>
 					<button class="making">开始来电秀制作</button>
 				</li>
 			</ul>	
@@ -202,7 +199,7 @@ export default {
 	left: 50%;
 	-webkit-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
-	width: 1300px;
+	width: 1170px;
 	height: 0;
 }
 .banner_jt{
@@ -263,7 +260,7 @@ export default {
 
 .banner1{
 	position: relative;
-	width: 1300px;
+	width: 1170px;
 	height: 356px;
 	margin-left: auto;
 	margin-right: auto;
@@ -295,7 +292,7 @@ export default {
 	display: block;
 }
 .banner_propaganda{
-	width: 1300px;
+	width: 1170px;
 
 	margin-left: auto;
 	margin-right: auto;
@@ -309,7 +306,7 @@ export default {
 	margin-right: 20px;
 }
 .banner_propaganda > ul > li:last-child{
-	margin-right: 0;
+	margin-right: -1px;
 }
 
 .banner_propaganda > ul > li > button{
