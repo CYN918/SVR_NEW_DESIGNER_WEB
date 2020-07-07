@@ -366,7 +366,7 @@ export default {
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	background:rgba(0,0,0,.7);
+	background: rgba($color: $primary, $alpha: 0.8);
 	border-radius:0px 0px 5px 5px;
 	line-height: 32px;
 	font-size:12px;
