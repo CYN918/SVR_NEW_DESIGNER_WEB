@@ -359,6 +359,7 @@ img{
 .i_listd2_3>div>span:last-child{
 	margin-right: 0;
 }
+
 .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
 	width:40px;
 	height:40px;
@@ -381,8 +382,8 @@ img{
 }
 .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color: #33B3FF;
-    color: #FFF;
 	border-color: #33B3FF;
+	color: #33B3FF !important;
 }
 
 .pagesddd{
