@@ -13,7 +13,7 @@
 			<div class="ps_dc_02">
 				<div class="ps_zp_pic_2">
 					<i class="ps_zp_06x"></i>
-					<el-select class="ps_dc_03 dc_xm_02" v-model="form.project_id" placeholder="请选择再次交稿项目" ref="slf">
+					<el-select class="ps_dc_03 dc_xm_02" v-if="!form.project_id" v-model="form.project_id" placeholder="请选择再次交稿项目" ref="slf">
 					    <el-option
 					      v-for="item in options"
 					      :key="item.project_id"
@@ -26,6 +26,14 @@
 							</span>
 					    </el-option>
 					</el-select>
+					<div class="ps_dc_03 dc_xm_02 p-selected-project" v-else>
+						<span class="dc_xm_01" :style="setBgc(selectedProject.banner)"></span>
+						<span class="dc_xm_03">
+							<span class="dc_xm_03_1">{{selectedProject.name}}</span>
+							<span class="dc_xm_03_2">项目类型：{{selectedProject.classify_name}}</span>
+						</span>
+						<i @click="form.project_id = ''" class="el-icon-close"></i>
+					</div>
 				</div>
 				<div class="ps_zp_pic_2">
 					<i class="ps_zp_06x"></i>
@@ -35,18 +43,9 @@
 						请输入投稿标题
 					</span>
 				</div>
-				<div class="ps_zp_pic_3">
-					<textarMax :placeholder="'请输入项目说明'" :max="140" v-model="form.remark" ></textarMax>
-				</div>
 			</div>
 			
-			
-			
-			
-		</div>
-		
-		<div class="ps_zb_box">
-			<div class="ps_zp_05">
+			<div class="ps_dc_02" style="padding-bottom: 0;">
 				<span class="ps_zp_06"><i class="ps_zp_06x"></i>项目预览图</span><span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
 			</div>	
 			<div class="ps_zp_07 ps_zp_pic_4">
@@ -65,14 +64,12 @@
 					</div>					
 				</div>
 			</div>			
-		</div>
-		
-		<div v-if="form.type==2" class="ps_zb_box ps_dc_06">
-			网盘交稿仅支持大文件，小于1G的文件请使用<span @click="qhNa()" class="pend">本地上传</span>交稿
-		</div>
-		
-		<div class="ps_zb_box">
-			<div class="ps_zp_05 ps_dc_05">
+
+			<div v-if="form.type==2" class="ps_dc_06">
+				网盘交稿仅支持大文件，小于1G的文件请使用<span @click="qhNa()" class="pend">本地上传</span>交稿
+			</div>		
+
+			<div class="ps_dc_02" style="padding-bottom: 0;">
 				<span class="ps_zp_06"><i class="ps_zp_06x"></i>{{tipOn[form.type].n1}}</span><span class="ps_zp_08">建议压缩后上传，1GB以内</span>
 				<div @click="qhNa()" class="ps_dc_04 pend">{{tipOn[form.type].n2}}</div>
 			</div>	
@@ -94,9 +91,16 @@
 					<el-input v-model="form.access_code" placeholder="请提供网盘提取密码，如：xxxx；无提取码则不填"></el-input>
 				</div>
 			</div>
-			
 		</div>
-		
+
+		<div class="ps_zb_box">
+			<div class="ps_zp_05">
+				<span class="ps_zp_06">项目备注 <span class="p-tips">非必填</span></span>
+			</div>
+			<div class="p-remark">
+				<textarMax :placeholder="'请输入项目说明'" :max="140" v-model="form.remark" ></textarMax>
+			</div>
+		</div>
 		
 		<div class="btns_ps_zb">
 			<span @click="subpush()" class="btn_ps_1 pend">提交</span><span class="pend">今日可交稿次数{{ leftTimes }}次</span>
@@ -316,11 +320,19 @@ export default{
 				this.leftTimes = data.left_times
 			}
 		}
+	},
+	computed: {
+		selectedProject() {
+			let project = this.options.find(item => item.project_id == this.form.project_id)
+			return project || {}
+		}
 	}
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "~styles/define.scss";
+
 .dc_ps_01{
 	position: absolute;
 	top: 26px;
@@ -333,8 +345,10 @@ export default{
 }
 .ps_dc_02{
 	padding: 30px;
+	position: relative;
 }
 .ps_dc_03{
+	position: relative;
 	width: 732px;
 }
 .ps_dc_05{
@@ -343,7 +357,7 @@ export default{
 .ps_dc_04{
 	position: absolute;
 	top: 26px;
-	right: 20px;
+	right: 30px;
 	text-align: right;
 	font-size:14px;
 	font-weight:400;
@@ -359,6 +373,7 @@ export default{
 	text-align: center;
 	color:rgba(40,40,40,1);
 	line-height:45px;
+	margin: 0 30px;
 }
 .ps_dc_06>span{
 	color: #27B1FF;
@@ -373,7 +388,7 @@ export default{
 .dc_xm_01{
 	display: inline-block;
 	vertical-align: top;
-	margin: 10px 10px 0 -10px;
+	margin: 10px 10px 0 0px;
 	width:80px;
 	height:60px;
 	border-radius:5px 5px 5px 5px;
@@ -402,6 +417,8 @@ export default{
 	line-height:26px;
 	margin-bottom: 10px;
 	margin-top: 3px;
+	max-width: 600px;
+	@include textOverflow(1)
 }
 .dc_xm_03_2{
 	font-size:12px;
@@ -409,5 +426,30 @@ export default{
 	font-weight:400;
 	color:rgba(187,187,187,1);
 	line-height:18px;
+}
+.el-icon-close{
+	font-size: 24px;
+    color: #999;
+    position: absolute;
+    top: 26px;
+    right: 10px;
+	cursor: pointer;
+}
+.p-selected-project{
+	padding-left: 10px;
+	padding-bottom: 10px;
+	@include border(all, rgba(0,0,0,0.15));
+	border-radius: $border-radius;
+}
+.p-remark{
+	padding: 30px;
+	
+	.texar_01{
+		height: 88px;
+	}
+}
+.p-tips{
+	margin-left: 10px;
+	color: #999;
 }
 </style>
