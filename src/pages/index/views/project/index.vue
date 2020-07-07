@@ -6,12 +6,32 @@
 					<div class="pr_02_1">
 						<div class="p-project-class">
 							<span 
-							v-for="(el,index) in prLn" 
+							v-for="(el,index) in prLn.slice(0, 7)" 
 							:key="index"
 							:class="['pr_02_2 pend',type==index?'pr_02_2On':'']"
 							@click="qhNav(index,todo,el.classify_name)"
 							>{{el.classify_name+'（'+el.project_num+'）'}}</span>
 						</div>
+
+						<!-- 更多分类菜单 -->
+						<el-dropdown
+							v-if="prLn.length > 7"
+							class="p-more-class"
+							placement="bottom-start">
+							<span class="p-more-class-icon">
+								<i class="el-icon-more"></i>
+							</span>
+							<el-dropdown-menu class="p-project-dropdown-menu" slot="dropdown">
+								<el-dropdown-item
+									:class="{'p-dropdown-menu-active': type == (idx + 7)}"
+									v-for="(item, idx) in prLn.slice(7)"
+									@click.native="qhNav(idx + 7, todo, item.classify_name)"
+									:key="idx">
+									{{ `${item.classify_name}（${item.project_num}）` }}
+								</el-dropdown-item>
+							</el-dropdown-menu>
+						</el-dropdown>
+
 						<div @click="goOn('/help',{on:'4-01'})" class="p-project-guide">项目承接指南</div>
 					</div>
 				</template>		
@@ -168,11 +188,13 @@ export default {
 		height: 80px;
 		display: flex;
 		align-items: center;
-		flex-wrap: wrap;
+		span{
+
+		}
 	}
 	.p-project-guide{
 		@include border(left, #D9D9D9);
-		width: 120px;
+		width: 140px;
 		text-align: center;
 		cursor: pointer;
 		height: 28px;
@@ -181,10 +203,9 @@ export default {
 	}
 }
 .pr_02_2{
-	
+	margin-right: 40px;
 	font-size:14px;
 	font-weight:400;
-	margin-right: 40px;
 }
 .pr_02_2On{
 	color:#33B3FF;
@@ -221,6 +242,34 @@ export default {
 	animation: bjs .3s linear forwards;
 	-webkit-box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
 	box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+}
+
+.p-more-class{
+	cursor: pointer;
+	line-height: 28px;
+	.p-more-class-icon{
+		padding: 0 28px;
+		font-size: 26px;
+		color: $t-primary;
+		&:focus {
+			outline: none;
+		}
+	}
+}
+.p-project-dropdown-menu{
+	.p-dropdown-menu-active{
+		background-color: #ebf7ff;
+		color: #5cc2ff;
+	}
+	.el-dropdown-menu__item{
+		line-height: 40px;
+		height: 40px;
+		min-width: 140px;
+		&:hover{
+			background-color: $hover-bg-color !important;
+			color: #333 !important;
+		}
+	}
 }
 
 </style>
