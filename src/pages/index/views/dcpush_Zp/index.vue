@@ -13,7 +13,7 @@
 			<div class="ps_dc_02">
 				<div class="ps_zp_pic_2">
 					<i class="ps_zp_06x"></i>
-					<el-select class="ps_dc_03 dc_xm_02" v-if="!form.project_id" v-model="form.project_id" placeholder="请选择再次交稿项目" ref="slf">
+					<el-select class="ps_dc_03 dc_xm_02" v-show="!form.project_id" v-model="form.project_id" placeholder="请选择再次交稿项目" ref="slf">
 					    <el-option
 					      v-for="item in options"
 					      :key="item.project_id"
