@@ -308,19 +308,33 @@ function setTitle(t){
 		document.title=str;
 	}
 }
+
 router.beforeEach((to, from, next) => {
 	document.body.style = "";
-	let isqh = sessionStorage.getItem('isqh');	
-	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-		if(!isqh || isqh==null){
-			if(to.path== "/prcent" && !to.query.type){				
-				window.location.href = location.origin+"/aindex.html#/conta?id="+to.query.id;
-				return
-			}			
-			window.location.href = location.origin+"/aindex.html#/";
-			return
-		}
-	} 	
+	let referrer_id =to.query.referrer_id;
+	if(referrer_id){
+		let pr = {
+			referrer_id:referrer_id,
+			time:(new Date()).getTime()
+		};
+		localStorage.setItem('referrer_id',JSON.stringify(pr));
+	}
+	
+
+	
+	
+
+	// let isqh = sessionStorage.getItem('isqh');	
+	// if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+	// 	if(!isqh || isqh==null){
+	// 		if(to.path== "/prcent" && !to.query.type){				
+	// 			window.location.href = location.origin+"/aindex.html#/conta?id="+to.query.id;
+	// 			return
+	// 		}			
+	// 		window.location.href = location.origin+"/aindex.html#/";
+	// 		return
+	// 	}
+	// } 	
 	setTitle(to.path)
 	/*是否填写信息*/
 	if(window.userInfo && (to.fullPath=='/setEnterprise' || to.fullPath=='/setPersonal')){
@@ -363,7 +377,16 @@ router.beforeEach((to, from, next) => {
 		next();
 		return
 	}	
-	next();	
+	
+	if(from.query.referrer_id && !to.query.referrer_id){
+		to.query.referrer_id = from.query.referrer_id;
+		next({
+		    path: to.path,
+		    query: to.query
+		});
+		return
+	}
+	next();
 	return	
 })
 

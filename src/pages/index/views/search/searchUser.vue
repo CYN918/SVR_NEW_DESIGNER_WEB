@@ -231,7 +231,11 @@ export default {
 	
 		openxq(on){		
 			this.bdtj('搜索页','创作者搜索结果','点击作品');
-			window.open('#/cont?id='+on)
+			let str = '#/cont?id='+on;
+			if(this.$route.query.referrer_id){
+				str+='&referrer_id='+this.$route.query.referrer_id;
+			}	
+			window.open(str)
 		},
 		
 		followList(){

@@ -78,14 +78,7 @@ export default {
 	}, 
 	methods: {
 		init(){
-			let referrer_id = this.$route.query.referrer_id;
-			if(referrer_id){
-				let pr = {
-					referrer_id:referrer_id,
-					time:(new Date()).getTime()
-				};
-				localStorage.setItem('referrer_id',JSON.stringify(pr));
-			}
+			
 			
 			this.bdtjdata=[['首页','点击作品',this.zjData.classify_name,'1'],['首页','作品-创作者hover','进入个人主页']];
 			
@@ -96,8 +89,8 @@ export default {
 			
 			if(this.value){
 				this.data.pr.classify_name = this.value;
-				this.bdtjdata=[['首页','点击作品',this.zjData.classify_name,'1'],['首页','作品-创作者hover','进入个人主页']];
-				this.bdtj("首页","点击作品分类",this.data.pr.classify_name);
+				
+				this.bdtj("首页","点击作品分类",this.value);
 			}else{
 				this.data.pr = {
 					type:this.data.pr.type
@@ -110,7 +103,8 @@ export default {
 		qhZt(id){
 			this.data.pr.type = id;
 			this.value = '';
-			this.mJs.scTop(702);	
+			this.mJs.scTop(702);
+			this.bdtjdata[0][2] = this.zjData.classify_name;
 			this.$refs.sfafa.sxfn();
 		
 		},

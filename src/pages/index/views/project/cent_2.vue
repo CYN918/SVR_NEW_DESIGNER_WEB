@@ -263,9 +263,14 @@ export default {
 				} else if(this.$route.name == 'projectYs'){
 					n = '已验收Tab页';
 				}
-				console.log('我的项目页',n,'点击进入详情');
+				
 				this.bdtj('我的项目页',n,'点击进入详情');
-				window.open('/#/prcent?id='+this.deta.id+'&type=prj')
+				let str = '/#/prcent?id='+this.deta.id+'&type=prj';
+				if(this.$route.query.referrer_id){
+					str+='&referrer_id='+this.$route.query.referrer_id;
+				}	
+				
+				window.open(str)
 			}			
 		},
 		backtims(){			

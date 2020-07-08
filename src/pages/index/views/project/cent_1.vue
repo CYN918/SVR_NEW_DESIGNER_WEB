@@ -100,14 +100,21 @@ export default {
 			return o;
 		},
 		openCent(){
+			let str = '';
+			
 			if(this.el.special_url){
-				let rul = this.el.special_url.split('?')[0];
-				window.open(rul+'?id='+this.el.id+'&type=prj');					
-				return
+				str =  this.el.special_url.split('?')[0]+'?id='+this.el.id+'&type=prj';
 			}
 			if(this.el.id){
 				this.bdtj(this.bdtjdata[0][0],this.bdtjdata[0][1],'点击项目')
-				window.open('/#/prcent?id='+this.el.id+'&type=prj')
+				str = '/#/prcent?id='+this.el.id+'&type=prj';
+			}
+			
+			if(str){
+				if(this.$route.query.referrer_id){
+					str+='&referrer_id='+this.$route.query.referrer_id;
+				}				
+				window.open(str);	
 			}
 		},
 		setTil(str){

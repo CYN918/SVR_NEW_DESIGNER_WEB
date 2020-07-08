@@ -179,8 +179,12 @@ export default {
 		backtime(time){		
 			return	window.getTimes(time);
 		},		
-		openxq(on){			
-			window.open('#/cont?id='+on)
+		openxq(on){	
+			let str = '/#/cont?id='+on;
+			if(this.$route.query.referrer_id){
+				str+='&referrer_id='+this.$route.query.referrer_id;
+			}	
+			window.open(str)
 		},		
 		
 	}
