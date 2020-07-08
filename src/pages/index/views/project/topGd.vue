@@ -6,11 +6,12 @@
 			</div>
 			<div class="topGd_04">
 				<!-- 长期项目不显示截至时间 -->
-				<div v-if="obj.project_id == 0">
+				<div v-if="obj.project_type == 0">
 					<div v-if="djsshow.d" class="topGd_04_1">
 						<span v-if="djsshow.d>0">
-							{{djsshow.d}}<span>天</span>
-						</span><span>
+							{{djsshow.d}}天
+						</span>
+						<span>
 							{{djsshow.h+':'+djsshow.m+':'+djsshow.s}}
 						</span>
 					</div>
@@ -26,7 +27,10 @@
 <script>
 export default {
 	props:{
-		obj:Object,	
+		obj: {
+			type: Object,
+			default: {}
+		},	
 	},
 	data(){
 		return{
@@ -37,7 +41,7 @@ export default {
 		this.init();
 	},
 	methods: {
-		init(){
+		init() {
 			this.djsshow = this.$parent.djstimd;
 		},
 		setTim(t){
