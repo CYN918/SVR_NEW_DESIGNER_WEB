@@ -8,11 +8,12 @@
 		</div>
 		<div class="ps_zb_box">
 			<div class="ps_zp_05">
-				<span class="ps_zp_06">项目信息</span>
+				<span class="ps_zp_06"><i class="ps_zp_06x"></i>项目信息</span>
 			</div>	
 			<div class="ps_dc_02">
+				<div class="new_dc_01">交稿项目</div>
 				<div class="ps_zp_pic_2">
-					<i class="ps_zp_06x"></i>
+					
 					<el-select class="ps_dc_03 dc_xm_02" v-show="!form.project_id" v-model="form.project_id" placeholder="请选择再次交稿项目" ref="slf">
 					    <el-option
 					      v-for="item in options"
@@ -26,17 +27,17 @@
 							</span>
 					    </el-option>
 					</el-select>
-					<div class="ps_dc_03 dc_xm_02 p-selected-project" v-show="form.project_id">
+					<div @click="form.project_id = ''" class="ps_dc_03 dc_xm_02 p-selected-project" v-show="form.project_id">
 						<span class="dc_xm_01" :style="setBgc(selectedProject.banner)"></span>
 						<span class="dc_xm_03">
 							<span class="dc_xm_03_1">{{selectedProject.name}}</span>
 							<span class="dc_xm_03_2">项目类型：{{selectedProject.classify_name}}</span>
 						</span>
-						<i @click="form.project_id = ''" class="el-icon-close"></i>
+						
 					</div>
 				</div>
 				<div class="ps_zp_pic_2">
-					<i class="ps_zp_06x"></i>
+		
 					<inputMax class="ps_zp_pic_0" :placeholder="'请输入投稿标题'" v-model="form.name" @focus="focus" @blur="blur" :max="10"></inputMax>
 					<span v-if="isTite" class="ps_zp_pic_1 ps_dc_08">
 						<img :src="setImgU('svg/warning-circle.svg')">
@@ -46,7 +47,7 @@
 			</div>
 			
 			<div class="ps_dc_02" style="padding-bottom: 0;">
-				<span class="ps_zp_06"><i class="ps_zp_06x"></i>项目预览图</span><span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
+				<span class="ps_zp_06">项目预览图</span><span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
 			</div>	
 			<div class="ps_zp_07 ps_zp_pic_4">
 				<div v-for="(el,index) in form.imgs" :style="setBg(el.url)">
@@ -71,7 +72,7 @@
 			</div>		
 
 			<div class="ps_dc_02" style="padding-bottom: 0;">
-				<span class="ps_zp_06"><i class="ps_zp_06x"></i>{{tipOn[form.type].n1}}</span><span class="ps_zp_08">建议压缩后上传，1GB以内</span>
+				<span class="ps_zp_06">{{tipOn[form.type].n1}}</span><span class="ps_zp_08">建议压缩后上传，1GB以内</span>
 				<div @click="qhNa()" class="ps_dc_04 pend">{{tipOn[form.type].n2}}</div>
 			</div>	
 			<div v-if="form.type==1" class="ps_zp_07">
@@ -452,5 +453,10 @@ export default{
 .p-tips{
 	margin-left: 10px;
 	color: #999;
+}
+.new_dc_01{
+	font-size: 14px;
+	color: #333333;
+	margin-bottom: 12px;
 }
 </style>

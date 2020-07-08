@@ -3,7 +3,7 @@
 		<div class="banner1">
 			<img v-for="(el,index) in list" @click="opend(el.jump_url,index)" :class="backcls(index)" :src="el.banner_pic" alt="">
 		</div>
-		<div class="banner_nav1">
+		<div v-if="list.length>0" class="banner_nav1">
 			<span v-for="(el,index) in list" @click="checkBan(index)" :class="[on==index?'action':'']"></span>
 		</div>
 		<div v-if="list.length>1" class="bannerBtn">
@@ -239,7 +239,7 @@ export default {
 }
 .banner_nav1{
 	position: absolute;
-	bottom: 365px;
+	top: 355px;
 	width: 100%;
 	text-align: center;
 }
