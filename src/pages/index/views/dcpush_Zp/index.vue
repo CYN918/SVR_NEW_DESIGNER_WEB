@@ -26,7 +26,7 @@
 							</span>
 					    </el-option>
 					</el-select>
-					<div class="ps_dc_03 dc_xm_02 p-selected-project" v-else>
+					<div class="ps_dc_03 dc_xm_02 p-selected-project" v-show="form.project_id">
 						<span class="dc_xm_01" :style="setBgc(selectedProject.banner)"></span>
 						<span class="dc_xm_03">
 							<span class="dc_xm_03_1">{{selectedProject.name}}</span>
@@ -49,19 +49,20 @@
 				<span class="ps_zp_06"><i class="ps_zp_06x"></i>项目预览图</span><span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
 			</div>	
 			<div class="ps_zp_07 ps_zp_pic_4">
-				<div v-show="form.imgs.length<3">
-					<span class="add_x01">
-						<span class="pend">+</span>
-						上传图片
-					</span>
-					<uploadFile v-model="form.imgs" :cg="fileConfig" ref="upfile"></uploadFile>			
-				</div>
 				<div v-for="(el,index) in form.imgs" :style="setBg(el.url)">
 					<jdt v-if="el.state==1" v-model="el.bfb"></jdt>
 					<div class="ps_zp_pic_4_1">
 						<div @click="upImg(index)" class="ps_zp_pic_4_3">替换图片</div>
 						<img @click="delet(index)" class="ps_zp_pic_4_2" :src="setImgU('push_Zp/zptg_image_icon_close.svg')">
 					</div>					
+				</div>
+
+				<div v-show="form.imgs.length<3">
+					<span class="add_x01">
+						<span class="pend">+</span>
+						上传图片
+					</span>
+					<uploadFile v-model="form.imgs" :cg="fileConfig" ref="upfile"></uploadFile>			
 				</div>
 			</div>			
 

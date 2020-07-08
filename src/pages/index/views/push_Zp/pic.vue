@@ -12,20 +12,20 @@
 				<div class="ps_zp_pic_2T">作品预览图<span class="ps_zp_08">单张1M以内；最多3张；JPG/PNG/GIF</span>
 				</div>		
 				<div class="ps_zp_pic_4 ps_zp_pic_4x">
-					<div v-show="value.imgs.length<3">
-						<span class="add_x01">
-							<span class="pend">+</span>
-							上传图片
-						</span>
-						<uploadFile v-model="value.imgs" :cg="fileConfig" ref="upfile"></uploadFile>
-						
-					</div>
 					<div v-for="(el,index) in value.imgs" :style="setBg(el.url)">
 						<jdt v-if="el.state==1" v-model="el.bfb"></jdt>
 						<div class="ps_zp_pic_4_1">
 							<div @click="upImg(index)" class="ps_zp_pic_4_3">替换图片</div>
 							<img @click="delet(index)" class="ps_zp_pic_4_2" :src="setImgU('push_Zp/zptg_image_icon_close.svg')">
 						</div>
+						
+					</div>
+					<div v-show="value.imgs.length<3">
+						<span class="add_x01">
+							<span class="pend">+</span>
+							上传图片
+						</span>
+						<uploadFile v-model="value.imgs" :cg="fileConfig" ref="upfile"></uploadFile>
 						
 					</div>
 				</div>	
