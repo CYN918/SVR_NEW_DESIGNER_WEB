@@ -222,7 +222,9 @@ export default {
 				let be = [{n:'提交稿件',fn:'pushGj',cls:'isls'}];
 				if(this.deta.is_rejected==1){
 					be[0].n = "重新交稿";
-					// be[1] = {n:'交稿记录',fn:'Log'};
+					if(this.deta.project_type == 4) {
+						be = []
+					}
 				}
 				this.btns = be;
 				if(this.deta.is_de){

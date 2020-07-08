@@ -84,6 +84,9 @@ export default{
 			}
 		},
 		qhfn(n, idx){
+			// 切换tab后重置图片
+			this.tanc = { zj:'pic', imgs:[], filse:[] }
+
 			this.currentNavIdx = idx
 			this.bdtj('作品投稿页',n)
 			this.tanc.zj = n;
