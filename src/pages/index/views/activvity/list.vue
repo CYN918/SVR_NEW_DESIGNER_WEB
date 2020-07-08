@@ -52,14 +52,15 @@ export default {
 			document.body.scrollTop =1;
 		},
 		go(el,id,a){			
-			this.bdtjCom(id);		
+			this.bdtjCom(id);	
+			let str = '/#/detailed?id='+id;					
 			if(el.special_url){
-				let rul = el.special_url.split('?')[0];
-				window.open(rul+'?id='+id);			
-				return
+				str = el.special_url.split('?')[0]+'?id='+id;
 			}
-			window.open('/#/detailed?id='+id)
-			
+			if(this.$route.query.referrer_id){
+				str+='&referrer_id='+this.$route.query.referrer_id;
+			}			
+			window.open(str)			
 		},
 		backBn(ur){
 			return 'background-image: url('+ur+');'

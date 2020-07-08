@@ -63,6 +63,10 @@ export default {
 			if(!url){
 				return
 			}
+		
+			if(this.$route.query.referrer_id){
+				url+= (url.split('?')[1]? '&':'?') +'referrer_id='+this.$route.query.referrer_id;
+			}
 			window.open(url);
 		},
 		getBanner(){

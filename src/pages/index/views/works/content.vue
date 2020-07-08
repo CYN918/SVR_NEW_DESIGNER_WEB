@@ -343,6 +343,10 @@ export default {
 		goOpen(ud){
 			this.bdtj('作品详情页','创作者信息','[TA的更多作品]');
 			if(this.isYl){return}
+			if(this.$route.query.referrer_id){
+				ud+='&referrer_id='+this.$route.query.referrer_id;
+			}	
+			
 			window.open(ud);
 		},
 		gopl(){		

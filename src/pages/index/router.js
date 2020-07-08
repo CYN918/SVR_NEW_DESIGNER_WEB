@@ -308,6 +308,7 @@ function setTitle(t){
 		document.title=str;
 	}
 }
+
 router.beforeEach((to, from, next) => {
 	document.body.style = "";
 	let referrer_id =to.query.referrer_id;
@@ -319,7 +320,10 @@ router.beforeEach((to, from, next) => {
 		localStorage.setItem('referrer_id',JSON.stringify(pr));
 	}
 	
+
 	
+	
+
 	// let isqh = sessionStorage.getItem('isqh');	
 	// if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
 	// 	if(!isqh || isqh==null){
@@ -373,7 +377,16 @@ router.beforeEach((to, from, next) => {
 		next();
 		return
 	}	
-	next();	
+	
+	if(from.query.referrer_id && !to.query.referrer_id){
+		to.query.referrer_id = from.query.referrer_id;
+		next({
+		    path: to.path,
+		    query: to.query
+		});
+		return
+	}
+	next();
 	return	
 })
 export default router

@@ -647,6 +647,13 @@ export default {
 				if(da=='error' || da=='104'){
 					return
 				}
+				
+				
+				let token = window.userInfo.access_token;
+				da.access_token = token;
+				window.userInfo = da;
+				localStorage.setItem('userT',JSON.stringify(window.userInfo));
+				
 				this.form = da;
 				for(let i=0,n=this.zy.length;i<n;i++){
 					if(this.zy[i].n ==this.form.vocation){
