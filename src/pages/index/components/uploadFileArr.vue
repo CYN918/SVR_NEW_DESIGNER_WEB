@@ -1,5 +1,5 @@
 <template>
-	<input type="file" @change="fileUp" class="myFileBtn"  :accept="cg.accept"  :multiple="cg.multiple" ref="fileDom"/>	
+	<input type="file" @change="fileUp" class="u-upload-file-arr"  :accept="cg.accept"  :multiple="cg.multiple" ref="fileDom"/>	
 </template>
 <script>
 import {Message} from 'element-ui'
@@ -176,7 +176,7 @@ export default{
 </script>
 
 <style>
-.myFileBtn{
+.u-upload-file-arr{
 	position: absolute;
 	top: 0;
 	left: 0;

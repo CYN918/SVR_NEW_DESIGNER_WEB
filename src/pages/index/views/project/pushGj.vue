@@ -13,19 +13,19 @@
 					<div class="pushGj_03_1">内容预览图<span class="pushGj_iop">单张1M以内；最多3张；JPG/PNG/GIF</span></div>
 					
 					<div class="ps_zp_pic_4 phs_po">
-						<div v-show="imgs.length<3">
-							<span class="add_x01">
-								<span class="pend">+</span>
-								上传图片
-							</span>
-							<uploadFileArr v-model="imgs" :cg="fileConfig" ref="upfile"></uploadFileArr>			
-						</div>
 						<div v-for="(el,index) in imgs" :style="setBg(el.url)" :key="index">
 							<jdt v-if="el.state==1" v-model="el.bfb"></jdt>
 							<div class="ps_zp_pic_4_1">
 								<div @click="upImg(index)" class="ps_zp_pic_4_3">替换图片</div>
 								<img @click="delet(index)" class="ps_zp_pic_4_2" :src="setImgU('push_Zp/zptg_image_icon_close.svg')">
 							</div>					
+						</div>
+						<div v-show="imgs.length<3">
+							<span class="add_x01">
+								<span class="pend">+</span>
+								上传图片
+							</span>
+							<uploadFileArr v-model="imgs" :cg="fileConfig" ref="upfile"></uploadFileArr>			
 						</div>
 					</div>			
 				</div>
@@ -80,19 +80,19 @@
 					</div> -->
 
 					<div class="ps_zp_pic_4 phs_po">
-						<div v-show="imgs.length<3">
-							<span class="add_x01">
-								<span class="pend">+</span>
-								上传图片
-							</span>
-							<uploadFileArr v-model="imgs" :cg="fileConfig" ref="upfile"></uploadFileArr>			
-						</div>
 						<div v-for="(el,index) in imgs" :style="setBg(el.url)" :key="index">
 							<jdt v-if="el.state==1" v-model="el.bfb"></jdt>
 							<div class="ps_zp_pic_4_1">
 								<div @click="upImg(index)" class="ps_zp_pic_4_3">替换图片</div>
 								<img @click="delet(index)" class="ps_zp_pic_4_2" :src="setImgU('push_Zp/zptg_image_icon_close.svg')">
 							</div>					
+						</div>
+						<div v-show="imgs.length<3">
+							<span class="add_x01">
+								<span class="pend">+</span>
+								上传图片
+							</span>
+							<uploadFileArr v-model="imgs" :cg="fileConfig" ref="upfile"></uploadFileArr>			
 						</div>
 					</div>
 				</div>
@@ -459,7 +459,8 @@ export default {
 	line-height: 79px;
 }
 .lid{
-	width: 25%;
+	min-width: 25%;
+	display: inline-block;
 }
 .lid>li{
 	margin-bottom: 40px;
@@ -485,10 +486,11 @@ export default {
 }
 .closeX{
 	position: absolute;
-	right: 0;
 	top: 3px;
 	width: 14px;
 	height: 14px;
+	margin-right: 0 !important;
+	right: -40px;
 }
 .lid_2{
 	position: relative;

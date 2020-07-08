@@ -256,6 +256,7 @@ export default {
 }
 .newLog_06{
 	margin-bottom: 8px;
+	width: 260px;
 }
 .newLog_07{
 	display: inline-block;
