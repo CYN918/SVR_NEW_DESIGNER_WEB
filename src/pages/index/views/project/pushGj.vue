@@ -455,7 +455,8 @@ export default {
 	line-height: 79px;
 }
 .lid{
-	width: 25%;
+	min-width: 25%;
+	display: inline-block;
 }
 .lid>li{
 	margin-bottom: 40px;
@@ -481,10 +482,11 @@ export default {
 }
 .closeX{
 	position: absolute;
-	right: 0;
 	top: 3px;
 	width: 14px;
 	height: 14px;
+	margin-right: 0 !important;
+	right: -40px;
 }
 .lid_2{
 	position: relative;
