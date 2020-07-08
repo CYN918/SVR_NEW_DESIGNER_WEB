@@ -214,6 +214,7 @@ export default {
 			let pr = {};
 			if(this.imgs.length==0){
 				this.$message({message: '请先上传预览图'});
+				return
 			}
 			let arr = [];
 			for(let i=0,n=this.imgs.length;i<n;i++){
@@ -223,6 +224,8 @@ export default {
 				}
 				arr.push(this.imgs[i].url)
 			}
+		
+			
 			if(this.type==1){
 				
 				if(!this.fileList3[0]){
