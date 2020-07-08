@@ -262,7 +262,11 @@ export default {
 		},
 		goWork(id){
 			this.bdtj('消息','评论/回复','点击进入作品');
-			window.open('/#/cont?id='+id);
+			let str = '/#/cont?id='+id;
+			if(this.$route.query.referrer_id){
+				str+='&referrer_id='+this.$route.query.referrer_id;
+			}	
+			window.open(str);
 		
 		},
 		init(){

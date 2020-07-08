@@ -13,7 +13,7 @@
 						</div>
 						<div class="suc_1_3">
 							<span>登录密码</span><div class="userSZ_1">密码要求至少包含字母，符号或数字中的两项且长度超过6位</div>
-							<div class="userSZ_2"><span @click="openTc1(4,'登陆密码','修改')">修改</span></div>
+							<div class="userSZ_2"><span @click="openTc1(4,'登录密码','修改')">修改</span></div>
 						</div>						
 					</div>
 					<div class="scBox suc_1 suc_2">
@@ -647,6 +647,13 @@ export default {
 				if(da=='error' || da=='104'){
 					return
 				}
+				
+				
+				let token = window.userInfo.access_token;
+				da.access_token = token;
+				window.userInfo = da;
+				localStorage.setItem('userT',JSON.stringify(window.userInfo));
+				
 				this.form = da;
 				for(let i=0,n=this.zy.length;i<n;i++){
 					if(this.zy[i].n ==this.form.vocation){

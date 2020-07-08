@@ -138,8 +138,11 @@ export default{
 	}, 
 	methods:{
 		goun(){
-
-			window.open('/#/upload');				
+			let str = '/#/upload';
+			if(this.$route.query.referrer_id){
+				str+='&referrer_id='+this.$route.query.referrer_id;
+			}	
+			window.open(str);				
 		},
 		qrcode(u) {
 		    let qrcode = new QRCode('qrcode', {

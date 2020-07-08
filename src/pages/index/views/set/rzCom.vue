@@ -30,7 +30,25 @@ export default {
 	methods: {	
 		init(){
 			this.ison = this.$route.fullPath;
-		},	
+			if(!window.userInfo){
+				this.$router.push({path:'/index'})
+				return
+			}
+			this.getUserInfo();
+		},
+		getUserInfo(){
+			this.api.getSelfInfo({
+				user_open_id:window.userInfo.open_id
+			}).then((da)=>{
+				if(da=='error' || da=='104'){
+					return
+				}
+				let token = window.userInfo.access_token;
+				da.access_token = token;
+				window.userInfo = da;
+				localStorage.setItem('userT',JSON.stringify(da));
+			})
+		},
 		goZP(a,b){
 			this.bdtj('认证页面','tab_'+b,'--');
 			this.$router.push({path: a})			

@@ -140,8 +140,11 @@ export default {
 				}
 				
 			}
-			
-			window.open('#/cont?id='+this.el.work_id)
+			let str = '#/cont?id='+this.el.work_id;
+			if(this.$route.query.referrer_id){
+				str+='&referrer_id='+this.$route.query.referrer_id;
+			}
+			window.open(str)
 
 		},
 		backBn(ur){			
