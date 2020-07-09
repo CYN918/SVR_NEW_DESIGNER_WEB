@@ -92,6 +92,26 @@ export default {
 			this.bdtj('项目详情页','长期项目-招募期','取消[再次交稿]');
 			this.$refs.tcBox2.close();
 		},
+		setCoolingTime() {
+			let signupExpire = this.obj.signup_expire
+
+			if(!signupExpire) return ''
+			let { s, m, h } = this.getTime(signupExpire)
+			let timeStr = ''
+
+			if(s) timeStr += `${s}秒`
+			if(m) timeStr = `${m}分` + timeStr
+			if(h) timeStr = `${h}时` + timeStr
+			this.xmType[0].btns = [{n: `${timeStr}后可再次报名`,tcFn:'showTc1',tcFncs:'pr_rz',cl:'cenDjs_4ys'}];
+			
+			if(signupExpire) {
+				this.obj.signup_expire--
+				if(this.obj.signup_expire == 0) {
+					this.init()
+				}
+				setTimeout(this.setCoolingTime, 1000)
+			}
+		},
 		init(){
 			this.xmTypeOn = this.obj.status-1;
 			if(this.obj.is_sign_up==1){
@@ -279,10 +299,21 @@ export default {
 		},
 		dowun(u){
 			window.open(u);
-		}
+		},
 		
 		
-		
+		// 秒转时分秒
+		getTime(time) {
+			if(!time) return ''
+
+			let s = time % 60
+			let m = parseInt((time / 60) % 60)
+			let h = parseInt((time / 60 / 60) % 60)
+			return { s, m, h }
+		},
+	},
+	created() {
+		this.setCoolingTime()
 	}
 }
 	
@@ -580,6 +611,8 @@ export default {
 	background: #33B3FF;
     border-color: #33B3FF !important;
     color: #fff;
+	width: auto !important;
+	padding: 0 8px;
 }
 
 </style>
