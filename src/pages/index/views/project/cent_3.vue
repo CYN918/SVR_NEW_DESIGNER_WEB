@@ -112,10 +112,12 @@ export default {
 			if(!img){return}
 			let str = img;
 			try{
-				str = JSON.parse(img)[0]
+				str = JSON.parse(img);
+				str = str[str.length-1];
 			}catch(e){
 				//TODO handle the exception
 			}
+	
 			return "background-image: url("+str+");";	   
 		},
 		ckd(a,n){

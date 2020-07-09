@@ -6,7 +6,7 @@
 					<div class="newLog_03">
 						<div class="newLog_04">
 							<Carousel :interval="5000" height="102px" indicator-position="none" arrow="always">
-								<CarouselItem v-for="pic in el.preview_pic" :key="pic">
+								<CarouselItem v-for="pic in el.preview_pic.slice().reverse()" :key="pic">
 									<div class="newLog_preview_pic">
 										<img  :src="pic">
 									</div>
