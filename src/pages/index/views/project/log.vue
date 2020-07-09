@@ -17,7 +17,9 @@
 						<div class="newLog_05">
 							<div class="newLog_06">
 								<span :class="['newLog_07','newLog_07_'+el.check_status]">{{comState.check_status[el.check_status]}}</span>
-								<span class="newLog_08">{{tc_N(el)}}</span>
+								<div class="newLog_08">
+									<span class="p-title" :title="tc_N(el)">{{tc_N(el)}}</span>
+								</div>
 							</div>
 							<div class="newLog_09">
 								{{tc_N2(el)}}
@@ -256,7 +258,6 @@ export default {
 }
 .newLog_06{
 	margin-bottom: 8px;
-	width: 260px;
 }
 .newLog_07{
 	display: inline-block;
@@ -276,6 +277,11 @@ export default {
 	color:rgba(51,51,51,1);
 	line-height:24px;
 	margin-bottom: 8px;
+	width: 280px;
+	display: inline-block;
+	.p-title{
+		@include textOverflow();
+	}
 }
 .newLog_09{
 	text-align: left;
