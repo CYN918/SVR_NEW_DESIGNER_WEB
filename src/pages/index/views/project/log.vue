@@ -159,7 +159,7 @@ export default {
 			this.index = index;
 			if(this.datad.project_type == 4) {
 				return false;
-			}else if(el.status==4 && el.check_steps!=1 && [-2,-1,1].indexOf(+el.check_status)==-1){
+			}else if(el.status==4 && [-2,-1,1].indexOf(+el.check_status)==-1){
 				return true;
 			}
 			return false;
